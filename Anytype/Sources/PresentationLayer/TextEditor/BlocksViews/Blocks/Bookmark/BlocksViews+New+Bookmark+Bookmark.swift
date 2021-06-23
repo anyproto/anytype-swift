@@ -10,7 +10,6 @@ final class BookmarkViewModel: BaseBlockViewModel {
     let imagesPublished = Resource.ImageLoader()
     
     private let service = BlockActionsServiceBookmark()
-    private let router: EditorRouterProtocol?
     
     private var subscription: AnyCancellable?
     
@@ -22,8 +21,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
         router: EditorRouterProtocol?,
         actionHandler: NewBlockActionHandler?
     ) {
-        self.router = router
-        super.init(block, delegate: delegate, actionHandler: actionHandler)
+        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setup()
     }

@@ -248,7 +248,7 @@ extension DocumentEditorViewController {
 
 // MARK: - EditorModuleDocumentViewInput
 
-extension DocumentEditorViewController: EditorModuleDocumentViewInput {
+extension DocumentEditorViewController: PresentingViewController {
     
     func updateHeader() {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
@@ -279,12 +279,6 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         // In future if we need animation we should use value type insted of reference as collection item.
         // Also we need restore focus due to reloadData сause dismissing keyboard.
         applySnapshotAndSetFocus(snapshot, animatingDifferences: false)
-    }
-
-    func showCodeLanguageView(with languages: [String], completion: @escaping (String) -> Void) {
-        let searchListViewController = SearchListViewController(items: languages, completion: completion)
-        modalPresentationStyle = .pageSheet
-        present(searchListViewController, animated: true)
     }
 
     func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel) {

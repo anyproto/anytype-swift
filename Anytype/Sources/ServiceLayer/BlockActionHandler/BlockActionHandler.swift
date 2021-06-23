@@ -13,15 +13,32 @@ class BlockActionHandler {
     private var subscriptions: [AnyCancellable] = []
     private weak var documentViewInteraction: DocumentViewInteraction?
     private var indexWalker: LinearIndexWalker
+    private let selectionHandler: EditorModuleSelectionHandlerProtocol
+    private let document: BaseDocumentProtocol
+    
+    private lazy var textBlockActionHandler = TextBlockActionHandler(
+        contextId: documentId,
+        service: service,
+        indexWalker: indexWalker
+    )
+
 
     // MARK: - Lifecycle
 
-    init?(documentId: String?, documentViewInteraction: DocumentViewInteraction?, indexWalker: LinearIndexWalker) {
+    init?(
+        documentId: String?,
+        documentViewInteraction: DocumentViewInteraction?,
+        indexWalker: LinearIndexWalker,
+        selectionHandler: EditorModuleSelectionHandlerProtocol,
+        document: BaseDocumentProtocol
+    ) {
         guard let documentId = documentId else { return nil }
         self.documentViewInteraction = documentViewInteraction
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
         self.indexWalker = indexWalker
+        self.selectionHandler = selectionHandler
+        self.document = document
     }
 
     // MARK: - Public methods
@@ -59,6 +76,21 @@ class BlockActionHandler {
             service.receiveOurEvents([.setToggled(blockId: block.information.id)])
         case .checkbox(selected: let selected):
             service.checked(blockId: block.information.id, newValue: selected)
+        case .upload(filePath: let filePath):
+            service.upload(block: block.information, filePath: filePath)
+        case .createEmptyBlock(let parentId):
+            service.addChild(childBlock: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
+        case let .textView(action: action, activeRecord: activeRecord):
+            switch action {
+            case .showMultiActionMenuAction:
+                selectionHandler.set(selectionEnabled: true)
+            case let .changeCaretPosition(selectedRange):
+                document.userSession?.setFocusAt(position: .at(selectedRange))
+            case let .changeTextStyle(styleAction, range):
+                handleBlockAction(.toggleFontStyle(styleAction.asActionType, range), block: block, completion: completion)
+            default:
+                textBlockActionHandler.handlingTextViewAction(activeRecord, action)
+            }
         }
     }
     

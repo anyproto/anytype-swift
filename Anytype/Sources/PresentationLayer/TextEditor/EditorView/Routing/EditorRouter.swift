@@ -16,14 +16,20 @@ protocol EditorRouterProtocol {
     func showImagePicker(model: MediaPickerModel)
     
     func saveFile(fileURL: URL)
+    
+    func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void)
+    
+    func showStyleMenu(block: BlockModelProtocol, viewModel: BaseBlockViewModel)
 }
 
 
+protocol PresentingViewController: UIViewController, EditorModuleDocumentViewInput {}
+
 final class EditorRouter: EditorRouterProtocol {
-    private weak var preseningViewController: UIViewController?
+    private weak var preseningViewController: PresentingViewController?
     private let fileRouter: FileRouter
 
-    init(preseningViewController: UIViewController) {
+    init(preseningViewController: PresentingViewController?) {
         self.preseningViewController = preseningViewController
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: preseningViewController)
     }
@@ -63,5 +69,15 @@ final class EditorRouter: EditorRouterProtocol {
     
     func saveFile(fileURL: URL) {
         fileRouter.saveFile(fileURL: fileURL)
+    }
+    
+    func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void) {
+        let searchListViewController = SearchListViewController(items: languages, completion: completion)
+        searchListViewController.modalPresentationStyle = .pageSheet
+        preseningViewController?.present(searchListViewController, animated: true)
+    }
+    
+    func showStyleMenu(block: BlockModelProtocol, viewModel: BaseBlockViewModel) {
+        preseningViewController?.showStyleMenu(blockModel: block, blockViewModel: viewModel)
     }
 }

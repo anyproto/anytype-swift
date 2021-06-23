@@ -80,7 +80,13 @@ final class TextBlockContentView: UIView & UIContentView {
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
             self.currentConfiguration.setupMentionsInteraction(self.textView)
             if let attributedText = self.textView.textView.attributedText {
-                self.currentConfiguration.viewModel.send(textViewAction: .changeText(attributedText))
+                self.currentConfiguration.viewModel.actionHandler?.handleAction(
+                    .textView(
+                        action: .changeText(attributedText),
+                        activeRecord: self.currentConfiguration.viewModel.block
+                    ),
+                    model: self.currentConfiguration.viewModel.block.blockModel
+                )
             }
         }
         
@@ -105,11 +111,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
             let block = self.currentConfiguration.viewModel.block
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.viewModel.send(
-                action: .textView(
-                    block: block,
-                    action: .keyboardAction(.enterAtTheEndOfContent)
-                )
+            self.currentConfiguration.viewModel.actionHandler?.handleAction(
+                .textView(action: .keyboardAction(.enterAtTheEndOfContent), activeRecord: block),
+                model: block.blockModel
             )
         }))
         button.translatesAutoresizingMaskIntoConstraints = false

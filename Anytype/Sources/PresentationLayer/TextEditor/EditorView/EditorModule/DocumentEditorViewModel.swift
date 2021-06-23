@@ -23,26 +23,18 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) var documentIcon: DocumentIcon?
     private(set) var documentCover: DocumentCover?
     
-    /// User Interaction Processor
-    private lazy var oldBlockActionHandler = BlockActionsHandlersFacade(
-        newBlockActionHandler: self,
-        publisher: publicActionsPayloadPublisher,
-        documentViewInteraction: self
-    )
-    
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,
         documentViewInteraction: self,
-        indexWalker: LinearIndexWalker(self)
+        indexWalker: LinearIndexWalker(self),
+        selectionHandler: selectionHandler,
+        document: document
     )
     
     // Combine Subscriptions
     private var subscriptions = Set<AnyCancellable>()
 
     let selectionHandler: EditorModuleSelectionHandlerProtocol
-
-    private var publicActionsPayloadSubject = PassthroughSubject<ActionPayload, Never>()
-    lazy var publicActionsPayloadPublisher = publicActionsPayloadSubject.eraseToAnyPublisher()
 
     /// Builders to build block views
     @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {
@@ -67,24 +59,7 @@ class DocumentEditorViewModel: ObservableObject {
     ) {
         self.selectionHandler = selectionHandler
         
-        setupSubscriptions()
         obtainDocument(documentId: documentId)
-    }
-
-    // MARK: - Setup subscriptions
-
-    private func setupSubscriptions() {
-        publicActionsPayloadPublisher.sink { [weak self] (value) in
-            self?.process(actionsPayload: value)
-        }.store(in: &self.subscriptions)
-
-        oldBlockActionHandler.reactionPublisher.sink { [weak self] events in
-            self?.process(events: events)
-        }.store(in: &self.subscriptions)
-
-        $blocksViewModels.sink { [weak self] value in
-            self?.enhanceUserActionsAndPayloads(value)
-        }.store(in: &self.subscriptions)
     }
 
     private func obtainDocument(documentId: String) {
@@ -129,8 +104,6 @@ class DocumentEditorViewModel: ObservableObject {
                 self.viewInput?.updateHeader()
             }
             .store(in: &subscriptions)
-
-        self.configureInteractions(document.documentId)
     }
 
     private func update(blocksViewModels: [BaseBlockViewModel]) {
@@ -140,15 +113,6 @@ class DocumentEditorViewModel: ObservableObject {
             self.viewInput?.updateData(result)
         }
     }
-
-    private func configureInteractions(_ documentId: BlockId?) {
-        guard let documentId = documentId else {
-            assertionFailure("configureInteractions(_:). DocumentId is not configured.")
-            return
-        }
-        oldBlockActionHandler.configured(documentId: documentId).configured(self)
-    }
-    
 }
 
 // MARK: - DocumentViewInteraction
@@ -181,7 +145,10 @@ private extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func handlingTapOnEmptySpot() {
-        oldBlockActionHandler.createEmptyBlock()
+        guard let block = document.rootActiveModel?.blockModel, let parentId = document.documentId else {
+            return
+        }
+        handleAction(.createEmptyBlock(parentId: parentId), model: block)
     }
 }
 
@@ -209,30 +176,6 @@ extension DocumentEditorViewModel {
         self.set(selected: !self.selected(id: item.blockId),
                  id: item.blockId,
                  type: item.block.content.type)
-    }
-}
-
-// MARK: - Process actions
-
-private extension DocumentEditorViewModel {
-    func process(actionsPayload: ActionPayload) {
-        switch actionsPayload {
-        case let .textView(_, action):
-            switch action {
-            case .showMultiActionMenuAction:
-                self.set(selectionEnabled: true)
-            case let .changeCaretPosition(selectedRange):
-                document.userSession?.setFocusAt(position: .at(selectedRange))
-            default: return
-            }
-        // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp
-        case let .showCodeLanguageView(languages, completion):
-            viewInput?.showCodeLanguageView(with: languages, completion: completion)
-        case let .showStyleMenu(blockModel, blockViewModel):
-            viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
-        case .uploadFile:
-            return
-        }
     }
 }
 
@@ -265,22 +208,6 @@ extension DocumentEditorViewModel: BaseBlockDelegate {
     }
 }
 
-// MARK: - Enhance UserActions and Payloads
-
-/// These methods work in opposite way as `Merging`.
-/// Instead, we just set a "delegate" ( no, our Subject ) to all viewModels in a List.
-/// So, we have different approach.
-///
-/// 1. We have one Subject that we give to all ViewModels.
-///
-extension DocumentEditorViewModel {
-    func enhanceUserActionsAndPayloads(_ builders: [BaseBlockViewModel]) {
-        builders.forEach { block in
-            block.configured(actionsPayloadSubject: publicActionsPayloadSubject)
-        }
-    }
-    
-}
 
 // MARK: - Public methods for view controller
 

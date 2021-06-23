@@ -20,8 +20,8 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     @Published var focus: BlockFocusPosition?
     @Published var codeLanguage: String? = "Swift"
 
-    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?) {
-        super.init(block, delegate: delegate, actionHandler: actionHandler)
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol?) {
+        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         self.setupSubscribers()
 
         if let lang = block.blockModel.information.fields[Constants.codeLanguageFieldName]?.stringValue {
@@ -107,14 +107,12 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
         switch action {
         case .showStyleMenu:
-            self.send(action: .showStyleMenu(block: block.blockModel, viewModel: self))
+            router?.showStyleMenu(block: block.blockModel, viewModel: self)
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
-            self.send(action: .textView(block: block, action: action))
-        case .changeText, .keyboardAction, .changeTextStyle:
-            self.send(action: .textView(block: block, action: action))
-        case .changeCaretPosition:
-            self.send(action: .textView(block: block, action: action))
+            actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+        case .changeText, .keyboardAction, .changeTextStyle, .changeCaretPosition:
+            actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
         case .shouldChangeText, .showPage:
             break
         }

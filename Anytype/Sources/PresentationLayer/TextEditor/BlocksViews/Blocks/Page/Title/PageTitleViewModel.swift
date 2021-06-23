@@ -43,9 +43,9 @@ class PageTitleViewModel: PageBlockViewModel {
     }()
     
     // MARK: - Initialization
-
-    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?) {
-        super.init(block, delegate: delegate, actionHandler: actionHandler)
+    
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol?) {
+        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         self.setupSubscribers()
     }
 
@@ -88,6 +88,6 @@ class PageTitleViewModel: PageBlockViewModel {
 // MARK: - TextViewEvents
 extension PageTitleViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
-        send(action: .textView(block: block, action: action))
+        actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
     }
 }

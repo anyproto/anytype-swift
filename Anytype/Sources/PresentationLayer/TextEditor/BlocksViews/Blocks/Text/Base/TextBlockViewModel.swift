@@ -15,12 +15,8 @@ class TextBlockViewModel: BaseBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     
-    init(
-        _ block: BlockActiveRecordModelProtocol,
-        blockActionHandler: NewBlockActionHandler?,
-        delegate: BaseBlockDelegate
-    ) {
-        super.init(block, delegate: delegate, actionHandler: blockActionHandler)
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol?) {
+        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setupSubscribers()
     }
@@ -29,7 +25,11 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     override func makeContentConfiguration() -> UIContentConfiguration {
         let configutator = MentionsTextViewConfigurator { [weak self] pageId in
-            self?.send(textViewAction: .showPage(pageId))
+            guard let self = self else { return }
+            self.actionHandler?.handleAction(
+                .textView(action: .showPage(pageId), activeRecord: self.block),
+                model: self.block.blockModel
+            )
         }
         return TextBlockContentConfiguration(
             textViewDelegate: self,
@@ -183,12 +183,7 @@ extension TextBlockViewModel {
 
 // MARK: - Actions Payload Legacy
 
-extension TextBlockViewModel {
-    
-    func send(textViewAction: TextViewAction) {
-        self.send(action: .textView(block: block, action: textViewAction))
-    }
-    
+extension TextBlockViewModel {    
     func onCheckboxTap(selected: Bool) {
         actionHandler?.handleAction(.checkbox(selected: selected), model: block.blockModel)
     }
@@ -206,19 +201,19 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
             case .showStyleMenu:
-                self.send(action: .showStyleMenu(block: block.blockModel, viewModel: self))
+                router?.showStyleMenu(block: block.blockModel, viewModel: self)
             case .showMultiActionMenuAction:
-                self.shouldResignFirstResponder.send()
-                self.send(action: .textView(block: block, action: action))
+                shouldResignFirstResponder.send()
+                actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
             case .keyboardAction, .changeText, .changeTextStyle, .changeCaretPosition:
-                self.send(action: .textView(block: block, action: action))
+                actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(
                     replacementRange: range,
                     replacementText: replacementText
                 )
             case let .showPage(pageId):
-                send(textViewAction: .showPage(pageId))
+                actionHandler?.handleAction(.textView(action: .showPage(pageId), activeRecord: block), model: block.blockModel)
             }
         }
 }

@@ -17,10 +17,8 @@ extension Namespace {
         private var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
         
-        let router: EditorRouterProtocol?
         init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, router: EditorRouterProtocol?, actionHandler: NewBlockActionHandler?) {
-            self.router = router
-            super.init(block, delegate: delegate, actionHandler: actionHandler)
+            super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
             setupSubscribers()
         }
         
@@ -135,7 +133,7 @@ extension Namespace {
         }
         
         private func sendFile(at filePath: String) {
-            send(action: .uploadFile(block: block, filePath: filePath))
+            actionHandler?.handleAction(.upload(filePath: filePath), model: block.blockModel)
         }
     }
 }

@@ -8,7 +8,6 @@ import BlocksModels
 final class BlockPageLinkViewModel: BaseBlockViewModel {
     public let targetBlockId: String
     private var subscriptions: Set<AnyCancellable> = []
-    private let router: EditorRouterProtocol?
 
     @Published private(set) var state: BlockPageLinkState = .empty
     private var wholeDetailsViewModel: DetailsActiveModel = .init()
@@ -23,9 +22,8 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         actionHandler: NewBlockActionHandler?
     ) {
         self.targetBlockId = targetBlockId
-        self.router = router
         
-        super.init(block, delegate: delegate, actionHandler: actionHandler)
+        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setup(block: block)
         setupSubscriptions(publisher)

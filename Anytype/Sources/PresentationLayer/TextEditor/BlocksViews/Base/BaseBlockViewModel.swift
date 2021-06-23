@@ -11,13 +11,21 @@ class BaseBlockViewModel: ObservableObject {
     private(set) var block: BlockActiveRecordModelProtocol
     private(set) weak var baseBlockDelegate: BaseBlockDelegate?
     private(set) weak var actionHandler: NewBlockActionHandler?
+    let router: EditorRouterProtocol?
+    
 
     // MARK: - Initialization
 
-    init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?) {
+    init(
+        _ block: BlockActiveRecordModelProtocol,
+        delegate: BaseBlockDelegate?,
+        actionHandler: NewBlockActionHandler?,
+        router: EditorRouterProtocol?
+    ) {
         self.block = block
         self.baseBlockDelegate = delegate
         self.actionHandler = actionHandler
+        self.router = router
     }
     
     // MARK: - Subclass / Blocks
@@ -28,10 +36,6 @@ class BaseBlockViewModel: ObservableObject {
             block = update(block, body: body)
         }
     }
-
-    // MARK: Actions Payload Publisher
-
-    private(set) var actionsPayloadSubject: PassthroughSubject<ActionPayload, Never> = .init()
     
     // MARK: - Handle events
     
@@ -91,7 +95,7 @@ class BaseBlockViewModel: ObservableObject {
             case .turnIntoPage:
                 actionHandler?.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
             case .style:
-                send(action: .showStyleMenu(block: block.blockModel, viewModel: self))
+                router?.showStyleMenu(block: block.blockModel, viewModel: self)
             case .color:
                 break
             case .backgroundColor:
@@ -112,15 +116,6 @@ extension BaseBlockViewModel: Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(diffable)
-    }
-}
-
-// MARK: - Configurations
-
-extension BaseBlockViewModel {
-    
-    func configured(actionsPayloadSubject: PassthroughSubject<ActionPayload, Never>) {
-        self.actionsPayloadSubject = actionsPayloadSubject
     }
 }
 
@@ -201,11 +196,4 @@ extension BaseBlockViewModel: Identifiable {}
 /// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
 extension BaseBlockViewModel {
     var blockId: BlockId { block.blockId }
-}
-
-extension BaseBlockViewModel {
-    // Send actions payload
-    func send(action: ActionPayload) {
-        actionsPayloadSubject.send(action)
-    }
 }

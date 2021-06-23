@@ -16,8 +16,7 @@ extension CustomTextView {
         case changeCaretPosition(NSRange)
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
         case showPage(String)
-    }
-    
+    }    
 }
 
 // MARK: - KeyboardAction

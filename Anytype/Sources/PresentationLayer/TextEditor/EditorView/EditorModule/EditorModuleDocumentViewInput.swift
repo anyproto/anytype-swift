@@ -10,13 +10,6 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     func updateData(_ rows: [BaseBlockViewModel])
 
     func updateHeader()
-    
-    /// Show code language view selection.
-    /// 
-    /// - Parameters:
-    ///   - languages: List of code languages
-    ///   - completion: Return selected language as String type
-    func showCodeLanguageView(with languages: [String], completion: @escaping (_ language: String) -> Void)
 
     /// Show style menu
     func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)

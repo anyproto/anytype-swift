@@ -22,10 +22,15 @@ extension BlockActionHandler {
         case delete
         case addBlock(BlockViewType)
         case turnIntoBlock(BlockViewType)
+        case createEmptyBlock(parentId: BlockId)
         
         case fetch(url: URL)
-
+        case upload(filePath: String)
+        
         case toggle
         case checkbox(selected: Bool)
+        
+        typealias TextViewAction = CustomTextView.UserAction
+        case textView(action: TextViewAction, activeRecord: BlockActiveRecordModelProtocol)
     }
 }

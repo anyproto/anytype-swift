@@ -27,21 +27,21 @@ final class CompoundViewModelConverter {
         case let .text(content):
             switch content.contentType {
             case .code:
-                return CodeBlockViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler)
+                return CodeBlockViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
             case .toggle:
-                return ToggleBlockViewModel(block, blockActionHandler: blockActionHandler, delegate: editorViewModel)
+                return ToggleBlockViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
             default:
-                return TextBlockViewModel(block, blockActionHandler: blockActionHandler, delegate: editorViewModel)
+                return TextBlockViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
             }
         case let .file(value):
             switch value.contentType {
             case .file: return BlocksViews.File.File.ViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
-            case .none: return UnknownLabelViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler)
+            case .none: return UnknownLabelViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
             case .image: return BlocksViews.File.Image.ViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
             case .video: return VideoBlockViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
             }
         case .divider(let content):
-            return DividerBlockViewModel(block, content: content, delegate: editorViewModel, actionHandler: blockActionHandler)
+            return DividerBlockViewModel(block, content: content, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
         case .bookmark:
             return BookmarkViewModel(
                 block: block,
