@@ -47,7 +47,7 @@
 "Toggle" = "Toggle";
 "Bold" = "Bold";
 "Italic" = "Italic";
-"Breakthrough" = "Breakthrough";
+"Strikethrough" = "Strikethrough";
 "Code" = "Code";
 "Link" = "Link";
 "Text block subtitle" = "Just start writing with a plain text";

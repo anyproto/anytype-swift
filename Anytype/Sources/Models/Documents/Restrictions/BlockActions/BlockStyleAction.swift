@@ -11,7 +11,7 @@ enum BlockStyleAction: CaseIterable {
     case toggle
     case bold
     case italic
-    case breakthrough
+    case strikethrough
     case code
     case link
     
@@ -39,8 +39,8 @@ enum BlockStyleAction: CaseIterable {
             return "Bold".localized
         case .italic:
             return "Italic".localized
-        case .breakthrough:
-            return "Breakthrough".localized
+        case .strikethrough:
+            return "Strikethrough".localized
         case .code:
             return "Code".localized
         case .link:
@@ -72,7 +72,7 @@ enum BlockStyleAction: CaseIterable {
             return "TextEditor/Toolbar/Blocks/Bold"
         case .italic:
             return "TextEditor/Toolbar/Blocks/Italic"
-        case .breakthrough:
+        case .strikethrough:
             return "TextEditor/Toolbar/Blocks/Strikethrough"
         case .code:
             return "TextEditor/Toolbar/Blocks/Code"
@@ -101,7 +101,7 @@ enum BlockStyleAction: CaseIterable {
             return "Numbered block subtitle".localized
         case .toggle:
             return "Toggle block subtitle".localized
-        case .bold, .italic, .breakthrough, .code, .link:
+        case .bold, .italic, .strikethrough, .code, .link:
             return nil
         }
     }
@@ -130,7 +130,7 @@ enum BlockStyleAction: CaseIterable {
             return .other(.code)
         case .link:
             return .objects(.page)
-        case .bold, .italic, .breakthrough:
+        case .bold, .italic, .strikethrough:
             return nil
         }
     }

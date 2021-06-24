@@ -94,7 +94,7 @@ private extension SlashMenuActionsHandlerImp {
             blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.bold))
         case .italic:
             blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.italic))
-        case .breakthrough:
+        case .strikethrough:
             blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.strikethrough))
         case .code:
             blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.keyboard))
