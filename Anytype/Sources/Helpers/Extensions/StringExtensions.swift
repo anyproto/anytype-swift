@@ -22,15 +22,17 @@ extension String {
         !isEmpty && !contains { !$0.isEmoji }
     }
     
-    func image(contextSize: CGSize,
-               imageSize: CGSize,
-               imageOffset: CGPoint = .zero,
-               font: UIFont) -> UIImage? {
-        let rect = CGRect(origin: .zero, size: contextSize)
+    func image(fontPointSize: CGFloat) -> UIImage? {
+        let font = UIFont.systemFont(ofSize: fontPointSize)
+        let actualSize = NSString(string: self).boundingRect(with:  CGSize(width: CGFloat.greatestFiniteMagnitude,
+                                                                           height: CGFloat.greatestFiniteMagnitude),
+                                                             options: [.usesFontLeading, .usesLineFragmentOrigin],
+                                                             attributes: [.font: font],
+                                                             context: nil).size
+        let rect = CGRect(origin: .zero, size: actualSize)
         let renderer = UIGraphicsImageRenderer(bounds: rect)
         return renderer.image { _ in
-            let imageRect = CGRect(origin: imageOffset, size: imageSize)
-            (self as AnyObject).draw(in: imageRect, withAttributes: [.font: font])
+            (self as AnyObject).draw(in: rect, withAttributes: [.font: font])
         }
     }
 }

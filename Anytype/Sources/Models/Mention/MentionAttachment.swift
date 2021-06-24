@@ -11,12 +11,12 @@ final class MentionAttachment: NSTextAttachment {
     
     let pageId: String
     let name: String
-    private let iconData: DocumentIcon?
+    private var iconData: DocumentIcon?
     private weak var layoutManager: NSLayoutManager?
     private let mentionService = MentionObjectsService(pageObjectsCount: 1)
     private var subscriptions = [AnyCancellable]()
     private var iconSize: CGSize?
-    private var font: UIFont?
+    private var fontPointSize: CGFloat?
     private var imageProperty: ImageProperty?
     
     init(name: String, pageId: String, iconData: DocumentIcon? = nil) {
@@ -35,24 +35,50 @@ final class MentionAttachment: NSTextAttachment {
                                    proposedLineFragment lineFrag: CGRect,
                                    glyphPosition position: CGPoint,
                                    characterIndex charIndex: Int) -> CGRect {
-        iconSize = CGSize(width: lineFrag.height, height: lineFrag.height)
+        let desiredIconSize = CGSize(width: lineFrag.height, height: lineFrag.height)
         layoutManager = textContainer?.layoutManager
+    
         let attributedText = textContainer?.layoutManager?.textStorage
-        // We want to get mention text font
-        if let textLength = attributedText?.length, textLength > charIndex + 1 {
-            font = attributedText?.attribute(.font,
-                                             at: charIndex + 1,
-                                             effectiveRange: nil) as? UIFont
+        var fontPointSize: CGFloat?
+        if let textLength = attributedText?.length,
+           textLength > charIndex + 1,
+           let font = attributedText?.attribute(.font,
+                                                at: charIndex + 1,
+                                                effectiveRange: nil) as? UIFont {
+            fontPointSize = font.pointSize
+        }
+        displayNewImageIfNeeded(desiredIconSize: desiredIconSize,
+                                fontPointSize: fontPointSize)
+        return super.attachmentBounds(
+            for: textContainer,
+            proposedLineFragment: lineFrag,
+            glyphPosition: position,
+            characterIndex: charIndex
+        )
+    }
+    
+    private func storeParametersForIcon(size: CGSize, fontPointSize: CGFloat?) -> Bool {
+        guard let fontPointSize = fontPointSize else { return false }
+        var shouldCreateNewImage = true
+        if let oldPointSize = self.fontPointSize {
+            shouldCreateNewImage = oldPointSize != fontPointSize
+        }
+        self.iconSize = size
+        self.fontPointSize = fontPointSize
+        return shouldCreateNewImage
+    }
+    
+    private func displayNewImageIfNeeded(desiredIconSize: CGSize, fontPointSize: CGFloat?) {
+        let shouldCreateNewImage = storeParametersForIcon(size: desiredIconSize,
+                                                          fontPointSize: fontPointSize)
+        if !shouldCreateNewImage {
+            return
         }
         if let iconData = iconData {
             displayIcon(from: iconData)
         } else if subscriptions.isEmpty {
             loadMention()
         }
-        return super.attachmentBounds(for: textContainer,
-                                      proposedLineFragment: lineFrag,
-                                      glyphPosition: position,
-                                      characterIndex: charIndex)
     }
     
     private func loadMention() {
@@ -68,6 +94,7 @@ final class MentionAttachment: NSTextAttachment {
         } receiveValue: { [weak self] mentions in
             guard let mention = mentions.first,
                   let iconData = mention.iconData else { return }
+            self?.iconData = iconData
             self?.displayIcon(from: iconData)
         }
         subscriptions.append(subscription)
@@ -76,13 +103,12 @@ final class MentionAttachment: NSTextAttachment {
     private func displayIcon(from iconData: DocumentIcon) {
         switch iconData {
         case let .emoji(emoji):
-            guard let size = iconSize,
-                  let font = font,
-                  let image = emoji.value.image(contextSize: emojiSize(),
-                                                imageSize: size,
-                                                imageOffset: CGPoint(x: 0, y: 0),
-                                                font: font) else { return }
-            display(image)
+            guard let fontSize = fontPointSize,
+                  let image = emoji.value.image(fontPointSize: fontSize) else { return }
+            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+            let resizedImage = image.imageDrawn(on: newSize,
+                                                offset: .zero)
+            display(resizedImage)
         case let .imageId(imageId):
             loadImage(imageId: imageId)
         }
@@ -111,10 +137,5 @@ final class MentionAttachment: NSTextAttachment {
         self.image = image
         bounds = CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
         updateAttachmentLayout()
-    }
-    
-    private func emojiSize() -> CGSize {
-        let size = iconSize ?? Constants.defaultIconSize
-        return size + CGSize(width: Constants.iconLeadingSpace, height: 0)
     }
 }
