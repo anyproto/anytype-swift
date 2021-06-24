@@ -13,7 +13,7 @@ extension Namespace {
         
         private var fileContentPublisher: AnyPublisher<File, Never> = .empty()
         
-        @Published private(set) var fileResource: BlocksViews.File.File.UIKitViewWithFile.Resource?
+        @Published private(set) var fileResource: BlocksViewsFileUIKitViewWithFile.Resource?
         private var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
         
@@ -126,9 +126,11 @@ extension Namespace {
                 self?.state = value.state
                 
                 let metadata = value.metadata
-                self?.fileResource = .init(size: BlocksViews.File.File.SizeConverter.convert(size: Int(metadata.size)),
-                                           name: metadata.name,
-                                           mime: BlocksViews.File.File.MimeConverter.convert(mime: metadata.mime))
+                self?.fileResource = .init(
+                    size: BlocksViewsFileSizeConverter.convert(size: Int(metadata.size)),
+                    name: metadata.name,
+                    mime: BlocksViewsFileMimeConverter.convert(mime: metadata.mime)
+                )
             })
         }
         

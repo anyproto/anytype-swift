@@ -35,7 +35,7 @@ final class CompoundViewModelConverter {
             }
         case let .file(value):
             switch value.contentType {
-            case .file: return BlocksViews.File.File.ViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
+            case .file: return BlocksViewsFileViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
             case .none: return UnknownLabelViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
             case .image: return BlocksViews.File.Image.ViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
             case .video: return VideoBlockViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
