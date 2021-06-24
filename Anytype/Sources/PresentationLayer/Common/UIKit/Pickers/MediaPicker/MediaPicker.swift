@@ -92,10 +92,10 @@ extension MediaPicker: PHPickerViewControllerDelegate {
             supportedTypeIdentifiers.contains($0)
         }
         
-        guard let typeIdentifier = typeIdentifier  else { return }
+        guard let identifier = typeIdentifier  else { return }
         
         chosen.loadFileRepresentation(
-            forTypeIdentifier: typeIdentifier
+            forTypeIdentifier: identifier
         ) { [weak self] url, error in
             guard let self = self else { return }
             

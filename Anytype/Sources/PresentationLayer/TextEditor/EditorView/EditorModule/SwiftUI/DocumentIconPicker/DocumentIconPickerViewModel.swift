@@ -41,10 +41,10 @@ extension DocumentIconPickerViewModel {
             supportedTypeIdentifiers.contains($0)
         }
         
-        guard let typeIdentifier = typeIdentifier  else { return }
+        guard let identifier = typeIdentifier  else { return }
         
         itemProvider.loadFileRepresentation(
-            forTypeIdentifier: typeIdentifier
+            forTypeIdentifier: identifier
         ) { [weak self] url, error in
             url.flatMap {
                 self?.uploadImage(at: $0)
