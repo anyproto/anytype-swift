@@ -36,9 +36,12 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        let presentedDocumentView = EditorAssembly.build(id: id)
-        // TODO: - show?? Really?
-        preseningViewController?.show(presentedDocumentView, sender: nil)
+        let newEditorViewController = EditorAssembly.build(id: id)
+        
+        preseningViewController?.navigationController?.pushViewController(
+            newEditorViewController,
+            animated: true
+        )
     }
     
     func openUrl(_ url: URL) {

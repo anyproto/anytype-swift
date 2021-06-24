@@ -31,7 +31,7 @@ final class DocumentEditorViewController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
-    
+
     private let viewModel: DocumentEditorViewModel
 
     // MARK: - Initializers
@@ -56,12 +56,13 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(
+        controllerForNavigationItems?.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: .more,
             style: .plain,
             target: self,
             action: #selector(showDocumentSettings)
         )
+        
         windowHolder?.configureNavigationBarWithOpaqueBackground()
         
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
@@ -72,6 +73,14 @@ final class DocumentEditorViewController: UIViewController {
         
         insetsHelper = nil
         guard isMovingFromParent else { return }
+    }
+    
+    private var controllerForNavigationItems: UIViewController? {
+        guard parent is UINavigationController else {
+            return parent
+        }
+
+        return self
     }
     
 }
