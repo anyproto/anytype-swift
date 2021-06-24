@@ -11,7 +11,7 @@ struct DragIndicator: View {
                 .frame(width: 48, height: 5)
             Spacer()
         }
-        .frame(height: 16)
+        .frame(height: 22)
         .padding(.bottom, bottomPadding)
     }
 }
