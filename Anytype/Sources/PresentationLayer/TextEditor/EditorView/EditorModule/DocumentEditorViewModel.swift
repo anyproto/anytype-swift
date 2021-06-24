@@ -26,7 +26,6 @@ class DocumentEditorViewModel: ObservableObject {
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,
         documentViewInteraction: self,
-        indexWalker: LinearIndexWalker(self),
         selectionHandler: selectionHandler,
         document: document
     )
@@ -48,7 +47,7 @@ class DocumentEditorViewModel: ObservableObject {
     /// We should update some items in place.
     /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
     /// Its `Output` is a `List<BlockId>`
-    private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
+    let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
     lazy var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = updateElementsSubject.eraseToAnyPublisher()
     
 
@@ -112,14 +111,6 @@ class DocumentEditorViewModel: ObservableObject {
             self.blocksViewModels = result
             self.viewInput?.updateData(result)
         }
-    }
-}
-
-// MARK: - DocumentViewInteraction
-
-extension DocumentEditorViewModel: DocumentViewInteraction {
-    func updateBlocks(with ids: Set<BlockId>) {
-        updateElementsSubject.send(ids)
     }
 }
 

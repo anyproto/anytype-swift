@@ -12,14 +12,13 @@ class BlockActionHandler {
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
     private weak var documentViewInteraction: DocumentViewInteraction?
-    private var indexWalker: LinearIndexWalker
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
     private let document: BaseDocumentProtocol
     
     private lazy var textBlockActionHandler = TextBlockActionHandler(
         contextId: documentId,
         service: service,
-        indexWalker: indexWalker
+        documentViewInteraction: documentViewInteraction
     )
 
 
@@ -28,15 +27,14 @@ class BlockActionHandler {
     init?(
         documentId: String?,
         documentViewInteraction: DocumentViewInteraction?,
-        indexWalker: LinearIndexWalker,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol
     ) {
         guard let documentId = documentId else { return nil }
+        
         self.documentViewInteraction = documentViewInteraction
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
-        self.indexWalker = indexWalker
         self.selectionHandler = selectionHandler
         self.document = document
     }
@@ -164,8 +162,9 @@ class BlockActionHandler {
     private func delete(block: BlockModelProtocol) {
         // TODO: think how to manage duplicated coded in diff handlers
         // self.handlingKeyboardAction(block, .pressKey(.delete))
+        
         service.delete(block: block.information) { [weak self] value in
-            guard let previousModel = self?.indexWalker.model(beforeId: block.information.id, includeParent: true) else {
+            guard let previousModel = self?.documentViewInteraction?.findModel(beforeBlockId: block.information.id) else {
                 return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
             }
             let previousBlockId = previousModel.blockId
@@ -239,13 +238,15 @@ private extension BlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             newBlock.information.content = .text(textContentType)
-            self.documentViewInteraction?.updateBlocks(with: [block.information.id])
+            documentViewInteraction?.updateBlocks(with: [block.information.id])
 
-            self.textService.setText(contextID: self.documentId,
-                                     blockID: newBlock.information.id,
-                                     attributedString: newAttributedString)
-                .sink(receiveCompletion: {_ in }, receiveValue: {})
-                .store(in: &self.subscriptions)
+            textService.setText(
+                contextID: self.documentId,
+                blockID: newBlock.information.id,
+                attributedString: newAttributedString
+            )
+            .sink(receiveCompletion: {_ in }, receiveValue: {})
+            .store(in: &self.subscriptions)
         }
 
         switch fontAction {
@@ -261,8 +262,8 @@ private extension BlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             newBlock.information.content = .text(textContentType)
-            self.documentViewInteraction?.updateBlocks(with: [newBlock.information.id])
-            self.textService.setText(contextID: self.documentId,
+            documentViewInteraction?.updateBlocks(with: [newBlock.information.id])
+            textService.setText(contextID: self.documentId,
                                      blockID: newBlock.information.id,
                                      attributedString: newAttributedString)
                 .sink(receiveCompletion: {_ in }, receiveValue: {})

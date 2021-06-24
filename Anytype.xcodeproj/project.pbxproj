@@ -341,7 +341,6 @@
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
 		3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */; };
-		3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */; };
 		3DBED681266F8DBB00B9E9AB /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */; };
 		3DBED685266F8F0300B9E9AB /* DocumentViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */; };
 		3DBED69D266FBABC00B9E9AB /* UnknownLabelResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED69C266FBABC00B9E9AB /* UnknownLabelResource.swift */; };
@@ -905,7 +904,6 @@
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "Anytype/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
 		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/Models/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
-		3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinearIndexWalker.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/LinearIndexWalker.swift; sourceTree = SOURCE_ROOT; };
 		3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewInteraction.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/Protocols/DocumentViewInteraction.swift; sourceTree = SOURCE_ROOT; };
 		3DBED69C266FBABC00B9E9AB /* UnknownLabelResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelResource.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelResource.swift; sourceTree = SOURCE_ROOT; };
@@ -2925,7 +2923,6 @@
 				3DE5120926721CCC00153962 /* Protocols */,
 				3DBED6A7266FEB5600B9E9AB /* Extensions */,
 				5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */,
-				3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */,
 				3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */,
 			);
 			path = BlockActionHandlers;
@@ -3737,7 +3734,6 @@
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
-				3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,

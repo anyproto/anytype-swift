@@ -13,14 +13,11 @@ struct AboutView: View {
     }
     
     var contentView: some View {
-        VStack {
+        VStack(alignment: .center) {
             DragIndicator()
-            AnytypeText("Anytype info", style: .title)
-                .padding(.top, 34)
-                .padding(.bottom, 25)
-                .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
-            AnytypeText("Library version", style: .body)
-            AnytypeText(viewModel.libraryVersion, style: .body)
+            AnytypeText("Anytype info", style: .title).padding()
+            AnytypeText("Library version", style: .subheading).padding()
+            AnytypeText(viewModel.libraryVersion, style: .subheading)
             Spacer()
         }
         .padding([.leading, .trailing])
