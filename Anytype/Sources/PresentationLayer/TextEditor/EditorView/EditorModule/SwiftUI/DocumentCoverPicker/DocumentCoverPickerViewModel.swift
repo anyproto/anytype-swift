@@ -44,8 +44,16 @@ extension DocumentCoverPickerViewModel {
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
+        let supportedTypeIdentifiers = mediaPickerContentType.supportedTypeIdentifiers
+        
+        let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
+            supportedTypeIdentifiers.contains($0)
+        }
+        
+        guard let typeIdentifier = typeIdentifier  else { return }
+        
         itemProvider.loadFileRepresentation(
-            forTypeIdentifier: mediaPickerContentType.typeIdentifier
+            forTypeIdentifier: typeIdentifier
         ) { [weak self] url, error in
             url.flatMap {
                 self?.uploadImage(at: $0)

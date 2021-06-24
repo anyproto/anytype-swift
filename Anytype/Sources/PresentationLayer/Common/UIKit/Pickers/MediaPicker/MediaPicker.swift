@@ -86,8 +86,16 @@ extension MediaPicker: PHPickerViewControllerDelegate {
             return
         }
         
+        let supportedTypeIdentifiers = viewModel.type.supportedTypeIdentifiers
+        
+        let typeIdentifier: String? = chosen.registeredTypeIdentifiers.first {
+            supportedTypeIdentifiers.contains($0)
+        }
+        
+        guard let typeIdentifier = typeIdentifier  else { return }
+        
         chosen.loadFileRepresentation(
-            forTypeIdentifier: viewModel.type.typeIdentifier
+            forTypeIdentifier: typeIdentifier
         ) { [weak self] url, error in
             guard let self = self else { return }
             
