@@ -12,25 +12,36 @@ final class MentionsTextViewConfigurator  {
         self.didSelectMention = didSelectMention
     }
     
-    func configure(textView: CustomTextView) {
+    func configure(textView: UITextView) {
         CATransaction.setCompletionBlock {
             DispatchQueue.main.async {
-                textView.textView.subviews.filter { $0 is MentionButton }.forEach { $0.removeFromSuperview() }
-                guard let text = textView.textView.attributedText,
+                textView.subviews.filter { $0 is MentionButton }.forEach { $0.removeFromSuperview() }
+                guard let text = textView.attributedText,
                       text.length > 0 else { return }
                 text.enumerateAttribute(.attachment,
                                         in: NSRange(location: 0, length: text.length)) { value, _, _ in
                     guard let attachment = value as? MentionAttachment,
-                          let mentionRect = textView.textView.layoutManager.rect(for: attachment) else { return }
-                    let button = MentionButton(frame: mentionRect.offsetBy(dx: Constants.buttonOffset.x
-                                                                      , dy: Constants.buttonOffset.y))
-                    button.isExclusiveTouch = true
-                    button.addAction(UIAction(handler: { [weak self] _ in
-                        self?.didSelectMention(attachment.pageId)
-                    }), for: .touchUpInside)
-                    textView.textView.addSubview(button)
+                          let mentionRect = textView.layoutManager.mentionRect(for: attachment),
+                          let attachmentRect = textView.layoutManager.rect(for: attachment) else { return }
+                    self.addMentionInteractionButtons(
+                        to: textView,
+                        frames: [mentionRect, attachmentRect],
+                        pageId: attachment.pageId
+                    )
                 }
             }
+        }
+    }
+    
+    private func addMentionInteractionButtons(to textView: UITextView, frames: [CGRect], pageId: String) {
+        frames.forEach {
+            let button = MentionButton(frame: $0.offsetBy(dx: Constants.buttonOffset.x,
+                                                          dy: Constants.buttonOffset.y))
+            button.isExclusiveTouch = true
+            button.addAction(UIAction(handler: { [weak self] _ in
+                self?.didSelectMention(pageId)
+            }), for: .touchUpInside)
+            textView.addSubview(button)
         }
     }
 }

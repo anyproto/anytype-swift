@@ -72,7 +72,7 @@ extension CustomTextView: UITextViewDelegate {
         let contentSize = textView.intrinsicContentSize
 
         userInteractionDelegate?.didReceiveAction(
-            .changeText(textView.attributedText)
+            .changeText(textView)
         )
         inputSwitcher.switchInputs(customTextView: self)
 

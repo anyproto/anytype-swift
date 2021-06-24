@@ -27,7 +27,7 @@ struct TextBlockContentConfiguration {
     }
     
     func setupMentionsInteraction(_ customTextView: CustomTextView) {
-        mentionsConfigurator.configure(textView: customTextView)
+        mentionsConfigurator.configure(textView: customTextView.textView)
     }
 }
 

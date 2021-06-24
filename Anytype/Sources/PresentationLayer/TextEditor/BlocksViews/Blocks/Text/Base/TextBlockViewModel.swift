@@ -9,6 +9,10 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     private let service = BlockActionsServiceText()
     private var subscriptions: Set<AnyCancellable> = []
+    private lazy var mentionsConfigurator = MentionsTextViewConfigurator { [weak self] pageId in
+        guard let self = self else { return }
+        self.router?.showPage(with: pageId)
+    }
 
     // MARK: View state
     private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
@@ -24,18 +28,11 @@ class TextBlockViewModel: BaseBlockViewModel {
     // MARK: - Subclassing accessors
 
     override func makeContentConfiguration() -> UIContentConfiguration {
-        let configutator = MentionsTextViewConfigurator { [weak self] pageId in
-            guard let self = self else { return }
-            self.actionHandler?.handleAction(
-                .textView(action: .showPage(pageId), activeRecord: self.block),
-                model: self.block.blockModel
-            )
-        }
         return TextBlockContentConfiguration(
             textViewDelegate: self,
             viewModel: self,
             blockActionHandler: actionHandler,
-            mentionsConfigurator: configutator
+            mentionsConfigurator: mentionsConfigurator
         )
     }
 
@@ -205,7 +202,10 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
             case .showMultiActionMenuAction:
                 shouldResignFirstResponder.send()
                 actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
-            case .keyboardAction, .changeText, .changeTextStyle, .changeCaretPosition:
+            case let .changeText(textView):
+                mentionsConfigurator.configure(textView: textView)
+                actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+            case .keyboardAction, .changeTextStyle, .changeCaretPosition:
                 actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(

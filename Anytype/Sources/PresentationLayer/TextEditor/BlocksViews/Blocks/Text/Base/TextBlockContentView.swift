@@ -79,15 +79,13 @@ final class TextBlockContentView: UIView & UIContentView {
                   let caretPosition = self.textView.textView.caretPosition() else { return }
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
             self.currentConfiguration.setupMentionsInteraction(self.textView)
-            if let attributedText = self.textView.textView.attributedText {
-                self.currentConfiguration.viewModel.actionHandler?.handleAction(
-                    .textView(
-                        action: .changeText(attributedText),
-                        activeRecord: self.currentConfiguration.viewModel.block
-                    ),
-                    model: self.currentConfiguration.viewModel.block.blockModel
-                )
-            }
+            self.currentConfiguration.viewModel.actionHandler?.handleAction(
+                .textView(
+                    action: .changeText(self.textView.textView),
+                    activeRecord: self.currentConfiguration.viewModel.block
+                ),
+                model: self.currentConfiguration.viewModel.block.blockModel
+            )
         }
         
         let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
@@ -287,7 +285,7 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
-        currentConfiguration.mentionsConfigurator.configure(textView: textView)
+        currentConfiguration.mentionsConfigurator.configure(textView: textView.textView)
     }
     
     private func setupForPlainText() {
