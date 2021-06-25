@@ -21,4 +21,13 @@ public struct BlockInformation: Hashable {
         self.id = id
         self.content = content
     }
+
+    public static func == (lhs: BlockInformation, rhs: BlockInformation) -> Bool {
+        lhs.id == rhs.id && lhs.content.type == rhs.content.type
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(content.type)
+    }
 }

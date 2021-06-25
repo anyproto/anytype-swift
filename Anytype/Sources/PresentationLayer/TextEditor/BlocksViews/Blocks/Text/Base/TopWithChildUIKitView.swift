@@ -1,16 +1,9 @@
 
-
 import Combine
 import UIKit
 
+
 final class TopWithChildUIKitView: UIView {
-    struct Resource {
-        var textColor: UIColor?
-        var backgroundColor: UIColor?
-    }
-
-    private var resourceSubscription: AnyCancellable?
-
     // TODO: Refactor
     // OR
     // We could do it on toggle level or on block parsing level?
@@ -135,13 +128,6 @@ final class TopWithChildUIKitView: UIView {
 
     func configured(rightView: UIView?) -> Self {
         _ = self.topView.configured(rightView: rightView)
-        return self
-    }
-
-    func configured(_ resourceStream: AnyPublisher<Resource, Never>) -> Self {
-        self.resourceSubscription = resourceStream.receiveOnMain().sink { [weak self] (value) in
-            self?.backgroundColor = value.backgroundColor
-        }
         return self
     }
 }

@@ -4,6 +4,7 @@ import Combine
 import os
 import BlocksModels
 
+
 class DocumentEditorViewModel: ObservableObject {
     /// View Input
     weak var viewInput: EditorModuleDocumentViewInput?
@@ -117,6 +118,7 @@ class DocumentEditorViewModel: ObservableObject {
 // MARK: - Reactions
 
 private extension DocumentEditorViewModel {
+
     func process(events: PackOfEvents) {
         events.ourEvents.forEach { event in
             switch event {
@@ -127,7 +129,6 @@ private extension DocumentEditorViewModel {
             default: return
             }
         }
-
         document.handle(events: events)
     }
 }
@@ -230,6 +231,8 @@ extension DocumentEditorViewModel: NewBlockActionHandler {
         blockActionHandler?.handleBlockAction(action, block: model, completion: nil)
     }
 }
+
+// MARK: - EditorModuleSelectionHandlerHolderProtocol
 
 extension DocumentEditorViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {

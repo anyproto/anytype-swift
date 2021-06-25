@@ -2,16 +2,6 @@
 import UIKit
 
 final class TopUIKitView: UIView {
-    // TODO: Refactor
-    // OR
-    // We could do it on toggle level or on block parsing level?
-    struct Layout {
-        var containedViewInset = 8
-        var indentationWidth = 8
-        var boundaryWidth = 2
-    }
-
-    var layout: Layout = .init()
 
     // MARK: Views
     // |    contentView    | : | leftView | textView |

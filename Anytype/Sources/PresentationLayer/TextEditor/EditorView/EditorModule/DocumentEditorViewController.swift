@@ -4,6 +4,7 @@ import Combine
 import FloatingPanel
 import SwiftUI
 
+
 final class DocumentEditorViewController: UIViewController {
     
     private lazy var dataSource = makeCollectionViewDataSource()
@@ -95,61 +96,30 @@ extension DocumentEditorViewController {
     }
 
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
-        let sectionSnapshot = dataSource.snapshot(
-            for: DocumentSection(
-                icon: viewModel.documentIcon,
-                cover: viewModel.documentCover
-            )
-        )
-        var snapshot = dataSource.snapshot()
-        var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
-
-        let focusedViewModelIndex = itemsForUpdate.firstIndex(where: { viewModel -> Bool in
-            guard let indexPath = dataSource.indexPath(for: viewModel) else { return false }
-            return collectionView.cellForItem(at: indexPath)?.isAnySubviewFirstResponder() ?? false
-        })
-        if let index = focusedViewModelIndex {
-            updateFocusedViewModel(blockViewModel: itemsForUpdate.remove(at: index))
-        }
-
-        if itemsForUpdate.isEmpty {
-            updateVisibleBlocks { content -> Bool in
-                if case let .text(text) = content, text.contentType == .numbered {
-                    return true
-                }
-                return false
+        let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
+            icon: viewModel.documentIcon,
+            cover: viewModel.documentCover
+        ))
+        sectionSnapshot.visibleItems.forEach { item in
+            let viewModel = self.viewModel.blocksViewModels.first { viewModel in
+                viewModel.blockId == item.id
             }
-            return
-        }
-        snapshot.reloadItems(itemsForUpdate)
-        apply(snapshot)
-    }
+            viewModel?.updateView()
 
-    private func updateFocusedViewModel(blockViewModel: BaseBlockViewModel) {
-        let needToUpdateView = gentlyReloadCell(for: blockViewModel)
-        if needToUpdateView {
-            updateView()
+            guard let indexPath = dataSource.indexPath(for: item) else { return }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+            cell.contentConfiguration = viewModel?.buildContentConfiguration()
         }
-        if let textViewModel = blockViewModel as? TextBlockViewModel,
-           let focusAt = viewModel.document.userSession?.focusAt() {
-            textViewModel.set(focus: focusAt)
-        }
+        updateView()
     }
         
-    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
+    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>,
                        animatingDifferences: Bool = true,
                        completion: (() -> Void)? = nil) {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         UIView.performWithoutAnimation {
             self.dataSource.apply(snapshot, animatingDifferences: animatingDifferences) { [weak self] in
-                self?.updateVisibleBlocks(satisfying: { (content) -> Bool in
-                    if case let .text(text) = content,
-                       [.toggle, .numbered].contains(text.contentType) {
-                        return true
-                    }
-                    return false
-                })
                 completion?()
 
                 selectedCells?.forEach {
@@ -158,46 +128,10 @@ extension DocumentEditorViewController {
             }
         }
     }
-    
-    private func applySnapshotAndSetFocus(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
-                                          animatingDifferences: Bool = true) {
-        apply(snapshot, animatingDifferences: animatingDifferences) { [weak self] in
-            self?.focusOnFocusedBlock()
-        }
-    }
-    
-    private func gentlyReloadCell(for blockViewModel: BaseBlockViewModel) -> Bool {
-        guard let indexPath = dataSource.indexPath(for: blockViewModel) else { return false }
-        guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return false }
-
-        cell.indentationLevel = blockViewModel.indentationLevel()
-        cell.contentConfiguration = blockViewModel.buildContentConfiguration()
-        let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
-                                                                height: UIView.layoutFittingCompressedSize.height))
-        return cell.frame.size.height != prefferedSize.height
-    }
-
-    // TODO: It should not be here. Move it to TextBlockViewModel
-    private func updateVisibleBlocks(satisfying: (BlockContent) -> Bool) {
-        var needToUpdateView = false
-
-        let sectionSnapshot = dataSource.snapshot(
-            for: DocumentSection(
-                icon: viewModel.documentIcon,
-                cover: viewModel.documentCover
-            )
-        )
-
-        sectionSnapshot.visibleItems.forEach { item in
-            guard satisfying(item.block.content) else { return }
-            needToUpdateView = needToUpdateView || gentlyReloadCell(for: item)
-        }
-        if needToUpdateView {
-            updateView()
-        }
-    }
 
     private func focusOnFocusedBlock() {
+        guard collectionView.isAnySubviewFirstResponder() else { return }
+        
         let userSession = viewModel.document.userSession
         // TODO: we should move this logic to TextBlockViewModel
         if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt(),
@@ -225,14 +159,14 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let viewModel = dataSource.itemIdentifier(for: indexPath) else { return false }
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         if self.viewModel.selectionEnabled() {
-            if case let .text(text) = viewModel.block.content {
+            if case let .text(text) = item.content {
                 return text.contentType != .title
             }
             return true
         }
-        switch viewModel.block.content {
+        switch item.content {
         case .text:
             return false
         case let .file(file) where [.done, .uploading].contains(file.state):
@@ -245,8 +179,12 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
 
-        guard let blockViewModel = dataSource.itemIdentifier(for: indexPath) else { return nil }
-        return blockViewModel.contextMenuInteraction()
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
+
+        let blockViewModel = self.viewModel.blocksViewModels.first { blockViewModel in
+            blockViewModel.blockId == item.id
+        }
+        return blockViewModel?.contextMenuInteraction()
     }
 }
 
@@ -260,7 +198,7 @@ extension DocumentEditorViewController {
 extension DocumentEditorViewController: PresentingViewController {
     
     func updateHeader() {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
             DocumentSection(
                 icon: viewModel.documentIcon,
@@ -272,22 +210,38 @@ extension DocumentEditorViewController: PresentingViewController {
         apply(snapshot)
     }
     
-    func updateData(_ rows: [BaseBlockViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
+    func updateData(_ blocksViewModels: [BaseBlockViewModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
             DocumentSection(
                 icon: viewModel.documentIcon,
                 cover: viewModel.documentCover
             )
         ])
-        snapshot.appendItems(rows)
-        // When we use apply data source without animation it's called reloadData under hood so it force to reload all cells.
-        // We need it here cause items (BaseBlockViewModel) for collection is reference type.
-        // The reason why we need it for ref type is follow - for reference type diffable data source compare items by pointer (address in memory).
-        // So if item has changes, collection view will not see it cause pointer will be the same.
-        // In future if we need animation we should use value type insted of reference as collection item.
-        // Also we need restore focus due to reloadData сause dismissing keyboard.
-        applySnapshotAndSetFocus(snapshot, animatingDifferences: false)
+
+        let items = blocksViewModels.map { blockViewModel in
+            blockViewModel.information
+        }
+        snapshot.appendItems(items)
+
+        let sectionSnapshot = self.dataSource.snapshot(for: DocumentSection(
+            icon: viewModel.documentIcon,
+            cover: viewModel.documentCover
+        ))
+        sectionSnapshot.visibleItems.forEach { item in
+            let viewModel = self.viewModel.blocksViewModels.first { viewModel in
+                viewModel.blockId == item.id
+            }
+            viewModel?.updateView()
+
+            guard let indexPath = dataSource.indexPath(for: item) else { return }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+            cell.contentConfiguration = viewModel?.buildContentConfiguration()
+        }
+
+        apply(snapshot) { [weak self] in
+            self?.focusOnFocusedBlock()
+        }
     }
 
     func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel) {
@@ -301,10 +255,14 @@ extension DocumentEditorViewController: PresentingViewController {
         ) { [weak self] action in
             self?.viewModel.handleActionForFirstResponder(action)
         }
+        
 
-        if let indexPath = dataSource.indexPath(for: blockViewModel) {
+        let item = dataSource.snapshot().itemIdentifiers.first { $0.id == blockViewModel.blockId }
+        if let item = item {
+            let indexPath = dataSource.indexPath(for: item)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
+        updateView()
     }
 
     func needsUpdateLayout() {
@@ -330,8 +288,12 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         let blockModel = userSession?.firstResponder()
 
         guard let indexPath = selectedIndexPath,
-              let blockViewModel = dataSource.itemIdentifier(for: indexPath),
-              blockViewModel.blockId == blockModel?.information.id else { return }
+              let item = dataSource.itemIdentifier(for: indexPath),
+              item.id == blockModel?.information.id else { return }
+
+        let blockViewModel = self.viewModel.blocksViewModels.first { blockViewModel in
+            blockViewModel.blockId == item.id
+        }
 
         if let blockViewModel = blockViewModel as? TextBlockViewModel {
             let focus = userSession?.focusAt() ?? .end
@@ -367,7 +329,7 @@ private extension DocumentEditorViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
-    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BlockInformation> {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -376,12 +338,17 @@ private extension DocumentEditorViewController {
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
-        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: BaseBlockViewModel) -> UICollectionViewCell? in
-            if item is CodeBlockViewModel {
-                return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: item)
+        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BlockInformation>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: BlockInformation) -> UICollectionViewCell? in
+
+            let blockViewModel = self.viewModel.blocksViewModels.first { blockViewModel in
+                blockViewModel.blockId == item.id
+            }
+
+            if item.content.type == .text(.code) {
+                return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: blockViewModel)
             } else {
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: blockViewModel)
             }
         }
         
@@ -434,12 +401,12 @@ private extension DocumentEditorViewController {
         guard viewModel.selectionEnabled() == false else {
             return
         }
-        
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
-        
-        if location.y > (collectionView.visibleCells.last?.frame.maxY ?? 0) {
-            viewModel.handlingTapOnEmptySpot()
-        }
+        let cellIndexPath = collectionView.indexPathForItem(at: location)
+
+        guard cellIndexPath == nil else { return }
+
+        viewModel.handlingTapOnEmptySpot()
     }
 
     /// Add handlers to viewModel state changes

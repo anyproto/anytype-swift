@@ -26,7 +26,7 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    private let eventProcessor = EventProcessor()
+    private let eventHandler = EventHandler()
     
     /// Details Active Models
     /// But we have a lot of them, so, we should keep a list of them.
@@ -61,7 +61,7 @@ final class BaseDocument: BaseDocumentProtocol {
     // MARK: - BaseDocumentProtocol
 
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
-        self.updatesPublisher().filter(\.hasUpdate)
+        eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
             .map { [weak self] updates in
                 if let rootId = self?.documentId,
                    let container = self?.rootModel,
@@ -84,7 +84,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         // Event processor must receive event to send updates to subscribers.
         // Events are `blockShow`, actually.
-        self.eventProcessor.handle(
+        eventHandler.handle(
             events: PackOfEvents(
                 contextId: value.contextID,
                 events: value.messages,
@@ -94,7 +94,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func handleOpen(_ value: ServiceSuccess) {
-        let blocks = eventProcessor.handleBlockShow(
+        let blocks = eventHandler.handleBlockShow(
             events: .init(contextId: value.contextID, events: value.messages, ourEvents: [])
         )
         guard let event = blocks.first else { return }
@@ -157,7 +157,7 @@ final class BaseDocument: BaseDocumentProtocol {
     // MARK: - Handle new root model
     private func handleNewRootModel(_ container: ContainerModelProtocol?) {
         if let container = container {
-            eventProcessor.configured(container)
+            eventHandler.configured(container)
         }
         configureDetails(for: container)
     }
@@ -170,16 +170,6 @@ final class BaseDocument: BaseDocumentProtocol {
             return []
         }
         return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
-    }
-    
-    // MARK: - Publishers
-    
-    /// A publisher of event processor did process events.
-    /// It fires when event processor did finish process events.
-    ///
-    /// - Returns: A publisher of updates.
-    private func updatesPublisher() -> AnyPublisher<EventHandlerUpdate, Never> {
-        self.eventProcessor.didProcessEventsPublisher
     }
     
     private func models(from updates: EventHandlerUpdate) -> [BlockActiveRecordModelProtocol] {
@@ -226,6 +216,6 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Parameter events: A pack of events.
     ///
     func handle(events: PackOfEvents) {
-        self.eventProcessor.handle(events: events)
+        eventHandler.handle(events: events)
     }
 }

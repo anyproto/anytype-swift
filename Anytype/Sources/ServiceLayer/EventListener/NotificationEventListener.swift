@@ -5,7 +5,7 @@ import ProtobufMessages
 class NotificationEventListener {
 
     private var subscription: AnyCancellable?
-    private let handler: EventHandler
+    private weak var handler: EventHandler?
 
     init(handler: EventHandler) {
         self.handler = handler

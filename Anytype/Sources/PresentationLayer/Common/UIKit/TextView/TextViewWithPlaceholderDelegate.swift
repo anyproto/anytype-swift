@@ -21,10 +21,12 @@ extension CustomTextView: UITextViewDelegate {
             textView,
             shouldChangeTextIn: range,
             replacementText: text
-
-        ).flatMap {
+        ).flatMap { action in
+            if case let .enterInsideContent(currentText, _) = action {
+                self.textView.text = currentText
+            }
             userInteractionDelegate?.didReceiveAction(
-                CustomTextView.UserAction.keyboardAction($0)
+                CustomTextView.UserAction.keyboardAction(action)
             )
         }
 

@@ -9,6 +9,7 @@ protocol EventHandlerProtocol: AnyObject {
 }
 
 class EventHandler: EventHandlerProtocol {
+    private lazy var eventPublisher = NotificationEventListener(handler: self)
     private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
     let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
     
@@ -49,9 +50,15 @@ class EventHandler: EventHandlerProtocol {
 
     // MARK: Configurations
     func configured(_ container: ContainerModelProtocol) {
+        guard let rootId = container.rootId else {
+            assertionFailure("We can't start listening rootId of container: \(container)")
+            return
+        }
+
         self.container = container
-        self.innerConverter = InnerEventConverter(updater: BlockUpdater(container), container: self.container)
-        self.ourConverter = OurEventConverter(container: container)
+        innerConverter = InnerEventConverter(updater: BlockUpdater(container), container: container)
+        ourConverter = OurEventConverter(container: container)
+        eventPublisher.startListening(contextId: rootId)
     }
     
     func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
