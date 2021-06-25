@@ -1,7 +1,7 @@
 import BlocksModels
 import UIKit
 
-final class VideoBlockViewModel: BlocksViews.File.Base.ViewModel {
+final class VideoBlockViewModel: BlocksViewsBaseFileViewModel {
     
     override func makeContentConfiguration() -> UIContentConfiguration {
         VideoBlockContentViewConfiguration(blockViewModel: self) ?? super.makeContentConfiguration()

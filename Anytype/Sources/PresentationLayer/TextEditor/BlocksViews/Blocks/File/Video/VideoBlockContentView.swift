@@ -7,7 +7,6 @@ import UIKit
 final class VideoBlockContentView: UIView, UIContentView {
     
     private enum Constants {
-        static let emptyImagePath: String = "TextEditor/Style/File/Empty/Video"
         static let emptyViewHeight: CGFloat = 52
         static let videoViewHeight: CGFloat = 250
         static let videoViewInsets: UIEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
@@ -25,11 +24,11 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     private var currentConfiguration: VideoBlockContentViewConfiguration
     private lazy var videoVC: AVPlayerViewController = .init()
-    private lazy var emptyView: BlocksViews.File.Base.TopUIKitEmptyView = {
-        let view: BlocksViews.File.Base.TopUIKitEmptyView = .init()
+    private lazy var emptyView: BlocksViewsBaseFileTopUIKitEmptyView = {
+        let view = BlocksViewsBaseFileTopUIKitEmptyView(
+            viewData: .init(image: UIImage.blockFile.empty.video, placeholderText: "Upload a video")
+        )
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.resource = .init(placeholderText: "Upload a video".localized,
-                              imagePath: Constants.emptyImagePath)
         return view
     }()
     private var subscription: AnyCancellable?

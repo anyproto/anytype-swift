@@ -1,12 +1,8 @@
 import UIKit
 import Combine
+import BlocksModels
 
 class BlocksViewsFileUIKitView: UIView {
-    
-    typealias File = BlocksViews.File.Base.ViewModel.File
-    typealias State = File.State
-    typealias EmptyView = BlocksViews.File.Base.TopUIKitEmptyView
-    
     struct Layout {
         var imageContentViewDefaultHeight: CGFloat = 250
         var imageViewTop: CGFloat = 4
@@ -21,7 +17,7 @@ class BlocksViewsFileUIKitView: UIView {
     // MARK: Views
     var contentView: UIView!
     var fileView: BlocksViewsFileUIKitViewWithFile!
-    var emptyView: EmptyView!
+    var emptyView: BlocksViewsBaseFileTopUIKitEmptyView!
             
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -62,7 +58,12 @@ class BlocksViewsFileUIKitView: UIView {
         }()
         
         self.emptyView = {
-            let view = EmptyView()
+            let view = BlocksViewsBaseFileTopUIKitEmptyView(
+                viewData: .init(
+                    image: UIImage.blockFile.empty.file,
+                    placeholderText: "Add link or upload a file"
+                )
+            )
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
@@ -108,7 +109,7 @@ class BlocksViewsFileUIKitView: UIView {
         }
     }
                     
-    private func handle(_ file: File) {
+    private func handle(_ file: BlockContent.File) {
         
         switch file.state  {
         case .empty:
@@ -129,7 +130,7 @@ class BlocksViewsFileUIKitView: UIView {
 
     }
             
-    func configured(publisher: AnyPublisher<File, Never>) -> Self {
+    func configured(publisher: AnyPublisher<BlockContent.File, Never>) -> Self {
         self.subscription = publisher.receiveOnMain().sink { [weak self] (value) in
             self?.handle(value)
         }
@@ -143,20 +144,24 @@ class BlocksViewsFileUIKitView: UIView {
 }
 
 extension BlocksViewsFileUIKitView {
-    func process(_ file: File) {
+    func process(_ file: BlockContent.File) {
         self.handle(file)
     }
     
     func process(_ resource: BlocksViewsFileUIKitViewWithFile.Resource?) {
         self.fileView.handle(resource)
     }
-    func apply(_ file: File) {
+    func apply(_ file: BlockContent.File) {
         self.process(file)
         let resource: BlocksViewsFileUIKitViewWithFile.Resource?
         switch file.contentType {
         case .file:
             let metadata = file.metadata
-            resource = .init(size: BlocksViewsFileSizeConverter.convert(size: Int(metadata.size)), name: metadata.name, mime: BlocksViewsFileMimeConverter.convert(mime: metadata.mime))
+            resource = .init(
+                size: BlocksViewsFileSizeConverter.convert(size: Int(metadata.size)),
+                name: metadata.name,
+                typeIcon: BlocksViewsFileMimeConverter.convert(mime: metadata.mime)
+            )
         default: resource = nil
         }
         self.process(resource)

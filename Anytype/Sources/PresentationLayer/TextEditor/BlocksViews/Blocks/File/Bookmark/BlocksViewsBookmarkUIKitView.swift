@@ -15,7 +15,7 @@ extension BlocksViews.Bookmark {
     
     final class UIKitView: UIView {
 
-        private var emptyView: BlocksViews.File.Base.TopUIKitEmptyView!
+        private var emptyView: BlocksViewsBaseFileTopUIKitEmptyView!
         private var bookmarkView: BlocksViews.Bookmark.UIKitViewWithBookmark!
                 
         private var subscription: AnyCancellable?
@@ -93,13 +93,10 @@ private extension BlocksViews.Bookmark.UIKitView {
         }()
         
         self.emptyView = {
-            let view = BlocksViews.File.Base.TopUIKitEmptyView()
-            view.configured(
-                .init(
-                    placeholderText: Constants.Resource.emptyViewPlaceholderTitle,
-                    errorText: "",
-                    uploadingText: "",
-                    imagePath: Constants.Resource.emptyViewImagePath
+            let view = BlocksViewsBaseFileTopUIKitEmptyView(
+                viewData: .init(
+                    image: UIImage.blockFile.empty.bookmark,
+                    placeholderText: Constants.Resource.emptyViewPlaceholderTitle
                 )
             )
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +167,6 @@ private extension BlocksViews.Bookmark.UIKitView {
         
         enum Resource {
             static let emptyViewPlaceholderTitle = "Add a web bookmark"
-            static let emptyViewImagePath = "TextEditor/Style/Bookmark/Empty"
         }
     }
     

@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-final class BlocksViewsFileViewModel: BlocksViews.File.Base.ViewModel {
+final class BlocksViewsFileViewModel: BlocksViewsBaseFileViewModel {
     
     override func makeContentConfiguration() -> UIContentConfiguration {
         let configuration = ContentConfiguration.init(block.blockModel.information)

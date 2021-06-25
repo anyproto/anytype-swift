@@ -2,49 +2,11 @@ import UIKit
 import Combine
 
 class BlocksViewsFileUIKitViewWithFile: UIView {
-    enum Style {
-        case presentation
-        var titleFont: UIFont {
-            switch self {
-            case .presentation: return .systemFont(ofSize: 15)
-            }
-        }
-        var sizeFont: UIFont {
-            switch self {
-            case .presentation: return .systemFont(ofSize: 13)
-            }
-        }
-        var titleColor: UIColor {
-            switch self {
-            case .presentation: return .grayscale90
-            }
-        }
-        var sizeColor: UIColor {
-            switch self {
-            case .presentation: return .lightGray
-            }
-        }
-    }
-    
-    struct Layout {
-        var offset: CGFloat = 10
-    }
-    
     struct Resource {
         var size: String
         var name: String
-        var mime: String
+        var typeIcon: UIImage?
     }
-    
-    /// Variables
-    var style: Style = .presentation {
-        didSet {
-            self.titleView.font = self.style.titleFont
-            self.sizeView.font = self.style.sizeFont
-        }
-    }
-    
-    var layout: Layout = .init()
     
     /// Publishers
     var subscription: AnyCancellable?
@@ -54,8 +16,6 @@ class BlocksViewsFileUIKitViewWithFile: UIView {
         }
     }
     
-    /// Views
-    var contentView: UIView!
     var imageView: UIImageView!
     var titleView: UILabel!
     var sizeView: UILabel!
@@ -81,12 +41,6 @@ class BlocksViewsFileUIKitViewWithFile: UIView {
     func setupUIElements() {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        
         self.imageView = {
             let view = UIImageView()
             view.contentMode = .center
@@ -97,38 +51,27 @@ class BlocksViewsFileUIKitViewWithFile: UIView {
         self.titleView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = self.style.titleFont
-            view.textColor = self.style.titleColor
+            view.font = .systemFont(ofSize: 15)
+            view.textColor = .grayscale90
             return view
         }()
         
         self.sizeView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = self.style.sizeFont
-            view.textColor = self.style.sizeColor
+            view.font = .systemFont(ofSize: 13)
+            view.textColor = .lightGray
             return view
         }()
         
-        self.contentView.addSubview(self.imageView)
-        self.contentView.addSubview(self.titleView)
-        self.contentView.addSubview(self.sizeView)
-        
-        self.addSubview(self.contentView)
+        self.addSubview(self.imageView)
+        self.addSubview(self.titleView)
+        self.addSubview(self.sizeView)
     }
     
     /// Layout
     func addLayout() {
-        let offset: CGFloat = self.layout.offset
-        
-        if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
+        let offset: CGFloat = 10
         
         if let view = self.imageView, let superview = view.superview {
             NSLayoutConstraint.activate([
@@ -159,7 +102,7 @@ class BlocksViewsFileUIKitViewWithFile: UIView {
     /// Configurations
     func handle(_ value: Resource?) {
         self.titleView.text = value?.name
-        self.imageView.image = UIImage.init(named: value?.mime ?? "")
+        self.imageView.image = value?.typeIcon
         self.sizeView.text = value?.size
     }
     

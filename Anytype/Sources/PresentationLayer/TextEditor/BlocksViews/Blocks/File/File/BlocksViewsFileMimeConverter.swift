@@ -6,27 +6,25 @@ import BlocksModels
 import UniformTypeIdentifiers
 
 struct BlocksViewsFileMimeConverter {
-    private static func isEqualOrSubtype(mime: String, of uttype: UTType) -> Bool {
-        guard let type = UTType.init(mimeType: mime) else { return false }
-        return type == uttype || type.isSubtype(of: uttype)
+    static func convert(mime: String) -> UIImage? {
+        guard let fileType = UTType.init(mimeType: mime) else {
+            return UIImage.blockFile.content.other
+        }
+        
+        return dictionary.first { type, image in
+            type == fileType || fileType.isSubtype(of: type)
+        }?.value ?? UIImage.blockFile.content.other
     }
-
     
-    private static var dictionary: [UTType: String] = [
-        .text: "Text",
-        .spreadsheet: "Spreadsheet",
-        .presentation: "Presentation",
-        .pdf: "PDF",
-        .image: "Image",
-        .audio: "Audio",
-        .video: "Video",
-        .archive: "Archive"
+    private static var dictionary: [UTType: UIImage?] = [
+        .text: UIImage.blockFile.content.text,
+        .spreadsheet: UIImage.blockFile.content.spreadsheet,
+        .presentation: UIImage.blockFile.content.presentation,
+        .pdf: UIImage.blockFile.content.pdf,
+        .image: UIImage.blockFile.content.image,
+        .audio: UIImage.blockFile.content.audio,
+        .video: UIImage.blockFile.content.video,
+        .archive: UIImage.blockFile.content.archive
     ]
-            
-    static func convert(mime: String) -> String {
-        let key = dictionary.keys.first(where: {self.isEqualOrSubtype(mime: mime, of: $0)})
-        let name = key.flatMap({dictionary[$0]}) ?? "Other"
-        let path = "TextEditor/Style/File/Content" + "/" + name
-        return path
-    }
+          
 }

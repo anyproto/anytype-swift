@@ -6,7 +6,6 @@ enum BlocksViews {
     // New
     enum Base {}
     enum Text {}
-    enum File {}
     enum Tools {}
     enum Bookmark {}
     enum Other {}
