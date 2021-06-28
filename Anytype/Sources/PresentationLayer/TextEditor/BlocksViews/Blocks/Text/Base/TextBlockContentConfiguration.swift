@@ -49,12 +49,15 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.information == rhs.information && lhs.isSelected == rhs.isSelected
+        lhs.information == rhs.information &&
+            lhs.isSelected == rhs.isSelected &&
+            lhs.information.content == rhs.information.content
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(information)
         hasher.combine(isSelected)
+        hasher.combine(information.content)
     }
     
 }

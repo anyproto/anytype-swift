@@ -139,7 +139,6 @@ extension BaseBlockViewModel {
 // MARK: - UIKit / ContentConfiguration
 
 extension BaseBlockViewModel {
-    func buildContentConfiguration() -> UIContentConfiguration { self.makeContentConfiguration() }
     
     private struct ContentConfiguration: UIContentConfiguration {
         func makeContentView() -> UIView & UIContentView { ContentView(configuration: self) }

@@ -108,7 +108,7 @@ extension DocumentEditorViewController {
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-            cell.contentConfiguration = viewModel?.buildContentConfiguration()
+            cell.contentConfiguration = viewModel?.makeContentConfiguration()
         }
         updateView()
     }
@@ -239,7 +239,7 @@ extension DocumentEditorViewController: PresentingViewController {
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-            cell.contentConfiguration = viewModel?.buildContentConfiguration()
+            cell.contentConfiguration = viewModel?.makeContentConfiguration()
         }
 
         apply(snapshot) { [weak self] in
@@ -383,7 +383,7 @@ private extension DocumentEditorViewController {
     }
 
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
-        cell.contentConfiguration = item.buildContentConfiguration()
+        cell.contentConfiguration = item.makeContentConfiguration()
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel()
         cell.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
