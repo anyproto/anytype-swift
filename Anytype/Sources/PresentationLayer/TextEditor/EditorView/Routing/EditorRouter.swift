@@ -2,6 +2,7 @@ import UIKit
 import BlocksModels
 import SafariServices
 import Combine
+import SwiftUI
 
 typealias FilePickerModel = CommonViews.Pickers.File.Picker.ViewModel
 typealias MediaPickerModel = MediaPicker.ViewModel
@@ -28,6 +29,7 @@ protocol PresentingViewController: UIViewController, EditorModuleDocumentViewInp
 final class EditorRouter: EditorRouterProtocol {
     private weak var preseningViewController: PresentingViewController?
     private let fileRouter: FileRouter
+    private lazy var dimmingTransitionDelegate = DimmingTransitionDelegate()
 
     init(preseningViewController: PresentingViewController?) {
         self.preseningViewController = preseningViewController
@@ -54,10 +56,17 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showBookmark(model: BlockActiveRecordModelProtocol, completion: @escaping (URL) -> ()) {
-        let viewModel = BookmarkToolbarViewModel(model: model, completion: completion)
-        let controller = BookmarkViewController(model: viewModel)
-        viewModel.controller = controller
-        preseningViewController?.present(controller, animated: true, completion: nil)
+        
+        let controller = UIHostingController(rootView: URLInputView(didCreateURL: completion))
+        controller.rootView.dismissAction = { [weak controller] in
+            controller?.dismiss(animated: true)
+        }
+        controller.modalPresentationStyle = .overCurrentContext
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        controller.transitioningDelegate = dimmingTransitionDelegate
+        controller.modalPresentationStyle = .custom
+        preseningViewController?.present(controller, animated: true)
     }
     
     func showFilePicker(model: FilePickerModel) {
