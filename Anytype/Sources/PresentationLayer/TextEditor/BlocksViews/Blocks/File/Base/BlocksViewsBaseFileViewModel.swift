@@ -5,7 +5,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     private var stateSubscription: AnyCancellable?
     private var fileURLSubscription: AnyCancellable?
     
-    @Published var state: BlockFileState? { willSet { self.objectWillChange.send() } }
+    private var state: BlockFileState?
     
     init(
         _ block: BlockActiveRecordModelProtocol,

@@ -19,7 +19,7 @@ extension BookmarkViewModel {
             static let topViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
         }
         
-        private let topView = BlocksViews.Bookmark.UIKitView()
+        private let topView = BlocksViewsBookmarkUIKitView()
         private var imageSubscription: AnyCancellable?
         private var iconSubscription: AnyCancellable?
         private var currentConfiguration: ContentConfiguration

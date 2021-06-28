@@ -43,8 +43,8 @@ class TextBlockViewModel: BaseBlockViewModel {
             return .init(title: "", children: [])
         }
         
-        let actions: [ContextualMenuActionData] = {
-            var result: [ContextualMenuActionData] = [
+        let actions: [ContextualMenuData] = {
+            var result: [ContextualMenuData] = [
                 .init(action: .addBlockBelow)
             ]
             

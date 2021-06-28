@@ -184,7 +184,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
 
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
 
-        let blockViewModel = self.viewModel.blocksViewModels.first { blockViewModel in
+        let blockViewModel = viewModel.blocksViewModels.first { blockViewModel in
             blockViewModel.blockId == item.id
         }
         return blockViewModel?.contextMenuInteraction()

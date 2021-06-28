@@ -7,7 +7,11 @@ protocol ContextualMenuHandler {
     func handle(contextualMenuAction: ContextualMenuAction)
 }
 
-class BaseBlockViewModel: ObservableObject, ContextualMenuHandler {
+protocol DiffableProvier {
+    var diffable: AnyHashable { get }
+}
+
+class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     private enum Constants {
         static let maxIndentationLevel: Int = 4
     }
@@ -56,15 +60,6 @@ class BaseBlockViewModel: ObservableObject, ContextualMenuHandler {
         min(block.indentationLevel, Constants.maxIndentationLevel)
     }
     
-    // MARK: - Subclass / Diffable
-
-    var diffable: AnyHashable {
-        [
-            information,
-            indentationLevel()
-        ] as [AnyHashable]
-    }
-    
     // MARK: - Subclass / Views
 
     func makeContentConfiguration() -> UIContentConfiguration { ContentConfiguration.init() }
@@ -72,8 +67,17 @@ class BaseBlockViewModel: ObservableObject, ContextualMenuHandler {
     // MARK: - Subclass / Events
 
     func didSelectRowInTableView() {}
+    
+    // MARK: - DiffableProvier
 
-    // MARk: - ContextualMenuHandler
+    var diffable: AnyHashable {
+        [
+            information,
+            indentationLevel()
+        ] as [AnyHashable]
+    }
+
+    // MARK: - ContextualMenuHandler
     func makeContextualMenu() -> ContextualMenu { .init(title: "") }
 
     func handle(contextualMenuAction: ContextualMenuAction) {
@@ -120,12 +124,7 @@ extension BaseBlockViewModel {
             let uiActions = menu.children.map { action -> UIAction in
                 let identifier = UIAction.Identifier(action.identifier)
 
-                let action = UIAction(
-                    title: action.title,
-                    image: action.image,
-                    identifier: identifier,
-                    state: .off
-                ) { action in
+                let action = UIAction(title: action.title, image: action.image, identifier: identifier, state: .off) { action in
                     if let identifier = ContextualMenuIdentifierBuilder.action(for: action.identifier.rawValue) {
                         self?.handle(contextualMenuAction: identifier)
                     }

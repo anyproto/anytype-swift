@@ -1,60 +1,47 @@
-//
-//  BlocksViewsBookmarkUIKitView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 20.06.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Combine
 import UIKit
 import BlocksModels
-
-// MARK: - UIKitView
-extension BlocksViews.Bookmark {
     
-    final class UIKitView: UIView {
+final class BlocksViewsBookmarkUIKitView: UIView {
 
-        private var emptyView: BlocksFileEmptyView!
-        private var bookmarkView: BlocksViews.Bookmark.UIKitViewWithBookmark!
-                
-        private var subscription: AnyCancellable?
-        
-        // MARK: - Initializers
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.setup()
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            self.setup()
-        }
-        
-        // MARK: - Internal functions
-        
-        func configured(publisher: AnyPublisher<BookmarkViewModel.Resource?, Never>) -> Self {
-            subscription = publisher
-                .receiveOnMain()
-                .safelyUnwrapOptionals()
-                .sink { [weak self] value in
-                    self?.handle(value)
-                }
+    private var emptyView: BlocksFileEmptyView!
+    private var bookmarkView: BlocksViewsBookmarkUIKitViewWithBookmark!
             
-            let resourcePublisher = publisher
-                .receiveOnMain()
-                .eraseToAnyPublisher()
-            bookmarkView.configured(resourcePublisher)
-            
-            return self
-        }
+    private var subscription: AnyCancellable?
+    
+    // MARK: - Initializers
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
     }
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setup()
+    }
+    
+    // MARK: - Internal functions
+    
+    func configured(publisher: AnyPublisher<BookmarkViewModel.Resource?, Never>) -> Self {
+        subscription = publisher
+            .receiveOnMain()
+            .safelyUnwrapOptionals()
+            .sink { [weak self] value in
+                self?.handle(value)
+            }
+        
+        let resourcePublisher = publisher
+            .receiveOnMain()
+            .eraseToAnyPublisher()
+        bookmarkView.configured(resourcePublisher)
+        
+        return self
+    }
 }
 
 // MARK: UIKitView / Apply
-extension BlocksViews.Bookmark.UIKitView {
+extension BlocksViewsBookmarkUIKitView {
     
     func apply(_ value: BookmarkViewModel.Resource?) {
         guard let value = value else { return }
@@ -70,7 +57,7 @@ extension BlocksViews.Bookmark.UIKitView {
     
 }
 
-private extension BlocksViews.Bookmark.UIKitView {
+private extension BlocksViewsBookmarkUIKitView {
     
     // MARK: Setup
     func setup() {
@@ -84,7 +71,7 @@ private extension BlocksViews.Bookmark.UIKitView {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.bookmarkView = {
-            let view = BlocksViews.Bookmark.UIKitViewWithBookmark()
+            let view = BlocksViewsBookmarkUIKitViewWithBookmark()
             view.layer.borderWidth = 1
             view.layer.borderColor = UIColor.grayscale30.cgColor
             view.layer.cornerRadius = 4
@@ -152,7 +139,7 @@ private extension BlocksViews.Bookmark.UIKitView {
 
 // MARK: - Private extension
 
-private extension BlocksViews.Bookmark.UIKitView {
+private extension BlocksViewsBookmarkUIKitView {
     
     enum Constants {
         enum Layout {
