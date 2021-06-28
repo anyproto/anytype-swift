@@ -38,15 +38,18 @@ final class TextBlockContentView: UIView & UIContentView {
                   let mentionSymbolPosition = self.textView.inputSwitcher.accessoryViewTriggerSymbolPosition,
                   let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
                                                                                 offset: -1),
-                  let caretPosition = self.textView.textView.caretPosition() else { return }
+                  let caretPosition = self.textView.textView.caretPosition(),
+                  let viewModel = self.currentConfiguration.viewModel else { return }
+
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
             self.currentConfiguration.setupMentionsInteraction(self.textView)
-            self.currentConfiguration.viewModel.actionHandler?.handleAction(
+
+            viewModel.actionHandler?.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView),
-                    activeRecord: self.currentConfiguration.viewModel.block
+                    activeRecord: viewModel.block
                 ),
-                model: self.currentConfiguration.viewModel.block.blockModel
+                model: viewModel.block.blockModel
             )
         }
         
@@ -68,10 +71,10 @@ final class TextBlockContentView: UIView & UIContentView {
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
             guard let self = self else { return }
+            guard let block = self.currentConfiguration.viewModel?.block else { return }
 
-            let block = self.currentConfiguration.viewModel.block
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.viewModel.actionHandler?.handleAction(
+            self.currentConfiguration.viewModel?.actionHandler?.handleAction(
                 .textView(action: .keyboardAction(.enterAtTheEndOfContent), activeRecord: block),
                 model: block.blockModel
             )
@@ -223,22 +226,22 @@ final class TextBlockContentView: UIView & UIContentView {
             break
         }
 
-        currentConfiguration.viewModel.setFocus.sink { [weak self] focus in
+        currentConfiguration.viewModel?.setFocus.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel.shouldResignFirstResponder.sink { [weak self] _ in
+        currentConfiguration.viewModel?.shouldResignFirstResponder.sink { [weak self] _ in
             self?.textView.shouldResignFirstResponder()
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel.$textViewUpdate.sink { [weak self] textUpdate in
+        currentConfiguration.viewModel?.$textViewUpdate.sink { [weak self] textUpdate in
             guard let textUpdate = textUpdate, let self = self else { return }
             let cursorPosition = self.textView.textView.selectedRange
             self.textView.apply(update: textUpdate)
             self.textView.textView.selectedRange = cursorPosition
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel.refreshedTextViewUpdate()
+        currentConfiguration.viewModel?.refreshedTextViewUpdate()
 
         typealias ColorConverter = MiddlewareColorConverter
         backgroundColorView.backgroundColor = ColorConverter.asUIColor(
@@ -290,7 +293,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForCheckbox(checked: Bool) {
         leftView.showView(as: .checkbox(isSelected: checked)) { [weak self] in
-            self?.currentConfiguration.viewModel.onCheckboxTap(selected: !checked)
+            self?.currentConfiguration.viewModel?.onCheckboxTap(selected: !checked)
         }
         setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
         // selected color
@@ -313,10 +316,11 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForToggle() {
-        leftView.showView(as: .toggle(toggled: currentConfiguration.viewModel.block.isToggled)) { [weak self] in
+        guard let blockViewModel = currentConfiguration.viewModel else { return }
+
+        leftView.showView(as: .toggle(toggled: blockViewModel.block.isToggled)) { [weak self] in
             guard let self = self else { return }
 
-            let blockViewModel = self.currentConfiguration.viewModel
             blockViewModel.update { $0.isToggled.toggle() }
             let toggled = blockViewModel.block.isToggled
             blockViewModel.onToggleTap(toggled: toggled)
@@ -327,9 +331,9 @@ final class TextBlockContentView: UIView & UIContentView {
                 blockViewModel.baseBlockDelegate?.blockSizeChanged()
             }
         }
-        let toggled = currentConfiguration.viewModel.block.isToggled
+        let toggled = blockViewModel.block.isToggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
-        let hasNoChildren = currentConfiguration.viewModel.block.childrenIds().isEmpty
+        let hasNoChildren = blockViewModel.block.childrenIds().isEmpty
         updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
     }
     

@@ -13,7 +13,7 @@ final class MentionsTextViewConfigurator  {
     }
     
     func configure(textView: UITextView) {
-        CATransaction.setCompletionBlock {
+        CATransaction.setCompletionBlock { [weak self] in
             DispatchQueue.main.async {
                 textView.subviews.filter { $0 is MentionButton }.forEach { $0.removeFromSuperview() }
                 guard let text = textView.attributedText,
@@ -23,7 +23,7 @@ final class MentionsTextViewConfigurator  {
                     guard let attachment = value as? MentionAttachment,
                           let mentionRect = textView.layoutManager.mentionRect(for: attachment),
                           let attachmentRect = textView.layoutManager.rect(for: attachment) else { return }
-                    self.addMentionInteractionButtons(
+                    self?.addMentionInteractionButtons(
                         to: textView,
                         frames: [mentionRect, attachmentRect],
                         pageId: attachment.pageId

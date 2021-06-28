@@ -4,8 +4,7 @@ import Combine
 
 
 struct TextBlockContentConfiguration {
-    
-    let viewModel: TextBlockViewModel
+    weak var viewModel: TextBlockViewModel?
     let information: BlockInformation
     weak var blockActionHandler: NewBlockActionHandler?
     let mentionsConfigurator: MentionsTextViewConfigurator

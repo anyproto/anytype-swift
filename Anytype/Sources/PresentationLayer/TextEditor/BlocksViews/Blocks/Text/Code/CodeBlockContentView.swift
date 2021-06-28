@@ -66,10 +66,9 @@ final class CodeBlockContentView: UIView & UIContentView {
 
         let textView = UITextView(frame: .zero, textContainer: textContainer)
         textView.isScrollEnabled = false
-        textView.backgroundColor = .clear
-        textView.font = .codeFont
         textView.delegate = self
         textStorage.highlightDelegate = self
+        textStorage.highlightr.theme.boldCodeFont = .codeFont
         codeSelectButton.setText(Constants.defaultLanguage)
 
         return textView
@@ -107,6 +106,7 @@ final class CodeBlockContentView: UIView & UIContentView {
 
     private func setupViews() {
         textView.textContainerInset = LayoutConstants.textInsets
+        setupBackgroundColor()
 
         userInteractionDelegate = currentConfiguration.viewModel
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -153,8 +153,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         codeSelectButton.setText(currentConfiguration.viewModel?.codeLanguage ?? Constants.defaultLanguage)
 
         if case let .text(content) = currentConfiguration.information.content {
-            textView.font = UIFont.codeFont
-            textView.text = content.attributedText.string
+            textView.textStorage.setAttributedString(content.attributedText)
         }
 
         selectionView.layer.borderWidth = 0.0
@@ -172,17 +171,6 @@ final class CodeBlockContentView: UIView & UIContentView {
     private func setupBackgroundColor() {
         let color = MiddlewareColor(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdGray
         textView.backgroundColor = color
-    }
-}
-
-// MARK: - HighlightDelegate
-
-extension CodeBlockContentView: HighlightDelegate {
-    func didHighlight(_ range: NSRange, success: Bool) {
-        DispatchQueue.main.async {
-            self.currentConfiguration.viewModel?.baseBlockDelegate?.blockSizeChanged()
-            self.setupBackgroundColor()
-        }
     }
 }
 

@@ -229,7 +229,7 @@ extension DocumentEditorViewController: PresentingViewController {
             cover: viewModel.documentCover
         ))
         sectionSnapshot.visibleItems.forEach { item in
-            let viewModel = self.viewModel.blocksViewModels.first { viewModel in
+            let viewModel = blocksViewModels.first { viewModel in
                 viewModel.blockId == item.id
             }
             viewModel?.updateView()
