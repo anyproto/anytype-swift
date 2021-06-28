@@ -321,7 +321,7 @@ final class TextBlockContentView: UIView & UIContentView {
         leftView.showView(as: .toggle(toggled: blockViewModel.block.isToggled)) { [weak self] in
             guard let self = self else { return }
 
-            blockViewModel.update { $0.isToggled.toggle() }
+            blockViewModel.block.toggle()
             let toggled = blockViewModel.block.isToggled
             blockViewModel.onToggleTap(toggled: toggled)
             let oldValue = self.createChildBlockButton.isHidden

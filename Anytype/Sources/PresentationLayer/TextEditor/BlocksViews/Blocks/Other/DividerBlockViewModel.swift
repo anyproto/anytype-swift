@@ -10,7 +10,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     private let content: BlockDivider
     
     init(
-        _ block: BlockActiveRecordModelProtocol,
+        _ block: BlockActiveRecordProtocol,
         content: BlockDivider,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?,

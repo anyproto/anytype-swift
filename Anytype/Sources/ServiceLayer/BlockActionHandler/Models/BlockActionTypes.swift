@@ -31,6 +31,6 @@ extension BlockActionHandler {
         case checkbox(selected: Bool)
         
         typealias TextViewAction = CustomTextView.UserAction
-        case textView(action: TextViewAction, activeRecord: BlockActiveRecordModelProtocol)
+        case textView(action: TextViewAction, activeRecord: BlockActiveRecordProtocol)
     }
 }

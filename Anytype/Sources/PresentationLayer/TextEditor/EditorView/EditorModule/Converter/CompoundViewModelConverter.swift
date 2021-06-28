@@ -11,19 +11,22 @@ final class CompoundViewModelConverter {
         self.blockActionHandler = blockActionHandler
     }
 
-    func convert(_ blocks: [BlockActiveRecordModelProtocol],
-                 router: EditorRouterProtocol?,
-                 editorViewModel: DocumentEditorViewModel) -> [BaseBlockViewModel] {
+    func convert(
+        _ blocks: [BlockActiveRecordProtocol],
+        router: EditorRouterProtocol?,
+        editorViewModel: DocumentEditorViewModel
+    ) -> [BaseBlockViewModel] {
         blocks.compactMap { block in
             createBlockViewModel(block, router: router, editorViewModel: editorViewModel)
         }
     }
 
-    private func createBlockViewModel(_ block: BlockActiveRecordModelProtocol,
-                                      router: EditorRouterProtocol?,
-                                      editorViewModel: DocumentEditorViewModel) -> BaseBlockViewModel? {
+    private func createBlockViewModel(
+        _ block: BlockActiveRecordProtocol,
+        router: EditorRouterProtocol?,
+        editorViewModel: DocumentEditorViewModel
+    ) -> BaseBlockViewModel? {
         switch block.content {
-        case .smartblock, .layout: return nil
         case let .text(content):
             switch content.contentType {
             case .code:
@@ -35,10 +38,22 @@ final class CompoundViewModelConverter {
             }
         case let .file(value):
             switch value.contentType {
-            case .file: return BlocksViewsFileViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
-            case .none: return UnknownLabelViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
-            case .image: return BlocksViewsImageViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
-            case .video: return VideoBlockViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
+            case .file:
+                return BlocksViewsFileViewModel(
+                    block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
+                )
+            case .none:
+                return UnknownLabelViewModel(
+                    block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router
+                )
+            case .image:
+                return BlocksViewsImageViewModel(
+                    block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
+                )
+            case .video:
+                return VideoBlockViewModel(
+                    block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
+                )
             }
         case .divider(let content):
             return DividerBlockViewModel(block, content: content, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
@@ -60,6 +75,7 @@ final class CompoundViewModelConverter {
                 delegate: editorViewModel,
                 actionHandler: blockActionHandler
             )
+        case .smartblock, .layout: return nil
         }
     }
 }

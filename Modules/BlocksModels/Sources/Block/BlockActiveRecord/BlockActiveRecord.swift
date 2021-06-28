@@ -19,7 +19,7 @@ final class BlockActiveRecord {
     }
 }
 
-extension BlockActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
+extension BlockActiveRecord: ObservableObject, BlockActiveRecordProtocol {
     var container: BlockContainerModelProtocol? {
         self._container
     }
@@ -86,11 +86,13 @@ extension BlockActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
     
     var isToggled: Bool {
         get {
-            self.container?.userSession.isToggled(by: self._nestedModel.information.id) ?? false
+            container?.userSession.isToggled(by: _nestedModel.information.id) ?? false
         }
-        set {
-            self.container?.userSession.setToggled(by: self._nestedModel.information.id, value: newValue)
-        }
+    }
+    
+    func toggle() {
+        let newValue = !isToggled
+        container?.userSession.setToggled(by: _nestedModel.information.id, value: newValue)
     }
     
     var focusAt: BlockFocusPosition? {

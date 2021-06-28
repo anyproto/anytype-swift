@@ -11,7 +11,7 @@ public protocol BlockContainerModelProtocol: AnyObject {
     func list() -> AnyIterator<BlockId>
     func children(of id: BlockId) -> [BlockId]
     // MARK: - Operations / Choose
-    func choose(by id: BlockId) -> BlockActiveRecordModelProtocol?
+    func choose(by id: BlockId) -> BlockActiveRecordProtocol?
     // MARK: - Operations / Get
     func get(by id: BlockId) -> BlockModelProtocol?
     // MARK: - Operations / Remove

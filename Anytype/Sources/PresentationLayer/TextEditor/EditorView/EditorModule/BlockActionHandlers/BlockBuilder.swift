@@ -5,7 +5,7 @@ struct BlockBuilder {
 
     static func newBlockId() -> BlockId { "" }
 
-    static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
+    static func createInformation(block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.content {
         case .text:
             return createContentType(
@@ -28,7 +28,7 @@ struct BlockBuilder {
         return BlockInformation(id: newBlockId(), content: .text(.empty()))
     }
 
-    static func createDefaultInformation(block: BlockActiveRecordModelProtocol) -> BlockInformation? {
+    static func createDefaultInformation(block: BlockActiveRecordProtocol) -> BlockInformation? {
         switch block.content {
         case let .text(value):
             switch value.contentType {
@@ -40,7 +40,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockContent? {
+    static func createContentType(block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String) -> BlockContent? {
         switch block.content {
         case let .text(blockType):
             switch blockType.contentType {

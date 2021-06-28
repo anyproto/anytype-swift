@@ -8,7 +8,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     private var state: BlockFileState?
     
     init(
-        _ block: BlockActiveRecordModelProtocol,
+        _ block: BlockActiveRecordProtocol,
         delegate: BaseBlockDelegate?,
         router: EditorRouterProtocol?,
         actionHandler: NewBlockActionHandler?

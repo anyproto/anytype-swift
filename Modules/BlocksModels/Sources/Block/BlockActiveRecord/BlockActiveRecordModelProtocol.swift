@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public protocol BlockActiveRecordModelProtocol: BlockHasDidChangePublisherProtocol {
+public protocol BlockActiveRecordProtocol: BlockHasDidChangePublisherProtocol {
     var container: BlockContainerModelProtocol? {get}
     var blockModel: BlockModelProtocol {get}
 
@@ -18,12 +18,14 @@ public protocol BlockActiveRecordModelProtocol: BlockHasDidChangePublisherProtoc
     var isFirstResponder: Bool {get set}
     func unsetFirstResponder()
 
-    var isToggled: Bool {get set}
+    
+    var isToggled: Bool { get }
+    func toggle()
 
     var focusAt: BlockFocusPosition? {get set}
 }
 
-public extension BlockActiveRecordModelProtocol {
+public extension BlockActiveRecordProtocol {
     mutating func unsetFocusAt() { self.focusAt = nil }
     
     var content: BlockContent {

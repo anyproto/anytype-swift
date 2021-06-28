@@ -5,12 +5,12 @@ protocol DocumentViewInteraction: AnyObject {
     /// - Parameter ids: blocks ids
     func updateBlocks(with ids: Set<BlockId>)
     
-    func findModel(beforeBlockId blockId: BlockId) -> BlockActiveRecordModelProtocol?
+    func findModel(beforeBlockId blockId: BlockId) -> BlockActiveRecordProtocol?
 }
 
 
 extension DocumentEditorViewModel: DocumentViewInteraction {
-    func findModel(beforeBlockId blockId: BlockId) -> BlockActiveRecordModelProtocol? {
+    func findModel(beforeBlockId blockId: BlockId) -> BlockActiveRecordProtocol? {
         guard let modelIndex = blocksViewModels.firstIndex(where: { $0.block.blockId == blockId }) else {
             return nil
             

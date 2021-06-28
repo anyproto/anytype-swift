@@ -14,7 +14,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
 
 
     init(
-        _ block: BlockActiveRecordModelProtocol,
+        _ block: BlockActiveRecordProtocol,
         targetBlockId: String,
         publisher: AnyPublisher<DetailsData, Never>?,
         router: EditorRouterProtocol?,
@@ -59,7 +59,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
             }.store(in: &subscriptions)
     }
     
-    private func setup(block: BlockActiveRecordModelProtocol) {
+    private func setup(block: BlockActiveRecordProtocol) {
         let information = block.blockModel.information
         switch information.content {
         case let .link(value):

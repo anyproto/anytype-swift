@@ -7,8 +7,8 @@ class BlockActionHandler {
     typealias Completion = (PackOfEvents) -> Void
 
     private let service: BlockActionServiceProtocol
-    private let listService: BlockActionsServiceList = .init()
-    private let textService: BlockActionsServiceText = .init()
+    private let listService = BlockActionsServiceList()
+    private let textService = BlockActionsServiceText()
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
     private weak var documentViewInteraction: DocumentViewInteraction?
@@ -81,7 +81,7 @@ class BlockActionHandler {
         case let .textView(action: action, activeRecord: activeRecord):
             switch action {
             case .showMultiActionMenuAction:
-                selectionHandler.set(selectionEnabled: true)
+                selectionHandler.selectionEnabled = true
             case let .changeCaretPosition(selectedRange):
                 document.userSession?.setFocusAt(position: .at(selectedRange))
             case let .changeTextStyle(styleAction, range):
@@ -204,9 +204,11 @@ private extension BlockActionHandler {
             .store(in: &self.subscriptions)
     }
 
-    func handleFontAction(for block: BlockModelProtocol,
-                          range: NSRange,
-                          fontAction: ActionType.TextAttributesType) {
+    func handleFontAction(
+        for block: BlockModelProtocol,
+        range: NSRange,
+        fontAction: ActionType.TextAttributesType
+    ) {
         guard case var .text(textContentType) = block.information.content else { return }
         var range = range
 
@@ -263,11 +265,13 @@ private extension BlockActionHandler {
             textContentType.attributedText = newAttributedString
             newBlock.information.content = .text(textContentType)
             documentViewInteraction?.updateBlocks(with: [newBlock.information.id])
-            textService.setText(contextID: self.documentId,
-                                     blockID: newBlock.information.id,
-                                     attributedString: newAttributedString)
-                .sink(receiveCompletion: {_ in }, receiveValue: {})
-                .store(in: &self.subscriptions)
+            textService.setText(
+                contextID: self.documentId,
+                blockID: newBlock.information.id,
+                attributedString: newAttributedString
+            )
+            .sink(receiveCompletion: {_ in }, receiveValue: {})
+            .store(in: &self.subscriptions)
         case .keyboard:
             // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
             let keyboardColor = MiddlewareColor.grey

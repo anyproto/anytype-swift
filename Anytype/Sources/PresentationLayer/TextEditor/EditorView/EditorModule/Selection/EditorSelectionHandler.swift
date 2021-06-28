@@ -52,16 +52,17 @@ final class EditorSelectionHandler {
 }
 
 extension EditorSelectionHandler: EditorModuleSelectionHandlerProtocol {
-    func selectionEnabled() -> Bool {
-        self.storage.selectionEnabled()
-    }
-    
-    func set(selectionEnabled: Bool) {
-        if self.storage.selectionEnabled() != selectionEnabled {
-            self.storage.toggleSelectionEnabled()
+    var selectionEnabled: Bool {
+        get {
+            storage.selectionEnabled()
         }
-        if !selectionEnabled {
-            self.turnIntoOptionsStorage.clear()
+        set {
+            if storage.selectionEnabled() != newValue {
+                storage.toggleSelectionEnabled()
+            }
+            if !selectionEnabled {
+                turnIntoOptionsStorage.clear()
+            }
         }
     }
     
@@ -69,7 +70,7 @@ extension EditorSelectionHandler: EditorModuleSelectionHandlerProtocol {
     /// Otherwise, we can't remove or selected ids.
     ///
     func deselect(ids: [BlockId: BlockContentType]) {
-        guard self.selectionEnabled() else { return }
+        guard selectionEnabled else { return }
         ids.values.forEach { self.turnIntoOptionsStorage.deselectBlockType(type: $0) }
         self.storage.remove(ids: Set(ids.keys))
     }
@@ -80,13 +81,13 @@ extension EditorSelectionHandler: EditorModuleSelectionHandlerProtocol {
     /// Is it better to use `add(ids:)` here?
     ///
     func select(ids: [BlockId: BlockContentType]) {
-        guard self.selectionEnabled() else { return }
+        guard selectionEnabled else { return }
         ids.values.forEach { self.turnIntoOptionsStorage.selectBlockType(type: $0) }
         self.storage.set(ids: Set(ids.keys))
     }
     
-    func list() -> [BlockId] {
-        self.storage.listSelectedIds()
+    var list: [BlockId] {
+        storage.listSelectedIds()
     }
     
     /// We should fire events only if selection is enabled.
@@ -107,7 +108,7 @@ extension EditorSelectionHandler: EditorModuleSelectionHandlerProtocol {
     /// Otherwise, we can't remove or selected ids.
     ///
     func set(selected: Bool, id: BlockId, type: BlockContentType) {
-        guard self.selectionEnabled() else { return }
+        guard selectionEnabled else { return }
         if selected {
             self.turnIntoOptionsStorage.selectBlockType(type: type)
         } else {
@@ -125,7 +126,7 @@ extension EditorSelectionHandler: EditorModuleSelectionHandlerProtocol {
     
     func selectionCellEvent(_ id: BlockId) -> EditorSelectionIncomingCellEvent {
         let isSelected = self.selected(id: id)
-        return .payload(.init(selectionEnabled: self.selectionEnabled(), isSelected: isSelected))
+        return .payload(.init(selectionEnabled: selectionEnabled, isSelected: isSelected))
     }
     
     func selectionCellEventPublisher(_ id: BlockId) -> AnyPublisher<EditorSelectionIncomingCellEvent, Never> {

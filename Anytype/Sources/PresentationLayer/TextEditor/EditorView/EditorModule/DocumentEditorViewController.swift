@@ -144,15 +144,15 @@ extension DocumentEditorViewController {
 // MARK: - UICollectionViewDelegate
 extension DocumentEditorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.viewModel.didSelectBlock(at: indexPath)
-        if self.viewModel.selectionEnabled() {
+        viewModel.didSelectBlock(at: indexPath)
+        if viewModel.selectionHandler.selectionEnabled {
             return
         }
         collectionView.deselectItem(at: indexPath, animated: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if !self.viewModel.selectionEnabled() {
+        if !viewModel.selectionHandler.selectionEnabled {
             return
         }
         self.viewModel.didSelectBlock(at: indexPath)
@@ -160,7 +160,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
-        if self.viewModel.selectionEnabled() {
+        if viewModel.selectionHandler.selectionEnabled {
             if case let .text(text) = item.content {
                 return text.contentType != .title
             }
@@ -386,7 +386,7 @@ private extension DocumentEditorViewController {
         cell.contentConfiguration = item.makeContentConfiguration()
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel()
-        cell.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
+        cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
 
         let backgroundView = UIView()
         backgroundView.backgroundColor = .clear
@@ -401,12 +401,10 @@ private extension DocumentEditorViewController {
     }
 
     @objc func tapOnListViewGestureRecognizerHandler() {
-        guard viewModel.selectionEnabled() == false else {
-            return
-        }
+        if viewModel.selectionHandler.selectionEnabled == true { return }
+        
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
-
         guard cellIndexPath == nil else { return }
 
         viewModel.handlingTapOnEmptySpot()

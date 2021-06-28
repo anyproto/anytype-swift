@@ -40,7 +40,7 @@ class DocumentEditorViewModel: ObservableObject {
     @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {
         didSet {
             if self.blocksViewModels.isEmpty {
-                self.set(selectionEnabled: false)
+                selectionHandler.selectionEnabled = false
             }
         }
     }
@@ -78,9 +78,11 @@ class DocumentEditorViewModel: ObservableObject {
                 
                 switch updateResult.updates {
                 case .general:
-                    let blocksViewModels = self.blocksConverter.convert(updateResult.models,
-                                                                        router: self.editorRouter,
-                                                                        editorViewModel: self)
+                    let blocksViewModels = self.blocksConverter.convert(
+                        updateResult.models,
+                        router: self.editorRouter,
+                        editorViewModel: self
+                    )
                     self.update(blocksViewModels: blocksViewModels)
                 case let .update(update):
                     if update.updatedIds.isEmpty {
@@ -148,7 +150,7 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func didSelectBlock(at index: IndexPath) {
-        if selectionEnabled() {
+        if selectionHandler.selectionEnabled {
             didSelect(atIndex: index)
             return
         }
@@ -165,9 +167,11 @@ extension DocumentEditorViewModel {
 
     private func didSelect(atIndex: IndexPath) {
         guard let item = element(at: atIndex) else { return }
-        self.set(selected: !self.selected(id: item.blockId),
-                 id: item.blockId,
-                 type: item.block.content.type)
+        selectionHandler.set(
+            selected: !selectionHandler.selected(id: item.blockId),
+            id: item.blockId,
+             type: item.block.content.type
+        )
     }
 }
 
@@ -239,6 +243,6 @@ extension DocumentEditorViewModel: EditorModuleSelectionHandlerHolderProtocol {
         let ids = self.blocksViewModels.dropFirst().reduce(into: [BlockId: BlockContentType]()) { result, model in
             result[model.blockId] = model.block.content.type
         }
-        self.select(ids: ids)
+        selectionHandler.select(ids: ids)
     }
 }

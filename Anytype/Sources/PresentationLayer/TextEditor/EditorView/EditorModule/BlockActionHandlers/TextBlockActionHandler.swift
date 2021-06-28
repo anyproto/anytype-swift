@@ -16,7 +16,7 @@ final class TextBlockActionHandler {
         self.documentViewInteraction = documentViewInteraction
     }
 
-    func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: CustomTextView.UserAction) {
+    func handlingTextViewAction(_ block: BlockActiveRecordProtocol, _ action: CustomTextView.UserAction) {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
@@ -36,7 +36,7 @@ final class TextBlockActionHandler {
         }
     }
     
-    private func handleChangeText(_ block: BlockActiveRecordModelProtocol, text: NSAttributedString) {
+    private func handleChangeText(_ block: BlockActiveRecordProtocol, text: NSAttributedString) {
         guard case var .text(textContentType) = block.content else { return }
         var blockModel = block.blockModel
 
@@ -47,7 +47,7 @@ final class TextBlockActionHandler {
         textService.setText(contextID: contextId, blockID: blockId, attributedString: text)
     }
 
-    private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {
+    private func handlingKeyboardAction(_ block: BlockActiveRecordProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {
         if DetailsKind(rawValue: block.blockId) == .name {
             switch action {
             case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:

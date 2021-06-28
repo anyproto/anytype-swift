@@ -3,14 +3,14 @@ import Combine
 
 struct BaseDocumentUpdateResult {
     var updates: EventHandlerUpdate
-    var models: [BlockActiveRecordModelProtocol]
+    var models: [BlockActiveRecordProtocol]
 }
 
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: BlockUserSessionModelProtocol? { get }
-    var rootActiveModel: BlockActiveRecordModelProtocol? { get }
+    var rootActiveModel: BlockActiveRecordProtocol? { get }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
     func open(_ value: ServiceSuccess)

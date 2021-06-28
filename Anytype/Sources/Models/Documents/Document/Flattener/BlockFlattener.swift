@@ -49,7 +49,7 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options
     /// - Returns: A list of block ids.
-    private static func flatten(root model: BlockActiveRecordModelProtocol,
+    private static func flatten(root model: BlockActiveRecordProtocol,
                                 in container: ContainerModelProtocol,
                                 options: BlockFlattenerOptions) -> [BlockId] {
         var result: Array<BlockId> = .init()
@@ -84,7 +84,7 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of active models.
-    static func flatten(root model: BlockActiveRecordModelProtocol, in container: ContainerModelProtocol, options: BlockFlattenerOptions) -> [BlockActiveRecordModelProtocol] {
+    static func flatten(root model: BlockActiveRecordProtocol, in container: ContainerModelProtocol, options: BlockFlattenerOptions) -> [BlockActiveRecordProtocol] {
         let ids = flattenIds(root: model,
                               in: container,
                               options: options)
@@ -99,7 +99,7 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of block ids.
-    @discardableResult static func flattenIds(root model: BlockActiveRecordModelProtocol,
+    @discardableResult static func flattenIds(root model: BlockActiveRecordProtocol,
                                               in container: ContainerModelProtocol,
                                               options: BlockFlattenerOptions) -> [BlockId] {
         /// TODO: Fix it.

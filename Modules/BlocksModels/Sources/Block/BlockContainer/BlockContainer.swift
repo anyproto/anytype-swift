@@ -51,7 +51,7 @@ extension BlockContainer: BlockContainerModelProtocol {
         return []
     }
     // MARK: - Operations / Choose
-    func choose(by id: BlockId) -> BlockActiveRecordModelProtocol? {
+    func choose(by id: BlockId) -> BlockActiveRecordProtocol? {
         self._choose(by: id)
     }
     // MARK: - Operations / Get

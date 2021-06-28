@@ -16,7 +16,7 @@ final class HomeCellDataBuilder {
             .map { buildPageCellData(pageLink: $0) }
     }
     
-    private func activeRecordToPageLink(_ activeRecord: BlockActiveRecordModelProtocol) -> HomePageLink? {
+    private func activeRecordToPageLink(_ activeRecord: BlockActiveRecordProtocol) -> HomePageLink? {
         guard case .link(let link) = activeRecord.content else { return nil }
 
         let details = document.getDetails(by: link.targetBlockID)?.currentDetails

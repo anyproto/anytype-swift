@@ -16,7 +16,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
         static let maxIndentationLevel: Int = 4
     }
     
-    private(set) var block: BlockActiveRecordModelProtocol
+    let block: BlockActiveRecordProtocol
     private(set) weak var baseBlockDelegate: BaseBlockDelegate?
     private(set) weak var actionHandler: NewBlockActionHandler?
     let router: EditorRouterProtocol?
@@ -25,7 +25,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     // MARK: - Initialization
 
     init(
-        _ block: BlockActiveRecordModelProtocol,
+        _ block: BlockActiveRecordProtocol,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?,
         router: EditorRouterProtocol?
@@ -34,15 +34,6 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
         self.baseBlockDelegate = delegate
         self.actionHandler = actionHandler
         self.router = router
-    }
-    
-    // MARK: - Subclass / Blocks
-    func update(body: (inout BlockActiveRecordModelProtocol) -> ()) {
-        let isRealBlock = block.blockModel.kind == .block
-        
-        if isRealBlock {
-            block = update(block, body: body)
-        }
     }
     
     // MARK: - Handle events
@@ -160,23 +151,6 @@ extension BaseBlockViewModel {
     }
 }
 
-// MARK: - Updates (could be proposed in further releases)
-
-extension BaseBlockViewModel {
-    /// Update structure in natural `.with` way.
-    /// - Parameters:
-    ///   - value: a struct that you want to update
-    ///   - body: block with updates.
-    /// - Returns: new updated structure.
-    private func update<T>(_ value: T, body: (inout T) -> ()) -> T {
-        var value = value
-        body(&value)
-        return value
-    }
-}
-
-/// Requirement: `BlockViewBuilderProtocol` is necessary for view model.
-/// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
 extension BaseBlockViewModel {
     var blockId: BlockId { block.blockId }
     var information: BlockInformation { block.blockModel.information }
