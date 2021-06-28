@@ -67,7 +67,6 @@ final class CodeBlockContentView: UIView & UIContentView {
         let textView = UITextView(frame: .zero, textContainer: textContainer)
         textView.isScrollEnabled = false
         textView.delegate = self
-        textStorage.highlightDelegate = self
         textStorage.highlightr.theme.boldCodeFont = .codeFont
         codeSelectButton.setText(Constants.defaultLanguage)
 
