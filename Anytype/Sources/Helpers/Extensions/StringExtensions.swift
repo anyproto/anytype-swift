@@ -35,4 +35,14 @@ extension String {
             (self as AnyObject).draw(in: rect, withAttributes: [.font: font])
         }
     }
+    
+    func isValidURL() -> Bool {
+        guard !isEmpty,
+              let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else { return false }
+        let range = detector.rangeOfFirstMatch(
+            in: self,
+            range: NSRange(location: 0, length: count)
+        )
+        return range.location == 0 && range.length == count
+    }
 }
