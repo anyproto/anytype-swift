@@ -155,7 +155,7 @@ private extension BlocksViewsImageViewModel {
             }
         }
         
-        func setupImage(_ file: BlockContent.File, _ oldFile: BlockContent.File?) {
+        func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             guard imageId != oldFile?.metadata.hash else { return }
@@ -182,7 +182,7 @@ private extension BlocksViewsImageViewModel {
             self.imageLoader.cleanupSubscription()
         }
         /// Handle new value
-        private func handleFile(_ file: BlockContent.File, _ oldFile: BlockContent.File?) {
+        private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
 
             switch file.state {
             case .empty:

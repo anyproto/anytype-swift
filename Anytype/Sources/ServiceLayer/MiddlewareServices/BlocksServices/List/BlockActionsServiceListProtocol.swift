@@ -4,7 +4,7 @@ import BlocksModels
 import UIKit
 
 protocol BlockActionsServiceListProtocol {
-    typealias DividerStyle = BlockContent.Divider.Style
+    typealias DividerStyle = BlockDivider.Style
     typealias TextStyle = BlockText.ContentType
     typealias Alignment = BlockInformationAlignment
     typealias Field = String

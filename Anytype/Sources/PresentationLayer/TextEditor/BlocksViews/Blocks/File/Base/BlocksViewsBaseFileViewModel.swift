@@ -3,14 +3,18 @@ import Combine
 
 class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     private var subscription: AnyCancellable?
-    
-    private var fileContentPublisher: AnyPublisher<BlockContent.File, Never> = .empty()
-    
-    @Published private(set) var fileResource: BlocksViewsFileUIKitViewWithFile.Resource?
     private var subscriptions: Set<AnyCancellable> = []
-    @Published var state: BlockContent.File.State? { willSet { self.objectWillChange.send() } }
     
-    init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, router: EditorRouterProtocol?, actionHandler: NewBlockActionHandler?) {
+    private var fileContentPublisher: AnyPublisher<BlockFile, Never> = .empty()
+    
+    @Published var state: BlockFileState? { willSet { self.objectWillChange.send() } }
+    
+    init(
+        _ block: BlockActiveRecordModelProtocol,
+        delegate: BaseBlockDelegate?,
+        router: EditorRouterProtocol?,
+        actionHandler: NewBlockActionHandler?
+    ) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         setupSubscribers()
     }
@@ -106,7 +110,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     }
     
     private func setupSubscribers() {
-        let fileContentPublisher = block.didChangeInformationPublisher().map({ value -> BlockContent.File? in
+        let fileContentPublisher = block.didChangeInformationPublisher().map({ value -> BlockFile? in
             switch value.content {
             case let .file(value): return value
             default: return nil
@@ -115,16 +119,9 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
         /// Should we store it (?)
         self.fileContentPublisher = fileContentPublisher
         
-        self.subscription = self.fileContentPublisher.sink(receiveValue: { [weak self] (value) in
-            self?.state = value.state
-            
-            let metadata = value.metadata
-            self?.fileResource = .init(
-                size: BlocksViewsFileSizeConverter.convert(size: Int(metadata.size)),
-                name: metadata.name,
-                typeIcon: BlocksViewsFileMimeConverter.convert(mime: metadata.mime)
-            )
-        })
+        self.subscription = self.fileContentPublisher.sink { [weak self] file in
+            self?.state = file.state
+        }
     }
     
     private func sendFile(at filePath: String) {

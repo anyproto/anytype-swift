@@ -26,5 +26,5 @@ struct BlocksViewsFileMimeConverter {
         .video: UIImage.blockFile.content.video,
         .archive: UIImage.blockFile.content.archive
     ]
-          
+
 }

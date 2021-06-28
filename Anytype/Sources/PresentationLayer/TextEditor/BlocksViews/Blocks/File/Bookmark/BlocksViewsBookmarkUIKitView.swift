@@ -63,7 +63,7 @@ extension BlocksViews.Bookmark.UIKitView {
         self.handle(value)
     }
     
-    func apply(_ value: BlockContent.Bookmark) {
+    func apply(_ value: BlockBookmark) {
         let model = BookmarkViewModel.ResourceConverter.asOurModel(value)
         self.apply(model)
     }

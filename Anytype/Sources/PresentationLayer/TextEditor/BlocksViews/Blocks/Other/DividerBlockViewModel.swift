@@ -7,11 +7,11 @@ import MobileCoreServices
 
 
 class DividerBlockViewModel: BaseBlockViewModel {
-    private let content: BlockContent.Divider
+    private let content: BlockDivider
     
     init(
         _ block: BlockActiveRecordModelProtocol,
-        content: BlockContent.Divider,
+        content: BlockDivider,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?,
         router: EditorRouterProtocol?

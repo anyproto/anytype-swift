@@ -6,7 +6,7 @@ class ContentLayoutConverter {
         BlocksModelsParserLayoutStyleConverter.asModel(from.style).flatMap({ .layout(.init(style: $0)) })
     }
     
-    func middleware(_ from: BlockContent.Layout) -> Anytype_Model_Block.OneOf_Content {
+    func middleware(_ from: BlockLayout) -> Anytype_Model_Block.OneOf_Content {
         let style = BlocksModelsParserLayoutStyleConverter.asMiddleware(from.style)
         return .layout(.init(style: style))
     }

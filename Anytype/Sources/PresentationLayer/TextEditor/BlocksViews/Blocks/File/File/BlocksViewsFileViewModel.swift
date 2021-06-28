@@ -102,7 +102,7 @@ private extension BlocksViewsFileViewModel {
             topView.pinAllEdges(to: self, insets: Constants.topViewContentInsets)
         }
         
-        private func handle(_ value: BlockContent.File) {
+        private func handle(_ value: BlockFile) {
             switch value.contentType {
             case .file: self.topView.apply(value)
             default: return

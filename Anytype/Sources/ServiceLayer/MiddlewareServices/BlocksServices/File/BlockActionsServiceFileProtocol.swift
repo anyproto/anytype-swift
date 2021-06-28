@@ -4,7 +4,7 @@ import BlocksModels
 import ProtobufMessages
 
 protocol BlockActionsServiceFileProtocol {
-    typealias ContentType = BlockContent.File.ContentType
+    typealias ContentType = BlockFile.ContentType
     typealias BlobData = Data
     typealias FileHash = String
     

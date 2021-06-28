@@ -3,8 +3,8 @@ import BlocksModels
 
 class ContentFileConverter {
     func blockType(_ from: Anytype_Model_Block.Content.File) -> BlockContent? {
-        guard let state = BlocksModelsParserFileStateConverter.asModel(from.state) else { return nil }
-        return BlocksModelsParserFileContentTypeConverter.asModel(from.type).flatMap(
+        guard let state = BlockFileStateConverter.asModel(from.state) else { return nil }
+        return BlockContentFileContentTypeConverter.asModel(from.type).flatMap(
             {.file(.init(
                     metadata: .init(
                         name: from.name,
@@ -18,11 +18,11 @@ class ContentFileConverter {
         )
     }
     
-    func middleware(_ from: BlockContent.File) -> Anytype_Model_Block.OneOf_Content? {
-        let state = BlocksModelsParserFileStateConverter.asMiddleware(from.state)
+    func middleware(_ from: BlockFile) -> Anytype_Model_Block.OneOf_Content? {
+        let state = BlockFileStateConverter.asMiddleware(from.state)
         let metadata = from.metadata
         
-        return BlocksModelsParserFileContentTypeConverter.asMiddleware(from.contentType).flatMap(
+        return BlockContentFileContentTypeConverter.asMiddleware(from.contentType).flatMap(
             {.file(.init(
                     hash: metadata.hash,
                     name: metadata.name,

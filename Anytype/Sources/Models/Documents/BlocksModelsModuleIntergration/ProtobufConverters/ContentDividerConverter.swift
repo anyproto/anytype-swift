@@ -6,7 +6,7 @@ class ContentDividerConverter {
         BlocksModelsParserOtherDividerStyleConverter.asModel(from.style).flatMap({ .divider(.init(style: $0)) })
     }
     
-    func middleware(_ from: BlockContent.Divider) -> Anytype_Model_Block.OneOf_Content {
+    func middleware(_ from: BlockDivider) -> Anytype_Model_Block.OneOf_Content {
         let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(from.style)
         return .div(.init(style: style))
     }

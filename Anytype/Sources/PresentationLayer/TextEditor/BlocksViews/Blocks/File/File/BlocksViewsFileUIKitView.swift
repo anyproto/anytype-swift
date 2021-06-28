@@ -109,7 +109,7 @@ class BlocksViewsFileUIKitView: UIView {
         }
     }
                     
-    private func handle(_ file: BlockContent.File) {
+    private func handle(_ file: BlockFile) {
         
         switch file.state  {
         case .empty:
@@ -130,7 +130,7 @@ class BlocksViewsFileUIKitView: UIView {
 
     }
             
-    func configured(publisher: AnyPublisher<BlockContent.File, Never>) -> Self {
+    func configured(publisher: AnyPublisher<BlockFile, Never>) -> Self {
         self.subscription = publisher.receiveOnMain().sink { [weak self] (value) in
             self?.handle(value)
         }
@@ -144,14 +144,14 @@ class BlocksViewsFileUIKitView: UIView {
 }
 
 extension BlocksViewsFileUIKitView {
-    func process(_ file: BlockContent.File) {
+    func process(_ file: BlockFile) {
         self.handle(file)
     }
     
     func process(_ resource: BlocksViewsFileUIKitViewWithFile.Resource?) {
         self.fileView.handle(resource)
     }
-    func apply(_ file: BlockContent.File) {
+    func apply(_ file: BlockFile) {
         self.process(file)
         let resource: BlocksViewsFileUIKitViewWithFile.Resource?
         switch file.contentType {

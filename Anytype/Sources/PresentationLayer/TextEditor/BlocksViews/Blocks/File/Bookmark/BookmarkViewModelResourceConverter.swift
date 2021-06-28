@@ -13,11 +13,11 @@ extension BookmarkViewModel {
     
     enum ResourceConverter {
         
-        static func asModel(_ value: Resource) -> BlockContent.Bookmark? {
+        static func asModel(_ value: Resource) -> BlockBookmark? {
             return nil
         }
         
-        static func asOurModel(_ value: BlockContent.Bookmark) -> Resource? {
+        static func asOurModel(_ value: BlockBookmark) -> Resource? {
             if value.url.isEmpty {
                 return .empty()
             }

@@ -11,7 +11,7 @@ import BlocksModels
 import ProtobufMessages
 
 final class BlocksModelsParserOtherDividerStyleConverter {
-    typealias Model = BlockContent.Divider.Style
+    typealias Model = BlockDivider.Style
     typealias MiddlewareModel = Anytype_Model_Block.Content.Div.Style
     
     static func asModel(_ value: MiddlewareModel) -> Model? {

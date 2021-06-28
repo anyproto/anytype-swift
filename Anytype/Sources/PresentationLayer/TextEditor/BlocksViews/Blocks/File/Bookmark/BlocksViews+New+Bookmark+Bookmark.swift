@@ -79,7 +79,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
     
     private func setup() {
         self.subscription = block.didChangeInformationPublisher()
-            .map { value -> BlockContent.Bookmark? in
+            .map { value -> BlockBookmark? in
                 guard case let .bookmark(value) = value.content else {
                     return nil
                 }

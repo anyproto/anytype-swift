@@ -230,13 +230,13 @@ final class InnerEventConverter {
                     var value = value
 
                     if newUpdate.hasType {
-                        if let contentType = BlocksModelsParserFileContentTypeConverter.asModel(newUpdate.type.value) {
+                        if let contentType = BlockContentFileContentTypeConverter.asModel(newUpdate.type.value) {
                             value.contentType = contentType
                         }
                     }
 
                     if newUpdate.hasState {
-                        if let state = BlocksModelsParserFileStateConverter.asModel(newUpdate.state.value) {
+                        if let state = BlockFileStateConverter.asModel(newUpdate.state.value) {
                             value.state = state
                         }
                     }

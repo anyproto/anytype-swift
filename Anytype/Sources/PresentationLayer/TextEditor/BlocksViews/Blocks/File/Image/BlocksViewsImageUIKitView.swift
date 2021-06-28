@@ -145,7 +145,7 @@ class BlocksViewsImageUIKitView: UIView {
         }
     }
     
-    func setupImage(_ file: BlockContent.File) {
+    func setupImage(_ file: BlockFile) {
         guard !file.metadata.hash.isEmpty else { return }
         let imageId = file.metadata.hash
         
@@ -171,7 +171,7 @@ class BlocksViewsImageUIKitView: UIView {
         }
     }
     
-    private func handleFile(_ file: BlockContent.File) {
+    private func handleFile(_ file: BlockFile) {
         self.removeViewsIfExist()
         
         switch file.state  {
@@ -194,7 +194,7 @@ class BlocksViewsImageUIKitView: UIView {
         }
     }
     
-    func configured(publisher: AnyPublisher<BlockContent.File, Never>) -> Self {
+    func configured(publisher: AnyPublisher<BlockFile, Never>) -> Self {
         self.subscription = publisher.receiveOnMain().sink { [weak self] (value) in
             self?.handleFile(value)
         }

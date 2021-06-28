@@ -2,8 +2,8 @@ import Foundation
 import BlocksModels
 import ProtobufMessages
 
-final class BlocksModelsParserFileContentTypeConverter {
-    typealias Model = BlockContent.File.ContentType
+final class BlockContentFileContentTypeConverter {
+    typealias Model = BlockFile.ContentType
     typealias MiddlewareModel = Anytype_Model_Block.Content.File.TypeEnum
     
     static func asModel(_ value: MiddlewareModel) -> Model? {

@@ -4,10 +4,9 @@ import UIKit
 
 struct VideoBlockContentViewConfiguration {
     
-    typealias State = BlockContent.File.State
-    typealias Metadata = BlockContent.File.Metadata
+    typealias Metadata = BlockFile.Metadata
     
-    let state: State
+    let state: BlockFileState
     let metadata: Metadata
     weak var blockViewModel: BaseBlockViewModel?
     

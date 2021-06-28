@@ -2,6 +2,7 @@
 import AVKit
 import Combine
 import UIKit
+import BlocksModels
 
 /// View model for video block
 final class VideoBlockContentView: UIView, UIContentView {
@@ -106,7 +107,7 @@ final class VideoBlockContentView: UIView, UIContentView {
         self.applyNewConfiguration(oldState: oldConfiguration.state)
     }
     
-    private func applyNewConfiguration(oldState: VideoBlockContentViewConfiguration.State) {
+    private func applyNewConfiguration(oldState: BlockFileState) {
         switch (oldState, self.currentConfiguration.state) {
         case (.done, .done):
             self.setVideoURL()

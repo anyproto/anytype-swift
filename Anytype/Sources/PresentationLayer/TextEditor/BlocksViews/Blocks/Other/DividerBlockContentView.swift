@@ -12,7 +12,7 @@ class DividerBlockContentView: UIView & UIContentView {
         dividerView.edgesToSuperview()
     }
     
-    func handle(_ state: BlockContent.Divider.Style) {
+    func handle(_ state: BlockDivider.Style) {
         switch state {
         case .line: dividerView.toLineView()
         case .dots: dividerView.toDotsView()

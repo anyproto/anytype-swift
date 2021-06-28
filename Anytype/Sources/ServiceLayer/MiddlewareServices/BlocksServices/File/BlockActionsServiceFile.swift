@@ -18,7 +18,7 @@ class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     }
         
     func uploadFile(url: String, localPath: String, type: ContentType, disableEncryption: Bool) -> AnyPublisher<FileHash, Error> {
-        guard let contentType = BlocksModelsParserFileContentTypeConverter.asMiddleware(type) else {
+        guard let contentType = BlockContentFileContentTypeConverter.asMiddleware(type) else {
             return Fail.init(error: PossibleError.uploadFileActionContentTypeConversionHasFailed).eraseToAnyPublisher()
         }
         return uploadFile(url: url, localPath: localPath, type: contentType, disableEncryption: disableEncryption)

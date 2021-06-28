@@ -5,7 +5,7 @@ import ProtobufMessages
 final class BlocksModelsParserLayoutStyleConverter {
     typealias MiddlewareModel = Anytype_Model_Block.Content.Layout.Style
     
-    static func asModel(_ value: MiddlewareModel) -> BlockContent.Layout.Style? {
+    static func asModel(_ value: MiddlewareModel) -> BlockLayout.Style? {
         switch value {
         case .row: return .row
         case .column: return .column
@@ -15,7 +15,7 @@ final class BlocksModelsParserLayoutStyleConverter {
         }
     }
     
-    static func asMiddleware(_ value: BlockContent.Layout.Style) -> MiddlewareModel {
+    static func asMiddleware(_ value: BlockLayout.Style) -> MiddlewareModel {
         switch value {
         case .row: return .row
         case .column: return .column

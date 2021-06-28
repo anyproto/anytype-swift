@@ -7,7 +7,7 @@ import MobileCoreServices
 
 
 struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
-    let content: BlockContent.Divider
+    let content: BlockDivider
     
     // MARK:  - UIContentConfiguration
     func makeContentView() -> UIView & UIContentView {

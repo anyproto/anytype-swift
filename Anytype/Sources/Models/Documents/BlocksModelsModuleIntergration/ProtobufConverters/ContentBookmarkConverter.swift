@@ -12,7 +12,7 @@ class ContentBookmarkConverter {
         )
     }
     
-    func middleware(_ from: BlockContent.Bookmark) -> Anytype_Model_Block.OneOf_Content {
+    func middleware(_ from: BlockBookmark) -> Anytype_Model_Block.OneOf_Content {
         .bookmark(
             .init(
                 url: from.url,

@@ -54,7 +54,7 @@ extension BookmarkViewModel {
             self.topView.apply(value)
         }
         
-        private func handle(_ value: BlockContent.Bookmark) {
+        private func handle(_ value: BlockBookmark) {
             if self.iconSubscription.isNil {
                 let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.iconProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
