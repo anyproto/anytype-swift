@@ -52,14 +52,21 @@ extension NSAttributedString {
     /// - Parameters:
     ///  - string: String to append
     ///  - index: Index where to insert string
+    ///  - attachmentAttributes: attributes to use in case we insert new string at index with attachment
     ///
     /// - Returns: New attributed string
-    func attributedStringByInserting(_ string: String, at index: Int) -> NSAttributedString {
+    func attributedStringByInserting(_ string: String,
+                                     at index: Int,
+                                     attachmentAttributes: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
         guard !string.isEmpty, index <= length else { return self }
         let attributesIndex = index == length ? index - 1 : index
+        var attributesAtIndex = attributes(at: attributesIndex,
+                                           effectiveRange: nil)
+        if attributesAtIndex.keys.contains(.attachment) {
+            attributesAtIndex = attachmentAttributes
+        }
         let stringToInsert = NSAttributedString(string: string,
-                                                attributes: attributes(at: attributesIndex,
-                                                                       effectiveRange: nil))
+                                                attributes: attributesAtIndex)
         let mutableString = NSMutableAttributedString(attributedString: self)
         mutableString.insert(stringToInsert, at: index)
         return NSAttributedString(attributedString: mutableString)

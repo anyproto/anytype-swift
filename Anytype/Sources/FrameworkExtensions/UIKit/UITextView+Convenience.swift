@@ -16,7 +16,11 @@ extension UITextView {
             attributedText = NSAttributedString(string: string, attributes: typingAttributes)
         } else {
             let selectedRangeLocation = selectedRange.location
-            attributedText = attributedText?.attributedStringByInserting(string, at: selectedRangeLocation)
+            attributedText = attributedText?.attributedStringByInserting(
+                string,
+                at: selectedRangeLocation,
+                attachmentAttributes: typingAttributes
+            )
             selectedRange.location = selectedRangeLocation + string.count
         }
     }
