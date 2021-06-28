@@ -15,6 +15,9 @@ extension UIColor {
     }
     
     static let grayscale90 = color(name: ColorName.grayscale90)
+    static let grayscale50 = color(name: ColorName.grayscale50)
+    static let grayscale30 = color(name: ColorName.grayscale30)
+    static let grayscale10 = color(name: ColorName.grayscale10)    
     
     static let pureAmber = color(name: ColorName.pureAmber)
     static let pureLemon = color(name: ColorName.pureLemon)
@@ -29,15 +32,10 @@ extension UIColor {
     static let darkColdGray = color(name: ColorName.darkColdGray)
     static let lightColdGray = color(name: ColorName.lightColdGray)
 
-    static var grayscale30: UIColor {
-        .init(hexString: "#DFDDD0")
-    }
 
     static var darkGreen: UIColor {
         .init(hexString: "#57C600")
     }
-
-    static let grayscale10 = color(name: ColorName.grayscale10)
 
     // MARK: - Color for background
 

@@ -38,24 +38,24 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     // MARK: - Contextual Menu
     
-    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+    override func makeContextualMenu() -> ContextualMenu {
         guard case let .text(text) = block.content else {
             return .init(title: "", children: [])
         }
         
-        let actions: [BlocksViews.ContextualMenu.MenuAction] = {
-            var result: [BlocksViews.ContextualMenu.MenuAction] = [
-                .create(action: .general(.addBlockBelow))
+        let actions: [ContextualMenuActionData] = {
+            var result: [ContextualMenuActionData] = [
+                .init(action: .addBlockBelow)
             ]
             
             guard text.contentType != .title else { return result }
             
             result.append(
                 contentsOf: [
-                    .create(action: .specific(.turnIntoPage)),
-                    .create(action: .general(.delete)),
-                    .create(action: .general(.duplicate)),
-                    .create(action: .specific(.style))
+                    .init(action: .turnIntoPage),
+                    .init(action: .delete),
+                    .init(action: .duplicate),
+                    .init(action: .style)
                 ]
             )
             

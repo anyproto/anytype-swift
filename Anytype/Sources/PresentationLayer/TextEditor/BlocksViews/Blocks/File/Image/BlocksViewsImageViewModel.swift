@@ -11,8 +11,13 @@ final class BlocksViewsImageViewModel: BlocksViewsBaseFileViewModel {
     
     override func handleReplace() {
         let model: MediaPicker.ViewModel = .init(type: .images)
-        configureMediaPickerViewModel(model)
         router?.showImagePicker(model: model)
+        
+        model.onResultInformationObtain = { [weak self] resultInformation in
+            guard let resultInformation = resultInformation else { return }
+            
+            self?.sendFile(at: resultInformation.filePath)
+        }
     }
 }
 
@@ -72,7 +77,7 @@ private extension BlocksViewsImageViewModel {
         
         private var imageContentViewHeight: NSLayoutConstraint?
         private let imageView = UIImageView()
-        private let emptyView = BlocksViewsBaseFileTopUIKitEmptyView(
+        private let emptyView = BlocksFileEmptyView(
             viewData: .init(
                 image: UIImage.blockFile.empty.image,
                 placeholderText: BlocksViewsImageUIKitView.Constants.emptyViewPlaceholderTitle

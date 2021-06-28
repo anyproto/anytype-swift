@@ -33,11 +33,11 @@ class DividerBlockViewModel: BaseBlockViewModel {
     }
     
     // MARK: Contextual Menu
-    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+    override func makeContextualMenu() -> ContextualMenu {
         .init(title: "", children: [
-            .create(action: .general(.addBlockBelow)),
-            .create(action: .general(.delete)),
-            .create(action: .general(.duplicate))
+            .init(action: .addBlockBelow),
+            .init(action: .delete),
+            .init(action: .duplicate)
         ])
     }
 }

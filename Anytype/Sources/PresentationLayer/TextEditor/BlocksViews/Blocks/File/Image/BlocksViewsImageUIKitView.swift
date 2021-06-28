@@ -28,7 +28,7 @@ class BlocksViewsImageUIKitView: UIView {
     var imageContentViewHeight: NSLayoutConstraint?
     var imageView: UIImageView!
     
-    var emptyView: BlocksViewsBaseFileTopUIKitEmptyView!
+    var emptyView: BlocksFileEmptyView!
     
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -76,7 +76,7 @@ class BlocksViewsImageUIKitView: UIView {
     func setupEmptyView() {
         
         self.emptyView = {
-            let view = BlocksViewsBaseFileTopUIKitEmptyView(
+            let view = BlocksFileEmptyView(
                 viewData: .init(
                     image: UIImage.blockFile.empty.image,
                     placeholderText: Constants.emptyViewPlaceholderTitle

@@ -17,7 +17,7 @@ class BlocksViewsFileUIKitView: UIView {
     // MARK: Views
     var contentView: UIView!
     var fileView: BlocksViewsFileUIKitViewWithFile!
-    var emptyView: BlocksViewsBaseFileTopUIKitEmptyView!
+    var emptyView: BlocksFileEmptyView!
             
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -51,14 +51,14 @@ class BlocksViewsFileUIKitView: UIView {
         self.fileView = {
             let view = BlocksViewsFileUIKitViewWithFile()
             view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor(hexString: "#DFDDD0").cgColor
+            view.layer.borderColor = UIColor.grayscale30.cgColor
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
         
         self.emptyView = {
-            let view = BlocksViewsBaseFileTopUIKitEmptyView(
+            let view = BlocksFileEmptyView(
                 viewData: .init(
                     image: UIImage.blockFile.empty.file,
                     placeholderText: "Add link or upload a file"

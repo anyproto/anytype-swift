@@ -2,8 +2,12 @@ import UIKit
 import Combine
 import BlocksModels
 
+protocol ContextualMenuHandler {
+    func makeContextualMenu() -> ContextualMenu
+    func handle(contextualMenuAction: ContextualMenuAction)
+}
 
-class BaseBlockViewModel: ObservableObject {
+class BaseBlockViewModel: ObservableObject, ContextualMenuHandler {
     private enum Constants {
         static let maxIndentationLevel: Int = 4
     }
@@ -52,10 +56,6 @@ class BaseBlockViewModel: ObservableObject {
         min(block.indentationLevel, Constants.maxIndentationLevel)
     }
     
-    // MARK: - Subclass / Information
-
-    var information: BlockInformation { block.blockModel.information }
-    
     // MARK: - Subclass / Diffable
 
     var diffable: AnyHashable {
@@ -72,36 +72,26 @@ class BaseBlockViewModel: ObservableObject {
     // MARK: - Subclass / Events
 
     func didSelectRowInTableView() {}
-    
-    // MARK: - Subclass / ContextualMenu
 
-    func makeContextualMenu() -> BlocksViews.ContextualMenu { .init() }
+    // MARk: - ContextualMenuHandler
+    func makeContextualMenu() -> ContextualMenu { .init(title: "") }
 
-    func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
+    func handle(contextualMenuAction: ContextualMenuAction) {
         switch contextualMenuAction {
-        case let .general(value):
-            switch value {
-            case .addBlockBelow:
-                actionHandler?.handleAction(.addBlock(.text(.text)), model: block.blockModel)
-            case .delete:
-                actionHandler?.handleAction(.delete, model: block.blockModel)
-            case .duplicate:
-                actionHandler?.handleAction(.duplicate, model: block.blockModel)
-            case .moveTo:
-                break
-            }
-        case let .specific(value):
-            switch value {
-            case .turnIntoPage:
-                actionHandler?.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
-            case .style:
-                router?.showStyleMenu(block: block.blockModel, viewModel: self)
-            case .color:
-                break
-            case .backgroundColor:
-                break
-            default: return
-            }
+        case .addBlockBelow:
+            actionHandler?.handleAction(.addBlock(.text(.text)), model: block.blockModel)
+        case .delete:
+            actionHandler?.handleAction(.delete, model: block.blockModel)
+        case .duplicate:
+            actionHandler?.handleAction(.duplicate, model: block.blockModel)
+        case .turnIntoPage:
+            actionHandler?.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
+        case .style:
+            router?.showStyleMenu(block: block.blockModel, viewModel: self)
+        case .moveTo, .color, .backgroundColor:
+            break
+        case .download,.replace, .addCaption, .rename:
+            break
         }
     }
 }
@@ -128,16 +118,15 @@ extension BaseBlockViewModel {
             guard let menu = self?.makeContextualMenu() else { return nil }
 
             let uiActions = menu.children.map { action -> UIAction in
-                var identifier: UIAction.Identifier? = nil
-                if let identifierStr = action.identifier {
-                    identifier = UIAction.Identifier(identifierStr)
-                }
+                let identifier = UIAction.Identifier(action.identifier)
 
-                let action = UIAction(title: action.payload.title,
-                                      image: action.payload.currentImage,
-                                      identifier: identifier,
-                                      state: .off) { action in
-                    if let identifier = BlocksViews.ContextualMenu.MenuAction.Resources.IdentifierBuilder.action(for: action.identifier.rawValue) {
+                let action = UIAction(
+                    title: action.title,
+                    image: action.image,
+                    identifier: identifier,
+                    state: .off
+                ) { action in
+                    if let identifier = ContextualMenuIdentifierBuilder.action(for: action.identifier.rawValue) {
                         self?.handle(contextualMenuAction: identifier)
                     }
                 }
@@ -188,12 +177,9 @@ extension BaseBlockViewModel {
     }
 }
 
-/// Requirement: `Identifiable` is necessary for view model.
-/// We use these models in plain way in `SwiftUI`.
-extension BaseBlockViewModel: Identifiable {}
-
 /// Requirement: `BlockViewBuilderProtocol` is necessary for view model.
 /// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
 extension BaseBlockViewModel {
     var blockId: BlockId { block.blockId }
+    var information: BlockInformation { block.blockModel.information }
 }

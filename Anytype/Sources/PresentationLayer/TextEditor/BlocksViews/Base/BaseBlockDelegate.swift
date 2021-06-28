@@ -1,11 +1,3 @@
-//
-//  BaseBlockDelegate.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 14.06.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 
 

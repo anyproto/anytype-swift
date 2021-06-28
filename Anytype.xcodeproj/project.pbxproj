@@ -144,7 +144,7 @@
 		0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */; };
 		0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBA23EDD102000FDC9C /* MainWindow.swift */; };
 		0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BD023F0342A000FDC9C /* PlistReader.swift */; };
-		0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */; };
+		0A9F926C247AF7E5008E932C /* ContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F926B247AF7E5008E932C /* ContextualMenu.swift */; };
 		0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4324CB02D400870C18 /* DividerBlockContentConfiguration.swift */; };
 		0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */; };
 		0AA00C5224CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C5124CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift */; };
@@ -161,7 +161,7 @@
 		0ACAAD692588DD0F00DF1C82 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACAAD682588DD0F00DF1C82 /* ImageLoader.swift */; };
 		0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC356C25C196180003CF3A /* DataStructures+Stack.swift */; };
 		0ACC357625C851650003CF3A /* CompoundViewModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */; };
-		0ACDB06A25599A0C00B8B0D8 /* BlocksViewsBaseFileTopUIKitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB06925599A0C00B8B0D8 /* BlocksViewsBaseFileTopUIKitEmptyView.swift */; };
+		0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */; };
 		0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */; };
 		0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */; };
 		0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */; };
@@ -256,6 +256,10 @@
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlocksViewsImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlocksViewsImageViewModel.swift */; };
 		3D22B2122685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */; };
+		3D22B23C2687926500C78C28 /* ContextualMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */; };
+		3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */; };
+		3D22B2412687975100C78C28 /* ContextualMenuTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */; };
+		3D22B2432687976D00C78C28 /* ContextualMenuImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2422687976D00C78C28 /* ContextualMenuImageProvider.swift */; };
 		3D347BE5268205B1004BACD5 /* BookmarkToolbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D347BE3268205B0004BACD5 /* BookmarkToolbarViewModel.swift */; };
 		3D347BE6268205B1004BACD5 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D347BE4268205B0004BACD5 /* BookmarkViewController.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
@@ -713,7 +717,7 @@
 		0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingle.swift; sourceTree = "<group>"; };
 		0A996BBA23EDD102000FDC9C /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		0A996BD023F0342A000FDC9C /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
-		0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+ContextualMenuActions.swift"; sourceTree = "<group>"; };
+		0A9F926B247AF7E5008E932C /* ContextualMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextualMenu.swift; sourceTree = "<group>"; };
 		0AA00C4324CB02D400870C18 /* DividerBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserOtherDividerStyleConverter.swift; sourceTree = "<group>"; };
 		0AA00C5124CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserBookmarkTypeEnumConverter.swift; sourceTree = "<group>"; };
@@ -730,7 +734,7 @@
 		0ACAAD682588DD0F00DF1C82 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0ACC356C25C196180003CF3A /* DataStructures+Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+Stack.swift"; sourceTree = "<group>"; };
 		0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundViewModelConverter.swift; sourceTree = "<group>"; };
-		0ACDB06925599A0C00B8B0D8 /* BlocksViewsBaseFileTopUIKitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewsBaseFileTopUIKitEmptyView.swift; sourceTree = "<group>"; };
+		0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksFileEmptyView.swift; sourceTree = "<group>"; };
 		0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOtherProtocol.swift; sourceTree = "<group>"; };
 		0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFileProtocol.swift; sourceTree = "<group>"; };
 		0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceListProtocol.swift; sourceTree = "<group>"; };
@@ -825,6 +829,10 @@
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlocksViewsImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsImageViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlocksViewsImageViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksViewsBaseFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlocksViewsBaseFileViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuAction.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/ContextualMenuAction.swift; sourceTree = SOURCE_ROOT; };
+		3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuIdentifierBuilder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuIdentifierBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuTitleProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuTitleProvider.swift; sourceTree = SOURCE_ROOT; };
+		3D22B2422687976D00C78C28 /* ContextualMenuImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuImageProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuImageProvider.swift; sourceTree = SOURCE_ROOT; };
 		3D347BE3268205B0004BACD5 /* BookmarkToolbarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkToolbarViewModel.swift; path = AnyType/Sources/PresentationLayer/Common/UIKit/Pickers/Bookmark/BookmarkToolbarViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D347BE4268205B0004BACD5 /* BookmarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkViewController.swift; path = AnyType/Sources/PresentationLayer/Common/UIKit/Pickers/Bookmark/BookmarkViewController.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
@@ -1991,7 +1999,9 @@
 		0ADE618B2448877300244E49 /* UserActions */ = {
 			isa = PBXGroup;
 			children = (
-				0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */,
+				3D22B23F2687974800C78C28 /* Resources */,
+				0A9F926B247AF7E5008E932C /* ContextualMenu.swift */,
+				3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */,
 			);
 			path = UserActions;
 			sourceTree = "<group>";
@@ -2323,6 +2333,16 @@
 			path = Converters;
 			sourceTree = "<group>";
 		};
+		3D22B23F2687974800C78C28 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */,
+				3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */,
+				3D22B2422687976D00C78C28 /* ContextualMenuImageProvider.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
@@ -2437,7 +2457,7 @@
 			isa = PBXGroup;
 			children = (
 				3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */,
-				0ACDB06925599A0C00B8B0D8 /* BlocksViewsBaseFileTopUIKitEmptyView.swift */,
+				0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3701,7 +3721,7 @@
 				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BaseBlockDelegate.swift in Sources */,
-				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
+				0A9F926C247AF7E5008E932C /* ContextualMenu.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
@@ -3770,6 +3790,7 @@
 				EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */,
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
+				3D22B2412687975100C78C28 /* ContextualMenuTitleProvider.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
@@ -3892,6 +3913,7 @@
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
 				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
+				3D22B23C2687926500C78C28 /* ContextualMenuAction.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				3DBED6A1266FBF6A00B9E9AB /* UnknownLabelContentView.swift in Sources */,
@@ -3929,7 +3951,7 @@
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
-				0ACDB06A25599A0C00B8B0D8 /* BlocksViewsBaseFileTopUIKitEmptyView.swift in Sources */,
+				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
@@ -3966,6 +3988,7 @@
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
+				3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareColor.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
 				3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */,
@@ -3991,6 +4014,7 @@
 				3D568F8F2666C22D00DC7881 /* ContentFileConverter.swift in Sources */,
 				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
+				3D22B2432687976D00C78C28 /* ContextualMenuImageProvider.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				EA7DE3FE26397C08005AFEE2 /* SlashMenuActionsFilterService.swift in Sources */,
 				3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */,

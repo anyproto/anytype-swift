@@ -64,13 +64,13 @@ final class BookmarkViewModel: BaseBlockViewModel {
         return newDiffable
     }
 
-    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-        BlocksViews.ContextualMenu(
+    override func makeContextualMenu() -> ContextualMenu {
+        ContextualMenu(
             title: "",
             children: [
-                .create(action: .general(.addBlockBelow)),
-                .create(action: .general(.delete)),
-                .create(action: .general(.duplicate)),
+                .init(action: .addBlockBelow),
+                .init(action: .delete),
+                .init(action: .duplicate),
             ]
         )
     }

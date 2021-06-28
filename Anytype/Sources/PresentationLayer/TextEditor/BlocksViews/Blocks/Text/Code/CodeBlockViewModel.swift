@@ -37,12 +37,16 @@ final class CodeBlockViewModel: BaseBlockViewModel {
         return configuration
     }
     
-    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-        BlocksViews.ContextualMenu(title: "",
-                                   children: [.create(action: .general(.addBlockBelow)),
-                                              .create(action: .specific(.turnIntoPage)),
-                                              .create(action: .general(.delete)),
-                                              .create(action: .general(.duplicate))])
+    override func makeContextualMenu() -> ContextualMenu {
+        ContextualMenu(
+            title: "",
+            children: [
+                .init(action: .addBlockBelow),
+                .init(action: .turnIntoPage),
+                .init(action: .delete),
+                .init(action: .duplicate)
+            ]
+        )
     }
 
     func setCodeLanguage(_ language: String) {

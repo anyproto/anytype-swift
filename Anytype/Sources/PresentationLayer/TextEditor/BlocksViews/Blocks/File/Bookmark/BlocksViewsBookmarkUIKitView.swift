@@ -15,7 +15,7 @@ extension BlocksViews.Bookmark {
     
     final class UIKitView: UIView {
 
-        private var emptyView: BlocksViewsBaseFileTopUIKitEmptyView!
+        private var emptyView: BlocksFileEmptyView!
         private var bookmarkView: BlocksViews.Bookmark.UIKitViewWithBookmark!
                 
         private var subscription: AnyCancellable?
@@ -86,14 +86,14 @@ private extension BlocksViews.Bookmark.UIKitView {
         self.bookmarkView = {
             let view = BlocksViews.Bookmark.UIKitViewWithBookmark()
             view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor(hexString: "#DFDDD0").cgColor
+            view.layer.borderColor = UIColor.grayscale30.cgColor
             view.layer.cornerRadius = 4
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
         
         self.emptyView = {
-            let view = BlocksViewsBaseFileTopUIKitEmptyView(
+            let view = BlocksFileEmptyView(
                 viewData: .init(
                     image: UIImage.blockFile.empty.bookmark,
                     placeholderText: Constants.Resource.emptyViewPlaceholderTitle

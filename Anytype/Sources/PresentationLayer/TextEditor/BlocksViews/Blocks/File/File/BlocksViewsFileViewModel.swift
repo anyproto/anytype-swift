@@ -1,7 +1,10 @@
 import UIKit
 import BlocksModels
+import Combine
 
 final class BlocksViewsFileViewModel: BlocksViewsBaseFileViewModel {
+    
+    private var subscription: AnyCancellable?
     
     override func makeContentConfiguration() -> UIContentConfiguration {
         let configuration = ContentConfiguration.init(block.blockModel.information)
@@ -10,8 +13,11 @@ final class BlocksViewsFileViewModel: BlocksViewsBaseFileViewModel {
     
     override func handleReplace() {
         let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
-        configureListening(model)
         router?.showFilePicker(model: model)
+        
+        subscription = model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
+            self?.sendFile(at: value.filePath)
+        }
     }
 }
 
