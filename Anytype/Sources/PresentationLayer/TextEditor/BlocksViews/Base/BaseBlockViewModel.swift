@@ -73,7 +73,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
         case .turnIntoPage:
             actionHandler.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
         case .style:
-            router.showStyleMenu(block: block.blockModel)
+            router.showStyleMenu(information: block.blockModel.information)
         case .moveTo, .color, .backgroundColor:
             break
         case .download,.replace, .addCaption, .rename:

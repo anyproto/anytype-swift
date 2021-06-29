@@ -197,7 +197,7 @@ extension DocumentEditorViewController {
 
 // MARK: - EditorModuleDocumentViewInput
 
-extension DocumentEditorViewController: PresentingViewController {
+extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     
     func updateHeader() {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
@@ -246,20 +246,8 @@ extension DocumentEditorViewController: PresentingViewController {
         }
     }
 
-    func showStyleMenu(blockModel: BlockModelProtocol) {
-        guard let viewControllerForPresenting = parent else { return }
-        self.view.endEditing(true)
-
-        BottomSheetsFactory.createStyleBottomSheet(
-            parentViewController: viewControllerForPresenting,
-            delegate: self,
-            blockModel: blockModel
-        ) { [weak self] action in
-            self?.viewModel.blockActionHandler.handleActionForFirstResponder(action)
-        }
-        
-
-        let item = dataSource.snapshot().itemIdentifiers.first { $0.id == blockModel.information.id }
+    func selectBlock(blockId: BlockId) {
+        let item = dataSource.snapshot().itemIdentifiers.first { $0.id == blockId }
         if let item = item {
             let indexPath = dataSource.indexPath(for: item)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])

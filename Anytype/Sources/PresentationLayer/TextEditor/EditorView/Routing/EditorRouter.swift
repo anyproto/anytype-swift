@@ -3,6 +3,7 @@ import BlocksModels
 import SafariServices
 import Combine
 import SwiftUI
+import FloatingPanel
 
 typealias FilePickerModel = CommonViews.Pickers.File.Picker.ViewModel
 typealias MediaPickerModel = MediaPicker.ViewModel
@@ -20,18 +21,15 @@ protocol EditorRouterProtocol {
     
     func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void)
     
-    func showStyleMenu(block: BlockModelProtocol)
+    func showStyleMenu(information: BlockInformation)
 }
 
-
-protocol PresentingViewController: UIViewController, EditorModuleDocumentViewInput {}
-
 final class EditorRouter: EditorRouterProtocol {
-    private weak var viewController: PresentingViewController?
+    private weak var viewController: DocumentEditorViewController?
     private let fileRouter: FileRouter
     private lazy var dimmingTransitionDelegate = DimmingTransitionDelegate()
 
-    init(viewController: PresentingViewController?) {
+    init(viewController: DocumentEditorViewController) {
         self.viewController = viewController
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
@@ -89,7 +87,18 @@ final class EditorRouter: EditorRouterProtocol {
         viewController?.present(searchListViewController, animated: true)
     }
     
-    func showStyleMenu(block: BlockModelProtocol) {
-        viewController?.showStyleMenu(blockModel: block)
+    func showStyleMenu(information: BlockInformation) {
+        guard let controller = viewController, let parentController = controller.parent else { return }
+        controller.view.endEditing(true)
+
+        BottomSheetsFactory.createStyleBottomSheet(
+            parentViewController: parentController,
+            delegate: controller,
+            information: information
+        ) { [weak controller] action in
+            controller?.viewModel.blockActionHandler.handleActionForFirstResponder(action)
+        }
+        
+        controller.selectBlock(blockId: information.id)
     }
 }

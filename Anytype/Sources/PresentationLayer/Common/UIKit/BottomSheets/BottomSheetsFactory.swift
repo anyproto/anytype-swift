@@ -1,11 +1,3 @@
-//
-//  BottomSheetsFactory.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 20.05.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import FloatingPanel
 import BlocksModels
 import UIKit
@@ -14,10 +6,12 @@ import UIKit
 final class BottomSheetsFactory {
     typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
-    static func createStyleBottomSheet(parentViewController: UIViewController,
-                                       delegate: FloatingPanelControllerDelegate,
-                                       blockModel: BlockModelProtocol,
-                                       actionHandler: @escaping ActionHandler) {
+    static func createStyleBottomSheet(
+        parentViewController: UIViewController,
+        delegate: FloatingPanelControllerDelegate,
+        information: BlockInformation,
+        actionHandler: @escaping ActionHandler
+    ) {
         let fpc = FloatingPanelController()
         fpc.delegate = delegate
         let appearance = SurfaceAppearance()
@@ -43,9 +37,9 @@ final class BottomSheetsFactory {
         fpc.contentMode = .static
 
         // NOTE: This will be moved to coordinator in next pr
-        guard case let .text(textContentType) = blockModel.information.content.type else { return }
+        guard case let .text(textContentType) = information.content.type else { return }
         let askAttributes: () -> TextAttributesViewController.AttributesState = {
-            guard case let .text(textContent) = blockModel.information.content else {
+            guard case let .text(textContent) = information.content else {
                 return .init(hasBold: false, hasItalic: false, hasStrikethrough: false, hasCodeStyle: false)
             }
 
@@ -54,7 +48,7 @@ final class BottomSheetsFactory {
             let hasBold = textContent.attributedText.hasTrait(trait: .traitBold, at: range)
             let hasItalic = textContent.attributedText.hasTrait(trait: .traitItalic, at: range)
             let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
-            let alignment = blockModel.information.alignment.asTextAlignment
+            let alignment = information.alignment.asTextAlignment
 
             let attributes = TextAttributesViewController.AttributesState(
                 hasBold: hasBold, hasItalic: hasItalic, hasStrikethrough: hasStrikethrough, hasCodeStyle: false, alignment: alignment, url: ""
@@ -63,11 +57,11 @@ final class BottomSheetsFactory {
         }
 
         let askColor: () -> UIColor? = {
-            guard case let .text(textContent) = blockModel.information.content else { return nil }
+            guard case let .text(textContent) = information.content else { return nil }
             return MiddlewareColorConverter.asUIColor(name: textContent.color, background: false)
         }
         let askBackgroundColor: () -> UIColor? = {
-            return MiddlewareColorConverter.asUIColor(name: blockModel.information.backgroundColor, background: true)
+            return MiddlewareColorConverter.asUIColor(name: information.backgroundColor, background: true)
         }
 
         let contentVC = StyleViewController(

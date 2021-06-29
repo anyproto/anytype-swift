@@ -11,8 +11,7 @@ protocol EditorModuleDocumentViewInput: AnyObject {
 
     func updateHeader()
 
-    /// Show style menu
-    func showStyleMenu(blockModel: BlockModelProtocol)
+    func selectBlock(blockId: BlockId)
 
     /// Ask view rebuild layout
     func needsUpdateLayout()

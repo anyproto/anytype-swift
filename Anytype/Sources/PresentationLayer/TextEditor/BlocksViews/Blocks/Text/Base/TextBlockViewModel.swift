@@ -198,7 +198,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
             case .showStyleMenu:
-                router.showStyleMenu(block: block.blockModel)
+                router.showStyleMenu(information: block.blockModel.information)
             case .showMultiActionMenuAction:
                 shouldResignFirstResponder.send()
                 actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
