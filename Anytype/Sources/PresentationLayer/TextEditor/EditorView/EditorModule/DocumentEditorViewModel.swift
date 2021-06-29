@@ -204,15 +204,6 @@ extension DocumentEditorViewModel: BaseBlockDelegate {
     }
 }
 
-
-// MARK: - Public methods for view controller
-
-protocol NewBlockActionHandler: AnyObject {
-    func handleAction(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol)
-    func handleActionForFirstResponder(_ action: BlockActionHandler.ActionType)
-    func handleActionWithoutCompletion(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol)
-}
-
 extension DocumentEditorViewModel: NewBlockActionHandler {
 
     /// Block action handler

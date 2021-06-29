@@ -6,7 +6,6 @@ import BlocksModels
 
 /// ViewModel for type `.link()` with style `.page`
 final class BlockPageLinkViewModel: BaseBlockViewModel {
-    public let targetBlockId: String
     private var subscriptions: Set<AnyCancellable> = []
 
     @Published private(set) var state: BlockPageLinkState = .empty
@@ -15,21 +14,16 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
 
     init(
         _ block: BlockActiveRecordProtocol,
-        targetBlockId: String,
         publisher: AnyPublisher<DetailsData, Never>?,
         router: EditorRouterProtocol?,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?
     ) {
-        self.targetBlockId = targetBlockId
-        
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setup(block: block)
         setupSubscriptions(publisher)
     }
-
-    func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
     /// NOTES by Dima Lobanov:
     /// Look at this method carefully.

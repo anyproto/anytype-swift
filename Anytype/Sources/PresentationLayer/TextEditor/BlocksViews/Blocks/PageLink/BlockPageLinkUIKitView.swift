@@ -9,60 +9,39 @@ final class BlockPageLinkUIKitView: UIView {
         static let textContainerInset: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 8)
     }
     
-    // MARK: Views
-    // |    topView    | : | leftView | textView |
-    // |   leftView    | : |  button  |
-    let topView: TopWithChildUIKitView = .init()
-    let textView: UITextView = {
-        let placeholder = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""),
-                                             attributes: [.foregroundColor: UIColor.secondaryTextColor,
-                                                          .font: UIFont.bodyFont])
+    let topView = TopWithChildUIKitView()
+    private let textView: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false
-        view.attributedText = placeholder
+        view.font = .bodyFont
+        view.typingAttributes = [.font: UIFont.bodyFont,
+                                 .foregroundColor: UIColor.textColor,
+                                 .underlineStyle: NSUnderlineStyle.single.rawValue,
+                                 .underlineColor: UIColor.textColor]
+        view.textContainerInset = Constants.textContainerInset
+        view.textColor = .textColor
+        view.isUserInteractionEnabled = false
         return view
     }()
             
-    // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.setup()
+        setup()
     }
     
-    // MARK: Setup
-    func setup() {
-        self.setupUIElements()
-        self.self.topView.edgesToSuperview()
+    private func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(topView)
+        _ = topView.configured(textView: textView)
+        topView.edgesToSuperview()
     }
-    
-    // MARK: UI Elements
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.topView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.topView)
-        self.configured(textView: self.textView)
-    }
-                    
-    // MARK: Configured
-    func configured(textView: UITextView) {
-        _ = self.topView.configured(textView: textView)
-        textView.font = .bodyFont
-        textView.typingAttributes = [.font: UIFont.bodyFont,
-                                               .foregroundColor: UIColor.textColor,
-                                               .underlineStyle: NSUnderlineStyle.single.rawValue,
-                                               .underlineColor: UIColor.textColor]
-        textView.textContainerInset = Constants.textContainerInset
-        textView.textColor = .textColor
-        textView.isUserInteractionEnabled = false
-    }
-}
 
-extension BlockPageLinkUIKitView {
     func apply(_ state: BlockPageLinkState) {
         _ = self.topView.configured(leftChild: {
             switch state.style {
@@ -88,6 +67,13 @@ extension BlockPageLinkUIKitView {
                 return label
             }
         }())
-        textView.text = state.title
+        if let title = state.title, !title.isEmpty {
+            textView.text = title
+        } else {
+            textView.attributedText = NSAttributedString(
+                string: "Untitled".localized,
+                attributes: textView.typingAttributes
+            )
+        }
     }
 }

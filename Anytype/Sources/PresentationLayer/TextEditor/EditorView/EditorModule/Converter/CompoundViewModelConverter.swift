@@ -69,7 +69,6 @@ final class CompoundViewModelConverter {
 
             return BlockPageLinkViewModel(
                 block,
-                targetBlockId: value.targetBlockID,
                 publisher: publisher,
                 router: router,
                 delegate: editorViewModel,

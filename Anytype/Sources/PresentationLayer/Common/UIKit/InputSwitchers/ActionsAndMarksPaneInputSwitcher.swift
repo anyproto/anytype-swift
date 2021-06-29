@@ -91,6 +91,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         showEditingBars(customTextView: customTextView)
     }
     
+    func textTypingIsUsingForAccessoryViewContentFiltering() -> Bool {
+        if let displayedView = displayedView, !displayedView.window.isNil {
+            return true
+        }
+        return false
+    }
+    
     func cleanupDisplayedView() {
         displayedView = nil
         accessoryViewTriggerSymbolPosition = nil

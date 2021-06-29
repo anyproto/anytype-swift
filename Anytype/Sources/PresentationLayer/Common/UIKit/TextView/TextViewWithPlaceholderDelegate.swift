@@ -73,10 +73,14 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let contentSize = textView.intrinsicContentSize
 
-        userInteractionDelegate?.didReceiveAction(
-            .changeText(textView)
-        )
         inputSwitcher.switchInputs(customTextView: self)
+    
+        if !inputSwitcher.textTypingIsUsingForAccessoryViewContentFiltering() {
+            // We type only text to filter content inside accessory view
+            userInteractionDelegate?.didReceiveAction(
+                .changeText(textView)
+            )
+        }
 
         guard textSize?.height != contentSize.height else { return }
         textSize = contentSize
