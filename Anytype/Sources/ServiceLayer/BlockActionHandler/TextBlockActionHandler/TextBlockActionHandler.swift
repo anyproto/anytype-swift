@@ -182,7 +182,7 @@ final class TextBlockActionHandler {
             let previousBlockId = previousModel.blockId
             
             var ourEvents = [OurEvent]()
-            if case let .text(text) = previousModel.blockModel.information.content {
+            if case let .text(text) = previousModel.content {
                 let range = NSRange(location: text.attributedText.length, length: 0)
                 ourEvents.append(contentsOf: [
                     .setTextMerge(blockId: previousBlockId),
@@ -190,7 +190,7 @@ final class TextBlockActionHandler {
                 ])
             }
 
-            service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information, ourEvents: ourEvents)
+            service.merge(firstBlockId: previousModel.blockId, secondBlockId: block.blockId, ourEvents: ourEvents)
             break
 
         case .deleteOnEmptyContent:

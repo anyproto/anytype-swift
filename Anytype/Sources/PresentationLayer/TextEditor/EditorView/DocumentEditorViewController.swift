@@ -212,7 +212,7 @@ extension DocumentEditorViewController: PresentingViewController {
         apply(snapshot)
     }
     
-    func updateData(_ blocksViewModels: [BaseBlockViewModel]) {
+    func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
             DocumentSection(
@@ -246,7 +246,7 @@ extension DocumentEditorViewController: PresentingViewController {
         }
     }
 
-    func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel) {
+    func showStyleMenu(blockModel: BlockModelProtocol) {
         guard let viewControllerForPresenting = parent else { return }
         self.view.endEditing(true)
 
@@ -259,7 +259,7 @@ extension DocumentEditorViewController: PresentingViewController {
         }
         
 
-        let item = dataSource.snapshot().itemIdentifiers.first { $0.id == blockViewModel.blockId }
+        let item = dataSource.snapshot().itemIdentifiers.first { $0.id == blockModel.information.id }
         if let item = item {
             let indexPath = dataSource.indexPath(for: item)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
@@ -332,11 +332,11 @@ private extension DocumentEditorViewController {
     }
 
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BlockInformation> {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
-        let codeCellRegistration = UICollectionView.CellRegistration<CodeBlockCellView, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
+        let codeCellRegistration = UICollectionView.CellRegistration<CodeBlockCellView, BlockViewModelProtocol> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
@@ -381,10 +381,10 @@ private extension DocumentEditorViewController {
         return dataSource
     }
 
-    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
+    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration()
         cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.indentationLevel()
+        cell.indentationLevel = item.indentationLevel
         cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
 
         let backgroundView = UIView()

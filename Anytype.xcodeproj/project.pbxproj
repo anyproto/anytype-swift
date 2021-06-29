@@ -318,6 +318,7 @@
 		3DB27C15261B0EA5005E523C /* DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C11261B0EA5005E523C /* DecodingTests.swift */; };
 		3DB27C16261B0EA5005E523C /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C12261B0EA5005E523C /* XCTestManifests.swift */; };
 		3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */; };
+		3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */; };
 		3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */; };
 		3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */; };
 		3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */; };
@@ -892,6 +893,7 @@
 		3DB27C11261B0EA5005E523C /* DecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingTests.swift; sourceTree = "<group>"; };
 		3DB27C12261B0EA5005E523C /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingPathConverter.swift; sourceTree = "<group>"; };
+		3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelProtocol.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Base/BlockViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackgroundBlurView.swift; sourceTree = "<group>"; };
 		3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileViewButtonImage.swift; sourceTree = "<group>"; };
 		3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBoundsExtension.swift; sourceTree = "<group>"; };
@@ -1724,9 +1726,9 @@
 				12858E79264ABA9900A7FE0F /* Views */,
 				533341F2262E0F5400238121 /* Selection */,
 				EA289BB72629D50000EA869F /* TurnIntoSelection */,
+				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
 				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
 				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
-				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
 				3D402BEF268A5195002E938C /* BlockViewModelsHolder.swift */,
 			);
@@ -1799,6 +1801,7 @@
 			isa = PBXGroup;
 			children = (
 				537F49712677EB6700C81BA0 /* BaseBlockDelegate.swift */,
+				3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */,
 				0A10CC58248EB5EC000FF498 /* BaseBlockViewModel.swift */,
 				0A1DACC4244DDB050007BC5D /* BlockType.swift */,
 			);
@@ -3774,6 +3777,7 @@
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
+				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */,

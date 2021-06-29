@@ -14,7 +14,7 @@ protocol BlockActionServiceProtocol {
     func add(newBlock: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(childBlock: BlockInformation, parentBlockId: BlockId)
     
-    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, ourEvents: [OurEvent])
+    func merge(firstBlockId: BlockId, secondBlockId: BlockId, ourEvents: [OurEvent])
     
     func delete(block: BlockInformation, completion: @escaping Conversion)
     

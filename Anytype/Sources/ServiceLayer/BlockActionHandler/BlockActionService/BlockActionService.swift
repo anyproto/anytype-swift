@@ -228,11 +228,8 @@ private extension BlockActionService {
 // MARK: - Delete
 
 extension BlockActionService {
-    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, ourEvents: [OurEvent]) {
-        let firstBlockId = firstBlock.id
-        let secondBlockId = secondBlock.id
-
-        self.textService.merge(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
+    func merge(firstBlockId: BlockId, secondBlockId: BlockId, ourEvents: [OurEvent]) {
+        self.textService.merge(contextID: documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] serviceSuccess in
                 var events = serviceSuccess.defaultEvent

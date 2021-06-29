@@ -2,16 +2,7 @@ import UIKit
 import Combine
 import BlocksModels
 
-protocol ContextualMenuHandler {
-    func makeContextualMenu() -> ContextualMenu
-    func handle(contextualMenuAction: ContextualMenuAction)
-}
-
-protocol DiffableProvier {
-    var diffable: AnyHashable { get }
-}
-
-class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
+class BaseBlockViewModel: BlockViewModelProtocol {
     private enum Constants {
         static let maxIndentationLevel: Int = 4
     }
@@ -47,7 +38,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     private var subscriptions: Set<AnyCancellable> = []
 
     // MARK: - Indentation
-    func indentationLevel() -> Int {
+    var indentationLevel: Int {
         min(block.indentationLevel, Constants.maxIndentationLevel)
     }
     
@@ -64,7 +55,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     var diffable: AnyHashable {
         [
             information,
-            indentationLevel()
+            indentationLevel
         ] as [AnyHashable]
     }
 
@@ -82,7 +73,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
         case .turnIntoPage:
             actionHandler.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
         case .style:
-            router.showStyleMenu(block: block.blockModel, viewModel: self)
+            router.showStyleMenu(block: block.blockModel)
         case .moveTo, .color, .backgroundColor:
             break
         case .download,.replace, .addCaption, .rename:
@@ -101,29 +92,6 @@ extension BaseBlockViewModel: Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(diffable)
-    }
-}
-
-// MARK: - Contextual Menu
-
-extension BaseBlockViewModel {
-
-    func contextMenuInteraction() -> UIContextMenuConfiguration? {
-        UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] (value) -> UIMenu? in
-            guard let menu = self?.makeContextualMenu() else { return nil }
-
-            let uiActions = menu.children.map { action -> UIAction in
-                let identifier = UIAction.Identifier(action.identifier)
-
-                let action = UIAction(title: action.title, image: action.image, identifier: identifier, state: .off) { action in
-                    if let identifier = ContextualMenuIdentifierBuilder.action(for: action.identifier.rawValue) {
-                        self?.handle(contextualMenuAction: identifier)
-                    }
-                }
-                return action
-            }
-            return UIMenu(title: menu.title, children: uiActions)
-        }
     }
 }
 
@@ -154,4 +122,5 @@ extension BaseBlockViewModel {
 extension BaseBlockViewModel {
     var blockId: BlockId { block.blockId }
     var information: BlockInformation { block.blockModel.information }
+    var content: BlockContent { block.blockModel.information.content }
 }

@@ -7,12 +7,12 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     ///
     /// - Parameters:
     ///   - rows: Rows to display
-    func updateData(_ rows: [BaseBlockViewModel])
+    func updateData(_ rows: [BlockViewModelProtocol])
 
     func updateHeader()
 
     /// Show style menu
-    func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)
+    func showStyleMenu(blockModel: BlockModelProtocol)
 
     /// Ask view rebuild layout
     func needsUpdateLayout()

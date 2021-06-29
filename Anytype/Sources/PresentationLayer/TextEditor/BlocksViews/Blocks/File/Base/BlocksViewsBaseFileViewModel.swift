@@ -6,7 +6,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     private var fileURLSubscription: AnyCancellable?
     
     private var state: BlockFileState?
-    private let content: BlockFile
+    private let fileContent: BlockFile
     
     init(
         _ block: BlockActiveRecordProtocol,
@@ -15,7 +15,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
         router: EditorRouterProtocol,
         actionHandler: EditorActionHandlerProtocol
     ) {
-        self.content = content
+        self.fileContent = content
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         setupStateSubscription()
     }
@@ -23,7 +23,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     override var diffable: AnyHashable {
         return .init([
             "parent": super.diffable,
-            "fileState": content.state
+            "fileState": fileContent.state
         ])
     }
     
@@ -40,11 +40,11 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     }
     
     private func downloadFile() {
-        switch content.contentType {
+        switch fileContent.contentType {
         case .image:
             return
         case .video, .file:
-            fileURLSubscription = URLResolver().obtainFileURLPublisher(fileId: content.metadata.hash)
+            fileURLSubscription = URLResolver().obtainFileURLPublisher(fileId: fileContent.metadata.hash)
                 .sinkWithDefaultCompletion("obtainFileURL") { [weak self] url in
                     guard let url = url else { return }
                     self?.router.saveFile(fileURL: url)

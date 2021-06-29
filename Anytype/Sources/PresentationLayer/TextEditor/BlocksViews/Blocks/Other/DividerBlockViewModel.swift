@@ -1,13 +1,8 @@
-import Foundation
-import SwiftUI
-import Combine
-import os
 import BlocksModels
-import MobileCoreServices
-
+import UIKit
 
 class DividerBlockViewModel: BaseBlockViewModel {
-    private let content: BlockDivider
+    private let dividerContent: BlockDivider
     
     init(
         _ block: BlockActiveRecordProtocol,
@@ -16,18 +11,18 @@ class DividerBlockViewModel: BaseBlockViewModel {
         actionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
-        self.content = content
+        self.dividerContent = content
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
     }
     
     override func makeContentConfiguration() -> UIContentConfiguration {
-        return DividerBlockContentConfiguration(content: content)
+        return DividerBlockContentConfiguration(content: dividerContent)
     }
     
     override var diffable: AnyHashable {
         let newDiffable: [String: AnyHashable] = [
             "parent": super.diffable,
-            "dividerValue": content.style
+            "dividerValue": dividerContent.style
         ]
         return .init(newDiffable)
     }

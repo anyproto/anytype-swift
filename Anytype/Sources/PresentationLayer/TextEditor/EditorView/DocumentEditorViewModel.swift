@@ -98,7 +98,7 @@ class DocumentEditorViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
 
-    private func update(blocksViewModels: [BaseBlockViewModel]) {
+    private func update(blocksViewModels: [BlockViewModelProtocol]) {
         let difference = blocksViewModels.difference(from: modelsHolder.models) { $0.diffable == $1.diffable }
         if !difference.isEmpty, let result = modelsHolder.models.applying(difference) {
             modelsHolder.models = result
@@ -118,7 +118,7 @@ extension DocumentEditorViewModel {
         element(at: index)?.didSelectRowInTableView()
     }
 
-    private func element(at: IndexPath) -> BaseBlockViewModel? {
+    private func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
             assertionFailure("Row doesn't exist")
             return nil
@@ -131,7 +131,7 @@ extension DocumentEditorViewModel {
         selectionHandler.set(
             selected: !selectionHandler.selected(id: item.blockId),
             id: item.blockId,
-            type: item.block.content.type
+            type: item.content.type
         )
     }
 }

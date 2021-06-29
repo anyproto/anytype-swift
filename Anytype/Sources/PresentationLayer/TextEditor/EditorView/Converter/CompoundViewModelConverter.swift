@@ -15,7 +15,7 @@ final class CompoundViewModelConverter {
         _ blocks: [BlockActiveRecordProtocol],
         router: EditorRouterProtocol,
         editorViewModel: DocumentEditorViewModel
-    ) -> [BaseBlockViewModel] {
+    ) -> [BlockViewModelProtocol] {
         blocks.compactMap { block in
             createBlockViewModel(block, router: router, editorViewModel: editorViewModel)
         }
@@ -25,7 +25,7 @@ final class CompoundViewModelConverter {
         _ block: BlockActiveRecordProtocol,
         router: EditorRouterProtocol,
         editorViewModel: DocumentEditorViewModel
-    ) -> BaseBlockViewModel? {
+    ) -> BlockViewModelProtocol? {
         switch block.content {
         case let .text(content):
             switch content.contentType {

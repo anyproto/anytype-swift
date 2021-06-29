@@ -20,7 +20,7 @@ protocol EditorRouterProtocol {
     
     func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void)
     
-    func showStyleMenu(block: BlockModelProtocol, viewModel: BaseBlockViewModel)
+    func showStyleMenu(block: BlockModelProtocol)
 }
 
 
@@ -89,7 +89,7 @@ final class EditorRouter: EditorRouterProtocol {
         viewController?.present(searchListViewController, animated: true)
     }
     
-    func showStyleMenu(block: BlockModelProtocol, viewModel: BaseBlockViewModel) {
-        viewController?.showStyleMenu(blockModel: block, blockViewModel: viewModel)
+    func showStyleMenu(block: BlockModelProtocol) {
+        viewController?.showStyleMenu(blockModel: block)
     }
 }
