@@ -43,12 +43,12 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions/Add
 
-    func addChild(childBlock: BlockInformation, parentBlockId: BlockId) {
-        add(newBlock: childBlock, targetBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
+    func addChild(info: BlockInformation, parentBlockId: BlockId) {
+        add(info: info, targetBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
-    func add(newBlock: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
-        singleService.add(contextID: self.documentId, targetID: targetBlockId, block: newBlock, position: position)
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
+        singleService.add(contextID: self.documentId, targetID: targetBlockId, info: info, position: position)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = shouldSetFocusOnUpdate ? value.addEvent : value.defaultEvent
@@ -56,15 +56,17 @@ final class BlockActionService: BlockActionServiceProtocol {
             }.store(in: &self.subscriptions)
     }
 
-    func split(block: BlockInformation,
-               oldText: String,
-               newBlockContentType: BlockText.ContentType,
-               shouldSetFocusOnUpdate: Bool) {
-        let blockId = block.id
+    func split(
+        info: BlockInformation,
+        oldText: String,
+        newBlockContentType: BlockText.ContentType,
+        shouldSetFocusOnUpdate: Bool
+    ) {
+        let blockId = info.id
         // We are using old text as a cursor position.
         let position = oldText.count
 
-        let content = block.content
+        let content = info.content
         guard case let .text(type) = content else {
             assertionFailure("We have unsupported content type: \(content)")
             return
@@ -87,14 +89,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func duplicate(block: BlockInformation) {
-        let targetId = block.id
-        let blockIds: [String] = [targetId]
+    func duplicate(blockId: BlockId) {
+        let blockIds: [String] = [blockId]
         let position: BlockPosition = .bottom
         
         singleService.duplicate(
             contextID: documentId,
-            targetID: targetId,
+            targetID: blockId,
             blockIds: blockIds,
             position: position
         ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
@@ -102,8 +103,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func createPage(afterBlock: BlockInformation, position: BlockPosition = .bottom) {
-        self.pageService.createPage(
+    func createPage(position: BlockPosition = .bottom) {
+        pageService.createPage(
             contextID: self.documentId,
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
@@ -116,11 +117,11 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
+    func turnInto(blockId: BlockId, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
         switch type {
-        case .text: setTextStyle(block: block, type: type, shouldFocus: shouldSetFocusOnUpdate)
-        case .smartblock: setPageStyle(block: block, type: type)
-        case .divider: setDividerStyle(block: block, type: type)
+        case .text: setTextStyle(blockId: blockId, type: type, shouldFocus: shouldSetFocusOnUpdate)
+        case .smartblock: setPageStyle(blockId: blockId, type: type)
+        case .divider: setDividerStyle(blockId: blockId, type: type)
         default: return
         }
     }
@@ -133,8 +134,8 @@ final class BlockActionService: BlockActionServiceProtocol {
             }.store(in: &self.subscriptions)
     }
     
-    func delete(block: BlockInformation, completion: @escaping Conversion) {
-        let blockIds = [block.id]
+    func delete(blockId: BlockId, completion: @escaping Conversion) {
+        let blockIds = [blockId]
         singleService.delete(contextID: self.documentId, blockIds: blockIds)
             .receiveOnMain()
             .sink(receiveCompletion: { completion in
@@ -177,8 +178,7 @@ private extension BlockActionService {
             }.store(in: &self.subscriptions)
     }
 
-    func setDividerStyle(block: BlockInformation, type: BlockContent) {
-        let blockId = block.id
+    func setDividerStyle(blockId: BlockId, type: BlockContent) {
         guard case let .divider(value) = type else {
             assertionFailure("SetDividerStyle content is not divider: \(type)")
             return
@@ -192,8 +192,7 @@ private extension BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    func setPageStyle(block: BlockInformation, type: BlockContent) {
-        let blockId = block.id
+    func setPageStyle(blockId: BlockId, type: BlockContent) {
         let objectType = ""
 
         guard case .smartblock = type else {
@@ -208,9 +207,7 @@ private extension BlockActionService {
         .store(in: &self.subscriptions)
     }
 
-    func setTextStyle(block: BlockInformation, type: BlockContent, shouldFocus: Bool) {
-        let blockId = block.id
-
+    func setTextStyle(blockId: BlockId, type: BlockContent, shouldFocus: Bool) {
         guard case let .text(text) = type else {
             assertionFailure("Set Text style content is not text style: \(type)")
             return
@@ -242,8 +239,7 @@ extension BlockActionService {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    func bookmarkFetch(block: BlockInformation, url: String) {
-        let blockId = block.id
+    func bookmarkFetch(blockId: BlockId, url: String) {
         self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
             .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
@@ -254,17 +250,16 @@ extension BlockActionService {
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    func setBackgroundColor(block: BlockInformation, color: BlockBackgroundColor) {
+    func setBackgroundColor(blockId: BlockId, color: BlockBackgroundColor) {
         guard let color = MiddlewareColorConverter.asMiddleware(color) else {
             assertionFailure("Wrong UIColor for setBackgroundColor command")
             return
         }
         
-        setBackgroundColor(block: block, color: color)
+        setBackgroundColor(blockId: blockId, color: color)
     }
     
-    func setBackgroundColor(block: BlockInformation, color: MiddlewareColor) {
-        let blockId = block.id
+    func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
         let blockIds = [blockId]
 
         listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color.name())

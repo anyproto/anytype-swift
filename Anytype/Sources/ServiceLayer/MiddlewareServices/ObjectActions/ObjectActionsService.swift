@@ -34,12 +34,18 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         return createPage(contextID: contextID, targetID: targetID, details: protobufStruct, position: position, templateID: templateID)
     }
     
-    private func createPage(contextID: String,
-                            targetID: String,
-                            details: Google_Protobuf_Struct,
-                            position: Anytype_Model_Block.Position,
-                            templateID: String) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+    private func createPage(
+        contextID: String,
+        targetID: String,
+        details: Google_Protobuf_Struct,
+        position: Anytype_Model_Block.Position,
+        templateID: String
+    ) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.Block.CreatePage.Service.invoke(
+            contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
+        )
+        .map{ ServiceSuccess($0.event) }
+        .subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
 
     // MARK: - ObjectActionsService / SetDetails

@@ -10,9 +10,9 @@ public protocol BlockModelProtocol: BlockHasDidChangePublisherProtocol {
     var kind: BlockKind {get}
 }
 
-public extension BlockModelProtocol {
+public extension BlockInformation {
     var isTextAndEmpty: Bool {
-        switch information.content {
+        switch content {
         case .text(let textData):
             return textData.attributedText.string.isEmpty
         default:

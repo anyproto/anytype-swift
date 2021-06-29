@@ -62,11 +62,11 @@ final class TextBlockActionHandler {
 
                 if let parentId = parentId {
                     if block?.childrenIds().isEmpty == true {
-                        self.service.addChild(childBlock: information, parentBlockId: parentId)
+                        self.service.addChild(info: information, parentBlockId: parentId)
                     }
                     else {
                         let first = block?.childrenIds().first
-                        service.add(newBlock: information, targetBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
+                        service.add(info: information, targetBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
                     }
                 }
 
@@ -85,7 +85,7 @@ final class TextBlockActionHandler {
                         return
                     }
                     self.service.split(
-                        block: block.blockModel.information,
+                        info: block.blockModel.information,
                         oldText: oldText,
                         newBlockContentType: text.contentType,
                         shouldSetFocusOnUpdate: true
@@ -93,7 +93,7 @@ final class TextBlockActionHandler {
                 }
                 else {
                     self.service.add(
-                        newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true
+                        info: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true
                     )
                 }
             }
@@ -107,13 +107,15 @@ final class TextBlockActionHandler {
             }
             if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                 if !payload.isNil, case let .text(text) = block.content {
-                    self.service.split(block: block.blockModel.information,
-                                       oldText: "",
-                                       newBlockContentType: text.contentType,
-                                       shouldSetFocusOnUpdate: true)
+                    self.service.split(
+                        info: block.blockModel.information,
+                        oldText: "",
+                        newBlockContentType: text.contentType,
+                        shouldSetFocusOnUpdate: true
+                    )
                 }
                 else {
-                    self.service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true)
+                    self.service.add(info: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true)
                 }
             }
 
@@ -125,7 +127,11 @@ final class TextBlockActionHandler {
                 // Turn Into empty text block.
                 if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.attributedText.string) {
                     /// TODO: Add focus on this block.
-                    self.service.turnInto(block: block.blockModel.information, type: newContentType, shouldSetFocusOnUpdate: true)
+                    self.service.turnInto(
+                        blockId: block.blockModel.information.id,
+                        type: newContentType,
+                        shouldSetFocusOnUpdate: true
+                    )
                 }
             default:
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
@@ -144,12 +150,11 @@ final class TextBlockActionHandler {
                         let childrenIds = block.childrenIds()
                         switch (childrenIds.isEmpty, isToggleAndOpen, isListAndNotToggle) {
                         case (true, true, _):
-                            self.service.addChild(childBlock: newBlock,
-                                                  parentBlockId: block.blockId)
+                            self.service.addChild(info: newBlock, parentBlockId: block.blockId)
                         case (false, true, _), (false, _, true):
                             let firstChildId = childrenIds[0]
                             self.service.add(
-                                newBlock: newBlock,
+                                info: newBlock,
                                 targetBlockId: firstChildId,
                                 position: .top,
                                 shouldSetFocusOnUpdate: true
@@ -157,10 +162,12 @@ final class TextBlockActionHandler {
                         default:
                             let newContentType = payload.contentType.isList ? payload.contentType : .text
                             let oldText = payload.attributedText.clearedFromMentionAtachmentsString()
-                            self.service.split(block: block.blockModel.information,
-                                               oldText: oldText,
-                                               newBlockContentType: newContentType,
-                                               shouldSetFocusOnUpdate: true)
+                            self.service.split(
+                                info: block.blockModel.information,
+                                oldText: oldText,
+                                newBlockContentType: newContentType,
+                                shouldSetFocusOnUpdate: true
+                            )
                         }
                     default: return
                     }
@@ -194,7 +201,7 @@ final class TextBlockActionHandler {
             break
 
         case .deleteOnEmptyContent:
-            service.delete(block: block.blockModel.information) { [weak self] value in
+            service.delete(blockId: block.blockModel.information.id) { [weak self] value in
                 guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: block.blockId) else {
                     assertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.blockId)"

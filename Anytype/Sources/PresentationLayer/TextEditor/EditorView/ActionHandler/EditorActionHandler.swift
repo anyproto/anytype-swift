@@ -42,7 +42,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func handleAction(_ action: BlockHandlerActionType, model: BlockModelProtocol) {
-        blockActionHandler.handleBlockAction(action, block: model) { [weak self] events in
+        blockActionHandler.handleBlockAction(action, info: model.information) { [weak self] events in
             self?.process(events: events)
         }
     }
@@ -53,7 +53,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     
     
     func handleActionWithoutCompletion(_ action: BlockHandlerActionType, model: BlockModelProtocol) {
-        blockActionHandler.handleBlockAction(action, block: model, completion: nil)
+        blockActionHandler.handleBlockAction(action, info: model.information, completion: nil)
     }
     
     private func process(events: PackOfEvents) {

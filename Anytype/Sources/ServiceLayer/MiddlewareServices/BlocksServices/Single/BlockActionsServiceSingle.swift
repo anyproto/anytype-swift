@@ -31,8 +31,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextID: BlockId, targetID: BlockId, block: BlockInformation, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let blockInformation = BlockModelsInformationConverter.convert(information: block) else {
+    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
+        guard let blockInformation = BlockModelsInformationConverter.convert(information: info) else {
             return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
         }
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
