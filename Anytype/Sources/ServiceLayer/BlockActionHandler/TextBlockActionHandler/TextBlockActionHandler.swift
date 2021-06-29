@@ -156,7 +156,7 @@ final class TextBlockActionHandler {
                             )
                         default:
                             let newContentType = payload.contentType.isList ? payload.contentType : .text
-                            let oldText = payload.attributedText.string
+                            let oldText = payload.attributedText.clearedFromMentionAtachmentsString()
                             self.service.split(block: block.blockModel.information,
                                                oldText: oldText,
                                                newBlockContentType: newContentType,

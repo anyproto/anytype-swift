@@ -46,13 +46,15 @@ extension UITextView: Mentionable {
         attributedString.deleteCharacters(in: replacementRange)
         
         let mentionAttachment = MentionAttachment(name: name, pageId: pageId, iconData: mention.iconData)
-        let mentionsString = NSMutableAttributedString(attachment: mentionAttachment)
+        let mentionString = NSMutableAttributedString(attachment: mentionAttachment)
+        let font = self.font ?? .bodyFont
+        mentionString.addAttribute(.font, value: font, range: NSRange(location: 0, length: 1))
         let mentionNameString = NSAttributedString(string: name,
                                                    attributes: [.mention: pageId,
-                                                                .font: font ?? .bodyFont])
-        mentionsString.append(mentionNameString)
+                                                                .font: font])
+        mentionString.append(mentionNameString)
         
-        attributedString.insert(mentionsString, at: location)
+        attributedString.insert(mentionString, at: location)
         attributedText = attributedString
     }
     
