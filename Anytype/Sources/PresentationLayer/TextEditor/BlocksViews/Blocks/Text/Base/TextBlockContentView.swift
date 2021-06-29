@@ -44,7 +44,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
             self.currentConfiguration.setupMentionsInteraction(self.textView)
 
-            viewModel.actionHandler?.handleAction(
+            viewModel.actionHandler.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView),
                     activeRecord: viewModel.block
@@ -74,7 +74,7 @@ final class TextBlockContentView: UIView & UIContentView {
             guard let block = self.currentConfiguration.viewModel?.block else { return }
 
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.viewModel?.actionHandler?.handleAction(
+            self.currentConfiguration.viewModel?.actionHandler.handleAction(
                 .textView(action: .keyboardAction(.enterAtTheEndOfContent), activeRecord: block),
                 model: block.blockModel
             )

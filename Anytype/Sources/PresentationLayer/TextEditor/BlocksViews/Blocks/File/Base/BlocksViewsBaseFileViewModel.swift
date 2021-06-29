@@ -13,7 +13,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
         content: BlockFile,
         delegate: BaseBlockDelegate?,
         router: EditorRouterProtocol,
-        actionHandler: NewBlockActionHandler?
+        actionHandler: EditorActionHandlerProtocol
     ) {
         self.content = content
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
@@ -69,7 +69,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     }
     
     func sendFile(at filePath: String) {
-        actionHandler?.upload(blockId: block.blockId, filePath: filePath)
+        actionHandler.upload(blockId: block.blockId, filePath: filePath)
     }
     
     // MARK: - ContextualMenuHandler

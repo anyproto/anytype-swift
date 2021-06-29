@@ -13,7 +13,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
         _ block: BlockActiveRecordProtocol,
         content: BlockDivider,
         delegate: BaseBlockDelegate?,
-        actionHandler: NewBlockActionHandler?,
+        actionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
         self.content = content

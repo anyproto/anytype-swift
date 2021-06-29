@@ -6,9 +6,9 @@ final class SlashMenuActionsHandlerImp {
     
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
-    private weak var blockActionHandler: NewBlockActionHandler?
+    private let blockActionHandler: EditorActionHandlerProtocol
     
-    init(blockActionHandler: NewBlockActionHandler?) {
+    init(blockActionHandler: EditorActionHandlerProtocol) {
         self.blockActionHandler = blockActionHandler
     }
 }
@@ -26,19 +26,19 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         case let .style(style):
             handleStyle(style)
         case let .media(media):
-            blockActionHandler?.handleActionForFirstResponder(.addBlock(media.blockViewsType))
+            blockActionHandler.handleActionForFirstResponder(.addBlock(media.blockViewsType))
         case .objects:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.objects(.page)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.objects(.page)))
         case .relations:
             break
         case let .other(other):
-            blockActionHandler?.handleActionForFirstResponder(.addBlock(other.blockViewsType))
+            blockActionHandler.handleActionForFirstResponder(.addBlock(other.blockViewsType))
         case let .color(color):
-            blockActionHandler?.handleActionForFirstResponder(
+            blockActionHandler.handleActionForFirstResponder(
                 .setTextColor(color)
             )
         case let .background(color):
-            blockActionHandler?.handleActionForFirstResponder(
+            blockActionHandler.handleActionForFirstResponder(
                 .setBackgroundColor(color)
             )
         }
@@ -56,15 +56,15 @@ private extension SlashMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
-            blockActionHandler?.handleActionForFirstResponder(
+            blockActionHandler.handleActionForFirstResponder(
                 .setAlignment(.left)
             )
         case .right:
-            blockActionHandler?.handleActionForFirstResponder(
+            blockActionHandler.handleActionForFirstResponder(
                 .setAlignment(.right)
             )
         case .center:
-            blockActionHandler?.handleActionForFirstResponder(
+            blockActionHandler.handleActionForFirstResponder(
                 .setAlignment(.center)
             )
         }
@@ -73,31 +73,31 @@ private extension SlashMenuActionsHandlerImp {
     private func handleStyle(_ style: BlockStyleAction) {
         switch style {
         case .text:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
         case .title:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.h1)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.h1)))
         case .heading:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.h2)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.h2)))
         case .subheading:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.h3)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.h3)))
         case .highlighted:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.highlighted)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.highlighted)))
         case .checkbox:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.checkbox)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.checkbox)))
         case .bulleted:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.bulleted)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.bulleted)))
         case .numberedList:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.numbered)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.numbered)))
         case .toggle:
-            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.toggle)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.toggle)))
         case .bold:
-            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.bold))
+            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.bold))
         case .italic:
-            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.italic))
+            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.italic))
         case .strikethrough:
-            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.strikethrough))
+            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.strikethrough))
         case .code:
-            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.keyboard))
+            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.keyboard))
         case .link:
             break
         }
@@ -106,9 +106,9 @@ private extension SlashMenuActionsHandlerImp {
     private func handleActions(_ action: BlockAction) {
         switch action {
         case .delete:
-            blockActionHandler?.handleActionForFirstResponder(.delete)
+            blockActionHandler.handleActionForFirstResponder(.delete)
         case .duplicate:
-            blockActionHandler?.handleActionForFirstResponder(.duplicate)
+            blockActionHandler.handleActionForFirstResponder(.duplicate)
             
         case .cleanStyle, .copy, .paste, .move, .moveTo:
             break

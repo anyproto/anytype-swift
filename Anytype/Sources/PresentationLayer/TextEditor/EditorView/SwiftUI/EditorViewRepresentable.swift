@@ -12,7 +12,7 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> DocumentEditorViewController {
-        EditorAssembly.build(id: documentId)
+        EditorAssembly.build(blockId: documentId)
     }
     
     func updateUIViewController(

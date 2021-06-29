@@ -4,9 +4,9 @@ import BlocksModels
 
 final class CompoundViewModelConverter {
     private weak var document: BaseDocumentProtocol?
-    private weak var blockActionHandler: NewBlockActionHandler?
+    private let blockActionHandler: EditorActionHandlerProtocol
 
-    init(document: BaseDocumentProtocol, blockActionHandler: NewBlockActionHandler) {
+    init(document: BaseDocumentProtocol, blockActionHandler: EditorActionHandlerProtocol) {
         self.document = document
         self.blockActionHandler = blockActionHandler
     }

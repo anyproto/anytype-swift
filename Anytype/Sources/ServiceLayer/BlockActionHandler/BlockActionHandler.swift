@@ -16,34 +16,38 @@ class BlockActionHandler: BlockActionHandlerProtocol {
     private let textService = BlockActionsServiceText()
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
-    private weak var documentViewInteraction: DocumentViewInteraction?
+    private let modelsHolder: SharedBlockViewModelsHolder
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
     private let document: BaseDocumentProtocol
     
     private let textBlockActionHandler: TextBlockActionHandler
+    
+    private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>
+    
+    
 
 
     // MARK: - Lifecycle
 
-    init?(
-        documentId: String?,
-        documentViewInteraction: DocumentViewInteraction?,
+    init(
+        documentId: String,
+        modelsHolder: SharedBlockViewModelsHolder,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>
     ) {
-        guard let documentId = documentId else { return nil }
-        
-        self.documentViewInteraction = documentViewInteraction
+        self.modelsHolder = modelsHolder
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
         self.selectionHandler = selectionHandler
         self.document = document
+        self.updateElementsSubject = updateElementsSubject
         
         self.textBlockActionHandler = TextBlockActionHandler(
             contextId: documentId,
             service: service,
-            documentViewInteraction: documentViewInteraction,
+            modelsHolder: modelsHolder,
             router: router
         )
     }
@@ -175,7 +179,7 @@ class BlockActionHandler: BlockActionHandlerProtocol {
         // self.handlingKeyboardAction(block, .pressKey(.delete))
         
         service.delete(block: block.information) { [weak self] value in
-            guard let previousModel = self?.documentViewInteraction?.findModel(beforeBlockId: block.information.id) else {
+            guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: block.information.id) else {
                 return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
             }
             let previousBlockId = previousModel.blockId
@@ -251,7 +255,7 @@ private extension BlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             newBlock.information.content = .text(textContentType)
-            documentViewInteraction?.updateBlocks(with: [block.information.id])
+            updateElementsSubject.send([block.information.id])
 
             textService.setText(
                 contextID: self.documentId,
@@ -275,7 +279,7 @@ private extension BlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             newBlock.information.content = .text(textContentType)
-            documentViewInteraction?.updateBlocks(with: [newBlock.information.id])
+            updateElementsSubject.send([newBlock.information.id])
             textService.setText(
                 contextID: self.documentId,
                 blockID: newBlock.information.id,

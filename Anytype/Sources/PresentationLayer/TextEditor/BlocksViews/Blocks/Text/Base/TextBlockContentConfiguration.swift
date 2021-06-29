@@ -6,7 +6,7 @@ import Combine
 struct TextBlockContentConfiguration {
     weak var viewModel: TextBlockViewModel?
     let information: BlockInformation
-    weak var blockActionHandler: NewBlockActionHandler?
+    let blockActionHandler: EditorActionHandlerProtocol
     let mentionsConfigurator: MentionsTextViewConfigurator
     
     private(set) weak var textViewDelegate: TextViewDelegate?
@@ -15,7 +15,7 @@ struct TextBlockContentConfiguration {
     init(
         textViewDelegate: TextViewDelegate?,
         viewModel: TextBlockViewModel,
-        blockActionHandler: NewBlockActionHandler?,
+        blockActionHandler: EditorActionHandlerProtocol,
         mentionsConfigurator: MentionsTextViewConfigurator
     ) {
         self.textViewDelegate = textViewDelegate

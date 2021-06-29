@@ -1,15 +1,7 @@
-//
-//  DocumentSettingViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 21.06.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-final class DocumentSettingViewModel {
+final class DocumentSettingsViewModel {
     
     // MARK: - Private variables
 
@@ -18,15 +10,15 @@ final class DocumentSettingViewModel {
     
     // MARK: - Initializer
     
-    init(detailsActiveModel: DetailsActiveModel) {
+    init(activeModel: DetailsActiveModel) {
         self.iconPickerViewModel = DocumentIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
-            detailsActiveModel: detailsActiveModel
+            detailsActiveModel: activeModel
         )
         
         self.coverPickerViewModel = DocumentCoverPickerViewModel(
             fileService: BlockActionsServiceFile(),
-            detailsActiveModel: detailsActiveModel
+            detailsActiveModel: activeModel
         )
     }
     

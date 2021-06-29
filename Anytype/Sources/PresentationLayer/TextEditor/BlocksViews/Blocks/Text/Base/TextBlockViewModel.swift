@@ -19,7 +19,7 @@ class TextBlockViewModel: BaseBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     
-    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol) {
+    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setupSubscribers()
@@ -182,11 +182,11 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel {    
     func onCheckboxTap(selected: Bool) {
-        actionHandler?.handleAction(.checkbox(selected: selected), model: block.blockModel)
+        actionHandler.handleAction(.checkbox(selected: selected), model: block.blockModel)
     }
     
     func onToggleTap(toggled: Bool) {
-        actionHandler?.handleAction(.toggle, model: block.blockModel)
+        actionHandler.handleAction(.toggle, model: block.blockModel)
     }
     
 }
@@ -201,19 +201,19 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 router.showStyleMenu(block: block.blockModel, viewModel: self)
             case .showMultiActionMenuAction:
                 shouldResignFirstResponder.send()
-                actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
             case let .changeText(textView):
                 mentionsConfigurator.configure(textView: textView)
-                actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
             case .keyboardAction, .changeTextStyle, .changeCaretPosition:
-                actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(
                     replacementRange: range,
                     replacementText: replacementText
                 )
             case let .showPage(pageId):
-                actionHandler?.handleAction(.textView(action: .showPage(pageId), activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: .showPage(pageId), activeRecord: block), model: block.blockModel)
             }
         }
 }

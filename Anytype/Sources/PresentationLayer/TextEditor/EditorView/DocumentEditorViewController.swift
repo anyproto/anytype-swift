@@ -33,12 +33,11 @@ final class DocumentEditorViewController: UIViewController {
         return recognizer
     }()
 
-    private let viewModel: DocumentEditorViewModel
+    var viewModel: DocumentEditorViewModel!
 
     // MARK: - Initializers
     
-    init(viewModel: DocumentEditorViewModel) {
-        self.viewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -101,7 +100,7 @@ extension DocumentEditorViewController {
             cover: viewModel.documentCover
         ))
         sectionSnapshot.visibleItems.forEach { item in
-            let viewModel = self.viewModel.blocksViewModels.first { viewModel in
+            let viewModel = viewModel.modelsHolder.models.first { viewModel in
                 viewModel.blockId == item.id
             }
             viewModel?.updateView()
@@ -135,7 +134,7 @@ extension DocumentEditorViewController {
         let userSession = viewModel.document.userSession
         // TODO: we should move this logic to TextBlockViewModel
         if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt(),
-           let blockViewModel = viewModel.blocksViewModels.first(where: { $0.blockId == id }) as? TextBlockViewModel {
+           let blockViewModel = viewModel.modelsHolder.models.first(where: { $0.blockId == id }) as? TextBlockViewModel {
                 blockViewModel.set(focus: focusedAt)
         }
     }
@@ -184,7 +183,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
 
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
 
-        let blockViewModel = viewModel.blocksViewModels.first { blockViewModel in
+        let blockViewModel = viewModel.modelsHolder.models.first { blockViewModel in
             blockViewModel.blockId == item.id
         }
         return blockViewModel?.contextMenuInteraction()
@@ -256,7 +255,7 @@ extension DocumentEditorViewController: PresentingViewController {
             delegate: self,
             blockModel: blockModel
         ) { [weak self] action in
-            self?.viewModel.handleActionForFirstResponder(action)
+            self?.viewModel.blockActionHandler.handleActionForFirstResponder(action)
         }
         
 
@@ -294,7 +293,7 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
               let item = dataSource.itemIdentifier(for: indexPath),
               item.id == blockModel?.information.id else { return }
 
-        let blockViewModel = self.viewModel.blocksViewModels.first { blockViewModel in
+        let blockViewModel = viewModel.modelsHolder.models.first { blockViewModel in
             blockViewModel.blockId == item.id
         }
 
@@ -344,7 +343,7 @@ private extension DocumentEditorViewController {
         let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BlockInformation>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: BlockInformation) -> UICollectionViewCell? in
 
-            let blockViewModel = self.viewModel.blocksViewModels.first { blockViewModel in
+            let blockViewModel = self.viewModel.modelsHolder.models.first { blockViewModel in
                 blockViewModel.blockId == item.id
             }
 
@@ -407,7 +406,7 @@ private extension DocumentEditorViewController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
 
-        viewModel.handlingTapOnEmptySpot()
+        viewModel.blockActionHandler.onEmptySpotTap()
     }
 
     /// Add handlers to viewModel state changes
@@ -449,7 +448,7 @@ private extension DocumentEditorViewController {
         UISelectionFeedbackGenerator().selectionChanged()
         
         present(
-            viewModel.settingViewModel.makeSettingsViewController(),
+            viewModel.settingsViewModel.makeSettingsViewController(),
             animated: false
         )
     }

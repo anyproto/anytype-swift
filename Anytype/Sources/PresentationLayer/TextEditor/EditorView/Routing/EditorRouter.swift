@@ -27,20 +27,20 @@ protocol EditorRouterProtocol {
 protocol PresentingViewController: UIViewController, EditorModuleDocumentViewInput {}
 
 final class EditorRouter: EditorRouterProtocol {
-    private weak var preseningViewController: PresentingViewController?
+    private weak var viewController: PresentingViewController?
     private let fileRouter: FileRouter
     private lazy var dimmingTransitionDelegate = DimmingTransitionDelegate()
 
-    init(preseningViewController: PresentingViewController?) {
-        self.preseningViewController = preseningViewController
-        self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: preseningViewController)
+    init(viewController: PresentingViewController?) {
+        self.viewController = viewController
+        self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
     /// Show page
     func showPage(with id: BlockId) {
-        let newEditorViewController = EditorAssembly.build(id: id)
+        let newEditorViewController = EditorAssembly.build(blockId: id)
         
-        preseningViewController?.navigationController?.pushViewController(
+        viewController?.navigationController?.pushViewController(
             newEditorViewController,
             animated: true
         )
@@ -52,7 +52,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         
         let safariController = SFSafariViewController(url: url)
-        preseningViewController?.present(safariController, animated: true, completion: nil)
+        viewController?.present(safariController, animated: true, completion: nil)
     }
     
     func showBookmark(model: BlockActiveRecordProtocol, completion: @escaping (URL) -> ()) {
@@ -66,17 +66,17 @@ final class EditorRouter: EditorRouterProtocol {
         controller.view.isOpaque = false
         controller.transitioningDelegate = dimmingTransitionDelegate
         controller.modalPresentationStyle = .custom
-        preseningViewController?.present(controller, animated: true)
+        viewController?.present(controller, animated: true)
     }
     
     func showFilePicker(model: FilePickerModel) {
         let vc = CommonViews.Pickers.File.Picker(model)
-        preseningViewController?.present(vc, animated: true, completion: nil)
+        viewController?.present(vc, animated: true, completion: nil)
     }
     
     func showImagePicker(model: MediaPickerModel) {
         let vc = MediaPicker(viewModel: model)
-        preseningViewController?.present(vc, animated: true, completion: nil)
+        viewController?.present(vc, animated: true, completion: nil)
     }
     
     func saveFile(fileURL: URL) {
@@ -86,10 +86,10 @@ final class EditorRouter: EditorRouterProtocol {
     func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void) {
         let searchListViewController = SearchListViewController(items: languages, completion: completion)
         searchListViewController.modalPresentationStyle = .pageSheet
-        preseningViewController?.present(searchListViewController, animated: true)
+        viewController?.present(searchListViewController, animated: true)
     }
     
     func showStyleMenu(block: BlockModelProtocol, viewModel: BaseBlockViewModel) {
-        preseningViewController?.showStyleMenu(blockModel: block, blockViewModel: viewModel)
+        viewController?.showStyleMenu(blockModel: block, blockViewModel: viewModel)
     }
 }

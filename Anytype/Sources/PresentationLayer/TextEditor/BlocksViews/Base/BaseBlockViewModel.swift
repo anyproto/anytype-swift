@@ -18,7 +18,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     
     let block: BlockActiveRecordProtocol
     private(set) weak var baseBlockDelegate: BaseBlockDelegate?
-    private(set) weak var actionHandler: NewBlockActionHandler?
+    let actionHandler: EditorActionHandlerProtocol
     let router: EditorRouterProtocol
     
 
@@ -27,7 +27,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     init(
         _ block: BlockActiveRecordProtocol,
         delegate: BaseBlockDelegate?,
-        actionHandler: NewBlockActionHandler?,
+        actionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
         self.block = block
@@ -74,13 +74,13 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     func handle(contextualMenuAction: ContextualMenuAction) {
         switch contextualMenuAction {
         case .addBlockBelow:
-            actionHandler?.handleAction(.addBlock(.text(.text)), model: block.blockModel)
+            actionHandler.handleAction(.addBlock(.text(.text)), model: block.blockModel)
         case .delete:
-            actionHandler?.handleAction(.delete, model: block.blockModel)
+            actionHandler.handleAction(.delete, model: block.blockModel)
         case .duplicate:
-            actionHandler?.handleAction(.duplicate, model: block.blockModel)
+            actionHandler.handleAction(.duplicate, model: block.blockModel)
         case .turnIntoPage:
-            actionHandler?.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
+            actionHandler.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
         case .style:
             router.showStyleMenu(block: block.blockModel, viewModel: self)
         case .moveTo, .color, .backgroundColor:
