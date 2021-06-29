@@ -11,7 +11,7 @@ final class BlocksViewsImageViewModel: BlocksViewsBaseFileViewModel {
     
     override func handleReplace() {
         let model: MediaPicker.ViewModel = .init(type: .images)
-        router?.showImagePicker(model: model)
+        router.showImagePicker(model: model)
         
         model.onResultInformationObtain = { [weak self] resultInformation in
             guard let resultInformation = resultInformation else { return }

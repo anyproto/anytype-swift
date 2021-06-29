@@ -15,7 +15,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     init(
         _ block: BlockActiveRecordProtocol,
         publisher: AnyPublisher<DetailsData, Never>?,
-        router: EditorRouterProtocol?,
+        router: EditorRouterProtocol,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?
     ) {
@@ -78,7 +78,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     override func didSelectRowInTableView() {
         switch block.content {
         case let .link(linkContent):
-            router?.showPage(with: linkContent.targetBlockID)
+            router.showPage(with: linkContent.targetBlockID)
         default: return
         }
     }

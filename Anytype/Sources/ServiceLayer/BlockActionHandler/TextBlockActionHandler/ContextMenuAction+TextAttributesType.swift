@@ -1,6 +1,6 @@
 extension CustomTextView.ContextMenuAction {
     
-    var asActionType: BlockActionHandler.ActionType.TextAttributesType {
+    var asActionType: BlockHandlerActionType.TextAttributesType {
         switch self {
         case .bold:
             return .bold

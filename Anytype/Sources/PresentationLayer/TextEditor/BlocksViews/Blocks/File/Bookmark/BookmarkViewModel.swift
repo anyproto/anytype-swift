@@ -18,7 +18,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
     init(
         block: BlockActiveRecordProtocol,
         delegate: BaseBlockDelegate?,
-        router: EditorRouterProtocol?,
+        router: EditorRouterProtocol,
         actionHandler: NewBlockActionHandler?
     ) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
@@ -39,10 +39,10 @@ final class BookmarkViewModel: BaseBlockViewModel {
         
         if !value.url.isEmpty {
             URL(string: value.url).flatMap {
-                router?.openUrl($0)
+                router.openUrl($0)
             }
         } else {
-            router?.showBookmark(model: block) { [weak self] url in
+            router.showBookmark(model: block) { [weak self] url in
                 guard let self = self else { return }
                 self.actionHandler?.handleAction(.fetch(url: url), model: self.block.blockModel)
             }

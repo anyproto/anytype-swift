@@ -40,7 +40,7 @@ extension StyleColorViewController {
 }
 
 final class StyleColorViewController: UIViewController {
-    typealias ActionHandler = (_ action: BlockActionHandler.ActionType) -> Void
+    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     // MARK: - Viwes
 

@@ -6,10 +6,8 @@ import BlocksModels
 
 
 class DocumentEditorViewModel: ObservableObject {
-    /// View Input
     weak var viewInput: EditorModuleDocumentViewInput?
-    /// Router for current page
-    var editorRouter: EditorRouterProtocol?
+    var router: EditorRouterProtocol!
     
     private(set) lazy var settingViewModel = DocumentSettingViewModel(
         detailsActiveModel: document.defaultDetailsActiveModel
@@ -28,7 +26,8 @@ class DocumentEditorViewModel: ObservableObject {
         documentId: document.documentId,
         documentViewInteraction: self,
         selectionHandler: selectionHandler,
-        document: document
+        document: document,
+        router: router
     )
     
     // Combine Subscriptions
@@ -45,10 +44,7 @@ class DocumentEditorViewModel: ObservableObject {
         }
     }
 
-    /// We should update some items in place.
-    /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
-    /// Its `Output` is a `List<BlockId>`
-    let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
+    let updateElementsSubject = PassthroughSubject<Set<BlockId>, Never>()
     lazy var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = updateElementsSubject.eraseToAnyPublisher()
     
 
@@ -80,7 +76,7 @@ class DocumentEditorViewModel: ObservableObject {
                 case .general:
                     let blocksViewModels = self.blocksConverter.convert(
                         updateResult.models,
-                        router: self.editorRouter,
+                        router: self.router,
                         editorViewModel: self
                     )
                     self.update(blocksViewModels: blocksViewModels)
@@ -205,9 +201,8 @@ extension DocumentEditorViewModel: BaseBlockDelegate {
 }
 
 extension DocumentEditorViewModel: NewBlockActionHandler {
-
     /// Block action handler
-    func handleActionForFirstResponder(_ action: BlockActionHandler.ActionType) {
+    func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
         guard let firstResponder = document.userSession?.firstResponder() else {
             assertionFailure("No first responder for action \(action)")
             return
@@ -216,13 +211,18 @@ extension DocumentEditorViewModel: NewBlockActionHandler {
         handleAction(action, model: firstResponder)
     }
     
-    func handleAction(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol) {
+    func handleAction(_ action: BlockHandlerActionType, model: BlockModelProtocol) {
         blockActionHandler?.handleBlockAction(action, block: model) { [weak self] events in
             self?.process(events: events)
         }
     }
     
-    func handleActionWithoutCompletion(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol) {
+    func upload(blockId: BlockId, filePath: String) {
+        blockActionHandler?.upload(blockId: blockId, filePath: filePath)
+    }
+    
+    
+    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, model: BlockModelProtocol) {
         blockActionHandler?.handleBlockAction(action, block: model, completion: nil)
     }
 }

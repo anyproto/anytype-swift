@@ -18,7 +18,7 @@ final class EditorAssembly {
         let editorController = DocumentEditorViewController(viewModel: editorViewModel)
         
         editorViewModel.viewInput = editorController
-        editorViewModel.editorRouter = EditorRouter(
+        editorViewModel.router = EditorRouter(
             preseningViewController: editorController
         )
         

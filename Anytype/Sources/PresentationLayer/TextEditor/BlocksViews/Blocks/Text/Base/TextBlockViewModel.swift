@@ -11,7 +11,7 @@ class TextBlockViewModel: BaseBlockViewModel {
     private var subscriptions: Set<AnyCancellable> = []
     private lazy var mentionsConfigurator = MentionsTextViewConfigurator { [weak self] pageId in
         guard let self = self else { return }
-        self.router?.showPage(with: pageId)
+        self.router.showPage(with: pageId)
     }
 
     // MARK: View state
@@ -19,7 +19,7 @@ class TextBlockViewModel: BaseBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     
-    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol?) {
+    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setupSubscribers()
@@ -198,7 +198,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
             case .showStyleMenu:
-                router?.showStyleMenu(block: block.blockModel, viewModel: self)
+                router.showStyleMenu(block: block.blockModel, viewModel: self)
             case .showMultiActionMenuAction:
                 shouldResignFirstResponder.send()
                 actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)

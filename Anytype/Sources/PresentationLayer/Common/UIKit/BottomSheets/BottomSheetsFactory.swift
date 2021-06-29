@@ -12,7 +12,7 @@ import UIKit
 
 
 final class BottomSheetsFactory {
-    typealias ActionHandler = (_ action: BlockActionHandler.ActionType) -> Void
+    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     static func createStyleBottomSheet(parentViewController: UIViewController,
                                        delegate: FloatingPanelControllerDelegate,

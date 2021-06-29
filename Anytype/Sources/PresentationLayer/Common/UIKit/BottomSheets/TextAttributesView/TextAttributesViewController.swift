@@ -10,7 +10,7 @@ import UIKit
 
 
 final class TextAttributesViewController: UIViewController {
-    typealias ActionHandler = (_ action: BlockActionHandler.ActionType) -> Void
+    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     struct AttributesState {
         var hasBold: Bool

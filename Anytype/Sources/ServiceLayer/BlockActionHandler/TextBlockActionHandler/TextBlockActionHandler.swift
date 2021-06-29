@@ -7,13 +7,16 @@ final class TextBlockActionHandler {
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
-    var router: EditorRouterProtocol?
+    private let router: EditorRouterProtocol
     private weak var documentViewInteraction: DocumentViewInteraction?
 
-    init(contextId: String, service: BlockActionServiceProtocol, documentViewInteraction: DocumentViewInteraction?) {
+    init(
+        contextId: String, service: BlockActionServiceProtocol, documentViewInteraction: DocumentViewInteraction?, router: EditorRouterProtocol
+    ) {
         self.service = service
         self.contextId = contextId
         self.documentViewInteraction = documentViewInteraction
+        self.router = router
     }
 
     func handlingTextViewAction(_ block: BlockActiveRecordProtocol, _ action: CustomTextView.UserAction) {
@@ -32,7 +35,7 @@ final class TextBlockActionHandler {
                 replacementText: replacementText
             )
         case let .showPage(pageId):
-            router?.showPage(with: pageId)
+            router.showPage(with: pageId)
         }
     }
     
@@ -81,13 +84,17 @@ final class TextBlockActionHandler {
                         assertionFailure("Only text block may send keyboard action")
                         return
                     }
-                    self.service.split(block: block.blockModel.information,
-                                       oldText: oldText,
-                                       newBlockContentType: text.contentType,
-                                       shouldSetFocusOnUpdate: true)
+                    self.service.split(
+                        block: block.blockModel.information,
+                        oldText: oldText,
+                        newBlockContentType: text.contentType,
+                        shouldSetFocusOnUpdate: true
+                    )
                 }
                 else {
-                    self.service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true)
+                    self.service.add(
+                        newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true
+                    )
                 }
             }
 

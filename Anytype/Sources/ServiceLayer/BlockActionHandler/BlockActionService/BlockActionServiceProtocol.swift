@@ -7,7 +7,7 @@ protocol BlockActionServiceProtocol {
     func configured(documentId: String) -> Self
     func configured(didReceiveEvent: @escaping (PackOfEvents) -> ())
     
-    func upload(block: BlockInformation, filePath: String)
+    func upload(blockId: BlockId, filePath: String)
     
     func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool)
     

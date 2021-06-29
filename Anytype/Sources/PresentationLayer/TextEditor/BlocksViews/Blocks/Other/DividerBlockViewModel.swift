@@ -14,7 +14,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
         content: BlockDivider,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?,
-        router: EditorRouterProtocol?
+        router: EditorRouterProtocol
     ) {
         self.content = content
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)

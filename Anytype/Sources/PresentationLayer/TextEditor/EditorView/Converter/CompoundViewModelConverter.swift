@@ -13,7 +13,7 @@ final class CompoundViewModelConverter {
 
     func convert(
         _ blocks: [BlockActiveRecordProtocol],
-        router: EditorRouterProtocol?,
+        router: EditorRouterProtocol,
         editorViewModel: DocumentEditorViewModel
     ) -> [BaseBlockViewModel] {
         blocks.compactMap { block in
@@ -23,7 +23,7 @@ final class CompoundViewModelConverter {
 
     private func createBlockViewModel(
         _ block: BlockActiveRecordProtocol,
-        router: EditorRouterProtocol?,
+        router: EditorRouterProtocol,
         editorViewModel: DocumentEditorViewModel
     ) -> BaseBlockViewModel? {
         switch block.content {
@@ -36,11 +36,11 @@ final class CompoundViewModelConverter {
             default:
                 return TextBlockViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
             }
-        case let .file(value):
-            switch value.contentType {
+        case let .file(content):
+            switch content.contentType {
             case .file:
                 return BlocksViewsFileViewModel(
-                    block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
+                    block, content: content, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
                 )
             case .none:
                 return UnknownLabelViewModel(
@@ -48,15 +48,17 @@ final class CompoundViewModelConverter {
                 )
             case .image:
                 return BlocksViewsImageViewModel(
-                    block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
+                    block, content: content, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
                 )
             case .video:
                 return VideoBlockViewModel(
-                    block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
+                    block, content: content, delegate: editorViewModel, router: router, actionHandler: blockActionHandler
                 )
             }
         case .divider(let content):
-            return DividerBlockViewModel(block, content: content, delegate: editorViewModel, actionHandler: blockActionHandler, router: router)
+            return DividerBlockViewModel(
+                block, content: content, delegate: editorViewModel, actionHandler: blockActionHandler, router: router
+            )
         case .bookmark:
             return BookmarkViewModel(
                 block: block,

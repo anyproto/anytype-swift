@@ -2,10 +2,15 @@ import UIKit
 import BlocksModels
 import Combine
 
-/// Actions from block
-class BlockActionHandler {
+protocol BlockActionHandlerProtocol {
     typealias Completion = (PackOfEvents) -> Void
+    
+    func handleBlockAction(_ action: BlockHandlerActionType, block: BlockModelProtocol, completion:  Completion?)
+    func upload(blockId: BlockId, filePath: String)
+}
 
+/// Actions from block
+class BlockActionHandler: BlockActionHandlerProtocol {
     private let service: BlockActionServiceProtocol
     private let listService = BlockActionsServiceList()
     private let textService = BlockActionsServiceText()
@@ -15,11 +20,7 @@ class BlockActionHandler {
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
     private let document: BaseDocumentProtocol
     
-    private lazy var textBlockActionHandler = TextBlockActionHandler(
-        contextId: documentId,
-        service: service,
-        documentViewInteraction: documentViewInteraction
-    )
+    private let textBlockActionHandler: TextBlockActionHandler
 
 
     // MARK: - Lifecycle
@@ -28,7 +29,8 @@ class BlockActionHandler {
         documentId: String?,
         documentViewInteraction: DocumentViewInteraction?,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
-        document: BaseDocumentProtocol
+        document: BaseDocumentProtocol,
+        router: EditorRouterProtocol
     ) {
         guard let documentId = documentId else { return nil }
         
@@ -37,11 +39,18 @@ class BlockActionHandler {
         self.service = BlockActionService(documentId: documentId)
         self.selectionHandler = selectionHandler
         self.document = document
+        
+        self.textBlockActionHandler = TextBlockActionHandler(
+            contextId: documentId,
+            service: service,
+            documentViewInteraction: documentViewInteraction,
+            router: router
+        )
     }
 
     // MARK: - Public methods
 
-    func handleBlockAction(_ action: ActionType, block: BlockModelProtocol, completion:  Completion?) {
+    func handleBlockAction(_ action: BlockHandlerActionType, block: BlockModelProtocol, completion:  Completion?) {
         service.configured { events in
             completion?(events)
         }
@@ -74,8 +83,6 @@ class BlockActionHandler {
             service.receiveOurEvents([.setToggled(blockId: block.information.id)])
         case .checkbox(selected: let selected):
             service.checked(blockId: block.information.id, newValue: selected)
-        case .upload(filePath: let filePath):
-            service.upload(block: block.information, filePath: filePath)
         case .createEmptyBlock(let parentId):
             service.addChild(childBlock: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
         case let .textView(action: action, activeRecord: activeRecord):
@@ -90,6 +97,10 @@ class BlockActionHandler {
                 textBlockActionHandler.handlingTextViewAction(activeRecord, action)
             }
         }
+    }
+    
+    func upload(blockId: BlockId, filePath: String) {
+        service.upload(blockId: blockId, filePath: filePath)
     }
     
     private func turnIntoBlock(block: BlockModelProtocol, type: BlockViewType) {
@@ -207,7 +218,7 @@ private extension BlockActionHandler {
     func handleFontAction(
         for block: BlockModelProtocol,
         range: NSRange,
-        fontAction: ActionType.TextAttributesType
+        fontAction: BlockHandlerActionType.TextAttributesType
     ) {
         guard case var .text(textContentType) = block.information.content else { return }
         var range = range

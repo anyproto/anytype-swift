@@ -19,7 +19,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
     let block: BlockActiveRecordProtocol
     private(set) weak var baseBlockDelegate: BaseBlockDelegate?
     private(set) weak var actionHandler: NewBlockActionHandler?
-    let router: EditorRouterProtocol?
+    let router: EditorRouterProtocol
     
 
     // MARK: - Initialization
@@ -28,7 +28,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
         _ block: BlockActiveRecordProtocol,
         delegate: BaseBlockDelegate?,
         actionHandler: NewBlockActionHandler?,
-        router: EditorRouterProtocol?
+        router: EditorRouterProtocol
     ) {
         self.block = block
         self.baseBlockDelegate = delegate
@@ -82,7 +82,7 @@ class BaseBlockViewModel: DiffableProvier, ContextualMenuHandler {
         case .turnIntoPage:
             actionHandler?.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
         case .style:
-            router?.showStyleMenu(block: block.blockModel, viewModel: self)
+            router.showStyleMenu(block: block.blockModel, viewModel: self)
         case .moveTo, .color, .backgroundColor:
             break
         case .download,.replace, .addCaption, .rename:

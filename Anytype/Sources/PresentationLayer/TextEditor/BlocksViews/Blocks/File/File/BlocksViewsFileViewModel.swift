@@ -13,7 +13,7 @@ final class BlocksViewsFileViewModel: BlocksViewsBaseFileViewModel {
     
     override func handleReplace() {
         let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
-        router?.showFilePicker(model: model)
+        router.showFilePicker(model: model)
         
         subscription = model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
             self?.sendFile(at: value.filePath)

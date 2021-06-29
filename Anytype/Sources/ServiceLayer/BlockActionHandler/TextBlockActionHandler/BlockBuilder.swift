@@ -8,12 +8,8 @@ struct BlockBuilder {
     static func createInformation(block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.content {
         case .text:
-            return createContentType(
-                block: block,
-                action: action,
-                textPayload: textPayload
-            ).flatMap { (newBlockId(), $0) }
-            .map(BlockInformation.init)
+            return createContentType(block: block, action: action, textPayload: textPayload)
+                .flatMap { BlockInformation(id: newBlockId(), content: $0) }
         default: return nil
         }
     }
@@ -40,7 +36,9 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String) -> BlockContent? {
+    static func createContentType(
+        block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String
+    ) -> BlockContent? {
         switch block.content {
         case let .text(blockType):
             switch blockType.contentType {

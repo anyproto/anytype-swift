@@ -179,9 +179,6 @@
 		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
-		120F7D4A267CFDE000327734 /* CoverColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D49267CFDE000327734 /* CoverColor.swift */; };
-		120F7D4C267D006F00327734 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D4B267D006F00327734 /* CoverConstants.swift */; };
-		120F7D4E267D025A00327734 /* CoverGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D4D267D025A00327734 /* CoverGradient.swift */; };
 		120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D57267D071400327734 /* PickerSectionHeaderView.swift */; };
 		120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D5B267D0C4400327734 /* Color+Extensions.swift */; };
 		120F7D5E267D1AC200327734 /* DocumentCoverPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D5D267D1AC200327734 /* DocumentCoverPickerViewModel.swift */; };
@@ -193,8 +190,6 @@
 		120F7D84267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D83267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift */; };
 		120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D85267F9E8000327734 /* URLExtensions.swift */; };
 		1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211D6592667CED000541D9C /* ActivityIndicatorView.swift */; };
-		1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222B9DD26551A9A0095D444 /* DocumentIcon.swift */; };
-		122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122FC4C42654195C00D9892D /* IconEmoji.swift */; };
 		1237C0382680B21F00DDDA9C /* DocumentSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1237C0372680B21F00DDDA9C /* DocumentSettingViewModel.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
@@ -210,12 +205,7 @@
 		128495D7267273DD00351C66 /* DocumentSettingsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */; };
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
-		12A21FF72655643200207DD4 /* DocumentIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A21FF62655643200207DD4 /* DocumentIconImageView.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
-		12B69C92265D160E00D047E3 /* DocumentCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C91265D160E00D047E3 /* DocumentCoverViewModel.swift */; };
-		12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C94265D1CA300D047E3 /* DocumentCover.swift */; };
-		12B69C97265D1D5F00D047E3 /* DocumentCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C96265D1D5F00D047E3 /* DocumentCoverView.swift */; };
-		12BC46D1265E930300797530 /* DocumentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC46D0265E930300797530 /* DocumentIconView.swift */; };
 		12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12D94FD12678CD1F00F794EB /* DocumentIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */; };
@@ -284,9 +274,6 @@
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
 		3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9226456C89005805A8 /* HomeCoordinator.swift */; };
 		3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9E26458CC2005805A8 /* DragIndicator.swift */; };
-		3D89224E2680E0C80023E705 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D89224D2680E0C80023E705 /* EmojiProvider.swift */; };
-		3D8922512680E1230023E705 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D89224F2680E1230023E705 /* EmojiGroup.swift */; };
-		3D8922522680E1230023E705 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922502680E1230023E705 /* Emoji.swift */; };
 		3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A82D72656EDF400C4A9CD /* Popup.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
@@ -343,13 +330,10 @@
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
 		3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */; };
-		3DBED681266F8DBB00B9E9AB /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */; };
 		3DBED685266F8F0300B9E9AB /* DocumentViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */; };
 		3DBED69D266FBABC00B9E9AB /* UnknownLabelResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED69C266FBABC00B9E9AB /* UnknownLabelResource.swift */; };
 		3DBED69F266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED69E266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift */; };
 		3DBED6A1266FBF6A00B9E9AB /* UnknownLabelContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */; };
-		3DBED6AB266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */; };
-		3DBED6B8266FF4A800B9E9AB /* FloaterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
@@ -377,6 +361,22 @@
 		3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5120D2672202300153962 /* ServiceSuccess+Conversion.swift */; };
 		3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
+		3DEFD6492689FE180072EA27 /* FloaterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */; };
+		3DEFD64D2689FE250072EA27 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD64A2689FE240072EA27 /* EmojiProvider.swift */; };
+		3DEFD64E2689FE250072EA27 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD64B2689FE250072EA27 /* Emoji.swift */; };
+		3DEFD64F2689FE250072EA27 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD64C2689FE250072EA27 /* EmojiGroup.swift */; };
+		3DEFD6572689FE680072EA27 /* CoverColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6512689FE680072EA27 /* CoverColor.swift */; };
+		3DEFD6582689FE680072EA27 /* DocumentCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6522689FE680072EA27 /* DocumentCover.swift */; };
+		3DEFD6592689FE680072EA27 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6532689FE680072EA27 /* CoverConstants.swift */; };
+		3DEFD65A2689FE680072EA27 /* CoverGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6542689FE680072EA27 /* CoverGradient.swift */; };
+		3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6552689FE680072EA27 /* DocumentCoverView.swift */; };
+		3DEFD65C2689FE680072EA27 /* DocumentCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6562689FE680072EA27 /* DocumentCoverViewModel.swift */; };
+		3DEFD6622689FE740072EA27 /* DocumentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD65D2689FE740072EA27 /* DocumentIconView.swift */; };
+		3DEFD6632689FE740072EA27 /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD65F2689FE740072EA27 /* IconEmoji.swift */; };
+		3DEFD6642689FE740072EA27 /* DocumentIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6602689FE740072EA27 /* DocumentIcon.swift */; };
+		3DEFD6652689FE740072EA27 /* DocumentIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */; };
+		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
+		3DEFD6692689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6672689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		530470F62682046900C9EE78 /* TextBlockIconVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconVIew.swift */; };
@@ -752,9 +752,6 @@
 		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
-		120F7D49267CFDE000327734 /* CoverColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColor.swift; sourceTree = "<group>"; };
-		120F7D4B267D006F00327734 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
-		120F7D4D267D025A00327734 /* CoverGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverGradient.swift; sourceTree = "<group>"; };
 		120F7D57267D071400327734 /* PickerSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerSectionHeaderView.swift; sourceTree = "<group>"; };
 		120F7D5B267D0C4400327734 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		120F7D5D267D1AC200327734 /* DocumentCoverPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPickerViewModel.swift; sourceTree = "<group>"; };
@@ -766,8 +763,6 @@
 		120F7D83267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModelContentConfiguration.swift; sourceTree = "<group>"; };
 		120F7D85267F9E8000327734 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		1211D6592667CED000541D9C /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
-		1222B9DD26551A9A0095D444 /* DocumentIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIcon.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/DocumentIcon.swift; sourceTree = SOURCE_ROOT; };
-		122FC4C42654195C00D9892D /* IconEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconEmoji.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/IconEmoji.swift; sourceTree = SOURCE_ROOT; };
 		1237C0372680B21F00DDDA9C /* DocumentSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingViewModel.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
@@ -783,12 +778,7 @@
 		128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListRow.swift; sourceTree = "<group>"; };
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
-		12A21FF62655643200207DD4 /* DocumentIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIconImageView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/DocumentIconImageView.swift; sourceTree = SOURCE_ROOT; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
-		12B69C91265D160E00D047E3 /* DocumentCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentCoverViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Cover/DocumentCoverViewModel.swift; sourceTree = SOURCE_ROOT; };
-		12B69C94265D1CA300D047E3 /* DocumentCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentCover.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Cover/Entity/DocumentCover.swift; sourceTree = SOURCE_ROOT; };
-		12B69C96265D1D5F00D047E3 /* DocumentCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentCoverView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Cover/DocumentCoverView.swift; sourceTree = SOURCE_ROOT; };
-		12BC46D0265E930300797530 /* DocumentIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIconView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/DocumentIconView.swift; sourceTree = SOURCE_ROOT; };
 		12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsInformationProviderExtensions.swift; path = Anytype/Sources/Models/Extensions/DetailsInformationProviderExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPicker.swift; sourceTree = "<group>"; };
@@ -856,9 +846,6 @@
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		3D850B9E26458CC2005805A8 /* DragIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicator.swift; sourceTree = "<group>"; };
-		3D89224D2680E0C80023E705 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/DocumentIconPicker/Emoji/EmojiProvider.swift; sourceTree = SOURCE_ROOT; };
-		3D89224F2680E1230023E705 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiGroup.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/DocumentIconPicker/Emoji/EmojiGroup.swift; sourceTree = SOURCE_ROOT; };
-		3D8922502680E1230023E705 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Emoji.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/DocumentIconPicker/Emoji/Emoji.swift; sourceTree = SOURCE_ROOT; };
 		3D8A82D72656EDF400C4A9CD /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
@@ -914,13 +901,10 @@
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "Anytype/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
 		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/Models/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
-		3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
-		3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewInteraction.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/Protocols/DocumentViewInteraction.swift; sourceTree = SOURCE_ROOT; };
+		3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewInteraction.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/DocumentViewInteraction.swift; sourceTree = SOURCE_ROOT; };
 		3DBED69C266FBABC00B9E9AB /* UnknownLabelResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelResource.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelResource.swift; sourceTree = SOURCE_ROOT; };
 		3DBED69E266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentView.swift; sourceTree = SOURCE_ROOT; };
-		3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ContextMenuAction+TextAttributesType.swift"; path = "Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/Extensions/ContextMenuAction+TextAttributesType.swift"; sourceTree = SOURCE_ROOT; };
-		3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
@@ -931,7 +915,7 @@
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoDataAccessor.swift; sourceTree = "<group>"; };
-		3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditorModuleDocumentViewInput.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/EditorModuleDocumentViewInput.swift; sourceTree = SOURCE_ROOT; };
+		3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditorModuleDocumentViewInput.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModuleDocumentViewInput.swift; sourceTree = SOURCE_ROOT; };
 		3DD67E98265270450025ED6F /* EditorSelectionIncomingCellEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionIncomingCellEvent.swift; sourceTree = "<group>"; };
 		3DD67E9B2652705A0025ED6F /* EditorSelectionIncomingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionIncomingEvent.swift; sourceTree = "<group>"; };
 		3DD67E9E2652708A0025ED6F /* EditorSelectionHandlerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionHandlerStorage.swift; sourceTree = "<group>"; };
@@ -944,10 +928,26 @@
 		3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewModel.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
-		3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceProtocol.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceProtocol.swift; sourceTree = SOURCE_ROOT; };
+		3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceProtocol.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/BlockActionService/BlockActionServiceProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DE5120D2672202300153962 /* ServiceSuccess+Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+Conversion.swift"; path = "Anytype/Sources/ServiceLayer/BlockActionHandler/Extensions/ServiceSuccess+Conversion.swift"; sourceTree = SOURCE_ROOT; };
 		3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseDocumentProtocol.swift; path = Anytype/Sources/Models/Documents/Document/BaseDocumentProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
+		3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD64A2689FE240072EA27 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/DocumentIconPicker/Emoji/EmojiProvider.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD64B2689FE250072EA27 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Emoji.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/DocumentIconPicker/Emoji/Emoji.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD64C2689FE250072EA27 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiGroup.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/DocumentIconPicker/Emoji/EmojiGroup.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD6512689FE680072EA27 /* CoverColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverColor.swift; sourceTree = "<group>"; };
+		3DEFD6522689FE680072EA27 /* DocumentCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentCover.swift; sourceTree = "<group>"; };
+		3DEFD6532689FE680072EA27 /* CoverConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
+		3DEFD6542689FE680072EA27 /* CoverGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverGradient.swift; sourceTree = "<group>"; };
+		3DEFD6552689FE680072EA27 /* DocumentCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentCoverView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Cover/DocumentCoverView.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD6562689FE680072EA27 /* DocumentCoverViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentCoverViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Cover/DocumentCoverViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD65D2689FE740072EA27 /* DocumentIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentIconView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/DocumentIconView.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD65F2689FE740072EA27 /* IconEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconEmoji.swift; sourceTree = "<group>"; };
+		3DEFD6602689FE740072EA27 /* DocumentIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentIcon.swift; sourceTree = "<group>"; };
+		3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentIconImageView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/DocumentIconImageView.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD6672689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ContextMenuAction+TextAttributesType.swift"; path = "AnyType/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/ContextMenuAction+TextAttributesType.swift"; sourceTree = SOURCE_ROOT; };
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		530470F52682046900C9EE78 /* TextBlockIconVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconVIew.swift; sourceTree = "<group>"; };
@@ -1715,7 +1715,18 @@
 			isa = PBXGroup;
 			children = (
 				0A0965BF25BEF5B000C004BD /* Routing */,
-				0A0965C725BEF5B000C004BD /* EditorModule */,
+				0A19E2B12444C8F30078DFAB /* Converter */,
+				3DBED6B2266FF47D00B9E9AB /* SwiftUI */,
+				3D180220264E9C0000224815 /* Models */,
+				12858E79264ABA9900A7FE0F /* Views */,
+				533341F2262E0F5400238121 /* Selection */,
+				EA289BB72629D50000EA869F /* TurnIntoSelection */,
+				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
+				3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */,
+				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
+				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
+				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
+				EA4B6E33268A0C1500F717D3 /* NewBlockActionHandler.swift */,
 			);
 			path = EditorView;
 			sourceTree = "<group>";
@@ -1723,29 +1734,10 @@
 		0A0965BF25BEF5B000C004BD /* Routing */ = {
 			isa = PBXGroup;
 			children = (
-				0A0965C125BEF5B000C004BD /* FileRouter.swift */,
 				53D6EE43265E4D9700C47263 /* EditorRouter.swift */,
+				0A0965C125BEF5B000C004BD /* FileRouter.swift */,
 			);
 			path = Routing;
-			sourceTree = "<group>";
-		};
-		0A0965C725BEF5B000C004BD /* EditorModule */ = {
-			isa = PBXGroup;
-			children = (
-				0A19E2B12444C8F30078DFAB /* Converter */,
-				3DBED6B2266FF47D00B9E9AB /* SwiftUI */,
-				3D180220264E9C0000224815 /* Models */,
-				12858E79264ABA9900A7FE0F /* Views */,
-				533341F2262E0F5400238121 /* Selection */,
-				EA289BB72629D50000EA869F /* TurnIntoSelection */,
-				5338E7E425DC32E5008CB97D /* BlockActionHandlers */,
-				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
-				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
-				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
-				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
-				EA4B6E33268A0C1500F717D3 /* NewBlockActionHandler.swift */,
-			);
-			path = EditorModule;
 			sourceTree = "<group>";
 		};
 		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
@@ -2042,22 +2034,13 @@
 			path = ActivityIndicatorView;
 			sourceTree = "<group>";
 		};
-		122FC4C12654192B00D9892D /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				122FC4C42654195C00D9892D /* IconEmoji.swift */,
-				1222B9DD26551A9A0095D444 /* DocumentIcon.swift */,
-			);
-			path = Entity;
-			sourceTree = "<group>";
-		};
 		124C1626264D35BF003C411C /* Icon */ = {
 			isa = PBXGroup;
 			children = (
-				122FC4C12654192B00D9892D /* Entity */,
+				3DEFD65E2689FE740072EA27 /* Entity */,
+				3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */,
+				3DEFD65D2689FE740072EA27 /* DocumentIconView.swift */,
 				0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */,
-				12A21FF62655643200207DD4 /* DocumentIconImageView.swift */,
-				12BC46D0265E930300797530 /* DocumentIconView.swift */,
 				3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */,
 			);
 			path = Icon;
@@ -2114,22 +2097,11 @@
 		12B69C8E265D15FF00D047E3 /* Cover */ = {
 			isa = PBXGroup;
 			children = (
-				12B69C93265D1C9200D047E3 /* Entity */,
-				12B69C96265D1D5F00D047E3 /* DocumentCoverView.swift */,
-				12B69C91265D160E00D047E3 /* DocumentCoverViewModel.swift */,
+				3DEFD6552689FE680072EA27 /* DocumentCoverView.swift */,
+				3DEFD6562689FE680072EA27 /* DocumentCoverViewModel.swift */,
+				3DEFD6502689FE680072EA27 /* Entity */,
 			);
 			path = Cover;
-			sourceTree = "<group>";
-		};
-		12B69C93265D1C9200D047E3 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				12B69C94265D1CA300D047E3 /* DocumentCover.swift */,
-				120F7D49267CFDE000327734 /* CoverColor.swift */,
-				120F7D4B267D006F00327734 /* CoverConstants.swift */,
-				120F7D4D267D025A00327734 /* CoverGradient.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		12BE8E5826565D6D000C95B9 /* Extensions */ = {
@@ -2472,11 +2444,20 @@
 		3D89224C2680E0850023E705 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
-				3D8922502680E1230023E705 /* Emoji.swift */,
-				3D89224F2680E1230023E705 /* EmojiGroup.swift */,
-				3D89224D2680E0C80023E705 /* EmojiProvider.swift */,
+				3DEFD64B2689FE250072EA27 /* Emoji.swift */,
+				3DEFD64C2689FE250072EA27 /* EmojiGroup.swift */,
+				3DEFD64A2689FE240072EA27 /* EmojiProvider.swift */,
 			);
 			path = Emoji;
+			sourceTree = "<group>";
+		};
+		3D8C76782689E19800353CDC /* BlockActionService */ = {
+			isa = PBXGroup;
+			children = (
+				3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */,
+				53F820BF2648B257003FEB0B /* BlockActionService.swift */,
+			);
+			path = BlockActionService;
 			sourceTree = "<group>";
 		};
 		3D929B29263302010063F1BE /* Example */ = {
@@ -2742,22 +2723,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		3DBED6A7266FEB5600B9E9AB /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */,
 				120F7D42267CCD9F00327734 /* DocumentCoverPicker */,
 				12D94FCF2678CD1200F794EB /* DocumentIconPicker */,
 				128495CF26726EBC00351C66 /* DocumentSettings */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
-				3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */,
 				1237C0372680B21F00DDDA9C /* DocumentSettingViewModel.swift */,
 			);
 			path = SwiftUI;
@@ -2871,14 +2844,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3DE5120926721CCC00153962 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		3DE5120C2672201200153962 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2886,6 +2851,28 @@
 			);
 			path = Extensions;
 			sourceTree = "<group>";
+		};
+		3DEFD6502689FE680072EA27 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				3DEFD6512689FE680072EA27 /* CoverColor.swift */,
+				3DEFD6522689FE680072EA27 /* DocumentCover.swift */,
+				3DEFD6532689FE680072EA27 /* CoverConstants.swift */,
+				3DEFD6542689FE680072EA27 /* CoverGradient.swift */,
+			);
+			name = Entity;
+			path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Cover/Entity;
+			sourceTree = SOURCE_ROOT;
+		};
+		3DEFD65E2689FE740072EA27 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				3DEFD65F2689FE740072EA27 /* IconEmoji.swift */,
+				3DEFD6602689FE740072EA27 /* DocumentIcon.swift */,
+			);
+			name = Entity;
+			path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/Entity;
+			sourceTree = SOURCE_ROOT;
 		};
 		3DF6F61A262ED50C000E05A5 /* FeatureFlags */ = {
 			isa = PBXGroup;
@@ -2906,11 +2893,11 @@
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
+				5338E7E425DC32E5008CB97D /* TextBlockActionHandler */,
+				3D8C76782689E19800353CDC /* BlockActionService */,
 				3DE5120C2672201200153962 /* Extensions */,
 				3DE511FE26712FBE00153962 /* Models */,
-				53F820BF2648B257003FEB0B /* BlockActionService.swift */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
-				3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */,
 			);
 			path = BlockActionHandler;
 			sourceTree = "<group>";
@@ -2966,15 +2953,14 @@
 			path = TextAttributesView;
 			sourceTree = "<group>";
 		};
-		5338E7E425DC32E5008CB97D /* BlockActionHandlers */ = {
+		5338E7E425DC32E5008CB97D /* TextBlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
-				3DE5120926721CCC00153962 /* Protocols */,
-				3DBED6A7266FEB5600B9E9AB /* Extensions */,
+				3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */,
+				3DEFD6672689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift */,
 				5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */,
-				3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */,
 			);
-			path = BlockActionHandlers;
+			path = TextBlockActionHandler;
 			sourceTree = "<group>";
 		};
 		534B7F1B26264E0100D712B2 /* Toolbars */ = {
@@ -3561,7 +3547,6 @@
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				53856BF0265BCD4B00CB1FAE /* ProtobufExtenstion.swift in Sources */,
-				120F7D4E267D025A00327734 /* CoverGradient.swift in Sources */,
 				EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */,
 				0A1DACC5244DDB050007BC5D /* BlockType.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
@@ -3570,7 +3555,6 @@
 				0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */,
 				3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */,
 				0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */,
-				12B69C97265D1D5F00D047E3 /* DocumentCoverView.swift in Sources */,
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
@@ -3595,7 +3579,6 @@
 				3D22B20E2685DABD00C78C28 /* BlocksViewsImageViewModel.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
 				EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */,
-				12B69C92265D160E00D047E3 /* DocumentCoverViewModel.swift in Sources */,
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconVIew.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
@@ -3612,10 +3595,13 @@
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
+				3DEFD6632689FE740072EA27 /* IconEmoji.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */,
+				3DEFD64D2689FE250072EA27 /* EmojiProvider.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
+				3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* PageCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* DocumentIconPicker.swift in Sources */,
@@ -3624,8 +3610,8 @@
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */,
+				3DEFD64F2689FE250072EA27 /* EmojiGroup.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* EditorModuleDocumentViewInput.swift in Sources */,
-				3D8922522680E1230023E705 /* Emoji.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
@@ -3634,6 +3620,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
+				3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */,
 				53E9B8492683704500FBFEA1 /* ToggleBlockViewModel.swift in Sources */,
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,
@@ -3649,20 +3636,17 @@
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				1280E209265C17F800E5AEEE /* PlaceholderImageBuilder.swift in Sources */,
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
-				3DBED6AB266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
 				120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */,
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
-				120F7D4C267D006F00327734 /* CoverConstants.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
 				128495D32672701500351C66 /* DocumentSettingsList.swift in Sources */,
 				3D568F912666C27100DC7881 /* ContentBookmarkConverter.swift in Sources */,
-				3D89224E2680E0C80023E705 /* EmojiProvider.swift in Sources */,
 				EA77E527262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */,
@@ -3684,9 +3668,7 @@
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
-				3D8922512680E1230023E705 /* EmojiGroup.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
-				3DBED681266F8DBB00B9E9AB /* BlockBuilder.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */,
 				0A78327624BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift in Sources */,
@@ -3695,8 +3677,8 @@
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
 				3DBED685266F8F0300B9E9AB /* DocumentViewInteraction.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
-				3DBED6B8266FF4A800B9E9AB /* FloaterWrapper.swift in Sources */,
 				53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */,
+				3DEFD6492689FE180072EA27 /* FloaterWrapper.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
@@ -3709,6 +3691,7 @@
 				537A73852677FA5F001FEBBB /* TextViewWithPlaceholderDelegate.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */,
+				3DEFD6622689FE740072EA27 /* DocumentIconView.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
 				3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */,
 				0A005AB224C5D2F1000520AA /* ImagePicker.swift in Sources */,
@@ -3730,7 +3713,6 @@
 				128495D126726EE300351C66 /* DocumentSettingsContentView.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
-				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BaseBlockDelegate.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* ContextualMenu.swift in Sources */,
@@ -3749,13 +3731,13 @@
 				3D7C08272684E21500E2168D /* BlocksViewsFileSizeConverter.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
-				122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */,
 				5397BB862684D15500154791 /* TopUIKitView.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				3DC78638265D571500498993 /* OurEventConverter.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoaderObject.swift in Sources */,
+				3DEFD6582689FE680072EA27 /* DocumentCover.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
@@ -3791,7 +3773,6 @@
 				3DDF58962628C6440081C53E /* PageTitleViewModel.swift in Sources */,
 				0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */,
 				EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */,
-				12A21FF72655643200207DD4 /* DocumentIconImageView.swift in Sources */,
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				EAC6BB4E262886DA004C8C06 /* InputSwitcherTriplet.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
@@ -3825,6 +3806,7 @@
 				EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				EAE6BE092680D0CE00275788 /* SlashMenuItemIconData.swift in Sources */,
+				3DEFD65C2689FE680072EA27 /* DocumentCoverViewModel.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
@@ -3835,12 +3817,12 @@
 				EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
-				1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				EA2F0D60264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift in Sources */,
 				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
+				3DEFD6642689FE740072EA27 /* DocumentIcon.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift in Sources */,
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
@@ -3878,6 +3860,8 @@
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
 				EAE6BDFC2680CC5900275788 /* ObjectType.swift in Sources */,
+				3DEFD6592689FE680072EA27 /* CoverConstants.swift in Sources */,
+				3DEFD64E2689FE250072EA27 /* Emoji.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,
@@ -3896,6 +3880,7 @@
 				3D568F972666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift in Sources */,
 				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
+				3DEFD6652689FE740072EA27 /* DocumentIconImageView.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				3DDF589F2628C7F60081C53E /* DocumentIconViewModel.swift in Sources */,
@@ -3974,6 +3959,7 @@
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
+				3DEFD6572689FE680072EA27 /* CoverColor.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
 				EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */,
@@ -4008,6 +3994,7 @@
 				EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
+				3DEFD6692689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */,
@@ -4017,7 +4004,6 @@
 				0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */,
 				EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
-				120F7D4A267CFDE000327734 /* CoverColor.swift in Sources */,
 				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */,
@@ -4035,7 +4021,6 @@
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,
 				533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */,
-				12BC46D1265E930300797530 /* DocumentIconView.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
@@ -4044,6 +4029,7 @@
 				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
 				EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */,
+				3DEFD65A2689FE680072EA27 /* CoverGradient.swift in Sources */,
 				EA6B19FC2684F9CA00CD151D /* URLInputView.swift in Sources */,
 				EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,

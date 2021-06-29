@@ -122,7 +122,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         codeSelectButton.addAction(UIAction(handler: { [weak self] action in
             guard let codeLanguages = self?.textStorage.highlightr.supportedLanguages() else { return }
 
-            self?.currentConfiguration.viewModel?.router?.showCodeLanguageView(languages: codeLanguages) { language in
+            self?.currentConfiguration.viewModel?.router.showCodeLanguageView(languages: codeLanguages) { language in
                 self?.textStorage.language = language
                 self?.codeSelectButton.setText(language)
 

@@ -103,15 +103,17 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(afterBlock: BlockInformation, position: BlockPosition = .bottom) {
-        self.pageService.createPage(contextID: self.documentId,
-                                    targetID: "",
-                                    details: [.name: DetailsEntry(value: "")],
-                                    position: position,
-                                    templateID: "")
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
-                self?.didReceiveEvent(PackOfEvents(contextId: value.contextID, events: value.messages))
-            }.store(in: &self.subscriptions)
+        self.pageService.createPage(
+            contextID: self.documentId,
+            targetID: "",
+            details: [.name: DetailsEntry(value: "")],
+            position: position,
+            templateID: ""
+        )
+        .receiveOnMain()
+        .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
+            self?.didReceiveEvent(PackOfEvents(contextId: value.contextID, events: value.messages))
+        }.store(in: &self.subscriptions)
     }
 
     func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
@@ -279,9 +281,8 @@ extension BlockActionService {
 // MARK: - UploadFile
 
 extension BlockActionService {
-    func upload(block: BlockInformation, filePath: String) {
-        let blockId = block.id
-        self.fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
+    func upload(blockId: BlockId, filePath: String) {
+        fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)

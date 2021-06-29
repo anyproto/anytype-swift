@@ -20,7 +20,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     @Published var focus: BlockFocusPosition?
     @Published var codeLanguage: String? = "Swift"
 
-    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol?) {
+    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?, router: EditorRouterProtocol) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         self.setupSubscribers()
 
@@ -111,7 +111,7 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
         switch action {
         case .showStyleMenu:
-            router?.showStyleMenu(block: block.blockModel, viewModel: self)
+            router.showStyleMenu(block: block.blockModel, viewModel: self)
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
             actionHandler?.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)

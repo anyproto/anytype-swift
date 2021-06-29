@@ -80,7 +80,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     func open(_ value: ServiceSuccess) {
-        self.handleOpen(value)
+        handleOpen(value)
         
         // Event processor must receive event to send updates to subscribers.
         // Events are `blockShow`, actually.
@@ -93,15 +93,15 @@ final class BaseDocument: BaseDocumentProtocol {
         )
     }
     
-    private func handleOpen(_ value: ServiceSuccess) {
+    private func handleOpen(_ serviceSuccess: ServiceSuccess) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, ourEvents: [])
         )
         guard let event = blocks.first else { return }
         
         // Build blocks tree and create new container
         // And then, sync builders
-        let rootId = value.contextID
+        let rootId = serviceSuccess.contextID
         
         let blocksContainer = TreeBlockBuilder.buildBlocksTree(from: event.blocks, with: rootId)
         let parsedDetails = event.details.map {
@@ -117,7 +117,7 @@ final class BaseDocument: BaseDocumentProtocol {
         }
         
         // Add details models to process.
-        self.rootModel = RootBlocksContainer(
+        rootModel = RootBlocksContainer(
             rootId: rootId,
             blocksContainer: blocksContainer,
             detailsContainer: detailsStorage

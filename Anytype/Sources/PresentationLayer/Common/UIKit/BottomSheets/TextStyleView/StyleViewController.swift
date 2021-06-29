@@ -53,7 +53,7 @@ private extension StyleViewController {
 // MARK: - StyleViewController
 
 final class StyleViewController: UIViewController {
-    typealias ActionHandler = (_ action: BlockActionHandler.ActionType) -> Void
+    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     // MARK: - Views
 
@@ -303,7 +303,7 @@ final class StyleViewController: UIViewController {
 
         currentDeselectAction?()
         currentDeselectAction = deselectAction
-        self.actionHandler(BlockActionHandler.ActionType.turnInto(style))
+        self.actionHandler(BlockHandlerActionType.turnInto(style))
     }
 
     @objc private func colorActionHandler() {

@@ -6,27 +6,25 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     private var fileURLSubscription: AnyCancellable?
     
     private var state: BlockFileState?
+    private let content: BlockFile
     
     init(
         _ block: BlockActiveRecordProtocol,
+        content: BlockFile,
         delegate: BaseBlockDelegate?,
-        router: EditorRouterProtocol?,
+        router: EditorRouterProtocol,
         actionHandler: NewBlockActionHandler?
     ) {
+        self.content = content
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         setupStateSubscription()
     }
     
     override var diffable: AnyHashable {
-        let diffable = super.diffable
-        if case let .file(value) = block.content {
-            let newDiffable: [String: AnyHashable] = [
-                "parent": diffable,
-                "fileState": value.state
-            ]
-            return .init(newDiffable)
-        }
-        return diffable
+        return .init([
+            "parent": super.diffable,
+            "fileState": content.state
+        ])
     }
     
     override func didSelectRowInTableView() {
@@ -42,15 +40,14 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     }
     
     private func downloadFile() {
-        guard case let .file(file) = block.content else { return }
-        switch file.contentType {
+        switch content.contentType {
         case .image:
             return
         case .video, .file:
-            fileURLSubscription = URLResolver().obtainFileURLPublisher(fileId: file.metadata.hash)
+            fileURLSubscription = URLResolver().obtainFileURLPublisher(fileId: content.metadata.hash)
                 .sinkWithDefaultCompletion("obtainFileURL") { [weak self] url in
                     guard let url = url else { return }
-                    self?.router?.saveFile(fileURL: url)
+                    self?.router.saveFile(fileURL: url)
                 }
             
         case .none:
@@ -72,7 +69,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     }
     
     func sendFile(at filePath: String) {
-        actionHandler?.handleAction(.upload(filePath: filePath), model: block.blockModel)
+        actionHandler?.upload(blockId: block.blockId, filePath: filePath)
     }
     
     // MARK: - ContextualMenuHandler
