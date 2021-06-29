@@ -13,6 +13,7 @@ class DocumentEditorViewModel: ObservableObject {
     
     var document: BaseDocumentProtocol
     let modelsHolder: SharedBlockViewModelsHolder
+    let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
     let settingsViewModel: DocumentSettingsViewModel
@@ -32,6 +33,7 @@ class DocumentEditorViewModel: ObservableObject {
         documentId: BlockId,
         document: BaseDocumentProtocol,
         viewInput: EditorModuleDocumentViewInput,
+        blockDelegate: BlockDelegate,
         settingsViewModel: DocumentSettingsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
@@ -49,6 +51,7 @@ class DocumentEditorViewModel: ObservableObject {
         self.updateElementsSubject = updateElementsSubject
         self.blocksConverter = blocksConverter
         self.blockActionHandler = blockActionHandler
+        self.blockDelegate = blockDelegate
         
         setupSubscriptions()
         obtainDocument(documentId: documentId)
@@ -73,7 +76,7 @@ class DocumentEditorViewModel: ObservableObject {
                     let blocksViewModels = self.blocksConverter.convert(
                         updateResult.models,
                         router: self.router,
-                        editorViewModel: self
+                        delegate: self.blockDelegate
                     )
                     self.update(blocksViewModels: blocksViewModels)
                 case let .update(update):
@@ -133,27 +136,6 @@ extension DocumentEditorViewModel {
             id: item.blockId,
             type: item.content.type
         )
-    }
-}
-
-// MARK: - Base block delegate
-
-extension DocumentEditorViewModel: BaseBlockDelegate {
-
-    func blockSizeChanged() {
-        viewInput?.needsUpdateLayout()
-    }
-
-    func becomeFirstResponder(for block: BlockModelProtocol) {
-        document.userSession?.setFirstResponder(with: block)
-    }
-
-    func didBeginEditing() {
-        viewInput?.textBlockDidBeginEditing()
-    }
-
-    func willBeginEditing() {
-        viewInput?.textBlockWillBeginEditing()
     }
 }
 

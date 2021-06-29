@@ -50,10 +50,16 @@ final class EditorAssembly {
             blockActionHandler: editorBlockActionHandler
         )
         
+        let blockDelegate = BlockDelegateImpl(
+            viewInput: viewInput,
+            document: document
+        )
+        
         return DocumentEditorViewModel(
             documentId: blockId,
             document: document,
             viewInput: viewInput,
+            blockDelegate: blockDelegate,
             settingsViewModel: settingsModel,
             selectionHandler: selectionHandler,
             router: router,

@@ -17,7 +17,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
     
     init(
         block: BlockActiveRecordProtocol,
-        delegate: BaseBlockDelegate?,
+        delegate: BlockDelegate?,
         router: EditorRouterProtocol,
         actionHandler: EditorActionHandlerProtocol
     ) {

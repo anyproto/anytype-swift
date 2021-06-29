@@ -20,7 +20,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     @Published var focus: BlockFocusPosition?
     @Published var codeLanguage: String? = "Swift"
 
-    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
+    override init(_ block: BlockActiveRecordProtocol, delegate: BlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
         self.setupSubscribers()
 
@@ -57,7 +57,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     }
 
     func becomeFirstResponder() {
-        baseBlockDelegate?.becomeFirstResponder(for: block.blockModel)
+        BlockDelegate?.becomeFirstResponder(for: block.blockModel)
     }
 }
 

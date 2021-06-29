@@ -8,7 +8,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
     }
     
     let block: BlockActiveRecordProtocol
-    private(set) weak var baseBlockDelegate: BaseBlockDelegate?
+    private(set) weak var BlockDelegate: BlockDelegate?
     let actionHandler: EditorActionHandlerProtocol
     let router: EditorRouterProtocol
     
@@ -17,12 +17,12 @@ class BaseBlockViewModel: BlockViewModelProtocol {
 
     init(
         _ block: BlockActiveRecordProtocol,
-        delegate: BaseBlockDelegate?,
+        delegate: BlockDelegate?,
         actionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
         self.block = block
-        self.baseBlockDelegate = delegate
+        self.BlockDelegate = delegate
         self.actionHandler = actionHandler
         self.router = router
     }

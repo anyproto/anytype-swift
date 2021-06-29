@@ -11,7 +11,7 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     init(
         _ block: BlockActiveRecordProtocol,
         content: BlockFile,
-        delegate: BaseBlockDelegate?,
+        delegate: BlockDelegate?,
         router: EditorRouterProtocol,
         actionHandler: EditorActionHandlerProtocol
     ) {

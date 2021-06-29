@@ -328,7 +328,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.updateCreateChildButtonState(toggled: toggled,
                                               hasChildren: !blockViewModel.block.childrenIds().isEmpty)
             if oldValue != self.createChildBlockButton.isHidden {
-                blockViewModel.baseBlockDelegate?.blockSizeChanged()
+                blockViewModel.BlockDelegate?.blockSizeChanged()
             }
         }
         let toggled = blockViewModel.block.isToggled

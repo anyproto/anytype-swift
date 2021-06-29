@@ -7,7 +7,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     init(
         _ block: BlockActiveRecordProtocol,
         content: BlockDivider,
-        delegate: BaseBlockDelegate?,
+        delegate: BlockDelegate?,
         actionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {

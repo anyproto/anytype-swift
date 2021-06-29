@@ -19,7 +19,7 @@ class TextBlockViewModel: BaseBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     
-    override init(_ block: BlockActiveRecordProtocol, delegate: BaseBlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
+    override init(_ block: BlockActiveRecordProtocol, delegate: BlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
 
         setupSubscribers()
@@ -105,19 +105,19 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel: TextViewDelegate {
     func willBeginEditing() {
-        baseBlockDelegate?.willBeginEditing()
+        BlockDelegate?.willBeginEditing()
     }
 
     func didBeginEditing() {
-        baseBlockDelegate?.didBeginEditing()
+        BlockDelegate?.didBeginEditing()
     }
     
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        baseBlockDelegate?.becomeFirstResponder(for: block.blockModel)
+        BlockDelegate?.becomeFirstResponder(for: block.blockModel)
     }
 
     func sizeChanged() {
-        baseBlockDelegate?.blockSizeChanged()
+        BlockDelegate?.blockSizeChanged()
     }
 }
 

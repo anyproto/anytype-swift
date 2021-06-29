@@ -16,7 +16,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         _ block: BlockActiveRecordProtocol,
         publisher: AnyPublisher<DetailsData, Never>?,
         router: EditorRouterProtocol,
-        delegate: BaseBlockDelegate?,
+        delegate: BlockDelegate?,
         actionHandler: EditorActionHandlerProtocol
     ) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
