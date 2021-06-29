@@ -90,7 +90,7 @@ jobs:
           RUN_NUMBER: ${{ github.run_number }}
 
       - name: Build archive # add later bundle version
-        run: xcodebuild archive -scheme "Anytype Nightly" -archivePath ".build/Anytype.xcarchive" -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
+        run: xcodebuild archive -scheme "Anytype Nightly" -archivePath ".build/Anytype.xcarchive" -usePackageSupportBuiltinSCM -allowProvisioningUpdates | xcpretty && exit ${PIPESTATUS[0]}
 
       - name: Prepare export options
         run: /usr/libexec/PlistBuddy -c "Set :teamID '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'" ./Distribution/ExportOptions.plist
