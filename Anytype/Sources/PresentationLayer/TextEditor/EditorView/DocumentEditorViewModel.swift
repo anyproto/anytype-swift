@@ -200,6 +200,14 @@ extension DocumentEditorViewModel: BaseBlockDelegate {
     }
 }
 
+protocol NewBlockActionHandler: AnyObject {
+    func handleAction(_ action: BlockHandlerActionType, model: BlockModelProtocol)
+    func handleActionForFirstResponder(_ action: BlockHandlerActionType)
+    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, model: BlockModelProtocol)
+    
+    func upload(blockId: BlockId, filePath: String)
+}
+
 extension DocumentEditorViewModel: NewBlockActionHandler {
     /// Block action handler
     func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
