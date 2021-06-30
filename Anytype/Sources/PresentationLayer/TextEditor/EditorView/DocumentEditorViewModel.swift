@@ -69,22 +69,7 @@ class DocumentEditorViewModel: ObservableObject {
         document.updateBlockModelPublisher
             .receiveOnMain()
             .sink { [weak self] updateResult in
-                guard let self = self else { return }
-                
-                switch updateResult.updates {
-                case .general:
-                    let blocksViewModels = self.blocksConverter.convert(
-                        updateResult.models,
-                        router: self.router,
-                        delegate: self.blockDelegate
-                    )
-                    self.update(blocksViewModels: blocksViewModels)
-                case let .update(update):
-                    if update.updatedIds.isEmpty {
-                        return
-                    }
-                    self.updateElementsSubject.send(update.updatedIds)
-                }
+                self?.handleUpdate(updateResult: updateResult)
             }.store(in: &self.subscriptions)
         
         document.pageDetailsPublisher()
@@ -99,6 +84,19 @@ class DocumentEditorViewModel: ObservableObject {
                 self.viewInput?.updateHeader()
             }
             .store(in: &subscriptions)
+    }
+    
+    private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
+        switch updateResult.updates {
+        case .general:
+            let blocksViewModels = blocksConverter.convert(updateResult.models)
+            update(blocksViewModels: blocksViewModels)
+        case let .update(update):
+            if update.updatedIds.isEmpty {
+                return
+            }
+            updateElementsSubject.send(update.updatedIds)
+        }
     }
 
     private func update(blocksViewModels: [BlockViewModelProtocol]) {

@@ -9,7 +9,7 @@ protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, Content
 
 protocol ContextualMenuHandler {
     func makeContextualMenu() -> ContextualMenu
-    func handle(contextualMenuAction: ContextualMenuAction)
+    func handle(action: ContextualMenuAction)
 }
 
 protocol DiffableProvier {
@@ -21,9 +21,12 @@ protocol ContentConfigurationProvider {
 }
 
 protocol BlockDataProvider {
-    var blockId: BlockId { get }
-    var content: BlockContent { get }
     var information: BlockInformation { get }
+}
+
+extension BlockDataProvider {
+    var blockId: BlockId { information.id }
+    var content: BlockContent { information.content }
 }
 
 
@@ -37,7 +40,7 @@ extension BlockViewModelProtocol {
 
                 let action = UIAction(title: action.title, image: action.image, identifier: identifier, state: .off) { action in
                     if let identifier = ContextualMenuIdentifierBuilder.action(for: action.identifier.rawValue) {
-                        self.handle(contextualMenuAction: identifier)
+                        self.handle(action: identifier)
                     }
                 }
                 return action

@@ -3,9 +3,9 @@ import BlocksModels
 protocol EditorActionHandlerProtocol: AnyObject {
     func onEmptySpotTap()    
     
-    func handleAction(_ action: BlockHandlerActionType, model: BlockModelProtocol)
+    func handleAction(_ action: BlockHandlerActionType, info: BlockInformation)
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
-    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, model: BlockModelProtocol)
+    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, info: BlockInformation)
     
     func upload(blockId: BlockId, filePath: String)
 }
@@ -29,7 +29,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         guard let block = document.rootActiveModel?.blockModel, let parentId = document.documentId else {
             return
         }
-        handleAction(.createEmptyBlock(parentId: parentId), model: block)
+        handleAction(.createEmptyBlock(parentId: parentId), info: block.information)
     }
     
     func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
@@ -38,11 +38,11 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
             return
         }
         
-        handleAction(action, model: firstResponder)
+        handleAction(action, info: firstResponder.information)
     }
     
-    func handleAction(_ action: BlockHandlerActionType, model: BlockModelProtocol) {
-        blockActionHandler.handleBlockAction(action, info: model.information) { [weak self] events in
+    func handleAction(_ action: BlockHandlerActionType, info: BlockInformation) {
+        blockActionHandler.handleBlockAction(action, info: info) { [weak self] events in
             self?.process(events: events)
         }
     }
@@ -52,8 +52,8 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     
-    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, model: BlockModelProtocol) {
-        blockActionHandler.handleBlockAction(action, info: model.information, completion: nil)
+    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, info: BlockInformation) {
+        blockActionHandler.handleBlockAction(action, info: info, completion: nil)
     }
     
     private func process(events: PackOfEvents) {

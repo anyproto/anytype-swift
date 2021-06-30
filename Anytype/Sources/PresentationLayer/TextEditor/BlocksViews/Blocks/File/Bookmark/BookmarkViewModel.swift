@@ -44,7 +44,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
         } else {
             router.showBookmark(model: block) { [weak self] url in
                 guard let self = self else { return }
-                self.actionHandler.handleAction(.fetch(url: url), model: self.block.blockModel)
+                self.actionHandler.handleAction(.fetch(url: url), info: self.block.blockModel.information)
             }
         }
     }

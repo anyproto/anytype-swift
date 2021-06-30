@@ -49,7 +49,7 @@ final class TextBlockContentView: UIView & UIContentView {
                     action: .changeText(self.textView.textView),
                     activeRecord: viewModel.block
                 ),
-                model: viewModel.block.blockModel
+                info: viewModel.block.blockModel.information
             )
         }
         
@@ -76,7 +76,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.createChildBlockButton.isHidden = true
             self.currentConfiguration.viewModel?.actionHandler.handleAction(
                 .textView(action: .keyboardAction(.enterAtTheEndOfContent), activeRecord: block),
-                model: block.blockModel
+                info: block.blockModel.information
             )
         }))
         button.translatesAutoresizingMaskIntoConstraints = false

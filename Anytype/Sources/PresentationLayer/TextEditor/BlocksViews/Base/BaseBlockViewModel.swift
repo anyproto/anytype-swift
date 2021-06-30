@@ -11,6 +11,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
     private(set) weak var BlockDelegate: BlockDelegate?
     let actionHandler: EditorActionHandlerProtocol
     let router: EditorRouterProtocol
+    let ContextualMenuHandler: DefaultContextualMenuHandler
     
 
     // MARK: - Initialization
@@ -25,6 +26,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
         self.BlockDelegate = delegate
         self.actionHandler = actionHandler
         self.router = router
+        self.ContextualMenuHandler = DefaultContextualMenuHandler(handler: actionHandler, router: router)
     }
     
     // MARK: - Handle events
@@ -62,23 +64,8 @@ class BaseBlockViewModel: BlockViewModelProtocol {
     // MARK: - ContextualMenuHandler
     func makeContextualMenu() -> ContextualMenu { .init(title: "") }
 
-    func handle(contextualMenuAction: ContextualMenuAction) {
-        switch contextualMenuAction {
-        case .addBlockBelow:
-            actionHandler.handleAction(.addBlock(.text(.text)), model: block.blockModel)
-        case .delete:
-            actionHandler.handleAction(.delete, model: block.blockModel)
-        case .duplicate:
-            actionHandler.handleAction(.duplicate, model: block.blockModel)
-        case .turnIntoPage:
-            actionHandler.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
-        case .style:
-            router.showStyleMenu(information: block.blockModel.information)
-        case .moveTo, .color, .backgroundColor:
-            break
-        case .download,.replace, .addCaption, .rename:
-            break
-        }
+    func handle(action: ContextualMenuAction) {
+        ContextualMenuHandler.handle(action: action, info: block.blockModel.information)
     }
 }
 

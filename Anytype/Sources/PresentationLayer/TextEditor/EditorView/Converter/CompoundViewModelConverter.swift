@@ -5,27 +5,31 @@ import BlocksModels
 final class CompoundViewModelConverter {
     private weak var document: BaseDocumentProtocol?
     private let blockActionHandler: EditorActionHandlerProtocol
+    private let router: EditorRouterProtocol
+    private let delegate: BlockDelegate
+    private let contextualMenuHandler: DefaultContextualMenuHandler
 
-    init(document: BaseDocumentProtocol, blockActionHandler: EditorActionHandlerProtocol) {
+    init(
+        document: BaseDocumentProtocol,
+        blockActionHandler: EditorActionHandlerProtocol,
+        router: EditorRouterProtocol,
+        delegate: BlockDelegate
+    ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
+        self.router = router
+        self.delegate = delegate
+        self.contextualMenuHandler = DefaultContextualMenuHandler(
+            handler: blockActionHandler,
+            router: router
+        )
     }
 
-    func convert(
-        _ blocks: [BlockActiveRecordProtocol],
-        router: EditorRouterProtocol,
-        delegate: BlockDelegate
-    ) -> [BlockViewModelProtocol] {
-        blocks.compactMap { block in
-            createBlockViewModel(block, router: router, delegate: delegate)
-        }
+    func convert(_ blocks: [BlockActiveRecordProtocol]) -> [BlockViewModelProtocol] {
+        blocks.compactMap { createBlockViewModel($0) }
     }
 
-    private func createBlockViewModel(
-        _ block: BlockActiveRecordProtocol,
-        router: EditorRouterProtocol,
-        delegate: BlockDelegate
-    ) -> BlockViewModelProtocol? {
+    private func createBlockViewModel(_ block: BlockActiveRecordProtocol) -> BlockViewModelProtocol? {
         switch block.content {
         case let .text(content):
             switch content.contentType {

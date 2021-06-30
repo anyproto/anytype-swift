@@ -182,11 +182,11 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel {    
     func onCheckboxTap(selected: Bool) {
-        actionHandler.handleAction(.checkbox(selected: selected), model: block.blockModel)
+        actionHandler.handleAction(.checkbox(selected: selected), info: block.blockModel.information)
     }
     
     func onToggleTap(toggled: Bool) {
-        actionHandler.handleAction(.toggle, model: block.blockModel)
+        actionHandler.handleAction(.toggle, info: block.blockModel.information)
     }
     
 }
@@ -201,12 +201,12 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 router.showStyleMenu(information: block.blockModel.information)
             case .showMultiActionMenuAction:
                 shouldResignFirstResponder.send()
-                actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
             case let .changeText(textView):
                 mentionsConfigurator.configure(textView: textView)
-                actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
             case .keyboardAction, .changeTextStyle, .changeCaretPosition:
-                actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+                actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(
                     replacementRange: range,

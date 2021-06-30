@@ -114,9 +114,9 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
             router.showStyleMenu(information: block.blockModel.information)
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
-            actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+            actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
         case .changeText, .keyboardAction, .changeTextStyle, .changeCaretPosition:
-            actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
+            actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
         case .shouldChangeText:
             break
         }

@@ -45,14 +45,16 @@ final class EditorAssembly {
             blockActionHandler: blockActionHandler
         )
         
-        let blocksConverter = CompoundViewModelConverter(
-            document: document,
-            blockActionHandler: editorBlockActionHandler
-        )
-        
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
             document: document
+        )
+        
+        let blocksConverter = CompoundViewModelConverter(
+            document: document,
+            blockActionHandler: editorBlockActionHandler,
+            router: router,
+            delegate: blockDelegate
         )
         
         return DocumentEditorViewModel(

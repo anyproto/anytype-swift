@@ -83,8 +83,8 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
         ])
     }
     
-    override func handle(contextualMenuAction: ContextualMenuAction) {
-        switch contextualMenuAction {
+    override func handle(action: ContextualMenuAction) {
+        switch action {
         case .replace:
             self.handleReplace()
         case.download:
@@ -92,6 +92,6 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
         default:
             break
         }
-        super.handle(contextualMenuAction: contextualMenuAction)
+        super.handle(action: action)
     }
 }
