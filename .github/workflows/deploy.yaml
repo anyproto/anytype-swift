@@ -50,12 +50,12 @@ jobs:
           p12-file-base64: ${{ secrets.SIGNING_CERTIFICATES_BASE64 }}
           p12-password: ${{ secrets.SIGNING_CERTIFICATES_PASSWORD }}
 
-      #Import distribution certificate for export
-      - name: Import distribution certificate
-        uses: Apple-Actions/import-codesign-certs@v1
-        with:
-          p12-file-base64: ${{ secrets.DISTRIBUTION_CERTIFICATE_BASE64 }}
-          p12-password: ${{ secrets.DISTRIBUTION_CERTIFICATE_PASSWORD }}
+      # #Import distribution certificate for export
+      # - name: Import distribution certificate
+      #   uses: Apple-Actions/import-codesign-certs@v1
+      #   with:
+      #     p12-file-base64: ${{ secrets.DISTRIBUTION_CERTIFICATE_BASE64 }}
+      #     p12-password: ${{ secrets.DISTRIBUTION_CERTIFICATE_PASSWORD }}
 
       # Download provisioning profiles
       # Look at this file for available options for profile-type
