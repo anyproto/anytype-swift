@@ -212,8 +212,6 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                     replacementRange: range,
                     replacementText: replacementText
                 )
-            case let .showPage(pageId):
-                actionHandler.handleAction(.textView(action: .showPage(pageId), activeRecord: block), model: block.blockModel)
             }
         }
 }

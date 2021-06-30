@@ -27,6 +27,8 @@ enum BlockHandlerActionType {
     case toggle
     case checkbox(selected: Bool)
     
+    case showPage(pageId: String)
+    
     typealias TextViewAction = CustomTextView.UserAction
     case textView(action: TextViewAction, activeRecord: BlockActiveRecordProtocol)
 }

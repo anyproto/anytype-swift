@@ -7,16 +7,16 @@ final class TextBlockActionHandler {
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
-    private let router: EditorRouterProtocol
     private let modelsHolder: SharedBlockViewModelsHolder
 
     init(
-        contextId: String, service: BlockActionServiceProtocol, modelsHolder: SharedBlockViewModelsHolder, router: EditorRouterProtocol
+        contextId: String,
+        service: BlockActionServiceProtocol,
+        modelsHolder: SharedBlockViewModelsHolder
     ) {
         self.service = service
         self.contextId = contextId
         self.modelsHolder = modelsHolder
-        self.router = router
     }
 
     func handlingTextViewAction(_ block: BlockActiveRecordProtocol, _ action: CustomTextView.UserAction) {
@@ -34,8 +34,6 @@ final class TextBlockActionHandler {
                 replacementRange: range,
                 replacementText: replacementText
             )
-        case let .showPage(pageId):
-            router.showPage(with: pageId)
         }
     }
     

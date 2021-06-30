@@ -15,7 +15,6 @@ extension CustomTextView {
         case showMultiActionMenuAction
         case changeCaretPosition(NSRange)
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
-        case showPage(String)
     }    
 }
 

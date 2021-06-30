@@ -100,7 +100,7 @@ extension DocumentEditorViewController {
             cover: viewModel.documentCover
         ))
         sectionSnapshot.visibleItems.forEach { item in
-            let viewModel = viewModel.modelsHolder.models.first { viewModel in
+            let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
                 viewModel.blockId == item.id
             }
             viewModel?.updateView()

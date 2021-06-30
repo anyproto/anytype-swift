@@ -19,7 +19,7 @@ class BlockActionHandler: BlockActionHandlerProtocol {
     private let modelsHolder: SharedBlockViewModelsHolder
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
     private let document: BaseDocumentProtocol
-    
+    private let router: EditorRouterProtocol
     private let textBlockActionHandler: TextBlockActionHandler
     
     private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>
@@ -43,12 +43,11 @@ class BlockActionHandler: BlockActionHandlerProtocol {
         self.selectionHandler = selectionHandler
         self.document = document
         self.updateElementsSubject = updateElementsSubject
-        
+        self.router = router
         self.textBlockActionHandler = TextBlockActionHandler(
             contextId: documentId,
             service: service,
-            modelsHolder: modelsHolder,
-            router: router
+            modelsHolder: modelsHolder
         )
     }
 
@@ -87,6 +86,8 @@ class BlockActionHandler: BlockActionHandlerProtocol {
             service.receiveOurEvents([.setToggled(blockId: info.id)])
         case .checkbox(selected: let selected):
             service.checked(blockId: info.id, newValue: selected)
+        case let .showPage(pageId):
+            router.showPage(with: pageId)
         case .createEmptyBlock(let parentId):
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
         case let .textView(action: action, activeRecord: activeRecord):

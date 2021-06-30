@@ -117,7 +117,7 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
             actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
         case .changeText, .keyboardAction, .changeTextStyle, .changeCaretPosition:
             actionHandler.handleAction(.textView(action: action, activeRecord: block), model: block.blockModel)
-        case .shouldChangeText, .showPage:
+        case .shouldChangeText:
             break
         }
     }
