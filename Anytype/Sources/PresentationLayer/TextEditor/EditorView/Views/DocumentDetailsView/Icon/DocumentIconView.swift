@@ -36,23 +36,16 @@ final class DocumentIconView: UIView {
 // MARK: - ConfigurableView
 
 extension DocumentIconView: ConfigurableView {
-    
-    struct ConfigurationModel {
-        let viewModel: DocumentIconViewModel
-        let isBorderVisible: Bool
-    }
-    
-    func configure(model: ConfigurationModel?) {
+
+    func configure(model: DocumentIconViewModel?) {
         guard let model = model else {
             configureEmptyState()
             return
         }
+                
+        configureStateBaseOnIcon(model.icon)
         
-        let viewModel = model.viewModel
-        
-        configureStateBaseOnIcon(viewModel.icon, model.isBorderVisible)
-        
-        viewModel.onMediaPickerImageSelect = { [weak self] image in
+        model.onMediaPickerImageSelect = { [weak self] image in
             self?.showLoader(with: image)
         }
     }
@@ -67,7 +60,7 @@ extension DocumentIconView: ConfigurableView {
         iconImageView.isHidden = true
     }
     
-    private func configureStateBaseOnIcon(_ icon: DocumentIcon, _ isBorderVisible: Bool) {
+    private func configureStateBaseOnIcon(_ icon: DocumentIcon) {
         activityIndicatorView.hide()
         
         let height: CGFloat
@@ -91,23 +84,13 @@ extension DocumentIconView: ConfigurableView {
         heightConstraint.constant = height
         containerView.layer.cornerRadius = cornerRadius
         
-        configureBorder(
-            isVisible: isBorderVisible,
-            cornerRadius: cornerRadius
-        )
+        configureBorder(cornerRadius: cornerRadius)
     }
     
-    private func configureBorder(isVisible: Bool, cornerRadius: CGFloat) {
-        if isVisible {
-            borderConstraintX.constant = Constants.borderWidth
-            borderConstraintY.constant = Constants.borderWidth
-            layer.cornerRadius = cornerRadius + Constants.borderWidth
-
-        } else {
-            borderConstraintX.constant = 0
-            borderConstraintY.constant = 0
-            layer.cornerRadius = cornerRadius
-        }
+    private func configureBorder(cornerRadius: CGFloat) {
+        borderConstraintX.constant = Constants.borderWidth
+        borderConstraintY.constant = Constants.borderWidth
+        layer.cornerRadius = cornerRadius + Constants.borderWidth
     }
     
     private func showLoader(with image: UIImage) {

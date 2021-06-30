@@ -47,15 +47,7 @@ extension DocumentDetailsView: ConfigurableView {
     
     func configure(model: DocumentDetailsViewModel) {
         coverView.configure(model: model.coverViewModel)
-                
-        iconView.configure(
-            model: model.iconViewModel.flatMap {
-                DocumentIconView.ConfigurationModel(
-                    viewModel: $0,
-                    isBorderVisible: !model.coverViewModel.isNil
-                )
-            }
-        )
+        iconView.configure(model: model.iconViewModel)
     }
     
 }
