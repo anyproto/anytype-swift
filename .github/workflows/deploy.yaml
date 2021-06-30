@@ -1,4 +1,4 @@
-name: Deploy Nightly
+name: Deploy
 
 on:
   schedule:
