@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 
-final class CompoundViewModelConverter {
+final class BlockViewModelBuilder {
     private weak var document: BaseDocumentProtocol?
     private let blockActionHandler: EditorActionHandlerProtocol
     private let router: EditorRouterProtocol
@@ -25,11 +25,11 @@ final class CompoundViewModelConverter {
         )
     }
 
-    func convert(_ blocks: [BlockActiveRecordProtocol]) -> [BlockViewModelProtocol] {
-        blocks.compactMap { createBlockViewModel($0) }
+    func build(_ blocks: [BlockActiveRecordProtocol]) -> [BlockViewModelProtocol] {
+        blocks.compactMap { build($0) }
     }
 
-    private func createBlockViewModel(_ block: BlockActiveRecordProtocol) -> BlockViewModelProtocol? {
+    func build(_ block: BlockActiveRecordProtocol) -> BlockViewModelProtocol? {
         switch block.content {
         case let .text(content):
             switch content.contentType {
@@ -61,7 +61,9 @@ final class CompoundViewModelConverter {
             }
         case .divider(let content):
             return DividerBlockViewModel(
-                block, content: content, delegate: delegate, actionHandler: blockActionHandler, router: router
+                content: content,
+                information: block.blockModel.information,
+                handler: contextualMenuHandler
             )
         case .bookmark:
             return BookmarkViewModel(

@@ -2,6 +2,8 @@ import UIKit
 import BlocksModels
 
 protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, ContentConfigurationProvider, BlockDataProvider {
+    var isStruct: Bool { get }
+    
     func didSelectRowInTableView()
     func updateView()
     var indentationLevel: Int { get }
@@ -29,6 +31,14 @@ extension BlockDataProvider {
     var content: BlockContent { information.content }
 }
 
+extension BlockViewModelProtocol {
+    var diffable: AnyHashable {
+        [
+            information,
+            indentationLevel
+        ] as [AnyHashable]
+    }
+}
 
 extension BlockViewModelProtocol {
     func contextMenuInteraction() -> UIContextMenuConfiguration? {

@@ -50,7 +50,7 @@ final class EditorAssembly {
             document: document
         )
         
-        let blocksConverter = CompoundViewModelConverter(
+        let blocksConverter = BlockViewModelBuilder(
             document: document,
             blockActionHandler: editorBlockActionHandler,
             router: router,
@@ -67,7 +67,7 @@ final class EditorAssembly {
             router: router,
             modelsHolder: modelsHolder,
             updateElementsSubject: updateElementsSubject,
-            blocksConverter: blocksConverter,
+            blockBuilder: blocksConverter,
             blockActionHandler: editorBlockActionHandler
         )
     }

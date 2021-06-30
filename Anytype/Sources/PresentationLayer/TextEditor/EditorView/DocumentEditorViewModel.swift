@@ -20,7 +20,7 @@ class DocumentEditorViewModel: ObservableObject {
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
     
-    private let blocksConverter: CompoundViewModelConverter
+    private let blockBuilder: BlockViewModelBuilder
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     
     private var subscriptions = Set<AnyCancellable>()
@@ -39,7 +39,7 @@ class DocumentEditorViewModel: ObservableObject {
         router: EditorRouterProtocol,
         modelsHolder: SharedBlockViewModelsHolder,
         updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>,
-        blocksConverter: CompoundViewModelConverter,
+        blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler
     ) {
         self.selectionHandler = selectionHandler
@@ -49,7 +49,7 @@ class DocumentEditorViewModel: ObservableObject {
         self.router = router
         self.modelsHolder = modelsHolder
         self.updateElementsSubject = updateElementsSubject
-        self.blocksConverter = blocksConverter
+        self.blockBuilder = blockBuilder
         self.blockActionHandler = blockActionHandler
         self.blockDelegate = blockDelegate
         
@@ -75,13 +75,8 @@ class DocumentEditorViewModel: ObservableObject {
         document.pageDetailsPublisher()
             .safelyUnwrapOptionals()
             .receiveOnMain()
-            .sink { [weak self] detailsProvider in
-                guard let self = self else { return }
-                
-                self.documentIcon = detailsProvider.documentIcon
-                self.documentCover = detailsProvider.documentCover
-                
-                self.viewInput?.updateHeader()
+            .sink { [weak self] details in
+                self?.handleDetailsUpdate(details: details)
             }
             .store(in: &subscriptions)
     }
@@ -89,18 +84,60 @@ class DocumentEditorViewModel: ObservableObject {
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
-            let blocksViewModels = blocksConverter.convert(updateResult.models)
-            update(blocksViewModels: blocksViewModels)
+            let blocksViewModels = blockBuilder.build(updateResult.models)
+            updateBlocksViewModels(models: blocksViewModels)
         case let .update(update):
-            if update.updatedIds.isEmpty {
-                return
+            let modelsToUpdate = modelsHolder.models.filter { model in
+                update.updatedIds.contains(model.blockId)
             }
-            updateElementsSubject.send(update.updatedIds)
+            
+            let structIds = modelsToUpdate.filter { $0.isStruct }.map { $0.blockId }
+            updateStructModels(structIds)
+            
+            // Deprecated: update class based view models
+            let classModelIds = modelsToUpdate.filter { !$0.isStruct }.map { $0.blockId }
+            if !classModelIds.isEmpty {
+                updateElementsSubject.send(Set(classModelIds))
+            }
         }
     }
+    
+    private func updateStructModels(_ blockIds: [BlockId]) {
+        guard !blockIds.isEmpty else {
+            return
+        }
+        
+        var modelsCopy = modelsHolder.models
+        
+        for blockId in blockIds {
+            guard let newRecord = document.rootActiveModel?.findChild(by: blockId) else {
+                assertionFailure("Could not find object with id: \(blockId)")
+                return
+            }
+            
+            guard let newModel = blockBuilder.build(newRecord) else {
+                assertionFailure("Could not build model from record: \(newRecord)")
+                return
+            }
+            
+            modelsCopy.enumerated()
+                .first { $0.element.blockId == blockId }
+                .flatMap { offset, data in
+                    modelsCopy[offset] = newModel
+                }
+        }
+        
+        updateBlocksViewModels(models: modelsCopy)
+    }
+    
+    private func handleDetailsUpdate(details: DetailsData) {
+        documentIcon = details.documentIcon
+        documentCover = details.documentCover
+        viewInput?.updateHeader()
+    }
 
-    private func update(blocksViewModels: [BlockViewModelProtocol]) {
-        let difference = blocksViewModels.difference(from: modelsHolder.models) { $0.diffable == $1.diffable }
+    private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {
+        let difference = models.difference(from: modelsHolder.models) { $0.diffable == $1.diffable }
         if !difference.isEmpty, let result = modelsHolder.models.applying(difference) {
             modelsHolder.models = result
             self.viewInput?.updateData(result)

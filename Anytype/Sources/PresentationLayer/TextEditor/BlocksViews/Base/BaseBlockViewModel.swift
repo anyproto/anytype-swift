@@ -7,11 +7,13 @@ class BaseBlockViewModel: BlockViewModelProtocol {
         static let maxIndentationLevel: Int = 4
     }
     
+    let isStruct = false
+    
     let block: BlockActiveRecordProtocol
     private(set) weak var BlockDelegate: BlockDelegate?
     let actionHandler: EditorActionHandlerProtocol
     let router: EditorRouterProtocol
-    let ContextualMenuHandler: DefaultContextualMenuHandler
+    let contextualMenuHandler: DefaultContextualMenuHandler
     
 
     // MARK: - Initialization
@@ -26,7 +28,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
         self.BlockDelegate = delegate
         self.actionHandler = actionHandler
         self.router = router
-        self.ContextualMenuHandler = DefaultContextualMenuHandler(handler: actionHandler, router: router)
+        self.contextualMenuHandler = DefaultContextualMenuHandler(handler: actionHandler, router: router)
     }
     
     // MARK: - Handle events
@@ -65,7 +67,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
     func makeContextualMenu() -> ContextualMenu { .init(title: "") }
 
     func handle(action: ContextualMenuAction) {
-        ContextualMenuHandler.handle(action: action, info: block.blockModel.information)
+        contextualMenuHandler.handle(action: action, info: block.blockModel.information)
     }
 }
 

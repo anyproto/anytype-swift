@@ -13,8 +13,10 @@ final class EventHandlerUpdatePayload {
         self.updatedIds = updatedIds
     }
     
-    static func merged(lhs: EventHandlerUpdatePayload,
-                       rhs: EventHandlerUpdatePayload) -> EventHandlerUpdatePayload {
+    static func merged(
+        lhs: EventHandlerUpdatePayload,
+        rhs: EventHandlerUpdatePayload
+    ) -> EventHandlerUpdatePayload {
         return EventHandlerUpdatePayload(updatedIds: lhs.updatedIds.union(rhs.updatedIds))
     }
 }

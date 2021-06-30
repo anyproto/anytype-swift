@@ -158,7 +158,7 @@
 		0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781B23E5C9A300442690 /* ColorExtension.swift */; };
 		0ACAAD692588DD0F00DF1C82 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACAAD682588DD0F00DF1C82 /* ImageLoader.swift */; };
 		0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC356C25C196180003CF3A /* DataStructures+Stack.swift */; };
-		0ACC357625C851650003CF3A /* CompoundViewModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */; };
+		0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357525C851650003CF3A /* BlockViewModelBuilder.swift */; };
 		0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */; };
 		0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */; };
 		0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */; };
@@ -734,7 +734,7 @@
 		0ACA781B23E5C9A300442690 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		0ACAAD682588DD0F00DF1C82 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0ACC356C25C196180003CF3A /* DataStructures+Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+Stack.swift"; sourceTree = "<group>"; };
-		0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundViewModelConverter.swift; sourceTree = "<group>"; };
+		0ACC357525C851650003CF3A /* BlockViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewModelBuilder.swift; sourceTree = "<group>"; };
 		0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksFileEmptyView.swift; sourceTree = "<group>"; };
 		0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOtherProtocol.swift; sourceTree = "<group>"; };
 		0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFileProtocol.swift; sourceTree = "<group>"; };
@@ -1722,7 +1722,6 @@
 			children = (
 				3DEFD66F268A32C40072EA27 /* ActionHandler */,
 				0A0965BF25BEF5B000C004BD /* Routing */,
-				0A19E2B12444C8F30078DFAB /* Converter */,
 				3DBED6B2266FF47D00B9E9AB /* SwiftUI */,
 				3D180220264E9C0000224815 /* Models */,
 				12858E79264ABA9900A7FE0F /* Views */,
@@ -1790,14 +1789,6 @@
 				0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */,
 			);
 			path = Page;
-			sourceTree = "<group>";
-		};
-		0A19E2B12444C8F30078DFAB /* Converter */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */,
-			);
-			path = Converter;
 			sourceTree = "<group>";
 		};
 		0A19E2B22444C9430078DFAB /* Base */ = {
@@ -2297,6 +2288,7 @@
 		3D180220264E9C0000224815 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0ACC357525C851650003CF3A /* BlockViewModelBuilder.swift */,
 				0A0965E125BEF5B000C004BD /* DocumentSection.swift */,
 			);
 			path = Models;
@@ -4001,7 +3993,7 @@
 				EA289BBB2629D52C00EA869F /* TurnIntoSelectionStorage.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
-				0ACC357625C851650003CF3A /* CompoundViewModelConverter.swift in Sources */,
+				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,

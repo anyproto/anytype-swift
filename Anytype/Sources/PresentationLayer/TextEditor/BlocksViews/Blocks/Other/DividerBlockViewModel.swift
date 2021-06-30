@@ -1,38 +1,37 @@
 import BlocksModels
 import UIKit
 
-class DividerBlockViewModel: BaseBlockViewModel {
-    private let dividerContent: BlockDivider
+struct DividerBlockViewModel: BlockViewModelProtocol {
+    var isStruct = true
     
-    init(
-        _ block: BlockActiveRecordProtocol,
-        content: BlockDivider,
-        delegate: BlockDelegate?,
-        actionHandler: EditorActionHandlerProtocol,
-        router: EditorRouterProtocol
-    ) {
+    let indentationLevel = 0
+    let information: BlockInformation
+    
+    private let dividerContent: BlockDivider
+    private let handler: DefaultContextualMenuHandler
+    
+    init(content: BlockDivider, information: BlockInformation, handler: DefaultContextualMenuHandler) {
         self.dividerContent = content
-        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
+        self.information = information
+        self.handler = handler
     }
     
-    override func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration() -> UIContentConfiguration {
         return DividerBlockContentConfiguration(content: dividerContent)
     }
     
-    override var diffable: AnyHashable {
-        let newDiffable: [String: AnyHashable] = [
-            "parent": super.diffable,
-            "dividerValue": dividerContent.style
-        ]
-        return .init(newDiffable)
-    }
-    
-    // MARK: Contextual Menu
-    override func makeContextualMenu() -> ContextualMenu {
+    func makeContextualMenu() -> ContextualMenu {
         .init(title: "", children: [
             .init(action: .addBlockBelow),
             .init(action: .delete),
             .init(action: .duplicate)
         ])
     }
+    
+    func handle(action: ContextualMenuAction) {
+        handler.handle(action: action, info: information)
+    }
+    
+    func didSelectRowInTableView() {}
+    func updateView() {}
 }
