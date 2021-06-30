@@ -85,7 +85,7 @@ final class TextBlockActionHandler {
                     self.service.split(
                         info: block.blockModel.information,
                         oldText: oldText,
-                        newBlockContentType: text.contentType,
+                        newBlockContentType: text.contentType.contentTypeForSplit,
                         shouldSetFocusOnUpdate: true
                     )
                 }
@@ -108,7 +108,7 @@ final class TextBlockActionHandler {
                     self.service.split(
                         info: block.blockModel.information,
                         oldText: "",
-                        newBlockContentType: text.contentType,
+                        newBlockContentType: text.contentType.contentTypeForSplit,
                         shouldSetFocusOnUpdate: true
                     )
                 }
@@ -212,5 +212,12 @@ final class TextBlockActionHandler {
                 ])
             }
         }
+    }
+}
+
+extension BlockText.ContentType {
+    // We do want to create regular text block when splitting title block
+    var contentTypeForSplit: BlockText.ContentType {
+        self == .title ? .text : self
     }
 }
