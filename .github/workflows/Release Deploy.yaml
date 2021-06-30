@@ -1,0 +1,94 @@
+name: Release Deploy
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch'     
+        required: true
+        default: 'release'
+
+jobs:
+  # Also add tests.
+  archive_and_upload:
+    runs-on: macOS-latest
+    timeout-minutes: 30
+
+    strategy:
+      matrix:
+        scheme:
+          - Anytype
+        product-name:
+          - Anytype
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Install SSH key for access to repository.
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Install xcpretty
+        run: gem install xcpretty
+
+      - name: Select Xcode
+        run: sh ./Scripts/ci_select_xcode.sh
+
+      # Import developer certificate for archive
+      - name: Import certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.SIGNING_CERTIFICATES_BASE64 }}
+          p12-password: ${{ secrets.SIGNING_CERTIFICATES_PASSWORD }}
+
+      # Download provisioning profiles
+      # Look at this file for available options for profile-type
+      # https://github.com/Apple-Actions/download-provisioning-profiles/blob/master/action.yml
+      - name: Download development provisioning profiles
+        uses: apple-actions/download-provisioning-profiles@v1
+        with: 
+          bundle-id: 'com.anytypeio.anytype'
+          profile-type: 'IOS_APP_DEVELOPMENT'
+          issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          api-private-key: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+
+      - name: Download distribution provisioning profiles
+        uses: apple-actions/download-provisioning-profiles@v1
+        with: 
+          bundle-id: 'com.anytypeio.anytype'
+          profile-type: 'IOS_APP_STORE'
+          issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          api-private-key: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+
+      - name: Download Middleware
+        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+
+      - name: Change git config to force use ssh instead of https
+        run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+      - name: Update version number
+        run: /usr/libexec/PlistBuddy -c "Set :CFBundleVersion '${RUN_NUMBER}'" ./Anytype/Supporting\ Files/Info.plist
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
+
+      - name: Build archive # add later bundle version
+        run: xcodebuild archive -scheme "Anytype" -archivePath ".build/Anytype.xcarchive" -configuration Release -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
+
+      - name: Prepare export options
+        run: /usr/libexec/PlistBuddy -c "Set :teamID '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'" ./Distribution/ExportOptions.plist
+
+      - name: Export
+        run: xcodebuild -exportArchive -exportOptionsPlist "./Distribution/ExportOptions.plist" -archivePath ".build/Anytype.xcarchive" -exportPath ".build/ExportedPackage" -usePackageSupportBuiltinSCM
+
+      - name: Prepare app store connect keys for upload
+        run: mkdir ~/.private_keys/ 2>/dev/null; echo "${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}" > ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
+      - name: Upload to TestFlight
+        run: xcrun altool --upload-app -f ".build/ExportedPackage/Anytype.ipa" -t ios --apiKey "${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}" --apiIssuer "${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}"

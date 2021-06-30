@@ -1,19 +1,11 @@
-import Foundation
-import SwiftUI
 import Combine
-import os
 import BlocksModels
-import MobileCoreServices
+import UIKit
 
 final class BookmarkViewModel: BaseBlockViewModel {
     
     let imagesPublished = Resource.ImageLoader()
-    
-    private let service = BlockActionsServiceBookmark()
-    
     private var subscription: AnyCancellable?
-    
-    // MARK: - Initializers
     
     init(
         block: BlockActiveRecordProtocol,

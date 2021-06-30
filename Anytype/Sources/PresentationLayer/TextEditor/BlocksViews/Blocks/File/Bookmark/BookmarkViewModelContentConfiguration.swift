@@ -43,11 +43,13 @@ extension BookmarkViewModel {
         }
         
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.information == rhs.information
+            lhs.information == rhs.information &&
+                lhs.information.content == rhs.information.content
         }
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(information)
+            hasher.combine(information.content)
         }
         
     }

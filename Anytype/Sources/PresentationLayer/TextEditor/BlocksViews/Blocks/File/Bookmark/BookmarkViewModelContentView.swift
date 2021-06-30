@@ -28,6 +28,7 @@ extension BookmarkViewModel {
             set {
                 guard let configuration = newValue as? ContentConfiguration,
                       configuration != currentConfiguration else { return }
+                currentConfiguration = configuration
                 applyNewConfiguration()
             }
         }

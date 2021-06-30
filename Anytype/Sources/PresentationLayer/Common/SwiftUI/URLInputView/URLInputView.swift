@@ -18,6 +18,7 @@ struct URLInputView: View {
                     .font(AnytypeFontBuilder.font(textStyle: .headline))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .keyboardType(.URL)
                     .modifier(DividerModifier())
                 HStack(spacing: 20, content: {
                     StandardButton(
