@@ -13,7 +13,7 @@ final class DocumentDetailsViewModelNEW {
 
     // MARK: - Internal variables
     
-    private(set) var cover: DocumentCover? = nil
+    private(set) var coverViewState: DocumentCoverViewState = .empty
 
     // MARK: - Private variables
     
@@ -30,7 +30,13 @@ final class DocumentDetailsViewModelNEW {
     }
     
     func performCoverUpdate(_ cover: DocumentCover?) {
-        self.cover = cover
+        self.coverViewState = {
+            guard let cover = cover else {
+                return DocumentCoverViewState.empty
+            }
+            
+            return DocumentCoverViewState.cover(cover)
+        }()
         
         onUpdate()
     }
@@ -51,7 +57,7 @@ private extension DocumentDetailsViewModelNEW {
         .sink { [weak self] image in
             guard let self = self else { return }
             
-            self.cover = .preview(image)
+            self.coverViewState = .preview(image)
             self.onUpdate()
         }
     }

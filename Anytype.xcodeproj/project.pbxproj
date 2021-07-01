@@ -206,6 +206,7 @@
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
+		12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */; };
 		12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12D8FFB5268CC29F008F765B /* DocumentCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D8FFB4268CC29F008F765B /* DocumentCover.swift */; };
@@ -782,6 +783,7 @@
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
+		12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverViewState.swift; sourceTree = "<group>"; };
 		12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsInformationProviderExtensions.swift; path = Anytype/Sources/Models/Extensions/DetailsInformationProviderExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12D8FFB4268CC29F008F765B /* DocumentCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCover.swift; sourceTree = "<group>"; };
@@ -2099,6 +2101,7 @@
 			children = (
 				12D8FFB1268CC27C008F765B /* Constants */,
 				3DEFD6552689FE680072EA27 /* DocumentCoverView.swift */,
+				12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */,
 				12D8FFB4268CC29F008F765B /* DocumentCover.swift */,
 			);
 			path = Cover;
@@ -3999,6 +4002,7 @@
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */,
+				12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareColor.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
 				3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */,

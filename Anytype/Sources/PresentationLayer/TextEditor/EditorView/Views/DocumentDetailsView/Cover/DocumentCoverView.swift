@@ -34,27 +34,31 @@ final class DocumentCoverView: UIView {
 
 extension DocumentCoverView: ConfigurableView {
     
-    func configure(model: DocumentCover?) {
-        guard let model = model else {
-            configureHiddenState()
-            return
-        }
-        
+    func configure(model: DocumentCoverViewState) {
         switch model {
+        case let .cover(cover):
+            configureCoverState(cover)
+        case let .preview(image):
+            configurePreviewState(image)
+        case .empty:
+            configureEmptyState()
+        }
+    }
+    
+    private func configureCoverState(_ cover: DocumentCover) {
+        activityIndicatorView.hide()
+
+        heightConstraint.constant = Constants.height
+        imageView.isHidden = false
+        
+        switch cover {
         case let .imageId(imageId):
             showImageWithId(imageId)
         case let .color(color):
             showImageBasedOnColor(color)
         case let .gradient(startColor, endColor):
             showImageBaseOnGradient(startColor, endColor)
-        case let .preview(image):
-            configurePreviewState(with: image)
         }
-        
-        activityIndicatorView.hide()
-        
-        heightConstraint.constant = Constants.height
-        imageView.isHidden = false
     }
     
     private func showImageWithId(_ imageId: String) {
@@ -94,7 +98,10 @@ extension DocumentCoverView: ConfigurableView {
         imageView.contentMode = .scaleToFill
     }
     
-    private func configurePreviewState(with image: UIImage?) {
+    private func configurePreviewState(_ image: UIImage?) {
+        heightConstraint.constant = Constants.height
+        imageView.isHidden = false
+        
         imageView.image = image
         imageView.contentMode = .scaleAspectFill
         
@@ -106,7 +113,7 @@ extension DocumentCoverView: ConfigurableView {
         activityIndicatorView.show()
     }
     
-    private func configureHiddenState() {
+    private func configureEmptyState() {
         activityIndicatorView.hide()
         
         heightConstraint.constant = 0

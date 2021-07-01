@@ -97,7 +97,7 @@ extension DocumentEditorViewController {
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
         let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
             icon: viewModel.documentIcon,
-            cover: viewModel.detailsViewModel.cover
+            coverViewState: viewModel.detailsViewModel.coverViewState
         ))
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
@@ -204,7 +204,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         snapshot.appendSections([
             DocumentSection(
                 icon: viewModel.documentIcon,
-                cover: viewModel.detailsViewModel.cover
+                coverViewState: viewModel.detailsViewModel.coverViewState
             )
         ])
         
@@ -217,7 +217,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         snapshot.appendSections([
             DocumentSection(
                 icon: viewModel.documentIcon,
-                cover: viewModel.detailsViewModel.cover
+                coverViewState: viewModel.detailsViewModel.coverViewState
             )
         ])
 
@@ -228,7 +228,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
         let sectionSnapshot = self.dataSource.snapshot(for: DocumentSection(
             icon: viewModel.documentIcon,
-            cover: viewModel.detailsViewModel.cover
+            coverViewState: viewModel.detailsViewModel.coverViewState
         ))
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = blocksViewModels.first { viewModel in
@@ -354,7 +354,7 @@ private extension DocumentEditorViewController {
                 iconViewModel: section.icon.flatMap {
                     DocumentIconViewModel(icon: $0)
                 },
-                cover: section.cover
+                coverViewState: section.coverViewState
             )
 
             detailsView.configure(model: detailsViewModel)
