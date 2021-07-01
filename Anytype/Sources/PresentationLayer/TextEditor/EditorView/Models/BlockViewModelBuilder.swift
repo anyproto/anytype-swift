@@ -52,7 +52,13 @@ final class BlockViewModelBuilder {
                 )
             case .image:
                 return BlockImageViewModel(
-                    block, content: content, delegate: delegate, router: router, actionHandler: blockActionHandler
+                    information: block.blockModel.information,
+                    fileData: content,
+                    indentationLevel: block.indentationLevel,
+                    contextualMenuHandler: contextualMenuHandler,
+                    showIconPicker: { [weak self] in
+                        self?.showImagePicker(blockId: block.blockId)
+                    }
                 )
             case .video:
                 return VideoBlockViewModel(
@@ -85,5 +91,15 @@ final class BlockViewModelBuilder {
             )
         case .smartblock, .layout: return nil
         }
+    }
+    
+    private func showImagePicker(blockId: BlockId) {
+        let model = MediaPickerViewModel(type: .images) { [weak self] resultInformation in
+            guard let resultInformation = resultInformation else { return }
+
+            self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)
+        }
+        
+        router.showImagePicker(model: model)
     }
 }

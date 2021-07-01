@@ -1,4 +1,4 @@
-public enum BlockFileState {
+public enum BlockFileState: Hashable {
     /// There is no file and preview, it's an empty block, that waits files.
     case empty
     /// There is still no file/preview, but file already uploading

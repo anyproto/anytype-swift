@@ -26,6 +26,7 @@ public struct BlockInformation: Hashable {
         lhs.id == rhs.id
     }
 
+    // TODO: Remove
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

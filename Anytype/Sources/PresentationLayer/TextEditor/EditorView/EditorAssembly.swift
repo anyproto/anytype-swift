@@ -31,7 +31,6 @@ final class EditorAssembly {
         
         let selectionHandler = EditorSelectionHandler()
         let modelsHolder = SharedBlockViewModelsHolder()
-        let updateElementsSubject = PassthroughSubject<Set<BlockId>, Never>()
         
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
@@ -39,7 +38,7 @@ final class EditorAssembly {
             selectionHandler: selectionHandler,
             document: document,
             router: router,
-            updateElementsSubject: updateElementsSubject
+            viewInput: viewInput
         )
         
         let editorBlockActionHandler = EditorActionHandler(
@@ -70,7 +69,6 @@ final class EditorAssembly {
             selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,
-            updateElementsSubject: updateElementsSubject,
             blockBuilder: blocksConverter,
             blockActionHandler: editorBlockActionHandler
         )

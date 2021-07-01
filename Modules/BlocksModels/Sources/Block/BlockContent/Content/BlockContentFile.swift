@@ -1,5 +1,5 @@
 public struct BlockFile: Hashable {
-    public enum ContentType {
+    public enum ContentType: Hashable {
         case none
         case file
         case image

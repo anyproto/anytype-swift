@@ -8,6 +8,6 @@ struct FilePickerResultInformation {
     let documentUrl: URL
     
     /// String value of document URL
-    var filePath: String { self.documentUrl.relativePath }
+    var filePath: String { documentUrl.relativePath }
     
 }

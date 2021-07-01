@@ -25,7 +25,7 @@ final class DocumentEditorViewController: UIViewController {
     private var insetsHelper: ScrollViewContentInsetsHelper?
     private var contentOffset: CGPoint = .zero
     
-    private var subscriptions: Set<AnyCancellable> = []
+    private var selectionSubscription: AnyCancellable?
     // Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
         let recognizer: UITapGestureRecognizer = .init()
@@ -92,24 +92,6 @@ extension DocumentEditorViewController {
         UIView.performWithoutAnimation {
             dataSource.refresh(animatingDifferences: true)
         }
-    }
-
-    private func handleUpdateBlocks(blockIds: Set<BlockId>) {
-        let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
-            iconViewState: viewModel.detailsViewModel.iconViewState,
-            coverViewState: viewModel.detailsViewModel.coverViewState
-        ))
-        sectionSnapshot.visibleItems.forEach { item in
-            let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
-                viewModel.blockId == item.id
-            }
-            viewModel?.updateView()
-
-            guard let indexPath = dataSource.indexPath(for: item) else { return }
-            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-            cell.contentConfiguration = viewModel?.makeContentConfiguration()
-        }
-        updateView()
     }
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>,
@@ -198,6 +180,24 @@ extension DocumentEditorViewController {
 // MARK: - EditorModuleDocumentViewInput
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
+    func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
+        let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
+            iconViewState: viewModel.detailsViewModel.iconViewState,
+            coverViewState: viewModel.detailsViewModel.coverViewState
+        ))
+        
+        sectionSnapshot.visibleItems.forEach { item in
+            let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
+                viewModel.blockId == item.id
+            }
+            viewModel?.updateView()
+
+            guard let indexPath = dataSource.indexPath(for: item) else { return }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+            cell.contentConfiguration = viewModel?.makeContentConfiguration()
+        }
+        updateView()
+    }
     
     func updateHeader() {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
@@ -372,7 +372,9 @@ private extension DocumentEditorViewController {
     }
 
     func setupInteractions() {
-        self.configured()
+        selectionSubscription = viewModel.selectionHandler.selectionEventPublisher().sink { [weak self] value in
+            self?.handleSelection(event: value)
+        }
         
         listViewTapGestureRecognizer.addTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
         self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
@@ -386,17 +388,6 @@ private extension DocumentEditorViewController {
         guard cellIndexPath == nil else { return }
 
         viewModel.blockActionHandler.onEmptySpotTap()
-    }
-
-    /// Add handlers to viewModel state changes
-    func configured() {
-        viewModel.updateElementsPublisher.sink { [weak self] value in
-            self?.handleUpdateBlocks(blockIds: value)
-        }.store(in: &self.subscriptions)
-
-        viewModel.selectionHandler.selectionEventPublisher().sink(receiveValue: { [weak self] value in
-            self?.handleSelection(event: value)
-        }).store(in: &self.subscriptions)
     }
     
     func handleSelection(event: EditorSelectionIncomingEvent) {

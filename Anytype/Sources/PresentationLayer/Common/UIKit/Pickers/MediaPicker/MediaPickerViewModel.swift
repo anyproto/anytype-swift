@@ -1,32 +1,17 @@
-//
-//  MediaPickerViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 20.05.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
-
-// MARK: - ViewModel
-
-extension MediaPicker {
     
-    final class ViewModel {
-        
-        var onResultInformationObtain: ((FilePickerResultInformation?) -> Void)?
-        
-        let type: MediaPickerContentType
-        
-        init(type: MediaPickerContentType) {
-            self.type = type
-        }
-        
-        func process(_ url: URL?) {
-            onResultInformationObtain?(
-                url.flatMap { FilePickerResultInformation(documentUrl: $0) }
-            )
-        }
+final class MediaPickerViewModel {
+    let type: MediaPickerContentType
+    let completion: ((FilePickerResultInformation?) -> Void)
+    
+    init(type: MediaPickerContentType, completion: @escaping (FilePickerResultInformation?) -> Void) {
+        self.type = type
+        self.completion = completion
     }
     
+    func process(_ url: URL?) {
+        completion(
+            url.flatMap { FilePickerResultInformation(documentUrl: $0) }
+        )
+    }
 }

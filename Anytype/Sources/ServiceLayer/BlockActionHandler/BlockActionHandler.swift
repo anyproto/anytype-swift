@@ -21,13 +21,8 @@ class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let textBlockActionHandler: TextBlockActionHandler
-    
-    private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>
-    
-    
 
-
-    // MARK: - Lifecycle
+    private weak var viewInput: EditorModuleDocumentViewInput?
 
     init(
         documentId: String,
@@ -35,15 +30,16 @@ class BlockActionHandler: BlockActionHandlerProtocol {
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
-        updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>
+        viewInput: EditorModuleDocumentViewInput
     ) {
         self.modelsHolder = modelsHolder
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
         self.selectionHandler = selectionHandler
         self.document = document
-        self.updateElementsSubject = updateElementsSubject
+        self.viewInput = viewInput
         self.router = router
+        
         self.textBlockActionHandler = TextBlockActionHandler(
             contextId: documentId,
             service: service,
@@ -262,7 +258,7 @@ private extension BlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             newInfo.content = .text(textContentType)
-            updateElementsSubject.send([info.id])
+            viewInput?.updateRowsWithoutRefreshing(ids: [info.id])
             
             textService.setText(
                 contextID: self.documentId,
@@ -286,7 +282,7 @@ private extension BlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             newInfo.content = .text(textContentType)
-            updateElementsSubject.send([newInfo.id])
+            viewInput?.updateRowsWithoutRefreshing(ids: [newInfo.id])
             textService.setText(
                 contextID: self.documentId,
                 blockID: newInfo.id,

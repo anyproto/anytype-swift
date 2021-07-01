@@ -3,33 +3,21 @@ import BlocksModels
 
 struct BlockImageConfiguration: UIContentConfiguration, Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.information == rhs.information
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.information)
+        lhs.fileData == rhs.fileData
     }
     
-    var information: BlockInformation
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(fileData)
+    }
+    
+    let fileData: BlockFile
 
-    init(_ information: BlockInformation) {
-        /// We should warn if we have incorrect content type (?)
-        /// Don't know :(
-        /// Think about failable initializer
-        
-        switch information.content {
-        case let .file(value) where value.contentType == .image: break
-        default:
-            assertionFailure("Can't create content configuration for content:\(information.content)")
-            break
-        }
-        
-        self.information = information
+    init(_ fileData: BlockFile) {
+        self.fileData = fileData
     }
             
-    /// UIContentConfiguration
     func makeContentView() -> UIView & UIContentView {
-        let view = BlockImageContentView(configuration: self)
-        return view
+        BlockImageContentView(configuration: self)
     }
     
     /// Hm, we could use state as from-user action channel.

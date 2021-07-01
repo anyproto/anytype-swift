@@ -3,11 +3,8 @@ import BlocksModels
 
 /// Input data for document view
 protocol EditorModuleDocumentViewInput: AnyObject {
-    /// Update data with new rows
-    ///
-    /// - Parameters:
-    ///   - rows: Rows to display
     func updateData(_ rows: [BlockViewModelProtocol])
+    func updateRowsWithoutRefreshing(ids: Set<BlockId>)
 
     func updateHeader()
 

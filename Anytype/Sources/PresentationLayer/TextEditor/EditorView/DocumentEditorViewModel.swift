@@ -22,9 +22,6 @@ class DocumentEditorViewModel: ObservableObject {
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     
     private var subscriptions = Set<AnyCancellable>()
-    
-    private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>
-    lazy var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = updateElementsSubject.eraseToAnyPublisher()
 
     // MARK: - Initialization
     init(
@@ -37,7 +34,6 @@ class DocumentEditorViewModel: ObservableObject {
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
         modelsHolder: SharedBlockViewModelsHolder,
-        updateElementsSubject: PassthroughSubject<Set<BlockId>, Never>,
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler
     ) {
@@ -48,7 +44,6 @@ class DocumentEditorViewModel: ObservableObject {
         self.document = document
         self.router = router
         self.modelsHolder = modelsHolder
-        self.updateElementsSubject = updateElementsSubject
         self.blockBuilder = blockBuilder
         self.blockActionHandler = blockActionHandler
         self.blockDelegate = blockDelegate
@@ -87,27 +82,26 @@ class DocumentEditorViewModel: ObservableObject {
             let blocksViewModels = blockBuilder.build(updateResult.models)
             updateBlocksViewModels(models: blocksViewModels)
         case let .update(update):
+            if update.updatedIds.isEmpty {
+                return
+            }
+            
             let modelsToUpdate = modelsHolder.models.filter { model in
                 update.updatedIds.contains(model.blockId)
             }
             
             let structIds = modelsToUpdate.filter { $0.isStruct }.map { $0.blockId }
-            updateStructModels(structIds)
+            updateViewModelsWithStructs(structIds)
             
-            // Deprecated: update class based view models
-            let classModelIds = modelsToUpdate.filter { !$0.isStruct }.map { $0.blockId }
-            if !classModelIds.isEmpty {
-                updateElementsSubject.send(Set(classModelIds))
-            }
+            viewInput?.updateRowsWithoutRefreshing(ids: update.updatedIds)
         }
     }
     
-    private func updateStructModels(_ blockIds: [BlockId]) {
+    private func updateViewModelsWithStructs(_ blockIds: [BlockId]) {
         guard !blockIds.isEmpty else {
             return
         }
-        
-        var modelsCopy = modelsHolder.models
+
         
         for blockId in blockIds {
             guard let newRecord = document.rootActiveModel?.findChild(by: blockId) else {
@@ -120,14 +114,12 @@ class DocumentEditorViewModel: ObservableObject {
                 return
             }
             
-            modelsCopy.enumerated()
+            modelsHolder.models.enumerated()
                 .first { $0.element.blockId == blockId }
                 .flatMap { offset, data in
-                    modelsCopy[offset] = newModel
+                    modelsHolder.models[offset] = newModel
                 }
         }
-        
-        updateBlocksViewModels(models: modelsCopy)
     }
 
     private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {

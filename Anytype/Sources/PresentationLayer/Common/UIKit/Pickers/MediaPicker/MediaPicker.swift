@@ -1,22 +1,14 @@
-//
-//  MediaPicker.swift
-//  Anytype
-//
-//  Created by Dmitry Lobanov on 21.10.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import PhotosUI
 
 final class MediaPicker: UIViewController {
     
-    private let viewModel: ViewModel
+    private let viewModel: MediaPickerViewModel
     
     private var barTintColor: UIColor?
     
     // MARK: - Initializer
     
-    init(viewModel: ViewModel) {
+    init(viewModel: MediaPickerViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -98,6 +90,7 @@ extension MediaPicker: PHPickerViewControllerDelegate {
             forTypeIdentifier: identifier
         ) { [weak self] url, error in
             guard let self = self else { return }
+            assert(error == nil, "Fail load file: \(String(describing: error))")
             
             DispatchQueue.main.async {
                 self.dismiss(animated: true)

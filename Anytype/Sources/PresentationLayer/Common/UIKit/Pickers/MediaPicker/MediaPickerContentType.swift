@@ -1,11 +1,3 @@
-//
-//  MediaPickerContentType.swift
-//  Anytype
-//
-//  Created by Kovalev Alexander on 30.03.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import PhotosUI
 
 /// Content type to display in picker from gallery
