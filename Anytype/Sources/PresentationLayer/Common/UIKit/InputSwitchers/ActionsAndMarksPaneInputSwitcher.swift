@@ -12,7 +12,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     var textViewChange: TextViewTextChangeType?
-    private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsHolder)?
+    private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     
     override func switchInputs(inputViewKeyboardSize: CGSize,
                                animated: Bool,
@@ -119,7 +119,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         self.didSwitchViews(customTextView: customTextView)
     }
     
-    func showAccessoryView(accessoryView: (DismissableInputAccessoryView & FilterableItemsHolder)?,
+    func showAccessoryView(accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
                            textView: UITextView) {
         switchInputs(inputViewKeyboardSize: .zero,
                      animated: true,
@@ -140,7 +140,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
               let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
               let caretPosition = customTextView.textView.caretPosition(),
               customTextView.textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
-              accessoryView.isDisplayingAnyItems() else { return false }
+              accessoryView.shouldContinueToDisplayView() else { return false }
         return true
     }
     
@@ -174,7 +174,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         }
     }
     
-    private func createDelayedAcessoryViewTask(accessoryView: (DismissableInputAccessoryView & FilterableItemsHolder)?,
+    private func createDelayedAcessoryViewTask(accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
                                              textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
             self?.showAccessoryView(accessoryView: accessoryView,

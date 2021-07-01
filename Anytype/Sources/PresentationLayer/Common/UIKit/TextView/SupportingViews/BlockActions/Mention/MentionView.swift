@@ -41,13 +41,13 @@ final class MentionView: DismissableInputAccessoryView {
     
 }
 
-extension MentionView: FilterableItemsHolder {
+extension MentionView: FilterableItemsView {
     
     func setFilterText(filterText: String) {
         mentionsController?.viewModel.setFilterString(filterText)
     }
     
-    func isDisplayingAnyItems() -> Bool {
+    func shouldContinueToDisplayView() -> Bool {
         return true
     }
 }

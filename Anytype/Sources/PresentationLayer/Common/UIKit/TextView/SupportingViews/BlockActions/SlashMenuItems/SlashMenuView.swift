@@ -2,10 +2,15 @@ import UIKit
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
+    private enum Constants {
+        static let maxMistatchFilteringCount = 3
+    }
+    
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: SlashMenuItemsViewController?
     private let menuItems: [BlockActionMenuItem]
     private let slashMenuActionsHandler: SlashMenuActionsHandler
+    private var filterMismatchCounter = Constants.maxMistatchFilteringCount
     
     init(frame: CGRect,
          menuItems: [BlockActionMenuItem],
@@ -70,21 +75,23 @@ extension SlashMenuView: UINavigationControllerDelegate {
     }
 }
 
-extension SlashMenuView: FilterableItemsHolder {
+extension SlashMenuView: FilterableItemsView {
     
     func setFilterText(filterText: String) {
         guard let menuItemsController = self.menuItemsViewController else { return }
         if menuItemsController.navigationController?.topViewController != menuItemsController {
             menuItemsController.navigationController?.popToRootViewController(animated: false)
         }
+        guard menuItemsController.filterString != filterText else { return }
         menuItemsController.filterString = filterText
         if menuItemsController.items.isEmpty {
-            dismissHandler()
+            filterMismatchCounter -= 1
+        } else {
+            filterMismatchCounter = Constants.maxMistatchFilteringCount
         }
     }
     
-    func isDisplayingAnyItems() -> Bool {
-        guard let menuController = menuItemsViewController else { return false }
-        return !menuController.items.isEmpty
+    func shouldContinueToDisplayView() -> Bool {
+        filterMismatchCounter > 0
     }
 }
