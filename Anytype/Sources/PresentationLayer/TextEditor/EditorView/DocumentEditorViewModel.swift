@@ -6,8 +6,6 @@ import BlocksModels
 
 
 class DocumentEditorViewModel: ObservableObject {
-    private(set) var documentIcon: DocumentIcon?
-    
     weak private(set) var viewInput: EditorModuleDocumentViewInput?
     
     var document: BaseDocumentProtocol
@@ -16,7 +14,7 @@ class DocumentEditorViewModel: ObservableObject {
     
     let router: EditorRouterProtocol
     let settingsViewModel: DocumentSettingsViewModel
-    let detailsViewModel: DocumentDetailsViewModelNEW
+    let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
     
@@ -35,7 +33,7 @@ class DocumentEditorViewModel: ObservableObject {
         viewInput: EditorModuleDocumentViewInput,
         blockDelegate: BlockDelegate,
         settingsViewModel: DocumentSettingsViewModel,
-        detailsViewModel: DocumentDetailsViewModelNEW,
+        detailsViewModel: DocumentDetailsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
         modelsHolder: SharedBlockViewModelsHolder,
@@ -78,7 +76,7 @@ class DocumentEditorViewModel: ObservableObject {
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] details in
-                self?.handleDetailsUpdate(details: details)
+                self?.detailsViewModel.performUpdateUsingDetails(details)
             }
             .store(in: &subscriptions)
     }
@@ -130,13 +128,6 @@ class DocumentEditorViewModel: ObservableObject {
         }
         
         updateBlocksViewModels(models: modelsCopy)
-    }
-    
-    private func handleDetailsUpdate(details: DetailsData) {
-        documentIcon = details.documentIcon
-        detailsViewModel.performCoverUpdate(details.documentCover)
-        // will be removed shortly
-        viewInput?.updateHeader()
     }
 
     private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {

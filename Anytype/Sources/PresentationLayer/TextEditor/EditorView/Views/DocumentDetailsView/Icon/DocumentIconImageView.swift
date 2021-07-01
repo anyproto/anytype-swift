@@ -37,19 +37,33 @@ final class DocumentIconImageView: UIView {
 
 extension DocumentIconImageView: ConfigurableView {
     
-    func configure(model: String) {
-        imageLoader.update(
-            imageId: model,
-            parameters: ImageParameters(width: .thumbnail),
-            placeholder: PlaceholderImageBuilder.placeholder(
-                with: ImageGuideline(
-                    size: CGSize(width: 112, height: 112),
-                    cornerRadius: Constants.cornerRadius,
-                    backgroundColor: UIColor.grayscaleWhite
-                ),
-                color: UIColor.grayscale10
+    enum Model {
+        case image(UIImage?)
+        case imageId(String)
+    }
+    
+    func configure(model: Model) {
+        imageLoader.cleanupSubscription()
+        
+        switch model {
+        case let .image(image):
+            imageView.image = image
+            
+        case let .imageId(imageId):
+            imageLoader.update(
+                imageId: imageId,
+                parameters: ImageParameters(width: .thumbnail),
+                placeholder: PlaceholderImageBuilder.placeholder(
+                    with: ImageGuideline(
+                        size: CGSize(width: 112, height: 112),
+                        cornerRadius: Constants.cornerRadius,
+                        backgroundColor: UIColor.grayscaleWhite
+                    ),
+                    color: UIColor.grayscale10
+                )
             )
-        )
+        }
+        
     }
     
 }

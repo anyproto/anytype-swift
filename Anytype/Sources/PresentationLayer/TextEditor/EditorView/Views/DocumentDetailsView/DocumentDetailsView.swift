@@ -36,7 +36,7 @@ final class DocumentDetailsView: UICollectionReusableView {
         super.prepareForReuse()
         
         coverView.configure(model: .empty)
-        iconView.configure(model: nil)
+        iconView.configure(model: .empty)
     }
     
 }
@@ -45,9 +45,9 @@ final class DocumentDetailsView: UICollectionReusableView {
 
 extension DocumentDetailsView: ConfigurableView {
     
-    func configure(model: DocumentDetailsViewModel) {
+    func configure(model: DocumentSection) {
         coverView.configure(model: model.coverViewState)
-        iconView.configure(model: model.iconViewModel)
+        iconView.configure(model: model.iconViewState)
     }
     
 }

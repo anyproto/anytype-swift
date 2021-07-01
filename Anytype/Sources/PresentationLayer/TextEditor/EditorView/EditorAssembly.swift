@@ -25,7 +25,7 @@ final class EditorAssembly {
         let document: BaseDocumentProtocol = BaseDocument()
         
         let settingsModel = DocumentSettingsViewModel(activeModel: document.defaultDetailsActiveModel)
-        let detailsViewModel = DocumentDetailsViewModelNEW {
+        let detailsViewModel = DocumentDetailsViewModel {
             viewInput.updateHeader()
         }
         

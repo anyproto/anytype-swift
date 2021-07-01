@@ -96,7 +96,7 @@ extension DocumentEditorViewController {
 
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
         let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
-            icon: viewModel.documentIcon,
+            iconViewState: viewModel.detailsViewModel.iconViewState,
             coverViewState: viewModel.detailsViewModel.coverViewState
         ))
         sectionSnapshot.visibleItems.forEach { item in
@@ -203,7 +203,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
             DocumentSection(
-                icon: viewModel.documentIcon,
+                iconViewState: viewModel.detailsViewModel.iconViewState,
                 coverViewState: viewModel.detailsViewModel.coverViewState
             )
         ])
@@ -216,7 +216,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
             DocumentSection(
-                icon: viewModel.documentIcon,
+                iconViewState: viewModel.detailsViewModel.iconViewState,
                 coverViewState: viewModel.detailsViewModel.coverViewState
             )
         ])
@@ -227,7 +227,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         snapshot.appendItems(items)
 
         let sectionSnapshot = self.dataSource.snapshot(for: DocumentSection(
-            icon: viewModel.documentIcon,
+            iconViewState: viewModel.detailsViewModel.iconViewState,
             coverViewState: viewModel.detailsViewModel.coverViewState
         ))
         sectionSnapshot.visibleItems.forEach { item in
@@ -350,14 +350,7 @@ private extension DocumentEditorViewController {
                 return
             }
             
-            let detailsViewModel = DocumentDetailsViewModel(
-                iconViewModel: section.icon.flatMap {
-                    DocumentIconViewModel(icon: $0)
-                },
-                coverViewState: section.coverViewState
-            )
-
-            detailsView.configure(model: detailsViewModel)
+            detailsView.configure(model: section)
         }
         
         dataSource.supplementaryViewProvider = { [weak self] in
