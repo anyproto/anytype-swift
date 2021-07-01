@@ -13,7 +13,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     private let document: BaseDocumentProtocol = BaseDocument()
     private var subscriptions: Set<AnyCancellable> = []
     
-    private let middlewareConfigurationService = MiddlewareConfigurationService()
+    private let configurationService = MiddlewareConfigurationService()
     private let blocksActionsService = BlockActionsServiceSingle()
     
     
@@ -55,16 +55,15 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func obtainAccountInfo() {
-        middlewareConfigurationService.obtainConfiguration().receiveOnMain()
-            .flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
-                guard let self = self else {
-                return .empty()
-            }
+        configurationService.obtainConfiguration { [weak self] config in
+            guard let self = self else { return }
             
-                self.blockId = configuration.profileBlockId
-                return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
-            }.sinkWithDefaultCompletion("obtainAccountInfo") { [weak self] serviceSuccess in
-                self?.document.open(serviceSuccess)
-            }.store(in: &subscriptions)
+            self.blockId = config.profileBlockId
+            
+            self.blocksActionsService.open(contextID: config.profileBlockId, blockID: config.profileBlockId)
+                .sinkWithDefaultCompletion("obtainAccountInfo") { [weak self] serviceSuccess in
+                    self?.document.open(serviceSuccess)
+                }.store(in: &self.subscriptions)
+        }
     }
 }

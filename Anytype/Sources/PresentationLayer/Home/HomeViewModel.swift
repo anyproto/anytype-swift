@@ -39,10 +39,9 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func fetchDashboardData() {        
-        dashboardService.openDashboard()
-            .sinkWithDefaultCompletion("Subscribe dashboard events") { [weak self] serviceSuccess in
-                self?.onOpenDashboard(serviceSuccess)
-            }.store(in: &self.subscriptions)
+        dashboardService.openDashboard() { [weak self] serviceSuccess in
+            self?.onOpenDashboard(serviceSuccess)
+        }
     }
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {

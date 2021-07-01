@@ -33,16 +33,16 @@ class ImageProperty {
         guard property.isNil else { return }
         
         URLResolver()
-            .obtainImageURLPublisher(imageId: imageId, parameters)
-            .safelyUnwrapOptionals()
-            .ignoreFailure()
-            .flatMap {
-                ImageLoaderObject($0).imagePublisher
+            .obtainImageURL(imageId: imageId, parameters: parameters) { [weak self] url in
+                guard let self = self, let url = url else { return }
+                
+                ImageLoaderObject(url).imagePublisher
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: RunLoop.main)
+                    .sink { [weak self] image in
+                        self?.property = image
+                    }
+                    .store(in: &self.subscriptions)
             }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] image in
-                self?.property = image
-            }
-            .store(in: &subscriptions)
     }
 }

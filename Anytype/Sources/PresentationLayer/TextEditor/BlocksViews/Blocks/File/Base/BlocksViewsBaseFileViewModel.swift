@@ -3,7 +3,6 @@ import Combine
 
 class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
     private var stateSubscription: AnyCancellable?
-    private var fileURLSubscription: AnyCancellable?
     
     private var state: BlockFileState?
     private let fileContent: BlockFile
@@ -44,11 +43,10 @@ class BlocksViewsBaseFileViewModel: BaseBlockViewModel {
         case .image:
             return
         case .video, .file:
-            fileURLSubscription = URLResolver().obtainFileURLPublisher(fileId: fileContent.metadata.hash)
-                .sinkWithDefaultCompletion("obtainFileURL") { [weak self] url in
-                    guard let url = url else { return }
-                    self?.router.saveFile(fileURL: url)
-                }
+            URLResolver().obtainFileURL(fileId: fileContent.metadata.hash) { [weak self] url in
+                guard let url = url else { return }
+                self?.router.saveFile(fileURL: url)
+            }
             
         case .none:
             return

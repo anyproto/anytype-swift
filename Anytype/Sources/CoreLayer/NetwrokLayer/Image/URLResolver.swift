@@ -2,61 +2,40 @@
 import Foundation
 import Combine
 
-/// Entity to convert file hashes from middle to URLs
 struct URLResolver {
-    /// Obtain url for file with hash
-    ///
-    /// - Parameters:
-    ///   - fileId: file hash
-    func obtainFileURLPublisher(fileId: String) -> AnyPublisher<URL?, Error> {
-        self.configurationService.obtainConfiguration().map {
-            self.fileURL(configuration: $0, fileId: fileId)
-        }
-        .eraseToAnyPublisher()
-    }
+    private let configurationService = MiddlewareConfigurationService()
     
-    /// Obtain url for image with hash
-    ///
-    /// - Parameters:
-    ///   - imageId: image hash
-    ///   - parameters: Image parameters
-    func obtainImageURLPublisher(
-        imageId: String,
-        _ parameters: ImageParameters? = nil
-    ) -> AnyPublisher<URL?, Error> {
-        self.configurationService.obtainConfiguration().map {
-            self.imageURL(
-                configuration: $0,
-                subpath: imageId,
-                parameters: parameters
+    func obtainFileURL(fileId: String, completion: @escaping (URL?) -> ()) {
+        configurationService.obtainConfiguration { config in
+            completion(
+                URL(string: config.gatewayURL + Constants.fileSubPath + fileId)
             )
-        }.eraseToAnyPublisher()
-    }
-
-    private enum Constants {
-        static let imageSubPath = "/image/"
-        static let fileSubPath = "/file/"
+        }
     }
     
-    private let configurationService = MiddlewareConfigurationService.init()
+    func obtainImageURL(imageId: String, parameters: ImageParameters, completion: @escaping (URL?) -> ()) {
+        configurationService.obtainConfiguration { config in
+            completion(imageURL(configuration: config, subpath: imageId, parameters: parameters))
+        }
+    }
     
-    private func imageURL(configuration: MiddlewareConfiguration,
-                          subpath: String,
-                          parameters: ImageParameters?) -> URL? {
+    private func imageURL(
+        configuration: MiddlewareConfiguration,
+        subpath: String,
+        parameters: ImageParameters
+    ) -> URL? {
         guard !subpath.isEmpty else { return nil }
         
         let string = configuration.gatewayURL + Constants.imageSubPath + subpath
         
-        /// Get components.
         var components = URLComponents(string: string)
-        if let parameters = parameters {
-            components?.queryItems = try? URLComponentsEncoder().encode(parameters)
-        }
+        components?.queryItems = try? URLComponentsEncoder().encode(parameters)
         
         return components?.url
     }
     
-    private func fileURL(configuration: MiddlewareConfiguration, fileId: String) -> URL? {
-        URL(string: configuration.gatewayURL + Constants.fileSubPath + fileId)
+    private enum Constants {
+        static let imageSubPath = "/image/"
+        static let fileSubPath = "/file/"
     }
 }

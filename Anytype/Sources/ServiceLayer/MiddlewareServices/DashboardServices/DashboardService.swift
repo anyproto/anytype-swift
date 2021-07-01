@@ -4,22 +4,24 @@ import BlocksModels
 import ProtobufMessages
 
 class DashboardService: DashboardServiceProtocol {
-    private let middlewareConfigurationService = MiddlewareConfigurationService()
-    private let blocksActionsService = BlockActionsServiceSingle()
+    private let configurationService = MiddlewareConfigurationService()
+    private let actionsService = BlockActionsServiceSingle()
     private let objectsService = ObjectActionsService()
     
     private var dashboardId: String = ""
+    
+    private var subscriptions = [AnyCancellable]()
         
-    func openDashboard() -> AnyPublisher<ServiceSuccess, Error> {
-        self.middlewareConfigurationService.obtainConfiguration().flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
-            guard let self = self else {
-                return .empty()
-            }
+    func openDashboard(completion: @escaping (ServiceSuccess) -> ()) {
+        configurationService.obtainConfiguration { [weak self] config in
+            guard let self = self else { return }
             
-            return self.blocksActionsService.open(
-                contextID: configuration.homeBlockID, blockID: configuration.homeBlockID
-            )
-        }.eraseToAnyPublisher()
+            self.actionsService.open(contextID: config.homeBlockID, blockID: config.homeBlockID)
+                .sinkWithDefaultCompletion("Open dashboard") { success in
+                    completion(success)
+                }
+                .store(in: &self.subscriptions)
+        }
     }
     
     func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {

@@ -4,18 +4,14 @@ import ProtobufMessages
 
 /// Service that handles middleware config
 class MiddlewareConfigurationService: ConfigurationServiceProtocol {
-    func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
-        return _obtainConfiguration().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-    }
+    private var subscriptions = [AnyCancellable]()
     
-    func _obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
+    func obtainConfiguration(completion: @escaping (MiddlewareConfiguration) -> ()) {
         if let configuration = MiddlewareConfiguration.shared {
-            return Just(configuration)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
+            completion(configuration)
         }
 
-        return Anytype_Rpc.Config.Get.Service.invoke()
+        Anytype_Rpc.Config.Get.Service.invoke()
             .subscribe(on: DispatchQueue.global(qos: .userInitiated))
             .map {
                 MiddlewareConfiguration(
@@ -25,11 +21,12 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
                     gatewayURL: $0.gatewayURL
                 )
             }
-            .map { configuration in
-                MiddlewareConfiguration.shared = configuration
-                return configuration
+            .receiveOnMain()
+            .sinkWithDefaultCompletion("ObtainConfiguration") { config in
+                MiddlewareConfiguration.shared = config
+                completion(config)
             }
-            .eraseToAnyPublisher()
+            .store(in: &self.subscriptions)
     }
     
     func obtainLibraryVersion() -> AnyPublisher<MiddlewareVersion, Error> {

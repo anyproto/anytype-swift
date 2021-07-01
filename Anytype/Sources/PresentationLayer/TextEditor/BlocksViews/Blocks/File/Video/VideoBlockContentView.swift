@@ -32,7 +32,6 @@ final class VideoBlockContentView: UIView, UIContentView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private var subscription: AnyCancellable?
     
     init(configuration: VideoBlockContentViewConfiguration) {
         self.currentConfiguration = configuration
@@ -69,14 +68,11 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func setVideoURL() {
-        self.subscription = URLResolver().obtainFileURLPublisher(fileId: self.currentConfiguration.metadata.hash)
-            .receiveOnMain()
-            .sink { _ in }
-                receiveValue: { [weak self] url in
-                    guard let url = url else { return }
-                    
-                    self?.videoVC.player = .init(url: url)
-                }
+        URLResolver().obtainFileURL(fileId: self.currentConfiguration.metadata.hash) { [weak self] url in
+            guard let url = url else { return }
+            
+            self?.videoVC.player = .init(url: url)
+        }
     }
     
     private func addEmptyViewAndRemoveVideoView() {
