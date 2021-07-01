@@ -68,6 +68,7 @@ final class BaseDocument: BaseDocumentProtocol {
                    let rootModel = container.blocksContainer.choose(by: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
+                
                 return BaseDocumentUpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
             }.eraseToAnyPublisher()
     }

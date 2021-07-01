@@ -251,6 +251,8 @@
 		3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */; };
 		3D22B2412687975100C78C28 /* ContextualMenuTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */; };
 		3D22B2432687976D00C78C28 /* ContextualMenuImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2422687976D00C78C28 /* ContextualMenuImageProvider.swift */; };
+		3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */; };
+		3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */; };
 		3D402BF0268A5195002E938C /* BlockViewModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D402BEF268A5195002E938C /* BlockViewModelsHolder.swift */; };
@@ -828,6 +830,8 @@
 		3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuIdentifierBuilder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuIdentifierBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuTitleProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuTitleProvider.swift; sourceTree = SOURCE_ROOT; };
 		3D22B2422687976D00C78C28 /* ContextualMenuImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuImageProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuImageProvider.swift; sourceTree = SOURCE_ROOT; };
+		3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageContentView.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D402BEF268A5195002E938C /* BlockViewModelsHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelsHolder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/BlockViewModelsHolder.swift; sourceTree = SOURCE_ROOT; };
@@ -3122,8 +3126,10 @@
 		EA20CDD126122C5D00DBA9FE /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				0A10CC7F248ED13B000FF498 /* BlocksViewsImageUIKitView.swift */,
 				3D22B20D2685DABD00C78C28 /* BlocksViewsImageViewModel.swift */,
+				0A10CC7F248ED13B000FF498 /* BlocksViewsImageUIKitView.swift */,
+				3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */,
+				3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -3632,6 +3638,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
+				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */,
 				53E9B8492683704500FBFEA1 /* ToggleBlockViewModel.swift in Sources */,
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
@@ -4020,6 +4027,7 @@
 				0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */,
 				EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
+				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
 				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */,

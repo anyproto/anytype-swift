@@ -51,7 +51,7 @@ final class BlockViewModelBuilder {
                     block, delegate: delegate, actionHandler: blockActionHandler, router: router
                 )
             case .image:
-                return BlocksViewsImageViewModel(
+                return BlockImageViewModel(
                     block, content: content, delegate: delegate, router: router, actionHandler: blockActionHandler
                 )
             case .video:
@@ -63,6 +63,7 @@ final class BlockViewModelBuilder {
             return DividerBlockViewModel(
                 content: content,
                 information: block.blockModel.information,
+                indentationLevel: block.indentationLevel,
                 handler: contextualMenuHandler
             )
         case .bookmark:

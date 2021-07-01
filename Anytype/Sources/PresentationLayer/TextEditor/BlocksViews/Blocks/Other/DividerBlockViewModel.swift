@@ -2,17 +2,18 @@ import BlocksModels
 import UIKit
 
 struct DividerBlockViewModel: BlockViewModelProtocol {
-    var isStruct = true
+    let isStruct = true
     
-    let indentationLevel = 0
+    let indentationLevel: Int
     let information: BlockInformation
     
     private let dividerContent: BlockDivider
     private let handler: DefaultContextualMenuHandler
     
-    init(content: BlockDivider, information: BlockInformation, handler: DefaultContextualMenuHandler) {
+    init(content: BlockDivider, information: BlockInformation, indentationLevel: Int, handler: DefaultContextualMenuHandler) {
         self.dividerContent = content
         self.information = information
+        self.indentationLevel = indentationLevel
         self.handler = handler
     }
     

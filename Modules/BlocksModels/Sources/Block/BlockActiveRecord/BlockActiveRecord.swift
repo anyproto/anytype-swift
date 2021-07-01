@@ -6,16 +6,15 @@ import os
 final class BlockActiveRecord {
     private weak var _container: BlockContainer?
     private var _nestedModel: BlockModel
+    
     init(container: BlockContainer, chosenBlock: BlockModel) {
         self._container = container
         self._nestedModel = chosenBlock
     }
+    
     required init(_ chosen: BlockActiveRecord) {
         self._container = chosen._container
         self._nestedModel = chosen._nestedModel
-    }
-    class func create(_ chosen: BlockActiveRecord) -> Self {
-        .init(chosen)
     }
 }
 
