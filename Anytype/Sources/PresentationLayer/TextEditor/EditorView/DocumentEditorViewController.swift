@@ -97,7 +97,7 @@ extension DocumentEditorViewController {
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
         let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
             icon: viewModel.documentIcon,
-            cover: viewModel.documentCover
+            cover: viewModel.detailsViewModel.cover
         ))
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
@@ -204,7 +204,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         snapshot.appendSections([
             DocumentSection(
                 icon: viewModel.documentIcon,
-                cover: viewModel.documentCover
+                cover: viewModel.detailsViewModel.cover
             )
         ])
         
@@ -217,7 +217,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         snapshot.appendSections([
             DocumentSection(
                 icon: viewModel.documentIcon,
-                cover: viewModel.documentCover
+                cover: viewModel.detailsViewModel.cover
             )
         ])
 
@@ -228,7 +228,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
         let sectionSnapshot = self.dataSource.snapshot(for: DocumentSection(
             icon: viewModel.documentIcon,
-            cover: viewModel.documentCover
+            cover: viewModel.detailsViewModel.cover
         ))
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = blocksViewModels.first { viewModel in
@@ -354,9 +354,7 @@ private extension DocumentEditorViewController {
                 iconViewModel: section.icon.flatMap {
                     DocumentIconViewModel(icon: $0)
                 },
-                coverViewModel: section.cover.flatMap {
-                    DocumentCoverViewModel(cover: $0)
-                }
+                cover: section.cover
             )
 
             detailsView.configure(model: detailsViewModel)

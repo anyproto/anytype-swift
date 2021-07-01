@@ -25,7 +25,10 @@ final class EditorAssembly {
         let document: BaseDocumentProtocol = BaseDocument()
         
         let settingsModel = DocumentSettingsViewModel(activeModel: document.defaultDetailsActiveModel)
-
+        let detailsViewModel = DocumentDetailsViewModelNEW {
+            viewInput.updateHeader()
+        }
+        
         let selectionHandler = EditorSelectionHandler()
         let modelsHolder = SharedBlockViewModelsHolder()
         let updateElementsSubject = PassthroughSubject<Set<BlockId>, Never>()
@@ -63,6 +66,7 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             settingsViewModel: settingsModel,
+            detailsViewModel: detailsViewModel,
             selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,

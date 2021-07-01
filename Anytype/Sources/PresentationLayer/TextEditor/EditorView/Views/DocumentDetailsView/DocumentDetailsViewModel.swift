@@ -12,14 +12,14 @@ import BlocksModels
 final class DocumentDetailsViewModel {
     
     let iconViewModel: DocumentIconViewModel?
-    let coverViewModel: DocumentCoverViewModel?
+    let cover: DocumentCover?
 
     // MARK: - Initializer
     
     init(iconViewModel: DocumentIconViewModel?,
-         coverViewModel: DocumentCoverViewModel?) {
+         cover: DocumentCover?) {
         self.iconViewModel = iconViewModel
-        self.coverViewModel = coverViewModel
+        self.cover = cover
     }
     
 }

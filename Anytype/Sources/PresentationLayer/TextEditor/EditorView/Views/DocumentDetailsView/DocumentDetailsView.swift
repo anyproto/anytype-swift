@@ -46,7 +46,7 @@ final class DocumentDetailsView: UICollectionReusableView {
 extension DocumentDetailsView: ConfigurableView {
     
     func configure(model: DocumentDetailsViewModel) {
-        coverView.configure(model: model.coverViewModel)
+        coverView.configure(model: model.cover)
         iconView.configure(model: model.iconViewModel)
     }
     

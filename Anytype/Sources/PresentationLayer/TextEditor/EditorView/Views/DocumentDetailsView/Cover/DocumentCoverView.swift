@@ -34,53 +34,41 @@ final class DocumentCoverView: UIView {
 
 extension DocumentCoverView: ConfigurableView {
     
-    func configure(model: DocumentCoverViewModel?) {
-        activityIndicatorView.hide()
-        
+    func configure(model: DocumentCover?) {
         guard let model = model else {
-            configureEmptyState()
+            configureHiddenState()
             return
         }
         
-        configureStateWith(model.cover)
-        
-        model.onMediaPickerImageSelect = { [weak self] image in
-            self?.showLoader(with: image)
-        }
-    }
-    
-    private func configureEmptyState() {
-        heightConstraint.constant = 0
-        
-        imageView.isHidden = true
-        imageView.image = nil
-    }
-    
-    private func configureStateWith(_ cover: DocumentCover) {
-        heightConstraint.constant = Constants.height
-        imageView.isHidden = false
-        
-        switch cover {
+        switch model {
         case let .imageId(imageId):
             showImageWithId(imageId)
         case let .color(color):
             showImageBasedOnColor(color)
         case let .gradient(startColor, endColor):
             showImageBaseOnGradient(startColor, endColor)
+        case let .preview(image):
+            configurePreviewState(with: image)
         }
+        
+        activityIndicatorView.hide()
+        
+        heightConstraint.constant = Constants.height
+        imageView.isHidden = false
     }
     
     private func showImageWithId(_ imageId: String) {
-        let parameters = ImageParameters(width: .default)
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: CGSize(width: 1, height: Constants.height)
+            ),
+            color: UIColor.grayscale10
+        )
+        
         imageLoader.update(
             imageId: imageId,
-            parameters: parameters,
-            placeholder: PlaceholderImageBuilder.placeholder(
-                with: ImageGuideline(
-                    size: CGSize(width: 1, height: Constants.height)
-                ),
-                color: UIColor.grayscale10
-            )
+            parameters: ImageParameters(width: .default),
+            placeholder: placeholder
         )
         imageView.contentMode = .scaleAspectFill
     }
@@ -106,13 +94,25 @@ extension DocumentCoverView: ConfigurableView {
         imageView.contentMode = .scaleToFill
     }
     
-    private func showLoader(with image: UIImage) {
+    private func configurePreviewState(with image: UIImage?) {
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFill
+        
         let animation = CATransition()
         animation.type = .fade;
         animation.duration = 0.3;
         activityIndicatorView.layer.add(animation, forKey: nil)
         
-        activityIndicatorView.show(with: image)
+        activityIndicatorView.show()
+    }
+    
+    private func configureHiddenState() {
+        activityIndicatorView.hide()
+        
+        heightConstraint.constant = 0
+        
+        imageView.isHidden = true
+        imageView.image = nil
     }
     
 }
