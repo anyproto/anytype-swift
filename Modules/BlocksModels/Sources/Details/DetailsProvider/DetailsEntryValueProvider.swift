@@ -8,5 +8,6 @@ public protocol DetailsEntryValueProvider {
     var coverId: String? { get }
     var coverType: CoverType? { get }
     var isArchived: Bool? { get }
+    var layout: DetailsLayout? { get }
     
 }

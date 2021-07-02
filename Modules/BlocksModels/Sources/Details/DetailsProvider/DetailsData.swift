@@ -21,31 +21,35 @@ public struct DetailsData {
 extension DetailsData: DetailsEntryValueProvider {
     
     public var name: String? {
-        return value(for: .name)
+        value(for: .name)
     }
     
     public var iconEmoji: String? {
-        return value(for: .iconEmoji)
+        value(for: .iconEmoji)
     }
     
     public var iconImage: String? {
-        return value(for: .iconImage)
+        value(for: .iconImage)
     }
     
     public var coverId: String? {
-        return value(for: .coverId)
+        value(for: .coverId)
     }
     
     public var coverType: CoverType? {
-        return value(for: .coverType)
+        value(for: .coverType)
     }
     
     public var isArchived: Bool? {
-        return value(for: .isArchived)
+        value(for: .isArchived)
     }
     
     public var description: String? {
-        return value(for: .description)
+        value(for: .description)
+    }
+    
+    public var layout: DetailsLayout? {
+        value(for: .layout)
     }
     
     private func value<V>(for kind: DetailsKind) -> V? {
