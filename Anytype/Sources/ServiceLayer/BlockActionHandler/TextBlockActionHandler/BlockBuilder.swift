@@ -73,10 +73,10 @@ struct BlockBuilder {
         case let .objects(mediaType):
             switch mediaType {
             case .page: return .link(.init(style: .page))
-            case .picture: return .file(.init(contentType: .image))
+            case .picture: return .file(.empty(contentType: .image))
             case .bookmark: return .bookmark(.empty())
-            case .file: return .file(.init(contentType: .file))
-            case .video: return .file(.init(contentType: .video))
+            case .file: return .file(.empty(contentType: .file))
+            case .video: return .file(.empty(contentType: .video))
             case .linkToObject: return nil
             }
         case let .other(value):

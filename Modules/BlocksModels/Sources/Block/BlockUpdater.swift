@@ -87,12 +87,10 @@ public class BlockUpdater {
     /// - Returns: Nothing, heh
     public func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
         guard let entry = self.container.blocksContainer.get(by: key) else {
-        assertionFailure("We haven't found an entry by key: \(key)")
+            assertionFailure("We haven't found an entry by key: \(key)")
             return
         }
+        
         update(entry)
-        /// It is unnecessary, because previously `didChange` call `objectWillChange` publisher.
-        /// Now we separate `didChangePublisher` and `objectWillChange` publisher.
-//        entry.didChange()
     }
 }

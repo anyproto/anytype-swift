@@ -4,6 +4,14 @@ import UIKit
 struct DividerBlockViewModel: BlockViewModelProtocol {
     let isStruct = true
     
+    var diffable: AnyHashable {
+        [
+            blockId,
+            dividerContent,
+            indentationLevel
+        ] as [AnyHashable]
+    }
+    
     let indentationLevel: Int
     let information: BlockInformation
     

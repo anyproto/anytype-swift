@@ -1,6 +1,6 @@
 import Foundation
 import BlocksModels
-
+import Combine
 
 final class BlockViewModelBuilder {
     private weak var document: BaseDocumentProtocol?
@@ -44,7 +44,16 @@ final class BlockViewModelBuilder {
             switch content.contentType {
             case .file:
                 return BlockFileViewModel(
-                    block, content: content, delegate: delegate, router: router, actionHandler: blockActionHandler
+                    information: block.blockModel.information,
+                    fileData: content,
+                    indentationLevel: block.indentationLevel,
+                    contextualMenuHandler: contextualMenuHandler,
+                    showFilePicker: { [weak self] blockId in
+                        self?.showFilePicker(blockId: blockId)
+                    },
+                    downloadFile: { [weak self] fileId in
+                        self?.saveFile(fileId: fileId)
+                    }
                 )
             case .none:
                 return UnknownLabelViewModel(
@@ -102,6 +111,10 @@ final class BlockViewModelBuilder {
         }
     }
     
+    // MARK: - Actions
+    
+    private var subscriptions = [AnyCancellable]()
+    
     private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
         let model = MediaPickerViewModel(type: type) { [weak self] resultInformation in
             guard let resultInformation = resultInformation else { return }
@@ -110,6 +123,15 @@ final class BlockViewModelBuilder {
         }
         
         router.showImagePicker(model: model)
+    }
+    
+    private func showFilePicker(blockId: BlockId) {
+        let model = CommonViews.Pickers.File.Picker.ViewModel()
+        model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
+            self?.blockActionHandler.upload(blockId: blockId, filePath: result.filePath)
+        }.store(in: &subscriptions)
+            
+        router.showFilePicker(model: model)
     }
     
     private func saveFile(fileId: FileId) {

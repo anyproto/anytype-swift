@@ -36,7 +36,7 @@
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
 		3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21426877D9300C78C28 /* BlockFileState.swift */; };
 		3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2162687802800C78C28 /* BlockContentSmartblock.swift */; };
-		3D22B2192687804000C78C28 /* BlockContentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2182687804000C78C28 /* BlockContentFile.swift */; };
+		3D22B2192687804000C78C28 /* BlockFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2182687804000C78C28 /* BlockFile.swift */; };
 		3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21B2687809900C78C28 /* BlockContentDivider.swift */; };
 		3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */; };
 		3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21F268781C300C78C28 /* BlockContentLayout.swift */; };
@@ -82,7 +82,7 @@
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
 		3D22B21426877D9300C78C28 /* BlockFileState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFileState.swift; sourceTree = "<group>"; };
 		3D22B2162687802800C78C28 /* BlockContentSmartblock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentSmartblock.swift; sourceTree = "<group>"; };
-		3D22B2182687804000C78C28 /* BlockContentFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentFile.swift; sourceTree = "<group>"; };
+		3D22B2182687804000C78C28 /* BlockFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFile.swift; sourceTree = "<group>"; };
 		3D22B21B2687809900C78C28 /* BlockContentDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentDivider.swift; sourceTree = "<group>"; };
 		3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentBookmark.swift; sourceTree = "<group>"; };
 		3D22B21F268781C300C78C28 /* BlockContentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentLayout.swift; sourceTree = "<group>"; };
@@ -221,11 +221,11 @@
 		3D22B21A2687808800C78C28 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				3D22B2182687804000C78C28 /* BlockFile.swift */,
 				3D0BCAE026666C0E002F7A0D /* BlockLink.swift */,
 				3DE511F826711E5C00153962 /* BlockText.swift */,
 				3D22B21426877D9300C78C28 /* BlockFileState.swift */,
 				3D22B2162687802800C78C28 /* BlockContentSmartblock.swift */,
-				3D22B2182687804000C78C28 /* BlockContentFile.swift */,
 				3D22B21B2687809900C78C28 /* BlockContentDivider.swift */,
 				3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */,
 				3D22B21F268781C300C78C28 /* BlockContentLayout.swift */,
@@ -406,7 +406,7 @@
 				0A6D53A725D9C99F002F3F82 /* RootBlocksContainer.swift in Sources */,
 				12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */,
 				3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */,
-				3D22B2192687804000C78C28 /* BlockContentFile.swift in Sources */,
+				3D22B2192687804000C78C28 /* BlockFile.swift in Sources */,
 				0A6D538F25D9C99F002F3F82 /* BlockUpdater.swift in Sources */,
 				3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */,
 				3D0BCABD26663A9B002F7A0D /* BlockUserSessionModelProtocol.swift in Sources */,

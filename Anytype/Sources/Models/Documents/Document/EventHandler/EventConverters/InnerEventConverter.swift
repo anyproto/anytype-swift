@@ -216,52 +216,51 @@ final class InnerEventConverter {
 //                return .general
 //            }
             return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
-        case let .blockSetFile(value):
-            guard value.hasState else {
+        case let .blockSetFile(newData):
+            guard newData.hasState else {
                 return .general
             }
             
-            let blockId = value.id
-            let newUpdate = value
-            updater.update(entry: blockId, update: { (value) in
-                var block = value
-                switch value.information.content {
-                case let .file(value):
-                    var value = value
-
-                    if newUpdate.hasType {
-                        if let contentType = BlockContentFileContentTypeConverter.asModel(newUpdate.type.value) {
-                            value.contentType = contentType
+            updater.update(entry: newData.id, update: { block in
+                var block = block
+                
+                switch block.information.content {
+                case let .file(fileData):
+                    var fileData = fileData
+                    
+                    if newData.hasType {
+                        if let contentType = BlockContentFileContentTypeConverter.asModel(newData.type.value) {
+                            fileData.contentType = contentType
                         }
                     }
 
-                    if newUpdate.hasState {
-                        if let state = BlockFileStateConverter.asModel(newUpdate.state.value) {
-                            value.state = state
+                    if newData.hasState {
+                        if let state = BlockFileStateConverter.asModel(newData.state.value) {
+                            fileData.state = state
                         }
                     }
                     
-                    if newUpdate.hasName {
-                        value.metadata.name = newUpdate.name.value
+                    if newData.hasName {
+                        fileData.metadata.name = newData.name.value
                     }
                     
-                    if newUpdate.hasHash {
-                        value.metadata.hash = newUpdate.hash.value
+                    if newData.hasHash {
+                        fileData.metadata.hash = newData.hash.value
                     }
                     
-                    if newUpdate.hasMime {
-                        value.metadata.mime = newUpdate.mime.value
+                    if newData.hasMime {
+                        fileData.metadata.mime = newData.mime.value
                     }
                     
-                    if newUpdate.hasSize {
-                        value.metadata.size = newUpdate.size.value
+                    if newData.hasSize {
+                        fileData.metadata.size = newData.size.value
                     }
                     
-                    block.information.content = .file(value)
+                    block.information.content = .file(fileData)
                 default: return
                 }
             })
-            return .update(.init(updatedIds: [blockId]))
+            return .update(.init(updatedIds: [newData.id]))
         case let .blockSetBookmark(value):
             
             let blockId = value.id

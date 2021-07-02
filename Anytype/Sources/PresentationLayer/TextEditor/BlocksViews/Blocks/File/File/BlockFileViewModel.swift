@@ -2,20 +2,51 @@ import UIKit
 import BlocksModels
 import Combine
 
-final class BlockFileViewModel: BlocksViewsBaseFileViewModel {
+struct BlockFileViewModel: BlockViewModelProtocol {
+    let isStruct = true
     
-    private var subscription: AnyCancellable?
-    
-    override func makeContentConfiguration() -> UIContentConfiguration {
-        return BlockFileConfiguration(block.blockModel.information)
+    var diffable: AnyHashable {
+        [
+            blockId,
+            fileData,
+            indentationLevel
+        ] as [AnyHashable]
     }
     
-    override func handleReplace() {
-        let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
-        router.showFilePicker(model: model)
-        
-        subscription = model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
-            self?.sendFile(at: value.filePath)
+    let information: BlockInformation
+    let fileData: BlockFile
+    let indentationLevel: Int
+    let contextualMenuHandler: DefaultContextualMenuHandler
+    
+    let showFilePicker: (BlockId) -> ()
+    let downloadFile: (FileId) -> ()
+    
+    func makeContentConfiguration() -> UIContentConfiguration {
+        BlockFileConfiguration(fileData)
+    }
+    
+    func makeContextualMenu() -> ContextualMenu {
+        BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
+    }
+    
+    func handle(action: ContextualMenuAction) {
+        switch action {
+        case .replace:
+            showFilePicker(blockId)
+        case .download:
+            downloadFile(fileData.metadata.hash)
+        default:
+            contextualMenuHandler.handle(action: action, info: information)
         }
     }
+    
+    func didSelectRowInTableView() {
+        guard fileData.state != .uploading else {
+            return
+        }
+        
+        showFilePicker(blockId)
+    }
+    
+    func updateView() { }
 }

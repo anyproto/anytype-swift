@@ -3,167 +3,101 @@ import Combine
 import BlocksModels
 
 class BlockFileView: UIView {
-    struct Layout {
-        var imageContentViewDefaultHeight: CGFloat = 250
-        var imageViewTop: CGFloat = 4
-        var emptyViewHeight: CGFloat = 52
-        let fileViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+    init(fileData: BlockFile) {
+        super.init(frame: .zero)
+        
+        setupUIElements()
+        handle(fileData)
     }
     
-    var subscription: AnyCancellable?
-    
-    var layout: Layout = .init()
-    
-    // MARK: Views
-    var contentView: UIView!
-    var fileView: BlockFileMediaView!
-    var emptyView: BlocksFileEmptyView!
-            
-    // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setup()
-    }
-    
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Setup
-    func setup() {
-        self.setupUIElements()
-        self.addLayout()
-        self.handle(.init(metadata: .empty(), contentType: .file, state: .empty))
+    func handle(_ file: BlockFile) {
+        switch file.state  {
+        case .empty:
+            emptyView.change(state: .empty)
+
+            fileView.isHidden = true
+            emptyView.isHidden = false
+        case .uploading:
+            emptyView.change(state: .uploading)
+
+            fileView.isHidden = true
+            emptyView.isHidden = false
+        case .error:
+            emptyView.change(state: .error)
+
+            fileView.isHidden = true
+            emptyView.isHidden = false
+        case .done:
+            let resource = BlockFileMediaView.Resource(
+                size: BlocksViewsFileSizeConverter.convert(size: Int(file.metadata.size)),
+                name: file.metadata.name,
+                typeIcon: BlocksViewsFileMimeConverter.convert(mime: file.metadata.mime)
+            )
+            fileView.handle(resource)
+            
+            fileView.isHidden = false
+            emptyView.isHidden = true
+        }
     }
     
     // MARK: UI Elements
-    func setupUIElements() {
-        // Default behavior
+    private func setupUIElements() {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
+        self.addSubview(fileView)
+        self.addSubview(emptyView)
         
-        self.fileView = {
-            let view = BlockFileMediaView()
-            view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor.grayscale30.cgColor
-            view.layer.cornerRadius = 4
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
         
-        self.emptyView = {
-            let view = BlocksFileEmptyView(
-                viewData: .init(
-                    image: UIImage.blockFile.empty.file,
-                    placeholderText: "Add link or upload a file"
-                )
+        addEmptyViewLayout()
+        addFileViewLayout()
+    }
+    
+    private func addFileViewLayout() {
+        fileView.pinAllEdges(to: self, insets: Layout.fileViewInsets)
+    }
+    
+    private func addEmptyViewLayout() {
+        let heightAnchor = emptyView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
+        let bottomAnchor = emptyView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        // We need priotity here cause cell self size constraint will conflict with ours
+        bottomAnchor.priority = .init(750)
+        
+        NSLayoutConstraint.activate([
+            emptyView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            emptyView.topAnchor.constraint(equalTo: self.topAnchor),
+            bottomAnchor,
+            heightAnchor
+        ])
+    }
+    
+    private enum Layout {
+        static let emptyViewHeight: CGFloat = 52
+        static let fileViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+    }
+    
+    private let fileView: BlockFileMediaView = {
+        let view = BlockFileMediaView()
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.grayscale30.cgColor
+        view.layer.cornerRadius = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let emptyView: BlocksFileEmptyView = {
+        let view = BlocksFileEmptyView(
+            viewData: .init(
+                image: UIImage.blockFile.empty.file,
+                placeholderText: "Add link or upload a file"
             )
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        
-        self.contentView.addSubview(self.fileView)
-        self.contentView.addSubview(self.emptyView)
-        self.addSubview(self.contentView)
-    }
-    
-    // MARK: Layout
-    func addLayout() {
-        if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-        self.addEmptyViewLayout()
-    }
-    
-    func addFileViewLayout() {
-        if let view = self.fileView, let superview = view.superview {
-            view.pinAllEdges(to: superview, insets: layout.fileViewInsets)
-        }
-    }
-    
-    func addEmptyViewLayout() {
-        if let view = self.emptyView, let superview = view.superview {
-            let heightAnchor = view.heightAnchor.constraint(equalToConstant: self.layout.emptyViewHeight)
-            let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            // We need priotity here cause cell self size constraint will conflict with ours
-            bottomAnchor.priority = .init(750)
-            
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                bottomAnchor,
-                heightAnchor
-            ])
-        }
-    }
-                    
-    private func handle(_ file: BlockFile) {
-        
-        switch file.state  {
-        case .empty:
-            self.addEmptyViewLayout()
-            self.emptyView.change(state: .empty)
-        case .uploading:
-            self.addEmptyViewLayout()
-            self.emptyView.change(state: .uploading)
-        case .done:
-            self.addFileViewLayout()
-        case .error:
-            self.addEmptyViewLayout()
-            self.emptyView.change(state: .error)
-        }
-        
-        self.fileView.isHidden = [.empty, .uploading, .error].contains(file.state)
-        self.emptyView.isHidden = [.done].contains(file.state)
-
-    }
-            
-    func configured(publisher: AnyPublisher<BlockFile, Never>) -> Self {
-        self.subscription = publisher.receiveOnMain().sink { [weak self] (value) in
-            self?.handle(value)
-        }
-        return self
-    }
-    
-    func configured(published: AnyPublisher<BlockFileMediaView.Resource?, Never>) -> Self {
-        self.fileView.configured(published)
-        return self
-    }
-}
-
-extension BlockFileView {
-    func process(_ file: BlockFile) {
-        self.handle(file)
-    }
-    
-    func process(_ resource: BlockFileMediaView.Resource?) {
-        self.fileView.handle(resource)
-    }
-    func apply(_ file: BlockFile) {
-        self.process(file)
-        let resource: BlockFileMediaView.Resource?
-        switch file.contentType {
-        case .file:
-            let metadata = file.metadata
-            resource = .init(
-                size: BlocksViewsFileSizeConverter.convert(size: Int(metadata.size)),
-                name: metadata.name,
-                typeIcon: BlocksViewsFileMimeConverter.convert(mime: metadata.mime)
-            )
-        default: resource = nil
-        }
-        self.process(resource)
-    }
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 }

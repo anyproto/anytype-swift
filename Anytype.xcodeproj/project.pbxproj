@@ -246,7 +246,6 @@
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
-		3D22B2122685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */; };
 		3D22B23C2687926500C78C28 /* ContextualMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */; };
 		3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */; };
 		3D22B2412687975100C78C28 /* ContextualMenuTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */; };
@@ -278,6 +277,7 @@
 		3D7C08272684E21500E2168D /* BlocksViewsFileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* BlocksViewsFileSizeConverter.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8A9268EF43A00C76974 /* BlockFileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */; };
+		3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */; };
 		3D829172265E50190007C152 /* RedactedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D829171265E50190007C152 /* RedactedText.swift */; };
 		3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82917A265E53BB0007C152 /* OurEvent.swift */; };
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
@@ -826,7 +826,6 @@
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksViewsBaseFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlocksViewsBaseFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuAction.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/ContextualMenuAction.swift; sourceTree = SOURCE_ROOT; };
 		3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuIdentifierBuilder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuIdentifierBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3D22B2402687975100C78C28 /* ContextualMenuTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuTitleProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuTitleProvider.swift; sourceTree = SOURCE_ROOT; };
@@ -858,6 +857,7 @@
 		3D7C08262684E21500E2168D /* BlocksViewsFileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsFileSizeConverter.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Converters/BlocksViewsFileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileContentView.swift; sourceTree = SOURCE_ROOT; };
+		3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContextualMenuBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlockFileContextualMenuBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3D829171265E50190007C152 /* RedactedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedText.swift; sourceTree = "<group>"; };
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -2446,8 +2446,8 @@
 		3D7E89FD26851EAF00181E8D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */,
 				0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */,
+				3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3617,7 +3617,6 @@
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				0A0965EC25BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift in Sources */,
 				EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */,
-				3D22B2122685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
@@ -3698,6 +3697,7 @@
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
+				3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */,
 				0A78327624BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift in Sources */,

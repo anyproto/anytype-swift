@@ -4,7 +4,11 @@ import Combine
 
 struct BlockImageViewModel: BlockViewModelProtocol {
     var diffable: AnyHashable {
-        fileData
+        [
+            blockId,
+            fileData,
+            indentationLevel
+        ] as [AnyHashable]
     }
     
     let isStruct = true
@@ -43,22 +47,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     }
     
     func makeContextualMenu() -> ContextualMenu {
-        switch fileData.state {
-        case .done:
-            return .init(title: "", children: [
-                .init(action: .addBlockBelow),
-                .init(action: .delete),
-                .init(action: .duplicate),
-                .init(action: .download),
-                .init(action: .replace)
-            ])
-        default:
-            return .init(title: "", children: [
-                .init(action: .addBlockBelow),
-                .init(action: .delete),
-                .init(action: .duplicate),
-            ])
-        }
+        BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
     }
     
     func handle(action: ContextualMenuAction) {

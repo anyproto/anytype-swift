@@ -23,7 +23,7 @@ final class BlockImageContentView: UIView & UIContentView {
             guard let configuration = newValue as? BlockImageConfiguration, currentConfiguration != configuration else {
                 return
             }
-            self.apply(configuration: configuration)
+            apply(configuration: configuration)
         }
     }
 

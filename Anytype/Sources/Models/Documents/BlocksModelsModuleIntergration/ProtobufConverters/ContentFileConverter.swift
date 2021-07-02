@@ -5,7 +5,8 @@ class ContentFileConverter {
     func blockType(_ from: Anytype_Model_Block.Content.File) -> BlockContent? {
         guard let state = BlockFileStateConverter.asModel(from.state) else { return nil }
         return BlockContentFileContentTypeConverter.asModel(from.type).flatMap(
-            {.file(.init(
+            {.file(
+                .init(
                     metadata: .init(
                         name: from.name,
                         size: from.size,
@@ -13,7 +14,9 @@ class ContentFileConverter {
                         mime: from.mime,
                         addedAt: from.addedAt
                     ),
-                    contentType: $0, state: state)
+                    contentType: $0,
+                    state: state
+                )
             )}
         )
     }
@@ -23,7 +26,8 @@ class ContentFileConverter {
         let metadata = from.metadata
         
         return BlockContentFileContentTypeConverter.asMiddleware(from.contentType).flatMap(
-            {.file(.init(
+            {.file(
+                .init(
                     hash: metadata.hash,
                     name: metadata.name,
                     type: $0,
@@ -31,7 +35,8 @@ class ContentFileConverter {
                     size: metadata.size,
                     addedAt: 0,
                     state: state
-            ))}
+                )
+            )}
         )
     }
   

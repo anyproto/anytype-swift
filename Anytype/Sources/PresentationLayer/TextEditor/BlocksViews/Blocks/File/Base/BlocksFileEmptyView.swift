@@ -23,13 +23,8 @@ extension BlocksFileEmptyView {
 
 
 class BlocksFileEmptyView: UIView {
-    // MARK: - Publishers
-    private var subscription: AnyCancellable?
-    @Published private var hasError: Bool = false
-    
     private let viewData: ViewData
     
-    // MARK: Initialization
     init(viewData: ViewData) {
         self.viewData = viewData
         super.init(frame: .zero)
@@ -110,20 +105,6 @@ class BlocksFileEmptyView: UIView {
             self.activityIndicator.isHidden = true
             self.activityIndicator.stopAnimating()
         }
-    }
-    
-    // MARK: - Configurations
-    
-    func configured(_ stream: Published<Bool>) {
-        self._hasError = stream
-        self.subscription = self.$hasError.sink(receiveValue: { [weak self] (value) in
-            if value {
-                self?.change(state: .error)
-            }
-            else {
-                self?.change(state: .uploading)
-            }
-        })
     }
     
     // MARK: - Views

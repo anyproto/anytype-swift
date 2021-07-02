@@ -32,15 +32,6 @@ extension BlockDataProvider {
 }
 
 extension BlockViewModelProtocol {
-    var diffable: AnyHashable {
-        [
-            information,
-            indentationLevel
-        ] as [AnyHashable]
-    }
-}
-
-extension BlockViewModelProtocol {
     func contextMenuInteraction() -> UIContextMenuConfiguration? {
         UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (value) -> UIMenu? in
             let menu = self.makeContextualMenu()

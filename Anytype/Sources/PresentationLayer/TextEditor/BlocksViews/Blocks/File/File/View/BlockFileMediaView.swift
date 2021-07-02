@@ -105,10 +105,4 @@ class BlockFileMediaView: UIView {
         self.imageView.image = value?.typeIcon
         self.sizeView.text = value?.size
     }
-    
-    func configured(_ stream: AnyPublisher<Resource?, Never>) {
-        self.subscription = stream.receiveOnMain().sink(receiveValue: { [weak self] (value) in
-            self?.resource = value
-        })
-    }
 }
