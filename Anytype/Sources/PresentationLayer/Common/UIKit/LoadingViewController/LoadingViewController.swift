@@ -19,33 +19,49 @@ final class LoadingViewController: UIViewController {
         return view
     }()
     private let informationText: String
-    private var subscription: AnyCancellable?
-    private let cancelHandler: () -> Void
+    private var subscriptions = [AnyCancellable]()
+    private let loadData: FileLoaderReturnValue
+    private let loadingCompletion: (URL) -> ()
     
-    /// Initializer
-    ///
-    /// - Parameters:
-    ///   - progressPublisher: Publisher to update progress
-    ///   - informationText: Text to display during displaying view controller
-    ///   - cancelHandler: Handler for cancel button
-    init(progressPublisher: AnyPublisher<Float, Error>,
-         informationText: String,
-         cancelHandler: @escaping () -> Void) {
+    init(
+        loadData: FileLoaderReturnValue,
+        informationText: String,
+        loadingCompletion: @escaping (URL) -> ()
+    ) {
+        self.loadData = loadData
         self.informationText = informationText
-        self.cancelHandler = cancelHandler
+        self.loadingCompletion = loadingCompletion
         super.init(nibName: nil, bundle: nil)
-        self.subscription = progressPublisher
-            .receiveOnMain()
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { [weak self] progress in
-                    self?.progressView.progress = progress
-                  })
+        
+        setupSubscriptions(loadData: loadData)
+        
         self.modalPresentationStyle = .custom
         self.transitioningDelegate = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSubscriptions(loadData: FileLoaderReturnValue) {
+        loadData.progressPublisher
+            .map { $0.percentComplete }
+            .receiveOnMain()
+            .sinkWithDefaultCompletion("Loading progress") { [weak self] progress in
+                self?.progressView.progress = progress
+            }.store(in: &subscriptions)
+        
+        loadData.progressPublisher
+            .map { $0.fileURL }
+            .safelyUnwrapOptionals()
+            .receiveOnMain()
+            .sinkWithDefaultCompletion("Load File") { [weak self] url in
+                self?.dismiss(animated: true) {
+                    self?.loadingCompletion(url)
+                }
+            }
+            .store(in: &subscriptions)
+
     }
     
     override func loadView() {
@@ -70,10 +86,13 @@ final class LoadingViewController: UIViewController {
         label.font = .highlightFont
         label.numberOfLines = Constants.maxNumberOfLinesInInformationLabel
         
-        let cancelButton = UIButton(primaryAction: UIAction(handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.dismiss(animated: true, completion: self.cancelHandler)
-        }))
+        let cancelButton = UIButton(
+            primaryAction: UIAction { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.dismiss(animated: true, completion: self.loadData.task.cancel)
+            }
+        )
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Cancel",
                                                                                      comment: ""),

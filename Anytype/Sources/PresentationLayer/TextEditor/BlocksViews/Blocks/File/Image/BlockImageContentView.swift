@@ -15,7 +15,6 @@ final class BlockImageContentView: UIView & UIContentView {
     )
     
     private var onLayoutSubviewsSubscription: AnyCancellable?
-    private let imageLoader = ImageLoader()
     
     private var currentConfiguration: BlockImageConfiguration!
     var configuration: UIContentConfiguration {
@@ -31,19 +30,14 @@ final class BlockImageContentView: UIView & UIContentView {
     init(configuration: BlockImageConfiguration) {
         super.init(frame: .zero)
         
-        setup()
+        setupUIElements()
+        configuration.imageLoader.configured(imageView)
         apply(configuration: configuration)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-            
-    /// Setup
-    func setup() {
-        setupUIElements()
-        imageLoader.configured(self.imageView)
     }
     
     func setupUIElements() {
@@ -64,7 +58,7 @@ final class BlockImageContentView: UIView & UIContentView {
         let oldConfiguration = currentConfiguration
         currentConfiguration = configuration
         
-        imageLoader.cleanupSubscription()
+        configuration.imageLoader.cleanupSubscription()
         handleFile(currentConfiguration.fileData, oldConfiguration?.fileData)
     }
     
@@ -146,7 +140,7 @@ final class BlockImageContentView: UIView & UIContentView {
         guard imageId != oldFile?.metadata.hash else { return }
         // We could put image into viewModel.
         // In this case we would only check
-        self.imageLoader.update(imageId: imageId)
+        currentConfiguration.imageLoader.update(imageId: imageId)
     }
 }
 

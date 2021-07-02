@@ -8,6 +8,10 @@ final class ImageLoader {
     private weak var imageView: UIImageView?
     private var property: ImageProperty?
     
+    var image: UIImage? {
+        property?.property
+    }
+    
     /// Configuration
     @discardableResult
     func configured(_ imageView: UIImageView?) -> Self {

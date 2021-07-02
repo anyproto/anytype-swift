@@ -56,13 +56,22 @@ final class BlockViewModelBuilder {
                     fileData: content,
                     indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
-                    showIconPicker: { [weak self] in
-                        self?.showImagePicker(blockId: block.blockId)
+                    showIconPicker: { [weak self] blockId in
+                        self?.showMediaPicker(type: .images, blockId: blockId)
                     }
                 )
             case .video:
                 return VideoBlockViewModel(
-                    block, content: content, delegate: delegate, router: router, actionHandler: blockActionHandler
+                    information: block.blockModel.information,
+                    fileData: content,
+                    indentationLevel: block.indentationLevel,
+                    contextualMenuHandler: contextualMenuHandler,
+                    showVideoPicker: { [weak self] blockId in
+                        self?.showMediaPicker(type: .videos, blockId: blockId)
+                    },
+                    downloadVideo: { [weak self] fileId in
+                        self?.saveFile(fileId: fileId)
+                    }
                 )
             }
         case .divider(let content):
@@ -93,13 +102,21 @@ final class BlockViewModelBuilder {
         }
     }
     
-    private func showImagePicker(blockId: BlockId) {
-        let model = MediaPickerViewModel(type: .images) { [weak self] resultInformation in
+    private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
+        let model = MediaPickerViewModel(type: type) { [weak self] resultInformation in
             guard let resultInformation = resultInformation else { return }
 
             self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)
         }
         
         router.showImagePicker(model: model)
+    }
+    
+    private func saveFile(fileId: FileId) {
+        URLResolver().obtainFileURL(fileId: fileId) { [weak self] url in
+            guard let url = url else { return }
+            
+            self?.router.saveFile(fileURL: url)
+        }
     }
 }

@@ -1,3 +1,5 @@
+public typealias FileId = String
+
 public struct BlockFile: Hashable {
     public enum ContentType: Hashable {
         case none
@@ -9,7 +11,7 @@ public struct BlockFile: Hashable {
     public struct Metadata: Hashable {
         public var name: String
         public var size: Int64
-        public var hash: String
+        public var hash: FileId
         public var mime: String
         public var addedAt: Int64
         

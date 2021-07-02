@@ -15,14 +15,16 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let contextualMenuHandler: DefaultContextualMenuHandler
     
     let indentationLevel: Int
-    let showIconPicker: () -> ()
+    let showIconPicker: (BlockId) -> ()
+    
+    let imageLoader = ImageLoader()
     
     init?(
         information: BlockInformation,
         fileData: BlockFile,
         indentationLevel: Int,
         contextualMenuHandler: DefaultContextualMenuHandler,
-        showIconPicker: @escaping () -> ()
+        showIconPicker: @escaping (BlockId) -> ()
     ) {
         guard fileData.contentType == .image else {
             assertionFailure("Wrong content type of \(fileData), image expected")
@@ -37,7 +39,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration() -> UIContentConfiguration {
-        BlockImageConfiguration(fileData)
+        BlockImageConfiguration(fileData, imageLoader: imageLoader)
     }
     
     func makeContextualMenu() -> ContextualMenu {
@@ -62,9 +64,12 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     func handle(action: ContextualMenuAction) {
         switch action {
         case .replace:
-            showIconPicker()
+            showIconPicker(blockId)
         case .download:
-            assertionFailure("Not implemented")
+            guard let image = imageLoader.image else {
+                return
+            }
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         default:
             contextualMenuHandler.handle(action: action, info: information)
         }
@@ -75,7 +80,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
             return
         }
         
-        showIconPicker()
+        showIconPicker(blockId)
     }
     
     func updateView() { }

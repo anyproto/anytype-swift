@@ -7,12 +7,7 @@ final class FileLoader: NSObject {
     private lazy var urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
     private lazy var tasksToSubjects = NSMapTable<URLSessionDownloadTask, PassthroughSubject<FileLoadingState, Error>>.strongToWeakObjects()
     
-    /// Load file from remote resource
-    ///
-    /// - Parameters:
-    ///   - remoteFileURL: Remote file URL
-    ///
-    /// - Returns: Value with information about downloading file
+    
     func loadFile(remoteFileURL: URL) -> FileLoaderReturnValue {
         let progressSubject = PassthroughSubject<FileLoadingState, Error>()
         let task = self.urlSession.downloadTask(with: remoteFileURL) { tempURL, response, error in

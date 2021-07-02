@@ -19,12 +19,12 @@ final class VideoBlockContentView: UIView, UIContentView {
             self.currentConfiguration
         }
         set {
-            guard let configuration = newValue as? VideoBlockContentViewConfiguration else { return }
+            guard let configuration = newValue as? VideoBlockConfiguration else { return }
             self.apply(configuration: configuration)
         }
     }
-    private var currentConfiguration: VideoBlockContentViewConfiguration
-    private lazy var videoVC: AVPlayerViewController = .init()
+    private var currentConfiguration: VideoBlockConfiguration
+    private lazy var videoVC = AVPlayerViewController()
     private lazy var emptyView: BlocksFileEmptyView = {
         let view = BlocksFileEmptyView(
             viewData: .init(image: UIImage.blockFile.empty.video, placeholderText: "Upload a video")
@@ -33,11 +33,11 @@ final class VideoBlockContentView: UIView, UIContentView {
         return view
     }()
     
-    init(configuration: VideoBlockContentViewConfiguration) {
+    init(configuration: VideoBlockConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         self.setup()
-        switch self.currentConfiguration.state {
+        switch currentConfiguration.file.state {
         case .done:
             self.addVideoViewAndRemoveEmptyView()
         case .error, .empty, .uploading:
@@ -50,7 +50,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func setup() {
-        switch self.currentConfiguration.state {
+        switch currentConfiguration.file.state {
         case .error, .empty, .uploading:
             self.addEmptyViewAndRemoveVideoView()
         case .done:
@@ -68,7 +68,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func setVideoURL() {
-        URLResolver().obtainFileURL(fileId: self.currentConfiguration.metadata.hash) { [weak self] url in
+        URLResolver().obtainFileURL(fileId: currentConfiguration.file.metadata.hash) { [weak self] url in
             guard let url = url else { return }
             
             self?.videoVC.player = .init(url: url)
@@ -84,7 +84,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func changeEmptyViewState() {
-        switch self.currentConfiguration.state {
+        switch currentConfiguration.file.state {
         case .empty:
             self.emptyView.change(state: .empty)
         case .error:
@@ -96,23 +96,23 @@ final class VideoBlockContentView: UIView, UIContentView {
         }
     }
     
-    private func apply(configuration: VideoBlockContentViewConfiguration) {
+    private func apply(configuration: VideoBlockConfiguration) {
         guard self.currentConfiguration != configuration else { return }
         let oldConfiguration = self.currentConfiguration
         self.currentConfiguration = configuration
-        self.applyNewConfiguration(oldState: oldConfiguration.state)
+        self.applyNewConfiguration(oldState: oldConfiguration.file.state)
     }
     
     private func applyNewConfiguration(oldState: BlockFileState) {
-        switch (oldState, self.currentConfiguration.state) {
+        switch (oldState, currentConfiguration.file.state) {
         case (.done, .done):
-            self.setVideoURL()
+            setVideoURL()
         case (.done, _):
-            self.addEmptyViewAndRemoveVideoView()
+            addEmptyViewAndRemoveVideoView()
         case (_, .done):
-            self.addVideoViewAndRemoveEmptyView()
+            addVideoViewAndRemoveEmptyView()
         default:
-            self.changeEmptyViewState()
+            changeEmptyViewState()
         }
     }
 }

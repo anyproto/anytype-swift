@@ -1,11 +1,3 @@
-//
-//  FileLoaderReturnValue.swift
-//  AnyType
-//
-//  Created by Kovalev Alexander on 06.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Combine
 import Foundation
 
@@ -23,8 +15,10 @@ final class FileLoaderReturnValue {
     /// - Parameters:
     ///   - task: Download task with possibility to cancel it
     ///   - progressPublisher: Progress publisher to subscribe on progress changes
-    init(task: Cancellable,
-         progressPublisher: AnyPublisher<FileLoadingState, Error>) {
+    init(
+        task: Cancellable,
+        progressPublisher: AnyPublisher<FileLoadingState, Error>
+    ) {
         self.task = task
         self.progressPublisher = progressPublisher
     }

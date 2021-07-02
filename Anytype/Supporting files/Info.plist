@@ -37,6 +37,8 @@
 	<string>NSFaceIDUsageDescription</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>NSLocalNetworkUsageDescription</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>NSPhotoLibraryAddUsageDescription</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IBMPlexMono-Regular.ttf</string>

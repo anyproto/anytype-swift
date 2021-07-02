@@ -244,7 +244,7 @@
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
-		3D22B20E2685DABD00C78C28 /* BlocksViewsImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlocksViewsImageViewModel.swift */; };
+		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
 		3D22B2122685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */; };
 		3D22B23C2687926500C78C28 /* ContextualMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */; };
 		3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */; };
@@ -821,7 +821,7 @@
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
-		3D22B20D2685DABD00C78C28 /* BlocksViewsImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsImageViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlocksViewsImageViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D22B2112685E92E00C78C28 /* BlocksViewsBaseFileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksViewsBaseFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlocksViewsBaseFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D22B23B2687926500C78C28 /* ContextualMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuAction.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/ContextualMenuAction.swift; sourceTree = SOURCE_ROOT; };
 		3D22B23D2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextualMenuIdentifierBuilder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/UserActions/Resources/ContextualMenuIdentifierBuilder.swift; sourceTree = SOURCE_ROOT; };
@@ -3121,7 +3121,7 @@
 		EA20CDD126122C5D00DBA9FE /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				3D22B20D2685DABD00C78C28 /* BlocksViewsImageViewModel.swift */,
+				3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */,
 				3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */,
 				3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */,
 			);
@@ -3587,7 +3587,7 @@
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */,
-				3D22B20E2685DABD00C78C28 /* BlocksViewsImageViewModel.swift in Sources */,
+				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
 				EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */,
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
