@@ -107,11 +107,6 @@ final class TextBlockContentView: UIView & UIContentView {
         return topStackView
     }()
 
-    private var leftView: TextBlockIconVIew = {
-        let leftView = TextBlockIconVIew()
-        return leftView
-    }()
-
     // MARK: Configuration
 
     private var currentConfiguration: TextBlockContentConfiguration
@@ -153,7 +148,7 @@ final class TextBlockContentView: UIView & UIContentView {
         mainStackView.addArrangedSubview(topStackView)
         mainStackView.addArrangedSubview(createChildBlockButton)
 
-        topStackView.addArrangedSubview(leftView)
+        topStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
         topStackView.addArrangedSubview(textView)
 
         selectionView.layer.cornerRadius = 6
@@ -182,7 +177,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private func applyNewConfiguration() {
         // reset content cell to plain text
-        leftView.showView(as: .empty)
+        replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
         setupForText()
         subscriptions.removeAll()
 
@@ -292,33 +287,36 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForCheckbox(checked: Bool) {
-        leftView.showView(as: .checkbox(isSelected: checked)) { [weak self] in
+        let leftView = TextBlockIconView(viewType: .checkbox(isSelected: checked)) { [weak self] in
             self?.currentConfiguration.viewModel?.onCheckboxTap(selected: !checked)
         }
+        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
         // selected color
         textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
     }
     
     private func setupForBulleted() {
-        leftView.showView(as: .bulleted)
+        let leftView = TextBlockIconView(viewType: .bulleted)
+        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
     }
     
     private func setupForNumbered(number: Int) {
-        leftView.showView(as: .numbered(number))
+        let leftView = TextBlockIconView(viewType: .numbered(number))
+        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
     }
     
     private func setupForQuote() {
         self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .highlightFont)
-        leftView.showView(as: .quote)
+        replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
     private func setupForToggle() {
         guard let blockViewModel = currentConfiguration.viewModel else { return }
 
-        leftView.showView(as: .toggle(toggled: blockViewModel.block.isToggled)) { [weak self] in
+        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) { [weak self] in
             guard let self = self else { return }
 
             blockViewModel.block.toggle()
@@ -331,6 +329,7 @@ final class TextBlockContentView: UIView & UIContentView {
                 blockViewModel.BlockDelegate?.blockSizeChanged()
             }
         }
+        replaceCurrentLeftView(with: leftView)
         let toggled = blockViewModel.block.isToggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
         let hasNoChildren = blockViewModel.block.childrenIds().isEmpty
@@ -340,5 +339,10 @@ final class TextBlockContentView: UIView & UIContentView {
     private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {
         let shouldShowCreateButton = toggled && !hasChildren
         createChildBlockButton.isHidden = !shouldShowCreateButton
+    }
+    
+    private func replaceCurrentLeftView(with leftView: UIView) {
+        topStackView.arrangedSubviews.first?.removeFromSuperview()
+        topStackView.insertArrangedSubview(leftView, at: 0)
     }
 }

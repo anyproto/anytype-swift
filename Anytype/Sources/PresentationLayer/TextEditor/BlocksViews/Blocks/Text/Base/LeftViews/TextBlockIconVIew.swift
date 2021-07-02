@@ -9,7 +9,7 @@
 import UIKit
 
 
-final class TextBlockIconVIew: UIView {
+final class TextBlockIconView: UIView {
     enum ViewType {
         case checkbox(isSelected: Bool)
         case toggle(toggled: Bool)
@@ -20,31 +20,38 @@ final class TextBlockIconVIew: UIView {
     }
 
     private var currentView: UIView?
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let type: ViewType
+    private let action: (() -> Void)?
 
     override var intrinsicContentSize: CGSize {
         currentView?.intrinsicContentSize ?? .zero
     }
-
-    func showView(as viewType: ViewType, action: (() -> Void)? = nil) {
-        isHidden = false
+    
+    init(viewType: ViewType, action: (() -> Void)? = nil) {
+        self.type = viewType
+        self.action = action
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToSuperview() {
+        guard superview != nil else { return }
         removeAllSubviews()
-
-        switch viewType {
+        addContentView()
+    }
+    
+    private func addContentView() {
+        switch type {
         case let .checkbox(isSelected):
             let checkboxView = createCheckboxView()
             currentView = checkboxView
             checkboxView.isSelected = isSelected
-            checkboxView.addAction(UIAction(handler: { [weak checkboxView] _ in
+            checkboxView.addAction(UIAction(handler: { [weak checkboxView, weak self] _ in
                 checkboxView?.isSelected.toggle()
-                action?()
+                self?.action?()
             }), for: .touchUpInside)
         case let .numbered(number):
             let numberedView = createNumberedView()
@@ -55,9 +62,9 @@ final class TextBlockIconVIew: UIView {
             let toggleView = createToggleView()
             currentView = toggleView
             toggleView.isSelected = isToggled
-            let action = UIAction(handler: { [weak toggleView] reciver in
+            let action = UIAction(handler: { [weak toggleView, weak self] reciver in
                 toggleView?.isSelected.toggle()
-                action?()
+                self?.action?()
             })
             toggleView.addAction(action, for: .touchUpInside)
         case .bulleted:
@@ -73,7 +80,7 @@ final class TextBlockIconVIew: UIView {
     }
 }
 
-extension TextBlockIconVIew {
+extension TextBlockIconView {
     private func createToggleView() -> UIButton {
         let toggleView = UIButton()
         toggleView.setImage(UIImage(imageLiteralResourceName: Constants.Toggle.foldedImageName), for: .normal)
@@ -82,8 +89,8 @@ extension TextBlockIconVIew {
         toggleView.imageView?.contentMode = .scaleAspectFit
 
         addSubview(toggleView)  {
-            $0.width.equal(to: Constants.size)
-            $0.height.equal(to: Constants.size)
+            $0.width.equal(to: Constants.size.width)
+            $0.height.equal(to: Constants.size.height)
             $0.leading.equal(to: leadingAnchor)
             $0.top.equal(to: topAnchor)
             $0.bottom.equal(to: bottomAnchor)
@@ -99,8 +106,8 @@ extension TextBlockIconVIew {
         checkboxView.contentMode = .center
 
         addSubview(checkboxView) {
-            $0.width.equal(to: Constants.size)
-            $0.height.equal(to: Constants.size)
+            $0.width.equal(to: Constants.size.width)
+            $0.height.equal(to: Constants.size.height)
             $0.leading.equal(to: leadingAnchor)
             $0.top.equal(to: topAnchor)
             $0.bottom.equal(to: bottomAnchor)
@@ -124,8 +131,8 @@ extension TextBlockIconVIew {
             $0.centerY.equal(to: centerYAnchor)
         }
         layoutUsing.anchors {
-            $0.width.greaterThanOrEqual(to: Constants.size)
-            $0.height.equal(to: Constants.size)
+            $0.width.greaterThanOrEqual(to: Constants.size.width)
+            $0.height.equal(to: Constants.size.height)
         }
         return numberedView
     }
@@ -139,8 +146,8 @@ extension TextBlockIconVIew {
             $0.centerX.equal(to: centerXAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size)
-            $0.height.equal(to: Constants.size)
+            $0.width.equal(to: Constants.size.width)
+            $0.height.equal(to: Constants.size.height)
         }
         return bulletedView
     }
@@ -156,7 +163,7 @@ extension TextBlockIconVIew {
             $0.bottom.equal(to: bottomAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size)
+            $0.width.equal(to: Constants.size.width)
             if let superview = superview {
                 $0.top.equal(to: superview.topAnchor)
                 $0.bottom.equal(to: superview.bottomAnchor)
@@ -166,9 +173,9 @@ extension TextBlockIconVIew {
     }
 }
 
-private extension TextBlockIconVIew {
+private extension TextBlockIconView {
     private enum Constants {
-        static let size: CGFloat = 30
+        static let size = CGSize(width: 30, height: 35)
 
         enum Quote {
             static let viewWidth: CGFloat = 14

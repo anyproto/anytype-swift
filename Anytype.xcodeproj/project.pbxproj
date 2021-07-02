@@ -384,7 +384,7 @@
 		3DEFD671268A32D70072EA27 /* EditorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
-		530470F62682046900C9EE78 /* TextBlockIconVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconVIew.swift */; };
+		530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconView.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
 		531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629342632BD0A000D6780 /* StylePanelLayout.swift */; };
 		531629382632BD0B000D6780 /* StyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629352632BD0A000D6780 /* StyleViewController.swift */; };
@@ -959,7 +959,7 @@
 		3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorActionHandler.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/ActionHandler/EditorActionHandler.swift; sourceTree = SOURCE_ROOT; };
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
-		530470F52682046900C9EE78 /* TextBlockIconVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconVIew.swift; sourceTree = "<group>"; };
+		530470F52682046900C9EE78 /* TextBlockIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconView.swift; sourceTree = "<group>"; };
 		531197DF26430A9800FFC71E /* BlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandler.swift; sourceTree = "<group>"; };
 		531629342632BD0A000D6780 /* StylePanelLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylePanelLayout.swift; sourceTree = "<group>"; };
 		531629352632BD0A000D6780 /* StyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
@@ -2894,7 +2894,7 @@
 		530470F42682044000C9EE78 /* LeftViews */ = {
 			isa = PBXGroup;
 			children = (
-				530470F52682046900C9EE78 /* TextBlockIconVIew.swift */,
+				530470F52682046900C9EE78 /* TextBlockIconView.swift */,
 			);
 			path = LeftViews;
 			sourceTree = "<group>";
@@ -3591,7 +3591,7 @@
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
 				EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */,
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
-				530470F62682046900C9EE78 /* TextBlockIconVIew.swift in Sources */,
+				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */,
 				3D568F8D2666C1CE00DC7881 /* ContentTextConverter.swift in Sources */,
