@@ -83,7 +83,7 @@ private extension DocumentDetailsView {
         static let coverBottomInset: CGFloat = 36
         static let iconEdgeInsets = NSDirectionalEdgeInsets(
             top: 12,
-            leading: 20,
+            leading: 16,
             bottom: 12,
             trailing: 20
         )

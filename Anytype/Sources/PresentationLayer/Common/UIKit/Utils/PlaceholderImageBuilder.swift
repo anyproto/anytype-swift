@@ -17,8 +17,10 @@ final class PlaceholderImageBuilder {
     
     // MARK: - Internal functions
     
-    static func placeholder(with guideline: ImageGuideline, color: UIColor) -> UIImage {
-        let hash = "\(guideline.identifier).\(color.toHexString())"
+    static func placeholder(with guideline: ImageGuideline,
+                            color: UIColor,
+                            textGuideline: PlaceholderImageTextGuideline? = nil) -> UIImage {
+        let hash = "\(guideline.identifier).\(color.toHexString()).\(textGuideline?.identifier ?? "")"
         
         if let cachedImage = obtainImageFromCache(hash: hash) {
             return cachedImage
@@ -35,6 +37,11 @@ final class PlaceholderImageBuilder {
             .image { ctx in
                 ctx.cgContext.setFillColor(color.cgColor)
                 ctx.fill(ctx.format.bounds)
+                
+                textGuideline.flatMap {
+                    draw(textGuideline: $0, using: guideline)
+                }
+                
             }
             .rounded(
                 radius: guideline.cornersGuideline.radius,
@@ -89,6 +96,33 @@ private extension PlaceholderImageBuilder {
 
     static func saveImageToCache(_ image: UIImage, hash: String) {
         Self.cache.setObject(image, forKey: hash as NSString)
+    }
+    
+    static func draw(textGuideline: PlaceholderImageTextGuideline, using guideline: ImageGuideline) {
+        let textSize = NSString(string: textGuideline.text).size(withAttributes: [.font: textGuideline.font])
+        let textRect = CGRect(
+            x: 0,
+            y: (guideline.size.height - textSize.height) / 2,
+            width: guideline.size.width,
+            height: textSize.height
+        )
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        
+        textGuideline.text.draw(
+            with: textRect,
+            options: [
+                .usesLineFragmentOrigin,
+                .usesFontLeading
+            ],
+            attributes: [
+                .foregroundColor: textGuideline.textColor,
+                .font: textGuideline.font,
+                .paragraphStyle: paragraphStyle
+            ],
+            context: nil
+        )
     }
     
 }

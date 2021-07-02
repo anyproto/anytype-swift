@@ -45,6 +45,7 @@ extension DocumentIconImageView: ConfigurableView {
     enum Model {
         case image(UIImage?)
         case imageId(String)
+        case profilePlaceholder(Character)
     }
     
     func configure(model: Model) {
@@ -53,6 +54,7 @@ extension DocumentIconImageView: ConfigurableView {
         switch model {
         case let .image(image):
             imageView.image = image
+            layer.cornerRadius = Constants.cornerRadius
             
         case let .imageId(imageId):
             imageLoader.update(
@@ -67,6 +69,19 @@ extension DocumentIconImageView: ConfigurableView {
                     color: UIColor.grayscale10
                 )
             )
+            layer.cornerRadius = Constants.cornerRadius
+        case let .profilePlaceholder(character):
+            imageView.image = PlaceholderImageBuilder.placeholder(
+                with: ImageGuideline(
+                    size: Constants.size,
+                    cornerRadius: Constants.cornerRadius,
+                    backgroundColor: UIColor.grayscaleWhite
+                ),
+                color: UIColor.grayscale10,
+                textGuideline: PlaceholderImageTextGuideline(text: String(character))
+            )
+            
+            layer.cornerRadius = Constants.size.height / 2
         }
         
     }
