@@ -271,10 +271,12 @@
 		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
-		3D7C08212684B68600E2168D /* BlocksViewsFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlocksViewsFileViewModel.swift */; };
-		3D7C08232684E00100E2168D /* BlocksViewsFileUIKitViewWithFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08222684E00100E2168D /* BlocksViewsFileUIKitViewWithFile.swift */; };
-		3D7C08252684E09B00E2168D /* BlocksViewsFileUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08242684E09B00E2168D /* BlocksViewsFileUIKitView.swift */; };
+		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
+		3D7C08232684E00100E2168D /* BlockFileMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08222684E00100E2168D /* BlockFileMediaView.swift */; };
+		3D7C08252684E09B00E2168D /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08242684E09B00E2168D /* BlockFileView.swift */; };
 		3D7C08272684E21500E2168D /* BlocksViewsFileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* BlocksViewsFileSizeConverter.swift */; };
+		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
+		3D7EA8A9268EF43A00C76974 /* BlockFileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */; };
 		3D829172265E50190007C152 /* RedactedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D829171265E50190007C152 /* RedactedText.swift */; };
 		3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82917A265E53BB0007C152 /* OurEvent.swift */; };
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
@@ -848,10 +850,12 @@
 		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = Anytype/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
-		3D7C08202684B68600E2168D /* BlocksViewsFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlocksViewsFileViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D7C08222684E00100E2168D /* BlocksViewsFileUIKitViewWithFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsFileUIKitViewWithFile.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlocksViewsFileUIKitViewWithFile.swift; sourceTree = SOURCE_ROOT; };
-		3D7C08242684E09B00E2168D /* BlocksViewsFileUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsFileUIKitView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlocksViewsFileUIKitView.swift; sourceTree = SOURCE_ROOT; };
+		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D7C08222684E00100E2168D /* BlockFileMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileMediaView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileMediaView.swift; sourceTree = SOURCE_ROOT; };
+		3D7C08242684E09B00E2168D /* BlockFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08262684E21500E2168D /* BlocksViewsFileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksViewsFileSizeConverter.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Converters/BlocksViewsFileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
+		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileContentView.swift; sourceTree = SOURCE_ROOT; };
 		3D829171265E50190007C152 /* RedactedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedText.swift; sourceTree = "<group>"; };
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -2445,6 +2449,16 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		3D7EA8A7268EF3F500C76974 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3D7C08222684E00100E2168D /* BlockFileMediaView.swift */,
+				3D7C08242684E09B00E2168D /* BlockFileView.swift */,
+				3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3D829177265E53A50007C152 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3141,10 +3155,10 @@
 		EA20CDD326122C6900DBA9FE /* File */ = {
 			isa = PBXGroup;
 			children = (
+				3D7EA8A7268EF3F500C76974 /* View */,
 				3D22B2132686383E00C78C28 /* Converters */,
-				3D7C08202684B68600E2168D /* BlocksViewsFileViewModel.swift */,
-				3D7C08222684E00100E2168D /* BlocksViewsFileUIKitViewWithFile.swift */,
-				3D7C08242684E09B00E2168D /* BlocksViewsFileUIKitView.swift */,
+				3D7C08202684B68600E2168D /* BlockFileViewModel.swift */,
+				3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -3714,7 +3728,7 @@
 				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */,
 				EA5521AB266E5D6D004A820B /* ContentConfigurationWithEmoji.swift in Sources */,
-				3D7C08212684B68600E2168D /* BlocksViewsFileViewModel.swift in Sources */,
+				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
 				3DBED69D266FBABC00B9E9AB /* UnknownLabelResource.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
@@ -3808,10 +3822,10 @@
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
-				3D7C08232684E00100E2168D /* BlocksViewsFileUIKitViewWithFile.swift in Sources */,
+				3D7C08232684E00100E2168D /* BlockFileMediaView.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
-				3D7C08252684E09B00E2168D /* BlocksViewsFileUIKitView.swift in Sources */,
+				3D7C08252684E09B00E2168D /* BlockFileView.swift in Sources */,
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
@@ -3868,6 +3882,7 @@
 				3D568F952666C2DA00DC7881 /* ContentLayoutConverter.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				EA7DE40426397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift in Sources */,
+				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,
 				0A203A8625470FAE00D3729A /* ImageCache.swift in Sources */,
@@ -4003,6 +4018,7 @@
 				3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */,
 				12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareColor.swift in Sources */,
+				3D7EA8A9268EF43A00C76974 /* BlockFileContentView.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
 				3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */,
 				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,

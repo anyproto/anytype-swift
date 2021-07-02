@@ -2,7 +2,7 @@ import UIKit
 import Combine
 import BlocksModels
 
-class BlocksViewsFileUIKitView: UIView {
+class BlockFileView: UIView {
     struct Layout {
         var imageContentViewDefaultHeight: CGFloat = 250
         var imageViewTop: CGFloat = 4
@@ -16,7 +16,7 @@ class BlocksViewsFileUIKitView: UIView {
     
     // MARK: Views
     var contentView: UIView!
-    var fileView: BlocksViewsFileUIKitViewWithFile!
+    var fileView: BlockFileMediaView!
     var emptyView: BlocksFileEmptyView!
             
     // MARK: Initialization
@@ -49,7 +49,7 @@ class BlocksViewsFileUIKitView: UIView {
         }()
         
         self.fileView = {
-            let view = BlocksViewsFileUIKitViewWithFile()
+            let view = BlockFileMediaView()
             view.layer.borderWidth = 1
             view.layer.borderColor = UIColor.grayscale30.cgColor
             view.layer.cornerRadius = 4
@@ -137,23 +137,23 @@ class BlocksViewsFileUIKitView: UIView {
         return self
     }
     
-    func configured(published: AnyPublisher<BlocksViewsFileUIKitViewWithFile.Resource?, Never>) -> Self {
+    func configured(published: AnyPublisher<BlockFileMediaView.Resource?, Never>) -> Self {
         self.fileView.configured(published)
         return self
     }
 }
 
-extension BlocksViewsFileUIKitView {
+extension BlockFileView {
     func process(_ file: BlockFile) {
         self.handle(file)
     }
     
-    func process(_ resource: BlocksViewsFileUIKitViewWithFile.Resource?) {
+    func process(_ resource: BlockFileMediaView.Resource?) {
         self.fileView.handle(resource)
     }
     func apply(_ file: BlockFile) {
         self.process(file)
-        let resource: BlocksViewsFileUIKitViewWithFile.Resource?
+        let resource: BlockFileMediaView.Resource?
         switch file.contentType {
         case .file:
             let metadata = file.metadata

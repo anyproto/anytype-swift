@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class BlocksViewsFileUIKitViewWithFile: UIView {
+class BlockFileMediaView: UIView {
     struct Resource {
         var size: String
         var name: String

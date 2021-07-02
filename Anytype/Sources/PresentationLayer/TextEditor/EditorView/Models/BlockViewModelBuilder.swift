@@ -43,7 +43,7 @@ final class BlockViewModelBuilder {
         case let .file(content):
             switch content.contentType {
             case .file:
-                return BlocksViewsFileViewModel(
+                return BlockFileViewModel(
                     block, content: content, delegate: delegate, router: router, actionHandler: blockActionHandler
                 )
             case .none:
