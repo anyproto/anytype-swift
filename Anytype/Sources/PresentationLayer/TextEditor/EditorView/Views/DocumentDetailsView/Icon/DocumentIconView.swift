@@ -43,8 +43,8 @@ extension DocumentIconView: ConfigurableView {
             configureIconState(icon)
         case let .preview(image):
             configurePreviewState(image)
-        case let .profilePlaceholder(character):
-            showImageView(.profilePlaceholder(character))
+        case let .placeholder(character):
+            showImageView(.placeholder(character))
         case .empty:
             configureEmptyState()
         }

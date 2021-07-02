@@ -12,12 +12,8 @@ import BlocksModels
 
 final class DocumentDetailsViewModel {
 
-    // MARK: - Internal variables
-    
-    private(set) var coverViewState: DocumentCoverViewState = .empty
-    private(set) var iconViewState: DocumentIconViewState = .empty
-
-    // MARK: - Private variables
+    private var coverViewState: DocumentCoverViewState = .empty
+    private var iconViewState: DocumentIconViewState = .empty
     
     private var subscriptions: [AnyCancellable] = []
     
@@ -30,6 +26,8 @@ final class DocumentDetailsViewModel {
         
         setupSubscriptions()
     }
+    
+    // MARK: - Internal functions
     
     func performUpdateUsingDetails(_ detailsData: DetailsData) {
         coverViewState = {
@@ -49,6 +47,13 @@ final class DocumentDetailsViewModel {
         }()
         
         onUpdate()
+    }
+    
+    func makeDocumentSection() -> DocumentSection {
+        DocumentSection(
+            iconViewState: iconViewState,
+            coverViewState: coverViewState
+        )
     }
     
 }

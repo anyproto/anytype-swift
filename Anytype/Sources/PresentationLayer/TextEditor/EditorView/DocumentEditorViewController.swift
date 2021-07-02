@@ -181,10 +181,7 @@ extension DocumentEditorViewController {
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
-        let sectionSnapshot = dataSource.snapshot(for: DocumentSection(
-            iconViewState: viewModel.detailsViewModel.iconViewState,
-            coverViewState: viewModel.detailsViewModel.coverViewState
-        ))
+        let sectionSnapshot = dataSource.snapshot(for: viewModel.detailsViewModel.makeDocumentSection())
         
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = viewModel.modelsHolder.models.first { viewModel in
@@ -202,10 +199,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     func updateHeader() {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
-            DocumentSection(
-                iconViewState: viewModel.detailsViewModel.iconViewState,
-                coverViewState: viewModel.detailsViewModel.coverViewState
-            )
+            viewModel.detailsViewModel.makeDocumentSection()
         ])
         
         snapshot.appendItems(dataSource.snapshot().itemIdentifiers)
@@ -215,10 +209,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
         snapshot.appendSections([
-            DocumentSection(
-                iconViewState: viewModel.detailsViewModel.iconViewState,
-                coverViewState: viewModel.detailsViewModel.coverViewState
-            )
+            viewModel.detailsViewModel.makeDocumentSection()
         ])
 
         let items = blocksViewModels.map { blockViewModel in
@@ -226,10 +217,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         }
         snapshot.appendItems(items)
 
-        let sectionSnapshot = self.dataSource.snapshot(for: DocumentSection(
-            iconViewState: viewModel.detailsViewModel.iconViewState,
-            coverViewState: viewModel.detailsViewModel.coverViewState
-        ))
+        let sectionSnapshot = self.dataSource.snapshot(for: viewModel.detailsViewModel.makeDocumentSection())
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = blocksViewModels.first { viewModel in
                 viewModel.blockId == item.id

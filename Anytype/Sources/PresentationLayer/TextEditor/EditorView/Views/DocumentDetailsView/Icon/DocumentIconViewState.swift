@@ -11,6 +11,6 @@ import UIKit.UIImage
 enum DocumentIconViewState: Hashable {
     case icon(DocumentIcon)
     case preview(UIImage?)
-    case profilePlaceholder(Character)
+    case placeholder(Character)
     case empty
 }
