@@ -91,7 +91,7 @@ final class BlockViewModelBuilder {
                 handler: contextualMenuHandler
             )
         case .bookmark:
-            return BookmarkViewModel(
+            return BlockBookmarkViewModel(
                 block: block,
                 delegate: delegate,
                 router: router,

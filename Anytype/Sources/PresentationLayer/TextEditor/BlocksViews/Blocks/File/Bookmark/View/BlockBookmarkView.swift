@@ -2,14 +2,14 @@ import Combine
 import UIKit
 import BlocksModels
     
-final class BlocksViewsBookmarkUIKitViewWithBookmark: UIView {
+final class BlockBookmarkView: UIView {
     /// Variables
     private let style: Style = .presentation
     
     /// Publishers
     private var subscription: AnyCancellable?
-    private var resourceStream: AnyPublisher<BookmarkViewModel.Resource?, Never> = .empty()
-    @Published var resource: BookmarkViewModel.Resource? {
+    private var resourceStream: AnyPublisher<BlockBookmarkResource?, Never> = .empty()
+    @Published var resource: BlockBookmarkResource? {
         didSet {
             self.handle(self.resource)
         }
@@ -170,7 +170,7 @@ final class BlocksViewsBookmarkUIKitViewWithBookmark: UIView {
     }
     
     /// Configurations
-    private func handle(_ value: BookmarkViewModel.Resource?) {
+    private func handle(_ value: BlockBookmarkResource?) {
         guard let value = value else {
             print("value is nil!")
             return
@@ -206,7 +206,7 @@ final class BlocksViewsBookmarkUIKitViewWithBookmark: UIView {
         }
     }
     
-    func configured(_ stream: AnyPublisher<BookmarkViewModel.Resource?, Never>) {
+    func configured(_ stream: AnyPublisher<BlockBookmarkResource?, Never>) {
         self.resourceStream = stream
         self.subscription = self.resourceStream.receiveOnMain().sink(receiveValue: { [weak self] (value) in
             print("state value: \(String(describing: value))")
@@ -216,16 +216,16 @@ final class BlocksViewsBookmarkUIKitViewWithBookmark: UIView {
 }
 
 // MARK: - UIKitViewWithBookmark / Apply
-extension BlocksViewsBookmarkUIKitViewWithBookmark {
+extension BlockBookmarkView {
     
-    func apply(_ value: BookmarkViewModel.Resource?) {
+    func apply(_ value: BlockBookmarkResource?) {
         self.handle(value)
     }
     
 }
 
 // MARK: - UIView / WithBookmark / Style
-private extension BlocksViewsBookmarkUIKitViewWithBookmark {
+private extension BlockBookmarkView {
     enum Style {
         case presentation
         
@@ -264,7 +264,7 @@ private extension BlocksViewsBookmarkUIKitViewWithBookmark {
 }
 
 // MARK: - UIView / WithBookmark / Layout
-private extension BlocksViewsBookmarkUIKitViewWithBookmark {
+private extension BlockBookmarkView {
     
     enum Constants {
         enum Layout {

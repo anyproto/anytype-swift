@@ -2,9 +2,9 @@ import Combine
 import BlocksModels
 import UIKit
 
-final class BookmarkViewModel: BaseBlockViewModel {
+final class BlockBookmarkViewModel: BaseBlockViewModel {
     
-    let imagesPublished = Resource.ImageLoader()
+    let imagesPublished = BookmarkImageLoader()
     private var subscription: AnyCancellable?
     
     init(
@@ -21,7 +21,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
     // MARK: - Overrided functions
     
     override func makeContentConfiguration() -> UIContentConfiguration {
-        var configuration = ContentConfiguration.init(block.blockModel.information)
+        var configuration = BlockBookmarkConfiguration(block.blockModel.information)
         configuration.contextMenuHolder = self
         return configuration
     }
@@ -81,12 +81,12 @@ final class BookmarkViewModel: BaseBlockViewModel {
             .safelyUnwrapOptionals()
             .sink { [weak self] value in
                 self?.setupImages(
-                    ResourceConverter.asOurModel(value)
+                    BookmarkResourceConverter.asOurModel(value)
                 )
             }
     }
     
-    private func setupImages(_ resource: Resource?) {
+    private func setupImages(_ resource: BlockBookmarkResource?) {
         guard case let .fetched(payload) = resource?.state else {
             return
         }

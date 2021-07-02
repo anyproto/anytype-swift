@@ -2,10 +2,10 @@ import Combine
 import UIKit
 import BlocksModels
     
-final class BlocksViewsBookmarkUIKitView: UIView {
+final class BlockBookmarkContainerView: UIView {
 
     private var emptyView: BlocksFileEmptyView!
-    private var bookmarkView: BlocksViewsBookmarkUIKitViewWithBookmark!
+    private var bookmarkView: BlockBookmarkView!
             
     private var subscription: AnyCancellable?
     
@@ -23,7 +23,7 @@ final class BlocksViewsBookmarkUIKitView: UIView {
     
     // MARK: - Internal functions
     
-    func configured(publisher: AnyPublisher<BookmarkViewModel.Resource?, Never>) -> Self {
+    func configured(publisher: AnyPublisher<BlockBookmarkResource?, Never>) -> Self {
         subscription = publisher
             .receiveOnMain()
             .safelyUnwrapOptionals()
@@ -41,9 +41,9 @@ final class BlocksViewsBookmarkUIKitView: UIView {
 }
 
 // MARK: UIKitView / Apply
-extension BlocksViewsBookmarkUIKitView {
+extension BlockBookmarkContainerView {
     
-    func apply(_ value: BookmarkViewModel.Resource?) {
+    func apply(_ value: BlockBookmarkResource?) {
         guard let value = value else { return }
         
         self.bookmarkView.apply(value)
@@ -51,13 +51,13 @@ extension BlocksViewsBookmarkUIKitView {
     }
     
     func apply(_ value: BlockBookmark) {
-        let model = BookmarkViewModel.ResourceConverter.asOurModel(value)
+        let model = BookmarkResourceConverter.asOurModel(value)
         self.apply(model)
     }
     
 }
 
-private extension BlocksViewsBookmarkUIKitView {
+private extension BlockBookmarkContainerView {
     
     func setup() {
         setupUIElements()
@@ -69,7 +69,7 @@ private extension BlocksViewsBookmarkUIKitView {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.bookmarkView = {
-            let view = BlocksViewsBookmarkUIKitViewWithBookmark()
+            let view = BlockBookmarkView()
             view.layer.borderWidth = 1
             view.layer.borderColor = UIColor.grayscale30.cgColor
             view.layer.cornerRadius = 4
@@ -113,7 +113,7 @@ private extension BlocksViewsBookmarkUIKitView {
         }
     }
                     
-    func handle(_ resource: BookmarkViewModel.Resource) {
+    func handle(_ resource: BlockBookmarkResource) {
         switch resource.state {
         case .empty:
             self.addSubview(self.emptyView)
@@ -132,7 +132,7 @@ private extension BlocksViewsBookmarkUIKitView {
 
 // MARK: - Private extension
 
-private extension BlocksViewsBookmarkUIKitView {
+private extension BlockBookmarkContainerView {
     
     enum Constants {
         enum Layout {
