@@ -277,8 +277,8 @@
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8A9268EF43A00C76974 /* BlockFileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */; };
 		3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */; };
-		3D7EA8CC268F52D300C76974 /* BookmarkImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CB268F52D300C76974 /* BookmarkImageLoader.swift */; };
-		3D7EA8CE268F568600C76974 /* BookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CD268F568600C76974 /* BookmarkConfiguration.swift */; };
+		3D7EA8D0268F636300C76974 /* BookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */; };
+		3D7EA8D2268F636E00C76974 /* BookmarkImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8D1268F636E00C76974 /* BookmarkImageLoader.swift */; };
 		3D829172265E50190007C152 /* RedactedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D829171265E50190007C152 /* RedactedText.swift */; };
 		3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82917A265E53BB0007C152 /* OurEvent.swift */; };
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
@@ -858,8 +858,8 @@
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileContentView.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContextualMenuBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlockFileContextualMenuBuilder.swift; sourceTree = SOURCE_ROOT; };
-		3D7EA8CB268F52D300C76974 /* BookmarkImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookmarkImageLoader.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Bookmark/Utils/BookmarkImageLoader.swift; sourceTree = SOURCE_ROOT; };
-		3D7EA8CD268F568600C76974 /* BookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Bookmark/BookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/BookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		3D7EA8D1268F636E00C76974 /* BookmarkImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkImageLoader.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/Utils/BookmarkImageLoader.swift; sourceTree = SOURCE_ROOT; };
 		3D829171265E50190007C152 /* RedactedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedText.swift; sourceTree = "<group>"; };
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -1759,6 +1759,7 @@
 		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				0AD6B24624CF5D0A0097A841 /* Bookmark */,
 				0A6F9009255481B300B94AED /* Unknown */,
 				0A005AC224C86DFA000520AA /* Other */,
 				0A10CC5B248EC2FA000FF498 /* Text */,
@@ -1784,7 +1785,6 @@
 			isa = PBXGroup;
 			children = (
 				3D7E89FD26851EAF00181E8D /* Base */,
-				0AD6B24624CF5D0A0097A841 /* Bookmark */,
 				EA20CDD326122C6900DBA9FE /* File */,
 				EA20CDD226122C6400DBA9FE /* Video */,
 				EA20CDD126122C5D00DBA9FE /* Image */,
@@ -1988,7 +1988,7 @@
 				3D7EA8C7268F523100C76974 /* View */,
 				0AD6B24924CF5DC00097A841 /* BlockBookmarkViewModel.swift */,
 				120F7D7F267F8A2B00327734 /* BlockBookmarkResource.swift */,
-				3D7EA8CD268F568600C76974 /* BookmarkConfiguration.swift */,
+				3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */,
 			);
 			path = Bookmark;
 			sourceTree = "<group>";
@@ -2475,8 +2475,8 @@
 		3D7EA8CA268F52C700C76974 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3D7EA8D1268F636E00C76974 /* BookmarkImageLoader.swift */,
 				120F7D7D267F88FF00327734 /* BookmarkResourceConverter.swift */,
-				3D7EA8CB268F52D300C76974 /* BookmarkImageLoader.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3644,7 +3644,7 @@
 				3DEFD6632689FE740072EA27 /* IconEmoji.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */,
 				3DEFD64D2689FE250072EA27 /* EmojiProvider.swift in Sources */,
-				3D7EA8CC268F52D300C76974 /* BookmarkImageLoader.swift in Sources */,
+				3D7EA8D2268F636E00C76974 /* BookmarkImageLoader.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
@@ -3889,7 +3889,6 @@
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
-				3D7EA8CE268F568600C76974 /* BookmarkConfiguration.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
@@ -3944,6 +3943,7 @@
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
 				3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */,
+				3D7EA8D0268F636300C76974 /* BookmarkConfiguration.swift in Sources */,
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
 				EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,

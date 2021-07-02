@@ -51,7 +51,7 @@ extension BlockBookmarkContainerView {
     }
     
     func apply(_ value: BlockBookmark) {
-        let model = BookmarkResourceConverter.asOurModel(value)
+        let model = BlockBookmarkConverter.asResource(value)
         self.apply(model)
     }
     

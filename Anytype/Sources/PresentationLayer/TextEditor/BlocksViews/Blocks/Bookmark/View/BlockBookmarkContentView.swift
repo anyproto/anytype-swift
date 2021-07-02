@@ -19,7 +19,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
             guard let configuration = newValue as? BlockBookmarkConfiguration,
                   configuration != currentConfiguration else { return }
             currentConfiguration = configuration
-            applyNewConfiguration()
+            handle(currentConfiguration.bookmarkData)
         }
     }
     
@@ -27,7 +27,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         setup()
-        applyNewConfiguration()
+        handle(currentConfiguration.bookmarkData)
     }
 
     required init?(coder: NSCoder) {
@@ -41,33 +41,26 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
     
     private func handle(_ value: BlockBookmarkResource?) {
-        value?.imageLoader = self.currentConfiguration.contextMenuHolder?.imagesPublished
+        value?.imageLoader = currentConfiguration.imageLoader
         self.topView.apply(value)
     }
     
     private func handle(_ value: BlockBookmark) {
         if self.iconSubscription.isNil {
-            let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.iconProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
+            let item = currentConfiguration.imageLoader.iconProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
                 self?.handle(value)
             })
             self.iconSubscription = item
         }
 
         if self.imageSubscription.isNil {
-            let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.imageProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
+            let item = currentConfiguration.imageLoader.imageProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
                 self?.handle(value)
             })
             self.imageSubscription = item
         }
         
-        let model = BookmarkResourceConverter.asOurModel(value)
+        let model = BlockBookmarkConverter.asResource(value)
         self.handle(model)
-    }
-    
-    private func applyNewConfiguration() {
-        switch self.currentConfiguration.information.content {
-        case let .bookmark(value): self.handle(value)
-        default: return
-        }
     }
 }

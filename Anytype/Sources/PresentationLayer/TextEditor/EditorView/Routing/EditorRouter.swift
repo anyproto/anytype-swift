@@ -11,7 +11,7 @@ protocol EditorRouterProtocol: AnyObject {
     
     func showPage(with id: BlockId)
     func openUrl(_ url: URL)
-    func showBookmark(model: BlockActiveRecordProtocol, completion: @escaping (URL) -> ())
+    func showBookmarkBar(completion: @escaping (URL) -> ())
     
     func showFilePicker(model: FilePickerModel)
     func showImagePicker(model: MediaPickerViewModel)
@@ -52,7 +52,7 @@ final class EditorRouter: EditorRouterProtocol {
         viewController?.present(safariController, animated: true, completion: nil)
     }
     
-    func showBookmark(model: BlockActiveRecordProtocol, completion: @escaping (URL) -> ()) {
+    func showBookmarkBar(completion: @escaping (URL) -> ()) {
         
         let controller = UIHostingController(rootView: URLInputView(didCreateURL: completion))
         controller.rootView.dismissAction = { [weak controller] in

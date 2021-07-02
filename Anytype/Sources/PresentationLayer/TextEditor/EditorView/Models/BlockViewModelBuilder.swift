@@ -90,12 +90,18 @@ final class BlockViewModelBuilder {
                 indentationLevel: block.indentationLevel,
                 handler: contextualMenuHandler
             )
-        case .bookmark:
+        case let .bookmark(data):
             return BlockBookmarkViewModel(
-                block: block,
-                delegate: delegate,
-                router: router,
-                actionHandler: blockActionHandler
+                indentationLevel: block.indentationLevel,
+                information: block.blockModel.information,
+                bookmarkData: data,
+                contextualMenuHandler: contextualMenuHandler,
+                showBookmarkBar: { [weak self] info in
+                    self?.showBookmarkBar(info: info)
+                },
+                openUrl: { [weak self] url in
+                    self?.router.openUrl(url)
+                }
             )
         case let .link(value):
             let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher
@@ -139,6 +145,16 @@ final class BlockViewModelBuilder {
             guard let url = url else { return }
             
             self?.router.saveFile(fileURL: url)
+        }
+    }
+    
+    private func showBookmarkBar(info: BlockInformation) {
+        router.showBookmarkBar() { [weak self] url in
+            guard let self = self else { return }
+            
+            self.blockActionHandler.handleAction(
+                .fetch(url: url), info: info
+            )
         }
     }
 }

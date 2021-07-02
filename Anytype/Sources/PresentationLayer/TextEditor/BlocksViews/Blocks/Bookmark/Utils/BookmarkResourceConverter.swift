@@ -1,7 +1,7 @@
 import BlocksModels
 
-enum BookmarkResourceConverter {    
-    static func asOurModel(_ value: BlockBookmark) -> BlockBookmarkResource? {
+enum BlockBookmarkConverter {
+    static func asResource(_ value: BlockBookmark) -> BlockBookmarkResource {
         if value.url.isEmpty {
             return .empty()
         }
