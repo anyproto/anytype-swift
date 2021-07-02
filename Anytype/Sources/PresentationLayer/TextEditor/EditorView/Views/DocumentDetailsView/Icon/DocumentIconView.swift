@@ -49,40 +49,46 @@ extension DocumentIconView: ConfigurableView {
     }
     
     private func configureIconState(_ icon: DocumentIcon) {
-        activityIndicatorView.hide()
-        
-        let height: CGFloat
-        let cornerRadius: CGFloat
-        
         switch icon {
         case let .emoji(iconEmoji):
-            height = Constants.Emoji.height
-            cornerRadius = iconEmojiView.layer.cornerRadius
-            
-            iconEmojiView.configure(model: iconEmoji.value)
-            showEmojiView()
+            showEmojiView(iconEmoji)
         case let .imageId(imageId):
-            height = Constants.Image.height
-            cornerRadius = iconImageView.layer.cornerRadius
-            
-            iconImageView.configure(model: .imageId(imageId))
-            showImageView()
+            showImageView(.imageId(imageId))
         }
+    }
+    
+    private func showEmojiView(_ emoji: IconEmoji) {
+        activityIndicatorView.hide()
         
-        heightConstraint.constant = height
+        iconEmojiView.configure(model: emoji.value)
+        
+        heightConstraint.constant = iconEmojiView.height
+        
+        let cornerRadius = iconEmojiView.layer.cornerRadius
         containerView.layer.cornerRadius = cornerRadius
-        
         configureBorder(cornerRadius: cornerRadius)
+        
+        iconEmojiView.isHidden = false
+        iconImageView.isHidden = true
+    }
+    
+    private func showImageView(_ model: DocumentIconImageView.Model) {
+        activityIndicatorView.hide()
+        
+        iconImageView.configure(model: model)
+        
+        heightConstraint.constant = iconImageView.height
+        
+        let cornerRadius = iconImageView.layer.cornerRadius
+        containerView.layer.cornerRadius = cornerRadius
+        configureBorder(cornerRadius: cornerRadius)
+        
+        iconEmojiView.isHidden = true
+        iconImageView.isHidden = false
     }
     
     private func configurePreviewState(_ image: UIImage?) {
-        heightConstraint.constant = Constants.Image.height
-        containerView.layer.cornerRadius = iconImageView.layer.cornerRadius
-        
-        configureBorder(cornerRadius: containerView.layer.cornerRadius)
-        
-        iconImageView.configure(model: .image(image))
-        showImageView()
+        showImageView(.image(image))
         
         let animation = CATransition()
         animation.type = .fade;
@@ -102,19 +108,10 @@ extension DocumentIconView: ConfigurableView {
         iconImageView.isHidden = true
     }
     
-    private func showEmojiView() {
-        iconEmojiView.isHidden = false
-        iconImageView.isHidden = true
-    }
-    
-    private func showImageView() {
-        iconEmojiView.isHidden = true
-        iconImageView.isHidden = false
-    }
-    
     private func configureBorder(cornerRadius: CGFloat) {
         borderConstraintX.constant = Constants.borderWidth
         borderConstraintY.constant = Constants.borderWidth
+        
         layer.cornerRadius = cornerRadius + Constants.borderWidth
     }
     
@@ -163,13 +160,5 @@ private extension DocumentIconView {
     
     enum Constants {
         static let borderWidth: CGFloat = 4
-        
-        enum Emoji {
-            static let height: CGFloat = 96
-        }
-        
-        enum Image {
-            static let height: CGFloat = 122
-        }
     }
 }

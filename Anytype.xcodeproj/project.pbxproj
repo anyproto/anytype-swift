@@ -2018,11 +2018,11 @@
 		12114058264BEE36008F91C3 /* DocumentDetailsView */ = {
 			isa = PBXGroup;
 			children = (
+				12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */,
+				12D8FFB6268CCA06008F765B /* DocumentDetailsViewModel.swift */,
 				1211D6582667CEC100541D9C /* ActivityIndicatorView */,
 				12B69C8E265D15FF00D047E3 /* Cover */,
 				124C1626264D35BF003C411C /* Icon */,
-				12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */,
-				12D8FFB6268CCA06008F765B /* DocumentDetailsViewModel.swift */,
 			);
 			path = DocumentDetailsView;
 			sourceTree = "<group>";
@@ -2038,11 +2038,11 @@
 		124C1626264D35BF003C411C /* Icon */ = {
 			isa = PBXGroup;
 			children = (
-				3DEFD65E2689FE740072EA27 /* Entity */,
-				3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */,
 				3DEFD65D2689FE740072EA27 /* DocumentIconView.swift */,
-				0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */,
 				12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */,
+				3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */,
+				0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */,
+				3DEFD65E2689FE740072EA27 /* Entity */,
 			);
 			path = Icon;
 			sourceTree = "<group>";

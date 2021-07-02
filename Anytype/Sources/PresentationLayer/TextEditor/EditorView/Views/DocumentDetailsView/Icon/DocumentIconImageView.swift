@@ -11,21 +11,26 @@ import Combine
 
 final class DocumentIconImageView: UIView {
     
+    let height: CGFloat
+    
     // MARK: - Private properties
     
     private let imageView: UIImageView = UIImageView()
-    
     private lazy var imageLoader = ImageLoader().configured(imageView)
     
     // MARK: Initialization
     
     override init(frame: CGRect) {
+        self.height = Constants.size.height
+        
         super.init(frame: frame)
         
         setupView()
     }
     
     required init?(coder: NSCoder) {
+        self.height = Constants.size.height
+        
         super.init(coder: coder)
         
         setupView()
@@ -55,7 +60,7 @@ extension DocumentIconImageView: ConfigurableView {
                 parameters: ImageParameters(width: .thumbnail),
                 placeholder: PlaceholderImageBuilder.placeholder(
                     with: ImageGuideline(
-                        size: CGSize(width: 112, height: 112),
+                        size: Constants.size,
                         cornerRadius: Constants.cornerRadius,
                         backgroundColor: UIColor.grayscaleWhite
                     ),
@@ -79,12 +84,14 @@ private extension DocumentIconImageView {
         // TODO: - load image with size of `ImageView`
         imageView.contentMode = .scaleAspectFill
         
-        setUpLayout()
+        setupLayout()
     }
     
-    func setUpLayout() {
-        addSubview(imageView)
-        imageView.pinAllEdges(to: self)
+    func setupLayout() {
+        addSubview(imageView) {
+            $0.pinToSuperview()
+            $0.size(Constants.size)
+        }
     }
     
 }
@@ -95,6 +102,7 @@ private extension DocumentIconImageView {
     
     enum Constants {
         static let cornerRadius: CGFloat = 22
+        static let size = CGSize(width: 122, height: 122)
     }
     
 }

@@ -2,32 +2,29 @@ import UIKit
 
 final class DocumentIconEmojiView: UIView {
     
+    let height: CGFloat
+    
     // MARK: - Private properties
     
     private let emojiLabel: UILabel = UILabel()
         
     // MARK: Initialization
     
-    init(cornerRadius: CGFloat = Constants.cornerRadius,
-         font: UIFont = .systemFont(ofSize: 64)) {
+    init(font: UIFont = .systemFont(ofSize: 64),
+         cornerRadius: CGFloat = Constants.cornerRadius,
+         size: CGSize = Constants.size) {
+        self.height = size.height
+        
         super.init(frame: .zero)
-        setupView()
-        emojiLabel.font = font
-        layer.cornerRadius = cornerRadius
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
         
-        setupView()
+        setupView(font: font, cornerRadius: cornerRadius, size: size)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setupView()
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 
 // MARK: - ConfigurableView
@@ -44,28 +41,31 @@ extension DocumentIconEmojiView: ConfigurableView {
 
 private extension DocumentIconEmojiView {
     
-    func setupView() {
-        backgroundColor = .grayscale10
+    func setupView(font: UIFont, cornerRadius: CGFloat, size: CGSize) {
         clipsToBounds = true
-        layer.cornerRadius = Constants.cornerRadius
+        backgroundColor = .grayscale10
         
-        configureEmojiLabel()
+        layer.cornerRadius = cornerRadius
         
-        setUpLayout()
+        configureEmojiLabel(font: font)
+        
+        setupLayout(size: size)
     }
     
-    func configureEmojiLabel() {
+    func configureEmojiLabel(font: UIFont) {
         emojiLabel.backgroundColor = .grayscale10
-        emojiLabel.font = .systemFont(ofSize: 64) // Used only for emoji
+        emojiLabel.font = font
         emojiLabel.textColor = .secondaryTextColor
         emojiLabel.textAlignment = .center
         emojiLabel.adjustsFontSizeToFitWidth = true
         emojiLabel.isUserInteractionEnabled = false
     }
     
-    func setUpLayout() {
-        addSubview(emojiLabel)
-        emojiLabel.pinAllEdges(to: self)
+    func setupLayout(size: CGSize) {
+        addSubview(emojiLabel) {
+            $0.pinToSuperview()
+            $0.size(size)
+        }
     }
     
 }
@@ -76,6 +76,7 @@ private extension DocumentIconEmojiView {
     
     enum Constants {
         static let cornerRadius: CGFloat = 20
+        static let size = CGSize(width: 96, height: 96)
     }
     
 }
