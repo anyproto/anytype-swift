@@ -2,8 +2,8 @@ import UIKit
 
 protocol Mentionable {
     
-    func removeMentionIfNeeded(replacementRange: NSRange,
-                               replacementText: String)
+    @discardableResult func removeMentionIfNeeded(replacementRange: NSRange,
+                               replacementText: String) -> Bool
     
     func insert(_ mention: MentionObject,
                 from: UITextPosition,

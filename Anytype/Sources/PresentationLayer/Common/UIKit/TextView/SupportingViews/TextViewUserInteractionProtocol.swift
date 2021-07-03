@@ -1,5 +1,9 @@
 import Foundation
 
 protocol TextViewUserInteractionProtocol: AnyObject {
-    func didReceiveAction(_ action: CustomTextView.UserAction)
+    /// Handle action from text input
+    /// - Parameters:
+    ///   - action: Action
+    /// - Returns: should change text
+    @discardableResult func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool
 }

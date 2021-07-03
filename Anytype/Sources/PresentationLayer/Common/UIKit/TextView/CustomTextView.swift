@@ -33,8 +33,6 @@ final class CustomTextView: UIView {
         }
     }
 
-    let pressingEnterTimeChecker = TimeChecker()
-
     lazy var textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
         textView.textContainer.lineFragmentPadding = 0.0

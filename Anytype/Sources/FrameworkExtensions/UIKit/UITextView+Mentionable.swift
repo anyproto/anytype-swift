@@ -6,10 +6,11 @@ extension UITextView: Mentionable {
         static let attachmentLenght = 1
     }
     
-    func removeMentionIfNeeded(replacementRange: NSRange, replacementText: String) {
-        guard replacementText == "" else { return }
+    func removeMentionIfNeeded(replacementRange: NSRange, replacementText: String) -> Bool {
+        guard replacementText == "" else { return false }
         let mentionSearchRange = NSRange(location: 0, length: selectedRange.location)
         
+        var result = false
         attributedText.enumerateAttribute(.mention, in: mentionSearchRange) { value, subrange, shouldStop in
             guard value is String,
                   subrange.location + subrange.length == selectedRange.location else { return }
@@ -22,6 +23,7 @@ extension UITextView: Mentionable {
                 removeMentionInteractionButton(from: mentionAttachmentRange)
                 mutableAttributedString.deleteCharacters(in: mentionAttachmentRange)
             }
+            result = true
             // If we will set empty attributed string it will erase all typing attributes
             if mutableAttributedString.length == 0 {
                 let oldTypingAttributes = typingAttributes
@@ -32,6 +34,7 @@ extension UITextView: Mentionable {
             }
             shouldStop[0] = true
         }
+        return result
     }
     
     func insert(_ mention: MentionObject,

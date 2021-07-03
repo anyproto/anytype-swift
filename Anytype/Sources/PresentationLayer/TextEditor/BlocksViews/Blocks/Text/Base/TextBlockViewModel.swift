@@ -18,6 +18,7 @@ class TextBlockViewModel: BaseBlockViewModel {
     private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
+    private let pressingEnterTimeChecker = TimeChecker()
     
     override init(_ block: BlockActiveRecordProtocol, delegate: BlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
         super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
@@ -195,25 +196,66 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel: TextViewUserInteractionProtocol {
     
-    func didReceiveAction(_ action: CustomTextView.UserAction) {
-            switch action {
-            case .showStyleMenu:
-                router.showStyleMenu(information: block.blockModel.information)
-            case .showMultiActionMenuAction:
-                shouldResignFirstResponder.send()
-                actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
-            case let .changeText(textView):
-                mentionsConfigurator.configure(textView: textView)
-                actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
-            case .keyboardAction, .changeTextStyle, .changeCaretPosition:
-                actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
-            case let .shouldChangeText(range, replacementText, mentionsHolder):
-                mentionsHolder.removeMentionIfNeeded(
-                    replacementRange: range,
-                    replacementText: replacementText
-                )
+    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
+        switch action {
+        case .showStyleMenu:
+            router.showStyleMenu(information: block.blockModel.information)
+        case .showMultiActionMenuAction:
+            shouldResignFirstResponder.send()
+            actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: block
+                ),
+                info: block.blockModel.information
+            )
+        case let .changeText(textView):
+            mentionsConfigurator.configure(textView: textView)
+            actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: block
+                ),
+                info: block.blockModel.information
+            )
+        case let .keyboardAction(keyAction):
+            switch keyAction {
+            case .enterInsideContent,
+                 .enterAtTheEndOfContent,
+                 .enterOnEmptyContent:
+                // In the case of frequent pressing of enter
+                // we can send multiple split requests to middle
+                // from the same block, it will leads to wrong order of blocks in array,
+                // adding a delay makes impossible to press enter very often
+                if !pressingEnterTimeChecker.exceedsTimeInterval() {
+                    return false
+                }
+            default:
+                break
             }
+            actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: block
+                ),
+                info: block.blockModel.information
+            )
+        case .changeTextStyle, .changeCaretPosition:
+            actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: block
+                ),
+                info: block.blockModel.information
+            )
+        case let .shouldChangeText(range, replacementText, mentionsHolder):
+            return !mentionsHolder.removeMentionIfNeeded(
+                replacementRange: range,
+                replacementText: replacementText
+            )
         }
+        return true
+    }
 }
 
 // MARK: - Debug

@@ -108,7 +108,7 @@ extension CodeBlockViewModel {
 // MARK: - TextViewUserInteractionProtocol
 
 extension CodeBlockViewModel: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: CustomTextView.UserAction) {
+    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
         case .showStyleMenu:
             router.showStyleMenu(information: block.blockModel.information)
@@ -120,6 +120,7 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
         case .shouldChangeText:
             break
         }
+        return true
     }
 }
 
