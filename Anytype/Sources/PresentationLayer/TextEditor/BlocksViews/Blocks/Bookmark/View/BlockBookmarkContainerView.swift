@@ -37,9 +37,9 @@ final class BlockBookmarkContainerView: UIView {
 // MARK: UIKitView / Apply
 extension BlockBookmarkContainerView {
     
-    func apply(_ value: BlockBookmarkResource) {
-        bookmarkView.handle(value)
-        handle(value)
+    func apply(state: BlockBookmarkState) {
+        bookmarkView.handle(state: state)
+        handle(state: state)
     }
     
     func updateIcon(icon: UIImage) {
@@ -87,8 +87,8 @@ private extension BlockBookmarkContainerView {
         }
     }
                     
-    func handle(_ resource: BlockBookmarkResource) {
-        switch resource.state {
+    func handle(state: BlockBookmarkState) {
+        switch state {
         case .empty:
             bookmarkView.isHidden = true
             emptyView.isHidden = false

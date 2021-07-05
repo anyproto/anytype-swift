@@ -1,108 +1,64 @@
 import UIKit
 import Combine
 
+struct BlockFileMediaData {
+    var size: String
+    var name: String
+    var typeIcon: UIImage?
+}
+
 class BlockFileMediaView: UIView {
-    struct Resource {
-        var size: String
-        var name: String
-        var typeIcon: UIImage?
-    }
-    
-    /// Publishers
-    var subscription: AnyCancellable?
-    @Published var resource: Resource? {
-        didSet {
-            self.handle(self.resource)
-        }
-    }
-    
-    var imageView: UIImageView!
-    var titleView: UILabel!
-    var sizeView: UILabel!
-    
-    /// Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
+        setup()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    /// Setup
+
     func setup() {
-        self.setupUIElements()
-        self.addLayout()
-    }
-
-    /// UI Elements
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.imageView = {
-            let view = UIImageView()
-            view.contentMode = .center
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        
-        self.titleView = {
-            let view = UILabel()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = .systemFont(ofSize: 15)
-            view.textColor = .grayscale90
-            return view
-        }()
-        
-        self.sizeView = {
-            let view = UILabel()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = .systemFont(ofSize: 13)
-            view.textColor = .lightGray
-            return view
-        }()
-        
-        self.addSubview(self.imageView)
-        self.addSubview(self.titleView)
-        self.addSubview(self.sizeView)
-    }
+        self.addSubview(imageView)
+        self.addSubview(titleView)
+        self.addSubview(sizeView)
     
-    /// Layout
-    func addLayout() {
-        let offset: CGFloat = 10
-        
-        if let view = self.imageView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: offset),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-        
-        if let view = self.titleView, let superview = view.superview, let leftView = self.imageView {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: offset),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-
-        if let view = self.sizeView, let superview = view.superview, let leftView = self.titleView {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: offset),
-                view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -offset),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
+        layoutUsing.stack {
+            $0.hStack(alignedTo: .center,
+                $0.hGap(fixed: 3),
+                imageView,
+                $0.hGap(fixed: 7),
+                titleView,
+                $0.hGap(fixed: 10),
+                sizeView,
+                $0.hGap()
+            )
         }
     }
     
-    /// Configurations
-    func handle(_ value: Resource?) {
-        self.titleView.text = value?.name
-        self.imageView.image = value?.typeIcon
-        self.sizeView.text = value?.size
+    func handleNewData(data: BlockFileMediaData) {
+        titleView.text = data.name
+        imageView.image = data.typeIcon
+        sizeView.text = data.size
     }
+    
+    let imageView: UIImageView  = {
+        let view = UIImageView()
+        view.contentMode = .center
+        return view
+    }()
+    
+    let titleView: UILabel = {
+        let view = UILabel()
+        view.font = .bodyFont
+        view.textColor = .textColor
+        return view
+    }()
+    
+    let sizeView: UILabel = {
+        let view = UILabel()
+        view.font = .captionFont
+        view.textColor = .secondaryTextColor
+        return view
+    }()
 }

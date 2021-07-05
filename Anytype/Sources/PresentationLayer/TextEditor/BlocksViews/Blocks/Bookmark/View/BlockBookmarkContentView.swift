@@ -41,7 +41,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
     
     private func onDataUpdate(bookmark: BlockBookmark) {
-        if case let .fetched(payload) = BlockBookmarkConverter.asResource(bookmark).state {
+        if case let .fetched(payload) = BlockBookmarkConverter.toState(bookmark) {
             self.imageLoader = BookmarkImageLoader(imageHash: payload.imageHash, iconHash: payload.iconHash)
         } else {
             self.imageLoader = nil
@@ -59,6 +59,6 @@ final class BlockBookmarkContentView: UIView & UIContentView {
             }
         }
         
-        containerView.apply(BlockBookmarkConverter.asResource(bookmark))
+        containerView.apply(state: BlockBookmarkConverter.toState(bookmark))
     }
 }

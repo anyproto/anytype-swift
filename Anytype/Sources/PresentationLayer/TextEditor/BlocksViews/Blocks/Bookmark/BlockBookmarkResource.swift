@@ -15,24 +15,3 @@ struct BlockBookmarkPayload {
         !imageHash.isEmpty
     }
 }
-
-class BlockBookmarkResource {
-    
-    let state: BlockBookmarkState
-    
-    required init(state: BlockBookmarkState) {
-        self.state = state
-    }
-    
-    static func empty() -> Self {
-        .init(state: .empty)
-    }
-    
-    static func onlyURL(_ payload: BlockBookmarkPayload) -> Self {
-        .init(state: .onlyURL(payload))
-    }
-    
-    static func fetched(_ payload: BlockBookmarkPayload) -> Self {
-        .init(state: .fetched(payload))
-    }
-}

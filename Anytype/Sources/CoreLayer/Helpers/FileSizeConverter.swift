@@ -1,6 +1,6 @@
 import Foundation
 
-struct BlocksViewsFileSizeConverter {
+struct FileSizeConverter {
     private static var formatter: ByteCountFormatter = {
        let formatter = ByteCountFormatter.init()
        formatter.allowedUnits = .useAll

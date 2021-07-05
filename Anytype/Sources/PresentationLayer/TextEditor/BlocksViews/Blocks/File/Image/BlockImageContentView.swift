@@ -144,6 +144,6 @@ private extension BlockImageContentView {
     }
     
     enum Constants {
-        static let emptyViewPlaceholderTitle = "Add link or Upload a picture"
+        static let emptyViewPlaceholderTitle = "Upload a picture"
     }
 }

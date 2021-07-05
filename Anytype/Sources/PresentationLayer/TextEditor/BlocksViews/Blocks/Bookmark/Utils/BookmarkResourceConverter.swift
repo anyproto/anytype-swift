@@ -1,9 +1,9 @@
 import BlocksModels
 
 enum BlockBookmarkConverter {
-    static func asResource(_ bookmark: BlockBookmark) -> BlockBookmarkResource {
+    static func toState(_ bookmark: BlockBookmark) -> BlockBookmarkState {
         if bookmark.url.isEmpty {
-            return .empty()
+            return .empty
         }
         
         if bookmark.title.isEmpty {

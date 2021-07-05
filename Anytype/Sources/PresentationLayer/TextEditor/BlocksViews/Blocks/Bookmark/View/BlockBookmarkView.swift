@@ -3,18 +3,6 @@ import UIKit
 import BlocksModels
     
 final class BlockBookmarkView: UIView {
-    /// Variables
-    private let style: Style = .presentation
-    
-    /// Publishers
-    private var subscription: AnyCancellable?
-    private var resourceStream: AnyPublisher<BlockBookmarkResource?, Never> = .empty()
-    @Published var resource: BlockBookmarkResource? {
-        didSet {
-            self.handle(self.resource)
-        }
-    }
-    
     /// Views
     private var contentView: UIView!
     private var titleView: UILabel!
@@ -74,8 +62,8 @@ final class BlockBookmarkView: UIView {
         self.titleView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = self.style.titleFont
-            view.textColor = self.style.titleColor
+            view.font = Style.titleFont
+            view.textColor = Style.titleColor
             return view
         }()
         
@@ -84,8 +72,8 @@ final class BlockBookmarkView: UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
             view.numberOfLines = 3
             view.lineBreakMode = .byWordWrapping
-            view.font = self.style.subtitleFont
-            view.textColor = self.style.subtitleColor
+            view.font = Style.subtitleFont
+            view.textColor = Style.subtitleColor
             return view
         }()
         
@@ -102,8 +90,8 @@ final class BlockBookmarkView: UIView {
         self.urlView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = self.style.urlFont
-            view.textColor = self.style.urlColor
+            view.font = Style.urlFont
+            view.textColor = Style.urlColor
             return view
         }()
         
@@ -178,12 +166,8 @@ final class BlockBookmarkView: UIView {
     }
     
     /// Configurations
-    func handle(_ value: BlockBookmarkResource?) {
-        guard let value = value else {
-            print("value is nil!")
-            return
-        }
-        switch value.state {
+    func handle(state: BlockBookmarkState) {
+        switch state {
         case let .onlyURL(payload):
             urlView.text = payload.url
             titleView.isHidden = true
@@ -211,52 +195,16 @@ final class BlockBookmarkView: UIView {
             urlStackView.isHidden = true
         }
     }
-    
-    func configured(_ stream: AnyPublisher<BlockBookmarkResource?, Never>) {
-        self.resourceStream = stream
-        self.subscription = self.resourceStream.receiveOnMain().sink(receiveValue: { [weak self] (value) in
-            print("state value: \(String(describing: value))")
-            self?.resource = value
-        })
-    }
 }
 
-// MARK: - UIView / WithBookmark / Style
 private extension BlockBookmarkView {
     enum Style {
-        case presentation
-        
-        var titleFont: UIFont {
-            switch self {
-            case .presentation: return .systemFont(ofSize: 15, weight: .semibold)
-            }
-        }
-        var subtitleFont: UIFont {
-            switch self {
-            case .presentation: return .systemFont(ofSize: 15)
-            }
-        }
-        var urlFont: UIFont {
-            switch self {
-            case .presentation: return .systemFont(ofSize: 15, weight: .light)
-            }
-        }
-                
-        var titleColor: UIColor {
-            switch self {
-            case .presentation: return .grayscale90
-            }
-        }
-        var subtitleColor: UIColor {
-            switch self {
-            case .presentation: return .gray
-            }
-        }
-        var urlColor: UIColor {
-            switch self {
-            case .presentation: return .grayscale90
-            }
-        }
+        static let titleFont = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        static let subtitleFont = UIFont.systemFont(ofSize: 15)
+        static let urlFont = UIFont.systemFont(ofSize: 15, weight: .light)
+        static let titleColor = UIColor.grayscale90
+        static let subtitleColor = UIColor.gray
+        static let urlColor = UIColor.grayscale90
     }
 }
 

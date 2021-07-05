@@ -33,12 +33,12 @@ class BlockFileView: UIView {
             fileView.isHidden = true
             emptyView.isHidden = false
         case .done:
-            let resource = BlockFileMediaView.Resource(
-                size: BlocksViewsFileSizeConverter.convert(size: Int(file.metadata.size)),
+            let data = BlockFileMediaData(
+                size: FileSizeConverter.convert(size: Int(file.metadata.size)),
                 name: file.metadata.name,
-                typeIcon: BlocksViewsFileMimeConverter.convert(mime: file.metadata.mime)
+                typeIcon: BlockFileIconBuilder.convert(mime: file.metadata.mime)
             )
-            fileView.handle(resource)
+            fileView.handleNewData(data: data)
             
             fileView.isHidden = false
             emptyView.isHidden = true
@@ -77,24 +77,17 @@ class BlockFileView: UIView {
     }
     
     private enum Layout {
-        static let emptyViewHeight: CGFloat = 52
+        static let emptyViewHeight: CGFloat = 48
         static let fileViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
     }
     
-    private let fileView: BlockFileMediaView = {
-        let view = BlockFileMediaView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.grayscale30.cgColor
-        view.layer.cornerRadius = 4
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let fileView: BlockFileMediaView = BlockFileMediaView()
     
     private let emptyView: BlocksFileEmptyView = {
         let view = BlocksFileEmptyView(
             viewData: .init(
                 image: UIImage.blockFile.empty.file,
-                placeholderText: "Add link or upload a file"
+                placeholderText: "Upload a file"
             )
         )
         view.translatesAutoresizingMaskIntoConstraints = false
