@@ -105,7 +105,6 @@
 		0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */; };
 		0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */; };
 		0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */; };
-		0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5E247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift */; };
 		0A2C0D6B247145BD008ADD86 /* TextView+HighlightedToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D61247145BD008ADD86 /* TextView+HighlightedToolbar.swift */; };
 		0A2C0D6C247145BD008ADD86 /* BlockToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D62247145BD008ADD86 /* BlockToolbar.swift */; };
 		0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CEDF024A8DB5700D1DCBC /* NotificationEventListener.swift */; };
@@ -536,9 +535,9 @@
 		EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */; };
 		EAE6BE092680D0CE00275788 /* SlashMenuItemIconData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE082680D0CE00275788 /* SlashMenuItemIconData.swift */; };
 		EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE242681FC5C00275788 /* LoginStateService.swift */; };
+		EAE8C66C2690EE2800324B46 /* FirstResponderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C66B2690EE2800324B46 /* FirstResponderHelper.swift */; };
 		EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C6A5269304B600324B46 /* URLInputView.swift */; };
 		EAE8C6A926930F8900324B46 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C6A826930F8900324B46 /* URLInputViewController.swift */; };
-		EAE8C66C2690EE2800324B46 /* FirstResponderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C66B2690EE2800324B46 /* FirstResponderHelper.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
 		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
 /* End PBXBuildFile section */
@@ -691,7 +690,6 @@
 		0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksToolbar.swift"; sourceTree = "<group>"; };
 		0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar+InputLink.swift"; sourceTree = "<group>"; };
 		0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedAccessoryView.swift"; sourceTree = "<group>"; };
-		0A2C0D5E247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksToolbar+UnderlyingActions.swift"; sourceTree = "<group>"; };
 		0A2C0D61247145BD008ADD86 /* TextView+HighlightedToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar.swift"; sourceTree = "<group>"; };
 		0A2C0D62247145BD008ADD86 /* BlockToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockToolbar.swift; sourceTree = "<group>"; };
 		0A2CEDF024A8DB5700D1DCBC /* NotificationEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventListener.swift; sourceTree = "<group>"; };
@@ -1111,9 +1109,9 @@
 		EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeParser.swift; sourceTree = "<group>"; };
 		EAE6BE082680D0CE00275788 /* SlashMenuItemIconData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItemIconData.swift; sourceTree = "<group>"; };
 		EAE6BE242681FC5C00275788 /* LoginStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateService.swift; sourceTree = "<group>"; };
+		EAE8C66B2690EE2800324B46 /* FirstResponderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderHelper.swift; sourceTree = "<group>"; };
 		EAE8C6A5269304B600324B46 /* URLInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputView.swift; sourceTree = "<group>"; };
 		EAE8C6A826930F8900324B46 /* URLInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
-		EAE8C66B2690EE2800324B46 /* FirstResponderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderHelper.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3029,7 +3027,6 @@
 				EA289B9E2629B24C00EA869F /* BlockActions */,
 				0A2C0D62247145BD008ADD86 /* BlockToolbar.swift */,
 				0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */,
-				0A2C0D5E247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift */,
 				0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */,
 				0A2C0D61247145BD008ADD86 /* TextView+HighlightedToolbar.swift */,
 				0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */,
@@ -3943,7 +3940,6 @@
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
-				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
