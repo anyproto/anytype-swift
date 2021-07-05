@@ -2,10 +2,6 @@ import UIKit
 
 final class ActivityIndicatorView: UIView {
     
-    // MARK: - Private variables
-    
-    private let imageView = UIImageView()
-    
     private let activityIndicatorView = UIActivityIndicatorView()
     
     // MARK: - Initializers
@@ -28,16 +24,13 @@ final class ActivityIndicatorView: UIView {
 
 extension ActivityIndicatorView {
     
-    func show(with image: UIImage? = nil) {
-        imageView.image = image
+    func show() {
         activityIndicatorView.startAnimating()
-        
         isHidden = false
     }
     
     func hide() {
         activityIndicatorView.stopAnimating()
-        
         isHidden = true
     }
     
@@ -48,15 +41,9 @@ extension ActivityIndicatorView {
 private extension ActivityIndicatorView {
     
     func setupView() {
-        setupImageView()
         setupActivityIndicatorView()
         
         setupLayout()
-    }
-    
-    func setupImageView() {
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
     }
     
     func setupActivityIndicatorView() {
@@ -65,10 +52,6 @@ private extension ActivityIndicatorView {
     }
     
     func setupLayout() {
-        addSubview(imageView) {
-            $0.pinToSuperview()
-        }
-        
         addSubview(activityIndicatorView) {
             $0.pinToSuperview()
         }

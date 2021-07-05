@@ -2024,7 +2024,6 @@
 			children = (
 				12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */,
 				12D8FFB6268CCA06008F765B /* DocumentDetailsViewModel.swift */,
-				1211D6582667CEC100541D9C /* ActivityIndicatorView */,
 				12B69C8E265D15FF00D047E3 /* Cover */,
 				124C1626264D35BF003C411C /* Icon */,
 			);
@@ -2343,6 +2342,7 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				1211D6582667CEC100541D9C /* ActivityIndicatorView */,
 				EA6B19FE2684FFEC00CD151D /* PresentationViewControllers */,
 				12C6342C26600A9300E1DF6F /* GestureRecognizer */,
 				1280E205265C17CC00E5AEEE /* Utils */,
