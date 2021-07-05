@@ -1,31 +1,27 @@
 import BlocksModels
 
 enum BlockBookmarkConverter {
-    static func asResource(_ value: BlockBookmark) -> BlockBookmarkResource {
-        if value.url.isEmpty {
+    static func asResource(_ bookmark: BlockBookmark) -> BlockBookmarkResource {
+        if bookmark.url.isEmpty {
             return .empty()
         }
         
-        if value.title.isEmpty {
-            return .onlyURL(
-                .init(
-                    url: value.url,
-                    title: value.title,
-                    subtitle: value.theDescription,
-                    imageHash: value.imageHash,
-                    iconHash: value.faviconHash
-                )
-            )
+        if bookmark.title.isEmpty {
+            return .onlyURL(bookmark.payload)
         }
         
-        return .fetched(
-            .init(
-                url: value.url,
-                title: value.title,
-                subtitle: value.theDescription,
-                imageHash: value.imageHash,
-                iconHash: value.faviconHash
-            )
+        return .fetched(bookmark.payload)
+    }
+}
+
+extension BlockBookmark {
+    var payload: BlockBookmarkPayload {
+        return BlockBookmarkPayload(
+            url: url,
+            title: title,
+            subtitle: theDescription,
+            imageHash: imageHash,
+            iconHash: faviconHash
         )
     }
 }

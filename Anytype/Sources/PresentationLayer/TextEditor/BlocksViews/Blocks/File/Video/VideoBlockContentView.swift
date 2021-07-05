@@ -20,7 +20,7 @@ final class VideoBlockContentView: UIView, UIContentView {
         }
         set {
             guard let configuration = newValue as? VideoBlockConfiguration else { return }
-            self.apply(configuration: configuration)
+            apply(configuration: configuration)
         }
     }
     private var currentConfiguration: VideoBlockConfiguration

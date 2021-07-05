@@ -4,22 +4,21 @@ import BlocksModels
 
     
 final class BlockBookmarkContentView: UIView & UIContentView {
+    private let containerView = BlockBookmarkContainerView()
     
-    private enum Constants {
-        static let topViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
-    }
-    
-    private let topView = BlockBookmarkContainerView()
     private var imageSubscription: AnyCancellable?
     private var iconSubscription: AnyCancellable?
+    
     private var currentConfiguration: BlockBookmarkConfiguration
+    private var imageLoader: BookmarkImageLoader?
     var configuration: UIContentConfiguration {
-        get { self.currentConfiguration }
+        get { currentConfiguration }
         set {
             guard let configuration = newValue as? BlockBookmarkConfiguration,
                   configuration != currentConfiguration else { return }
+            
             currentConfiguration = configuration
-            handle(currentConfiguration.bookmarkData)
+            onDataUpdate(bookmark: currentConfiguration.bookmarkData)
         }
     }
     
@@ -27,7 +26,8 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         setup()
-        handle(currentConfiguration.bookmarkData)
+        
+        onDataUpdate(bookmark: currentConfiguration.bookmarkData)
     }
 
     required init?(coder: NSCoder) {
@@ -35,32 +35,30 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
             
     private func setup() {
-        topView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(topView)
-        topView.pinAllEdges(to: self, insets: Constants.topViewInsets)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerView)
+        containerView.pinAllEdges(to: self, insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
     }
     
-    private func handle(_ value: BlockBookmarkResource?) {
-        value?.imageLoader = currentConfiguration.imageLoader
-        self.topView.apply(value)
-    }
-    
-    private func handle(_ value: BlockBookmark) {
-        if self.iconSubscription.isNil {
-            let item = currentConfiguration.imageLoader.iconProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
-                self?.handle(value)
-            })
-            self.iconSubscription = item
-        }
-
-        if self.imageSubscription.isNil {
-            let item = currentConfiguration.imageLoader.imageProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
-                self?.handle(value)
-            })
-            self.imageSubscription = item
+    private func onDataUpdate(bookmark: BlockBookmark) {
+        if case let .fetched(payload) = BlockBookmarkConverter.asResource(bookmark).state {
+            self.imageLoader = BookmarkImageLoader(imageHash: payload.imageHash, iconHash: payload.iconHash)
+        } else {
+            self.imageLoader = nil
         }
         
-        let model = BlockBookmarkConverter.asResource(value)
-        self.handle(model)
+        iconSubscription = imageLoader?.iconProperty?.stream.receiveOnMain().sink { [weak self] icon in
+            icon.flatMap {
+                self?.containerView.updateIcon(icon: $0)
+            }
+        }
+
+        imageSubscription = imageLoader?.imageProperty?.stream.receiveOnMain().sink { [weak self] image in
+            image.flatMap {
+                self?.containerView.updateImage(image: $0)
+            }
+        }
+        
+        containerView.apply(BlockBookmarkConverter.asResource(bookmark))
     }
 }

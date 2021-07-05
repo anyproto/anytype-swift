@@ -169,40 +169,46 @@ final class BlockBookmarkView: UIView {
         }
     }
     
+    func updateIcon(icon: UIImage) {
+        iconView.image = icon
+    }
+    
+    func updateImage(image: UIImage) {
+        imageView.image = image
+    }
+    
     /// Configurations
-    private func handle(_ value: BlockBookmarkResource?) {
+    func handle(_ value: BlockBookmarkResource?) {
         guard let value = value else {
             print("value is nil!")
             return
         }
         switch value.state {
         case let .onlyURL(payload):
-            self.urlView.text = payload.url
-            self.titleView.isHidden = true
-            self.descriptionView.isHidden = true
-            self.urlView.isHidden = false
-            self.iconView.isHidden = true
-            self.urlStackView.isHidden = false
+            urlView.text = payload.url
+            titleView.isHidden = true
+            descriptionView.isHidden = true
+            urlView.isHidden = false
+            iconView.isHidden = true
+            urlStackView.isHidden = false
         case let .fetched(payload):
-            self.titleView.text = payload.title
-            self.descriptionView.text = payload.subtitle
-            self.urlView.text = payload.url
-            self.iconView.image = value.imageLoader?.iconProperty?.property
-            self.imageView.image = value.imageLoader?.imageProperty?.property
-            if payload.hasImage() {
-                self.addLayoutForImageView()
+            titleView.text = payload.title
+            descriptionView.text = payload.subtitle
+            urlView.text = payload.url
+            if payload.hasImage {
+                addLayoutForImageView()   
             }
-            self.titleView.isHidden = false
-            self.descriptionView.isHidden = false
-            self.urlView.isHidden = false
-            self.iconView.isHidden = self.iconView.image == nil
-            self.urlStackView.isHidden = false
+            titleView.isHidden = false
+            descriptionView.isHidden = false
+            urlView.isHidden = false
+            iconView.isHidden = self.iconView.image == nil
+            urlStackView.isHidden = false
         default:
-            self.titleView.isHidden = true
-            self.descriptionView.isHidden = true
-            self.urlView.isHidden = true
-            self.iconView.isHidden = true
-            self.urlStackView.isHidden = true
+            titleView.isHidden = true
+            descriptionView.isHidden = true
+            urlView.isHidden = true
+            iconView.isHidden = true
+            urlStackView.isHidden = true
         }
     }
     
@@ -213,15 +219,6 @@ final class BlockBookmarkView: UIView {
             self?.resource = value
         })
     }
-}
-
-// MARK: - UIKitViewWithBookmark / Apply
-extension BlockBookmarkView {
-    
-    func apply(_ value: BlockBookmarkResource?) {
-        self.handle(value)
-    }
-    
 }
 
 // MARK: - UIView / WithBookmark / Style

@@ -14,25 +14,29 @@ final class BlockImageContentView: UIView & UIContentView {
         )
     )
     
-    private var onLayoutSubviewsSubscription: AnyCancellable?
-    
-    private var currentConfiguration: BlockImageConfiguration!
+    private var currentConfiguration: BlockImageConfiguration
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
-            guard let configuration = newValue as? BlockImageConfiguration, currentConfiguration != configuration else {
+            guard let configuration = newValue as? BlockImageConfiguration,
+                  currentConfiguration != configuration else {
                 return
             }
-            apply(configuration: configuration)
+            
+            let oldConfiguration = currentConfiguration
+            currentConfiguration = configuration
+            
+            handleFile(currentConfiguration.fileData, oldConfiguration.fileData)
         }
     }
 
     init(configuration: BlockImageConfiguration) {
+        currentConfiguration = configuration
         super.init(frame: .zero)
         
+        
         setupUIElements()
-        configuration.imageLoader.configured(imageView)
-        apply(configuration: configuration)
+        handleFile(currentConfiguration.fileData, nil)
     }
     
     @available(*, unavailable)
@@ -53,15 +57,6 @@ final class BlockImageContentView: UIView & UIContentView {
         addSubview(imageView)
     }
     
-    private func apply(configuration: BlockImageConfiguration) {
-        guard currentConfiguration != configuration else { return }
-        let oldConfiguration = currentConfiguration
-        currentConfiguration = configuration
-        
-        configuration.imageLoader.cleanupSubscription()
-        handleFile(currentConfiguration.fileData, oldConfiguration?.fileData)
-    }
-    
     /// MARK: - EditorModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
     private func refreshImage() {
         handleFile(currentConfiguration.fileData, .none)
@@ -71,38 +66,27 @@ final class BlockImageContentView: UIView & UIContentView {
 
         switch file.state {
         case .empty:
-            self.imageView.removeFromSuperview()
-            self.addSubview(emptyView)
-            self.addEmptyViewLayout()
-            self.emptyView.change(state: .empty)
+            addEmptyViewLayout()
+            emptyView.change(state: .empty)
         case .uploading:
-            self.imageView.removeFromSuperview()
-            self.addSubview(emptyView)
-            self.addEmptyViewLayout()
-            self.emptyView.change(state: .uploading)
-        case .done:
-            self.emptyView.removeFromSuperview()
-            self.addSubview(self.imageView)
-            self.addImageViewLayout()
-            self.setupImage(file, oldFile)
+            addEmptyViewLayout()
+            emptyView.change(state: .uploading)
         case .error:
-            self.imageView.removeFromSuperview()
-            self.addSubview(self.emptyView)
-            self.addEmptyViewLayout()
-            self.emptyView.change(state: .error)
-        }
-        switch file.state {
-        case .empty, .error, .uploading:
-            self.emptyView.isHidden = false
-            self.imageView.isHidden = true
+            addEmptyViewLayout()
+            emptyView.change(state: .error)
+            
         case .done:
-            self.emptyView.isHidden = true
-            self.imageView.isHidden = false
+            addImageViewLayout()
+            setupImage(file, oldFile)
         }
-        self.invalidateIntrinsicContentSize()
+        
+        invalidateIntrinsicContentSize()
     }
     
     private func addImageViewLayout() {
+        emptyView.removeFromSuperview()
+        addSubview(imageView)
+    
         imageContentViewHeight = imageView.heightAnchor.constraint(equalToConstant: Layout.imageContentViewDefaultHeight)
         // We need priotity here cause cell self size constraint will conflict with ours
         //                imageContentViewHeight?.priority = .init(750)
@@ -111,6 +95,9 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     private func addEmptyViewLayout() {
+        imageView.removeFromSuperview()
+        addSubview(emptyView)
+        
         let view = self.emptyView
         if let superview = view.superview {
             let heightAnchor = view.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
@@ -140,6 +127,9 @@ final class BlockImageContentView: UIView & UIContentView {
         guard imageId != oldFile?.metadata.hash else { return }
         // We could put image into viewModel.
         // In this case we would only check
+        
+        currentConfiguration.imageLoader.cleanupSubscription()
+        currentConfiguration.imageLoader.configured(imageView)
         currentConfiguration.imageLoader.update(imageId: imageId)
     }
 }

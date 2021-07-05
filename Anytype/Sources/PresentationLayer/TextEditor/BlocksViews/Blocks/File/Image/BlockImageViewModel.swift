@@ -43,7 +43,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration() -> UIContentConfiguration {
-        BlockImageConfiguration(fileData, imageLoader: imageLoader)
+        BlockImageConfiguration(fileData)
     }
     
     func makeContextualMenu() -> ContextualMenu {
@@ -55,9 +55,10 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         case .replace:
             showIconPicker(blockId)
         case .download:
-            guard let image = imageLoader.image else {
+            guard let image = ImageProperty(imageId: fileData.metadata.hash).property else {
                 return
             }
+            
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         default:
             contextualMenuHandler.handle(action: action, info: information)

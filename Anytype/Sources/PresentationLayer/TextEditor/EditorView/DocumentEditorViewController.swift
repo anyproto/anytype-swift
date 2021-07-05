@@ -96,9 +96,11 @@ extension DocumentEditorViewController {
         }
     }
         
-    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>,
-                       animatingDifferences: Bool = true,
-                       completion: (() -> Void)? = nil) {
+    private func apply(
+        _ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>,
+        animatingDifferences: Bool = true,
+        completion: (() -> Void)? = nil
+    ) {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         UIView.performWithoutAnimation {
@@ -186,7 +188,11 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         let sectionSnapshot = dataSource.snapshot(for: viewModel.detailsViewModel.makeDocumentSection())
         
         sectionSnapshot.visibleItems.forEach { item in
-            let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
+            guard ids.contains(item.id) else {
+                return
+            }
+            
+            let viewModel = viewModel.modelsHolder.models.first { viewModel in
                 viewModel.blockId == item.id
             }
             viewModel?.updateView()

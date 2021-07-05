@@ -3,90 +3,64 @@ import UIKit
 import BlocksModels
     
 final class BlockBookmarkContainerView: UIView {
-
-    private var emptyView: BlocksFileEmptyView!
-    private var bookmarkView: BlockBookmarkView!
-            
-    private var subscription: AnyCancellable?
-    
-    // MARK: - Initializers
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
+        setup()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Internal functions
+    private let emptyView: BlocksFileEmptyView = {
+        let view = BlocksFileEmptyView(
+            viewData: .init(
+                image: UIImage.blockFile.empty.bookmark,
+                placeholderText: Constants.Resource.emptyViewPlaceholderTitle
+            )
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    func configured(publisher: AnyPublisher<BlockBookmarkResource?, Never>) -> Self {
-        subscription = publisher
-            .receiveOnMain()
-            .safelyUnwrapOptionals()
-            .sink { [weak self] value in
-                self?.handle(value)
-            }
-        
-        let resourcePublisher = publisher
-            .receiveOnMain()
-            .eraseToAnyPublisher()
-        bookmarkView.configured(resourcePublisher)
-        
-        return self
-    }
+    private let bookmarkView: BlockBookmarkView = {
+        let view = BlockBookmarkView()
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.grayscale30.cgColor
+        view.layer.cornerRadius = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 }
 
 // MARK: UIKitView / Apply
 extension BlockBookmarkContainerView {
     
-    func apply(_ value: BlockBookmarkResource?) {
-        guard let value = value else { return }
-        
-        self.bookmarkView.apply(value)
-        self.handle(value)
+    func apply(_ value: BlockBookmarkResource) {
+        bookmarkView.handle(value)
+        handle(value)
     }
     
-    func apply(_ value: BlockBookmark) {
-        let model = BlockBookmarkConverter.asResource(value)
-        self.apply(model)
+    func updateIcon(icon: UIImage) {
+        bookmarkView.updateIcon(icon: icon)
     }
     
+    func updateImage(image: UIImage) {
+        bookmarkView.updateImage(image: image)
+    }
 }
 
 private extension BlockBookmarkContainerView {
     
     func setup() {
         setupUIElements()
+        addBookmarkViewLayout()
         addEmptyViewLayout()
     }
     
     func setupUIElements() {
-        // Default behavior
         self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.bookmarkView = {
-            let view = BlockBookmarkView()
-            view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor.grayscale30.cgColor
-            view.layer.cornerRadius = 4
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        
-        self.emptyView = {
-            let view = BlocksFileEmptyView(
-                viewData: .init(
-                    image: UIImage.blockFile.empty.bookmark,
-                    placeholderText: Constants.Resource.emptyViewPlaceholderTitle
-                )
-            )
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
         
         addSubview(bookmarkView)
         addSubview(emptyView)
@@ -116,38 +90,25 @@ private extension BlockBookmarkContainerView {
     func handle(_ resource: BlockBookmarkResource) {
         switch resource.state {
         case .empty:
-            self.addSubview(self.emptyView)
-            self.addEmptyViewLayout()
-            self.bookmarkView.isHidden = true
-            self.emptyView.isHidden = false
+            bookmarkView.isHidden = true
+            emptyView.isHidden = false
         default:
-            self.emptyView.removeFromSuperview()
-            self.addBookmarkViewLayout()
-            self.bookmarkView.isHidden = false
-            self.emptyView.isHidden = true
+            bookmarkView.isHidden = false
+            emptyView.isHidden = true
         }
     }
 
 }
 
-// MARK: - Private extension
-
 private extension BlockBookmarkContainerView {
-    
     enum Constants {
         enum Layout {
             static let emptyViewHeight: CGFloat = 52
-            static let bookmarkViewInsets = UIEdgeInsets(
-                top: 10,
-                left: 0,
-                bottom: -10,
-                right: 0
-            )
+            static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
         }
         
         enum Resource {
             static let emptyViewPlaceholderTitle = "Add a web bookmark"
         }
     }
-    
 }

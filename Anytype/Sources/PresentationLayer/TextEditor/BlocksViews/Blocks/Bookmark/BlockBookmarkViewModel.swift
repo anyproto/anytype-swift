@@ -16,34 +16,15 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let indentationLevel: Int
     
     let information: BlockInformation
+    let bookmarkData: BlockBookmark
     
-    private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let imageLoader = BookmarkImageLoader()
-    private let bookmarkData: BlockBookmark
+    let contextualMenuHandler: DefaultContextualMenuHandler
     
-    private let showBookmarkBar: (BlockInformation) -> ()
-    private let openUrl: (URL) -> ()
-    
-    init(
-        indentationLevel: Int,
-        information: BlockInformation,
-        bookmarkData: BlockBookmark,
-        contextualMenuHandler: DefaultContextualMenuHandler,
-        showBookmarkBar: @escaping (BlockInformation) -> (),
-        openUrl: @escaping (URL) -> ()
-    ) {
-        self.indentationLevel = indentationLevel
-        self.information = information
-        self.bookmarkData = bookmarkData
-        self.contextualMenuHandler = contextualMenuHandler
-        self.showBookmarkBar = showBookmarkBar
-        self.openUrl = openUrl
-        
-        setup(BlockBookmarkConverter.asResource(bookmarkData))
-    }
+    let showBookmarkBar: (BlockInformation) -> ()
+    let openUrl: (URL) -> ()
     
     func makeContentConfiguration() -> UIContentConfiguration {
-        BlockBookmarkConfiguration(bookmarkData: bookmarkData, imageLoader: imageLoader)
+        BlockBookmarkConfiguration(bookmarkData: bookmarkData)
     }
     
     func didSelectRowInTableView() {
@@ -71,18 +52,4 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     }
     
     func updateView() { }
-    
-    private func setup(_ resource: BlockBookmarkResource) {
-        guard case let .fetched(payload) = resource.state else {
-            return
-        }
-        
-        payload.imageHash.flatMap {
-            imageLoader.subscribeImage($0)
-        }
-        
-        payload.iconHash.flatMap {
-            imageLoader.subscribeIcon($0)
-        }
-    }
 }

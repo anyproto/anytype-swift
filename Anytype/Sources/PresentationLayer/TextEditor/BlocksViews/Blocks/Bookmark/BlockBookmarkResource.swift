@@ -1,41 +1,38 @@
+enum BlockBookmarkState {
+    case empty
+    case onlyURL(BlockBookmarkPayload)
+    case fetched(BlockBookmarkPayload)
+}
+
+struct BlockBookmarkPayload {
+    let url: String
+    let title: String
+    let subtitle: String
+    let imageHash: String
+    let iconHash: String
+    
+    var hasImage: Bool {
+        !imageHash.isEmpty
+    }
+}
+
 class BlockBookmarkResource {
     
-    let state: State
-    var imageLoader: BookmarkImageLoader?
+    let state: BlockBookmarkState
     
-    required init(state: State) {
+    required init(state: BlockBookmarkState) {
         self.state = state
     }
     
-    enum State {
-        case empty
-        case onlyURL(Payload)
-        case fetched(Payload)
-    }
-    
-    struct Payload {
-        let url: String?
-        let title: String?
-        let subtitle: String?
-        let imageHash: String?
-        let iconHash: String?
-        
-        func hasImage() -> Bool { !imageHash.isNil }
-    }
-    
-            
-    /// We could store images here, for example.
-    /// Or we could update images directly.
-    /// Or we could store images properties as @Published here.
     static func empty() -> Self {
         .init(state: .empty)
     }
     
-    static func onlyURL(_ payload: Payload) -> Self {
+    static func onlyURL(_ payload: BlockBookmarkPayload) -> Self {
         .init(state: .onlyURL(payload))
     }
     
-    static func fetched(_ payload: Payload) -> Self {
+    static func fetched(_ payload: BlockBookmarkPayload) -> Self {
         .init(state: .fetched(payload))
     }
 }

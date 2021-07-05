@@ -11,11 +11,10 @@ struct BlockImageConfiguration: UIContentConfiguration, Hashable {
     }
     
     let fileData: BlockFile
-    let imageLoader: ImageLoader
+    let imageLoader = ImageLoader()
 
-    init(_ fileData: BlockFile, imageLoader: ImageLoader) {
+    init(_ fileData: BlockFile) {
         self.fileData = fileData
-        self.imageLoader = imageLoader
     }
             
     func makeContentView() -> UIView & UIContentView {

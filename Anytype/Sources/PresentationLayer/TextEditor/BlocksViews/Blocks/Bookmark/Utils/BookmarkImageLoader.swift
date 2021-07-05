@@ -1,17 +1,18 @@
-class BookmarkImageLoader {
-    /// I want to subscribe on current value subject, lol.
-    var imageProperty: ImageProperty?
-    var iconProperty: ImageProperty?
+final class BookmarkImageLoader {
+    let imageProperty: ImageProperty?
+    let iconProperty: ImageProperty?
 
-    func subscribeImage(_ imageHash: String) {
-        guard !imageHash.isEmpty else { return }
+    init(imageHash: String?, iconHash: String?) {
+        if let imageHash = imageHash, !imageHash.isEmpty {
+            imageProperty = ImageProperty(imageId: imageHash, .init(width: .default))
+        } else {
+            imageProperty = nil
+        }
         
-        imageProperty = ImageProperty(imageId: imageHash, .init(width: .default))
-    }
-
-    func subscribeIcon(_ iconHash: String) {
-        guard !iconHash.isEmpty else { return }
-        
-        iconProperty = ImageProperty(imageId: iconHash, .init(width: .thumbnail))
+        if let iconHash = iconHash, !iconHash.isEmpty {
+            iconProperty = ImageProperty(imageId: iconHash, .init(width: .thumbnail))
+        } else {
+            iconProperty = nil
+        }
     }
 }
