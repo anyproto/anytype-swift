@@ -227,9 +227,16 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 // we can send multiple split requests to middle
                 // from the same block, it will leads to wrong order of blocks in array,
                 // adding a delay makes impossible to press enter very often
-                if !pressingEnterTimeChecker.exceedsTimeInterval() {
-                    return false
+                if pressingEnterTimeChecker.exceedsTimeInterval() {
+                    actionHandler.handleAction(
+                        .textView(
+                            action: action,
+                            activeRecord: block
+                        ),
+                        info: block.blockModel.information
+                    )
                 }
+                return false
             default:
                 break
             }
