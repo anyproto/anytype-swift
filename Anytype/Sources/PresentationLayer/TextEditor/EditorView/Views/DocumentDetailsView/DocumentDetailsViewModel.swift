@@ -33,32 +33,13 @@ final class DocumentDetailsViewModel {
     func performUpdateUsingDetails(_ detailsData: DetailsData) {
         layout = detailsData.layout ?? .basic
         
-        coverViewState = {
-            guard let cover = detailsData.documentCover else {
-                return DocumentCoverViewState.empty
-            }
-            
-            return DocumentCoverViewState.cover(cover)
-        }()
+        coverViewState = detailsData.documentCover.flatMap {
+            DocumentCoverViewState.cover($0)
+        } ?? DocumentCoverViewState.empty
         
-        iconViewState = {
-            switch layout {
-            case .basic:
-                guard let icon = detailsData.documentIcon else {
-                    return DocumentIconViewState.empty
-                }
-                
-                return DocumentIconViewState.icon(icon, layout)
-            case .profile:
-                guard case .imageId(let imageId) = detailsData.documentIcon else {
-                    return detailsData.name?.first
-                        .flatMap { DocumentIconViewState.placeholder($0, layout) }
-                        ?? DocumentIconViewState.placeholder("T", layout)
-                }
-                
-                return DocumentIconViewState.icon(.imageId(imageId), layout)
-            }
-        }()
+        iconViewState = detailsData.icon.flatMap {
+            DocumentIconViewState.icon($0)
+        } ?? DocumentIconViewState.empty
         
         onUpdate()
     }
@@ -103,7 +84,15 @@ private extension DocumentDetailsViewModel {
         .sink { [weak self] image in
             guard let self = self else { return }
             
-            self.iconViewState = .preview(image, self.layout)
+            self.iconViewState = {
+                switch self.layout {
+                case .basic:
+                    return .preview(.basic(image))
+                case .profile:
+                    return .preview(.profile(image))
+                }
+            }()
+            
             self.onUpdate()
         }
         .store(in: &subscriptions)

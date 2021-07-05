@@ -40,39 +40,45 @@ extension DocumentIconView: ConfigurableView {
 
     func configure(model: DocumentIconViewState) {
         switch model {
-        case let .icon(icon, layout):
-            configureIconState(icon, layout)
-        case let .preview(image, layout):
-            configurePreviewState(image, layout)
-        case let .placeholder(character, layout):
-            showImageView(
-                DocumentIconImageView.Model(
-                    content: .placeholder(character),
-                    isProfileLayout: layout.isProfile
-                )
-            )
+        case let .icon(icon):
+            configureIconState(icon)
+        case let .preview(preview):
+            configurePreviewState(preview)
         case .empty:
             configureEmptyState()
         }
     }
     
-    private func configureIconState(_ icon: DocumentIcon, _ layout: DetailsLayout) {
+    private func configureIconState(_ icon: DocumentIconType) {
+        activityIndicatorView.hide()
+
         switch icon {
-        case let .emoji(iconEmoji):
-            showEmojiView(iconEmoji)
+        case let .basic(basic):
+            configureBasicIcon(basic)
+        case let .profile(profile):
+            configureProfileIcon(profile)
+        }
+    }
+    
+    private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
+        switch basicIcon {
+        case let .emoji(emoji):
+            showEmojiView(emoji)
         case let .imageId(imageId):
-            showImageView(
-                DocumentIconImageView.Model(
-                    content: .imageId(imageId),
-                    isProfileLayout: layout.isProfile
-                )
-            )
+            showImageView(.basic(.imageId(imageId)))
+        }
+    }
+    
+    private func configureProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+        switch profileIcon {
+        case let .imageId(imageId):
+            showImageView(.profile(.imageId(imageId)))
+        case let .placeholder(character):
+            showImageView(.profile(.placeholder(character)))
         }
     }
     
     private func showEmojiView(_ emoji: IconEmoji) {
-        activityIndicatorView.hide()
-        
         iconEmojiView.configure(model: emoji.value)
         
         heightConstraint.constant = iconEmojiView.height
@@ -86,8 +92,6 @@ extension DocumentIconView: ConfigurableView {
     }
     
     private func showImageView(_ model: DocumentIconImageView.Model) {
-        activityIndicatorView.hide()
-        
         iconImageView.configure(model: model)
         
         heightConstraint.constant = iconImageView.height
@@ -100,13 +104,13 @@ extension DocumentIconView: ConfigurableView {
         iconImageView.isHidden = false
     }
     
-    private func configurePreviewState(_ image: UIImage?, _ layout: DetailsLayout) {
-        showImageView(
-            DocumentIconImageView.Model(
-                content: .image(image),
-                isProfileLayout: layout.isProfile
-            )
-        )
+    private func configurePreviewState(_ preview: DocumentIconViewPreviewType) {
+        switch preview {
+        case let .basic(image):
+            showImageView(.basic(.preview(image)))
+        case let .profile(image):
+            showImageView(.profile(.preview(image)))
+        }
         
         let animation = CATransition()
         animation.type = .fade;
@@ -117,11 +121,13 @@ extension DocumentIconView: ConfigurableView {
     }
     
     private func configureEmptyState() {
+        activityIndicatorView.hide()
+        
         heightConstraint.constant = 0
+        
         borderConstraintY.constant = 0
         borderConstraintX.constant = 0
         
-        activityIndicatorView.hide()
         iconEmojiView.isHidden = true
         iconImageView.isHidden = true
     }

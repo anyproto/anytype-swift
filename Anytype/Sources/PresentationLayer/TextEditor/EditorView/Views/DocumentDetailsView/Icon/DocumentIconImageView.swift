@@ -42,24 +42,37 @@ final class DocumentIconImageView: UIView {
 
 extension DocumentIconImageView: ConfigurableView {
     
-    struct Model {
-        let content: Content
-        let isProfileLayout: Bool
+    enum BasicIconModel {
+        case imageId(String)
+        case preview(UIImage?)
     }
     
-    enum Content {
-        case image(UIImage?)
+    enum ProfileIconModel {
         case imageId(String)
         case placeholder(Character)
+        case preview(UIImage?)
+    }
+    
+    enum Model {
+        case basic(BasicIconModel)
+        case profile(ProfileIconModel)
     }
     
     func configure(model: Model) {
         imageLoader.cleanupSubscription()
         
-        switch model.content {
-        case let .image(image):
-            imageView.image = image
-            
+        switch model {
+        case let .basic(basicIcon):
+            configureBasicIcon(basicIcon)
+        case let .profile(profileIcon):
+            configureProfileIcon(profileIcon)
+        }
+    }
+    
+    private func configureBasicIcon(_ basicIcon: BasicIconModel) {
+        layer.cornerRadius = Constants.basicCornerRadius
+        
+        switch basicIcon {
         case let .imageId(imageId):
             imageLoader.update(
                 imageId: imageId,
@@ -67,33 +80,46 @@ extension DocumentIconImageView: ConfigurableView {
                 placeholder: PlaceholderImageBuilder.placeholder(
                     with: ImageGuideline(
                         size: Constants.size,
-                        cornerRadius: cornerRadius(isProfileLayout: model.isProfileLayout),
+                        cornerRadius: Constants.basicCornerRadius,
                         backgroundColor: UIColor.grayscaleWhite
                     ),
                     color: UIColor.grayscale10
                 )
             )
-            
+        case let .preview(image):
+            imageView.image = image
+        }
+    }
+    
+    private func configureProfileIcon(_ profileIcon: ProfileIconModel) {
+        layer.cornerRadius = Constants.profileCornerRadius
+        
+        switch profileIcon {
+        case let .imageId(imageId):
+            imageLoader.update(
+                imageId: imageId,
+                parameters: ImageParameters(width: .thumbnail),
+                placeholder: PlaceholderImageBuilder.placeholder(
+                    with: ImageGuideline(
+                        size: Constants.size,
+                        cornerRadius: Constants.profileCornerRadius,
+                        backgroundColor: UIColor.grayscaleWhite
+                    ),
+                    color: UIColor.grayscale10
+                )
+            )
         case let .placeholder(character):
             imageView.image = PlaceholderImageBuilder.placeholder(
                 with: ImageGuideline(
                     size: Constants.size,
-                    cornerRadius: cornerRadius(isProfileLayout: model.isProfileLayout),
+                    cornerRadius: Constants.profileCornerRadius,
                     backgroundColor: UIColor.grayscaleWhite
                 ),
                 color: UIColor.grayscale10,
                 textGuideline: PlaceholderImageTextGuideline(text: String(character))
             )
-        }
-        
-        layer.cornerRadius = cornerRadius(isProfileLayout: model.isProfileLayout)
-    }
-    
-    func cornerRadius(isProfileLayout: Bool) -> CGFloat {
-        if isProfileLayout {
-            return Constants.profileCornerRadius
-        } else {
-            return Constants.basicCornerRadius
+        case let .preview(image):
+            imageView.image = image
         }
     }
     

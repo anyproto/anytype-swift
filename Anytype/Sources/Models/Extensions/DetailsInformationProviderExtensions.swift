@@ -3,6 +3,43 @@ import UIKit.UIColor
 
 extension DetailsEntryValueProvider {
     
+    // MARK: - Icon
+    
+    var icon: DocumentIconType? {
+        guard let layout = self.layout else {
+            return basicIcon.flatMap { DocumentIconType.basic($0) }
+        }
+        
+        switch layout {
+        case .basic:
+            return basicIcon.flatMap { DocumentIconType.basic($0) }
+        case .profile:
+            return profileIcon.flatMap { DocumentIconType.profile($0) }
+        }
+    }
+    
+    private var basicIcon: DocumentIconType.Basic? {
+        if let iconImageId = self.iconImage, !iconImageId.isEmpty {
+            return DocumentIconType.Basic.imageId(iconImageId)
+        }
+        
+        if let iconEmoji = IconEmoji(self.iconEmoji) {
+            return DocumentIconType.Basic.emoji(iconEmoji)
+        }
+        
+        return nil
+    }
+    
+    private var profileIcon: DocumentIconType.Profile? {
+        if let iconImageId = self.iconImage, !iconImageId.isEmpty {
+            return DocumentIconType.Profile.imageId(iconImageId)
+        }
+        
+        return self.name?.first.flatMap {
+            DocumentIconType.Profile.placeholder($0)
+        }
+    }
+    
     var documentIcon: DocumentIcon? {
         if let iconImageId = self.iconImage, !iconImageId.isEmpty {
             return DocumentIcon.imageId(iconImageId)
@@ -14,6 +51,8 @@ extension DetailsEntryValueProvider {
         
         return nil
     }
+    
+    // MARK: - Cover
     
     var documentCover: DocumentCover? {
         guard
