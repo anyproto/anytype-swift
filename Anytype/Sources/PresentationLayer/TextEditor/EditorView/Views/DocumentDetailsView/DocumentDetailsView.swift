@@ -48,6 +48,17 @@ extension DocumentDetailsView: ConfigurableView {
     func configure(model: DocumentSection) {
         coverView.configure(model: model.coverViewState)
         iconView.configure(model: model.iconViewState)
+        
+        addSubview(iconView) {
+            switch model.layout {
+            case .basic:
+                $0.leading.equal(to: leadingAnchor, constant: Constants.iconEdgeInsets.leading)
+            case .profile:
+                $0.centerX.equal(to: centerXAnchor)
+            }
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.iconEdgeInsets.bottom)
+            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top, priority: .defaultHigh)
+        }
     }
     
 }
@@ -62,12 +73,6 @@ private extension DocumentDetailsView {
             $0.trailing.equal(to: trailingAnchor)
             $0.top.equal(to: topAnchor, priority: .defaultLow)
             $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
-        }
-        
-        addSubview(iconView) {
-            $0.leading.equal(to: leadingAnchor, constant: Constants.iconEdgeInsets.leading)
-            $0.bottom.equal(to: bottomAnchor, constant: -Constants.iconEdgeInsets.bottom)
-            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top, priority: .defaultHigh)
         }
     }
     

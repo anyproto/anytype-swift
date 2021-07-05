@@ -7,10 +7,11 @@
 //
 
 import UIKit.UIImage
+import BlocksModels
 
 enum DocumentIconViewState: Hashable {
-    case icon(DocumentIcon)
-    case preview(UIImage?)
-    case placeholder(Character)
+    case icon(DocumentIcon, DetailsLayout)
+    case preview(UIImage?, DetailsLayout)
+    case placeholder(Character, DetailsLayout)
     case empty
 }

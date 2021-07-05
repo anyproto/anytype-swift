@@ -14,6 +14,7 @@ final class DocumentDetailsViewModel {
 
     private var coverViewState: DocumentCoverViewState = .empty
     private var iconViewState: DocumentIconViewState = .empty
+    private var layout: DetailsLayout = .basic
     
     private var subscriptions: [AnyCancellable] = []
     
@@ -30,6 +31,8 @@ final class DocumentDetailsViewModel {
     // MARK: - Internal functions
     
     func performUpdateUsingDetails(_ detailsData: DetailsData) {
+        layout = detailsData.layout ?? .basic
+        
         coverViewState = {
             guard let cover = detailsData.documentCover else {
                 return DocumentCoverViewState.empty
@@ -39,11 +42,22 @@ final class DocumentDetailsViewModel {
         }()
         
         iconViewState = {
-            guard let icon = detailsData.documentIcon else {
-                return DocumentIconViewState.empty
+            switch layout {
+            case .basic:
+                guard let icon = detailsData.documentIcon else {
+                    return DocumentIconViewState.empty
+                }
+                
+                return DocumentIconViewState.icon(icon, layout)
+            case .profile:
+                guard case .imageId(let imageId) = detailsData.documentIcon else {
+                    return detailsData.name?.first
+                        .flatMap { DocumentIconViewState.placeholder($0, layout) }
+                        ?? DocumentIconViewState.placeholder("T", layout)
+                }
+                
+                return DocumentIconViewState.icon(.imageId(imageId), layout)
             }
-            
-            return DocumentIconViewState.icon(icon)
         }()
         
         onUpdate()
@@ -52,7 +66,8 @@ final class DocumentDetailsViewModel {
     func makeDocumentSection() -> DocumentSection {
         DocumentSection(
             iconViewState: iconViewState,
-            coverViewState: coverViewState
+            coverViewState: coverViewState,
+            layout: layout
         )
     }
     
@@ -88,7 +103,7 @@ private extension DocumentDetailsViewModel {
         .sink { [weak self] image in
             guard let self = self else { return }
             
-            self.iconViewState = .preview(image)
+            self.iconViewState = .preview(image, self.layout)
             self.onUpdate()
         }
         .store(in: &subscriptions)

@@ -9,5 +9,6 @@
 public enum DetailsLayout: Int {
     case basic = 0
     case profile = 1
-    case todo = 2
+    // will be implemented later
+//    case todo = 2
 }

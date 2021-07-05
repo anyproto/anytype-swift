@@ -10,9 +10,11 @@ final class DocumentIconEmojiView: UIView {
         
     // MARK: Initialization
     
-    init(font: UIFont = .systemFont(ofSize: 64),
-         cornerRadius: CGFloat = Constants.cornerRadius,
-         size: CGSize = Constants.size) {
+    init(
+        font: UIFont = .systemFont(ofSize: 64),
+        cornerRadius: CGFloat = Constants.cornerRadius,
+        size: CGSize = Constants.size
+    ) {
         self.height = size.height
         
         super.init(frame: .zero)

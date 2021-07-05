@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 final class DocumentIconView: UIView {
     
@@ -39,23 +40,33 @@ extension DocumentIconView: ConfigurableView {
 
     func configure(model: DocumentIconViewState) {
         switch model {
-        case let .icon(icon):
-            configureIconState(icon)
-        case let .preview(image):
-            configurePreviewState(image)
-        case let .placeholder(character):
-            showImageView(.placeholder(character))
+        case let .icon(icon, layout):
+            configureIconState(icon, layout)
+        case let .preview(image, layout):
+            configurePreviewState(image, layout)
+        case let .placeholder(character, layout):
+            showImageView(
+                DocumentIconImageView.Model(
+                    content: .placeholder(character),
+                    isProfileLayout: layout.isProfile
+                )
+            )
         case .empty:
             configureEmptyState()
         }
     }
     
-    private func configureIconState(_ icon: DocumentIcon) {
+    private func configureIconState(_ icon: DocumentIcon, _ layout: DetailsLayout) {
         switch icon {
         case let .emoji(iconEmoji):
             showEmojiView(iconEmoji)
         case let .imageId(imageId):
-            showImageView(.imageId(imageId))
+            showImageView(
+                DocumentIconImageView.Model(
+                    content: .imageId(imageId),
+                    isProfileLayout: layout.isProfile
+                )
+            )
         }
     }
     
@@ -89,8 +100,13 @@ extension DocumentIconView: ConfigurableView {
         iconImageView.isHidden = false
     }
     
-    private func configurePreviewState(_ image: UIImage?) {
-        showImageView(.image(image))
+    private func configurePreviewState(_ image: UIImage?, _ layout: DetailsLayout) {
+        showImageView(
+            DocumentIconImageView.Model(
+                content: .image(image),
+                isProfileLayout: layout.isProfile
+            )
+        )
         
         let animation = CATransition()
         animation.type = .fade;
@@ -163,4 +179,17 @@ private extension DocumentIconView {
     enum Constants {
         static let borderWidth: CGFloat = 4
     }
+    
+}
+
+private extension DetailsLayout {
+    
+    var isProfile: Bool {
+        guard case .profile = self else {
+            return false
+        }
+        
+        return true
+    }
+    
 }
