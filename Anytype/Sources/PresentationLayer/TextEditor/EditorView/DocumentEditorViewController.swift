@@ -192,7 +192,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
                 return
             }
             
-            let viewModel = viewModel.modelsHolder.models.first { viewModel in
+            let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
                 viewModel.blockId == item.id
             }
             viewModel?.updateView()

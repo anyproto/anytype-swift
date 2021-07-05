@@ -26,7 +26,6 @@ protocol EditorRouterProtocol: AnyObject {
 final class EditorRouter: EditorRouterProtocol {
     private weak var viewController: DocumentEditorViewController?
     private let fileRouter: FileRouter
-    private lazy var dimmingTransitionDelegate = DimmingTransitionDelegate()
 
     init(viewController: DocumentEditorViewController) {
         self.viewController = viewController
@@ -53,16 +52,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
-        
-        let controller = UIHostingController(rootView: URLInputView(didCreateURL: completion))
-        controller.rootView.dismissAction = { [weak controller] in
-            controller?.dismiss(animated: true)
-        }
+        let controller = URLInputViewController(didCreateURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        controller.transitioningDelegate = dimmingTransitionDelegate
-        controller.modalPresentationStyle = .custom
         viewController?.present(controller, animated: true)
     }
     
