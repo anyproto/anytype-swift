@@ -26,7 +26,7 @@ final class DocumentSettingsViewModel {
     
     func makeSettingsViewController() -> UIViewController {
         BottomFloaterBuilder().builBottomFloater {
-            DocumentSettingsContentView()
+            DocumentSettingsView()
                 .padding(8)
                 .environmentObject(iconPickerViewModel)
                 .environmentObject(coverPickerViewModel)

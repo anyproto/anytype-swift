@@ -196,7 +196,7 @@
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
 		1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */; };
 		1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */; };
-		128495D126726EE300351C66 /* DocumentSettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D026726EE300351C66 /* DocumentSettingsContentView.swift */; };
+		128495D126726EE300351C66 /* DocumentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D026726EE300351C66 /* DocumentSettingsView.swift */; };
 		128495D32672701500351C66 /* DocumentSettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D22672701500351C66 /* DocumentSettingsList.swift */; };
 		128495D52672708F00351C66 /* DocumentSettingsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */; };
 		128495D7267273DD00351C66 /* DocumentSettingsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */; };
@@ -776,7 +776,7 @@
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGuideline.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/ImageGuideline.swift; sourceTree = SOURCE_ROOT; };
 		1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCornersGuideline.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/ImageCornersGuideline.swift; sourceTree = SOURCE_ROOT; };
-		128495D026726EE300351C66 /* DocumentSettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsContentView.swift; sourceTree = "<group>"; };
+		128495D026726EE300351C66 /* DocumentSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsView.swift; sourceTree = "<group>"; };
 		128495D22672701500351C66 /* DocumentSettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsList.swift; sourceTree = "<group>"; };
 		128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListViewModel.swift; sourceTree = "<group>"; };
 		128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListRow.swift; sourceTree = "<group>"; };
@@ -947,7 +947,7 @@
 		3DE5120D2672202300153962 /* ServiceSuccess+Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+Conversion.swift"; path = "Anytype/Sources/ServiceLayer/BlockActionHandler/Extensions/ServiceSuccess+Conversion.swift"; sourceTree = SOURCE_ROOT; };
 		3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseDocumentProtocol.swift; path = Anytype/Sources/Models/Documents/Document/BaseDocumentProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
-		3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
+		3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD64A2689FE240072EA27 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/DocumentIconPicker/Emoji/EmojiProvider.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD64B2689FE250072EA27 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Emoji.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/DocumentIconPicker/Emoji/Emoji.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD64C2689FE250072EA27 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiGroup.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/SwiftUI/DocumentIconPicker/Emoji/EmojiGroup.swift; sourceTree = SOURCE_ROOT; };
@@ -2074,11 +2074,10 @@
 		128495CF26726EBC00351C66 /* DocumentSettings */ = {
 			isa = PBXGroup;
 			children = (
-				128495D026726EE300351C66 /* DocumentSettingsContentView.swift */,
-				128495D22672701500351C66 /* DocumentSettingsList.swift */,
-				128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */,
-				12E28DD926739BBA00C97370 /* DocumentSetting.swift */,
-				128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */,
+				128495D026726EE300351C66 /* DocumentSettingsView.swift */,
+				1237C0372680B21F00DDDA9C /* DocumentSettingViewModel.swift */,
+				12F24DFA2692F9BB0081CAC9 /* DocumentSettingsList */,
+				12F24DFB2692F9C70081CAC9 /* Entity */,
 			);
 			path = DocumentSettings;
 			sourceTree = "<group>";
@@ -2197,6 +2196,24 @@
 				12DE4055264AE455007B5074 /* LayoutDimension.swift */,
 			);
 			path = ConstraintLayout;
+			sourceTree = "<group>";
+		};
+		12F24DFA2692F9BB0081CAC9 /* DocumentSettingsList */ = {
+			isa = PBXGroup;
+			children = (
+				128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */,
+				128495D22672701500351C66 /* DocumentSettingsList.swift */,
+				128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */,
+			);
+			path = DocumentSettingsList;
+			sourceTree = "<group>";
+		};
+		12F24DFB2692F9C70081CAC9 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				12E28DD926739BBA00C97370 /* DocumentSetting.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		3D07ECCF261B4FF700C007E2 /* List */ = {
@@ -2394,6 +2411,7 @@
 				12D950032678EFE800F794EB /* SearchBar.swift */,
 				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
 				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
+				3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2773,12 +2791,10 @@
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */,
+				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 				120F7D42267CCD9F00327734 /* DocumentCoverPicker */,
 				12D94FCF2678CD1200F794EB /* DocumentIconPicker */,
 				128495CF26726EBC00351C66 /* DocumentSettings */,
-				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
-				1237C0372680B21F00DDDA9C /* DocumentSettingViewModel.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3755,7 +3771,7 @@
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */,
-				128495D126726EE300351C66 /* DocumentSettingsContentView.swift in Sources */,
+				128495D126726EE300351C66 /* DocumentSettingsView.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,

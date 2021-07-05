@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct DocumentSettingsContentView: View {
+struct DocumentSettingsView: View {
         
     @StateObject private var settingsListViewModel = DocumentSettingsListViewModel()
     
