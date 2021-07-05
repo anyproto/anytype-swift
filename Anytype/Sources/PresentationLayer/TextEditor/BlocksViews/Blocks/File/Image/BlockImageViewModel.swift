@@ -55,22 +55,30 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         case .replace:
             showIconPicker(blockId)
         case .download:
-            guard let image = ImageProperty(imageId: fileData.metadata.hash).property else {
-                return
-            }
-            
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            downloadImage()
         default:
             contextualMenuHandler.handle(action: action, info: information)
         }
     }
     
     func didSelectRowInTableView() {
-        guard fileData.state != .uploading else {
+        switch fileData.state {
+        case .done:
+            downloadImage()
+        case .empty, .error:
+            showIconPicker(blockId)
+        case .uploading:
+            return
+        }
+
+    }
+    
+    private func downloadImage() {
+        guard let image = ImageProperty(imageId: fileData.metadata.hash).property else {
             return
         }
         
-        showIconPicker(blockId)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
     func updateView() { }

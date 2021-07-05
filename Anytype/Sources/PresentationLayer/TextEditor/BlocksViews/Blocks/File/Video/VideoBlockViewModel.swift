@@ -25,11 +25,14 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {
-        guard fileData.state != .uploading else {
+        switch fileData.state {
+        case .done:
+            downloadVideo(fileData.metadata.hash)
+        case .empty, .error:
+            showVideoPicker(blockId)
+        case .uploading:
             return
         }
-        
-        showVideoPicker(blockId)
     }
     
     func makeContextualMenu() -> ContextualMenu {
