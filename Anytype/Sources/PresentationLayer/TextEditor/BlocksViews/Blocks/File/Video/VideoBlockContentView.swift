@@ -59,12 +59,12 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func addVideoViewAndRemoveEmptyView() {
-        self.emptyView.removeFromSuperview()
-        self.addSubview(self.videoVC.view)
-        self.videoVC.view.edgesToSuperview(insets: Constants.videoViewInsets)
-        self.videoVC.view.heightAnchor.constraint(equalToConstant: Constants.videoViewHeight).isActive = true
+        emptyView.removeFromSuperview()
+        addSubview(videoVC.view)
+        videoVC.view.edgesToSuperview(insets: Constants.videoViewInsets)
+        videoVC.view.heightAnchor.constraint(equalToConstant: Constants.videoViewHeight).isActive = true
         
-        self.setVideoURL()
+        setVideoURL()
     }
     
     private func setVideoURL() {

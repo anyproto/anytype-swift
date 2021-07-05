@@ -9,7 +9,7 @@ struct BlockFileConfiguration: UIContentConfiguration, Hashable {
     }
             
     func makeContentView() -> UIView & UIContentView {
-        return BlockFileContentView(configuration: self)
+        return BlockFileView(configuration: self)
     }
     
     func updated(for state: UIConfigurationState) -> BlockFileConfiguration {

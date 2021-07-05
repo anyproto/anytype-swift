@@ -6,7 +6,7 @@ import BlocksModels
 import UniformTypeIdentifiers
 
 struct BlockFileIconBuilder {
-    static func convert(mime: String) -> UIImage? {
+    static func convert(mime: String) -> UIImage {
         guard let fileType = UTType.init(mimeType: mime) else {
             return UIImage.blockFile.content.other
         }

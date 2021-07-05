@@ -86,6 +86,11 @@ extension UIColor {
     static let defaultColor = grayscale90
     
     private static func color(name: String) -> UIColor {
-        UIColor(named: name) ?? defaultColor
+        guard let color = UIColor(named: name) else {
+            assertionFailure("No color named: \(name)")
+            return defaultColor
+        }
+        
+        return color
     }
 }

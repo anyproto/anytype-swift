@@ -274,7 +274,6 @@
 		3D7C08252684E09B00E2168D /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08242684E09B00E2168D /* BlockFileView.swift */; };
 		3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* FileSizeConverter.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
-		3D7EA8A9268EF43A00C76974 /* BlockFileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */; };
 		3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */; };
 		3D7EA8D0268F636300C76974 /* BookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */; };
 		3D7EA8D2268F636E00C76974 /* BookmarkImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8D1268F636E00C76974 /* BookmarkImageLoader.swift */; };
@@ -854,7 +853,6 @@
 		3D7C08242684E09B00E2168D /* BlockFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08262684E21500E2168D /* FileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileSizeConverter.swift; path = Anytype/Sources/CoreLayer/Helpers/FileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
-		3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileContentView.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContextualMenuBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlockFileContextualMenuBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/BookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8D1268F636E00C76974 /* BookmarkImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkImageLoader.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/Utils/BookmarkImageLoader.swift; sourceTree = SOURCE_ROOT; };
@@ -2465,7 +2463,6 @@
 			children = (
 				3D7C08222684E00100E2168D /* BlockFileMediaView.swift */,
 				3D7C08242684E09B00E2168D /* BlockFileView.swift */,
-				3D7EA8A8268EF43A00C76974 /* BlockFileContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4039,7 +4036,6 @@
 				3D22B23E2687929F00C78C28 /* ContextualMenuIdentifierBuilder.swift in Sources */,
 				12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareColor.swift in Sources */,
-				3D7EA8A9268EF43A00C76974 /* BlockFileContentView.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
 				3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */,
 				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,

@@ -8,34 +8,43 @@ extension UIImage {
 
 extension UIImage {
     enum edititngToolbar {
-        static let addNew = UIImage(named: "EditingToolbar/add_new")
-        static let style = UIImage(named: "EditingToolbar/style")
-        static let move = UIImage(named: "EditingToolbar/move")
-        static let mention = UIImage(named: "EditingToolbar/mention")
+        static let addNew = createImage("EditingToolbar/add_new")
+        static let style = createImage("EditingToolbar/style")
+        static let move = createImage("EditingToolbar/move")
+        static let mention = createImage("EditingToolbar/mention")
     }
     
     enum divider {
-        static let dots = UIImage(named: "TextEditor/Style/Other/Divider/Dots")
+        static let dots = createImage("TextEditor/Style/Other/Divider/Dots")
     }
     
     enum blockFile {
         enum empty {
-            static let image = UIImage(named: "TextEditor/BlockFile/Empty/Image")
-            static let video = UIImage(named: "TextEditor/BlockFile/Empty/Video")
-            static let file = UIImage(named: "TextEditor/BlockFile/Empty/File")
-            static let bookmark = UIImage(named: "TextEditor/BlockFile/Empty/Bookmark")
+            static let image = createImage("TextEditor/BlockFile/Empty/Image")
+            static let video = createImage("TextEditor/BlockFile/Empty/Video")
+            static let file = createImage("TextEditor/BlockFile/Empty/File")
+            static let bookmark = createImage("TextEditor/BlockFile/Empty/Bookmark")
         }
         
         enum content {
-            static let text = UIImage(named: "TextEditor/BlockFile/Content/Text")
-            static let spreadsheet = UIImage(named: "TextEditor/BlockFile/Content/Spreadsheet")
-            static let presentation = UIImage(named: "TextEditor/BlockFile/Content/Presentation")
-            static let pdf = UIImage(named: "TextEditor/BlockFile/Content/PDF")
-            static let image = UIImage(named: "TextEditor/BlockFile/Content/Image")
-            static let audio = UIImage(named: "TextEditor/BlockFile/Content/Audio")
-            static let video = UIImage(named: "TextEditor/BlockFile/Content/Video")
-            static let archive = UIImage(named: "TextEditor/BlockFile/Content/Archive")
-            static let other = UIImage(named: "TextEditor/BlockFile/Content/Other")
+            static let text = createImage("TextEditor/BlockFile/Content/Text")
+            static let spreadsheet = createImage("TextEditor/BlockFile/Content/Spreadsheet")
+            static let presentation = createImage("TextEditor/BlockFile/Content/Presentation")
+            static let pdf = createImage("TextEditor/BlockFile/Content/PDF")
+            static let image = createImage("TextEditor/BlockFile/Content/Image")
+            static let audio = createImage("TextEditor/BlockFile/Content/Audio")
+            static let video = createImage("TextEditor/BlockFile/Content/Video")
+            static let archive = createImage("TextEditor/BlockFile/Content/Archive")
+            static let other = createImage("TextEditor/BlockFile/Content/Other")
         }
+    }
+    
+    private static func createImage(_ name: String) -> UIImage {
+        guard let image = UIImage(named: name) else {
+            assertionFailure("No image named: \(name)")
+            return UIImage()
+        }
+        
+        return image
     }
 }

@@ -4,7 +4,7 @@ import Combine
 struct BlockFileMediaData {
     var size: String
     var name: String
-    var typeIcon: UIImage?
+    var typeIcon: UIImage
 }
 
 class BlockFileMediaView: UIView {
@@ -19,12 +19,15 @@ class BlockFileMediaView: UIView {
     }
 
     func setup() {
-        self.addSubview(imageView)
-        self.addSubview(titleView)
-        self.addSubview(sizeView)
+        addSubview(imageView)
+        addSubview(titleView)
+        addSubview(sizeView)
+        
+        imageView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 18).isActive = true
     
         layoutUsing.stack {
-            $0.hStack(alignedTo: .center,
+            $0.hStack(
                 $0.hGap(fixed: 3),
                 imageView,
                 $0.hGap(fixed: 7),

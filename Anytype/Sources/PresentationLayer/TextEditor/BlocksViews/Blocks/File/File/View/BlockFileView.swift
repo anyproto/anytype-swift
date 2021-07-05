@@ -2,12 +2,25 @@ import UIKit
 import Combine
 import BlocksModels
 
-class BlockFileView: UIView {
-    init(fileData: BlockFile) {
+class BlockFileView: UIView & UIContentView {
+    private var currentConfiguration: BlockFileConfiguration
+    var configuration: UIContentConfiguration {
+        get { currentConfiguration }
+        set {
+            guard let configuration = newValue as? BlockFileConfiguration else { return }
+            guard self.currentConfiguration != configuration else { return }
+            self.currentConfiguration = configuration
+            
+            handleNewFile(currentConfiguration.fileData)
+        }
+    }
+    
+    init(configuration: BlockFileConfiguration) {
+        self.currentConfiguration = configuration
         super.init(frame: .zero)
         
         setupUIElements()
-        handle(fileData)
+        handleNewFile(configuration.fileData)
     }
     
     @available(*, unavailable)
@@ -15,7 +28,19 @@ class BlockFileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func handle(_ file: BlockFile) {
+    // MARK: UI Elements
+    private func setupUIElements() {
+        translatesAutoresizingMaskIntoConstraints = true
+        
+        addSubview(fileView)
+        addSubview(emptyView)
+        
+        heightAnchor.constraint(equalToConstant: 48).isActive = true
+        emptyView.edgesToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+        fileView.edgesToSuperview(insets: UIEdgeInsets(top: 9, left: 20, bottom: 9, right: 20))
+    }
+    
+    func handleNewFile(_ file: BlockFile) {
         switch file.state  {
         case .empty:
             emptyView.change(state: .empty)
@@ -45,41 +70,7 @@ class BlockFileView: UIView {
         }
     }
     
-    // MARK: UI Elements
-    private func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addSubview(fileView)
-        self.addSubview(emptyView)
-        
-        
-        addEmptyViewLayout()
-        addFileViewLayout()
-    }
-    
-    private func addFileViewLayout() {
-        fileView.pinAllEdges(to: self, insets: Layout.fileViewInsets)
-    }
-    
-    private func addEmptyViewLayout() {
-        let heightAnchor = emptyView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
-        let bottomAnchor = emptyView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        // We need priotity here cause cell self size constraint will conflict with ours
-        bottomAnchor.priority = .init(750)
-        
-        NSLayoutConstraint.activate([
-            emptyView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            emptyView.topAnchor.constraint(equalTo: self.topAnchor),
-            bottomAnchor,
-            heightAnchor
-        ])
-    }
-    
-    private enum Layout {
-        static let emptyViewHeight: CGFloat = 48
-        static let fileViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
-    }
+    // MARK:- Views
     
     private let fileView: BlockFileMediaView = BlockFileMediaView()
     
