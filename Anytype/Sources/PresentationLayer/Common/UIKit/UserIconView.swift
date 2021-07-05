@@ -2,6 +2,11 @@ import SwiftUI
 import UIKit
 
 extension UserIconView {
+    enum IconType {
+        case image(ImageType)
+        case placeholder(Character?)
+    }
+    
     enum ImageType {
         case local(image: UIImage)
         case middleware(imageId: String)
@@ -9,35 +14,46 @@ extension UserIconView {
 }
 
 struct UserIconView: View {
-    var image: ImageType?
-    var name: String?
+    let icon: IconType
     
     var body: some View {
         Group {
-            if case .local(let image) = image {
-                Image(uiImage: image)
-                    .renderingMode(.original)
-                    .resizable().aspectRatio(contentMode: .fill)
-            } else if case .middleware(let imageId) = image {
-                AsyncImage(imageId: imageId, parameters: ImageParameters(width: .thumbnail))
-                    .aspectRatio(contentMode: .fill)
-            } else if let name = self.name {
+            switch icon {
+            case let .image(image):
+                makeIconImageView(image)
+            case let .placeholder(character):
                 AnytypeText(
-                    String(name.first ?? "👻"),
+                    character.flatMap { String($0) } ?? "",
                     name: .graphik,
                     size: 45,
                     weight: .regular
                 )
-                .frame(width: 80, height: 80)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .foregroundColor(.black)
                 .blendMode(.overlay)
                 .background(HomeBackgroundBlurView())
-            } else {
-                HomeBackgroundBlurView()
             }
         }
         .clipShape(Circle())
     }
+    
+    private func makeIconImageView(_ image: ImageType) -> some View {
+        Group {
+            switch image {
+            case let .local(image: image):
+                Image(uiImage: image)
+                    .renderingMode(.original)
+                    .resizable().aspectRatio(contentMode: .fill)
+            case let .middleware(imageId: imageId):
+                AsyncImage(
+                    imageId: imageId,
+                    parameters: ImageParameters(width: .thumbnail)
+                )
+                .aspectRatio(contentMode: .fill)
+            }
+        }
+    }
+    
 }
 
 
@@ -45,12 +61,9 @@ struct SimpleViews_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             UserIconView(
-                name: "Anton B"
-            ).frame(width: 100, height: 100)
-            
-            UserIconView(
-                name: ""
-            ).frame(width: 100, height: 100)
+                icon: .placeholder("A")
+            )
+            .frame(width: 100, height: 100)
         }
         .previewLayout(.sizeThatFits)
     }

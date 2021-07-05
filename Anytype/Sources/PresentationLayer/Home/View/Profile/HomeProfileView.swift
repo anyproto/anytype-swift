@@ -44,11 +44,18 @@ struct HomeProfileView: View {
     }
     
     private var userIcon: some View {
-        return UserIconView(
-            image: accountData.avatarId.flatMap { .middleware(imageId: $0) },
-            name: accountData.name
-        )
-        .frame(width: 80, height: 80)
+        let iconType: UserIconView.IconType = {
+            if let imageId = accountData.avatarId {
+                return UserIconView.IconType.image(.middleware(imageId: imageId))
+            } else if let firstCharacter = accountData.name?.first {
+                return UserIconView.IconType.placeholder(firstCharacter)
+            } else {
+                return UserIconView.IconType.placeholder(nil)
+            }
+        }()
+        
+        return UserIconView(icon: iconType)
+            .frame(width: 80, height: 80)
     }
     
     private var buttons: some View {
