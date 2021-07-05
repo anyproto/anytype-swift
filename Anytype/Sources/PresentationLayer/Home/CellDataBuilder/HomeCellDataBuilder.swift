@@ -32,7 +32,7 @@ final class HomeCellDataBuilder {
         return PageCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
-            icon: pageLink.details?.documentIcon,
+            icon: pageLink.details?.icon,
             title: pageLink.details?.name ?? "",
             type: pageLink.type.rawValue,
             isLoading: pageLink.isLoading,
@@ -44,7 +44,7 @@ final class HomeCellDataBuilder {
         return PageCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
-            icon: newDetails.documentIcon,
+            icon: newDetails.icon,
             title: newDetails.name ?? "",
             type: oldData.type,
             isLoading: false,

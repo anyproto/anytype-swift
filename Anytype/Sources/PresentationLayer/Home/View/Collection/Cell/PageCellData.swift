@@ -6,7 +6,7 @@ import Combine
 struct PageCellData: Identifiable {
     let id: String
     let destinationId: String
-    let icon: DocumentIcon?
+    let icon: DocumentIconType?
     let title: String
     let type: String
     let isLoading: Bool

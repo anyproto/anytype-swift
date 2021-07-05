@@ -45,18 +45,61 @@ struct PageCell: View {
                     .frame(width: 48, height: 48)
             } else {
                 switch cellData.icon {
-                case let .emoji(emoji):
-                    AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
-                case let .imageId(imageid):
-                    AsyncImage(imageId: imageid, parameters: ImageParameters(width: .thumbnail))
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 48, height: 48)
-                        .cornerRadius(10)
+                case let .basic(basicIcon):
+                    makeBasicIconView(basicIcon)
+                case let .profile(profileIcon):
+                    makeProfileIconView(profileIcon)
                 case .none:
                     EmptyView()
                 }
             }
         }
+    }
+    
+    private func makeBasicIconView(_ basicIcon: DocumentIconType.Basic) -> some View {
+        Group {
+            switch basicIcon {
+            case let .emoji(emoji):
+                AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
+            case let .imageId(imageId):
+                AsyncImage(
+                    imageId: imageId,
+                    parameters: ImageParameters(width: .thumbnail)
+                )
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 48, height: 48)
+                .cornerRadius(10)
+            }
+        }
+        
+    }
+    
+    private func makeProfileIconView(_ profileIcon: DocumentIconType.Profile) -> some View {
+        Group {
+            switch profileIcon {
+            case let .imageId(imageId):
+                AsyncImage(
+                    imageId: imageId,
+                    parameters: ImageParameters(width: .thumbnail)
+                )
+                .frame(width: 48, height: 48)
+                .aspectRatio(contentMode: .fill)
+                .cornerRadius(10)
+                
+            case let .placeholder(character):
+                AnytypeText(
+                    String(character),
+                    name: .inter,
+                    size: 28,
+                    weight: .regular
+                )
+                .frame(maxWidth: 48, maxHeight: 48)
+                .foregroundColor(.grayscaleWhite)
+                .background(Color.grayscale10)
+                
+            }
+        }
+        .clipShape(Circle())
     }
     
     private var iconSpacer: some View {

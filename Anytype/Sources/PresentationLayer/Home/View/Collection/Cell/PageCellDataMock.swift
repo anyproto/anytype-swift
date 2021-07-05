@@ -6,7 +6,7 @@ struct PageCellDataMock {
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .emoji(IconEmoji("📘")!),
+            icon: .basic(.emoji(IconEmoji("📘")!)),
             title: "Ubik",
             type: "Book",
             isLoading: false,
@@ -33,7 +33,7 @@ struct PageCellDataMock {
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .emoji(IconEmoji("📘")!),
+            icon: .basic(.emoji(IconEmoji("📘")!)),
             title: "Ubik",
             type: "Book",
             isLoading: false,
@@ -42,7 +42,7 @@ struct PageCellDataMock {
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .imageId("1337"),
+            icon: .profile(.imageId("1337")),
             title: "Neo",
             type: "Character",
             isLoading: false,
@@ -51,7 +51,7 @@ struct PageCellDataMock {
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .imageId("1337"),
+            icon: .basic(.imageId("1337")),
             title: "Neo",
             type: "Character",
             isLoading: false,

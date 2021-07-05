@@ -40,6 +40,7 @@ extension DetailsEntryValueProvider {
         }
     }
     
+    @available(*, deprecated, message: "Use `icon`")
     var documentIcon: DocumentIcon? {
         if let iconImageId = self.iconImage, !iconImageId.isEmpty {
             return DocumentIcon.imageId(iconImageId)
