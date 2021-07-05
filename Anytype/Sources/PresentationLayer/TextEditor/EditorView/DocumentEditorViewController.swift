@@ -23,6 +23,7 @@ final class DocumentEditorViewController: UIViewController {
     }()
     
     private var insetsHelper: ScrollViewContentInsetsHelper?
+    private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     
     private var selectionSubscription: AnyCancellable?
@@ -64,7 +65,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         
         windowHolder?.configureNavigationBarWithOpaqueBackground()
-        
+        firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
     }
     
@@ -72,6 +73,7 @@ final class DocumentEditorViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         insetsHelper = nil
+        firstResponderHelper = nil
         guard isMovingFromParent else { return }
     }
     
