@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DocumentBasicIconPicker: View {
 
-    @EnvironmentObject private var iconViewModel: DocumentBasicIconPickerViewModel
+    @EnvironmentObject private var iconViewModel: DocumentIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     @State private var selectedTab: Tab = .emoji
         
