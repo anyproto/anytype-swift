@@ -41,11 +41,14 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {
-        guard fileData.state != .uploading else {
+        switch fileData.state {
+        case .done:
+            downloadFile(fileData.metadata.hash)
+        case .empty, .error:
+            showFilePicker(blockId)
+        case .uploading:
             return
         }
-        
-        showFilePicker(blockId)
     }
     
     func updateView() { }
