@@ -36,7 +36,7 @@ extension DocumentIconPickerViewModel {
             case .basic:
                 return true
             case .profile:
-                return !(details.coverId?.isEmpty ?? true)
+                return !(details.iconImage?.isEmpty ?? true)
             }
         }()
     }
