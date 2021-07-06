@@ -13,18 +13,28 @@ struct DocumentLayoutPicker: View {
     @State private var selectedLayout: DetailsLayout = .basic
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center, spacing: 0) {
+            DragIndicator()
+            layoutList
+            Spacer()
+        }
+    }
+    
+    private var layoutList: some View {
+        VStack(spacing: 16) {
             ForEach(DetailsLayout.allCases, id: \.self) { layout in
                 DocumentLayoutTypeRow(
                     layout: layout,
-                    isSelected: layout == selectedLayout
+                    isSelected: layout == selectedLayout,
+                    onTap: {
+                        selectedLayout = layout
+                    }
                 )
-                .onTapGesture {
-                    selectedLayout = layout
-                }
+                .modifier(DividerModifier(spacing: 16))
             }
-            Spacer()
         }
+        .padding([.leading, .trailing], 20)
+        
     }
 }
 

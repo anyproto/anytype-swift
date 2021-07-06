@@ -14,17 +14,25 @@ struct DocumentLayoutTypeRow: View {
     let layout: DetailsLayout
     let isSelected: Bool
     
+    let onTap: () -> Void
+    
     var body: some View {
-        HStack(spacing: 9) {
-            layout.icon.frame(width: 24, height: 24)
-            Text(layout.title)
-            Spacer()
-            
-            if isSelected {
-                Image.LayoutSettings.checkmark
+        Button {
+            onTap()
+        }
+        label: {
+            HStack(spacing: 9) {
+                layout.icon.frame(width: 24, height: 24)
+                AnytypeText(layout.title, style: .headline)
+                    .foregroundColor(.textPrimary)
+                
+                Spacer()
+                
+                if isSelected {
+                    Image.LayoutSettings.checkmark.frame(width: 24, height: 24)
+                }
             }
         }
-        .frame(height: 50)
     }
 }
 
@@ -52,6 +60,6 @@ private extension DetailsLayout {
 
 struct DocumentLayoutTypeRow_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentLayoutTypeRow(layout: .basic, isSelected: true)
+        DocumentLayoutTypeRow(layout: .basic, isSelected: true, onTap: {})
     }
 }
