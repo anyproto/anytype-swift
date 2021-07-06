@@ -9,5 +9,6 @@ public protocol DetailsEntryValueProvider {
     var coverType: CoverType? { get }
     var isArchived: Bool? { get }
     var layout: DetailsLayout? { get }
+    var alignment: LayoutAlignment? { get }
     
 }

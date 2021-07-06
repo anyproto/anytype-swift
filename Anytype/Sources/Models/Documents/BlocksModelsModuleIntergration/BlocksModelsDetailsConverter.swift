@@ -89,6 +89,8 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
                     return element.value.asDescriptionEntry()
                 case .layout:
                     return element.value.asLayoutEntry()
+                case .alignment:
+                    return element.value.asAlignmentEntry()
                 }
             }()
             
@@ -134,6 +136,8 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
                     return element.value.asDescriptionEntry()
                 case .layout:
                     return element.value.asLayoutEntry()
+                case .alignment:
+                    return element.value.asAlignmentEntry()
                 }
             }()
             
@@ -248,4 +252,19 @@ private extension Google_Protobuf_Value {
             return nil
         }
     }
+    
+    func asAlignmentEntry() -> DetailsEntry<AnyHashable>? {
+        switch kind {
+        case let .numberValue(number):
+            guard let layout = LayoutAlignment(rawValue: Int(number)) else { return nil }
+            
+            return DetailsEntry(value: layout)
+        default:
+            assertionFailure(
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
+            )
+            return nil
+        }
+    }
+    
 }

@@ -52,6 +52,10 @@ extension DetailsData: DetailsEntryValueProvider {
         value(for: .layout)
     }
     
+    public var alignment: LayoutAlignment? {
+        value(for: .alignment)
+    }
+    
     private func value<V>(for kind: DetailsKind) -> V? {
         guard let entry = details[kind] else {
             return nil
