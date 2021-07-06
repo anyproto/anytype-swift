@@ -2,7 +2,7 @@ import Combine
 import UIKit
 import BlocksModels
 
-final class DocumentBasicIconPickerViewModel: ObservableObject {
+final class DocumenIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
@@ -23,7 +23,7 @@ final class DocumentBasicIconPickerViewModel: ObservableObject {
     
 }
 
-extension DocumentBasicIconPickerViewModel {
+extension DocumenIconPickerViewModel {
     
     func setEmoji(_ emojiUnicode: String) {
         updateDetails(
@@ -63,7 +63,7 @@ extension DocumentBasicIconPickerViewModel {
     
 }
 
-private extension DocumentBasicIconPickerViewModel {
+private extension DocumenIconPickerViewModel {
     
     func uploadImage(at url: URL) {
         let localPath = url.relativePath

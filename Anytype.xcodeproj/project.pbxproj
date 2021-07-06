@@ -172,7 +172,6 @@
 		0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */; };
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
-		1206DBA1267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */; };
 		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
@@ -203,7 +202,7 @@
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
 		129D787326945B6D00DA6757 /* DocumentProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */; };
-		129D787526945BCD00DA6757 /* DocumentProfileIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787426945BCD00DA6757 /* DocumentProfileIconPickerViewModel.swift */; };
+		129D787726945D6300DA6757 /* DocumenIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787626945D6300DA6757 /* DocumenIconPickerViewModel.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */; };
 		12B199EE268DD1C9002B9BD7 /* DocumentIconViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */; };
@@ -753,7 +752,6 @@
 		0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFile.swift; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
-		1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBasicIconPickerViewModel.swift; sourceTree = "<group>"; };
 		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
@@ -784,7 +782,7 @@
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProfileIconPicker.swift; sourceTree = "<group>"; };
-		129D787426945BCD00DA6757 /* DocumentProfileIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProfileIconPickerViewModel.swift; sourceTree = "<group>"; };
+		129D787626945D6300DA6757 /* DocumenIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumenIconPickerViewModel.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverViewState.swift; sourceTree = "<group>"; };
 		12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewState.swift; sourceTree = "<group>"; };
@@ -2114,7 +2112,6 @@
 			isa = PBXGroup;
 			children = (
 				12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */,
-				1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */,
 			);
 			path = DocumentBasicIconPicker;
 			sourceTree = "<group>";
@@ -2123,7 +2120,6 @@
 			isa = PBXGroup;
 			children = (
 				129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */,
-				129D787426945BCD00DA6757 /* DocumentProfileIconPickerViewModel.swift */,
 			);
 			path = DocumentProfileIconPicker;
 			sourceTree = "<group>";
@@ -2168,6 +2164,7 @@
 		12D94FCF2678CD1200F794EB /* DocumentIconPicker */ = {
 			isa = PBXGroup;
 			children = (
+				129D787626945D6300DA6757 /* DocumenIconPickerViewModel.swift */,
 				129D786F26945B5100DA6757 /* DocumentProfileIconPicker */,
 				129D786A26945B2000DA6757 /* DocumentBasicIconPicker */,
 				3D89224C2680E0850023E705 /* Emoji */,
@@ -3643,7 +3640,6 @@
 				120F7D7C267F881700327734 /* BlockBookmarkView.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
-				1206DBA1267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */,
@@ -3661,7 +3657,6 @@
 				0A0965EC25BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift in Sources */,
 				EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
-				129D787526945BCD00DA6757 /* DocumentProfileIconPickerViewModel.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
@@ -3896,6 +3891,7 @@
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
+				129D787726945D6300DA6757 /* DocumenIconPickerViewModel.swift in Sources */,
 				EA2F0D60264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift in Sources */,
 				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
 				3DEFD6642689FE740072EA27 /* DocumentIcon.swift in Sources */,
