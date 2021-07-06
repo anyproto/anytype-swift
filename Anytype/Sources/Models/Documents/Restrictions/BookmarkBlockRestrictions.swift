@@ -12,7 +12,7 @@ struct BookmarkBlockRestrictions: BlockRestrictions {
     var turnIntoStyles: [BlockViewType] {
         []
     }
-    var availableAlignments: [BlockInformationAlignment] {
+    var availableAlignments: [LayoutAlignment] {
         []
     }
 }

@@ -9,7 +9,7 @@ public struct BlockInformation: Hashable {
     public var fields = [String: BlockFieldType]()
     
     public var backgroundColor = ""
-    public var alignment = BlockInformationAlignment.left
+    public var alignment = LayoutAlignment.left
     
     public init(id: BlockId, content: BlockContent) {
         self.id = id

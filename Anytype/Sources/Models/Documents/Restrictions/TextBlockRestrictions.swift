@@ -15,7 +15,7 @@ struct TextBlockRestrictions: BlockRestrictions {
                 .objects(.page),
                 .other(.code)]
     }
-    var availableAlignments: [BlockInformationAlignment] {
-        BlockInformationAlignment.allCases
+    var availableAlignments: [LayoutAlignment] {
+        LayoutAlignment.allCases
     }
 }

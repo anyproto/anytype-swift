@@ -13,7 +13,7 @@ enum BlockHandlerActionType {
     case setTextColor(BlockColor)
     case setBackgroundColor(BlockBackgroundColor)
     case toggleFontStyle(TextAttributesType, NSRange = NSRange(location: 0, length: 0))
-    case setAlignment(BlockInformationAlignment)
+    case setAlignment(LayoutAlignment)
     case setLink(String)
     
     case duplicate

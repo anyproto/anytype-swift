@@ -14,7 +14,7 @@ struct CodeBlockRestrictions: BlockRestrictions {
         .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
         .objects(.page)
     ]
-    let availableAlignments = [BlockInformationAlignment]()
+    let availableAlignments = [LayoutAlignment]()
 
     let canCreateBlockBelowOnEnter = false
 }

@@ -209,7 +209,7 @@ private extension BlockActionHandler {
     
     func setAlignment(
         blockId: BlockId,
-        alignment: BlockInformationAlignment,
+        alignment: LayoutAlignment,
         completion: Completion?
     ) {
         let blockIds = [blockId]
