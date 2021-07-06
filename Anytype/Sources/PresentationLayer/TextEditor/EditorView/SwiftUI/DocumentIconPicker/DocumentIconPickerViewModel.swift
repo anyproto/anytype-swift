@@ -2,10 +2,13 @@ import Combine
 import UIKit
 import BlocksModels
 
-final class DocumentBasicIconPickerViewModel: ObservableObject {
+final class DocumentIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
+    private(set) var pickerType: DocumentIconPickerType = .basic
+    private(set) var isRemoveEnabled = true
+    
     // MARK: - Private variables
     
     private let fileService: BlockActionsServiceFile
@@ -23,7 +26,20 @@ final class DocumentBasicIconPickerViewModel: ObservableObject {
     
 }
 
-extension DocumentBasicIconPickerViewModel {
+extension DocumentIconPickerViewModel {
+    
+    func configure(with details: DetailsData) {
+        pickerType = details.layout?.asIconPickerType ?? .basic
+     
+        isRemoveEnabled = {
+            switch pickerType {
+            case .basic:
+                return true
+            case .profile:
+                return !(details.iconImage?.isEmpty ?? true)
+            }
+        }()
+    }
     
     func setEmoji(_ emojiUnicode: String) {
         updateDetails(
@@ -63,7 +79,7 @@ extension DocumentBasicIconPickerViewModel {
     
 }
 
-private extension DocumentBasicIconPickerViewModel {
+private extension DocumentIconPickerViewModel {
     
     func uploadImage(at url: URL) {
         let localPath = url.relativePath
@@ -94,6 +110,19 @@ private extension DocumentBasicIconPickerViewModel {
             details: details
         )?
         .sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in }
+    }
+    
+}
+
+private extension DetailsLayout {
+    
+    var asIconPickerType: DocumentIconPickerType {
+        switch self {
+        case .basic:
+            return .basic
+        case .profile:
+            return .profile
+        }
     }
     
 }

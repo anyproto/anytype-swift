@@ -80,6 +80,7 @@ extension UIColor {
     }
     
     static let buttonActive = color(name: ColorName.buttonActive)
+    static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
     
     /// Color that can be used in case if we couldn't parse color from middleware

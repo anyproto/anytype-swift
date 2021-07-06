@@ -1,17 +1,18 @@
 import Foundation
 import UIKit
+import BlocksModels
 
 final class DocumentSettingsViewModel {
     
     // MARK: - Private variables
 
-    private let iconPickerViewModel: DocumentBasicIconPickerViewModel
+    private let iconPickerViewModel: DocumentIconPickerViewModel
     private let coverPickerViewModel: DocumentCoverPickerViewModel
     
     // MARK: - Initializer
     
     init(activeModel: DetailsActiveModel) {
-        self.iconPickerViewModel = DocumentBasicIconPickerViewModel(
+        self.iconPickerViewModel = DocumentIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
             detailsActiveModel: activeModel
         )
@@ -23,6 +24,10 @@ final class DocumentSettingsViewModel {
     }
     
     // MARK: - Internal function
+    
+    func configure(with details: DetailsData) {
+        iconPickerViewModel.configure(with: details)
+    }
     
     func makeSettingsViewController() -> UIViewController {
         BottomFloaterBuilder().builBottomFloater {
