@@ -9,8 +9,34 @@
 import SwiftUI
 
 struct DocumentProfileIconPicker: View {
+    
+    @EnvironmentObject private var viewModel: DocumentIconPickerViewModel
+    @Environment(\.presentationMode) private var presentationMode
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0) {
+            mediaPickerView
+            tabBarView
+        }
+        .ignoresSafeArea(.keyboard)
+    }
+    
+    private var mediaPickerView: some View {
+        MediaPickerView(contentType: viewModel.mediaPickerContentType) { item in
+            item.flatMap { viewModel.uploadImage(from: $0) }
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    private var tabBarView: some View {
+        Button {
+            viewModel.removeIcon()
+            presentationMode.wrappedValue.dismiss()
+        } label: {
+            AnytypeText("Remove photo", style: .headline)
+                .foregroundColor(.red)
+        }
+        .frame(height: 48)
     }
 }
 
