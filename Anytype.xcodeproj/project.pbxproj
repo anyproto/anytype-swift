@@ -2106,6 +2106,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		129D786A26945B2000DA6757 /* DocumentBasicIconPicker */ = {
+			isa = PBXGroup;
+			children = (
+				12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */,
+				1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */,
+			);
+			path = DocumentBasicIconPicker;
+			sourceTree = "<group>";
+		};
 		12B69C8E265D15FF00D047E3 /* Cover */ = {
 			isa = PBXGroup;
 			children = (
@@ -2146,10 +2155,8 @@
 		12D94FCF2678CD1200F794EB /* DocumentIconPicker */ = {
 			isa = PBXGroup;
 			children = (
+				129D786A26945B2000DA6757 /* DocumentBasicIconPicker */,
 				3D89224C2680E0850023E705 /* Emoji */,
-				12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */,
-				1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */,
-				12D94FD22678DA6300F794EB /* EmojiGridView.swift */,
 			);
 			path = DocumentIconPicker;
 			sourceTree = "<group>";
@@ -2507,6 +2514,7 @@
 		3D89224C2680E0850023E705 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
+				12D94FD22678DA6300F794EB /* EmojiGridView.swift */,
 				3DEFD64B2689FE250072EA27 /* Emoji.swift */,
 				3DEFD64C2689FE250072EA27 /* EmojiGroup.swift */,
 				3DEFD64A2689FE240072EA27 /* EmojiProvider.swift */,
