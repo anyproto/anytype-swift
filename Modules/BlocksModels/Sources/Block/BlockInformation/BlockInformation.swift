@@ -1,11 +1,5 @@
 import ProtobufMessages
 
-public enum BlockInformationAlignment: CaseIterable, Hashable {
-    case left
-    case center
-    case right
-}
-
 public struct BlockInformation: Hashable {
     public var id: BlockId
     public var content: BlockContent
