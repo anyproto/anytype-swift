@@ -202,8 +202,8 @@
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
 		129D787326945B6D00DA6757 /* DocumentProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */; };
-		129D787726945D6300DA6757 /* DocumentIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787626945D6300DA6757 /* DocumentIconPickerViewModel.swift */; };
 		129D7879269464BA00DA6757 /* DocumentIconPickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */; };
+		129D788326946EA300DA6757 /* DocumentIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */; };
 		12B199EE268DD1C9002B9BD7 /* DocumentIconViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */; };
@@ -783,8 +783,8 @@
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProfileIconPicker.swift; sourceTree = "<group>"; };
-		129D787626945D6300DA6757 /* DocumentIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerViewModel.swift; sourceTree = "<group>"; };
 		129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerType.swift; sourceTree = "<group>"; };
+		129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerViewModel.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverViewState.swift; sourceTree = "<group>"; };
 		12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewState.swift; sourceTree = "<group>"; };
@@ -2166,7 +2166,7 @@
 		12D94FCF2678CD1200F794EB /* DocumentIconPicker */ = {
 			isa = PBXGroup;
 			children = (
-				129D787626945D6300DA6757 /* DocumentIconPickerViewModel.swift */,
+				129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */,
 				129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */,
 				129D786F26945B5100DA6757 /* DocumentProfileIconPicker */,
 				129D786A26945B2000DA6757 /* DocumentBasicIconPicker */,
@@ -3791,6 +3791,7 @@
 				EAE8C6A926930F8900324B46 /* URLInputViewController.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* ContextualMenu.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
+				129D788326946EA300DA6757 /* DocumentIconPickerViewModel.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
@@ -3895,7 +3896,6 @@
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
-				129D787726945D6300DA6757 /* DocumentIconPickerViewModel.swift in Sources */,
 				EA2F0D60264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift in Sources */,
 				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
 				3DEFD6642689FE740072EA27 /* DocumentIcon.swift in Sources */,
