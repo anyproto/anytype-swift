@@ -11,6 +11,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: BlockUserSessionModelProtocol? { get }
     var rootActiveModel: BlockActiveRecordProtocol? { get }
+    var rootModel: ContainerModelProtocol? { get }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
     func open(_ value: ServiceSuccess)
