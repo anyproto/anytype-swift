@@ -15,6 +15,8 @@ struct DocumentLayoutPicker: View {
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
+            AnytypeText("Choose layout type", style: .headlineSemibold)
+                .frame(height: 48, alignment: .center)
             layoutList
             Spacer()
         }
@@ -33,6 +35,7 @@ struct DocumentLayoutPicker: View {
                 .modifier(DividerModifier(spacing: 16))
             }
         }
+        .padding(.top, 16)
         .padding([.leading, .trailing], 20)
         
     }
