@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DocumentSettingsList: View {
 
+    @EnvironmentObject private var iconViewModel: DocumentIconPickerViewModel
     @EnvironmentObject var viewModel: DocumentSettingsListViewModel
     
     var body: some View {
@@ -16,7 +17,14 @@ struct DocumentSettingsList: View {
                 pressed: $viewModel.isIconSelected
             )
             .sheet(isPresented: $viewModel.isIconSelected) {
-                DocumentBasicIconPicker()
+                Group {
+                    switch iconViewModel.pickerType {
+                    case .basic:
+                        DocumentBasicIconPicker()
+                    case .profile:
+                        DocumentProfileIconPicker()
+                    }
+                }
             }
             .modifier(DividerModifier())
             

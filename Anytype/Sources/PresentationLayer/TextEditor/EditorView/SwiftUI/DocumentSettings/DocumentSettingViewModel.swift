@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import BlocksModels
 
 final class DocumentSettingsViewModel {
     
@@ -23,6 +24,10 @@ final class DocumentSettingsViewModel {
     }
     
     // MARK: - Internal function
+    
+    func configure(with details: DetailsData) {
+        iconPickerViewModel.configure(with: details)
+    }
     
     func makeSettingsViewController() -> UIViewController {
         BottomFloaterBuilder().builBottomFloater {

@@ -71,7 +71,10 @@ class DocumentEditorViewModel: ObservableObject {
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] details in
-                self?.detailsViewModel.performUpdateUsingDetails(details)
+                guard let self = self else { return }
+                
+                self.detailsViewModel.performUpdateUsingDetails(details)
+                self.settingsViewModel.configure(with: details)
             }
             .store(in: &subscriptions)
     }
