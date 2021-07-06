@@ -15,6 +15,7 @@ final class DocumentDetailsViewModel {
     private var coverViewState: DocumentCoverViewState = .empty
     private var iconViewState: DocumentIconViewState = .empty
     private var layout: DetailsLayout = .basic
+    private var alignment: LayoutAlignment = .left
     
     private var subscriptions: [AnyCancellable] = []
     
@@ -31,8 +32,6 @@ final class DocumentDetailsViewModel {
     // MARK: - Internal functions
     
     func performUpdateUsingDetails(_ detailsData: DetailsData) {
-        layout = detailsData.layout ?? .basic
-        
         coverViewState = detailsData.documentCover.flatMap {
             DocumentCoverViewState.cover($0)
         } ?? DocumentCoverViewState.empty
@@ -41,6 +40,10 @@ final class DocumentDetailsViewModel {
             DocumentIconViewState.icon($0)
         } ?? DocumentIconViewState.empty
         
+        layout = detailsData.layout ?? .basic
+        
+        alignment = detailsData.alignment ?? .left
+        
         onUpdate()
     }
     
@@ -48,7 +51,7 @@ final class DocumentDetailsViewModel {
         DocumentSection(
             iconViewState: iconViewState,
             coverViewState: coverViewState,
-            layout: layout
+            alignment: alignment
         )
     }
     

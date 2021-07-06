@@ -48,6 +48,20 @@ extension DocumentDetailsView: ConfigurableView {
     func configure(model: DocumentSection) {
         coverView.configure(model: model.coverViewState)
         iconView.configure(model: model.iconViewState)
+        
+        iconView.removeFromSuperview()
+        addSubview(iconView) {
+            switch model.alignment {
+            case .left:
+                $0.leading.equal(to: leadingAnchor, constant: Constants.iconEdgeInsets.leading)
+            case .center:
+                $0.centerX.equal(to: centerXAnchor)
+            case .right:
+                $0.trailing.equal(to: trailingAnchor, constant: -Constants.iconEdgeInsets.trailing)
+            }
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.iconEdgeInsets.bottom)
+            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top, priority: .defaultHigh)
+        }
     }
     
 }
@@ -62,12 +76,6 @@ private extension DocumentDetailsView {
             $0.trailing.equal(to: trailingAnchor)
             $0.top.equal(to: topAnchor, priority: .defaultLow)
             $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
-        }
-        
-        addSubview(iconView) {
-            $0.leading.equal(to: leadingAnchor, constant: Constants.iconEdgeInsets.leading)
-            $0.bottom.equal(to: bottomAnchor, constant: -Constants.iconEdgeInsets.bottom)
-            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top, priority: .defaultHigh)
         }
     }
     
@@ -85,7 +93,7 @@ private extension DocumentDetailsView {
             top: 12,
             leading: 16,
             bottom: 12,
-            trailing: 20
+            trailing: 16
         )
     }
     
