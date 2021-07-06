@@ -69,9 +69,8 @@ final class InnerEventConverter {
                 style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
             }
 
-            // Apply marks only if we haven't received text and marks.
             var marks = value.marks.value
-            if !value.hasText, !value.hasMarks {
+            if !value.hasMarks {
                 // obtain current marks as middleware model
                 marks = AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
             }
