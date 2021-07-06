@@ -202,12 +202,7 @@ private extension CustomTextView {
         
         firstResponderSubscription = textView.firstResponderChangePublisher
             .sink { [weak self] change in
-                switch change {
-                case .become:
-                    self?.delegate?.changeFirstResponderState(change)
-                case .resign:
-                    return
-                }
+                self?.delegate?.changeFirstResponderState(change)
             }
     }
 

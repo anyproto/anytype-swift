@@ -106,19 +106,24 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel: TextViewDelegate {
     func willBeginEditing() {
-        BlockDelegate?.willBeginEditing()
+        blockDelegate?.willBeginEditing()
     }
 
     func didBeginEditing() {
-        BlockDelegate?.didBeginEditing()
+        blockDelegate?.didBeginEditing()
     }
     
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        BlockDelegate?.becomeFirstResponder(for: block.blockModel)
+        switch change {
+        case .become:
+            blockDelegate?.becomeFirstResponder(for: block.blockModel)
+        case .resign:
+            blockDelegate?.resignFirstResponder()
+        }
     }
 
     func sizeChanged() {
-        BlockDelegate?.blockSizeChanged()
+        blockDelegate?.blockSizeChanged()
     }
 }
 

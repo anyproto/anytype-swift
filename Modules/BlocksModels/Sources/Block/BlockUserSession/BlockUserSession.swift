@@ -26,7 +26,10 @@ extension BlockUserSession: BlockUserSessionModelProtocol {
 
     func setFocusAt(position: BlockFocusPosition) { self._focusAt = position }
     
-    func unsetFirstResponder() { self._firstResponder = nil }
+    func unsetFirstResponder() {
+        _firstResponder = nil
+        _firstResponderBlockModel = nil
+    }
     func unsetFocusAt() { self._focusAt = nil }
     
     func didChangePublisher() -> AnyPublisher<Void, Never> { self.objectWillChange.eraseToAnyPublisher() }
