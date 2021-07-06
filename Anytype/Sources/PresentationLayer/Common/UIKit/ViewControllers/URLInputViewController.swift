@@ -34,6 +34,10 @@ final class URLInputViewController: UIViewController {
         super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(
                                     target: self,
-                                    action: #selector(dismiss(animated:completion:))))
+                                    action: #selector(didTapOnEmptySpace)))
+    }
+    
+    @objc private func didTapOnEmptySpace() {
+        dismiss(animated: false)
     }
 }
