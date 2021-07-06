@@ -45,7 +45,7 @@ struct DocumentBasicIconPicker: View {
                 presentationMode.wrappedValue.dismiss()
             } label: {
                 AnytypeText("Remove", style: .headline)
-                    .foregroundColor(.red)
+                    .foregroundColor(.pureRed)
             }
         }
     }
