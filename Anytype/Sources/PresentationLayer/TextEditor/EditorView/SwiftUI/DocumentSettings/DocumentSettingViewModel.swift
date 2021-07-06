@@ -5,13 +5,13 @@ final class DocumentSettingsViewModel {
     
     // MARK: - Private variables
 
-    private let iconPickerViewModel: DocumentIconPickerViewModel
+    private let iconPickerViewModel: DocumentBasicIconPickerViewModel
     private let coverPickerViewModel: DocumentCoverPickerViewModel
     
     // MARK: - Initializer
     
     init(activeModel: DetailsActiveModel) {
-        self.iconPickerViewModel = DocumentIconPickerViewModel(
+        self.iconPickerViewModel = DocumentBasicIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
             detailsActiveModel: activeModel
         )

@@ -16,7 +16,7 @@ struct DocumentSettingsList: View {
                 pressed: $viewModel.isIconSelected
             )
             .sheet(isPresented: $viewModel.isIconSelected) {
-                DocumentIconPicker()
+                DocumentBasicIconPicker()
             }
             .modifier(DividerModifier())
             

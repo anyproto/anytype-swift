@@ -172,7 +172,7 @@
 		0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */; };
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
-		1206DBA1267A5693000A48A7 /* DocumentIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */; };
+		1206DBA1267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */; };
 		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
@@ -209,7 +209,7 @@
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12D8FFB5268CC29F008F765B /* DocumentCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D8FFB4268CC29F008F765B /* DocumentCover.swift */; };
 		12D8FFB7268CCA06008F765B /* DocumentDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D8FFB6268CCA06008F765B /* DocumentDetailsViewModel.swift */; };
-		12D94FD12678CD1F00F794EB /* DocumentIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */; };
+		12D94FD12678CD1F00F794EB /* DocumentBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */; };
 		12D94FD32678DA6300F794EB /* EmojiGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD22678DA6300F794EB /* EmojiGridView.swift */; };
 		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
@@ -751,7 +751,7 @@
 		0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFile.swift; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
-		1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerViewModel.swift; sourceTree = "<group>"; };
+		1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBasicIconPickerViewModel.swift; sourceTree = "<group>"; };
 		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
@@ -788,7 +788,7 @@
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12D8FFB4268CC29F008F765B /* DocumentCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCover.swift; sourceTree = "<group>"; };
 		12D8FFB6268CCA06008F765B /* DocumentDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsViewModel.swift; sourceTree = "<group>"; };
-		12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPicker.swift; sourceTree = "<group>"; };
+		12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBasicIconPicker.swift; sourceTree = "<group>"; };
 		12D94FD22678DA6300F794EB /* EmojiGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiGridView.swift; sourceTree = "<group>"; };
 		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
@@ -2106,6 +2106,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		129D786A26945B2000DA6757 /* DocumentBasicIconPicker */ = {
+			isa = PBXGroup;
+			children = (
+				12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */,
+				1206DBA0267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift */,
+			);
+			path = DocumentBasicIconPicker;
+			sourceTree = "<group>";
+		};
 		12B69C8E265D15FF00D047E3 /* Cover */ = {
 			isa = PBXGroup;
 			children = (
@@ -2146,10 +2155,8 @@
 		12D94FCF2678CD1200F794EB /* DocumentIconPicker */ = {
 			isa = PBXGroup;
 			children = (
+				129D786A26945B2000DA6757 /* DocumentBasicIconPicker */,
 				3D89224C2680E0850023E705 /* Emoji */,
-				12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */,
-				1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */,
-				12D94FD22678DA6300F794EB /* EmojiGridView.swift */,
 			);
 			path = DocumentIconPicker;
 			sourceTree = "<group>";
@@ -2507,6 +2514,7 @@
 		3D89224C2680E0850023E705 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
+				12D94FD22678DA6300F794EB /* EmojiGridView.swift */,
 				3DEFD64B2689FE250072EA27 /* Emoji.swift */,
 				3DEFD64C2689FE250072EA27 /* EmojiGroup.swift */,
 				3DEFD64A2689FE240072EA27 /* EmojiProvider.swift */,
@@ -3621,7 +3629,7 @@
 				120F7D7C267F881700327734 /* BlockBookmarkView.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
-				1206DBA1267A5693000A48A7 /* DocumentIconPickerViewModel.swift in Sources */,
+				1206DBA1267A5693000A48A7 /* DocumentBasicIconPickerViewModel.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */,
@@ -3653,7 +3661,7 @@
 				3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* PageCell.swift in Sources */,
-				12D94FD12678CD1F00F794EB /* DocumentIconPicker.swift in Sources */,
+				12D94FD12678CD1F00F794EB /* DocumentBasicIconPicker.swift in Sources */,
 				3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
