@@ -10,7 +10,7 @@ protocol BlockActionHandlerProtocol {
 }
 
 /// Actions from block
-class BlockActionHandler: BlockActionHandlerProtocol {
+final class BlockActionHandler: BlockActionHandlerProtocol {
     private let service: BlockActionServiceProtocol
     private let listService = BlockActionsServiceList()
     private let textService = BlockActionsServiceText()
@@ -21,23 +21,23 @@ class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let textBlockActionHandler: TextBlockActionHandler
-
-    private weak var viewInput: EditorModuleDocumentViewInput?
+    private lazy var blockUpdater: BlockUpdater? = {
+        guard let container = document.rootModel else { return nil }
+        return BlockUpdater(container)
+    }()
 
     init(
         documentId: String,
         modelsHolder: SharedBlockViewModelsHolder,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
-        viewInput: EditorModuleDocumentViewInput
+        router: EditorRouterProtocol
     ) {
         self.modelsHolder = modelsHolder
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
         self.selectionHandler = selectionHandler
         self.document = document
-        self.viewInput = viewInput
         self.router = router
         
         self.textBlockActionHandler = TextBlockActionHandler(
@@ -230,8 +230,6 @@ private extension BlockActionHandler {
         guard case var .text(textContentType) = info.content else { return }
         var range = range
         
-        var newInfo = info
-        
         // if range length == 0 then apply to whole block
         if range.length == 0 {
             range = NSRange(location: 0, length: textContentType.attributedText.length)
@@ -257,16 +255,17 @@ private extension BlockActionHandler {
                 }
             }
             textContentType.attributedText = newAttributedString
-            newInfo.content = .text(textContentType)
-            viewInput?.updateRowsWithoutRefreshing(ids: [info.id])
+            blockUpdater?.update(entry: info.id) { model in
+                var model = model
+                model.information.content = .text(textContentType)
+                model.didChange()
+            }
             
             textService.setText(
                 contextID: self.documentId,
-                blockID: newInfo.id,
+                blockID: info.id,
                 attributedString: newAttributedString
             )
-            .sink(receiveCompletion: {_ in }, receiveValue: {})
-            .store(in: &self.subscriptions)
         }
         
         switch fontAction {
@@ -281,22 +280,23 @@ private extension BlockActionHandler {
                 newAttributedString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: range)
             }
             textContentType.attributedText = newAttributedString
-            newInfo.content = .text(textContentType)
-            viewInput?.updateRowsWithoutRefreshing(ids: [newInfo.id])
+            blockUpdater?.update(entry: info.id) { model in
+                var model = model
+                model.information.content = .text(textContentType)
+                model.didChange()
+            }
             textService.setText(
                 contextID: self.documentId,
-                blockID: newInfo.id,
+                blockID: info.id,
                 attributedString: newAttributedString
             )
-            .sink(receiveCompletion: {_ in }, receiveValue: {})
-            .store(in: &self.subscriptions)
         case .keyboard:
             // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
             let keyboardColor = MiddlewareColor.grey
-            let backgroundColor = MiddlewareColorConverter.asMiddleware(name: newInfo.backgroundColor)
+            let backgroundColor = MiddlewareColorConverter.asMiddleware(name: info.backgroundColor)
             let color = backgroundColor == keyboardColor ? MiddlewareColor.default : keyboardColor
             
-            service.setBackgroundColor(blockId: newInfo.id, color: color)
+            service.setBackgroundColor(blockId: info.id, color: color)
         }
     }
 }

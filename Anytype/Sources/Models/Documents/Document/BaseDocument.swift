@@ -20,7 +20,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var documentId: BlockId? { rootModel?.rootId }
     
     /// RootModel
-    private var rootModel: ContainerModelProtocol? {
+    private(set) var rootModel: ContainerModelProtocol? {
         didSet {
             self.handleNewRootModel(self.rootModel)
         }

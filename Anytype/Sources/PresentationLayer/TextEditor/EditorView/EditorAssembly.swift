@@ -37,8 +37,7 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             selectionHandler: selectionHandler,
             document: document,
-            router: router,
-            viewInput: viewInput
+            router: router
         )
         
         let editorBlockActionHandler = EditorActionHandler(
