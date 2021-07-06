@@ -13,8 +13,6 @@ final class InnerEventConverter {
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate? {
-        typealias AttributedTextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
-
         switch event {
         case let .blockSetFields(fields):
             updater.update(entry: fields.id) { block in
@@ -46,68 +44,8 @@ final class InnerEventConverter {
         case let .blockSetChildrenIds(value):
             updater.set(children: value.childrenIds, parent: value.id)
             return .general
-        case let .blockSetText(value):
-            let blockId = value.id
-
-            guard var blockModel = self.container?.blocksContainer.get(by: blockId) else {
-                assertionFailure("We cannot parse style from value: \(value)\n reason: block model not found")
-                return .general
-            }
-
-            // TODO: We need introduce Textable protocol for blocks that would support text
-            guard case let .text(oldText) = blockModel.information.content else {
-                assertionFailure("We cannot parse style from value: \(value)\n reason: block model doesn't support text")
-                return .general
-            }
-            let newText = value.hasText ? value.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
-            let newChecked = value.hasChecked ? value.checked.value : oldText.checked
-
-            let style: Anytype_Model_Block.Content.Text.Style
-            if value.hasStyle {
-                style = value.style.value
-            } else {
-                style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
-            }
-
-            var marks = value.marks.value
-            if !value.hasMarks {
-                // obtain current marks as middleware model
-                marks = AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
-            }
-
-            // Workaroung: Some font could set bold style to attributed string
-            // So if header or title style has font that apply bold we remove it
-            // We need it if change style from subheading to text
-            let oldStyle = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
-            if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
-                marks.marks.removeAll { mark in
-                    mark.type == .bold
-                }
-            }
-
-            // obtain current block color
-            let blockColor = value.hasColor ? value.color.value : oldText.color
-
-            let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
-                                                                      style: style,
-                                                                      marks: marks,
-                                                                      checked: newChecked,
-                                                                      color: blockColor)
-
-            guard let blockContent = BlocksModelsConverter.convert(middleware: .text(textContent)),
-                  case var .text(newTextBlockContentType) = blockContent else {
-                assertionFailure("We cannot parse style from value: \(value)")
-                return .general
-            }
-            if !value.hasStyle {
-                newTextBlockContentType.contentType = oldText.contentType
-            }
-            newTextBlockContentType.number = oldText.number
-            blockModel.information.content = .text(newTextBlockContentType)
-            self.blockValidator.validate(information: &blockModel.information)
-            
-            return .update(.init(updatedIds: [blockId]))
-
+        case let .blockSetText(newData):
+            return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(value):
             let blockId = value.id
             let backgroundColor = value.backgroundColor
@@ -336,5 +274,66 @@ final class InnerEventConverter {
         case .objectShow: return .general
         default: return nil
         }
+    }
+    
+    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
+        guard var blockModel = container?.blocksContainer.get(by: newData.id) else {
+            assertionFailure("Block model with id \(newData.id) not found in container")
+            return .general
+        }
+        guard case let .text(oldText) = blockModel.information.content else {
+            assertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            return .general
+        }
+
+        
+        let color = newData.hasColor ? newData.color.value : oldText.color
+        let text = newData.hasText ? newData.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
+        let checked = newData.hasChecked ? newData.checked.value : oldText.checked
+        let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
+        let marks = buildMarks(newData: newData, oldText: oldText)
+        
+        let textContent = Anytype_Model_Block.Content.Text(
+            text: text,
+            style: style,
+            marks: marks,
+            checked: checked,
+            color: color
+        )
+        
+        guard var textContent = ContentTextConverter().textContent(textContent) else {
+            assertionFailure("We cannot block content from: \(textContent)")
+            return .general
+        }
+
+        if !newData.hasStyle {
+            textContent.contentType = oldText.contentType
+        }
+        textContent.number = oldText.number
+        
+        blockModel.information.content = .text(textContent)
+        blockValidator.validate(information: &blockModel.information)
+        
+        return .update(.init(updatedIds: [newData.id]))
+    }
+    
+    private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
+        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
+        
+        // Apply marks only if we haven't received text and marks.
+        let useNewMarks = newData.hasText || newData.marks.hasValue
+        var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
+        
+        // Workaroung: Some font could set bold style to attributed string
+        // So if header or title style has font that apply bold we remove it
+        // We need it if change style from subheading to text
+        let oldStyle = BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
+        if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
+            marks.marks.removeAll { mark in
+                mark.type == .bold
+            }
+        }
+        
+        return marks
     }
 }

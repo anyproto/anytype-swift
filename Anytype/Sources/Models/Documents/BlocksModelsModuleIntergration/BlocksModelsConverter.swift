@@ -14,7 +14,7 @@ enum BlocksModelsConverter {
         switch middleware {
         case .smartblock(let data): return contentObjectAsEmptyPage.blockType(data)
         case .link(let data): return contentLink.blockType(data)
-        case .text(let data): return contentText.blockType(data)
+        case .text(let data): return contentText.blockContent(data)
         case .file(let data): return contentFile.blockType(data)
         case .bookmark(let data): return contentBookmark.blockType(data)
         case .div(let data): return contentDivider.blockType(data)

@@ -30,7 +30,7 @@ extension Namespace {
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
             let defaultFont: UIFont
-            if let style = BlocksModelsParserTextContentTypeConverter.asModel(style) {
+            if let style = BlockTextContentTypeConverter.asModel(style) {
                 defaultFont = UIFont.font(for: style)
             } else {
                 defaultFont = .bodyFont

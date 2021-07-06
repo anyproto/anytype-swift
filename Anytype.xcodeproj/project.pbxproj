@@ -125,7 +125,7 @@
 		0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F642395D7A10027A4AD /* CreateNewProfileView.swift */; };
 		0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6823969B030027A4AD /* CompletionAuthView.swift */; };
 		0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */; };
-		0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327024B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift */; };
+		0A78327124B8D2B400A1B6F6 /* BlockTextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327024B8D2B400A1B6F6 /* BlockTextConverter.swift */; };
 		0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */; };
 		0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78326E24B8D2A200A1B6F6 /* PageEventConverter.swift */; };
 		0A78327624BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327524BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift */; };
@@ -707,7 +707,7 @@
 		0A6F900D2554826700B94AED /* UnknownLabelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownLabelViewModel.swift; sourceTree = "<group>"; };
 		0A78326524B8BC1000A1B6F6 /* BlocksModels.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BlocksModels.xcodeproj; sourceTree = "<group>"; };
 		0A78326E24B8D2A200A1B6F6 /* PageEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEventConverter.swift; sourceTree = "<group>"; };
-		0A78327024B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserTextContentTypeConverter.swift; sourceTree = "<group>"; };
+		0A78327024B8D2B400A1B6F6 /* BlockTextConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTextConverter.swift; sourceTree = "<group>"; };
 		0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentConverters.swift; sourceTree = "<group>"; };
 		0A78327524BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsDetailsConverter.swift; sourceTree = "<group>"; };
 		0A78328024BDEAD300A1B6F6 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
@@ -2283,7 +2283,7 @@
 				53856BEF265BCD4B00CB1FAE /* ProtobufExtenstion.swift */,
 				0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */,
 				0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */,
-				0A78327024B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift */,
+				0A78327024B8D2B400A1B6F6 /* BlockTextConverter.swift */,
 				0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */,
 				0AA00C5124CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift */,
 				0A31FDF624CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift */,
@@ -3645,7 +3645,7 @@
 				EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
-				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
+				0A78327124B8D2B400A1B6F6 /* BlockTextConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				3DEFD6632689FE740072EA27 /* IconEmoji.swift in Sources */,
