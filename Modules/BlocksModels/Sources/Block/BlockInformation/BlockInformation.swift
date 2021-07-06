@@ -1,11 +1,5 @@
 import ProtobufMessages
 
-public enum BlockInformationAlignment: CaseIterable, Hashable {
-    case left
-    case center
-    case right
-}
-
 public struct BlockInformation: Hashable {
     public var id: BlockId
     public var content: BlockContent
@@ -15,7 +9,7 @@ public struct BlockInformation: Hashable {
     public var fields = [String: BlockFieldType]()
     
     public var backgroundColor = ""
-    public var alignment = BlockInformationAlignment.left
+    public var alignment = LayoutAlignment.left
     
     public init(id: BlockId, content: BlockContent) {
         self.id = id

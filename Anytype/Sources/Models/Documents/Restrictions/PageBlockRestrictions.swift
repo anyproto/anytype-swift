@@ -14,7 +14,7 @@ struct PageBlockRestrictions: BlockRestrictions {
          .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
          .objects(.page)]
     }
-    var availableAlignments: [BlockInformationAlignment] {
-        BlockInformationAlignment.allCases
+    var availableAlignments: [LayoutAlignment] {
+        LayoutAlignment.allCases
     }
 }

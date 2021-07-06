@@ -12,7 +12,7 @@ struct DividerBlockRestrictions: BlockRestrictions {
     var turnIntoStyles: [BlockViewType] {
         [.other(.lineDivider), .other(.dotsDivider)]
     }
-    var availableAlignments: [BlockInformationAlignment] {
+    var availableAlignments: [LayoutAlignment] {
         []
     }
 }
