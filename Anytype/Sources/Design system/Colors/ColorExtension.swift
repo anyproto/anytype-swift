@@ -28,6 +28,7 @@ extension Color {
     static let buttonSecondaryText = textPrimary
     
     static let buttonActive = Color(ColorName.buttonActive)
+    static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
     
     // Custom

@@ -28,5 +28,6 @@ enum ColorName {
     static let grayscale50 = "grayscale50"
     
     static let buttonActive = "buttonActive"
+    static let buttonInactive = "buttonInactive"
     static let buttonSelected = "buttonSelected"
 }

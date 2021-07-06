@@ -34,7 +34,7 @@ struct DocumentProfileIconPicker: View {
             presentationMode.wrappedValue.dismiss()
         } label: {
             AnytypeText("Remove photo", style: .headline)
-                .foregroundColor(viewModel.isRemoveEnabled ? .red : Color.buttonActive)
+                .foregroundColor(viewModel.isRemoveEnabled ? .red : Color.buttonInactive)
         }
         .disabled(!viewModel.isRemoveEnabled)
         .frame(height: 48)
