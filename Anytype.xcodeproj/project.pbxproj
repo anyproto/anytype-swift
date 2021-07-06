@@ -204,6 +204,9 @@
 		129D787326945B6D00DA6757 /* DocumentProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */; };
 		129D7879269464BA00DA6757 /* DocumentIconPickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */; };
 		129D788326946EA300DA6757 /* DocumentIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */; };
+		129D78952694AE6900DA6757 /* DocumentLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* DocumentLayoutPicker.swift */; };
+		129D78972694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78962694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift */; };
+		129D78C52694B7E700DA6757 /* DocumentLayoutTypeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* DocumentLayoutTypeRow.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */; };
 		12B199EE268DD1C9002B9BD7 /* DocumentIconViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */; };
@@ -785,6 +788,9 @@
 		129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerType.swift; sourceTree = "<group>"; };
 		129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerViewModel.swift; sourceTree = "<group>"; };
+		129D78942694AE6900DA6757 /* DocumentLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLayoutPicker.swift; sourceTree = "<group>"; };
+		129D78962694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLayoutPickerViewModel.swift; sourceTree = "<group>"; };
+		129D78C42694B7E700DA6757 /* DocumentLayoutTypeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLayoutTypeRow.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverViewState.swift; sourceTree = "<group>"; };
 		12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewState.swift; sourceTree = "<group>"; };
@@ -2110,6 +2116,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		129D78912694AE3D00DA6757 /* DocumentLayoutPicker */ = {
+			isa = PBXGroup;
+			children = (
+				129D78942694AE6900DA6757 /* DocumentLayoutPicker.swift */,
+				129D78962694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift */,
+				129D78C42694B7E700DA6757 /* DocumentLayoutTypeRow.swift */,
+			);
+			path = DocumentLayoutPicker;
+			sourceTree = "<group>";
+		};
 		12B69C8E265D15FF00D047E3 /* Cover */ = {
 			isa = PBXGroup;
 			children = (
@@ -2795,6 +2811,7 @@
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				129D78912694AE3D00DA6757 /* DocumentLayoutPicker */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 				120F7D42267CCD9F00327734 /* DocumentCoverPicker */,
 				12D94FCF2678CD1200F794EB /* DocumentIconPicker */,
@@ -3974,6 +3991,7 @@
 				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
 				3D22B23C2687926500C78C28 /* ContextualMenuAction.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
+				129D78952694AE6900DA6757 /* DocumentLayoutPicker.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				3DBED6A1266FBF6A00B9E9AB /* UnknownLabelContentView.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
@@ -4090,6 +4108,7 @@
 				0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
+				129D78C52694B7E700DA6757 /* DocumentLayoutTypeRow.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
@@ -4102,6 +4121,7 @@
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				0A08D4C224AF822C0088ECC2 /* CommonViewsNamespace.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
+				129D78972694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift in Sources */,
 				3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */,
 				533856B0263B22B8005A06A9 /* TextAttributesViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */,

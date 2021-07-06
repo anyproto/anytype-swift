@@ -46,4 +46,11 @@ extension Image {
         static let layout = Image("object_settings_layout")
     }
     
+    enum LayoutSettings {
+        static let basic = Image("layout_settings_basic")
+        static let profile = Image("layout_settings_profile")
+        
+        static let checkmark = Image("layout_settings_checkmark")
+    }
+    
 }
