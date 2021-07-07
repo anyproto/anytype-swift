@@ -119,6 +119,8 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
             actionHandler.handleAction(.textView(action: action, activeRecord: block), info: block.blockModel.information)
         case .shouldChangeText:
             break
+        case .changeTextForStruct(_):
+            break
         }
         return true
     }
