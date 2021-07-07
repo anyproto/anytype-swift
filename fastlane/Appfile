@@ -1,9 +1,16 @@
-app_identifier("com.anytypeio.anytype") # The bundle identifier of your app
+# Developer Portal Team ID
+team_id("6SFR4648FW") 
 
-apple_id("iosteam@anytype.io") # Your Apple email address
+# App Store Connect Team ID
+itc_team_id("120897371") 
 
-itc_team_id("120897371") # App Store Connect Team ID
-team_id("6SFR4648FW") # Developer Portal Team ID
+apple_id("iosteam@anytype.io") 
 
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
+
+for_lane :dev do
+	app_identifier("com.anytypeio.anytype.dev") 
+end
+
+for_lane :release do
+	app_identifier("com.anytypeio.anytype") 
+end
