@@ -86,7 +86,7 @@ final class EditorRouter: EditorRouterProtocol {
             delegate: controller,
             information: information
         ) { [weak controller] action in
-            controller?.viewModel.blockActionHandler.handleActionForFirstResponder(action)
+            controller?.viewModel.blockActionHandler.handleAction(action, info: information)
         }
         
         controller.selectBlock(blockId: information.id)
