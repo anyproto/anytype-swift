@@ -380,7 +380,6 @@
 		3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6552689FE680072EA27 /* DocumentCoverView.swift */; };
 		3DEFD6622689FE740072EA27 /* DocumentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD65D2689FE740072EA27 /* DocumentIconView.swift */; };
 		3DEFD6632689FE740072EA27 /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD65F2689FE740072EA27 /* IconEmoji.swift */; };
-		3DEFD6642689FE740072EA27 /* DocumentIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6602689FE740072EA27 /* DocumentIcon.swift */; };
 		3DEFD6652689FE740072EA27 /* DocumentIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */; };
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DEFD6692689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6672689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift */; };
@@ -959,7 +958,6 @@
 		3DEFD6552689FE680072EA27 /* DocumentCoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentCoverView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Cover/DocumentCoverView.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD65D2689FE740072EA27 /* DocumentIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentIconView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/DocumentIconView.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD65F2689FE740072EA27 /* IconEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconEmoji.swift; sourceTree = "<group>"; };
-		3DEFD6602689FE740072EA27 /* DocumentIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentIcon.swift; sourceTree = "<group>"; };
 		3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentIconImageView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/DocumentIconImageView.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD6672689FEA30072EA27 /* ContextMenuAction+TextAttributesType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ContextMenuAction+TextAttributesType.swift"; path = "AnyType/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/ContextMenuAction+TextAttributesType.swift"; sourceTree = SOURCE_ROOT; };
@@ -2914,7 +2912,6 @@
 			isa = PBXGroup;
 			children = (
 				3DEFD65F2689FE740072EA27 /* IconEmoji.swift */,
-				3DEFD6602689FE740072EA27 /* DocumentIcon.swift */,
 			);
 			name = Entity;
 			path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/Entity;
@@ -3882,7 +3879,6 @@
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
 				EA2F0D60264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift in Sources */,
 				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
-				3DEFD6642689FE740072EA27 /* DocumentIcon.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift in Sources */,
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
