@@ -27,6 +27,7 @@ final class URLInputViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        becomeFirstResponder()
         urlInputView?.textField.becomeFirstResponder()
     }
     
