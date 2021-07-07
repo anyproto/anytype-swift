@@ -1,4 +1,4 @@
-git_url("https://github.com/anytypeio/ios-match")
+git_url("git@github.com:anytypeio/ios-match.git")
 
 storage_mode("git")
 
