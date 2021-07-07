@@ -54,7 +54,7 @@ final class EditorRouter: EditorRouterProtocol {
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
         let controller = URLInputViewController(didCreateURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
-        viewController?.present(controller, animated: true)
+        viewController?.present(controller, animated: false)
     }
     
     func showFilePicker(model: FilePickerModel) {
