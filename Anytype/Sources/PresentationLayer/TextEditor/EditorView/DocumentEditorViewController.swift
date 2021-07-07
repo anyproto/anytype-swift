@@ -172,11 +172,6 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: TODO: Remove later.
-extension DocumentEditorViewController {
-    func getViewModel() -> DocumentEditorViewModel { self.viewModel }
-}
-
 // MARK: - EditorModuleDocumentViewInput
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
