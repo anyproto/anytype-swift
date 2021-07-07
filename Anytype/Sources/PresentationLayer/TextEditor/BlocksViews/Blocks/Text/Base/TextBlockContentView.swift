@@ -75,7 +75,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
             self.createChildBlockButton.isHidden = true
             self.currentConfiguration.viewModel?.actionHandler.handleAction(
-                .textView(action: .keyboardAction(.enterAtTheEndOfContent), activeRecord: block),
+                .createEmptyBlock(parentId: block.blockModel.information.id),
                 info: block.blockModel.information
             )
         }))
@@ -326,7 +326,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.updateCreateChildButtonState(toggled: toggled,
                                               hasChildren: !blockViewModel.block.childrenIds().isEmpty)
             if oldValue != self.createChildBlockButton.isHidden {
-                blockViewModel.BlockDelegate?.blockSizeChanged()
+                blockViewModel.blockDelegate?.blockSizeChanged()
             }
         }
         replaceCurrentLeftView(with: leftView)

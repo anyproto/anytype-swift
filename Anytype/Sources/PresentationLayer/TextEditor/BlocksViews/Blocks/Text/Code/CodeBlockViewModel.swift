@@ -57,7 +57,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     }
 
     func becomeFirstResponder() {
-        BlockDelegate?.becomeFirstResponder(for: block.blockModel)
+        blockDelegate?.becomeFirstResponder(for: block.blockModel)
     }
 }
 

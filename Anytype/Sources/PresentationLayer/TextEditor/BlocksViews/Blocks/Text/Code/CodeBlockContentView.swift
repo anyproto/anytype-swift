@@ -200,6 +200,6 @@ extension CodeBlockContentView: UITextViewDelegate {
 
         guard textSize?.height != contentSize.height else { return }
         textSize = contentSize
-        self.currentConfiguration.viewModel?.BlockDelegate?.blockSizeChanged()
+        self.currentConfiguration.viewModel?.blockDelegate?.blockSizeChanged()
     }
 }

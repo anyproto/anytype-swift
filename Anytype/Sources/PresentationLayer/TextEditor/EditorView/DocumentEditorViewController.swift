@@ -115,13 +115,11 @@ extension DocumentEditorViewController {
     }
 
     private func focusOnFocusedBlock() {
-        guard collectionView.isAnySubviewFirstResponder() else { return }
-        
         let userSession = viewModel.document.userSession
         // TODO: we should move this logic to TextBlockViewModel
         if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt(),
            let blockViewModel = viewModel.modelsHolder.models.first(where: { $0.blockId == id }) as? TextBlockViewModel {
-                blockViewModel.set(focus: focusedAt)
+            blockViewModel.set(focus: focusedAt)
         }
     }
 }
