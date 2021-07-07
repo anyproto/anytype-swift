@@ -3,11 +3,8 @@ import BlocksModels
 import ProtobufMessages
 
 
-final class BlocksModelsParserTextContentTypeConverter {
-    typealias Model = BlockText.ContentType
-    typealias MiddlewareModel = Anytype_Model_Block.Content.Text.Style
-
-    static func asModel(_ value: MiddlewareModel) -> Model? {
+final class BlockTextContentTypeConverter {
+    static func asModel(_ value: Anytype_Model_Block.Content.Text.Style) -> BlockText.ContentType? {
         switch value {
         case .title: return .title
         case .paragraph: return .text
@@ -21,11 +18,13 @@ final class BlocksModelsParserTextContentTypeConverter {
         case .marked: return .bulleted
         case .numbered: return .numbered
         case .toggle: return .toggle
-        default: return nil
+        
+        case .description_: return nil
+        case .UNRECOGNIZED: return nil
         }
     }
     
-    static func asMiddleware(_ value: Model) -> MiddlewareModel {
+    static func asMiddleware(_ value: BlockText.ContentType) -> Anytype_Model_Block.Content.Text.Style {
         switch value {
         case .title: return .title
         case .text: return .paragraph

@@ -36,7 +36,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: TextStyle) -> AnyPublisher<ServiceSuccess, Error> {
-        let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
+        let style = BlockTextContentTypeConverter.asMiddleware(style)
         return setTextStyle(contextID: contextID, blockIds: blockIds, style: style)
     }
     private func setTextStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
