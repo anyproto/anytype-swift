@@ -1,5 +1,6 @@
 app_identifier("com.anytypeio.anytype") # The bundle identifier of your app
-apple_id("mordan2be@gmail.com") # Your Apple email address
+
+apple_id("iosteam@anytype.io") # Your Apple email address
 
 itc_team_id("120897371") # App Store Connect Team ID
 team_id("6SFR4648FW") # Developer Portal Team ID

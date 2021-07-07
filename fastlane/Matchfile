@@ -1,0 +1,8 @@
+git_url("https://github.com/anytypeio/ios-match")
+
+storage_mode("git")
+
+type("development") # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier(["com.anytypeio.anytype"])
+username("iosteam@anytype.io") # Your Apple Developer Portal username
