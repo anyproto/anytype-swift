@@ -214,6 +214,8 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 ),
                 info: block.blockModel.information
             )
+        case let .changeTextForStruct(textView):
+            fallthrough
         case let .changeText(textView):
             mentionsConfigurator.configure(textView: textView)
             actionHandler.handleAction(

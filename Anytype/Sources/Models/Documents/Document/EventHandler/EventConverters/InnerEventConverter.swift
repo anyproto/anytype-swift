@@ -293,7 +293,7 @@ final class InnerEventConverter {
         let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
         let marks = buildMarks(newData: newData, oldText: oldText)
         
-        let textContent = Anytype_Model_Block.Content.Text(
+        let middleContent = Anytype_Model_Block.Content.Text(
             text: text,
             style: style,
             marks: marks,
@@ -301,8 +301,8 @@ final class InnerEventConverter {
             color: color
         )
         
-        guard var textContent = ContentTextConverter().textContent(textContent) else {
-            assertionFailure("We cannot block content from: \(textContent)")
+        guard var textContent = ContentTextConverter().textContent(middleContent) else {
+            assertionFailure("We cannot block content from: \(middleContent)")
             return .general
         }
 
