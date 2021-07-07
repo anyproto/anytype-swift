@@ -70,10 +70,8 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            guard let self = self else { return }
-            guard let block = self.currentConfiguration.viewModel?.block else { return }
-
-            self.createChildBlockButton.isHidden = true
+            guard let self = self,
+                  let block = self.currentConfiguration.viewModel?.block else { return }
             self.currentConfiguration.viewModel?.actionHandler.handleAction(
                 .createEmptyBlock(parentId: block.blockModel.information.id),
                 info: block.blockModel.information
@@ -316,29 +314,14 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForToggle() {
         guard let blockViewModel = currentConfiguration.viewModel else { return }
 
-        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) { [weak self] in
-            guard let self = self else { return }
-
+        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) {
             blockViewModel.block.toggle()
             let toggled = blockViewModel.block.isToggled
             blockViewModel.onToggleTap(toggled: toggled)
-            let oldValue = self.createChildBlockButton.isHidden
-            self.updateCreateChildButtonState(toggled: toggled,
-                                              hasChildren: !blockViewModel.block.childrenIds().isEmpty)
-            if oldValue != self.createChildBlockButton.isHidden {
-                blockViewModel.blockDelegate?.blockSizeChanged()
-            }
         }
         replaceCurrentLeftView(with: leftView)
-        let toggled = blockViewModel.block.isToggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
-        let hasNoChildren = blockViewModel.block.childrenIds().isEmpty
-        updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
-    }
-    
-    private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {
-        let shouldShowCreateButton = toggled && !hasChildren
-        createChildBlockButton.isHidden = !shouldShowCreateButton
+        createChildBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
     
     private func replaceCurrentLeftView(with leftView: UIView) {
