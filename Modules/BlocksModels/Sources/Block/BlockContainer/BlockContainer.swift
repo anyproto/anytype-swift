@@ -81,11 +81,11 @@ extension BlockContainer: BlockContainerModelProtocol {
     }
     // MARK: - Children / Append
     func append(childId: BlockId, parentId: BlockId) {
-        guard let child = self.choose(by: childId) else {
+        guard let child = choose(by: childId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
-        guard let parent = self.choose(by: parentId) else {
+        guard let parent = choose(by: parentId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }

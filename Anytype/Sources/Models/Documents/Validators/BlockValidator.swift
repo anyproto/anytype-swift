@@ -9,24 +9,46 @@ struct BlockValidator {
         self.restrictionsFactory = restrictionsFactory
     }
     
-    func validate(information: inout BlockInformation) {
-        let restrictions = self.restrictionsFactory.makeRestrictions(for: information.content)
-        if case let .text(text) = information.content {
-            information.content = .text(self.validatedTextContent(content: text,
-                                                                           restrictions: restrictions))
+    func validated(information info: BlockInformation) -> BlockInformation {
+        let restrictions = restrictionsFactory.makeRestrictions(for: info.content)
+        
+        let content: BlockContent
+        if case let .text(text) = info.content {
+            content = .text(
+                validatedTextContent(
+                    content: text,       
+                    restrictions: restrictions
+                )
+            )
+        } else {
+            content = info.content
         }
-        if !restrictions.canApplyBackgroundColor {
-            information.backgroundColor = ""
+        
+        let backgroundColor = restrictions.canApplyBackgroundColor ? info.backgroundColor : ""
+        let alignment = validatedAlignment(alignment: info.alignment, restrictions: restrictions)
+        
+        return BlockInformation(
+            id: info.id,
+            content: content,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            childrenIds: info.childrenIds,
+            fields: info.fields
+        )
+    }
+    
+    func validatedAlignment(alignment: LayoutAlignment, restrictions: BlockRestrictions) -> LayoutAlignment {
+        guard restrictions.availableAlignments.contains(alignment) else {
+            return alignment
         }
-        if !restrictions.availableAlignments.contains(information.alignment) {
-            information.alignment = restrictions.availableAlignments.first ?? .left
-        }
+        
+        return restrictions.availableAlignments.first ?? .left
     }
     
     func validatedTextContent(content: BlockText, restrictions: BlockRestrictions) -> BlockText {
         let marks = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: content.attributedText).marks.marks
-        let filteredMarks = marks.filter {
-            switch $0.type {
+        let filteredMarks = marks.filter { mark in
+            switch mark.type {
             case .strikethrough, .keyboard, .underscored, .link:
                 return restrictions.canApplyOtherMarkup
             case .bold:
@@ -44,13 +66,18 @@ struct BlockValidator {
             }
         }
         let style = BlockTextContentTypeConverter.asMiddleware(content.contentType)
-        let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(text: content.attributedText.clearedFromMentionAtachmentsString(),
-                                                                                                    marks: .init(marks: filteredMarks),
-                                                                                                    style: style)
-        return BlockText(attributedText: attributedString,
-                                 color: content.color,
-                                 contentType: content.contentType,
-                                 checked: content.checked,
-                                 number: content.number)
+        let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
+            text: content.attributedText.clearedFromMentionAtachmentsString(),
+            marks: .init(marks: filteredMarks),
+            style: style
+        )
+        
+        return BlockText(
+            attributedText: attributedString,
+            color: content.color,
+            contentType: content.contentType,
+            checked: content.checked,
+            number: content.number
+        )
     }
 }
