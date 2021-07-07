@@ -18,9 +18,10 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    sync_code_signing(type: "appstore", readonly: true)
     increment_build_number(xcodeproj: "Anytype.xcodeproj")
     add_badge(dark: true)
     build_app(scheme: "Anytype")
-    upload_to_testflight
+    upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 end
