@@ -66,6 +66,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             handleFontAction(info: info, range: range, fontAction: fontAttributes)
         case let .setAlignment(alignment):
             setAlignment(blockId: info.id, alignment: alignment, completion: completion)
+        case let .setFields(contextID, fields):
+            service.setFields(contextID: contextID, blockFields: fields)
         case .duplicate:
             service.duplicate(blockId: info.id)
         case .setLink(_):

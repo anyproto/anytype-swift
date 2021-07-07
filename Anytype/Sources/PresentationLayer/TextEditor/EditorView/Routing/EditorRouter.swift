@@ -18,7 +18,7 @@ protocol EditorRouterProtocol: AnyObject {
     
     func saveFile(fileURL: URL)
     
-    func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void)
+    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
     func showStyleMenu(information: BlockInformation)
 }
@@ -71,7 +71,7 @@ final class EditorRouter: EditorRouterProtocol {
         fileRouter.saveFile(fileURL: fileURL)
     }
     
-    func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void) {
+    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
         let searchListViewController = SearchListViewController(items: languages, completion: completion)
         searchListViewController.modalPresentationStyle = .pageSheet
         viewController?.present(searchListViewController, animated: true)

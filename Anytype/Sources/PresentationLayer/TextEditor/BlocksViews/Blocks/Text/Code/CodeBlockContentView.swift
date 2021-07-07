@@ -41,21 +41,14 @@ final class CodeBlockContentView: UIView & UIContentView {
             codeSelectButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
         ])
 
-//        codeSelectButton.addAction(UIAction(handler: { [weak self] action in
-//            guard let codeLanguages = self?.textStorage.highlightr.supportedLanguages() else { return }
-
-//            self?.currentConfiguration.viewModel?.router.showCodeLanguageView(languages: codeLanguages) { language in
-//                self?.textStorage.language = language
-//                self?.codeSelectButton.setText(language)
-//
-//                self?.currentConfiguration.viewModel?.setCodeLanguage(language)
-//            }
-//        }), for: .touchUpInside)
+        codeSelectButton.addAction(UIAction { [weak self] _ in
+            self?.currentConfiguration.showCodeSelection()
+        }, for: .touchUpInside)
     }
 
     private func applyNewConfiguration() {
-        codeSelectButton.setText(currentConfiguration.codeLanguage)
-        textStorage.language = currentConfiguration.codeLanguage
+        codeSelectButton.setText(currentConfiguration.codeLanguage.rawValue)
+        textStorage.language = currentConfiguration.codeLanguage.rawValue
         textStorage.highlightr.highlight(currentConfiguration.content.attributedText.string).flatMap {
             textStorage.setAttributedString($0)
         }

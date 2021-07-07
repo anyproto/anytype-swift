@@ -21,7 +21,7 @@ final class InnerEventConverter {
                 block.information.fields = fields.fields.toFieldTypeMap()
                 block.didChange()
             }
-            return nil
+            return .update(.init(updatedIds: [fields.id]))
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockModelsInformationConverter.convert(block:))

@@ -25,3 +25,7 @@ public struct BlockInformation: Hashable {
         hasher.combine(id)
     }
 }
+
+public enum FieldName {
+    public static let codeLanguage = "lang"
+}
