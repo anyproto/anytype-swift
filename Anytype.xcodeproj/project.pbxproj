@@ -4292,7 +4292,7 @@
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Anytype/Supporting files/Info.plist";
+				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4320,7 +4320,7 @@
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Anytype/Supporting files/Info.plist";
+				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
