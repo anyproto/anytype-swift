@@ -77,8 +77,11 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         guard let image = ImageProperty(imageId: fileData.metadata.hash).property else {
             return
         }
-        
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+        let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default) { _ in UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) })
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        windowHolder?.rootNavigationController.present(alert, animated: true, completion: nil)
     }
     
     func updateView() { }

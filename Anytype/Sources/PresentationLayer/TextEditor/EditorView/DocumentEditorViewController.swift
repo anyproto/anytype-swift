@@ -152,8 +152,6 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         switch item.content {
         case .text:
             return false
-        case let .file(file) where [.done, .uploading].contains(file.state):
-            return false
         default:
             return true
         }
