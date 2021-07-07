@@ -34,7 +34,25 @@ final class BlockViewModelBuilder {
         case let .text(content):
             switch content.contentType {
             case .code:
-                return CodeBlockViewModel(block, delegate: delegate, actionHandler: blockActionHandler, router: router)
+                return CodeBlockViewModel(
+                    block: block,
+                    textData: content,
+                    contextualMenuHandler: contextualMenuHandler,
+                    becomeFirstResponder: { [weak self] model in
+                        self?.delegate.becomeFirstResponder(for: model)
+                    },
+                    setCodeLanguage: { blockFields, contextId in
+//                        listService.setFields(contextID: contextId, blockFields: [blockFields])
+//                            .sinkWithDefaultCompletion("Set code language") { _ in }
+//                            .store(in: &subscriptions)
+                    },
+                    textDidChange: { block, textView in
+                        self.blockActionHandler.handleAction(
+                            .textView(action: .changeTextForStruct(textView), activeRecord: block),
+                            info: block.blockModel.information
+                        )
+                    }
+                )
             case .toggle:
                 return ToggleBlockViewModel(block, delegate: delegate, actionHandler: blockActionHandler, router: router)
             default:
