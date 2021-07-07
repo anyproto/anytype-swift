@@ -1,7 +1,9 @@
 import BlocksModels
+import ProtobufMessages
 
 final class OurEventConverter {
     private weak var container: ContainerModelProtocol?
+    private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
     init(container: ContainerModelProtocol?) {
         self.container = container
@@ -10,19 +12,7 @@ final class OurEventConverter {
     func convert(_ event: OurEvent) -> EventHandlerUpdate? {
         switch event {
         case let .setFocus(blockId, position):
-            guard var model = container?.blocksContainer.choose(by: blockId) else {
-                assertionFailure("setFocus. We can't find model by id \(blockId)")
-                return nil
-            }
-            model.isFirstResponder = true
-            model.focusAt = position
-            
-            /// TODO: We should check that we don't have blocks in updated List.
-            /// IF id is in updated list, we should delay of `.didChange` event before all items will be drawn.
-            /// For example, it can be done by another case.
-            /// This case will capture a completion ( this `didChange()` function ) and call it later.
-            model.container?.userSession.didChange()
-            
+            setFocus(blockId: blockId, position: position)
             return nil
         case let .setTextMerge(blockId):
             guard let model = self.container?.blocksContainer.choose(by: blockId) else {
@@ -37,6 +27,60 @@ final class OurEventConverter {
             return .general
         case .setToggled:
             return .general
+        case let .setText(blockId: blockId, text: text):
+            return blockSetTextUpdate(blockId: blockId, text: text)
         }
+    }
+    
+    // simplified version of inner converter method
+    // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
+    // only text is changed
+    private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
+        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
+        
+        guard var blockModel = container?.blocksContainer.get(by: blockId) else {
+            assertionFailure("Block model with id \(blockId) not found in container")
+            return .general
+        }
+        guard case let .text(oldText) = blockModel.information.content else {
+            assertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            return .general
+        }
+        
+        let middleContent = Anytype_Model_Block.Content.Text(
+            text: text,
+            style: BlockTextContentTypeConverter.asMiddleware(oldText.contentType),
+            marks: TextConverter.asMiddleware(attributedText: oldText.attributedText).marks,
+            checked: oldText.checked,
+            color: oldText.color
+        )
+        
+        guard var textContent = ContentTextConverter().textContent(middleContent) else {
+            assertionFailure("We cannot block content from: \(middleContent)")
+            return .general
+        }
+
+        textContent.contentType = oldText.contentType
+        textContent.number = oldText.number
+        
+        blockModel.information.content = .text(textContent)
+        blockValidator.validate(information: &blockModel.information)
+        
+        return .update(.init(updatedIds: [blockId]))
+    }
+    
+    private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
+        guard var model = container?.blocksContainer.choose(by: blockId) else {
+            assertionFailure("setFocus. We can't find model by id \(blockId)")
+            return
+        }
+        model.isFirstResponder = true
+        model.focusAt = position
+        
+        /// TODO: We should check that we don't have blocks in updated List.
+        /// IF id is in updated list, we should delay of `.didChange` event before all items will be drawn.
+        /// For example, it can be done by another case.
+        /// This case will capture a completion ( this `didChange()` function ) and call it later.
+        model.container?.userSession.didChange()
     }
 }

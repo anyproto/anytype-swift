@@ -98,6 +98,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     info: info,
                     completion: completion
                 )
+            case let .changeTextForStruct(textView):
+                textBlockActionHandler.handlingTextViewAction(activeRecord, action)
+                completion.flatMap { completion in
+                    completion(
+                        PackOfEvents(
+                            contextId: document.documentId!,
+                            events: [],
+                            ourEvents: [.setText(blockId: info.id, text: textView.text)]
+                        )
+                    )    
+                }
             default:
                 textBlockActionHandler.handlingTextViewAction(activeRecord, action)
             }

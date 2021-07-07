@@ -9,6 +9,7 @@ extension CustomTextView {
         case showStyleMenu
         
         case changeText(UITextView)
+        case changeTextForStruct(UITextView)
         case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
         
         case keyboardAction(KeyboardAction)
