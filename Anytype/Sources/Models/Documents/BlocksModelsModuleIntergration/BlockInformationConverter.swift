@@ -2,7 +2,7 @@ import BlocksModels
 import ProtobufMessages
 import SwiftProtobuf
 
-class BlockModelsInformationConverter {
+class BlockInformationConverter {
     static func convert(block: Anytype_Model_Block) -> BlockInformation? {
         guard let content = block.content, let blockType = BlocksModelsConverter.convert(middleware: content) else {
             return nil
@@ -15,7 +15,7 @@ class BlockModelsInformationConverter {
             backgroundColor: block.backgroundColor,
             alignment: alignment,
             childrenIds: block.childrenIds,
-            fields: [:]
+            fields: block.fields.toFieldTypeMap()
         )
         
         let validator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())

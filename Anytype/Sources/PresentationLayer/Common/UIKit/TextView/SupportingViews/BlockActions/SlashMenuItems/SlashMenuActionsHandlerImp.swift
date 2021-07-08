@@ -153,7 +153,7 @@ private extension SlashMenuActionsHandlerImp {
         guard case let .blockAdd(blockAdd) =  message.value else { return }
         
         let addedBlocks = blockAdd.blocks
-            .compactMap(BlockModelsInformationConverter.convert(block:))
+            .compactMap(BlockInformationConverter.convert(block:))
             .map(BlockModel.init)
         addedBlocks.forEach { model in
             if case let .link(link) = model.information.content {

@@ -24,7 +24,7 @@ final class InnerEventConverter {
             return .update(.init(updatedIds: [fields.id]))
         case let .blockAdd(value):
             value.blocks
-                .compactMap(BlockModelsInformationConverter.convert(block:))
+                .compactMap(BlockInformationConverter.convert(block:))
                 .map(BlockModel.init)
                 .forEach { block in
                     updater.insert(block: block)

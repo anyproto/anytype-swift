@@ -40,7 +40,7 @@ final class PageEventConverter {
             }
         })
                 
-        let parsedBlocks = blocks.compactMap(BlockModelsInformationConverter.convert(block:))
+        let parsedBlocks = blocks.compactMap(BlockInformationConverter.convert(block:))
         
         let parsedDetails = details.map { (value) -> DetailsData in
             let corrected = EventDetailsAndSetDetailsConverter.convert(event: value)
