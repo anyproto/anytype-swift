@@ -3,7 +3,7 @@ default_platform(:ios)
 platform :ios do
 
   lane :dev do
-    sync_code_signing(type: "appstore", readonly: true)
+    match(readonly: true)
     increment_build_number(xcodeproj: "Anytype.xcodeproj")
     add_badge(grayscale: true, no_badge: true)
     build_app(scheme: "Anytype", configuration: "Dev-Release")
@@ -11,10 +11,19 @@ platform :ios do
   end
 
   lane :release do
-    sync_code_signing(type: "appstore", readonly: true)
+    match(readonly: true)
     increment_build_number(xcodeproj: "Anytype.xcodeproj")
     build_app(scheme: "Anytype", configuration: "Release")
     upload_to_testflight(skip_waiting_for_build_processing: true)
+  end
+
+
+  lane :install_dev_profiles do
+    match(readonly: true)
+  end
+
+  lane :generate_dev_profiles do
+    match(force_for_new_devices: true)
   end
 
 end
