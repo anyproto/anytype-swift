@@ -4,8 +4,15 @@ platform :ios do
 
   lane :dev do
     match(readonly: true)
-    increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    add_badge(grayscale: true, no_badge: true)
+    
+    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+
+    add_badge(
+      grayscale: true,
+      shield: "#{version}-#{build_number}-blue",
+      no_badge: true
+    )
     build_app(scheme: "Anytype", configuration: "Dev-Release")
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end
