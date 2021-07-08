@@ -1,20 +1,18 @@
 import BlocksModels
 
-struct CodeBlockRestrictions: BlockRestrictions {
+struct ListBlockRestrictions: BlockRestrictions {
     
-    let canApplyBold = false
-    let canApplyItalic = false
-    let canApplyOtherMarkup = false
-    let canApplyBlockColor = false
+    let canApplyBold = true
+    let canApplyItalic = true
+    let canApplyOtherMarkup = true
+    let canApplyBlockColor = true
     let canApplyBackgroundColor = true
-    let canApplyMention = false
-    
+    let canApplyMention = true
     let turnIntoStyles: [BlockViewType] = [
         .text(.text), .text(.h1), .text(.h2), .text(.h3), .text(.highlighted),
         .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
-        .objects(.page)
+        .objects(.page), .other(.code)
     ]
+   
     let availableAlignments = [LayoutAlignment]()
-
-    let canCreateBlockBelowOnEnter = false
 }
