@@ -12,7 +12,7 @@ struct MentionsParser {
         let details = middwareMention.details.fields.map(Anytype_Rpc.Block.Set.Details.Detail.init(key:value:))
         let contentList = BlocksModelsDetailsConverter.asModel(details: details)
         let detailsData = DetailsData(details: contentList, parentId: "")
-        let icon = detailsData.icon ?? DocumentIconType.profile(.placeholder(detailsData.name?.first ?? Character("")))
+        let icon = detailsData.icon ?? DocumentIconType.profile(.placeholder(detailsData.name?.first ?? Character(" ")))
         
         return MentionObject(id: middwareMention.id,
                              name: detailsData.name,
