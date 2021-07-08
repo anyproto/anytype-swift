@@ -152,6 +152,13 @@ final class BlockActionService: BlockActionServiceProtocol {
                 self?.didReceiveEvent(value)
             }.store(in: &self.subscriptions)
     }
+    
+    func setFields(contextID: BlockId, blockFields: [BlockFields]) {
+        listService.setFields(contextID: contextID, blockFields: blockFields)
+            .sinkWithDefaultCompletion("listService.setFields") { [weak self] serviceSuccess in
+                self?.didReceiveEvent(serviceSuccess.defaultEvent)
+            }.store(in: &self.subscriptions)
+    }
 }
 
 private extension BlockActionService {

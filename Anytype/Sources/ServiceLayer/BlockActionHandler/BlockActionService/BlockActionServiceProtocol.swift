@@ -31,5 +31,7 @@ protocol BlockActionServiceProtocol {
     
     func duplicate(blockId: BlockId)
     
+    func setFields(contextID: BlockId, blockFields: [BlockFields])
+    
     func receiveOurEvents(_ events: [OurEvent])
 }

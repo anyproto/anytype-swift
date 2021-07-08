@@ -4,10 +4,11 @@ import UIKit
 struct CodeBlockContentConfiguration {
     let content: BlockText
     let backgroundColor: String
-    let codeLanguage: String
+    let codeLanguage: CodeLanguage
     
     let becomeFirstResponder: () -> ()
     let textDidChange: (UITextView) -> ()
+    let showCodeSelection: () -> ()
 }
 
 extension CodeBlockContentConfiguration: UIContentConfiguration {

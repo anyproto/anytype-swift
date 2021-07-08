@@ -21,16 +21,15 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var indentationLevel: Int {
         block.indentationLevel
     }
-    private var codeLanguage: String {
-        information.fields[Constants.codeLanguageFieldName]?.stringValue ?? "Swift"
+    private var codeLanguage: CodeLanguage {
+        CodeLanguage.create(middleware: information.fields[FieldName.codeLanguage]?.stringValue)
     }
 
     let contextualMenuHandler: DefaultContextualMenuHandler
     
     let becomeFirstResponder: (BlockModelProtocol) -> ()
-    let setCodeLanguage: (BlockFields, BlockId) -> ()
     let textDidChange: (BlockActiveRecordProtocol, UITextView) -> ()
-    
+    let showCodeSelection: (BlockActiveRecordProtocol) -> ()
 
     func makeContentConfiguration() -> UIContentConfiguration {
         return CodeBlockContentConfiguration(
@@ -42,6 +41,9 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             },
             textDidChange: { textView in
                 self.textDidChange(self.block, textView)
+            },
+            showCodeSelection: {
+                self.showCodeSelection(self.block)
             }
         )
     }
@@ -61,12 +63,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     func handle(action: ContextualMenuAction) {
         contextualMenuHandler.handle(action: action, info: information)
     }
-
-    func setCodeLanguage(_ language: String) {
-        guard let contextId = block.container?.rootId else { return }
-        let blockFields = BlockFields(blockId: blockId, fields: [Constants.codeLanguageFieldName: language])
-        setCodeLanguage(blockFields, contextId)
-    }
     
     func didSelectRowInTableView() { }
     func updateView() {}
@@ -77,11 +73,5 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         return "id: \(blockId)\ntext: \(textData.attributedText.string.prefix(10))...\ntype: \(textData.contentType)"
-    }
-}
-
-extension CodeBlockViewModel {
-    private enum Constants {
-        static let codeLanguageFieldName = "lang"
     }
 }
