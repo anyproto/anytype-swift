@@ -1,12 +1,14 @@
 import ProtobufMessages
 
+public typealias BlockFields = [String : BlockFieldType]
+
 public struct BlockInformation: Hashable {
     public var id: BlockId
     public var content: BlockContent
     
     public var childrenIds: [BlockId]
     
-    public var fields: [String: BlockFieldType]
+    public let fields: BlockFields
     
     public let backgroundColor: String
     public var alignment: LayoutAlignment
@@ -17,7 +19,7 @@ public struct BlockInformation: Hashable {
         backgroundColor: String,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
-        fields: [String: BlockFieldType]
+        fields: BlockFields
     ) {
         self.id = id
         self.content = content
@@ -50,6 +52,17 @@ extension BlockInformation {
     }
     
     public func updated(with backgroundColor: String) -> BlockInformation {
+        return BlockInformation(
+            id: id,
+            content: content,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            childrenIds: childrenIds,
+            fields: fields
+        )
+    }
+    
+    public func updated(with fields: BlockFields) -> BlockInformation {
         return BlockInformation(
             id: id,
             content: content,
