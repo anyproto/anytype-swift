@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-extension MiddlewareColor {    
+extension MiddlewareColor {
     func color(background: Bool) -> UIColor {
         switch self {
         case .default: return background ? .grayscaleWhite : .grayscale90
@@ -17,22 +17,14 @@ extension MiddlewareColor {
         case .lime: return background ? .lightGreen : .pureGreen
         }
     }
-    
-    static func name(_ color: UIColor, background: Bool = false) -> String? {
-        allCases.first(where: {$0.color(background: background) == color})?.name()
-    }
 }
 
-enum MiddlewareColorConverter {
-    static func asString(_ color: UIColor, background: Bool) -> String? {
-        MiddlewareColor.name(color, background: background)
-    }
-    
-    static func asMiddleware(_ backgroundColor: BlockBackgroundColor) -> MiddlewareColor? {
-        MiddlewareColor.allCases.first(where: {$0.color(background: true) == backgroundColor.color})
-    }
-    
-    static func asMiddleware(_ color: BlockColor) -> MiddlewareColor? {
-        MiddlewareColor.allCases.first(where: {$0.color(background: false) == color.color})
+extension UIColor {
+    func middlewareString(background: Bool) -> String? {
+        MiddlewareColor.allCases.first(
+            where: { middleware in
+                middleware.color(background: background) == self
+            }
+        )?.rawValue
     }
 }

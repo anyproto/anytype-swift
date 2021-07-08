@@ -206,13 +206,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
 private extension BlockActionHandler {
     func setBlockColor(blockId: BlockId, color: BlockColor, completion: Completion?) {
-        guard let color = MiddlewareColorConverter.asMiddleware(color) else {
-            assertionFailure("Wrong UIColor \(color) for setBlockColor command")
-            return
-        }
         let blockIds = [blockId]
         
-        listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color)
+        listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color.middleware)
             .sinkWithDefaultCompletion("setBlockColor") { value in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 completion?(value)

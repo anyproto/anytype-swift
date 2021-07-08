@@ -50,7 +50,7 @@ final class InnerEventConverter {
             updater.update(entry: updateData.id, update: { block in
                 var block = block
                 block.information = block.information.updated(
-                    with: MiddlewareColor(name: updateData.backgroundColor)
+                    with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
             })
             return .update(.init(updatedIds: [updateData.id]))
@@ -286,7 +286,7 @@ final class InnerEventConverter {
         }
 
         
-        let color = newData.hasColor ? newData.color.value : oldText.color?.name()
+        let color = newData.hasColor ? newData.color.value : oldText.color?.rawValue
         let text = newData.hasText ? newData.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
         let checked = newData.hasChecked ? newData.checked.value : oldText.checked
         let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)

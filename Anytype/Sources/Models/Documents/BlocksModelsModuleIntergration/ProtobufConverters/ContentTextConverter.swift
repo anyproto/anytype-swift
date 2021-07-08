@@ -17,7 +17,7 @@ class ContentTextConverter {
             
             return BlockText(
                 attributedText: attributedString,
-                color: MiddlewareColor(name: from.color),
+                color: MiddlewareColor(rawValue: from.color),
                 contentType: contentType,
                 checked: from.checked
             )
@@ -34,7 +34,7 @@ func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
                     attributedText: from.attributedText
                 ).marks,
                 checked: from.checked,
-                color: from.color?.name() ?? ""
+                color: from.color?.rawValue ?? ""
             )
         )
     }

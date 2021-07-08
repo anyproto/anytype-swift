@@ -14,7 +14,7 @@ extension BlockActionsServiceList {
 
 class BlockActionsServiceList: BlockActionsServiceListProtocol {
     func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ServiceSuccess, Error> {
-        return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.name())
+        return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.rawValue)
             .map(\.event)
             .map(ServiceSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())
@@ -43,7 +43,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setBackgroundColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.name())
+        Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.rawValue)
             .map(\.event)
             .map(ServiceSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())

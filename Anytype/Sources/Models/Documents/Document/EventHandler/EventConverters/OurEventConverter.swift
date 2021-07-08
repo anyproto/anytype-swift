@@ -52,7 +52,7 @@ final class OurEventConverter {
             style: BlockTextContentTypeConverter.asMiddleware(oldText.contentType),
             marks: TextConverter.asMiddleware(attributedText: oldText.attributedText).marks,
             checked: oldText.checked,
-            color: oldText.color?.name() ?? ""
+            color: oldText.color?.rawValue ?? ""
         )
         
         guard var textContent = ContentTextConverter().textContent(middleContent) else {

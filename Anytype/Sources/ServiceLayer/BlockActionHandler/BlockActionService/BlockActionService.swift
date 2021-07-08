@@ -258,12 +258,7 @@ extension BlockActionService {
 
 extension BlockActionService {
     func setBackgroundColor(blockId: BlockId, color: BlockBackgroundColor) {
-        guard let color = MiddlewareColorConverter.asMiddleware(color) else {
-            assertionFailure("Wrong UIColor for setBackgroundColor command")
-            return
-        }
-        
-        setBackgroundColor(blockId: blockId, color: color)
+        setBackgroundColor(blockId: blockId, color: color.middleware)
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
