@@ -24,7 +24,7 @@ final class InnerEventConverter {
             return .update(.init(updatedIds: [fields.id]))
         case let .blockAdd(value):
             value.blocks
-                .compactMap(BlockModelsInformationConverter.convert(block:))
+                .compactMap(BlockInformationConverter.convert(block:))
                 .map(BlockModel.init)
                 .forEach { block in
                     updater.insert(block: block)
@@ -56,7 +56,7 @@ final class InnerEventConverter {
         case let .blockSetAlign(value):
             let blockId = value.id
             let alignment = value.align
-            guard let modelAlignment = BlocksModelsParserCommonAlignmentConverter.asModel(alignment) else {
+            guard let modelAlignment = alignment.asBlockModel else {
                 assertionFailure("We cannot parse alignment: \(value)")
                 return .general
             }

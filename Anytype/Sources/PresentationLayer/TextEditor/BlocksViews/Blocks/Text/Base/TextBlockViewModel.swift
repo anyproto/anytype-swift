@@ -84,7 +84,7 @@ extension TextBlockViewModel {
         case let .text(blockType):
             let attributedText = blockType.attributedText
             
-            let alignment = information.alignment.asTextAlignment
+            let alignment = information.alignment.asNSTextAlignment
             let blockColor = MiddlewareColorConverter.asUIColor(name: blockType.color, background: false)
 
             textViewUpdate = TextViewUpdate.payload(
@@ -135,7 +135,7 @@ private extension TextBlockViewModel {
         // ToView
         let alignmentPublisher = block.didChangeInformationPublisher()
             .map(\.alignment)
-            .map { $0.asTextAlignment }
+            .map { $0.asNSTextAlignment }
             .removeDuplicates()
             .safelyUnwrapOptionals()
 

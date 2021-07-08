@@ -69,7 +69,8 @@ class EventHandler: EventHandlerProtocol {
     
     private func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> PageEvent {
         switch event {
-        case let .objectShow(value): return pageEventConverter.convert(blocks: value.blocks, details: value.details, smartblockType: value.type)
+        case let .objectShow(value):
+            return pageEventConverter.convert(blocks: value.blocks, details: value.details, smartblockType: value.type)
         default: return .empty()
         }
     }
