@@ -327,6 +327,7 @@
 		3DB27C15261B0EA5005E523C /* DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C11261B0EA5005E523C /* DecodingTests.swift */; };
 		3DB27C16261B0EA5005E523C /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C12261B0EA5005E523C /* XCTestManifests.swift */; };
 		3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */; };
+		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */; };
 		3DB6E249268B65BD00C303E5 /* DefaultContextualMenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */; };
 		3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */; };
@@ -909,6 +910,7 @@
 		3DB27C11261B0EA5005E523C /* DecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingTests.swift; sourceTree = "<group>"; };
 		3DB27C12261B0EA5005E523C /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingPathConverter.swift; sourceTree = "<group>"; };
+		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = AnyType/Sources/Models/Documents/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelProtocol.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Base/BlockViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultContextualMenuHandler.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Base/DefaultContextualMenuHandler.swift; sourceTree = SOURCE_ROOT; };
 		3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackgroundBlurView.swift; sourceTree = "<group>"; };
@@ -3161,6 +3163,7 @@
 				EAC6BA9826270FE0004C8C06 /* DividerBlockRestrictions.swift */,
 				EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */,
 				EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */,
+				3DB6929F2697066500149864 /* DummyRestrictions.swift */,
 			);
 			path = Restrictions;
 			sourceTree = "<group>";
@@ -3760,6 +3763,7 @@
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextViewUserInteractionProtocol.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */,
+				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */,

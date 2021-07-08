@@ -9,7 +9,7 @@ class BlockModelsInformationConverter {
         }
         
         let alignment = BlocksModelsParserCommonAlignmentConverter.asModel(block.align) ?? .left
-        return BlockInformation(
+        let info =  BlockInformation(
             id: block.id,
             content: blockType,
             backgroundColor: block.backgroundColor,
@@ -17,6 +17,9 @@ class BlockModelsInformationConverter {
             childrenIds: block.childrenIds,
             fields: [:]
         )
+        
+        let validator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
+        return validator.validated(information: info)
     }
     
     static func convert(information: BlockInformation) -> Anytype_Model_Block? {

@@ -20,8 +20,7 @@ struct BlockRestrictionsFactory {
         case .bookmark:
             return BookmarkBlockRestrictions()
         case .smartblock, .layout:
-            assertionFailure("No restrictions for smartblock and layout")
-            return TextBlockRestrictions()
+            return DummyRestrictions()
         }
     }
     

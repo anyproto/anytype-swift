@@ -1,3 +1,7 @@
+/*
+* Layout have no visual representation, but affects on blocks, that it contains.
+* Row/Column layout blocks creates only automatically, after some of a D&D operations, for example
+*/
 public struct BlockLayout: Hashable {
     public enum Style {
         case row

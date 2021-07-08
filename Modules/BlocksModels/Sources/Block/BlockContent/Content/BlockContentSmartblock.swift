@@ -1,3 +1,4 @@
+// Aka Page
 public struct BlockSmartblock: Hashable {
     public enum Style {
         case page

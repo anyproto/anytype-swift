@@ -8,7 +8,7 @@ public struct BlockInformation: Hashable {
     
     public var fields: [String: BlockFieldType]
     
-    public var backgroundColor: String
+    public let backgroundColor: String
     public var alignment: LayoutAlignment
     
     public init(
@@ -26,7 +26,18 @@ public struct BlockInformation: Hashable {
         self.childrenIds = childrenIds
         self.fields = fields
     }
-    
+
+    // TODO: Remove, used for collection view diff
+    public static func == (lhs: BlockInformation, rhs: BlockInformation) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+extension BlockInformation {
     public static func createNew(content: BlockContent) -> BlockInformation {
         return BlockInformation(
             id: BlockId(""),
@@ -37,14 +48,16 @@ public struct BlockInformation: Hashable {
             fields: [:]
         )
     }
-
-    // TODO: Remove, used for collection view diff
-    public static func == (lhs: BlockInformation, rhs: BlockInformation) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    
+    public func updated(with backgroundColor: String) -> BlockInformation {
+        return BlockInformation(
+            id: id,
+            content: content,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            childrenIds: childrenIds,
+            fields: fields
+        )
     }
 }
 
