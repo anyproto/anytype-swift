@@ -3,7 +3,7 @@ import UIKit
 
 struct CodeBlockContentConfiguration {
     let content: BlockText
-    let backgroundColor: String
+    let backgroundColor: MiddlewareColor?
     let codeLanguage: CodeLanguage
     
     let becomeFirstResponder: () -> ()

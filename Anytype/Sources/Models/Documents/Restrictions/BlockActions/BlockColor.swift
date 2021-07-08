@@ -1,5 +1,5 @@
-
 import UIKit
+import BlocksModels
 
 enum BlockColor: CaseIterable {
     case black
@@ -93,6 +93,33 @@ enum BlockColor: CaseIterable {
             return "TextEditor/Toolbar/Blocks/ColorGreen"
         case .coldgray:
             return "TextEditor/Toolbar/Blocks/ColorColdgray"
+        }
+    }
+    
+    var middleware: MiddlewareColor {
+        switch self {
+        case .black:
+            return .default
+        case .lemon:
+            return .yellow
+        case .amber:
+            return .orange
+        case .red:
+            return .red
+        case .pink:
+            return .pink
+        case .purple:
+            return .purple
+        case .ultramarine:
+            return .blue
+        case .blue:
+            return .ice
+        case .teal:
+            return .teal
+        case .green:
+            return .lime
+        case .coldgray:
+            return .grey
         }
     }
 }

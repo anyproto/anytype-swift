@@ -10,13 +10,13 @@ public struct BlockInformation: Hashable {
     
     public let fields: BlockFields
     
-    public let backgroundColor: String
+    public let backgroundColor: MiddlewareColor?
     public var alignment: LayoutAlignment
     
     public init(
         id: BlockId,
         content: BlockContent,
-        backgroundColor: String,
+        backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
         fields: BlockFields
@@ -44,14 +44,14 @@ extension BlockInformation {
         return BlockInformation(
             id: BlockId(""),
             content: content,
-            backgroundColor: "",
+            backgroundColor: nil,
             alignment: .left,
             childrenIds: [],
             fields: [:]
         )
     }
     
-    public func updated(with backgroundColor: String) -> BlockInformation {
+    public func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
         return BlockInformation(
             id: id,
             content: content,

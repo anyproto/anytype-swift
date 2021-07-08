@@ -206,13 +206,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
 private extension BlockActionHandler {
     func setBlockColor(blockId: BlockId, color: BlockColor, completion: Completion?) {
-        guard let color = MiddlewareColorConverter.asString(color) else {
-            assertionFailure("Wrong UIColor for setBlockColor command")
-            return
-        }
         let blockIds = [blockId]
         
-        listService.setBlockColor(contextID: self.documentId, blockIds: blockIds, color: color)
+        listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color.middleware)
             .sinkWithDefaultCompletion("setBlockColor") { value in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 completion?(value)
@@ -306,7 +302,7 @@ private extension BlockActionHandler {
         case .keyboard:
             // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
             let keyboardColor = MiddlewareColor.grey
-            let backgroundColor = MiddlewareColorConverter.asMiddleware(name: info.backgroundColor)
+            let backgroundColor = info.backgroundColor
             let color = backgroundColor == keyboardColor ? MiddlewareColor.default : keyboardColor
             
             service.setBackgroundColor(blockId: info.id, color: color)
