@@ -4,7 +4,7 @@ struct MentionObject {
     let id: String
     let name: String?
     let description: String?
-    let iconData: DocumentIcon?
+    let iconData: DocumentIconType?
 }
 
 extension MentionObject: Hashable {

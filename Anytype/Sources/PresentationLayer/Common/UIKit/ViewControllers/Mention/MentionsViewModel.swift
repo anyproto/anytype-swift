@@ -52,7 +52,7 @@ final class MentionsViewModel {
                 id: response.pageID,
                 name: name,
                 description: nil,
-                iconData: DocumentIcon(emoji: emoji)
+                iconData: DocumentIconType(emoji: emoji)
             )
             didSelectMention(mention)
         case let .failure(error):
@@ -64,16 +64,34 @@ final class MentionsViewModel {
         if let imageProperty = imageStorage[mention.id] {
             return imageProperty.property
         }
-        if case let .imageId(id) = mention.iconData {
-            let property = ImageProperty(imageId: id, ImageParameters(width: .thumbnail))
-            let loadImage = property.stream.sink { [weak self] image in
-                guard image != nil else { return }
-                self?.view?.update(mention: .mention(mention))
+        guard let icon = mention.iconData else { return nil }
+        switch icon {
+        case let .basic(basic):
+            switch basic {
+            case .emoji:
+                return nil
+            case let .imageId(id):
+                loadImage(by: id, mention: mention)
             }
-            imageLoadingSubscriptions.append(loadImage)
-            imageStorage[mention.id] = property
+        case let .profile(profile):
+            switch profile {
+            case let .imageId(id):
+                loadImage(by: id, mention: mention)
+            case .placeholder:
+                return nil
+            }
         }
         return nil
+    }
+    
+    private func loadImage(by id: String, mention: MentionObject) {
+        let property = ImageProperty(imageId: id, ImageParameters(width: .thumbnail))
+        let loadImage = property.stream.sink { [weak self] image in
+            guard image != nil else { return }
+            self?.view?.update(mention: .mention(mention))
+        }
+        imageLoadingSubscriptions.append(loadImage)
+        imageStorage[mention.id] = property
     }
     
     private func obtainMentions() {

@@ -69,12 +69,24 @@ final class MentionsViewController: UITableViewController {
             return ContentConfigurationWithEmoji(emoji: mention.name?.first?.uppercased() ?? "",
                                                         name: mention.name,
                                                         description: mention.description)
-        case let .emoji(emoji):
-            return ContentConfigurationWithEmoji(emoji: emoji.value,
-                                                        name: mention.name,
-                                                        description: mention.description)
-        case .imageId:
-            return mentionWithImageConfiguration(mention: mention)
+        case let .profile(profile):
+            switch profile {
+            case .imageId:
+                return mentionWithImageConfiguration(mention: mention)
+            case let .placeholder(placeholder):
+                return ContentConfigurationWithEmoji(emoji: String(placeholder),
+                                                     name: mention.name,
+                                                     description: mention.description)
+            }
+        case let .basic(basic):
+            switch basic {
+            case let .emoji(emoji):
+                return ContentConfigurationWithEmoji(emoji: emoji.value,
+                                                            name: mention.name,
+                                                            description: mention.description)
+            case .imageId:
+                return mentionWithImageConfiguration(mention: mention)
+            }
         }
     }
     
