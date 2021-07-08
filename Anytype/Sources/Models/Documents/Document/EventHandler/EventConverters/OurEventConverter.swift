@@ -64,7 +64,7 @@ final class OurEventConverter {
         textContent.number = oldText.number
         
         blockModel.information.content = .text(textContent)
-        blockValidator.validate(information: &blockModel.information)
+        blockModel.information = blockValidator.validated(information: blockModel.information)
         
         return .update(.init(updatedIds: [blockId]))
     }

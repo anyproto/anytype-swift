@@ -4,19 +4,19 @@ import SwiftProtobuf
 
 class BlockModelsInformationConverter {
     static func convert(block: Anytype_Model_Block) -> BlockInformation? {
-        guard let content = block.content, let blockType = BlocksModelsConverter.convert(middleware: content) else { return nil }
-        
-        var information = BlockInformation(id: block.id, content: blockType)
-
-        // TODO: Add fields and restrictions.
-        // Add parsers for them and model.
-        // "Add fields and restrictions into our model."
-        information.childrenIds = block.childrenIds
-        information.backgroundColor = block.backgroundColor
-        if let alignment = BlocksModelsParserCommonAlignmentConverter.asModel(block.align) {
-            information.alignment = alignment
+        guard let content = block.content, let blockType = BlocksModelsConverter.convert(middleware: content) else {
+            return nil
         }
-        return information
+        
+        let alignment = BlocksModelsParserCommonAlignmentConverter.asModel(block.align) ?? .left
+        return BlockInformation(
+            id: block.id,
+            content: blockType,
+            backgroundColor: block.backgroundColor,
+            alignment: alignment,
+            childrenIds: block.childrenIds,
+            fields: [:]
+        )
     }
     
     static func convert(information: BlockInformation) -> Anytype_Model_Block? {
