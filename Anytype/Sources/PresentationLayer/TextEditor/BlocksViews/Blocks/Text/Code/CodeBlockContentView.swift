@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import Highlightr
+import BlocksModels
 
 final class CodeBlockContentView: UIView & UIContentView {
     private var currentConfiguration: CodeBlockContentConfiguration
@@ -53,8 +54,7 @@ final class CodeBlockContentView: UIView & UIContentView {
             textStorage.setAttributedString($0)
         }
         
-        textView.backgroundColor = MiddlewareColor(name: currentConfiguration.backgroundColor)?
-            .color(background: true) ?? UIColor.lightColdGray
+        textView.backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? UIColor.lightColdGray
     }
     
     // MARK: - Views
@@ -90,7 +90,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.label.font = UIFont.bodyFont
-        button.label.textColor = MiddlewareColor.grey.color()
+        button.label.textColor = MiddlewareColor.grey.color(background: false)
         let image = UIImage(named: "TextEditor/Toolbar/turn_into_arrow")
         button.setImage(image)
 

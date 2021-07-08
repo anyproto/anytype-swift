@@ -1,16 +1,15 @@
 public struct BlockText: Hashable {
     private static var defaultChecked = false
-    private static var defaultColor = ""
     public var attributedText: NSAttributedString
 
     /// Block color
-    public var color: String
+    public var color: MiddlewareColor?
     public var contentType: ContentType
     public var checked: Bool
     public var number: Int
     
     // MARK: - Memberwise initializer
-    public init(attributedText: NSAttributedString, color: String, contentType: ContentType, checked: Bool, number: Int = 1) {
+    public init(attributedText: NSAttributedString, color: MiddlewareColor?, contentType: ContentType, checked: Bool, number: Int = 1) {
         self.attributedText = attributedText
         self.color = color
         self.contentType = contentType
@@ -22,7 +21,7 @@ public struct BlockText: Hashable {
 // MARK: ContentType / Text / Supplements
 public extension BlockText {
     init(contentType: ContentType) {
-        self.init(attributedText: .init(), color: Self.defaultColor, contentType: contentType, checked: Self.defaultChecked)
+        self.init(attributedText: .init(), color: nil, contentType: contentType, checked: Self.defaultChecked)
     }
             
     // MARK: - Create
@@ -32,7 +31,7 @@ public extension BlockText {
     }
 
     static func createDefault(text: String) -> Self {
-        .init(attributedText: .init(string: text), color: Self.defaultColor, contentType: .text, checked: Self.defaultChecked)
+        .init(attributedText: .init(string: text), color: nil, contentType: .text, checked: Self.defaultChecked)
     }
 }
 

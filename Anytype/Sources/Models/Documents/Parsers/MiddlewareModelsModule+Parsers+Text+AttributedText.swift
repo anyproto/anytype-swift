@@ -199,13 +199,13 @@ private extension Namespace {
             case .link: return .link(URLConverter.asModel(tuple.value))
 
             case .textColor:
-                guard let color = MiddlewareColorConverter.asUIColor(name: tuple.value, background: false) else {
+                guard let color = MiddlewareColor(name: tuple.value)?.color(background: false) else {
                     return nil
                 }
                 return .textColor(color)
 
             case .backgroundColor:
-                guard let color = MiddlewareColorConverter.asUIColor(name: tuple.value, background: true) else {
+                guard let color = MiddlewareColor(name: tuple.value)?.color(background: true) else {
                     return nil
                 }
                 return .backgroundColor(color)

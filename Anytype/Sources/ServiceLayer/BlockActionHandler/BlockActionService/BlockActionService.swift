@@ -269,7 +269,7 @@ extension BlockActionService {
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
         let blockIds = [blockId]
 
-        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color.name())
+        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
             }

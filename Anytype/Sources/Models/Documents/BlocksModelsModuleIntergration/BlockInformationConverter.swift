@@ -12,7 +12,7 @@ class BlockInformationConverter {
         let info =  BlockInformation(
             id: block.id,
             content: blockType,
-            backgroundColor: block.backgroundColor,
+            backgroundColor: MiddlewareColor(name: block.backgroundColor),
             alignment: alignment,
             childrenIds: block.childrenIds,
             fields: block.fields.toFieldTypeMap()
@@ -30,7 +30,7 @@ class BlockInformationConverter {
         let fields = Google_Protobuf_Struct()
         let restrictions = Anytype_Model_Block.Restrictions()
         let childrenIds = information.childrenIds
-        let backgroundColor = information.backgroundColor
+        let backgroundColor = information.backgroundColor?.name() ?? ""
         let alignment = information.alignment.asMiddleware
         
         return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)

@@ -58,10 +58,10 @@ final class BottomSheetsFactory {
 
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = information.content else { return nil }
-            return MiddlewareColorConverter.asUIColor(name: textContent.color, background: false)
+            return textContent.color?.color(background: false)
         }
         let askBackgroundColor: () -> UIColor? = {
-            return MiddlewareColorConverter.asUIColor(name: information.backgroundColor, background: true)
+            return information.backgroundColor?.color(background: true)
         }
 
         let contentVC = StyleViewController(

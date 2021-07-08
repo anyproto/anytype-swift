@@ -16,7 +16,10 @@ class ContentTextConverter {
             )
             
             return BlockText(
-                attributedText: attributedString, color: from.color, contentType: contentType, checked: from.checked
+                attributedText: attributedString,
+                color: MiddlewareColor(name: from.color),
+                contentType: contentType,
+                checked: from.checked
             )
         }
     }
@@ -24,14 +27,14 @@ class ContentTextConverter {
 func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
         let style = BlockTextContentTypeConverter.asMiddleware(from.contentType)
         return .text(
-            .init(
+            Anytype_Model_Block.Content.Text(
                 text: from.attributedText.string,
                 style: style,
                 marks: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(
                     attributedText: from.attributedText
                 ).marks,
                 checked: from.checked,
-                color: from.color
+                color: from.color?.name() ?? ""
             )
         )
     }
