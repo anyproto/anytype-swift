@@ -2,16 +2,14 @@ default_platform(:ios)
 
 platform :ios do
 
-  desc "Push a new Dev-Debug build to TestFlight"
   lane :dev do
     sync_code_signing(type: "appstore", readonly: true)
     increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    add_badge(dark: true, grayscale: true)
-    build_app(scheme: "Anytype", configuration: "Dev-Debug")
+    add_badge(grayscale: true, no_badge: true)
+    build_app(scheme: "Anytype", configuration: "Dev-Release")
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end
 
-  desc "Push a new Release build to TestFlight"
   lane :release do
     sync_code_signing(type: "appstore", readonly: true)
     increment_build_number(xcodeproj: "Anytype.xcodeproj")
