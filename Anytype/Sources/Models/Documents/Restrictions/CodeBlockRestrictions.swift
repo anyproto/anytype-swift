@@ -6,7 +6,7 @@ struct CodeBlockRestrictions: BlockRestrictions {
     let canApplyItalic = false
     let canApplyOtherMarkup = false
     let canApplyBlockColor = false
-    let canApplyBackgroundColor = false
+    let canApplyBackgroundColor = true
     let canApplyMention = false
     
     let turnIntoStyles: [BlockViewType] = [

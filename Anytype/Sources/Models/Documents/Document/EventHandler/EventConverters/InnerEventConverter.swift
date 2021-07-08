@@ -3,12 +3,12 @@ import BlocksModels
 
 final class InnerEventConverter {
     private let updater: BlockUpdater
-    private weak var container: ContainerModelProtocol?
+    private let container: ContainerModelProtocol
     
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(updater: BlockUpdater, container: ContainerModelProtocol?) {
-        self.updater = updater
+    init(container: ContainerModelProtocol) {
+        self.updater = BlockUpdater(container)
         self.container = container
     }
     
@@ -46,15 +46,12 @@ final class InnerEventConverter {
             return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
-        case let .blockSetBackgroundColor(value):
-            let blockId = value.id
-            let backgroundColor = value.backgroundColor
-            
-            updater.update(entry: blockId, update: { (value) in
-                var value = value
-                value.information.backgroundColor = backgroundColor
+        case let .blockSetBackgroundColor(updateData):
+            updater.update(entry: updateData.id, update: { block in
+                var block = block
+                block.information = block.information.updated(with: updateData.backgroundColor)
             })
-            return .update(.init(updatedIds: [blockId]))
+            return .update(.init(updatedIds: [updateData.id]))
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -81,7 +78,7 @@ final class InnerEventConverter {
             
             let id = amend.id
             
-            guard let detailsModel = self.container?.detailsContainer.get(by: id) else {
+            guard let detailsModel = container.detailsContainer.get(by: id) else {
                 return nil
             }
             
@@ -121,7 +118,7 @@ final class InnerEventConverter {
                 details: eventsDetails
             )
             
-            if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {
+            if let detailsModel = container.detailsContainer.get(by: detailsId) {
                 let model = detailsModel
                 let resultDetails = DetailsData(
                     details: details,
@@ -138,7 +135,7 @@ final class InnerEventConverter {
                 
                 let newDetailsModel = LegacyDetailsModel(detailsData: detailsData)
 
-                self.container?.detailsContainer.add(
+                container.detailsContainer.add(
                     model: newDetailsModel,
                     by: detailsId
                 )
@@ -277,7 +274,7 @@ final class InnerEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
-        guard var blockModel = container?.blocksContainer.get(by: newData.id) else {
+        guard var blockModel = container.blocksContainer.get(by: newData.id) else {
             assertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }
@@ -312,7 +309,7 @@ final class InnerEventConverter {
         textContent.number = oldText.number
         
         blockModel.information.content = .text(textContent)
-        blockModel.information =  blockValidator.validated(information: blockModel.information)
+        blockModel.information = blockValidator.validated(information: blockModel.information)
         
         return .update(.init(updatedIds: [newData.id]))
     }

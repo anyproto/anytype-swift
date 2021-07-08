@@ -56,7 +56,7 @@ class EventHandler: EventHandlerProtocol {
         }
 
         self.container = container
-        innerConverter = InnerEventConverter(updater: BlockUpdater(container), container: container)
+        innerConverter = InnerEventConverter(container: container)
         ourConverter = OurEventConverter(container: container)
         eventPublisher.startListening(contextId: rootId)
     }
