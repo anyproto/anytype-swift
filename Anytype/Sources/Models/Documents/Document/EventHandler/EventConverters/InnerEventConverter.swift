@@ -18,7 +18,7 @@ final class InnerEventConverter {
             updater.update(entry: fields.id) { block in
                 var block = block
 
-                block.information.fields = fields.fields.toFieldTypeMap()
+                block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
                 block.didChange()
             }
             return .update(.init(updatedIds: [fields.id]))
