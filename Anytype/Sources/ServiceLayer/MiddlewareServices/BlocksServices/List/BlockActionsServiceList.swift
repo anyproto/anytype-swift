@@ -8,7 +8,6 @@ import SwiftProtobuf
 extension BlockActionsServiceList {
     enum PossibleError: Error {
         case setTextStyleActionStyleConversionHasFailed
-        case setAlignActionAlignmentConversionHasFailed
         case setDividerStyleActionStyleConversionHasFailed
     }
 }
@@ -52,10 +51,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setAlign(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let alignment = BlocksModelsParserCommonAlignmentConverter.asMiddleware(alignment) else {
-            return Fail.init(error: PossibleError.setAlignActionAlignmentConversionHasFailed).eraseToAnyPublisher()
-        }
-        return setAlign(contextID: contextID, blockIds: blockIds, align: alignment)
+        return setAlign(contextID: contextID, blockIds: blockIds, align: alignment.asMiddleware)
     }
 
     private func setAlign(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<ServiceSuccess, Error> {

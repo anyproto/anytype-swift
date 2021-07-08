@@ -8,7 +8,7 @@ class BlockModelsInformationConverter {
             return nil
         }
         
-        let alignment = BlocksModelsParserCommonAlignmentConverter.asModel(block.align) ?? .left
+        let alignment = block.align.asBlockModel ?? .left
         let info =  BlockInformation(
             id: block.id,
             content: blockType,
@@ -31,12 +31,8 @@ class BlockModelsInformationConverter {
         let restrictions = Anytype_Model_Block.Restrictions()
         let childrenIds = information.childrenIds
         let backgroundColor = information.backgroundColor
+        let alignment = information.alignment.asMiddleware
         
-        var alignment: Anytype_Model_Block.Align = .left
-        if let value = BlocksModelsParserCommonAlignmentConverter.asMiddleware(information.alignment) {
-            alignment = value
-        }
-
         return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)
     }
 }

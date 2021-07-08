@@ -48,7 +48,7 @@ final class BottomSheetsFactory {
             let hasBold = textContent.attributedText.hasTrait(trait: .traitBold, at: range)
             let hasItalic = textContent.attributedText.hasTrait(trait: .traitItalic, at: range)
             let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
-            let alignment = information.alignment.asTextAlignment
+            let alignment = information.alignment.asNSTextAlignment
 
             let attributes = TextAttributesViewController.AttributesState(
                 hasBold: hasBold, hasItalic: hasItalic, hasStrikethrough: hasStrikethrough, hasCodeStyle: false, alignment: alignment, url: ""

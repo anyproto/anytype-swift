@@ -56,7 +56,7 @@ final class InnerEventConverter {
         case let .blockSetAlign(value):
             let blockId = value.id
             let alignment = value.align
-            guard let modelAlignment = BlocksModelsParserCommonAlignmentConverter.asModel(alignment) else {
+            guard let modelAlignment = alignment.asBlockModel else {
                 assertionFailure("We cannot parse alignment: \(value)")
                 return .general
             }
