@@ -49,12 +49,10 @@ final class MentionAttachment: NSTextAttachment {
         }
         displayNewImageIfNeeded(desiredIconSize: desiredIconSize,
                                 fontPointSize: fontPointSize)
-        return super.attachmentBounds(
-            for: textContainer,
-            proposedLineFragment: lineFrag,
-            glyphPosition: position,
-            characterIndex: charIndex
-        )
+        if let image = self.image {
+            return bounds(for: image)
+        }
+        return .zero
     }
     
     private func storeParametersForIcon(size: CGSize, fontPointSize: CGFloat?) -> Bool {
@@ -178,7 +176,11 @@ final class MentionAttachment: NSTextAttachment {
     
     private func display(_ image: UIImage) {
         self.image = image
-        bounds = CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
+        bounds = bounds(for: image)
         updateAttachmentLayout()
+    }
+    
+    private func bounds(for image: UIImage) -> CGRect {
+        CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
     }
 }
