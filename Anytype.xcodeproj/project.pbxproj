@@ -909,7 +909,7 @@
 		3DB27C11261B0EA5005E523C /* DecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingTests.swift; sourceTree = "<group>"; };
 		3DB27C12261B0EA5005E523C /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingPathConverter.swift; sourceTree = "<group>"; };
-		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = AnyType/Sources/Models/Documents/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
+		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = Anytype/Sources/Models/Documents/Restrictions/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelProtocol.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Base/BlockViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultContextualMenuHandler.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Base/DefaultContextualMenuHandler.swift; sourceTree = SOURCE_ROOT; };
 		3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackgroundBlurView.swift; sourceTree = "<group>"; };
@@ -2743,6 +2743,23 @@
 			path = URLComponentsCoder;
 			sourceTree = "<group>";
 		};
+		3DB692A326970DDC00149864 /* Restrictions */ = {
+			isa = PBXGroup;
+			children = (
+				EA0261232625CE0800AE6D86 /* TextBlockRestrictions.swift */,
+				EA0261282625CFEE00AE6D86 /* HeaderBlockRestrictions.swift */,
+				EA02612C2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift */,
+				EA02612F2625D0AB00AE6D86 /* CodeBlockRestrictions.swift */,
+				EA0261322625D0E100AE6D86 /* ListBlockRestrictions.swift */,
+				EAC6BA9526270F73004C8C06 /* FileBlockRestrictions.swift */,
+				EAC6BA9826270FE0004C8C06 /* DividerBlockRestrictions.swift */,
+				EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */,
+				EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */,
+				3DB6929F2697066500149864 /* DummyRestrictions.swift */,
+			);
+			path = Restrictions;
+			sourceTree = "<group>";
+		};
 		3DB7DC902639CA8000635E4C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -3148,19 +3165,10 @@
 		EA02611A2625B1DB00AE6D86 /* Restrictions */ = {
 			isa = PBXGroup;
 			children = (
+				3DB692A326970DDC00149864 /* Restrictions */,
 				EA289B872629A7C000EA869F /* BlockActions */,
 				EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */,
-				EA0261232625CE0800AE6D86 /* TextBlockRestrictions.swift */,
-				EA0261282625CFEE00AE6D86 /* HeaderBlockRestrictions.swift */,
-				EA02612C2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift */,
-				EA02612F2625D0AB00AE6D86 /* CodeBlockRestrictions.swift */,
-				EA0261322625D0E100AE6D86 /* ListBlockRestrictions.swift */,
 				EA0261352625D12000AE6D86 /* BlockRestrictionsFactory.swift */,
-				EAC6BA9526270F73004C8C06 /* FileBlockRestrictions.swift */,
-				EAC6BA9826270FE0004C8C06 /* DividerBlockRestrictions.swift */,
-				EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */,
-				EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */,
-				3DB6929F2697066500149864 /* DummyRestrictions.swift */,
 			);
 			path = Restrictions;
 			sourceTree = "<group>";
