@@ -320,8 +320,7 @@ final class InnerEventConverter {
     private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
         typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
         
-        // Apply marks only if we haven't received text and marks.
-        let useNewMarks = newData.hasText || newData.marks.hasValue
+        let useNewMarks = newData.marks.hasValue
         var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
         
         // Workaroung: Some font could set bold style to attributed string
