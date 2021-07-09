@@ -36,6 +36,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.3
+          bundler-cache: true
+
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
 
