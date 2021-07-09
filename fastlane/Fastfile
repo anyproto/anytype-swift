@@ -15,7 +15,7 @@ platform :ios do
   end
 
 lane :test do
-    ensure_git_status_clean
+    ensure_git_status_clean(show_uncommitted_changes: true)
 
     #setup_ci
 
