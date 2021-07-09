@@ -59,10 +59,10 @@ lane :test do
     add_git_tag(tag: full_version)
 
     if !options[:release] 
-      add_badge(
-        shield: "#{version}-#{build_number}-blue",
-        no_badge: true
-      )
+      #add_badge(
+      #  shield: "#{version}-#{build_number}-blue",
+      #  no_badge: true
+      #)
     end
     
     build_app(

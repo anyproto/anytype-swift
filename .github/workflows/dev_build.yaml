@@ -44,8 +44,8 @@ jobs:
           bundler-cache: true
 
       # For badge plugin in fastlane
-      - name: Install imagemagick
-        run: brew install imagemagick
+      #- name: Install imagemagick
+      #  run: brew install imagemagick
 
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
@@ -53,8 +53,8 @@ jobs:
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      - name: Change git config to force use ssh instead of https
-        run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+      #- name: Change git config to force use ssh instead of https
+      #  run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
       - name: Build and upload to Testflight
         run: |
