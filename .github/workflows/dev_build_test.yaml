@@ -44,7 +44,7 @@ jobs:
           bundler-cache: true
 
       - name: Install imagemagick
-        uses: brew install imagemagick
+        run: brew install imagemagick
 
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
