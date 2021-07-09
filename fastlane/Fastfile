@@ -28,7 +28,6 @@ platform :ios do
       xcodeproj: "Anytype.xcodeproj"
     )
     add_git_tag(tag: full_version)
-    push_to_git_remote
 
     if !options[:release] 
       add_badge(
@@ -44,7 +43,10 @@ platform :ios do
 
     upload_build_to_testflight
 
+    # Reset icon changes
     reset_git_repo(skip_clean: true)
+
+    push_to_git_remote
   end
 
   private_lane :upload_build_to_testflight do 
