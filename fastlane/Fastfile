@@ -3,33 +3,40 @@ default_platform(:ios)
 platform :ios do
 
   lane :dev do
-    match(readonly: true)
-    
-    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
-
-    add_badge(
-      shield: "#{version}-#{build_number}-blue",
-      no_badge: true
+    deploy(
+      release: false
     )
-    build_app(scheme: "Anytype", configuration: "Dev-Release")
-
-    api_key = app_store_connect_api_key(
-        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
-        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
-        key_content: ENV['APP_STORE_CONNECT_KEY_CONTENT'],
-        duration: 1200,
-        in_house: false
-    )
-
-    upload_to_testflight(api_key: api_key, skip_waiting_for_build_processing: true)
   end
 
   lane :release do
+    deploy(
+      release: true
+    )
+  end
+
+  private_lane :deploy do |options| 
     match(readonly: true)
-    increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    build_app(scheme: "Anytype", configuration: "Release")
     
+    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+
+    if !options[:release] 
+      version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+
+      add_badge(
+        shield: "#{version}-#{build_number}-blue",
+        no_badge: true
+      )
+    end
+    
+    build_app(
+      scheme: "Anytype", 
+      configuration: options[:release] ? "Release" : "Dev-Release"
+    )
+
+    testflight
+  end
+
+  private_lane :testflight do 
     api_key = app_store_connect_api_key(
         key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
         issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
@@ -38,9 +45,14 @@ platform :ios do
         in_house: false
     )
 
-    upload_to_testflight(api_key: api_key, skip_waiting_for_build_processing: true)
+    upload_to_testflight(
+      api_key: api_key, 
+      skip_waiting_for_build_processing: true
+    )
   end
 
+
+  # Profiles
 
   lane :install_dev_profiles do
     match(readonly: true)
