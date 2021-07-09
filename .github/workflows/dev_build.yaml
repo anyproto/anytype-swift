@@ -34,7 +34,7 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_NEW }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
       - name: Setup ruby
