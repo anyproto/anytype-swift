@@ -14,34 +14,6 @@ platform :ios do
     )
   end
 
-lane :test do
-    ensure_git_status_clean(show_uncommitted_changes: true)
-
-    #setup_ci
-
-    #ensure_git_status_clean
-
-    #match(readonly: true)
-    
-    #ensure_git_status_clean
-
-    #build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    #version = get_version_number(xcodeproj: "Anytype.xcodeproj")
-    #full_version = "#{version}(#{build_number})"
-
-    #ensure_git_status_clean
-    #commit_version_bump(
-    #  message: "Bump version #{full_version}",
-    #  xcodeproj: "Anytype.xcodeproj"
-    #)
-    #add_git_tag(tag: full_version)
-
-    # Reset icon changes
-    #reset_git_repo(skip_clean: true)
-
-    #push_to_git_remote
-  end
-
   private_lane :deploy do |options| 
     setup_ci
     match(readonly: true)
@@ -59,10 +31,10 @@ lane :test do
     add_git_tag(tag: full_version)
 
     if !options[:release] 
-      #add_badge(
-      #  shield: "#{version}-#{build_number}-blue",
-      #  no_badge: true
-      #)
+      add_badge(
+        shield: "#{version}-#{build_number}-blue",
+        no_badge: true
+      )
     end
     
     build_app(
