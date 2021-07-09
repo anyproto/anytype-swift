@@ -14,8 +14,7 @@ platform :ios do
     )
   end
 
-  private_lane :deploy do |options| 
-    setup_ci
+  private_lane :deploy do |options|
     match(readonly: true)
     
     ensure_git_status_clean
