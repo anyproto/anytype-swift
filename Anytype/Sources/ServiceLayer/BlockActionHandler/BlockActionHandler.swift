@@ -100,14 +100,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     info: info,
                     completion: completion
                 )
-            case let .changeTextForStruct(textView):
+            case let .changeTextForStruct(attributedText):
                 textBlockActionHandler.handlingTextViewAction(activeRecord, action)
                 completion.flatMap { completion in
                     completion(
                         PackOfEvents(
                             contextId: document.documentId!,
                             events: [],
-                            ourEvents: [.setText(blockId: info.id, text: textView.text)]
+                            ourEvents: [.setText(blockId: info.id, text: attributedText.string)]
                         )
                     )    
                 }

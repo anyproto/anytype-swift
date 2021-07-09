@@ -23,10 +23,10 @@ final class TextBlockActionHandler {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
-        case let .changeTextForStruct(textView):
+        case let .changeTextForStruct(attributedText):
             fallthrough
-        case let .changeText(textView):
-            handleChangeText(block, text: textView.attributedText)
+        case let .changeText(attributedText):
+            handleChangeText(block, text: attributedText)
         case .changeTextStyle:
             assertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition:
