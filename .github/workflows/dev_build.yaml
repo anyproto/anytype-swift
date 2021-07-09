@@ -43,6 +43,10 @@ jobs:
           ruby-version: 2.6.3
           bundler-cache: true
 
+      # For badge plugin in fastlane
+      - name: Install imagemagick
+        run: brew install imagemagick
+
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
 
