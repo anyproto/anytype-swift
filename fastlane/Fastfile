@@ -17,11 +17,20 @@ platform :ios do
   private_lane :deploy do |options| 
     match(readonly: true)
     
+    ensure_git_status_clean
+
     build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+    full_version = "#{version}(#{build_number})"
+
+    commit_version_bump(
+      message: "Bump version #{full_version}",
+      xcodeproj: "Anytype.xcodeproj"
+    )
+    add_git_tag(tag: full_version)
+    push_to_git_remote
 
     if !options[:release] 
-      version = get_version_number(xcodeproj: "Anytype.xcodeproj")
-
       add_badge(
         shield: "#{version}-#{build_number}-blue",
         no_badge: true
@@ -34,6 +43,8 @@ platform :ios do
     )
 
     testflight
+
+    reset_git_repo(skip_clean: true)
   end
 
   private_lane :testflight do 
