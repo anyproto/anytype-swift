@@ -9,7 +9,6 @@ platform :ios do
     version = get_version_number(xcodeproj: "Anytype.xcodeproj")
 
     add_badge(
-      grayscale: true,
       shield: "#{version}-#{build_number}-blue",
       no_badge: true
     )
