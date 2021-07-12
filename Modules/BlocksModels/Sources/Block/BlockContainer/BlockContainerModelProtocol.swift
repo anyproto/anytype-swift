@@ -2,7 +2,7 @@
 /// One of them contains UserSession.
 /// Another contains BlockContainer and DetailsContainer.
 public protocol BlockContainerModelProtocol: AnyObject {
-    typealias UserSession = BlockUserSessionModelProtocol
+    typealias UserSession = UserSessionProtocol
     var userSession: UserSession {get}
     
     var rootId: BlockId? {get set}

@@ -1,6 +1,6 @@
 import Combine
 
-public protocol BlockUserSessionModelProtocol {
+public protocol UserSessionProtocol {
     /// Get toggled state for block
     ///
     /// - Parameters:

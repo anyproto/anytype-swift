@@ -5,7 +5,7 @@ import os
 final class BlockContainer {
     private var _rootId: BlockId?
     private var _models: [BlockId: BlockModel] = [:]
-    private var _userSession = BlockUserSession()
+    private var _userSession = UserSession()
     
     func _choose(by id: BlockId) -> BlockActiveRecord? {
         if let value = self._models[id] {

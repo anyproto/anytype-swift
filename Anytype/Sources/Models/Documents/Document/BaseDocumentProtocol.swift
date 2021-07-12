@@ -9,7 +9,7 @@ struct BaseDocumentUpdateResult {
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
-    var userSession: BlockUserSessionModelProtocol? { get }
+    var userSession: UserSessionProtocol? { get }
     var rootActiveModel: BlockActiveRecordProtocol? { get }
     var rootModel: ContainerModelProtocol? { get }
     

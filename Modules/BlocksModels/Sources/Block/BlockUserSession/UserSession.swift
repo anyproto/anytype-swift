@@ -3,14 +3,14 @@ import Combine
 import os
 
 
-class BlockUserSession: ObservableObject {
+class UserSession: ObservableObject {
     private var _firstResponderBlockModel: BlockModelProtocol?
     private var _firstResponder: String?
     private var _focusAt: BlockFocusPosition?
     private var toggleStorage: [String: Bool] = [:]
 }
 
-extension BlockUserSession: BlockUserSessionModelProtocol {
+extension UserSession: UserSessionProtocol {
     func isToggled(by id: BlockId) -> Bool { self.toggleStorage[id, default: false] }
     func isFirstResponder(by id: BlockId) -> Bool { firstResponderId() == id }
     func firstResponderId() -> BlockId? { _firstResponder ?? _firstResponderBlockModel?.information.id }

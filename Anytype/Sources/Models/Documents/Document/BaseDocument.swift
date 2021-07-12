@@ -13,7 +13,7 @@ final class BaseDocument: BaseDocumentProtocol {
         return rootModel?.blocksContainer.choose(by: rootId)
     }
     
-    var userSession: BlockUserSessionModelProtocol? {
+    var userSession: UserSessionProtocol? {
         rootModel?.blocksContainer.userSession
     }
 
