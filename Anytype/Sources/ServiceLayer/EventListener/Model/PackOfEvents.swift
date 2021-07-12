@@ -7,5 +7,5 @@ struct PackOfEvents {
     var events: [Anytype_Event.Message] = []
     
     /// TODO: Remove it later.
-    var ourEvents: [OurEvent] = []
+    var localEvents: [LocalEvent] = []
 }

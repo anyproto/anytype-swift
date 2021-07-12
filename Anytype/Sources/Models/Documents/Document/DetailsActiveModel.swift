@@ -67,7 +67,7 @@ extension DetailsActiveModel {
                     .init(
                         contextId: value.contextID,
                         events: value.messages,
-                        ourEvents: []
+                        localEvents: []
                     )
                 )
             }

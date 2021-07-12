@@ -89,14 +89,14 @@ final class BaseDocument: BaseDocumentProtocol {
             events: PackOfEvents(
                 contextId: value.contextID,
                 events: value.messages,
-                ourEvents: []
+                localEvents: []
             )
         )
     }
     
     private func handleOpen(_ serviceSuccess: ServiceSuccess) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, ourEvents: [])
+            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, localEvents: [])
         )
         guard let event = blocks.first else { return }
         

@@ -17,7 +17,7 @@ class NotificationEventListener {
             .filter( {$0.contextID == contextId} )
             .sink { [weak self] event in
                 guard let handler = self?.handler else { return }
-                let event = PackOfEvents(contextId: contextId, events: event.messages, ourEvents: [])
+                let event = PackOfEvents(contextId: contextId, events: event.messages, localEvents: [])
                 handler.handle(events: event)
         }
     }
