@@ -34,7 +34,9 @@ jobs:
       - name: Install SSH key for access to repository.
         uses: webfactory/ssh-agent@v0.5.0
         with:
-          ssh-private-key: ${{ secrets.SSH_KEY_NEW }}
+          ssh-private-key: |
+            ${{ secrets.SSH_KEY_NEW }}
+            ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
       #- name: Install SSH key
       #  uses: shimataro/ssh-key-action@v2
       #  with:
