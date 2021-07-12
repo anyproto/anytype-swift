@@ -31,10 +31,14 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
+      - name: Install SSH key for access to repository.
+        uses: webfactory/ssh-agent@v0.5.0
         with:
-          key: ${{ secrets.SSH_KEY_NEW }}
+          ssh-private-key: ${{ secrets.SSH_KEY_NEW }}
+      #- name: Install SSH key
+      #  uses: shimataro/ssh-key-action@v2
+      #  with:
+      #    key: ${{ secrets.SSH_KEY_NEW }}
           #known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
       - name: Setup ruby
