@@ -46,7 +46,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
             viewModel.actionHandler.handleAction(
                 .textView(
-                    action: .changeText(self.textView.textView),
+                    action: .changeText(self.textView.textView.attributedText),
                     activeRecord: viewModel.block
                 ),
                 info: viewModel.block.blockModel.information
