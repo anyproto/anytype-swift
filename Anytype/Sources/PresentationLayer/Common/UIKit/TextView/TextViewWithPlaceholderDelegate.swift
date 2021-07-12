@@ -60,11 +60,11 @@ extension CustomTextView: UITextViewDelegate {
         let contentSize = textView.intrinsicContentSize
 
         inputSwitcher.switchInputs(customTextView: self)
-    
+        delegate?.didChangeText(textView: textView)
         if !inputSwitcher.textTypingIsUsingForAccessoryViewContentFiltering() {
             // We type only text to filter content inside accessory view
             userInteractionDelegate?.didReceiveAction(
-                .changeText(textView)
+                .changeText(textView.attributedText)
             )
         }
 

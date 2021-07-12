@@ -43,7 +43,7 @@ final class BlockViewModelBuilder {
                     },
                     textDidChange: { block, textView in
                         self.blockActionHandler.handleAction(
-                            .textView(action: .changeTextForStruct(textView), activeRecord: block),
+                            .textView(action: .changeTextForStruct(textView.attributedText), activeRecord: block),
                             info: block.blockModel.information
                         )
                     },

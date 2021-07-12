@@ -1,3 +1,5 @@
+import UIKit
+
 /// First responder change type.
 enum TextViewFirstResponderChange {
     /// Become first responder.
@@ -19,4 +21,7 @@ protocol TextViewDelegate: AnyObject {
 
     /// Text did begin editing
     func didBeginEditing()
+    
+    /// Text was changed
+    func didChangeText(textView: UITextView)
 }
