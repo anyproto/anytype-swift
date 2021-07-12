@@ -1,25 +1,25 @@
 extension ServiceSuccess {
     var defaultEvent: PackOfEvents {
-        PackOfEvents(contextId: contextID, events: messages, ourEvents: [])
+        PackOfEvents(contextId: contextID, events: messages, localEvents: [])
     }
     
     var turnIntoTextEvent: PackOfEvents {
         let textMessage = messages.first { $0.value == .blockSetText($0.blockSetText) }
         
-        let ourEvents: [OurEvent] = textMessage.flatMap {
+        let localEvents: [LocalEvent] = textMessage.flatMap {
             [.setFocus(blockId: $0.blockSetText.id, position: .beginning)]
         } ?? []
 
-        return PackOfEvents(contextId: contextID, events: messages, ourEvents: ourEvents)
+        return PackOfEvents(contextId: contextID, events: messages, localEvents: localEvents)
     }
     
     var addEvent: PackOfEvents {
         let addEntryMessage = messages.first { $0.value == .blockAdd($0.blockAdd) }
-        let ourEvents: [OurEvent] = addEntryMessage?.blockAdd.blocks.first.flatMap {
+        let localEvents: [LocalEvent] = addEntryMessage?.blockAdd.blocks.first.flatMap {
             [.setFocus(blockId: $0.id, position: .beginning)]
         } ?? []
         
-        return .init(contextId: contextID, events: messages, ourEvents: ourEvents)
+        return .init(contextId: contextID, events: messages, localEvents: localEvents)
     }
     
     var splitEvent: PackOfEvents {
@@ -58,7 +58,7 @@ extension ServiceSuccess {
 
         let focusedBlockId = setChildrenEvent.childrenIds[focusedIndex]
 
-        return PackOfEvents(contextId: contextID, events: messages, ourEvents: [
+        return PackOfEvents(contextId: contextID, events: messages, localEvents: [
             .setFocus(blockId: focusedBlockId, position: .beginning)
         ])
     }

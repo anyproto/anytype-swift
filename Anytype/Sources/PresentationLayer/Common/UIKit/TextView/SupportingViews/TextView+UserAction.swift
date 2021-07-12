@@ -8,8 +8,8 @@ extension CustomTextView {
     public enum UserAction {
         case showStyleMenu
         
-        case changeText(UITextView)
-        case changeTextForStruct(UITextView)
+        case changeText(NSAttributedString)
+        case changeTextForStruct(NSAttributedString)
         case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
         
         case keyboardAction(KeyboardAction)

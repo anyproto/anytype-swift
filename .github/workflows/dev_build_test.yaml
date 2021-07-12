@@ -1,0 +1,67 @@
+name: Dev build test
+
+on:
+  schedule:
+    # Triggers the workflow every day at 00:00 UTC:
+    - cron:  '0 0 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch'     
+        required: false
+        default: 'develop'
+
+jobs:
+  archive_and_upload:
+    runs-on: macOS-latest
+    timeout-minutes: 20
+
+    strategy:
+      matrix:
+        scheme:
+          - Anytype
+        product-name:
+          - Anytype
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Install SSH key for access to repository.
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: |
+            ${{ secrets.SSH_KEY_NEW }}
+            ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
+      #- name: Install SSH key
+      #  uses: shimataro/ssh-key-action@v2
+      #  with:
+      #    key: ${{ secrets.SSH_KEY_NEW }}
+          #known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.3
+          bundler-cache: true
+
+      - name: Select Xcode
+        run: sh ./Scripts/ci_select_xcode.sh
+
+      - name: Change git config to force use ssh instead of https
+        run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+      - name: Build and upload to Testflight
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane test
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}

@@ -23,10 +23,10 @@ final class TextBlockActionHandler {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
-        case let .changeTextForStruct(textView):
+        case let .changeTextForStruct(attributedText):
             fallthrough
-        case let .changeText(textView):
-            handleChangeText(block, text: textView.attributedText)
+        case let .changeText(attributedText):
+            handleChangeText(block, text: attributedText)
         case .changeTextStyle:
             assertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition:
@@ -188,16 +188,16 @@ final class TextBlockActionHandler {
             }
             let previousBlockId = previousModel.blockId
             
-            var ourEvents = [OurEvent]()
+            var localEvents = [LocalEvent]()
             if case let .text(text) = previousModel.content {
                 let range = NSRange(location: text.attributedText.length, length: 0)
-                ourEvents.append(contentsOf: [
+                localEvents.append(contentsOf: [
                     .setTextMerge(blockId: previousBlockId),
                     .setFocus(blockId: previousBlockId, position: .at(range))
                 ])
             }
 
-            service.merge(firstBlockId: previousModel.blockId, secondBlockId: block.blockId, ourEvents: ourEvents)
+            service.merge(firstBlockId: previousModel.blockId, secondBlockId: block.blockId, localEvents: localEvents)
             break
 
         case .deleteOnEmptyContent:
@@ -206,10 +206,10 @@ final class TextBlockActionHandler {
                     assertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.blockId)"
                     )
-                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    return .init(contextId: value.contextID, events: value.messages, localEvents: [])
                 }
                 let previousBlockId = previousModel.blockId
-                return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                return .init(contextId: value.contextID, events: value.messages, localEvents: [
                     .setFocus(blockId: previousBlockId, position: .end)
                 ])
             }

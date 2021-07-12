@@ -33,7 +33,7 @@ final class CustomTextView: UIView {
         }
     }
 
-    lazy var textView: TextViewWithPlaceholder = {
+    private(set) lazy var textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
@@ -94,7 +94,7 @@ final class CustomTextView: UIView {
         super.init(frame: .zero)
 
         setupView()
-        configureEditingToolbarHandler(textView)
+        configureEditingToolbarHandler()
     }
 
     @available(*, unavailable)
@@ -179,7 +179,7 @@ private extension CustomTextView {
             }
     }
 
-    func configureEditingToolbarHandler(_ textView: UITextView) {
+    func configureEditingToolbarHandler() {
         self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
             guard let self = self else { return }
 
@@ -187,11 +187,11 @@ private extension CustomTextView {
 
             switch action {
             case .slashMenu:
-                textView.insertStringToAttributedString(
+                self.textView.insertStringToAttributedString(
                     self.inputSwitcher.textToTriggerActionsViewDisplay
                 )
                 self.inputSwitcher.showAccessoryView(accessoryView: self.menuActionsAccessoryView,
-                                                     textView: textView)
+                                                     textView: self.textView)
             case .multiActionMenu:
                 self.userInteractionDelegate?.didReceiveAction(
                     .showMultiActionMenuAction
@@ -203,9 +203,9 @@ private extension CustomTextView {
             case .keyboardDismiss:
                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
             case .mention:
-                textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
+                self.textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
                 self.inputSwitcher.showAccessoryView(accessoryView: self.mentionView,
-                                                     textView: textView)
+                                                     textView: self.textView)
             }
         }
     }

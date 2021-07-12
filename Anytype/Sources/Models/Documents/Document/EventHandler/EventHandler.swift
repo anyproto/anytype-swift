@@ -15,8 +15,8 @@ class EventHandler: EventHandlerProtocol {
     
     private weak var container: ContainerModelProtocol?
     
-    private var innerConverter: InnerEventConverter?
-    private var ourConverter: OurEventConverter?
+    private var innerConverter: MiddlewareEventConverter?
+    private var ourConverter: LocalEventConverter?
     
     let pageEventConverter = PageEventConverter()
     
@@ -44,7 +44,7 @@ class EventHandler: EventHandlerProtocol {
     
     func handle(events: PackOfEvents) {
         let innerUpdates = events.events.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
-        let ourUpdates = events.ourEvents.compactMap { ourConverter?.convert($0) ?? nil }
+        let ourUpdates = events.localEvents.compactMap { ourConverter?.convert($0) ?? nil }
         finalize(innerUpdates + ourUpdates)
     }
 
@@ -56,8 +56,8 @@ class EventHandler: EventHandlerProtocol {
         }
 
         self.container = container
-        innerConverter = InnerEventConverter(container: container)
-        ourConverter = OurEventConverter(container: container)
+        innerConverter = MiddlewareEventConverter(container: container)
+        ourConverter = LocalEventConverter(container: container)
         eventPublisher.startListening(contextId: rootId)
     }
     

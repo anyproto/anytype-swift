@@ -1,7 +1,7 @@
 import BlocksModels
 import ProtobufMessages
 
-final class OurEventConverter {
+final class LocalEventConverter {
     private weak var container: ContainerModelProtocol?
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
@@ -9,7 +9,7 @@ final class OurEventConverter {
         self.container = container
     }
     
-    func convert(_ event: OurEvent) -> EventHandlerUpdate? {
+    func convert(_ event: LocalEvent) -> EventHandlerUpdate? {
         switch event {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)

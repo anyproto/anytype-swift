@@ -53,9 +53,9 @@ struct LoginView: View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
                 AnytypeText("or Type your keychain phrase", style: .codeBlock)
-                        .foregroundColor(.textSecondary)
-                        .padding(.top, 20)
-                        .padding(.leading, 6)
+                    .foregroundColor(.textSecondary)
+                    .padding(.top, 20)
+                    .padding(.leading, 6)
             }
             
             TextEditor(text: $viewModel.seed).lineLimit(3)
@@ -66,6 +66,7 @@ struct LoginView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 24)
                 .opacity(viewModel.seed.isEmpty ? 0.25 : 1)
+                .autocapitalization(.none)
         }
     }
     

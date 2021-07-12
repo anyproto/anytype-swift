@@ -1,6 +1,6 @@
 import BlocksModels
 
-enum OurEvent {
+enum LocalEvent {
     case setFocus(blockId: BlockId, position: BlockFocusPosition)
     case setTextMerge(blockId: BlockId)
     case setToggled(blockId: BlockId)

@@ -123,6 +123,10 @@ extension TextBlockViewModel: TextViewDelegate {
     func sizeChanged() {
         blockDelegate?.blockSizeChanged()
     }
+    
+    func didChangeText(textView: UITextView) {
+        mentionsConfigurator.configure(textView: textView)
+    }
 }
 
 // MARK: - Setup
@@ -210,10 +214,9 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 ),
                 info: block.blockModel.information
             )
-        case let .changeTextForStruct(textView):
+        case .changeTextForStruct:
             fallthrough
-        case let .changeText(textView):
-            mentionsConfigurator.configure(textView: textView)
+        case .changeText:
             actionHandler.handleAction(
                 .textView(
                     action: action,
