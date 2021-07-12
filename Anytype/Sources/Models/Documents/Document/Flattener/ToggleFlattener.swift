@@ -28,7 +28,7 @@ final class ToggleFlattener {
         if !shouldCheckToggleFlag {
             return container.blocksContainer.children(of: id)
         }
-        let isToggled = container.blocksContainer.userSession.isToggled(by: id)
+        let isToggled = container.blocksContainer.userSession.toggles[id] ?? false
         if isToggled {
             return container.blocksContainer.children(of: id)
         }

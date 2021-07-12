@@ -13,8 +13,14 @@ final class BaseDocument: BaseDocumentProtocol {
         return rootModel?.blocksContainer.choose(by: rootId)
     }
     
-    var userSession: UserSessionProtocol? {
-        rootModel?.blocksContainer.userSession
+    var userSession: UserSession? {
+        get {
+            rootModel?.blocksContainer.userSession
+        }
+        set {
+            guard let newValue = newValue else { return }
+            rootModel?.blocksContainer.userSession = newValue
+        }
     }
 
     var documentId: BlockId? { rootModel?.rootId }

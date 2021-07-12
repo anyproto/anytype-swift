@@ -32,11 +32,11 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func becomeFirstResponder(for block: BlockModelProtocol) {
-        document.userSession?.setFirstResponder(with: block)
+        document.userSession?.firstResponder = block
     }
     
     func resignFirstResponder() {
-        document.userSession?.unsetFirstResponder()
+        document.userSession?.firstResponder = nil
     }
 
     func didBeginEditing() {

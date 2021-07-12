@@ -117,7 +117,7 @@ extension DocumentEditorViewController {
     private func focusOnFocusedBlock() {
         let userSession = viewModel.document.userSession
         // TODO: we should move this logic to TextBlockViewModel
-        if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt(),
+        if let id = userSession?.firstResponder?.information.id, let focusedAt = userSession?.focus,
            let blockViewModel = viewModel.modelsHolder.models.first(where: { $0.blockId == id }) as? TextBlockViewModel {
             blockViewModel.set(focus: focusedAt)
         }
@@ -262,7 +262,7 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         collectionView.deselectAllSelectedItems()
 
         let userSession = viewModel.document.userSession
-        let blockModel = userSession?.firstResponder()
+        let blockModel = userSession?.firstResponder
 
         guard let indexPath = selectedIndexPath,
               let item = dataSource.itemIdentifier(for: indexPath),
@@ -273,7 +273,7 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         }
 
         if let blockViewModel = blockViewModel as? TextBlockViewModel {
-            let focus = userSession?.focusAt() ?? .end
+            let focus = userSession?.focus ?? .end
             blockViewModel.set(focus: focus)
         }
     }

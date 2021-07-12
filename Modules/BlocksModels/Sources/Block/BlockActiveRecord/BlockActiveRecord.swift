@@ -70,42 +70,42 @@ extension BlockActiveRecord: ObservableObject, BlockActiveRecordProtocol {
     
     var isFirstResponder: Bool {
         get {
-            self.container?.userSession.isFirstResponder(by: self._nestedModel.information.id) ?? false
+            container?.userSession.firstResponder?.information.id == _nestedModel.information.id
         }
         set {
-            self.container?.userSession.setFirstResponder(with: self._nestedModel)
+            self.container?.userSession.firstResponder = _nestedModel
         }
     }
     
     func unsetFirstResponder() {
         if self.isFirstResponder {
-            self.container?.userSession.unsetFirstResponder()
+            self.container?.userSession.firstResponder = nil
         }
     }
     
     var isToggled: Bool {
         get {
-            container?.userSession.isToggled(by: _nestedModel.information.id) ?? false
+            container?.userSession.toggles[_nestedModel.information.id] ?? false
         }
     }
     
     func toggle() {
         let newValue = !isToggled
-        container?.userSession.setToggled(by: _nestedModel.information.id, value: newValue)
+        container?.userSession.toggles[_nestedModel.information.id] = newValue
     }
     
     var focusAt: BlockFocusPosition? {
         get {
-            guard self.container?.userSession.firstResponderId() == self._nestedModel.information.id else { return nil }
-            return self.container?.userSession.focusAt()
+            guard container?.userSession.firstResponder?.information.id == _nestedModel.information.id else { return nil }
+            return container?.userSession.focus
         }
         set {
-            guard self.container?.userSession.firstResponderId() == self._nestedModel.information.id else { return }
+            guard container?.userSession.firstResponder?.information.id == _nestedModel.information.id else { return }
             if let value = newValue {
-                self.container?.userSession.setFocusAt(position: value)
+                container?.userSession.focus = value
             }
             else {
-                self.container?.userSession.unsetFocusAt()
+                container?.userSession.focus = nil
             }
         }
     }
