@@ -12,7 +12,6 @@ struct SeedPhraseView: View {
                     .foregroundColor(Color.darkBlue)
                     .redacted(reason: phrase.isNil ? .placeholder : [])
                     .padding()
-                    .autocapitalization(.none)
             }
             .frame(maxWidth: .infinity)
             .background(Color.grayscale10)
