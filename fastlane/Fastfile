@@ -14,6 +14,18 @@ platform :ios do
     )
   end
 
+  lane :test do
+    setup_ci
+    match(readonly: true)
+    
+    ensure_git_status_clean
+
+    build_app(
+      scheme: "Anytype", 
+      configuration: "Release"
+    )
+  end
+
   private_lane :deploy do |options| 
     setup_ci
     match(readonly: true)
