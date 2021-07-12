@@ -2,10 +2,10 @@ import BlocksModels
 import ProtobufMessages
 
 final class LocalEventConverter {
-    private weak var container: ContainerModelProtocol?
+    private weak var container: RootBlockContainer?
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(container: ContainerModelProtocol?) {
+    init(container: RootBlockContainer?) {
         self.container = container
     }
     

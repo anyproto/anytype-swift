@@ -3,11 +3,11 @@ import BlocksModels
 
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
-    private let container: ContainerModelProtocol
+    private let container: RootBlockContainer
     
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(container: ContainerModelProtocol) {
+    init(container: RootBlockContainer) {
         self.updater = BlockUpdater(container)
         self.container = container
     }
