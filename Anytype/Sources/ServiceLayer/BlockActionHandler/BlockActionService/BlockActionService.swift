@@ -84,7 +84,9 @@ final class BlockActionService: BlockActionServiceProtocol {
                 style: newBlockContentType) ?? .empty()
         }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
             var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
-            events.localEvents = [.setTextMerge(blockId: blockId)] + events.localEvents
+            events = events.enrichedWith(
+                localEvents: [.setTextMerge(blockId: blockId)]
+            )
             self?.didReceiveEvent(events)
         }.store(in: &self.subscriptions)
     }
@@ -237,7 +239,7 @@ extension BlockActionService {
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] serviceSuccess in
                 var events = serviceSuccess.defaultEvent
-                events.localEvents = localEvents
+                events = events.enrichedWith(localEvents: localEvents)
                 self?.didReceiveEvent(events)
             }.store(in: &self.subscriptions)
     }
