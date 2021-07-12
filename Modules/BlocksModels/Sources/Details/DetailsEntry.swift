@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DetailsEntry<V: Hashable> {
+public struct DetailsEntry<V: Hashable>: Hashable {
     
     public let value: V
     
@@ -9,5 +9,3 @@ public struct DetailsEntry<V: Hashable> {
     }
        
 }
-
-extension DetailsEntry: Hashable {}

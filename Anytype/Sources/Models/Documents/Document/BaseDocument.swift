@@ -115,7 +115,7 @@ final class BaseDocument: BaseDocumentProtocol {
             LegacyDetailsModel(detailsData: $0)
         }
         
-        let detailsStorage = DetailsBuilder.emptyDetailsContainer()
+        let detailsStorage = DetailsContainer()
         parsedDetails.forEach {
             detailsStorage.add(
                 model: $0,
