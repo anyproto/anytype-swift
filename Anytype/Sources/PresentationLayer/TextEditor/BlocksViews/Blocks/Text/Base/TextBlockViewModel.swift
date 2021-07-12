@@ -87,13 +87,11 @@ extension TextBlockViewModel {
             let alignment = information.alignment.asNSTextAlignment
             let blockColor = blockType.color?.color(background: false)
 
-            textViewUpdate = TextViewUpdate.payload(
-                .init(
-                    attributedString: attributedText,
-                    auxiliary: .init(
-                        textAlignment: alignment,
-                        tertiaryColor: blockColor
-                    )
+            textViewUpdate = TextViewUpdate(
+                attributedString: attributedText,
+                auxiliary: Auxiliary(
+                    textAlignment: alignment,
+                    tertiaryColor: blockColor
                 )
             )
         default: return
@@ -166,11 +164,9 @@ private extension TextBlockViewModel {
             .map { value -> TextViewUpdate in
                 let (text, alignment) = value
                 let blockColor = text.color?.color(background: false)
-                return .payload(
-                    .init(
-                        attributedString: text.attributedText,
-                        auxiliary: .init(textAlignment: alignment, tertiaryColor: blockColor)
-                    )
+                return TextViewUpdate(
+                    attributedString: text.attributedText,
+                    auxiliary: Auxiliary(textAlignment: alignment, tertiaryColor: blockColor)
                 )
             }
             .sink { [weak self] (textViewUpdate) in

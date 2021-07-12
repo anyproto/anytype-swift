@@ -2,21 +2,14 @@ import UIKit
 
 
 /// Type of update that applied to text view.
-enum TextViewUpdate {
-    struct Payload {
-        var attributedString: NSAttributedString
-        var auxiliary: Auxiliary
-    }
+struct TextViewUpdate {
+    let attributedString: NSAttributedString
+    let auxiliary: Auxiliary
+}
 
-    struct Auxiliary {
-        var textAlignment: NSTextAlignment
-        var tertiaryColor: UIColor?
-    }
-
-    case text(String)
-    case attributedText(NSAttributedString)
-    case payload(Payload)
-    case auxiliary(Auxiliary)
+struct Auxiliary {
+    var textAlignment: NSTextAlignment
+    var tertiaryColor: UIColor?
 }
 
 /// Text view that can update itself content.
