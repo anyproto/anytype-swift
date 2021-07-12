@@ -22,7 +22,7 @@ platform :ios do
 
     build_app(
       scheme: "Anytype", 
-      configuration: "Release",
+      configuration: "Dev-Release",
       use_system_scm: true
     )
   end
