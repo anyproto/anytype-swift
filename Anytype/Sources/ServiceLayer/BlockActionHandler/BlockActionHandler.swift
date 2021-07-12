@@ -107,7 +107,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                         PackOfEvents(
                             contextId: document.documentId!,
                             events: [],
-                            localEvents: [.setText(blockId: info.id, text: attributedText.text)]
+                            localEvents: [.setText(blockId: info.id, text: attributedText.string)]
                         )
                     )    
                 }

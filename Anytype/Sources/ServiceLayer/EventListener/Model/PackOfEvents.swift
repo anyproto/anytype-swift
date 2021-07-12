@@ -1,11 +1,25 @@
 import ProtobufMessages
 
-typealias ContextId = String
-
 struct PackOfEvents {
-    var contextId: ContextId
-    var events: [Anytype_Event.Message] = []
+    let contextId: String
+    let events: [Anytype_Event.Message]
+    let localEvents: [LocalEvent]
     
-    /// TODO: Remove it later.
-    var localEvents: [LocalEvent] = []
+    init(
+        contextId: String,
+        events: [Anytype_Event.Message],
+        localEvents: [LocalEvent] = []
+    ) {
+        self.contextId = contextId
+        self.events = events
+        self.localEvents = localEvents
+    }
+    
+    func enrichedWith(localEvents: [LocalEvent]) -> PackOfEvents {
+        return PackOfEvents(
+            contextId: contextId,
+            events: events,
+            localEvents: self.localEvents + localEvents
+        )
+    }
 }
