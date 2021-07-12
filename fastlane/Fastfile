@@ -16,15 +16,21 @@ platform :ios do
 
   lane :test do
     setup_ci
-    match(readonly: true)
     
     ensure_git_status_clean
 
-    build_app(
-      scheme: "Anytype", 
-      configuration: "Dev-Release",
-      use_system_scm: true
+    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+    full_version = "#{version}(#{build_number})"
+
+    commit_version_bump(
+      message: "Test bump version #{full_version}",
+      xcodeproj: "Anytype.xcodeproj"
     )
+    add_git_tag(tag: full_version)
+
+    push_to_git_remote
+    
   end
 
   private_lane :deploy do |options| 
