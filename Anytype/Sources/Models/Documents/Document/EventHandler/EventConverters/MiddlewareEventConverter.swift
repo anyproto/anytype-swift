@@ -1,7 +1,7 @@
 import ProtobufMessages
 import BlocksModels
 
-final class InnerEventConverter {
+final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let container: ContainerModelProtocol
     

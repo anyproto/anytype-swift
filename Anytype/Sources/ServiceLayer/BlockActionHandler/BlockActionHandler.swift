@@ -81,7 +81,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .fetch(url: url):
             service.bookmarkFetch(blockId: info.id, url: url.absoluteString)
         case .toggle:
-            service.receiveOurEvents([.setToggled(blockId: info.id)])
+            service.receivelocalEvents([.setToggled(blockId: info.id)])
         case .checkbox(selected: let selected):
             service.checked(blockId: info.id, newValue: selected)
         case let .showPage(pageId):
@@ -107,7 +107,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                         PackOfEvents(
                             contextId: document.documentId!,
                             events: [],
-                            ourEvents: [.setText(blockId: info.id, text: attributedText.string)]
+                            localEvents: [.setText(blockId: info.id, text: attributedText.text)]
                         )
                     )    
                 }
@@ -194,10 +194,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private func delete(blockId: BlockId) {
         service.delete(blockId: blockId) { [weak self] value in
             guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: blockId) else {
-                return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                return .init(contextId: value.contextID, events: value.messages, localEvents: [])
             }
             let previousBlockId = previousModel.blockId
-            return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+            return .init(contextId: value.contextID, events: value.messages, localEvents: [
                 .setFocus(blockId: previousBlockId, position: .end)
             ])
         }
@@ -210,7 +210,7 @@ private extension BlockActionHandler {
         
         listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color.middleware)
             .sinkWithDefaultCompletion("setBlockColor") { value in
-                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, localEvents: [])
                 completion?(value)
             }
             .store(in: &self.subscriptions)
@@ -225,7 +225,7 @@ private extension BlockActionHandler {
         
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
-                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, localEvents: [])
                 completion?(value)
             }
             .store(in: &self.subscriptions)

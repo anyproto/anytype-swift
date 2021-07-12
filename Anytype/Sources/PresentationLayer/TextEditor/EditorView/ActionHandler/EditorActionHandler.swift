@@ -57,7 +57,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     private func process(events: PackOfEvents) {
-        events.ourEvents.forEach { event in
+        events.localEvents.forEach { event in
             switch event {
             case let .setFocus(blockId, position):
                 if let blockViewModel = modelsHolder.models.first(where: { $0.blockId == blockId }) as? TextBlockViewModel {
