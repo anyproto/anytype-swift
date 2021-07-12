@@ -27,7 +27,7 @@ platform :ios do
       message: "Test bump version #{full_version}",
       xcodeproj: "Anytype.xcodeproj"
     )
-    add_git_tag(tag: full_version)
+    #add_git_tag(tag: full_version)
 
     push_to_git_remote
     
