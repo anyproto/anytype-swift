@@ -25,23 +25,24 @@ struct HomeTabsView: View {
     
     private var tabHeaders: some View {
         HStack(){
-            Button(action: {
-                withAnimation(.spring()) {
-                    tabSelection = 1
-                }
-            }) {
-                HomeTabsHeaderText(text: "Favorites", isSelected: tabSelection == 1)
-            }
-            
-            Button(action: {
-                withAnimation(.spring()) {
-                    tabSelection = 4
-                }
-            }) {
-                HomeTabsHeaderText(text: "Archive", isSelected: tabSelection == 4)
-            }
+            tabButton(text: "Favorites", tag: 1)
+            tabButton(text: "Recent", tag: 2).disabled(true)
+            tabButton(text: "Inbox", tag: 3).disabled(true)
+            tabButton(text: "Archive", tag: 4)
         }
-        .padding(.top)
+        .padding([.leading, .top])
+    }
+    
+    private func tabButton(text: String, tag: Int) -> some View {
+        Button(
+            action: {
+                withAnimation(.spring()) {
+                    tabSelection = tag
+                }
+            }
+        ) {
+            HomeTabsHeaderText(text: text, isSelected: tabSelection == tag)
+        }
     }
 }
 

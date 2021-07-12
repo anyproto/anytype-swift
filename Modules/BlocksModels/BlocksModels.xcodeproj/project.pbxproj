@@ -124,7 +124,6 @@
 		0A6D536A25D9C99E002F3F82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				129D788C2694964800DA6757 /* Common */,
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
 				0A6D537525D9C99E002F3F82 /* ContainerModelProtocol.swift */,
 				0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */,
@@ -138,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				0A6D536A25D9C99E002F3F82 /* Sources */,
+				129D788C2694964800DA6757 /* Common */,
 				0A6D536725D9C99E002F3F82 /* Targets */,
 				0A7831D324B8672D00A1B6F6 /* Products */,
 				53856BE0265BC19400CB1FAE /* Frameworks */,
