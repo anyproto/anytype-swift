@@ -93,7 +93,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             case .showMultiActionMenuAction:
                 selectionHandler.selectionEnabled = true
             case let .changeCaretPosition(selectedRange):
-                document.userSession?.setFocusAt(position: .at(selectedRange))
+                document.userSession?.focus = .at(selectedRange)
             case let .changeTextStyle(styleAction, range):
                 handleBlockAction(
                     .toggleFontStyle(styleAction.asActionType, range),

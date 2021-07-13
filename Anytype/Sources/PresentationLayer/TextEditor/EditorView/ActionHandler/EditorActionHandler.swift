@@ -33,7 +33,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
-        guard let firstResponder = document.userSession?.firstResponder() else {
+        guard let firstResponder = document.userSession?.firstResponder else {
             assertionFailure("No first responder for action \(action)")
             return
         }
