@@ -16,7 +16,8 @@ platform :ios do
 
   lane :test do
     setup_ci
-    
+    match(readonly: true)
+
     ensure_git_status_clean
 
     build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
