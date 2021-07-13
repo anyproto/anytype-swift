@@ -1,6 +1,6 @@
 import Foundation
 
-public final class RootBlocksContainer: ContainerModelProtocol {
+public final class RootBlockContainer {
     
     public let rootId: BlockId?
     public let blocksContainer: BlockContainerModelProtocol

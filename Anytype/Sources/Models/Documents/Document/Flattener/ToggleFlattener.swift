@@ -24,7 +24,7 @@ final class ToggleFlattener {
     ///   - id: Id of toggle block
     ///   - container: Container with blocks
     /// - Returns: Child block ids
-    func processedChildren(_ id: BlockId, in container: ContainerModelProtocol) -> [BlockId] {
+    func processedChildren(_ id: BlockId, in container: RootBlockContainer) -> [BlockId] {
         if !shouldCheckToggleFlag {
             return container.blocksContainer.children(of: id)
         }

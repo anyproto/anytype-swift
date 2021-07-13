@@ -3,9 +3,9 @@ import os
 
 
 public class BlockUpdater {
-    private let container: ContainerModelProtocol
+    private let container: RootBlockContainer
 
-    public init(_ container: ContainerModelProtocol) {
+    public init(_ container: RootBlockContainer) {
         self.container = container
     }
     /// Delete entry from a container

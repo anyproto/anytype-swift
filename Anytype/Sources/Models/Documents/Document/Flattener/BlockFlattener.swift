@@ -50,7 +50,7 @@ final class BlockFlattener {
     ///   - options: Options
     /// - Returns: A list of block ids.
     private static func flatten(root model: BlockActiveRecordProtocol,
-                                in container: ContainerModelProtocol,
+                                in container: RootBlockContainer,
                                 options: BlockFlattenerOptions) -> [BlockId] {
         var result: Array<BlockId> = .init()
         let stack: DataStructures.Stack<BlockId> = .init()
@@ -84,7 +84,7 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of active models.
-    static func flatten(root model: BlockActiveRecordProtocol, in container: ContainerModelProtocol, options: BlockFlattenerOptions) -> [BlockActiveRecordProtocol] {
+    static func flatten(root model: BlockActiveRecordProtocol, in container: RootBlockContainer, options: BlockFlattenerOptions) -> [BlockActiveRecordProtocol] {
         let ids = flattenIds(root: model,
                               in: container,
                               options: options)
@@ -100,7 +100,7 @@ final class BlockFlattener {
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of block ids.
     @discardableResult static func flattenIds(root model: BlockActiveRecordProtocol,
-                                              in container: ContainerModelProtocol,
+                                              in container: RootBlockContainer,
                                               options: BlockFlattenerOptions) -> [BlockId] {
         /// TODO: Fix it.
         /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
@@ -130,7 +130,7 @@ private extension BlockFlattener {
     ///   - item: Id of current item.
     ///   - container: Container.
     /// - Returns: A condition if we would like to keep item in list.
-    private static func shouldKeep(item: BlockId, in container: ContainerModelProtocol) -> Bool {
+    private static func shouldKeep(item: BlockId, in container: RootBlockContainer) -> Bool {
         guard let model = container.blocksContainer.choose(by: item) else {
             return false
         }
@@ -149,7 +149,7 @@ private extension BlockFlattener {
     ///   - shouldCheckIsToggleOpened: Should check opened state for toggle bocks
     /// - Returns: Filtered children of an item.
     private static func filteredChildren(of item: BlockId,
-                                         in container: ContainerModelProtocol,
+                                         in container: RootBlockContainer,
                                          shouldCheckIsToggleOpened: Bool) -> [BlockId] {
         guard let model = container.blocksContainer.choose(by: item) else {
             return []

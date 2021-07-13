@@ -13,7 +13,7 @@ class EventHandler: EventHandlerProtocol {
     private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
     let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
     
-    private weak var container: ContainerModelProtocol?
+    private weak var container: RootBlockContainer?
     
     private var innerConverter: MiddlewareEventConverter?
     private var ourConverter: LocalEventConverter?
@@ -49,7 +49,7 @@ class EventHandler: EventHandlerProtocol {
     }
 
     // MARK: Configurations
-    func configured(_ container: ContainerModelProtocol) {
+    func configured(_ container: RootBlockContainer) {
         guard let rootId = container.rootId else {
             assertionFailure("We can't start listening rootId of container: \(container)")
             return
