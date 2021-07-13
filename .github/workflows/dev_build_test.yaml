@@ -53,8 +53,8 @@ jobs:
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
 
-      #- name: Change git config to force use ssh instead of https
-      #  run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+      - name: Change git config to force use ssh instead of https
+        run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
       - name: Build and upload to Testflight
         run: |
