@@ -19,7 +19,18 @@ platform :ios do
     match(readonly: true)
 
     ensure_git_status_clean
+ 
+    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+    full_version = "#{version}(#{build_number})"
 
+    commit_version_bump(
+      message: "Test bump version #{full_version}",
+      xcodeproj: "Anytype.xcodeproj"
+    )
+
+    push_to_git_remote
+    
     build_app(
       scheme: "Anytype", 
       configuration: "Dev-Release",
