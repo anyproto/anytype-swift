@@ -18,7 +18,7 @@ public struct DetailsData {
 
 // MARK: - DetailsInformationProvider
 
-extension DetailsData: DetailsEntryValueProvider {
+extension DetailsData: DetailsDataProtocol {
     
     public var name: String? {
         value(for: .name)

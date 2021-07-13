@@ -1,7 +1,7 @@
 import BlocksModels
 import UIKit.UIColor
 
-extension DetailsEntryValueProvider {
+extension DetailsDataProtocol {
     
     // MARK: - Icon
     
