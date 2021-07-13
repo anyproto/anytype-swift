@@ -14,7 +14,7 @@ on:
         default: 'develop'
 
 jobs:
-  archive_and_upload:
+  main:
     runs-on: macOS-latest
     timeout-minutes: 20
 
@@ -29,7 +29,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.branch }}
-          ssh-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
+
+      - name: Install SSH key for access to repository.
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
