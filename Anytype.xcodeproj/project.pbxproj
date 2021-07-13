@@ -88,7 +88,6 @@
 		0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */; };
 		0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */; };
 		0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC58248EB5EC000FF498 /* BaseBlockViewModel.swift */; };
-		0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */; };
 		0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */; };
 		0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */; };
 		0A1DACC5244DDB050007BC5D /* BlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlockType.swift */; };
@@ -677,7 +676,6 @@
 		0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.Subtitle.strings; sourceTree = "<group>"; };
 		0A10CC58248EB5EC000FF498 /* BaseBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBlockViewModel.swift; sourceTree = "<group>"; };
 		0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkViewModel.swift; sourceTree = "<group>"; };
-		0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBlockViewModel.swift; sourceTree = "<group>"; };
 		0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconEmojiView.swift; sourceTree = "<group>"; };
 		0A1DACC4244DDB050007BC5D /* BlockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockType.swift; sourceTree = "<group>"; };
 		0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileStory+AboutView.swift"; sourceTree = "<group>"; };
@@ -1800,7 +1798,6 @@
 		0A10CC5E248EC331000FF498 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -3844,7 +3841,6 @@
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
-				0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */,
 				EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */,
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				1236985C268F450F005B638A /* PlaceholderImageTextGuideline.swift in Sources */,
