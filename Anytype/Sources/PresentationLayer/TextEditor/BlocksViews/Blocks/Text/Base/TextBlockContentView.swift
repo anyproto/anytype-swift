@@ -227,14 +227,15 @@ final class TextBlockContentView: UIView & UIContentView {
             self?.textView.shouldResignFirstResponder()
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel?.$textViewUpdate.sink { [weak self] textUpdate in
-            guard let textUpdate = textUpdate, let self = self else { return }
+        currentConfiguration.viewModel?.textUpdatePublisher.sink { [weak self] textUpdate in
+            guard let self = self else { return }
             let cursorPosition = self.textView.textView.selectedRange
             self.textView.apply(update: textUpdate)
             self.textView.textView.selectedRange = cursorPosition
         }.store(in: &subscriptions)
-
-        currentConfiguration.viewModel?.refreshedTextViewUpdate()
+        
+        let update = currentConfiguration.viewModel?.makeTextViewUpdate()
+        textView.textView.attributedText = update?.attributedString
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
 

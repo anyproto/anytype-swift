@@ -16,7 +16,8 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     // MARK: View state
     private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
-    @Published private(set) var textViewUpdate: TextViewUpdate?
+    private let textUpdateSubject = PassthroughSubject<TextViewUpdate, Never>()
+    private(set) lazy var textUpdatePublisher = textUpdateSubject.eraseToAnyPublisher()
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     private let pressingEnterTimeChecker = TimeChecker()
     
@@ -68,7 +69,8 @@ class TextBlockViewModel: BaseBlockViewModel {
     }
 
     override func updateView() {
-        refreshedTextViewUpdate()
+        guard let update = makeTextViewUpdate() else { return }
+        textUpdateSubject.send(update)
     }
 }
 
@@ -76,7 +78,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 
 extension TextBlockViewModel {
 
-    func refreshedTextViewUpdate() {
+    func makeTextViewUpdate() -> TextViewUpdate? {
         let block = self.block
         let information = block.blockModel.information
 
@@ -87,14 +89,15 @@ extension TextBlockViewModel {
             let alignment = information.alignment.asNSTextAlignment
             let blockColor = blockType.color?.color(background: false)
 
-            textViewUpdate = TextViewUpdate(
+            return TextViewUpdate(
                 attributedString: attributedText,
                 auxiliary: Auxiliary(
                     textAlignment: alignment,
                     tertiaryColor: blockColor
                 )
             )
-        default: return
+        default:
+            return nil
         }
     }
 }
@@ -169,9 +172,8 @@ private extension TextBlockViewModel {
                     auxiliary: Auxiliary(textAlignment: alignment, tertiaryColor: blockColor)
                 )
             }
-            .sink { [weak self] (textViewUpdate) in
-                guard let self = self else { return }
-                self.textViewUpdate = textViewUpdate
+            .sink { [weak self] in
+                self?.textUpdateSubject.send($0)
             }.store(in: &self.subscriptions)
     }
 }
