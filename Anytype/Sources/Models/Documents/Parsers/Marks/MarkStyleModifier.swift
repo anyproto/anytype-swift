@@ -52,14 +52,17 @@ final class MarkStyleModifier {
         attributedString.addAttributes(newAttributes, range: range)
         if case let .mention(id) = style, let pageId = id {
             // This attachment is for displaying icon in front of mention: 🦊Fox
-            let mentionName = attributedString.attributedSubstring(from: range).string
-            let mentionAttachment = MentionAttachment(name: mentionName, pageId: pageId)
-            let mentionAttachmentString = NSAttributedString(attachment: mentionAttachment)
+            let mentionAttributedString = attributedString.attributedSubstring(from: range)
+            let mentionAttachment = MentionAttachment(name: mentionAttributedString.string, pageId: pageId)
+            let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
+            if let font = mentionAttributedString.attribute(.font, at: range.location, effectiveRange: nil) {
+                mentionAttachmentString.addAttribute(
+                    .font,
+                    value: font,
+                    range: NSRange(location: 0, length: mentionAttachmentString.length))
+            }
             attributedString.insert(mentionAttachmentString, at: range.location)
         }
-        // and send event about it?
-        // that attributes at range are changed.
-        // also, on selection we should fire event about attributes.
     }
     
     func applyStyle(style: MarkStyle, rangeOrWholeString either: RangedEither<NSRange, Bool>) {
@@ -85,23 +88,6 @@ final class MarkStyleModifier {
         switch either {
         case let .range(value): return getMarkStyles(at: value)
         case let .whole(value): return value ? getMarkStyles(at: NSRange(location: 0, length: attributedString.length)) : []
-        }
-    }
-
-    // MARK: Get specific Mark Style
-    private func getMarkStyle(style: MarkStyle, at range: NSRange) -> MarkStyle? {
-        style.from(attributes: getAttributes(at: range))
-    }
-    
-    /// Get specified style from a RangeEither ( .whole(Bool) or .range(Range)
-    /// - Parameters:
-    ///   - style: Style that we are looking for.
-    ///   - either: Span parameter. It could be `.whole(Bool)` or `.range(Range)`
-    /// - Returns: Returns specified mark style in a span.
-    func getMarkStyle(style: MarkStyle, at either: RangedEither<NSRange, Bool>) -> MarkStyle? {
-        switch either {
-        case let .range(value): return getMarkStyle(style: style, at: value)
-        case let .whole(value): return value ? getMarkStyle(style: style, at: NSRange(location: 0, length: attributedString.length)) : nil
         }
     }
 }
