@@ -10,7 +10,7 @@ struct HomeCollectionView: View {
     
     var cellData: [PageCellData]
     let coordinator: HomeCoordinator
-    let cellDataManager: PageCellDataManager
+    let dragAndDropDelegate: DragAndDropDelegate?
     let offsetChanged: (CGPoint) -> Void
     
     @State private var dropData = DropData()
@@ -30,15 +30,18 @@ struct HomeCollectionView: View {
                         }
                     )
                     .disabled(data.isLoading)
-                    .onDrag {
-                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                        dropData.draggingCellData = data
-                        return NSItemProvider(object: data.id as NSString)
+                    
+                    .ifLet(dragAndDropDelegate) { view, delegate in
+                        view.onDrag {
+                            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                            dropData.draggingCellData = data
+                            return NSItemProvider(object: data.id as NSString)
+                        }
+                        .onDrop(
+                            of: [UTType.text],
+                            delegate: HomeCollectionDropInsideDelegate(dragAndDropDelegate: delegate, delegateData: data, cellData: cellData, data: $dropData)
+                        )
                     }
-                    .onDrop(
-                        of: [UTType.text],
-                        delegate: HomeCollectionDropInsideDelegate(cellDataManager: cellDataManager, delegateData: data, cellData: cellData, data: $dropData)
-                    )
                 }
             }
             .padding()
@@ -49,6 +52,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], coordinator: ServiceLocator.shared.homeCoordinator(), cellDataManager: HomeViewModel(), offsetChanged: { _ in })
+        HomeCollectionView(cellData: [], coordinator: ServiceLocator.shared.homeCoordinator(), dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in })
     }
 }

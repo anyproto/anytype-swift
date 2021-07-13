@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct HomeCollectionDropInsideDelegate: DropDelegate {
-    let cellDataManager: PageCellDataManager
+    let dragAndDropDelegate: DragAndDropDelegate
     let delegateData: PageCellData
     var cellData: [PageCellData]
     @Binding var data: DropData
@@ -12,7 +12,7 @@ struct HomeCollectionDropInsideDelegate: DropDelegate {
             return
         }
         
-        guard let direction = cellDataManager.onDrag(from: draggingCellData, to: delegateData) else {
+        guard let direction = dragAndDropDelegate.onDrag(from: draggingCellData, to: delegateData) else {
             return
         }
         
@@ -33,7 +33,7 @@ struct HomeCollectionDropInsideDelegate: DropDelegate {
         data.draggingCellData = nil
         data.dropPositionCellData = nil
         
-        return cellDataManager.onDrop(from: draggingCellData, to: dropPositionCellData, direction: direction)
+        return dragAndDropDelegate.onDrop(from: draggingCellData, to: dropPositionCellData, direction: direction)
     }
     
     func dropUpdated(info: DropInfo) -> DropProposal? {

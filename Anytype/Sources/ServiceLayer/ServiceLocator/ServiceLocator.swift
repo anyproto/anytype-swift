@@ -48,6 +48,10 @@ final class ServiceLocator {
         BlockActionsServiceFile()
     }
     
+    func searchService() -> SearchService {
+        SearchService()
+    }
+    
     // MARK: - Coodrdinators
     
     func applicationCoordinator(window: MainWindow) -> ApplicationCoordinator {

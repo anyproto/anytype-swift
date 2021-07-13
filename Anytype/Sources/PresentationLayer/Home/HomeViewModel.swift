@@ -12,21 +12,16 @@ extension HomeViewModel {
 }
 
 final class HomeViewModel: ObservableObject {
-    @Published fileprivate var cellData: [PageCellData] = []
-    
-    var favoritesCellData: [PageCellData] {
-        cellData.filter{ $0.isArchived == false}
-    }
-    var archiveCellData: [PageCellData] {
-        cellData.filter{ $0.isArchived == true}
-    }
+    @Published var favoritesCellData: [PageCellData] = []
+    @Published var archiveCellData: [PageCellData] = []
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
-    private let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
+    let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
+    let searchService = ServiceLocator.shared.searchService()
     
     private var subscriptions = [AnyCancellable]()
     private var newPageSubscription: AnyCancellable?
@@ -36,6 +31,14 @@ final class HomeViewModel: ObservableObject {
     
     init() {
         fetchDashboardData()
+    }
+    
+    func updateSearchTabs() {
+        // TODO: Discard previous request
+        searchService.searchForArchivedPages { [weak self] searchResults in
+            guard let self = self else { return }
+            self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)
+        }
     }
     
     private func fetchDashboardData() {        
@@ -55,7 +58,7 @@ final class HomeViewModel: ObservableObject {
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
-            cellData = cellDataBuilder.buldCellData(updateResult)
+            favoritesCellData = cellDataBuilder.buldFavoritesData(updateResult)
         case .update(let payload):
             payload.updatedIds.forEach { updateCellWithTargetId($0) }
         }
@@ -67,10 +70,10 @@ final class HomeViewModel: ObservableObject {
             return
         }
 
-        cellData.enumerated()
+        favoritesCellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                cellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+                favoritesCellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
             }
     }
 }
@@ -98,50 +101,5 @@ extension HomeViewModel {
 
                 self.newPageData = NewPageData(pageId: newBlockId, showingNewPage: true)
         }
-    }
-}
-
-
-// MARK: - CellDataManager
-protocol PageCellDataManager {
-    func onDrag(from: PageCellData, to: PageCellData) -> DropData.Direction?
-    func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool
-}
-
-extension HomeViewModel: PageCellDataManager {
-    func onDrag(from: PageCellData, to: PageCellData) -> DropData.Direction? {
-        guard from.id != to.id else {
-            return nil
-        }
-        
-        guard let fromIndex = cellData.index(id: from.id),
-              let toIndex = cellData.index(id: to.id) else {
-            return nil
-        }
-        
-        let dropAfter = toIndex > fromIndex
-        
-        cellData.move(
-            fromOffsets: IndexSet(integer: fromIndex),
-            toOffset: dropAfter ? toIndex + 1 : toIndex
-        )
-        
-        return dropAfter ? .after : .before
-    }
-    
-    func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool {
-        guard let homeBlockId = MiddlewareConfiguration.shared?.homeBlockID else {
-            assertionFailure("Shared configuration is nil")
-            return false
-        }
-        
-        objectActionsService.move(
-            dashboadId: homeBlockId,
-            blockId: from.id,
-            dropPositionblockId: to.id,
-            position: direction.toBlockModel()
-        )
-        
-        return true
     }
 }
