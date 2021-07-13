@@ -51,10 +51,7 @@ jobs:
           bundler-cache: true
 
       - name: Select Xcode
-        run: sh ./Scripts/ci_select_xcode.sh
-
-      #- name: Change git config to force use ssh instead of https
-      #  run: 
+        run: sh ./Scripts/ci_select_xcode.sh 
 
       - name: Update git config
         run: |
