@@ -182,7 +182,7 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.delegate = nil
         // We don't want to handle delegate methods after 'attributedText = nil' it cause side effects
         textView.textView.delegate = nil
-        // it's important to clean old attributed string, but it triggers caret to jump to text beginning
+        // it's important to clean old attributed string
         textView.textView.attributedText = nil
         textView.textView.delegate = textView
         textView.delegate = currentConfiguration.textViewDelegate
