@@ -1,6 +1,13 @@
 import ProtobufMessages
 import Combine
 
+protocol SearchServiceProtocol {
+    func searchArchivedPages(completion: @escaping ([SearchResult]) -> ())
+    func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
+    func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
+    func searchSets(completion: @escaping ([SearchResult]) -> ())
+}
+
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
     
@@ -10,10 +17,13 @@ final class SearchService {
             type: .desc
         )
         
-        let filter = MiddlewareBuilder.isArchivedFilter(isArchived: true)
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: true),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
         
         makeRequest(
-            filters: [filter],
+            filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
@@ -29,15 +39,65 @@ final class SearchService {
             relation: Relations.lastOpenedDate,
             type: .desc
         )
-        let filter = MiddlewareBuilder.isArchivedFilter(isArchived: false)
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.objectTypeFilter(types: [.set, .page]),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
         
         makeRequest(
-            filters: [filter],
+            filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: [ObjectType.set.rawValue, ObjectType.page.rawValue],
+            objectTypeFilter: [],
+            keys: [],
+            completion: completion
+        )
+    }
+    
+    func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
+        let sort = MiddlewareBuilder.sort(
+            relation: Relations.lastOpenedDate,
+            type: .desc
+        )
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.objectTypeFilter(type: .page),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
+        
+        makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: "",
+            offset: 0,
+            limit: 50,
+            objectTypeFilter: [],
+            keys: [],
+            completion: completion
+        )
+    }
+    
+    func searchSets(completion: @escaping ([SearchResult]) -> ()) {
+        let sort = MiddlewareBuilder.sort(
+            relation: Relations.lastOpenedDate,
+            type: .desc
+        )
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.objectTypeFilter(type: .set),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
+        
+        makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: "",
+            offset: 0,
+            limit: 100,
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )

@@ -1,3 +1,5 @@
+import Foundation
+
 enum ObjectType: String {
     case page = "_otpage"
     case set = "_otset"
@@ -6,11 +8,11 @@ enum ObjectType: String {
     var name: String {
         switch self {
         case .page:
-            return "Page"
+            return "Page".localized
         case .set:
-            return "Set"
+            return "Set".localized
         case .template:
-            return "Template"
+            return "Template".localized
         }
     }
 }

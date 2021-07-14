@@ -188,3 +188,8 @@
 "Basic" = "Basic";
 "Profile" = "Profile";
 "Choose layout type" = "Choose layout type";
+
+// Object Type
+"Page" = "Page";
+"Set" = "Set";
+"Template" = "Template";
