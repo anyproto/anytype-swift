@@ -10,7 +10,8 @@ import SwiftUI
 import BlocksModels
 
 struct DocumentLayoutPicker: View {
-    @State private var selectedLayout: DetailsLayout = .basic
+    
+    @EnvironmentObject private var viewModel: DocumentLayoutPickerViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -27,9 +28,9 @@ struct DocumentLayoutPicker: View {
             ForEach(DetailsLayout.allCases, id: \.self) { layout in
                 DocumentLayoutTypeRow(
                     layout: layout,
-                    isSelected: layout == selectedLayout,
+                    isSelected: layout == viewModel.selectedLayout,
                     onTap: {
-                        selectedLayout = layout
+                        viewModel.updateLayout(layout)
                     }
                 )
                 .modifier(DividerModifier(spacing: 16))
