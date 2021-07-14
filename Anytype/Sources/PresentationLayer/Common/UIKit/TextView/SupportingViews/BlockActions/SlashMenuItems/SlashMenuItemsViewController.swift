@@ -23,6 +23,21 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
+        
+        let noItemsLabel = UILabel()
+        noItemsLabel.font = .bodyFont
+        noItemsLabel.textColor = .secondaryTextColor
+        noItemsLabel.lineBreakMode = .byWordWrapping
+        noItemsLabel.numberOfLines = 0
+        noItemsLabel.text = "No items match filter".localized
+        let emptyView = UIView()
+        emptyView.addSubview(noItemsLabel)
+        noItemsLabel.layoutUsing.anchors {
+            $0.center(in: emptyView)
+        }
+        tableView.backgroundView = emptyView
+        emptyView.isHidden = true
+        
         return tableView
     }()
     private let filterService: SlashMenuActionsFilterService
@@ -60,6 +75,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         } else {
             items = filterService.menuItemsFiltered(by: filterString)
         }
+        setEmptyView(hidden: !items.isEmpty)
     }
     
     private func addTableView() {
@@ -120,6 +136,10 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
             configuration.secondaryTextProperties.color = .secondaryTextColor
         }
         return configuration
+    }
+    
+    private func setEmptyView(hidden: Bool) {
+        tableView.backgroundView?.isHidden = hidden
     }
 }
 

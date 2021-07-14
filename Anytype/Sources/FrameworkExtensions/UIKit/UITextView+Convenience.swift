@@ -59,29 +59,12 @@ extension UITextView {
 
 extension UITextView: TextViewManagingFocus, TextViewUpdatable {
     func apply(update: TextViewUpdate) {
-        switch update {
-        case let .text(value):
-            guard value != textStorage.string else { return }
-
-            if textStorage.length == 0 {
-                let text = NSAttributedString(string: value, attributes: typingAttributes)
-                textStorage.setAttributedString(text)
-            } else {
-                textStorage.replaceCharacters(in: .init(location: 0, length: textStorage.length), with: value)
-            }
-        case let .attributedText(value):
-            let text = NSMutableAttributedString(attributedString: value)
-
-            guard text != textStorage else { return }
-
+        let text = NSMutableAttributedString(attributedString: update.attributedString)
+        if text != textStorage {
             textStorage.setAttributedString(text)
-        case let .auxiliary(value):
-            self.backgroundColor = value.tertiaryColor
-            self.textAlignment = value.textAlignment
-        case let .payload(value):
-            self.apply(update: .attributedText(value.attributedString))
-            self.apply(update: .auxiliary(value.auxiliary))
         }
+        backgroundColor = update.auxiliary.tertiaryColor
+        textAlignment = update.auxiliary.textAlignment
     }
 
     func shouldResignFirstResponder() {

@@ -18,7 +18,7 @@ struct DocumentSettingsList: View {
             )
             .sheet(isPresented: $viewModel.isIconSelected) {
                 Group {
-                    switch iconViewModel.pickerType {
+                    switch iconViewModel.detailsLayout {
                     case .basic:
                         DocumentBasicIconPicker()
                     case .profile:
@@ -47,10 +47,13 @@ struct DocumentSettingsList: View {
                     icon: Image.ObjectSettings.layout,
                     title: "Layout",
                     subtitle: "Arrangement of objects on a canvas",
-                    isAvailable: false
+                    isAvailable: true
                 ),
                 pressed: $viewModel.isLayoutSelected
             )
+            .sheet(isPresented: $viewModel.isLayoutSelected) {
+                DocumentLayoutPicker()
+            }
             .modifier(DividerModifier())
             
         }

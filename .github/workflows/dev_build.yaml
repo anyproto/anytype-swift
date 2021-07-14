@@ -1,4 +1,4 @@
-name: Dev build
+name: Anytype Dev
 
 on:
   schedule:
@@ -14,7 +14,7 @@ on:
         default: 'develop'
 
 jobs:
-  archive_and_upload:
+  main:
     runs-on: macOS-latest
     timeout-minutes: 20
 
@@ -26,16 +26,14 @@ jobs:
           - Anytype
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
+      - name: Install SSH key for access to repository.
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          key: ${{ secrets.SSH_KEY_NEW }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
@@ -43,9 +41,16 @@ jobs:
           ruby-version: 2.6.3
           bundler-cache: true
 
-      # For badge plugin in fastlane
-      - name: Install imagemagick
-        run: brew install imagemagick
+      - name: Install dependencies for badge plugin imagemagick
+        run: |
+          brew install imagemagick
+          brew install librsvg
+
+      - name: Update git config
+        run: |
+          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+          git config --global user.name "William Blake"
+          git config --global user.email "iosteam@anytype.io"
 
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
@@ -53,15 +58,13 @@ jobs:
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      #- name: Change git config to force use ssh instead of https
-      #  run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
-
       - name: Build and upload to Testflight
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
           bundle exec fastlane dev
         env:
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}

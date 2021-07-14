@@ -6,7 +6,7 @@ final class DocumentIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
-    private(set) var pickerType: DocumentIconPickerType = .basic
+    private(set) var detailsLayout: DetailsLayout = .basic
     private(set) var isRemoveEnabled = true
     
     // MARK: - Private variables
@@ -29,10 +29,10 @@ final class DocumentIconPickerViewModel: ObservableObject {
 extension DocumentIconPickerViewModel {
     
     func configure(with details: DetailsData) {
-        pickerType = details.layout?.asIconPickerType ?? .basic
+        detailsLayout = details.layout ?? .basic
      
         isRemoveEnabled = {
-            switch pickerType {
+            switch detailsLayout {
             case .basic:
                 return true
             case .profile:
@@ -110,19 +110,6 @@ private extension DocumentIconPickerViewModel {
             details: details
         )?
         .sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in }
-    }
-    
-}
-
-private extension DetailsLayout {
-    
-    var asIconPickerType: DocumentIconPickerType {
-        switch self {
-        case .basic:
-            return .basic
-        case .profile:
-            return .profile
-        }
     }
     
 }
