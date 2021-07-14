@@ -2,7 +2,7 @@
 enum BlockActionType {
     case style(BlockStyleAction)
     case media(BlockMediaAction)
-    case objects(ObjectType)
+    case objects(ObjectTypeData)
     case relations
     case other(BlockOtherAction)
     case actions(BlockAction)
@@ -27,9 +27,11 @@ enum BlockActionType {
         case let .other(other):
             return SlashMenuItemDisplayData(iconData: .imageNamed(other.iconName), title: other.title)
         case let .objects(object):
-            return SlashMenuItemDisplayData(iconData: .emoji(object.emoji),
-                                            title: object.name,
-                                            subtitle: object.description)
+            return SlashMenuItemDisplayData(
+                iconData: .emoji(object.emoji),
+                title: object.name,
+                subtitle: object.description
+            )
         case .relations:
             return SlashMenuItemDisplayData(iconData: .imageNamed(""), title: "")
         }

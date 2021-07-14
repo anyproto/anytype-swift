@@ -9,7 +9,7 @@ final class ObjectTypeService {
     
     static let shared = ObjectTypeService()
     
-    private(set) var objects = [ObjectType]()
+    private(set) var objects = [ObjectTypeData]()
     private let parser: ObjectTypesParser
     private lazy var accessQueue = DispatchQueue(label: "com.anytype.mentionAccessQueue")
     private var subscription: AnyCancellable?

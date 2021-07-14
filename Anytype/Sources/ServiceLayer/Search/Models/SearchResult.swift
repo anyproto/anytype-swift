@@ -17,7 +17,7 @@ struct SearchResult: DetailsDataProtocol {
     let isArchived: Bool?
     let done: Bool?
     
-    let type: String?
+    let type: ObjectType?
     
     // Unused
     let creator: BlockId?
@@ -53,9 +53,10 @@ struct SearchResult: DetailsDataProtocol {
         self.isArchived = fields[Relations.isArchived]?.boolValue
         self.done = fields[Relations.done]?.boolValue
         
-        // TODO: do objectTypeList request
-//        self.type = fields[Relations.type]?.listValue.values.map { $0.stringValue } ?? []
-        self.type = nil
+        self.type = fields[Relations.type]?.listValue
+            .values.compactMap { rawValue in
+                ObjectType(rawValue: rawValue.stringValue)
+            }.first
         
         // Unused
         self.lastModifiedBy = fields[Relations.lastModifiedBy]?.stringValue
