@@ -21,7 +21,7 @@ struct BlockPageLinkState {
     }
     
     enum Converter {
-        static func asOurModel(_ pageDetails: DetailsEntryValueProvider) -> BlockPageLinkState {
+        static func asOurModel(_ pageDetails: DetailsDataProtocol) -> BlockPageLinkState {
             let archived = false
             var hasContent = false
             let title = pageDetails.name

@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol DetailsEntryValueProvider {
+public protocol DetailsDataProtocol {
     
     var name: String? { get }
     var iconEmoji: String? { get }
