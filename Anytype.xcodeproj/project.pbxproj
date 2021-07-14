@@ -168,6 +168,7 @@
 		0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */; };
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
+		120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */; };
 		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
@@ -755,6 +756,7 @@
 		0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFile.swift; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
+		120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsContainerView.swift; sourceTree = "<group>"; };
 		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
@@ -2023,6 +2025,14 @@
 			path = MediaPicker;
 			sourceTree = "<group>";
 		};
+		120E816B269F26BE006FE84E /* ObjectSettings */ = {
+			isa = PBXGroup;
+			children = (
+				120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */,
+			);
+			path = ObjectSettings;
+			sourceTree = "<group>";
+		};
 		120F7D42267CCD9F00327734 /* DocumentCoverPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -2860,6 +2870,7 @@
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				120E816B269F26BE006FE84E /* ObjectSettings */,
 				129D78912694AE3D00DA6757 /* DocumentLayoutPicker */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 				120F7D42267CCD9F00327734 /* DocumentCoverPicker */,
@@ -4080,6 +4091,7 @@
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				3DBED69F266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
+				120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
 				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
 				12D94FD32678DA6300F794EB /* EmojiGridView.swift in Sources */,

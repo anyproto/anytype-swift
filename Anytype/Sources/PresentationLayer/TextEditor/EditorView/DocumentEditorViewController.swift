@@ -404,8 +404,19 @@ private extension DocumentEditorViewController {
     func showDocumentSettings() {
         UISelectionFeedbackGenerator().selectionChanged()
         
+        // TODO: move to assembly
+        let controller = UIHostingController(rootView: ObjectSettingsContainerView())
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        
+        controller.rootView.onHide =  { [weak controller] in
+            controller?.dismiss(animated: false)
+        }
+        
         present(
-            viewModel.settingsViewModel.makeSettingsViewController(),
+            controller,
             animated: false
         )
     }
