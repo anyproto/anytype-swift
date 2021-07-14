@@ -273,6 +273,7 @@
 		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
+		3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */; };
 		3D746D282695F13E005A0919 /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D746D272695F13E005A0919 /* CodeLanguage.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7C08232684E00100E2168D /* BlockFileMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08222684E00100E2168D /* BlockFileMediaView.swift */; };
@@ -858,6 +859,7 @@
 		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = Anytype/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
+		3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DragAndDropDelegate.swift; path = AnyType/Sources/PresentationLayer/Home/View/DragAndDrop/DragAndDropDelegate.swift; sourceTree = SOURCE_ROOT; };
 		3D746D272695F13E005A0919 /* CodeLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08222684E00100E2168D /* BlockFileMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileMediaView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileMediaView.swift; sourceTree = SOURCE_ROOT; };
@@ -2482,6 +2484,14 @@
 			path = Internals;
 			sourceTree = "<group>";
 		};
+		3D67F943269DF6B000883681 /* DragAndDrop */ = {
+			isa = PBXGroup;
+			children = (
+				3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */,
+			);
+			path = DragAndDrop;
+			sourceTree = "<group>";
+		};
 		3D7E89FD26851EAF00181E8D /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2583,6 +2593,7 @@
 		3D932D3926317E3A00C7D1EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3D67F943269DF6B000883681 /* DragAndDrop */,
 				0331BBD822E5D8AB002AD179 /* Settings */,
 				3DB7DC902639CA8000635E4C /* Profile */,
 				3DB1E74B2639A9FB00F479BB /* Tabs */,
@@ -3807,6 +3818,7 @@
 				EAE8C6A926930F8900324B46 /* URLInputViewController.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* ContextualMenu.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
+				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				129D788326946EA300DA6757 /* DocumentIconPickerViewModel.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,

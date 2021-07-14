@@ -11,4 +11,17 @@ struct PageCellData: Identifiable {
     let type: String
     let isLoading: Bool
     let isArchived: Bool
+    
+    static func create(searchResult: SearchResult) -> PageCellData {
+        PageCellData(
+            id: searchResult.id,
+            destinationId: searchResult.id,
+            icon: searchResult.icon,
+            title: searchResult.name ?? "",
+            type: searchResult.type ?? "Page",
+            isLoading: false,
+            isArchived: searchResult.isArchived ?? false
+        )
+    }
 }
+

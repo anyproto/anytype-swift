@@ -15,9 +15,9 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.favoritesCellData, coordinator: model.coordinator, cellDataManager: model, offsetChanged: offsetChanged).tag(1)
+            HomeCollectionView(cellData: model.favoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged).tag(1)
                 .ignoresSafeArea()
-            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, cellDataManager: model, offsetChanged: offsetChanged).tag(4)
+            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged).tag(4)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
@@ -30,7 +30,7 @@ struct HomeTabsView: View {
             tabButton(text: "Inbox", tag: 3).disabled(true)
             tabButton(text: "Archive", tag: 4)
         }
-        .padding([.leading, .top])
+        .padding([.leading, .top, .trailing])
     }
     
     private func tabButton(text: String, tag: Int) -> some View {
