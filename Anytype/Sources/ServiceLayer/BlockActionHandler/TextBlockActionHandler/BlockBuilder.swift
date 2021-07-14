@@ -3,35 +3,34 @@ import BlocksModels
 struct BlockBuilder {
     typealias KeyboardAction = CustomTextView.UserAction.KeyboardAction
 
-    static func newBlockId() -> BlockId { "" }
-
     static func createInformation(block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.content {
         case .text:
-            return createContentType(block: block, action: action, textPayload: textPayload)
-                .flatMap { BlockInformation(id: newBlockId(), content: $0) }
+            return createContentType(block: block, action: action, textPayload: textPayload).flatMap { content in
+                BlockInformation.createNew(content: content)
+            }
         default: return nil
         }
     }
 
     static func createInformation(blockType: BlockViewType) -> BlockInformation? {
-        return createContentType(blockType: blockType).flatMap {
-            BlockInformation(id: newBlockId(), content: $0)
+        return createContentType(blockType: blockType).flatMap { content in
+            BlockInformation.createNew(content: content)
         }
     }
     
     static func createDefaultInformation() -> BlockInformation {
-        return BlockInformation(id: newBlockId(), content: .text(.empty()))
+        return BlockInformation.createNew(content: .text(.empty()))
     }
 
     static func createDefaultInformation(block: BlockActiveRecordProtocol) -> BlockInformation? {
         switch block.content {
         case let .text(value):
             switch value.contentType {
-            case .toggle: return BlockInformation(id: newBlockId(), content: .text(.empty()))
+            case .toggle: return BlockInformation.createNew(content: .text(.empty()))
             default: return nil
             }
-        case .smartblock: return BlockInformation(id: newBlockId(), content: .text(.empty()))
+        case .smartblock: return BlockInformation.createNew(content: .text(.empty()))
         default: return nil
         }
     }

@@ -1,53 +1,36 @@
-//
-//  CodeBlockContentConfiguration.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 05.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 
-
-/// Content configuration for text blocks
 struct CodeBlockContentConfiguration {
-    /// View model
-    weak var viewModel: CodeBlockViewModel?
-
-    /// Block information
-    var information: BlockInformation
-    private(set) var isSelected: Bool = false
-
-    init(_ blockViewModel: CodeBlockViewModel) {
-        self.information = blockViewModel.information
-    }
+    let content: BlockText
+    let backgroundColor: MiddlewareColor?
+    let codeLanguage: CodeLanguage
+    
+    let becomeFirstResponder: () -> ()
+    let textDidChange: (UITextView) -> ()
+    let showCodeSelection: () -> ()
 }
 
 extension CodeBlockContentConfiguration: UIContentConfiguration {
 
     func makeContentView() -> UIView & UIContentView {
-        let view: CodeBlockContentView = .init(configuration: self)
-        return view
+        return CodeBlockContentView(configuration: self)
     }
 
     func updated(for state: UIConfigurationState) -> CodeBlockContentConfiguration {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-
-        updatedConfig.isSelected = state.isSelected
-        return updatedConfig
+        return self
     }
 }
 
 extension CodeBlockContentConfiguration: Hashable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.information == rhs.information && lhs.isSelected == rhs.isSelected
+        lhs.content == rhs.content && lhs.backgroundColor == rhs.backgroundColor && lhs.codeLanguage == rhs.codeLanguage
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(information)
-        hasher.combine(isSelected)
+        hasher.combine(content)
+        hasher.combine(backgroundColor)
+        hasher.combine(codeLanguage)
     }
 }

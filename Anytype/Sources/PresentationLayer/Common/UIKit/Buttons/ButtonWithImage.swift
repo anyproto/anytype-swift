@@ -1,14 +1,6 @@
-//
-//  ButtonWithImage.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 12.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
+import BlocksModels
 
-/// Any type button
 final class ButtonWithImage: UIControl {
     private var borderEdges: UIRectEdge?
     private var borderWidth: CGFloat = 0.0
@@ -58,7 +50,7 @@ final class ButtonWithImage: UIControl {
 
         label.font = UIFont.bodyFont
         label.isHidden = true
-        label.textColor = MiddlewareColor.grey.color()
+        label.textColor = MiddlewareColor.grey.color(background: false)
         label.isUserInteractionEnabled = false
 
         addSubview(container)

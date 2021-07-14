@@ -10,7 +10,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
     let isStruct = false
     
     let block: BlockActiveRecordProtocol
-    private(set) weak var BlockDelegate: BlockDelegate?
+    private(set) weak var blockDelegate: BlockDelegate?
     let actionHandler: EditorActionHandlerProtocol
     let router: EditorRouterProtocol
     let contextualMenuHandler: DefaultContextualMenuHandler
@@ -25,7 +25,7 @@ class BaseBlockViewModel: BlockViewModelProtocol {
         router: EditorRouterProtocol
     ) {
         self.block = block
-        self.BlockDelegate = delegate
+        self.blockDelegate = delegate
         self.actionHandler = actionHandler
         self.router = router
         self.contextualMenuHandler = DefaultContextualMenuHandler(handler: actionHandler, router: router)

@@ -18,7 +18,7 @@ protocol EditorRouterProtocol: AnyObject {
     
     func saveFile(fileURL: URL)
     
-    func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void)
+    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
     func showStyleMenu(information: BlockInformation)
 }
@@ -54,7 +54,7 @@ final class EditorRouter: EditorRouterProtocol {
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
         let controller = URLInputViewController(didCreateURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
-        viewController?.present(controller, animated: true)
+        viewController?.present(controller, animated: false)
     }
     
     func showFilePicker(model: FilePickerModel) {
@@ -71,7 +71,7 @@ final class EditorRouter: EditorRouterProtocol {
         fileRouter.saveFile(fileURL: fileURL)
     }
     
-    func showCodeLanguageView(languages: [String], completion: @escaping (String) -> Void) {
+    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
         let searchListViewController = SearchListViewController(items: languages, completion: completion)
         searchListViewController.modalPresentationStyle = .pageSheet
         viewController?.present(searchListViewController, animated: true)
@@ -86,7 +86,7 @@ final class EditorRouter: EditorRouterProtocol {
             delegate: controller,
             information: information
         ) { [weak controller] action in
-            controller?.viewModel.blockActionHandler.handleActionForFirstResponder(action)
+            controller?.viewModel.blockActionHandler.handleAction(action, info: information)
         }
         
         controller.selectBlock(blockId: information.id)

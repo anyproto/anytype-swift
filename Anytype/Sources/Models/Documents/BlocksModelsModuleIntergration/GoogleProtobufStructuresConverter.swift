@@ -4,25 +4,7 @@ import os
 import BlocksModels
 import ProtobufMessages
 
-/// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
 struct GoogleProtobufStructuresConverter {
-    /// NOTE: Don't delete this code.
-    /// You may need it.
-    /// Actually, we don't have now correct conversion from our structure to protobuf.
-    /// Look at `.structure` comments for details.
-    ///
-//        enum AllowedType {
-//            case none
-//            case string(String)
-//            case number(Double)
-//            case structure(AllowedType)
-//            case
-//        }
-    
-    static func dictionary(_ from: Google_Protobuf_Struct) -> [String: Any] {
-        from.fields
-    }
-    
     static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
         /// NOTE: Not implemented.
         /// Don't delete this code.

@@ -11,7 +11,7 @@ final class MentionAttachment: NSTextAttachment {
     
     let pageId: String
     let name: String
-    private var iconData: DocumentIcon?
+    private var iconData: DocumentIconType?
     private weak var layoutManager: NSLayoutManager?
     private let mentionService = MentionObjectsService(pageObjectsCount: 1)
     private var subscriptions = [AnyCancellable]()
@@ -19,7 +19,7 @@ final class MentionAttachment: NSTextAttachment {
     private var fontPointSize: CGFloat?
     private var imageProperty: ImageProperty?
     
-    init(name: String, pageId: String, iconData: DocumentIcon? = nil) {
+    init(name: String, pageId: String, iconData: DocumentIconType? = nil) {
         self.pageId = pageId
         self.name = name
         self.iconData = iconData
@@ -49,12 +49,10 @@ final class MentionAttachment: NSTextAttachment {
         }
         displayNewImageIfNeeded(desiredIconSize: desiredIconSize,
                                 fontPointSize: fontPointSize)
-        return super.attachmentBounds(
-            for: textContainer,
-            proposedLineFragment: lineFrag,
-            glyphPosition: position,
-            characterIndex: charIndex
-        )
+        if let image = self.image {
+            return bounds(for: image)
+        }
+        return .zero
     }
     
     private func storeParametersForIcon(size: CGSize, fontPointSize: CGFloat?) -> Bool {
@@ -100,8 +98,47 @@ final class MentionAttachment: NSTextAttachment {
         subscriptions.append(subscription)
     }
     
-    private func displayIcon(from iconData: DocumentIcon) {
+    private func displayIcon(from iconData: DocumentIconType) {
         switch iconData {
+        case let .basic(basic):
+            displayBasicIcon(basic)
+        case let .profile(profile):
+            displayProfileIcon(profile)
+        }
+    }
+    
+    private func displayProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+        switch profileIcon {
+        case let .imageId(id):
+            loadImage(imageId: id)
+        case let .placeholder(placeholder):
+            loadPlaceholderImage(placehodler: placeholder)
+        }
+    }
+    
+    private func loadPlaceholderImage(placehodler: Character) {
+        let size = iconSize ?? Constants.defaultIconSize
+        let imageGuideline = ImageGuideline(
+            size: size,
+            cornerRadius: min(
+                size.width,
+                size.height
+            ) / 2
+        )
+        let placeholderGuideline = PlaceholderImageTextGuideline(
+            text: String(placehodler),
+            font: UIFont.systemFont(ofSize: fontPointSize ?? 0)
+        )
+        let image = PlaceholderImageBuilder.placeholder(
+            with: imageGuideline,
+            color: .secondaryTextColor,
+            textGuideline: placeholderGuideline
+        )
+        addLeadingSpaceAndDisplay(image)
+    }
+    
+    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
+        switch basicIcon {
         case let .emoji(emoji):
             guard let fontSize = fontPointSize,
                   let image = emoji.value.image(fontPointSize: fontSize) else { return }
@@ -120,12 +157,16 @@ final class MentionAttachment: NSTextAttachment {
             guard let image = image else { return }
             let scaledImage = image.scaled(to: self?.iconSize ?? Constants.defaultIconSize)
             let roundedImage = scaledImage.rounded(radius: min(scaledImage.size.height, scaledImage.size.width)/2)
-            let imageWithSpaceSize = roundedImage.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-            let imageWithSpace = roundedImage.imageDrawn(on: imageWithSpaceSize, offset: .zero)
-            self?.display(imageWithSpace)
+            self?.addLeadingSpaceAndDisplay(roundedImage)
         }
         subscriptions.append(subscription)
         imageProperty = property
+    }
+    
+    private func addLeadingSpaceAndDisplay(_ image: UIImage) {
+        let imageWithSpaceSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+        let imageWithSpace = image.imageDrawn(on: imageWithSpaceSize, offset: .zero)
+        display(imageWithSpace)
     }
     
     private func updateAttachmentLayout() {
@@ -135,7 +176,11 @@ final class MentionAttachment: NSTextAttachment {
     
     private func display(_ image: UIImage) {
         self.image = image
-        bounds = CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
+        bounds = bounds(for: image)
         updateAttachmentLayout()
+    }
+    
+    private func bounds(for image: UIImage) -> CGRect {
+        CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
     }
 }

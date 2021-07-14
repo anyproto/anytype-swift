@@ -7,13 +7,15 @@ protocol BlockDelegate: AnyObject {
     func blockSizeChanged()
     /// Block become first responder
     func becomeFirstResponder(for block: BlockModelProtocol)
+    /// First responder resigned
+    func resignFirstResponder()
     /// Tells the delegate when editing of the block begins
     func didBeginEditing()
     /// Tells the delegate when editing of the block will begin
     func willBeginEditing()
 }
 
-class BlockDelegateImpl: BlockDelegate {
+final class BlockDelegateImpl: BlockDelegate {
     weak private(set) var viewInput: EditorModuleDocumentViewInput?
     let document: BaseDocumentProtocol
     
@@ -30,7 +32,11 @@ class BlockDelegateImpl: BlockDelegate {
     }
 
     func becomeFirstResponder(for block: BlockModelProtocol) {
-        document.userSession?.setFirstResponder(with: block)
+        document.userSession?.firstResponder = block
+    }
+    
+    func resignFirstResponder() {
+        document.userSession?.firstResponder = nil
     }
 
     func didBeginEditing() {

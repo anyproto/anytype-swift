@@ -28,8 +28,8 @@ final class BlockActionService: BlockActionServiceProtocol {
     ///
     /// - Parameters:
     ///   - events: Event to handle
-    func receiveOurEvents(_ events: [OurEvent]) {
-        self.didReceiveEvent(PackOfEvents(contextId: documentId, events: [], ourEvents: events))
+    func receivelocalEvents(_ events: [LocalEvent]) {
+        self.didReceiveEvent(PackOfEvents(contextId: documentId, events: [], localEvents: events))
     }
 
     func configured(documentId: String) -> Self {
@@ -84,7 +84,9 @@ final class BlockActionService: BlockActionServiceProtocol {
                 style: newBlockContentType) ?? .empty()
         }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
             var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
-            events.ourEvents = [.setTextMerge(blockId: blockId)] + events.ourEvents
+            events = events.enrichedWith(
+                localEvents: [.setTextMerge(blockId: blockId)]
+            )
             self?.didReceiveEvent(events)
         }.store(in: &self.subscriptions)
     }
@@ -150,6 +152,13 @@ final class BlockActionService: BlockActionServiceProtocol {
             }) { [weak self] value in
                 let value = completion(value)
                 self?.didReceiveEvent(value)
+            }.store(in: &self.subscriptions)
+    }
+    
+    func setFields(contextID: BlockId, blockFields: [BlockFields]) {
+        listService.setFields(contextID: contextID, blockFields: blockFields)
+            .sinkWithDefaultCompletion("listService.setFields") { [weak self] serviceSuccess in
+                self?.didReceiveEvent(serviceSuccess.defaultEvent)
             }.store(in: &self.subscriptions)
     }
 }
@@ -225,12 +234,12 @@ private extension BlockActionService {
 // MARK: - Delete
 
 extension BlockActionService {
-    func merge(firstBlockId: BlockId, secondBlockId: BlockId, ourEvents: [OurEvent]) {
+    func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent]) {
         self.textService.merge(contextID: documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] serviceSuccess in
                 var events = serviceSuccess.defaultEvent
-                events.ourEvents = ourEvents
+                events = events.enrichedWith(localEvents: localEvents)
                 self?.didReceiveEvent(events)
             }.store(in: &self.subscriptions)
     }
@@ -251,18 +260,13 @@ extension BlockActionService {
 
 extension BlockActionService {
     func setBackgroundColor(blockId: BlockId, color: BlockBackgroundColor) {
-        guard let color = MiddlewareColorConverter.asMiddleware(color) else {
-            assertionFailure("Wrong UIColor for setBackgroundColor command")
-            return
-        }
-        
-        setBackgroundColor(blockId: blockId, color: color)
+        setBackgroundColor(blockId: blockId, color: color.middleware)
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
         let blockIds = [blockId]
 
-        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color.name())
+        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
             }

@@ -9,9 +9,9 @@ struct BaseDocumentUpdateResult {
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
-    var userSession: BlockUserSessionModelProtocol? { get }
+    var userSession: UserSession? { get set }
     var rootActiveModel: BlockActiveRecordProtocol? { get }
-    var rootModel: ContainerModelProtocol? { get }
+    var rootModel: RootBlockContainer? { get }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
     func open(_ value: ServiceSuccess)

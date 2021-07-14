@@ -8,11 +8,15 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buldCellData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
+    func buldCellData(_ searchResults: [SearchResult]) -> [PageCellData] {
+        searchResults.map { PageCellData.create(searchResult: $0) }
+    }
+    
+    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
         let links: [HomePageLink] = updateResult.models.compactMap(activeRecordToPageLink)
         
         return links
-            .filter { $0.type == .page }
+            .filter { $0.type == .page && $0.isArchived == false }
             .map { buildPageCellData(pageLink: $0) }
     }
     

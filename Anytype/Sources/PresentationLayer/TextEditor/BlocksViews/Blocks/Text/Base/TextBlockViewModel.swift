@@ -16,7 +16,8 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     // MARK: View state
     private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
-    @Published private(set) var textViewUpdate: TextViewUpdate?
+    private let textUpdateSubject = PassthroughSubject<TextViewUpdate, Never>()
+    private(set) lazy var textUpdatePublisher = textUpdateSubject.eraseToAnyPublisher()
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     private let pressingEnterTimeChecker = TimeChecker()
     
@@ -68,7 +69,8 @@ class TextBlockViewModel: BaseBlockViewModel {
     }
 
     override func updateView() {
-        refreshedTextViewUpdate()
+        guard let update = makeTextViewUpdate() else { return }
+        textUpdateSubject.send(update)
     }
 }
 
@@ -76,7 +78,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 
 extension TextBlockViewModel {
 
-    func refreshedTextViewUpdate() {
+    func makeTextViewUpdate() -> TextViewUpdate? {
         let block = self.block
         let information = block.blockModel.information
 
@@ -84,19 +86,18 @@ extension TextBlockViewModel {
         case let .text(blockType):
             let attributedText = blockType.attributedText
             
-            let alignment = information.alignment.asTextAlignment
-            let blockColor = MiddlewareColorConverter.asUIColor(name: blockType.color, background: false)
+            let alignment = information.alignment.asNSTextAlignment
+            let blockColor = blockType.color?.color(background: false)
 
-            textViewUpdate = TextViewUpdate.payload(
-                .init(
-                    attributedString: attributedText,
-                    auxiliary: .init(
-                        textAlignment: alignment,
-                        tertiaryColor: blockColor
-                    )
+            return TextViewUpdate(
+                attributedString: attributedText,
+                auxiliary: Auxiliary(
+                    textAlignment: alignment,
+                    tertiaryColor: blockColor
                 )
             )
-        default: return
+        default:
+            return nil
         }
     }
 }
@@ -106,19 +107,28 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel: TextViewDelegate {
     func willBeginEditing() {
-        BlockDelegate?.willBeginEditing()
+        blockDelegate?.willBeginEditing()
     }
 
     func didBeginEditing() {
-        BlockDelegate?.didBeginEditing()
+        blockDelegate?.didBeginEditing()
     }
     
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        BlockDelegate?.becomeFirstResponder(for: block.blockModel)
+        switch change {
+        case .become:
+            blockDelegate?.becomeFirstResponder(for: block.blockModel)
+        case .resign:
+            blockDelegate?.resignFirstResponder()
+        }
     }
 
     func sizeChanged() {
-        BlockDelegate?.blockSizeChanged()
+        blockDelegate?.blockSizeChanged()
+    }
+    
+    func didChangeText(textView: UITextView) {
+        mentionsConfigurator.configure(textView: textView)
     }
 }
 
@@ -130,7 +140,7 @@ private extension TextBlockViewModel {
         // ToView
         let alignmentPublisher = block.didChangeInformationPublisher()
             .map(\.alignment)
-            .map { $0.asTextAlignment }
+            .map { $0.asNSTextAlignment }
             .removeDuplicates()
             .safelyUnwrapOptionals()
 
@@ -156,17 +166,14 @@ private extension TextBlockViewModel {
             .receiveOnMain()
             .map { value -> TextViewUpdate in
                 let (text, alignment) = value
-                let blockColor = MiddlewareColorConverter.asUIColor(name: text.color, background: false)
-                return .payload(
-                    .init(
-                        attributedString: text.attributedText,
-                        auxiliary: .init(textAlignment: alignment, tertiaryColor: blockColor)
-                    )
+                let blockColor = text.color?.color(background: false)
+                return TextViewUpdate(
+                    attributedString: text.attributedText,
+                    auxiliary: Auxiliary(textAlignment: alignment, tertiaryColor: blockColor)
                 )
             }
-            .sink { [weak self] (textViewUpdate) in
-                guard let self = self else { return }
-                self.textViewUpdate = textViewUpdate
+            .sink { [weak self] in
+                self?.textUpdateSubject.send($0)
             }.store(in: &self.subscriptions)
     }
 }
@@ -209,8 +216,9 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 ),
                 info: block.blockModel.information
             )
-        case let .changeText(textView):
-            mentionsConfigurator.configure(textView: textView)
+        case .changeTextForStruct:
+            fallthrough
+        case .changeText:
             actionHandler.handleAction(
                 .textView(
                     action: action,

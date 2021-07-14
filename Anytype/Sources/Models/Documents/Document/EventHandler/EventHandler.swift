@@ -13,10 +13,10 @@ class EventHandler: EventHandlerProtocol {
     private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
     let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
     
-    private weak var container: ContainerModelProtocol?
+    private weak var container: RootBlockContainer?
     
-    private var innerConverter: InnerEventConverter?
-    private var ourConverter: OurEventConverter?
+    private var innerConverter: MiddlewareEventConverter?
+    private var ourConverter: LocalEventConverter?
     
     let pageEventConverter = PageEventConverter()
     
@@ -44,20 +44,20 @@ class EventHandler: EventHandlerProtocol {
     
     func handle(events: PackOfEvents) {
         let innerUpdates = events.events.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
-        let ourUpdates = events.ourEvents.compactMap { ourConverter?.convert($0) ?? nil }
+        let ourUpdates = events.localEvents.compactMap { ourConverter?.convert($0) ?? nil }
         finalize(innerUpdates + ourUpdates)
     }
 
     // MARK: Configurations
-    func configured(_ container: ContainerModelProtocol) {
+    func configured(_ container: RootBlockContainer) {
         guard let rootId = container.rootId else {
             assertionFailure("We can't start listening rootId of container: \(container)")
             return
         }
 
         self.container = container
-        innerConverter = InnerEventConverter(updater: BlockUpdater(container), container: container)
-        ourConverter = OurEventConverter(container: container)
+        innerConverter = MiddlewareEventConverter(container: container)
+        ourConverter = LocalEventConverter(container: container)
         eventPublisher.startListening(contextId: rootId)
     }
     
@@ -69,7 +69,8 @@ class EventHandler: EventHandlerProtocol {
     
     private func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> PageEvent {
         switch event {
-        case let .objectShow(value): return pageEventConverter.convert(blocks: value.blocks, details: value.details, smartblockType: value.type)
+        case let .objectShow(value):
+            return pageEventConverter.convert(blocks: value.blocks, details: value.details, smartblockType: value.type)
         default: return .empty()
         }
     }

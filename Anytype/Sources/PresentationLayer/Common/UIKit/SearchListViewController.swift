@@ -1,11 +1,3 @@
-//
-//  SearchListViewController.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 12.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 
 
@@ -17,9 +9,9 @@ final class SearchListViewController: UIViewController {
         case main
     }
 
-    private var items: [String] = []
-    private var dataSource: UICollectionViewDiffableDataSource<Section, String>?
-    private var completion: (String) -> Void
+    private var items: [CodeLanguage] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Section, CodeLanguage>?
+    private var completion: (CodeLanguage) -> Void
 
     // MARK: - Views
 
@@ -47,7 +39,7 @@ final class SearchListViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    init(items: [String], completion: @escaping (String) -> Void) {
+    init(items: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
         self.items = items
         self.completion = completion
 
@@ -92,20 +84,20 @@ final class SearchListViewController: UIViewController {
     // MARK: - Configure data source
 
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, CodeLanguage> { (cell, indexPath, item) in
             var content = cell.defaultContentConfiguration()
             content.text = "\(item)"
             cell.contentConfiguration = content
         }
 
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: String) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Section, CodeLanguage>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: CodeLanguage) -> UICollectionViewCell? in
 
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
 
         // initial data
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, CodeLanguage>()
         snapshot.appendSections([.main])
         snapshot.appendItems(items)
         dataSource?.apply(snapshot, animatingDifferences: false)
@@ -130,9 +122,9 @@ extension SearchListViewController: UICollectionViewDelegate {
 
 extension SearchListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let filteredItems = items.filter { $0.lowercased().hasPrefix(searchText.lowercased()) }
+        let filteredItems = items.filter { $0.rawValue.lowercased().hasPrefix(searchText.lowercased()) }
 
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, CodeLanguage>()
         snapshot.appendSections([.main])
         snapshot.appendItems(filteredItems)
         dataSource?.apply(snapshot, animatingDifferences: true)

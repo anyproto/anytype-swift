@@ -4,7 +4,7 @@ import BlocksModels
 final class NumberedBlockNormalizer: BlockChildrenNormalizer {
     
     
-    func normalize(_ ids: [BlockId], in container: ContainerModelProtocol) {
+    func normalize(_ ids: [BlockId], in container: RootBlockContainer) {
         var number: Int = 0
         for id in ids {
             if let model = container.blocksContainer.choose(by: id) {

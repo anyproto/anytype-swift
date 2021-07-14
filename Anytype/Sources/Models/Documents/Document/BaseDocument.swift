@@ -13,14 +13,20 @@ final class BaseDocument: BaseDocumentProtocol {
         return rootModel?.blocksContainer.choose(by: rootId)
     }
     
-    var userSession: BlockUserSessionModelProtocol? {
-        rootModel?.blocksContainer.userSession
+    var userSession: UserSession? {
+        get {
+            rootModel?.blocksContainer.userSession
+        }
+        set {
+            guard let newValue = newValue else { return }
+            rootModel?.blocksContainer.userSession = newValue
+        }
     }
 
     var documentId: BlockId? { rootModel?.rootId }
     
     /// RootModel
-    private(set) var rootModel: ContainerModelProtocol? {
+    private(set) var rootModel: RootBlockContainer? {
         didSet {
             self.handleNewRootModel(self.rootModel)
         }
@@ -89,14 +95,14 @@ final class BaseDocument: BaseDocumentProtocol {
             events: PackOfEvents(
                 contextId: value.contextID,
                 events: value.messages,
-                ourEvents: []
+                localEvents: []
             )
         )
     }
     
     private func handleOpen(_ serviceSuccess: ServiceSuccess) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, ourEvents: [])
+            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, localEvents: [])
         )
         guard let event = blocks.first else { return }
         
@@ -109,7 +115,7 @@ final class BaseDocument: BaseDocumentProtocol {
             LegacyDetailsModel(detailsData: $0)
         }
         
-        let detailsStorage = DetailsBuilder.emptyDetailsContainer()
+        let detailsStorage = DetailsContainer()
         parsedDetails.forEach {
             detailsStorage.add(
                 model: $0,
@@ -118,7 +124,7 @@ final class BaseDocument: BaseDocumentProtocol {
         }
         
         // Add details models to process.
-        rootModel = RootBlocksContainer(
+        rootModel = RootBlockContainer(
             rootId: rootId,
             blocksContainer: blocksContainer,
             detailsContainer: detailsStorage
@@ -140,7 +146,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// It is the first place where you can configure default details with various handlers and other stuff.
     ///
     /// - Parameter container: A container in which this details is default.
-    private func configureDetails(for container: ContainerModelProtocol?) {
+    private func configureDetails(for container: RootBlockContainer?) {
         guard let container = container,
               let rootId = container.rootId,
               let ourModel = container.detailsContainer.get(by: rootId)
@@ -156,7 +162,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - Handle new root model
-    private func handleNewRootModel(_ container: ContainerModelProtocol?) {
+    private func handleNewRootModel(_ container: RootBlockContainer?) {
         if let container = container {
             eventHandler.configured(container)
         }

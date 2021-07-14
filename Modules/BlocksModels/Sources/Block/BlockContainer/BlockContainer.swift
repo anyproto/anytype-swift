@@ -5,7 +5,7 @@ import os
 final class BlockContainer {
     private var _rootId: BlockId?
     private var _models: [BlockId: BlockModel] = [:]
-    private var _userSession = BlockUserSession()
+    var userSession = UserSession()
     
     func _choose(by id: BlockId) -> BlockActiveRecord? {
         if let value = self._models[id] {
@@ -81,11 +81,11 @@ extension BlockContainer: BlockContainerModelProtocol {
     }
     // MARK: - Children / Append
     func append(childId: BlockId, parentId: BlockId) {
-        guard let child = self.choose(by: childId) else {
+        guard let child = choose(by: childId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
-        guard let parent = self.choose(by: parentId) else {
+        guard let parent = choose(by: parentId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
@@ -180,13 +180,5 @@ extension BlockContainer: BlockContainerModelProtocol {
         /// TODO: Set children their new parentId if needed?
         /// Actually, yes, but not now.
         /// Do it later.
-    }
-    
-    // MARK: - UserSession
-    var userSession: UserSession {
-        get {
-            self._userSession
-        }
-    }
-    
+    }    
 }

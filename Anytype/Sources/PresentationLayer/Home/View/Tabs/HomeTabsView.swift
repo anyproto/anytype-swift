@@ -15,9 +15,9 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.favoritesCellData, coordinator: model.coordinator, cellDataManager: model, offsetChanged: offsetChanged).tag(1)
+            HomeCollectionView(cellData: model.favoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged).tag(1)
                 .ignoresSafeArea()
-            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, cellDataManager: model, offsetChanged: offsetChanged).tag(4)
+            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged).tag(4)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
@@ -25,23 +25,24 @@ struct HomeTabsView: View {
     
     private var tabHeaders: some View {
         HStack(){
-            Button(action: {
-                withAnimation(.spring()) {
-                    tabSelection = 1
-                }
-            }) {
-                HomeTabsHeaderText(text: "Favorites", isSelected: tabSelection == 1)
-            }
-            
-            Button(action: {
-                withAnimation(.spring()) {
-                    tabSelection = 4
-                }
-            }) {
-                HomeTabsHeaderText(text: "Archive", isSelected: tabSelection == 4)
-            }
+            tabButton(text: "Favorites", tag: 1)
+            tabButton(text: "Recent", tag: 2).disabled(true)
+            tabButton(text: "Inbox", tag: 3).disabled(true)
+            tabButton(text: "Archive", tag: 4)
         }
-        .padding(.top)
+        .padding([.leading, .top, .trailing])
+    }
+    
+    private func tabButton(text: String, tag: Int) -> some View {
+        Button(
+            action: {
+                withAnimation(.spring()) {
+                    tabSelection = tag
+                }
+            }
+        ) {
+            HomeTabsHeaderText(text: text, isSelected: tabSelection == tag)
+        }
     }
 }
 

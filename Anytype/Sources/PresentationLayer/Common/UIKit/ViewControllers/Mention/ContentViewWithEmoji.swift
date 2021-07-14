@@ -36,11 +36,15 @@ final class ContentViewWithEmoji: UIView, UIContentView {
         label.textColor = .secondaryTextColor
         return label
     }()
-    private let emojiView: DocumentIconEmojiView = DocumentIconEmojiView(
-        font: .systemFont(ofSize: 23),
-        cornerRadius: Constants.cornerRadius,
-        size: Constants.emojiSize
-    )
+    private let emojiView: DocumentIconEmojiView = {
+        let view = DocumentIconEmojiView(
+            font: .systemFont(ofSize: 23),
+            cornerRadius: Constants.cornerRadius,
+            size: Constants.emojiSize
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     init(contentConfiguration: ContentConfigurationWithEmoji) {
         self.currentConfiguration = contentConfiguration

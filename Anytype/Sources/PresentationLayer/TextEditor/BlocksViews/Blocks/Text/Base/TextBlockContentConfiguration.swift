@@ -8,6 +8,7 @@ struct TextBlockContentConfiguration {
     let information: BlockInformation
     let blockActionHandler: EditorActionHandlerProtocol
     let mentionsConfigurator: MentionsTextViewConfigurator
+    let shouldDisplayPlaceholder: Bool
     
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var isSelected: Bool = false
@@ -23,6 +24,7 @@ struct TextBlockContentConfiguration {
         self.viewModel = viewModel
         self.blockActionHandler = blockActionHandler
         self.mentionsConfigurator = mentionsConfigurator
+        shouldDisplayPlaceholder = viewModel.block.isToggled && viewModel.information.childrenIds.isEmpty
     }
     
     func setupMentionsInteraction(_ customTextView: CustomTextView) {
@@ -51,13 +53,15 @@ extension TextBlockContentConfiguration: Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.information == rhs.information &&
             lhs.isSelected == rhs.isSelected &&
-            lhs.information.content == rhs.information.content
+            lhs.information.content == rhs.information.content &&
+            lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(information)
         hasher.combine(isSelected)
         hasher.combine(information.content)
+        hasher.combine(shouldDisplayPlaceholder)
     }
     
 }

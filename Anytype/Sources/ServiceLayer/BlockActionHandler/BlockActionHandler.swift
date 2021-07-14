@@ -66,6 +66,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             handleFontAction(info: info, range: range, fontAction: fontAttributes)
         case let .setAlignment(alignment):
             setAlignment(blockId: info.id, alignment: alignment, completion: completion)
+        case let .setFields(contextID, fields):
+            service.setFields(contextID: contextID, blockFields: fields)
         case .duplicate:
             service.duplicate(blockId: info.id)
         case .setLink(_):
@@ -79,7 +81,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .fetch(url: url):
             service.bookmarkFetch(blockId: info.id, url: url.absoluteString)
         case .toggle:
-            service.receiveOurEvents([.setToggled(blockId: info.id)])
+            service.receivelocalEvents([.setToggled(blockId: info.id)])
         case .checkbox(selected: let selected):
             service.checked(blockId: info.id, newValue: selected)
         case let .showPage(pageId):
@@ -91,13 +93,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             case .showMultiActionMenuAction:
                 selectionHandler.selectionEnabled = true
             case let .changeCaretPosition(selectedRange):
-                document.userSession?.setFocusAt(position: .at(selectedRange))
+                document.userSession?.focus = .at(selectedRange)
             case let .changeTextStyle(styleAction, range):
                 handleBlockAction(
                     .toggleFontStyle(styleAction.asActionType, range),
                     info: info,
                     completion: completion
                 )
+            case let .changeTextForStruct(attributedText):
+                textBlockActionHandler.handlingTextViewAction(activeRecord, action)
+                completion.flatMap { completion in
+                    completion(
+                        PackOfEvents(
+                            contextId: document.documentId!,
+                            events: [],
+                            localEvents: [.setText(blockId: info.id, text: attributedText.string)]
+                        )
+                    )    
+                }
             default:
                 textBlockActionHandler.handlingTextViewAction(activeRecord, action)
             }
@@ -181,10 +194,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private func delete(blockId: BlockId) {
         service.delete(blockId: blockId) { [weak self] value in
             guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: blockId) else {
-                return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                return .init(contextId: value.contextID, events: value.messages, localEvents: [])
             }
             let previousBlockId = previousModel.blockId
-            return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+            return .init(contextId: value.contextID, events: value.messages, localEvents: [
                 .setFocus(blockId: previousBlockId, position: .end)
             ])
         }
@@ -193,15 +206,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
 private extension BlockActionHandler {
     func setBlockColor(blockId: BlockId, color: BlockColor, completion: Completion?) {
-        guard let color = MiddlewareColorConverter.asString(color) else {
-            assertionFailure("Wrong UIColor for setBlockColor command")
-            return
-        }
         let blockIds = [blockId]
         
-        listService.setBlockColor(contextID: self.documentId, blockIds: blockIds, color: color)
+        listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color.middleware)
             .sinkWithDefaultCompletion("setBlockColor") { value in
-                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, localEvents: [])
                 completion?(value)
             }
             .store(in: &self.subscriptions)
@@ -216,7 +225,7 @@ private extension BlockActionHandler {
         
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
-                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, localEvents: [])
                 completion?(value)
             }
             .store(in: &self.subscriptions)
@@ -293,7 +302,7 @@ private extension BlockActionHandler {
         case .keyboard:
             // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
             let keyboardColor = MiddlewareColor.grey
-            let backgroundColor = MiddlewareColorConverter.asMiddleware(name: info.backgroundColor)
+            let backgroundColor = info.backgroundColor
             let color = backgroundColor == keyboardColor ? MiddlewareColor.default : keyboardColor
             
             service.setBackgroundColor(blockId: info.id, color: color)

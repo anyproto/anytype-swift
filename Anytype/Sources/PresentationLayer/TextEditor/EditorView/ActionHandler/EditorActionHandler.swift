@@ -33,7 +33,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
-        guard let firstResponder = document.userSession?.firstResponder() else {
+        guard let firstResponder = document.userSession?.firstResponder else {
             assertionFailure("No first responder for action \(action)")
             return
         }
@@ -57,7 +57,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     private func process(events: PackOfEvents) {
-        events.ourEvents.forEach { event in
+        events.localEvents.forEach { event in
             switch event {
             case let .setFocus(blockId, position):
                 if let blockViewModel = modelsHolder.models.first(where: { $0.blockId == blockId }) as? TextBlockViewModel {

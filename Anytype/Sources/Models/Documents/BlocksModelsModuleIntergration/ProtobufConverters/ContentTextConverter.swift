@@ -3,32 +3,38 @@ import ProtobufMessages
 
 class ContentTextConverter {
     
-    func blockType(_ from: Anytype_Model_Block.Content.Text) -> BlockContent? {
-        return BlocksModelsParserTextContentTypeConverter.asModel(from.style).flatMap {
-            typealias Text = BlockText
+    func blockContent(_ from: Anytype_Model_Block.Content.Text) -> BlockContent? {
+        return textContent(from).flatMap { .text($0) }
+    }
+    
+    func textContent(_ from: Anytype_Model_Block.Content.Text) -> BlockText? {
+        return BlockTextContentTypeConverter.asModel(from.style).flatMap { contentType in
             let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
                 text: from.text,
                 marks: from.marks,
                 style: from.style
             )
-            let textContent: Text = .init(
-                attributedText: attributedString, color: from.color, contentType: $0, checked: from.checked
+            
+            return BlockText(
+                attributedText: attributedString,
+                color: MiddlewareColor(rawValue: from.color),
+                contentType: contentType,
+                checked: from.checked
             )
-            return .text(textContent)
         }
     }
     
 func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
-        let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(from.contentType)
+        let style = BlockTextContentTypeConverter.asMiddleware(from.contentType)
         return .text(
-            .init(
+            Anytype_Model_Block.Content.Text(
                 text: from.attributedText.string,
                 style: style,
                 marks: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(
                     attributedText: from.attributedText
                 ).marks,
                 checked: from.checked,
-                color: from.color
+                color: from.color?.rawValue ?? ""
             )
         )
     }

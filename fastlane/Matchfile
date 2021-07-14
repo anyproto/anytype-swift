@@ -1,0 +1,25 @@
+git_url("git@github.com:anytypeio/ios-match.git")
+
+storage_mode("git")
+
+username("iosteam@anytype.io") # Your Apple Developer Portal username
+
+for_lane :dev do
+	type("appstore")
+	app_identifier(["com.anytypeio.anytype.dev"]) 
+end
+
+for_lane :release do
+	type("appstore")
+	app_identifier(["com.anytypeio.anytype"]) 
+end
+
+for_lane :install_dev_profiles do
+	type("development")
+	app_identifier(["com.anytypeio.anytype.dev"]) 
+end
+
+for_lane :generate_dev_profiles do
+	type('development')
+	app_identifier(["com.anytypeio.anytype.dev"])
+end

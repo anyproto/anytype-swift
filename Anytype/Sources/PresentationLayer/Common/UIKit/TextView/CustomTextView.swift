@@ -33,7 +33,7 @@ final class CustomTextView: UIView {
         }
     }
 
-    lazy var textView: TextViewWithPlaceholder = {
+    private(set) lazy var textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
@@ -94,7 +94,7 @@ final class CustomTextView: UIView {
         super.init(frame: .zero)
 
         setupView()
-        configureEditingToolbarHandler(textView)
+        configureEditingToolbarHandler()
     }
 
     @available(*, unavailable)
@@ -138,54 +138,27 @@ extension CustomTextView: TextViewManagingFocus, TextViewUpdatable {
     }
     
     private func onUpdate(receive update: TextViewUpdate) {
-        switch update {
-        case let .text(value):
-            // NOTE: Read these cases carefully.
-            // 1. self.textView.textStorage.length == 0.
-            // This case is simple. We should take _typingAttributes_ from textView and configure new attributed string.
-            // 2. self.textView.textStorage.length != 0.
-            // We should _replace_ text in range, however, if we don't check that our string is empty, we will configure incorrect attributes.
-            // There is no way to set attributes for text, becasue it is inherited from attributes that are assigned to first character, that will be replaced.
-            guard value != self.textView.textStorage.string else {
-                /// Skip updating row without
-                return
-            }
-            if self.textView.textStorage.length == 0 {
-                let text = NSAttributedString(string: value, attributes: self.textView.typingAttributes)
-                self.textView.textStorage.setAttributedString(text)
-            }
-            else {
-                self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
-            }
-        case let .attributedText(value):
-            let text = NSMutableAttributedString(attributedString: value)
-
-            // TODO: Poem "Do we need to add font?"
-            //
-            // Actually, don't know. Should think about this problem ( when and where ) we should set font of attributed string.
-            //
-            // The main problem is that we should use `.font` to apply attributes to `NSAttributedString`.
-            //
-            // Example code below.
-            //
-            // let font: UIFont = self.textView.typingAttributes[.foregroundColor] as? UIFont ?? UIFont.preferredFont(forTextStyle: .body)
-            // text.addAttributes([.font : font], range: .init(location: 0, length: text.length))
-            guard text != self.textView.textStorage else {
-                return
-            }
+        let text = NSMutableAttributedString(attributedString: update.attributedString)
+        // TODO: Poem "Do we need to add font?"
+        //
+        // Actually, don't know. Should think about this problem ( when and where ) we should set font of attributed string.
+        //
+        // The main problem is that we should use `.font` to apply attributes to `NSAttributedString`.
+        //
+        // Example code below.
+        //
+        // let font: UIFont = self.textView.typingAttributes[.foregroundColor] as? UIFont ?? UIFont.preferredFont(forTextStyle: .body)
+        // text.addAttributes([.font : font], range: .init(location: 0, length: text.length))
+        if text != textView.textStorage {
             textView.textStorage.setAttributedString(text)
-        case let .auxiliary(value):
-            self.textView.tertiaryColor = value.tertiaryColor
-            self.textView.textAlignment = value.textAlignment
-        case let .payload(value):
-            self.onUpdate(receive: .attributedText(value.attributedString))
-            
-            /// We changed order, because textAlignment is a part of NSAttributedString.
-            /// That means, we have to move processing of textAlignment to MarksStyle.
-            /// It is a part of NSAttributedString attributes ( `NSParagraphStyle.alignment` ).
-            ///
-            self.onUpdate(receive: .auxiliary(value.auxiliary))
         }
+        
+        /// We changed order, because textAlignment is a part of NSAttributedString.
+        /// That means, we have to move processing of textAlignment to MarksStyle.
+        /// It is a part of NSAttributedString attributes ( `NSParagraphStyle.alignment` ).
+        ///
+        textView.tertiaryColor = update.auxiliary.tertiaryColor
+        textView.textAlignment = update.auxiliary.textAlignment
     }
 }
 
@@ -202,16 +175,11 @@ private extension CustomTextView {
         
         firstResponderSubscription = textView.firstResponderChangePublisher
             .sink { [weak self] change in
-                switch change {
-                case .become:
-                    self?.delegate?.changeFirstResponderState(change)
-                case .resign:
-                    return
-                }
+                self?.delegate?.changeFirstResponderState(change)
             }
     }
 
-    func configureEditingToolbarHandler(_ textView: UITextView) {
+    func configureEditingToolbarHandler() {
         self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
             guard let self = self else { return }
 
@@ -219,11 +187,11 @@ private extension CustomTextView {
 
             switch action {
             case .slashMenu:
-                textView.insertStringToAttributedString(
+                self.textView.insertStringToAttributedString(
                     self.inputSwitcher.textToTriggerActionsViewDisplay
                 )
                 self.inputSwitcher.showAccessoryView(accessoryView: self.menuActionsAccessoryView,
-                                                     textView: textView)
+                                                     textView: self.textView)
             case .multiActionMenu:
                 self.userInteractionDelegate?.didReceiveAction(
                     .showMultiActionMenuAction
@@ -235,9 +203,9 @@ private extension CustomTextView {
             case .keyboardDismiss:
                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
             case .mention:
-                textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
+                self.textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
                 self.inputSwitcher.showAccessoryView(accessoryView: self.mentionView,
-                                                     textView: textView)
+                                                     textView: self.textView)
             }
         }
     }

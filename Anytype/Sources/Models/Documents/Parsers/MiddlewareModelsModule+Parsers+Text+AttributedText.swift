@@ -30,7 +30,7 @@ extension Namespace {
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
             let defaultFont: UIFont
-            if let style = BlocksModelsParserTextContentTypeConverter.asModel(style) {
+            if let style = BlockTextContentTypeConverter.asModel(style) {
                 defaultFont = UIFont.font(for: style)
             } else {
                 defaultFont = .bodyFont
@@ -199,13 +199,13 @@ private extension Namespace {
             case .link: return .link(URLConverter.asModel(tuple.value))
 
             case .textColor:
-                guard let color = MiddlewareColorConverter.asUIColor(name: tuple.value, background: false) else {
+                guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: false) else {
                     return nil
                 }
                 return .textColor(color)
 
             case .backgroundColor:
-                guard let color = MiddlewareColorConverter.asUIColor(name: tuple.value, background: true) else {
+                guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: true) else {
                     return nil
                 }
                 return .backgroundColor(color)
@@ -225,14 +225,14 @@ private extension Namespace {
             case .strikethrough: return .init(attribute: .strikethrough, value: "")
             case .underscored: return .init(attribute: .underscored, value: "")
 
-            case let .textColor(value):
-                guard let uiColor = value,
-                      let color = MiddlewareColorConverter.asString(uiColor, background: false) else { return nil }
-                return .init(attribute: .textColor, value: color)
+            case let .textColor(color):
+                guard let color = color?.middlewareString(background: false) else {
+                    return nil
+                }
+                return MiddlewareTuple(attribute: .textColor, value: color)
 
-            case let .backgroundColor(value):
-                guard let uiColor = value,
-                      let color = MiddlewareColorConverter.asString(uiColor, background: true) else {
+            case let .backgroundColor(color):
+                guard let color = color?.middlewareString(background: true) else {
                     return nil
                 }
                 return .init(attribute: .backgroundColor, value: color)

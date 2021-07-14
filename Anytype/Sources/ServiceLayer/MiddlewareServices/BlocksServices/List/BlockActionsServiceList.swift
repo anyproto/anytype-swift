@@ -8,14 +8,13 @@ import SwiftProtobuf
 extension BlockActionsServiceList {
     enum PossibleError: Error {
         case setTextStyleActionStyleConversionHasFailed
-        case setAlignActionAlignmentConversionHasFailed
         case setDividerStyleActionStyleConversionHasFailed
     }
 }
 
 class BlockActionsServiceList: BlockActionsServiceListProtocol {
-    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<ServiceSuccess, Error> {
-        return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color)
+    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ServiceSuccess, Error> {
+        return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.rawValue)
             .map(\.event)
             .map(ServiceSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())
@@ -36,15 +35,15 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: TextStyle) -> AnyPublisher<ServiceSuccess, Error> {
-        let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
+        let style = BlockTextContentTypeConverter.asMiddleware(style)
         return setTextStyle(contextID: contextID, blockIds: blockIds, style: style)
     }
     private func setTextStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.BlockList.Set.Text.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
 
-    func setBackgroundColor(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color)
+    func setBackgroundColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.rawValue)
             .map(\.event)
             .map(ServiceSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())
@@ -52,10 +51,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setAlign(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let alignment = BlocksModelsParserCommonAlignmentConverter.asMiddleware(alignment) else {
-            return Fail.init(error: PossibleError.setAlignActionAlignmentConversionHasFailed).eraseToAnyPublisher()
-        }
-        return setAlign(contextID: contextID, blockIds: blockIds, align: alignment)
+        return setAlign(contextID: contextID, blockIds: blockIds, align: alignment.asMiddleware)
     }
 
     private func setAlign(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<ServiceSuccess, Error> {

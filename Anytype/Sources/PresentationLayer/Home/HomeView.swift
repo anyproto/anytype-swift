@@ -18,6 +18,7 @@ struct HomeView: View {
             .environmentObject(accountData)
             .onAppear {
                 windowHolder?.configureNavigationBarWithTransparentBackground()
+                model.updateSearchTabs()
             }
     }
     

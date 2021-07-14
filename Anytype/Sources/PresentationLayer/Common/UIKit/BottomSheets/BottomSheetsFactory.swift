@@ -48,7 +48,7 @@ final class BottomSheetsFactory {
             let hasBold = textContent.attributedText.hasTrait(trait: .traitBold, at: range)
             let hasItalic = textContent.attributedText.hasTrait(trait: .traitItalic, at: range)
             let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
-            let alignment = information.alignment.asTextAlignment
+            let alignment = information.alignment.asNSTextAlignment
 
             let attributes = TextAttributesViewController.AttributesState(
                 hasBold: hasBold, hasItalic: hasItalic, hasStrikethrough: hasStrikethrough, hasCodeStyle: false, alignment: alignment, url: ""
@@ -58,10 +58,10 @@ final class BottomSheetsFactory {
 
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = information.content else { return nil }
-            return MiddlewareColorConverter.asUIColor(name: textContent.color, background: false)
+            return textContent.color?.color(background: false)
         }
         let askBackgroundColor: () -> UIColor? = {
-            return MiddlewareColorConverter.asUIColor(name: information.backgroundColor, background: true)
+            return information.backgroundColor?.color(background: true)
         }
 
         let contentVC = StyleViewController(

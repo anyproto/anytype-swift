@@ -46,7 +46,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
             viewModel.actionHandler.handleAction(
                 .textView(
-                    action: .changeText(self.textView.textView),
+                    action: .changeText(self.textView.textView.attributedText),
                     activeRecord: viewModel.block
                 ),
                 info: viewModel.block.blockModel.information
@@ -70,12 +70,10 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            guard let self = self else { return }
-            guard let block = self.currentConfiguration.viewModel?.block else { return }
-
-            self.createChildBlockButton.isHidden = true
+            guard let self = self,
+                  let block = self.currentConfiguration.viewModel?.block else { return }
             self.currentConfiguration.viewModel?.actionHandler.handleAction(
-                .textView(action: .keyboardAction(.enterAtTheEndOfContent), activeRecord: block),
+                .createEmptyBlock(parentId: block.blockModel.information.id),
                 info: block.blockModel.information
             )
         }))
@@ -229,20 +227,17 @@ final class TextBlockContentView: UIView & UIContentView {
             self?.textView.shouldResignFirstResponder()
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel?.$textViewUpdate.sink { [weak self] textUpdate in
-            guard let textUpdate = textUpdate, let self = self else { return }
+        currentConfiguration.viewModel?.textUpdatePublisher.sink { [weak self] textUpdate in
+            guard let self = self else { return }
             let cursorPosition = self.textView.textView.selectedRange
             self.textView.apply(update: textUpdate)
             self.textView.textView.selectedRange = cursorPosition
         }.store(in: &subscriptions)
+        
+        let update = currentConfiguration.viewModel?.makeTextViewUpdate()
+        textView.textView.attributedText = update?.attributedString
 
-        currentConfiguration.viewModel?.refreshedTextViewUpdate()
-
-        typealias ColorConverter = MiddlewareColorConverter
-        backgroundColorView.backgroundColor = ColorConverter.asUIColor(
-            name: self.currentConfiguration.information.backgroundColor,
-            background: true
-        )
+        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
 
         selectionView.layer.borderWidth = 0.0
         selectionView.layer.borderColor = nil
@@ -316,29 +311,14 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForToggle() {
         guard let blockViewModel = currentConfiguration.viewModel else { return }
 
-        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) { [weak self] in
-            guard let self = self else { return }
-
+        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) {
             blockViewModel.block.toggle()
             let toggled = blockViewModel.block.isToggled
             blockViewModel.onToggleTap(toggled: toggled)
-            let oldValue = self.createChildBlockButton.isHidden
-            self.updateCreateChildButtonState(toggled: toggled,
-                                              hasChildren: !blockViewModel.block.childrenIds().isEmpty)
-            if oldValue != self.createChildBlockButton.isHidden {
-                blockViewModel.BlockDelegate?.blockSizeChanged()
-            }
         }
         replaceCurrentLeftView(with: leftView)
-        let toggled = blockViewModel.block.isToggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
-        let hasNoChildren = blockViewModel.block.childrenIds().isEmpty
-        updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
-    }
-    
-    private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {
-        let shouldShowCreateButton = toggled && !hasChildren
-        createChildBlockButton.isHidden = !shouldShowCreateButton
+        createChildBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
     
     private func replaceCurrentLeftView(with leftView: UIView) {
