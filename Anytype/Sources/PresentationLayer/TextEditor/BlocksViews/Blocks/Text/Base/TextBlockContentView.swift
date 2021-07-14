@@ -182,7 +182,7 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.delegate = nil
         // We don't want to handle delegate methods after 'attributedText = nil' it cause side effects
         textView.textView.delegate = nil
-        // it's important to clean old attributed string, but it triggers caret to jump to text beginning
+        // it's important to clean old attributed string
         textView.textView.attributedText = nil
         textView.textView.delegate = textView
         textView.delegate = currentConfiguration.textViewDelegate
@@ -227,14 +227,15 @@ final class TextBlockContentView: UIView & UIContentView {
             self?.textView.shouldResignFirstResponder()
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel?.$textViewUpdate.sink { [weak self] textUpdate in
-            guard let textUpdate = textUpdate, let self = self else { return }
+        currentConfiguration.viewModel?.textUpdatePublisher.sink { [weak self] textUpdate in
+            guard let self = self else { return }
             let cursorPosition = self.textView.textView.selectedRange
             self.textView.apply(update: textUpdate)
             self.textView.textView.selectedRange = cursorPosition
         }.store(in: &subscriptions)
-
-        currentConfiguration.viewModel?.refreshedTextViewUpdate()
+        
+        let update = currentConfiguration.viewModel?.makeTextViewUpdate()
+        textView.textView.attributedText = update?.attributedString
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
 

@@ -218,22 +218,3 @@ extension Namespace {
         }
     }
 }
-
-// MARK: KeyboardStyle
-// TODO: Add style.
-/*
- kbd { display: inline; font-family: 'Mono'; line-height: 1.71; background: rgba(247,245,240,0.5); padding: 2px 4px; border-radius: 2px; }
- */
-extension NSParagraphStyle {
-    private class KeyboardStyle: NSParagraphStyle {
-        override var headIndent: CGFloat {
-            return 10.0
-        }
-        override var tailIndent: CGFloat {
-            return 10.0
-        }
-    }
-    fileprivate static var keyboardStyle: NSParagraphStyle = {
-        return KeyboardStyle()
-    }()
-}
