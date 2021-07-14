@@ -5,9 +5,10 @@ import BlocksModels
 final class DocumentSettingsViewModel {
     
     // MARK: - Private variables
-
+    
     private let iconPickerViewModel: DocumentIconPickerViewModel
     private let coverPickerViewModel: DocumentCoverPickerViewModel
+    private let layoutPickerViewModel: DocumentLayoutPickerViewModel
     
     // MARK: - Initializer
     
@@ -21,12 +22,17 @@ final class DocumentSettingsViewModel {
             fileService: BlockActionsServiceFile(),
             detailsActiveModel: activeModel
         )
+        
+        self.layoutPickerViewModel = DocumentLayoutPickerViewModel(
+            detailsActiveModel: activeModel
+        )
     }
     
     // MARK: - Internal function
     
     func configure(with details: DetailsData) {
         iconPickerViewModel.configure(with: details)
+        layoutPickerViewModel.configure(with: details)
     }
     
     func makeSettingsViewController() -> UIViewController {
@@ -35,6 +41,7 @@ final class DocumentSettingsViewModel {
                 .padding(8)
                 .environmentObject(iconPickerViewModel)
                 .environmentObject(coverPickerViewModel)
+                .environmentObject(layoutPickerViewModel)
         }
     }
 

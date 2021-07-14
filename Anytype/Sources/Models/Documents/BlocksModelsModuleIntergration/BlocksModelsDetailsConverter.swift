@@ -43,6 +43,12 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
                 )
             }
             
+            if let layout = entry.value as? DetailsLayout {
+                return Google_Protobuf_Value(
+                    numberValue: Double(layout.rawValue)
+                )
+            }
+            
             assertionFailure("Implement converter from \(entry.value) to `Google_Protobuf_Value`")
             return nil
         }()
