@@ -40,7 +40,6 @@ final class SearchService {
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
             MiddlewareBuilder.objectTypeFilter(types: [.set, .page]),
             MiddlewareBuilder.notHiddenFilter()
         ]
@@ -121,7 +120,7 @@ final class SearchService {
             limit: limit,
             objectTypeFilter: objectTypeFilter,
             keys: keys,
-            queue: .main
+            queue: .global()
         )
         .receiveOnMain()
         .sinkWithDefaultCompletion("Search") { response in

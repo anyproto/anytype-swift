@@ -4,7 +4,7 @@ import BlocksModels
     
 final class BlockBookmarkView: UIView {
     /// Views
-    private var contentView: UIView!
+    private var contentView = UIView()
     private var titleView: UILabel!
     private var descriptionView: UILabel!
     private var iconView: UIImageView!
@@ -18,32 +18,20 @@ final class BlockBookmarkView: UIView {
     private var imageViewWidthConstraint: NSLayoutConstraint?
     private var imageViewHeightConstraint: NSLayoutConstraint?
     
-    /// Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
+        
+        setupUIElements()
+        addLayout()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
-    }
-    
-    /// Setup
-    func setup() {
-        self.setupUIElements()
-        self.addLayout()
+        fatalError("Not implemented")
     }
 
-    /// UI Elements
     func setupUIElements() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
         
         self.leftStackView = {
             let view = UIStackView()
@@ -62,8 +50,8 @@ final class BlockBookmarkView: UIView {
         self.titleView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = Style.titleFont
-            view.textColor = Style.titleColor
+            view.font = UIFont.captionMediumFont
+            view.textColor = .grayscale90
             return view
         }()
         
@@ -72,8 +60,8 @@ final class BlockBookmarkView: UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
             view.numberOfLines = 3
             view.lineBreakMode = .byWordWrapping
-            view.font = Style.subtitleFont
-            view.textColor = Style.subtitleColor
+            view.font = .captionFont
+            view.textColor = .grayscale70
             return view
         }()
         
@@ -81,8 +69,8 @@ final class BlockBookmarkView: UIView {
             let view = UIImageView()
             view.contentMode = .scaleAspectFit
             view.clipsToBounds = true
-            view.heightAnchor.constraint(equalToConstant: Constants.Layout.iconHeight).isActive = true
-            view.widthAnchor.constraint(equalToConstant: Constants.Layout.iconHeight).isActive = true
+            view.heightAnchor.constraint(equalToConstant: Layout.iconHeight).isActive = true
+            view.widthAnchor.constraint(equalToConstant: Layout.iconHeight).isActive = true
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
@@ -90,8 +78,8 @@ final class BlockBookmarkView: UIView {
         self.urlView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = Style.urlFont
-            view.textColor = Style.urlColor
+            view.font = .captionFont
+            view.textColor = .grayscale90
             return view
         }()
         
@@ -103,53 +91,45 @@ final class BlockBookmarkView: UIView {
             return view
         }()
         
-        self.urlStackView.addArrangedSubview(self.iconView)
-        self.urlStackView.addArrangedSubview(self.urlView)
+        urlStackView.addArrangedSubview(iconView)
+        urlStackView.addArrangedSubview(urlView)
         
-        self.leftStackView.addArrangedSubview(self.titleView)
-        self.leftStackView.addArrangedSubview(self.descriptionView)
-        self.leftStackView.addArrangedSubview(self.urlStackView)
+        leftStackView.addArrangedSubview(titleView)
+        leftStackView.addArrangedSubview(descriptionView)
+        leftStackView.addArrangedSubview(urlStackView)
         
-        self.contentView.addSubview(self.leftStackView)
-        self.contentView.addSubview(self.imageView)
+        contentView.addSubview(leftStackView)
+        contentView.addSubview(imageView)
         
-        self.addSubview(self.contentView)
+        addSubview(contentView)
         
-        self.leftStackView.backgroundColor = .systemGray6
-        self.imageView.backgroundColor = .systemGray2
+        leftStackView.backgroundColor = .white
+        imageView.backgroundColor = .white
     }
     
     /// Layout
     func addLayout() {
-        if let view = self.contentView, let superview = view.superview {
+        contentView.edgesToSuperview()
+
+        if let view = leftStackView, let superview = view.superview {
             NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-        
-        if let view = self.leftStackView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: Constants.Layout.commonInsets.left),
-                view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -Constants.Layout.commonInsets.right),
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: Constants.Layout.commonInsets.top),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -Constants.Layout.commonInsets.bottom)
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: Layout.commonInsets.left),
+                view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -Layout.commonInsets.right),
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: Layout.commonInsets.top),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -Layout.commonInsets.bottom)
             ])
         }
     }
     
     func addLayoutForImageView() {
         if let view = self.imageView, let superview = view.superview, let leftView = self.leftStackView {
-            self.imageViewWidthConstraint = view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: Constants.Layout.imageSizeFactor)
+            self.imageViewWidthConstraint = view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: Layout.imageSizeFactor)
             self.imageViewWidthConstraint?.isActive = true
             
-            self.imageViewHeightConstraint = view.heightAnchor.constraint(equalToConstant: Constants.Layout.imageHeightConstant)
+            self.imageViewHeightConstraint = view.heightAnchor.constraint(equalToConstant: Layout.imageHeightConstant)
             self.imageViewHeightConstraint?.isActive = true
-//                self.imageViewHeightConstraint?.priority = .defaultLow
             NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: Constants.Layout.commonInsets.left),
+                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: Layout.commonInsets.left),
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                 view.topAnchor.constraint(greaterThanOrEqualTo: superview.topAnchor),
                 view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor)
@@ -198,27 +178,12 @@ final class BlockBookmarkView: UIView {
 }
 
 private extension BlockBookmarkView {
-    enum Style {
-        static let titleFont = UIFont.systemFont(ofSize: 15, weight: .semibold)
-        static let subtitleFont = UIFont.systemFont(ofSize: 15)
-        static let urlFont = UIFont.systemFont(ofSize: 15, weight: .light)
-        static let titleColor = UIColor.grayscale90
-        static let subtitleColor = UIColor.gray
-        static let urlColor = UIColor.grayscale90
-    }
-}
-
-// MARK: - UIView / WithBookmark / Layout
-private extension BlockBookmarkView {
-    
-    enum Constants {
-        enum Layout {
-            static let commonInsets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
-            static let spacing: CGFloat = 5
-            static let imageSizeFactor: CGFloat = 1 / 3
-            static let imageHeightConstant: CGFloat = 150
-            static let iconHeight: CGFloat = 24
-        }
+    enum Layout {
+        static let commonInsets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
+        static let spacing: CGFloat = 5
+        static let imageSizeFactor: CGFloat = 1 / 3
+        static let imageHeightConstant: CGFloat = 150
+        static let iconHeight: CGFloat = 24
     }
 }
 

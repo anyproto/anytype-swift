@@ -60,6 +60,11 @@ extension UIFont {
     }
 
     static var captionFont: UIFont {
+        let descriptior = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.regularFace])
+        return UIFont(descriptor: descriptior, size: 13)
+    }
+    
+    static var captionMediumFont: UIFont {
         let descriptior = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.medium])
         return UIFont(descriptor: descriptior, size: 13)
     }
