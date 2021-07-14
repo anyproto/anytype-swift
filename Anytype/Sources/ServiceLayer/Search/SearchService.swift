@@ -17,10 +17,13 @@ final class SearchService {
             type: .desc
         )
         
-        let filter = MiddlewareBuilder.isArchivedFilter(isArchived: true)
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: true),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
         
         makeRequest(
-            filters: [filter],
+            filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
@@ -36,15 +39,19 @@ final class SearchService {
             relation: Relations.lastOpenedDate,
             type: .desc
         )
-        let filter = MiddlewareBuilder.isArchivedFilter(isArchived: false)
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.objectTypeFilter(types: [.set, .page]),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
         
         makeRequest(
-            filters: [filter],
+            filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: [ObjectType.set.rawValue, ObjectType.page.rawValue],
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )
@@ -57,7 +64,8 @@ final class SearchService {
         )
         let filters = [
             MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.objectTypeFilter(type: .page)
+            MiddlewareBuilder.objectTypeFilter(type: .page),
+            MiddlewareBuilder.notHiddenFilter()
         ]
         
         makeRequest(
@@ -65,8 +73,8 @@ final class SearchService {
             sorts: [sort],
             fullText: "",
             offset: 0,
-            limit: 30,
-            objectTypeFilter: [ObjectType.set.rawValue, ObjectType.page.rawValue],
+            limit: 50,
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )
@@ -79,7 +87,8 @@ final class SearchService {
         )
         let filters = [
             MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.objectTypeFilter(type: .set)
+            MiddlewareBuilder.objectTypeFilter(type: .set),
+            MiddlewareBuilder.notHiddenFilter()
         ]
         
         makeRequest(
@@ -88,7 +97,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: [ObjectType.set.rawValue],
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )

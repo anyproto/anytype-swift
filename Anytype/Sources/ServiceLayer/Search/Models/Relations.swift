@@ -8,6 +8,7 @@ enum Relations {
     static let alignment = "alignment"
     static let name = "name"
     static let isArchived = "isArchived"
+    static let isHidden = "isHidden"
     static let lastOpenedDate = "lastOpenedDate"
     static let type = "type"
     static let done = "done"
