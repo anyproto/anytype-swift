@@ -121,7 +121,7 @@ final class SearchService {
             limit: limit,
             objectTypeFilter: objectTypeFilter,
             keys: keys,
-            queue: .main
+            queue: .global()
         )
         .receiveOnMain()
         .sinkWithDefaultCompletion("Search") { response in
