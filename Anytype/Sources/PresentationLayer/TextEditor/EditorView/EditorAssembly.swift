@@ -55,7 +55,9 @@ final class EditorAssembly {
             document: document,
             blockActionHandler: editorBlockActionHandler,
             router: router,
-            delegate: blockDelegate
+            delegate: blockDelegate, mentionsConfigurator: MentionsTextViewConfigurator(didSelectMention: { pageId in
+                router.showPage(with: pageId)
+            })
         )
         
         return DocumentEditorViewModel(

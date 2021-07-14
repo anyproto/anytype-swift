@@ -26,11 +26,11 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private(set) lazy var textView: CustomTextView = {
         let actionsHandler = SlashMenuActionsHandlerImp(
-            blockActionHandler: currentConfiguration.blockActionHandler
+            blockActionHandler: currentConfiguration.actionHandler
         )
         
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: currentConfiguration.information.content.type
+            for: currentConfiguration.block.content.type
         )
         
         let mentionsSelectionHandler = { [weak self] (mention: MentionObject) in
@@ -38,22 +38,19 @@ final class TextBlockContentView: UIView & UIContentView {
                   let mentionSymbolPosition = self.textView.inputSwitcher.accessoryViewTriggerSymbolPosition,
                   let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
                                                                                 offset: -1),
-                  let caretPosition = self.textView.textView.caretPosition(),
-                  let viewModel = self.currentConfiguration.viewModel else { return }
+                  let caretPosition = self.textView.textView.caretPosition() else { return }
 
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
-            self.currentConfiguration.setupMentionsInteraction(self.textView)
-
-            viewModel.actionHandler.handleAction(
+            self.currentConfiguration.mentionsConfigurator.configure(textView: self.textView.textView)
+            self.currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView.attributedText),
-                    activeRecord: viewModel.block
+                    activeRecord: self.currentConfiguration.block
                 ),
-                info: viewModel.block.blockModel.information
-            )
+                info: self.currentConfiguration.block.blockModel.information)
         }
         
-        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
+        let autocorrect = currentConfiguration.block.content.type == .text(.title) ? false : true
         let options = CustomTextView.Options(
             createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
             autocorrect: autocorrect
@@ -70,9 +67,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            guard let self = self,
-                  let block = self.currentConfiguration.viewModel?.block else { return }
-            self.currentConfiguration.viewModel?.actionHandler.handleAction(
+            guard let self = self else { return }
+            let block = self.currentConfiguration.block
+            self.currentConfiguration.actionHandler.handleAction(
                 .createEmptyBlock(parentId: block.blockModel.information.id),
                 info: block.blockModel.information
             )
@@ -185,10 +182,10 @@ final class TextBlockContentView: UIView & UIContentView {
         // it's important to clean old attributed string
         textView.textView.attributedText = nil
         textView.textView.delegate = textView
-        textView.delegate = currentConfiguration.textViewDelegate
-        textView.userInteractionDelegate = currentConfiguration.viewModel
+        textView.delegate = self
+        textView.userInteractionDelegate = self
 
-        guard case let .text(text) = self.currentConfiguration.information.content else { return }
+        guard case let .text(text) = self.currentConfiguration.block.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
         // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         createChildBlockButton.isHidden = true
@@ -219,23 +216,18 @@ final class TextBlockContentView: UIView & UIContentView {
             break
         }
 
-        currentConfiguration.viewModel?.setFocus.sink { [weak self] focus in
+        currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel?.shouldResignFirstResponder.sink { [weak self] _ in
-            self?.textView.shouldResignFirstResponder()
-        }.store(in: &subscriptions)
-
-        currentConfiguration.viewModel?.textUpdatePublisher.sink { [weak self] textUpdate in
-            guard let self = self else { return }
-            let cursorPosition = self.textView.textView.selectedRange
-            self.textView.apply(update: textUpdate)
-            self.textView.textView.selectedRange = cursorPosition
-        }.store(in: &subscriptions)
-        
-        let update = currentConfiguration.viewModel?.makeTextViewUpdate()
-        textView.textView.attributedText = update?.attributedString
+        let cursorPosition = textView.textView.selectedRange
+        let string = NSMutableAttributedString(attributedString: text.attributedText)
+        if string != textView.textView.textStorage {
+            textView.textView.textStorage.setAttributedString(string)
+        }
+        textView.textView.tertiaryColor = text.color?.color(background: false)
+        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
+        textView.textView.selectedRange = cursorPosition
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
 
@@ -283,7 +275,11 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForCheckbox(checked: Bool) {
         let leftView = TextBlockIconView(viewType: .checkbox(isSelected: checked)) { [weak self] in
-            self?.currentConfiguration.viewModel?.onCheckboxTap(selected: !checked)
+            guard let self = self else { return }
+            self.currentConfiguration.actionHandler.handleAction(
+                .checkbox(selected: !checked),
+                info: self.currentConfiguration.information
+            )
         }
         replaceCurrentLeftView(with: leftView)
         setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
@@ -309,12 +305,14 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForToggle() {
-        guard let blockViewModel = currentConfiguration.viewModel else { return }
-
-        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) {
-            blockViewModel.block.toggle()
-            let toggled = blockViewModel.block.isToggled
-            blockViewModel.onToggleTap(toggled: toggled)
+        let leftView = TextBlockIconView(
+            viewType: .toggle(toggled: currentConfiguration.block.isToggled)) { [weak self] in
+            guard let self = self else { return }
+            self.currentConfiguration.block.toggle()
+            self.currentConfiguration.actionHandler.handleAction(
+                .toggle,
+                info: self.currentConfiguration.information
+            )
         }
         replaceCurrentLeftView(with: leftView)
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
@@ -324,5 +322,101 @@ final class TextBlockContentView: UIView & UIContentView {
     private func replaceCurrentLeftView(with leftView: UIView) {
         topStackView.arrangedSubviews.first?.removeFromSuperview()
         topStackView.insertArrangedSubview(leftView, at: 0)
+    }
+}
+
+extension TextBlockContentView: TextViewDelegate {
+    func sizeChanged() {
+        currentConfiguration.blockDelegate.blockSizeChanged()
+    }
+    
+    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
+        switch change {
+        case .become:
+            currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block.blockModel)
+        case .resign:
+            currentConfiguration.blockDelegate.resignFirstResponder()
+        }
+    }
+    
+    func willBeginEditing() {
+        currentConfiguration.blockDelegate.willBeginEditing()
+    }
+    
+    func didBeginEditing() {
+        currentConfiguration.blockDelegate.didBeginEditing()
+    }
+    
+    func didChangeText(textView: UITextView) {
+        currentConfiguration.mentionsConfigurator.configure(textView: textView)
+    }
+}
+
+extension TextBlockContentView: TextViewUserInteractionProtocol {
+    
+    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
+        switch action {
+        case .showStyleMenu:
+            currentConfiguration.editorRouter.showStyleMenu(information: currentConfiguration.information)
+        case .showMultiActionMenuAction:
+            let block = currentConfiguration.block
+            currentConfiguration.actionHandler.handleAction(
+                .textView(action: action, activeRecord: block),
+                info: currentConfiguration.information
+            )
+        case .changeTextForStruct:
+            fallthrough
+        case .changeText:
+            currentConfiguration.actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: currentConfiguration.block
+                ),
+                info: currentConfiguration.information
+            )
+        case let .keyboardAction(keyAction):
+            switch keyAction {
+            case .enterInsideContent,
+                 .enterAtTheEndOfContent,
+                 .enterOnEmptyContent:
+                // In the case of frequent pressing of enter
+                // we can send multiple split requests to middle
+                // from the same block, it will leads to wrong order of blocks in array,
+                // adding a delay makes impossible to press enter very often
+                if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
+                    currentConfiguration.actionHandler.handleAction(
+                        .textView(
+                            action: action,
+                            activeRecord: currentConfiguration.block
+                        ),
+                        info: currentConfiguration.information
+                    )
+                }
+                return false
+            default:
+                break
+            }
+            currentConfiguration.actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: currentConfiguration.block
+                ),
+                info: currentConfiguration.information
+            )
+        case .changeTextStyle, .changeCaretPosition:
+            currentConfiguration.actionHandler.handleAction(
+                .textView(
+                    action: action,
+                    activeRecord: currentConfiguration.block
+                ),
+                info: currentConfiguration.information
+            )
+        case let .shouldChangeText(range, replacementText, mentionsHolder):
+            return !mentionsHolder.removeMentionIfNeeded(
+                replacementRange: range,
+                replacementText: replacementText
+            )
+        }
+        return true
     }
 }
