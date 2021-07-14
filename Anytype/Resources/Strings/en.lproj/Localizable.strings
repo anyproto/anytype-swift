@@ -184,3 +184,8 @@
 "Gallery" = "Gallery";
 
 "Remove photo" = "Remove photo";
+
+// Object Type
+"Page" = "Page";
+"Set" = "Set";
+"Template" = "Template";

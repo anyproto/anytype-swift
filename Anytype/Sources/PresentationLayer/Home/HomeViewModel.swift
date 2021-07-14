@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [PageCellData] = []
     @Published var archiveCellData: [PageCellData] = []
     @Published var recentCellData: [PageCellData] = []
+    @Published var inboxCellData: [PageCellData] = []
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
@@ -42,6 +43,10 @@ final class HomeViewModel: ObservableObject {
         searchService.searchRecentPages { [weak self] searchResults in
             guard let self = self else { return }
             self.recentCellData = self.cellDataBuilder.buldCellData(searchResults)
+        }
+        searchService.searchInboxPages { [weak self] searchResults in
+            guard let self = self else { return }
+            self.inboxCellData = self.cellDataBuilder.buldCellData(searchResults)
         }
     }
     

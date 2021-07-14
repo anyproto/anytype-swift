@@ -1,6 +1,13 @@
 import ProtobufMessages
 import Combine
 
+protocol SearchServiceProtocol {
+    func searchArchivedPages(completion: @escaping ([SearchResult]) -> ())
+    func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
+    func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
+    func searchSets(completion: @escaping ([SearchResult]) -> ())
+}
+
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
     
@@ -38,6 +45,50 @@ final class SearchService {
             offset: 0,
             limit: 30,
             objectTypeFilter: [ObjectType.set.rawValue, ObjectType.page.rawValue],
+            keys: [],
+            completion: completion
+        )
+    }
+    
+    func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
+        let sort = MiddlewareBuilder.sort(
+            relation: Relations.lastOpenedDate,
+            type: .desc
+        )
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.objectTypeFilter(type: .page)
+        ]
+        
+        makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: "",
+            offset: 0,
+            limit: 30,
+            objectTypeFilter: [ObjectType.set.rawValue, ObjectType.page.rawValue],
+            keys: [],
+            completion: completion
+        )
+    }
+    
+    func searchSets(completion: @escaping ([SearchResult]) -> ()) {
+        let sort = MiddlewareBuilder.sort(
+            relation: Relations.lastOpenedDate,
+            type: .desc
+        )
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.objectTypeFilter(type: .set)
+        ]
+        
+        makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: "",
+            offset: 0,
+            limit: 100,
+            objectTypeFilter: [ObjectType.set.rawValue],
             keys: [],
             completion: completion
         )

@@ -19,4 +19,14 @@ class MiddlewareBuilder {
         
         return filter
     }
+    
+    static func objectTypeFilter(type: ObjectType) -> Anytype_Model_Block.Content.Dataview.Filter {
+        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+        filter.condition = .equal
+        filter.value = Google_Protobuf_Value(stringValue: type.rawValue)
+        filter.relationKey = Relations.type
+        filter.operator = .and
+        
+        return filter
+    }
 }
