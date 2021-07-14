@@ -200,7 +200,6 @@
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
 		129D787326945B6D00DA6757 /* DocumentProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */; };
-		129D7879269464BA00DA6757 /* DocumentIconPickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */; };
 		129D788326946EA300DA6757 /* DocumentIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */; };
 		129D78952694AE6900DA6757 /* DocumentLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* DocumentLayoutPicker.swift */; };
 		129D78972694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78962694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift */; };
@@ -790,7 +789,6 @@
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProfileIconPicker.swift; sourceTree = "<group>"; };
-		129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerType.swift; sourceTree = "<group>"; };
 		129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerViewModel.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* DocumentLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78962694AE7B00DA6757 /* DocumentLayoutPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLayoutPickerViewModel.swift; sourceTree = "<group>"; };
@@ -2179,7 +2177,6 @@
 			isa = PBXGroup;
 			children = (
 				129D788226946EA300DA6757 /* DocumentIconPickerViewModel.swift */,
-				129D7878269464BA00DA6757 /* DocumentIconPickerType.swift */,
 				129D787226945B6D00DA6757 /* DocumentProfileIconPicker.swift */,
 				12D94FD02678CD1F00F794EB /* DocumentBasicIconPicker.swift */,
 				3D89224C2680E0850023E705 /* Emoji */,
@@ -3746,7 +3743,6 @@
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */,
-				129D7879269464BA00DA6757 /* DocumentIconPickerType.swift in Sources */,
 				53E9B8492683704500FBFEA1 /* ToggleBlockViewModel.swift in Sources */,
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,

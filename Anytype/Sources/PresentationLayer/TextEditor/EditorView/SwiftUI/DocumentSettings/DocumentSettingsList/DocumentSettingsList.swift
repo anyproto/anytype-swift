@@ -18,7 +18,7 @@ struct DocumentSettingsList: View {
             )
             .sheet(isPresented: $viewModel.isIconSelected) {
                 Group {
-                    switch iconViewModel.pickerType {
+                    switch iconViewModel.detailsLayout {
                     case .basic:
                         DocumentBasicIconPicker()
                     case .profile:
