@@ -16,7 +16,7 @@ struct DocumentLayoutPicker: View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
             AnytypeText("Choose layout type", style: .headlineSemibold)
-                .frame(height: 48, alignment: .center)
+                .padding([.top, .bottom], 12)
             layoutList
             Spacer()
         }
