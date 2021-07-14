@@ -40,7 +40,6 @@ final class SearchService {
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
             MiddlewareBuilder.objectTypeFilter(types: [.set, .page]),
             MiddlewareBuilder.notHiddenFilter()
         ]
