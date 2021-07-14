@@ -45,9 +45,17 @@ extension Image {
         static let cover = createImage("object_settings_cover")
         static let layout = createImage("object_settings_layout")
     }
+    
+    enum LayoutSettings {
+        static let basic = Image("layout_settings_basic")
+        static let profile = Image("layout_settings_profile")
+        
+        static let checkmark = Image("layout_settings_checkmark")
+    }
 }
 
-extension Image {
+private extension Image {
+    
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
             assertionFailure("No image named: \(name)")

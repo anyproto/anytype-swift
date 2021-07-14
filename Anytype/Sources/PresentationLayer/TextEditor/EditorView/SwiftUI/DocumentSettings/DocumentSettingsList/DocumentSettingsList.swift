@@ -47,10 +47,13 @@ struct DocumentSettingsList: View {
                     icon: Image.ObjectSettings.layout,
                     title: "Layout",
                     subtitle: "Arrangement of objects on a canvas",
-                    isAvailable: false
+                    isAvailable: true
                 ),
                 pressed: $viewModel.isLayoutSelected
             )
+            .sheet(isPresented: $viewModel.isLayoutSelected) {
+                DocumentLayoutPicker()
+            }
             .modifier(DividerModifier())
             
         }
