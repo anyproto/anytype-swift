@@ -84,8 +84,6 @@ extension BlockViewType {
                 case .text: return UIColor.init(named: path + "Text") ?? .clear
                 case .list: return UIColor.init(named: path + "List") ?? .clear
                 case .objects: return UIColor.init(named: path + "Objects") ?? .clear
-//                case .page: return UIColor.init(named: path + "Page") ?? .clear
-//                case .media: return UIColor.init(named: path + "Media") ?? .clear
                 case .tool: return UIColor.init(named: path + "Tool") ?? .clear
                 case .other: return UIColor.init(named: path + "Other") ?? .clear
                 }

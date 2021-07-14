@@ -1,3 +1,5 @@
+typealias Relation = String
+
 enum Relations {
     static let id = "id"
     static let coverType = "coverType"

@@ -18,7 +18,7 @@ struct PageCellData: Identifiable {
             destinationId: searchResult.id,
             icon: searchResult.icon,
             title: searchResult.name ?? "",
-            type: searchResult.type ?? "Page",
+            type: searchResult.type?.name ?? "Page",
             isLoading: false,
             isArchived: searchResult.isArchived ?? false
         )

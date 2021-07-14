@@ -14,6 +14,7 @@ extension HomeViewModel {
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [PageCellData] = []
     @Published var archiveCellData: [PageCellData] = []
+    @Published var recentCellData: [PageCellData] = []
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
@@ -34,10 +35,13 @@ final class HomeViewModel: ObservableObject {
     }
     
     func updateSearchTabs() {
-        // TODO: Discard previous request
-        searchService.searchForArchivedPages { [weak self] searchResults in
+        searchService.searchArchivedPages { [weak self] searchResults in
             guard let self = self else { return }
             self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)
+        }
+        searchService.searchRecentPages { [weak self] searchResults in
+            guard let self = self else { return }
+            self.recentCellData = self.cellDataBuilder.buldCellData(searchResults)
         }
     }
     
