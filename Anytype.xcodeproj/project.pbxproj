@@ -1015,7 +1015,6 @@
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockCellView.swift; sourceTree = "<group>"; };
 		53D6EE43265E4D9700C47263 /* EditorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouter.swift; sourceTree = "<group>"; };
-		53E9B8462683704500FBFEA1 /* ToggleBlockViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleBlockViewModel.swift; sourceTree = "<group>"; };
 		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
 		53EA4A772637637200968B8E /* StyleColorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellView.swift; sourceTree = "<group>"; };
 		53EA4A7B2637638800968B8E /* StyleColorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorContentView.swift; sourceTree = "<group>"; };
@@ -3356,7 +3355,6 @@
 		EA6B08FD26663A9500038B4E /* Toggle */ = {
 			isa = PBXGroup;
 			children = (
-				53E9B8462683704500FBFEA1 /* ToggleBlockViewModel.swift */,
 			);
 			path = Toggle;
 			sourceTree = "<group>";
