@@ -42,7 +42,6 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
     }
 }
 
-#if DEBUG
 struct ErrorAlertView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack {
@@ -51,4 +50,3 @@ struct ErrorAlertView_Previews: PreviewProvider {
         return ErrorAlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view, onOkPressed: {})
     }
 }
-#endif
