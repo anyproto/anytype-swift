@@ -4,13 +4,9 @@
 "Recovery pharse is nil" = "Recovery pharse is nil";
 "node failed to start" = "node failed to start";
 "Toggle empty Click and drop block inside" = "Toggle empty. Click and drop block inside";
-"Quote placeholder" = "Quote";
-"Header 1 placeholder" = "Header 1";
-"Header 2 placeholder" = "Header 2";
-"Header 3 placeholder" = "Header 3";
-"Title placeholder" = "Title";
-"Toggle placeholder" = "Toggle block";
-"Checkbox placeholder" = "Checkbox";
+"Quote" = "Quote";
+"Toggle block" = "Toggle block";
+"Checkbox" = "Checkbox";
 "Bulleted placeholder" = "Bulleted list item";
 "Numbered placeholder" = "Numbered list item";
 "Upload a video" = "Upload a video";
