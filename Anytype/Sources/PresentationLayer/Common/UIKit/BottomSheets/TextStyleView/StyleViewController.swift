@@ -1,11 +1,3 @@
-//
-//  StyleViewController.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 16.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 import FloatingPanel
 import BlocksModels
@@ -26,10 +18,10 @@ private extension StyleViewController {
         private let identifier = UUID()
 
         static let all: [Item] = [
-            Item(kind: .header, text: "Title".localized, font: UIFont.header1Font),
-            Item(kind: .header2, text: "Heading".localized, font: UIFont.header2Font),
-            Item(kind: .header3, text: "Subheading".localized, font: UIFont.header3Font),
-            Item(kind: .text, text: "Text".localized, font: UIFont.bodyFont)
+            Item(kind: .header, text: "Title".localized, font: .heading),
+            Item(kind: .header2, text: "Heading".localized, font: .subheading),
+            Item(kind: .header3, text: "Subheading".localized, font: .headlineSemibold),
+            Item(kind: .text, text: "Text".localized, font: UIFont.body)
         ]
     }
 

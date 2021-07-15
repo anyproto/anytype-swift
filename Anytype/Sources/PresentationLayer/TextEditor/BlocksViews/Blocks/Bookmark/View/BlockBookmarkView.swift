@@ -50,7 +50,7 @@ final class BlockBookmarkView: UIView {
         self.titleView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = UIFont.captionMediumFont
+            view.font = UIFont.captionMedium
             view.textColor = .grayscale90
             return view
         }()
@@ -60,7 +60,7 @@ final class BlockBookmarkView: UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
             view.numberOfLines = 3
             view.lineBreakMode = .byWordWrapping
-            view.font = .captionFont
+            view.font = .caption
             view.textColor = .grayscale70
             return view
         }()
@@ -78,7 +78,7 @@ final class BlockBookmarkView: UIView {
         self.urlView = {
             let view = UILabel()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.font = .captionFont
+            view.font = .caption
             view.textColor = .grayscale90
             return view
         }()

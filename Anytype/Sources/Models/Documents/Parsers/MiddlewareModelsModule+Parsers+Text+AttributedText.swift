@@ -29,12 +29,7 @@ extension Namespace {
 
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
-            let defaultFont: UIFont
-            if let style = BlockTextContentTypeConverter.asModel(style) {
-                defaultFont = UIFont.font(for: style)
-            } else {
-                defaultFont = .bodyFont
-            }
+            let defaultFont = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .body
             let range: NSRange = .init(location: 0, length: modifier.attributedString.length)
             modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
             

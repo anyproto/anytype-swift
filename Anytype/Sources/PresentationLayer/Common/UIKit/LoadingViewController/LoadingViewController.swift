@@ -83,7 +83,7 @@ final class LoadingViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = self.informationText
         label.textAlignment = .center
-        label.font = .highlightFont
+        label.font = .headline
         label.numberOfLines = Constants.maxNumberOfLinesInInformationLabel
         
         let cancelButton = UIButton(
@@ -94,11 +94,16 @@ final class LoadingViewController: UIViewController {
             }
         )
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("Cancel",
-                                                                                     comment: ""),
-                                                           attributes: [.foregroundColor: UIColor.systemBackground,
-                                                                        .font: UIFont.highlightFont]),
-                                        for: .normal)
+        cancelButton.setAttributedTitle(
+            NSAttributedString(
+                string: NSLocalizedString("Cancel",comment: ""),
+                attributes: [
+                    .foregroundColor: UIColor.systemBackground,
+                    .font: UIFont.headline
+                ]
+            ),
+            for: .normal
+        )
         cancelButton.contentEdgeInsets = Constants.buttonTitleContentInsets
         cancelButton.backgroundColor = .orange
         
