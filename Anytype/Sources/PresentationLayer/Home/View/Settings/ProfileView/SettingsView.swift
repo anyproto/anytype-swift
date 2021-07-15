@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject var model: SettingsViewModel
+    @StateObject var viewModel: SettingsViewModel
     @StateObject private var settingsSectionModel = SettingSectionViewModel()
     @State private var logginOut = false
     
@@ -18,7 +18,7 @@ struct SettingsView: View {
         .background(Color.background)
         .cornerRadius(16)
         
-        .environmentObject(model)
+        .environmentObject(viewModel)
         .environmentObject(settingsSectionModel)
         
         .alert(isPresented: $logginOut) {
@@ -39,7 +39,7 @@ struct SettingsView: View {
                 AnytypeText.buildText("Log out", style: .body)
             ) {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
-                model.logout()
+                viewModel.logout()
             }
         )
     }
@@ -50,7 +50,7 @@ struct SettingsView_Previews: PreviewProvider {
         ZStack {
             Color.pureAmber.ignoresSafeArea()
             SettingsView(
-                model: SettingsViewModel(
+                viewModel: SettingsViewModel(
                     authService: ServiceLocator.shared.authService()
                 )
             ).previewLayout(.fixed(width: 360, height: 276))

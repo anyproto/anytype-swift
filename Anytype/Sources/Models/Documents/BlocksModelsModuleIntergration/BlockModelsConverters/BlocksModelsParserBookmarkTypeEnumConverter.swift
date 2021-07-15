@@ -3,7 +3,7 @@ import BlocksModels
 import ProtobufMessages
 
 final class BlocksModelsParserBookmarkTypeEnumConverter {
-    typealias Model = BlockBookmark.TypeEnum
+    typealias Model = BlockBookmark.Style
     typealias MiddlewareModel = Anytype_Model_LinkPreview.TypeEnum
 
     static func asModel(_ value: MiddlewareModel) -> Model? {

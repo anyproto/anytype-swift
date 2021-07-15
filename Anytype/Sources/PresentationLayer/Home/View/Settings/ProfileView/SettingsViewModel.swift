@@ -1,4 +1,6 @@
 import SwiftUI
+import Amplitude
+
 
 final class SettingsViewModel: ObservableObject {
     private let authService: AuthServiceProtocol
@@ -10,6 +12,8 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - Logout
     func logout() {
         self.authService.logout() {
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.accountStop)
             windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
         }
     }

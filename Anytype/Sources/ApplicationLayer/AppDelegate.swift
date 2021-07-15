@@ -1,4 +1,6 @@
 import UIKit
+import Amplitude
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,6 +10,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        // Analytics
+        setupAnalytics()
         return true
     }
 
@@ -31,5 +35,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
+    // MARK: - Private methods
+
+    private func setupAnalytics() {
+        // Disable IDFA for Amplitude
+        if let trackingOptions = AMPTrackingOptions().disableIDFA() {
+            Amplitude.instance().setTrackingOptions(trackingOptions)
+        }
+
+        // Enable sending automatic session events
+        Amplitude.instance().trackingSessionEvents = true
+          // Initialize SDK
+        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.apiKey)
+
+        // set app version
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? NSString
+        if let identify = AMPIdentify()
+                .set(AmplitudeUserPropertiesKey.appVersion, value: appVersion) {
+            Amplitude.instance().identify(identify)
+        }
     }
 }

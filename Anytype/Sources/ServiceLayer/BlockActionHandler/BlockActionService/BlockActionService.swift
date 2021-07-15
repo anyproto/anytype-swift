@@ -2,6 +2,8 @@ import Combine
 import BlocksModels
 import os
 import UIKit
+import Amplitude
+
 
 extension LoggerCategory {
     static let blockActionService: Self = "blockActionService"
@@ -53,13 +55,16 @@ final class BlockActionService: BlockActionServiceProtocol {
             .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = shouldSetFocusOnUpdate ? value.addEvent : value.defaultEvent
                 self?.didReceiveEvent(value)
+
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
             }.store(in: &self.subscriptions)
     }
 
     func split(
         info: BlockInformation,
         oldText: String,
-        newBlockContentType: BlockText.ContentType,
+        newBlockContentType: BlockText.Style,
         shouldSetFocusOnUpdate: Bool
     ) {
         let blockId = info.id
@@ -101,6 +106,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             blockIds: blockIds,
             position: position
         ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockCopy)
+
             self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
         }.store(in: &self.subscriptions)
     }
@@ -115,6 +123,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
         .receiveOnMain()
         .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
+
             self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
         }.store(in: &self.subscriptions)
     }
@@ -251,6 +262,9 @@ extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
         self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
             .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] serviceSuccess in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
+
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
     }

@@ -1,7 +1,8 @@
 import SwiftUI
 
+
 struct HomeView: View {
-    @StateObject var model: HomeViewModel
+    @StateObject var viewModel: HomeViewModel
     @StateObject private var accountData = AccountInfoDataAccessor()
 
     @State private var showSettings = false
@@ -14,11 +15,11 @@ struct HomeView: View {
     var body: some View {
         contentView
             .environment(\.font, .defaultAnytype)
-            .environmentObject(model)
+            .environmentObject(viewModel)
             .environmentObject(accountData)
             .onAppear {
                 windowHolder?.configureNavigationBarWithTransparentBackground()
-                model.updateSearchTabs()
+                viewModel.viewLoaded()
             }
     }
     
@@ -49,7 +50,7 @@ struct HomeView: View {
             }
         }
         .bottomFloater(isPresented: $showSettings) {
-            model.coordinator.settingsView().padding(8)
+            viewModel.coordinator.settingsView().padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -57,10 +58,10 @@ struct HomeView: View {
     private var newPageNavigation: some View {
         Group {
             NavigationLink(
-                destination: model.coordinator.documentView(
-                    selectedDocumentId: model.newPageData.pageId
+                destination: viewModel.coordinator.documentView(
+                    selectedDocumentId: viewModel.newPageData.pageId
                 ),
-                isActive: $model.newPageData.showingNewPage,
+                isActive: $viewModel.newPageData.showingNewPage,
                 label: { EmptyView() }
             )
             NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099
@@ -94,6 +95,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(model: HomeViewModel())
+        HomeView(viewModel: HomeViewModel())
     }
 }

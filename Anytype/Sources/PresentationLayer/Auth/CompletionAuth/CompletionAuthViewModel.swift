@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Amplitude
+
 
 final class CompletionAuthViewModel: ObservableObject, CompletionAuthViewDelegate {
     var coordinator: CompletionAuthViewCoordinator
@@ -22,5 +24,11 @@ final class CompletionAuthViewModel: ObservableObject, CompletionAuthViewDelegat
     func showDashboardDidTap() {
         loginStateService.setupStateAfterLoginOrAuth()
         coordinator.routeToHomeView()
+    }
+
+    // MARK: - View output
+    func viewLoaded() {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.accountCreate)
     }
 }

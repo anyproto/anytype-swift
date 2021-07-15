@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Amplitude
 
 
 class MainAuthViewModel: ObservableObject {
@@ -23,6 +24,8 @@ class MainAuthViewModel: ObservableObject {
                 self?.error = error.localizedDescription
             case .success:
                 self?.showSignUpFlow = true
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
             }
         }
     }
@@ -34,5 +37,11 @@ class MainAuthViewModel: ObservableObject {
     
     func loginView() -> some View {
         return LoginView(viewModel: LoginViewModel())
+    }
+
+    // MARK: - View output
+    func viewLoaded() {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.showAuthScreen)
     }
 }
