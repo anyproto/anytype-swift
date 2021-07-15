@@ -55,7 +55,7 @@ struct ObjectSettingsContainerView: View {
                     isCoverPickerPresented = false
                 }
             ) {
-                DocumentCoverPicker()
+                ObjectCoverPicker()
                     .environmentObject(viewModel.coverPickerViewModel)
             }
             
@@ -69,10 +69,10 @@ struct ObjectSettingsContainerView: View {
                 Group {
                     switch viewModel.iconPickerViewModel.detailsLayout {
                     case .basic:
-                        DocumentBasicIconPicker()
+                        ObjectBasicIconPicker()
                             .environmentObject(viewModel.iconPickerViewModel)
                     case .profile:
-                        DocumentProfileIconPicker()
+                        ObjectProfileIconPicker()
                             .environmentObject(viewModel.iconPickerViewModel)
                     }
                 }
@@ -88,7 +88,7 @@ struct ObjectSettingsContainerView: View {
                     isLayoutPickerPresented = false
                 },
                 view: {
-                    DocumentLayoutPicker()
+                    ObjectLayoutPicker()
                         .padding(8)
                         .environmentObject(viewModel.layoutPickerViewModel)
                 }

@@ -1,5 +1,5 @@
 //
-//  DocumentProfileIconPicker.swift
+//  ObjectProfileIconPicker.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 06.07.2021.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DocumentProfileIconPicker: View {
+struct ObjectProfileIconPicker: View {
     
     @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
@@ -43,6 +43,6 @@ struct DocumentProfileIconPicker: View {
 
 struct DocumentProfileIconPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentProfileIconPicker()
+        ObjectProfileIconPicker()
     }
 }
