@@ -406,18 +406,15 @@ private extension DocumentEditorViewController {
         
         // TODO: move to assembly
         let controller = UIHostingController(
-            rootView: ObjectSettingsContainerView()
-                .environmentObject(viewModel.objectSettingsViewModel)
+            rootView: ObjectSettingsContainerView(viewModel: viewModel.objectSettingsViewModel)
         )
         controller.modalPresentationStyle = .overCurrentContext
         
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
         
-        if var vv = controller.rootView as? ObjectSettingsContainerView {
-            vv.onHide = { [weak controller] in
-                controller?.dismiss(animated: false)
-            }
+        controller.rootView.onHide = { [weak controller] in
+            controller?.dismiss(animated: false)
         }
         
         present(

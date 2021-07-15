@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ObjectSettingsContainerView: View {
     
+    @ObservedObject var viewModel: ObjectSettingsViewModel
+    
     var onHide: () -> Void = {}
         
     @State private var mainViewPresented = false
@@ -30,6 +32,7 @@ struct ObjectSettingsContainerView: View {
                     }
                 }, view: {
                     ObjectSettingsView().padding(8)
+                        .environmentObject(viewModel)
                 }
             )
             .onAppear {
@@ -42,6 +45,6 @@ struct ObjectSettingsContainerView: View {
 
 struct ObjectSettingsContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectSettingsContainerView()
+        ObjectSettingsContainerView(viewModel: ObjectSettingsViewModel())
     }
 }
