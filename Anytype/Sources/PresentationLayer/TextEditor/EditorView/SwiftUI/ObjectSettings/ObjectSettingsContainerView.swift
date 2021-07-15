@@ -81,7 +81,6 @@ struct ObjectSettingsContainerView: View {
             .popup(
                 isPresented: $isLayoutPickerPresented,
                 type: .floater(verticalPadding: 42),
-                animation: .ripple,
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
@@ -95,7 +94,9 @@ struct ObjectSettingsContainerView: View {
                 }
             )
             .onChange(of: isLayoutPickerPresented) { showLayoutSettings in
-                mainViewPresented = !showLayoutSettings
+                withAnimation() {
+                    mainViewPresented = !showLayoutSettings
+                }
             }
             
             .onAppear {
