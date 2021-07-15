@@ -69,18 +69,6 @@ class DocumentEditorViewModel: ObservableObject {
             .sink { [weak self] updateResult in
                 self?.handleUpdate(updateResult: updateResult)
             }.store(in: &self.subscriptions)
-        
-        document.pageDetailsPublisher()
-            .safelyUnwrapOptionals()
-            .receiveOnMain()
-            .sink { [weak self] details in
-                guard let self = self else { return }
-                
-                self.detailsViewModel.performUpdateUsingDetails(details)
-                self.settingsViewModel.configure(with: details)
-                self.objectSettingsViewModel.update(with: details)
-            }
-            .store(in: &subscriptions)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -88,6 +76,11 @@ class DocumentEditorViewModel: ObservableObject {
         case .general:
             let blocksViewModels = blockBuilder.build(updateResult.models)
             updateBlocksViewModels(models: blocksViewModels)
+            if let details = updateResult.details {
+                updateDetails(details)
+            }
+        case let .details(newDetails):
+            updateDetails(newDetails)
         case let .update(update):
             if update.updatedIds.isEmpty {
                 return
@@ -104,12 +97,16 @@ class DocumentEditorViewModel: ObservableObject {
         }
     }
     
+    private func updateDetails(_ details: DetailsData) {
+        objectSettingsViewModel.update(with: details)
+        detailsViewModel.performUpdateUsingDetails(details)
+    }
+    
     private func updateViewModelsWithStructs(_ blockIds: [BlockId]) {
         guard !blockIds.isEmpty else {
             return
         }
 
-        
         for blockId in blockIds {
             guard let newRecord = document.rootActiveModel?.findChild(by: blockId) else {
                 assertionFailure("Could not find object with id: \(blockId)")

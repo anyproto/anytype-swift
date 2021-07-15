@@ -91,13 +91,14 @@ final class MiddlewareEventConverter {
                 currentDetails[key] = value
             }
         
-            // will trigger Publisher
-            detailsModel.detailsData = DetailsData(
+            let newDetails = DetailsData(
                 details: currentDetails,
                 parentId: currentDetailsData.parentId
             )
+            // will trigger Publisher
+            detailsModel.detailsData = newDetails
             
-            return .update(EventHandlerUpdatePayload(updatedIds: [id]))
+            return .details(newDetails)
             
         case .objectDetailsUnset:
             assertionFailure("Not implemented")
@@ -128,6 +129,8 @@ final class MiddlewareEventConverter {
                 )
                 
                 model.detailsData = resultDetails
+                
+                return .details(resultDetails)
             }
             else {
                 let detailsData = DetailsData(
@@ -141,17 +144,9 @@ final class MiddlewareEventConverter {
                     model: newDetailsModel,
                     by: detailsId
                 )
+                
+                return .details(detailsData)
             }
-            /// Please, do not delete.
-            /// We should discuss how we handle new details.
-//            guard let detailsModel = self.container?.detailsContainer.choose(by: detailsId) else {
-//                /// We don't have view model, we should create it?
-//                /// We should insert empty details.
-//                let logger = Logging.createLogger(category: .eventProcessor)
-//                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
-//                return .general
-//            }
-            return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
         case let .blockSetFile(newData):
             guard newData.hasState else {
                 return .general

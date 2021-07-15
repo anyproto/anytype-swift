@@ -3,6 +3,7 @@ import Combine
 
 struct BaseDocumentUpdateResult {
     var updates: EventHandlerUpdate
+    var details: DetailsData?
     var models: [BlockActiveRecordProtocol]
 }
 
