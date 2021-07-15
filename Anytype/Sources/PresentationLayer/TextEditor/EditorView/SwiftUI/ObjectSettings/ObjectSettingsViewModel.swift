@@ -14,6 +14,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     @Published private(set) var settings: [ObjectSetting] = ObjectSetting.allCases
     
+    let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
     
     private let objectDetailsService: ObjectDetailsService
@@ -21,6 +22,10 @@ final class ObjectSettingsViewModel: ObservableObject {
     init(objectDetailsService: ObjectDetailsService) {
         self.objectDetailsService = objectDetailsService
         
+        self.iconPickerViewModel = ObjectIconPickerViewModel(
+            fileService: BlockActionsServiceFile(),
+            detailsService: objectDetailsService
+        )
         self.coverPickerViewModel = ObjectCoverPickerViewModel(
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
@@ -28,6 +33,8 @@ final class ObjectSettingsViewModel: ObservableObject {
     }
     
     func update(with details: DetailsData) {
+        iconPickerViewModel.update(with: details)
+        
         guard let layout = details.layout else {
             settings = ObjectSetting.allCases
             return
@@ -36,7 +43,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         case .basic:
             settings = ObjectSetting.allCases
         case .profile:
-            settings = [.cover, .layout]
+            settings = ObjectSetting.allCases
         }
     }
     
