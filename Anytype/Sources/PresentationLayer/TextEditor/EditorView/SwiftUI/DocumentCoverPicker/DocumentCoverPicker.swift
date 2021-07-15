@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DocumentCoverPicker: View {
     
-    @EnvironmentObject private var viewModel: DocumentCoverPickerViewModel
+    @EnvironmentObject private var viewModel: ObjectCoverPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     
     @State private var selectedTab: Tab = .gallery
