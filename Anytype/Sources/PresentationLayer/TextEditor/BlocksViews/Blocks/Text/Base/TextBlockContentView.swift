@@ -1,108 +1,19 @@
-
 import UIKit
 import Combine
 import BlocksModels
 
 
-// MARK: - TextBlockContentView
-
 final class TextBlockContentView: UIView & UIContentView {
-    // MARK: Constants
-    private enum LayoutConstants {
-        static let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: -1, right: -20)
-        static let backgroundViewInsets: UIEdgeInsets = .init(top: 1, left: 0, bottom: -1, right: 0)
-        static let selectionViewInsets: UIEdgeInsets = .init(top: 1, left: 8, bottom: -1, right: -8)
-    }
-
     // MARK: Views
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
-
-    private(set) lazy var textView: CustomTextView = {
-        let actionsHandler = SlashMenuActionsHandlerImp(
-            blockActionHandler: currentConfiguration.blockActionHandler
-        )
-        
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: currentConfiguration.information.content.type
-        )
-        
-        let mentionsSelectionHandler = { [weak self] (mention: MentionObject) in
-            guard let self = self,
-                  let mentionSymbolPosition = self.textView.inputSwitcher.accessoryViewTriggerSymbolPosition,
-                  let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
-                                                                                offset: -1),
-                  let caretPosition = self.textView.textView.caretPosition(),
-                  let viewModel = self.currentConfiguration.viewModel else { return }
-
-            self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
-            self.currentConfiguration.setupMentionsInteraction(self.textView)
-
-            viewModel.actionHandler.handleAction(
-                .textView(
-                    action: .changeText(self.textView.textView.attributedText),
-                    activeRecord: viewModel.block
-                ),
-                info: viewModel.block.blockModel.information
-            )
-        }
-        
-        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
-        let options = CustomTextView.Options(
-            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
-            autocorrect: autocorrect
-        )
-
-        let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
-        return CustomTextView(
-            options: options,
-            menuItemsBuilder: blockActionBuilder,
-            slashMenuActionsHandler: actionsHandler,
-            mentionsSelectionHandler: mentionsSelectionHandler
-        )
-    }()
-
-    private lazy var createChildBlockButton: UIButton = {
-        let button = UIButton(
-            primaryAction: .init(
-                handler: { [weak self] _ in
-                    guard let self = self, let block = self.currentConfiguration.viewModel?.block else {
-                        return
-                    }
-                    self.currentConfiguration.viewModel?.actionHandler.handleAction(
-                        .createEmptyBlock(parentId: block.blockModel.information.id),
-                        info: block.blockModel.information
-                    )
-                }
-            )
-        )
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setAttributedTitle(
-            .init(
-                string: NSLocalizedString(
-                    "Toggle empty Click and drop block inside",
-                    comment: ""
-                ),
-                attributes: [
-                    .font: UIFont.body,
-                    .foregroundColor: UIColor.secondaryTextColor
-                ]
-            ),
-            for: .normal
-        )
-        button.contentHorizontalAlignment = .leading
-        button.isHidden = true
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
-        button.titleLabel?.lineBreakMode = .byWordWrapping
-        return button
-    }()
-
+    private(set) lazy var textView = buildTextView()
+    private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
     private let mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
         return mainStackView
     }()
-
     private let topStackView: UIStackView = {
         let topStackView = UIStackView()
         topStackView.axis = .horizontal
@@ -115,7 +26,6 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: Configuration
 
     private var currentConfiguration: TextBlockContentConfiguration
-
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
@@ -125,7 +35,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     // Combine Subscriptions
-    private var subscriptions: Set<AnyCancellable> = .init()
+    private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Initialization
 
@@ -151,7 +61,7 @@ final class TextBlockContentView: UIView & UIContentView {
         addSubview(selectionView)
 
         mainStackView.addArrangedSubview(topStackView)
-        mainStackView.addArrangedSubview(createChildBlockButton)
+        mainStackView.addArrangedSubview(createEmptyBlockButton)
 
         topStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
         topStackView.addArrangedSubview(textView)
@@ -165,7 +75,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func setupLayout() {
-        createChildBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
+        createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
 
         mainStackView.pinAllEdges(to: self, insets: LayoutConstants.insets)
         backgroundColorView.pinAllEdges(to: self, insets: LayoutConstants.backgroundViewInsets)
@@ -198,7 +108,7 @@ final class TextBlockContentView: UIView & UIContentView {
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
         // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
-        createChildBlockButton.isHidden = true
+        createEmptyBlockButton.isHidden = true
         textView.textView.selectedColor = nil
 
         switch text.contentType {
@@ -279,8 +189,10 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupText(placeholer: String, font: UIFont) {
-        let attributes: [NSAttributedString.Key: Any] = [.font: font,
-                                                         .foregroundColor: UIColor.secondaryTextColor]
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: UIColor.secondaryTextColor
+        ]
 
         self.textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
         self.textView.textView.font = font
@@ -293,7 +205,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self?.currentConfiguration.viewModel?.onCheckboxTap(selected: !checked)
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .body)
+        setupText(placeholer: "Checkbox".localized, font: .body)
         // selected color
         textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
     }
@@ -301,17 +213,17 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForBulleted() {
         let leftView = TextBlockIconView(viewType: .bulleted)
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .body)
+        setupText(placeholer: "Bulleted placeholder".localized, font: .body)
     }
     
     private func setupForNumbered(number: Int) {
         let leftView = TextBlockIconView(viewType: .numbered(number))
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .body)
+        setupText(placeholer: "Numbered placeholder".localized, font: .body)
     }
     
     private func setupForQuote() {
-        self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .headline)
+        self.setupText(placeholer: "Quote".localized, font: .headline)
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
@@ -324,12 +236,94 @@ final class TextBlockContentView: UIView & UIContentView {
             blockViewModel.onToggleTap(toggled: toggled)
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .body)
-        createChildBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
+        setupText(placeholer: "Toggle block".localized, font: .body)
+        createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
     
     private func replaceCurrentLeftView(with leftView: UIView) {
         topStackView.arrangedSubviews.first?.removeFromSuperview()
         topStackView.insertArrangedSubview(leftView, at: 0)
+    }
+    
+    private func buildTextView() -> CustomTextView {
+        let actionsHandler = SlashMenuActionsHandlerImp(
+            blockActionHandler: currentConfiguration.blockActionHandler
+        )
+        
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(
+            for: currentConfiguration.information.content.type
+        )
+        
+        let mentionsSelectionHandler = { [weak self] (mention: MentionObject) in
+            guard let self = self,
+                  let mentionSymbolPosition = self.textView.inputSwitcher.accessoryViewTriggerSymbolPosition,
+                  let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
+                                                                                offset: -1),
+                  let caretPosition = self.textView.textView.caretPosition(),
+                  let viewModel = self.currentConfiguration.viewModel else { return }
+
+            self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
+            self.currentConfiguration.setupMentionsInteraction(self.textView)
+
+            viewModel.actionHandler.handleAction(
+                .textView(
+                    action: .changeText(self.textView.textView.attributedText),
+                    activeRecord: viewModel.block
+                ),
+                info: viewModel.block.blockModel.information
+            )
+        }
+        
+        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
+        let options = CustomTextView.Options(
+            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
+            autocorrect: autocorrect
+        )
+
+        let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
+        return CustomTextView(
+            options: options,
+            menuItemsBuilder: blockActionBuilder,
+            slashMenuActionsHandler: actionsHandler,
+            mentionsSelectionHandler: mentionsSelectionHandler
+        )
+    }
+    
+    private func buildCreateEmptyBlockButton() -> UIButton {
+        let button = UIButton(
+            primaryAction: .init(
+                handler: { [weak self] _ in
+                    guard let self = self, let block = self.currentConfiguration.viewModel?.block else {
+                        return
+                    }
+                    self.currentConfiguration.viewModel?.actionHandler.handleAction(
+                        .createEmptyBlock(parentId: block.blockModel.information.id),
+                        info: block.blockModel.information
+                    )
+                }
+            )
+        )
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(
+            .init(
+                string: "Toggle empty Click and drop block inside".localized,
+                attributes: [
+                    .font: UIFont.body,
+                    .foregroundColor: UIColor.secondaryTextColor
+                ]
+            ),
+            for: .normal
+        )
+        button.contentHorizontalAlignment = .leading
+        button.isHidden = true
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        return button
+    }
+    
+    private enum LayoutConstants {
+        static let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: -1, right: -20)
+        static let backgroundViewInsets: UIEdgeInsets = .init(top: 1, left: 0, bottom: -1, right: 0)
+        static let selectionViewInsets: UIEdgeInsets = .init(top: 1, left: 8, bottom: -1, right: -8)
     }
 }
