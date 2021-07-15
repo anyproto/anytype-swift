@@ -13,9 +13,13 @@ enum ButtonsFactory {
         let backButton = UIButton(type: .system, primaryAction: UIAction { action in
             actionHandler(action)
         })
-        backButton.setAttributedTitle(NSAttributedString(string: "Back".localized,
-                                                         attributes: [.font: UIFont.smallBodyFont]),
-                                      for: .normal)
+        backButton.setAttributedTitle(
+            NSAttributedString(
+                string: "Back".localized,
+                attributes: [.font: UIFont.caption]
+            ),
+            for: .normal
+        )
         backButton.setImage(.back, for: .normal)
         backButton.setImageAndTitleSpacing(Constants.backButtonImageToTitlePadding)
         backButton.tintColor = .secondaryTextColor

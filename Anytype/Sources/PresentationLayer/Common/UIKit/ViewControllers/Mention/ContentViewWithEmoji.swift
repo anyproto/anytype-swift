@@ -25,14 +25,14 @@ final class ContentViewWithEmoji: UIView, UIContentView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .bodyFont
+        label.font = .body
         label.textColor = .textColor
         return label
     }()
     private let subtitleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .smallBodyFont
+        label.font = .caption
         label.textColor = .secondaryTextColor
         return label
     }()

@@ -11,7 +11,7 @@ struct AnytypeText: View {
     
     init(
         _ text: String,
-        name: AnytypeFontBuilder.FontName,
+        name: FontName,
         size: CGFloat,
         weight: Font.Weight
     ) {
