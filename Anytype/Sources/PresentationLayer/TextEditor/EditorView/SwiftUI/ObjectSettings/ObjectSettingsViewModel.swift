@@ -14,6 +14,11 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     @Published private(set) var settings: [ObjectSetting] = ObjectSetting.allCases
     
+    private let objectDetailsService: ObjectDetailsService
+    
+    init(objectDetailsService: ObjectDetailsService) {
+        self.objectDetailsService = objectDetailsService
+    }
     
     func update(with details: DetailsData) {
         guard let layout = details.layout else {

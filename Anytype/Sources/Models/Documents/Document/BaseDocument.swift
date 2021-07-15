@@ -32,7 +32,7 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    private let eventHandler = EventHandler()
+    let eventHandler = EventHandler()
     
     /// Details Active Models
     /// But we have a lot of them, so, we should keep a list of them.

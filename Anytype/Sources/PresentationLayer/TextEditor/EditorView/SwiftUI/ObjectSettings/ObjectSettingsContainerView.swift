@@ -57,6 +57,10 @@ struct ObjectSettingsContainerView: View {
 
 struct ObjectSettingsContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectSettingsContainerView(viewModel: ObjectSettingsViewModel())
+        ObjectSettingsContainerView(
+            viewModel: ObjectSettingsViewModel(
+                objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")
+            )
+        )
     }
 }

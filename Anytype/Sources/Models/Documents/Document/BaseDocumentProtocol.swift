@@ -12,6 +12,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var userSession: UserSession? { get set }
     var rootActiveModel: BlockActiveRecordProtocol? { get }
     var rootModel: RootBlockContainer? { get }
+    var eventHandler: EventHandler { get }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
     func open(_ value: ServiceSuccess)

@@ -405,20 +405,20 @@ private extension DocumentEditorViewController {
         UISelectionFeedbackGenerator().selectionChanged()
         
         // TODO: move to assembly
-        let controller = UIHostingController(
-            rootView: ObjectSettingsContainerView(viewModel: viewModel.objectSettingsViewModel)
-        )
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        controller.rootView.onHide = { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
+//        let controller = UIHostingController(
+//            rootView: ObjectSettingsContainerView(viewModel: viewModel.objectSettingsViewModel)
+//        )
+//        controller.modalPresentationStyle = .overCurrentContext
+//        
+//        controller.view.backgroundColor = .clear
+//        controller.view.isOpaque = false
+//        
+//        controller.rootView.onHide = { [weak controller] in
+//            controller?.dismiss(animated: false)
+//        }
         
         present(
-            controller,
+            viewModel.settingsViewModel.makeSettingsViewController(),
             animated: false
         )
     }

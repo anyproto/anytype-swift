@@ -51,6 +51,6 @@ struct ObjectSettingsView_Previews: PreviewProvider {
         ObjectSettingsView(
             isCoverPickerPresented: $isCoverPickerPresented
         )
-            .environmentObject(ObjectSettingsViewModel())
+        .environmentObject(ObjectSettingsViewModel(objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")))
     }
 }

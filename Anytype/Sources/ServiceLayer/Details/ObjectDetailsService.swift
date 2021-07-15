@@ -1,5 +1,5 @@
 //
-//  DetailsService.swift
+//  ObjectDetailsService.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 15.07.2021.
@@ -10,7 +10,7 @@ import Foundation
 import BlocksModels
 import Combine
 
-final class DetailsService {
+final class ObjectDetailsService {
     
     private let service = ObjectActionsService()
     private let eventHandler: EventHandler
