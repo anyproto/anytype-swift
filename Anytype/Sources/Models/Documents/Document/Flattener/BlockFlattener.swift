@@ -89,7 +89,7 @@ final class BlockFlattener {
                               in: container,
                               options: options)
          let blocksContainer = container.blocksContainer
-         return ids.compactMap { blocksContainer.choose(by: $0) }
+         return ids.compactMap { blocksContainer.record(id: $0) }
     }
     
     /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
@@ -131,7 +131,7 @@ private extension BlockFlattener {
     ///   - container: Container.
     /// - Returns: A condition if we would like to keep item in list.
     private static func shouldKeep(item: BlockId, in container: RootBlockContainer) -> Bool {
-        guard let model = container.blocksContainer.choose(by: item) else {
+        guard let model = container.blocksContainer.record(id: item) else {
             return false
         }
         switch model.content {
@@ -151,7 +151,7 @@ private extension BlockFlattener {
     private static func filteredChildren(of item: BlockId,
                                          in container: RootBlockContainer,
                                          shouldCheckIsToggleOpened: Bool) -> [BlockId] {
-        guard let model = container.blocksContainer.choose(by: item) else {
+        guard let model = container.blocksContainer.record(id: item) else {
             return []
         }
         switch model.content {

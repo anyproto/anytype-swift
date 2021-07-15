@@ -51,7 +51,7 @@ extension BlockContainer: BlockContainerModelProtocol {
         return []
     }
     // MARK: - Operations / Choose
-    func choose(by id: BlockId) -> BlockActiveRecordProtocol? {
+    func record(id: BlockId) -> BlockActiveRecordProtocol? {
         self._choose(by: id)
     }
     // MARK: - Operations / Get
@@ -81,11 +81,11 @@ extension BlockContainer: BlockContainerModelProtocol {
     }
     // MARK: - Children / Append
     func append(childId: BlockId, parentId: BlockId) {
-        guard let child = choose(by: childId) else {
+        guard let child = record(id: childId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
-        guard let parent = choose(by: parentId) else {
+        guard let parent = record(id: parentId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
@@ -100,7 +100,7 @@ extension BlockContainer: BlockContainerModelProtocol {
     }
     // MARK: - Children / Add Before
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
-        guard let parentModel = self.choose(by: parentId) else {
+        guard let parentModel = record(id: parentId) else {
             assertionFailure("I can't find parent with id: \(parentId)")
             return
         }
@@ -120,7 +120,7 @@ extension BlockContainer: BlockContainerModelProtocol {
     }
     func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
-        guard let parent = self.choose(by: beforeChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: beforeChild) else {
+        guard let parent = record(id: beforeChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: beforeChild) else {
             assertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
             return
         }
@@ -132,7 +132,7 @@ extension BlockContainer: BlockContainerModelProtocol {
     // MARK: - Children / Add
     func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
-        guard let parent = self.choose(by: afterChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: afterChild) else {
+        guard let parent = record(id: afterChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: afterChild) else {
             assertionFailure("I can't find either parent or block itself with id: \(afterChild)")
             return
         }
@@ -160,13 +160,13 @@ extension BlockContainer: BlockContainerModelProtocol {
     ///   - shouldSkipGuardAgainstMissingIds: A flag that notes if we should skip condition about existing entries.
     func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool = false) {
         
-        guard let parent = self.choose(by: parentId) else {
+        guard let parent = record(id: parentId) else {
             assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
                 
         let existedIds = !shouldSkipGuardAgainstMissingIds ? childrenIds.filter { (childId) in
-            if self.choose(by: childId) != nil {
+            if record(id: childId) != nil {
                 return true
             }
             else {

@@ -15,7 +15,7 @@ final class LocalEventConverter {
             setFocus(blockId: blockId, position: position)
             return nil
         case let .setTextMerge(blockId):
-            guard let model = self.container?.blocksContainer.choose(by: blockId) else {
+            guard let model = container?.blocksContainer.record(id: blockId) else {
                 assertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
@@ -83,7 +83,7 @@ final class LocalEventConverter {
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        guard var model = container?.blocksContainer.choose(by: blockId) else {
+        guard var model = container?.blocksContainer.record(id: blockId) else {
             assertionFailure("setFocus. We can't find model by id \(blockId)")
             return
         }

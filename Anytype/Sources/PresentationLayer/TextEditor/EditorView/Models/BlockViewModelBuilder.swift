@@ -157,7 +157,7 @@ final class BlockViewModelBuilder {
                 events: PackOfEvents(
                     contextId: contextId,
                     events: [],
-                    localEvents: [.setLoadingState(blockId: blockId)]
+                    localEvents: [ .setLoadingState(blockId: blockId) ]
                 )
             )
             self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)

@@ -10,7 +10,7 @@ private extension LoggerCategory {
 final class BaseDocument: BaseDocumentProtocol {
     var rootActiveModel: BlockActiveRecordProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
-        return rootModel?.blocksContainer.choose(by: rootId)
+        return rootModel?.blocksContainer.record(id: rootId)
     }
     
     var userSession: UserSession? {
@@ -71,7 +71,7 @@ final class BaseDocument: BaseDocumentProtocol {
             .map { [weak self] updates in
                 if let rootId = self?.documentId,
                    let container = self?.rootModel,
-                   let rootModel = container.blocksContainer.choose(by: rootId) {
+                   let rootModel = container.blocksContainer.record(id: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
@@ -172,7 +172,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
     private func getModels() -> [BlockActiveRecordProtocol] {
-        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.choose(by: rootId) else {
+        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.record(id: rootId) else {
             Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }

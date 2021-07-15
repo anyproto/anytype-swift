@@ -10,19 +10,15 @@ protocol EventHandlerProtocol: AnyObject {
 
 class EventHandler: EventHandlerProtocol {
     private lazy var eventPublisher = NotificationEventListener(handler: self)
-    private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
-    let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
+    private let didProcessEventsSubject = PassthroughSubject<EventHandlerUpdate, Never>()
+    lazy var didProcessEventsPublisher = didProcessEventsSubject.eraseToAnyPublisher()
     
     private weak var container: RootBlockContainer?
     
     private var innerConverter: MiddlewareEventConverter?
     private var ourConverter: LocalEventConverter?
     
-    let pageEventConverter = PageEventConverter()
-    
-    init() {
-        self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
-    }
+    private let pageEventConverter = PageEventConverter()
                                     
     private func finalize(_ updates: [EventHandlerUpdate]) {
         let update = updates.reduce(EventHandlerUpdate.update(EventHandlerUpdatePayload())) { result, update in

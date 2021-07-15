@@ -56,7 +56,7 @@ final class TextBlockActionHandler {
             case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                 let id = block.blockId
                 let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
-                let block = block.container?.choose(by: blockId)
+                let block = block.container?.record(id: blockId)
                 let parentId = block?.blockId
                 let information = BlockBuilder.createDefaultInformation()
 
