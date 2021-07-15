@@ -8,10 +8,24 @@
 
 import Foundation
 import Combine
+import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
     
     @Published private(set) var settings: [ObjectSetting] = ObjectSetting.allCases
     
+    
+    func update(with details: DetailsData) {
+        guard let layout = details.layout else {
+            settings = ObjectSetting.allCases
+            return
+        }
+        switch layout {
+        case .basic:
+            settings = ObjectSetting.allCases
+        case .profile:
+            settings = [.cover, .layout]
+        }
+    }
     
 }

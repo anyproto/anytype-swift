@@ -13,6 +13,7 @@ class DocumentEditorViewModel: ObservableObject {
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
+    let objectSettingsViewModel = ObjectSettingsViewModel()
     let settingsViewModel: DocumentSettingsViewModel
     let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
@@ -75,6 +76,7 @@ class DocumentEditorViewModel: ObservableObject {
                 
                 self.detailsViewModel.performUpdateUsingDetails(details)
                 self.settingsViewModel.configure(with: details)
+                self.objectSettingsViewModel.update(with: details)
             }
             .store(in: &subscriptions)
     }
