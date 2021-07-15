@@ -28,12 +28,6 @@ extension AnytypeFontBuilder {
         case caption2Medium
         case caption2
     }
-
-    enum FontName: String {
-        case graphik = "GraphikLCG-Semibold"
-        case plex = "IBMPlexMono"
-        case inter = "Inter"
-    }
 }
 
 struct AnytypeFontBuilder {

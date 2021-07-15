@@ -13,11 +13,13 @@ final class BlockPageLinkUIKitView: UIView {
     private let textView: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false
-        view.font = .bodyFont
-        view.typingAttributes = [.font: UIFont.bodyFont,
-                                 .foregroundColor: UIColor.textColor,
-                                 .underlineStyle: NSUnderlineStyle.single.rawValue,
-                                 .underlineColor: UIColor.textColor]
+        view.font = .body
+        view.typingAttributes = [
+            .font: UIFont.body,
+            .foregroundColor: UIColor.textColor,
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+            .underlineColor: UIColor.textColor
+        ]
         view.textContainerInset = Constants.textContainerInset
         view.textColor = .textColor
         view.isUserInteractionEnabled = false

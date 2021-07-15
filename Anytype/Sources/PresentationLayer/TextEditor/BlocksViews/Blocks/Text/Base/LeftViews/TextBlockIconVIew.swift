@@ -122,7 +122,7 @@ extension TextBlockIconView {
 
     private func createNumberedView() -> UILabel {
         let numberedView = UILabel()
-        numberedView.font = .bodyFont
+        numberedView.font = .body
         numberedView.textAlignment = .center
         setContentHuggingPriority(.defaultLow + 1, for: .horizontal)
 

@@ -66,20 +66,32 @@ final class TextBlockContentView: UIView & UIContentView {
     }()
 
     private lazy var createChildBlockButton: UIButton = {
-        let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            guard let self = self else { return }
-            let block = self.currentConfiguration.block
-            self.currentConfiguration.actionHandler.handleAction(
-                .createEmptyBlock(parentId: block.blockModel.information.id),
-                info: block.blockModel.information
+        let button = UIButton(
+            primaryAction: .init(
+                handler: { [weak self] _ in
+                    guard let self = self else { return }
+                    let block = self.currentConfiguration.block
+                    self.currentConfiguration.actionHandler.handleAction(
+                        .createEmptyBlock(parentId: block.blockModel.information.id),
+                        info: block.blockModel.information
+                    )
+                }
             )
-        }))
+        )
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setAttributedTitle(.init(string: NSLocalizedString("Toggle empty Click and drop block inside",
-                                                                  comment: ""),
-                                        attributes: [.font: UIFont.bodyFont,
-                                                     .foregroundColor: UIColor.secondaryTextColor]),
-                                  for: .normal)
+        button.setAttributedTitle(
+            .init(
+                string: NSLocalizedString(
+                    "Toggle empty Click and drop block inside",
+                    comment: ""
+                ),
+                attributes: [
+                    .font: UIFont.body,
+                    .foregroundColor: UIColor.secondaryTextColor
+                ]
+            ),
+            for: .normal
+        )
         button.contentHorizontalAlignment = .leading
         button.isHidden = true
         button.titleEdgeInsets = Constants.Toggle.titleEdgeInsets
@@ -244,23 +256,23 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForText() {
-        self.setupText(placeholer: "", font: .bodyFont)
+        self.setupText(placeholer: "", font: .body)
     }
     
     private func setupForTitle() {
-        self.setupText(placeholer: NSLocalizedString("Title", comment: ""), font: .titleFont)
+        self.setupText(placeholer: NSLocalizedString("Title", comment: ""), font: .title)
     }
     
     private func setupForHeader1() {
-        self.setupText(placeholer: NSLocalizedString("Header 1", comment: ""), font: .header1Font)
+        self.setupText(placeholer: NSLocalizedString("Header 1", comment: ""), font: .heading)
     }
     
     private func setupForHeader2() {
-        self.setupText(placeholer: NSLocalizedString("Header 2", comment: ""), font: .header2Font)
+        self.setupText(placeholer: NSLocalizedString("Header 2", comment: ""), font: .subheading)
     }
     
     private func setupForHeader3() {
-        self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .header3Font)
+        self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .headlineSemibold)
     }
     
     private func setupText(placeholer: String, font: UIFont) {
@@ -282,7 +294,7 @@ final class TextBlockContentView: UIView & UIContentView {
             )
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
+        setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .body)
         // selected color
         textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
     }
@@ -290,17 +302,17 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForBulleted() {
         let leftView = TextBlockIconView(viewType: .bulleted)
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
+        setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .body)
     }
     
     private func setupForNumbered(number: Int) {
         let leftView = TextBlockIconView(viewType: .numbered(number))
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
+        setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .body)
     }
     
     private func setupForQuote() {
-        self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .highlightFont)
+        self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .headline)
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
@@ -315,7 +327,7 @@ final class TextBlockContentView: UIView & UIContentView {
             )
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
+        setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .body)
         createChildBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
     

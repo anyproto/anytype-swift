@@ -25,7 +25,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
         
         let noItemsLabel = UILabel()
-        noItemsLabel.font = .bodyFont
+        noItemsLabel.font = .body
         noItemsLabel.textColor = .secondaryTextColor
         noItemsLabel.lineBreakMode = .byWordWrapping
         noItemsLabel.numberOfLines = 0
@@ -101,7 +101,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
     
     private func makeConfigurationForDivider(title: String) -> UIContentConfiguration {
         var configuration = UIListContentConfiguration.subtitleCell()
-        configuration.textProperties.font = .captionFont
+        configuration.textProperties.font = .caption
         configuration.text = title
         return configuration
     }
@@ -124,7 +124,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
                                    imageName: String) -> UIContentConfiguration {
         var configuration = UIListContentConfiguration.subtitleCell()
         configuration.text = title
-        configuration.textProperties.font = .bodyFont
+        configuration.textProperties.font = .body
         configuration.textProperties.color = .textColor
         configuration.image = UIImage(named: imageName)
         configuration.imageToTextPadding = Constants.imageToTextPadding
@@ -132,7 +132,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         configuration.imageProperties.maximumSize = Constants.imageSize
         if let subtitle = subtitle {
             configuration.secondaryText = subtitle
-            configuration.secondaryTextProperties.font = .smallBodyFont
+            configuration.secondaryTextProperties.font = .caption
             configuration.secondaryTextProperties.color = .secondaryTextColor
         }
         return configuration

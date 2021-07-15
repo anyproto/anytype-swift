@@ -8,12 +8,15 @@ final class URLInputView: UIView {
         textField.autocorrectionType = .no
         textField.keyboardType = .URL
         textField.autocapitalizationType = .none
-        textField.font = .highlightFont
+        textField.font = .headline
         textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
         textField.attributedPlaceholder = NSAttributedString(
             string: "Paste or type URL".localized,
-            attributes: [.font: UIFont.highlightFont,
-                         .foregroundColor: UIColor.grayscale50])
+            attributes: [
+                .font: UIFont.headline,
+                .foregroundColor: UIColor.grayscale50
+            ]
+        )
         return textField
     }()
     
@@ -22,12 +25,12 @@ final class URLInputView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setAttributedTitle(NSAttributedString(
                                     string: "Done".localized,
-                                    attributes: [.font: UIFont.highlightFont,
+                                    attributes: [.font: UIFont.headline,
                                                  .foregroundColor: UIColor.pureAmber]),
                                   for: .normal)
         button.setAttributedTitle(NSAttributedString(
                                     string: "Done".localized,
-                                    attributes: [.font: UIFont.highlightFont,
+                                    attributes: [.font: UIFont.headline,
                                                  .foregroundColor: UIColor.lightAmber]),
                                   for: .disabled)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)

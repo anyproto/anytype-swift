@@ -15,6 +15,7 @@ extension UIColor {
     }
     
     static let grayscale90 = color(name: ColorName.grayscale90)
+    static let grayscale70 = color(name: ColorName.grayscale70)
     static let grayscale50 = color(name: ColorName.grayscale50)
     static let grayscale30 = color(name: ColorName.grayscale30)
     static let grayscale10 = color(name: ColorName.grayscale10)    

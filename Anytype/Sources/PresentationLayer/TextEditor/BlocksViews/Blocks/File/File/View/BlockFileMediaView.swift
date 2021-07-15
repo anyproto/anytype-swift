@@ -53,14 +53,14 @@ class BlockFileMediaView: UIView {
     
     let titleView: UILabel = {
         let view = UILabel()
-        view.font = .bodyFont
+        view.font = .body
         view.textColor = .textColor
         return view
     }()
     
     let sizeView: UILabel = {
         let view = UILabel()
-        view.font = .captionFont
+        view.font = .caption
         view.textColor = .secondaryTextColor
         return view
     }()
