@@ -105,7 +105,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 completion.flatMap { completion in
                     completion(
                         PackOfEvents(
-                            events: [],
+                            middlewareEvents: [],
                             localEvents: [.setText(blockId: info.id, text: attributedText.string)]
                         )
                     )    
@@ -193,10 +193,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private func delete(blockId: BlockId) {
         service.delete(blockId: blockId) { [weak self] value in
             guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: blockId) else {
-                return .init(events: value.messages, localEvents: [])
+                return .init(middlewareEvents: value.messages, localEvents: [])
             }
             let previousBlockId = previousModel.blockId
-            return .init(events: value.messages, localEvents: [
+            return .init(middlewareEvents: value.messages, localEvents: [
                 .setFocus(blockId: previousBlockId, position: .end)
             ])
         }
@@ -209,7 +209,7 @@ private extension BlockActionHandler {
         
         listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color.middleware)
             .sinkWithDefaultCompletion("setBlockColor") { value in
-                let value = PackOfEvents(events: value.messages, localEvents: [])
+                let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
                 completion?(value)
             }
             .store(in: &self.subscriptions)
@@ -224,7 +224,7 @@ private extension BlockActionHandler {
         
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
-                let value = PackOfEvents(events: value.messages, localEvents: [])
+                let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
                 completion?(value)
             }
             .store(in: &self.subscriptions)

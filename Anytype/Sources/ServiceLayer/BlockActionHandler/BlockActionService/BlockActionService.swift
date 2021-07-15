@@ -101,7 +101,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             blockIds: blockIds,
             position: position
         ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
-            self?.didReceiveEvent(PackOfEvents(events: value.messages))
+            self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
         }.store(in: &self.subscriptions)
     }
 
@@ -115,7 +115,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
         .receiveOnMain()
         .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
-            self?.didReceiveEvent(PackOfEvents(events: value.messages))
+            self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
         }.store(in: &self.subscriptions)
     }
 
@@ -132,7 +132,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
             .receiveOnMain()
             .sinkWithDefaultCompletion("textService.checked with payload") { [weak self] value in
-                self?.didReceiveEvent(PackOfEvents(events: value.messages))
+                self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
             }.store(in: &self.subscriptions)
     }
     

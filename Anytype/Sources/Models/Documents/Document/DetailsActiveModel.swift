@@ -64,7 +64,7 @@ extension DetailsActiveModel {
         .handleEvents(
             receiveOutput: { [weak self] (value) in
                 self?.eventSubject.send(
-                    PackOfEvents(events: value.messages)
+                    PackOfEvents(middlewareEvents: value.messages)
                 )
             }
         )

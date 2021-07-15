@@ -22,7 +22,7 @@ class EventHandler: EventHandlerProtocol {
     private let pageEventConverter = PageEventConverter()
     
     func handle(events: PackOfEvents) {
-        let innerUpdates = events.events.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
+        let innerUpdates = events.middlewareEvents.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
         let ourUpdates = events.localEvents.compactMap { ourConverter?.convert($0) ?? nil }
         finalize(innerUpdates + ourUpdates)
     }
@@ -41,7 +41,7 @@ class EventHandler: EventHandlerProtocol {
     }
     
     func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
-        events.events.compactMap(\.value).compactMap(
+        events.middlewareEvents.compactMap(\.value).compactMap(
             self.handleBlockShow(event:)
         )
     }

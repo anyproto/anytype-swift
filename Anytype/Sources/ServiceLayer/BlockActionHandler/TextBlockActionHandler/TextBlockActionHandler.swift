@@ -206,11 +206,11 @@ final class TextBlockActionHandler {
                     assertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.blockId)"
                     )
-                    return .init(events: value.messages, localEvents: [])
+                    return .init(middlewareEvents: value.messages, localEvents: [])
                 }
                 let previousBlockId = previousModel.blockId
                 return .init(
-                    events: value.messages,
+                    middlewareEvents: value.messages,
                     localEvents: [
                         .setFocus(blockId: previousBlockId, position: .end)
                     ]
