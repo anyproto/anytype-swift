@@ -16,6 +16,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
+    let layoutPickerViewModel: ObjectLayoutPickerViewModel
     
     private let objectDetailsService: ObjectDetailsService
     
@@ -30,10 +31,15 @@ final class ObjectSettingsViewModel: ObservableObject {
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
         )
+        
+        self.layoutPickerViewModel = ObjectLayoutPickerViewModel(
+            detailsService: objectDetailsService
+        )
     }
     
     func update(with details: DetailsData) {
         iconPickerViewModel.update(with: details)
+        layoutPickerViewModel.update(with: details)
         
         guard let layout = details.layout else {
             settings = ObjectSetting.allCases

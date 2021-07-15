@@ -14,6 +14,7 @@ struct ObjectSettingsView: View {
     
     @Binding var isCoverPickerPresented: Bool
     @Binding var isIconPickerPresented: Bool
+    @Binding var isLayoutPickerPresented: Bool
     
     var body: some View {
         VStack(
@@ -37,7 +38,8 @@ struct ObjectSettingsView: View {
                         isIconPickerPresented = true
                     case .cover:
                         isCoverPickerPresented = true
-                    case .layout: return
+                    case .layout:
+                        isLayoutPickerPresented = true
                     }
                 }
             }
@@ -49,11 +51,13 @@ struct ObjectSettingsView: View {
 struct ObjectSettingsView_Previews: PreviewProvider {
     @State static private var isIconPickerPresented = false
     @State static private var isCoverPickerPresented = false
-
+    @State static private var isLayoutPickerPresented = false
+    
     static var previews: some View {
         ObjectSettingsView(
             isCoverPickerPresented: $isCoverPickerPresented,
-            isIconPickerPresented: $isIconPickerPresented
+            isIconPickerPresented: $isIconPickerPresented,
+            isLayoutPickerPresented: $isLayoutPickerPresented
         )
         .environmentObject(ObjectSettingsViewModel(objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")))
     }
