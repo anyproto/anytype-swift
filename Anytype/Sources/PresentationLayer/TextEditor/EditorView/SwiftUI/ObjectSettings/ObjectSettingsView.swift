@@ -39,7 +39,9 @@ struct ObjectSettingsView: View {
                     case .cover:
                         isCoverPickerPresented = true
                     case .layout:
-                        isLayoutPickerPresented = true
+                        withAnimation() {
+                            isLayoutPickerPresented = true
+                        }
                     }
                 }
             }
