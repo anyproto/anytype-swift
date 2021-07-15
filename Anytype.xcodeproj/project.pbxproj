@@ -173,6 +173,7 @@
 		120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */; };
 		120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8176269F3474006FE84E /* ObjectSetting.swift */; };
 		120E817F26A026F5006FE84E /* ObjectSettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E817E26A026F5006FE84E /* ObjectSettingRow.swift */; };
+		120E818426A04A31006FE84E /* DetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E818326A04A31006FE84E /* DetailsService.swift */; };
 		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
@@ -765,6 +766,7 @@
 		120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsViewModel.swift; sourceTree = "<group>"; };
 		120E8176269F3474006FE84E /* ObjectSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSetting.swift; sourceTree = "<group>"; };
 		120E817E26A026F5006FE84E /* ObjectSettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingRow.swift; sourceTree = "<group>"; };
+		120E818326A04A31006FE84E /* DetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsService.swift; sourceTree = "<group>"; };
 		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
@@ -1478,6 +1480,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
 				EAE6BDF52680C98700275788 /* Objects */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
@@ -2043,6 +2046,14 @@
 				120E8176269F3474006FE84E /* ObjectSetting.swift */,
 			);
 			path = ObjectSettings;
+			sourceTree = "<group>";
+		};
+		120E818226A04A23006FE84E /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				120E818326A04A31006FE84E /* DetailsService.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		120F7D42267CCD9F00327734 /* DocumentCoverPicker */ = {
@@ -4124,6 +4135,7 @@
 				3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
+				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
