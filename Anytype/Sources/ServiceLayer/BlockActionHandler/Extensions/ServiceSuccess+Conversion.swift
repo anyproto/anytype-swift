@@ -1,6 +1,6 @@
 extension ServiceSuccess {
     var defaultEvent: PackOfEvents {
-        PackOfEvents(contextId: contextID, events: messages, localEvents: [])
+        PackOfEvents(events: messages, localEvents: [])
     }
     
     var turnIntoTextEvent: PackOfEvents {
@@ -10,7 +10,7 @@ extension ServiceSuccess {
             [.setFocus(blockId: $0.blockSetText.id, position: .beginning)]
         } ?? []
 
-        return PackOfEvents(contextId: contextID, events: messages, localEvents: localEvents)
+        return PackOfEvents(events: messages, localEvents: localEvents)
     }
     
     var addEvent: PackOfEvents {
@@ -19,7 +19,7 @@ extension ServiceSuccess {
             [.setFocus(blockId: $0.id, position: .beginning)]
         } ?? []
         
-        return .init(contextId: contextID, events: messages, localEvents: localEvents)
+        return .init(events: messages, localEvents: localEvents)
     }
     
     var splitEvent: PackOfEvents {
@@ -58,7 +58,7 @@ extension ServiceSuccess {
 
         let focusedBlockId = setChildrenEvent.childrenIds[focusedIndex]
 
-        return PackOfEvents(contextId: contextID, events: messages, localEvents: [
+        return PackOfEvents(events: messages, localEvents: [
             .setFocus(blockId: focusedBlockId, position: .beginning)
         ])
     }

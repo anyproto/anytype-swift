@@ -114,7 +114,7 @@ extension HomeViewModel {
                 }
 
                 self.document.handle(
-                    events: PackOfEvents(contextId: success.contextID, events: success.messages)
+                    events: PackOfEvents(events: success.messages)
                 )
 
                 guard let newBlockId = success.newBlockId else {

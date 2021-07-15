@@ -86,23 +86,16 @@ final class BaseDocument: BaseDocumentProtocol {
         }.eraseToAnyPublisher()
     }
     
-    func open(_ value: ServiceSuccess) {
-        handleOpen(value)
-        
-        // Event processor must receive event to send updates to subscribers.
-        // Events are `blockShow`, actually.
+    func open(_ sucess: ServiceSuccess) {
+        handleOpen(sucess)
         eventHandler.handle(
-            events: PackOfEvents(
-                contextId: value.contextID,
-                events: value.messages,
-                localEvents: []
-            )
+            events: PackOfEvents(events: sucess.messages)
         )
     }
     
     private func handleOpen(_ serviceSuccess: ServiceSuccess) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, localEvents: [])
+            events: .init(events: serviceSuccess.messages)
         )
         guard let event = blocks.first else { return }
         

@@ -9,9 +9,10 @@ protocol EventHandlerProtocol: AnyObject {
 }
 
 class EventHandler: EventHandlerProtocol {
+    lazy var didProcessEventsPublisher = didProcessEventsSubject.eraseToAnyPublisher()
+    
     private lazy var eventPublisher = NotificationEventListener(handler: self)
     private let didProcessEventsSubject = PassthroughSubject<EventHandlerUpdate, Never>()
-    lazy var didProcessEventsPublisher = didProcessEventsSubject.eraseToAnyPublisher()
     
     private weak var container: RootBlockContainer?
     
@@ -19,24 +20,6 @@ class EventHandler: EventHandlerProtocol {
     private var ourConverter: LocalEventConverter?
     
     private let pageEventConverter = PageEventConverter()
-                                    
-    private func finalize(_ updates: [EventHandlerUpdate]) {
-        let update = updates.reduce(EventHandlerUpdate.update(EventHandlerUpdatePayload())) { result, update in
-            .merged(lhs: result, rhs: update)
-        }
-        
-        guard let container = self.container else {
-            assertionFailure("Container is nil in event handler. Something went wrong.")
-            return
-        }
-
-        if update.hasUpdate {
-            BlockContainerBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
-        }
-
-        // Notify about updates if needed.
-        self.didProcessEventsSubject.send(update)
-    }
     
     func handle(events: PackOfEvents) {
         let innerUpdates = events.events.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
@@ -61,6 +44,24 @@ class EventHandler: EventHandlerProtocol {
         events.events.compactMap(\.value).compactMap(
             self.handleBlockShow(event:)
         )
+    }
+    
+    private func finalize(_ updates: [EventHandlerUpdate]) {
+        let update = updates.reduce(EventHandlerUpdate.update(EventHandlerUpdatePayload())) { result, update in
+            .merged(lhs: result, rhs: update)
+        }
+        
+        guard let container = self.container else {
+            assertionFailure("Container is nil in event handler. Something went wrong.")
+            return
+        }
+
+        if update.hasUpdate {
+            BlockContainerBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
+        }
+
+        // Notify about updates if needed.
+        self.didProcessEventsSubject.send(update)
     }
     
     private func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> PageEvent {
