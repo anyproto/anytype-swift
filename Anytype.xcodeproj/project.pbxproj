@@ -1776,7 +1776,6 @@
 				0A005AC224C86DFA000520AA /* Other */,
 				0A10CC5B248EC2FA000FF498 /* Text */,
 				0A10CC5C248EC305000FF498 /* File */,
-				0A10CC5E248EC331000FF498 /* Page */,
 				3DDC6A5E2627070C004F5EA4 /* PageLink */,
 			);
 			path = Blocks;
@@ -1802,13 +1801,6 @@
 				EA20CDD126122C5D00DBA9FE /* Image */,
 			);
 			path = File;
-			sourceTree = "<group>";
-		};
-		0A10CC5E248EC331000FF498 /* Page */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Page;
 			sourceTree = "<group>";
 		};
 		0A19E2B22444C9430078DFAB /* Base */ = {

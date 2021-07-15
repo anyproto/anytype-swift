@@ -45,7 +45,6 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        /// Image View
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -125,11 +124,10 @@ final class BlockImageContentView: UIView & UIContentView {
         guard !file.metadata.hash.isEmpty else { return }
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
-        // We could put image into viewModel.
-        // In this case we would only check
+        
         
         currentConfiguration.imageLoader.cleanupSubscription()
-        currentConfiguration.imageLoader.configured(imageView)
+        currentConfiguration.imageLoader.imageView = imageView
         currentConfiguration.imageLoader.update(imageId: imageId)
     }
 }
