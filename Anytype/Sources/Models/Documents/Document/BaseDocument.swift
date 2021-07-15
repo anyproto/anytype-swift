@@ -80,11 +80,6 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - Handle Open
-    private func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
-        self.smartblockService.open(contextID: blockId, blockID: blockId).map { [weak self] serviceSuccess in
-            self?.handleOpen(serviceSuccess)
-        }.eraseToAnyPublisher()
-    }
     
     func open(_ value: ServiceSuccess) {
         handleOpen(value)
