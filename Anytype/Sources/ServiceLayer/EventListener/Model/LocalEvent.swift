@@ -5,4 +5,5 @@ enum LocalEvent {
     case setTextMerge(blockId: BlockId)
     case setToggled(blockId: BlockId)
     case setText(blockId: BlockId, text: String)
+    case setLoadingState(blockId: BlockId)
 }
