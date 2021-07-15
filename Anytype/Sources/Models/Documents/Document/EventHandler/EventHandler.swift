@@ -47,7 +47,7 @@ class EventHandler: EventHandlerProtocol {
     }
     
     private func finalize(_ updates: [EventHandlerUpdate]) {
-        let update = updates.reduce(EventHandlerUpdate.update(EventHandlerUpdatePayload())) { result, update in
+        let update = updates.reduce(EventHandlerUpdate.update(blockIds: [])) { result, update in
             .merged(lhs: result, rhs: update)
         }
         

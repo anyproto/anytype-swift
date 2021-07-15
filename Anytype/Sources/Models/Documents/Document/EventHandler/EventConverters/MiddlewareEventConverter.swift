@@ -21,7 +21,7 @@ final class MiddlewareEventConverter {
                 block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
                 block.didChange()
             }
-            return .update(.init(updatedIds: [fields.id]))
+            return .update(blockIds: [fields.id])
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockInformationConverter.convert(block:))
@@ -53,7 +53,7 @@ final class MiddlewareEventConverter {
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
             })
-            return .update(.init(updatedIds: [updateData.id]))
+            return .update(blockIds: [updateData.id])
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -67,7 +67,7 @@ final class MiddlewareEventConverter {
                 var value = value
                 value.information.alignment = modelAlignment
             })
-            return .update(.init(updatedIds: [blockId]))
+            return .update(blockIds: [blockId])
         
         case let .objectDetailsAmend(amend):
             let updatedDetails = BlocksModelsDetailsConverter.asModel(
@@ -97,7 +97,7 @@ final class MiddlewareEventConverter {
                 parentId: currentDetailsData.parentId
             )
             
-            return .update(EventHandlerUpdatePayload(updatedIds: [id]))
+            return .update(blockIds: [id])
             
         case .objectDetailsUnset:
             assertionFailure("Not implemented")
@@ -151,7 +151,7 @@ final class MiddlewareEventConverter {
 //                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
 //                return .general
 //            }
-            return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
+            return .update(blockIds: [detailsId])
         case let .blockSetFile(newData):
             guard newData.hasState else {
                 return .general
@@ -196,7 +196,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(.init(updatedIds: [newData.id]))
+            return .update(blockIds: [newData.id])
         case let .blockSetBookmark(value):
             
             let blockId = value.id
@@ -239,7 +239,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(.init(updatedIds: [blockId]))
+            return .update(blockIds: [blockId])
             
         case let .blockSetDiv(value):
             guard value.hasStyle else {
@@ -264,7 +264,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(EventHandlerUpdatePayload(updatedIds: Set([value.id])))
+            return .update(blockIds: [value.id])
         
         /// Special case.
         /// After we open document, we would like to receive all blocks of opened page.
@@ -313,7 +313,7 @@ final class MiddlewareEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(.init(updatedIds: [newData.id]))
+        return .update(blockIds: [newData.id])
     }
     
     private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {

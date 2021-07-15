@@ -41,7 +41,7 @@ final class LocalEventConverter {
             
             content.state = .uploading
             model.information.content = .file(content)
-            return .update(.init(updatedIds: [blockId]))
+            return .update(blockIds: [blockId])
         }
     }
     
@@ -79,7 +79,7 @@ final class LocalEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(.init(updatedIds: [blockId]))
+        return .update(blockIds: [blockId])
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {

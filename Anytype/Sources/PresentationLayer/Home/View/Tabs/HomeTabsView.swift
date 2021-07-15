@@ -31,7 +31,7 @@ struct HomeTabsView: View {
             tabButton(text: "Inbox", tag: 3) { model.updateInboxTab() }
             tabButton(text: "Archive", tag: 4) { model.updateArchiveTab() }
         }
-        .padding([.leading, .top, .trailing])
+        .padding()
     }
     
     private func tabButton(text: String, tag: Int, action: (() -> ())? = nil) -> some View {
