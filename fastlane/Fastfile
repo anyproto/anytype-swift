@@ -22,13 +22,14 @@ platform :ios do
 
     build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
     version = get_version_number(xcodeproj: "Anytype.xcodeproj")
-    full_version = "#{version}(#{build_number})"
 
     commit_version_bump(
-      message: "Bump version #{full_version}",
+      message: "Bump version #{version}(#{build_number})",
       xcodeproj: "Anytype.xcodeproj"
     )
-    add_git_tag(tag: full_version)
+
+    prefix = options[:release] ? "release" : "dev"
+    add_git_tag(tag: "#{prefix}/#{version}/#{build_number}")
 
     if !options[:release] 
       add_badge(
@@ -74,6 +75,7 @@ platform :ios do
   end
 
   lane :generate_dev_profiles do
+    app_store_connect_api_key(in_house: false)
     match(force_for_new_devices: true)
   end
 
