@@ -11,9 +11,8 @@ import SwiftUI
 struct ObjectSettingsContainerView: View {
     
     var onHide: () -> Void = {}
-    
+        
     @State private var mainViewPresented = false
-    @State private var layoutSettingsPresented = false
     
     var body: some View {
         Color.clear

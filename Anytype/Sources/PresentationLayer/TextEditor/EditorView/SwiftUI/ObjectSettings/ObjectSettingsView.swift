@@ -10,26 +10,36 @@ import SwiftUI
 
 struct ObjectSettingsView: View {
     
-    @ObservedObject var viewModel: ObjectSettingsViewModel
+    @EnvironmentObject var viewModel: ObjectSettingsViewModel
     
     var body: some View {
         VStack(
             alignment: .center,
             spacing: 0
         ) {
-            DragIndicator()
-            DocumentSettingsList()
+            DragIndicator(bottomPadding: 0)
+            settings
         }
         .background(Color.background)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
+    
+    private var settings: some View {
+        VStack(spacing: 0) {
+            ForEach(viewModel.settings, id: \.self) { setting in
+                ObjectSettingRow(setting: setting) {
+                    debugPrint(setting)
+                }
+            }
+        }
+        .padding([.leading, .trailing, .bottom], 16)
+    }
 }
 
 struct ObjectSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectSettingsView(
-            viewModel: ObjectSettingsViewModel()
-        )
+        ObjectSettingsView()
+            .environmentObject(ObjectSettingsViewModel())
     }
 }
