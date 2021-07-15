@@ -30,7 +30,7 @@ struct ObjectSettingsContainerView: View {
                         onHide()
                     }
                 }, view: {
-                    DocumentSettingsView().padding(8)
+                    ObjectSettingsView().padding(8)
                 }
             )
             .onAppear {

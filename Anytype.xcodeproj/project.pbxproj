@@ -169,6 +169,9 @@
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
 		120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */; };
+		120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8170269F31A8006FE84E /* ObjectSettingsView.swift */; };
+		120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */; };
+		120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8176269F3474006FE84E /* ObjectSetting.swift */; };
 		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
@@ -757,6 +760,9 @@
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
 		120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsContainerView.swift; sourceTree = "<group>"; };
+		120E8170269F31A8006FE84E /* ObjectSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsView.swift; sourceTree = "<group>"; };
+		120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsViewModel.swift; sourceTree = "<group>"; };
+		120E8176269F3474006FE84E /* ObjectSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSetting.swift; sourceTree = "<group>"; };
 		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
@@ -2029,6 +2035,9 @@
 			isa = PBXGroup;
 			children = (
 				120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */,
+				120E8170269F31A8006FE84E /* ObjectSettingsView.swift */,
+				120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */,
+				120E8176269F3474006FE84E /* ObjectSetting.swift */,
 			);
 			path = ObjectSettings;
 			sourceTree = "<group>";
@@ -3692,6 +3701,7 @@
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */,
 				3DB27C08261B0E9C005E523C /* SingleValueDecodingContainer.swift in Sources */,
+				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
 				120F7D7C267F881700327734 /* BlockBookmarkView.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
@@ -3891,6 +3901,7 @@
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
+				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
@@ -4001,6 +4012,7 @@
 				3DEFD64E2689FE250072EA27 /* Emoji.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
+				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
