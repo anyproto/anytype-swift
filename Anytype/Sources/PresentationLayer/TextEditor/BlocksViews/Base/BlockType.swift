@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-protocol BlocksViewsToolbarBlocksTypesProtocol {
+protocol ToolbarInfoProvider {
     var imagePath: String {get}
     var imageName: String {get}
     
@@ -16,7 +16,7 @@ protocol BlocksViewsToolbarBlocksTypesProtocol {
     var subtitle: String {get}
 }
 
-extension BlocksViewsToolbarBlocksTypesProtocol {
+extension ToolbarInfoProvider {
     var image: String {
         BlockViewType.Resources.Image.image(self.imageName)
     }
@@ -111,8 +111,8 @@ extension BlockViewType {
     var title: String { Resources.Title.title(for: self) }
 }
 
-// MARK: Protocol Adoption / BlocksViewsToolbarBlocksTypesProtocol
-extension BlockViewType.Text: BlocksViewsToolbarBlocksTypesProtocol {
+// MARK: Protocol Adoption / ToolbarInfoProvider
+extension BlockViewType.Text: ToolbarInfoProvider {
     var imageName: String {
         switch self {
         case .text: return "Text/Text"
@@ -133,7 +133,7 @@ extension BlockViewType.Text: BlocksViewsToolbarBlocksTypesProtocol {
     }
 }
 
-extension BlockViewType.List: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockViewType.List: ToolbarInfoProvider {
     var imageName: String {
         switch self {
         case .bulleted: return "List/Bulleted"
@@ -152,7 +152,7 @@ extension BlockViewType.List: BlocksViewsToolbarBlocksTypesProtocol {
     }
 }
 
-extension BlockViewType.Objects: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockViewType.Objects: ToolbarInfoProvider {
     var imageName: String {
         switch self {
         case .page: return "Objects/Page"
@@ -175,7 +175,7 @@ extension BlockViewType.Objects: BlocksViewsToolbarBlocksTypesProtocol {
     }
 }
 
-extension BlockViewType.Tool: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockViewType.Tool: ToolbarInfoProvider {
     var imageName: String {
         switch self {
         case .contact: return "Tool/Contact"
@@ -194,7 +194,7 @@ extension BlockViewType.Tool: BlocksViewsToolbarBlocksTypesProtocol {
     }
 }
 
-extension BlockViewType.Other: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockViewType.Other: ToolbarInfoProvider {
     var imageName: String {
         switch self {
         case .lineDivider: return "Other/LineDivider"

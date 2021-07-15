@@ -14,12 +14,6 @@ final class TextBlockContentView: UIView & UIContentView {
         static let selectionViewInsets: UIEdgeInsets = .init(top: 1, left: 8, bottom: -1, right: -8)
     }
 
-    private enum Constants {
-        enum Toggle {
-            static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
-        }
-    }
-
     // MARK: Views
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
@@ -98,7 +92,7 @@ final class TextBlockContentView: UIView & UIContentView {
         )
         button.contentHorizontalAlignment = .leading
         button.isHidden = true
-        button.titleEdgeInsets = Constants.Toggle.titleEdgeInsets
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         button.titleLabel?.lineBreakMode = .byWordWrapping
         return button
     }()
@@ -209,25 +203,25 @@ final class TextBlockContentView: UIView & UIContentView {
 
         switch text.contentType {
         case .title:
-            self.setupForTitle()
+            setupForTitle()
         case .text:
-            self.setupForText()
+            setupForText()
         case .toggle:
             setupForToggle()
         case .bulleted:
-            self.setupForBulleted()
+            setupForBulleted()
         case .checkbox:
-            self.setupForCheckbox(checked: text.checked)
+            setupForCheckbox(checked: text.checked)
         case .numbered:
-            self.setupForNumbered(number: text.number)
+            setupForNumbered(number: text.number)
         case .quote:
-            self.setupForQuote()
+            setupForQuote()
         case .header:
-            self.setupForHeader1()
+            setupForHeader1()
         case .header2:
-            self.setupForHeader2()
+            setupForHeader2()
         case .header3:
-            self.setupForHeader3()
+            setupForHeader3()
         case .header4, .code:
             break
         }
@@ -269,19 +263,19 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForTitle() {
-        self.setupText(placeholer: NSLocalizedString("Title", comment: ""), font: .title)
+        self.setupText(placeholer: "Untitled".localized, font: .title)
     }
     
     private func setupForHeader1() {
-        self.setupText(placeholer: NSLocalizedString("Header 1", comment: ""), font: .heading)
+        self.setupText(placeholer: "Title".localized, font: .heading)
     }
     
     private func setupForHeader2() {
-        self.setupText(placeholer: NSLocalizedString("Header 2", comment: ""), font: .subheading)
+        self.setupText(placeholer: "Heading".localized, font: .subheading)
     }
     
     private func setupForHeader3() {
-        self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .headlineSemibold)
+        self.setupText(placeholer: "Subheading".localized, font: .headlineSemibold)
     }
     
     private func setupText(placeholer: String, font: UIFont) {
