@@ -68,14 +68,26 @@ final class BaseDocument: BaseDocumentProtocol {
 
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
         eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
-            .map { [weak self] updates in
-                if let rootId = self?.documentId,
-                   let container = self?.rootModel,
+            .compactMap { [weak self] updates in
+                guard let self = self else { return nil }
+                
+                if let rootId = self.documentId,
+                   let container = self.rootModel,
                    let rootModel = container.blocksContainer.choose(by: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
-                return BaseDocumentUpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
+                let details: DetailsData? = {
+                    guard let id = self.documentId else { return nil }
+                    
+                    return self.rootModel?.detailsContainer.get(by: id)?.detailsData
+                }()
+                
+                return BaseDocumentUpdateResult(
+                    updates: updates,
+                    details: details,
+                    models: self.models(from: updates) ?? []
+                )
             }.eraseToAnyPublisher()
     }
 
@@ -178,6 +190,8 @@ final class BaseDocument: BaseDocumentProtocol {
         switch updates {
         case .general:
             return getModels()
+        case .details:
+            return []
         case .update:
             return []
         }
