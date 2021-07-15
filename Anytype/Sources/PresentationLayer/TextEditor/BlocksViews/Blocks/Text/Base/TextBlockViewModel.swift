@@ -6,6 +6,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     let isStruct = true
     let block: BlockActiveRecordProtocol
+    private let toggled: Bool
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
     private let mentionsConfigurator: MentionsTextViewConfigurator
@@ -20,7 +21,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     var diffable: AnyHashable {
         [blockId,
          indentationLevel,
-         block.isToggled,
+         toggled,
          block.blockModel.information.content
         ] as [AnyHashable]
     }
@@ -41,6 +42,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.mentionsConfigurator = mentionsConfigurator
         self.actionHandler = actionHandler
         self.router = router
+        toggled = block.isToggled
     }
     
     func set(focus: BlockFocusPosition) {
