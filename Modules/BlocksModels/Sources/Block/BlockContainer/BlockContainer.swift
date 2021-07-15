@@ -51,20 +51,20 @@ extension BlockContainer: BlockContainerModelProtocol {
         self._choose(by: id)
     }
     // MARK: - Operations / Get
-    func get(by id: BlockId) -> BlockModelProtocol? {
+    func model(id: BlockId) -> BlockModelProtocol? {
         self._models[id]
     }
     // MARK: - Operations / Remove
     func remove(_ id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = self.get(by: id)?.parent, let parent = self._get(by: parentId) {
+        if let parentId = model(id: id)?.parent, let parent = self._get(by: parentId) {
             var information = parent.information
             information.childrenIds = information.childrenIds.filter({$0 != id})
             parent.information = information
             //                self.blocks[parentId] = parent
         }
         
-        if let block = self.get(by: id) {
+        if let block = self.model(id: id) {
             self._models.removeValue(forKey: id)
             block.information.childrenIds.forEach(self.remove(_:))
         }
@@ -82,7 +82,7 @@ extension BlockContainer: BlockContainerModelProtocol {
             return
         }
         
-        guard var childModel = self.get(by: childId) else {
+        guard var childModel = self.model(id: childId) else {
             assertionFailure("I can't find child with id: \(childId)")
             return
         }

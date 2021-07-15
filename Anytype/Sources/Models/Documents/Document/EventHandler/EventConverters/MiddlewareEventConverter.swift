@@ -276,7 +276,7 @@ final class MiddlewareEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
-        guard var blockModel = container.blocksContainer.get(by: newData.id) else {
+        guard var blockModel = container.blocksContainer.model(id: newData.id) else {
             assertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }

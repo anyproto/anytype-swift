@@ -30,7 +30,7 @@ final class LocalEventConverter {
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
-            guard var model = container?.blocksContainer.get(by: blockId) else {
+            guard var model = container?.blocksContainer.model(id: blockId) else {
                 assertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
@@ -51,7 +51,7 @@ final class LocalEventConverter {
     private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
         typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
         
-        guard var blockModel = container?.blocksContainer.get(by: blockId) else {
+        guard var blockModel = container?.blocksContainer.model(id: blockId) else {
             assertionFailure("Block model with id \(blockId) not found in container")
             return .general
         }

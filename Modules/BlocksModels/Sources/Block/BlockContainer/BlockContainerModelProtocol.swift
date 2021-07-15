@@ -10,7 +10,7 @@ public protocol BlockContainerModelProtocol: AnyObject {
     // MARK: - Operations / Choose
     func record(id: BlockId) -> BlockActiveRecordProtocol?
     // MARK: - Operations / Get
-    func get(by id: BlockId) -> BlockModelProtocol?
+    func model(id: BlockId) -> BlockModelProtocol?
     // MARK: - Operations / Remove
     func remove(_ id: BlockId)
     // MARK: - Operations / Add

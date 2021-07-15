@@ -81,7 +81,7 @@ public class BlockUpdater {
     ///   - update: update-closure that we would like to apply to an entry.
     /// - Returns: Nothing, heh
     public func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
-        guard let entry = self.container.blocksContainer.get(by: key) else {
+        guard let entry = container.blocksContainer.model(id: key) else {
             assertionFailure("We haven't found an entry by key: \(key)")
             return
         }
