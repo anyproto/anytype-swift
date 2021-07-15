@@ -12,6 +12,8 @@ struct ObjectSettingsView: View {
     
     @EnvironmentObject var viewModel: ObjectSettingsViewModel
     
+    @Binding var isCoverPickerPresented: Bool
+    
     var body: some View {
         VStack(
             alignment: .center,
@@ -29,7 +31,12 @@ struct ObjectSettingsView: View {
         VStack(spacing: 0) {
             ForEach(viewModel.settings, id: \.self) { setting in
                 ObjectSettingRow(setting: setting) {
-                    debugPrint(setting)
+                    switch setting {
+                    case .icon: return
+                    case .cover:
+                        isCoverPickerPresented = true
+                    case .layout: return
+                    }
                 }
             }
         }
@@ -38,8 +45,12 @@ struct ObjectSettingsView: View {
 }
 
 struct ObjectSettingsView_Previews: PreviewProvider {
+    @State static private var isCoverPickerPresented = false
+
     static var previews: some View {
-        ObjectSettingsView()
+        ObjectSettingsView(
+            isCoverPickerPresented: $isCoverPickerPresented
+        )
             .environmentObject(ObjectSettingsViewModel())
     }
 }

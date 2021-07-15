@@ -15,6 +15,7 @@ struct ObjectSettingsContainerView: View {
     var onHide: () -> Void = {}
         
     @State private var mainViewPresented = false
+    @State private var isCoverPickerPresented = false
     
     var body: some View {
         Color.clear
@@ -31,10 +32,21 @@ struct ObjectSettingsContainerView: View {
                         onHide()
                     }
                 }, view: {
-                    ObjectSettingsView().padding(8)
+                    ObjectSettingsView(isCoverPickerPresented: $isCoverPickerPresented).padding(8)
                         .environmentObject(viewModel)
                 }
             )
+            
+            .sheet(
+                isPresented: $isCoverPickerPresented,
+                onDismiss: {
+                    // TODO: is it necessary?
+                    isCoverPickerPresented = false
+                }
+            ) {
+                DocumentCoverPicker()
+            }
+            
             .onAppear {
                 withAnimation(.ripple) {
                     mainViewPresented = true
