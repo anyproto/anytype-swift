@@ -11,34 +11,33 @@ import BlocksModels
 
 struct DocumentLayoutPicker: View {
     
-    @EnvironmentObject private var viewModel: DocumentLayoutPickerViewModel
+    @EnvironmentObject private var viewModel: ObjectLayoutPickerViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator()
+            DragIndicator(bottomPadding: 0)
             AnytypeText("Choose layout type", style: .headlineSemibold)
                 .padding([.top, .bottom], 12)
             layoutList
-            Spacer()
         }
+        .background(Color.background)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     
     private var layoutList: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 0) {
             ForEach(DetailsLayout.allCases, id: \.self) { layout in
                 DocumentLayoutTypeRow(
                     layout: layout,
                     isSelected: layout == viewModel.selectedLayout,
                     onTap: {
-                        viewModel.updateLayout(layout)
+                        viewModel.didSelectLayout(layout)
                     }
                 )
-                .modifier(DividerModifier(spacing: 16))
             }
         }
-        .padding(.top, 16)
-        .padding([.leading, .trailing], 20)
-        
+        .padding([.leading, .trailing, .bottom], 20)
     }
 }
 

@@ -33,6 +33,9 @@ struct DocumentLayoutTypeRow: View {
                 }
             }
         }
+        .padding(.top, 12)
+        .modifier(DividerModifier(spacing: 12))
+            
     }
 }
 
@@ -61,5 +64,6 @@ private extension DetailsLayout {
 struct DocumentLayoutTypeRow_Previews: PreviewProvider {
     static var previews: some View {
         DocumentLayoutTypeRow(layout: .basic, isSelected: true, onTap: {})
+            .background(Color.blue)
     }
 }

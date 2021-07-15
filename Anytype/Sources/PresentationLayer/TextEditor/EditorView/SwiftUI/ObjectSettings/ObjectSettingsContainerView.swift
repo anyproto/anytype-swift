@@ -18,6 +18,7 @@ struct ObjectSettingsContainerView: View {
     
     @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
+    @State private var isLayoutPickerPresented = false
     
     var body: some View {
         Color.clear
@@ -30,13 +31,17 @@ struct ObjectSettingsContainerView: View {
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
                 dismissCallback: {
+                    guard !isLayoutPickerPresented else { return }
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         onHide()
                     }
-                }, view: {
+                },
+                view: {
                     ObjectSettingsView(
                         isCoverPickerPresented: $isCoverPickerPresented,
-                        isIconPickerPresented: $isIconPickerPresented
+                        isIconPickerPresented: $isIconPickerPresented,
+                        isLayoutPickerPresented: $isLayoutPickerPresented
                     )
                         .padding(8)
                         .environmentObject(viewModel)
@@ -70,6 +75,27 @@ struct ObjectSettingsContainerView: View {
                         DocumentProfileIconPicker()
                             .environmentObject(viewModel.iconPickerViewModel)
                     }
+                }
+            }
+            
+            .popup(
+                isPresented: $isLayoutPickerPresented,
+                type: .floater(verticalPadding: 42),
+                closeOnTap: false,
+                closeOnTapOutside: true,
+                backgroundOverlayColor: Color.black.opacity(0.25),
+                dismissCallback: {
+                    isLayoutPickerPresented = false
+                },
+                view: {
+                    DocumentLayoutPicker()
+                        .padding(8)
+                        .environmentObject(viewModel.layoutPickerViewModel)
+                }
+            )
+            .onChange(of: isLayoutPickerPresented) { showLayoutSettings in
+                withAnimation() {
+                    mainViewPresented = !showLayoutSettings
                 }
             }
             
