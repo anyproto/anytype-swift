@@ -15,6 +15,8 @@ struct ObjectSettingsContainerView: View {
     var onHide: () -> Void = {}
         
     @State private var mainViewPresented = false
+    
+    @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
     
     var body: some View {
@@ -32,7 +34,11 @@ struct ObjectSettingsContainerView: View {
                         onHide()
                     }
                 }, view: {
-                    ObjectSettingsView(isCoverPickerPresented: $isCoverPickerPresented).padding(8)
+                    ObjectSettingsView(
+                        isCoverPickerPresented: $isCoverPickerPresented,
+                        isIconPickerPresented: $isIconPickerPresented
+                    )
+                        .padding(8)
                         .environmentObject(viewModel)
                 }
             )
@@ -46,6 +52,25 @@ struct ObjectSettingsContainerView: View {
             ) {
                 DocumentCoverPicker()
                     .environmentObject(viewModel.coverPickerViewModel)
+            }
+            
+            .sheet(
+                isPresented: $isIconPickerPresented,
+                onDismiss: {
+                    // TODO: is it necessary?
+                    isIconPickerPresented = false
+                }
+            ) {
+                Group {
+                    switch viewModel.iconPickerViewModel.detailsLayout {
+                    case .basic:
+                        DocumentBasicIconPicker()
+                            .environmentObject(viewModel.iconPickerViewModel)
+                    case .profile:
+                        DocumentProfileIconPicker()
+                            .environmentObject(viewModel.iconPickerViewModel)
+                    }
+                }
             }
             
             .onAppear {

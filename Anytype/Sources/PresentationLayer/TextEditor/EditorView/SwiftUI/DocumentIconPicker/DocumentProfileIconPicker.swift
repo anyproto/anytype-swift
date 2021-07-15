@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DocumentProfileIconPicker: View {
     
-    @EnvironmentObject private var viewModel: DocumentIconPickerViewModel
+    @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {

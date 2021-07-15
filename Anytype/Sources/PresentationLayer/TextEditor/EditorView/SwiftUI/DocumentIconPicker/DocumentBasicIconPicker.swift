@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DocumentBasicIconPicker: View {
 
-    @EnvironmentObject private var iconViewModel: DocumentIconPickerViewModel
+    @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     @State private var selectedTab: Tab = .emoji
         
@@ -41,7 +41,7 @@ struct DocumentBasicIconPicker: View {
                 .multilineTextAlignment(.center)
         } rightButton: {
             Button {
-                iconViewModel.removeIcon()
+                viewModel.removeIcon()
                 presentationMode.wrappedValue.dismiss()
             } label: {
                 AnytypeText("Remove", style: .headline)
@@ -51,9 +51,9 @@ struct DocumentBasicIconPicker: View {
     }
     
     private var uploadTabView: some View {
-        MediaPickerView(contentType: iconViewModel.mediaPickerContentType) { item in
+        MediaPickerView(contentType: viewModel.mediaPickerContentType) { item in
             item.flatMap {
-                iconViewModel.uploadImage(from: $0)
+                viewModel.uploadImage(from: $0)
             }
             presentationMode.wrappedValue.dismiss()
         }
@@ -102,7 +102,7 @@ struct DocumentBasicIconPicker: View {
     }
     
     private func handleSelectedEmoji(_ emoji: Emoji) {
-        iconViewModel.setEmoji(emoji.unicode)
+        viewModel.setEmoji(emoji.unicode)
         presentationMode.wrappedValue.dismiss()
     }
     
