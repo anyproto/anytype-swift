@@ -40,10 +40,6 @@ extension BlockContainer: BlockContainerModelProtocol {
         }
     }
     
-    // MARK: - Operations / List
-    func list() -> AnyIterator<BlockId> {
-        .init(self._models.keys.makeIterator())
-    }
     func children(of id: BlockId) -> [BlockId] {
         if let value = self._models[id] {
             return value.information.childrenIds
@@ -78,25 +74,6 @@ extension BlockContainer: BlockContainerModelProtocol {
         let blockModel: BlockModel = .init(information: block.information)
         blockModel.parent = block.parent
         self._add(blockModel)
-    }
-    // MARK: - Children / Append
-    func append(childId: BlockId, parentId: BlockId) {
-        guard let child = record(id: childId) else {
-            assertionFailure("I can't find entry with id: \(parentId)")
-            return
-        }
-        guard let parent = record(id: parentId) else {
-            assertionFailure("I can't find entry with id: \(parentId)")
-            return
-        }
-        
-        var childModel = child.blockModel
-        childModel.information.id = parentId
-        
-        var parentModel = parent.blockModel
-        var childrenIds = parentModel.information.childrenIds
-        childrenIds.append(childId)
-        parentModel.information.childrenIds = childrenIds
     }
     // MARK: - Children / Add Before
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {

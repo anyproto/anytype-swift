@@ -6,8 +6,6 @@ public protocol BlockContainerModelProtocol: AnyObject {
     
     var rootId: BlockId? {get set}
     
-    // MARK: - Operations / List
-    func list() -> AnyIterator<BlockId>
     func children(of id: BlockId) -> [BlockId]
     // MARK: - Operations / Choose
     func record(id: BlockId) -> BlockActiveRecordProtocol?
@@ -17,8 +15,6 @@ public protocol BlockContainerModelProtocol: AnyObject {
     func remove(_ id: BlockId)
     // MARK: - Operations / Add
     func add(_ block: BlockModelProtocol)
-    // MARK: - Children / Append
-    func append(childId: BlockId, parentId: BlockId)
     // MARK: - Children / Add Before
     func add(child: BlockId, beforeChild: BlockId)
     // MARK: - Children / Add

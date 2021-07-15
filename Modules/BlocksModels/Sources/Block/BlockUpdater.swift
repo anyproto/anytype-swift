@@ -8,11 +8,6 @@ public class BlockUpdater {
     public init(_ container: RootBlockContainer) {
         self.container = container
     }
-    /// Delete entry from a container
-    /// - Parameter at: at is an associated key to this entry.
-    public func delete(at: BlockId) {
-        self.container.blocksContainer.remove(at)
-    }
 
     /// Insert block at position of an entry that is found by key.
     ///

@@ -34,9 +34,9 @@ final class MiddlewareEventConverter {
             return nil
         
         case let .blockDelete(value):
-            value.blockIds.forEach({ (value) in
-                updater.delete(at: value)
-            })
+            value.blockIds.forEach { blockId in
+                container.blocksContainer.remove(blockId)
+            }
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
