@@ -13,6 +13,10 @@ extension HomeViewModel {
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [PageCellData] = []
+    var nonArchivedFavoritesCellData: [PageCellData] {
+        favoritesCellData.filter { $0.isArchived == false }
+    }
+    
     @Published var archiveCellData: [PageCellData] = []
     @Published var recentCellData: [PageCellData] = []
     @Published var inboxCellData: [PageCellData] = []

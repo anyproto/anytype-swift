@@ -55,7 +55,7 @@ extension UITextView: Mentionable {
         
         let mentionAttachment = MentionAttachment(name: name, pageId: pageId, iconData: mention.iconData)
         let mentionString = NSMutableAttributedString(attachment: mentionAttachment)
-        let font = self.font ?? .bodyFont
+        let font = self.font ?? .body
         mentionString.addAttribute(.font, value: font, range: NSRange(location: 0, length: 1))
         let mentionNameString = NSAttributedString(string: name,
                                                    attributes: [.mention: pageId,

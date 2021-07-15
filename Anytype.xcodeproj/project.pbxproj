@@ -266,6 +266,8 @@
 		3D402BF4268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D402BF3268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D4125ED269ECED6007A6880 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125EC269ECED6007A6880 /* ObjectType.swift */; };
+		3D4125F8269F6548007A6880 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F7269F6548007A6880 /* FontName.swift */; };
+		3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F926A014E1007A6880 /* TextContent+Font.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
 		3D568F892666C12700DC7881 /* ContentObjectAsEmptyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */; };
@@ -525,7 +527,7 @@
 		EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */; };
 		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
 		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
-		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
+		EAC54F6525E9458200B745A8 /* AnytypeUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* AnytypeUIFont.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
 		EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */; };
 		EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */; };
@@ -860,6 +862,8 @@
 		3D402BF3268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift"; path = "AnyType/Sources/PresentationLayer/TextEditor/EditorView/Selection/DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D4125EC269ECED6007A6880 /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjectType.swift; path = Anytype/Sources/ServiceLayer/Search/Models/ObjectType.swift; sourceTree = SOURCE_ROOT; };
+		3D4125F7269F6548007A6880 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FontName.swift; path = "AnyType/Sources/Design system/Fonts/FontName.swift"; sourceTree = SOURCE_ROOT; };
+		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "AnyType/Sources/Design system/Fonts/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
 		3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentObjectAsEmptyPage.swift; path = Anytype/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/ContentObjectAsEmptyPage.swift; sourceTree = SOURCE_ROOT; };
@@ -1114,7 +1118,7 @@
 		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
 		EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenNormalizer.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
-		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
+		EAC54F6425E9458200B745A8 /* AnytypeUIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeUIFont.swift; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
 		EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Convenience.swift"; sourceTree = "<group>"; };
 		EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+ApplicationWindowInsetsProvider.swift"; sourceTree = "<group>"; };
@@ -3215,9 +3219,11 @@
 			isa = PBXGroup;
 			children = (
 				3D929B29263302010063F1BE /* Example */,
-				EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */,
+				EAC54F6425E9458200B745A8 /* AnytypeUIFont.swift */,
 				3D929B2E263307700063F1BE /* AnytypeFont.swift */,
 				3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */,
+				3D4125F7269F6548007A6880 /* FontName.swift */,
+				3D4125F926A014E1007A6880 /* TextContent+Font.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -3731,6 +3737,7 @@
 				120F7D7C267F881700327734 /* BlockBookmarkView.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
+				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */,
@@ -3755,6 +3762,7 @@
 				EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */,
 				3DEFD64D2689FE250072EA27 /* EmojiProvider.swift in Sources */,
 				3D7EA8D2268F636E00C76974 /* BookmarkImageLoader.swift in Sources */,
+				3D4125F8269F6548007A6880 /* FontName.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
@@ -4022,7 +4030,7 @@
 				EA77E528262DAAA6009F91D9 /* BaseAccessoryMenuItemsViewController.swift in Sources */,
 				0A0965F125BEF5B000C004BD /* EditorSelectionHandler.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
-				EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */,
+				EAC54F6525E9458200B745A8 /* AnytypeUIFont.swift in Sources */,
 				12D8FFB5268CC29F008F765B /* DocumentCover.swift in Sources */,
 				3D568F952666C2DA00DC7881 /* ContentLayoutConverter.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
@@ -4398,7 +4406,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 203;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -4428,7 +4436,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 203;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -4558,7 +4566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 203;
+				CURRENT_PROJECT_VERSION = 204;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;

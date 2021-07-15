@@ -170,8 +170,10 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func updateAttachmentLayout() {
-        guard let range = layoutManager?.rangeForAttachment(attachment: self) else { return }
-        layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
+        DispatchQueue.main.async {
+            guard let range = self.layoutManager?.rangeForAttachment(attachment: self) else { return }
+            self.layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
+        }
     }
     
     private func display(_ image: UIImage) {

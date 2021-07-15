@@ -13,7 +13,7 @@ class BaseAccessoryMenuItemsViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .captionFont
+        label.font = .caption
         return label
     }()
     

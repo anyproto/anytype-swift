@@ -62,7 +62,7 @@ final class CodeBlockContentView: UIView & UIContentView {
     private let textStorage: CodeAttributedString = {
         let textStorage = CodeAttributedString()
         textStorage.highlightr.setTheme(to: "github-gist")
-        textStorage.highlightr.theme.boldCodeFont = .codeFont
+        textStorage.highlightr.theme.boldCodeFont = .code
         
         return textStorage
     }()
@@ -89,7 +89,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         let button = ButtonWithImage()
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        button.label.font = UIFont.bodyFont
+        button.label.font = UIFont.body
         button.label.textColor = MiddlewareColor.grey.color(background: false)
         let image = UIImage(named: "TextEditor/Toolbar/turn_into_arrow")
         button.setImage(image)

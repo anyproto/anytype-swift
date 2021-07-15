@@ -16,7 +16,7 @@ final class HomeCellDataBuilder {
         let links: [HomePageLink] = updateResult.models.compactMap(activeRecordToPageLink)
         
         return links
-            .filter { $0.type == .page && $0.isArchived == false }
+            .filter { $0.type == .page }
             .map { buildPageCellData(pageLink: $0) }
     }
     
