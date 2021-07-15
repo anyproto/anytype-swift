@@ -14,10 +14,17 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     @Published private(set) var settings: [ObjectSetting] = ObjectSetting.allCases
     
+    let coverPickerViewModel: ObjectCoverPickerViewModel
+    
     private let objectDetailsService: ObjectDetailsService
     
     init(objectDetailsService: ObjectDetailsService) {
         self.objectDetailsService = objectDetailsService
+        
+        self.coverPickerViewModel = ObjectCoverPickerViewModel(
+            fileService: BlockActionsServiceFile(),
+            detailsService: objectDetailsService
+        )
     }
     
     func update(with details: DetailsData) {

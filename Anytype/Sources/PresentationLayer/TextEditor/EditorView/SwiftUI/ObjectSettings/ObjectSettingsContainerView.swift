@@ -45,6 +45,7 @@ struct ObjectSettingsContainerView: View {
                 }
             ) {
                 DocumentCoverPicker()
+                    .environmentObject(viewModel.coverPickerViewModel)
             }
             
             .onAppear {
