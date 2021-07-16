@@ -8,12 +8,14 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
+    private let mentionsConfigurator: MentionsTextViewConfigurator
 
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate
+        delegate: BlockDelegate,
+        mentionsConfigurator: MentionsTextViewConfigurator
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
@@ -23,6 +25,7 @@ final class BlockViewModelBuilder {
             handler: blockActionHandler,
             router: router
         )
+        self.mentionsConfigurator = mentionsConfigurator
     }
 
     func build(_ blocks: [BlockActiveRecordProtocol]) -> [BlockViewModelProtocol] {
@@ -60,10 +63,16 @@ final class BlockViewModelBuilder {
                         }
                     }
                 )
-            case .toggle:
-                return ToggleBlockViewModel(block, delegate: delegate, actionHandler: blockActionHandler, router: router)
             default:
-                return TextBlockViewModel(block, delegate: delegate, actionHandler: blockActionHandler, router: router)
+                return TextBlockViewModel(
+                    block: block,
+                    contextualMenuHandler: contextualMenuHandler,
+                    blockDelegate: delegate,
+                    actionHandler: blockActionHandler) { [weak self] textView in
+                    self?.mentionsConfigurator.configure(textView: textView)
+                } showStyleMenu: { [weak self] information in
+                    self?.router.showStyleMenu(information: information)
+                }
             }
         case let .file(content):
             switch content.contentType {

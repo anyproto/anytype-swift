@@ -1,46 +1,59 @@
 import Combine
 import UIKit
 import BlocksModels
- 
-class TextBlockViewModel: BaseBlockViewModel {
-    // MARK: - Private variables
 
-    private let serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
-
-    private let service = BlockActionsServiceText()
-    private var subscriptions: Set<AnyCancellable> = []
-    private lazy var mentionsConfigurator = MentionsTextViewConfigurator { [weak self] pageId in
-        guard let self = self else { return }
-        self.router.showPage(with: pageId)
-    }
-
-    // MARK: View state
-    private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
-    private let textUpdateSubject = PassthroughSubject<TextViewUpdate, Never>()
-    private(set) lazy var textUpdatePublisher = textUpdateSubject.eraseToAnyPublisher()
-    private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
-    private let pressingEnterTimeChecker = TimeChecker()
+struct TextBlockViewModel: BlockViewModelProtocol {
     
-    override init(_ block: BlockActiveRecordProtocol, delegate: BlockDelegate?, actionHandler: EditorActionHandlerProtocol, router: EditorRouterProtocol) {
-        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
-
-        setupSubscribers()
-    }
-
-    // MARK: - Subclassing accessors
-
-    override func makeContentConfiguration() -> UIContentConfiguration {
-        return TextBlockContentConfiguration(
-            textViewDelegate: self,
-            viewModel: self,
-            blockActionHandler: actionHandler,
-            mentionsConfigurator: mentionsConfigurator
-        )
-    }
-
-    // MARK: - Contextual Menu
+    let isStruct = true
+    let block: BlockActiveRecordProtocol
+    private let toggled: Bool
+    private let contextualMenuHandler: DefaultContextualMenuHandler
+    private let blockDelegate: BlockDelegate
+    private let configureMentions: (UITextView) -> Void
+    private let showStyleMenu: (BlockInformation) -> Void
+    private let actionHandler: EditorActionHandlerProtocol
+    private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     
-    override func makeContextualMenu() -> ContextualMenu {
+    var indentationLevel: Int {
+        block.indentationLevel
+    }
+    
+    var diffable: AnyHashable {
+        [blockId,
+         indentationLevel,
+         toggled,
+         block.blockModel.information.content
+        ] as [AnyHashable]
+    }
+    
+    var information: BlockInformation {
+        block.blockModel.information
+    }
+    
+    init(block: BlockActiveRecordProtocol,
+         contextualMenuHandler: DefaultContextualMenuHandler,
+         blockDelegate: BlockDelegate,
+         actionHandler: EditorActionHandlerProtocol,
+         configureMentions: @escaping (UITextView) -> Void,
+         showStyleMenu:  @escaping (BlockInformation) -> Void) {
+        self.block = block
+        self.contextualMenuHandler = contextualMenuHandler
+        self.blockDelegate = blockDelegate
+        self.actionHandler = actionHandler
+        self.configureMentions = configureMentions
+        self.showStyleMenu = showStyleMenu
+        toggled = block.isToggled
+    }
+    
+    func set(focus: BlockFocusPosition) {
+        focusSubject.send(focus)
+    }
+    
+    func didSelectRowInTableView() {}
+    
+    func updateView() {}
+    
+    func makeContextualMenu() -> ContextualMenu {
         guard case let .text(text) = block.content else {
             return .init(title: "", children: [])
         }
@@ -67,223 +80,18 @@ class TextBlockViewModel: BaseBlockViewModel {
         
         return .init(title: "", children: actions)
     }
-
-    override func updateView() {
-        guard let update = makeTextViewUpdate() else { return }
-        textUpdateSubject.send(update)
-    }
-}
-
-// MARK: - Methods called by View
-
-extension TextBlockViewModel {
-
-    func makeTextViewUpdate() -> TextViewUpdate? {
-        let block = self.block
-        let information = block.blockModel.information
-
-        switch information.content {
-        case let .text(blockType):
-            let attributedText = blockType.attributedText
-            
-            let alignment = information.alignment.asNSTextAlignment
-            let blockColor = blockType.color?.color(background: false)
-
-            return TextViewUpdate(
-                attributedString: attributedText,
-                auxiliary: Auxiliary(
-                    textAlignment: alignment,
-                    tertiaryColor: blockColor
-                )
-            )
-        default:
-            return nil
-        }
-    }
-}
-
-
-// MARK: - TextViewDelegate
-
-extension TextBlockViewModel: TextViewDelegate {
-    func willBeginEditing() {
-        blockDelegate?.willBeginEditing()
-    }
-
-    func didBeginEditing() {
-        blockDelegate?.didBeginEditing()
+    
+    func handle(action: ContextualMenuAction) {
+        contextualMenuHandler.handle(action: action, info: information)
     }
     
-    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        switch change {
-        case .become:
-            blockDelegate?.becomeFirstResponder(for: block.blockModel)
-        case .resign:
-            blockDelegate?.resignFirstResponder()
-        }
+    func makeContentConfiguration() -> UIContentConfiguration {
+        TextBlockContentConfiguration(
+            blockDelegate: blockDelegate,
+            block: block,
+            actionHandler: actionHandler,
+            configureMentions: configureMentions,
+            showStyleMenu: showStyleMenu,
+            focusPublisher: focusSubject.eraseToAnyPublisher())
     }
-
-    func sizeChanged() {
-        blockDelegate?.blockSizeChanged()
-    }
-    
-    func didChangeText(textView: UITextView) {
-        mentionsConfigurator.configure(textView: textView)
-    }
-}
-
-// MARK: - Setup
-
-private extension TextBlockViewModel {
-
-    func setupSubscribers() {
-        // ToView
-        let alignmentPublisher = block.didChangeInformationPublisher()
-            .map(\.alignment)
-            .map { $0.asNSTextAlignment }
-            .removeDuplicates()
-            .safelyUnwrapOptionals()
-
-        // We need it for Merge requests.
-        // Maybe we should do it differently.
-        // We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
-        // If we listen `changeInformationPublisher()`, we will receive whole data from every change.
-        let modelDidChangeOnMergePublisher = block.didChangePublisher()
-            .receive(on: serialQueue)
-            .map { [weak self] _ -> BlockText? in
-                guard let value = self?.block.blockModel.information else { return nil }
-
-                switch value.content {
-                case let .text(value):
-                    return value
-                default:
-                    return nil
-                }
-            }
-            .safelyUnwrapOptionals()
-
-        Publishers.CombineLatest(modelDidChangeOnMergePublisher, alignmentPublisher)
-            .receiveOnMain()
-            .map { value -> TextViewUpdate in
-                let (text, alignment) = value
-                let blockColor = text.color?.color(background: false)
-                return TextViewUpdate(
-                    attributedString: text.attributedText,
-                    auxiliary: Auxiliary(textAlignment: alignment, tertiaryColor: blockColor)
-                )
-            }
-            .sink { [weak self] in
-                self?.textUpdateSubject.send($0)
-            }.store(in: &self.subscriptions)
-    }
-}
-
-// MARK: - Set Focus
-
-extension TextBlockViewModel {
-    func set(focus: BlockFocusPosition) {
-        self.setFocus.send(focus)
-    }
-}
-
-// MARK: - Actions Payload Legacy
-
-extension TextBlockViewModel {    
-    func onCheckboxTap(selected: Bool) {
-        actionHandler.handleAction(.checkbox(selected: selected), info: block.blockModel.information)
-    }
-    
-    func onToggleTap(toggled: Bool) {
-        actionHandler.handleAction(.toggle, info: block.blockModel.information)
-    }
-    
-}
-
-// MARK: - TextViewUserInteractionProtocol
-
-extension TextBlockViewModel: TextViewUserInteractionProtocol {
-    
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
-        switch action {
-        case .showStyleMenu:
-            router.showStyleMenu(information: block.blockModel.information)
-        case .showMultiActionMenuAction:
-            shouldResignFirstResponder.send()
-            actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: block
-                ),
-                info: block.blockModel.information
-            )
-        case .changeTextForStruct:
-            fallthrough
-        case .changeText:
-            actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: block
-                ),
-                info: block.blockModel.information
-            )
-        case let .keyboardAction(keyAction):
-            switch keyAction {
-            case .enterInsideContent,
-                 .enterAtTheEndOfContent,
-                 .enterOnEmptyContent:
-                // In the case of frequent pressing of enter
-                // we can send multiple split requests to middle
-                // from the same block, it will leads to wrong order of blocks in array,
-                // adding a delay makes impossible to press enter very often
-                if pressingEnterTimeChecker.exceedsTimeInterval() {
-                    actionHandler.handleAction(
-                        .textView(
-                            action: action,
-                            activeRecord: block
-                        ),
-                        info: block.blockModel.information
-                    )
-                }
-                return false
-            default:
-                break
-            }
-            actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: block
-                ),
-                info: block.blockModel.information
-            )
-        case .changeTextStyle, .changeCaretPosition:
-            actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: block
-                ),
-                info: block.blockModel.information
-            )
-        case let .shouldChangeText(range, replacementText, mentionsHolder):
-            return !mentionsHolder.removeMentionIfNeeded(
-                replacementRange: range,
-                replacementText: replacementText
-            )
-        }
-        return true
-    }
-}
-
-// MARK: - Debug
-
-extension TextBlockViewModel: CustomDebugStringConvertible {
-    
-    var debugDescription: String {
-        guard case let .text(text) = information.content else {
-            return "id: \(blockId) text block with wrong content type!!! See BlockInformation"
-        }
-        let address = String(format: "%p", unsafeBitCast(self, to: Int.self))
-
-        return "\(address)\nid: \(blockId)\ntext: \(text.attributedText.string.prefix(20))...\ntype: \(text.contentType)\n"
-    }
-    
 }

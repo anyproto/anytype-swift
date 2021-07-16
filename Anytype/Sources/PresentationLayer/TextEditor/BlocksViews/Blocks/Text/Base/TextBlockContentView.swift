@@ -25,7 +25,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: Configuration
 
-    private var currentConfiguration: TextBlockContentConfiguration
+    private(set) var currentConfiguration: TextBlockContentConfiguration
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
@@ -102,10 +102,10 @@ final class TextBlockContentView: UIView & UIContentView {
         // it's important to clean old attributed string
         textView.textView.attributedText = nil
         textView.textView.delegate = textView
-        textView.delegate = currentConfiguration.textViewDelegate
-        textView.userInteractionDelegate = currentConfiguration.viewModel
+        textView.delegate = self
+        textView.userInteractionDelegate = self
 
-        guard case let .text(text) = self.currentConfiguration.information.content else { return }
+        guard case let .text(text) = self.currentConfiguration.block.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
         // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         createEmptyBlockButton.isHidden = true
@@ -136,23 +136,18 @@ final class TextBlockContentView: UIView & UIContentView {
             break
         }
 
-        currentConfiguration.viewModel?.setFocus.sink { [weak self] focus in
+        currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }.store(in: &subscriptions)
 
-        currentConfiguration.viewModel?.shouldResignFirstResponder.sink { [weak self] _ in
-            self?.textView.shouldResignFirstResponder()
-        }.store(in: &subscriptions)
-
-        currentConfiguration.viewModel?.textUpdatePublisher.sink { [weak self] textUpdate in
-            guard let self = self else { return }
-            let cursorPosition = self.textView.textView.selectedRange
-            self.textView.apply(update: textUpdate)
-            self.textView.textView.selectedRange = cursorPosition
-        }.store(in: &subscriptions)
-        
-        let update = currentConfiguration.viewModel?.makeTextViewUpdate()
-        textView.textView.attributedText = update?.attributedString
+        let cursorPosition = textView.textView.selectedRange
+        let string = NSMutableAttributedString(attributedString: text.attributedText)
+        if string != textView.textView.textStorage {
+            textView.textView.textStorage.setAttributedString(string)
+        }
+        textView.textView.tertiaryColor = text.color?.color(background: false)
+        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
+        textView.textView.selectedRange = cursorPosition
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
 
@@ -165,7 +160,7 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
-        currentConfiguration.mentionsConfigurator.configure(textView: textView.textView)
+        currentConfiguration.configureMentions(textView.textView)
     }
     
     private func setupForText() {
@@ -202,7 +197,11 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForCheckbox(checked: Bool) {
         let leftView = TextBlockIconView(viewType: .checkbox(isSelected: checked)) { [weak self] in
-            self?.currentConfiguration.viewModel?.onCheckboxTap(selected: !checked)
+            guard let self = self else { return }
+            self.currentConfiguration.actionHandler.handleAction(
+                .checkbox(selected: !checked),
+                info: self.currentConfiguration.information
+            )
         }
         replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Checkbox".localized, font: .body)
@@ -228,12 +227,14 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForToggle() {
-        guard let blockViewModel = currentConfiguration.viewModel else { return }
-
-        let leftView = TextBlockIconView(viewType: .toggle(toggled: blockViewModel.block.isToggled)) {
-            blockViewModel.block.toggle()
-            let toggled = blockViewModel.block.isToggled
-            blockViewModel.onToggleTap(toggled: toggled)
+        let leftView = TextBlockIconView(
+            viewType: .toggle(toggled: currentConfiguration.block.isToggled)) { [weak self] in
+            guard let self = self else { return }
+            self.currentConfiguration.block.toggle()
+            self.currentConfiguration.actionHandler.handleAction(
+                .toggle,
+                info: self.currentConfiguration.information
+            )
         }
         replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Toggle block".localized, font: .body)
@@ -247,7 +248,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func buildTextView() -> CustomTextView {
         let actionsHandler = SlashMenuActionsHandlerImp(
-            blockActionHandler: currentConfiguration.blockActionHandler
+            blockActionHandler: currentConfiguration.actionHandler
         )
         
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
@@ -259,18 +260,16 @@ final class TextBlockContentView: UIView & UIContentView {
                   let mentionSymbolPosition = self.textView.inputSwitcher.accessoryViewTriggerSymbolPosition,
                   let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
                                                                                 offset: -1),
-                  let caretPosition = self.textView.textView.caretPosition(),
-                  let viewModel = self.currentConfiguration.viewModel else { return }
+                  let caretPosition = self.textView.textView.caretPosition() else { return }
 
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
-            self.currentConfiguration.setupMentionsInteraction(self.textView)
-
-            viewModel.actionHandler.handleAction(
+            self.currentConfiguration.configureMentions(self.textView.textView)
+            self.currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView.attributedText),
-                    activeRecord: viewModel.block
+                    activeRecord: self.currentConfiguration.block
                 ),
-                info: viewModel.block.blockModel.information
+                info: self.currentConfiguration.information
             )
         }
         
@@ -293,12 +292,11 @@ final class TextBlockContentView: UIView & UIContentView {
         let button = UIButton(
             primaryAction: .init(
                 handler: { [weak self] _ in
-                    guard let self = self, let block = self.currentConfiguration.viewModel?.block else {
-                        return
-                    }
-                    self.currentConfiguration.viewModel?.actionHandler.handleAction(
-                        .createEmptyBlock(parentId: block.blockModel.information.id),
-                        info: block.blockModel.information
+                    guard let self = self else { return }
+                    self.currentConfiguration.actionHandler.handleAction(
+                        .createEmptyBlock(
+                            parentId: self.currentConfiguration.information.id),
+                        info: self.currentConfiguration.information
                     )
                 }
             )

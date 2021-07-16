@@ -428,10 +428,8 @@
 		53A4633726287B970097C25E /* ImageExetension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A4633626287B970097C25E /* ImageExetension.swift */; };
 		53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
-		53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */; };
 		53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */; };
 		53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE43265E4D9700C47263 /* EditorRouter.swift */; };
-		53E9B8492683704500FBFEA1 /* ToggleBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E9B8462683704500FBFEA1 /* ToggleBlockViewModel.swift */; };
 		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
 		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
 		53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7B2637638800968B8E /* StyleColorContentView.swift */; };
@@ -469,7 +467,6 @@
 		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
-		EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
 		EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */; };
 		EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC462261C9AAB002E961E /* FileLoader.swift */; };
@@ -545,6 +542,10 @@
 		EAE8C66C2690EE2800324B46 /* FirstResponderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C66B2690EE2800324B46 /* FirstResponderHelper.swift */; };
 		EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C6A5269304B600324B46 /* URLInputView.swift */; };
 		EAE8C6A926930F8900324B46 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE8C6A826930F8900324B46 /* URLInputViewController.swift */; };
+		EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED57A5269F346D00374A46 /* TextBlockViewModel.swift */; };
+		EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED57A9269F375B00374A46 /* TextBlockContentConfiguration.swift */; };
+		EAED57CC26A1A2E100374A46 /* TextBlockContentView+TextViewUserInteractionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED57CB26A1A2E100374A46 /* TextBlockContentView+TextViewUserInteractionProtocol.swift */; };
+		EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
 		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
 /* End PBXBuildFile section */
@@ -1009,10 +1010,8 @@
 		53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
-		53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockViewModel.swift; sourceTree = "<group>"; };
 		53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockCellView.swift; sourceTree = "<group>"; };
 		53D6EE43265E4D9700C47263 /* EditorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouter.swift; sourceTree = "<group>"; };
-		53E9B8462683704500FBFEA1 /* ToggleBlockViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleBlockViewModel.swift; sourceTree = "<group>"; };
 		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
 		53EA4A772637637200968B8E /* StyleColorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellView.swift; sourceTree = "<group>"; };
 		53EA4A7B2637638800968B8E /* StyleColorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorContentView.swift; sourceTree = "<group>"; };
@@ -1050,7 +1049,6 @@
 		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
-		EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
 		EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		EA4AC462261C9AAB002E961E /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
@@ -1126,6 +1124,10 @@
 		EAE8C66B2690EE2800324B46 /* FirstResponderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderHelper.swift; sourceTree = "<group>"; };
 		EAE8C6A5269304B600324B46 /* URLInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputView.swift; sourceTree = "<group>"; };
 		EAE8C6A826930F8900324B46 /* URLInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
+		EAED57A5269F346D00374A46 /* TextBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockViewModel.swift; sourceTree = "<group>"; };
+		EAED57A9269F375B00374A46 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
+		EAED57CB26A1A2E100374A46 /* TextBlockContentView+TextViewUserInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockContentView+TextViewUserInteractionProtocol.swift"; sourceTree = "<group>"; };
+		EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockContentView+TextViewDelegate.swift"; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3340,7 +3342,6 @@
 		EA6B08FD26663A9500038B4E /* Toggle */ = {
 			isa = PBXGroup;
 			children = (
-				53E9B8462683704500FBFEA1 /* ToggleBlockViewModel.swift */,
 			);
 			path = Toggle;
 			sourceTree = "<group>";
@@ -3357,11 +3358,13 @@
 			isa = PBXGroup;
 			children = (
 				530470F42682044000C9EE78 /* LeftViews */,
-				EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */,
 				EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */,
-				53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */,
 				5397BB842684D15300154791 /* TopUIKitView.swift */,
 				5397BB852684D15500154791 /* TopWithChildUIKitView.swift */,
+				EAED57A5269F346D00374A46 /* TextBlockViewModel.swift */,
+				EAED57A9269F375B00374A46 /* TextBlockContentConfiguration.swift */,
+				EAED57CB26A1A2E100374A46 /* TextBlockContentView+TextViewUserInteractionProtocol.swift */,
+				EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3699,6 +3702,7 @@
 				3D7EA8D2268F636E00C76974 /* BookmarkImageLoader.swift in Sources */,
 				3D4125F8269F6548007A6880 /* FontName.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
+				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */,
@@ -3723,8 +3727,8 @@
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
+				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
 				3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */,
-				53E9B8492683704500FBFEA1 /* ToggleBlockViewModel.swift in Sources */,
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
@@ -3881,7 +3885,6 @@
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
-				EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */,
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				1236985C268F450F005B638A /* PlaceholderImageTextGuideline.swift in Sources */,
 				EAC6BB4E262886DA004C8C06 /* InputSwitcherTriplet.swift in Sources */,
@@ -3905,6 +3908,7 @@
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
+				EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
@@ -3942,7 +3946,6 @@
 				3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */,
 				120F7D7E267F88FF00327734 /* BookmarkResourceConverter.swift in Sources */,
-				53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */,
 				3DB27C04261B0E9C005E523C /* KeyedEncodingContainer.swift in Sources */,
 				3DB6E249268B65BD00C303E5 /* DefaultContextualMenuHandler.swift in Sources */,
 				12D8FFB7268CCA06008F765B /* DocumentDetailsViewModel.swift in Sources */,
@@ -4090,6 +4093,7 @@
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
+				EAED57CC26A1A2E100374A46 /* TextBlockContentView+TextViewUserInteractionProtocol.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
 				1219F971269350A5009DE4D4 /* DocumentIconType.swift in Sources */,
 				03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */,
