@@ -54,8 +54,8 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             children: [
                 .init(action: .addBlockBelow),
                 .init(action: .turnIntoPage),
-                .init(action: .delete),
-                .init(action: .duplicate)
+                .init(action: .duplicate),
+                .init(action: .delete)
             ]
         )
     }

@@ -32,8 +32,8 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
     func makeContextualMenu() -> ContextualMenu {
         .init(title: "", children: [
             .init(action: .addBlockBelow),
-            .init(action: .delete),
-            .init(action: .duplicate)
+            .init(action: .duplicate),
+            .init(action: .delete)
         ])
     }
     
