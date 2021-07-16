@@ -26,17 +26,18 @@ struct HomeTabsView: View {
     
     private var tabHeaders: some View {
         HStack(){
-            tabButton(text: "Favorites", tag: 1)
-            tabButton(text: "Recent", tag: 2)
-            tabButton(text: "Inbox", tag: 3)
-            tabButton(text: "Archive", tag: 4)
+            tabButton(text: "Favorites", tag: 1) // updates via subscriptions
+            tabButton(text: "Recent", tag: 2) { model.updateRecentTab() }
+            tabButton(text: "Inbox", tag: 3) { model.updateInboxTab() }
+            tabButton(text: "Archive", tag: 4) { model.updateArchiveTab() }
         }
         .padding([.leading, .top, .trailing])
     }
     
-    private func tabButton(text: String, tag: Int) -> some View {
+    private func tabButton(text: String, tag: Int, action: (() -> ())? = nil) -> some View {
         Button(
             action: {
+                action?()
                 withAnimation(.spring()) {
                     tabSelection = tag
                 }
