@@ -40,14 +40,24 @@ final class HomeViewModel: ObservableObject {
     }
     
     func updateSearchTabs() {
+        updateArchiveTab()
+        updateArchiveTab()
+        updateInboxTab()
+    }
+    
+    func updateArchiveTab() {
         searchService.searchArchivedPages { [weak self] searchResults in
             guard let self = self else { return }
             self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)
         }
+    }
+    func updateRecentTab() {
         searchService.searchRecentPages { [weak self] searchResults in
             guard let self = self else { return }
             self.recentCellData = self.cellDataBuilder.buldCellData(searchResults)
         }
+    }
+    func updateInboxTab() {
         searchService.searchInboxPages { [weak self] searchResults in
             guard let self = self else { return }
             self.inboxCellData = self.cellDataBuilder.buldCellData(searchResults)
@@ -72,8 +82,10 @@ final class HomeViewModel: ObservableObject {
         switch updateResult.updates {
         case .general:
             favoritesCellData = cellDataBuilder.buldFavoritesData(updateResult)
-        case .update(let payload):
-            payload.updatedIds.forEach { updateCellWithTargetId($0) }
+        case .update(let blockIds):
+            blockIds.forEach { updateCellWithTargetId($0) }
+        case .details(let details):
+            updateCellWithTargetId(details.parentId)
         }
     }
     
@@ -104,7 +116,7 @@ extension HomeViewModel {
                 }
 
                 self.document.handle(
-                    events: PackOfEvents(contextId: success.contextID, events: success.messages)
+                    events: PackOfEvents(middlewareEvents: success.messages)
                 )
 
                 guard let newBlockId = success.newBlockId else {

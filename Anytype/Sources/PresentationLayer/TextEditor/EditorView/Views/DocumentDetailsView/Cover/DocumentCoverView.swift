@@ -8,7 +8,7 @@ final class DocumentCoverView: UIView {
     private let activityIndicatorView = ActivityIndicatorView()
 
     private let imageView = UIImageView()
-    private lazy var imageLoader = ImageLoader().configured(imageView)
+    private lazy var imageLoader = ImageLoader(imageView: imageView)
     
     // MARK: - Variables
     

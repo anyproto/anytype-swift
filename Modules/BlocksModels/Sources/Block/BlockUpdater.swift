@@ -8,11 +8,6 @@ public class BlockUpdater {
     public init(_ container: RootBlockContainer) {
         self.container = container
     }
-    /// Delete entry from a container
-    /// - Parameter at: at is an associated key to this entry.
-    public func delete(at: BlockId) {
-        self.container.blocksContainer.remove(at)
-    }
 
     /// Insert block at position of an entry that is found by key.
     ///
@@ -86,7 +81,7 @@ public class BlockUpdater {
     ///   - update: update-closure that we would like to apply to an entry.
     /// - Returns: Nothing, heh
     public func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
-        guard let entry = self.container.blocksContainer.get(by: key) else {
+        guard let entry = container.blocksContainer.model(id: key) else {
             assertionFailure("We haven't found an entry by key: \(key)")
             return
         }

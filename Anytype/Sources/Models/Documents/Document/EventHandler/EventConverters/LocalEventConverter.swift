@@ -15,7 +15,7 @@ final class LocalEventConverter {
             setFocus(blockId: blockId, position: position)
             return nil
         case let .setTextMerge(blockId):
-            guard let model = self.container?.blocksContainer.choose(by: blockId) else {
+            guard let model = container?.blocksContainer.record(id: blockId) else {
                 assertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
@@ -29,6 +29,19 @@ final class LocalEventConverter {
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
+        case .setLoadingState(blockId: let blockId):
+            guard var model = container?.blocksContainer.model(id: blockId) else {
+                assertionFailure("setLoadingState. Can't find model by id \(blockId)")
+                return nil
+            }
+            guard case var .file(content) = model.information.content else {
+                assertionFailure("Not file content of block \(blockId) for setLoading action")
+                return nil
+            }
+            
+            content.state = .uploading
+            model.information.content = .file(content)
+            return .update(blockIds: [blockId])
         }
     }
     
@@ -38,7 +51,7 @@ final class LocalEventConverter {
     private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
         typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
         
-        guard var blockModel = container?.blocksContainer.get(by: blockId) else {
+        guard var blockModel = container?.blocksContainer.model(id: blockId) else {
             assertionFailure("Block model with id \(blockId) not found in container")
             return .general
         }
@@ -66,11 +79,11 @@ final class LocalEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(.init(updatedIds: [blockId]))
+        return .update(blockIds: [blockId])
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        guard var model = container?.blocksContainer.choose(by: blockId) else {
+        guard var model = container?.blocksContainer.record(id: blockId) else {
             assertionFailure("setFocus. We can't find model by id \(blockId)")
             return
         }

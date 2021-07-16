@@ -88,8 +88,8 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
             title: "",
             children: [
                 .init(action: .addBlockBelow),
-                .init(action: .delete),
-                .init(action: .duplicate)
+                .init(action: .duplicate),
+                .init(action: .delete)
             ]
         )
     }

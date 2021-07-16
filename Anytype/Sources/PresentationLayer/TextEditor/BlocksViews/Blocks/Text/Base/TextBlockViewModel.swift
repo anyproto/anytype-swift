@@ -68,9 +68,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             result.append(
                 contentsOf: [
                     .init(action: .turnIntoPage),
-                    .init(action: .delete),
                     .init(action: .duplicate),
-                    .init(action: .style)
+                    .init(action: .style),
+                    .init(action: .delete)
                 ]
             )
             

@@ -56,7 +56,7 @@ final class TextBlockActionHandler {
             case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                 let id = block.blockId
                 let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
-                let block = block.container?.choose(by: blockId)
+                let block = block.container?.record(id: blockId)
                 let parentId = block?.blockId
                 let information = BlockBuilder.createDefaultInformation()
 
@@ -206,12 +206,15 @@ final class TextBlockActionHandler {
                     assertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.blockId)"
                     )
-                    return .init(contextId: value.contextID, events: value.messages, localEvents: [])
+                    return .init(middlewareEvents: value.messages, localEvents: [])
                 }
                 let previousBlockId = previousModel.blockId
-                return .init(contextId: value.contextID, events: value.messages, localEvents: [
-                    .setFocus(blockId: previousBlockId, position: .end)
-                ])
+                return .init(
+                    middlewareEvents: value.messages,
+                    localEvents: [
+                        .setFocus(blockId: previousBlockId, position: .end)
+                    ]
+                )
             }
         }
     }

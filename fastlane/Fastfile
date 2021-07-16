@@ -74,8 +74,11 @@ platform :ios do
     match(readonly: true)
   end
 
+  lane :install_appstore_profiles do
+    match(readonly: true)
+  end
+
   lane :generate_dev_profiles do
-    app_store_connect_api_key(in_house: false)
     match(force_for_new_devices: true)
   end
 

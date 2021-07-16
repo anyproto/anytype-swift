@@ -21,7 +21,7 @@ final class MiddlewareEventConverter {
                 block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
                 block.didChange()
             }
-            return .update(.init(updatedIds: [fields.id]))
+            return .update(blockIds: [fields.id])
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockInformationConverter.convert(block:))
@@ -34,9 +34,9 @@ final class MiddlewareEventConverter {
             return nil
         
         case let .blockDelete(value):
-            value.blockIds.forEach({ (value) in
-                updater.delete(at: value)
-            })
+            value.blockIds.forEach { blockId in
+                container.blocksContainer.remove(blockId)
+            }
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
@@ -53,7 +53,7 @@ final class MiddlewareEventConverter {
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
             })
-            return .update(.init(updatedIds: [updateData.id]))
+            return .update(blockIds: [updateData.id])
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -67,7 +67,7 @@ final class MiddlewareEventConverter {
                 var value = value
                 value.information.alignment = modelAlignment
             })
-            return .update(.init(updatedIds: [blockId]))
+            return .update(blockIds: [blockId])
         
         case let .objectDetailsAmend(amend):
             let updatedDetails = BlocksModelsDetailsConverter.asModel(
@@ -91,13 +91,14 @@ final class MiddlewareEventConverter {
                 currentDetails[key] = value
             }
         
-            // will trigger Publisher
-            detailsModel.detailsData = DetailsData(
+            let newDetails = DetailsData(
                 details: currentDetails,
                 parentId: currentDetailsData.parentId
             )
+            // will trigger Publisher
+            detailsModel.detailsData = newDetails
             
-            return .update(EventHandlerUpdatePayload(updatedIds: [id]))
+            return .details(newDetails)
             
         case .objectDetailsUnset:
             assertionFailure("Not implemented")
@@ -128,6 +129,8 @@ final class MiddlewareEventConverter {
                 )
                 
                 model.detailsData = resultDetails
+                
+                return .details(resultDetails)
             }
             else {
                 let detailsData = DetailsData(
@@ -141,17 +144,10 @@ final class MiddlewareEventConverter {
                     model: newDetailsModel,
                     by: detailsId
                 )
+                
+                return .details(detailsData)
             }
-            /// Please, do not delete.
-            /// We should discuss how we handle new details.
-//            guard let detailsModel = self.container?.detailsContainer.choose(by: detailsId) else {
-//                /// We don't have view model, we should create it?
-//                /// We should insert empty details.
-//                let logger = Logging.createLogger(category: .eventProcessor)
-//                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
-//                return .general
-//            }
-            return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
+
         case let .blockSetFile(newData):
             guard newData.hasState else {
                 return .general
@@ -196,7 +192,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(.init(updatedIds: [newData.id]))
+            return .update(blockIds: [newData.id])
         case let .blockSetBookmark(value):
             
             let blockId = value.id
@@ -239,7 +235,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(.init(updatedIds: [blockId]))
+            return .update(blockIds: [blockId])
             
         case let .blockSetDiv(value):
             guard value.hasStyle else {
@@ -264,7 +260,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(EventHandlerUpdatePayload(updatedIds: Set([value.id])))
+            return .update(blockIds: [value.id])
         
         /// Special case.
         /// After we open document, we would like to receive all blocks of opened page.
@@ -276,7 +272,7 @@ final class MiddlewareEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
-        guard var blockModel = container.blocksContainer.get(by: newData.id) else {
+        guard var blockModel = container.blocksContainer.model(id: newData.id) else {
             assertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }
@@ -313,7 +309,7 @@ final class MiddlewareEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(.init(updatedIds: [newData.id]))
+        return .update(blockIds: [newData.id])
     }
     
     private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {

@@ -9,41 +9,20 @@ protocol EventHandlerProtocol: AnyObject {
 }
 
 class EventHandler: EventHandlerProtocol {
+    lazy var didProcessEventsPublisher = didProcessEventsSubject.eraseToAnyPublisher()
+    
     private lazy var eventPublisher = NotificationEventListener(handler: self)
-    private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
-    let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
+    private let didProcessEventsSubject = PassthroughSubject<EventHandlerUpdate, Never>()
     
     private weak var container: RootBlockContainer?
     
     private var innerConverter: MiddlewareEventConverter?
     private var ourConverter: LocalEventConverter?
     
-    let pageEventConverter = PageEventConverter()
-    
-    init() {
-        self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
-    }
-                                    
-    private func finalize(_ updates: [EventHandlerUpdate]) {
-        let update = updates.reduce(EventHandlerUpdate.update(EventHandlerUpdatePayload())) { result, update in
-            .merged(lhs: result, rhs: update)
-        }
-        
-        guard let container = self.container else {
-            assertionFailure("Container is nil in event handler. Something went wrong.")
-            return
-        }
-
-        if update.hasUpdate {
-            BlockContainerBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
-        }
-
-        // Notify about updates if needed.
-        self.didProcessEventsSubject.send(update)
-    }
+    private let pageEventConverter = PageEventConverter()
     
     func handle(events: PackOfEvents) {
-        let innerUpdates = events.events.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
+        let innerUpdates = events.middlewareEvents.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
         let ourUpdates = events.localEvents.compactMap { ourConverter?.convert($0) ?? nil }
         finalize(innerUpdates + ourUpdates)
     }
@@ -62,9 +41,27 @@ class EventHandler: EventHandlerProtocol {
     }
     
     func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
-        events.events.compactMap(\.value).compactMap(
+        events.middlewareEvents.compactMap(\.value).compactMap(
             self.handleBlockShow(event:)
         )
+    }
+    
+    private func finalize(_ updates: [EventHandlerUpdate]) {
+        let update = updates.reduce(EventHandlerUpdate.update(blockIds: [])) { result, update in
+            .merged(lhs: result, rhs: update)
+        }
+        
+        guard let container = self.container else {
+            assertionFailure("Container is nil in event handler. Something went wrong.")
+            return
+        }
+
+        if update.hasUpdate {
+            BlockContainerBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
+        }
+
+        // Notify about updates if needed.
+        self.didProcessEventsSubject.send(update)
     }
     
     private func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> PageEvent {

@@ -64,11 +64,7 @@ extension DetailsActiveModel {
         .handleEvents(
             receiveOutput: { [weak self] (value) in
                 self?.eventSubject.send(
-                    .init(
-                        contextId: value.contextID,
-                        events: value.messages,
-                        localEvents: []
-                    )
+                    PackOfEvents(middlewareEvents: value.messages)
                 )
             }
         )
