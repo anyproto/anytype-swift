@@ -1,33 +1,40 @@
-import Combine
-import UIKit
-import BlocksModels
+//
+//  ObjectCoverPickerViewModel.swift
+//  Anytype
+//
+//  Created by Konstantin Mordan on 15.07.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
 
-final class DocumentCoverPickerViewModel: ObservableObject {
+import Foundation
+import BlocksModels
+import Combine
+
+final class ObjectCoverPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
     // MARK: - Private variables
     
     private let fileService: BlockActionsServiceFile
-    private let detailsActiveModel: DetailsActiveModel
+    private let detailsService: ObjectDetailsService
     
     private var uploadImageSubscription: AnyCancellable?
-    private var updateDetailsSubscription: AnyCancellable?
     
     // MARK: - Initializer
     
-    init(fileService: BlockActionsServiceFile, detailsActiveModel: DetailsActiveModel) {
+    init(fileService: BlockActionsServiceFile, detailsService: ObjectDetailsService) {
         self.fileService = fileService
-        self.detailsActiveModel = detailsActiveModel
+        self.detailsService = detailsService
     }
     
 }
 
-extension DocumentCoverPickerViewModel {
+extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
-        updateDetails(
-            [
+        detailsService.update(
+            details: [
                 .coverType: DetailsEntry(value: CoverType.color),
                 .coverId: DetailsEntry(value: colorName)
             ]
@@ -35,8 +42,8 @@ extension DocumentCoverPickerViewModel {
     }
     
     func setGradient(_ gradientName: String) {
-        updateDetails(
-            [
+        detailsService.update(
+            details: [
                 .coverType: DetailsEntry(value: CoverType.gradient),
                 .coverId: DetailsEntry(value: gradientName)
             ]
@@ -44,17 +51,21 @@ extension DocumentCoverPickerViewModel {
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        let supportedTypeIdentifiers = mediaPickerContentType.supportedTypeIdentifiers
-        
         let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
-            supportedTypeIdentifiers.contains($0)
+            mediaPickerContentType.supportedTypeIdentifiers.contains($0)
         }
         
-        guard let identifier = typeIdentifier  else { return }
+        guard let identifier = typeIdentifier else { return }
+        
+        NotificationCenter.default.post(
+            name: .documentCoverImageUploadingEvent,
+            object: ""
+        )
         
         itemProvider.loadFileRepresentation(
             forTypeIdentifier: identifier
         ) { [weak self] url, error in
+            // TODO: handle errr?
             url.flatMap {
                 self?.uploadImage(at: $0)
             }
@@ -62,8 +73,8 @@ extension DocumentCoverPickerViewModel {
     }
     
     func removeCover() {
-        updateDetails(
-            [
+        detailsService.update(
+            details: [
                 .coverType: DetailsEntry(value: CoverType.none),
                 .coverId: DetailsEntry(value: "")
             ]
@@ -72,7 +83,7 @@ extension DocumentCoverPickerViewModel {
     
 }
 
-private extension DocumentCoverPickerViewModel {
+private extension ObjectCoverPickerViewModel {
     
     func uploadImage(at url: URL) {
         let localPath = url.relativePath
@@ -89,19 +100,12 @@ private extension DocumentCoverPickerViewModel {
             disableEncryption: false
         )
         .sinkWithDefaultCompletion("Cover upload image") { [weak self] uploadedImageHash in
-            self?.updateDetails(
-                [
+            self?.detailsService.update(
+                details: [
                     .coverType: DetailsEntry(value: CoverType.uploadedImage),
                     .coverId: DetailsEntry(value: uploadedImageHash)
                 ]
             )
         }
-    }
-    
-    func updateDetails(_ details: [DetailsKind: DetailsEntry<AnyHashable>]) {
-        updateDetailsSubscription = detailsActiveModel.update(
-            details: details
-        )?
-        .sinkWithDefaultCompletion("Cover update details") { _ in }
     }
 }

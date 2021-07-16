@@ -24,7 +24,13 @@ final class EditorAssembly {
     ) -> DocumentEditorViewModel {
         let document: BaseDocumentProtocol = BaseDocument()
         
-        let settingsModel = DocumentSettingsViewModel(activeModel: document.defaultDetailsActiveModel)
+        let objectSettinsViewModel = ObjectSettingsViewModel(
+            objectDetailsService: ObjectDetailsService(
+                eventHandler: document.eventHandler,
+                objectId: blockId
+            )
+        )
+        
         let detailsViewModel = DocumentDetailsViewModel {
             viewInput.updateHeader()
         }
@@ -63,7 +69,7 @@ final class EditorAssembly {
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
-            settingsViewModel: settingsModel,
+            objectSettinsViewModel: objectSettinsViewModel,
             detailsViewModel: detailsViewModel,
             selectionHandler: selectionHandler,
             router: router,

@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct DocumentCoverPicker: View {
+struct ObjectCoverPicker: View {
     
-    @EnvironmentObject private var viewModel: DocumentCoverPickerViewModel
+    @EnvironmentObject private var viewModel: ObjectCoverPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     
     @State private var selectedTab: Tab = .gallery
@@ -98,7 +98,7 @@ struct DocumentCoverPicker: View {
 
 // MARK: - Private extension
 
-private extension DocumentCoverPicker {
+private extension ObjectCoverPicker {
     
     enum Tab: CaseIterable {
         case gallery
@@ -116,6 +116,6 @@ private extension DocumentCoverPicker {
 
 struct DocumentCoverPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentCoverPicker()
+        ObjectCoverPicker()
     }
 }

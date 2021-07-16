@@ -84,6 +84,8 @@ final class HomeViewModel: ObservableObject {
             favoritesCellData = cellDataBuilder.buldFavoritesData(updateResult)
         case .update(let blockIds):
             blockIds.forEach { updateCellWithTargetId($0) }
+        case .details(let details):
+            updateCellWithTargetId(details.parentId)
         }
     }
     

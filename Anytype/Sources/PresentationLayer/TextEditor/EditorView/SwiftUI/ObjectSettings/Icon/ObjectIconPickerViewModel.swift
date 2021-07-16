@@ -2,33 +2,32 @@ import Combine
 import UIKit
 import BlocksModels
 
-final class DocumentIconPickerViewModel: ObservableObject {
+final class ObjectIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
-    private(set) var detailsLayout: DetailsLayout = .basic
-    private(set) var isRemoveEnabled = true
-    
+    @Published private(set) var detailsLayout: DetailsLayout = .basic
+    @Published private(set) var isRemoveEnabled = true
+
     // MARK: - Private variables
     
     private let fileService: BlockActionsServiceFile
-    private let detailsActiveModel: DetailsActiveModel
+    private let detailsService: ObjectDetailsService
     
     private var uploadImageSubscription: AnyCancellable?
-    private var updateDetailsSubscription: AnyCancellable?
     
     // MARK: - Initializer
     
-    init(fileService: BlockActionsServiceFile, detailsActiveModel: DetailsActiveModel) {
+    init(fileService: BlockActionsServiceFile, detailsService: ObjectDetailsService) {
         self.fileService = fileService
-        self.detailsActiveModel = detailsActiveModel
+        self.detailsService = detailsService
     }
     
 }
 
-extension DocumentIconPickerViewModel {
+extension ObjectIconPickerViewModel {
     
-    func configure(with details: DetailsData) {
+    func update(with details: DetailsData) {
         detailsLayout = details.layout ?? .basic
      
         isRemoveEnabled = {
@@ -42,8 +41,8 @@ extension DocumentIconPickerViewModel {
     }
     
     func setEmoji(_ emojiUnicode: String) {
-        updateDetails(
-            [
+        detailsService.update(
+            details: [
                 .iconEmoji: DetailsEntry(value: emojiUnicode),
                 .iconImage: DetailsEntry(value: "")
             ]
@@ -69,8 +68,8 @@ extension DocumentIconPickerViewModel {
     }
     
     func removeIcon() {
-        updateDetails(
-            [
+        detailsService.update(
+            details: [
                 .iconEmoji: DetailsEntry(value: ""),
                 .iconImage: DetailsEntry(value: "")
             ]
@@ -79,7 +78,7 @@ extension DocumentIconPickerViewModel {
     
 }
 
-private extension DocumentIconPickerViewModel {
+private extension ObjectIconPickerViewModel {
     
     func uploadImage(at url: URL) {
         let localPath = url.relativePath
@@ -96,20 +95,13 @@ private extension DocumentIconPickerViewModel {
             disableEncryption: false
         )
         .sinkWithDefaultCompletion("Emoji uploadImage upload image") { [weak self] uploadedImageHash in
-            self?.updateDetails(
-                [
+            self?.detailsService.update(
+                details: [
                     .iconEmoji: DetailsEntry(value: ""),
                     .iconImage: DetailsEntry(value: uploadedImageHash)
                 ]
             )
         }
-    }
-    
-    func updateDetails(_ details: [DetailsKind: DetailsEntry<AnyHashable>]) {
-        updateDetailsSubscription = detailsActiveModel.update(
-            details: details
-        )?
-        .sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in }
     }
     
 }

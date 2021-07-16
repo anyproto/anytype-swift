@@ -1,5 +1,5 @@
 //
-//  DocumentLayoutTypeRow.swift
+//  ObjectLayoutRow.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 06.07.2021.
@@ -9,7 +9,7 @@
 import SwiftUI
 import BlocksModels
 
-struct DocumentLayoutTypeRow: View {
+struct ObjectLayoutRow: View {
     
     let layout: DetailsLayout
     let isSelected: Bool
@@ -33,6 +33,9 @@ struct DocumentLayoutTypeRow: View {
                 }
             }
         }
+        .padding(.top, 12)
+        .modifier(DividerModifier(spacing: 12))
+            
     }
 }
 
@@ -60,6 +63,7 @@ private extension DetailsLayout {
 
 struct DocumentLayoutTypeRow_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentLayoutTypeRow(layout: .basic, isSelected: true, onTap: {})
+        ObjectLayoutRow(layout: .basic, isSelected: true, onTap: {})
+            .background(Color.blue)
     }
 }

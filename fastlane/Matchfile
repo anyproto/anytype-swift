@@ -19,6 +19,11 @@ for_lane :install_dev_profiles do
 	app_identifier(["com.anytypeio.anytype.dev"]) 
 end
 
+for_lane :install_appstore_profiles do
+	type("appstore")
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype"]) 
+end
+
 for_lane :generate_dev_profiles do
 	type('development')
 	app_identifier(["com.anytypeio.anytype.dev"])

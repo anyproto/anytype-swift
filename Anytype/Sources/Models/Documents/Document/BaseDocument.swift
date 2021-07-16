@@ -32,7 +32,7 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    private let eventHandler = EventHandler()
+    let eventHandler = EventHandler()
     
     /// Details Active Models
     /// But we have a lot of them, so, we should keep a list of them.
@@ -68,23 +68,30 @@ final class BaseDocument: BaseDocumentProtocol {
 
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
         eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
-            .map { [weak self] updates in
-                if let rootId = self?.documentId,
-                   let container = self?.rootModel,
+            .compactMap { [weak self] updates in
+                guard let self = self else { return nil }
+        
+                if let rootId = self.documentId,
+                   let container = self.rootModel,
                    let rootModel = container.blocksContainer.record(id: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
-                return BaseDocumentUpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
+                let details: DetailsData? = {
+                    guard let id = self.documentId else { return nil }
+                    
+                    return self.rootModel?.detailsContainer.get(by: id)?.detailsData
+                }()
+                
+                return BaseDocumentUpdateResult(
+                    updates: updates,
+                    details: details,
+                    models: self.models(from: updates)
+                )
             }.eraseToAnyPublisher()
     }
 
     // MARK: - Handle Open
-    private func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
-        self.smartblockService.open(contextID: blockId, blockID: blockId).map { [weak self] serviceSuccess in
-            self?.handleOpen(serviceSuccess)
-        }.eraseToAnyPublisher()
-    }
     
     func open(_ sucess: ServiceSuccess) {
         handleOpen(sucess)
@@ -176,6 +183,8 @@ final class BaseDocument: BaseDocumentProtocol {
         switch updates {
         case .general:
             return getModels()
+        case .details:
+            return []
         case .update:
             return []
         }
