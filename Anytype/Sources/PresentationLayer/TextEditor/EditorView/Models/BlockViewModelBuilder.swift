@@ -91,9 +91,7 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
                     showIconPicker: { [weak self] blockId in
-                        guard let contextId = block.container?.rootId else { return }
-                        
-                        self?.showMediaPicker(type: .images, contextId: contextId, blockId: blockId)
+                        self?.showMediaPicker(type: .images, blockId: blockId)
                     }
                 )
             case .video:
@@ -103,8 +101,7 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
                     showVideoPicker: { [weak self] blockId in
-                        guard let contextId = block.container?.rootId else { return }
-                        self?.showMediaPicker(type: .videos, contextId: contextId, blockId: blockId)
+                        self?.showMediaPicker(type: .videos, blockId: blockId)
                     },
                     downloadVideo: { [weak self] fileId in
                         self?.saveFile(fileId: fileId)
@@ -149,13 +146,10 @@ final class BlockViewModelBuilder {
     
     private var subscriptions = [AnyCancellable]()
     
-    private func showMediaPicker(type: MediaPickerContentType, contextId: BlockId, blockId: BlockId) {
+    private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
         let model = MediaPickerViewModel(type: type) { [weak self] resultInformation in
             guard let resultInformation = resultInformation else { return }
 
-            self?.blockActionHandler.process(
-                events: PackOfEvents(localEvents: [ .setLoadingState(blockId: blockId) ])
-            )
             self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)
         }
         

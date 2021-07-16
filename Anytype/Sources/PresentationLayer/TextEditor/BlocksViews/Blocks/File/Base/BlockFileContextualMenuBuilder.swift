@@ -6,16 +6,16 @@ final class BlockFileContextualMenuBuilder {
         case .done:
             return .init(title: "", children: [
                 .init(action: .addBlockBelow),
-                .init(action: .delete),
                 .init(action: .duplicate),
                 .init(action: .download),
-                .init(action: .replace)
+                .init(action: .replace),
+                .init(action: .delete)
             ])
         default:
             return .init(title: "", children: [
                 .init(action: .addBlockBelow),
-                .init(action: .delete),
                 .init(action: .duplicate),
+                .init(action: .delete)
             ])
         }
     }
