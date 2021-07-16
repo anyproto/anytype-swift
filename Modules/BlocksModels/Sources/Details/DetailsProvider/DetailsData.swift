@@ -2,12 +2,8 @@ import Foundation
 
 public struct DetailsData {
     
-    // MARK: - Properties
-    
     public let details: [DetailsKind: DetailsEntry<AnyHashable>]
     public let parentId: String
-    
-    // MARK: - Initialization
     
     public init(details: [DetailsKind: DetailsEntry<AnyHashable>], parentId: String) {
         self.details = details

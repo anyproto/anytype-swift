@@ -56,7 +56,7 @@ public enum TreeBlockBuilder {
         container.rootId = rootId
 
         // 5. Build tree.
-        BlockContainerBuilder.buildTree(container: container, rootId: rootId)
+        BlockContainerBuilder.buildTree(container: container, id: rootId)
 
         return container
     }
