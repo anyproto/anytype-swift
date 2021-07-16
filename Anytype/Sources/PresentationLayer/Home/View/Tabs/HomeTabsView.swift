@@ -1,8 +1,17 @@
 import SwiftUI
 
+extension HomeTabsView {
+    enum Tab {
+        case favourites
+        case recent
+        case inbox
+        case archive
+    }
+}
+
 struct HomeTabsView: View {
     @EnvironmentObject var model: HomeViewModel
-    @State private var tabSelection = 1    
+    @State private var tabSelection = Tab.favourites
     
     let offsetChanged: (CGPoint) -> Void
     
@@ -15,35 +24,50 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged).tag(1)
-            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged).tag(2)
-            HomeCollectionView(cellData: model.inboxCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged).tag(3)
-            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged).tag(4)
+            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
+                .tag(Tab.favourites)
+            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.recent)
+            HomeCollectionView(cellData: model.inboxCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.inbox)
+            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.archive)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .onChange(of: tabSelection) { tab in
+            switch tab {
+            case .favourites:
+                break // updates via subscriptions
+            case .recent:
+                model.updateRecentTab()
+            case .inbox:
+                model.updateInboxTab()
+            case .archive:
+                model.updateArchiveTab()
+            }
+        }
     }
     
     
     private var tabHeaders: some View {
         HStack(){
-            tabButton(text: "Favorites", tag: 1) // updates via subscriptions
-            tabButton(text: "Recent", tag: 2) { model.updateRecentTab() }
-            tabButton(text: "Inbox", tag: 3) { model.updateInboxTab() }
-            tabButton(text: "Archive", tag: 4) { model.updateArchiveTab() }
+            tabButton(text: "Favorites", tab: .favourites)
+            tabButton(text: "Recent", tab: .recent)
+            tabButton(text: "Inbox", tab: .inbox)
+            tabButton(text: "Archive", tab: .archive)
         }
         .padding()
     }
     
-    private func tabButton(text: String, tag: Int, action: (() -> ())? = nil) -> some View {
+    private func tabButton(text: String, tab: Tab) -> some View {
         Button(
             action: {
-                action?()
                 withAnimation(.spring()) {
-                    tabSelection = tag
+                    tabSelection = tab
                 }
             }
         ) {
-            HomeTabsHeaderText(text: text, isSelected: tabSelection == tag)
+            HomeTabsHeaderText(text: text, isSelected: tabSelection == tab)
         }
     }
 }
