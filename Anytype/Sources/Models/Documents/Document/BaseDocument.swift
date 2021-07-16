@@ -10,7 +10,7 @@ private extension LoggerCategory {
 final class BaseDocument: BaseDocumentProtocol {
     var rootActiveModel: BlockActiveRecordProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
-        return rootModel?.blocksContainer.choose(by: rootId)
+        return rootModel?.blocksContainer.record(id: rootId)
     }
     
     var userSession: UserSession? {
@@ -70,10 +70,10 @@ final class BaseDocument: BaseDocumentProtocol {
         eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
             .compactMap { [weak self] updates in
                 guard let self = self else { return nil }
-                
+        
                 if let rootId = self.documentId,
                    let container = self.rootModel,
-                   let rootModel = container.blocksContainer.choose(by: rootId) {
+                   let rootModel = container.blocksContainer.record(id: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
@@ -86,30 +86,23 @@ final class BaseDocument: BaseDocumentProtocol {
                 return BaseDocumentUpdateResult(
                     updates: updates,
                     details: details,
-                    models: self.models(from: updates) ?? []
+                    models: self.models(from: updates)
                 )
             }.eraseToAnyPublisher()
     }
 
     // MARK: - Handle Open
     
-    func open(_ value: ServiceSuccess) {
-        handleOpen(value)
-        
-        // Event processor must receive event to send updates to subscribers.
-        // Events are `blockShow`, actually.
+    func open(_ sucess: ServiceSuccess) {
+        handleOpen(sucess)
         eventHandler.handle(
-            events: PackOfEvents(
-                contextId: value.contextID,
-                events: value.messages,
-                localEvents: []
-            )
+            events: PackOfEvents(middlewareEvents: sucess.messages)
         )
     }
     
     private func handleOpen(_ serviceSuccess: ServiceSuccess) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(contextId: serviceSuccess.contextID, events: serviceSuccess.messages, localEvents: [])
+            events: .init(middlewareEvents: serviceSuccess.messages)
         )
         guard let event = blocks.first else { return }
         
@@ -179,7 +172,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
     private func getModels() -> [BlockActiveRecordProtocol] {
-        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.choose(by: rootId) else {
+        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.record(id: rootId) else {
             Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }

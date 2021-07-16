@@ -13,7 +13,7 @@ public enum BlockContainerBuilder {
     }
     
     private static func buildTreeRecursively(container: BlockContainerModelProtocol, id: BlockId) {
-        if let entry = container.choose(by: id) {
+        if let entry = container.record(id: id) {
             let parentId = id
             entry.childrenIds().forEach { (value) in
                 var blockModel = entry.findChild(by: value)?.blockModel

@@ -31,10 +31,7 @@ final class ObjectDetailsService {
         )
         .sinkWithDefaultCompletion("setDetails combletion") { [weak self] success in
             self?.eventHandler.handle(
-                events: PackOfEvents(
-                    contextId: success.contextID,
-                    events: success.messages
-                )
+                events: PackOfEvents(middlewareEvents: success.messages)
             )
         }
         .store(in: &subscriptions)

@@ -154,11 +154,7 @@ final class BlockViewModelBuilder {
             guard let resultInformation = resultInformation else { return }
 
             self?.blockActionHandler.process(
-                events: PackOfEvents(
-                    contextId: contextId,
-                    events: [],
-                    localEvents: [.setLoadingState(blockId: blockId)]
-                )
+                events: PackOfEvents(localEvents: [ .setLoadingState(blockId: blockId) ])
             )
             self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)
         }
