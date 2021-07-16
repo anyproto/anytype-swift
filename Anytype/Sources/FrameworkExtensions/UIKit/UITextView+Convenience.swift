@@ -57,16 +57,7 @@ extension UITextView {
     }
 }
 
-extension UITextView: TextViewManagingFocus, TextViewUpdatable {
-    func apply(update: TextViewUpdate) {
-        let text = NSMutableAttributedString(attributedString: update.attributedString)
-        if text != textStorage {
-            textStorage.setAttributedString(text)
-        }
-        backgroundColor = update.auxiliary.tertiaryColor
-        textAlignment = update.auxiliary.textAlignment
-    }
-
+extension UITextView: TextViewManagingFocus {
     func shouldResignFirstResponder() {
         resignFirstResponder()
     }

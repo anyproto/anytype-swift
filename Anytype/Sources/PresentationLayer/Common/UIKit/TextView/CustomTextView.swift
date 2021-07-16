@@ -112,7 +112,7 @@ final class CustomTextView: UIView {
 
 // MARK: - BlockTextViewInput
 
-extension CustomTextView: TextViewManagingFocus, TextViewUpdatable {
+extension CustomTextView: TextViewManagingFocus {
     
     func shouldResignFirstResponder() {
         _ = textView.resignFirstResponder()
@@ -131,34 +131,6 @@ extension CustomTextView: TextViewManagingFocus, TextViewUpdatable {
             return .beginning
         }
         return .at(textView.selectedRange)
-    }
-
-    func apply(update: TextViewUpdate) {
-        onUpdate(receive: update)
-    }
-    
-    private func onUpdate(receive update: TextViewUpdate) {
-        let text = NSMutableAttributedString(attributedString: update.attributedString)
-        // TODO: Poem "Do we need to add font?"
-        //
-        // Actually, don't know. Should think about this problem ( when and where ) we should set font of attributed string.
-        //
-        // The main problem is that we should use `.font` to apply attributes to `NSAttributedString`.
-        //
-        // Example code below.
-        //
-        // let font: UIFont = self.textView.typingAttributes[.foregroundColor] as? UIFont ?? UIFont.preferredFont(forTextStyle: .body)
-        // text.addAttributes([.font : font], range: .init(location: 0, length: text.length))
-        if text != textView.textStorage {
-            textView.textStorage.setAttributedString(text)
-        }
-        
-        /// We changed order, because textAlignment is a part of NSAttributedString.
-        /// That means, we have to move processing of textAlignment to MarksStyle.
-        /// It is a part of NSAttributedString attributes ( `NSParagraphStyle.alignment` ).
-        ///
-        textView.tertiaryColor = update.auxiliary.tertiaryColor
-        textView.textAlignment = update.auxiliary.textAlignment
     }
 }
 
