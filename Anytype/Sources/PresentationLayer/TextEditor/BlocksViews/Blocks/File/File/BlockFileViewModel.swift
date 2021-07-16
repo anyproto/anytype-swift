@@ -50,6 +50,4 @@ struct BlockFileViewModel: BlockViewModelProtocol {
             return
         }
     }
-    
-    func updateView() { }
 }

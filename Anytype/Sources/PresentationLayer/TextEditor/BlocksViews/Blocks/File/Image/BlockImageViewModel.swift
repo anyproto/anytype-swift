@@ -83,6 +83,4 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         windowHolder?.rootNavigationController.present(alert, animated: true, completion: nil)
     }
-    
-    func updateView() { }
 }

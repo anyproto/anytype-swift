@@ -186,7 +186,6 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
                 viewModel.blockId == item.id
             }
-            viewModel?.updateView()
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
@@ -221,7 +220,6 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             let viewModel = blocksViewModels.first { viewModel in
                 viewModel.blockId == item.id
             }
-            viewModel?.updateView()
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }

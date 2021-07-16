@@ -51,8 +51,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func didSelectRowInTableView() {}
     
-    func updateView() {}
-    
     func makeContextualMenu() -> ContextualMenu {
         guard case let .text(text) = block.content else {
             return .init(title: "", children: [])
