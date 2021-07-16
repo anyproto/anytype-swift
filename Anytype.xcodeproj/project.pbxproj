@@ -239,6 +239,7 @@
 		3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB39263BE797007CC856 /* AsyncImage.swift */; };
 		3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */; };
 		3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */; };
+		3D100A3626A1955C005173EF /* EventHandlerUpdate+Merging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D100A3526A1955C005173EF /* EventHandlerUpdate+Merging.swift */; };
 		3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */; };
 		3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */; };
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
@@ -825,6 +826,7 @@
 		3D0BFB39263BE797007CC856 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIImageLoader.swift; sourceTree = "<group>"; };
 		3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		3D100A3526A1955C005173EF /* EventHandlerUpdate+Merging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EventHandlerUpdate+Merging.swift"; path = "AnyType/Sources/Models/Documents/Document/EventHandler/Model/EventHandlerUpdate+Merging.swift"; sourceTree = SOURCE_ROOT; };
 		3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDividerModifier.swift; sourceTree = "<group>"; };
 		3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
@@ -2322,6 +2324,15 @@
 			path = Anytype/Sources/PresentationLayer/Home/CellDataBuilder;
 			sourceTree = SOURCE_ROOT;
 		};
+		3D100A3226A19549005173EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
+				3D100A3526A1955C005173EF /* EventHandlerUpdate+Merging.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3D15526E264D8DAC00B0E976 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2701,9 +2712,9 @@
 		3DA3693A2629B6A1001557C9 /* EventHandler */ = {
 			isa = PBXGroup;
 			children = (
+				3D100A3226A19549005173EF /* Model */,
 				3DC78632265D43E900498993 /* EventConverters */,
 				3DCE79F92615215D00E09593 /* EventHandler.swift */,
-				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
 			);
 			path = EventHandler;
 			sourceTree = "<group>";
@@ -3916,7 +3927,6 @@
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
-				EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
@@ -4069,6 +4079,7 @@
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				3DBED69F266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift in Sources */,
+				3D100A3626A1955C005173EF /* EventHandlerUpdate+Merging.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
