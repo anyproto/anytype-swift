@@ -14,7 +14,12 @@ public extension BlockInformation {
     var isTextAndEmpty: Bool {
         switch content {
         case .text(let textData):
-            return textData.attributedText.string.isEmpty
+            switch textData.contentType {
+            case .code:
+                return false
+            default:
+                return textData.attributedText.string.isEmpty
+            }
         default:
             return false
         }
