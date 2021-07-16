@@ -14,7 +14,6 @@ class DocumentEditorViewModel: ObservableObject {
     
     let router: EditorRouterProtocol
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let settingsViewModel: DocumentSettingsViewModel
     let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
@@ -31,7 +30,6 @@ class DocumentEditorViewModel: ObservableObject {
         viewInput: EditorModuleDocumentViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
-        settingsViewModel: DocumentSettingsViewModel,
         detailsViewModel: DocumentDetailsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
@@ -41,7 +39,6 @@ class DocumentEditorViewModel: ObservableObject {
     ) {
         self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
-        self.settingsViewModel = settingsViewModel
         self.detailsViewModel = detailsViewModel
         self.viewInput = viewInput
         self.document = document

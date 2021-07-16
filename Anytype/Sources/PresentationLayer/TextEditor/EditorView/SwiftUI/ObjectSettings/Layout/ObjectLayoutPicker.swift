@@ -1,5 +1,5 @@
 //
-//  DocumentLayoutPicker.swift
+//  ObjectLayoutPicker.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 06.07.2021.
@@ -9,7 +9,7 @@
 import SwiftUI
 import BlocksModels
 
-struct DocumentLayoutPicker: View {
+struct ObjectLayoutPicker: View {
     
     @EnvironmentObject private var viewModel: ObjectLayoutPickerViewModel
     
@@ -28,7 +28,7 @@ struct DocumentLayoutPicker: View {
     private var layoutList: some View {
         VStack(spacing: 0) {
             ForEach(DetailsLayout.allCases, id: \.self) { layout in
-                DocumentLayoutTypeRow(
+                ObjectLayoutRow(
                     layout: layout,
                     isSelected: layout == viewModel.selectedLayout,
                     onTap: {
@@ -43,6 +43,6 @@ struct DocumentLayoutPicker: View {
 
 struct DocumentLayoutPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentLayoutPicker()
+        ObjectLayoutPicker()
     }
 }

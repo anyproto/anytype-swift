@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct DocumentBasicIconPicker: View {
+struct ObjectBasicIconPicker: View {
 
     @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
@@ -110,7 +110,7 @@ struct DocumentBasicIconPicker: View {
 
 // MARK: - Private extension
 
-private extension DocumentBasicIconPicker {
+private extension ObjectBasicIconPicker {
     
     enum BottomTabViewItem: Hashable {
         case tab(Tab)
@@ -133,6 +133,6 @@ private extension DocumentBasicIconPicker {
 
 struct DocumentIconPicker_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentBasicIconPicker()
+        ObjectBasicIconPicker()
     }
 }

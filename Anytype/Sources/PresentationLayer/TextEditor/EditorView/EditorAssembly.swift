@@ -31,7 +31,6 @@ final class EditorAssembly {
             )
         )
         
-        let settingsModel = DocumentSettingsViewModel(activeModel: document.defaultDetailsActiveModel)
         let detailsViewModel = DocumentDetailsViewModel {
             viewInput.updateHeader()
         }
@@ -71,7 +70,6 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            settingsViewModel: settingsModel,
             detailsViewModel: detailsViewModel,
             selectionHandler: selectionHandler,
             router: router,
