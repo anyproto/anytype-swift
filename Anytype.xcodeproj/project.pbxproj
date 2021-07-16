@@ -506,7 +506,6 @@
 		EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */; };
 		EA7DE3FE26397C08005AFEE2 /* SlashMenuActionsFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE3FD26397C08005AFEE2 /* SlashMenuActionsFilterService.swift */; };
 		EA7DE40426397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE40326397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift */; };
-		EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */; };
 		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
 		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
@@ -1087,7 +1086,6 @@
 		EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAlignmentAction.swift; sourceTree = "<group>"; };
 		EA7DE3FD26397C08005AFEE2 /* SlashMenuActionsFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsFilterService.swift; sourceTree = "<group>"; };
 		EA7DE40326397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsFilterEntry.swift; sourceTree = "<group>"; };
-		EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdatePayload.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
 		EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAttachment.swift; sourceTree = "<group>"; };
 		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
@@ -2704,7 +2702,6 @@
 				3DC78632265D43E900498993 /* EventConverters */,
 				3DCE79F92615215D00E09593 /* EventHandler.swift */,
 				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
-				EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */,
 			);
 			path = EventHandler;
 			sourceTree = "<group>";
@@ -3919,7 +3916,6 @@
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
-				EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				EAE6BE092680D0CE00275788 /* SlashMenuItemIconData.swift in Sources */,
