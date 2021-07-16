@@ -16,7 +16,7 @@ final class DocumentIconImageView: UIView {
     // MARK: - Private properties
     
     private let imageView: UIImageView = UIImageView()
-    private lazy var imageLoader = ImageLoader().configured(imageView)
+    private lazy var imageLoader = ImageLoader(imageView: imageView)
     
     // MARK: Initialization
     

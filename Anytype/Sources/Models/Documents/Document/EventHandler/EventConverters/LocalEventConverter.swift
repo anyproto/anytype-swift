@@ -29,6 +29,19 @@ final class LocalEventConverter {
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
+        case .setLoadingState(blockId: let blockId):
+            guard var model = container?.blocksContainer.get(by: blockId) else {
+                assertionFailure("setTextMerge. We can't find model by id \(blockId)")
+                return nil
+            }
+            guard case var .file(content) = model.information.content else {
+                assertionFailure("Not file content of block \(blockId) for setLoading action")
+                return nil
+            }
+            
+            content.state = .uploading
+            model.information.content = .file(content)
+            return .update(.init(updatedIds: [blockId]))
         }
     }
     

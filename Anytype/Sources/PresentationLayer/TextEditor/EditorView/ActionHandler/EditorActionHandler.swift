@@ -8,6 +8,8 @@ protocol EditorActionHandlerProtocol: AnyObject {
     func handleActionWithoutCompletion(_ action: BlockHandlerActionType, info: BlockInformation)
     
     func upload(blockId: BlockId, filePath: String)
+    
+    func process(events: PackOfEvents)
 }
 
 final class EditorActionHandler: EditorActionHandlerProtocol {
@@ -56,7 +58,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         blockActionHandler.handleBlockAction(action, info: info, completion: nil)
     }
     
-    private func process(events: PackOfEvents) {
+    func process(events: PackOfEvents) {
         events.localEvents.forEach { event in
             switch event {
             case let .setFocus(blockId, position):
