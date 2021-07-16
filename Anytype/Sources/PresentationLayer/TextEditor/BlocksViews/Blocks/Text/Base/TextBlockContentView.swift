@@ -41,7 +41,7 @@ final class TextBlockContentView: UIView & UIContentView {
                   let caretPosition = self.textView.textView.caretPosition() else { return }
 
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
-            self.currentConfiguration.mentionsConfigurator.configure(textView: self.textView.textView)
+            self.currentConfiguration.configureMentions(self.textView.textView)
             self.currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView.attributedText),
@@ -116,7 +116,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: Configuration
 
-    private var currentConfiguration: TextBlockContentConfiguration
+    private(set) var currentConfiguration: TextBlockContentConfiguration
 
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
@@ -252,7 +252,7 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
-        currentConfiguration.mentionsConfigurator.configure(textView: textView.textView)
+        currentConfiguration.configureMentions(textView.textView)
     }
     
     private func setupForText() {
@@ -334,101 +334,5 @@ final class TextBlockContentView: UIView & UIContentView {
     private func replaceCurrentLeftView(with leftView: UIView) {
         topStackView.arrangedSubviews.first?.removeFromSuperview()
         topStackView.insertArrangedSubview(leftView, at: 0)
-    }
-}
-
-extension TextBlockContentView: TextViewDelegate {
-    func sizeChanged() {
-        currentConfiguration.blockDelegate.blockSizeChanged()
-    }
-    
-    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        switch change {
-        case .become:
-            currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block.blockModel)
-        case .resign:
-            currentConfiguration.blockDelegate.resignFirstResponder()
-        }
-    }
-    
-    func willBeginEditing() {
-        currentConfiguration.blockDelegate.willBeginEditing()
-    }
-    
-    func didBeginEditing() {
-        currentConfiguration.blockDelegate.didBeginEditing()
-    }
-    
-    func didChangeText(textView: UITextView) {
-        currentConfiguration.mentionsConfigurator.configure(textView: textView)
-    }
-}
-
-extension TextBlockContentView: TextViewUserInteractionProtocol {
-    
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
-        switch action {
-        case .showStyleMenu:
-            currentConfiguration.editorRouter.showStyleMenu(information: currentConfiguration.information)
-        case .showMultiActionMenuAction:
-            let block = currentConfiguration.block
-            currentConfiguration.actionHandler.handleAction(
-                .textView(action: action, activeRecord: block),
-                info: currentConfiguration.information
-            )
-        case .changeTextForStruct:
-            fallthrough
-        case .changeText:
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: currentConfiguration.block
-                ),
-                info: currentConfiguration.information
-            )
-        case let .keyboardAction(keyAction):
-            switch keyAction {
-            case .enterInsideContent,
-                 .enterAtTheEndOfContent,
-                 .enterOnEmptyContent:
-                // In the case of frequent pressing of enter
-                // we can send multiple split requests to middle
-                // from the same block, it will leads to wrong order of blocks in array,
-                // adding a delay makes impossible to press enter very often
-                if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
-                    currentConfiguration.actionHandler.handleAction(
-                        .textView(
-                            action: action,
-                            activeRecord: currentConfiguration.block
-                        ),
-                        info: currentConfiguration.information
-                    )
-                }
-                return false
-            default:
-                break
-            }
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: currentConfiguration.block
-                ),
-                info: currentConfiguration.information
-            )
-        case .changeTextStyle, .changeCaretPosition:
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    activeRecord: currentConfiguration.block
-                ),
-                info: currentConfiguration.information
-            )
-        case let .shouldChangeText(range, replacementText, mentionsHolder):
-            return !mentionsHolder.removeMentionIfNeeded(
-                replacementRange: range,
-                replacementText: replacementText
-            )
-        }
-        return true
     }
 }

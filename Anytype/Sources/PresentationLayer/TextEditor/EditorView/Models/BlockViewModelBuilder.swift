@@ -68,9 +68,11 @@ final class BlockViewModelBuilder {
                     block: block,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    mentionsConfigurator: mentionsConfigurator,
-                    actionHandler: blockActionHandler,
-                    router: router)
+                    actionHandler: blockActionHandler) { [weak self] textView in
+                    self?.mentionsConfigurator.configure(textView: textView)
+                } showStyleMenu: { [weak self] information in
+                    self?.router.showStyleMenu(information: information)
+                }
             }
         case let .file(content):
             switch content.contentType {

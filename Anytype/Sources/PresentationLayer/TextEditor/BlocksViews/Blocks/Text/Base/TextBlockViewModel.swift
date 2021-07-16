@@ -9,10 +9,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let toggled: Bool
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
-    private let mentionsConfigurator: MentionsTextViewConfigurator
+    private let configureMentions: (UITextView) -> Void
+    private let showStyleMenu: (BlockInformation) -> Void
     private let actionHandler: EditorActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
-    private let router: EditorRouterProtocol
     
     var indentationLevel: Int {
         block.indentationLevel
@@ -33,15 +33,15 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     init(block: BlockActiveRecordProtocol,
          contextualMenuHandler: DefaultContextualMenuHandler,
          blockDelegate: BlockDelegate,
-         mentionsConfigurator: MentionsTextViewConfigurator,
          actionHandler: EditorActionHandlerProtocol,
-         router: EditorRouterProtocol) {
+         configureMentions: @escaping (UITextView) -> Void,
+         showStyleMenu:  @escaping (BlockInformation) -> Void) {
         self.block = block
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
-        self.mentionsConfigurator = mentionsConfigurator
         self.actionHandler = actionHandler
-        self.router = router
+        self.configureMentions = configureMentions
+        self.showStyleMenu = showStyleMenu
         toggled = block.isToggled
     }
     
@@ -86,11 +86,12 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration() -> UIContentConfiguration {
-        TextBlockContentConfiguration(blockDelegate: blockDelegate,
-                                       block: block,
-                                       mentionsConfigurator: mentionsConfigurator,
-                                       actionHandler: actionHandler,
-                                       focusPublisher: focusSubject.eraseToAnyPublisher(),
-                                       editorRouter: router)
+        TextBlockContentConfiguration(
+            blockDelegate: blockDelegate,
+            block: block,
+            actionHandler: actionHandler,
+            configureMentions: configureMentions,
+            showStyleMenu: showStyleMenu,
+            focusPublisher: focusSubject.eraseToAnyPublisher())
     }
 }

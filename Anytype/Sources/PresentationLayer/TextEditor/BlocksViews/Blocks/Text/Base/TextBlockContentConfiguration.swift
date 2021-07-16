@@ -6,27 +6,27 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let blockDelegate: BlockDelegate
     let block: BlockActiveRecordProtocol
-    let mentionsConfigurator: MentionsTextViewConfigurator
     let shouldDisplayPlaceholder: Bool
-    let actionHandler: EditorActionHandlerProtocol
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
-    let editorRouter: EditorRouterProtocol
+    let actionHandler: EditorActionHandlerProtocol
+    let configureMentions: (UITextView) -> Void
+    let showStyleMenu: (BlockInformation) -> Void
     let pressingEnterTimeChecker = TimeChecker()
     let information: BlockInformation
     private(set) var isSelected: Bool = false
     
     init(blockDelegate: BlockDelegate,
          block: BlockActiveRecordProtocol,
-         mentionsConfigurator: MentionsTextViewConfigurator,
          actionHandler: EditorActionHandlerProtocol,
-         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
-         editorRouter: EditorRouterProtocol) {
+         configureMentions: @escaping (UITextView) -> Void,
+         showStyleMenu: @escaping (BlockInformation) -> Void,
+         focusPublisher: AnyPublisher<BlockFocusPosition, Never>) {
         self.blockDelegate = blockDelegate
         self.block = block
-        self.mentionsConfigurator = mentionsConfigurator
+        self.configureMentions = configureMentions
         self.actionHandler = actionHandler
+        self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
-        self.editorRouter = editorRouter
         self.information = block.blockModel.information
         shouldDisplayPlaceholder = block.isToggled && block.blockModel.information.childrenIds.isEmpty
     }
