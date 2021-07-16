@@ -26,11 +26,9 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
     
     func didSelectRowInTableView() {
         switch fileData.state {
-        case .done:
-            downloadVideo(fileData.metadata.hash)
         case .empty, .error:
             showVideoPicker(blockId)
-        case .uploading:
+        case .uploading, .done:
             return
         }
     }
