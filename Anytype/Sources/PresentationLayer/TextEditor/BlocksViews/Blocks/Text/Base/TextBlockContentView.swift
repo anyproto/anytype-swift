@@ -248,7 +248,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func buildTextView() -> CustomTextView {
         let actionsHandler = SlashMenuActionsHandlerImp(
-            blockActionHandler: currentConfiguration.blockActionHandler
+            blockActionHandler: currentConfiguration.actionHandler
         )
         
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
@@ -263,7 +263,7 @@ final class TextBlockContentView: UIView & UIContentView {
                   let caretPosition = self.textView.textView.caretPosition() else { return }
 
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
-            self.currentConfiguration.setupMentionsInteraction(self.textView)
+            self.currentConfiguration.configureMentions(self.textView.textView)
             self.currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView.attributedText),
