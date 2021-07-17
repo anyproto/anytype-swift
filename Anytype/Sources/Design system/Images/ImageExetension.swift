@@ -49,6 +49,7 @@ extension Image {
     enum LayoutSettings {
         static let basic = Image("layout_settings_basic")
         static let profile = Image("layout_settings_profile")
+        static let todo = Image("layout_settings_todo")
         
         static let checkmark = Image("layout_settings_checkmark")
     }

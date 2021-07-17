@@ -9,6 +9,5 @@
 public enum DetailsLayout: Int, CaseIterable {
     case basic = 0
     case profile = 1
-    // will be implemented later
-//    case todo = 2
+    case todo = 2
 }

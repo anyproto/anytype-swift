@@ -47,6 +47,8 @@ private extension DetailsLayout {
             return Image.LayoutSettings.basic
         case .profile:
             return Image.LayoutSettings.profile
+        case .todo:
+            return Image.LayoutSettings.todo
         }
     }
     
@@ -56,6 +58,8 @@ private extension DetailsLayout {
             return "Basic"
         case .profile:
             return "Profile"
+        case .todo:
+            return "Task"
         }
     }
     
