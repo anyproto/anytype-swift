@@ -10,6 +10,7 @@ import UIKit
 
 
 final class TextBlockIconView: UIView {
+    
     enum ViewType {
         case checkbox(isSelected: Bool)
         case toggle(toggled: Bool)
