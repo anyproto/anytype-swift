@@ -101,7 +101,8 @@ final class TextBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
-        setupForText()
+        setupText(placeholer: "", font: .body)
+        
         subscriptions.removeAll()
 
         textView.delegate = nil
@@ -121,9 +122,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
         switch text.contentType {
         case .title:
-            setupForTitle()
+            setupText(placeholer: "Untitled".localized, font: .title)
         case .text:
-            setupForText()
+            setupText(placeholer: "", font: .body)
         case .toggle:
             setupForToggle()
         case .bulleted:
@@ -135,11 +136,11 @@ final class TextBlockContentView: UIView & UIContentView {
         case .quote:
             setupForQuote()
         case .header:
-            setupForHeader1()
+            setupText(placeholer: "Title".localized, font: .heading)
         case .header2:
-            setupForHeader2()
+            setupText(placeholer: "Heading".localized, font: .subheading)
         case .header3:
-            setupForHeader3()
+            setupText(placeholer: "Subheading".localized, font: .headlineSemibold)
         case .header4, .code:
             break
         }
@@ -169,26 +170,6 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
         currentConfiguration.configureMentions(textView.textView)
-    }
-    
-    private func setupForText() {
-        self.setupText(placeholer: "", font: .body)
-    }
-    
-    private func setupForTitle() {
-        self.setupText(placeholer: "Untitled".localized, font: .title)
-    }
-    
-    private func setupForHeader1() {
-        self.setupText(placeholer: "Title".localized, font: .heading)
-    }
-    
-    private func setupForHeader2() {
-        self.setupText(placeholer: "Heading".localized, font: .subheading)
-    }
-    
-    private func setupForHeader3() {
-        self.setupText(placeholer: "Subheading".localized, font: .headlineSemibold)
     }
     
     private func setupText(placeholer: String, font: UIFont) {
@@ -230,7 +211,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForQuote() {
-        self.setupText(placeholer: "Quote".localized, font: .headline)
+        setupText(placeholer: "Quote".localized, font: .headline)
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
