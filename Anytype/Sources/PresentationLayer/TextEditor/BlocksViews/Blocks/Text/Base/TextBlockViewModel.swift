@@ -6,6 +6,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     let isStruct = true
     let block: BlockActiveRecordProtocol
+    let isCheckable: Bool
+    
     private let toggled: Bool
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
@@ -31,12 +33,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     init(block: BlockActiveRecordProtocol,
+         isCheckable: Bool,
          contextualMenuHandler: DefaultContextualMenuHandler,
          blockDelegate: BlockDelegate,
          actionHandler: EditorActionHandlerProtocol,
          configureMentions: @escaping (UITextView) -> Void,
          showStyleMenu:  @escaping (BlockInformation) -> Void) {
         self.block = block
+        self.isCheckable = isCheckable
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
@@ -89,6 +93,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         TextBlockContentConfiguration(
             blockDelegate: blockDelegate,
             block: block,
+            isCheckable: isCheckable,
             actionHandler: actionHandler,
             configureMentions: configureMentions,
             showStyleMenu: showStyleMenu,

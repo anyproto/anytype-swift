@@ -13,10 +13,12 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let showStyleMenu: (BlockInformation) -> Void
     let pressingEnterTimeChecker = TimeChecker()
     let information: BlockInformation
+    let isCheckable: Bool
     private(set) var isSelected: Bool = false
     
     init(blockDelegate: BlockDelegate,
          block: BlockActiveRecordProtocol,
+         isCheckable: Bool,
          actionHandler: EditorActionHandlerProtocol,
          configureMentions: @escaping (UITextView) -> Void,
          showStyleMenu: @escaping (BlockInformation) -> Void,
@@ -28,6 +30,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
         self.information = block.blockModel.information
+        self.isCheckable = isCheckable
         shouldDisplayPlaceholder = block.isToggled && block.blockModel.information.childrenIds.isEmpty
     }
     

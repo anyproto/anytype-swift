@@ -122,7 +122,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         switch text.contentType {
         case .title:
-            setupText(placeholer: "Untitled".localized, font: .title)
+            setupTitle(text)
         case .text:
             setupText(placeholer: "", font: .body)
         case .toggle:
@@ -170,6 +170,16 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
         currentConfiguration.configureMentions(textView.textView)
+    }
+    
+    private func setupTitle(_ blockText: BlockText) {
+        setupText(placeholer: "Untitled".localized, font: .title)
+        if currentConfiguration.isCheckable {
+            let leftView = TextBlockIconView(viewType: .checkbox(isSelected: blockText.checked)) {
+                // TODO: implement
+            }
+            replaceCurrentLeftView(with: leftView)
+        }
     }
     
     private func setupText(placeholer: String, font: UIFont) {
