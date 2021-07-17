@@ -7,13 +7,16 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: Views
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
+    
     private(set) lazy var textView = buildTextView()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
+    
     private let mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
         return mainStackView
     }()
+    
     private let topStackView: UIStackView = {
         let topStackView = UIStackView()
         topStackView.axis = .horizontal
@@ -26,11 +29,13 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: Configuration
 
     private(set) var currentConfiguration: TextBlockContentConfiguration
+    
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
             guard let configuration = newValue as? TextBlockContentConfiguration else { return }
-            self.apply(configuration: configuration)
+            
+            apply(configuration: configuration)
         }
     }
 
@@ -49,45 +54,50 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
-        self.setupViews()
-        self.applyNewConfiguration()
+        setupViews()
+        applyNewConfiguration()
     }
 
     // MARK: - Setup views
 
     private func setupViews() {
-        addSubview(backgroundColorView)
-        addSubview(mainStackView)
-        addSubview(selectionView)
-
-        mainStackView.addArrangedSubview(topStackView)
-        mainStackView.addArrangedSubview(createEmptyBlockButton)
-
-        topStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
-        topStackView.addArrangedSubview(textView)
-
         selectionView.layer.cornerRadius = 6
         selectionView.layer.cornerCurve = .continuous
         selectionView.isUserInteractionEnabled = false
         selectionView.clipsToBounds = true
 
-        self.setupLayout()
+        setupLayout()
+        
+        fillSubviewsWithRandomColors()
     }
 
     private func setupLayout() {
-        createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
+        addSubview(backgroundColorView) {
+            $0.pinToSuperview(insets: LayoutConstants.backgroundViewInsets)
+        }
+        addSubview(mainStackView) {
+            $0.pinToSuperview(insets: LayoutConstants.insets)
+        }
+        addSubview(selectionView) {
+            $0.pinToSuperview(insets: LayoutConstants.selectionViewInsets)
+        }
+        
+        mainStackView.addArrangedSubview(topStackView)
+        mainStackView.addArrangedSubview(createEmptyBlockButton)
+        
+        createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
 
-        mainStackView.pinAllEdges(to: self, insets: LayoutConstants.insets)
-        backgroundColorView.pinAllEdges(to: self, insets: LayoutConstants.backgroundViewInsets)
-        selectionView.pinAllEdges(to: self, insets: LayoutConstants.selectionViewInsets)
+        topStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
+        topStackView.addArrangedSubview(textView)
     }
 
     // MARK: - Apply configuration
 
     private func apply(configuration: TextBlockContentConfiguration) {
         guard self.currentConfiguration != configuration else { return }
-        self.currentConfiguration = configuration
-        self.applyNewConfiguration()
+        
+        currentConfiguration = configuration
+        applyNewConfiguration()
     }
 
     private func applyNewConfiguration() {
@@ -189,10 +199,10 @@ final class TextBlockContentView: UIView & UIContentView {
             .foregroundColor: UIColor.secondaryTextColor
         ]
 
-        self.textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
-        self.textView.textView.font = font
-        self.textView.textView.typingAttributes = [.font: font]
-        self.textView.textView.defaultFontColor = .textColor
+        textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
+        textView.textView.font = font
+        textView.textView.typingAttributes = [.font: font]
+        textView.textView.defaultFontColor = .textColor
     }
     
     private func setupForCheckbox(checked: Bool) {
@@ -295,7 +305,8 @@ final class TextBlockContentView: UIView & UIContentView {
                     guard let self = self else { return }
                     self.currentConfiguration.actionHandler.handleAction(
                         .createEmptyBlock(
-                            parentId: self.currentConfiguration.information.id),
+                            parentId: self.currentConfiguration.information.id
+                        ),
                         info: self.currentConfiguration.information
                     )
                 }
