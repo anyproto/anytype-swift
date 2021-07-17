@@ -145,7 +145,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         if viewModel.selectionHandler.selectionEnabled {
             if case let .text(text) = item.content {
-                return !text.contentType.isTitle
+                return text.contentType != .title
             }
             return true
         }

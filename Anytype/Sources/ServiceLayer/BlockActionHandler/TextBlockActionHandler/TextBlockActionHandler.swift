@@ -223,6 +223,6 @@ final class TextBlockActionHandler {
 extension BlockText.ContentType {
     // We do want to create regular text block when splitting title block
     var contentTypeForSplit: BlockText.ContentType {
-        self.isTitle ? .text : self
+        self == .title ? .text : self
     }
 }

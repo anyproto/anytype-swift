@@ -37,13 +37,4 @@ public extension BlockContent {
         
         return false
     }
-    
-    var isTitle: Bool {
-        switch self {
-        case let .text(text):
-            return text.contentType.isTitle
-        default:
-            return false
-        }
-    }
 }
