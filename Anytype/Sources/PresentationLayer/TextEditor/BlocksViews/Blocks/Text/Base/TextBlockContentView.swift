@@ -175,7 +175,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupTitle(_ blockText: BlockText) {
         setupText(placeholer: "Untitled".localized, font: .title)
         if currentConfiguration.isCheckable {
-            let leftView = TextBlockIconView(viewType: .checkbox(isSelected: blockText.checked)) {
+            let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) {
                 // TODO: implement
             }
             replaceCurrentLeftView(with: leftView)
