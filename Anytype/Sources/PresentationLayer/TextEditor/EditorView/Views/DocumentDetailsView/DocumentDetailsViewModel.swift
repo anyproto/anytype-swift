@@ -93,6 +93,8 @@ private extension DocumentDetailsViewModel {
                     return .preview(.basic(image))
                 case .profile:
                     return .preview(.profile(image))
+                case .todo:
+                    return .empty
                 }
             }()
             
