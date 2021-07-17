@@ -5,8 +5,6 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
 
-import SwiftProtobuf
-
 extension Anytype_Model_ObjectDetails {
   public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
     self.details = details
@@ -15,7 +13,7 @@ extension Anytype_Model_ObjectDetails {
 
 extension Anytype_Model_ObjectInfo {
   public init(
-    id: String, objectTypeUrls: [String], details: SwiftProtobuf.Google_Protobuf_Struct, relations: Anytype_Model_Relations, snippet: String, hasInboundLinks_p: Bool,
+    id: String, objectTypeUrls: [String], details: SwiftProtobuf.Google_Protobuf_Struct, relations: [Anytype_Model_Relation], snippet: String, hasInboundLinks_p: Bool,
     objectType: Anytype_Model_SmartBlockType
   ) {
     self.id = id
@@ -69,7 +67,7 @@ extension Anytype_Model_ObjectLinksInfo {
 extension Anytype_Model_ObjectStoreChecksums {
   public init(
     bundledObjectTypes: String, bundledRelations: String, bundledLayouts: String, objectsForceReindexCounter: Int32, filesForceReindexCounter: Int32, idxRebuildCounter: Int32, fulltextRebuild: Int32,
-    bundledTemplates: String
+    bundledTemplates: String, bundledObjects: Int32
   ) {
     self.bundledObjectTypes = bundledObjectTypes
     self.bundledRelations = bundledRelations
@@ -79,5 +77,6 @@ extension Anytype_Model_ObjectStoreChecksums {
     self.idxRebuildCounter = idxRebuildCounter
     self.fulltextRebuild = fulltextRebuild
     self.bundledTemplates = bundledTemplates
+    self.bundledObjects = bundledObjects
   }
 }

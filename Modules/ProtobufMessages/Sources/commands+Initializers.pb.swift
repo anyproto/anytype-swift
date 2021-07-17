@@ -1828,6 +1828,27 @@ extension Anytype_Rpc.Debug.Thread.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Debug.Tree.Request {
+  public init(blockID: String, path: String) {
+    self.blockID = blockID
+    self.path = path
+  }
+}
+
+extension Anytype_Rpc.Debug.Tree.Response {
+  public init(error: Anytype_Rpc.Debug.Tree.Response.Error, filename: String) {
+    self.error = error
+    self.filename = filename
+  }
+}
+
+extension Anytype_Rpc.Debug.Tree.Response.Error {
+  public init(code: Anytype_Rpc.Debug.Tree.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Debug.logInfo {
   public init(
     id: String, head: String, headDownloaded: Bool, totalRecords: Int32, totalSize: Int32, firstRecordTs: Int32, firstRecordVer: Int32, lastRecordTs: Int32, lastRecordVer: Int32,
