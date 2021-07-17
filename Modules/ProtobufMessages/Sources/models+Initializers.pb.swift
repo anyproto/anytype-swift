@@ -211,8 +211,8 @@ extension Anytype_Model_LinkPreview {
 
 extension Anytype_Model_ObjectType {
   public init(
-    url: String, name: String, relations: [Anytype_Model_Relation], layout: Anytype_Model_ObjectType.Layout, iconEmoji: String, description_p: String, hidden: Bool,
-    types: [Anytype_Model_SmartBlockType]
+    url: String, name: String, relations: [Anytype_Model_Relation], layout: Anytype_Model_ObjectType.Layout, iconEmoji: String, description_p: String, hidden: Bool, readonly: Bool,
+    types: [Anytype_Model_SmartBlockType], isArchived: Bool
   ) {
     self.url = url
     self.name = name
@@ -221,7 +221,9 @@ extension Anytype_Model_ObjectType {
     self.iconEmoji = iconEmoji
     self.description_p = description_p
     self.hidden = hidden
+    self.readonly = readonly
     self.types = types
+    self.isArchived = isArchived
   }
 }
 
@@ -235,7 +237,8 @@ extension Anytype_Model_Range {
 extension Anytype_Model_Relation {
   public init(
     key: String, format: Anytype_Model_RelationFormat, name: String, defaultValue: SwiftProtobuf.Google_Protobuf_Value, dataSource: Anytype_Model_Relation.DataSource, hidden: Bool, readOnly: Bool,
-    multi: Bool, objectTypes: [String], selectDict: [Anytype_Model_Relation.Option], maxCount: Int32, description_p: String, scope: Anytype_Model_Relation.Scope, creator: String
+    readOnlyRelation: Bool, multi: Bool, objectTypes: [String], selectDict: [Anytype_Model_Relation.Option], maxCount: Int32, description_p: String, scope: Anytype_Model_Relation.Scope,
+    creator: String
   ) {
     self.key = key
     self.format = format
@@ -244,6 +247,7 @@ extension Anytype_Model_Relation {
     self.dataSource = dataSource
     self.hidden = hidden
     self.readOnly = readOnly
+    self.readOnlyRelation = readOnlyRelation
     self.multi = multi
     self.objectTypes = objectTypes
     self.selectDict = selectDict

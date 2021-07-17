@@ -842,25 +842,31 @@ public struct Anytype_Event {
         // methods supported on all messages.
 
         /// context objectId
-        public var id: String = String()
+        public var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
 
-        public var relationKey: String = String()
+        public var relationKey: String {
+          get {return _storage._relationKey}
+          set {_uniqueStorage()._relationKey = newValue}
+        }
 
         /// missing value means relation should be removed
         public var relation: Anytype_Model_Relation {
-          get {return _relation ?? Anytype_Model_Relation()}
-          set {_relation = newValue}
+          get {return _storage._relation ?? Anytype_Model_Relation()}
+          set {_uniqueStorage()._relation = newValue}
         }
         /// Returns true if `relation` has been explicitly set.
-        public var hasRelation: Bool {return self._relation != nil}
+        public var hasRelation: Bool {return _storage._relation != nil}
         /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-        public mutating func clearRelation() {self._relation = nil}
+        public mutating func clearRelation() {_uniqueStorage()._relation = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
-        fileprivate var _relation: Anytype_Model_Relation? = nil
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       public struct Remove {
@@ -2492,25 +2498,31 @@ public struct Anytype_Event {
         // methods supported on all messages.
 
         /// dataview block's id
-        public var id: String = String()
+        public var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
 
         /// relation key to update
-        public var relationKey: String = String()
+        public var relationKey: String {
+          get {return _storage._relationKey}
+          set {_uniqueStorage()._relationKey = newValue}
+        }
 
         public var relation: Anytype_Model_Relation {
-          get {return _relation ?? Anytype_Model_Relation()}
-          set {_relation = newValue}
+          get {return _storage._relation ?? Anytype_Model_Relation()}
+          set {_uniqueStorage()._relation = newValue}
         }
         /// Returns true if `relation` has been explicitly set.
-        public var hasRelation: Bool {return self._relation != nil}
+        public var hasRelation: Bool {return _storage._relation != nil}
         /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-        public mutating func clearRelation() {self._relation = nil}
+        public mutating func clearRelation() {_uniqueStorage()._relation = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
-        fileprivate var _relation: Anytype_Model_Relation? = nil
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       /// sent when the active view's visible records should be replaced
@@ -4472,37 +4484,73 @@ extension Anytype_Event.Object.Relation.Set: SwiftProtobuf.Message, SwiftProtobu
     3: .same(proto: "relation"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _relationKey: String = String()
+    var _relation: Anytype_Model_Relation? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _relationKey = source._relationKey
+      _relation = source._relation
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._relation) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._relationKey) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._relation) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.relationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 2)
-    }
-    if let v = self._relation {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._relationKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._relationKey, fieldNumber: 2)
+      }
+      if let v = _storage._relation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Relation.Set, rhs: Anytype_Event.Object.Relation.Set) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.relationKey != rhs.relationKey {return false}
-    if lhs._relation != rhs._relation {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._relationKey != rhs_storage._relationKey {return false}
+        if _storage._relation != rhs_storage._relation {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7546,37 +7594,73 @@ extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, Swift
     3: .same(proto: "relation"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _relationKey: String = String()
+    var _relation: Anytype_Model_Relation? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _relationKey = source._relationKey
+      _relation = source._relation
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._relation) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._relationKey) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._relation) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.relationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 2)
-    }
-    if let v = self._relation {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._relationKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._relationKey, fieldNumber: 2)
+      }
+      if let v = _storage._relation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.RelationSet, rhs: Anytype_Event.Block.Dataview.RelationSet) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.relationKey != rhs.relationKey {return false}
-    if lhs._relation != rhs._relation {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._relationKey != rhs_storage._relationKey {return false}
+        if _storage._relation != rhs_storage._relation {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

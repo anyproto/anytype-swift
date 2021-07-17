@@ -1988,7 +1988,12 @@ public struct Anytype_Model_ObjectType {
 
   public var hidden: Bool = false
 
+  public var readonly: Bool = false
+
   public var types: [Anytype_Model_SmartBlockType] = []
+
+  /// sets locally to hide object type from set and some other places
+  public var isArchived: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2148,8 +2153,11 @@ public struct Anytype_Model_Relation {
   /// internal, not displayed to user (e.g. coverX, coverY)
   public var hidden: Bool = false
 
-  /// not editable by user
+  /// value not editable by user tobe renamed to readonlyValue
   public var readOnly: Bool = false
+
+  /// relation metadata, eg name and format is not editable by user
+  public var readOnlyRelation: Bool = false
 
   /// allow multiple values (stored in pb list)
   public var multi: Bool = false
@@ -4111,7 +4119,9 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     5: .same(proto: "iconEmoji"),
     6: .same(proto: "description"),
     7: .same(proto: "hidden"),
+    10: .same(proto: "readonly"),
     8: .same(proto: "types"),
+    9: .same(proto: "isArchived"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4128,6 +4138,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 6: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
       case 7: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
       case 8: try { try decoder.decodeRepeatedEnumField(value: &self.types) }()
+      case 9: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.readonly) }()
       default: break
       }
     }
@@ -4158,6 +4170,12 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.types.isEmpty {
       try visitor.visitPackedEnumField(value: self.types, fieldNumber: 8)
     }
+    if self.isArchived != false {
+      try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 9)
+    }
+    if self.readonly != false {
+      try visitor.visitSingularBoolField(value: self.readonly, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4169,7 +4187,9 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.iconEmoji != rhs.iconEmoji {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.hidden != rhs.hidden {return false}
+    if lhs.readonly != rhs.readonly {return false}
     if lhs.types != rhs.types {return false}
+    if lhs.isArchived != rhs.isArchived {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4282,6 +4302,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     5: .same(proto: "dataSource"),
     6: .same(proto: "hidden"),
     7: .same(proto: "readOnly"),
+    15: .same(proto: "readOnlyRelation"),
     8: .same(proto: "multi"),
     9: .same(proto: "objectTypes"),
     12: .same(proto: "selectDict"),
@@ -4309,6 +4330,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 12: try { try decoder.decodeRepeatedMessageField(value: &self.selectDict) }()
       case 13: try { try decoder.decodeSingularInt32Field(value: &self.maxCount) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 15: try { try decoder.decodeSingularBoolField(value: &self.readOnlyRelation) }()
       case 20: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
       case 21: try { try decoder.decodeSingularStringField(value: &self.creator) }()
       default: break
@@ -4353,6 +4375,9 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if !self.description_p.isEmpty {
       try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 14)
     }
+    if self.readOnlyRelation != false {
+      try visitor.visitSingularBoolField(value: self.readOnlyRelation, fieldNumber: 15)
+    }
     if self.scope != .object {
       try visitor.visitSingularEnumField(value: self.scope, fieldNumber: 20)
     }
@@ -4370,6 +4395,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.dataSource != rhs.dataSource {return false}
     if lhs.hidden != rhs.hidden {return false}
     if lhs.readOnly != rhs.readOnly {return false}
+    if lhs.readOnlyRelation != rhs.readOnlyRelation {return false}
     if lhs.multi != rhs.multi {return false}
     if lhs.objectTypes != rhs.objectTypes {return false}
     if lhs.selectDict != rhs.selectDict {return false}
