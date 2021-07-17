@@ -5,6 +5,8 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
 
+import SwiftProtobuf
+
 extension Anytype_Model_ObjectDetails {
   public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
     self.details = details
