@@ -67,8 +67,6 @@ final class TextBlockContentView: UIView & UIContentView {
         selectionView.clipsToBounds = true
 
         setupLayout()
-        
-        fillSubviewsWithRandomColors()
     }
 
     private func setupLayout() {
