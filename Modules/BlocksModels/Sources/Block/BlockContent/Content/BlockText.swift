@@ -37,8 +37,8 @@ public extension BlockText {
 
 // MARK: ContentType / Text / ContentType
 public extension BlockText {
-    enum ContentType {
-        case title
+    enum ContentType: Hashable {
+        case title(TitleType)
         case text
         case header
         case header2
@@ -51,6 +51,14 @@ public extension BlockText {
         case toggle
         case code
         
+        public var isTitle: Bool {
+            switch self {
+            case .title:
+                return true
+            default:
+                return false
+            }
+        }
         /// Returns true in case of content type is list, otherwise returns false
         public var isList: Bool {
             switch self {
@@ -70,5 +78,10 @@ public extension BlockText {
                 return false
             }
         }
+    }
+    
+    enum TitleType: Hashable {
+        case basic
+        case todo
     }
 }

@@ -6,7 +6,7 @@ import ProtobufMessages
 final class BlockTextContentTypeConverter {
     static func asModel(_ value: Anytype_Model_Block.Content.Text.Style) -> BlockText.ContentType? {
         switch value {
-        case .title: return .title
+        case .title: return .title(.basic)
         case .paragraph: return .text
         case .header1: return .header
         case .header2: return .header2

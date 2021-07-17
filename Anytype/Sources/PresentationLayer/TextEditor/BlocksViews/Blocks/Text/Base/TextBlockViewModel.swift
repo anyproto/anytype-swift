@@ -63,7 +63,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 .init(action: .addBlockBelow)
             ]
             
-            guard text.contentType != .title else { return result }
+            guard !text.contentType.isTitle else { return result }
             
             result.append(
                 contentsOf: [
