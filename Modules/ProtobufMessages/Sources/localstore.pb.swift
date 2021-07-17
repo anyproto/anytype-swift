@@ -38,14 +38,7 @@ public struct Anytype_Model_ObjectInfo {
   /// Clears the value of `details`. Subsequent reads from it will return its default value.
   public mutating func clearDetails() {self._details = nil}
 
-  public var relations: Anytype_Model_Relations {
-    get {return _relations ?? Anytype_Model_Relations()}
-    set {_relations = newValue}
-  }
-  /// Returns true if `relations` has been explicitly set.
-  public var hasRelations: Bool {return self._relations != nil}
-  /// Clears the value of `relations`. Subsequent reads from it will return its default value.
-  public mutating func clearRelations() {self._relations = nil}
+  public var relations: [Anytype_Model_Relation] = []
 
   public var snippet: String = String()
 
@@ -58,7 +51,6 @@ public struct Anytype_Model_ObjectInfo {
   public init() {}
 
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
-  fileprivate var _relations: Anytype_Model_Relations? = nil
 }
 
 public struct Anytype_Model_ObjectDetails {
@@ -218,6 +210,9 @@ public struct Anytype_Model_ObjectStoreChecksums {
 
   public var bundledTemplates: String = String()
 
+  /// anytypeProfile and maybe some others in the feature
+  public var bundledObjects: Int32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -248,7 +243,7 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.objectTypeUrls) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._relations) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.snippet) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.hasInboundLinks_p) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.objectType) }()
@@ -267,8 +262,8 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     }
-    if let v = self._relations {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    if !self.relations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 4)
     }
     if !self.snippet.isEmpty {
       try visitor.visitSingularStringField(value: self.snippet, fieldNumber: 5)
@@ -286,7 +281,7 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.id != rhs.id {return false}
     if lhs.objectTypeUrls != rhs.objectTypeUrls {return false}
     if lhs._details != rhs._details {return false}
-    if lhs._relations != rhs._relations {return false}
+    if lhs.relations != rhs.relations {return false}
     if lhs.snippet != rhs.snippet {return false}
     if lhs.hasInboundLinks_p != rhs.hasInboundLinks_p {return false}
     if lhs.objectType != rhs.objectType {return false}
@@ -546,6 +541,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     6: .same(proto: "idxRebuildCounter"),
     7: .same(proto: "fulltextRebuild"),
     8: .same(proto: "bundledTemplates"),
+    9: .same(proto: "bundledObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -562,6 +558,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.idxRebuildCounter) }()
       case 7: try { try decoder.decodeSingularInt32Field(value: &self.fulltextRebuild) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.bundledTemplates) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.bundledObjects) }()
       default: break
       }
     }
@@ -592,6 +589,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if !self.bundledTemplates.isEmpty {
       try visitor.visitSingularStringField(value: self.bundledTemplates, fieldNumber: 8)
     }
+    if self.bundledObjects != 0 {
+      try visitor.visitSingularInt32Field(value: self.bundledObjects, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -604,6 +604,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.idxRebuildCounter != rhs.idxRebuildCounter {return false}
     if lhs.fulltextRebuild != rhs.fulltextRebuild {return false}
     if lhs.bundledTemplates != rhs.bundledTemplates {return false}
+    if lhs.bundledObjects != rhs.bundledObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
