@@ -5,9 +5,19 @@ import BlocksModels
 final class ObjectIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
-
-    @Published private(set) var detailsLayout: DetailsLayout = .basic
-    @Published private(set) var isRemoveEnabled = true
+    
+    @Published var details = DetailsData.empty
+    var detailsLayout: DetailsLayout {
+        details.layout ?? .basic
+    }
+    var isRemoveEnabled: Bool {
+        switch detailsLayout {
+        case .basic:
+            return true
+        case .profile:
+            return !(details.iconImage?.isEmpty ?? true)
+        }
+    }
 
     // MARK: - Private variables
     
@@ -26,20 +36,6 @@ final class ObjectIconPickerViewModel: ObservableObject {
 }
 
 extension ObjectIconPickerViewModel {
-    
-    func update(with details: DetailsData) {
-        detailsLayout = details.layout ?? .basic
-     
-        isRemoveEnabled = {
-            switch detailsLayout {
-            case .basic:
-                return true
-            case .profile:
-                return !(details.iconImage?.isEmpty ?? true)
-            }
-        }()
-    }
-    
     func setEmoji(_ emojiUnicode: String) {
         detailsService.update(
             details: [

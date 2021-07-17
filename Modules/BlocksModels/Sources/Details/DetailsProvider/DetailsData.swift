@@ -10,6 +10,10 @@ public struct DetailsData {
         self.parentId = parentId
     }
     
+    public static var empty: DetailsData {
+        DetailsData(details: [:], parentId: "")
+    }
+    
 }
 
 // MARK: - DetailsInformationProvider

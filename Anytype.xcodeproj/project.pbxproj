@@ -2143,13 +2143,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		129D78912694AE3D00DA6757 /* DocumentLayoutPicker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DocumentLayoutPicker;
-			sourceTree = "<group>";
-		};
 		12B69C8E265D15FF00D047E3 /* Cover */ = {
 			isa = PBXGroup;
 			children = (
@@ -2861,7 +2854,6 @@
 			children = (
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 				120E816B269F26BE006FE84E /* ObjectSettings */,
-				129D78912694AE3D00DA6757 /* DocumentLayoutPicker */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
