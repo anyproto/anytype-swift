@@ -20,8 +20,22 @@ enum AmplitudeEventsName {
 
     static let blockCreate = "BlockCreate"
     static let blockBookmarkFetch = "BlockBookmarkFetch"
-    static let blockCopy = "BlockCopy"
+    static let blockListDuplicate = "BlockListDuplicate"
     static let blockCreatePage = "BlockCreatePage"
+    static let blockListConvertChildrenToPages = "BlockListConvertChildrenToPages"
+    static let blockListSetAlign = "BlockListSetAlign"
+    static let blockListSetBackgroundColor = "BlockListSetBackgroundColor"
+    static let blockListSetDivStyle = "BlockListSetDivStyle"
+    static let blockMerge = "BlockMerge"
+    static let blockSetDetails = "BlockSetDetails"
+    static let blockSetTextChecked = "BlockSetTextChecked"
+    static let blockSetTextStyle = "BlockSetTextStyle"
+    static let blockSetTextText = "BlockSetTextText"
+    static let blockSplit = "BlockSplit"
+    static let blockUnlink = "BlockUnlink"
+    static let blockUpload = "BlockUpload"
+    static let downloadFile = "DownloadFile"
+    static let pageCreate = "PageCreate"
 }
 
 enum AmplitudeEventsPropertiesKey {
