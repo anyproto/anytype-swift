@@ -54,7 +54,7 @@ final class HomeViewModel: ObservableObject {
 
     // MARK: - Private methods
 
-    private func updateArchiveTab() {
+    func updateArchiveTab() {
         searchService.searchArchivedPages { [weak self] searchResults in
             guard let self = self else { return }
             self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)

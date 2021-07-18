@@ -1,6 +1,8 @@
 import Combine
 import UIKit
 import BlocksModels
+import Amplitude
+
 
 final class ObjectIconPickerViewModel: ObservableObject {
     
@@ -46,6 +48,9 @@ extension ObjectIconPickerViewModel {
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.buttonUploadPhoto)
+
         let supportedTypeIdentifiers = mediaPickerContentType.supportedTypeIdentifiers
         
         let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
@@ -64,6 +69,9 @@ extension ObjectIconPickerViewModel {
     }
     
     func removeIcon() {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.buttonRemoveEmoji)
+        
         detailsService.update(
             details: [
                 .iconEmoji: DetailsEntry(value: ""),

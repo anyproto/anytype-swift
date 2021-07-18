@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Amplitude
+
 
 struct ObjectSettingsView: View {
     
@@ -37,6 +39,9 @@ struct ObjectSettingsView: View {
                     case .icon:
                         isIconPickerPresented = true
                     case .cover:
+                        // Analytics
+                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileWallpaper)
+                        
                         isCoverPickerPresented = true
                     case .layout:
                         withAnimation() {

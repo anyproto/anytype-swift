@@ -36,6 +36,31 @@ enum AmplitudeEventsName {
     static let blockUpload = "BlockUpload"
     static let downloadFile = "DownloadFile"
     static let pageCreate = "PageCreate"
+
+    // Events in editing accessory view
+    static let buttonActionMenu = "ButtonActionMenu"
+    static let buttonStyleMenu = "ButtonStyleMenu"
+    static let buttonMentionMenu = "ButtonMentionMenu"
+    static let buttonHideKeyboard = "ButtonHideKeyboard"
+
+    // Profile events
+    static let buttonProfileLogOut = "ButtonProfileLogOut"
+
+    // Emoji picker events
+    static let buttonRandomEmoji = "ButtonRandomEmoji"
+    static let buttonRemoveEmoji = "ButtonRemoveEmoji"
+    static let buttonUploadPhoto = "ButtonUploadPhoto"
+
+    // Settings view events
+    static let buttonProfileWallpaper = "ButtonProfileWallpaper"
+
+    // Home view events
+    static let favoritesPage = "Page: Favorites"
+    static let archivePage = "Page: Archive"
+    static let recentPage = "Page: Recent"
+    static let inboxPage = "Page: Inbox"
+    static let profilePage = "Page: Profile"
+
 }
 
 enum AmplitudeEventsPropertiesKey {
