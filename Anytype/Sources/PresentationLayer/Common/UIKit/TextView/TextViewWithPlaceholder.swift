@@ -2,32 +2,6 @@ import Foundation
 import UIKit
 import Combine
 
-
-extension CustomTextView {
-    
-    // Menu displayed while text is selected
-    enum ContextMenuAction: CaseIterable {
-        case bold
-        case italic
-        case strikethrough
-        case code
-    }
-}
-
-// MARK: - TextStorageEvent
-
-extension TextViewWithPlaceholder {
-    
-    enum TextStorageEvent {
-        struct Payload {
-            var attributedText: NSAttributedString
-            var textAlignment: NSTextAlignment
-        }
-        case willProcessEditing(Payload)
-        case didProcessEditing(Payload)
-    }
-}
-
 // MARK: - TextView
 
 final class TextViewWithPlaceholder: UITextView {
@@ -165,7 +139,7 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupMenu() {
-        UIMenuController.shared.menuItems = CustomTextView.ContextMenuAction.allCases.map { item in
+        UIMenuController.shared.menuItems = BlockHandlerActionType.TextAttributesType.allCases.map { item in
             let selector: Selector = {
                 switch item {
                 case .bold:
@@ -174,7 +148,7 @@ private extension TextViewWithPlaceholder {
                     return #selector(didSelectContextMenuActionItalic)
                 case .strikethrough:
                     return #selector(didSelectContextMenuActionStrikethrough)
-                case .code:
+                case .keyboard:
                     return #selector(didSelectContextMenuActionCode)
                 }
             }()
@@ -204,10 +178,10 @@ extension TextViewWithPlaceholder {
     }
     
     @objc private func didSelectContextMenuActionCode() {
-        handleMenuAction(.code)
+        handleMenuAction(.keyboard)
     }
 
-    private func handleMenuAction(_ action: CustomTextView.ContextMenuAction) {
+    private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
         let range = selectedRange
 
         userInteractionDelegate?.didReceiveAction(
@@ -241,7 +215,7 @@ extension TextViewWithPlaceholder {
 
 // MARK: - ContextMenuAction
 
-private extension CustomTextView.ContextMenuAction {
+private extension BlockHandlerActionType.TextAttributesType {
 
     var title: String {
         switch self {
@@ -251,7 +225,7 @@ private extension CustomTextView.ContextMenuAction {
             return "Italic".localized
         case .strikethrough:
             return "Strikethrough".localized
-        case .code:
+        case .keyboard:
             return "Code".localized
         }
     }
