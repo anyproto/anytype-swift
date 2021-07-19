@@ -68,7 +68,3 @@ enum AmplitudeEventsPropertiesKey {
     static let blockStyle = "style"
     static let blockType = "type"
 }
-
-enum AmplitudeUserPropertiesKey {
-    static let appVersion = "appVersion"
-}

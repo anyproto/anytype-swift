@@ -49,12 +49,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Amplitude.instance().trackingSessionEvents = true
           // Initialize SDK
         Amplitude.instance().initializeApiKey(AmplitudeConfiguration.apiKey)
-
-        // set app version
-        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? NSString
-        if let identify = AMPIdentify()
-                .set(AmplitudeUserPropertiesKey.appVersion, value: appVersion) {
-            Amplitude.instance().identify(identify)
-        }
     }
 }
