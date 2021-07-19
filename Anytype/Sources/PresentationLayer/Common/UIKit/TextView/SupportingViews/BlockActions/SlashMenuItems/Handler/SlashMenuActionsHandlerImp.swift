@@ -11,8 +11,9 @@ final class SlashMenuActionsHandlerImp {
     
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
-    private let blockActionHandler: EditorActionHandlerProtocol
     private var middwareEventsSubscription: AnyCancellable?
+    
+    private let blockActionHandler: EditorActionHandlerProtocol
     
     init(blockActionHandler: EditorActionHandlerProtocol) {
         self.blockActionHandler = blockActionHandler

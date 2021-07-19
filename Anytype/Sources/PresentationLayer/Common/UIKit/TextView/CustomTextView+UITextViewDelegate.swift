@@ -47,7 +47,7 @@ extension CustomTextView: UITextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if textView.inputAccessoryView.isNil {
-            textView.inputAccessoryView = self.editingToolbarAccessoryView
+            textView.inputAccessoryView = accessoryView
         }
         inputSwitcher.switchInputs(customTextView: self)
         delegate?.willBeginEditing()

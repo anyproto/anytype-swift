@@ -90,7 +90,7 @@ final class AccessoryViewSwitcher {
         } else {
             cleanupDisplayedView()
         }
-        return customTextView.editingToolbarAccessoryView
+        return customTextView.accessoryView
     }
     
     // We do want to continue displaying menu view or mention view
