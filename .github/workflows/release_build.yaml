@@ -22,7 +22,7 @@ jobs:
           - Anytype
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           ref: ${{ github.event.inputs.branch }}
 
@@ -32,15 +32,10 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1.77.0
         with:
           ruby-version: 2.6.3
           bundler-cache: true
-
-      - name: Install dependencies for badge plugin imagemagick
-        run: |
-          brew install imagemagick
-          brew install librsvg
 
       - name: Update git config
         run: |
@@ -48,8 +43,9 @@ jobs:
           git config --global user.name "William Blake"
           git config --global user.email "iosteam@anytype.io"
 
-      - name: Select Xcode
-        run: sh ./Scripts/ci_select_xcode.sh
+      - uses: maxim-lobanov/setup-xcode@v1.2.3
+        with:
+          xcode-version: '12.4'
 
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}

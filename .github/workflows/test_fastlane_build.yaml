@@ -31,7 +31,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v1.77.0
         with:
           ruby-version: 2.6.3
           bundler-cache: true
