@@ -50,6 +50,4 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     func handle(action: ContextualMenuAction) {
         contextualMenuHandler.handle(action: action, info: information)
     }
-    
-    func updateView() { }
 }

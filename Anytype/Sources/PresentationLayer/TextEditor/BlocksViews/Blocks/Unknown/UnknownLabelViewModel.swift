@@ -1,13 +1,30 @@
-import Foundation
-import SwiftUI
-import Combine
-import os
 import BlocksModels
+import UIKit
 
-class UnknownLabelViewModel: BaseBlockViewModel {
-    override func makeContentConfiguration() -> UIContentConfiguration {
-        var configuration = ContentConfiguration(block.blockModel.information)
-        configuration.contextMenuHolder = self
-        return configuration
+struct UnknownLabelViewModel: BlockViewModelProtocol {
+    let isStruct = true
+    let indentationLevel = 0
+    let information: BlockInformation
+    
+    var diffable: AnyHashable {
+        information.id
     }
+    
+    init(information: BlockInformation) {
+        self.information = information
+    }
+    
+    func makeContextualMenu() -> ContextualMenu {
+        ContextualMenu(title: "")
+    }
+    
+    func handle(action: ContextualMenuAction) { }
+    
+    func makeContentConfiguration() -> UIContentConfiguration {
+        var contentConfiguration = UIListContentConfiguration.cell()
+        contentConfiguration.text = "\(information.content.identifier) -> \(information.id)"
+        return contentConfiguration
+    }
+    
+    func didSelectRowInTableView() { }
 }

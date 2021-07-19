@@ -102,11 +102,6 @@ final class TopWithChildUIKitView: UIView {
         }
     }
 
-    // MARK: Update / (Could be placed in `layoutSubviews()`)
-    func updateView() {
-        // toggle animation also
-    }
-
     func updateIfNeeded(leftChild: UIView?, setConstraints: Bool = false) {
         guard let leftChild = leftChild else { return }
         self.topView.updateIfNeeded(leftViewSubview: leftChild, setConstraints)

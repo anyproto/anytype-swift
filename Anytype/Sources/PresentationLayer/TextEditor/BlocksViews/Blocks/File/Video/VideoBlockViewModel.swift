@@ -47,6 +47,4 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
             contextualMenuHandler.handle(action: action, info: information)
         }
     }
-    
-    func updateView() { }
 }
