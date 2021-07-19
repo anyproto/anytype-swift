@@ -31,7 +31,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private(set) var currentConfiguration: TextBlockContentConfiguration
     
     var configuration: UIContentConfiguration {
-        get { self.currentConfiguration }
+        get { currentConfiguration }
         set {
             guard let configuration = newValue as? TextBlockContentConfiguration else { return }
             
@@ -92,7 +92,7 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Apply configuration
 
     private func apply(configuration: TextBlockContentConfiguration) {
-        guard self.currentConfiguration != configuration else { return }
+        guard currentConfiguration != configuration else { return }
         
         currentConfiguration = configuration
         applyNewConfiguration()
@@ -105,13 +105,6 @@ final class TextBlockContentView: UIView & UIContentView {
         topStackView.spacing = 4
         
         subscriptions.removeAll()
-
-        textView.delegate = nil
-        // We don't want to handle delegate methods after 'attributedText = nil' it cause side effects
-        textView.textView.delegate = nil
-        // it's important to clean old attributed string
-        textView.textView.attributedText = nil
-        textView.textView.delegate = textView
         textView.delegate = self
         textView.userInteractionDelegate = self
 
