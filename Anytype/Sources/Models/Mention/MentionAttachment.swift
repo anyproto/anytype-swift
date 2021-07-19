@@ -131,7 +131,7 @@ final class MentionAttachment: NSTextAttachment {
         )
         let image = PlaceholderImageBuilder.placeholder(
             with: imageGuideline,
-            color: .secondaryTextColor,
+            color: .grayscale30,
             textGuideline: placeholderGuideline
         )
         addLeadingSpaceAndDisplay(image)
