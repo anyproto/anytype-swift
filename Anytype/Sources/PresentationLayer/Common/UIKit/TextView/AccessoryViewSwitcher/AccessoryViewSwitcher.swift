@@ -11,12 +11,21 @@ final class AccessoryViewSwitcher {
     
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
+    let editingToolbarAccessoryView = EditingToolbarView()
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
+    private let mentionsView: (DismissableInputAccessoryView & FilterableItemsView)
+    private let slashMenuView: (DismissableInputAccessoryView & FilterableItemsView)
     
-    func switchInputs(customTextView: CustomTextView) {
-        updateDisplayedAccessoryViewState(customTextView: customTextView)
-        showEditingBars(customTextView: customTextView)
+    init(mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
+         slashMenuView: (DismissableInputAccessoryView & FilterableItemsView)) {
+        self.mentionsView = mentionsView
+        self.slashMenuView = slashMenuView
+    }
+    
+    func switchInputs(textView: UITextView) {
+        updateDisplayedAccessoryViewState(textView: textView)
+        showEditingBars(textView: textView)
     }
     
     func textTypingIsUsingForAccessoryViewContentFiltering() -> Bool {
@@ -31,7 +40,29 @@ final class AccessoryViewSwitcher {
         accessoryViewTriggerSymbolPosition = nil
     }
     
-    func showAccessoryView(
+    func showEditingBars(textView: UITextView) {
+        let accessoryView = variantsFromState(
+            textView: textView,
+            accessoryView: textView.inputAccessoryView
+        )
+        switchInputs(
+            animated: false,
+            textView: textView,
+            accessoryView: accessoryView
+        )
+    }
+    
+    func showMentionsView(textView: UITextView) {
+        showAccessoryView(accessoryView: mentionsView, textView: textView)
+    }
+    
+    func showSlashMenuView(textView: UITextView) {
+        showAccessoryView(accessoryView: slashMenuView, textView: textView)
+    }
+    
+    // MARK: - Private
+    
+    private func showAccessoryView(
         accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
         textView: UITextView
     ) {
@@ -44,20 +75,6 @@ final class AccessoryViewSwitcher {
         accessoryView?.didShow(from: textView)
         accessoryViewTriggerSymbolPosition = textView.caretPosition()
     }
-    
-    func showEditingBars(customTextView: CustomTextView) {
-        let accessoryView = variantsFromState(
-            customTextView: customTextView,
-            accessoryView: customTextView.textView.inputAccessoryView
-        )
-        switchInputs(
-            animated: false,
-            textView: customTextView.textView,
-            accessoryView: accessoryView
-        )
-    }
-    
-    // MARK: - Private
     
     private func switchInputs(
         animated: Bool,
@@ -82,32 +99,31 @@ final class AccessoryViewSwitcher {
     }
     
     private func variantsFromState(
-        customTextView: CustomTextView,
+        textView: UITextView,
         accessoryView: UIView?
     ) -> UIView? {
-        if shouldContinueToDisplayAccessoryView(customTextView: customTextView) {
+        if shouldContinueToDisplayAccessoryView(textView: textView) {
             return accessoryView
         } else {
             cleanupDisplayedView()
         }
-        return customTextView.editingToolbarAccessoryView
+        return editingToolbarAccessoryView
     }
     
     // We do want to continue displaying menu view or mention view
     // if current caret position more far from begining
     // then / or @ symbol and if menu view displays any items(not empty)
-    private func shouldContinueToDisplayAccessoryView(customTextView: CustomTextView) -> Bool {
+    private func shouldContinueToDisplayAccessoryView(textView: UITextView) -> Bool {
         guard let accessoryView = displayedView,
               !accessoryView.window.isNil,
               let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
-              let caretPosition = customTextView.textView.caretPosition(),
-              customTextView.textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
+              let caretPosition = textView.caretPosition(),
+              textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
               accessoryView.shouldContinueToDisplayView() else { return false }
         return true
     }
     
-    private func updateDisplayedAccessoryViewState(customTextView: CustomTextView) {
-        let textView = customTextView.textView
+    private func updateDisplayedAccessoryViewState(textView: UITextView) {
         displayAcessoryViewTask?.cancel()
         // We want do to display actions menu in case
         // text was changed - "text" -> "text/"
@@ -129,12 +145,14 @@ final class AccessoryViewSwitcher {
         
         if text.hasSuffix(textToTriggerActionsViewDisplay) {
             createDelayedAcessoryViewTask(
-                accessoryView: customTextView.slashMenuView,
+                accessoryView: slashMenuView,
                 textView: textView
             )
         } else if text.hasSuffix(textToTriggerMentionViewDisplay) {
-            createDelayedAcessoryViewTask(accessoryView: customTextView.mentionView,
-                                          textView: textView)
+            createDelayedAcessoryViewTask(
+                accessoryView: mentionsView,
+                textView: textView
+            )
         }
     }
     
