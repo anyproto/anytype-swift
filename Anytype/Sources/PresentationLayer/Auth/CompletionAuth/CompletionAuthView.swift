@@ -32,6 +32,9 @@ struct CompletionAuthView: View {
                 .cornerRadius(12)
             }
             .padding()
+            .onAppear {
+                viewModel.viewLoaded()
+            }
         }
         .navigationBarHidden(true)
         .modifier(LogoOverlay())

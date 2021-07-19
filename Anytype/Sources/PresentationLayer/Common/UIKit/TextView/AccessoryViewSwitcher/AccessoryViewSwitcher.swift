@@ -1,6 +1,6 @@
 import UIKit
 
-final class TextBlockAccessoryViewSwitcher {
+final class AccessoryViewSwitcher {
     
     private enum Constants {
         static let displayActionsViewDelay: TimeInterval = 0.3
@@ -8,39 +8,11 @@ final class TextBlockAccessoryViewSwitcher {
     
     let textToTriggerActionsViewDisplay = "/"
     let textToTriggerMentionViewDisplay = "@"
+    
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
-    
-    func switchInputs(animated: Bool,
-                      textView: UITextView,
-                      accessoryView: UIView?) {
-        guard textView.inputAccessoryView != accessoryView, let accessoryView = accessoryView else {
-            return
-        }
-        textView.inputAccessoryView = accessoryView
-        if !animated {
-            textView.reloadInputViews()
-        } else {
-            accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.frame.size.height)
-            UIView.animate(withDuration: CATransaction.animationDuration()) {
-                accessoryView.transform = .identity
-                textView.reloadInputViews()
-                textView.window?.layoutIfNeeded()
-            }
-        }
-    }
-    
-    func variantsFromState(customTextView: CustomTextView,
-                           accessoryView: UIView?) -> UIView? {
-        if shouldContinueToDisplayAccessoryView(customTextView: customTextView) {
-            return accessoryView
-        } else {
-            cleanupDisplayedView()
-        }
-        return customTextView.editingToolbarAccessoryView
-    }
     
     func switchInputs(customTextView: CustomTextView) {
         updateDisplayedAccessoryViewState(customTextView: customTextView)
@@ -59,9 +31,25 @@ final class TextBlockAccessoryViewSwitcher {
         accessoryViewTriggerSymbolPosition = nil
     }
     
+    func showAccessoryView(
+        accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
+        textView: UITextView
+    ) {
+        switchInputs(
+            animated: true,
+            textView: textView,
+            accessoryView: accessoryView
+        )
+        displayedView = accessoryView
+        accessoryView?.didShow(from: textView)
+        accessoryViewTriggerSymbolPosition = textView.caretPosition()
+    }
+    
     func showEditingBars(customTextView: CustomTextView) {
-        let accessoryView = variantsFromState(customTextView: customTextView,
-                                              accessoryView: customTextView.textView.inputAccessoryView)
+        let accessoryView = variantsFromState(
+            customTextView: customTextView,
+            accessoryView: customTextView.textView.inputAccessoryView
+        )
         switchInputs(
             animated: false,
             textView: customTextView.textView,
@@ -69,14 +57,40 @@ final class TextBlockAccessoryViewSwitcher {
         )
     }
     
-    func showAccessoryView(accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
-                           textView: UITextView) {
-        switchInputs(animated: true,
-                     textView: textView,
-                     accessoryView: accessoryView)
-        displayedView = accessoryView
-        accessoryView?.didShow(from: textView)
-        accessoryViewTriggerSymbolPosition = textView.caretPosition()
+    // MARK: - Private
+    
+    private func switchInputs(
+        animated: Bool,
+        textView: UITextView,
+        accessoryView: UIView?
+    ) {
+        guard textView.inputAccessoryView != accessoryView,
+              let accessoryView = accessoryView else {
+            return
+        }
+        textView.inputAccessoryView = accessoryView
+        if !animated {
+            textView.reloadInputViews()
+        } else {
+            accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.frame.size.height)
+            UIView.animate(withDuration: CATransaction.animationDuration()) {
+                accessoryView.transform = .identity
+                textView.reloadInputViews()
+                textView.window?.layoutIfNeeded()
+            }
+        }
+    }
+    
+    private func variantsFromState(
+        customTextView: CustomTextView,
+        accessoryView: UIView?
+    ) -> UIView? {
+        if shouldContinueToDisplayAccessoryView(customTextView: customTextView) {
+            return accessoryView
+        } else {
+            cleanupDisplayedView()
+        }
+        return customTextView.editingToolbarAccessoryView
     }
     
     // We do want to continue displaying menu view or mention view
@@ -114,8 +128,10 @@ final class TextBlockAccessoryViewSwitcher {
            textViewChange != .deletingSymbols else { return }
         
         if text.hasSuffix(textToTriggerActionsViewDisplay) {
-            createDelayedAcessoryViewTask(accessoryView: customTextView.menuActionsAccessoryView,
-                                          textView: textView)
+            createDelayedAcessoryViewTask(
+                accessoryView: customTextView.slashMenuView,
+                textView: textView
+            )
         } else if text.hasSuffix(textToTriggerMentionViewDisplay) {
             createDelayedAcessoryViewTask(accessoryView: customTextView.mentionView,
                                           textView: textView)
@@ -125,8 +141,10 @@ final class TextBlockAccessoryViewSwitcher {
     private func createDelayedAcessoryViewTask(accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
                                              textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
-            self?.showAccessoryView(accessoryView: accessoryView,
-                                    textView: textView)
+            self?.showAccessoryView(
+                accessoryView: accessoryView,
+                textView: textView
+            )
         })
         displayAcessoryViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)

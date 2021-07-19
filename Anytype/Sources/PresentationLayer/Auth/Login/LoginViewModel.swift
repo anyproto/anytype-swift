@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
 
@@ -44,7 +43,6 @@ class LoginViewModel: ObservableObject {
                     self?.error = error
                     return
                 }
-                
                 self?.showSelectProfile = true
             }
         }

@@ -4,12 +4,12 @@ public struct BlockText: Hashable {
 
     /// Block color
     public var color: MiddlewareColor?
-    public var contentType: ContentType
+    public var contentType: Style
     public var checked: Bool
     public var number: Int
     
     // MARK: - Memberwise initializer
-    public init(attributedText: NSAttributedString, color: MiddlewareColor?, contentType: ContentType, checked: Bool, number: Int = 1) {
+    public init(attributedText: NSAttributedString, color: MiddlewareColor?, contentType: Style, checked: Bool, number: Int = 1) {
         self.attributedText = attributedText
         self.color = color
         self.contentType = contentType
@@ -20,7 +20,7 @@ public struct BlockText: Hashable {
 
 // MARK: ContentType / Text / Supplements
 public extension BlockText {
-    init(contentType: ContentType) {
+    init(contentType: Style) {
         self.init(attributedText: .init(), color: nil, contentType: contentType, checked: Self.defaultChecked)
     }
             
@@ -37,7 +37,7 @@ public extension BlockText {
 
 // MARK: ContentType / Text / ContentType
 public extension BlockText {
-    enum ContentType {
+    enum Style {
         case title
         case text
         case header

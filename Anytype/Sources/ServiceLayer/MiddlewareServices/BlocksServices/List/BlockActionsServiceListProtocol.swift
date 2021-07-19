@@ -5,12 +5,11 @@ import UIKit
 
 protocol BlockActionsServiceListProtocol {
     typealias DividerStyle = BlockDivider.Style
-    typealias TextStyle = BlockText.ContentType
+    typealias TextStyle = BlockText.Style
     typealias Alignment = LayoutAlignment
     typealias Field = String
     
     func delete(blockIds: [String]) -> AnyPublisher<ServiceSuccess, Error>
-    func delete(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error>
     func setPageIsArchived(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ServiceSuccess, Error>
     func setDivStyle(contextID: BlockId, blockIds: [BlockId], style: DividerStyle) -> AnyPublisher<ServiceSuccess, Error>
     func setAlign(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<ServiceSuccess, Error>

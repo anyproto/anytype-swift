@@ -3,7 +3,11 @@ import UIKit
 
 extension CustomTextView: UITextViewDelegate {
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
         
         inputSwitcher.textViewChange = textView.textChangeType(changeTextRange: range, replacementText: text)

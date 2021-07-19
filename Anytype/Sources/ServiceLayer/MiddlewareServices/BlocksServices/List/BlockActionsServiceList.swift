@@ -21,10 +21,6 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
             .eraseToAnyPublisher()
     }
     
-    func delete(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blocksIds).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-    }
-    
     func setFields(contextID: BlockId, blockFields: [BlockFields]) -> AnyPublisher<ServiceSuccess, Error> {
         let middleFields = blockFields.map { $0.convertToMiddle() }
         return setFields(contextID: contextID, blockFields: middleFields)

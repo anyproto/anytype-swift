@@ -1,4 +1,6 @@
 import SwiftUI
+import Amplitude
+
 
 struct ObjectBasicIconPicker: View {
 
@@ -90,10 +92,12 @@ struct ObjectBasicIconPicker: View {
     
     private var randomEmojiButtonView: some View {
         Button {
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.buttonRandomEmoji)
+
             EmojiProvider.shared.randomEmoji().flatMap {
                 handleSelectedEmoji($0)
             }
-            
         } label: {
             AnytypeText("Random", style: .headline)
                 .foregroundColor(Color.buttonActive)

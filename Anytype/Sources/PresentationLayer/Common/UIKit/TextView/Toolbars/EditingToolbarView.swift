@@ -1,4 +1,6 @@
 import UIKit
+import Amplitude
+
 
 extension EditingToolbarView {
     typealias ActionHandler = (Action) -> Void
@@ -62,18 +64,30 @@ class EditingToolbarView: UIView {
         stackView.edgesToSuperview()
     
         addBarButtonItem(image: UIImage.edititngToolbar.addNew) { [weak self] _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.buttonActionMenu)
+
             self?.actionHandler?(.slashMenu)
         }
 
         addBarButtonItem(image: UIImage.edititngToolbar.style) {[weak self] _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.buttonStyleMenu)
+
             self?.actionHandler?(.showStyleMenu)
         }
         
         addBarButtonItem(image: UIImage.edititngToolbar.mention) { [weak self] _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.buttonMentionMenu)
+
             self?.actionHandler?(.mention)
         }
         
         addBarButtonItem(title: "Done".localized) { [weak self]_ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.buttonHideKeyboard)
+
             self?.actionHandler?(.keyboardDismiss)
         }
     }

@@ -3,6 +3,7 @@ import Combine
 import BlocksModels
 import os
 import ProtobufMessages
+import Amplitude
 
 
 private extension BlockActionsServiceSingle {
@@ -61,7 +62,14 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds)
+            .map(\.event)
+            .map(ServiceSuccess.init(_:))
+            .subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveSubscription: { _ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
+            }).eraseToAnyPublisher()
     }
     
     // MARK: Duplicate

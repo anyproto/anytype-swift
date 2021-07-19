@@ -2,7 +2,7 @@ import SwiftUI
 
 final class SettingsAssembly {
     func settingsView() -> some View {
-        SettingsView(model: SettingsViewModel(
+        SettingsView(viewModel: SettingsViewModel(
             authService: ServiceLocator.shared.authService()
         ))
     }
