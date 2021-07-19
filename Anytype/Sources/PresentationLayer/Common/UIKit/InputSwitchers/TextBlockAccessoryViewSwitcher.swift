@@ -1,7 +1,6 @@
-
 import UIKit
 
-final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
+final class TextBlockAccessoryViewSwitcher {
     
     private enum Constants {
         static let displayActionsViewDelay: TimeInterval = 0.3
@@ -14,80 +13,37 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     
-    override func switchInputs(inputViewKeyboardSize: CGSize,
-                               animated: Bool,
-                               textView: UITextView,
-                               accessoryView: UIView?,
-                               inputView: UIView?) {
-        if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
+    func switchInputs(animated: Bool,
+                      textView: UITextView,
+                      accessoryView: UIView?) {
+        guard textView.inputAccessoryView != accessoryView, let accessoryView = accessoryView else {
             return
         }
-        if textView.inputAccessoryView == accessoryView, textView.inputView == inputView {
-            return
-        }
-        var shouldReloadInputViews = false
-        if let inputView = inputView {
-            inputView.frame = CGRect(origin: .zero, size: inputViewKeyboardSize)
-            textView.inputView = inputView
-            shouldReloadInputViews = true
-        }
-        
-        if let accessoryView = accessoryView {
-            textView.inputAccessoryView = accessoryView
-            shouldReloadInputViews = true
-        }
-        if !shouldReloadInputViews {
-            return
-        }
+        textView.inputAccessoryView = accessoryView
         if !animated {
             textView.reloadInputViews()
         } else {
-            accessoryView?.transform = CGAffineTransform(translationX: 0, y: accessoryView?.frame.size.height ?? 0)
+            accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.frame.size.height)
             UIView.animate(withDuration: CATransaction.animationDuration()) {
-                accessoryView?.transform = .identity
+                accessoryView.transform = .identity
                 textView.reloadInputViews()
                 textView.window?.layoutIfNeeded()
             }
         }
     }
-
-    override func variantsFromState(customTextView: CustomTextView,
-                                    selectionLength: Int,
-                                    accessoryView: UIView?,
-                                    inputView: UIView?) -> InputSwitcherTriplet {
+    
+    func variantsFromState(customTextView: CustomTextView,
+                           accessoryView: UIView?) -> UIView? {
         if shouldContinueToDisplayAccessoryView(customTextView: customTextView) {
-            return InputSwitcherTriplet(shouldAnimate: false,
-                                        accessoryView: accessoryView,
-                                        inputView: nil)
+            return accessoryView
         } else {
             cleanupDisplayedView()
         }
-        switch (selectionLength, accessoryView, inputView) {
-        // Length == 0, => set actions toolbar and restore default keyboard.
-        case (0, _, _):
-            return .init(shouldAnimate: false,
-                         accessoryView: customTextView.editingToolbarAccessoryView,
-                         inputView: nil)
-        // Length != 0 and is ActionsToolbarAccessoryView => set marks pane input view and restore default accessory view (?).
-        case (_, is EditingToolbarView, _):
-            return .init(shouldAnimate: false,
-                         accessoryView: accessoryView,
-                         inputView: nil)
-        // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
-        case (_, is CustomTextView.HighlightedToolbar.InputLink.ContainerView, _) where customTextView.textView.isFirstResponder:
-            return .init(shouldAnimate: false,
-                         accessoryView: customTextView.highlightedAccessoryView,
-                         inputView: nil)
-        // Otherwise, we need to keep accessory view and keyboard.
-        default:
-            return .init(shouldAnimate: false,
-                         accessoryView: accessoryView,
-                         inputView: inputView)
-        }
+        return customTextView.editingToolbarAccessoryView
     }
     
-    override func switchInputs(customTextView: CustomTextView) {
-        self.updateDisplayedAccessoryViewState(customTextView: customTextView)
+    func switchInputs(customTextView: CustomTextView) {
+        updateDisplayedAccessoryViewState(customTextView: customTextView)
         showEditingBars(customTextView: customTextView)
     }
     
@@ -104,28 +60,20 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     }
     
     func showEditingBars(customTextView: CustomTextView) {
-        let triplet = variantsFromState(customTextView: customTextView,
-                                        selectionLength: customTextView.textView.selectedRange.length,
-                                        accessoryView: customTextView.textView.inputAccessoryView,
-                                        inputView: customTextView.textView.inputView)
-        self.switchInputs(
-            inputViewKeyboardSize: .zero,
-            animated: triplet.shouldAnimate,
+        let accessoryView = variantsFromState(customTextView: customTextView,
+                                              accessoryView: customTextView.textView.inputAccessoryView)
+        switchInputs(
+            animated: false,
             textView: customTextView.textView,
-            accessoryView: triplet.accessoryView,
-            inputView: triplet.inputView
+            accessoryView: accessoryView
         )
-        
-        self.didSwitchViews(customTextView: customTextView)
     }
     
     func showAccessoryView(accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
                            textView: UITextView) {
-        switchInputs(inputViewKeyboardSize: .zero,
-                     animated: true,
+        switchInputs(animated: true,
                      textView: textView,
-                     accessoryView: accessoryView,
-                     inputView: nil)
+                     accessoryView: accessoryView)
         displayedView = accessoryView
         accessoryView?.didShow(from: textView)
         accessoryViewTriggerSymbolPosition = textView.caretPosition()
@@ -180,7 +128,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
             self?.showAccessoryView(accessoryView: accessoryView,
                                     textView: textView)
         })
-        self.displayAcessoryViewTask = task
+        displayAcessoryViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)
     }
 }

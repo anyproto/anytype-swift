@@ -24,7 +24,7 @@ final class CustomTextView: UIView {
     var textSize: CGSize?
     
     let editingToolbarAccessoryView = EditingToolbarView()
-    let inputSwitcher = ActionsAndMarksPaneInputSwitcher()
+    let inputSwitcher = TextBlockAccessoryViewSwitcher()
     
     let options: Options
 
@@ -37,8 +37,6 @@ final class CustomTextView: UIView {
         return textView
     }()
 
-    /// HighlightedAccessoryView
-    private(set) lazy var highlightedAccessoryView = CustomTextView.HighlightedToolbar.AccessoryView()
     private(set) lazy var menuActionsAccessoryView: SlashMenuView = {
         let dismissActionsMenu = { [weak self] in
             guard let self = self else { return }

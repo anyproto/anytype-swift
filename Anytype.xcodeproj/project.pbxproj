@@ -523,9 +523,7 @@
 		EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */; };
 		EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9E262711D2004C8C06 /* BlockValidator.swift */; };
 		EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */; };
-		EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB4A26288691004C8C06 /* InputSwitcher.swift */; };
-		EAC6BB4E262886DA004C8C06 /* InputSwitcherTriplet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB4D262886DA004C8C06 /* InputSwitcherTriplet.swift */; };
-		EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */; };
+		EAC6BB54262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift */; };
 		EAC6BB5726289201004C8C06 /* SlashMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* SlashMenuView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */; };
@@ -1102,9 +1100,7 @@
 		EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBlockRestrictions.swift; sourceTree = "<group>"; };
 		EAC6BA9E262711D2004C8C06 /* BlockValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockValidator.swift; sourceTree = "<group>"; };
 		EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBlockRestrictions.swift; sourceTree = "<group>"; };
-		EAC6BB4A26288691004C8C06 /* InputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSwitcher.swift; sourceTree = "<group>"; };
-		EAC6BB4D262886DA004C8C06 /* InputSwitcherTriplet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSwitcherTriplet.swift; sourceTree = "<group>"; };
-		EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsAndMarksPaneInputSwitcher.swift; sourceTree = "<group>"; };
+		EAC6BB53262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockAccessoryViewSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB5626289201004C8C06 /* SlashMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.KeyExtension.swift; sourceTree = "<group>"; };
@@ -3407,9 +3403,7 @@
 		EAC6BB4926288680004C8C06 /* InputSwitchers */ = {
 			isa = PBXGroup;
 			children = (
-				EAC6BB4A26288691004C8C06 /* InputSwitcher.swift */,
-				EAC6BB4D262886DA004C8C06 /* InputSwitcherTriplet.swift */,
-				EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */,
+				EAC6BB53262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift */,
 			);
 			path = InputSwitchers;
 			sourceTree = "<group>";
@@ -3876,7 +3870,6 @@
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				1236985C268F450F005B638A /* PlaceholderImageTextGuideline.swift in Sources */,
-				EAC6BB4E262886DA004C8C06 /* InputSwitcherTriplet.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */,
 				12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */,
@@ -3937,7 +3930,7 @@
 				3DB27C04261B0E9C005E523C /* KeyedEncodingContainer.swift in Sources */,
 				3DB6E249268B65BD00C303E5 /* DefaultContextualMenuHandler.swift in Sources */,
 				12D8FFB7268CCA06008F765B /* DocumentDetailsViewModel.swift in Sources */,
-				EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */,
+				EAC6BB54262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */,
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
@@ -4137,7 +4130,6 @@
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
-				EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */,
 				3DEFD65A2689FE680072EA27 /* CoverGradient.swift in Sources */,
 				EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
