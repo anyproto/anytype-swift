@@ -15,6 +15,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases
         case .profile:
             return ObjectSetting.allCases
+        case .todo:
+            return ObjectSetting.allCases.filter { $0 != .icon }
         }
     }
     

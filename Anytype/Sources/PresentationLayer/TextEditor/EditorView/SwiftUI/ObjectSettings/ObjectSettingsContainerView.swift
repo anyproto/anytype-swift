@@ -74,6 +74,8 @@ struct ObjectSettingsContainerView: View {
                     case .profile:
                         ObjectProfileIconPicker()
                             .environmentObject(viewModel.iconPickerViewModel)
+                    case .todo:
+                        EmptyView()
                     }
                 }
             }
