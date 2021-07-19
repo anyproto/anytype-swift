@@ -523,7 +523,7 @@
 		EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */; };
 		EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9E262711D2004C8C06 /* BlockValidator.swift */; };
 		EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */; };
-		EAC6BB54262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift */; };
+		EAC6BB54262888B0004C8C06 /* AccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */; };
 		EAC6BB5726289201004C8C06 /* SlashMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* SlashMenuView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */; };
@@ -1100,7 +1100,7 @@
 		EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBlockRestrictions.swift; sourceTree = "<group>"; };
 		EAC6BA9E262711D2004C8C06 /* BlockValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockValidator.swift; sourceTree = "<group>"; };
 		EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBlockRestrictions.swift; sourceTree = "<group>"; };
-		EAC6BB53262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockAccessoryViewSwitcher.swift; sourceTree = "<group>"; };
+		EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB5626289201004C8C06 /* SlashMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.KeyExtension.swift; sourceTree = "<group>"; };
@@ -1667,6 +1667,11 @@
 		03E2AD4323A93C8C00C701CE /* TextView */ = {
 			isa = PBXGroup;
 			children = (
+				0A08D4C024AF81F30088ECC2 /* ViewControllers */,
+				0ACAAD632588DCE600DF1C82 /* ImageView */,
+				EAF98379261B8B92001D4C55 /* LoadingViewController */,
+				EAC6BB4926288680004C8C06 /* AccessoryViewSwitcher */,
+				534B7F1B26264E0100D712B2 /* Toolbars */,
 				539653512600D1B700A74C11 /* CustomAttributedString */,
 				534CAC0025FA6F230026FB93 /* SupportingViews */,
 				53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */,
@@ -1674,7 +1679,6 @@
 				0A2C0D52247144F4008ADD86 /* CustomTextView.swift */,
 				537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */,
 				0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */,
-				EAADB19F2678CD43004B0AF2 /* Mentionable.swift */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -2360,6 +2364,24 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		3D29AFEB26A5C5D30095BA18 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				EA77E547262DF30B009F91D9 /* SlashMenuActionsHandler.swift */,
+				EA77E54A262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
+		3D29AFEE26A5C6DE0095BA18 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				EA77E523262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift */,
+				EA77E522262DAAA5009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
@@ -2393,17 +2415,12 @@
 				531629312632BD0A000D6780 /* BottomSheets */,
 				3D932D5026317EFB00C7D1EA /* Pickers */,
 				3D07ECE6261B733C00C007E2 /* Extensions */,
+				0339382A22EF717100589108 /* Buttons */,
+				03E2AD4323A93C8C00C701CE /* TextView */,
 				534D19C62623A7220080AEF0 /* SearchListViewController.swift */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
 				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
-				0339382A22EF717100589108 /* Buttons */,
-				03E2AD4323A93C8C00C701CE /* TextView */,
-				0A08D4C024AF81F30088ECC2 /* ViewControllers */,
-				0ACAAD632588DCE600DF1C82 /* ImageView */,
-				EAF98379261B8B92001D4C55 /* LoadingViewController */,
-				EAC6BB4926288680004C8C06 /* InputSwitchers */,
-				534B7F1B26264E0100D712B2 /* Toolbars */,
 				128495DF267371B900351C66 /* BottomFloaterBuilder.swift */,
 			);
 			path = UIKit;
@@ -3072,6 +3089,7 @@
 		534CAC0025FA6F230026FB93 /* SupportingViews */ = {
 			isa = PBXGroup;
 			children = (
+				EAADB19F2678CD43004B0AF2 /* Mentionable.swift */,
 				EAE6BDC2267CB6A000275788 /* Mentions */,
 				EA289B9E2629B24C00EA869F /* BlockActions */,
 				0A2C0D62247145BD008ADD86 /* BlockToolbar.swift */,
@@ -3267,14 +3285,12 @@
 		EA289B9F2629B25C00EA869F /* SlashMenuItems */ = {
 			isa = PBXGroup;
 			children = (
+				3D29AFEE26A5C6DE0095BA18 /* Coordinator */,
+				3D29AFEB26A5C5D30095BA18 /* Handler */,
 				EA7DE40226397D0A005AFEE2 /* Filtering */,
 				EA77E524262DAAA6009F91D9 /* BaseAccessoryMenuItemsViewController.swift */,
 				EA77E51F262DAAA5009F91D9 /* SlashMenuItemsViewController.swift */,
-				EA77E523262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift */,
-				EA77E522262DAAA5009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift */,
 				EAC6BB5626289201004C8C06 /* SlashMenuView.swift */,
-				EA77E547262DF30B009F91D9 /* SlashMenuActionsHandler.swift */,
-				EA77E54A262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift */,
 				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
 			);
 			path = SlashMenuItems;
@@ -3400,12 +3416,12 @@
 			path = Validators;
 			sourceTree = "<group>";
 		};
-		EAC6BB4926288680004C8C06 /* InputSwitchers */ = {
+		EAC6BB4926288680004C8C06 /* AccessoryViewSwitcher */ = {
 			isa = PBXGroup;
 			children = (
-				EAC6BB53262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift */,
+				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
 			);
-			path = InputSwitchers;
+			path = AccessoryViewSwitcher;
 			sourceTree = "<group>";
 		};
 		EAE6BDC2267CB6A000275788 /* Mentions */ = {
@@ -3930,7 +3946,7 @@
 				3DB27C04261B0E9C005E523C /* KeyedEncodingContainer.swift in Sources */,
 				3DB6E249268B65BD00C303E5 /* DefaultContextualMenuHandler.swift in Sources */,
 				12D8FFB7268CCA06008F765B /* DocumentDetailsViewModel.swift in Sources */,
-				EAC6BB54262888B0004C8C06 /* TextBlockAccessoryViewSwitcher.swift in Sources */,
+				EAC6BB54262888B0004C8C06 /* AccessoryViewSwitcher.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */,
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
