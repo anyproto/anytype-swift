@@ -649,6 +649,7 @@ public struct Anytype_Model_Block {
       /// id of the target block
       public var targetBlockID: String = String()
 
+      /// deprecated
       public var style: Anytype_Model_Block.Content.Link.Style = .page
 
       public var fields: SwiftProtobuf.Google_Protobuf_Struct {

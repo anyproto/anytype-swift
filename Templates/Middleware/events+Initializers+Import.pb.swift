@@ -5,7 +5,7 @@ import Lib
 /// Begin of classes
 
 /// Adapts interface of private framework.
-public protocol ServiceEventsHandlerProtocol: class {
+public protocol ServiceEventsHandlerProtocol: AnyObject {
     func handle(_ data: Data?)
 }
 

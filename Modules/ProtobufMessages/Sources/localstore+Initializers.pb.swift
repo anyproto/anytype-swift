@@ -5,6 +5,7 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
 
+import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_ObjectDetails {
