@@ -4,14 +4,6 @@ import Combine
 import os
 import BlocksModels
 
-extension CustomTextView {
-    struct Options {
-        let createNewBlockOnEnter: Bool
-        let autocorrect: Bool
-    }
-}
-
-
 final class CustomTextView: UIView {
     
     weak var delegate: TextViewDelegate?
@@ -22,57 +14,22 @@ final class CustomTextView: UIView {
     }
     
     var textSize: CGSize?
-    
+
+    private(set) lazy var textView = createTextView()
+    private(set) lazy var slashMenuView = createSlashMenu()
+    private(set) lazy var mentionView = createMentionView()
     let editingToolbarAccessoryView = EditingToolbarView()
-    let inputSwitcher = TextBlockAccessoryViewSwitcher()
-    
-    let options: Options
-
-    private(set) lazy var textView: TextViewWithPlaceholder = {
-        let textView = TextViewWithPlaceholder()
-        textView.textContainer.lineFragmentPadding = 0.0
-        textView.isScrollEnabled = false
-        textView.backgroundColor = nil
-        textView.autocorrectionType = options.autocorrect ? .yes : .no
-        return textView
-    }()
-
-    private(set) lazy var menuActionsAccessoryView: SlashMenuView = {
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else { return }
-            self.inputSwitcher.cleanupDisplayedView()
-            self.inputSwitcher.showEditingBars(customTextView: self)
-        }
-
-        let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
-        return SlashMenuView(
-            frame: actionViewRect,
-            menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
-            slashMenuActionsHandler: slashMenuActionsHandler,
-            actionsMenuDismissHandler: dismissActionsMenu
-        )
-    }()
-
-    private(set) lazy var mentionView: MentionView = {
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else { return }
-            self.inputSwitcher.cleanupDisplayedView()
-            self.inputSwitcher.showEditingBars(customTextView: self)
-        }
-        return MentionView(
-            frame: CGRect(origin: .zero, size: Constants.menuActionsViewSize),
-            dismissHandler: dismissActionsMenu,
-            mentionsSelectionHandler: mentionsSelectionHandler)
-    }()
+    let inputSwitcher = AccessoryViewSwitcher()
     
     private var firstResponderSubscription: AnyCancellable?
 
+    let options: CustomTextViewOptions
     private let menuItemsBuilder: BlockActionsBuilder
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     private let mentionsSelectionHandler: (MentionObject) -> Void
     
     init(
-        options: Options,
+        options: CustomTextViewOptions,
         menuItemsBuilder: BlockActionsBuilder,
         slashMenuActionsHandler: SlashMenuActionsHandler,
         mentionsSelectionHandler: @escaping (MentionObject) -> Void
@@ -91,8 +48,6 @@ final class CustomTextView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    // MARK: - Override vars
     
     override var intrinsicContentSize: CGSize {
         .zero
@@ -142,7 +97,7 @@ private extension CustomTextView {
     }
 
     func configureEditingToolbarHandler() {
-        self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
+        editingToolbarAccessoryView.setActionHandler { [weak self] action in
             guard let self = self else { return }
 
             self.inputSwitcher.switchInputs(customTextView: self)
@@ -152,8 +107,10 @@ private extension CustomTextView {
                 self.textView.insertStringToAttributedString(
                     self.inputSwitcher.textToTriggerActionsViewDisplay
                 )
-                self.inputSwitcher.showAccessoryView(accessoryView: self.menuActionsAccessoryView,
-                                                     textView: self.textView)
+                self.inputSwitcher.showAccessoryView(
+                    accessoryView: self.slashMenuView,
+                    textView: self.textView
+                )
             case .multiActionMenu:
                 self.userInteractionDelegate?.didReceiveAction(
                     .showMultiActionMenuAction
@@ -165,11 +122,54 @@ private extension CustomTextView {
             case .keyboardDismiss:
                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
             case .mention:
-                self.textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
-                self.inputSwitcher.showAccessoryView(accessoryView: self.mentionView,
-                                                     textView: self.textView)
+                self.textView.insertStringToAttributedString(
+                    self.inputSwitcher.textToTriggerMentionViewDisplay
+                )
+                self.inputSwitcher.showAccessoryView(
+                    accessoryView: self.mentionView,
+                    textView: self.textView
+                )
             }
         }
+    }
+}
+
+extension CustomTextView {
+    func createTextView() -> TextViewWithPlaceholder {
+        let textView = TextViewWithPlaceholder()
+        textView.textContainer.lineFragmentPadding = 0.0
+        textView.isScrollEnabled = false
+        textView.backgroundColor = nil
+        textView.autocorrectionType = options.autocorrect ? .yes : .no
+        return textView
+    }
+    
+    func createSlashMenu() -> SlashMenuView {
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self else { return }
+            self.inputSwitcher.cleanupDisplayedView()
+            self.inputSwitcher.showEditingBars(customTextView: self)
+        }
+
+        let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
+        return SlashMenuView(
+            frame: actionViewRect,
+            menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
+            slashMenuActionsHandler: slashMenuActionsHandler,
+            actionsMenuDismissHandler: dismissActionsMenu
+        )
+    }
+    
+    func createMentionView() -> MentionView {
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self else { return }
+            self.inputSwitcher.cleanupDisplayedView()
+            self.inputSwitcher.showEditingBars(customTextView: self)
+        }
+        return MentionView(
+            frame: CGRect(origin: .zero, size: Constants.menuActionsViewSize),
+            dismissHandler: dismissActionsMenu,
+            mentionsSelectionHandler: mentionsSelectionHandler)
     }
 }
 

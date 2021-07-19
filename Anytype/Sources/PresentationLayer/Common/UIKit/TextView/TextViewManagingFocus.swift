@@ -1,6 +1,5 @@
 import BlocksModels
 
-
 /// Protocol declare methods for managing text view focus.
 protocol TextViewManagingFocus: AnyObject {
     /// Ask text view resign first responder.

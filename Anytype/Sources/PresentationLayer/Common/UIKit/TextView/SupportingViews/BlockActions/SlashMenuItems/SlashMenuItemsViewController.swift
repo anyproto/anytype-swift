@@ -7,10 +7,12 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         static let cellHeight: CGFloat = 55
         static let dividerCellhHeight: CGFloat = 35
         static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 16)
-        static let dividerSeparatorInsets = UIEdgeInsets(top: 0,
-                                                         left: UIScreen.main.bounds.width,
-                                                         bottom: 0,
-                                                         right: -UIScreen.main.bounds.width)
+        static let dividerSeparatorInsets = UIEdgeInsets(
+            top: 0,
+            left: UIScreen.main.bounds.width,
+            bottom: 0,
+            right: -UIScreen.main.bounds.width
+        )
         static let imageSize = CGSize(width: 24, height: 24)
         static let imageToTextPadding: CGFloat = 22
     }

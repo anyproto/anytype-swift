@@ -276,7 +276,7 @@ final class TextBlockContentView: UIView & UIContentView {
         }
         
         let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
-        let options = CustomTextView.Options(
+        let options = CustomTextViewOptions(
             createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
             autocorrect: autocorrect
         )

@@ -12,10 +12,12 @@ final class SlashMenuView: DismissableInputAccessoryView {
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     private var filterMismatchCounter = Constants.maxMistatchFilteringCount
     
-    init(frame: CGRect,
-         menuItems: [BlockActionMenuItem],
-         slashMenuActionsHandler: SlashMenuActionsHandler,
-         actionsMenuDismissHandler: @escaping () -> Void) {
+    init(
+        frame: CGRect,
+        menuItems: [BlockActionMenuItem],
+        slashMenuActionsHandler: SlashMenuActionsHandler,
+        actionsMenuDismissHandler: @escaping () -> Void
+    ) {
         self.menuItems = menuItems
         self.slashMenuActionsHandler = slashMenuActionsHandler
         super.init(

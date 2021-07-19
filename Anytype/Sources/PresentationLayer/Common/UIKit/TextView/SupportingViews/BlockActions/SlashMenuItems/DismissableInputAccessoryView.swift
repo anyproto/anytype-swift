@@ -10,8 +10,10 @@ class DismissableInputAccessoryView: UIView {
     private(set) weak var topSeparator: UIView?
     private var transparentView: UIView?
     
-    init(frame: CGRect,
-         dismissHandler: @escaping () -> Void) {
+    init(
+        frame: CGRect,
+        dismissHandler: @escaping () -> Void
+    ) {
         self.dismissHandler = dismissHandler
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
