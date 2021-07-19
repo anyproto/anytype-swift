@@ -14,6 +14,11 @@ for_lane :release do
 	app_identifier(["com.anytypeio.anytype"]) 
 end
 
+for_lane :test_build do
+	type("appstore")
+	app_identifier(["com.anytypeio.anytype.dev"]) 
+end
+
 for_lane :install_dev_profiles do
 	type("development")
 	app_identifier(["com.anytypeio.anytype.dev"]) 

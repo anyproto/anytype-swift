@@ -1,11 +1,6 @@
 name: Fastlane test build
 
 on:
-  schedule:
-    # Triggers the workflow every day at 00:00 UTC:
-    - cron:  '0 0 * * *'
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
       branch:
@@ -26,7 +21,7 @@ jobs:
           - Anytype
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           ref: ${{ github.event.inputs.branch }}
 
