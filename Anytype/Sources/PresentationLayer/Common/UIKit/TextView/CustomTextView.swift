@@ -4,14 +4,6 @@ import Combine
 import os
 import BlocksModels
 
-extension CustomTextView {
-    struct Options {
-        let createNewBlockOnEnter: Bool
-        let autocorrect: Bool
-    }
-}
-
-
 final class CustomTextView: UIView {
     
     weak var delegate: TextViewDelegate?
@@ -31,13 +23,13 @@ final class CustomTextView: UIView {
     
     private var firstResponderSubscription: AnyCancellable?
 
-    let options: Options
+    let options: CustomTextViewOptions
     private let menuItemsBuilder: BlockActionsBuilder
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     private let mentionsSelectionHandler: (MentionObject) -> Void
     
     init(
-        options: Options,
+        options: CustomTextViewOptions,
         menuItemsBuilder: BlockActionsBuilder,
         slashMenuActionsHandler: SlashMenuActionsHandler,
         mentionsSelectionHandler: @escaping (MentionObject) -> Void
