@@ -3,13 +3,6 @@ enum DocumentIconType: Hashable {
     case basic(Basic)
     case profile(Profile)
     
-    init?(emoji: String) {
-        if let emoji = IconEmoji(emoji) {
-            self = .basic(.emoji(emoji))
-        } else {
-            return nil
-        }
-    }
 }
 
 // MARK: - BasicIcon

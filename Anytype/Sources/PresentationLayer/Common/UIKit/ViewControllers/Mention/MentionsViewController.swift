@@ -64,26 +64,47 @@ final class MentionsViewController: UITableViewController {
     }
     
     private func confguration(for mention: MentionObject) -> UIContentConfiguration {
-        switch mention.iconData {
+        switch mention.icon {
         case .none:
-            return ContentConfigurationWithEmoji(emoji: mention.name?.first?.uppercased() ?? "",
-                                                        name: mention.name,
-                                                        description: mention.description)
+            // TODO: ??????????????????????
+            return ContentConfigurationWithEmoji(
+                emoji: mention.name?.first?.uppercased() ?? "",
+                name: mention.name,
+                description: mention.description
+            )
+        case let .objectIcon(objectIcon):
+            return configurationForObjectIcon(objectIcon, mention: mention)
+        case let .checkmark(isChecked):
+            // TODO: - fix this
+            return ContentConfigurationWithEmoji(
+                emoji: mention.name?.first?.uppercased() ?? "",
+                name: mention.name,
+                description: mention.description
+            )
+        }
+    }
+    
+    private func configurationForObjectIcon(_ objectIcon: DocumentIconType, mention: MentionObject) -> UIContentConfiguration {
+        switch objectIcon {
         case let .profile(profile):
             switch profile {
             case .imageId:
                 return mentionWithImageConfiguration(mention: mention)
             case let .placeholder(placeholder):
-                return ContentConfigurationWithEmoji(emoji: String(placeholder),
-                                                     name: mention.name,
-                                                     description: mention.description)
+                return ContentConfigurationWithEmoji(
+                    emoji: String(placeholder),
+                    name: mention.name,
+                    description: mention.description
+                )
             }
         case let .basic(basic):
             switch basic {
             case let .emoji(emoji):
-                return ContentConfigurationWithEmoji(emoji: emoji.value,
-                                                            name: mention.name,
-                                                            description: mention.description)
+                return ContentConfigurationWithEmoji(
+                    emoji: emoji.value,
+                    name: mention.name,
+                    description: mention.description
+                )
             case .imageId:
                 return mentionWithImageConfiguration(mention: mention)
             }

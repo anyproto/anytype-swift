@@ -2,9 +2,11 @@
 struct MentionObject {
     
     let id: String
+    
+    let icon: MentionIcon?
+    
     let name: String?
     let description: String?
-    let iconData: DocumentIconType?
 }
 
 extension MentionObject: Hashable {
@@ -16,4 +18,5 @@ extension MentionObject: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
 }
