@@ -1,4 +1,4 @@
-name: [TEST] Fastlane build
+name: Fastlane test build
 
 on:
   schedule:
