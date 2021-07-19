@@ -9,6 +9,15 @@ import Combine
 import Foundation
 import SwiftProtobuf
 
+extension Anytype_Rpc.Account.Config {
+  public init(enableDataview: Bool, enableDebug: Bool, enableReleaseChannelSwitch: Bool, extra: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.enableDataview = enableDataview
+    self.enableDebug = enableDebug
+    self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
+    self.extra = extra
+  }
+}
+
 extension Anytype_Rpc.Account.Create.Request {
   public init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String) {
     self.name = name
@@ -18,9 +27,10 @@ extension Anytype_Rpc.Account.Create.Request {
 }
 
 extension Anytype_Rpc.Account.Create.Response {
-  public init(error: Anytype_Rpc.Account.Create.Response.Error, account: Anytype_Model_Account) {
+  public init(error: Anytype_Rpc.Account.Create.Response.Error, account: Anytype_Model_Account, config: Anytype_Rpc.Account.Config) {
     self.error = error
     self.account = account
+    self.config = config
   }
 }
 
@@ -52,9 +62,10 @@ extension Anytype_Rpc.Account.Select.Request {
 }
 
 extension Anytype_Rpc.Account.Select.Response {
-  public init(error: Anytype_Rpc.Account.Select.Response.Error, account: Anytype_Model_Account) {
+  public init(error: Anytype_Rpc.Account.Select.Response.Error, account: Anytype_Model_Account, config: Anytype_Rpc.Account.Config) {
     self.error = error
     self.account = account
+    self.config = config
   }
 }
 
@@ -2419,6 +2430,27 @@ extension Anytype_Rpc.Object.Search.Response {
 
 extension Anytype_Rpc.Object.Search.Response.Error {
   public init(code: Anytype_Rpc.Object.Search.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.SetLayout.Request {
+  public init(contextID: String, layout: Anytype_Model_ObjectType.Layout) {
+    self.contextID = contextID
+    self.layout = layout
+  }
+}
+
+extension Anytype_Rpc.Object.SetLayout.Response {
+  public init(error: Anytype_Rpc.Object.SetLayout.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Object.SetLayout.Response.Error {
+  public init(code: Anytype_Rpc.Object.SetLayout.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
