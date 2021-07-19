@@ -10,5 +10,6 @@ public protocol DetailsDataProtocol {
     var isArchived: Bool? { get }
     var layout: DetailsLayout? { get }
     var alignment: LayoutAlignment? { get }
+    var done: Bool? { get }
     
 }
