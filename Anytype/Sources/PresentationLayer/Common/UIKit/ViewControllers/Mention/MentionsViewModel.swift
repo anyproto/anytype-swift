@@ -62,10 +62,11 @@ final class MentionsViewModel {
         }
     }
     
-    func image(for mention: MentionObject) -> UIImage? {
+    func image(for mention: MentionObject, size: CGSize, radius: CGFloat) -> UIImage? {
         if let imageProperty = imageStorage[mention.id] {
             return imageProperty.property
         }
+        
         guard let icon = mention.icon else { return nil }
         
         switch icon {
@@ -82,13 +83,25 @@ final class MentionsViewModel {
                 switch profile {
                 case let .imageId(id):
                     loadImage(by: id, mention: mention)
-                case .placeholder:
-                    return nil
+                case let .placeholder(character):
+                    let imageGuideline = ImageGuideline(
+                        size: size,
+                        cornerRadius: radius
+                    )
+                    let placeholderGuideline = PlaceholderImageTextGuideline(
+                        text: String(character),
+                        font: UIFont.systemFont(ofSize: 28)
+                    )
+                    return PlaceholderImageBuilder.placeholder(
+                        with: imageGuideline,
+                        color: .grayscale30,
+                        textGuideline: placeholderGuideline
+                    )
                 }
             }
         
         case let .checkmark(isChecked):
-            return nil
+            return isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
         }
         
         return nil

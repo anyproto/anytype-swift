@@ -5,7 +5,7 @@ final class MentionsViewController: UITableViewController {
     
     private enum Constants {
         static let cellReuseId = NSStringFromClass(UITableViewCell.self)
-        static let imageCornerrRadius: CGFloat = 8
+        static let imageCornerRadius: CGFloat = 8
         static let imageSize = CGSize(width: 40, height: 40)
         static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 24)
         static let imagePadding: CGFloat = 12
@@ -65,19 +65,13 @@ final class MentionsViewController: UITableViewController {
     
     private func confguration(for mention: MentionObject) -> UIContentConfiguration {
         switch mention.icon {
-        case .none:
-            // TODO: ??????????????????????
-            return ContentConfigurationWithEmoji(
-                emoji: mention.name?.first?.uppercased() ?? "",
-                name: mention.name,
-                description: mention.description
-            )
         case let .objectIcon(objectIcon):
             return configurationForObjectIcon(objectIcon, mention: mention)
-        case let .checkmark(isChecked):
-            // TODO: - fix this
+        case .checkmark:
+            return mentionWithImageConfiguration(mention: mention, isCircle: false)
+        case .none:
             return ContentConfigurationWithEmoji(
-                emoji: mention.name?.first?.uppercased() ?? "",
+                emoji: "",
                 name: mention.name,
                 description: mention.description
             )
@@ -89,13 +83,9 @@ final class MentionsViewController: UITableViewController {
         case let .profile(profile):
             switch profile {
             case .imageId:
-                return mentionWithImageConfiguration(mention: mention)
-            case let .placeholder(placeholder):
-                return ContentConfigurationWithEmoji(
-                    emoji: String(placeholder),
-                    name: mention.name,
-                    description: mention.description
-                )
+                return mentionWithImageConfiguration(mention: mention, isCircle: true)
+            case .placeholder:
+                return mentionWithImageConfiguration(mention: mention, isCircle: true)
             }
         case let .basic(basic):
             switch basic {
@@ -106,19 +96,22 @@ final class MentionsViewController: UITableViewController {
                     description: mention.description
                 )
             case .imageId:
-                return mentionWithImageConfiguration(mention: mention)
+                return mentionWithImageConfiguration(mention: mention, isCircle: false)
             }
         }
     }
     
-    private func mentionWithImageConfiguration(mention: MentionObject) -> UIContentConfiguration {
+    private func mentionWithImageConfiguration(mention: MentionObject, isCircle: Bool) -> UIContentConfiguration {
         var configuration = UIListContentConfiguration.subtitleCell()
         
-        configuration.imageProperties.cornerRadius = Constants.imageCornerrRadius
-        configuration.imageProperties.maximumSize = Constants.imageSize
-        configuration.imageProperties.reservedLayoutSize = Constants.imageSize
+        let imageSize = Constants.imageSize
+        let imageCornerRadius = isCircle ? imageSize.width / 2 : Constants.imageCornerRadius
+        
+        configuration.imageProperties.cornerRadius = imageCornerRadius
+        configuration.imageProperties.maximumSize = imageSize
+        configuration.imageProperties.reservedLayoutSize = imageSize
         configuration.imageToTextPadding = Constants.imagePadding
-        configuration.image = viewModel.image(for: mention)
+        configuration.image = viewModel.image(for: mention, size: imageSize, radius: imageCornerRadius)
         
         configuration.text = mention.name
         configuration.textProperties.font = .body
