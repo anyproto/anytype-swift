@@ -11,7 +11,7 @@ private extension StyleViewController {
     }
 
     struct Item: Hashable {
-        let kind: BlockText.ContentType
+        let kind: BlockText.Style
         let text: String
         let font: UIFont
 
@@ -26,14 +26,14 @@ private extension StyleViewController {
     }
 
     struct ListItem {
-        let kind: BlockText.ContentType
+        let kind: BlockText.Style
         let icon: UIImage
 
         static let all: [ListItem] = [
-            (BlockText.ContentType.bulleted, "StyleBottomSheet/bullet"),
-            (BlockText.ContentType.checkbox, "StyleBottomSheet/checkbox"),
-            (BlockText.ContentType.numbered, "StyleBottomSheet/numbered"),
-            (BlockText.ContentType.toggle, "StyleBottomSheet/toggle")
+            (BlockText.Style.bulleted, "StyleBottomSheet/bullet"),
+            (BlockText.Style.checkbox, "StyleBottomSheet/checkbox"),
+            (BlockText.Style.numbered, "StyleBottomSheet/numbered"),
+            (BlockText.Style.toggle, "StyleBottomSheet/toggle")
         ]
         .compactMap { (kind, imageName) -> ListItem? in
             guard let image = UIImage(named: imageName) else { return nil }
@@ -112,7 +112,7 @@ final class StyleViewController: UIViewController {
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
     private var askTextAttributes: () -> TextAttributesViewController.AttributesState
-    private var style: BlockText.ContentType
+    private var style: BlockText.Style
     // deselect action will be performed on new selection
     private var currentDeselectAction: (() -> Void)?
 
@@ -124,7 +124,7 @@ final class StyleViewController: UIViewController {
     /// - important: Use weak self inside `ActionHandler`
     init(
         viewControllerForPresenting: UIViewController,
-        style: BlockText.ContentType,
+        style: BlockText.Style,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
         askTextAttributes: @escaping () -> TextAttributesViewController.AttributesState,
@@ -231,7 +231,7 @@ final class StyleViewController: UIViewController {
         }
     }
 
-    private func setupAction(for button: UIControl, with style: BlockText.ContentType) {
+    private func setupAction(for button: UIControl, with style: BlockText.Style) {
         let deselectAction = {
             button.isSelected = false
         }
@@ -289,7 +289,7 @@ final class StyleViewController: UIViewController {
 
     // MARK: - action handlers
 
-    private func selectStyle(_ style: BlockText.ContentType, deselectAction: @escaping () -> Void) {
+    private func selectStyle(_ style: BlockText.Style, deselectAction: @escaping () -> Void) {
         guard style != self.style else { return }
         self.style = style
 

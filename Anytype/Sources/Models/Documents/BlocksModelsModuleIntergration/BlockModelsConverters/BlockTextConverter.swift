@@ -4,7 +4,7 @@ import ProtobufMessages
 
 
 final class BlockTextContentTypeConverter {
-    static func asModel(_ value: Anytype_Model_Block.Content.Text.Style) -> BlockText.ContentType? {
+    static func asModel(_ value: Anytype_Model_Block.Content.Text.Style) -> BlockText.Style? {
         switch value {
         case .title: return .title
         case .paragraph: return .text
@@ -24,7 +24,7 @@ final class BlockTextContentTypeConverter {
         }
     }
     
-    static func asMiddleware(_ value: BlockText.ContentType) -> Anytype_Model_Block.Content.Text.Style {
+    static func asMiddleware(_ value: BlockText.Style) -> Anytype_Model_Block.Content.Text.Style {
         switch value {
         case .title: return .title
         case .text: return .paragraph

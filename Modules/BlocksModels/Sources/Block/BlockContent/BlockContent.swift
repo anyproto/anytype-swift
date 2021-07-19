@@ -1,6 +1,7 @@
 import Foundation
 
-public enum BlockContent: Hashable {
+
+public enum BlockContent: Hashable, CustomStringConvertible {
     case smartblock(BlockSmartblock)
     case text(BlockText)
     case file(BlockFile)
@@ -25,6 +26,25 @@ public enum BlockContent: Hashable {
             return .link(link.style)
         case let .layout(layout):
             return .layout(layout.style)
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .smartblock:
+            return "smartblock"
+        case .text:
+            return "text"
+        case .file:
+            return "file"
+        case .divider:
+            return "divider"
+        case .bookmark:
+            return "bookmark"
+        case .link:
+            return "link"
+        case .layout:
+            return "layout"
         }
     }
 }

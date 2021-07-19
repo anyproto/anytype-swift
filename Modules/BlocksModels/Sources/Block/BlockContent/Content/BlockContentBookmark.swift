@@ -1,5 +1,5 @@
 public struct BlockBookmark: Hashable {
-    public enum TypeEnum {
+    public enum Style {
         case unknown
         case page
         case image
@@ -11,7 +11,7 @@ public struct BlockBookmark: Hashable {
     public var theDescription: String
     public var imageHash: String
     public var faviconHash: String
-    public var type: TypeEnum
+    public var type: Style
 
     // MARK: - Empty
     public static func empty() -> Self {
@@ -19,7 +19,7 @@ public struct BlockBookmark: Hashable {
     }
     
     // MARK: - Memberwise initializer
-    public init(url: String, title: String, theDescription: String, imageHash: String, faviconHash: String, type: TypeEnum) {
+    public init(url: String, title: String, theDescription: String, imageHash: String, faviconHash: String, type: Style) {
         self.url = url
         self.title = title
         self.theDescription = theDescription

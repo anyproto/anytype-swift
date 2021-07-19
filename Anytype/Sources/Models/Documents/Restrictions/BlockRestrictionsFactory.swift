@@ -24,7 +24,7 @@ struct BlockRestrictionsFactory {
         }
     }
     
-    func makeTextRestrictions(for contentType: BlockText.ContentType) -> BlockRestrictions {
+    func makeTextRestrictions(for contentType: BlockText.Style) -> BlockRestrictions {
         switch contentType {
         case .text:
             return TextBlockRestrictions()

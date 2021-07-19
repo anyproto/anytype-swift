@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-extension BlockText.ContentType {
+extension BlockText.Style {
     var uiFont: UIFont {
         switch self {
         case .title:

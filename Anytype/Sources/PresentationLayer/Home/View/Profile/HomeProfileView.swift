@@ -1,4 +1,6 @@
 import SwiftUI
+import Amplitude
+
 
 struct HomeProfileView: View {
     @EnvironmentObject var accountData: AccountInfoDataAccessor
@@ -34,7 +36,10 @@ struct HomeProfileView: View {
         Group {
             if let blockId = accountData.blockId {
                 NavigationLink(
-                    destination: model.coordinator.documentView(selectedDocumentId: blockId),
+                    destination: model.coordinator.documentView(selectedDocumentId: blockId).onAppear {
+                        // Analytics
+                        Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
+                    },
                     label: { userIcon }
                 )
             } else {

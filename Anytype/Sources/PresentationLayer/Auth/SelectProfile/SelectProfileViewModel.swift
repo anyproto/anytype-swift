@@ -1,6 +1,8 @@
 import SwiftUI
 import Combine
 import ProtobufMessages
+import Amplitude
+
 
 class ProfileNameViewModel: ObservableObject, Identifiable {
     var id: String
@@ -61,6 +63,9 @@ class SelectProfileViewModel: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success:
+                    // Analytics
+                    Amplitude.instance().logEvent(AmplitudeEventsName.accountRecover,
+                                                  withEventProperties: [AmplitudeEventsPropertiesKey.accountId : id])
                     self?.showHomeView()
                 case .failure(let error):
                     self?.error = error.localizedDescription

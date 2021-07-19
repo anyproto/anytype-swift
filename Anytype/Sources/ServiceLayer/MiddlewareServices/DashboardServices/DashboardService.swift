@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
+import Amplitude
+
 
 class DashboardService: DashboardServiceProtocol {
     private let configurationService = MiddlewareConfigurationService()
@@ -32,6 +34,11 @@ class DashboardService: DashboardServiceProtocol {
             position: .bottom,
             templateID: ""
         )
+        .handleEvents(receiveSubscription: { _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
+        })
+        .eraseToAnyPublisher()
     }
     
     private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {

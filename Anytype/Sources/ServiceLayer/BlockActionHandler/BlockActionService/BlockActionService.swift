@@ -2,6 +2,8 @@ import Combine
 import BlocksModels
 import os
 import UIKit
+import Amplitude
+
 
 extension LoggerCategory {
     static let blockActionService: Self = "blockActionService"
@@ -53,13 +55,16 @@ final class BlockActionService: BlockActionServiceProtocol {
             .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = shouldSetFocusOnUpdate ? value.addEvent : value.defaultEvent
                 self?.didReceiveEvent(value)
+
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
             }.store(in: &self.subscriptions)
     }
 
     func split(
         info: BlockInformation,
         oldText: String,
-        newBlockContentType: BlockText.ContentType,
+        newBlockContentType: BlockText.Style,
         shouldSetFocusOnUpdate: Bool
     ) {
         let blockId = info.id
@@ -101,6 +106,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             blockIds: blockIds,
             position: position
         ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
+
             self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
         }.store(in: &self.subscriptions)
     }
@@ -115,6 +123,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
         .receiveOnMain()
         .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
             self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
         }.store(in: &self.subscriptions)
     }
@@ -132,6 +142,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
             .receiveOnMain()
             .sinkWithDefaultCompletion("textService.checked with payload") { [weak self] value in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextChecked)
+                
                 self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
             }.store(in: &self.subscriptions)
     }
@@ -197,6 +210,9 @@ private extension BlockActionService {
 
         listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: value.style)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] serviceSuccess in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetDivStyle)
+                
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
     }
@@ -212,7 +228,10 @@ private extension BlockActionService {
         let blocksIds = [blockId]
 
         self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds, objectType: objectType)
-            .sinkWithDefaultCompletion("blocksActions.service.turnInto.convertChildrenToPages") { _ in }
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.convertChildrenToPages") { _ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)
+            }
         .store(in: &self.subscriptions)
     }
 
@@ -225,6 +244,14 @@ private extension BlockActionService {
         self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] serviceSuccess in
+                // Analytics
+                let typeName = type.description
+                let style = type.type.style
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextStyle,
+                                              withEventProperties: [AmplitudeEventsPropertiesKey.blockType: typeName,
+                                                                    AmplitudeEventsPropertiesKey.blockStyle: style
+                                              ])
+
                 let events = shouldFocus ? serviceSuccess.turnIntoTextEvent : serviceSuccess.defaultEvent
                 self?.didReceiveEvent(events)
             }.store(in: &self.subscriptions)
@@ -238,6 +265,9 @@ extension BlockActionService {
         self.textService.merge(contextID: documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] serviceSuccess in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
+                
                 var events = serviceSuccess.defaultEvent
                 events = events.enrichedWith(localEvents: localEvents)
                 self?.didReceiveEvent(events)
@@ -251,6 +281,9 @@ extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
         self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
             .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] serviceSuccess in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
+
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
     }
@@ -268,6 +301,9 @@ extension BlockActionService {
 
         listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] serviceSuccess in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
+                
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
             }
             .store(in: &self.subscriptions)

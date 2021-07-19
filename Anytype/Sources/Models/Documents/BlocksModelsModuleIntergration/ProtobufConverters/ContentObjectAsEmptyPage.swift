@@ -1,6 +1,7 @@
 import ProtobufMessages
 import BlocksModels
 
+
 final class ContentObjectAsEmptyPage {
     func blockType(_ from: Anytype_Model_Block.Content.Smartblock) -> BlockContent {
         return .smartblock(.init(style: BlockSmartblock.Style.page))
