@@ -1,5 +1,6 @@
 import UIKit
 
+
 final class EmojiProvider {
         
     static let shared = EmojiProvider()

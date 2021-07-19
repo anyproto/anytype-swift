@@ -393,6 +393,7 @@
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconView.swift */; };
+		530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A5429269FB8FF009016AE /* AmplitudeConstants.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
 		531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629342632BD0A000D6780 /* StylePanelLayout.swift */; };
 		531629382632BD0B000D6780 /* StyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629352632BD0A000D6780 /* StyleViewController.swift */; };
@@ -412,6 +413,7 @@
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
 		537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */; };
 		537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F49712677EB6700C81BA0 /* BlockDelegate.swift */; };
+		538492DC269E63AD00B5E556 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 538492DB269E63AD00B5E556 /* Amplitude */; };
 		53856BC126593B3100CB1FAE /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 53856BC026593B3100CB1FAE /* Highlightr */; };
 		53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */; };
 		53856BEB265BC48800CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; };
@@ -974,6 +976,7 @@
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		530470F52682046900C9EE78 /* TextBlockIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconView.swift; sourceTree = "<group>"; };
+		530A5429269FB8FF009016AE /* AmplitudeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeConstants.swift; sourceTree = "<group>"; };
 		531197DF26430A9800FFC71E /* BlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandler.swift; sourceTree = "<group>"; };
 		531629342632BD0A000D6780 /* StylePanelLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylePanelLayout.swift; sourceTree = "<group>"; };
 		531629352632BD0A000D6780 /* StyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
@@ -1129,6 +1132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				538492DC269E63AD00B5E556 /* Amplitude in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				0A005AB924C60092000520AA /* BlocksModels.framework in Frameworks */,
 				0A005ABC24C600DA000520AA /* Lib.framework in Frameworks */,
@@ -1193,6 +1197,7 @@
 		0303ED1222D8F231005C552B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				530A5426269FB8A4009016AE /* Analytics */,
 				53A46330262878710097C25E /* Design system */,
 				3DD2FC4D2620882800C65466 /* DataAccessors */,
 				0ACA781A23E5C9A300442690 /* Utilities */,
@@ -3014,6 +3019,14 @@
 			path = LeftViews;
 			sourceTree = "<group>";
 		};
+		530A5426269FB8A4009016AE /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				530A5429269FB8FF009016AE /* AmplitudeConstants.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -3524,6 +3537,7 @@
 				0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */,
 				5333421B262E249100238121 /* FloatingPanel */,
 				53856BC026593B3100CB1FAE /* Highlightr */,
+				538492DB269E63AD00B5E556 /* Amplitude */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -3579,6 +3593,7 @@
 				0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */,
+				538492DA269E63AD00B5E556 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -3852,6 +3867,7 @@
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				3DC78638265D571500498993 /* LocalEventConverter.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
+				530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoaderObject.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
@@ -4596,6 +4612,14 @@
 				minimumVersion = 2.3.1;
 			};
 		};
+		538492DA269E63AD00B5E556 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.0;
+			};
+		};
 		53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/raspu/Highlightr.git";
@@ -4616,6 +4640,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
 			productName = FloatingPanel;
+		};
+		538492DB269E63AD00B5E556 /* Amplitude */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 538492DA269E63AD00B5E556 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
+			productName = Amplitude;
 		};
 		53856BC026593B3100CB1FAE /* Highlightr */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -3,6 +3,8 @@ import Combine
 import SwiftProtobuf
 import BlocksModels
 import ProtobufMessages
+import Amplitude
+
 
 enum ObjectActionsServicePossibleError: Error {
     case createPageActionPositionConversionHasFailed
@@ -45,13 +47,17 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
         )
         .map{ ServiceSuccess($0.event) }
-        .subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        .subscribe(on: DispatchQueue.global())
+        .eraseToAnyPublisher()
     }
 
     // MARK: - ObjectActionsService / SetDetails
     func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error> {
         let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
-        return setDetails(contextID: contextID, details: middlewareDetails)
+        return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
+        }).eraseToAnyPublisher()
     }
     
     private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ServiceSuccess, Error> {

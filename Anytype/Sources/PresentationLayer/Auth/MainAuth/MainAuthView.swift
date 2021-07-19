@@ -19,6 +19,9 @@ struct MainAuthView: View {
         }
         .navigationBarHidden(true)
         .modifier(LogoOverlay())
+        .onAppear {
+            viewModel.viewLoaded()
+        }
     }
     
     private var contentView: some View {

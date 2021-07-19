@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Amplitude",
+        "repositoryURL": "https://github.com/amplitude/Amplitude-iOS",
+        "state": {
+          "branch": null,
+          "revision": "68eea8100a84d26c3d81997851965ec3efbe61fc",
+          "version": "8.3.0"
+        }
+      },
+      {
         "package": "BoringSSL-GRPC",
         "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
         "state": {

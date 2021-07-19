@@ -3,6 +3,8 @@ import BlocksModels
 import Combine
 import Foundation
 import ProtobufMessages
+import Amplitude
+
 
 extension HomeViewModel {
     struct NewPageData {
@@ -38,13 +40,20 @@ final class HomeViewModel: ObservableObject {
     init() {
         fetchDashboardData()
     }
-    
-    func updateSearchTabs() {
+
+    // MARK: - View output
+
+    func viewLoaded() {
         updateArchiveTab()
-        updateArchiveTab()
+        updateRecentTab()
         updateInboxTab()
+        // Analytics
+        Amplitude.instance().setUserId(UserDefaultsConfig.usersIdKey)
+        Amplitude.instance().logEvent(AmplitudeEventsName.accountSelect)
     }
-    
+
+    // MARK: - Private methods
+
     func updateArchiveTab() {
         searchService.searchArchivedPages { [weak self] searchResults in
             guard let self = self else { return }

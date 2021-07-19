@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: MainWindow?
@@ -51,4 +52,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 }
-

@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
+import Amplitude
+
 
 private extension BlockActionsServiceFile {
     enum PossibleError: Error {
@@ -13,7 +15,13 @@ class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
     func uploadDataAtFilePath(contextID: String, blockID: String, filePath: String) -> AnyPublisher<ServiceSuccess, Error>  {
         Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "")
-            .map(\.event).map(ServiceSuccess.init).subscribe(on: DispatchQueue.global())
+            .map(\.event)
+            .map(ServiceSuccess.init)
+            .subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveSubscription: { _ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
+            })
             .eraseToAnyPublisher()
     }
         

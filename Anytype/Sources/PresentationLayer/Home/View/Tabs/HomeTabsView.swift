@@ -1,4 +1,6 @@
 import SwiftUI
+import Amplitude
+
 
 extension HomeTabsView {
     enum Tab {
@@ -37,12 +39,24 @@ struct HomeTabsView: View {
         .onChange(of: tabSelection) { tab in
             switch tab {
             case .favourites:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.favoritesPage)
+                
                 break // updates via subscriptions
             case .recent:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.recentPage)
+
                 model.updateRecentTab()
             case .inbox:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.inboxPage)
+
                 model.updateInboxTab()
             case .archive:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.archivePage)
+
                 model.updateArchiveTab()
             }
         }
