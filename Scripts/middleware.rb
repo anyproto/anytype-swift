@@ -547,7 +547,7 @@ class MainWork
           iOSAssetMiddlewarePrefix: "ios_framework_",
 
           # download archive structure options
-          middlewareLibraryName: "Lib.framework",
+          middlewareLibraryName: "Lib.xcframework",
           protobufDirectoryName: "protobuf",
 
           # target directory options
