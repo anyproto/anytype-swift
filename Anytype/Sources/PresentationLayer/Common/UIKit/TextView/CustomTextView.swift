@@ -5,17 +5,6 @@ import os
 import BlocksModels
 
 extension CustomTextView {
-    enum Constants {
-        /// Minimum time interval to stay idle to handle consequent return key presses
-        static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
-        static let menuActionsViewSize = CGSize(
-            width: UIScreen.main.bounds.width,
-            height: UIScreen.main.isFourInch ? 160 : 215
-        )
-    }
-}
-
-extension CustomTextView {
     struct Options {
         let createNewBlockOnEnter: Bool
         let autocorrect: Bool
@@ -24,7 +13,6 @@ extension CustomTextView {
 
 
 final class CustomTextView: UIView {
-    private var firstResponderSubscription: AnyCancellable?
     
     weak var delegate: TextViewDelegate?
     weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
@@ -32,6 +20,13 @@ final class CustomTextView: UIView {
             textView.userInteractionDelegate = userInteractionDelegate
         }
     }
+    
+    var textSize: CGSize?
+    
+    let editingToolbarAccessoryView = EditingToolbarView()
+    let inputSwitcher = ActionsAndMarksPaneInputSwitcher()
+    
+    let options: Options
 
     private(set) lazy var textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
@@ -42,10 +37,6 @@ final class CustomTextView: UIView {
         return textView
     }()
 
-    var textSize: CGSize?
-    
-    let editingToolbarAccessoryView = EditingToolbarView()
-    let inputSwitcher = ActionsAndMarksPaneInputSwitcher()
     /// HighlightedAccessoryView
     private(set) lazy var highlightedAccessoryView = CustomTextView.HighlightedToolbar.AccessoryView()
     private(set) lazy var menuActionsAccessoryView: SlashMenuView = {
@@ -75,8 +66,9 @@ final class CustomTextView: UIView {
             dismissHandler: dismissActionsMenu,
             mentionsSelectionHandler: mentionsSelectionHandler)
     }()
+    
+    private var firstResponderSubscription: AnyCancellable?
 
-    let options: Options
     private let menuItemsBuilder: BlockActionsBuilder
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     private let mentionsSelectionHandler: (MentionObject) -> Void
@@ -180,5 +172,16 @@ private extension CustomTextView {
                                                      textView: self.textView)
             }
         }
+    }
+}
+
+private extension CustomTextView {
+    enum Constants {
+        /// Minimum time interval to stay idle to handle consequent return key presses
+        static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
+        static let menuActionsViewSize = CGSize(
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.isFourInch ? 160 : 215
+        )
     }
 }
