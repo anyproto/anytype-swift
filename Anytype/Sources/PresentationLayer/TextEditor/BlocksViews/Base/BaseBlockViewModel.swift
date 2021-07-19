@@ -30,12 +30,6 @@ class BaseBlockViewModel: BlockViewModelProtocol {
         self.router = router
         self.contextualMenuHandler = DefaultContextualMenuHandler(handler: actionHandler, router: router)
     }
-    
-    // MARK: - Handle events
-    
-    /// Update view data manually.
-    /// Override in subclasses.
-    func updateView() {}
 
     // MARK: - Contextual Menu
 

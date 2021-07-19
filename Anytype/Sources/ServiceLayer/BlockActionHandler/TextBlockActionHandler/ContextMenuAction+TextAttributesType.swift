@@ -8,6 +8,8 @@ extension CustomTextView.ContextMenuAction {
             return .italic
         case .strikethrough:
             return .strikethrough
+        case .code:
+            return .keyboard
         }
     }
 }
