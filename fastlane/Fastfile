@@ -41,6 +41,7 @@ platform :ios do
     build_app(
       scheme: "Anytype", 
       configuration: options[:release] ? "Release" : "Dev-Release",
+      include_symbols: true,
       use_system_scm: true
     )
 
