@@ -235,7 +235,7 @@ private extension BlockActionHandler {
         range: NSRange,
         fontAction: BlockHandlerActionType.TextAttributesType
     ) {
-        guard case var .text(textContentType) = info.content else { return }
+        guard case let .text(textContentType) = info.content else { return }
         var range = range
         
         // if range length == 0 then apply to whole block
@@ -244,67 +244,94 @@ private extension BlockActionHandler {
         }
         let newAttributedString = NSMutableAttributedString(attributedString: textContentType.attributedText)
         
-        func applyNewStyle(trait: UIFontDescriptor.SymbolicTraits) {
-            let hasTrait = textContentType.attributedText.hasTrait(trait: trait, at: range)
-            
-            textContentType.attributedText.enumerateAttribute(.font, in: range) { oldFont, range, shouldStop in
-                guard let oldFont = oldFont as? UIFont else { return }
-                var symbolicTraits = oldFont.fontDescriptor.symbolicTraits
-                
-                if hasTrait {
-                    symbolicTraits.remove(trait)
-                } else {
-                    symbolicTraits.insert(trait)
-                }
-                
-                if let newFontDescriptor = oldFont.fontDescriptor.withSymbolicTraits(symbolicTraits) {
-                    let newFont = UIFont(descriptor: newFontDescriptor, size: oldFont.pointSize)
-                    newAttributedString.addAttributes([NSAttributedString.Key.font: newFont], range: range)
-                }
-            }
-            textContentType.attributedText = newAttributedString
-            blockUpdater?.update(entry: info.id) { model in
-                var model = model
-                model.information.content = .text(textContentType)
-                model.didChange()
-            }
-            
-            textService.setText(
-                contextID: self.documentId,
-                blockID: info.id,
-                attributedString: newAttributedString
-            )
-        }
-        
         switch fontAction {
         case .bold:
-            applyNewStyle(trait: .traitBold)
+            applyNewStyle(
+                trait: .traitBold,
+                newString: newAttributedString,
+                content: textContentType,
+                range: range
+            )
         case .italic:
-            applyNewStyle(trait: .traitItalic)
+            applyNewStyle(
+                trait: .traitItalic,
+                newString: newAttributedString,
+                content: textContentType,
+                range: range
+            )
         case .strikethrough:
             if textContentType.attributedText.hasAttribute(.strikethroughStyle, at: range) {
                 newAttributedString.removeAttribute(.strikethroughStyle, range: range)
             } else {
                 newAttributedString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: range)
             }
-            textContentType.attributedText = newAttributedString
-            blockUpdater?.update(entry: info.id) { model in
-                var model = model
-                model.information.content = .text(textContentType)
-                model.didChange()
-            }
-            textService.setText(
-                contextID: self.documentId,
-                blockID: info.id,
-                attributedString: newAttributedString
-            )
         case .keyboard:
-            // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
-            let keyboardColor = MiddlewareColor.grey
-            let backgroundColor = info.backgroundColor
-            let color = backgroundColor == keyboardColor ? MiddlewareColor.default : keyboardColor
-            
-            service.setBackgroundColor(blockId: info.id, color: color)
+            applyCode(
+                content: textContentType,
+                newString: newAttributedString,
+                range: range
+            )
         }
+        store(
+            newAttributedString,
+            in: textContentType,
+            id: info.id
+        )
+        document.eventHandler.handle(
+            events: PackOfEvents(
+                localEvents: [.setText(blockId: info.id, text: newAttributedString.string)]
+            )
+        )
+    }
+    
+    private func applyCode(content: BlockText, newString: NSMutableAttributedString, range: NSRange) {
+        guard let font = content.attributedText.attribute(
+                .font,
+                at: range.location,
+                effectiveRange: nil) as? UIFont else {
+            return
+        }
+        let resultFont = font.isCode ? content.contentType.uiFont : UIFont.code(of: font.pointSize)
+        newString.addAttribute(.font, value: resultFont, range: range)
+    }
+    
+    private func applyNewStyle(
+        trait: UIFontDescriptor.SymbolicTraits,
+        newString: NSMutableAttributedString,
+        content: BlockText,
+        range: NSRange
+    )  {
+        let hasTrait = content.attributedText.hasTrait(trait: trait, at: range)
+        
+        content.attributedText.enumerateAttribute(.font, in: range) { oldFont, range, _ in
+            guard let oldFont = oldFont as? UIFont else { return }
+            var symbolicTraits = oldFont.fontDescriptor.symbolicTraits
+            
+            if hasTrait {
+                symbolicTraits.remove(trait)
+            } else {
+                symbolicTraits.insert(trait)
+            }
+            
+            if let newFontDescriptor = oldFont.fontDescriptor.withSymbolicTraits(symbolicTraits) {
+                let newFont = UIFont(descriptor: newFontDescriptor, size: oldFont.pointSize)
+                newString.addAttributes([NSAttributedString.Key.font: newFont], range: range)
+            }
+        }
+    }
+    
+    private func store( _ attributedString: NSAttributedString, in content: BlockText, id: BlockId) {
+        var content = content
+        content.attributedText = attributedString
+        blockUpdater?.update(entry: id) { model in
+            var model = model
+            model.information.content = .text(content)
+            model.didChange()
+        }
+        textService.setText(
+            contextID: documentId,
+            blockID: id,
+            attributedString: attributedString
+        )
     }
 }

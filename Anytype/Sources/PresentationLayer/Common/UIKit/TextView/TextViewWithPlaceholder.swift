@@ -10,6 +10,7 @@ extension CustomTextView {
         case bold
         case italic
         case strikethrough
+        case code
     }
 }
 
@@ -168,11 +169,13 @@ private extension TextViewWithPlaceholder {
             let selector: Selector = {
                 switch item {
                 case .bold:
-                    return #selector(didSelecteContextMenuActionBold)
+                    return #selector(didSelectContextMenuActionBold)
                 case .italic:
-                    return #selector(didSelecteContextMenuActionItalic)
+                    return #selector(didSelectContextMenuActionItalic)
                 case .strikethrough:
-                    return #selector(didSelecteContextMenuActionStrikethrough)
+                    return #selector(didSelectContextMenuActionStrikethrough)
+                case .code:
+                    return #selector(didSelectContextMenuActionCode)
                 }
             }()
             
@@ -188,16 +191,20 @@ private extension TextViewWithPlaceholder {
 
 extension TextViewWithPlaceholder {
     
-    @objc private func didSelecteContextMenuActionBold() {
+    @objc private func didSelectContextMenuActionBold() {
         handleMenuAction(.bold)
     }
     
-    @objc private func didSelecteContextMenuActionItalic() {
+    @objc private func didSelectContextMenuActionItalic() {
         handleMenuAction(.italic)
     }
     
-    @objc private func didSelecteContextMenuActionStrikethrough() {
+    @objc private func didSelectContextMenuActionStrikethrough() {
         handleMenuAction(.strikethrough)
+    }
+    
+    @objc private func didSelectContextMenuActionCode() {
+        handleMenuAction(.code)
     }
 
     private func handleMenuAction(_ action: CustomTextView.ContextMenuAction) {
@@ -244,6 +251,8 @@ private extension CustomTextView.ContextMenuAction {
             return "Italic".localized
         case .strikethrough:
             return "Strikethrough".localized
+        case .code:
+            return "Code".localized
         }
     }
 }

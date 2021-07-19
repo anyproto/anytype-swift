@@ -127,11 +127,9 @@ extension Namespace {
                 }
                 return .bold( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitBold) ?? false )
             case .italic: return .italic( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitItalic) ?? false )
-            case .keyboard: return .keyboard(
-                //                (attributes[.font] as? UIFont)
-                //                (attributes[.paragraphStyle] as? NSParagraphStyle) == NSParagraphStyle.keyboardStyle &&
-                (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitMonoSpace) ?? false
-                )
+            case .keyboard:
+                guard let font = attributes[.font] as? UIFont else { return .keyboard(false) }
+                return .keyboard(font.isCode)
             case .strikethrough: return .strikethrough( (attributes[.strikethroughStyle] as? Int) == 1 )
             case .underscored: return .underscored( (attributes[.underlineStyle] as? Int) == 1 )
             case .textColor: return .textColor( attributes[.foregroundColor] as? UIColor )
@@ -186,13 +184,7 @@ extension Namespace {
         
         private func keyboardUpdate(with attributes: [NSAttributedString.Key: Any], hasStyle: Bool) -> Update {
             guard let font = attributes[.font] as? UIFont else { return .change([:]) }
-            let oldTraits = font.fontDescriptor.symbolicTraits
-            let traits = hasStyle ? oldTraits.union(.traitMonoSpace) : oldTraits.symmetricDifference(.traitMonoSpace)
-            if let newDescriptor = (hasStyle ? font : .preferredFont(forTextStyle: .body)).fontDescriptor.withSymbolicTraits(traits) {
-                let newFont = UIFont(descriptor: newDescriptor, size: font.pointSize)
-                return .change([.font: newFont])
-            }
-            return .change([.font: font])
+            return hasStyle ? .change([.font: UIFont.code(of: font.pointSize)]) : .change([.font: font])
         }
         
         

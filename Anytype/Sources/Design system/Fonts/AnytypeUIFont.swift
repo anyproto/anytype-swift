@@ -17,6 +17,15 @@ extension UIFont {
     
     static let code = font(name: .plex, size: 15, weight: .regular)
     
+    var isCode: Bool {
+        let attribute = UIFont.attributeKey(name: .plex)
+        guard let name = fontDescriptor.fontAttributes[attribute] as? String else { return false }
+        return name == FontName.plex.rawValue
+    }
+    
+    static func code(of size: CGFloat) -> UIFont {
+        font(name: .plex, size: size, weight: .regular)
+    }
     
     private class func font(name: FontName, size: CGFloat, weight: Weight) -> UIFont {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
