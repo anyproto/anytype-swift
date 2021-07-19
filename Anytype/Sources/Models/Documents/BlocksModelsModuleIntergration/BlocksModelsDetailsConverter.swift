@@ -164,117 +164,105 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
 private extension Google_Protobuf_Value {
     
     func asNameEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .stringValue(string):
-            return DetailsEntry(value: string)
-        default:
+        guard case let .stringValue(string) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.name)"
             )
             return nil
         }
+        
+        return DetailsEntry(value: string)
     }
     
     func asIconEmojiEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .stringValue(string):
-            return DetailsEntry(value: string)
-        default:
+        guard case let .stringValue(string) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.iconEmoji)"
             )
             return nil
         }
+        
+        return DetailsEntry(value: string)
     }
     
     func asIconImageEntry() -> DetailsEntry<AnyHashable>? {
-        switch self.kind {
-        case let .stringValue(string):
-            return DetailsEntry(value: string)
-        default:
+        guard case let .stringValue(string) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.iconImage)"
             )
             return nil
         }
+        
+        return DetailsEntry(value: string)
     }
     
     func asCoverIdEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .stringValue(string):
-            return DetailsEntry(value: string)
-        default:
+        guard case let .stringValue(string) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverId)"
             )
             return nil
         }
+        return DetailsEntry(value: string)
     }
     
     func asCoverTypeEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .numberValue(number):
-            guard let coverType = CoverType(rawValue: Int(number)) else { return nil }
-            
-            return DetailsEntry(value: coverType)
-        default:
+        guard case let .numberValue(number) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverType)"
             )
             return nil
         }
+        
+        guard let coverType = CoverType(rawValue: Int(number)) else { return nil }
+        
+        return DetailsEntry(value: coverType)
     }
     
     func asIsArchiveEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case .boolValue(let isArchive):
-            return DetailsEntry(value: isArchive)
-        default:
+        guard case .boolValue(let isArchive) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.isArchived)"
             )
             return nil
         }
+        
+        return DetailsEntry(value: isArchive)
     }
     
     func asDescriptionEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .stringValue(string):
-            return DetailsEntry(value: string)
-        default:
+        guard case let .stringValue(string) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
         }
+        
+        return DetailsEntry(value: string)
     }
     
     func asLayoutEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .numberValue(number):
-            guard let layout = DetailsLayout(rawValue: Int(number)) else { return nil }
-            
-            return DetailsEntry(value: layout)
-        default:
+        guard case let .numberValue(number) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
         }
+        guard let layout = DetailsLayout(rawValue: Int(number)) else { return nil }
+        
+        return DetailsEntry(value: layout)
     }
     
     func asAlignmentEntry() -> DetailsEntry<AnyHashable>? {
-        switch kind {
-        case let .numberValue(number):
-            guard let layout = LayoutAlignment(rawValue: Int(number)) else { return nil }
-            
-            return DetailsEntry(value: layout)
-        default:
+        guard case let .numberValue(number) = kind else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
         }
+        guard let layout = LayoutAlignment(rawValue: Int(number)) else { return nil }
+        
+        return DetailsEntry(value: layout)
     }
     
     func asDoneEntry() -> DetailsEntry<AnyHashable>? {
