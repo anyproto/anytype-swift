@@ -68,6 +68,20 @@ platform :ios do
     )
   end
 
+  # Test
+
+  lane :test_build do
+    setup_ci
+    match(readonly: true)
+
+    build_app(
+      scheme: "Anytype", 
+      configuration: "Dev-Release",
+      include_symbols: true,
+      use_system_scm: true
+    )
+
+  end
 
   # Profiles
 
