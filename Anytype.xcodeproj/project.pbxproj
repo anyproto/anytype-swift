@@ -2397,6 +2397,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3D29AFF426A5D4860095BA18 /* Mentionable */ = {
+			isa = PBXGroup;
+			children = (
+				EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */,
+				EAADB19F2678CD43004B0AF2 /* Mentionable.swift */,
+			);
+			path = Mentionable;
+			sourceTree = "<group>";
+		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
@@ -2497,7 +2506,6 @@
 				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
 				3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */,
 				531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */,
-				EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */,
 				EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */,
 			);
 			path = UIKit;
@@ -3112,7 +3120,7 @@
 		534CAC0025FA6F230026FB93 /* SupportingViews */ = {
 			isa = PBXGroup;
 			children = (
-				EAADB19F2678CD43004B0AF2 /* Mentionable.swift */,
+				3D29AFF426A5D4860095BA18 /* Mentionable */,
 				EAE6BDC2267CB6A000275788 /* Mentions */,
 				EA289B9E2629B24C00EA869F /* BlockActions */,
 				0A2C0D62247145BD008ADD86 /* BlockToolbar.swift */,
