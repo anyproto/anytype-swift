@@ -10,7 +10,9 @@ import UIKit
 
 
 final class TextBlockIconView: UIView {
+    
     enum ViewType {
+        case titleCheckbox(isSelected: Bool)
         case checkbox(isSelected: Bool)
         case toggle(toggled: Bool)
         case numbered(Int)
@@ -45,14 +47,20 @@ final class TextBlockIconView: UIView {
     
     private func addContentView() {
         switch type {
+        case let .titleCheckbox(isSelected):
+            currentView = createCheckboxView(
+                isSelected: isSelected,
+                uncheckedImageName: Constants.TitleCheckbox.uncheckedImageName,
+                checkedImageName: Constants.TitleCheckbox.checkedImageName,
+                imageSize: Constants.TitleCheckbox.imageSize
+            )
         case let .checkbox(isSelected):
-            let checkboxView = createCheckboxView()
-            currentView = checkboxView
-            checkboxView.isSelected = isSelected
-            checkboxView.addAction(UIAction(handler: { [weak checkboxView, weak self] _ in
-                checkboxView?.isSelected.toggle()
-                self?.action?()
-            }), for: .touchUpInside)
+            currentView = createCheckboxView(
+                isSelected: isSelected,
+                uncheckedImageName: Constants.Checkbox.uncheckedImageName,
+                checkedImageName: Constants.Checkbox.checkedImageName,
+                imageSize: Constants.Checkbox.imageSize
+            )
         case let .numbered(number):
             let numberedView = createNumberedView()
             currentView = numberedView
@@ -99,12 +107,25 @@ extension TextBlockIconView {
         return toggleView
     }
 
-    private func createCheckboxView() -> UIButton {
+    private func createCheckboxView(
+        isSelected: Bool,
+        uncheckedImageName: String,
+        checkedImageName: String,
+        imageSize: CGSize
+    ) -> UIButton {
         let checkboxView = UIButton()
-        checkboxView.setImage(.init(imageLiteralResourceName: Constants.Checkbox.uncheckedImageName), for: .normal)
-        checkboxView.setImage(.init(imageLiteralResourceName: Constants.Checkbox.checkedImageName), for: .selected)
+        checkboxView.setImage(.init(imageLiteralResourceName: uncheckedImageName), for: .normal)
+        checkboxView.setImage(.init(imageLiteralResourceName: checkedImageName), for: .selected)
         checkboxView.contentMode = .center
-
+        checkboxView.isSelected = isSelected
+        checkboxView.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.action?()
+                }
+            ),
+            for: .touchUpInside
+        )
         addSubview(checkboxView) {
             $0.width.equal(to: Constants.size.width)
             $0.height.equal(to: Constants.size.height)
@@ -114,8 +135,7 @@ extension TextBlockIconView {
             $0.trailing.equal(to: trailingAnchor)
         }
         checkboxView.imageView?.layoutUsing.anchors {
-            $0.width.equal(to: Constants.Checkbox.imageSize)
-            $0.height.equal(to: Constants.Checkbox.imageSize)
+            $0.size(imageSize)
         }
         return checkboxView
     }
@@ -187,10 +207,15 @@ private extension TextBlockIconView {
             static let dotImageName: String = "TextEditor/Style/Text/Bulleted/Bullet"
         }
 
+        enum TitleCheckbox {
+            static let checkedImageName = "title_todo_checkmark"
+            static let uncheckedImageName = "title_todo_checkbox"
+            static let imageSize = CGSize(width: 28, height: 28)
+        }
         enum Checkbox {
-            static let checkedImageName: String = "TextEditor/Style/Text/Checkbox/checked"
-            static let uncheckedImageName: String = "TextEditor/Style/Text/Checkbox/unchecked"
-            static let imageSize: CGFloat = 18
+            static let checkedImageName = "TextEditor/Style/Text/Checkbox/checked"
+            static let uncheckedImageName = "TextEditor/Style/Text/Checkbox/unchecked"
+            static let imageSize = CGSize(width: 18, height: 18)
         }
 
         enum Numbered {

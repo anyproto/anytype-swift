@@ -71,7 +71,7 @@ class DocumentEditorViewModel: ObservableObject {
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
-            let blocksViewModels = blockBuilder.build(updateResult.models)
+            let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
             updateBlocksViewModels(models: blocksViewModels)
             if let details = updateResult.details {
                 updateDetails(details)
@@ -110,7 +110,7 @@ class DocumentEditorViewModel: ObservableObject {
                 return
             }
             
-            guard let newModel = blockBuilder.build(newRecord) else {
+            guard let newModel = blockBuilder.build(newRecord, details: document.defaultDetailsActiveModel.currentDetails) else {
                 assertionFailure("Could not build model from record: \(newRecord)")
                 return
             }

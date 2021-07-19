@@ -28,11 +28,11 @@ final class BlockViewModelBuilder {
         self.mentionsConfigurator = mentionsConfigurator
     }
 
-    func build(_ blocks: [BlockActiveRecordProtocol]) -> [BlockViewModelProtocol] {
-        blocks.compactMap { build($0) }
+    func build(_ blocks: [BlockActiveRecordProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
+        blocks.compactMap { build($0, details: details) }
     }
 
-    func build(_ block: BlockActiveRecordProtocol) -> BlockViewModelProtocol? {
+    func build(_ block: BlockActiveRecordProtocol, details: DetailsData?) -> BlockViewModelProtocol? {
         switch block.content {
         case let .text(content):
             switch content.contentType {
@@ -63,12 +63,26 @@ final class BlockViewModelBuilder {
                         }
                     }
                 )
+            case .title:
+                return TextBlockViewModel(
+                    block: block,
+                    isCheckable: details?.layout == .todo,
+                    contextualMenuHandler: contextualMenuHandler,
+                    blockDelegate: delegate,
+                    actionHandler: blockActionHandler
+                ) { [weak self] textView in
+                    self?.mentionsConfigurator.configure(textView: textView)
+                } showStyleMenu: { [weak self] information in
+                    self?.router.showStyleMenu(information: information)
+                }
             default:
                 return TextBlockViewModel(
                     block: block,
+                    isCheckable: false,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    actionHandler: blockActionHandler) { [weak self] textView in
+                    actionHandler: blockActionHandler
+                ) { [weak self] textView in
                     self?.mentionsConfigurator.configure(textView: textView)
                 } showStyleMenu: { [weak self] information in
                     self?.router.showStyleMenu(information: information)

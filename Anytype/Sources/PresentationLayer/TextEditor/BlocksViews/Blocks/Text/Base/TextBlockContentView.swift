@@ -7,13 +7,16 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: Views
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
+    
     private(set) lazy var textView = buildTextView()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
+    
     private let mainStackView: UIStackView = {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
         return mainStackView
     }()
+    
     private let topStackView: UIStackView = {
         let topStackView = UIStackView()
         topStackView.axis = .horizontal
@@ -26,11 +29,13 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: Configuration
 
     private(set) var currentConfiguration: TextBlockContentConfiguration
+    
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
             guard let configuration = newValue as? TextBlockContentConfiguration else { return }
-            self.apply(configuration: configuration)
+            
+            apply(configuration: configuration)
         }
     }
 
@@ -49,51 +54,56 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
-        self.setupViews()
-        self.applyNewConfiguration()
+        setupViews()
+        applyNewConfiguration()
     }
 
     // MARK: - Setup views
 
     private func setupViews() {
-        addSubview(backgroundColorView)
-        addSubview(mainStackView)
-        addSubview(selectionView)
-
-        mainStackView.addArrangedSubview(topStackView)
-        mainStackView.addArrangedSubview(createEmptyBlockButton)
-
-        topStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
-        topStackView.addArrangedSubview(textView)
-
         selectionView.layer.cornerRadius = 6
         selectionView.layer.cornerCurve = .continuous
         selectionView.isUserInteractionEnabled = false
         selectionView.clipsToBounds = true
 
-        self.setupLayout()
+        setupLayout()
     }
 
     private func setupLayout() {
-        createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
+        addSubview(backgroundColorView) {
+            $0.pinToSuperview(insets: LayoutConstants.backgroundViewInsets)
+        }
+        addSubview(mainStackView) {
+            $0.pinToSuperview(insets: LayoutConstants.insets)
+        }
+        addSubview(selectionView) {
+            $0.pinToSuperview(insets: LayoutConstants.selectionViewInsets)
+        }
+        
+        mainStackView.addArrangedSubview(topStackView)
+        mainStackView.addArrangedSubview(createEmptyBlockButton)
+        
+        createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
 
-        mainStackView.pinAllEdges(to: self, insets: LayoutConstants.insets)
-        backgroundColorView.pinAllEdges(to: self, insets: LayoutConstants.backgroundViewInsets)
-        selectionView.pinAllEdges(to: self, insets: LayoutConstants.selectionViewInsets)
+        topStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
+        topStackView.addArrangedSubview(textView)
     }
 
     // MARK: - Apply configuration
 
     private func apply(configuration: TextBlockContentConfiguration) {
         guard self.currentConfiguration != configuration else { return }
-        self.currentConfiguration = configuration
-        self.applyNewConfiguration()
+        
+        currentConfiguration = configuration
+        applyNewConfiguration()
     }
 
     private func applyNewConfiguration() {
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
-        setupForText()
+        setupText(placeholer: "", font: .body)
+        topStackView.spacing = 4
+        
         subscriptions.removeAll()
 
         textView.delegate = nil
@@ -113,9 +123,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
         switch text.contentType {
         case .title:
-            setupForTitle()
+            setupTitle(text)
         case .text:
-            setupForText()
+            setupText(placeholer: "", font: .body)
         case .toggle:
             setupForToggle()
         case .bulleted:
@@ -127,11 +137,11 @@ final class TextBlockContentView: UIView & UIContentView {
         case .quote:
             setupForQuote()
         case .header:
-            setupForHeader1()
+            setupText(placeholer: "Title".localized, font: .heading)
         case .header2:
-            setupForHeader2()
+            setupText(placeholer: "Heading".localized, font: .subheading)
         case .header3:
-            setupForHeader3()
+            setupText(placeholer: "Subheading".localized, font: .headlineSemibold)
         case .header4, .code:
             break
         }
@@ -163,24 +173,16 @@ final class TextBlockContentView: UIView & UIContentView {
         currentConfiguration.configureMentions(textView.textView)
     }
     
-    private func setupForText() {
-        self.setupText(placeholer: "", font: .body)
-    }
-    
-    private func setupForTitle() {
-        self.setupText(placeholer: "Untitled".localized, font: .title)
-    }
-    
-    private func setupForHeader1() {
-        self.setupText(placeholer: "Title".localized, font: .heading)
-    }
-    
-    private func setupForHeader2() {
-        self.setupText(placeholer: "Heading".localized, font: .subheading)
-    }
-    
-    private func setupForHeader3() {
-        self.setupText(placeholer: "Subheading".localized, font: .headlineSemibold)
+    private func setupTitle(_ blockText: BlockText) {
+        setupText(placeholer: "Untitled".localized, font: .title)
+        if currentConfiguration.isCheckable {
+            let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) {
+                // TODO: implement
+            }
+            replaceCurrentLeftView(with: leftView)
+            topStackView.spacing = 8
+            textView.textView.textContainerInset = UIEdgeInsets(top: 3, left: 0, bottom: 3, right: 0)
+        }
     }
     
     private func setupText(placeholer: String, font: UIFont) {
@@ -189,10 +191,10 @@ final class TextBlockContentView: UIView & UIContentView {
             .foregroundColor: UIColor.secondaryTextColor
         ]
 
-        self.textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
-        self.textView.textView.font = font
-        self.textView.textView.typingAttributes = [.font: font]
-        self.textView.textView.defaultFontColor = .textColor
+        textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
+        textView.textView.font = font
+        textView.textView.typingAttributes = [.font: font]
+        textView.textView.defaultFontColor = .textColor
     }
     
     private func setupForCheckbox(checked: Bool) {
@@ -222,7 +224,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForQuote() {
-        self.setupText(placeholer: "Quote".localized, font: .headline)
+        setupText(placeholer: "Quote".localized, font: .headline)
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
@@ -295,7 +297,8 @@ final class TextBlockContentView: UIView & UIContentView {
                     guard let self = self else { return }
                     self.currentConfiguration.actionHandler.handleAction(
                         .createEmptyBlock(
-                            parentId: self.currentConfiguration.information.id),
+                            parentId: self.currentConfiguration.information.id
+                        ),
                         info: self.currentConfiguration.information
                     )
                 }
