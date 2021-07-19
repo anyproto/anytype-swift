@@ -5,7 +5,6 @@ protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, Content
     var isStruct: Bool { get }
     
     func didSelectRowInTableView()
-    func updateView()
     var indentationLevel: Int { get }
 }
 

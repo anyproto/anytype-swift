@@ -65,7 +65,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() { }
-    func updateView() {}
 }
 
 // MARK: - Debug

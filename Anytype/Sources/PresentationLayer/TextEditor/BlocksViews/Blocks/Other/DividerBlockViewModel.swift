@@ -42,5 +42,4 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {}
-    func updateView() {}
 }

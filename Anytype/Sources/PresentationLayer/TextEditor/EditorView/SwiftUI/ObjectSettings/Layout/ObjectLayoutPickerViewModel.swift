@@ -1,18 +1,13 @@
-//
-//  ObjectLayoutPickerViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 15.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
 import Combine
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
-    
-    @Published private(set) var selectedLayout: DetailsLayout = .basic
+        
+    @Published var details = DetailsData.empty
+    var selectedLayout: DetailsLayout {
+        details.layout ?? .basic
+    }
     
     // MARK: - Private variables
     
@@ -22,10 +17,6 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     init(detailsService: ObjectDetailsService) {
         self.detailsService = detailsService
-    }
- 
-    func update(with details: DetailsData) {
-        selectedLayout = details.layout ?? .basic
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {

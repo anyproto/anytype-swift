@@ -1,18 +1,22 @@
-//
-//  ObjectSettingsViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 14.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
     
-    @Published private(set) var settings: [ObjectSetting] = ObjectSetting.allCases
+    @Published private(set) var details = DetailsData.empty
+    var settings: [ObjectSetting] {
+        guard let layout = details.layout else {
+            return ObjectSetting.allCases
+        }
+        
+        switch layout {
+        case .basic:
+            return ObjectSetting.allCases
+        case .profile:
+            return ObjectSetting.allCases
+        }
+    }
     
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
@@ -22,7 +26,6 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     init(objectDetailsService: ObjectDetailsService) {
         self.objectDetailsService = objectDetailsService
-        
         self.iconPickerViewModel = ObjectIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
@@ -38,19 +41,9 @@ final class ObjectSettingsViewModel: ObservableObject {
     }
     
     func update(with details: DetailsData) {
-        iconPickerViewModel.update(with: details)
-        layoutPickerViewModel.update(with: details)
-        
-        guard let layout = details.layout else {
-            settings = ObjectSetting.allCases
-            return
-        }
-        switch layout {
-        case .basic:
-            settings = ObjectSetting.allCases
-        case .profile:
-            settings = ObjectSetting.allCases
-        }
+        self.details = details
+        iconPickerViewModel.details = details
+        layoutPickerViewModel.details = details
     }
     
 }

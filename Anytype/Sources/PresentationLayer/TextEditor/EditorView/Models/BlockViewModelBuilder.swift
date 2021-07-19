@@ -90,9 +90,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             case .none:
-                return UnknownLabelViewModel(
-                    block, delegate: delegate, actionHandler: blockActionHandler, router: router
-                )
+                return UnknownLabelViewModel(information: block.blockModel.information)
             case .image:
                 return BlockImageViewModel(
                     information: block.blockModel.information,

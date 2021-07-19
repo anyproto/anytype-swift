@@ -82,11 +82,6 @@ final class TopUIKitView: UIView {
         }
     }
 
-    // MARK: Update / (Could be placed in `layoutSubviews()`)
-    func updateView() {
-        // toggle animation also
-    }
-
     func updateIfNeeded(leftViewSubview: UIView?, _ setConstraints: Bool = true) {
         guard let leftViewSubview = leftViewSubview else { return }
         for view in self.leftView.subviews {

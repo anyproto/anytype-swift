@@ -24,8 +24,7 @@ final class MarkStyleModifier {
         // Otherwise, return string attributes.
         default: break
         }
-        // TODO: We still DON'T check range and attributedString length here. Fix it.
-        guard attributedString.length > range.location + range.length else { return [:] }
+        guard attributedString.length >= range.location + range.length else { return [:] }
         return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
     }
     
