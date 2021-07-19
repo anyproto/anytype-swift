@@ -34,5 +34,6 @@ extension Color {
     // Custom
     static let toastBackground = Color("toastBackground")
     static let grayscale10 = Color(ColorName.grayscale10)
+    static let grayscale30 = Color(ColorName.grayscale30)
     static let grayscaleWhite = Color(ColorName.grayscaleWhite)
 }

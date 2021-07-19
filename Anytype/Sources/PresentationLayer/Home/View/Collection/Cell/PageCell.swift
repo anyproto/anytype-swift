@@ -95,7 +95,7 @@ struct PageCell: View {
                 )
                 .frame(maxWidth: 48, maxHeight: 48)
                 .foregroundColor(.grayscaleWhite)
-                .background(Color.grayscale10)
+                .background(Color.grayscale30)
                 
             }
         }
