@@ -115,18 +115,42 @@ final class MentionAttachment: NSTextAttachment {
                 displayProfileIcon(profile)
             }
         case let .checkmark(isChecked):
-            // TODO: - 
-            break
+            displayCheckmarkIcon(isChecked: isChecked)
+        }
+    }
+    
+    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
+        switch basicIcon {
+        case let .emoji(emoji):
+            guard
+                let fontSize = fontPointSize,
+                let image = emoji.value.image(fontPointSize: fontSize)
+            else { return }
+            
+            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+            let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
+            
+            display(resizedImage)
+        case let .imageId(imageId):
+            loadImage(imageId: imageId, isBasicLayout: true)
         }
     }
     
     private func displayProfileIcon(_ profileIcon: DocumentIconType.Profile) {
         switch profileIcon {
         case let .imageId(id):
-            loadImage(imageId: id)
+            loadImage(imageId: id, isBasicLayout: false)
         case let .placeholder(placeholder):
             loadPlaceholderImage(placehodler: placeholder)
         }
+    }
+    
+    private func displayCheckmarkIcon(isChecked: Bool) {
+        let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+        
+        let size = iconSize ?? Constants.defaultIconSize
+        
+        addLeadingSpaceAndDisplay(image.scaled(to: size))
     }
     
     private func loadPlaceholderImage(placehodler: Character) {
@@ -150,27 +174,22 @@ final class MentionAttachment: NSTextAttachment {
         addLeadingSpaceAndDisplay(image)
     }
     
-    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
-        case let .emoji(emoji):
-            guard let fontSize = fontPointSize,
-                  let image = emoji.value.image(fontPointSize: fontSize) else { return }
-            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-            let resizedImage = image.imageDrawn(on: newSize,
-                                                offset: .zero)
-            display(resizedImage)
-        case let .imageId(imageId):
-            loadImage(imageId: imageId)
-        }
-    }
-    
-    private func loadImage(imageId: String) {
+    private func loadImage(imageId: String, isBasicLayout: Bool) {
         let property = ImageProperty(imageId: imageId, ImageParameters(width: .thumbnail))
         let subscription = property.stream.sink { [weak self] image in
-            guard let image = image else { return }
-            let scaledImage = image.scaled(to: self?.iconSize ?? Constants.defaultIconSize)
-            let roundedImage = scaledImage.rounded(radius: min(scaledImage.size.height, scaledImage.size.width)/2)
-            self?.addLeadingSpaceAndDisplay(roundedImage)
+            guard
+                let image = image,
+                let self = self
+            else { return }
+            
+            let imageSize = self.iconSize ?? Constants.defaultIconSize
+            let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
+            
+            let resultImage = image
+                .scaled(to: imageSize)
+                .rounded(radius: cornerRadius)
+            
+            self.addLeadingSpaceAndDisplay(resultImage)
         }
         subscriptions.append(subscription)
         imageProperty = property
@@ -182,21 +201,23 @@ final class MentionAttachment: NSTextAttachment {
         display(imageWithSpace)
     }
     
-    private func updateAttachmentLayout() {
-        DispatchQueue.main.async {
-            guard let range = self.layoutManager?.rangeForAttachment(attachment: self) else { return }
-            self.layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
-        }
-    }
-    
     private func display(_ image: UIImage) {
         self.image = image
         bounds = bounds(for: image)
+        
         updateAttachmentLayout()
     }
     
     private func bounds(for image: UIImage) -> CGRect {
         CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
+    }
+    
+    private func updateAttachmentLayout() {
+        DispatchQueue.main.async {
+            guard let range = self.layoutManager?.rangeForAttachment(attachment: self) else { return }
+            
+            self.layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
+        }
     }
 }
 
