@@ -102,6 +102,7 @@ final class TextBlockContentView: UIView & UIContentView {
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
         setupText(placeholer: "", font: .body)
+        topStackView.spacing = 4
         
         subscriptions.removeAll()
 
@@ -122,7 +123,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         switch text.contentType {
         case .title:
-            setupText(placeholer: "Untitled".localized, font: .title)
+            setupTitle(text)
         case .text:
             setupText(placeholer: "", font: .body)
         case .toggle:
@@ -170,6 +171,18 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
         currentConfiguration.configureMentions(textView.textView)
+    }
+    
+    private func setupTitle(_ blockText: BlockText) {
+        setupText(placeholer: "Untitled".localized, font: .title)
+        if currentConfiguration.isCheckable {
+            let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) {
+                // TODO: implement
+            }
+            replaceCurrentLeftView(with: leftView)
+            topStackView.spacing = 8
+            textView.textView.textContainerInset = UIEdgeInsets(top: 3, left: 0, bottom: 3, right: 0)
+        }
     }
     
     private func setupText(placeholer: String, font: UIFont) {
