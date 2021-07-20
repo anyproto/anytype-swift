@@ -24,6 +24,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         [blockId,
          indentationLevel,
          toggled,
+         isCheckable,
          block.blockModel.information.content
         ] as [AnyHashable]
     }
