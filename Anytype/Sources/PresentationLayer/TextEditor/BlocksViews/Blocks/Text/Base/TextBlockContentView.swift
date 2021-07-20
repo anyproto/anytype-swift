@@ -169,8 +169,13 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupTitle(_ blockText: BlockText) {
         setupText(placeholer: "Untitled".localized, font: .title)
         if currentConfiguration.isCheckable {
-            let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) {
-                // TODO: implement
+            let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) { [weak self] in
+                guard let self = self else { return }
+                
+                self.currentConfiguration.actionHandler.handleAction(
+                    .checkbox(selected: !blockText.checked),
+                    info: self.currentConfiguration.information
+                )
             }
             replaceCurrentLeftView(with: leftView)
             topStackView.spacing = 8
