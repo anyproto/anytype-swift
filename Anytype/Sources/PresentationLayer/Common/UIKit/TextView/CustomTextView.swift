@@ -10,6 +10,7 @@ final class CustomTextView: UIView {
     weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
         didSet {
             textView.userInteractionDelegate = userInteractionDelegate
+            handler.delegate = userInteractionDelegate
         }
     }
     
@@ -18,7 +19,13 @@ final class CustomTextView: UIView {
     private(set) lazy var textView = createTextView()
     private(set) lazy var slashMenuView = createSlashMenu()
     private(set) lazy var mentionView = createMentionView()
-    let editingToolbarAccessoryView = EditingToolbarView()
+    private(set) lazy var accessoryView = EditorAccessoryView(actionHandler: handler)
+    private(set) lazy var handler = EditorAccessoryViewActionHandler(
+        customTextView: self,
+        switcher: inputSwitcher,
+        delegate: userInteractionDelegate
+    )
+    
     let inputSwitcher = AccessoryViewSwitcher()
     
     private var firstResponderSubscription: AnyCancellable?
@@ -41,7 +48,6 @@ final class CustomTextView: UIView {
         super.init(frame: .zero)
 
         setupView()
-        configureEditingToolbarHandler()
     }
 
     @available(*, unavailable)
@@ -52,7 +58,19 @@ final class CustomTextView: UIView {
     override var intrinsicContentSize: CGSize {
         .zero
     }
+    
+    func setupView() {
+        textView.delegate = self
 
+        addSubview(textView) {
+            $0.pinToSuperview()
+        }
+        
+        firstResponderSubscription = textView.firstResponderChangePublisher
+            .sink { [weak self] change in
+                self?.delegate?.changeFirstResponderState(change)
+            }
+    }
 }
 
 // MARK: - BlockTextViewInput
@@ -79,60 +97,7 @@ extension CustomTextView: TextViewManagingFocus {
     }
 }
 
-// MARK: - Private extension
-
-private extension CustomTextView {
-    
-    func setupView() {
-        textView.delegate = self
-
-        addSubview(textView) {
-            $0.pinToSuperview()
-        }
-        
-        firstResponderSubscription = textView.firstResponderChangePublisher
-            .sink { [weak self] change in
-                self?.delegate?.changeFirstResponderState(change)
-            }
-    }
-
-    func configureEditingToolbarHandler() {
-        editingToolbarAccessoryView.setActionHandler { [weak self] action in
-            guard let self = self else { return }
-
-            self.inputSwitcher.switchInputs(customTextView: self)
-
-            switch action {
-            case .slashMenu:
-                self.textView.insertStringToAttributedString(
-                    self.inputSwitcher.textToTriggerActionsViewDisplay
-                )
-                self.inputSwitcher.showAccessoryView(
-                    accessoryView: self.slashMenuView,
-                    textView: self.textView
-                )
-            case .multiActionMenu:
-                self.userInteractionDelegate?.didReceiveAction(
-                    .showMultiActionMenuAction
-                )
-
-            case .showStyleMenu:
-                self.userInteractionDelegate?.didReceiveAction(.showStyleMenu)
-
-            case .keyboardDismiss:
-                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-            case .mention:
-                self.textView.insertStringToAttributedString(
-                    self.inputSwitcher.textToTriggerMentionViewDisplay
-                )
-                self.inputSwitcher.showAccessoryView(
-                    accessoryView: self.mentionView,
-                    textView: self.textView
-                )
-            }
-        }
-    }
-}
+// MARK: - Views
 
 extension CustomTextView {
     func createTextView() -> TextViewWithPlaceholder {
@@ -173,6 +138,8 @@ extension CustomTextView {
     }
 }
 
+
+// MARK: - Constants
 private extension CustomTextView {
     enum Constants {
         /// Minimum time interval to stay idle to handle consequent return key presses
