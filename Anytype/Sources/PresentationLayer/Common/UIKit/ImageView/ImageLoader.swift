@@ -22,13 +22,14 @@ final class ImageLoader {
         placeholder: UIImage? = nil
     ) {
         property = ImageProperty(imageId: hash, parameters)
-        
         if let image = image {
             setImage(image: image)
             return
         }
         
         imageView?.image = placeholder
+        imageView?.contentMode = .center
+        
         subscription = property?.stream
             .safelyUnwrapOptionals()
             .receiveOnMain()
