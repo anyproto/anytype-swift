@@ -27,7 +27,7 @@ extension CustomTextView.HighlightedToolbar {
             case backgroundColor(UIColor?) // should retrieve in custom place
             case mention(String?)
             
-            static func convert(_ type: CustomTextView.MarkStyle) -> Self {
+            static func convert(_ type: MarkStyle) -> Self {
                 switch type {
                 case let .bold(value): return .bold(value)
                 case let .italic(value): return .italic(value)

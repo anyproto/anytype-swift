@@ -295,7 +295,11 @@ final class StyleViewController: UIViewController {
 
         currentDeselectAction?()
         currentDeselectAction = deselectAction
-        self.actionHandler(BlockHandlerActionType.turnInto(style))
+        if style == .code {
+            actionHandler(.toggleFontStyle(.keyboard))
+        } else {
+            actionHandler(.turnInto(style))
+        }
     }
 
     @objc private func colorActionHandler() {
