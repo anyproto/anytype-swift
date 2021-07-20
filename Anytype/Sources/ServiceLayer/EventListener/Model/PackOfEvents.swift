@@ -12,6 +12,10 @@ struct PackOfEvents {
         self.localEvents = localEvents
     }
     
+    init(localEvent: LocalEvent) {
+        self.init(middlewareEvents: [], localEvents: [localEvent])
+    }
+    
     func enrichedWith(localEvents: [LocalEvent]) -> PackOfEvents {
         return PackOfEvents(
             middlewareEvents: middlewareEvents,

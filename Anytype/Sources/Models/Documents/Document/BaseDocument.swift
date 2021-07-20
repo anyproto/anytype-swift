@@ -155,10 +155,10 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let publisher = ourModel.changeInformationPublisher
-        self.defaultDetailsActiveModel.configured(documentId: rootId)
-        self.defaultDetailsActiveModel.configured(publisher: publisher)
-        self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
-        self.listenDefaultDetails()
+        defaultDetailsActiveModel.documentId = rootId
+        defaultDetailsActiveModel.wholeDetailsPublisher = publisher
+        defaultDetailsActiveModel.eventSubject = detailsEventSubject
+        listenDefaultDetails()
     }
 
     // MARK: - Handle new root model
@@ -202,13 +202,14 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Returns: details active model.
     ///
     func getDetails(by id: ParentId) -> DetailsActiveModel? {
-        guard let value = self.rootModel?.detailsContainer.get(by: id) else {
+        guard let detailsModel = self.rootModel?.detailsContainer.get(by: id) else {
             Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
-        let result: DetailsActiveModel = .init()
-        result.configured(documentId: id)
-        result.configured(publisher: value.changeInformationPublisher)
+        let result = DetailsActiveModel(
+            documentId: id,
+            wholeDetailsPublisher: detailsModel.changeInformationPublisher
+        )
         return result
     }
     

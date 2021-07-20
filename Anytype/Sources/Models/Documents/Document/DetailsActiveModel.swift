@@ -6,15 +6,9 @@ import BlocksModels
 // Sends and receives data via serivce.
 class DetailsActiveModel {
     
-    private var documentId: String?
-    
-    private let service = ObjectActionsService()
-    
-    // MARK: Publishers
-    
-    @Published private(set) var currentDetails: DetailsData?
-    
-    private(set) var wholeDetailsPublisher: AnyPublisher<DetailsData, Never> = .empty() {
+    var documentId: String?
+    var eventSubject: PassthroughSubject<PackOfEvents, Never> = .init()
+    var wholeDetailsPublisher: AnyPublisher<DetailsData, Never> {
         didSet {
             self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in
                 self?.currentDetails = value
@@ -22,28 +16,20 @@ class DetailsActiveModel {
         }
     }
     
+    @Published private(set) var currentDetails: DetailsData?
+    
     private var currentDetailsSubscription: AnyCancellable?
-    private var eventSubject: PassthroughSubject<PackOfEvents, Never> = .init()
+    private let service = ObjectActionsService()
     
-}
-
-// MARK: Configuration
-
-extension DetailsActiveModel {
-    
-    func configured(documentId: String) {
+    init(
+        documentId: String? = nil,
+        wholeDetailsPublisher: AnyPublisher<DetailsData, Never> = .empty()
+    ) {
         self.documentId = documentId
+        self.wholeDetailsPublisher = wholeDetailsPublisher
     }
-    
-    func configured(publisher: AnyPublisher<DetailsData, Never>) {
-        self.wholeDetailsPublisher = publisher
-    }
-    
-    func configured(eventSubject: PassthroughSubject<PackOfEvents, Never>) {
-        self.eventSubject = eventSubject
-    }
-    
 }
+
 
 // MARK: Updates
 

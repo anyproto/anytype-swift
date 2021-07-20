@@ -46,10 +46,11 @@ final class EditorAssembly {
             router: router
         )
         
+        let eventProcessor = EventProcessor(document: document, modelsHolder: modelsHolder)
         let editorBlockActionHandler = EditorActionHandler(
             document: document,
-            modelsHolder: modelsHolder,
-            blockActionHandler: blockActionHandler
+            blockActionHandler: blockActionHandler,
+            eventProcessor: eventProcessor
         )
         
         let blockDelegate = BlockDelegateImpl(
@@ -61,9 +62,16 @@ final class EditorAssembly {
             document: document,
             blockActionHandler: editorBlockActionHandler,
             router: router,
-            delegate: blockDelegate, mentionsConfigurator: MentionsTextViewConfigurator(didSelectMention: { pageId in
-                router.showPage(with: pageId)
-            })
+            delegate: blockDelegate,
+            mentionsConfigurator: MentionsConfigurator(
+                didSelectMention: { pageId in
+                    router.showPage(with: pageId)
+                }
+            ),
+            detailsLoader: DetailsLoader(
+                document: document,
+                eventProcessor: eventProcessor
+            )
         )
         
         return DocumentEditorViewModel(
