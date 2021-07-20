@@ -3,27 +3,27 @@ import UIKit
 
 final class MentionAttachment: NSTextAttachment {
     
-    private enum Constants {
-        static let defaultIconSize = CGSize(width: 20, height: 20)
-        static let iconLeadingSpace: CGFloat = 3
-        static let iconTopOffset: CGFloat = 3
-    }
-    
     let pageId: String
     let name: String
-    private var iconData: DocumentIconType?
+    
     private weak var layoutManager: NSLayoutManager?
-    private let mentionService = MentionObjectsService(pageObjectsCount: 1)
-    private var subscriptions = [AnyCancellable]()
+    
+    private let mentionService = MentionObjectsService()
+    
+    private var icon: MentionIcon?
     private var iconSize: CGSize?
     private var fontPointSize: CGFloat?
     private var imageProperty: ImageProperty?
     
-    init(name: String, pageId: String, iconData: DocumentIconType? = nil) {
+    private var subscriptions = [AnyCancellable]()
+    
+    init(name: String, pageId: String, icon: MentionIcon? = nil) {
         self.pageId = pageId
         self.name = name
-        self.iconData = iconData
+        self.icon = icon
+        
         super.init(data: nil, ofType: nil)
+        
         mentionService.filterString = name
     }
     
@@ -67,53 +67,90 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func displayNewImageIfNeeded(desiredIconSize: CGSize, fontPointSize: CGFloat?) {
-        let shouldCreateNewImage = storeParametersForIcon(size: desiredIconSize,
-                                                          fontPointSize: fontPointSize)
+        let shouldCreateNewImage = storeParametersForIcon(
+            size: desiredIconSize,
+            fontPointSize: fontPointSize
+        )
+        
         if !shouldCreateNewImage {
             return
         }
-        if let iconData = iconData {
-            displayIcon(from: iconData)
+        if let icon = icon {
+            displayIcon(icon)
         } else if subscriptions.isEmpty {
             loadMention()
         }
     }
     
     private func loadMention() {
-        let subscription = mentionService.obtainMentionsPublisher()
+        mentionService.obtainMentionsPublisher()
             .receiveOnMain()
             .sink { result in
-            switch result {
-            case let .failure(error):
-                assertionFailure(error.localizedDescription)
-            case .finished:
-                break
+                switch result {
+                case let .failure(error):
+                    assertionFailure(error.localizedDescription)
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] mentions in
+                guard
+                    let mention = mentions.first(where: { $0.id == self?.pageId }),
+                    let icon = mention.icon,
+                    let self = self
+                else { return }
+                
+                self.icon = icon
+                self.displayIcon(icon)
             }
-        } receiveValue: { [weak self] mentions in
-            guard let mention = mentions.first,
-                  let iconData = mention.iconData else { return }
-            self?.iconData = iconData
-            self?.displayIcon(from: iconData)
-        }
-        subscriptions.append(subscription)
+            .store(in: &subscriptions)
     }
     
-    private func displayIcon(from iconData: DocumentIconType) {
-        switch iconData {
-        case let .basic(basic):
-            displayBasicIcon(basic)
-        case let .profile(profile):
-            displayProfileIcon(profile)
+    private func displayIcon(_ icon: MentionIcon) {
+        switch icon {
+        case let .objectIcon(objectIcon):
+            switch objectIcon {
+            case let .basic(basic):
+                displayBasicIcon(basic)
+            case let .profile(profile):
+                displayProfileIcon(profile)
+            }
+        case let .checkmark(isChecked):
+            displayCheckmarkIcon(isChecked: isChecked)
+        }
+    }
+    
+    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
+        switch basicIcon {
+        case let .emoji(emoji):
+            guard
+                let fontSize = fontPointSize,
+                let image = emoji.value.image(fontPointSize: fontSize)
+            else { return }
+            
+            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+            let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
+            
+            display(resizedImage)
+        case let .imageId(imageId):
+            loadImage(imageId: imageId, isBasicLayout: true)
         }
     }
     
     private func displayProfileIcon(_ profileIcon: DocumentIconType.Profile) {
         switch profileIcon {
         case let .imageId(id):
-            loadImage(imageId: id)
+            loadImage(imageId: id, isBasicLayout: false)
         case let .placeholder(placeholder):
             loadPlaceholderImage(placehodler: placeholder)
         }
+    }
+    
+    private func displayCheckmarkIcon(isChecked: Bool) {
+        let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+        
+        let size = iconSize ?? Constants.defaultIconSize
+        
+        addLeadingSpaceAndDisplay(image.scaled(to: size))
     }
     
     private func loadPlaceholderImage(placehodler: Character) {
@@ -131,33 +168,28 @@ final class MentionAttachment: NSTextAttachment {
         )
         let image = PlaceholderImageBuilder.placeholder(
             with: imageGuideline,
-            color: .secondaryTextColor,
+            color: .grayscale30,
             textGuideline: placeholderGuideline
         )
         addLeadingSpaceAndDisplay(image)
     }
     
-    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
-        case let .emoji(emoji):
-            guard let fontSize = fontPointSize,
-                  let image = emoji.value.image(fontPointSize: fontSize) else { return }
-            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-            let resizedImage = image.imageDrawn(on: newSize,
-                                                offset: .zero)
-            display(resizedImage)
-        case let .imageId(imageId):
-            loadImage(imageId: imageId)
-        }
-    }
-    
-    private func loadImage(imageId: String) {
+    private func loadImage(imageId: String, isBasicLayout: Bool) {
         let property = ImageProperty(imageId: imageId, ImageParameters(width: .thumbnail))
         let subscription = property.stream.sink { [weak self] image in
-            guard let image = image else { return }
-            let scaledImage = image.scaled(to: self?.iconSize ?? Constants.defaultIconSize)
-            let roundedImage = scaledImage.rounded(radius: min(scaledImage.size.height, scaledImage.size.width)/2)
-            self?.addLeadingSpaceAndDisplay(roundedImage)
+            guard
+                let image = image,
+                let self = self
+            else { return }
+            
+            let imageSize = self.iconSize ?? Constants.defaultIconSize
+            let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
+            
+            let resultImage = image
+                .scaled(to: imageSize)
+                .rounded(radius: cornerRadius)
+            
+            self.addLeadingSpaceAndDisplay(resultImage)
         }
         subscriptions.append(subscription)
         imageProperty = property
@@ -169,20 +201,32 @@ final class MentionAttachment: NSTextAttachment {
         display(imageWithSpace)
     }
     
-    private func updateAttachmentLayout() {
-        DispatchQueue.main.async {
-            guard let range = self.layoutManager?.rangeForAttachment(attachment: self) else { return }
-            self.layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
-        }
-    }
-    
     private func display(_ image: UIImage) {
         self.image = image
         bounds = bounds(for: image)
+        
         updateAttachmentLayout()
     }
     
     private func bounds(for image: UIImage) -> CGRect {
         CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
     }
+    
+    private func updateAttachmentLayout() {
+        DispatchQueue.main.async {
+            guard let range = self.layoutManager?.rangeForAttachment(attachment: self) else { return }
+            
+            self.layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
+        }
+    }
+}
+
+private extension MentionAttachment {
+    
+    enum Constants {
+        static let defaultIconSize = CGSize(width: 20, height: 20)
+        static let iconLeadingSpace: CGFloat = 3
+        static let iconTopOffset: CGFloat = 3
+    }
+    
 }

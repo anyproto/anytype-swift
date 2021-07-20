@@ -12,11 +12,22 @@ struct MentionsParser {
         let details = middwareMention.details.fields.map(Anytype_Rpc.Block.Set.Details.Detail.init(key:value:))
         let contentList = BlocksModelsDetailsConverter.asModel(details: details)
         let detailsData = DetailsData(details: contentList, parentId: "")
-        let icon = detailsData.icon ?? DocumentIconType.profile(.placeholder(detailsData.name?.first ?? Character(" ")))
         
-        return MentionObject(id: middwareMention.id,
-                             name: detailsData.name,
-                             description: detailsData.description,
-                             iconData: icon)
+        return MentionObject(
+            id: middwareMention.id,
+            icon: mentionIcon(from: detailsData),
+            name: detailsData.name,
+            description: detailsData.description
+        )
+    }
+    
+    private func mentionIcon(from details: DetailsData) -> MentionIcon? {
+        if let objectIcon = details.icon {
+            return .objectIcon(objectIcon)
+        }
+        
+        guard case .todo = details.layout else { return nil }
+        
+        return .checkmark(details.done ?? false)
     }
 }

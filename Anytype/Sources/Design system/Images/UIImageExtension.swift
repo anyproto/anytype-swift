@@ -5,7 +5,6 @@ extension UIImage {
     static let more = UIImage(named: "TextEditor/More")
 }
 
-
 extension UIImage {
     enum edititngToolbar {
         static let addNew = createImage("EditingToolbar/add_new")
@@ -36,6 +35,13 @@ extension UIImage {
             static let video = createImage("TextEditor/BlockFile/Content/Video")
             static let archive = createImage("TextEditor/BlockFile/Content/Archive")
             static let other = createImage("TextEditor/BlockFile/Content/Other")
+        }
+    }
+    
+    enum Title {
+        enum TodoLayout {
+            static let checkbox = createImage("title_todo_checkbox")
+            static let checkmark = createImage("title_todo_checkmark")
         }
     }
     

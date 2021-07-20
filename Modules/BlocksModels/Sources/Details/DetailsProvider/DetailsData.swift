@@ -56,6 +56,10 @@ extension DetailsData: DetailsDataProtocol {
         value(for: .alignment)
     }
     
+    public var done: Bool? {
+        value(for: .done)
+    }
+    
     private func value<V>(for kind: DetailsKind) -> V? {
         guard let entry = details[kind] else {
             return nil

@@ -8,4 +8,5 @@ public enum DetailsKind: String {
     case description = "description"
     case layout = "layout"
     case alignment = "layoutAlign"
+    case done = "done"
 }

@@ -40,7 +40,9 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         let name = service.filterString.isEmpty ? Constants.defaultNewMentionName : service.filterString
+        
         guard let emoji = EmojiProvider.shared.randomEmoji()?.unicode else { return }
+        
         let service = Anytype_Rpc.Page.Create.Service.self
         let emojiValue = Google_Protobuf_Value(stringValue: emoji)
         let nameValue = Google_Protobuf_Value(stringValue: name)
@@ -50,9 +52,9 @@ final class MentionsViewModel {
         case let .success(response):
             let mention = MentionObject(
                 id: response.pageID,
+                icon: MentionIcon(emoji: emoji),
                 name: name,
-                description: nil,
-                iconData: DocumentIconType(emoji: emoji)
+                description: nil
             )
             didSelectMention(mention)
         case let .failure(error):
@@ -60,27 +62,48 @@ final class MentionsViewModel {
         }
     }
     
-    func image(for mention: MentionObject) -> UIImage? {
+    func image(for mention: MentionObject, size: CGSize, radius: CGFloat) -> UIImage? {
         if let imageProperty = imageStorage[mention.id] {
             return imageProperty.property
         }
-        guard let icon = mention.iconData else { return nil }
+        
+        guard let icon = mention.icon else { return nil }
+        
         switch icon {
-        case let .basic(basic):
-            switch basic {
-            case .emoji:
-                return nil
-            case let .imageId(id):
-                loadImage(by: id, mention: mention)
+        case let .objectIcon(objectIcon):
+            switch objectIcon {
+            case let .basic(basic):
+                switch basic {
+                case .emoji:
+                    return nil
+                case let .imageId(id):
+                    loadImage(by: id, mention: mention)
+                }
+            case let .profile(profile):
+                switch profile {
+                case let .imageId(id):
+                    loadImage(by: id, mention: mention)
+                case let .placeholder(character):
+                    let imageGuideline = ImageGuideline(
+                        size: size,
+                        cornerRadius: radius
+                    )
+                    let placeholderGuideline = PlaceholderImageTextGuideline(
+                        text: String(character),
+                        font: UIFont.systemFont(ofSize: 28)
+                    )
+                    return PlaceholderImageBuilder.placeholder(
+                        with: imageGuideline,
+                        color: .grayscale30,
+                        textGuideline: placeholderGuideline
+                    )
+                }
             }
-        case let .profile(profile):
-            switch profile {
-            case let .imageId(id):
-                loadImage(by: id, mention: mention)
-            case .placeholder:
-                return nil
-            }
+        
+        case let .checkmark(isChecked):
+            return isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
         }
+        
         return nil
     }
     

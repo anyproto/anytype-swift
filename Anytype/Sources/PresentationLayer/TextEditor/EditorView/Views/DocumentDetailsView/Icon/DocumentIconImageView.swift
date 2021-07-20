@@ -115,7 +115,7 @@ extension DocumentIconImageView: ConfigurableView {
                     cornerRadius: Constants.profileCornerRadius,
                     backgroundColor: UIColor.grayscaleWhite
                 ),
-                color: UIColor.grayscale10,
+                color: UIColor.grayscale30,
                 textGuideline: PlaceholderImageTextGuideline(text: String(character))
             )
         case let .preview(image):
