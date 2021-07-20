@@ -10,8 +10,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        // Check analytics feature flag
+        let isEnabled: Bool
+        #if !RELEASE
+            isEnabled = FeatureFlags.analytics
+        #else
+            isEnabled = true
+        #endif
+
         // Analytics
-        Analytics.setupAnalytics()
+        if isEnabled {
+            Analytics.setupAnalytics()
+        }
+
         return true
     }
 

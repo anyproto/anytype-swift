@@ -22,20 +22,6 @@ class Analytics {
         Amplitude.instance().trackingSessionEvents = true
         // Initialize SDK
         Amplitude.instance().initializeApiKey(AmplitudeConfiguration.apiKey)
-        // Check analytics feature flag
-        #if !RELEASE
-        Analytics.isEnabled = FeatureFlags.analytics
-        #endif
-    }
-
-    /// Set `true` to send analytics otherwise `false`
-    static var isEnabled: Bool {
-        set {
-            Amplitude.instance().optOut = !newValue
-        }
-        get {
-            return !Amplitude.instance().optOut
-        }
     }
 }
 

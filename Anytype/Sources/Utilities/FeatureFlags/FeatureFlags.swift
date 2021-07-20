@@ -19,13 +19,6 @@ final class FeatureFlags {
         var updatedFeatures = UserDefaultsConfig.featureFlags
         updatedFeatures.updateValue(value, forKey: key)
         UserDefaultsConfig.featureFlags = updatedFeatures
-
-        switch key {
-        case .analytics:
-            Analytics.isEnabled = value
-        default:
-            return
-        }
     }
 }
 
