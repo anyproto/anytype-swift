@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Amplitude
+
 
 struct ObjectSettingsContainerView: View {
     
@@ -47,7 +49,6 @@ struct ObjectSettingsContainerView: View {
                         .environmentObject(viewModel)
                 }
             )
-            
             .sheet(
                 isPresented: $isCoverPickerPresented,
                 onDismiss: {
@@ -58,7 +59,6 @@ struct ObjectSettingsContainerView: View {
                 ObjectCoverPicker()
                     .environmentObject(viewModel.coverPickerViewModel)
             }
-            
             .sheet(
                 isPresented: $isIconPickerPresented,
                 onDismiss: {
@@ -79,7 +79,6 @@ struct ObjectSettingsContainerView: View {
                     }
                 }
             }
-            
             .popup(
                 isPresented: $isLayoutPickerPresented,
                 type: .floater(verticalPadding: 42),
@@ -96,12 +95,18 @@ struct ObjectSettingsContainerView: View {
                 }
             )
             .onChange(of: isLayoutPickerPresented) { showLayoutSettings in
+                // Analytics
+                if showLayoutSettings {
+                    Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseLayout)
+                }
+
                 withAnimation() {
                     mainViewPresented = !showLayoutSettings
                 }
             }
-            
             .onAppear {
+                Amplitude.instance().logEvent(AmplitudeEventsName.popupDocumentMenu)
+                
                 withAnimation(.ripple) {
                     mainViewPresented = true
                 }

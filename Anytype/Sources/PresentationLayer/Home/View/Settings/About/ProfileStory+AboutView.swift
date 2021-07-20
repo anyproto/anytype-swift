@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import SwiftUI
+import Amplitude
+
 
 struct AboutView: View {
     @ObservedObject var viewModel: ViewModel
@@ -8,6 +10,9 @@ struct AboutView: View {
     var body: some View {
         contentView
             .onAppear {
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.showAboutScreen)
+
                 viewModel.viewLoaded()
             }
     }

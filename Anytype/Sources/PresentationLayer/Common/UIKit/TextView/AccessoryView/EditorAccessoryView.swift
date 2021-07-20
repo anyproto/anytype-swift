@@ -46,7 +46,7 @@ class EditorAccessoryView: UIView {
     
         addBarButtonItem(image: UIImage.edititngToolbar.addNew) { [weak self] _ in
             // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonActionMenu)
+            Amplitude.instance().logEvent(AmplitudeEventsName.buttonSlashMenu)
 
             self?.actionHandler.handle(.slashMenu)
         }

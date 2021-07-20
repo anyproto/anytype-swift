@@ -1,4 +1,6 @@
 import SwiftUI
+import Amplitude
+
 
 struct ObjectCoverPicker: View {
     
@@ -17,6 +19,10 @@ struct ObjectCoverPicker: View {
             }
             
             tabHeaders
+        }
+        .onAppear {
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseCover)
         }
     }
     
