@@ -22,6 +22,7 @@ class DocumentEditorViewModel: ObservableObject {
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     
     private var subscriptions = Set<AnyCancellable>()
+    private let documentId: BlockId
 
     // MARK: - Initialization
     init(
@@ -37,6 +38,7 @@ class DocumentEditorViewModel: ObservableObject {
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler
     ) {
+        self.documentId = documentId
         self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
         self.detailsViewModel = detailsViewModel
@@ -79,27 +81,25 @@ class DocumentEditorViewModel: ObservableObject {
         case let .details(newDetails):
             updateDetails(newDetails)
         case let .update(updatedIds):
-            if updatedIds.isEmpty {
+            guard !updatedIds.isEmpty else {
                 return
             }
             
-            let modelsToUpdate = modelsHolder.models.filter { model in
-                updatedIds.contains(model.blockId)
-            }
-            
-            let structIds = modelsToUpdate.filter { $0.isStruct }.map { $0.blockId }
-            updateViewModelsWithStructs(structIds)
-            
+            updateViewModelsWithStructs(updatedIds)
             viewInput?.updateRowsWithoutRefreshing(ids: updatedIds)
         }
     }
     
     private func updateDetails(_ details: DetailsData) {
+        guard details.parentId == documentId else {
+            return
+        }
+        
         objectSettingsViewModel.update(with: details)
         detailsViewModel.performUpdateUsingDetails(details)
     }
     
-    private func updateViewModelsWithStructs(_ blockIds: [BlockId]) {
+    private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
         guard !blockIds.isEmpty else {
             return
         }

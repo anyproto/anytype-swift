@@ -11,16 +11,19 @@ final class AccessoryViewSwitcher {
     
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
-    let editingToolbarAccessoryView = EditingToolbarView()
+    private(set) lazy var accessoryView = EditorAccessoryView(actionHandler: handler)
+    let handler: EditorAccessoryViewActionHandler
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     private let mentionsView: (DismissableInputAccessoryView & FilterableItemsView)
     private let slashMenuView: (DismissableInputAccessoryView & FilterableItemsView)
     
     init(mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
-         slashMenuView: (DismissableInputAccessoryView & FilterableItemsView)) {
+         slashMenuView: (DismissableInputAccessoryView & FilterableItemsView),
+         handler: EditorAccessoryViewActionHandler) {
         self.mentionsView = mentionsView
         self.slashMenuView = slashMenuView
+        self.handler = handler
     }
     
     func switchInputs(textView: UITextView) {
@@ -107,7 +110,7 @@ final class AccessoryViewSwitcher {
         } else {
             cleanupDisplayedView()
         }
-        return editingToolbarAccessoryView
+        return accessoryView
     }
     
     // We do want to continue displaying menu view or mention view

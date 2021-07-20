@@ -10,7 +10,7 @@ extension CustomTextView {
         
         case changeText(NSAttributedString)
         case changeTextForStruct(NSAttributedString)
-        case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
+        case changeTextStyle(BlockHandlerActionType.TextAttributesType, NSRange)
         
         case keyboardAction(KeyboardAction)
         case showMultiActionMenuAction

@@ -8,7 +8,7 @@ final class MentionAttachment: NSTextAttachment {
     
     private weak var layoutManager: NSLayoutManager?
     
-    private let mentionService = MentionObjectsService(pageObjectsCount: 1)
+    private let mentionService = MentionObjectsService()
     
     private var icon: MentionIcon?
     private var iconSize: CGSize?
@@ -94,7 +94,7 @@ final class MentionAttachment: NSTextAttachment {
                 }
             } receiveValue: { [weak self] mentions in
                 guard
-                    let mention = mentions.first,
+                    let mention = mentions.first(where: { $0.id == self?.pageId }),
                     let icon = mention.icon,
                     let self = self
                 else { return }

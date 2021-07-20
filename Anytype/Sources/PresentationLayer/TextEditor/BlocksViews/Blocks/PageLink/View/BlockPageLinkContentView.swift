@@ -46,9 +46,6 @@ final class BlockPageLinkContentView: UIView & UIContentView {
     
     private func applyNewConfiguration() {
         subscriptions.removeAll()
-
-        currentConfiguration.viewModel?.$state.sink { [weak self] state in
-            self?.topView.apply(state)
-        }.store(in: &subscriptions)
+        topView.apply(currentConfiguration.state)
     }
 }

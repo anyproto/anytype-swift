@@ -2,7 +2,6 @@ import BlocksModels
 import UIKit
 
 struct UnknownLabelViewModel: BlockViewModelProtocol {
-    let isStruct = true
     let indentationLevel = 0
     let information: BlockInformation
     

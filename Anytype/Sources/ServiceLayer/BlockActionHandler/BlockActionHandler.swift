@@ -98,7 +98,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 document.userSession?.focus = .at(selectedRange)
             case let .changeTextStyle(styleAction, range):
                 handleBlockAction(
-                    .toggleFontStyle(styleAction.asActionType, range),
+                    .toggleFontStyle(styleAction, range),
                     info: info,
                     completion: completion
                 )

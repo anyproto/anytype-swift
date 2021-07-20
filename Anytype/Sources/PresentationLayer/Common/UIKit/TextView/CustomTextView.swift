@@ -8,6 +8,7 @@ final class CustomTextView: UIView {
     weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
         didSet {
             textView.userInteractionDelegate = userInteractionDelegate
+            accessoryViewSwitcher.handler.delegate = userInteractionDelegate
         }
     }
     
@@ -29,7 +30,6 @@ final class CustomTextView: UIView {
         super.init(frame: .zero)
 
         setupView()
-        configureEditingToolbarHandler()
     }
 
     @available(*, unavailable)
@@ -40,7 +40,14 @@ final class CustomTextView: UIView {
     override var intrinsicContentSize: CGSize {
         .zero
     }
+    
+    func setupView() {
+        textView.delegate = self
 
+        addSubview(textView) {
+            $0.pinToSuperview()
+        }
+    }
 }
 
 // MARK: - BlockTextViewInput
@@ -67,62 +74,13 @@ extension CustomTextView: TextViewManagingFocus {
     }
 }
 
-// MARK: - Private extension
-
-private extension CustomTextView {
-    
-    func setupView() {
-        textView.delegate = self
-
-        addSubview(textView) {
-            $0.pinToSuperview()
-        }
-        
-        firstResponderSubscription = textView.firstResponderChangePublisher
-            .sink { [weak self] change in
-                self?.delegate?.changeFirstResponderState(change)
-            }
-    }
-
-    func configureEditingToolbarHandler() {
-        accessoryViewSwitcher.editingToolbarAccessoryView.setActionHandler { [weak self] action in
-            guard let self = self else { return }
-
-            self.accessoryViewSwitcher.switchInputs(textView: self.textView)
-
-            switch action {
-            case .slashMenu:
-                self.textView.insertStringToAttributedString(
-                    self.accessoryViewSwitcher.textToTriggerActionsViewDisplay
-                )
-                self.accessoryViewSwitcher.showSlashMenuView(
-                    textView: self.textView
-                )
-            case .multiActionMenu:
-                self.userInteractionDelegate?.didReceiveAction(
-                    .showMultiActionMenuAction
-                )
-
-            case .showStyleMenu:
-                self.userInteractionDelegate?.didReceiveAction(.showStyleMenu)
-
-            case .keyboardDismiss:
-                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-            case .mention:
-                self.textView.insertStringToAttributedString(
-                    self.accessoryViewSwitcher.textToTriggerMentionViewDisplay
-                )
-                self.accessoryViewSwitcher.showMentionsView(
-                    textView: self.textView
-                )
-            }
-        }
-    }
-}
+// MARK: - Views
 
 extension CustomTextView {
     func createTextView() -> TextViewWithPlaceholder {
-        let textView = TextViewWithPlaceholder()
+        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { [weak self] change in
+            self?.delegate?.changeFirstResponderState(change)
+        }
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil

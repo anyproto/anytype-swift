@@ -11,8 +11,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         ] as [AnyHashable]
     }
     
-    let isStruct = true
-    
     let information: BlockInformation
     let fileData: BlockFile
     

@@ -4,86 +4,60 @@ import Combine
 import BlocksModels
 
 
-/// ViewModel for type `.link()` with style `.page`
-final class BlockPageLinkViewModel: BaseBlockViewModel {
-    private var subscriptions: Set<AnyCancellable> = []
+struct BlockPageLinkViewModel: BlockViewModelProtocol {    
+    var diffable: AnyHashable {
+        [
+            blockId,
+            state,
+            indentationLevel,
+            content
+        ] as [AnyHashable]
+    }
+    
+    let indentationLevel: Int
+    let information: BlockInformation
 
-    @Published private(set) var state: BlockPageLinkState = .empty
-    private var wholeDetailsViewModel: DetailsActiveModel = .init()
+    private let contextualMenuHandler: DefaultContextualMenuHandler
+    private let state: BlockPageLinkState
+    
+    private let content: BlockLink
+    private let openLink: (BlockId) -> ()
 
 
     init(
-        _ block: BlockActiveRecordProtocol,
-        publisher: AnyPublisher<DetailsData, Never>?,
-        router: EditorRouterProtocol,
-        delegate: BlockDelegate?,
-        actionHandler: EditorActionHandlerProtocol
+        indentationLevel: Int,
+        information: BlockInformation,
+        content: BlockLink,
+        details: DetailsData?,
+        contextualMenuHandler: DefaultContextualMenuHandler,
+        openLink: @escaping (BlockId) -> ()
     ) {
-        super.init(block, delegate: delegate, actionHandler: actionHandler, router: router)
-
-        setup(block: block)
-        setupSubscriptions(publisher)
-    }
-    
-    /// NOTES by Dima Lobanov:
-    /// Look at this method carefully.
-    /// We have to pass publisher for `self.wholeDetailsViewModel`.
-    /// Why so?
-    ///
-    /// Short story: Link should listen their own Details publisher.
-    ///
-    /// Long story:
-    /// `BlockShow` will send details for open page with title and with icon.
-    /// These details are shown on page itself.
-    ///
-    /// But it also contains `details` for all `links` that this page `contains`.
-    ///
-    /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
-    private func setupSubscriptions(_ publisher: AnyPublisher<DetailsData, Never>?) {
-        guard let publisher = publisher else {
-            return
-        }
+        self.indentationLevel = indentationLevel
+        self.information = information
+        self.content = content
+        self.contextualMenuHandler = contextualMenuHandler
+        self.openLink = openLink
         
-        wholeDetailsViewModel.configured(publisher: publisher)
-        wholeDetailsViewModel.wholeDetailsPublisher
-            .map(BlockPageLinkState.Converter.asOurModel)
-            .receiveOnMain()
-            .sink { [weak self] (value) in
-                self?.state = value
-            }.store(in: &subscriptions)
-    }
-    
-    private func setup(block: BlockActiveRecordProtocol) {
-        let information = block.blockModel.information
-        switch information.content {
-        case let .link(value):
-            switch value.style {
-            case .page:
-                let pageId = value.targetBlockID // do we need it?
-                wholeDetailsViewModel.configured(documentId: pageId)
-            default: return
-            }
-        default: return
+        if let details = details {
+            state = BlockPageLinkState.Converter.asOurModel(details)
+        } else {
+            state = .empty
         }
     }
     
-    override func makeContentConfiguration() -> UIContentConfiguration {
-        if var configuration = BlockPageLinkContentConfiguration(block.blockModel.information) {
-            configuration.viewModel = self
-            return configuration
-        }
-        return super.makeContentConfiguration()
+    func makeContentConfiguration() -> UIContentConfiguration {
+        return BlockPageLinkContentConfiguration(content: content, state: state)
     }
     
-    override func didSelectRowInTableView() {
-        switch block.content {
-        case let .link(linkContent):
-            router.showPage(with: linkContent.targetBlockID)
-        default: return
-        }
+    func didSelectRowInTableView() {
+        openLink(content.targetBlockID)
     }
     
-    override func makeContextualMenu() -> ContextualMenu {
+    func handle(action: ContextualMenuAction) {
+        contextualMenuHandler.handle(action: action, info: information)
+    }
+    
+    func makeContextualMenu() -> ContextualMenu {
         ContextualMenu(
             title: "",
             children: [

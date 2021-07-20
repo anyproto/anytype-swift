@@ -1,9 +1,7 @@
 import BlocksModels
 import UIKit
 
-struct VideoBlockViewModel: BlockViewModelProtocol {
-    let isStruct = true
-    
+struct VideoBlockViewModel: BlockViewModelProtocol {    
     var diffable: AnyHashable {
         [
             blockId,

@@ -6,7 +6,7 @@ public extension BlockLink {
     }
 }
 
-public struct BlockLink: Hashable {
+public struct BlockLink: Hashable, Equatable {
     public var targetBlockID: String
     public var style: Style
     public var fields: [String: AnyHashable]

@@ -1,5 +1,6 @@
 enum Feature: String, Codable {
     case newHome = "New Home"
+    case analytics = "Analytics(Amplitude)"
 }
 
 final class FeatureFlags {
@@ -10,7 +11,8 @@ final class FeatureFlags {
     }
     
     private static let defaultValues: Features = [
-        .newHome : true
+        .newHome : true,
+        .analytics : false
     ]
     
     static func update(key: Feature, value: Bool) {
@@ -23,5 +25,9 @@ final class FeatureFlags {
 extension FeatureFlags {
     static var newHome: Bool {
         features[.newHome, default: true]
+    }
+
+    static var analytics: Bool {
+        features[.analytics, default: false]
     }
 }

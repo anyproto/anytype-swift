@@ -4,7 +4,6 @@ import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {
     
-    let isStruct = true
     let block: BlockActiveRecordProtocol
     let isCheckable: Bool
     
@@ -24,6 +23,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         [blockId,
          indentationLevel,
          toggled,
+         isCheckable,
          block.blockModel.information.content
         ] as [AnyHashable]
     }

@@ -10,8 +10,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        // Check analytics feature flag
+        let isEnabled: Bool
+        #if !RELEASE
+            isEnabled = FeatureFlags.analytics
+        #else
+            isEnabled = true
+        #endif
+
         // Analytics
-        setupAnalytics()
+        if isEnabled {
+            Analytics.setupAnalytics()
+        }
+
         return true
     }
 
@@ -35,19 +46,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-    // MARK: - Private methods
-
-    private func setupAnalytics() {
-        // Disable IDFA for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA() {
-            Amplitude.instance().setTrackingOptions(trackingOptions)
-        }
-
-        // Enable sending automatic session events
-        Amplitude.instance().trackingSessionEvents = true
-          // Initialize SDK
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.apiKey)
     }
 }
