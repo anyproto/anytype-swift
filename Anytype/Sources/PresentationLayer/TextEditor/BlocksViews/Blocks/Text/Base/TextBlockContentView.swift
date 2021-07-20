@@ -299,13 +299,18 @@ final class TextBlockContentView: UIView & UIContentView {
             dismissHandler: dismissActionsMenu,
             mentionsSelectionHandler: mentionsSelectionHandler)
         
-        return CustomTextView(
+        let handler = EditorAccessoryViewActionHandler(delegate: self)
+        let textView = CustomTextView(
             options: options,
             accessoryViewSwitcher: AccessoryViewSwitcher(
                 mentionsView: mentionsView,
-                slashMenuView: slashMenuView
+                slashMenuView: slashMenuView,
+                handler: handler
             )
         )
+        handler.customTextView = textView
+        handler.switcher = textView.accessoryViewSwitcher
+        return textView
     }
     
     private func buildCreateEmptyBlockButton() -> UIButton {

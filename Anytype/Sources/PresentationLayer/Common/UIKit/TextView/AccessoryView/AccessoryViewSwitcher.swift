@@ -110,7 +110,7 @@ final class AccessoryViewSwitcher {
         } else {
             cleanupDisplayedView()
         }
-        return accessoryView
+        return self.accessoryView
     }
     
     // We do want to continue displaying menu view or mention view

@@ -8,7 +8,6 @@ final class CustomTextView: UIView {
     weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
         didSet {
             textView.userInteractionDelegate = userInteractionDelegate
-            accessoryViewSwitcher.handler.delegate = userInteractionDelegate
         }
     }
     
