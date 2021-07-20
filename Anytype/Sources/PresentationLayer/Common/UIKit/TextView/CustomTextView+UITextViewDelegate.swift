@@ -10,7 +10,7 @@ extension CustomTextView: UITextViewDelegate {
     ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
         
-        inputSwitcher.textViewChange = textView.textChangeType(changeTextRange: range, replacementText: text)
+        accessoryViewSwitcher.textViewChange = textView.textChangeType(changeTextRange: range, replacementText: text)
 
         let keyAction = CustomTextView.UserAction.KeyboardAction.convert(
             textView,
@@ -36,7 +36,7 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
-        inputSwitcher.switchInputs(customTextView: self)
+        accessoryViewSwitcher.switchInputs(textView: textView)
 
         if textView.isFirstResponder {
             userInteractionDelegate?.didReceiveAction(
@@ -47,9 +47,9 @@ extension CustomTextView: UITextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if textView.inputAccessoryView.isNil {
-            textView.inputAccessoryView = accessoryView
+            textView.inputAccessoryView = accessoryViewSwitcher.accessoryView
         }
-        inputSwitcher.switchInputs(customTextView: self)
+        accessoryViewSwitcher.switchInputs(textView: textView)
         delegate?.willBeginEditing()
 
         return true
@@ -63,9 +63,9 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let contentSize = textView.intrinsicContentSize
 
-        inputSwitcher.switchInputs(customTextView: self)
+        accessoryViewSwitcher.switchInputs(textView: textView)
         delegate?.didChangeText(textView: textView)
-        if !inputSwitcher.textTypingIsUsingForAccessoryViewContentFiltering() {
+        if !accessoryViewSwitcher.textTypingIsUsingForAccessoryViewContentFiltering() {
             // We type only text to filter content inside accessory view
             userInteractionDelegate?.didReceiveAction(
                 .changeText(textView.attributedText)
@@ -78,6 +78,6 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        inputSwitcher.textViewChange = nil
+        accessoryViewSwitcher.textViewChange = nil
     }
 }
