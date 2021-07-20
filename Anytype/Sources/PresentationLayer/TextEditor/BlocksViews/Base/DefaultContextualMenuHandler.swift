@@ -12,7 +12,7 @@ final class DefaultContextualMenuHandler {
         self.router = router
     }
     
-    func handle(action: ContextualMenuAction, info: BlockInformation) {
+    func handle(action: ContextualMenu, info: BlockInformation) {
         switch action {
         case .addBlockBelow:
             handler.handleAction(.addBlock(.text(.text)), info: info)
@@ -24,10 +24,7 @@ final class DefaultContextualMenuHandler {
             handler.handleAction(.turnIntoBlock(.objects(.page)), info: info)
         case .style:
             router.showStyleMenu(information: info)
-            
-        case .moveTo, .color, .backgroundColor:
-            break
-        case .download,.replace, .addCaption, .rename:
+        case .download,.replace:
             break
         }
     }

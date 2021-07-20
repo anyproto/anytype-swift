@@ -23,11 +23,11 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         BlockFileConfiguration(fileData)
     }
     
-    func makeContextualMenu() -> ContextualMenu {
+    func makeContextualMenu() -> [ContextualMenu] {
         BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
     }
     
-    func handle(action: ContextualMenuAction) {
+    func handle(action: ContextualMenu) {
         switch action {
         case .replace:
             showFilePicker(blockId)

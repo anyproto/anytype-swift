@@ -31,11 +31,11 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContextualMenu() -> ContextualMenu {
+    func makeContextualMenu() -> [ContextualMenu] {
         BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
     }
     
-    func handle(action: ContextualMenuAction) {
+    func handle(action: ContextualMenu) {
         switch action {
         case .replace:
             showVideoPicker(blockId)

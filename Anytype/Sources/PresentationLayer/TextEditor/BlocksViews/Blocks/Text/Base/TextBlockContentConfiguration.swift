@@ -16,13 +16,15 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let isCheckable: Bool
     private(set) var isSelected: Bool = false
     
-    init(blockDelegate: BlockDelegate,
-         block: BlockActiveRecordProtocol,
-         isCheckable: Bool,
-         actionHandler: EditorActionHandlerProtocol,
-         configureMentions: @escaping (UITextView) -> Void,
-         showStyleMenu: @escaping (BlockInformation) -> Void,
-         focusPublisher: AnyPublisher<BlockFocusPosition, Never>) {
+    init(
+        blockDelegate: BlockDelegate,
+        block: BlockActiveRecordProtocol,
+        isCheckable: Bool,
+        actionHandler: EditorActionHandlerProtocol,
+        configureMentions: @escaping (UITextView) -> Void,
+        showStyleMenu: @escaping (BlockInformation) -> Void,
+        focusPublisher: AnyPublisher<BlockFocusPosition, Never>
+    ) {
         self.blockDelegate = blockDelegate
         self.block = block
         self.configureMentions = configureMentions
@@ -31,6 +33,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.focusPublisher = focusPublisher
         self.information = block.blockModel.information
         self.isCheckable = isCheckable
+        
         shouldDisplayPlaceholder = block.isToggled && block.blockModel.information.childrenIds.isEmpty
     }
     
