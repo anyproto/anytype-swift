@@ -65,11 +65,7 @@ final class CustomTextView: UIView {
         addSubview(textView) {
             $0.pinToSuperview()
         }
-        
-        firstResponderSubscription = textView.firstResponderChangePublisher
-            .sink { [weak self] change in
-                self?.delegate?.changeFirstResponderState(change)
-            }
+
     }
 }
 
@@ -101,7 +97,9 @@ extension CustomTextView: TextViewManagingFocus {
 
 extension CustomTextView {
     func createTextView() -> TextViewWithPlaceholder {
-        let textView = TextViewWithPlaceholder()
+        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { [weak self] change in
+            self?.delegate?.changeFirstResponderState(change)
+        }
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil

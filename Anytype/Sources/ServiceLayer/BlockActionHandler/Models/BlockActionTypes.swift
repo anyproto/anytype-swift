@@ -2,7 +2,7 @@ import UIKit
 import BlocksModels
 
 enum BlockHandlerActionType {
-    enum TextAttributesType {
+    enum TextAttributesType: CaseIterable {
         case bold
         case italic
         case strikethrough
