@@ -4,9 +4,7 @@ import Combine
 import BlocksModels
 
 
-struct BlockPageLinkViewModel: BlockViewModelProtocol {
-    let isStruct = true
-    
+struct BlockPageLinkViewModel: BlockViewModelProtocol {    
     var diffable: AnyHashable {
         [
             blockId,

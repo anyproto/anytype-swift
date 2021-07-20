@@ -4,7 +4,6 @@ import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {
     
-    let isStruct = true
     let block: BlockActiveRecordProtocol
     let isCheckable: Bool
     

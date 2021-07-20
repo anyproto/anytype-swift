@@ -2,9 +2,7 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct CodeBlockViewModel: BlockViewModelProtocol {
-    let isStruct = true
-    
+struct CodeBlockViewModel: BlockViewModelProtocol {    
     var diffable: AnyHashable {
         [
             textData,
