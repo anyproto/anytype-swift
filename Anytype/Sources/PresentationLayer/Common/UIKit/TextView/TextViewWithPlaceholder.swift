@@ -2,43 +2,13 @@ import Foundation
 import UIKit
 import Combine
 
-
-extension CustomTextView {
-    
-    // Menu displayed while text is selected
-    enum ContextMenuAction: CaseIterable {
-        case bold
-        case italic
-        case strikethrough
-        case code
-    }
-}
-
-// MARK: - TextStorageEvent
-
-extension TextViewWithPlaceholder {
-    
-    enum TextStorageEvent {
-        struct Payload {
-            var attributedText: NSAttributedString
-            var textAlignment: NSTextAlignment
-        }
-        case willProcessEditing(Payload)
-        case didProcessEditing(Payload)
-    }
-}
-
 // MARK: - TextView
 
 final class TextViewWithPlaceholder: UITextView {
 
     weak var userInteractionDelegate: TextViewUserInteractionProtocol?
 
-    // MARK: - Publishers
-
-    private let firstResponderChangeSubject: PassthroughSubject<TextViewFirstResponderChange, Never> = .init()
-    private(set) var firstResponderChangePublisher: AnyPublisher<TextViewFirstResponderChange, Never> = .empty()
-
+    
     // MARK: - Views
     
     private lazy var placeholderLabel: UILabel = {
@@ -51,9 +21,8 @@ final class TextViewWithPlaceholder: UITextView {
         return label
     }()
 
-    private let blockLayoutManager: TextBlockLayoutManager = .init()
-
-    private var placeholderConstraints: [NSLayoutConstraint] = []
+    private let blockLayoutManager = TextBlockLayoutManager()
+    private var placeholderConstraints = [NSLayoutConstraint]()
 
     /// Custom color that applyed after `primaryColor`and `foregroundColor`
     var tertiaryColor: UIColor? {
@@ -94,19 +63,27 @@ final class TextViewWithPlaceholder: UITextView {
     
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
-        self.firstResponderChangeSubject.send(.become)
+        onFirstResponderChange(.become)
         return value
     }
 
     override func resignFirstResponder() -> Bool {
         let value = super.resignFirstResponder()
-        self.firstResponderChangeSubject.send(.resign)
+        onFirstResponderChange(.resign)
         return value
     }
 
     // MARK: - Initialization
     
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
+    private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
+    
+    init(
+        frame: CGRect,
+        textContainer: NSTextContainer?,
+        onFirstResponderChange: @escaping (TextViewFirstResponderChange) -> ()
+    ) {
+        self.onFirstResponderChange = onFirstResponderChange
+        
         let textStorage = NSTextStorage()
         textStorage.addLayoutManager(blockLayoutManager)
         let container = textContainer ?? NSTextContainer()
@@ -116,10 +93,16 @@ final class TextViewWithPlaceholder: UITextView {
 
         self.setup()
     }
+    
+    @available(*, unavailable)
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        fatalError("Not implemented")
+    }
+    
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
+        fatalError("Not implemented")
     }
 }
 
@@ -128,14 +111,9 @@ final class TextViewWithPlaceholder: UITextView {
 private extension TextViewWithPlaceholder {
     
     func setup() {
-        setupPublishers()
         setupUIElements()
         updatePlaceholderLayout()
         setupMenu()
-    }
-    
-    func setupPublishers() {
-        self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
     }
 
     func setupUIElements() {
@@ -165,7 +143,7 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupMenu() {
-        UIMenuController.shared.menuItems = CustomTextView.ContextMenuAction.allCases.map { item in
+        UIMenuController.shared.menuItems = BlockHandlerActionType.TextAttributesType.allCases.map { item in
             let selector: Selector = {
                 switch item {
                 case .bold:
@@ -174,7 +152,7 @@ private extension TextViewWithPlaceholder {
                     return #selector(didSelectContextMenuActionItalic)
                 case .strikethrough:
                     return #selector(didSelectContextMenuActionStrikethrough)
-                case .code:
+                case .keyboard:
                     return #selector(didSelectContextMenuActionCode)
                 }
             }()
@@ -204,10 +182,10 @@ extension TextViewWithPlaceholder {
     }
     
     @objc private func didSelectContextMenuActionCode() {
-        handleMenuAction(.code)
+        handleMenuAction(.keyboard)
     }
 
-    private func handleMenuAction(_ action: CustomTextView.ContextMenuAction) {
+    private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
         let range = selectedRange
 
         userInteractionDelegate?.didReceiveAction(
@@ -241,7 +219,7 @@ extension TextViewWithPlaceholder {
 
 // MARK: - ContextMenuAction
 
-private extension CustomTextView.ContextMenuAction {
+private extension BlockHandlerActionType.TextAttributesType {
 
     var title: String {
         switch self {
@@ -251,7 +229,7 @@ private extension CustomTextView.ContextMenuAction {
             return "Italic".localized
         case .strikethrough:
             return "Strikethrough".localized
-        case .code:
+        case .keyboard:
             return "Code".localized
         }
     }
