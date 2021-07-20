@@ -27,9 +27,35 @@ struct PageCell: View {
     }
     
     private var title: some View {
-        var title = cellData.title.isEmpty ? "Untitled".localized : cellData.title
-        title = isRedacted ? RedactedText.pageTitle : title
-        return AnytypeText(title, style: .captionMedium).foregroundColor(.textPrimary)
+        Group {
+            switch cellData.title {
+            case let .default(title):
+                defaultTitle(with: title)
+            case let .todo(title, isChecked):
+                todoTitle(with: title, isChecked: isChecked)
+            }
+        }
+    }
+    
+    private func defaultTitle(with text: String) -> some View {
+        var titleString = text.isEmpty ? "Untitled".localized : text
+        titleString = isRedacted ? RedactedText.pageTitle : titleString
+        
+        return AnytypeText(titleString, style: .captionMedium).foregroundColor(.textPrimary)
+    }
+    
+    private func todoTitle(with text: String, isChecked: Bool) -> some View {
+        HStack(alignment: .top, spacing: 6) {
+            isChecked ?
+                Image.Title.TodoLayout.checkmark
+                .resizable()
+                .frame(width: 18, height: 18) :
+                Image.Title.TodoLayout.checkbox
+                .resizable()
+                .frame(width: 18, height: 18)
+            
+            defaultTitle(with: text)
+        }
     }
     
     private var type: some View {
