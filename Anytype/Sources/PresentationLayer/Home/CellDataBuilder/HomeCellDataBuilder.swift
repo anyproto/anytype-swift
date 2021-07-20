@@ -37,7 +37,7 @@ final class HomeCellDataBuilder {
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
             icon: pageLink.details?.icon,
-            title: pageLink.details?.name ?? "",
+            title: pageLink.details?.pageCellTitle ?? .default(title: ""),
             type: pageLink.type.rawValue,
             isLoading: pageLink.isLoading,
             isArchived: pageLink.details?.isArchived ?? false
@@ -49,7 +49,7 @@ final class HomeCellDataBuilder {
             id: oldData.id,
             destinationId: oldData.destinationId,
             icon: newDetails.icon,
-            title: newDetails.name ?? "",
+            title: newDetails.pageCellTitle,
             type: oldData.type,
             isLoading: false,
             isArchived: newDetails.isArchived ?? false
