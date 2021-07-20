@@ -18,6 +18,8 @@ extension UIImage {
     }
     
     enum blockFile {
+        static let noImage = createImage("TextEditor/no_image")
+        
         enum empty {
             static let image = createImage("TextEditor/BlockFile/Empty/Image")
             static let video = createImage("TextEditor/BlockFile/Empty/Video")
