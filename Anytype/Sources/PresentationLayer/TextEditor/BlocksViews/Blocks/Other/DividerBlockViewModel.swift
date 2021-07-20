@@ -27,15 +27,11 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
         return DividerBlockContentConfiguration(content: dividerContent)
     }
     
-    func makeContextualMenu() -> ContextualMenu {
-        .init(title: "", children: [
-            .init(action: .addBlockBelow),
-            .init(action: .duplicate),
-            .init(action: .delete)
-        ])
+    func makeContextualMenu() -> [ContextualMenu] {
+        [ .addBlockBelow, .duplicate, .delete ]
     }
     
-    func handle(action: ContextualMenuAction) {
+    func handle(action: ContextualMenu) {
         handler.handle(action: action, info: information)
     }
     

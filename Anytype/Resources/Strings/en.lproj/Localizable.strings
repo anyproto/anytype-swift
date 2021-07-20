@@ -190,3 +190,14 @@
 "Page" = "Page";
 "Set" = "Set";
 "Template" = "Template";
+
+// MARK: - Contextual menu
+"General.AddBlockBelow" = "Add block below";
+"General.Delete" = "Delete";
+"General.Duplicate" = "Duplicate";
+
+"Specific.TurnInto" = "Turn into";
+"Specific.TurnIntoPage" = "Turn into Page";
+"Specific.Style" = "Style";
+"Specific.Download" = "Download";
+"Specific.Replace" = "Replace";

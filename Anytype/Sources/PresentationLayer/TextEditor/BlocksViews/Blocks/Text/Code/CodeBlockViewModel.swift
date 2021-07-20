@@ -46,19 +46,11 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
         )
     }
     
-    func makeContextualMenu() -> ContextualMenu {
-        ContextualMenu(
-            title: "",
-            children: [
-                .init(action: .addBlockBelow),
-                .init(action: .turnIntoPage),
-                .init(action: .duplicate),
-                .init(action: .delete)
-            ]
-        )
+    func makeContextualMenu() -> [ContextualMenu] {
+        [ .addBlockBelow, .turnIntoPage, .duplicate, .delete ]
     }
     
-    func handle(action: ContextualMenuAction) {
+    func handle(action: ContextualMenu) {
         contextualMenuHandler.handle(action: action, info: information)
     }
     

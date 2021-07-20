@@ -66,6 +66,7 @@ final class BlockViewModelBuilder {
             case .title:
                 return TextBlockViewModel(
                     block: block,
+                    content: content,
                     isCheckable: details?.layout == .todo,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
@@ -78,6 +79,7 @@ final class BlockViewModelBuilder {
             default:
                 return TextBlockViewModel(
                     block: block,
+                    content: content,
                     isCheckable: false,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
