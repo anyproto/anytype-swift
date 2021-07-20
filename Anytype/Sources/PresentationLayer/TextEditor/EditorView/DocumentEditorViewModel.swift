@@ -81,17 +81,11 @@ class DocumentEditorViewModel: ObservableObject {
         case let .details(newDetails):
             updateDetails(newDetails)
         case let .update(updatedIds):
-            if updatedIds.isEmpty {
+            guard !updatedIds.isEmpty else {
                 return
             }
             
-            let modelsToUpdate = modelsHolder.models.filter { model in
-                updatedIds.contains(model.blockId)
-            }
-            
-            let structIds = modelsToUpdate.filter { $0.isStruct }.map { $0.blockId }
-            updateViewModelsWithStructs(structIds)
-            
+            updateViewModelsWithStructs(updatedIds)
             viewInput?.updateRowsWithoutRefreshing(ids: updatedIds)
         }
     }
@@ -105,7 +99,7 @@ class DocumentEditorViewModel: ObservableObject {
         detailsViewModel.performUpdateUsingDetails(details)
     }
     
-    private func updateViewModelsWithStructs(_ blockIds: [BlockId]) {
+    private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
         guard !blockIds.isEmpty else {
             return
         }

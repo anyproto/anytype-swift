@@ -1,9 +1,7 @@
 import UIKit
 import BlocksModels
 
-protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, ContentConfigurationProvider, BlockDataProvider {
-    var isStruct: Bool { get }
-    
+protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, ContentConfigurationProvider, BlockDataProvider {    
     func didSelectRowInTableView()
     var indentationLevel: Int { get }
 }

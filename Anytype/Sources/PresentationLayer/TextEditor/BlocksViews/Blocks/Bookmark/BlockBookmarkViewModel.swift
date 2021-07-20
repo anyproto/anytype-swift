@@ -2,9 +2,7 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct BlockBookmarkViewModel: BlockViewModelProtocol {
-    let isStruct = true
-    
+struct BlockBookmarkViewModel: BlockViewModelProtocol {    
     var diffable: AnyHashable {
         [
             blockId,

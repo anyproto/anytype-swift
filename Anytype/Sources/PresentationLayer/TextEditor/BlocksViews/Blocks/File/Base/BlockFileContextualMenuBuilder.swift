@@ -4,7 +4,7 @@ final class BlockFileContextualMenuBuilder {
     static func contextualMenu(fileData: BlockFile) -> ContextualMenu {
         switch fileData.state {
         case .done:
-            return .init(title: "", children: [
+            return ContextualMenu(title: "", children: [
                 .init(action: .addBlockBelow),
                 .init(action: .duplicate),
                 .init(action: .download),
@@ -12,7 +12,7 @@ final class BlockFileContextualMenuBuilder {
                 .init(action: .delete)
             ])
         default:
-            return .init(title: "", children: [
+            return ContextualMenu(title: "", children: [
                 .init(action: .addBlockBelow),
                 .init(action: .duplicate),
                 .init(action: .delete)

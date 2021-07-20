@@ -3,8 +3,6 @@ import BlocksModels
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {
-    let isStruct = true
-    
     var diffable: AnyHashable {
         [
             blockId,
