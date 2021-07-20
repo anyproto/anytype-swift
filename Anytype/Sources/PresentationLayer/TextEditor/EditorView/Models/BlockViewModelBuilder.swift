@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 final class BlockViewModelBuilder {
-    private weak var document: BaseDocumentProtocol?
+    private let document: BaseDocumentProtocol
     private let blockActionHandler: EditorActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
@@ -149,15 +149,18 @@ final class BlockViewModelBuilder {
                     self?.router.openUrl(url)
                 }
             )
-        case let .link(value):
-            let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher
-
+        case let .link(content):
+            let details = document.getDetails(by: content.targetBlockID)?.currentDetails
+            // TODO: - use DetailsActiveModel()
             return BlockPageLinkViewModel(
-                block,
-                publisher: publisher,
-                router: router,
-                delegate: delegate,
-                actionHandler: blockActionHandler
+                indentationLevel: block.indentationLevel,
+                information: block.blockModel.information,
+                content: content,
+                details: details,
+                contextualMenuHandler: contextualMenuHandler,
+                openLink: { [weak self] blockId in
+                    self?.router.showPage(with: blockId)
+                }
             )
         case .smartblock, .layout: return nil
         }

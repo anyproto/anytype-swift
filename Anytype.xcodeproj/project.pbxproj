@@ -2417,6 +2417,17 @@
 			path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Routing/Controllers;
 			sourceTree = SOURCE_ROOT;
 		};
+		3D29AFFE26A60A440095BA18 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5397BB852684D15500154791 /* TopWithChildUIKitView.swift */,
+				3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */,
+				3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */,
+				5397BB842684D15300154791 /* TopUIKitView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
@@ -2980,12 +2991,9 @@
 		3DDC6A5E2627070C004F5EA4 /* PageLink */ = {
 			isa = PBXGroup;
 			children = (
-				5397BB852684D15500154791 /* TopWithChildUIKitView.swift */,
-				5397BB842684D15300154791 /* TopUIKitView.swift */,
+				3D29AFFE26A60A440095BA18 /* View */,
 				0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */,
 				3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */,
-				3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */,
-				3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */,
 				3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */,
 			);
 			path = PageLink;

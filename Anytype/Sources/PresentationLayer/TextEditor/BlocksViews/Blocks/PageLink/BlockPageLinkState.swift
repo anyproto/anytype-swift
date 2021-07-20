@@ -1,16 +1,13 @@
 import BlocksModels
 
-
-/// Struct State that will take care of all flags and data.
-/// It is equal semantically to `Payload` that will delivered from outworld ( view model ).
-/// It contains necessary information for view as emoji, title, archived, etc.
-struct BlockPageLinkState {
-    /// Visual style of left view ( image or label with emoji ).
+struct BlockPageLinkState: Hashable, Equatable {
+    
     enum Style {
         typealias Emoji = String
         case noContent
         case noEmoji
         case emoji(Emoji)
+        
         var resource: String {
             switch self {
             case .noContent: return "TextEditor/Style/Page/empty"
@@ -22,13 +19,19 @@ struct BlockPageLinkState {
     
     enum Converter {
         static func asOurModel(_ pageDetails: DetailsDataProtocol) -> BlockPageLinkState {
-            let archived = false
+            let archived = pageDetails.isArchived ?? false
             var hasContent = false
             let title = pageDetails.name
             let emoji = pageDetails.iconEmoji
             hasContent = !emoji.isNil
-            let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
-            return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
+            let correctEmoji = emoji.flatMap {$0.isEmpty ? nil : $0}
+            
+            return BlockPageLinkState(
+                archived: archived,
+                hasContent: hasContent,
+                title: title,
+                emoji: correctEmoji
+            )
         }
     }
     
