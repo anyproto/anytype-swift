@@ -98,6 +98,10 @@ final class MiddlewareEventConverter {
             // will trigger Publisher
             detailsModel.detailsData = newDetails
             
+            guard currentDetailsData.layout == newDetails.layout else {
+                return .general
+            }
+            
             return .details(newDetails)
             
         case .objectDetailsUnset:
