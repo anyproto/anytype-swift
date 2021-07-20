@@ -42,6 +42,8 @@ final class LocalEventConverter {
             content.state = .uploading
             model.information.content = .file(content)
             return .update(blockIds: [blockId])
+        case .reload(blockId: let blockId):
+            return .update(blockIds: [blockId])
         }
     }
     

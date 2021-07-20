@@ -1,6 +1,6 @@
 import UIKit
 
-final class MentionsTextViewConfigurator  {
+final class MentionsConfigurator  {
     
     private enum Constants {
         static let buttonOffset = CGPoint(x: 4, y: 4)

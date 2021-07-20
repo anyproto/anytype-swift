@@ -11,18 +11,19 @@ protocol EditorActionHandlerProtocol: AnyObject {
 }
 
 final class EditorActionHandler: EditorActionHandlerProtocol {
-    let modelsHolder: SharedBlockViewModelsHolder
     let document: BaseDocumentProtocol
     let blockActionHandler: BlockActionHandler
+    let eventProcessor: EventProcessor
     
     init(
         document: BaseDocumentProtocol,
-        modelsHolder: SharedBlockViewModelsHolder,
-        blockActionHandler: BlockActionHandler
+        blockActionHandler: BlockActionHandler,
+        eventProcessor: EventProcessor
     ) {
         self.document = document
-        self.modelsHolder = modelsHolder
+
         self.blockActionHandler = blockActionHandler
+        self.eventProcessor = eventProcessor
     }
     
     func onEmptySpotTap() {
@@ -43,12 +44,14 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     
     func handleAction(_ action: BlockHandlerActionType, info: BlockInformation) {
         blockActionHandler.handleBlockAction(action, info: info) { [weak self] events in
-            self?.processEvents(events)
+            self?.eventProcessor.process(events: events)
         }
     }
     
     func upload(blockId: BlockId, filePath: String) {
-        processEvents(PackOfEvents(localEvents: [ .setLoadingState(blockId: blockId) ]))
+        self.eventProcessor.process(
+            events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
+        )
         
         blockActionHandler.upload(blockId: blockId, filePath: filePath)
     }
@@ -56,18 +59,5 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     
     func handleActionWithoutCompletion(_ action: BlockHandlerActionType, info: BlockInformation) {
         blockActionHandler.handleBlockAction(action, info: info, completion: nil)
-    }
-    
-    private func processEvents(_ events: PackOfEvents) {
-        events.localEvents.forEach { event in
-            switch event {
-            case let .setFocus(blockId, position):
-                if let blockViewModel = modelsHolder.models.first(where: { $0.blockId == blockId }) as? TextBlockViewModel {
-                    blockViewModel.set(focus: position)
-                }
-            default: return
-            }
-        }
-        document.handle(events: events)
     }
 }
