@@ -75,7 +75,10 @@ private extension ApplicationCoordinator {
         self.authService.selectAccount(id: userId) { [weak self] result in
             switch result {
             case .success:
-                self?.showHomeScreen()
+                guard let self = self else { return }
+                
+                self.configureMiddlewareConfiguration()
+                self.showHomeScreen()
             case .failure:
                 self?.showAuthScreen()
             }
@@ -125,6 +128,10 @@ extension ApplicationCoordinator: MainWindowHolder {
         navBarAppearance.configureWithTransparentBackground()
         
         modifyNavigationBarAppearance(navBarAppearance)
+    }
+    
+    func configureMiddlewareConfiguration() {
+        MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
     }
     
     private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance) {

@@ -10,9 +10,6 @@ final class MiddlewareConfigurationService {
     
     // MARK: - Internal veriables
     private(set) var configuration: MiddlewareConfiguration?
-    
-    // MARK: - Private variables
-    private var subscription: AnyCancellable?
 }
 
 extension MiddlewareConfigurationService {
@@ -23,6 +20,10 @@ extension MiddlewareConfigurationService {
         }
     }
     
+    func removeCacheConfiguration() {
+        configuration = nil
+    }
+    
     func libraryVersionPublisher() -> AnyPublisher<MiddlewareVersion, Error> {
         Anytype_Rpc.Version.Get.Service.invoke()
             .map { MiddlewareVersion(version: $0.details) }
@@ -31,7 +32,7 @@ extension MiddlewareConfigurationService {
     }
     
     func getConfiguration(onCompletion: @escaping (MiddlewareConfiguration) -> Void) {
-        subscription = Anytype_Rpc.Config.Get.Service.invoke()
+        let _ = Anytype_Rpc.Config.Get.Service.invoke()
             .map {
                 MiddlewareConfiguration(
                     homeBlockID: $0.homeBlockID,
@@ -55,7 +56,7 @@ extension MiddlewareConfigurationService {
             completion(configuration)
         }
 
-        subscription = Anytype_Rpc.Config.Get.Service.invoke()
+        let _ = Anytype_Rpc.Config.Get.Service.invoke()
             .subscribe(on: DispatchQueue.global(qos: .userInitiated))
             .map {
                 MiddlewareConfiguration(
