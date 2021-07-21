@@ -7,11 +7,13 @@
 //
 
 import Kingfisher
+import UIKit
 
 final class KingfisherConfigurator: AppConfiguratorProtocol {
     
     func configure() {
         KingfisherManager.shared.defaultOptions = [
+            .scaleFactor(UIScreen.main.scale),
             .cacheOriginalImage,
             .originalCache(Kingfisher.ImageCache.originalImagesCache),
             .backgroundDecode,
