@@ -185,6 +185,7 @@
 		120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D85267F9E8000327734 /* URLExtensions.swift */; };
 		1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211D6592667CED000541D9C /* ActivityIndicatorView.swift */; };
 		1215E8A926A82DFD0089AF7E /* UrlResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8A826A82DFD0089AF7E /* UrlResolver.swift */; };
+		1215E8AE26A85E530089AF7E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1215E8AD26A85E530089AF7E /* Kingfisher */; };
 		1219F971269350A5009DE4D4 /* DocumentIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1219F970269350A5009DE4D4 /* DocumentIconType.swift */; };
 		1236985C268F450F005B638A /* PlaceholderImageTextGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1236985B268F450F005B638A /* PlaceholderImageTextGuideline.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
@@ -1136,6 +1137,7 @@
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				0A005AB924C60092000520AA /* BlocksModels.framework in Frameworks */,
 				0A005ABC24C600DA000520AA /* Lib.framework in Frameworks */,
+				1215E8AE26A85E530089AF7E /* Kingfisher in Frameworks */,
 				53856BC126593B3100CB1FAE /* Highlightr in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
@@ -3547,6 +3549,7 @@
 				5333421B262E249100238121 /* FloatingPanel */,
 				53856BC026593B3100CB1FAE /* Highlightr */,
 				538492DB269E63AD00B5E556 /* Amplitude */,
+				1215E8AD26A85E530089AF7E /* Kingfisher */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -3603,6 +3606,7 @@
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */,
 				538492DA269E63AD00B5E556 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
+				1215E8AC26A85E520089AF7E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -4613,6 +4617,14 @@
 				kind = branch;
 			};
 		};
+		1215E8AC26A85E520089AF7E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = exactVersion;
+				version = 6.3.0;
+			};
+		};
 		5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
@@ -4644,6 +4656,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		1215E8AD26A85E530089AF7E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1215E8AC26A85E520089AF7E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
