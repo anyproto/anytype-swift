@@ -189,6 +189,8 @@
 		1215E8B626A8610C0089AF7E /* KingfisherConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B526A8610C0089AF7E /* KingfisherConfigurator.swift */; };
 		1215E8B926A862350089AF7E /* ImageCacheExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B826A862350089AF7E /* ImageCacheExtension.swift */; };
 		1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */; };
+		1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8C026A86CAC0089AF7E /* ImageSource.swift */; };
+		1215E8C326A870250089AF7E /* MiddlewareImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8C226A870250089AF7E /* MiddlewareImageSource.swift */; };
 		1219F971269350A5009DE4D4 /* DocumentIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1219F970269350A5009DE4D4 /* DocumentIconType.swift */; };
 		1236985C268F450F005B638A /* PlaceholderImageTextGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1236985B268F450F005B638A /* PlaceholderImageTextGuideline.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
@@ -778,6 +780,8 @@
 		1215E8B526A8610C0089AF7E /* KingfisherConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherConfigurator.swift; sourceTree = "<group>"; };
 		1215E8B826A862350089AF7E /* ImageCacheExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheExtension.swift; sourceTree = "<group>"; };
 		1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConfigurator.swift; sourceTree = "<group>"; };
+		1215E8C026A86CAC0089AF7E /* ImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSource.swift; sourceTree = "<group>"; };
+		1215E8C226A870250089AF7E /* MiddlewareImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareImageSource.swift; sourceTree = "<group>"; };
 		1219F970269350A5009DE4D4 /* DocumentIconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconType.swift; sourceTree = "<group>"; };
 		1236985B268F450F005B638A /* PlaceholderImageTextGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageTextGuideline.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -1492,6 +1496,8 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1215E8C026A86CAC0089AF7E /* ImageSource.swift */,
+				1215E8C226A870250089AF7E /* MiddlewareImageSource.swift */,
 				EAE6BDFA2680CC3A00275788 /* ObjectTypeData */,
 				EA5FB453266E309700DCD56C /* Mention */,
 				12BE8E5826565D6D000C95B9 /* Extensions */,
@@ -2499,7 +2505,6 @@
 				534D19C62623A7220080AEF0 /* SearchListViewController.swift */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
-				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
 				128495DF267371B900351C66 /* BottomFloaterBuilder.swift */,
 			);
 			path = UIKit;
@@ -2531,6 +2536,7 @@
 				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
 				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
 				3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */,
+				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3961,6 +3967,7 @@
 				3D24F43B269C988A00FA0F5F /* Relations.swift in Sources */,
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
+				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
@@ -4196,6 +4203,7 @@
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
 				3D568F8F2666C22D00DC7881 /* ContentFileConverter.swift in Sources */,
 				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
+				1215E8C326A870250089AF7E /* MiddlewareImageSource.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				EA7DE3FE26397C08005AFEE2 /* SlashMenuActionsFilterService.swift in Sources */,
