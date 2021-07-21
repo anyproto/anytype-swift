@@ -116,7 +116,7 @@ final class TextAttributesViewController: UIViewController {
         let codeButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/code"))
         codeButton.isSelected = attributesState.hasCodeStyle
         let urlButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/url"))
-        codeButton.isSelected = !attributesState.url.isEmpty
+        urlButton.isSelected = !attributesState.url.isEmpty
 
         codeButton.addTarget(self, action: #selector(codeButtonHandler(sender:)), for: .touchUpInside)
         urlButton.addTarget(self, action: #selector(urlButtonHandler(sender:)), for: .touchUpInside)

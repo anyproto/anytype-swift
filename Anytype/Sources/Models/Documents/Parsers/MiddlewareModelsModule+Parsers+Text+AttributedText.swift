@@ -18,7 +18,7 @@ extension Namespace {
                             style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
             var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markStyle: MarkStyle)? in
-                guard let markValue = AttributeConverter.asModel(.init(attribute: value.type, value: value.param)) else {
+                guard let markValue = MarkStyleConverter.asModel(.init(attribute: value.type, value: value.param)) else {
                     return nil
                 }
                 return (RangeConverter.asModel(value.range), markValue)
@@ -117,7 +117,7 @@ extension Namespace {
             
             let middlewareMarks = filteredMarkStyles.compactMap { (tuple) -> [Anytype_Model_Block.Content.Text.Mark]? in
                 let (key, value) = tuple
-                let type = AttributeConverter.asMiddleware(key.markStyle)
+                let type = MarkStyleConverter.asMiddleware(key.markStyle)
 
                 // For example, return nil if we couldn't convert UIColor to middlware color so
                 // all ranges will be skipped for this `mark` value
@@ -137,10 +137,10 @@ extension Namespace {
     }
 }
 
-private extension Namespace.MarkStyle {
+private extension MarkStyle {
     struct HashableKey: Hashable {
 
-        let markStyle: Namespace.MarkStyle
+        let markStyle: MarkStyle
 
         func hash(into hasher: inout Hasher) {
             hasher.combine(String(describing: markStyle))
@@ -171,90 +171,6 @@ extension Namespace {
         ///
         static func asMiddleware(_ range: NSRange) -> Anytype_Model_Range {
             .init(from: Int32(range.lowerBound), to: Int32(range.lowerBound + range.length))
-        }
-    }
-}
-
-// MARK: - Attribute
-
-private extension Namespace {
-    enum AttributeConverter {
-        struct MiddlewareTuple {
-            var attribute: Anytype_Model_Block.Content.Text.Mark.TypeEnum
-            var value: String
-        }
-        
-        static func asModel(_ tuple: MiddlewareTuple) -> MarkStyle? {
-            switch tuple.attribute {
-            case .strikethrough: return .strikethrough(true)
-            case .keyboard: return .keyboard(true)
-            case .italic: return .italic(true)
-            case .bold: return .bold(true)
-            case .underscored: return .underscored(true)
-            case .link: return .link(URLConverter.asModel(tuple.value))
-
-            case .textColor:
-                guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: false) else {
-                    return nil
-                }
-                return .textColor(color)
-
-            case .backgroundColor:
-                guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: true) else {
-                    return nil
-                }
-                return .backgroundColor(color)
-            case .mention:
-                return .mention(tuple.value)
-            case .UNRECOGNIZED:
-                assertionFailure("Unrecognized markup")
-                return nil
-            }
-        }
-
-        static func asMiddleware(_ style: MarkStyle) -> MiddlewareTuple? {
-            switch style {
-            case .bold: return .init(attribute: .bold, value: "")
-            case .italic: return .init(attribute: .italic, value: "")
-            case .keyboard: return .init(attribute: .keyboard, value: "")
-            case .strikethrough: return .init(attribute: .strikethrough, value: "")
-            case .underscored: return .init(attribute: .underscored, value: "")
-
-            case let .textColor(color):
-                guard let color = color?.middlewareString(background: false) else {
-                    return nil
-                }
-                return MiddlewareTuple(attribute: .textColor, value: color)
-
-            case let .backgroundColor(color):
-                guard let color = color?.middlewareString(background: true) else {
-                    return nil
-                }
-                return .init(attribute: .backgroundColor, value: color)
-
-            case let .link(value): return .init(attribute: .link, value: URLConverter.asMiddleware(value))
-            case let .mention(pageId):
-                guard let pageId = pageId else { return nil }
-                return MiddlewareTuple(attribute: .mention, value: pageId)
-            }
-        }
-    }
-}
-
-// MARK: - Attribute / Helpers
-
-private extension Namespace.AttributeConverter {
-    enum URLConverter {
-        /// Apple BUG!
-        /// URL doesn't have .init(string: String).
-        /// URL `has` URL?(string: String)
-        /// That means that we can't use it as leading-dot notation syntax.
-        ///
-        static func asModel(_ url: String) -> URL? {
-            URL(string: url)
-        }
-        static func asMiddleware(_ url: URL?) -> String {
-            url?.absoluteString ?? ""
         }
     }
 }

@@ -2,8 +2,6 @@ import UIKit
 
 final class MarkStyleModifier {
     
-    typealias MarkStyle = MiddlewareModelsModule.Parsers.Text.AttributedText.MarkStyle
-    
     let attributedString: NSMutableAttributedString
     
     init(attributedText: NSMutableAttributedString = .init()) {
