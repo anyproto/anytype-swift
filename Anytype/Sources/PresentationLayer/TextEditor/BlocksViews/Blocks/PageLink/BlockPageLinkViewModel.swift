@@ -37,12 +37,7 @@ struct BlockPageLinkViewModel: BlockViewModelProtocol {
         self.content = content
         self.contextualMenuHandler = contextualMenuHandler
         self.openLink = openLink
-        
-        if let details = details {
-            state = BlockPageLinkState.Converter.asOurModel(details)
-        } else {
-            state = .empty
-        }
+        self.state = details.flatMap { BlockPageLinkState(pageDetails: $0) } ?? .empty
     }
     
     func makeContentConfiguration() -> UIContentConfiguration {

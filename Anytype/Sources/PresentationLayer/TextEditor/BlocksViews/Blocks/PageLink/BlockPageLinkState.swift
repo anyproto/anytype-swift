@@ -1,52 +1,41 @@
 import BlocksModels
 
-struct BlockPageLinkState: Hashable, Equatable {
-    
-    enum Style {
-        typealias Emoji = String
+extension BlockPageLinkState {
+    enum Style: Hashable, Equatable {
         case noContent
-        case noEmoji
-        case emoji(Emoji)
-        
-        var resource: String {
-            switch self {
-            case .noContent: return "TextEditor/Style/Page/empty"
-            case .noEmoji: return "TextEditor/Style/Page/withoutEmoji"
-            case let .emoji(value): return value
-            }
-        }
+        case emoji(String)
     }
-    
-    enum Converter {
-        static func asOurModel(_ pageDetails: DetailsDataProtocol) -> BlockPageLinkState {
-            let archived = pageDetails.isArchived ?? false
-            var hasContent = false
-            let title = pageDetails.name
-            let emoji = pageDetails.iconEmoji
-            hasContent = !emoji.isNil
-            let correctEmoji = emoji.flatMap {$0.isEmpty ? nil : $0}
-            
-            return BlockPageLinkState(
-                archived: archived,
-                hasContent: hasContent,
-                title: title,
-                emoji: correctEmoji
-            )
-        }
-    }
-    
-    static let empty = BlockPageLinkState.init(archived: false, hasContent: false, title: nil, emoji: nil)
+}
+
+struct BlockPageLinkState: Hashable, Equatable {
+    static let empty = BlockPageLinkState(archived: false, title: "", style: .noContent)
 
     let archived: Bool
-    let hasContent: Bool
-    let title: String?
-    let emoji: String?
+    let title: String
+    let style: Style
     
-    var style: Style {
-        switch (hasContent, emoji) {
-        case (false, .none): return .noContent
-        case (true, .none): return .noEmoji
-        case let (_, .some(value)): return .emoji(value)
+    init(pageDetails: DetailsDataProtocol) {
+        self.init(
+            archived: pageDetails.isArchived ?? false,
+            title: pageDetails.name ?? "",
+            style: style(emoji: pageDetails.iconEmoji)
+        )
+        
+        func style(emoji: String?) -> Style {
+            guard let emoji = emoji else {
+                return .noContent
+            }
+            guard !emoji.isEmpty else {
+                return .noContent
+            }
+            
+            return .emoji(emoji)
         }
+    }
+    
+    init(archived: Bool, title: String, style: Style) {
+        self.archived = archived
+        self.title = title
+        self.style = style
     }
 }
