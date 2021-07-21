@@ -135,7 +135,7 @@
 		0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* MediaPicker.swift */; };
 		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
-		0ABB73A425497DB700F32C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */; };
+		0ABB73A425497DB700F32C6F /* GoogleService-Info-Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB73A325497DB600F32C6F /* GoogleService-Info-Release.plist */; };
 		0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB73A82549975800F32C6F /* FirebaseService.swift */; };
 		0ACA77DB23E44B8F00442690 /* TextViewUserInteractionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77DA23E44B8F00442690 /* TextViewUserInteractionProtocol.swift */; };
 		0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */; };
@@ -553,6 +553,7 @@
 		EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */; };
 		EAED581C26A730E500374A46 /* MarkStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED581B26A730E500374A46 /* MarkStyleConverter.swift */; };
 		EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED581D26A7321600374A46 /* MiddlewareTuple.swift */; };
+		EAED582626A74D7800374A46 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAED582326A74D7800374A46 /* GoogleService-Info-Dev.plist */; };
 		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
 /* End PBXBuildFile section */
 
@@ -728,7 +729,7 @@
 		0AA168DC254060E40097CB23 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0ABB73A325497DB600F32C6F /* GoogleService-Info-Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Release.plist"; sourceTree = "<group>"; };
 		0ABB73A82549975800F32C6F /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		0ACA77DA23E44B8F00442690 /* TextViewUserInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewUserInteractionProtocol.swift; sourceTree = "<group>"; };
 		0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+UserAction.swift"; sourceTree = "<group>"; };
@@ -1139,6 +1140,7 @@
 		EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockContentView+TextViewDelegate.swift"; sourceTree = "<group>"; };
 		EAED581B26A730E500374A46 /* MarkStyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleConverter.swift; sourceTree = "<group>"; };
 		EAED581D26A7321600374A46 /* MiddlewareTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareTuple.swift; sourceTree = "<group>"; };
+		EAED582326A74D7800374A46 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1953,7 +1955,8 @@
 		0A996BD323F038CB000FDC9C /* Plists */ = {
 			isa = PBXGroup;
 			children = (
-				0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */,
+				EAED582326A74D7800374A46 /* GoogleService-Info-Dev.plist */,
+				0ABB73A325497DB600F32C6F /* GoogleService-Info-Release.plist */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
@@ -3690,12 +3693,13 @@
 				53178879260A29FC004F9F68 /* Inter.ttf in Resources */,
 				3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
-				0ABB73A425497DB700F32C6F /* GoogleService-Info.plist in Resources */,
+				0ABB73A425497DB700F32C6F /* GoogleService-Info-Release.plist in Resources */,
 				3DB92F97264D57A100E83276 /* IBMPlexMono-Regular.ttf in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
 				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
+				EAED582626A74D7800374A46 /* GoogleService-Info-Dev.plist in Resources */,
 				3DB92F95264D579C00E83276 /* GraphikLCG-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
