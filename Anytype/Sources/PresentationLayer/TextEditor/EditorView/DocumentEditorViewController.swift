@@ -168,7 +168,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         let blockViewModel = viewModel.modelsHolder.models.first { blockViewModel in
             blockViewModel.blockId == item.id
         }
-        return blockViewModel?.contextMenuInteraction()
+        return blockViewModel?.contextMenuConfiguration()
     }
 }
 

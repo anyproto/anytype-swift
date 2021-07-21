@@ -48,6 +48,8 @@ final class BlockImageContentView: UIView & UIContentView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
+        imageView.backgroundColor = .grayscale10
+        
         
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,7 +130,7 @@ final class BlockImageContentView: UIView & UIContentView {
         
         currentConfiguration.imageLoader.cleanupSubscription()
         currentConfiguration.imageLoader.imageView = imageView
-        currentConfiguration.imageLoader.update(imageId: imageId)
+        currentConfiguration.imageLoader.update(imageId: imageId, placeholder: UIImage.blockFile.noImage)
     }
 }
 

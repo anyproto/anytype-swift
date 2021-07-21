@@ -7,8 +7,8 @@ protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, Content
 }
 
 protocol ContextualMenuHandler {
-    func makeContextualMenu() -> ContextualMenu
-    func handle(action: ContextualMenuAction)
+    func makeContextualMenu() -> [ContextualMenu]
+    func handle(action: ContextualMenu)
 }
 
 protocol DiffableProvier {
@@ -29,21 +29,27 @@ extension BlockDataProvider {
 }
 
 extension BlockViewModelProtocol {
-    func contextMenuInteraction() -> UIContextMenuConfiguration? {
-        UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (value) -> UIMenu? in
-            let menu = self.makeContextualMenu()
-
-            let uiActions = menu.children.map { action -> UIAction in
-                let identifier = UIAction.Identifier(action.identifier)
-
-                let action = UIAction(title: action.title, image: action.image, identifier: identifier, state: .off) { action in
-                    if let identifier = ContextualMenuIdentifierBuilder.action(for: action.identifier.rawValue) {
-                        self.handle(action: identifier)
+    func contextMenuConfiguration() -> UIContextMenuConfiguration? {
+        let menuItems = makeContextualMenu()
+        guard !menuItems.isEmpty else {
+            return nil
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
+            UIMenu(
+                children: menuItems.map { menuItem -> UIAction in
+                    UIAction(
+                        title: menuItem.title,
+                        image: menuItem.image,
+                        identifier: menuItem.identifier,
+                        state: .off
+                    ) { action in
+                        if let identifier = ContextualMenu(rawValue: action.identifier.rawValue) {
+                            handle(action: identifier)
+                        }
                     }
                 }
-                return action
-            }
-            return UIMenu(title: menu.title, children: uiActions)
+            )
         }
     }
 }

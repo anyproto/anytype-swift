@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         
         configurator.configure()
-        
+
         return true
     }
 

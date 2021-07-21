@@ -13,11 +13,13 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
         self.information = information
     }
     
-    func makeContextualMenu() -> ContextualMenu {
-        ContextualMenu(title: "")
+    func makeContextualMenu() -> [ContextualMenu] {
+        []
     }
     
-    func handle(action: ContextualMenuAction) { }
+    func handle(action: ContextualMenu) {
+        assertionFailure("Handling of contextual menu items not supported")
+    }
     
     func makeContentConfiguration() -> UIContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()

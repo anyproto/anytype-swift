@@ -34,18 +34,11 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         openUrl(url)
     }
 
-    func makeContextualMenu() -> ContextualMenu {
-        ContextualMenu(
-            title: "",
-            children: [
-                .init(action: .addBlockBelow),
-                .init(action: .duplicate),
-                .init(action: .delete),
-            ]
-        )
+    func makeContextualMenu() -> [ContextualMenu] {
+        [ .addBlockBelow, .duplicate, .delete ]
     }
     
-    func handle(action: ContextualMenuAction) {
+    func handle(action: ContextualMenu) {
         contextualMenuHandler.handle(action: action, info: information)
     }
 }

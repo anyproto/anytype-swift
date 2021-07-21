@@ -1,7 +1,5 @@
-import Foundation
-import UIKit
 import Combine
-import os
+import UIKit
 import BlocksModels
 
 final class CustomTextView: UIView {
@@ -10,41 +8,24 @@ final class CustomTextView: UIView {
     weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
         didSet {
             textView.userInteractionDelegate = userInteractionDelegate
-            handler.delegate = userInteractionDelegate
         }
     }
     
     var textSize: CGSize?
 
     private(set) lazy var textView = createTextView()
-    private(set) lazy var slashMenuView = createSlashMenu()
-    private(set) lazy var mentionView = createMentionView()
-    private(set) lazy var accessoryView = EditorAccessoryView(actionHandler: handler)
-    private(set) lazy var handler = EditorAccessoryViewActionHandler(
-        customTextView: self,
-        switcher: inputSwitcher,
-        delegate: userInteractionDelegate
-    )
-    
-    let inputSwitcher = AccessoryViewSwitcher()
+    let accessoryViewSwitcher: AccessoryViewSwitcher
     
     private var firstResponderSubscription: AnyCancellable?
 
     let options: CustomTextViewOptions
-    private let menuItemsBuilder: BlockActionsBuilder
-    private let slashMenuActionsHandler: SlashMenuActionsHandler
-    private let mentionsSelectionHandler: (MentionObject) -> Void
     
     init(
         options: CustomTextViewOptions,
-        menuItemsBuilder: BlockActionsBuilder,
-        slashMenuActionsHandler: SlashMenuActionsHandler,
-        mentionsSelectionHandler: @escaping (MentionObject) -> Void
+        accessoryViewSwitcher: AccessoryViewSwitcher
     ) {
         self.options = options
-        self.menuItemsBuilder = menuItemsBuilder
-        self.slashMenuActionsHandler = slashMenuActionsHandler
-        self.mentionsSelectionHandler = mentionsSelectionHandler
+        self.accessoryViewSwitcher = accessoryViewSwitcher
         super.init(frame: .zero)
 
         setupView()
@@ -65,7 +46,6 @@ final class CustomTextView: UIView {
         addSubview(textView) {
             $0.pinToSuperview()
         }
-
     }
 }
 
@@ -105,46 +85,5 @@ extension CustomTextView {
         textView.backgroundColor = nil
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
-    }
-    
-    func createSlashMenu() -> SlashMenuView {
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else { return }
-            self.inputSwitcher.cleanupDisplayedView()
-            self.inputSwitcher.showEditingBars(customTextView: self)
-        }
-
-        let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
-        return SlashMenuView(
-            frame: actionViewRect,
-            menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
-            slashMenuActionsHandler: slashMenuActionsHandler,
-            actionsMenuDismissHandler: dismissActionsMenu
-        )
-    }
-    
-    func createMentionView() -> MentionView {
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else { return }
-            self.inputSwitcher.cleanupDisplayedView()
-            self.inputSwitcher.showEditingBars(customTextView: self)
-        }
-        return MentionView(
-            frame: CGRect(origin: .zero, size: Constants.menuActionsViewSize),
-            dismissHandler: dismissActionsMenu,
-            mentionsSelectionHandler: mentionsSelectionHandler)
-    }
-}
-
-
-// MARK: - Constants
-private extension CustomTextView {
-    enum Constants {
-        /// Minimum time interval to stay idle to handle consequent return key presses
-        static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
-        static let menuActionsViewSize = CGSize(
-            width: UIScreen.main.bounds.width,
-            height: UIScreen.main.isFourInch ? 160 : 215
-        )
     }
 }

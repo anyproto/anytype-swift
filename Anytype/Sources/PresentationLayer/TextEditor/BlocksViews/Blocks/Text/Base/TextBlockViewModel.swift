@@ -5,6 +5,7 @@ import BlocksModels
 struct TextBlockViewModel: BlockViewModelProtocol {
     
     let block: BlockActiveRecordProtocol
+    let content: BlockText
     let isCheckable: Bool
     
     private let toggled: Bool
@@ -20,11 +21,12 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     var diffable: AnyHashable {
-        [blockId,
-         indentationLevel,
-         toggled,
-         isCheckable,
-         block.blockModel.information.content
+        [
+            blockId,
+            indentationLevel,
+            toggled,
+            isCheckable,
+            block.blockModel.information.content
         ] as [AnyHashable]
     }
     
@@ -32,14 +34,18 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         block.blockModel.information
     }
     
-    init(block: BlockActiveRecordProtocol,
-         isCheckable: Bool,
-         contextualMenuHandler: DefaultContextualMenuHandler,
-         blockDelegate: BlockDelegate,
-         actionHandler: EditorActionHandlerProtocol,
-         configureMentions: @escaping (UITextView) -> Void,
-         showStyleMenu:  @escaping (BlockInformation) -> Void) {
+    init(
+        block: BlockActiveRecordProtocol,
+        content: BlockText,
+        isCheckable: Bool,
+        contextualMenuHandler: DefaultContextualMenuHandler,
+        blockDelegate: BlockDelegate,
+        actionHandler: EditorActionHandlerProtocol,
+        configureMentions: @escaping (UITextView) -> Void,
+        showStyleMenu:  @escaping (BlockInformation) -> Void)
+    {
         self.block = block
+        self.content = content
         self.isCheckable = isCheckable
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
@@ -55,35 +61,15 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func didSelectRowInTableView() {}
     
-    func makeContextualMenu() -> ContextualMenu {
-        guard case let .text(text) = block.content else {
-            return .init(title: "", children: [])
+    func makeContextualMenu() -> [ContextualMenu] {
+        guard content.contentType != .title else {
+            return [ .addBlockBelow ]
         }
-        
-        let actions: [ContextualMenuData] = {
-            var result: [ContextualMenuData] = [
-                .init(action: .addBlockBelow)
-            ]
-            
-            guard text.contentType != .title else { return result }
-            
-            result.append(
-                contentsOf: [
-                    .init(action: .turnIntoPage),
-                    .init(action: .duplicate),
-                    .init(action: .style),
-                    .init(action: .delete)
-                ]
-            )
-            
-            return result
-        }()
-        
-        
-        return .init(title: "", children: actions)
+
+        return [ .addBlockBelow, .turnIntoPage, .duplicate, .style, .delete ]
     }
     
-    func handle(action: ContextualMenuAction) {
+    func handle(action: ContextualMenu) {
         contextualMenuHandler.handle(action: action, info: information)
     }
     
