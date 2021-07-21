@@ -21,7 +21,7 @@ class DetailsLoader {
         }
         
         let model = DetailsActiveModel()
-        model.wholeDetailsPublisher = details.wholeDetailsPublisher
+        model.configured(publisher: details.wholeDetailsPublisher)
         model.$currentDetails.sink { [weak self] details in
             self?.eventProcessor.process(events: PackOfEvents(localEvent: .reload(blockId: blockId)))
         }.store(in: &subscriptions)
