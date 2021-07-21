@@ -146,7 +146,9 @@ final class BlockViewModelBuilder {
                 indentationLevel: block.indentationLevel,
                 information: block.blockModel.information,
                 bookmarkData: data,
-                contextualMenuHandler: contextualMenuHandler,
+                handleContextualMenu: { [weak self] action, info in
+                    self?.contextualMenuHandler.handle(action: action, info: info)
+                },
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },

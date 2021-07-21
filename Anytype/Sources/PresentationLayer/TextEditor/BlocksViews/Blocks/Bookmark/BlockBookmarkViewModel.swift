@@ -16,8 +16,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let information: BlockInformation
     let bookmarkData: BlockBookmark
     
-    let contextualMenuHandler: DefaultContextualMenuHandler
-    
+    let handleContextualMenu: (ContextualMenu, BlockInformation) -> ()
     let showBookmarkBar: (BlockInformation) -> ()
     let openUrl: (URL) -> ()
     
@@ -39,6 +38,6 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     }
     
     func handle(action: ContextualMenu) {
-        contextualMenuHandler.handle(action: action, info: information)
+        handleContextualMenu(action, information)
     }
 }

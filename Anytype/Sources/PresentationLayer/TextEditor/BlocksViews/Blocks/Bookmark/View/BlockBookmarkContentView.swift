@@ -8,9 +8,10 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     
     private var imageSubscription: AnyCancellable?
     private var iconSubscription: AnyCancellable?
+    private var imageProperty: ImageProperty?
+    private var iconProperty: ImageProperty?
     
     private var currentConfiguration: BlockBookmarkConfiguration
-    private var imageLoader: BookmarkImageLoader?
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
         set {
@@ -39,26 +40,31 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         addSubview(containerView)
         containerView.pinAllEdges(to: self, insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
     }
-    
+
     private func onDataUpdate(bookmark: BlockBookmark) {
-        if case let .fetched(payload) = BlockBookmarkConverter.toState(bookmark) {
-            self.imageLoader = BookmarkImageLoader(imageHash: payload.imageHash, iconHash: payload.iconHash)
+        setupImageSubscriptions(bookmark: bookmark)
+        containerView.apply(state: bookmark.blockBookmarkState)
+    }
+    
+    private func setupImageSubscriptions(bookmark: BlockBookmark) {
+        if case let .fetched(payload) = bookmark.blockBookmarkState {
+            self.imageProperty = ImageProperty(imageId: payload.imageHash, .init(width: .default))
+            self.iconProperty = ImageProperty(imageId: payload.iconHash, .init(width: .thumbnail))
         } else {
-            self.imageLoader = nil
+            self.imageProperty = nil
+            self.iconProperty = nil
         }
         
-        iconSubscription = imageLoader?.iconProperty?.stream.receiveOnMain().sink { [weak self] icon in
+        iconSubscription = iconProperty?.stream.receiveOnMain().sink { [weak self] icon in
             icon.flatMap {
                 self?.containerView.updateIcon(icon: $0)
             }
         }
 
-        imageSubscription = imageLoader?.imageProperty?.stream.receiveOnMain().sink { [weak self] image in
+        imageSubscription = imageProperty?.stream.receiveOnMain().sink { [weak self] image in
             image.flatMap {
                 self?.containerView.updateImage(image: $0)
             }
         }
-        
-        containerView.apply(state: BlockBookmarkConverter.toState(bookmark))
     }
 }

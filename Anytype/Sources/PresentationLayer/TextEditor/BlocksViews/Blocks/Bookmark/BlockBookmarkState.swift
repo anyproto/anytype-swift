@@ -1,6 +1,6 @@
 enum BlockBookmarkState {
     case empty
-    case onlyURL(BlockBookmarkPayload)
+    case onlyURL(String)
     case fetched(BlockBookmarkPayload)
 }
 
@@ -10,8 +10,4 @@ struct BlockBookmarkPayload {
     let subtitle: String
     let imageHash: String
     let iconHash: String
-    
-    var hasImage: Bool {
-        !imageHash.isEmpty
-    }
 }

@@ -19,8 +19,8 @@ final class BlockBookmarkInfoView: UIStackView {
     
     func update(state: BlockBookmarkState) {
         switch state {
-        case let .onlyURL(payload):
-            urlView.text = payload.url
+        case let .onlyURL(url):
+            urlView.text = url
             
             titleView.isHidden = true
             descriptionView.isHidden = true

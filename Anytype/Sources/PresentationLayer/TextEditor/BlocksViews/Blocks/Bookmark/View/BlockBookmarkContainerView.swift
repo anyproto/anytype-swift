@@ -54,23 +54,11 @@ extension BlockBookmarkContainerView {
 private extension BlockBookmarkContainerView {
     
     func setup() {
-        setupUIElements()
-        addBookmarkViewLayout()
-        addEmptyViewLayout()
-    }
-    
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(bookmarkView)
         addSubview(emptyView)
-    }
-    
-    func addBookmarkViewLayout() {
+        
         bookmarkView.pinAllEdges(to: self, insets: Constants.Layout.bookmarkViewInsets)
-    }
     
-    func addEmptyViewLayout() {
         if let superview = emptyView.superview {
             let heightAnchor = emptyView.heightAnchor.constraint(equalToConstant: Constants.Layout.emptyViewHeight)
             let bottomAnchor = emptyView.bottomAnchor.constraint(equalTo: superview.bottomAnchor)

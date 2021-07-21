@@ -79,7 +79,7 @@ final class BlockBookmarkView: UIView {
         
         switch state {
         case let .fetched(payload):
-            if payload.hasImage {
+            if !payload.imageHash.isEmpty {
                 addLayoutForImageView()   
             }
         default:
