@@ -31,7 +31,7 @@ struct ImageParameters: Codable, Hashable {
 extension ImageParameters {
     
     // Will be removed soon
-    var asImageWidth: NewUrlResolver.ImageWidth {
+    var asImageWidth: UrlResolver.ImageWidth {
         switch self.width.value {
         case 1080:
             return .default
