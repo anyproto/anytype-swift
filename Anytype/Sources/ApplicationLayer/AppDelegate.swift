@@ -6,12 +6,14 @@ import Amplitude
 class AppDelegate: UIResponder, UIApplicationDelegate {
     /// receive events from middleware and broadcast throught notification center
     private let eventListener = MiddlewareListener()
+    private let configurator = AppConfigurator()
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // Analytics
-        setupAnalytics()
+        
+        configurator.configure()
+        
         return true
     }
 
@@ -37,17 +39,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-    // MARK: - Private methods
-
-    private func setupAnalytics() {
-        // Disable IDFA for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA() {
-            Amplitude.instance().setTrackingOptions(trackingOptions)
-        }
-
-        // Enable sending automatic session events
-        Amplitude.instance().trackingSessionEvents = true
-          // Initialize SDK
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.apiKey)
-    }
 }
