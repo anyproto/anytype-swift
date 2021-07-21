@@ -69,7 +69,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     
     private func setVideoURL() {
         guard
-            let url = NewUrlResolver.resolvedUrl(.file(id: currentConfiguration.file.metadata.hash))
+            let url = UrlResolver.resolvedUrl(.file(id: currentConfiguration.file.metadata.hash))
         else { return }
         
         videoVC.player = .init(url: url)

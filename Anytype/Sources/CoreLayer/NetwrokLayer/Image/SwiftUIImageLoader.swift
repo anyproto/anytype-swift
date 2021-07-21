@@ -21,7 +21,7 @@ class SwiftUIImageLoader: ObservableObject {
             return
         }
         
-        guard let url = NewUrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
+        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
         
         imageSubscription = ImageLoaderObject(url).imagePublisher
             .subscribe(on: DispatchQueue.global())

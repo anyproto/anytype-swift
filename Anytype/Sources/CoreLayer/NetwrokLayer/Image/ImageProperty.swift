@@ -33,7 +33,7 @@ class ImageProperty {
         guard property.isNil else { return }
         
         guard
-            let url = NewUrlResolver.resolvedUrl(.image(id: imageId, width: parameters.asImageWidth))
+            let url = UrlResolver.resolvedUrl(.image(id: imageId, width: parameters.asImageWidth))
         else { return }
         
         ImageLoaderObject(url).imagePublisher

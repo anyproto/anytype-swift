@@ -194,7 +194,7 @@ final class BlockViewModelBuilder {
     }
     
     private func saveFile(fileId: FileId) {
-        guard let url = NewUrlResolver.resolvedUrl(.file(id: fileId)) else { return }
+        guard let url = UrlResolver.resolvedUrl(.file(id: fileId)) else { return }
         
         router.saveFile(fileURL: url)
     }
