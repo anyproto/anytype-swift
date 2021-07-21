@@ -3,15 +3,59 @@ import Combine
 import ProtobufMessages
 
 /// Service that handles middleware config
-class MiddlewareConfigurationService: ConfigurationServiceProtocol {
-    private var subscriptions = [AnyCancellable]()
+final class MiddlewareConfigurationService {
     
+    // MARK: - Initializer
+    static let shared = MiddlewareConfigurationService()
+    
+    // MARK: - Internal veriables
+    private(set) var configuration: MiddlewareConfiguration?
+    
+    // MARK: - Private variables
+    private var subscription: AnyCancellable?
+}
+
+extension MiddlewareConfigurationService {
+    
+    func obtainAndCacheConfiguration() {
+        getConfiguration { [weak self] config in
+            self?.configuration = config
+        }
+    }
+    
+    func libraryVersionPublisher() -> AnyPublisher<MiddlewareVersion, Error> {
+        Anytype_Rpc.Version.Get.Service.invoke()
+            .map { MiddlewareVersion(version: $0.details) }
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
+    }
+    
+    func getConfiguration(onCompletion: @escaping (MiddlewareConfiguration) -> Void) {
+        subscription = Anytype_Rpc.Config.Get.Service.invoke()
+            .map {
+                MiddlewareConfiguration(
+                    homeBlockID: $0.homeBlockID,
+                    archiveBlockID: $0.archiveBlockID,
+                    profileBlockId: $0.profileBlockID,
+                    gatewayURL: $0.gatewayURL
+                )
+            }
+            .sinkWithDefaultCompletion("ObtainConfiguration") { config in
+                onCompletion(config)
+            }
+    }
+    
+}
+
+extension MiddlewareConfigurationService {
+    
+    @available(*, deprecated)
     func obtainConfiguration(completion: @escaping (MiddlewareConfiguration) -> ()) {
         if let configuration = MiddlewareConfiguration.shared {
             completion(configuration)
         }
 
-        Anytype_Rpc.Config.Get.Service.invoke()
+        subscription = Anytype_Rpc.Config.Get.Service.invoke()
             .subscribe(on: DispatchQueue.global(qos: .userInitiated))
             .map {
                 MiddlewareConfiguration(
@@ -26,13 +70,6 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
                 MiddlewareConfiguration.shared = config
                 completion(config)
             }
-            .store(in: &self.subscriptions)
     }
     
-    func obtainLibraryVersion() -> AnyPublisher<MiddlewareVersion, Error> {
-        Anytype_Rpc.Version.Get.Service.invoke()
-            .map { MiddlewareVersion(version: $0.details) }
-            .subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-    }
 }
