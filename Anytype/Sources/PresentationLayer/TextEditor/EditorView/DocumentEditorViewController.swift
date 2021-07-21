@@ -258,6 +258,8 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
 }
 
+// MARK: - FloatingPanelControllerDelegate
+
 extension DocumentEditorViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
         let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first

@@ -1,7 +1,6 @@
 import FloatingPanel
 import BlocksModels
 import UIKit
-import Amplitude
 
 
 final class BottomSheetsFactory {
@@ -77,8 +76,5 @@ final class BottomSheetsFactory {
         
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: parentViewController, animated: true)
-
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.popupStyleMenu)
     }
 }
