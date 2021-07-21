@@ -9,5 +9,7 @@ protocol MainWindowHolder {
     
     func configureNavigationBarWithOpaqueBackground()
     func configureNavigationBarWithTransparentBackground()
+    
+    func configureMiddlewareConfiguration()
 
 }

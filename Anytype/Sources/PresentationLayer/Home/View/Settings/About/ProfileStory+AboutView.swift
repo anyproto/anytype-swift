@@ -26,12 +26,12 @@ struct AboutView: View {
 
 extension AboutView {
     class ViewModel: ObservableObject {
-        private var configurationService: ConfigurationServiceProtocol = MiddlewareConfigurationService()
+        private var configurationService = MiddlewareConfigurationService()
         private var subscription: AnyCancellable?
         @Published var libraryVersion: String = ""
 
         func viewLoaded() {
-            subscription = configurationService.obtainLibraryVersion().receiveOnMain()
+            subscription = configurationService.libraryVersionPublisher().receiveOnMain()
                 .sinkWithDefaultCompletion("Obtain library version") { [weak self] version in
                     self?.libraryVersion = version.version
                 }
