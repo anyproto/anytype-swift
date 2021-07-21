@@ -21,15 +21,13 @@ class SwiftUIImageLoader: ObservableObject {
             return
         }
         
-        URLResolver().obtainImageURL(imageId: imageId, parameters: parameters) { [weak self] url in
-            guard let url = url else { return }
-            
-            self?.imageSubscription = ImageLoaderObject(url).imagePublisher
-                .subscribe(on: DispatchQueue.global())
-                .receive(on: RunLoop.main)
-                .sink { image in
-                    self?.image = image
-                }
-        }
+        guard let url = NewUrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
+        
+        imageSubscription = ImageLoaderObject(url).imagePublisher
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: RunLoop.main)
+            .sink { [weak self] image in
+                self?.image = image
+            }
     }
 }

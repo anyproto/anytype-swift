@@ -194,11 +194,9 @@ final class BlockViewModelBuilder {
     }
     
     private func saveFile(fileId: FileId) {
-        URLResolver().obtainFileURL(fileId: fileId) { [weak self] url in
-            guard let url = url else { return }
-            
-            self?.router.saveFile(fileURL: url)
-        }
+        guard let url = NewUrlResolver.resolvedUrl(.file(id: fileId)) else { return }
+        
+        router.saveFile(fileURL: url)
     }
     
     private func showBookmarkBar(info: BlockInformation) {

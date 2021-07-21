@@ -27,3 +27,20 @@ struct ImageParameters: Codable, Hashable {
         try container.encode(self.width.value, forKey: .width)
     }
 }
+
+extension ImageParameters {
+    
+    // Will be removed soon
+    var asImageWidth: NewUrlResolver.ImageWidth {
+        switch self.width.value {
+        case 1080:
+            return .default
+        case 100:
+            return .thumbnail
+        default:
+            return .thumbnail
+        }
+    }
+    
+    
+}

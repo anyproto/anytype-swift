@@ -68,11 +68,11 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func setVideoURL() {
-        URLResolver().obtainFileURL(fileId: currentConfiguration.file.metadata.hash) { [weak self] url in
-            guard let url = url else { return }
-            
-            self?.videoVC.player = .init(url: url)
-        }
+        guard
+            let url = NewUrlResolver.resolvedUrl(.file(id: currentConfiguration.file.metadata.hash))
+        else { return }
+        
+        videoVC.player = .init(url: url)
     }
     
     private func addEmptyViewAndRemoveVideoView() {
