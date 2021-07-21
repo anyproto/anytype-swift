@@ -9,17 +9,9 @@
 import Foundation
 
 final class NewUrlResolver {
-    
-    static let shared = NewUrlResolver()
-    
-    private let configurationService = MiddlewareConfigurationService.shared
-    
-}
-
-extension NewUrlResolver {
-    
-    func resolvedUrl(_ urlType: UrlType) -> URL? {
-        guard let gatewayUrl = configurationService.configuration?.gatewayURL else {
+       
+    static func resolvedUrl(_ urlType: UrlType) -> URL? {
+        guard let gatewayUrl = MiddlewareConfigurationService.shared.configuration?.gatewayURL else {
             assertionFailure("Configuration must be loaded")
             return nil
         }
@@ -36,8 +28,11 @@ extension NewUrlResolver {
         }
     }
     
+}
+
+private extension NewUrlResolver {
     
-    func makeFileUrl(initialComponents: URLComponents, fileId: String) -> URL? {
+    static func makeFileUrl(initialComponents: URLComponents, fileId: String) -> URL? {
         guard !fileId.isEmpty else { return nil }
         
         var components = initialComponents
@@ -46,7 +41,7 @@ extension NewUrlResolver {
         return components.url
     }
     
-    func makeImageUrl(initialComponents: URLComponents, imageId: String, width: ImageWidth) -> URL? {
+    static func makeImageUrl(initialComponents: URLComponents, imageId: String, width: ImageWidth) -> URL? {
         guard !imageId.isEmpty else { return nil }
         
         var components = initialComponents

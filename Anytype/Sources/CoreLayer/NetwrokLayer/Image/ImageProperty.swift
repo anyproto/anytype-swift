@@ -32,17 +32,16 @@ class ImageProperty {
     private func loadImage(imageId: String, parameters: ImageParameters) {
         guard property.isNil else { return }
         
-        URLResolver()
-            .obtainImageURL(imageId: imageId, parameters: parameters) { [weak self] url in
-                guard let self = self, let url = url else { return }
-                
-                ImageLoaderObject(url).imagePublisher
-                    .subscribe(on: DispatchQueue.global())
-                    .receive(on: RunLoop.main)
-                    .sink { [weak self] image in
-                        self?.property = image
-                    }
-                    .store(in: &self.subscriptions)
+        guard
+            let url = NewUrlResolver.resolvedUrl(.image(id: imageId, width: parameters.asImageWidth))
+        else { return }
+        
+        ImageLoaderObject(url).imagePublisher
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: RunLoop.main)
+            .sink { [weak self] image in
+                self?.property = image
             }
+            .store(in: &self.subscriptions)
     }
 }
