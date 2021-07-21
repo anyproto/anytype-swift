@@ -15,5 +15,6 @@ final class LoginStateService {
         try? seedService.removeSeed()
         UserDefaultsConfig.usersIdKey = ""
         MiddlewareConfiguration.shared = nil
+        MiddlewareConfigurationService.shared.removeCacheConfiguration()
     }
 }

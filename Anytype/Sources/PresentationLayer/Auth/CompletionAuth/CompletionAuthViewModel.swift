@@ -9,7 +9,6 @@
 import SwiftUI
 import Amplitude
 
-
 final class CompletionAuthViewModel: ObservableObject, CompletionAuthViewDelegate {
     var coordinator: CompletionAuthViewCoordinator
     private let loginStateService: LoginStateService
