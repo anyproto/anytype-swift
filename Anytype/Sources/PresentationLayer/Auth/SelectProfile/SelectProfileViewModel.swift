@@ -1,7 +1,6 @@
 import SwiftUI
 import Combine
 import ProtobufMessages
-import Amplitude
 
 
 class ProfileNameViewModel: ObservableObject, Identifiable {
@@ -17,7 +16,7 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
     
     var userIcon: UserIconView.IconType {
         if let image = image {
-            return UserIconView.IconType.image(.local(image: image))
+            return UserIconView.IconType.image(.local(image))
         } else if let firstCharacter = name.first {
             return UserIconView.IconType.placeholder(firstCharacter)
         } else {
@@ -63,9 +62,6 @@ class SelectProfileViewModel: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success:
-                    // Analytics
-                    Amplitude.instance().logEvent(AmplitudeEventsName.accountRecover,
-                                                  withEventProperties: [AmplitudeEventsPropertiesKey.accountId : id])
                     self?.showHomeView()
                 case .failure(let error):
                     self?.error = error.localizedDescription
@@ -153,6 +149,7 @@ class SelectProfileViewModel: ObservableObject {
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
+        windowHolder?.configureMiddlewareConfiguration()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
 }

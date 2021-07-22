@@ -11,13 +11,15 @@ enum AmplitudeConfiguration {
 }
 
 enum AmplitudeEventsName {
-    static let showAuthScreen = "Auth Screen: Show"
+    // Auth events
     static let walletCreate = "WalletCreate"
+    static let walletRecover = "WalletRecover"
     static let accountCreate = "AccountCreate"
     static let accountRecover = "AccountRecover"
     static let accountSelect = "AccountSelect"
     static let accountStop = "AccountStop"
 
+    // Block events
     static let blockCreate = "BlockCreate"
     static let blockBookmarkFetch = "BlockBookmarkFetch"
     static let blockListDuplicate = "BlockListDuplicate"
@@ -38,7 +40,7 @@ enum AmplitudeEventsName {
     static let pageCreate = "PageCreate"
 
     // Events in editing accessory view
-    static let buttonActionMenu = "ButtonActionMenu"
+    static let buttonSlashMenu = "ButtonSlashMenu"
     static let buttonStyleMenu = "ButtonStyleMenu"
     static let buttonMentionMenu = "ButtonMentionMenu"
     static let buttonHideKeyboard = "ButtonHideKeyboard"
@@ -51,20 +53,43 @@ enum AmplitudeEventsName {
     static let buttonRemoveEmoji = "ButtonRemoveEmoji"
     static let buttonUploadPhoto = "ButtonUploadPhoto"
 
-    // Settings view events
-    static let buttonProfileWallpaper = "ButtonProfileWallpaper"
+    // Settings object events
+    static let buttonCoverInObjectSettings = "ButtonCoverInObjectSettings"
+    static let buttonIconInObjectSettings = "ButtonIconInObjectSettings"
+    static let buttonLayoutInObjectSettings = "ButtonLayoutInObjectSettings"
 
-    // Home view events
-    static let favoritesPage = "Page: Favorites"
-    static let archivePage = "Page: Archive"
-    static let recentPage = "Page: Recent"
-    static let inboxPage = "Page: Inbox"
+    // Dashboard view events
+    static let favoritesTabSelected = "FavoritesTabSelected"
+    static let archiveTabSelected = "ArchiveTabSelected"
+    static let recentTabSelected = "RecentTabSelected"
+    static let inboxTabSelected = "InboxTabSelected"
+
     static let profilePage = "Page: Profile"
+    static let documentPage = "Page: Document"
+    static let dashboardPage = "Page: Dashboard"
 
+    // Screen show events
+    static let showAuthScreen = "Auth Screen: Show"
+    static let showKeychainPhraseScreen = "Show Keychain Phrase Screen"
+    static let showAboutScreen = "Show About Screen"
+
+    // Popup events
+    static let popupSettings = "PopupSettings"
+    static let popupSlashMenu = "PopupSlashMenu"
+    static let popupActionMenu = "PopupActionMenu"
+    static let popupBookmarkMenu = "PopupBookmarkMenu"
+    static let popupDocumentMenu = "PopupDocumentMenu"
+    static let popupChooseEmojiMenu = "PopupChooseEmojiMenu"
+    static let popupChooseLayout = "PopupChooseLayout"
+    static let popupChooseCover = "PopupChooseCover"
+    static let popupStyleMenu = "PopupStyleMenu"
+    static let popupMentionMenu = "PopupMentionMenu"
+    static let popupProfileIconMenu = "PopupProfileIconMenu"
 }
 
 enum AmplitudeEventsPropertiesKey {
     static let accountId = "accountId"
     static let blockStyle = "style"
     static let blockType = "type"
+    static let documentId = "documentId"
 }

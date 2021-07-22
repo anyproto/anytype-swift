@@ -7,6 +7,19 @@ enum BlockHandlerActionType {
         case italic
         case strikethrough
         case keyboard
+        
+        var wholeBlockMarkup: MarkStyle {
+            switch self {
+            case .bold:
+                return .bold()
+            case .italic:
+                return .italic()
+            case .strikethrough:
+                return .strikethrough()
+            case .keyboard:
+                return .keyboard()
+            }
+        }
     }
 
     case turnInto(BlockText.Style)

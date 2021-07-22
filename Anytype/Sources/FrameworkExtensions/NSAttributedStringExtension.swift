@@ -28,6 +28,21 @@ extension NSAttributedString {
         }
         return hasStyle
     }
+    
+    func wholeStringFontHasTrait(trait: UIFontDescriptor.SymbolicTraits) -> Bool {
+        guard length != 0 else { return false }
+        var result = true
+        enumerateAttribute(
+            .font,
+            in: NSRange(location: 0, length: length)) { value, _, shouldStop in
+            guard let font = value as? UIFont else { return }
+            if !font.fontDescriptor.symbolicTraits.contains(trait) {
+                result = false
+                shouldStop[0] = true
+            }
+        }
+        return result
+    }
 
     /// Check if string has attribute
     /// - Parameters:
@@ -77,5 +92,19 @@ extension NSAttributedString {
         let mutableCopy = NSMutableAttributedString(attributedString: self)
         mutableCopy.removeAllMentionAttachmets()
         return mutableCopy.string
+    }
+    
+    func wholeStringWithCodeMarkup() -> Bool {
+        guard length != 0 else { return false }
+        var result = true
+        enumerateAttribute(.font,
+                           in: NSRange(location: 0, length: length)) { value, _, shouldStop in
+            guard let font = value as? UIFont else { return }
+            if !font.isCode {
+                result = false
+                shouldStop[0] = true
+            }
+        }
+        return result
     }
 }

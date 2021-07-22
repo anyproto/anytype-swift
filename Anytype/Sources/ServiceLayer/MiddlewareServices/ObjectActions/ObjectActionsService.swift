@@ -64,10 +64,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
 
-    // MARK: - Children to page.
-    // TODO: Add later.
+    /// Children to page
+    /// - Parameters:
+    ///   - contextID: document id
+    ///   - blocksIds: blocks that will be converted to pages
+    ///   - objectType: object type
+    /// - Returns: AnyPublisher
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<Void, Error> {
-        Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType).successToVoid().subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveRequest:  {_ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)
+            })
+            .eraseToAnyPublisher()
     }
     
     @discardableResult

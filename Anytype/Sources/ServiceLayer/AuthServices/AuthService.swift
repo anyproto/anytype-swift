@@ -3,6 +3,8 @@ import Combine
 import SwiftUI
 import os
 import ProtobufMessages
+import Amplitude
+
 
 private extension LoggerCategory {
     static let servicesAuthService: Self = "Services.AuthService"
@@ -24,6 +26,9 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func logout(completion: @escaping () -> Void) {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.accountStop)
+        
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
         
         loginStateService.cleanStateAfterLogout()
@@ -37,6 +42,9 @@ final class AuthService: AuthServiceProtocol {
             case .failure(_): onCompletion(.failure(.createWalletError()))
             }
         }) { [weak self] (value) in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
+
             Logger.create(.servicesAuthService).debug("seed: \(value.mnemonic, privacy: .private)")
             try? self?.seedService.saveSeed(value.mnemonic)
         
@@ -60,6 +68,11 @@ final class AuthService: AuthServiceProtocol {
             case .failure(_): onCompletion(.failure(.createAccountError()))
             }
         }) { response in
+            // Analytics
+            Amplitude.instance().setUserId(response.account.id)
+            Amplitude.instance().logEvent(AmplitudeEventsName.accountCreate,
+                                          withEventProperties: [AmplitudeEventsPropertiesKey.accountId : response.account.id])
+
             UserDefaultsConfig.usersIdKey = response.account.id
             onCompletion(.success(response.account.id))
         }
@@ -73,6 +86,9 @@ final class AuthService: AuthServiceProtocol {
             case .failure(_): onCompletion(.failure(.recoverWalletError()))
             }
         }) { _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.walletRecover)
+
             onCompletion(.success(()))
         }
     }
@@ -87,7 +103,10 @@ final class AuthService: AuthServiceProtocol {
                 case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))
                 }
             }) { _ in
-            onCompletion(.success(()))
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.accountRecover)
+                
+                onCompletion(.success(()))
         }
     }
 
@@ -99,6 +118,11 @@ final class AuthService: AuthServiceProtocol {
                 case .failure(_): onCompletion(.failure(.selectAccountError()))
                 }
             }) { [weak self] response in
+                // Analytics
+                Amplitude.instance().setUserId(response.account.id)
+                Amplitude.instance().logEvent(AmplitudeEventsName.accountSelect,
+                                              withEventProperties: [AmplitudeEventsPropertiesKey.accountId : response.account.id])
+
                 UserDefaultsConfig.usersIdKey = response.account.id
                 self?.loginStateService.setupStateAfterLoginOrAuth()
                 onCompletion(.success(response.account.id))

@@ -1,6 +1,7 @@
 import UIKit
 import FloatingPanel
 import BlocksModels
+import Amplitude
 
 
 // MARK: - Cell model
@@ -147,6 +148,9 @@ final class StyleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.popupStyleMenu)
 
         setupViews()
         configureStyleDataSource()
@@ -295,7 +299,11 @@ final class StyleViewController: UIViewController {
 
         currentDeselectAction?()
         currentDeselectAction = deselectAction
-        self.actionHandler(BlockHandlerActionType.turnInto(style))
+        if style == .code {
+            actionHandler(.toggleFontStyle(.keyboard))
+        } else {
+            actionHandler(.turnInto(style))
+        }
     }
 
     @objc private func colorActionHandler() {

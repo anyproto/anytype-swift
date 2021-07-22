@@ -24,8 +24,6 @@ class MainAuthViewModel: ObservableObject {
                 self?.error = error.localizedDescription
             case .success:
                 self?.showSignUpFlow = true
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
             }
         }
     }

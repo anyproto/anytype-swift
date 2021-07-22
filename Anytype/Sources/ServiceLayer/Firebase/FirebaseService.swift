@@ -1,21 +1,24 @@
-import Foundation
 import Firebase
-import os
 
-class FirebaseService {
-    private let settingsFile = "GoogleService-Info"
+final class FirebaseService {
+    private let settingsDevFile = "GoogleService-Info-Dev"
+    private let settingsReleaseFile = "GoogleService-Info-Release"
+    private let devBundleIdentifier = "com.anytypeio.anytype.dev"
     
     func setup() {
-        let path = Bundle(for: Self.self).path(forResource: self.settingsFile, ofType: "plist")
-        if let path = path, let options = FirebaseOptions.init(contentsOfFile: path) {
-            DispatchQueue.main.async {
-                if FirebaseApp.app().isNil {
-                    FirebaseApp.configure(options: options)
-                }
+        DispatchQueue.main.async {
+            guard let bundleId = Bundle.main.bundleIdentifier else {
+                assertionFailure("Can not get bundle id")
+                return
             }
-        }
-        else {
-            assertionFailure("Can't create options with file at path: \(settingsFile)")
+            let isDev = bundleId == self.devBundleIdentifier
+            let file = isDev ? self.settingsDevFile : self.settingsReleaseFile
+            guard let path = Bundle.main.path(forResource: file, ofType: "plist"),
+                  let options = FirebaseOptions(contentsOfFile: path),
+                  FirebaseApp.app().isNil else {
+                return
+            }
+            FirebaseApp.configure(options: options)
         }
     }
 }

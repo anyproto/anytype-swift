@@ -251,7 +251,7 @@ extension CustomTextView.HighlightedToolbar {
     }
 
     class StatesConvertor {
-        static func state(_ style: CustomTextView.MarkStyle?) -> State? {
+        static func state(_ style: MarkStyle?) -> State? {
             guard let style = style else { return nil }
             switch style {
             case let .bold(value): return .bold(value)
@@ -263,7 +263,7 @@ extension CustomTextView.HighlightedToolbar {
             }
         }
 
-        static func states(_ styles: [CustomTextView.MarkStyle]) -> [State] {
+        static func states(_ styles: [MarkStyle]) -> [State] {
             styles.compactMap(state)
         }
     }

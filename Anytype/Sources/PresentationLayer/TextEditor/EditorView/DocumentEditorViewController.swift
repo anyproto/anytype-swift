@@ -3,6 +3,7 @@ import UIKit
 import Combine
 import FloatingPanel
 import SwiftUI
+import Amplitude
 
 
 final class DocumentEditorViewController: UIViewController {
@@ -50,8 +51,9 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.setupUI()
+
+        viewModel.viewLoaded()
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,8 +164,10 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
+
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
 
         let blockViewModel = viewModel.modelsHolder.models.first { blockViewModel in
             blockViewModel.blockId == item.id
@@ -253,6 +257,8 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     }
 
 }
+
+// MARK: - FloatingPanelControllerDelegate
 
 extension DocumentEditorViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {

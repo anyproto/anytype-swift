@@ -37,13 +37,19 @@ struct ObjectSettingsView: View {
                 ObjectSettingRow(setting: setting) {
                     switch setting {
                     case .icon:
+                        // Analytics
+                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonIconInObjectSettings)
+
                         isIconPickerPresented = true
                     case .cover:
                         // Analytics
-                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileWallpaper)
+                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonCoverInObjectSettings)
                         
                         isCoverPickerPresented = true
                     case .layout:
+                        // Analytics
+                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonLayoutInObjectSettings)
+
                         withAnimation() {
                             isLayoutPickerPresented = true
                         }

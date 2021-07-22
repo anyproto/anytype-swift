@@ -44,4 +44,16 @@ protocol BlockActionsServiceTextProtocol {
     ///
     @discardableResult
     func setText(contextID: BlockId, blockID: BlockId, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
+    
+    /// Toggle block markup for whole block string
+    ///
+    /// - Parameters:
+    ///   - contextID: Document identifier,
+    ///   - blockID: Block identifier
+    ///   - style: Markup
+    func toggleWholeBlockMarkup(
+        contextID: BlockId,
+        blockID: BlockId,
+        style: MarkStyle
+    ) -> AnyPublisher<ServiceSuccess, Error>?
 }

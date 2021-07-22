@@ -3,7 +3,6 @@ import BlocksModels
 import Combine
 import Foundation
 import ProtobufMessages
-import Amplitude
 
 
 extension HomeViewModel {
@@ -47,9 +46,6 @@ final class HomeViewModel: ObservableObject {
         updateArchiveTab()
         updateRecentTab()
         updateInboxTab()
-        // Analytics
-        Amplitude.instance().setUserId(UserDefaultsConfig.usersIdKey)
-        Amplitude.instance().logEvent(AmplitudeEventsName.accountSelect)
     }
 
     // MARK: - Private methods

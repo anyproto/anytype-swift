@@ -81,6 +81,8 @@ platform :ios do
       use_system_scm: true
     )
 
+    upload_symbols_to_crashlytics(gsp_path: "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist")
+
   end
 
   # Profiles

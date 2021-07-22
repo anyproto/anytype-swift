@@ -47,8 +47,8 @@ final class BlockPageLinkUIKitView: UIView {
     func apply(_ state: BlockPageLinkState) {
         _ = self.topView.configured(leftChild: {
             switch state.style {
-            case .noContent, .noEmoji:
-                let imageView = UIImageView(image: UIImage(named: state.style.resource))
+            case .noContent:
+                let imageView = UIImageView(image: UIImage(named: "TextEditor/Style/Page/empty"))
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 
                 let container = UIView()
@@ -69,8 +69,8 @@ final class BlockPageLinkUIKitView: UIView {
                 return label
             }
         }())
-        if let title = state.title, !title.isEmpty {
-            textView.text = title
+        if !state.title.isEmpty {
+            textView.text = state.title
         } else {
             textView.attributedText = NSAttributedString(
                 string: "Untitled".localized,

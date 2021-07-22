@@ -45,12 +45,14 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
             .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveSubscription: { _ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
+            })
             .eraseToAnyPublisher()
     }
     
-    /// TODO: Remove it or implement it.
-    /// Unused.
-
+    // TODO: Remove it or implement it. Unused.
     func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ServiceSuccess, Error> {
         assertionFailure("method is not implemented")
         return .empty()
@@ -71,9 +73,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
             }).eraseToAnyPublisher()
     }
-    
-    // MARK: Duplicate
-    // Actually, should be used for BlockList
+
+    /// Duplicate block
     func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail(error: PossibleError.duplicateActionPositionConversionHasFailed).eraseToAnyPublisher()
@@ -83,6 +84,10 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveSubscription: { _ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
+            })
             .eraseToAnyPublisher()
     }
 }

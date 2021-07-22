@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import os
 import BlocksModels
+import Amplitude
 
 
 class DocumentEditorViewModel: ObservableObject {
@@ -129,6 +130,15 @@ class DocumentEditorViewModel: ObservableObject {
             modelsHolder.models = result
             self.viewInput?.updateData(result)
         }
+    }
+}
+
+// MARK: - View output
+
+extension DocumentEditorViewModel {
+    func viewLoaded() {
+        Amplitude.instance().logEvent(AmplitudeEventsName.documentPage,
+                                      withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId])
     }
 }
 

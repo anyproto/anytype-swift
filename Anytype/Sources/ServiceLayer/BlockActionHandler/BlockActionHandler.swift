@@ -1,7 +1,6 @@
 import UIKit
 import BlocksModels
 import Combine
-import Amplitude
 
 
 protocol BlockActionHandlerProtocol {
@@ -226,9 +225,6 @@ private extension BlockActionHandler {
         
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
-
                 let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
                 completion?(value)
             }
@@ -241,11 +237,18 @@ private extension BlockActionHandler {
         fontAction: BlockHandlerActionType.TextAttributesType
     ) {
         guard case let .text(textContentType) = info.content else { return }
-        var range = range
         
         // if range length == 0 then apply to whole block
         if range.length == 0 {
-            range = NSRange(location: 0, length: textContentType.attributedText.length)
+            let subscription = textService.toggleWholeBlockMarkup(
+                contextID: documentId,
+                blockID: info.id,
+                style: fontAction.wholeBlockMarkup)?
+                .sinkWithDefaultCompletion("handleFontAction") { [weak self]  in
+                    self?.document.handle(events: PackOfEvents(middlewareEvents: $0.messages))
+                }
+            subscription.flatMap { subscriptions.append($0) }
+            return
         }
         let newAttributedString = NSMutableAttributedString(attributedString: textContentType.attributedText)
         

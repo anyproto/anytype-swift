@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 
 struct HomeView: View {
@@ -18,6 +19,9 @@ struct HomeView: View {
             .environmentObject(viewModel)
             .environmentObject(accountData)
             .onAppear {
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
+
                 windowHolder?.configureNavigationBarWithTransparentBackground()
                 viewModel.viewLoaded()
             }

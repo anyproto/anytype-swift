@@ -45,13 +45,19 @@ final class BottomSheetsFactory {
 
             let range = NSRange(location: 0, length: textContent.attributedText.length)
 
-            let hasBold = textContent.attributedText.hasTrait(trait: .traitBold, at: range)
-            let hasItalic = textContent.attributedText.hasTrait(trait: .traitItalic, at: range)
+            let hasBold = textContent.attributedText.wholeStringFontHasTrait(trait: .traitBold)
+            let hasItalic = textContent.attributedText.wholeStringFontHasTrait(trait: .traitItalic)
             let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
+            let hasCode = textContent.attributedText.wholeStringWithCodeMarkup()
             let alignment = information.alignment.asNSTextAlignment
 
             let attributes = TextAttributesViewController.AttributesState(
-                hasBold: hasBold, hasItalic: hasItalic, hasStrikethrough: hasStrikethrough, hasCodeStyle: false, alignment: alignment, url: ""
+                hasBold: hasBold,
+                hasItalic: hasItalic,
+                hasStrikethrough: hasStrikethrough,
+                hasCodeStyle: hasCode,
+                alignment: alignment,
+                url: ""
             )
             return attributes
         }
