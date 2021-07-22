@@ -1,5 +1,6 @@
 
 import UIKit
+import Kingfisher
 
 final class DocumentCoverView: UIView {
     
@@ -8,7 +9,6 @@ final class DocumentCoverView: UIView {
     private let activityIndicatorView = ActivityIndicatorView()
 
     private let imageView = UIImageView()
-    private lazy var imageLoader = ImageLoader(imageView: imageView)
     
     // MARK: - Variables
     
@@ -69,9 +69,8 @@ extension DocumentCoverView: ConfigurableView {
             color: UIColor.grayscale10
         )
         
-        imageLoader.update(
-            imageId: imageId,
-            parameters: ImageParameters(width: .default),
+        imageView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
             placeholder: placeholder
         )
         imageView.contentMode = .scaleAspectFill
