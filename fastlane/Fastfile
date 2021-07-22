@@ -47,14 +47,12 @@ platform :ios do
 
     upload_build_to_testflight
 
-    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
-    release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
-    upload_symbols_to_crashlytics(gsp_path: options[:release] ? release_plist : dev_plist)
-    
     # Reset icon changes
     reset_git_repo(skip_clean: true)
 
     push_to_git_remote
+
+    upload_dsyms_to_crashlytics(release: options[:release])
   end
 
   private_lane :upload_build_to_testflight do 
@@ -72,6 +70,15 @@ platform :ios do
     )
   end
 
+  private_lane :upload_dsyms_to_crashlytics do |options| 
+    release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
+    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
+
+    upload_symbols_to_crashlytics(
+      gsp_path: options[:release] ? release_plist : dev_plist
+    )
+  end
+
   # Test
 
   lane :test_build do
@@ -79,13 +86,12 @@ platform :ios do
     match(readonly: true)
 
     build_app(
+      derived_data_path: "~/DerivedData/Anytype/",
       scheme: "Anytype", 
       configuration: "Dev-Release",
       include_symbols: true,
       use_system_scm: true
     )
-
-    upload_symbols_to_crashlytics(gsp_path: "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist")
 
   end
 
