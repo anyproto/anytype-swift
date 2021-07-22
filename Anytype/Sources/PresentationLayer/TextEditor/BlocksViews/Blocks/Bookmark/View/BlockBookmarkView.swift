@@ -17,9 +17,7 @@ final class BlockBookmarkView: UIView {
         fatalError("Not implemented")
     }
 
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false        
-        
+    func setupUIElements() {        
         layoutUsing.stack {
             $0.hStack(
                 informationView,

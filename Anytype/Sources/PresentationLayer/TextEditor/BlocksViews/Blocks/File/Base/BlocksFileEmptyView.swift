@@ -29,8 +29,7 @@ class BlocksFileEmptyView: UIView {
         self.viewData = viewData
         super.init(frame: .zero)
         
-        setupEmptyView()
-        addLayout()
+        setup()
     }
     
     @available(*, unavailable)
@@ -38,48 +37,32 @@ class BlocksFileEmptyView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupEmptyView() {
-        self.translatesAutoresizingMaskIntoConstraints = false
+    private func setup() {
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.grayscale30.cgColor
+        layer.cornerRadius = 4
+        clipsToBounds = true
+        self.layoutMargins = Layout.placeholderInsets
         
         placeholderLabel.text = viewData.placeholderText
         placeholderIcon.image = viewData.image
         
-        
-        placeholderView.addSubview(placeholderLabel)
-        placeholderView.addSubview(placeholderIcon)
-        
-        self.addSubview(placeholderView)
-        self.addSubview(activityIndicator)
-    }
-            
-    // MARK: Layout
-    private func addLayout() {
-        NSLayoutConstraint.activate([
-            placeholderView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Layout.placeholderInsets.left),
-            placeholderView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Layout.placeholderInsets.right),
-            placeholderView.topAnchor.constraint(equalTo: self.topAnchor, constant: Layout.placeholderInsets.top),
-            placeholderView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Layout.placeholderInsets.bottom)
-            
-        ])
-        
-        NSLayoutConstraint.activate([
-            placeholderIcon.leadingAnchor.constraint(equalTo: placeholderView.leadingAnchor, constant: Layout.iconLeading),
-            placeholderIcon.centerYAnchor.constraint(equalTo: placeholderView.centerYAnchor),
-            placeholderIcon.widthAnchor.constraint(equalToConstant: placeholderIcon.intrinsicContentSize.width)
-        ])
-        
-        NSLayoutConstraint.activate([
-            placeholderLabel.leadingAnchor.constraint(equalTo: placeholderIcon.trailingAnchor, constant: Layout.labelSpacing),
-            placeholderLabel.trailingAnchor.constraint(equalTo: placeholderView.trailingAnchor),
-            placeholderLabel.topAnchor.constraint(equalTo: placeholderView.topAnchor),
-            placeholderLabel.bottomAnchor.constraint(equalTo: placeholderView.bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Layout.activityIndicatorTrailing),
-            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: activityIndicator.intrinsicContentSize.width)
-        ])
+        addSubview(placeholderIcon) {
+            $0.centerY.equal(to: centerYAnchor)
+            $0.leading.equal(to: leadingAnchor, constant: Layout.iconLeading)
+            $0.width.equal(to: 20)
+            $0.height.equal(to: 20)
+        }
+        addSubview(placeholderLabel) {
+            $0.pinToSuperview(excluding: [.left])
+            $0.leading.equal(to: placeholderIcon.trailingAnchor, constant: Layout.labelSpacing)
+        }
+        addSubview(activityIndicator) {
+            $0.trailing.equal(to: trailingAnchor, constant: -Layout.activityIndicatorTrailing)
+            $0.centerY.equal(to: centerYAnchor)
+            $0.width.equal(to: activityIndicator.intrinsicContentSize.width)
+            $0.height.equal(to: activityIndicator.intrinsicContentSize.height)
+        }
         
     }
     
@@ -107,18 +90,9 @@ class BlocksFileEmptyView: UIView {
         }
     }
     
-    // MARK: - Views
-    private let placeholderView: UIView = {
-        let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.grayscale30.cgColor
-        view.layer.cornerRadius = 4
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private let placeholderLabel: UILabel = {
         let label = UILabel()
+        label.font = .body
         label.textColor = UIColor.grayscale50
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
