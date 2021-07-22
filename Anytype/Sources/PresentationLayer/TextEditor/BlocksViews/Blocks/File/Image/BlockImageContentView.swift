@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import BlocksModels
+import Kingfisher
 
 final class BlockImageContentView: UIView & UIContentView {
     
@@ -127,10 +128,11 @@ final class BlockImageContentView: UIView & UIContentView {
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
         
-        
-        currentConfiguration.imageLoader.cleanupSubscription()
-        currentConfiguration.imageLoader.imageView = imageView
-        currentConfiguration.imageLoader.update(imageId: imageId, placeholder: UIImage.blockFile.noImage)
+        imageView.kf.cancelDownloadTask()
+        imageView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            placeholder: UIImage.blockFile.noImage
+        )
     }
 }
 

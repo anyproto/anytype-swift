@@ -19,8 +19,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let indentationLevel: Int
     let showIconPicker: (BlockId) -> ()
     
-    let imageLoader = ImageLoader()
-    
     init?(
         information: BlockInformation,
         fileData: BlockFile,
