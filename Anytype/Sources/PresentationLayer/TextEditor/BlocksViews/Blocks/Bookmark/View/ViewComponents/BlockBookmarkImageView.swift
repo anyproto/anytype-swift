@@ -1,9 +1,8 @@
 import UIKit
 import Combine
+import Kingfisher
 
 class BlockBookmarkImageView: UIImageView {
-    private var imageSubscription: AnyCancellable?
-    private var imageProperty: ImageProperty?
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
@@ -16,20 +15,11 @@ class BlockBookmarkImageView: UIImageView {
     
     func update(state: BlockBookmarkState) {
         guard case let .fetched(payload) = state, !payload.imageHash.isEmpty else {
-            imageProperty = nil
-            imageSubscription = nil
             self.image = nil
-            
             return
         }
         
-        imageProperty = ImageProperty(imageId: payload.iconHash, ImageParameters(width: .default))
-        imageSubscription = imageProperty?.stream
-            .receiveOnMain()
-            .safelyUnwrapOptionals()
-            .sink { [weak self] image in
-                self?.image = image
-            }
+        kf.setImage(with: UrlResolver.resolvedUrl(.image(id: payload.iconHash, width: .default)))
     }
     
     @available(*, unavailable)

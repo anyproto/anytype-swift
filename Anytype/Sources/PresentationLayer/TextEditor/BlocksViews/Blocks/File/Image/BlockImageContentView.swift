@@ -132,7 +132,26 @@ final class BlockImageContentView: UIView & UIContentView {
         imageView.kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
             placeholder: UIImage.blockFile.noImage
-        )
+        ) { [weak self] result in
+            guard
+                case let .success(success) = result,
+                let self = self
+            else { return }
+            
+            self.imageView.contentMode = self.isImageLong(image: success.image) ? .scaleAspectFit : .scaleAspectFill
+        }
+    }
+    
+    private func isImageLong(image: UIImage) -> Bool {
+        if image.size.height / image.size.width > 3 {
+            return true
+        }
+        
+        if image.size.width / image.size.height > 3 {
+            return true
+        }
+        
+        return false
     }
 }
 
