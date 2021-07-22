@@ -52,14 +52,7 @@ platform :ios do
 
     push_to_git_remote
 
-    binary_path=`xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | grep -oEi "\/.*" | sed 's/Build\/Products/SourcePackages\/checkouts\/firebase-ios-sdk\/Crashlytics\/upload-symbols/'`
-
-    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
-    release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
-    upload_symbols_to_crashlytics(
-      gsp_path: options[:release] ? release_plist : dev_plist,
-      binary_path: binary_path
-    )
+    upload_dsyms_to_crashlytics(release: options[:release])
   end
 
   private_lane :upload_build_to_testflight do 
@@ -77,6 +70,15 @@ platform :ios do
     )
   end
 
+  private_lane :upload_dsyms_to_crashlytics do |options| 
+    release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
+    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
+
+    upload_symbols_to_crashlytics(
+      gsp_path: options[:release] ? release_plist : dev_plist
+    )
+  end
+
   # Test
 
   lane :test_build do
@@ -89,11 +91,6 @@ platform :ios do
       configuration: "Dev-Release",
       include_symbols: true,
       use_system_scm: true
-    )
-
-    upload_symbols_to_crashlytics(
-      gsp_path: "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist",
-      binary_path: "~/DerivedData/Anytype/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
     )
 
   end
