@@ -26,10 +26,6 @@ struct SettingsView: View {
         .alert(isPresented: $logginOut) {
             alert
         }
-        .onAppear {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupSettings)
-        }
     }
     
     private var alert: Alert {
