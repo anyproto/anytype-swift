@@ -14,7 +14,18 @@ class BlockBookmarkImageView: UIImageView {
     
     
     func update(imageId: String) {
-        kf.setImage(with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)))
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: frame.size,
+                backgroundColor: UIColor.grayscaleWhite
+            ),
+            color: UIColor.grayscale10
+        )
+        
+        kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            placeholder: placeholder
+        )
     }
     
     @available(*, unavailable)

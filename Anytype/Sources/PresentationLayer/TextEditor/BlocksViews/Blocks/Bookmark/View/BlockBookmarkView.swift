@@ -16,7 +16,6 @@ final class BlockBookmarkView: UIView {
     }
     
     func handle(state: BlockBookmarkContentState) {
-        print(state)
         removeAllSubviews()
         informationView.update(state: state)
         

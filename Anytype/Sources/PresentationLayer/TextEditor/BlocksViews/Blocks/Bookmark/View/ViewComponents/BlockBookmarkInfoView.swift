@@ -65,8 +65,18 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: Layout.iconSize,
+                cornerRadius: 0,
+                backgroundColor: UIColor.grayscaleWhite
+            ),
+            color: UIColor.grayscale10
+        )
+        
         iconView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: payload.imageHash, width: .thumbnail))
+            with: UrlResolver.resolvedUrl(.image(id: payload.imageHash, width: .thumbnail)),
+            placeholder: placeholder
         )
     }
     
@@ -94,8 +104,8 @@ final class BlockBookmarkInfoView: UIView {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        view.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        view.heightAnchor.constraint(equalToConstant: Layout.iconSize.height).isActive = true
+        view.widthAnchor.constraint(equalToConstant: Layout.iconSize.width).isActive = true
         return view
     }()
     
@@ -106,4 +116,10 @@ final class BlockBookmarkInfoView: UIView {
         view.textColor = .grayscale90
         return view
     }()
+}
+
+extension BlockBookmarkInfoView {
+    enum Layout {
+        static let iconSize = CGSize(width: 16, height: 16)
+    }
 }
