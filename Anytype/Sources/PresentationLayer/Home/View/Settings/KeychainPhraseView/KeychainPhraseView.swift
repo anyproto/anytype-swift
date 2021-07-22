@@ -1,4 +1,6 @@
 import SwiftUI
+import Amplitude
+
 
 struct KeychainPhraseView: View {
     @ObservedObject var viewModel: KeychainPhraseViewModel
@@ -20,6 +22,9 @@ struct KeychainPhraseView: View {
         .padding([.leading, .trailing])
         .snackbar(isShowing: $viewModel.showSnackbar, text: AnytypeText("Keychain phrase copied to clipboard", style: .caption))
         .onAppear {
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.showKeychainPhraseScreen)
+
             viewModel.obtainRecoveryPhrase()
         }
     }

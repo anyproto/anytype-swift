@@ -40,22 +40,22 @@ struct HomeTabsView: View {
             switch tab {
             case .favourites:
                 // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.favoritesPage)
+                Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
                 
                 break // updates via subscriptions
             case .recent:
                 // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.recentPage)
+                Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
 
                 model.updateRecentTab()
             case .inbox:
                 // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.inboxPage)
+                Amplitude.instance().logEvent(AmplitudeEventsName.inboxTabSelected)
 
                 model.updateInboxTab()
             case .archive:
                 // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.archivePage)
+                Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
 
                 model.updateArchiveTab()
             }

@@ -19,6 +19,10 @@ struct ObjectBasicIconPicker: View {
             tabBarView
         }
         .ignoresSafeArea(.keyboard)
+        .onAppear {
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseEmojiMenu)
+        }
     }
     
     private var emojiTabView: some View {

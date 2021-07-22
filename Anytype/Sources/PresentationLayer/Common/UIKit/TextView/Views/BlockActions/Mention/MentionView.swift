@@ -1,5 +1,7 @@
 
 import UIKit
+import Amplitude
+
 
 final class MentionView: DismissableInputAccessoryView {
 
@@ -17,6 +19,11 @@ final class MentionView: DismissableInputAccessoryView {
         super.didMoveToWindow()
         guard let windowRootViewController = window?.rootViewController?.children.last else { return }
         addMentionsController(to: windowRootViewController)
+    }
+
+    override func didShow(from textView: UITextView) {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.popupMentionMenu)
     }
     
     private func addMentionsController(to controller: UIViewController) {

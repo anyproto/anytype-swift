@@ -36,7 +36,12 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     }
     private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+            .handleEvents(receiveSubscription: { _ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextStyle,
+                                              withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)])
+            })
+            .eraseToAnyPublisher()
     }
     
     // MARK: SetForegroundColor
@@ -55,6 +60,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
         }).eraseToAnyPublisher()
     }
+
     private func split(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: .bottom, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
@@ -65,7 +71,12 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         Anytype_Rpc.Block.Merge.Service.invoke(
             contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global()
         )    
-        .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+        .handleEvents(receiveSubscription: { _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
+        })
+        .eraseToAnyPublisher()
     }
     
     // MARK: Checked
@@ -76,10 +87,14 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             checked: newValue,
             queue: .global()
         )
-            .map(\.event)
-            .map(ServiceSuccess.init(_:))
-            .subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
+        .map(\.event)
+        .map(ServiceSuccess.init(_:))
+        .subscribe(on: DispatchQueue.global())
+        .handleEvents(receiveSubscription: { _ in
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextChecked)
+        })
+        .eraseToAnyPublisher()
     }
     
     func toggleWholeBlockMarkup(

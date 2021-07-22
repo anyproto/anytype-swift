@@ -4,6 +4,8 @@ import BlocksModels
 import UIKit
 import ProtobufMessages
 import SwiftProtobuf
+import Amplitude
+
 
 extension BlockActionsServiceList {
     enum PossibleError: Error {
@@ -43,6 +45,10 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
             .map(\.event)
             .map(ServiceSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveRequest:  {_ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
+            })
             .eraseToAnyPublisher()
     }
 
@@ -51,15 +57,26 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     private func setAlign(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveRequest:  {_ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
+            })
+            .eraseToAnyPublisher()
     }
 
     func setDivStyle(contextID: BlockId, blockIds: [BlockId], style: DividerStyle) -> AnyPublisher<ServiceSuccess, Error> {
         let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(style)
         return setDivStyle(contextID: contextID, blockIds: blockIds, style: style)
     }
+
     private func setDivStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.BlockList.Set.Div.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.BlockList.Set.Div.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+            .handleEvents(receiveRequest:  {_ in
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetDivStyle)
+            })
+            .eraseToAnyPublisher()
     }
     
     func setPageIsArchived(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ServiceSuccess, Error> {

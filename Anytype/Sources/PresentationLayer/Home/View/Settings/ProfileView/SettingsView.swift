@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 
 struct SettingsView: View {
@@ -25,6 +26,10 @@ struct SettingsView: View {
         .alert(isPresented: $logginOut) {
             alert
         }
+        .onAppear {
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.popupSettings)
+        }
     }
     
     private var alert: Alert {
@@ -39,6 +44,8 @@ struct SettingsView: View {
             secondaryButton: Alert.Button.destructive(
                 AnytypeText.buildText("Log out", style: .body)
             ) {
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileLogOut)
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 viewModel.logout()
             }

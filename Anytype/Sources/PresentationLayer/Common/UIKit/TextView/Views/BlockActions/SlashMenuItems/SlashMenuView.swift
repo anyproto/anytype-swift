@@ -1,4 +1,6 @@
 import UIKit
+import Amplitude
+
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
@@ -51,6 +53,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
     }
     
     override func didShow(from textView: UITextView) {
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.popupSlashMenu)
+        
         slashMenuActionsHandler.didShowMenuView(from: textView)
     }
     

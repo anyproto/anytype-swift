@@ -1,7 +1,6 @@
 import UIKit
 import BlocksModels
 import Combine
-import Amplitude
 
 
 protocol BlockActionHandlerProtocol {
@@ -226,9 +225,6 @@ private extension BlockActionHandler {
         
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
-
                 let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
                 completion?(value)
             }
