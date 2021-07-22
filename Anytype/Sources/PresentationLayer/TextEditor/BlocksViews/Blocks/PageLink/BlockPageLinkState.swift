@@ -1,10 +1,12 @@
 import BlocksModels
 
 extension BlockPageLinkState {
+    
     enum Style: Hashable, Equatable {
         case noContent
         case emoji(String)
     }
+    
 }
 
 struct BlockPageLinkState: Hashable, Equatable {
@@ -18,19 +20,8 @@ struct BlockPageLinkState: Hashable, Equatable {
         self.init(
             archived: pageDetails.isArchived ?? false,
             title: pageDetails.name ?? "",
-            style: style(emoji: pageDetails.iconEmoji)
+            style: .init(emoji: pageDetails.iconEmoji)
         )
-        
-        func style(emoji: String?) -> Style {
-            guard let emoji = emoji else {
-                return .noContent
-            }
-            guard !emoji.isEmpty else {
-                return .noContent
-            }
-            
-            return .emoji(emoji)
-        }
     }
     
     init(archived: Bool, title: String, style: Style) {
@@ -38,4 +29,17 @@ struct BlockPageLinkState: Hashable, Equatable {
         self.title = title
         self.style = style
     }
+}
+
+private extension BlockPageLinkState.Style {
+    
+    init(emoji: String?) {
+        guard let emoji = emoji, !emoji.isEmpty else {
+            self = .noContent
+            return
+        }
+        
+        self = .emoji(emoji)
+    }
+    
 }
