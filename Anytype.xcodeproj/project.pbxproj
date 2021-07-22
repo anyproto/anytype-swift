@@ -263,6 +263,7 @@
 		3D36B09D26A6DE250046C90F /* ContextualMenu+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B09A26A6DE250046C90F /* ContextualMenu+Image.swift */; };
 		3D36B0A226A71B280046C90F /* DetailsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B0A126A71B280046C90F /* DetailsLoader.swift */; };
 		3D36B0A726A71B660046C90F /* EventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B0A626A71B660046C90F /* EventProcessor.swift */; };
+		3D36B0C526A870E80046C90F /* BlockBookmarkInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B0C426A870E80046C90F /* BlockBookmarkInfoView.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */; };
 		3D402BF0268A5195002E938C /* BlockViewModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D402BEF268A5195002E938C /* BlockViewModelsHolder.swift */; };
@@ -854,6 +855,7 @@
 		3D36B09A26A6DE250046C90F /* ContextualMenu+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContextualMenu+Image.swift"; sourceTree = "<group>"; };
 		3D36B0A126A71B280046C90F /* DetailsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsLoader.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/Utils/DetailsLoader.swift; sourceTree = SOURCE_ROOT; };
 		3D36B0A626A71B660046C90F /* EventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventProcessor.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Utils/EventProcessor.swift; sourceTree = SOURCE_ROOT; };
+		3D36B0C426A870E80046C90F /* BlockBookmarkInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBookmarkInfoView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/BlockBookmarkInfoView.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D402BEF268A5195002E938C /* BlockViewModelsHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelsHolder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/BlockViewModelsHolder.swift; sourceTree = SOURCE_ROOT; };
@@ -2616,6 +2618,7 @@
 				120F7D77267F873500327734 /* BlockBookmarkContainerView.swift */,
 				120F7D7B267F881700327734 /* BlockBookmarkView.swift */,
 				120F7D81267F8AED00327734 /* BlockBookmarkContentView.swift */,
+				3D36B0C426A870E80046C90F /* BlockBookmarkInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3780,6 +3783,7 @@
 				0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				3D402BF4268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift in Sources */,
+				3D36B0C526A870E80046C90F /* BlockBookmarkInfoView.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				3D67F947269E07F800883681 /* MiddlewareBuilder.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* EditorModuleDocumentViewInput.swift in Sources */,
