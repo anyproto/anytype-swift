@@ -15,11 +15,13 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         }
     }
     
+    lazy var bookmarkHeight: NSLayoutConstraint = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
     init(configuration: BlockBookmarkConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         
         apply(state: currentConfiguration.state)
+        bookmarkHeight.isActive = true
     }
     
     @available(*, unavailable)
@@ -33,8 +35,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
     
     private func apply(state: BlockBookmarkState) {
-        bookmarkView.removeFromSuperview()
-        emptyView.removeFromSuperview()
+        removeAllSubviews()
         
         switch state {
         case .empty:
@@ -45,14 +46,14 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         case let .onlyURL(url):
             addSubview(bookmarkView) {
                 $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
-                $0.height.equal(to: Layout.emptyViewHeight)
             }
+            bookmarkHeight.constant = Layout.emptyViewHeight
             bookmarkView.handle(state: .onlyURL(url))
         case let .fetched(payload):
             addSubview(bookmarkView) {
                 $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
-                $0.height.equal(to: Layout.bookmarkViewHeight)
             }
+            bookmarkHeight.constant = Layout.bookmarkViewHeight
             bookmarkView.handle(state: .fetched(payload))
         }
     }

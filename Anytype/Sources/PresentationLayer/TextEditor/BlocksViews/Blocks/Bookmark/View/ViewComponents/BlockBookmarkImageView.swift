@@ -13,13 +13,8 @@ class BlockBookmarkImageView: UIImageView {
     }
     
     
-    func update(state: BlockBookmarkContentState) {
-        guard case let .fetched(payload) = state, !payload.imageHash.isEmpty else {
-            self.image = nil
-            return
-        }
-        
-        kf.setImage(with: UrlResolver.resolvedUrl(.image(id: payload.iconHash, width: .default)))
+    func update(imageId: String) {
+        kf.setImage(with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)))
     }
     
     @available(*, unavailable)

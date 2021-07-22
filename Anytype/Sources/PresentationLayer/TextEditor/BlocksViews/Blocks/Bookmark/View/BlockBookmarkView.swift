@@ -8,61 +8,41 @@ final class BlockBookmarkView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        setupUIElements()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
     }
-
-    func setupUIElements() {        
-        layoutUsing.stack {
-            $0.hStack(
-                informationView,
-                $0.hGap(),
-                imageView
-            )
-        }
-        
-        imageView.layoutUsing.anchors {
-            $0.height.equal(to: Layout.imageHeightConstant)
-            $0.width.equal(to: widthAnchor, multiplier: 0.3)
-        }
-    }
-    
-    func addLayoutForImageView() {
-        addSubview(imageView)
-        
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: informationView.trailingAnchor, constant: 16),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            imageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
-            imageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor),
-            
-            imageView.widthAnchor.constraint(
-                equalTo: self.widthAnchor, multiplier: Layout.imageSizeFactor
-            ),
-            imageView.heightAnchor.constraint(equalToConstant: Layout.imageHeightConstant)
-        ])
-    }
     
     func handle(state: BlockBookmarkContentState) {
+        print(state)
+        removeAllSubviews()
         informationView.update(state: state)
-        imageView.update(state: state)
         
-        switch state {
-        case let .fetched(payload):
-            if !payload.imageHash.isEmpty {
-                addLayoutForImageView()
-                imageView.isHidden = false
-            } else {
-                imageView.removeFromSuperview()
-                imageView.isHidden = true
+        guard case let .fetched(payload) = state, !payload.imageHash.isEmpty else {
+            addSubview(informationView) {
+                $0.pinToSuperview()
             }
-        default:
-            break
+            
+            return
+        }
+        
+        layoutWithImage(imageId: payload.iconHash)
+    }
+    
+    func layoutWithImage(imageId: BlockId) {
+        imageView.update(imageId: imageId)
+        
+        addSubview(informationView) {
+            $0.pinToSuperview(excluding: [.right])
+        }
+        
+        addSubview(imageView) {
+            $0.height.equal(to: heightAnchor)
+            $0.width.equal(to: widthAnchor, multiplier: Layout.imageSizeFactor)
+            $0.leading.equal(to: informationView.trailingAnchor)
+            $0.trailing.equal(to: trailingAnchor)
         }
     }
 }
