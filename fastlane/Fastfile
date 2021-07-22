@@ -47,6 +47,10 @@ platform :ios do
 
     upload_build_to_testflight
 
+    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
+    release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
+    upload_symbols_to_crashlytics(gsp_path: options[:release] ? release_plist : dev_plist)
+    
     # Reset icon changes
     reset_git_repo(skip_clean: true)
 
