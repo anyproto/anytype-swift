@@ -126,12 +126,6 @@ struct PageCell: View {
                 CroppingImageProcessor(size: Constants.iconImageSize),
                 RoundCornerImageProcessor(radius: radius)
             ])
-            .placeholder {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color.grayscale10)
-                    .frame(width: Constants.iconImageSize.width, height: Constants.iconImageSize.height)
-            }
-            .fade(duration: 0.25)
     }
     
     private var iconSpacer: some View {
