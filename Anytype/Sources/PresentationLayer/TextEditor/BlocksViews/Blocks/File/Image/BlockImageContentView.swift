@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import BlocksModels
+import Kingfisher
 
 final class BlockImageContentView: UIView & UIContentView {
     
@@ -127,10 +128,30 @@ final class BlockImageContentView: UIView & UIContentView {
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
         
+        imageView.kf.cancelDownloadTask()
+        imageView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            placeholder: UIImage.blockFile.noImage
+        ) { [weak self] result in
+            guard
+                case let .success(success) = result,
+                let self = self
+            else { return }
+            
+            self.imageView.contentMode = self.isImageLong(image: success.image) ? .scaleAspectFit : .scaleAspectFill
+        }
+    }
+    
+    private func isImageLong(image: UIImage) -> Bool {
+        if image.size.height / image.size.width > 3 {
+            return true
+        }
         
-        currentConfiguration.imageLoader.cleanupSubscription()
-        currentConfiguration.imageLoader.imageView = imageView
-        currentConfiguration.imageLoader.update(imageId: imageId, placeholder: UIImage.blockFile.noImage)
+        if image.size.width / image.size.height > 3 {
+            return true
+        }
+        
+        return false
     }
 }
 

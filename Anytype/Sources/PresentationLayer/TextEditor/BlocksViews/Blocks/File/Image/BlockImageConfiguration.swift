@@ -11,7 +11,6 @@ struct BlockImageConfiguration: UIContentConfiguration, Hashable {
     }
     
     let fileData: BlockFile
-    let imageLoader = ImageLoader()
 
     init(_ fileData: BlockFile) {
         self.fileData = fileData

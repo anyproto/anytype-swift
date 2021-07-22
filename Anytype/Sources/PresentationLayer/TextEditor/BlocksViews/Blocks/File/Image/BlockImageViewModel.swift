@@ -1,6 +1,7 @@
 import UIKit
 import BlocksModels
 import Combine
+import Kingfisher
 
 struct BlockImageViewModel: BlockViewModelProtocol {
     var diffable: AnyHashable {
@@ -18,8 +19,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     let indentationLevel: Int
     let showIconPicker: (BlockId) -> ()
-    
-    let imageLoader = ImageLoader()
     
     init?(
         information: BlockInformation,
@@ -72,12 +71,22 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     }
     
     private func downloadImage() {
-        guard let image = ImageProperty(imageId: fileData.metadata.hash).property else {
+        guard
+            let url = UrlResolver.resolvedUrl(.image(id: fileData.metadata.hash, width: .default))
+        else {
             return
+        }
+        
+        let saveAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            KingfisherManager.shared.retrieveImage(with: url) { result in
+                guard case let .success(success) = result else { return }
+                
+                UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
+            }
         }
 
         let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default) { _ in UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) })
+        alert.addAction(saveAction)
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         windowHolder?.rootNavigationController.present(alert, animated: true, completion: nil)
     }

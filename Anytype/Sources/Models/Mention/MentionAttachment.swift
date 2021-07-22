@@ -1,5 +1,6 @@
 import Combine
 import UIKit
+import Kingfisher
 
 final class MentionAttachment: NSTextAttachment {
     
@@ -13,7 +14,6 @@ final class MentionAttachment: NSTextAttachment {
     private var icon: MentionIcon?
     private var iconSize: CGSize?
     private var fontPointSize: CGFloat?
-    private var imageProperty: ImageProperty?
     
     private var subscriptions = [AnyCancellable]()
     
@@ -175,24 +175,21 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func loadImage(imageId: String, isBasicLayout: Bool) {
-        let property = ImageProperty(imageId: imageId, ImageParameters(width: .thumbnail))
-        let subscription = property.stream.sink { [weak self] image in
-            guard
-                let image = image,
-                let self = self
-            else { return }
+        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
+        let imageSize = self.iconSize ?? Constants.defaultIconSize
+        let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
+        let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
+            |> CroppingImageProcessor(size: imageSize)
+            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
+        
+        KingfisherManager.shared.retrieveImage(
+            with: url,
+            options: [.processor(processor)]
+        ) { [weak self] result in
+            guard case let .success(result) = result else { return }
             
-            let imageSize = self.iconSize ?? Constants.defaultIconSize
-            let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
-            
-            let resultImage = image
-                .scaled(to: imageSize)
-                .rounded(radius: cornerRadius)
-            
-            self.addLeadingSpaceAndDisplay(resultImage)
+            self?.addLeadingSpaceAndDisplay(result.image)
         }
-        subscriptions.append(subscription)
-        imageProperty = property
     }
     
     private func addLeadingSpaceAndDisplay(_ image: UIImage) {

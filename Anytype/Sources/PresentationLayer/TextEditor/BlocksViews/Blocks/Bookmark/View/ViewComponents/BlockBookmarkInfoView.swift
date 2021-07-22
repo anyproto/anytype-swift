@@ -2,8 +2,6 @@ import UIKit
 import Combine
 
 final class BlockBookmarkInfoView: UIView {
-    private var iconSubscription: AnyCancellable?
-    private var iconProperty: ImageProperty?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,20 +46,13 @@ final class BlockBookmarkInfoView: UIView {
     
     private func updateIconSubscription(state: BlockBookmarkState) {
         guard case let .fetched(payload) = state, !payload.iconHash.isEmpty else {
-            iconProperty = nil
-            iconSubscription = nil
             iconView.image = nil
-            
             return
         }
         
-        iconProperty = ImageProperty(imageId: payload.imageHash, .init(width: .thumbnail))
-        iconSubscription = iconProperty?.stream
-            .safelyUnwrapOptionals()
-            .receiveOnMain()
-            .sink { [weak self] icon in
-                self?.iconView.image = icon
-            }
+        iconView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: payload.imageHash, width: .thumbnail))
+        )
     }
     
     private func setup() {
