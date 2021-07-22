@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 
 final class DocumentIconImageView: UIView {
     
@@ -16,7 +17,6 @@ final class DocumentIconImageView: UIView {
     // MARK: - Private properties
     
     private let imageView: UIImageView = UIImageView()
-    private lazy var imageLoader = ImageLoader(imageView: imageView)
     
     // MARK: Initialization
     
@@ -59,7 +59,7 @@ extension DocumentIconImageView: ConfigurableView {
     }
     
     func configure(model: Model) {
-        imageLoader.cleanupSubscription()
+        imageView.kf.cancelDownloadTask()
         
         switch model {
         case let .basic(basicIcon):
@@ -74,18 +74,7 @@ extension DocumentIconImageView: ConfigurableView {
         
         switch basicIcon {
         case let .imageId(imageId):
-            imageLoader.update(
-                imageId: imageId,
-                parameters: ImageParameters(width: .thumbnail),
-                placeholder: PlaceholderImageBuilder.placeholder(
-                    with: ImageGuideline(
-                        size: Constants.size,
-                        cornerRadius: Constants.basicCornerRadius,
-                        backgroundColor: UIColor.grayscaleWhite
-                    ),
-                    color: UIColor.grayscale10
-                )
-            )
+            downloadImage(imageId: imageId, cornerRadius: Constants.basicCornerRadius)
         case let .preview(image):
             imageView.image = image
         }
@@ -96,18 +85,7 @@ extension DocumentIconImageView: ConfigurableView {
         
         switch profileIcon {
         case let .imageId(imageId):
-            imageLoader.update(
-                imageId: imageId,
-                parameters: ImageParameters(width: .thumbnail),
-                placeholder: PlaceholderImageBuilder.placeholder(
-                    with: ImageGuideline(
-                        size: Constants.size,
-                        cornerRadius: Constants.profileCornerRadius,
-                        backgroundColor: UIColor.grayscaleWhite
-                    ),
-                    color: UIColor.grayscale10
-                )
-            )
+            downloadImage(imageId: imageId, cornerRadius: Constants.profileCornerRadius)
         case let .placeholder(character):
             imageView.image = PlaceholderImageBuilder.placeholder(
                 with: ImageGuideline(
@@ -121,6 +99,27 @@ extension DocumentIconImageView: ConfigurableView {
         case let .preview(image):
             imageView.image = image
         }
+    }
+    
+    private func downloadImage(imageId: String, cornerRadius: CGFloat) {
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: Constants.size,
+                cornerRadius: cornerRadius,
+                backgroundColor: UIColor.grayscaleWhite
+            ),
+            color: UIColor.grayscale10
+        )
+        
+        let processor = ResizingImageProcessor(referenceSize: Constants.size, mode: .aspectFill)
+        .append(another: CroppingImageProcessor(size: Constants.size))
+        .append(another: RoundCornerImageProcessor(radius: .point(cornerRadius)))
+        
+        imageView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            placeholder: placeholder,
+            options: [.processor(processor)]
+        )
     }
     
 }
