@@ -153,6 +153,7 @@ class SelectProfileViewModel: ObservableObject {
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
+        windowHolder?.configureMiddlewareConfiguration()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
 }
