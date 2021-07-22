@@ -3,16 +3,6 @@ import UIKit
 import BlocksModels
     
 final class BlockBookmarkContainerView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private let emptyView: BlocksFileEmptyView = {
         let view = BlocksFileEmptyView(
             viewData: .init(
@@ -32,6 +22,16 @@ final class BlockBookmarkContainerView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: UIKitView / Apply
@@ -41,36 +41,16 @@ extension BlockBookmarkContainerView {
         bookmarkView.handle(state: state)
         handle(state: state)
     }
-    
-    func updateIcon(icon: UIImage) {
-        bookmarkView.updateIcon(icon: icon)
-    }
-    
-    func updateImage(image: UIImage) {
-        bookmarkView.updateImage(image: image)
-    }
 }
 
 private extension BlockBookmarkContainerView {
     
     func setup() {
-        setupUIElements()
-        addBookmarkViewLayout()
-        addEmptyViewLayout()
-    }
-    
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(bookmarkView)
         addSubview(emptyView)
-    }
-    
-    func addBookmarkViewLayout() {
+        
         bookmarkView.pinAllEdges(to: self, insets: Constants.Layout.bookmarkViewInsets)
-    }
     
-    func addEmptyViewLayout() {
         if let superview = emptyView.superview {
             let heightAnchor = emptyView.heightAnchor.constraint(equalToConstant: Constants.Layout.emptyViewHeight)
             let bottomAnchor = emptyView.bottomAnchor.constraint(equalTo: superview.bottomAnchor)

@@ -1,6 +1,9 @@
 import UIKit
+import Combine
 
 final class BlockBookmarkInfoView: UIStackView {
+    private var iconSubscription: AnyCancellable?
+    private var iconProperty: ImageProperty?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -13,14 +16,11 @@ final class BlockBookmarkInfoView: UIStackView {
         fatalError("Not implemented")
     }
     
-    func updateIcon(icon: UIImage) {
-        iconView.image = icon
-    }
-    
     func update(state: BlockBookmarkState) {
+        updateIconSubscription(state: state)
         switch state {
-        case let .onlyURL(payload):
-            urlView.text = payload.url
+        case let .onlyURL(url):
+            urlView.text = url
             
             titleView.isHidden = true
             descriptionView.isHidden = true
@@ -44,6 +44,24 @@ final class BlockBookmarkInfoView: UIStackView {
             iconView.isHidden = true
             urlStackView.isHidden = true
         }
+    }
+    
+    private func updateIconSubscription(state: BlockBookmarkState) {
+        guard case let .fetched(payload) = state, !payload.iconHash.isEmpty else {
+            iconProperty = nil
+            iconSubscription = nil
+            iconView.image = nil
+            
+            return
+        }
+        
+        iconProperty = ImageProperty(imageId: payload.imageHash, .init(width: .thumbnail))
+        iconSubscription = iconProperty?.stream
+            .safelyUnwrapOptionals()
+            .receiveOnMain()
+            .sink { [weak self] icon in
+                self?.iconView.image = icon
+            }
     }
     
     private func setup() {
