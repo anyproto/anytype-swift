@@ -3,6 +3,7 @@ import Combine
 import ProtobufMessages
 import SwiftProtobuf
 import UIKit
+import Kingfisher
 
 final class MentionsViewModel {
     
@@ -13,9 +14,8 @@ final class MentionsViewModel {
     private let service: MentionObjectsService
     private weak var view: MentionsView?
     private var subscription: AnyCancellable?
-    private var imageLoadingSubscriptions = [AnyCancellable]()
-    private var imageStorage = [String: ImageProperty]()
     private let selectionHandler: (MentionObject) -> Void
+    private var imageStorage = [String: UIImage]()
     
     init(service: MentionObjectsService, selectionHandler: @escaping (MentionObject) -> Void) {
         self.service = service
@@ -24,7 +24,6 @@ final class MentionsViewModel {
     
     func setFilterString(_ string: String) {
         service.filterString = string
-        imageLoadingSubscriptions.removeAll()
         obtainMentions()
     }
     
@@ -63,8 +62,8 @@ final class MentionsViewModel {
     }
     
     func image(for mention: MentionObject, size: CGSize, radius: CGFloat) -> UIImage? {
-        if let imageProperty = imageStorage[mention.id] {
-            return imageProperty.property
+        if let image = imageStorage[mention.id] {
+            return image
         }
         
         guard let icon = mention.icon else { return nil }
@@ -108,13 +107,24 @@ final class MentionsViewModel {
     }
     
     private func loadImage(by id: String, mention: MentionObject) {
-        let property = ImageProperty(imageId: id, ImageParameters(width: .thumbnail))
-        let loadImage = property.stream.sink { [weak self] image in
-            guard image != nil else { return }
-            self?.view?.update(mention: .mention(mention))
+        guard let url = UrlResolver.resolvedUrl(.image(id: id, width: .thumbnail)) else { return }
+        let imageSize = CGSize(width: 40, height: 40)
+        
+        let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
+            |> CroppingImageProcessor(size: imageSize)
+        
+        KingfisherManager.shared.retrieveImage(
+            with: url,
+            options: [.processor(processor)]
+        ) { [weak self] result in
+            guard
+                case let .success(result) = result,
+                let self = self
+            else { return }
+            
+            self.imageStorage[mention.id] = result.image
+            self.view?.update(mention: .mention(mention))
         }
-        imageLoadingSubscriptions.append(loadImage)
-        imageStorage[mention.id] = property
     }
     
     private func obtainMentions() {
