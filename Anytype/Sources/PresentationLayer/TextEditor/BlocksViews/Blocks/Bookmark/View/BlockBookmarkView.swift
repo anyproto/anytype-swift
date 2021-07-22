@@ -48,7 +48,7 @@ final class BlockBookmarkView: UIView {
         ])
     }
     
-    func handle(state: BlockBookmarkState) {
+    func handle(state: BlockBookmarkContentState) {
         informationView.update(state: state)
         imageView.update(state: state)
         
@@ -65,6 +65,11 @@ final class BlockBookmarkView: UIView {
             break
         }
     }
+}
+
+enum BlockBookmarkContentState {
+    case onlyURL(String)
+    case fetched(BlockBookmarkPayload)
 }
 
 private extension BlockBookmarkView {

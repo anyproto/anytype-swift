@@ -14,7 +14,7 @@ final class BlockBookmarkInfoView: UIView {
         fatalError("Not implemented")
     }
     
-    func update(state: BlockBookmarkState) {
+    func update(state: BlockBookmarkContentState) {
         updateIconSubscription(state: state)
         switch state {
         case let .onlyURL(url):
@@ -35,16 +35,10 @@ final class BlockBookmarkInfoView: UIView {
             urlView.isHidden = false
             iconView.isHidden = self.iconView.image == nil
             urlStackView.isHidden = false
-        default:
-            titleView.isHidden = true
-            descriptionView.isHidden = true
-            urlView.isHidden = true
-            iconView.isHidden = true
-            urlStackView.isHidden = true
         }
     }
     
-    private func updateIconSubscription(state: BlockBookmarkState) {
+    private func updateIconSubscription(state: BlockBookmarkContentState) {
         guard case let .fetched(payload) = state, !payload.iconHash.isEmpty else {
             iconView.image = nil
             return

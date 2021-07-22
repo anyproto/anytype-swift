@@ -13,7 +13,7 @@ class BlockBookmarkImageView: UIImageView {
     }
     
     
-    func update(state: BlockBookmarkState) {
+    func update(state: BlockBookmarkContentState) {
         guard case let .fetched(payload) = state, !payload.imageHash.isEmpty else {
             self.image = nil
             return

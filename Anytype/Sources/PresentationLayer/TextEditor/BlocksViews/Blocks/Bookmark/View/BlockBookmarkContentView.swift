@@ -33,8 +33,6 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
     
     private func apply(state: BlockBookmarkState) {
-        bookmarkView.handle(state: state)
-        
         switch state {
         case .empty:
             bookmarkView.removeFromSuperview()
@@ -42,18 +40,20 @@ final class BlockBookmarkContentView: UIView & UIContentView {
                 $0.pinToSuperview(insets: Layout.emptyViewInsets)
                 $0.height.equal(to: Layout.emptyViewHeight)
             }
-        case .onlyURL:
+        case let .onlyURL(url):
             emptyView.removeFromSuperview()
             addSubview(bookmarkView) {
                 $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
                 $0.height.equal(to: Layout.emptyViewHeight)
             }
-        case .fetched:
+            bookmarkView.handle(state: .onlyURL(url))
+        case let .fetched(payload):
             emptyView.removeFromSuperview()
             addSubview(bookmarkView) {
                 $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
                 $0.height.equal(to: Layout.bookmarkViewHeight)
             }
+            bookmarkView.handle(state: .fetched(payload))
         }
     }
 
