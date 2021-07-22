@@ -4,7 +4,7 @@ import BlocksModels
     
 final class BlockBookmarkView: UIView {
     private var informationView = BlockBookmarkInfoView()
-    private var imageView: UIImageView!
+    private var imageView = BlockBookmarkImageView()
     
     private var imageViewWidthConstraint: NSLayoutConstraint?
     private var imageViewHeightConstraint: NSLayoutConstraint?
@@ -22,21 +22,10 @@ final class BlockBookmarkView: UIView {
     }
 
     func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.imageView = {
-            let view = UIImageView()
-            view.contentMode = .scaleAspectFit
-            view.clipsToBounds = true
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        
+        self.translatesAutoresizingMaskIntoConstraints = false        
         
         addSubview(informationView)
         addSubview(imageView)
-        
-        imageView.backgroundColor = .white
     }
     
     /// Layout
@@ -50,32 +39,26 @@ final class BlockBookmarkView: UIView {
     }
     
     func addLayoutForImageView() {
-        if let view = self.imageView, let superview = view.superview {
-            self.imageViewWidthConstraint = view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: Layout.imageSizeFactor)
-            self.imageViewWidthConstraint?.isActive = true
-            
-            self.imageViewHeightConstraint = view.heightAnchor.constraint(equalToConstant: Layout.imageHeightConstant)
-            self.imageViewHeightConstraint?.isActive = true
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: informationView.trailingAnchor, constant: Layout.commonInsets.left),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(greaterThanOrEqualTo: superview.topAnchor),
-                view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor)
-            ])
-        }
+        imageViewWidthConstraint = imageView.widthAnchor.constraint(
+            equalTo: self.widthAnchor, multiplier: Layout.imageSizeFactor
+        )
+        imageViewWidthConstraint?.isActive = true
+        
+        imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: Layout.imageHeightConstant)
+        imageViewHeightConstraint?.isActive = true
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(
+                equalTo: informationView.trailingAnchor, constant: Layout.commonInsets.left
+            ),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            imageView.topAnchor.constraint(greaterThanOrEqualTo: self.topAnchor),
+            imageView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor)
+        ])
     }
     
-    func updateIcon(icon: UIImage) {
-        informationView.updateIcon(icon: icon)
-    }
-    
-    func updateImage(image: UIImage) {
-        imageView.image = image
-    }
-    
-    /// Configurations
     func handle(state: BlockBookmarkState) {
         informationView.update(state: state)
+        imageView.update(state: state)
         
         switch state {
         case let .fetched(payload):

@@ -6,11 +6,6 @@ import BlocksModels
 final class BlockBookmarkContentView: UIView & UIContentView {
     private let containerView = BlockBookmarkContainerView()
     
-    private var imageSubscription: AnyCancellable?
-    private var iconSubscription: AnyCancellable?
-    private var imageProperty: ImageProperty?
-    private var iconProperty: ImageProperty?
-    
     private var currentConfiguration: BlockBookmarkConfiguration
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
@@ -42,29 +37,6 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
 
     private func onDataUpdate(bookmark: BlockBookmark) {
-        setupImageSubscriptions(bookmark: bookmark)
         containerView.apply(state: bookmark.blockBookmarkState)
-    }
-    
-    private func setupImageSubscriptions(bookmark: BlockBookmark) {
-        if case let .fetched(payload) = bookmark.blockBookmarkState {
-            self.imageProperty = ImageProperty(imageId: payload.imageHash, .init(width: .default))
-            self.iconProperty = ImageProperty(imageId: payload.iconHash, .init(width: .thumbnail))
-        } else {
-            self.imageProperty = nil
-            self.iconProperty = nil
-        }
-        
-        iconSubscription = iconProperty?.stream.receiveOnMain().sink { [weak self] icon in
-            icon.flatMap {
-                self?.containerView.updateIcon(icon: $0)
-            }
-        }
-
-        imageSubscription = imageProperty?.stream.receiveOnMain().sink { [weak self] image in
-            image.flatMap {
-                self?.containerView.updateImage(image: $0)
-            }
-        }
     }
 }

@@ -3,16 +3,6 @@ import UIKit
 import BlocksModels
     
 final class BlockBookmarkContainerView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private let emptyView: BlocksFileEmptyView = {
         let view = BlocksFileEmptyView(
             viewData: .init(
@@ -32,6 +22,16 @@ final class BlockBookmarkContainerView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: UIKitView / Apply
@@ -40,14 +40,6 @@ extension BlockBookmarkContainerView {
     func apply(state: BlockBookmarkState) {
         bookmarkView.handle(state: state)
         handle(state: state)
-    }
-    
-    func updateIcon(icon: UIImage) {
-        bookmarkView.updateIcon(icon: icon)
-    }
-    
-    func updateImage(image: UIImage) {
-        bookmarkView.updateImage(image: image)
     }
 }
 
