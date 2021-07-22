@@ -14,19 +14,16 @@ extension BlocksFileEmptyView {
         static let errorText = "Error, try again later"
         static let uploadingText = "Uploading..."
     }
-    
-    struct ViewData {
-        let image: UIImage?
-        let placeholderText: String
-    }
 }
 
 
 class BlocksFileEmptyView: UIView {
-    private let viewData: ViewData
+    private let image: UIImage
+    private let text: String
     
-    init(viewData: ViewData) {
-        self.viewData = viewData
+    init(image: UIImage, text: String) {
+        self.image = image
+        self.text = text
         super.init(frame: .zero)
         
         setup()
@@ -44,8 +41,8 @@ class BlocksFileEmptyView: UIView {
         clipsToBounds = true
         self.layoutMargins = Layout.placeholderInsets
         
-        placeholderLabel.text = viewData.placeholderText
-        placeholderIcon.image = viewData.image
+        placeholderLabel.text = text
+        placeholderIcon.image = image
         
         addSubview(placeholderIcon) {
             $0.centerY.equal(to: centerYAnchor)
@@ -76,7 +73,7 @@ class BlocksFileEmptyView: UIView {
     func change(state: State) {
         switch state {
         case .empty:
-            self.placeholderLabel.text = viewData.placeholderText
+            self.placeholderLabel.text = text
             self.activityIndicator.isHidden = true
             self.activityIndicator.stopAnimating()
         case .uploading:
