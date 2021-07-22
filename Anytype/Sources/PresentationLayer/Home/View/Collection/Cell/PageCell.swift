@@ -122,7 +122,7 @@ struct PageCell: View {
             .placeholder {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.grayscale10)
-                    .frame(width: 48, height: 48)
+                    .frame(width: Constants.iconImageSize.width, height: Constants.iconImageSize.height)
             }
             .fade(duration: 0.25)
     }
