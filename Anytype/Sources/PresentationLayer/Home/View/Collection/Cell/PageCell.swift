@@ -65,13 +65,20 @@ struct PageCell: View {
     
     private var icon: some View {
         Group {
-            switch cellData.icon {
-            case let .basic(basicIcon):
-                makeBasicIconView(basicIcon)
-            case let .profile(profileIcon):
-                makeProfileIconView(profileIcon)
-            case .none:
-                EmptyView()
+            if isRedacted {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(Color.grayscale10)
+                    .frame(width: Constants.iconImageSize.width,
+                           height: Constants.iconImageSize.height)
+            } else {
+                switch cellData.icon {
+                case let .basic(basicIcon):
+                    makeBasicIconView(basicIcon)
+                case let .profile(profileIcon):
+                    makeProfileIconView(profileIcon)
+                case .none:
+                    EmptyView()
+                }
             }
         }
     }
