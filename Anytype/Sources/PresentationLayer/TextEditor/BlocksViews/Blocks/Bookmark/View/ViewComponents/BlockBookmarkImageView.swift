@@ -8,7 +8,7 @@ class BlockBookmarkImageView: UIImageView {
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
-        contentMode = .scaleAspectFit
+        contentMode = .center
         clipsToBounds = true
         backgroundColor = .white
     }

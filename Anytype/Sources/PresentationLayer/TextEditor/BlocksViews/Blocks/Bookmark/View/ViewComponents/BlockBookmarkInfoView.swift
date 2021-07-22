@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class BlockBookmarkInfoView: UIStackView {
+final class BlockBookmarkInfoView: UIView {
     private var iconSubscription: AnyCancellable?
     private var iconProperty: ImageProperty?
     
@@ -65,16 +65,25 @@ final class BlockBookmarkInfoView: UIStackView {
     }
     
     private func setup() {
-        self.axis = .vertical
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .white
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
         
         urlStackView.addArrangedSubview(iconView)
         urlStackView.addArrangedSubview(urlView)
         
-        addArrangedSubview(titleView)
-        addArrangedSubview(descriptionView)
-        addArrangedSubview(urlStackView)
+        let stack = layoutUsing.stack {
+            $0.vStack(distributedTo: .fill,
+                titleView,
+                $0.vGap(fixed: 5),
+                descriptionView,
+                $0.vGap(min: 5),
+                urlStackView
+            )
+        }
+        
+        stack.isLayoutMarginsRelativeArrangement = true
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 15, trailing: 16)
+        
     }
     
     // MARK: - Views

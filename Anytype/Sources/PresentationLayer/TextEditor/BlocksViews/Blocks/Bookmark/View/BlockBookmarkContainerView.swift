@@ -20,6 +20,7 @@ final class BlockBookmarkContainerView: UIView {
         view.layer.borderColor = UIColor.grayscale30.cgColor
         view.layer.cornerRadius = 4
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
         return view
     }()
     
