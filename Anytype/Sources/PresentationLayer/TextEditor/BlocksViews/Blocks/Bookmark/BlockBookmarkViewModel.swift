@@ -21,7 +21,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let openUrl: (URL) -> ()
     
     func makeContentConfiguration() -> UIContentConfiguration {
-        BlockBookmarkConfiguration(bookmarkData: bookmarkData)
+        BlockBookmarkConfiguration(state: bookmarkData.blockBookmarkState)
     }
     
     func didSelectRowInTableView() {

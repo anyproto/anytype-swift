@@ -11,7 +11,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
                   configuration != currentConfiguration else { return }
             
             currentConfiguration = configuration
-            apply(state: currentConfiguration.bookmarkData.blockBookmarkState)
+            apply(state: currentConfiguration.state)
         }
     }
     
@@ -19,7 +19,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         
-        apply(state: currentConfiguration.bookmarkData.blockBookmarkState)
+        apply(state: currentConfiguration.state)
     }
     
     @available(*, unavailable)

@@ -3,7 +3,7 @@ import BlocksModels
 
 struct BlockBookmarkConfiguration: UIContentConfiguration, Hashable {
     
-    let bookmarkData: BlockBookmark
+    let state: BlockBookmarkState
             
     func makeContentView() -> UIView & UIContentView {
         BlockBookmarkContentView(configuration: self)
