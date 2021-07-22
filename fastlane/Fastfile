@@ -47,9 +47,14 @@ platform :ios do
 
     upload_build_to_testflight
 
+    binary_path=`xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | grep -oEi "\/.*" | sed 's/Build\/Products/SourcePackages\/checkouts\/firebase-ios-sdk\/Crashlytics\/upload-symbols/'`
+
     dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
     release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
-    upload_symbols_to_crashlytics(gsp_path: options[:release] ? release_plist : dev_plist)
+    upload_symbols_to_crashlytics(
+      gsp_path: options[:release] ? release_plist : dev_plist,
+      binary_path: binary_path
+    )
     
     # Reset icon changes
     reset_git_repo(skip_clean: true)
