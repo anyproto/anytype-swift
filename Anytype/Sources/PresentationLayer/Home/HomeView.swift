@@ -47,7 +47,13 @@ struct HomeView: View {
             ToolbarItem {
                 Button(action: {
                     UISelectionFeedbackGenerator().selectionChanged()
-                    withAnimation(.ripple) { showSettings.toggle() }
+                    withAnimation(.ripple) {
+                        showSettings.toggle()
+                        if showSettings {
+                            // Analytics
+                            Amplitude.instance().logEvent(AmplitudeEventsName.popupSettings)
+                        }
+                    }
                 }) {
                     Image.main.settings
                 }

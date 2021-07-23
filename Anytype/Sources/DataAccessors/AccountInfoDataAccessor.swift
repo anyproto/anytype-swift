@@ -4,18 +4,15 @@ import UIKit
 import BlocksModels
 
 final class AccountInfoDataAccessor: ObservableObject {
-    @Published var name: String?
-    @Published var avatarId: String?
-    @Published var blockId: BlockId?
     
-    private let defaultName = "Anytype User"
+    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration?.profileBlockId
+    @Published private(set) var name: String?
+    @Published private(set) var avatarId: String?
     
     private let document: BaseDocumentProtocol = BaseDocument()
-    private var subscriptions: Set<AnyCancellable> = []
+    private var subscriptions: [AnyCancellable] = []
     
-    private let configurationService = MiddlewareConfigurationService()
     private let blocksActionsService = BlockActionsServiceSingle()
-    
     
     init() {        
         setUpSubscriptions()
@@ -34,10 +31,7 @@ final class AccountInfoDataAccessor: ObservableObject {
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] accountName in
-                guard let self = self else {
-                    return
-                }
-                self.name = accountName.isEmpty ? self.defaultName : accountName
+                self?.name = accountName.isEmpty ? Constants.defaultName : accountName
             }
             .store(in: &self.subscriptions)
     }
@@ -55,15 +49,24 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func obtainAccountInfo() {
-        configurationService.obtainConfiguration { [weak self] config in
-            guard let self = self else { return }
-            
-            self.blockId = config.profileBlockId
-            
-            self.blocksActionsService.open(contextID: config.profileBlockId, blockID: config.profileBlockId)
-                .sinkWithDefaultCompletion("obtainAccountInfo") { [weak self] serviceSuccess in
-                    self?.document.open(serviceSuccess)
-                }.store(in: &self.subscriptions)
+        guard let profileBlockId = profileBlockId else {
+            assertionFailure("profileBlockId can`t be nill")
+            return
         }
+        
+        blocksActionsService
+            .open(contextID: profileBlockId, blockID: profileBlockId)
+            .sinkWithDefaultCompletion("obtainAccountInfo") { [weak self] serviceSuccess in
+                self?.document.open(serviceSuccess)
+            }
+            .store(in: &self.subscriptions)
     }
+}
+
+private extension AccountInfoDataAccessor {
+    
+    enum Constants {
+        static let defaultName = "Anytype User"
+    }
+    
 }
