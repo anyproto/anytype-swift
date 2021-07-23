@@ -58,33 +58,19 @@ class BlocksFileEmptyView: UIView & UIContentView {
     
     // MARK: - New configuration
     func apply(configuration: BlocksFileEmptyViewConfiguration) {
-        label.text = configuration.text
         icon.image = configuration.image
         
-        change(state: .empty)
-    }
-    
-    // MARK: - Actions
-    enum State {
-        case empty
-        case uploading
-        case error
-    }
-    
-    func change(state: State) {
-        switch state {
-        case .empty:
-            self.label.text = currentConfiguration.text
-            self.activityIndicator.isHidden = true
-            self.activityIndicator.stopAnimating()
+        switch configuration.state {
+        case .default:
+            label.text = configuration.text
+            activityIndicator.stopAnimating()
         case .uploading:
-            self.label.text = Constants.uploadingText
-            self.activityIndicator.isHidden = false
-            self.activityIndicator.startAnimating()
+            label.text = Constants.uploadingText
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
         case .error:
-            self.label.text = Constants.errorText
-            self.activityIndicator.isHidden = true
-            self.activityIndicator.stopAnimating()
+            label.text = Constants.errorText
+            activityIndicator.stopAnimating()
         }
     }
     

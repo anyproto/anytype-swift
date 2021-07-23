@@ -26,7 +26,8 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         case .empty:
             return BlocksFileEmptyViewConfiguration(
                 image: UIImage.blockFile.empty.bookmark,
-                text: "Add a web bookmark".localized
+                text: "Add a web bookmark".localized,
+                state: .default
             )
         default:
             break
