@@ -41,13 +41,13 @@ struct SearchResult: DetailsDataProtocol {
         
         self.coverId = fields[Relations.coverId]?.stringValue
         self.coverType = fields[Relations.coverType].flatMap { rawValue in
-            CoverType(rawValue: Int(rawValue.numberValue))
+            rawValue.safeIntValue.flatMap { CoverType(rawValue: $0) }
         }
         self.layout = fields[Relations.layout].flatMap { rawValue in
-            DetailsLayout(rawValue: Int(rawValue.numberValue))
+            rawValue.safeIntValue.flatMap { DetailsLayout(rawValue: $0) }
         }
         self.alignment = fields[Relations.alignment].flatMap { rawValue in
-            LayoutAlignment(rawValue: Int(rawValue.numberValue))
+            rawValue.safeIntValue.flatMap { LayoutAlignment(rawValue: $0) }
         }
         
         self.isArchived = fields[Relations.isArchived]?.boolValue
