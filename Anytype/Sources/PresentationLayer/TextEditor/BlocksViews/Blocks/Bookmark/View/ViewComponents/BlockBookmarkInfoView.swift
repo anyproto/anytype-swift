@@ -6,7 +6,7 @@ final class BlockBookmarkInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setup()
+        backgroundColor = .white
     }
     
     @available(*, unavailable)
@@ -14,73 +14,78 @@ final class BlockBookmarkInfoView: UIView {
         fatalError("Not implemented")
     }
     
-    func update(state: BlockBookmarkState) {
-        updateIconSubscription(state: state)
+    func update(state: BlockBookmarkContentState) {
+        updateIcon(state: state)
+        removeAllSubviews()
+        
+        let stackView: UIStackView
         switch state {
         case let .onlyURL(url):
             urlView.text = url
             
-            titleView.isHidden = true
-            descriptionView.isHidden = true
-            urlView.isHidden = false
-            iconView.isHidden = true
-            urlStackView.isHidden = false
+            stackView = layoutUsing.stack {
+                $0.vStack(urlStackView)
+            }
         case let .fetched(payload):
             titleView.text = payload.title
-            titleView.isHidden = false
-            
             descriptionView.text = payload.subtitle
-            descriptionView.isHidden = false
             urlView.text = payload.url
-            urlView.isHidden = false
-            iconView.isHidden = self.iconView.image == nil
-            urlStackView.isHidden = false
-        default:
-            titleView.isHidden = true
-            descriptionView.isHidden = true
-            urlView.isHidden = true
-            iconView.isHidden = true
-            urlStackView.isHidden = true
+            
+            stackView = layoutUsing.stack {
+                $0.vStack(
+                    titleView,
+                    $0.vGap(fixed: 5),
+                    descriptionView,
+                    $0.vGap(min: 5),
+                    urlStackView
+                )
+            }
         }
+        
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 15, trailing: 16)
     }
     
-    private func updateIconSubscription(state: BlockBookmarkState) {
+    private func updateIcon(state: BlockBookmarkContentState) {
+        urlStackView.removeAllSubviews()
         guard case let .fetched(payload) = state, !payload.iconHash.isEmpty else {
             iconView.image = nil
+            urlStackView.addSubview(urlView) {
+                $0.pinToSuperview()
+            }
+            
             return
         }
         
-        iconView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: payload.imageHash, width: .thumbnail))
-        )
-    }
-    
-    private func setup() {
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
-        
-        urlStackView.addArrangedSubview(iconView)
-        urlStackView.addArrangedSubview(urlView)
-        
-        let stack = layoutUsing.stack {
-            $0.vStack(distributedTo: .fill,
-                titleView,
-                $0.vGap(fixed: 5),
-                descriptionView,
-                $0.vGap(min: 5),
-                urlStackView
+        urlStackView.layoutUsing.stack {
+            $0.hStack(
+                iconView,
+                $0.hGap(fixed: 6),
+                urlView
             )
         }
         
-        stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 15, trailing: 16)
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: Layout.iconSize,
+                cornerRadius: 0,
+                backgroundColor: UIColor.grayscaleWhite
+            ),
+            color: UIColor.grayscale10
+        )
         
+        iconView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: payload.imageHash, width: .thumbnail)),
+            placeholder: placeholder
+        )
     }
     
     // MARK: - Views
+    private var stackView = UIView()
+    private var urlStackView = UIView()
+    
     private let titleView: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.font = UIFont.captionMedium
         view.textColor = .grayscale90
         return view
@@ -88,18 +93,10 @@ final class BlockBookmarkInfoView: UIView {
     
     private let descriptionView: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.numberOfLines = 3
+        view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
         view.font = .caption
         view.textColor = .grayscale70
-        return view
-    }()
-    
-    private let urlStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -107,9 +104,8 @@ final class BlockBookmarkInfoView: UIView {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        view.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: Layout.iconSize.height).isActive = true
+        view.widthAnchor.constraint(equalToConstant: Layout.iconSize.width).isActive = true
         return view
     }()
     
@@ -120,4 +116,10 @@ final class BlockBookmarkInfoView: UIView {
         view.textColor = .grayscale90
         return view
     }()
+}
+
+extension BlockBookmarkInfoView {
+    enum Layout {
+        static let iconSize = CGSize(width: 16, height: 16)
+    }
 }

@@ -11,16 +11,17 @@ final class BlockBookmarkContentView: UIView & UIContentView {
                   configuration != currentConfiguration else { return }
             
             currentConfiguration = configuration
-            apply(state: currentConfiguration.bookmarkData.blockBookmarkState)
+            apply(state: currentConfiguration.state)
         }
     }
     
+    lazy var bookmarkHeight: NSLayoutConstraint = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
     init(configuration: BlockBookmarkConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
-        setup()
         
-        apply(state: currentConfiguration.bookmarkData.blockBookmarkState)
+        apply(state: currentConfiguration.state)
+        bookmarkHeight.isActive = true
     }
     
     @available(*, unavailable)
@@ -34,54 +35,34 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
     
     private func apply(state: BlockBookmarkState) {
-        bookmarkView.handle(state: state)
-        handle(state: state)
-    }
-    
-    private func setup() {
-        addSubview(bookmarkView)
-        addSubview(emptyView)
+        removeAllSubviews()
         
-        bookmarkView.pinAllEdges(to: self, insets: Constants.Layout.bookmarkViewInsets)
-    
-        if let superview = emptyView.superview {
-            let heightAnchor = emptyView.heightAnchor.constraint(equalToConstant: Constants.Layout.emptyViewHeight)
-            let bottomAnchor = emptyView.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            // We need priotity here cause cell self size constraint will conflict with ours
-            bottomAnchor.priority = .init(750)
-            
-            NSLayoutConstraint.activate([
-                emptyView.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 20),
-                emptyView.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -20),
-                emptyView.topAnchor.constraint(equalTo: superview.topAnchor),
-                bottomAnchor,
-                heightAnchor
-            ])
-        }
-    }
-                    
-    private func handle(state: BlockBookmarkState) {
         switch state {
         case .empty:
-            bookmarkView.isHidden = true
-            emptyView.isHidden = false
-        default:
-            bookmarkView.isHidden = false
-            emptyView.isHidden = true
+            addSubview(emptyView) {
+                $0.pinToSuperview(insets: Layout.emptyViewInsets)
+                $0.height.equal(to: Layout.emptyViewHeight)
+            }
+        case let .onlyURL(url):
+            addSubview(bookmarkView) {
+                $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
+            }
+            bookmarkHeight.constant = Layout.emptyViewHeight
+            bookmarkView.handle(state: .onlyURL(url))
+        case let .fetched(payload):
+            addSubview(bookmarkView) {
+                $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
+            }
+            bookmarkHeight.constant = Layout.bookmarkViewHeight
+            bookmarkView.handle(state: .fetched(payload))
         }
     }
 
     // MARK: - Views
-    private let emptyView: BlocksFileEmptyView = {
-        let view = BlocksFileEmptyView(
-            viewData: .init(
-                image: UIImage.blockFile.empty.bookmark,
-                placeholderText: Constants.Resource.emptyViewPlaceholderTitle
-            )
-        )
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let emptyView = BlocksFileEmptyView(
+        image: UIImage.blockFile.empty.bookmark,
+        text: "Add a web bookmark"
+    )
     
     private let bookmarkView: BlockBookmarkView = {
         let view = BlockBookmarkView()
@@ -95,14 +76,10 @@ final class BlockBookmarkContentView: UIView & UIContentView {
 }
 
 private extension BlockBookmarkContentView {
-    enum Constants {
-        enum Layout {
-            static let emptyViewHeight: CGFloat = 52
-            static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
-        }
-        
-        enum Resource {
-            static let emptyViewPlaceholderTitle = "Add a web bookmark"
-        }
+    enum Layout {
+        static let emptyViewHeight: CGFloat = 48
+        static let bookmarkViewHeight: CGFloat = 108
+        static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
+        static let emptyViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
     }
 }

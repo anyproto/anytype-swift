@@ -9,10 +9,8 @@ final class BlockImageContentView: UIView & UIContentView {
     
     private let imageView = UIImageView()
     private let emptyView = BlocksFileEmptyView(
-        viewData: .init(
-            image: UIImage.blockFile.empty.image,
-            placeholderText: Constants.emptyViewPlaceholderTitle
-        )
+        image: UIImage.blockFile.empty.image,
+        text: Constants.emptyViewPlaceholderTitle
     )
     
     private var currentConfiguration: BlockImageConfiguration
@@ -165,6 +163,6 @@ private extension BlockImageContentView {
     }
     
     enum Constants {
-        static let emptyViewPlaceholderTitle = "Upload a picture"
+        static let emptyViewPlaceholderTitle = "Upload a picture".localizedLowercase
     }
 }

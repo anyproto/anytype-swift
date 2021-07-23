@@ -13,13 +13,19 @@ class BlockBookmarkImageView: UIImageView {
     }
     
     
-    func update(state: BlockBookmarkState) {
-        guard case let .fetched(payload) = state, !payload.imageHash.isEmpty else {
-            self.image = nil
-            return
-        }
+    func update(imageId: String) {
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: frame.size,
+                backgroundColor: UIColor.grayscaleWhite
+            ),
+            color: UIColor.grayscale10
+        )
         
-        kf.setImage(with: UrlResolver.resolvedUrl(.image(id: payload.iconHash, width: .default)))
+        kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            placeholder: placeholder
+        )
     }
     
     @available(*, unavailable)
