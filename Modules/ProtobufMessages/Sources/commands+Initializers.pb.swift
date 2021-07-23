@@ -2252,6 +2252,48 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Request {
+  public init(contextID: String, relations: [String]) {
+    self.contextID = contextID
+    self.relations = relations
+  }
+}
+
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Response {
+  public init(error: Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error {
+  public init(code: Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Request {
+  public init(contextID: String, relations: [String]) {
+    self.contextID = contextID
+    self.relations = relations
+  }
+}
+
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response {
+  public init(error: Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error {
+  public init(code: Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Object.RelationAdd.Request {
   public init(contextID: String, relation: Anytype_Model_Relation) {
     self.contextID = contextID
