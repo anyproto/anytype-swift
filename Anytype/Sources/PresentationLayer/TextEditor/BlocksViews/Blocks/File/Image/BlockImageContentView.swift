@@ -163,6 +163,6 @@ private extension BlockImageContentView {
     }
     
     enum Constants {
-        static let emptyViewPlaceholderTitle = "Upload a picture"
+        static let emptyViewPlaceholderTitle = "Upload a picture".localizedLowercase
     }
 }
