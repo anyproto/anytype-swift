@@ -7,10 +7,6 @@ final class ServiceLocator {
     
     // MARK: - Services
     
-    func firebaseService() -> FirebaseService {
-        FirebaseService()
-    }
-    
     /// creates new localRepoService
     func localRepoService() -> LocalRepoServiceProtocol {
         LocalRepoService()
@@ -58,7 +54,6 @@ final class ServiceLocator {
         ApplicationCoordinator(
             window: window,
             authService: authService(),
-            firebaseService: firebaseService(),
             authAssembly: AuthAssembly()
         )
     }

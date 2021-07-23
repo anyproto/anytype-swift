@@ -7,7 +7,6 @@ final class ApplicationCoordinator {
     private let window: MainWindow
     
     private let authService: AuthServiceProtocol
-    private let firebaseService: FirebaseService
     
     private let authAssembly: AuthAssembly
     
@@ -18,13 +17,11 @@ final class ApplicationCoordinator {
     init(
         window: MainWindow,
         authService: AuthServiceProtocol,
-        firebaseService: FirebaseService,
         authAssembly: AuthAssembly
     ) {
         self.window = window
         
         self.authService = authService
-        self.firebaseService = firebaseService
         
         self.authAssembly = authAssembly
     }
@@ -34,7 +31,6 @@ final class ApplicationCoordinator {
         window.makeKeyAndVisible()
         
         runAtFirstLaunch()
-        firebaseService.setup()
         login()
     }
         
