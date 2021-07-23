@@ -33,7 +33,10 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             
-            self.authService.createAccount(profile: self.buildRequest(), alphaInviteCode: self.signUpData.inviteCode) { result in
+            self.authService.createAccount(
+                profile: self.buildRequest(),
+                alphaInviteCode: self.signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
+            ) { result in
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     
@@ -52,7 +55,7 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     
     private func buildRequest() -> CreateAccountRequest {
         let imagePath = signUpData.image.flatMap {
-            diskStorage.saveImage(imageName: "avatar_\(signUpData.userName)_\(UUID())", image: $0)
+            diskStorage.saveImage(imageName: "avatar_\(signUpData.userName.trimmingCharacters(in: .whitespacesAndNewlines))_\(UUID())", image: $0)
         }
         
         let avatar = ProfileModel.Avatar.imagePath(imagePath ?? "")

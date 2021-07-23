@@ -267,6 +267,7 @@
 		3D4125ED269ECED6007A6880 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125EC269ECED6007A6880 /* ObjectType.swift */; };
 		3D4125F8269F6548007A6880 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F7269F6548007A6880 /* FontName.swift */; };
 		3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F926A014E1007A6880 /* TextContent+Font.swift */; };
+		3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
 		3D568F892666C12700DC7881 /* ContentObjectAsEmptyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */; };
@@ -841,6 +842,7 @@
 		3D4125EC269ECED6007A6880 /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjectType.swift; path = Anytype/Sources/ServiceLayer/Search/Models/ObjectType.swift; sourceTree = SOURCE_ROOT; };
 		3D4125F7269F6548007A6880 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FontName.swift; path = "AnyType/Sources/Design system/Fonts/FontName.swift"; sourceTree = SOURCE_ROOT; };
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "AnyType/Sources/Design system/Fonts/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
+		3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksFileEmptyViewConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/EmptyView/BlocksFileEmptyViewConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
 		3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentObjectAsEmptyPage.swift; path = Anytype/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/ContentObjectAsEmptyPage.swift; sourceTree = SOURCE_ROOT; };
@@ -1747,6 +1749,7 @@
 		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				3D4C3AD926AB57D2007893B7 /* EmptyView */,
 				0AD6B24624CF5D0A0097A841 /* Bookmark */,
 				0A6F9009255481B300B94AED /* Unknown */,
 				0A005AC224C86DFA000520AA /* Other */,
@@ -2503,6 +2506,15 @@
 			path = SwiftUI;
 			sourceTree = "<group>";
 		};
+		3D4C3AD926AB57D2007893B7 /* EmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */,
+				0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */,
+			);
+			path = EmptyView;
+			sourceTree = "<group>";
+		};
 		3D568F852666C0E600DC7881 /* ProtobufConverters */ = {
 			isa = PBXGroup;
 			children = (
@@ -2556,7 +2568,6 @@
 		3D7E89FD26851EAF00181E8D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */,
 				3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */,
 			);
 			path = Base;
@@ -4106,6 +4117,7 @@
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
 				3DEFD65A2689FE680072EA27 /* CoverGradient.swift in Sources */,
 				EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */,
+				3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
