@@ -21,7 +21,18 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let openUrl: (URL) -> ()
     
     func makeContentConfiguration() -> UIContentConfiguration {
-        BlockBookmarkConfiguration(state: bookmarkData.blockBookmarkState)
+        let state = bookmarkData.blockBookmarkState
+        switch state {
+        case .empty:
+            return BlocksFileEmptyViewConfiguration(
+                image: UIImage.blockFile.empty.bookmark,
+                text: "Add a web bookmark".localized
+            )
+        default:
+            break
+        }
+        
+        return BlockBookmarkConfiguration(state: bookmarkData.blockBookmarkState)
     }
     
     func didSelectRowInTableView() {

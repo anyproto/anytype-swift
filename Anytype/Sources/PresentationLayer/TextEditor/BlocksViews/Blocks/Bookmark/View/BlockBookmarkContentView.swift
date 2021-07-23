@@ -39,10 +39,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         
         switch state {
         case .empty:
-            addSubview(emptyView) {
-                $0.pinToSuperview(insets: Layout.emptyViewInsets)
-                $0.height.equal(to: Layout.emptyViewHeight)
-            }
+            fatalError()
         case let .onlyURL(url):
             addSubview(bookmarkView) {
                 $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
@@ -58,12 +55,6 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         }
     }
 
-    // MARK: - Views
-    private let emptyView = BlocksFileEmptyView(
-        image: UIImage.blockFile.empty.bookmark,
-        text: "Add a web bookmark"
-    )
-    
     private let bookmarkView: BlockBookmarkView = {
         let view = BlockBookmarkView()
         view.layer.borderWidth = 1
