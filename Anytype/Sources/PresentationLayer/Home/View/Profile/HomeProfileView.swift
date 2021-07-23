@@ -19,8 +19,9 @@ struct HomeProfileView: View {
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
                 slogan(containerHeight: geometry.size.height)
-            }.frame(width: geometry.size.width, height: geometry.size.height)
-            .animation(.default, value: accountData.blockId)
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .animation(.default, value: accountData.profileBlockId) // ???????????
         }
     }
     
@@ -34,7 +35,7 @@ struct HomeProfileView: View {
     
     private var avatar: some View {
         Group {
-            if let blockId = accountData.blockId {
+            if let blockId = accountData.profileBlockId {
                 NavigationLink(
                     destination: model.coordinator.documentView(selectedDocumentId: blockId).onAppear {
                         // Analytics
