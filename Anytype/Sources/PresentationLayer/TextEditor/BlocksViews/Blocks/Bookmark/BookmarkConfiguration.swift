@@ -1,9 +1,14 @@
 import UIKit
 import BlocksModels
 
+enum BlockBookmarkContentState: Hashable, Equatable {
+    case onlyURL(String)
+    case fetched(BlockBookmarkPayload)
+}
+
 struct BlockBookmarkConfiguration: UIContentConfiguration, Hashable {
     
-    let state: BlockBookmarkState
+    let state: BlockBookmarkContentState
             
     func makeContentView() -> UIView & UIContentView {
         BlockBookmarkContentView(configuration: self)
