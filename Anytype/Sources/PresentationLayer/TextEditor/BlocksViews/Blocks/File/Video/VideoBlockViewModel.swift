@@ -18,10 +18,6 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
     let showVideoPicker: (BlockId) -> ()
     let downloadVideo: (FileId) -> ()
     
-    func makeContentConfiguration() -> UIContentConfiguration {
-        VideoBlockConfiguration(fileData: fileData)
-    }
-    
     func didSelectRowInTableView() {
         switch fileData.state {
         case .empty, .error:
@@ -44,5 +40,26 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         default:
             contextualMenuHandler.handle(action: action, info: information)
         }
+    }
+    
+    func makeContentConfiguration() -> UIContentConfiguration {
+        switch fileData.state {
+        case .empty:
+            return emptyViewConfiguration(state: .default)
+        case .uploading:
+            return emptyViewConfiguration(state: .uploading)
+        case .error:
+            return emptyViewConfiguration(state: .error)
+        case .done:
+            return VideoBlockConfiguration(fileData: fileData)
+        }
+    }
+    
+    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+        BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.video,
+            text: "Upload a video".localized,
+            state: state
+        )
     }
 }

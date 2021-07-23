@@ -39,10 +39,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         self.showIconPicker = showIconPicker
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
-        BlockImageConfiguration(fileData)
-    }
-    
     func makeContextualMenu() -> [ContextualMenu] {
         BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
     }
@@ -56,6 +52,27 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         default:
             contextualMenuHandler.handle(action: action, info: information)
         }
+    }
+    
+    func makeContentConfiguration() -> UIContentConfiguration {
+        switch fileData.state {
+        case .empty:
+            return emptyViewConfiguration(state: .default)
+        case .error:
+            return emptyViewConfiguration(state: .error)
+        case .uploading:
+            return emptyViewConfiguration(state: .uploading)
+        case .done:
+            return BlockImageConfiguration(fileData)
+        }
+    }
+        
+    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+        BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.image,
+            text: "Upload a picture".localized,
+            state: state
+        )
     }
     
     func didSelectRowInTableView() {
