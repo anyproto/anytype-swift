@@ -10,7 +10,7 @@ on:
 
 jobs:
   main:
-    runs-on: macOS 11.4
+    runs-on: macOS-11
     timeout-minutes: 20
 
     strategy:
