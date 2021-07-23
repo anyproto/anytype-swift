@@ -1,0 +1,24 @@
+
+import SwiftUI
+
+struct PickerSectionHeaderView: View {
+    
+    let title: String
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            AnytypeText(title, style: .captionMedium)
+                .foregroundColor(Color.textSecondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 18)
+        .padding(.bottom, 12)
+        .background(Color.background)
+    }
+}
+
+struct PickerSectionHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        PickerSectionHeaderView(title: "a")
+    }
+}

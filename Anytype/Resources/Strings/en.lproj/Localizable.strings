@@ -1,0 +1,205 @@
+"Create pin code" = "Create pin code";
+"Verify pin code" = "Verify pin code";
+"Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";
+"Recovery pharse is nil" = "Recovery pharse is nil";
+"node failed to start" = "node failed to start";
+"Toggle empty Click and drop block inside" = "Toggle empty. Click and drop block inside";
+"Quote" = "Quote";
+"Toggle block" = "Toggle block";
+"Checkbox" = "Checkbox";
+"Bulleted placeholder" = "Bulleted list item";
+"Numbered placeholder" = "Numbered list item";
+"Upload a video" = "Upload a video";
+"Loading, please wait" = "Loading, please wait";
+"Untitled" = "Untitled";
+"Select or drag and drop blocks" = "Select or drag and drop blocks";
+"Blocks selected" = "blocks selected";
+"Done" = "Done";
+"Style" = "Style";
+"Color" = "Color";
+"Background" = "Background";
+"Other" = "Other";
+"Media" = "Media";
+"Alignment" = "Alignment";
+"Actions" = "Actions";
+"Relations" = "Relations";
+"Objects" = "Objects";
+"Delete" = "Delete";
+"Duplicate" = "Duplicate";
+"Copy" = "Copy";
+"Paste" = "Paste";
+"Move" = "Move";
+"Move to" = "Move to";
+"Clear style" = "Clear style";
+"Back" = "Back";
+"Text" = "Text";
+"Title" = "Title";
+"Heading" = "Heading";
+"Subheading" = "Subheading";
+"Highlighted" = "Highlighted";
+"Checkbox" = "Checkbox";
+"Bulleted" = "Bulleted";
+"Numbered list" = "Numbered list";
+"Toggle" = "Toggle";
+"Bold" = "Bold";
+"Italic" = "Italic";
+"Strikethrough" = "Strikethrough";
+"Code" = "Code";
+"Link" = "Link";
+"Text block subtitle" = "Just start writing with a plain text";
+"Title block subtitle" = "Big section heading";
+"Heading block subtitle" = "Just start writing with a plain text";
+"Subheading block subtitle" = "Just start writing with a plain text";
+"Highlighted block subtitle" = "Small section heading";
+"Checkbox block subtitle" = "Create and track task with to-do list";
+"Bulleted block subtitle" = "Simple list";
+"Numbered block subtitle" = "Simple list";
+"Toggle block subtitle" = "Hide and show content inside";
+"File block subtitle" = "Store file in original state";
+"Picture block subtitle" = "Upload and enrich the page with image";
+"Video block subtitle" = "Upload playable video";
+"Bookmark block subtitle" = "Save your favorite link with summary";
+"Add a web bookmark" = "Add a web bookmark";
+"Code block subtitle" = "Capture code snippet";
+"Upload a picture" = "Upload a picture";
+"Line divider" = "Line divider";
+"Dots divider" = "Dots divider";
+"Align right" = "Align right";
+"Align left" = "Align left";
+"Align center" = "Align center";
+"Black" = "Black";
+"Lemon" = "Lemon";
+"Amber" = "Amber";
+"Red" = "Red";
+"Pink" = "Pink";
+"Purple" = "Purple";
+"Ultramarine" = "Ultramarine";
+"Blue" = "Blue";
+"Teal" = "Teal";
+"Green" = "Green";
+"coldgray" = "Coldgray";
+"Lemon background" = "Lemon background";
+"Default background" = "Default background";
+"Amber background" = "Amber background";
+"Red background" = "Red background";
+"Pink background" = "Pink background";
+"Purple background" = "Purple background";
+"Ultramarine background" = "Ultramarine background";
+"Blue background" = "Blue background";
+"Green background" = "Green background";
+"Coldgray background" = "Coldgray background";
+"Create new object" = "Create new object";
+"Cancel" = "Cancel";
+"Paste or type URL" = "Paste or type URL";
+"No items match filter" = "No items match filter";
+
+// Home
+"Favorites" = "Favorites";
+"Recent" = "Recent";
+"Drafts" = "Drafts";
+"Bin" = "Bin";
+"The future will be the one you build" = "The future will be the one you build";
+
+// Settings
+"Your public page" = "Your public page";
+"Wallpaper" = "Wallpaper";
+"Keychain phrase" = "Keychain phrase";
+"Pin code" = "Pin code";
+"Log out" = "Log out";
+"Soon" = "Soon";
+"Anytype info" = "Anytype info";
+"Library version" = "Library version";
+
+"Have you backed up your keychain phrase?" = "Have you backed up your keychain phrase?";
+"Backup keychain phrase" = "Backup keychain phrase";
+
+
+// Keychain screen
+"Keychain phrase" = "Keychain phrase";
+"Keychain phrase description" = "You will need it to sign in. Keep it in a safe place.\nIf you lose it, you can no longer access your account.";
+"Keychain phrase copied to clipboard" = "Keychain phrase copied to clipboard";
+
+
+// Auth
+"Welcome to Anytype" = "Welcome to Anytype";
+"OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
+"Sign up" = "Sign up";
+"Login" = "Login";
+"Login with keychain" = "Login with keychain";
+"or Type your keychain phrase" = "or Type your keychain phrase";
+"Choose pin code" = "Choose pin code";
+"Do it later" = "Do it later";
+"Setting up the wallet…" = "Setting up the wallet…";
+"Create a new profile" = "Create a new profile";
+"Enter your name" = "Enter your name";
+"Create" = "Create";
+"Congratulations!" = "Congratulations!";
+"CongratulationDescription" = "You’ve created your first profile!\nIt is stored on your device and nobody will know about it until you share it!";
+"Let’s start!" = "Let’s start!";
+"Choose profile" = "Choose profile";
+"no peers" = "no peers";
+"Add profile" = "Add profile";
+"Scan QR code" = "Scan QR code";
+
+"Enter your invitation code" = "Enter your invitation code";
+"Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
+"Sign up error" = "No internet connection / invalid invitation code";
+"Account recover error" = "Account recover error, probably no internet connection";
+
+
+// Auth Errors
+"Error creating wallet" = "Error creating wallet";
+"Login error" = "Login error";
+"Logout error" = "Logout error";
+"Error creating account" = "Error creating account";
+"Error select account" = "Error select account";
+"Error wallet recover account" = "Error wallet recover account";
+"Error account recover" = "Error account recover";
+
+"Search for language" = "Search for language";
+
+// Object settings
+
+"Icon" = "Icon";
+"Emoji or image for object" = "Emoji or image for object";
+"Cover" = "Cover";
+"Background picture" = "Background picture";
+"Layout" = "Layout";
+"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+
+"Search" = "Search";
+"There is no emoji named" = "There is no emoji named";
+"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+
+"Emoji" = "Emoji";
+"Random" = "Random";
+"Upload" = "Upload";
+"Change icon" = "Change icon";
+"Change cover" = "Change cover";
+"Remove" = "Remove";
+
+"Solid colors" = "Solid colors";
+"Gradients" = "Gradients";
+"Gallery" = "Gallery";
+
+"Remove photo" = "Remove photo";
+"Basic" = "Basic";
+"Profile" = "Profile";
+"Task" = "Task";
+"Choose layout type" = "Choose layout type";
+
+// Object Type
+"Page" = "Page";
+"Set" = "Set";
+"Template" = "Template";
+
+// MARK: - Contextual menu
+"General.AddBlockBelow" = "Add block below";
+"General.Delete" = "Delete";
+"General.Duplicate" = "Duplicate";
+
+"Specific.TurnInto" = "Turn into";
+"Specific.TurnIntoPage" = "Turn into Page";
+"Specific.Style" = "Style";
+"Specific.Download" = "Download";
+"Specific.Replace" = "Replace";

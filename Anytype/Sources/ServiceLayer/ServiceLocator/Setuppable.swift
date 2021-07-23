@@ -1,0 +1,3 @@
+protocol Setuppable {
+    func setup()
+}

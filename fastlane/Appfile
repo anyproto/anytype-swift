@@ -1,0 +1,16 @@
+# Developer Portal Team ID
+team_id("6SFR4648FW") 
+
+# App Store Connect Team ID
+itc_team_id("120897371") 
+
+apple_id("iosteam@anytype.io") 
+
+
+for_lane :dev do
+	app_identifier("com.anytypeio.anytype.dev") 
+end
+
+for_lane :release do
+	app_identifier("com.anytypeio.anytype") 
+end
