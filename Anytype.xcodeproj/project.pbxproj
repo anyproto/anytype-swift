@@ -4556,7 +4556,7 @@
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.1;
+				minimumVersion = 2.4.0;
 			};
 		};
 		538492DA269E63AD00B5E556 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {

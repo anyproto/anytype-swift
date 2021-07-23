@@ -262,6 +262,10 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
 extension DocumentEditorViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
+        UIView.animate(withDuration: CATransaction.animationDuration()) {
+            self.collectionView.contentInset.bottom = 0
+        }
+
         let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first
         collectionView.deselectAllSelectedItems()
 
@@ -290,6 +294,35 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         if fpc.state == FloatingPanelState.full {
             view.endEditing(true)
         }
+        adjustContentOffset(fpc: fpc)
+    }
+
+    private func adjustContentOffset(fpc: FloatingPanelController) {
+        let selectedItems = collectionView.indexPathsForSelectedItems ?? []
+
+        // find first visible blocks
+        let closestItem = selectedItems.first { indexPath in
+            collectionView.indexPathsForVisibleItems.contains(indexPath)
+        }
+
+        // if visible block was found
+        if let closestItem = closestItem {
+            guard let itemCell = collectionView.cellForItem(at: closestItem) else { return }
+            let itemPointInCollection = itemCell.convert(itemCell.bounds, to: view)
+
+            // if visible block not intersect style menu than do nothing
+            if !itemPointInCollection.intersects(fpc.surfaceView.frame) {
+                collectionView.contentInset.bottom = fpc.surfaceView.bounds.height
+                return
+            }
+        }
+        // if visible block intersect style menu or block is not visible than calculate collectionView contentOffset
+        guard let closestItem = closestItem == nil ? selectedItems.first : closestItem else { return }
+        guard let closestItemAttributes = collectionView.layoutAttributesForItem(at: closestItem)  else { return }
+
+        let yOffset = closestItemAttributes.frame.maxY - collectionView.bounds.height + fpc.surfaceView.bounds.height + fpc.surfaceView.layoutMargins.bottom
+        collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+        collectionView.contentInset.bottom = fpc.surfaceView.bounds.height
     }
 }
 
