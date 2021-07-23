@@ -117,6 +117,8 @@ extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExportTemplates.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
