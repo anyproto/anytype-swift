@@ -9,8 +9,10 @@ final class BlockImageContentView: UIView & UIContentView {
     
     private let imageView = UIImageView()
     private let emptyView = BlocksFileEmptyView(
-        image: UIImage.blockFile.empty.image,
-        text: Constants.emptyViewPlaceholderTitle
+        configuration: BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.image,
+            text: Constants.emptyViewPlaceholderTitle
+        )
     )
     
     private var currentConfiguration: BlockImageConfiguration

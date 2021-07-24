@@ -27,8 +27,10 @@ final class VideoBlockContentView: UIView, UIContentView {
     private lazy var videoVC = AVPlayerViewController()
     private lazy var emptyView: BlocksFileEmptyView = {
         let view = BlocksFileEmptyView(
-            image: UIImage.blockFile.empty.video,
-            text: "Upload a video"
+            configuration: BlocksFileEmptyViewConfiguration(
+                image: UIImage.blockFile.empty.video,
+                text: "Upload a video"
+            )
         )
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
