@@ -285,19 +285,8 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
             blockViewModel.set(focus: focus)
         }
     }
-    
-    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
-        // Initialy keyboard is shown and we open context menu, so keyboard moves away
-        // Then we select "Style" item from menu and display bottom sheet
-        // Then system call "becomeFirstResponder" on UITextView which was firstResponder
-        // and keyboard covers bottom sheet, this method helps us to unsure bottom sheet is visible
-        if fpc.state == FloatingPanelState.full {
-            view.endEditing(true)
-        }
-        adjustContentOffset(fpc: fpc)
-    }
 
-    private func adjustContentOffset(fpc: FloatingPanelController) {
+    func adjustContentOffset(fpc: FloatingPanelController) {
         let selectedItems = collectionView.indexPathsForSelectedItems ?? []
 
         // find first visible blocks
@@ -323,6 +312,15 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         let yOffset = closestItemAttributes.frame.maxY - collectionView.bounds.height + fpc.surfaceView.bounds.height + fpc.surfaceView.layoutMargins.bottom
         collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
         collectionView.contentInset.bottom = fpc.surfaceView.bounds.height
+    }
+
+    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
+            return true
+        }
+        return false
     }
 }
 
