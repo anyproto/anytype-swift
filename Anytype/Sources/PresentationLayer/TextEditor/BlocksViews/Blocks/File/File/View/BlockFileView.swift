@@ -76,8 +76,10 @@ class BlockFileView: UIView & UIContentView {
     
     private let emptyView: BlocksFileEmptyView = {
         let view = BlocksFileEmptyView(
-            image: UIImage.blockFile.empty.file,
-            text: "Upload a file"
+            configuration: BlocksFileEmptyViewConfiguration(
+                image: UIImage.blockFile.empty.file,
+                text: "Upload a file"
+            )
         )
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
