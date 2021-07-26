@@ -76,9 +76,7 @@ class DocumentEditorViewModel: ObservableObject {
         case .general:
             let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
             updateBlocksViewModels(models: blocksViewModels)
-            if let details = updateResult.details {
-                updateDetails(details)
-            }
+            if let details = updateResult.details { updateDetails(details) }
         case let .details(newDetails):
             updateDetails(newDetails)
         case let .update(updatedIds):
@@ -125,10 +123,10 @@ class DocumentEditorViewModel: ObservableObject {
     }
 
     private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {
-        let difference = models.difference(from: modelsHolder.models) { $0.diffable == $1.diffable }
+        let difference = models.difference(from: modelsHolder.models) { $0.hashable == $1.hashable }
         if !difference.isEmpty, let result = modelsHolder.models.applying(difference) {
             modelsHolder.models = result
-            self.viewInput?.updateData(result)
+            viewInput?.updateData(result)
         }
     }
 }

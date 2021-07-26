@@ -3,19 +3,18 @@ import BlocksModels
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            fileData,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     
+    let indentationLevel: Int
     let information: BlockInformation
     let fileData: BlockFile
-    let indentationLevel: Int
-    let contextualMenuHandler: DefaultContextualMenuHandler
     
+    let contextualMenuHandler: DefaultContextualMenuHandler
     let showFilePicker: (BlockId) -> ()
     let downloadFile: (FileId) -> ()
     

@@ -5,10 +5,13 @@ import BlocksModels
 struct TextBlockViewModel: BlockViewModelProtocol {
     
     let block: BlockActiveRecordProtocol
+    var indentationLevel: Int { block.indentationLevel }
+    var information: BlockInformation { block.blockModel.information }
+    
     let content: BlockText
     let isCheckable: Bool
-    
     private let toggled: Bool
+    
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
     private let configureMentions: (UITextView) -> Void
@@ -16,22 +19,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let actionHandler: EditorActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     
-    var indentationLevel: Int {
-        block.indentationLevel
-    }
-    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
             indentationLevel,
-            toggled,
+            information,
             isCheckable,
-            block.blockModel.information.content
+            toggled
         ] as [AnyHashable]
-    }
-    
-    var information: BlockInformation {
-        block.blockModel.information
     }
     
     init(

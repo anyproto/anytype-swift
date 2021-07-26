@@ -5,12 +5,10 @@ import BlocksModels
 
 
 struct BlockPageLinkViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            state,
             indentationLevel,
-            content
+            information
         ] as [AnyHashable]
     }
     

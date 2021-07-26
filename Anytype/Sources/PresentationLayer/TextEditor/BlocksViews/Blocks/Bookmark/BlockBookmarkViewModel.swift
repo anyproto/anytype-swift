@@ -3,11 +3,10 @@ import BlocksModels
 import UIKit
 
 struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            bookmarkData,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     

@@ -3,28 +3,22 @@ import UIKit
 import BlocksModels
 
 struct CodeBlockViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            textData,
-            indentationLevel,
-            blockId
+            information,
+            indentationLevel
         ] as [AnyHashable]
     }
     
-    let block: BlockActiveRecordProtocol
     let textData: BlockText
-    var information: BlockInformation {
-        block.blockModel.information
-    }
-    var indentationLevel: Int {
-        block.indentationLevel
-    }
+    let block: BlockActiveRecordProtocol
+    var information: BlockInformation { block.blockModel.information }
+    var indentationLevel: Int { block.indentationLevel }
     private var codeLanguage: CodeLanguage {
         CodeLanguage.create(middleware: information.fields[FieldName.codeLanguage]?.stringValue)
     }
 
     let contextualMenuHandler: DefaultContextualMenuHandler
-    
     let becomeFirstResponder: (BlockModelProtocol) -> ()
     let textDidChange: (BlockActiveRecordProtocol, UITextView) -> ()
     let showCodeSelection: (BlockActiveRecordProtocol) -> ()

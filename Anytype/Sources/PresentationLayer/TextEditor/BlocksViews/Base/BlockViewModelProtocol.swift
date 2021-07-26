@@ -1,7 +1,12 @@
 import UIKit
 import BlocksModels
 
-protocol BlockViewModelProtocol: ContextualMenuHandler, DiffableProvier, ContentConfigurationProvider, BlockDataProvider {    
+protocol BlockViewModelProtocol:
+    ContextualMenuHandler,
+    HashableProvier,
+    ContentConfigurationProvider,
+    BlockDataProvider
+{
     func didSelectRowInTableView()
     var indentationLevel: Int { get }
 }
@@ -11,8 +16,8 @@ protocol ContextualMenuHandler {
     func handle(action: ContextualMenu)
 }
 
-protocol DiffableProvier {
-    var diffable: AnyHashable { get }
+protocol HashableProvier {
+    var hashable: AnyHashable { get }
 }
 
 protocol ContentConfigurationProvider {
@@ -22,6 +27,8 @@ protocol ContentConfigurationProvider {
 protocol BlockDataProvider {
     var information: BlockInformation { get }
 }
+
+// MARK: - Extensions
 
 extension BlockDataProvider {
     var blockId: BlockId { information.id }

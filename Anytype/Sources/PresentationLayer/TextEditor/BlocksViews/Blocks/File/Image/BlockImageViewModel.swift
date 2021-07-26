@@ -4,11 +4,10 @@ import Combine
 import Kingfisher
 
 struct BlockImageViewModel: BlockViewModelProtocol {
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            fileData,
-            indentationLevel
+            indentationLevel,
+            information,
         ] as [AnyHashable]
     }
     
@@ -16,7 +15,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
     
     let contextualMenuHandler: DefaultContextualMenuHandler
-    
     let indentationLevel: Int
     let showIconPicker: (BlockId) -> ()
     
