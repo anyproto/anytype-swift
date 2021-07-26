@@ -3,7 +3,7 @@ import UIKit
 import Highlightr
 import BlocksModels
 
-final class CodeBlockContentView: UIView & UIContentView {
+final class CodeBlockView: UIView & UIContentView {
     private var currentConfiguration: CodeBlockContentConfiguration
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
@@ -32,19 +32,23 @@ final class CodeBlockContentView: UIView & UIContentView {
     // MARK: - Setup view
 
     private func setupViews() {
-        addSubview(textView)
-        addSubview(codeSelectButton)
-
-        textView.edgesToSuperview(insets: UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0))
-
-        NSLayoutConstraint.activate([
-            codeSelectButton.topAnchor.constraint(equalTo: topAnchor, constant: 13),
-            codeSelectButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
-        ])
-
-        codeSelectButton.addAction(UIAction { [weak self] _ in
-            self?.currentConfiguration.showCodeSelection()
-        }, for: .touchUpInside)
+        addSubview(contentView) {
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0))
+        }
+        
+        contentView.layoutUsing.stack {
+            $0.hStack(
+                $0.hGap(fixed: 20),
+                $0.vStack(
+                    $0.vGap(fixed: 13),
+                    $0.hStack(codeSelectButton, $0.hGap()),
+                    $0.vGap(fixed: 15),
+                    textView,
+                    $0.vGap(fixed: 14)
+                ),
+                $0.hGap(fixed: 20)
+            )
+        }
     }
 
     private func applyNewConfiguration() {
@@ -54,10 +58,13 @@ final class CodeBlockContentView: UIView & UIContentView {
             textStorage.setAttributedString($0)
         }
         
-        textView.backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? UIColor.lightColdGray
+        let backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? UIColor.lightColdGray
+        contentView.backgroundColor = backgroundColor
+        textView.backgroundColor = backgroundColor
     }
     
     // MARK: - Views
+    private let contentView = UIView()
     
     private let textStorage: CodeAttributedString = {
         let textStorage = CodeAttributedString()
@@ -79,26 +86,29 @@ final class CodeBlockContentView: UIView & UIContentView {
         textView.autocorrectionType = .no
         textView.autocapitalizationType = .none
         textView.delegate = self
-        
-        textView.textContainerInset = UIEdgeInsets(top: 50, left: 20, bottom: 24, right: 20)
 
         return textView
     }()
 
-    private let codeSelectButton: ButtonWithImage = {
+    private lazy var codeSelectButton: ButtonWithImage = {
         let button = ButtonWithImage()
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        button.label.font = UIFont.body
-        button.label.textColor = MiddlewareColor.grey.color(background: false)
-        let image = UIImage(named: "TextEditor/Toolbar/turn_into_arrow")
+        button.label.font = .body
+        button.label.textColor = .darkColdGray
+        let image = UIImage.codeBlock.arrow
         button.setImage(image)
+        
+        button.addAction(
+            UIAction { [weak self] _ in
+                self?.currentConfiguration.showCodeSelection()
+            },
+            for: .touchUpInside
+        )
 
         return button
     }()
 }
 
-extension CodeBlockContentView: UITextViewDelegate {
+extension CodeBlockView: UITextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         currentConfiguration.becomeFirstResponder()

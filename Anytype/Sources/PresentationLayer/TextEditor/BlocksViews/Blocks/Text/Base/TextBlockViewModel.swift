@@ -4,12 +4,12 @@ import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {
     
-    let block: BlockActiveRecordProtocol
     var indentationLevel: Int { block.indentationLevel }
     var information: BlockInformation { block.blockModel.information }
+    private let block: BlockActiveRecordProtocol
     
-    let content: BlockText
-    let isCheckable: Bool
+    private let content: BlockText
+    private let isCheckable: Bool
     private let toggled: Bool
     
     private let contextualMenuHandler: DefaultContextualMenuHandler

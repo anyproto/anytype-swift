@@ -15,7 +15,9 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation { block.blockModel.information }
     var indentationLevel: Int { block.indentationLevel }
     private var codeLanguage: CodeLanguage {
-        CodeLanguage.create(middleware: information.fields[FieldName.codeLanguage]?.stringValue)
+        CodeLanguage.create(
+            middleware: information.fields[FieldName.codeLanguage]?.stringValue
+        )
     }
 
     let contextualMenuHandler: DefaultContextualMenuHandler
