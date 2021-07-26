@@ -41,8 +41,8 @@ final class BlockViewModelBuilder {
             switch content.contentType {
             case .code:
                 return CodeBlockViewModel(
-                    block: block,
                     textData: content,
+                    block: block,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(for: model)
@@ -97,9 +97,9 @@ final class BlockViewModelBuilder {
             switch content.contentType {
             case .file:
                 return BlockFileViewModel(
+                    indentationLevel: block.indentationLevel,
                     information: block.blockModel.information,
                     fileData: content,
-                    indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
@@ -122,9 +122,9 @@ final class BlockViewModelBuilder {
                 )
             case .video:
                 return VideoBlockViewModel(
+                    indentationLevel: block.indentationLevel,
                     information: block.blockModel.information,
                     fileData: content,
-                    indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)

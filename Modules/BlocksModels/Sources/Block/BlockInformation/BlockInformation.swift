@@ -28,15 +28,6 @@ public struct BlockInformation: Hashable {
         self.childrenIds = childrenIds
         self.fields = fields
     }
-
-    // TODO: Remove, used for collection view diff
-    public static func == (lhs: BlockInformation, rhs: BlockInformation) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }
 
 extension BlockInformation {

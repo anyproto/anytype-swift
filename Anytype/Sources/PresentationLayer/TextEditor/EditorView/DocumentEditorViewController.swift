@@ -99,7 +99,7 @@ extension DocumentEditorViewController {
     }
         
     private func apply(
-        _ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>,
+        _ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, EditorCollectionInformationWrapper>,
         animatingDifferences: Bool = true,
         completion: (() -> Void)? = nil
     ) {
@@ -146,12 +146,12 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         if viewModel.selectionHandler.selectionEnabled {
-            if case let .text(text) = item.content {
+            if case let .text(text) = item.info.content {
                 return text.contentType != .title
             }
             return true
         }
-        switch item.content {
+        switch item.info.content {
         case .text:
             return false
         default:
@@ -170,7 +170,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
 
         let blockViewModel = viewModel.modelsHolder.models.first { blockViewModel in
-            blockViewModel.blockId == item.id
+            blockViewModel.blockId == item.info.id
         }
         return blockViewModel?.contextMenuConfiguration()
     }
@@ -183,12 +183,12 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         let sectionSnapshot = dataSource.snapshot(for: viewModel.detailsViewModel.makeDocumentSection())
         
         sectionSnapshot.visibleItems.forEach { item in
-            guard ids.contains(item.id) else {
+            guard ids.contains(item.info.id) else {
                 return
             }
             
             let viewModel = self.viewModel.modelsHolder.models.first { viewModel in
-                viewModel.blockId == item.id
+                viewModel.blockId == item.info.id
             }
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
@@ -199,7 +199,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     }
     
     func updateHeader() {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, EditorCollectionInformationWrapper>()
         snapshot.appendSections([
             viewModel.detailsViewModel.makeDocumentSection()
         ])
@@ -209,20 +209,22 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     }
     
     func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlockInformation>()
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, EditorCollectionInformationWrapper>()
         snapshot.appendSections([
             viewModel.detailsViewModel.makeDocumentSection()
         ])
 
         let items = blocksViewModels.map { blockViewModel in
-            blockViewModel.information
+            EditorCollectionInformationWrapper(info: blockViewModel.information)
         }
         snapshot.appendItems(items)
 
-        let sectionSnapshot = self.dataSource.snapshot(for: viewModel.detailsViewModel.makeDocumentSection())
+        let sectionSnapshot = self.dataSource.snapshot(
+            for: viewModel.detailsViewModel.makeDocumentSection()
+        )
         sectionSnapshot.visibleItems.forEach { item in
             let viewModel = blocksViewModels.first { viewModel in
-                viewModel.blockId == item.id
+                viewModel.blockId == item.info.id
             }
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
@@ -236,7 +238,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     }
 
     func selectBlock(blockId: BlockId) {
-        let item = dataSource.snapshot().itemIdentifiers.first { $0.id == blockId }
+        let item = dataSource.snapshot().itemIdentifiers.first { $0.info.id == blockId }
         if let item = item {
             let indexPath = dataSource.indexPath(for: item)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
@@ -274,10 +276,10 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
 
         guard let indexPath = selectedIndexPath,
               let item = dataSource.itemIdentifier(for: indexPath),
-              item.id == blockModel?.information.id else { return }
+              item.info.id == blockModel?.information.id else { return }
 
         let blockViewModel = viewModel.modelsHolder.models.first { blockViewModel in
-            blockViewModel.blockId == item.id
+            blockViewModel.blockId == item.info.id
         }
 
         if let blockViewModel = blockViewModel as? TextBlockViewModel {
@@ -341,7 +343,7 @@ private extension DocumentEditorViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
-    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BlockInformation> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, EditorCollectionInformationWrapper> {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -350,14 +352,14 @@ private extension DocumentEditorViewController {
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
-        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BlockInformation>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: BlockInformation) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, EditorCollectionInformationWrapper>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: EditorCollectionInformationWrapper) -> UICollectionViewCell? in
 
             let blockViewModel = self.viewModel.modelsHolder.models.first { blockViewModel in
-                blockViewModel.blockId == item.id
+                blockViewModel.blockId == item.info.id
             }
 
-            if item.content.type == .text(.code) {
+            if item.info.content.type == .text(.code) {
                 return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: blockViewModel)
             } else {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: blockViewModel)

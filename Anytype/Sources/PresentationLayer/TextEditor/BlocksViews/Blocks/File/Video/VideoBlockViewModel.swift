@@ -2,19 +2,18 @@ import BlocksModels
 import UIKit
 
 struct VideoBlockViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            fileData,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     
+    let indentationLevel: Int
     let information: BlockInformation
     let fileData: BlockFile
-    let indentationLevel: Int
-    let contextualMenuHandler: DefaultContextualMenuHandler
     
+    let contextualMenuHandler: DefaultContextualMenuHandler
     let showVideoPicker: (BlockId) -> ()
     let downloadVideo: (FileId) -> ()
     

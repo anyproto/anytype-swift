@@ -5,8 +5,11 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
     let indentationLevel = 0
     let information: BlockInformation
     
-    var diffable: AnyHashable {
-        information.id
+    var hashable: AnyHashable {
+        [
+            indentationLevel,
+            information
+        ] as [AnyHashable]
     }
     
     init(information: BlockInformation) {

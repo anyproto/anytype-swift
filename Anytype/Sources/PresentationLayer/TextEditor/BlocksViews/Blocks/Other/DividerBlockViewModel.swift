@@ -2,11 +2,10 @@ import BlocksModels
 import UIKit
 
 struct DividerBlockViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            dividerContent,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     
