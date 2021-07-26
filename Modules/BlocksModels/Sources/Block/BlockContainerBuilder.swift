@@ -13,12 +13,12 @@ public enum BlockContainerBuilder {
     }
     
     public static func buildTree(container: BlockContainerModelProtocol, id: BlockId) {
-        if let entry = container.record(id: id) {
-            let parentId = id
-            entry.childrenIds().forEach { (value) in
-                var blockModel = entry.findChild(by: value)?.blockModel
-                blockModel?.parent = parentId
-                self.buildTree(container: container, id: value)
+        if let entry = container.model(id: id) {
+            entry.information.childrenIds.forEach { childrenId in
+                var blockModel = container.model(id: childrenId)
+                blockModel?.parent = entry
+
+                self.buildTree(container: container, id: childrenId)
             }
         }
     }

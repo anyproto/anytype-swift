@@ -31,18 +31,18 @@ final class BlockViewModelBuilder {
         self.detailsLoader = detailsLoader
     }
 
-    func build(_ blocks: [BlockActiveRecordProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
+    func build(_ blocks: [BlockModelProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
         blocks.compactMap { build($0, details: details) }
     }
 
-    func build(_ block: BlockActiveRecordProtocol, details: DetailsData?) -> BlockViewModelProtocol? {
-        switch block.content {
+    func build(_ block: BlockModelProtocol, details: DetailsData?) -> BlockViewModelProtocol? {
+        switch block.information.content {
         case let .text(content):
             switch content.contentType {
             case .code:
                 return CodeBlockViewModel(
-                    textData: content,
                     block: block,
+                    textData: content,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(for: model)
@@ -50,18 +50,18 @@ final class BlockViewModelBuilder {
                     textDidChange: { block, textView in
                         self.blockActionHandler.handleAction(
                             .textView(action: .changeTextForStruct(textView.attributedText), activeRecord: block),
-                            info: block.blockModel.information
+                            info: block.information
                         )
                     },
                     showCodeSelection: { [weak self] block in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
                             guard let contextId = block.container?.rootId else { return }
                             let fields = BlockFields(
-                                blockId: block.blockId,
+                                blockId: block.information.id,
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
                             self?.blockActionHandler.handleAction(
-                                .setFields(contextID: contextId, fields: [fields]), info: block.blockModel.information
+                                .setFields(contextID: contextId, fields: [fields]), info: block.information
                             )
                         }
                     }
@@ -98,7 +98,7 @@ final class BlockViewModelBuilder {
             case .file:
                 return BlockFileViewModel(
                     indentationLevel: block.indentationLevel,
-                    information: block.blockModel.information,
+                    information: block.information,
                     fileData: content,
                     contextualMenuHandler: contextualMenuHandler,
                     showFilePicker: { [weak self] blockId in
@@ -109,10 +109,10 @@ final class BlockViewModelBuilder {
                     }
                 )
             case .none:
-                return UnknownLabelViewModel(information: block.blockModel.information)
+                return UnknownLabelViewModel(information: block.information)
             case .image:
                 return BlockImageViewModel(
-                    information: block.blockModel.information,
+                    information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
@@ -123,7 +123,7 @@ final class BlockViewModelBuilder {
             case .video:
                 return VideoBlockViewModel(
                     indentationLevel: block.indentationLevel,
-                    information: block.blockModel.information,
+                    information: block.information,
                     fileData: content,
                     contextualMenuHandler: contextualMenuHandler,
                     showVideoPicker: { [weak self] blockId in
@@ -137,14 +137,14 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(
                 content: content,
-                information: block.blockModel.information,
+                information: block.information,
                 indentationLevel: block.indentationLevel,
                 handler: contextualMenuHandler
             )
         case let .bookmark(data):
             return BlockBookmarkViewModel(
                 indentationLevel: block.indentationLevel,
-                information: block.blockModel.information,
+                information: block.information,
                 bookmarkData: data,
                 handleContextualMenu: { [weak self] action, info in
                     self?.contextualMenuHandler.handle(action: action, info: info)
@@ -157,10 +157,10 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = detailsLoader.loadDetails(blockId: block.blockId)
+            let details = detailsLoader.loadDetails(blockId: block.information.id)
             return BlockPageLinkViewModel(
                 indentationLevel: block.indentationLevel,
-                information: block.blockModel.information,
+                information: block.information,
                 content: content,
                 details: details,
                 contextualMenuHandler: contextualMenuHandler,

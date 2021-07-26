@@ -4,14 +4,14 @@ import Combine
 struct BaseDocumentUpdateResult {
     var updates: EventHandlerUpdate
     var details: DetailsData?
-    var models: [BlockActiveRecordProtocol]
+    var models: [BlockModelProtocol]
 }
 
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: UserSession? { get set }
-    var rootActiveModel: BlockActiveRecordProtocol? { get }
+    var rootActiveModel: BlockModelProtocol? { get }
     var rootModel: RootBlockContainer? { get }
     var eventHandler: EventHandler { get }
     

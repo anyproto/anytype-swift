@@ -5,7 +5,7 @@ import UIKit
 struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let blockDelegate: BlockDelegate
-    let block: BlockActiveRecordProtocol
+    let block: BlockModelProtocol
     let shouldDisplayPlaceholder: Bool
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
@@ -18,7 +18,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     init(
         blockDelegate: BlockDelegate,
-        block: BlockActiveRecordProtocol,
+        block: BlockModelProtocol,
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
         configureMentions: @escaping (UITextView) -> Void,
@@ -31,10 +31,10 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.actionHandler = actionHandler
         self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
-        self.information = block.blockModel.information
+        self.information = block.information
         self.isCheckable = isCheckable
         
-        shouldDisplayPlaceholder = block.isToggled && block.blockModel.information.childrenIds.isEmpty
+        shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     
     func makeContentView() -> UIView & UIContentView {
