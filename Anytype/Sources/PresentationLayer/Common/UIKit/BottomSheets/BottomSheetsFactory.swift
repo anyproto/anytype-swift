@@ -82,6 +82,8 @@ final class BottomSheetsFactory {
         }
         
         fpc.set(contentViewController: contentVC)
-        fpc.addPanel(toParent: parentViewController, animated: true)
+        fpc.addPanel(toParent: parentViewController, animated: true) {
+            didShow(fpc)
+        }
     }
 }
