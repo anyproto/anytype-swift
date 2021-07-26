@@ -309,7 +309,7 @@ final class StyleViewController: UIViewController {
     @objc private func colorActionHandler() {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
 
-        let fpc = FloatingPanelController()
+        let fpc = FloatingPanelController(delegate: self)
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 16.0
         // Define shadows
@@ -345,7 +345,7 @@ final class StyleViewController: UIViewController {
     @objc private func moreActionHandler() {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
 
-        let fpc = FloatingPanelController()
+        let fpc = FloatingPanelController(delegate: self)
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 16.0
         // Define shadows
@@ -392,5 +392,18 @@ extension StyleViewController: UICollectionViewDelegate {
         selectStyle(style.kind) {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
+    }
+}
+
+// MARK: - FloatingPanelControllerDelegate
+
+extension StyleViewController: FloatingPanelControllerDelegate {
+    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
+            return true
+        }
+        return false
     }
 }
