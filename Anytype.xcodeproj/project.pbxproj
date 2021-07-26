@@ -287,8 +287,6 @@
 		3D67F947269E07F800883681 /* MiddlewareBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F946269E07F800883681 /* MiddlewareBuilder.swift */; };
 		3D746D282695F13E005A0919 /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D746D272695F13E005A0919 /* CodeLanguage.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
-		3D7C08232684E00100E2168D /* BlockFileMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08222684E00100E2168D /* BlockFileMediaView.swift */; };
-		3D7C08252684E09B00E2168D /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08242684E09B00E2168D /* BlockFileView.swift */; };
 		3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* FileSizeConverter.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */; };
@@ -365,6 +363,8 @@
 		3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */; };
 		3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */; };
+		3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */; };
+		3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
 		3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */; };
@@ -863,8 +863,6 @@
 		3D67F946269E07F800883681 /* MiddlewareBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareBuilder.swift; path = AnyType/Sources/ServiceLayer/Search/MiddlewareBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3D746D272695F13E005A0919 /* CodeLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D7C08222684E00100E2168D /* BlockFileMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileMediaView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileMediaView.swift; sourceTree = SOURCE_ROOT; };
-		3D7C08242684E09B00E2168D /* BlockFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/View/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08262684E21500E2168D /* FileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileSizeConverter.swift; path = Anytype/Sources/CoreLayer/Helpers/FileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8AA268EF58300C76974 /* BlockFileContextualMenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileContextualMenuBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Base/BlockFileContextualMenuBuilder.swift; sourceTree = SOURCE_ROOT; };
@@ -939,6 +937,8 @@
 		3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkUIKitView.swift; sourceTree = "<group>"; };
 		3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentConfiguration.swift; sourceTree = "<group>"; };
+		3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
+		3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BlockFile+MediaData.swift"; path = "AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Utils/BlockFile+MediaData.swift"; sourceTree = SOURCE_ROOT; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
 		3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceProtocol.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/BlockActionService/BlockActionServiceProtocol.swift; sourceTree = SOURCE_ROOT; };
@@ -2584,13 +2584,13 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		3D7EA8A7268EF3F500C76974 /* View */ = {
+		3D7EA8A7268EF3F500C76974 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3D7C08222684E00100E2168D /* BlockFileMediaView.swift */,
-				3D7C08242684E09B00E2168D /* BlockFileView.swift */,
+				3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */,
+				0A005AAB24C4731D000520AA /* BlockFileIconBuilder.swift */,
 			);
-			path = View;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		3D7EA8C7268F523100C76974 /* View */ = {
@@ -3247,10 +3247,10 @@
 		EA20CDD326122C6900DBA9FE /* File */ = {
 			isa = PBXGroup;
 			children = (
-				3D7EA8A7268EF3F500C76974 /* View */,
+				3D7EA8A7268EF3F500C76974 /* Utils */,
 				3D7C08202684B68600E2168D /* BlockFileViewModel.swift */,
 				3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */,
-				0A005AAB24C4731D000520AA /* BlockFileIconBuilder.swift */,
+				3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -3713,6 +3713,7 @@
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
+				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
@@ -3847,6 +3848,7 @@
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
+				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
 				EA77E526262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
@@ -3895,10 +3897,8 @@
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
-				3D7C08232684E00100E2168D /* BlockFileMediaView.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
-				3D7C08252684E09B00E2168D /* BlockFileView.swift in Sources */,
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,

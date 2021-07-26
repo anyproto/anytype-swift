@@ -54,7 +54,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            return BlockFileConfiguration(fileData)
+            return BlockFileConfiguration(fileData.mediaData)
         }
     }
     

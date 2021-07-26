@@ -2,10 +2,10 @@ import UIKit
 import BlocksModels
 
 struct BlockFileConfiguration: UIContentConfiguration, Hashable {
-    let fileData: BlockFile
+    let data: BlockFileMediaData
 
-    init(_ fileData: BlockFile) {
-        self.fileData = fileData
+    init(_ fileData: BlockFileMediaData) {
+        self.data = fileData
     }
             
     func makeContentView() -> UIView & UIContentView {
