@@ -10,7 +10,8 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         information: BlockInformation,
-        actionHandler: @escaping ActionHandler
+        actionHandler: @escaping ActionHandler,
+        didShow: @escaping (FloatingPanelController) -> Void
     ) {
         let fpc = FloatingPanelController()
         fpc.delegate = delegate
