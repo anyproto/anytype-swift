@@ -26,13 +26,14 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         case .empty:
             return BlocksFileEmptyViewConfiguration(
                 image: UIImage.blockFile.empty.bookmark,
-                text: "Add a web bookmark".localized
+                text: "Add a web bookmark".localized,
+                state: .default
             )
-        default:
-            break
+        case let .fetched(payload):
+            return BlockBookmarkConfiguration(state: .fetched(payload))
+        case let .onlyURL(url):
+            return BlockBookmarkConfiguration(state: .onlyURL(url))
         }
-        
-        return BlockBookmarkConfiguration(state: bookmarkData.blockBookmarkState)
     }
     
     func didSelectRowInTableView() {

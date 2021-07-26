@@ -19,10 +19,6 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     let showFilePicker: (BlockId) -> ()
     let downloadFile: (FileId) -> ()
     
-    func makeContentConfiguration() -> UIContentConfiguration {
-        BlockFileConfiguration(fileData)
-    }
-    
     func makeContextualMenu() -> [ContextualMenu] {
         BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
     }
@@ -47,5 +43,26 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .uploading:
             return
         }
+    }
+    
+    func makeContentConfiguration() -> UIContentConfiguration {
+        switch fileData.state {
+        case .empty:
+            return emptyViewConfiguration(state: .default)
+        case .uploading:
+            return emptyViewConfiguration(state: .uploading)
+        case .error:
+            return emptyViewConfiguration(state: .error)
+        case .done:
+            return BlockFileConfiguration(fileData)
+        }
+    }
+    
+    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+        BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.file,
+            text: "Upload a file",
+            state: state
+        )
     }
 }

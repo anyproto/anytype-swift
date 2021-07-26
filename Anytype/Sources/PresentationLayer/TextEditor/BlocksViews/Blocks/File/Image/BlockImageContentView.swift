@@ -8,12 +8,6 @@ final class BlockImageContentView: UIView & UIContentView {
     private var imageContentViewHeight: NSLayoutConstraint?
     
     private let imageView = UIImageView()
-    private let emptyView = BlocksFileEmptyView(
-        configuration: BlocksFileEmptyViewConfiguration(
-            image: UIImage.blockFile.empty.image,
-            text: Constants.emptyViewPlaceholderTitle
-        )
-    )
     
     private var currentConfiguration: BlockImageConfiguration
     var configuration: UIContentConfiguration {
@@ -52,11 +46,9 @@ final class BlockImageContentView: UIView & UIContentView {
         imageView.backgroundColor = .grayscale10
         
         
-        emptyView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        addSubview(emptyView)
-        addSubview(imageView)
+        addImageViewLayout()
     }
     
     /// MARK: - EditorModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
@@ -65,28 +57,12 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
-
-        switch file.state {
-        case .empty:
-            addEmptyViewLayout()
-            emptyView.change(state: .empty)
-        case .uploading:
-            addEmptyViewLayout()
-            emptyView.change(state: .uploading)
-        case .error:
-            addEmptyViewLayout()
-            emptyView.change(state: .error)
-            
-        case .done:
-            addImageViewLayout()
-            setupImage(file, oldFile)
-        }
-        
+        assert(file.state == .done, "Wrong state \(file.state) for block image")
+        setupImage(file, oldFile)
         invalidateIntrinsicContentSize()
     }
     
     private func addImageViewLayout() {
-        emptyView.removeFromSuperview()
         addSubview(imageView)
     
         imageContentViewHeight = imageView.heightAnchor.constraint(equalToConstant: Layout.imageContentViewDefaultHeight)
@@ -94,33 +70,6 @@ final class BlockImageContentView: UIView & UIContentView {
         //                imageContentViewHeight?.priority = .init(750)
         imageContentViewHeight?.isActive = true
         imageView.pinAllEdges(to: self, insets: Layout.imageViewInsets)
-    }
-    
-    private func addEmptyViewLayout() {
-        imageView.removeFromSuperview()
-        addSubview(emptyView)
-        
-        let view = self.emptyView
-        if let superview = view.superview {
-            let heightAnchor = view.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
-            let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            // We need priotity here cause cell self size constraint will conflict with ours
-            bottomAnchor.priority = .init(750)
-            
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(
-                    equalTo: superview.leadingAnchor,
-                    constant: Layout.emptyViewInsets.left
-                ),
-                view.trailingAnchor.constraint(
-                    equalTo: superview.trailingAnchor,
-                    constant: -Layout.emptyViewInsets.right
-                ),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                bottomAnchor,
-                heightAnchor
-            ])
-        }
     }
     
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
@@ -159,12 +108,6 @@ private extension BlockImageContentView {
     enum Layout {
         static let imageContentViewDefaultHeight: CGFloat = 250
         static let imageViewTop: CGFloat = 4
-        static let emptyViewHeight: CGFloat = 52
-        static let emptyViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
-    }
-    
-    enum Constants {
-        static let emptyViewPlaceholderTitle = "Upload a picture".localizedLowercase
     }
 }

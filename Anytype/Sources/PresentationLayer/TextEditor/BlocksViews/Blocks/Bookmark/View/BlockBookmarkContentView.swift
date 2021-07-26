@@ -34,12 +34,10 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func apply(state: BlockBookmarkState) {
+    private func apply(state: BlockBookmarkContentState) {
         removeAllSubviews()
         
         switch state {
-        case .empty:
-            fatalError()
         case let .onlyURL(url):
             addSubview(bookmarkView) {
                 $0.pinToSuperview(insets: Layout.bookmarkViewInsets)

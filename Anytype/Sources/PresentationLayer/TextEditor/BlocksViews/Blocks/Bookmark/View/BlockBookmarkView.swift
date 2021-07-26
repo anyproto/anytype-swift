@@ -46,11 +46,6 @@ final class BlockBookmarkView: UIView {
     }
 }
 
-enum BlockBookmarkContentState {
-    case onlyURL(String)
-    case fetched(BlockBookmarkPayload)
-}
-
 private extension BlockBookmarkView {
     enum Layout {
         static let spacing: CGFloat = 5
