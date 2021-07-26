@@ -172,6 +172,7 @@ final class TextBlockContentView: UIView & UIContentView {
             let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) { [weak self] in
                 guard let self = self else { return }
                 
+                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 self.currentConfiguration.actionHandler.handleAction(
                     .checkbox(selected: !blockText.checked),
                     info: self.currentConfiguration.information
@@ -198,6 +199,8 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForCheckbox(checked: Bool) {
         let leftView = TextBlockIconView(viewType: .checkbox(isSelected: checked)) { [weak self] in
             guard let self = self else { return }
+            
+            UISelectionFeedbackGenerator().selectionChanged()
             self.currentConfiguration.actionHandler.handleAction(
                 .checkbox(selected: !checked),
                 info: self.currentConfiguration.information

@@ -207,14 +207,14 @@ private extension Google_Protobuf_Value {
     }
     
     func asCoverTypeEntry() -> DetailsEntry<AnyHashable>? {
-        guard case let .numberValue(number) = kind else {
+        guard let number = self.safeIntValue else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverType)"
             )
             return nil
         }
         
-        guard let coverType = CoverType(rawValue: Int(number)) else { return nil }
+        guard let coverType = CoverType(rawValue: number) else { return nil }
         
         return DetailsEntry(value: coverType)
     }
@@ -242,25 +242,25 @@ private extension Google_Protobuf_Value {
     }
     
     func asLayoutEntry() -> DetailsEntry<AnyHashable>? {
-        guard case let .numberValue(number) = kind else {
+        guard let number = self.safeIntValue else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
         }
-        guard let layout = DetailsLayout(rawValue: Int(number)) else { return nil }
+        guard let layout = DetailsLayout(rawValue: number) else { return nil }
         
         return DetailsEntry(value: layout)
     }
     
     func asAlignmentEntry() -> DetailsEntry<AnyHashable>? {
-        guard case let .numberValue(number) = kind else {
+        guard let number = self.safeIntValue else {
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
         }
-        guard let layout = LayoutAlignment(rawValue: Int(number)) else { return nil }
+        guard let layout = LayoutAlignment(rawValue: number) else { return nil }
         
         return DetailsEntry(value: layout)
     }
