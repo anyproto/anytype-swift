@@ -155,10 +155,8 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let publisher = ourModel.changeInformationPublisher
-        self.defaultDetailsActiveModel.configured(documentId: rootId)
-        self.defaultDetailsActiveModel.configured(publisher: publisher)
-        self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
-        self.listenDefaultDetails()
+        defaultDetailsActiveModel.configured(publisher: publisher)
+        listenDefaultDetails()
     }
 
     // MARK: - Handle new root model
@@ -206,8 +204,7 @@ final class BaseDocument: BaseDocumentProtocol {
             Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
-        let result: DetailsActiveModel = .init()
-        result.configured(documentId: id)
+        let result = DetailsActiveModel()
         result.configured(publisher: value.changeInformationPublisher)
         return result
     }
