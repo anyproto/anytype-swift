@@ -13,10 +13,8 @@
 		0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537225D9C99E002F3F82 /* BlockContent.swift */; };
 		0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537425D9C99E002F3F82 /* BlockInformation.swift */; };
 		0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */; };
-		0A6D539B25D9C99F002F3F82 /* BlockActiveRecordProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537B25D9C99E002F3F82 /* BlockActiveRecordProtocol.swift */; };
 		0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */; };
 		0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537D25D9C99E002F3F82 /* Aliases.swift */; };
-		0A6D539E25D9C99F002F3F82 /* BlockActiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537E25D9C99E002F3F82 /* BlockActiveRecord.swift */; };
 		0A6D539F25D9C99F002F3F82 /* BlockHasDidChangePublisherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */; };
 		0A6D53A225D9C99F002F3F82 /* DetailsDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538225D9C99F002F3F82 /* DetailsDataProtocol.swift */; };
 		0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */; };
@@ -57,10 +55,8 @@
 		0A6D537225D9C99E002F3F82 /* BlockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockContent.swift; sourceTree = "<group>"; };
 		0A6D537425D9C99E002F3F82 /* BlockInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformation.swift; sourceTree = "<group>"; };
 		0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelProtocol.swift; sourceTree = "<group>"; };
-		0A6D537B25D9C99E002F3F82 /* BlockActiveRecordProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActiveRecordProtocol.swift; sourceTree = "<group>"; };
 		0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+CommonStructures.swift"; sourceTree = "<group>"; };
 		0A6D537D25D9C99E002F3F82 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
-		0A6D537E25D9C99E002F3F82 /* BlockActiveRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActiveRecord.swift; sourceTree = "<group>"; };
 		0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockHasDidChangePublisherProtocol.swift; sourceTree = "<group>"; };
 		0A6D538225D9C99F002F3F82 /* DetailsDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsDataProtocol.swift; sourceTree = "<group>"; };
 		0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeBlockBuilder.swift; sourceTree = "<group>"; };
@@ -180,15 +176,6 @@
 			path = DetailsProvider;
 			sourceTree = "<group>";
 		};
-		3D0BCAB7266638C1002F7A0D /* BlockActiveRecord */ = {
-			isa = PBXGroup;
-			children = (
-				0A6D537B25D9C99E002F3F82 /* BlockActiveRecordProtocol.swift */,
-				0A6D537E25D9C99E002F3F82 /* BlockActiveRecord.swift */,
-			);
-			path = BlockActiveRecord;
-			sourceTree = "<group>";
-		};
 		3D0BCABA26663A70002F7A0D /* BlockModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,7 +225,6 @@
 				3D0BCADF26666BE9002F7A0D /* BlockContent */,
 				3D0BCABB26663A88002F7A0D /* BlockUserSession */,
 				3D0BCABA26663A70002F7A0D /* BlockModel */,
-				3D0BCAB7266638C1002F7A0D /* BlockActiveRecord */,
 				3DB7DCA22639DBCD00635E4C /* BlockContainer */,
 				0A6D536C25D9C99E002F3F82 /* BlockContainerBuilder.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
@@ -383,8 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				12A259B6265808ED00B71DA1 /* DetailsContainer.swift in Sources */,
-				0A6D539E25D9C99F002F3F82 /* BlockActiveRecord.swift in Sources */,
-				0A6D539B25D9C99F002F3F82 /* BlockActiveRecordProtocol.swift in Sources */,
 				12A259B22658018800B71DA1 /* LegacyDetailsModel.swift in Sources */,
 				0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */,
 				12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */,

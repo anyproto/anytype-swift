@@ -3,11 +3,10 @@ import UIKit
 import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {
-    
-    let block: BlockActiveRecordProtocol
     var indentationLevel: Int { block.indentationLevel }
-    var information: BlockInformation { block.blockModel.information }
+    var information: BlockInformation { block.information }
     
+    let block: BlockModelProtocol
     let content: BlockText
     let isCheckable: Bool
     private let toggled: Bool
@@ -29,7 +28,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     init(
-        block: BlockActiveRecordProtocol,
+        block: BlockModelProtocol,
         content: BlockText,
         isCheckable: Bool,
         contextualMenuHandler: DefaultContextualMenuHandler,
