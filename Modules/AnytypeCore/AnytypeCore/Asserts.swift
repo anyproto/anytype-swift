@@ -8,7 +8,7 @@ public func anytypeAssertionFailure(_ message: String) {
         showAlert(message)
     }
     #elseif DEBUG
-        anytypeAssertionFailure(message)
+        assertionFailure(message)
     #endif
 }
 
