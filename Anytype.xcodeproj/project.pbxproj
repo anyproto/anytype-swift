@@ -317,6 +317,7 @@
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
 		3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */; };
 		3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */; };
+		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
 		3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */; };
@@ -563,6 +564,13 @@
 			remoteGlobalIDString = 0A7831D224B8672D00A1B6F6;
 			remoteInfo = BlocksModels;
 		};
+		3DA4B1B526AF48C20000F243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3DA4B0BF26AF3D2B0000F243;
+			remoteInfo = AnytypeCore;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -572,6 +580,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */,
 				0A005ABA24C60092000520AA /* BlocksModels.framework in Embed Frameworks */,
 				53856BEC265BC48800CB1FAE /* ProtobufMessages.framework in Embed Frameworks */,
 			);
@@ -894,6 +903,7 @@
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
 		3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CorrectAspectRatio.swift"; sourceTree = "<group>"; };
 		3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithCircleBackgroundView.swift; sourceTree = "<group>"; };
+		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
 		3DA6263C2657AB8000942249 /* AnimationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
 		3DA626522657ADA700942249 /* PopupExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupExtension.swift; sourceTree = "<group>"; };
 		3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeText.swift; sourceTree = "<group>"; };
@@ -1854,6 +1864,7 @@
 		0A78321D24B8BBE800A1B6F6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */,
 				0A6D534D25D9C89C002F3F82 /* ProtobufMessages */,
 				0A78321E24B8BBE800A1B6F6 /* BlocksModels */,
 			);
@@ -2768,6 +2779,14 @@
 			path = EventHandler;
 			sourceTree = "<group>";
 		};
+		3DA4B1B226AF48C20000F243 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3DA626392657AB7200942249 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -3572,6 +3591,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 3DA4B1B226AF48C20000F243 /* Products */;
+					ProjectRef = 3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */;
+				},
+				{
 					ProductGroup = 0A78326624B8BC1000A1B6F6 /* Products */;
 					ProjectRef = 0A78326524B8BC1000A1B6F6 /* BlocksModels.xcodeproj */;
 				},
@@ -3601,6 +3624,13 @@
 			fileType = wrapper.framework;
 			path = BlocksModels.framework;
 			remoteRef = 0A78326924B8BC1100A1B6F6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AnytypeCore.framework;
+			remoteRef = 3DA4B1B526AF48C20000F243 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
