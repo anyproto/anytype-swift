@@ -175,7 +175,7 @@ final class TextBlockContentView: UIView & UIContentView {
                 UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
                 self.currentConfiguration.actionHandler.handleAction(
                     .checkbox(selected: !blockText.checked),
-                    info: self.currentConfiguration.information
+                    blockId: self.currentConfiguration.information.id
                 )
             }
             replaceCurrentLeftView(with: leftView)
@@ -203,7 +203,7 @@ final class TextBlockContentView: UIView & UIContentView {
             UISelectionFeedbackGenerator().selectionChanged()
             self.currentConfiguration.actionHandler.handleAction(
                 .checkbox(selected: !checked),
-                info: self.currentConfiguration.information
+                blockId: self.currentConfiguration.information.id
             )
         }
         replaceCurrentLeftView(with: leftView)
@@ -236,7 +236,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.currentConfiguration.block.toggle()
             self.currentConfiguration.actionHandler.handleAction(
                 .toggle,
-                info: self.currentConfiguration.information
+                blockId: self.currentConfiguration.information.id
             )
         }
         replaceCurrentLeftView(with: leftView)
@@ -272,7 +272,7 @@ final class TextBlockContentView: UIView & UIContentView {
                     action: .changeText(self.textView.textView.attributedText),
                     activeRecord: self.currentConfiguration.block
                 ),
-                info: self.currentConfiguration.information
+                blockId: self.currentConfiguration.information.id
             )
         }
         
@@ -325,7 +325,7 @@ final class TextBlockContentView: UIView & UIContentView {
                         .createEmptyBlock(
                             parentId: self.currentConfiguration.information.id
                         ),
-                        info: self.currentConfiguration.information
+                        blockId: self.currentConfiguration.information.id
                     )
                 }
             )

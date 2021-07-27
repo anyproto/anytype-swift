@@ -11,7 +11,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
             let block = currentConfiguration.block
             currentConfiguration.actionHandler.handleAction(
                 .textView(action: action, activeRecord: block),
-                info: currentConfiguration.information
+                blockId: currentConfiguration.information.id
             )
         case .changeTextForStruct:
             fallthrough
@@ -21,7 +21,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
                     action: action,
                     activeRecord: currentConfiguration.block
                 ),
-                info: currentConfiguration.information
+                blockId: currentConfiguration.information.id
             )
         case let .keyboardAction(keyAction):
             switch keyAction {
@@ -38,7 +38,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
                             action: action,
                             activeRecord: currentConfiguration.block
                         ),
-                        info: currentConfiguration.information
+                        blockId: currentConfiguration.information.id
                     )
                 }
                 return false
@@ -50,7 +50,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
                     action: action,
                     activeRecord: currentConfiguration.block
                 ),
-                info: currentConfiguration.information
+                blockId: currentConfiguration.information.id
             )
         case .changeTextStyle, .changeCaretPosition:
             currentConfiguration.actionHandler.handleAction(
@@ -58,7 +58,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
                     action: action,
                     activeRecord: currentConfiguration.block
                 ),
-                info: currentConfiguration.information
+                blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
             return !mentionsHolder.removeMentionIfNeeded(
