@@ -107,6 +107,7 @@ final class TextBlockContentView: UIView & UIContentView {
         subscriptions.removeAll()
         textView.delegate = self
         textView.userInteractionDelegate = self
+        updateSlashMenuItems()
 
         guard case let .text(text) = self.currentConfiguration.block.information.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
@@ -346,6 +347,14 @@ final class TextBlockContentView: UIView & UIContentView {
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         button.titleLabel?.lineBreakMode = .byWordWrapping
         return button
+    }
+    
+    private func updateSlashMenuItems() {
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(
+            for: currentConfiguration.information.content.type
+        )
+        let builder = BlockActionsBuilder(restrictions: restrictions)
+        textView.accessoryViewSwitcher.slashMenuView.menuItems = builder.makeBlockActionsMenuItems()
     }
     
     private enum LayoutConstants {

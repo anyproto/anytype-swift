@@ -8,9 +8,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
         static let maxMistatchFilteringCount = 3
     }
     
+    var menuItems: [BlockActionMenuItem]
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: SlashMenuItemsViewController?
-    private let menuItems: [BlockActionMenuItem]
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     private var filterMismatchCounter = Constants.maxMistatchFilteringCount
     
