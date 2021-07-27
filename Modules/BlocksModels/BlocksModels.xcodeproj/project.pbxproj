@@ -15,7 +15,6 @@
 		0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */; };
 		0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */; };
 		0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537D25D9C99E002F3F82 /* Aliases.swift */; };
-		0A6D539F25D9C99F002F3F82 /* BlockHasDidChangePublisherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */; };
 		0A6D53A225D9C99F002F3F82 /* DetailsDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538225D9C99F002F3F82 /* DetailsDataProtocol.swift */; };
 		0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */; };
 		0A6D53A725D9C99F002F3F82 /* RootBlocksContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */; };
@@ -57,7 +56,6 @@
 		0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelProtocol.swift; sourceTree = "<group>"; };
 		0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+CommonStructures.swift"; sourceTree = "<group>"; };
 		0A6D537D25D9C99E002F3F82 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
-		0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockHasDidChangePublisherProtocol.swift; sourceTree = "<group>"; };
 		0A6D538225D9C99F002F3F82 /* DetailsDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsDataProtocol.swift; sourceTree = "<group>"; };
 		0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeBlockBuilder.swift; sourceTree = "<group>"; };
 		0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootBlocksContainer.swift; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				3DB7DCA22639DBCD00635E4C /* BlockContainer */,
 				0A6D536C25D9C99E002F3F82 /* BlockContainerBuilder.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
-				0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */,
 				0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */,
 				0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
@@ -396,7 +393,6 @@
 				0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */,
 				0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */,
 				EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */,
-				0A6D539F25D9C99F002F3F82 /* BlockHasDidChangePublisherProtocol.swift in Sources */,
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* BlockContainerBuilder.swift in Sources */,
