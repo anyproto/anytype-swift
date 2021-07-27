@@ -1,30 +1,30 @@
-enum Feature: String, Codable {
-    case newHome = "New Home"
+public enum Feature: String, Codable {
     case analytics = "Analytics(Amplitude)"
+    case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
 }
 
-final class FeatureFlags {
-    typealias Features = [Feature: Bool]
+public final class FeatureFlags {
+    public typealias Features = [Feature: Bool]
     
-    static var features: Features {
+    public static var features: Features {
         UserDefaultsConfig.featureFlags.merging(defaultValues, uniquingKeysWith: { (first, _) in first })
     }
     
     private static let defaultValues: Features = [
-        .newHome : true,
+        .showAlertOnAssert : true,
         .analytics : false
     ]
     
-    static func update(key: Feature, value: Bool) {
+    public static func update(key: Feature, value: Bool) {
         var updatedFeatures = UserDefaultsConfig.featureFlags
         updatedFeatures.updateValue(value, forKey: key)
         UserDefaultsConfig.featureFlags = updatedFeatures
     }
 }
 
-extension FeatureFlags {
-    static var newHome: Bool {
-        features[.newHome, default: true]
+public extension FeatureFlags {
+    static var showAlertOnAssert: Bool {
+        features[.showAlertOnAssert, default: true]
     }
 
     static var analytics: Bool {

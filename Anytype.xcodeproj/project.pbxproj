@@ -41,7 +41,6 @@
 		03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03A46A42231417D6009AC10C /* InfoPlist.strings */; };
 		03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */; };
 		03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A90DF323A04FFE000E3EFE /* LocalRepoService.swift */; };
-		03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA488C22FA5C8A00D756AA /* UserDefault.swift */; };
 		03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1619D239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift */; };
 		03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1619F239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift */; };
 		03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */; };
@@ -384,7 +383,6 @@
 		3DEFD6652689FE740072EA27 /* DocumentIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */; };
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DEFD671268A32D70072EA27 /* EditorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */; };
-		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconView.swift */; };
 		530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A5429269FB8FF009016AE /* AmplitudeConstants.swift */; };
@@ -636,7 +634,6 @@
 		03A46A41231417D6009AC10C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironments.swift; sourceTree = "<group>"; };
 		03A90DF323A04FFE000E3EFE /* LocalRepoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepoService.swift; sourceTree = "<group>"; };
-		03AA488C22FA5C8A00D756AA /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		03B1619D239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewOnCreatAccount.swift; sourceTree = "<group>"; };
 		03B1619F239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewOnCreatAccountModel.swift; sourceTree = "<group>"; };
 		03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -969,7 +966,6 @@
 		3DEFD6612689FE740072EA27 /* DocumentIconImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentIconImageView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/DocumentIconImageView.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorActionHandler.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/Utils/EditorActionHandler.swift; sourceTree = SOURCE_ROOT; };
-		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		530470F52682046900C9EE78 /* TextBlockIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconView.swift; sourceTree = "<group>"; };
 		530A5429269FB8FF009016AE /* AmplitudeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeConstants.swift; sourceTree = "<group>"; };
@@ -1572,7 +1568,6 @@
 			children = (
 				03DA0FD123A1DBA900C597BD /* SecureStoreService */,
 				03A90DF323A04FFE000E3EFE /* LocalRepoService.swift */,
-				03AA488C22FA5C8A00D756AA /* UserDefault.swift */,
 			);
 			path = StoreServices;
 			sourceTree = "<group>";
@@ -1960,7 +1955,6 @@
 			isa = PBXGroup;
 			children = (
 				EAC5FD4A2657DC3D006BB24E /* UIScrollView */,
-				3DF6F61A262ED50C000E05A5 /* FeatureFlags */,
 				0A996BD023F0342A000FDC9C /* PlistReader.swift */,
 				0A0AA75624018631003A2935 /* DataStructures.swift */,
 				0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */,
@@ -3020,14 +3014,6 @@
 			path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Views/DocumentDetailsView/Icon/Entity;
 			sourceTree = SOURCE_ROOT;
 		};
-		3DF6F61A262ED50C000E05A5 /* FeatureFlags */ = {
-			isa = PBXGroup;
-			children = (
-				3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */,
-			);
-			path = FeatureFlags;
-			sourceTree = "<group>";
-		};
 		530470F42682044000C9EE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -3928,7 +3914,6 @@
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
-				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				EAE6BDBD267CB11D00275788 /* MentionsTextViewConfigurator.swift in Sources */,
@@ -4086,7 +4071,6 @@
 				EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
-				3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */,
 				EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,

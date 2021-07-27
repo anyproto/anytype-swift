@@ -4,7 +4,7 @@ import SwiftUI
 import os
 import ProtobufMessages
 import Amplitude
-
+import AnytypeCore
 
 private extension LoggerCategory {
     static let servicesAuthService: Self = "Services.AuthService"

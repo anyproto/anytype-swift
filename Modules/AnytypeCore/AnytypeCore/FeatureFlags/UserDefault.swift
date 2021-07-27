@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 @propertyWrapper
-struct UserDefault<T> {
+public struct UserDefault<T> {
     let key: String
     let defaultValue: T
 
@@ -11,7 +11,7 @@ struct UserDefault<T> {
         self.defaultValue = defaultValue
     }
 
-    var wrappedValue: T {
+    public var wrappedValue: T {
         get {
             return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
         }
@@ -22,19 +22,19 @@ struct UserDefault<T> {
 }
 
 /// User defaults store
-struct UserDefaultsConfig {
+public struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
-    static var usersIdKey: String
+    public static var usersIdKey: String
 }
 
 // Services handling
-extension UserDefaultsConfig {
+public extension UserDefaultsConfig {
     @UserDefault("App.InstalledAtDate", defaultValue: nil)
     static var installedAtDate: Date?
 }
 
 // Feature flags
-extension UserDefaultsConfig {
+public extension UserDefaultsConfig {
     @UserDefault("FeatureFlags", defaultValue: [:])
     private static var encodedFeatureFlags: [String: Bool]
     
