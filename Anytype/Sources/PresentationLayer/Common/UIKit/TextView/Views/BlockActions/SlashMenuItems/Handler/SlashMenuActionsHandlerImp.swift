@@ -172,7 +172,7 @@ private extension SlashMenuActionsHandlerImp {
         DispatchQueue.main.asyncAfter(deadline: Constants.showPageBlockTargetDelay) {
             self.blockActionHandler.handleAction(
                 .showPage(pageId: targetBlock),
-                info: model.information
+                blockId: model.information.id
             )
         }
     }

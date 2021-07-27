@@ -15,13 +15,13 @@ final class DefaultContextualMenuHandler {
     func handle(action: ContextualMenu, info: BlockInformation) {
         switch action {
         case .addBlockBelow:
-            handler.handleAction(.addBlock(.text(.text)), info: info)
+            handler.handleAction(.addBlock(.text(.text)), blockId: info.id)
         case .delete:
-            handler.handleAction(.delete, info: info)
+            handler.handleAction(.delete, blockId: info.id)
         case .duplicate:
-            handler.handleAction(.duplicate, info: info)
+            handler.handleAction(.duplicate, blockId: info.id)
         case .turnIntoPage:
-            handler.handleAction(.turnIntoBlock(.objects(.page)), info: info)
+            handler.handleAction(.turnIntoBlock(.objects(.page)), blockId: info.id)
         case .style:
             router.showStyleMenu(information: info)
         case .download,.replace:

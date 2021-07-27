@@ -50,7 +50,7 @@ final class BlockViewModelBuilder {
                     textDidChange: { block, textView in
                         self.blockActionHandler.handleAction(
                             .textView(action: .changeTextForStruct(textView.attributedText), activeRecord: block),
-                            info: block.information
+                            blockId: block.information.id
                         )
                     },
                     showCodeSelection: { [weak self] block in
@@ -61,7 +61,8 @@ final class BlockViewModelBuilder {
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
                             self?.blockActionHandler.handleAction(
-                                .setFields(contextID: contextId, fields: [fields]), info: block.information
+                                .setFields(contextID: contextId, fields: [fields]),
+                                blockId: block.information.id
                             )
                         }
                     }
@@ -206,7 +207,8 @@ final class BlockViewModelBuilder {
             guard let self = self else { return }
             
             self.blockActionHandler.handleAction(
-                .fetch(url: url), info: info
+                .fetch(url: url),
+                blockId: info.id
             )
         }
     }
