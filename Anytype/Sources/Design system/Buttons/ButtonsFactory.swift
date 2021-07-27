@@ -25,6 +25,21 @@ enum ButtonsFactory {
         backButton.tintColor = .secondaryTextColor
         return backButton
     }
+    
+    static func makeRoundedButton(
+        image: UIImage?,
+        target: Any,
+        selector: Selector,
+        stateFlag: Bool?) -> ButtonWithImage {
+        let button = roundedBorderуButton(image: image)
+        if let flag = stateFlag {
+            button.isSelected = flag
+        } else {
+            button.isEnabled = false
+        }
+        button.addTarget(target, action: selector, for: .touchUpInside)
+        return button
+    }
 
     static func roundedBorderуButton(image: UIImage?) -> ButtonWithImage {
         let button = ButtonWithImage()

@@ -10,6 +10,7 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         information: BlockInformation,
+        container: BlockContainerModelProtocol,
         actionHandler: @escaping ActionHandler,
         didShow: @escaping (FloatingPanelController) -> Void
     ) {
@@ -40,16 +41,17 @@ final class BottomSheetsFactory {
         // NOTE: This will be moved to coordinator in next pr
         guard case let .text(textContentType) = information.content.type else { return }
         let askAttributes: () -> TextAttributesViewController.AttributesState = {
-            guard case let .text(textContent) = information.content else {
-                return .init(hasBold: false, hasItalic: false, hasStrikethrough: false, hasCodeStyle: false)
+            guard let information = container.model(id: information.id)?.information,
+                  case let .text(textContent) = information.content else {
+                return .init()
             }
-
+            let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
             let range = NSRange(location: 0, length: textContent.attributedText.length)
 
-            let hasBold = textContent.attributedText.wholeStringFontHasTrait(trait: .traitBold)
-            let hasItalic = textContent.attributedText.wholeStringFontHasTrait(trait: .traitItalic)
-            let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
-            let hasCode = textContent.attributedText.wholeStringWithCodeMarkup()
+            let hasBold = restrictions.canApplyBold ? textContent.attributedText.wholeStringFontHasTrait(trait: .traitBold) : nil
+            let hasItalic = restrictions.canApplyItalic ? textContent.attributedText.wholeStringFontHasTrait(trait: .traitItalic) : nil
+            let hasStrikethrough = restrictions.canApplyOtherMarkup ? textContent.attributedText.hasAttribute(.strikethroughStyle, at: range) : nil
+            let hasCode = restrictions.canApplyOtherMarkup ? textContent.attributedText.wholeStringWithCodeMarkup() : nil
             let alignment = information.alignment.asNSTextAlignment
 
             let attributes = TextAttributesViewController.AttributesState(

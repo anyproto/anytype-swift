@@ -13,10 +13,10 @@ final class TextAttributesViewController: UIViewController {
     typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     struct AttributesState {
-        var hasBold: Bool
-        var hasItalic: Bool
-        var hasStrikethrough: Bool
-        var hasCodeStyle: Bool
+        var hasBold: Bool?
+        var hasItalic: Bool?
+        var hasStrikethrough: Bool?
+        var hasCodeStyle: Bool?
         var alignment: NSTextAlignment = .left
         var url: String = ""
     }
@@ -113,12 +113,15 @@ final class TextAttributesViewController: UIViewController {
     }
 
     private func setupRightStackView() {
-        let codeButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/code"))
-        codeButton.isSelected = attributesState.hasCodeStyle
+        let codeButton = ButtonsFactory.makeRoundedButton(
+            image: UIImage(named: "TextAttributes/code"),
+            target: self,
+            selector: #selector(codeButtonHandler(sender:)),
+            stateFlag: attributesState.hasCodeStyle
+        )
+        
         let urlButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/url"))
         urlButton.isSelected = !attributesState.url.isEmpty
-
-        codeButton.addTarget(self, action: #selector(codeButtonHandler(sender:)), for: .touchUpInside)
         urlButton.addTarget(self, action: #selector(urlButtonHandler(sender:)), for: .touchUpInside)
 
         rightStackView.addArrangedSubview(codeButton)
@@ -126,20 +129,27 @@ final class TextAttributesViewController: UIViewController {
     }
 
     private func setupLeftTopStackView() {
-        let boldButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/bold"))
-        boldButton.isSelected = attributesState.hasBold
-        let italicButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/italic"))
-        italicButton.isSelected = attributesState.hasItalic
-        let strikethrougButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/strikethrough"))
-        strikethrougButton.isSelected = attributesState.hasStrikethrough
-
-        boldButton.addTarget(self, action: #selector(boldButtonHandler(sender:)), for: .touchUpInside)
-        italicButton.addTarget(self, action: #selector(italicButtonHandler(sender:)), for: .touchUpInside)
-        strikethrougButton.addTarget(self, action: #selector(strikethrougButtonHandler(sender:)), for: .touchUpInside)
-
+        let boldButton = ButtonsFactory.makeRoundedButton(
+            image: UIImage(named: "TextAttributes/bold"),
+            target: self,
+            selector: #selector(boldButtonHandler(sender:)),
+            stateFlag: attributesState.hasBold
+        )
+        let italicButton = ButtonsFactory.makeRoundedButton(
+            image: UIImage(named: "TextAttributes/italic"),
+            target: self,
+            selector: #selector(italicButtonHandler(sender:)),
+            stateFlag: attributesState.hasItalic
+        )
+        let strikethroughButton = ButtonsFactory.makeRoundedButton(
+            image: UIImage(named: "TextAttributes/strikethrough"),
+            target: self,
+            selector: #selector(strikethrougButtonHandler(sender:)),
+            stateFlag: attributesState.hasStrikethrough
+        )
         leftTopStackView.addArrangedSubview(boldButton)
         leftTopStackView.addArrangedSubview(italicButton)
-        leftTopStackView.addArrangedSubview(strikethrougButton)
+        leftTopStackView.addArrangedSubview(strikethroughButton)
     }
 
     private func setupLeftBottomStackView() {

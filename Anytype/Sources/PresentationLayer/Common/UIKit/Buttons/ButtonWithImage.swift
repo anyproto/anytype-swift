@@ -32,6 +32,12 @@ final class ButtonWithImage: UIControl {
             backgroundColor = isSelected ? UIColor.selected : .clear
         }
     }
+    
+    override var isEnabled: Bool {
+        didSet {
+            alpha = isEnabled ? 1 : 0.5
+        }
+    }
 
     private func setupViews() {
         let container = UIStackView()

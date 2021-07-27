@@ -26,9 +26,14 @@ protocol EditorRouterProtocol: AnyObject {
 final class EditorRouter: EditorRouterProtocol {
     private weak var viewController: DocumentEditorViewController?
     private let fileRouter: FileRouter
+    private let document: BaseDocumentProtocol
 
-    init(viewController: DocumentEditorViewController) {
+    init(
+        viewController: DocumentEditorViewController,
+        document: BaseDocumentProtocol
+    ) {
         self.viewController = viewController
+        self.document = document
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
@@ -78,13 +83,16 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showStyleMenu(information: BlockInformation) {
-        guard let controller = viewController, let parentController = controller.parent else { return }
+        guard let controller = viewController,
+              let parentController = controller.parent,
+              let container = document.rootModel else { return }
         controller.view.endEditing(true)
 
         BottomSheetsFactory.createStyleBottomSheet(
             parentViewController: parentController,
             delegate: controller,
-            information: information
+            information: information,
+            container: container.blocksContainer
         ) { [weak controller] action in
             controller?.viewModel.blockActionHandler.handleAction(action, info: information)
         } didShow: { fpc in
