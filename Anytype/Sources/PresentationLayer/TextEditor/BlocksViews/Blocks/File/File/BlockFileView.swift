@@ -60,6 +60,8 @@ class BlockFileView: UIView & UIContentView {
             $0.width.equal(to: 18)
             $0.height.equal(to: 18)
         }
+        
+        translatesAutoresizingMaskIntoConstraints = true
     }
     
     func handle(data: BlockFileMediaData) {

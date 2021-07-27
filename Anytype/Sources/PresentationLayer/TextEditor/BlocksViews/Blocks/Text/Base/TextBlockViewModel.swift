@@ -2,13 +2,13 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct TextBlockViewModel: BlockViewModelProtocol {
+struct TextBlockViewModel: BlockViewModelProtocol {    
     var indentationLevel: Int { block.indentationLevel }
     var information: BlockInformation { block.information }
+    private let block: BlockModelProtocol
     
-    let block: BlockModelProtocol
-    let content: BlockText
-    let isCheckable: Bool
+    private let content: BlockText
+    private let isCheckable: Bool
     private let toggled: Bool
     
     private let contextualMenuHandler: DefaultContextualMenuHandler

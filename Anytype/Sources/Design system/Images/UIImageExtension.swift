@@ -47,6 +47,10 @@ extension UIImage {
         }
     }
     
+    enum codeBlock {
+        static let arrow = createImage("TextEditor/Toolbar/turn_into_arrow")
+    }
+    
     private static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
             assertionFailure("No image named: \(name)")

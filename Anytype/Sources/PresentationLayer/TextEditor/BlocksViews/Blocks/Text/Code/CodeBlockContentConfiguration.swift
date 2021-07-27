@@ -14,7 +14,7 @@ struct CodeBlockContentConfiguration {
 extension CodeBlockContentConfiguration: UIContentConfiguration {
 
     func makeContentView() -> UIView & UIContentView {
-        return CodeBlockContentView(configuration: self)
+        return CodeBlockView(configuration: self)
     }
 
     func updated(for state: UIConfigurationState) -> CodeBlockContentConfiguration {
