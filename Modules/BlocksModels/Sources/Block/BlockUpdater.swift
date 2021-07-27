@@ -1,6 +1,6 @@
 import Foundation
 import os
-
+import AnytypeCore
 
 public class BlockUpdater {
     private let container: RootBlockContainer
@@ -82,7 +82,7 @@ public class BlockUpdater {
     /// - Returns: Nothing, heh
     public func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
         guard let entry = container.blocksContainer.model(id: key) else {
-            assertionFailure("We haven't found an entry by key: \(key)")
+            anytypeAssertionFailure("We haven't found an entry by key: \(key)")
             return
         }
         

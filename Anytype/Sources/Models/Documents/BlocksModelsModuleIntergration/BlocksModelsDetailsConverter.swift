@@ -4,6 +4,7 @@ import ProtobufMessages
 import Combine
 import os
 import BlocksModels
+import AnytypeCore
 
 private extension LoggerCategory {
     static let blocksModelsParser: Self = "BlocksModelsParser"
@@ -49,7 +50,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
                 )
             }
             
-            assertionFailure("Implement converter from \(entry.value) to `Google_Protobuf_Value`")
+            anytypeAssertionFailure("Implement converter from \(entry.value) to `Google_Protobuf_Value`")
             return nil
         }()
         
@@ -70,10 +71,10 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
         
         self.forEach { element in
             guard let kind = DetailsKind(rawValue: element.key) else {
-                // TODO: Add assertionFailure for debug when all converters will be added
+                // TODO: Add anytypeAssertionFailure for debug when all converters will be added
                 // TASK: https://app.clickup.com/t/h137nr
                 Logger.create(.blocksModelsParser).error("Add converters for this type: \(element.key)")
-    //                assertionFailure("Add converters for this type: \(detail.key)")
+    //                anytypeAssertionFailure("Add converters for this type: \(detail.key)")
                 return
             }
             
@@ -119,10 +120,10 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
         
         self.forEach { element in
             guard let kind = DetailsKind(rawValue: element.key) else {
-                // TODO: Add assertionFailure for debug when all converters will be added
+                // TODO: Add anytypeAssertionFailure for debug when all converters will be added
                 // TASK: https://app.clickup.com/t/h137nr
                 Logger.create(.blocksModelsParser).error("Add converters for this type: \(element.key)")
-    //                assertionFailure("Add converters for this type: \(detail.key)")
+    //                anytypeAssertionFailure("Add converters for this type: \(detail.key)")
                 return
             }
             
@@ -165,7 +166,7 @@ private extension Google_Protobuf_Value {
     
     func asNameEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .stringValue(string) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.name)"
             )
             return nil
@@ -176,7 +177,7 @@ private extension Google_Protobuf_Value {
     
     func asIconEmojiEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .stringValue(string) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.iconEmoji)"
             )
             return nil
@@ -187,7 +188,7 @@ private extension Google_Protobuf_Value {
     
     func asIconImageEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .stringValue(string) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.iconImage)"
             )
             return nil
@@ -198,7 +199,7 @@ private extension Google_Protobuf_Value {
     
     func asCoverIdEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .stringValue(string) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverId)"
             )
             return nil
@@ -208,7 +209,7 @@ private extension Google_Protobuf_Value {
     
     func asCoverTypeEntry() -> DetailsEntry<AnyHashable>? {
         guard let number = self.safeIntValue else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverType)"
             )
             return nil
@@ -221,7 +222,7 @@ private extension Google_Protobuf_Value {
     
     func asIsArchiveEntry() -> DetailsEntry<AnyHashable>? {
         guard case .boolValue(let isArchive) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.isArchived)"
             )
             return nil
@@ -232,7 +233,7 @@ private extension Google_Protobuf_Value {
     
     func asDescriptionEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .stringValue(string) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
@@ -243,7 +244,7 @@ private extension Google_Protobuf_Value {
     
     func asLayoutEntry() -> DetailsEntry<AnyHashable>? {
         guard let number = self.safeIntValue else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
@@ -255,7 +256,7 @@ private extension Google_Protobuf_Value {
     
     func asAlignmentEntry() -> DetailsEntry<AnyHashable>? {
         guard let number = self.safeIntValue else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil
@@ -267,7 +268,7 @@ private extension Google_Protobuf_Value {
     
     func asDoneEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .boolValue(bool) = kind else {
-            assertionFailure(
+            anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
             )
             return nil

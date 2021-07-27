@@ -1,4 +1,5 @@
 import Foundation
+import AnytypeCore
 
 // MARK: - CellDataManager
 protocol DragAndDropDelegate {
@@ -30,7 +31,7 @@ extension HomeViewModel: DragAndDropDelegate {
     
     func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool {
         guard let homeBlockId = MiddlewareConfiguration.shared?.homeBlockID else {
-            assertionFailure("Shared configuration is nil")
+            anytypeAssertionFailure("Shared configuration is nil")
             return false
         }
         

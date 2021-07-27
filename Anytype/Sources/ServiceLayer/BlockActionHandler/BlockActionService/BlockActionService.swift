@@ -3,7 +3,7 @@ import BlocksModels
 import os
 import UIKit
 import Amplitude
-
+import AnytypeCore
 
 extension LoggerCategory {
     static let blockActionService: Self = "blockActionService"
@@ -70,7 +70,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let content = info.content
         guard case let .text(type) = content else {
-            assertionFailure("We have unsupported content type: \(content)")
+            anytypeAssertionFailure("We have unsupported content type: \(content)")
             return
         }
 
@@ -177,7 +177,7 @@ private extension BlockActionService {
 
         let content = block.content
         guard case let .text(type) = content else {
-            assertionFailure("We have unsupported content type: \(content)")
+            anytypeAssertionFailure("We have unsupported content type: \(content)")
             return
         }
 
@@ -193,7 +193,7 @@ private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, type: BlockContent) {
         guard case let .divider(value) = type else {
-            assertionFailure("SetDividerStyle content is not divider: \(type)")
+            anytypeAssertionFailure("SetDividerStyle content is not divider: \(type)")
             return
         }
 
@@ -209,7 +209,7 @@ private extension BlockActionService {
         let objectType = ""
 
         guard case .smartblock = type else {
-            assertionFailure("Set Page style cannot convert type: \(type)")
+            anytypeAssertionFailure("Set Page style cannot convert type: \(type)")
             return
         }
 
@@ -222,7 +222,7 @@ private extension BlockActionService {
 
     func setTextStyle(blockId: BlockId, type: BlockContent, shouldFocus: Bool) {
         guard case let .text(text) = type else {
-            assertionFailure("Set Text style content is not text style: \(type)")
+            anytypeAssertionFailure("Set Text style content is not text style: \(type)")
             return
         }
 

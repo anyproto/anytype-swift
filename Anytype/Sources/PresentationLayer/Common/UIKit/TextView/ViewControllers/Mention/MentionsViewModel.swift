@@ -4,6 +4,7 @@ import ProtobufMessages
 import SwiftProtobuf
 import UIKit
 import Kingfisher
+import AnytypeCore
 
 final class MentionsViewModel {
     
@@ -57,7 +58,7 @@ final class MentionsViewModel {
             )
             didSelectMention(mention)
         case let .failure(error):
-            assertionFailure(error.localizedDescription)
+            anytypeAssertionFailure(error.localizedDescription)
         }
     }
     
@@ -131,7 +132,7 @@ final class MentionsViewModel {
         subscription = service.obtainMentionsPublisher().sink(receiveCompletion: { result in
             switch result {
             case let .failure(error):
-                assertionFailure(error.localizedDescription)
+                anytypeAssertionFailure(error.localizedDescription)
             case .finished:
                 break
             }

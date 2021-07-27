@@ -2,7 +2,7 @@ import Combine
 import UIKit
 import BlocksModels
 import Amplitude
-
+import AnytypeCore
 
 final class ObjectIconPickerViewModel: ObservableObject {
     
@@ -19,7 +19,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
         case .profile:
             return !(details.iconImage?.isEmpty ?? true)
         case .todo:
-            assertionFailure("`ObjectIconPickerViewModel` unavailable in `todo`")
+            anytypeAssertionFailure("`ObjectIconPickerViewModel` unavailable in `todo`")
             return true
         }
     }

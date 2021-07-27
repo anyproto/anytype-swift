@@ -1,5 +1,6 @@
 import ProtobufMessages
 import BlocksModels
+import AnytypeCore
 
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
@@ -59,7 +60,7 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = alignment.asBlockModel else {
-                assertionFailure("We cannot parse alignment: \(value)")
+                anytypeAssertionFailure("We cannot parse alignment: \(value)")
                 return .general
             }
             
@@ -105,7 +106,7 @@ final class MiddlewareEventConverter {
             return .details(newDetails)
             
         case .objectDetailsUnset:
-            assertionFailure("Not implemented")
+            anytypeAssertionFailure("Not implemented")
             return nil
             
         case let .objectDetailsSet(value):
@@ -277,11 +278,11 @@ final class MiddlewareEventConverter {
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
         guard var blockModel = container.blocksContainer.model(id: newData.id) else {
-            assertionFailure("Block model with id \(newData.id) not found in container")
+            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            assertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
             return .general
         }
 
@@ -301,7 +302,7 @@ final class MiddlewareEventConverter {
         )
         
         guard var textContent = ContentTextConverter().textContent(middleContent) else {
-            assertionFailure("We cannot block content from: \(middleContent)")
+            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
             return .general
         }
 

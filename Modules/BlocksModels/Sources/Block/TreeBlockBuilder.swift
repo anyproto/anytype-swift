@@ -1,5 +1,6 @@
 import Foundation
 import os
+import AnytypeCore
 
 public enum TreeBlockBuilder {
     /// Build blocks tree from middleware model
@@ -40,14 +41,14 @@ public enum TreeBlockBuilder {
         let roots = models.filter(isRoot)
 
         guard roots.count != 0 else {
-            assertionFailure("Unknown situation. We can't have zero roots.")
+            anytypeAssertionFailure("Unknown situation. We can't have zero roots.")
             return BlockContainerBuilder.emptyContainer()
         }
 
         // 3. If we have several roots, so, notify about it.
         if roots.count != 1 {
             // this situation is not possible, but, let handle it.
-            assertionFailure("We have several roots for our rootId. Not possible, but let us handle it.")
+            anytypeAssertionFailure("We have several roots for our rootId. Not possible, but let us handle it.")
         }
 
         // 4. find root id as first element in roots. No matter, how much roots we have.

@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 import Foundation
 import ProtobufMessages
-
+import AnytypeCore
 
 extension HomeViewModel {
     struct NewPageData {
@@ -96,7 +96,7 @@ final class HomeViewModel: ObservableObject {
     
     private func updateCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = document.getDetails(by: blockId)?.currentDetails else {
-            assertionFailure("Could not find object with id: \(blockId)")
+            anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
 
@@ -125,7 +125,7 @@ extension HomeViewModel {
                 )
 
                 guard let newBlockId = success.newBlockId else {
-                    assertionFailure("No new block id in create new page response")
+                    anytypeAssertionFailure("No new block id in create new page response")
                     return
                 }
 

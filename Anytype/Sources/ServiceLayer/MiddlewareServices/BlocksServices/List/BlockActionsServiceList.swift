@@ -5,7 +5,7 @@ import UIKit
 import ProtobufMessages
 import SwiftProtobuf
 import Amplitude
-
+import AnytypeCore
 
 extension BlockActionsServiceList {
     enum PossibleError: Error {
@@ -80,7 +80,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
     
     func setPageIsArchived(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ServiceSuccess, Error> {
-        assertionFailure("Not implemented: setPageIsArchived")
+        anytypeAssertionFailure("Not implemented: setPageIsArchived")
         // TODO: Implement it correctly.
         return .empty()
         //            Anytype_Rpc.BlockList.Set.Page.IsArchived.Service.invoke(contextID: contextID, blockIds: blockIds, isArchived: isArchived).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()

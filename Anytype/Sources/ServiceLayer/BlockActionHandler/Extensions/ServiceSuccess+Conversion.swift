@@ -1,3 +1,5 @@
+import AnytypeCore
+
 extension ServiceSuccess {
     var defaultEvent: PackOfEvents {
         PackOfEvents(middlewareEvents: messages, localEvents: [])
@@ -26,14 +28,14 @@ extension ServiceSuccess {
         /// Find added block.
         let addEntryMessage = messages.first { $0.value == .blockAdd($0.blockAdd) }
         guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
-            assertionFailure("blocks.split.afterUpdate can't find added block")
+            anytypeAssertionFailure("blocks.split.afterUpdate can't find added block")
             return self.defaultEvent
         }
 
         /// Find set children ids.
         let setChildrenMessage = messages.first { $0.value == .blockSetChildrenIds($0.blockSetChildrenIds)}
         guard let setChildrenEvent = setChildrenMessage?.blockSetChildrenIds else {
-            assertionFailure("blocks.split.afterUpdate can't find set children event")
+            anytypeAssertionFailure("blocks.split.afterUpdate can't find set children event")
             return self.defaultEvent
         }
 
@@ -41,7 +43,7 @@ extension ServiceSuccess {
 
         /// Find a block after added block, because we insert previous block.
         guard let addedBlockIndex = setChildrenEvent.childrenIds.firstIndex(where: { $0 == addedBlockId }) else {
-            assertionFailure("blocks.split.afterUpdate can't find index of added block in children ids.")
+            anytypeAssertionFailure("blocks.split.afterUpdate can't find index of added block in children ids.")
             return self.defaultEvent
         }
 
@@ -52,7 +54,7 @@ extension ServiceSuccess {
 
         /// Check that our childrenIds collection indices contains index.
         guard setChildrenEvent.childrenIds.indices.contains(focusedIndex) else {
-            assertionFailure("blocks.split.afterUpdate children ids doesn't contain index of focused block.")
+            anytypeAssertionFailure("blocks.split.afterUpdate children ids doesn't contain index of focused block.")
             return self.defaultEvent
         }
 

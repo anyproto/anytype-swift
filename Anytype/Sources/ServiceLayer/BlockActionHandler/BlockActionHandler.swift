@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 import Combine
-
+import AnytypeCore
 
 protocol BlockActionHandlerProtocol {
     typealias Completion = (PackOfEvents) -> Void
@@ -72,7 +72,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case .duplicate:
             service.duplicate(blockId: info.id)
         case .setLink(_):
-            assertionFailure("Action has not implemented yet \(String(describing: action))")
+            anytypeAssertionFailure("Action has not implemented yet \(String(describing: action))")
         case .delete:
             delete(blockId: info.id)
         case let .addBlock(type):
@@ -158,17 +158,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.turnInto(blockId: info.id, type: type, shouldSetFocusOnUpdate: false)
             
         case .objects(.file):
-            assertionFailure("TurnInto for that style is not implemented \(type)")
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         case .objects(.picture):
-            assertionFailure("TurnInto for that style is not implemented \(type)")
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         case .objects(.video):
-            assertionFailure("TurnInto for that style is not implemented \(type)")
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         case .objects(.bookmark):
-            assertionFailure("TurnInto for that style is not implemented \(type)")
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         case .objects(.linkToObject):
-            assertionFailure("TurnInto for that style is not implemented \(type)")
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         case .tool(_):
-            assertionFailure("TurnInto for that style is not implemented \(type)")
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         }
     }
     

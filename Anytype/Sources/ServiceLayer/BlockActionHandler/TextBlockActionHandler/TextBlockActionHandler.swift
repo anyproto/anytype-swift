@@ -1,7 +1,7 @@
 import BlocksModels
 import os
 import Combine
-
+import AnytypeCore
 
 final class TextBlockActionHandler {
     private let service: BlockActionServiceProtocol
@@ -28,7 +28,7 @@ final class TextBlockActionHandler {
         case let .changeText(attributedText):
             handleChangeText(block, text: attributedText)
         case .changeTextStyle:
-            assertionFailure("We handle this update in `BlockActionHandler`")
+            anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition:
             break
         case let .shouldChangeText(range, replacementText, mentionsHolder):
@@ -81,7 +81,7 @@ final class TextBlockActionHandler {
             if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                 if let oldText = left {
                     guard case let .text(text) = block.information.content else {
-                        assertionFailure("Only text block may send keyboard action")
+                        anytypeAssertionFailure("Only text block may send keyboard action")
                         return
                     }
                     self.service.split(
@@ -177,7 +177,7 @@ final class TextBlockActionHandler {
 
         case .deleteWithPayload(_):
             guard let previousModel = modelsHolder.findModel(beforeBlockId: block.information.id) else {
-                assertionFailure("""
+                anytypeAssertionFailure("""
                     We can't find previous block to focus on at command .deleteWithPayload
                     Block: \(block.information.id)
                     Moving to .delete command.
@@ -203,7 +203,7 @@ final class TextBlockActionHandler {
         case .deleteOnEmptyContent:
             service.delete(blockId: block.information.id) { [weak self] value in
                 guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: block.information.id) else {
-                    assertionFailure(
+                    anytypeAssertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.information.id)"
                     )
                     return .init(middlewareEvents: value.messages, localEvents: [])

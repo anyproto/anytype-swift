@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import os
-
+import AnytypeCore
 
 final class BlockContainer {
     private var _rootId: BlockId?
@@ -50,7 +50,7 @@ extension BlockContainer: BlockContainerModelProtocol {
         block.container = self
         
         if self._models[block.information.id] != nil {
-            assertionFailure("We shouldn't replace block by add operation. Skipping...")
+            anytypeAssertionFailure("We shouldn't replace block by add operation. Skipping...")
             return
         }
         self._models[block.information.id] = block
@@ -58,12 +58,12 @@ extension BlockContainer: BlockContainerModelProtocol {
 
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
         guard var parentModel = model(id: parentId) else {
-            assertionFailure("I can't find parent with id: \(parentId)")
+            anytypeAssertionFailure("I can't find parent with id: \(parentId)")
             return
         }
         
         guard var childModel = self.model(id: childId) else {
-            assertionFailure("I can't find child with id: \(childId)")
+            anytypeAssertionFailure("I can't find child with id: \(childId)")
             return
         }
         
@@ -78,7 +78,7 @@ extension BlockContainer: BlockContainerModelProtocol {
     func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
         guard let parent = model(id: beforeChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: beforeChild) else {
-            assertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
+            anytypeAssertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
             return
         }
 
@@ -89,7 +89,7 @@ extension BlockContainer: BlockContainerModelProtocol {
     func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
         guard let parent = model(id: afterChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: afterChild) else {
-            assertionFailure("I can't find either parent or block itself with id: \(afterChild)")
+            anytypeAssertionFailure("I can't find either parent or block itself with id: \(afterChild)")
             return
         }
 
@@ -116,7 +116,7 @@ extension BlockContainer: BlockContainerModelProtocol {
     func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool = false) {
         
         guard var parent = model(id: parentId) else {
-            assertionFailure("I can't find entry with id: \(parentId)")
+            anytypeAssertionFailure("I can't find entry with id: \(parentId)")
             return
         }
                 
@@ -125,7 +125,7 @@ extension BlockContainer: BlockContainerModelProtocol {
                 return true
             }
             else {
-                assertionFailure("I can't find entry with id: \(parentId)")
+                anytypeAssertionFailure("I can't find entry with id: \(parentId)")
                 return false
             }
         } : childrenIds
