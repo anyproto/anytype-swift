@@ -334,7 +334,6 @@ private extension BlockActionHandler {
         blockUpdater?.update(entry: id) { model in
             var model = model
             model.information.content = .text(content)
-            model.didChange()
         }
         textService.setText(
             contextID: documentId,
