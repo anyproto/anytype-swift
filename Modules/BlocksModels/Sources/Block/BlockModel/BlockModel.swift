@@ -2,43 +2,73 @@ import Foundation
 import Combine
 import os
 
-public final class BlockModel: ObservableObject {
-    @Published private var _information: BlockInformation
-    private var _parent: BlockId?
-    private var _kind: BlockKind {
-        switch self._information.content {
+public final class BlockModel: ObservableObject, BlockModelProtocol {
+    public var container: BlockContainerModelProtocol?
+
+    @Published public var information: BlockInformation
+    public var parent: BlockModelProtocol?
+    public var indentationLevel: Int = 0
+
+    public var isRoot: Bool {
+        parent == nil
+    }
+
+    public var isFirstResponder: Bool {
+        get {
+            container?.userSession.firstResponder?.information.id == information.id
+        }
+        set {
+            self.container?.userSession.firstResponder = self
+        }
+    }
+
+    public func unsetFirstResponder() {
+        if self.isFirstResponder {
+            self.container?.userSession.firstResponder = nil
+        }
+    }
+
+    public var isToggled: Bool {
+        get {
+            container?.userSession.toggles[information.id] ?? false
+        }
+    }
+
+    public func toggle() {
+        let newValue = !isToggled
+        container?.userSession.toggles[information.id] = newValue
+    }
+
+    public var focusAt: BlockFocusPosition? {
+        get {
+            guard container?.userSession.firstResponder?.information.id == information.id else { return nil }
+            return container?.userSession.focus
+        }
+        set {
+            guard container?.userSession.firstResponder?.information.id == information.id else { return }
+            if let value = newValue {
+                container?.userSession.focus = value
+            }
+            else {
+                container?.userSession.focus = nil
+            }
+        }
+    }
+
+    public var kind: BlockKind {
+        switch self.information.content {
         case .smartblock, .divider: return .meta
         case let .layout(layout) where layout.style == .div: return .meta
         case let .layout(layout) where layout.style == .header: return .meta
         default: return .block
         }
     }
-    private var _didChangeSubject: PassthroughSubject<Void, Never> = .init()
-    private var _didChangePublisher: AnyPublisher<Void, Never>
+
+    private var didChangeSubject: PassthroughSubject<Void, Never> = .init()
 
     public required init(information: BlockInformation) {
-        self._information = information
-        self._didChangePublisher = self._didChangeSubject.eraseToAnyPublisher()
+        self.information = information
     }
-}
 
-extension BlockModel: BlockModelProtocol {
-    public var information: BlockInformation {
-        get { self._information }
-        set { self._information = newValue }
-    }
-    
-    public var parent: BlockId? {
-        get { self._parent }
-        set { self._parent = newValue }
-    }
-    
-    public var kind: BlockKind { self._kind }
-    
-    public func didChangePublisher() -> AnyPublisher<Void, Never> { self._didChangePublisher }
-    public func didChange() { self._didChangeSubject.send() }
-    
-    public func didChangeInformationPublisher() -> AnyPublisher<BlockInformation, Never> {
-        self.$_information.eraseToAnyPublisher()
-    }
+    public func didChange() { self.didChangeSubject.send() }
 }

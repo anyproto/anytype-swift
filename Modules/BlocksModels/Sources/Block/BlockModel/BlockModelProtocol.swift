@@ -2,12 +2,20 @@ import Foundation
 import Combine
 
 public protocol BlockModelProtocol: BlockHasDidChangePublisherProtocol {
-    
     var information: BlockInformation { get set }
     init(information: BlockInformation)
-    
-    var parent: BlockId? {get set}
-    var kind: BlockKind {get}
+
+    var container: BlockContainerModelProtocol? { get set }
+    var parent: BlockModelProtocol? { get set }
+    var kind: BlockKind { get }
+
+    var indentationLevel: Int { get }
+    var isFirstResponder: Bool { get set }
+    var isToggled: Bool { get }
+    var focusAt: BlockFocusPosition? { get set }
+
+    func toggle()
+    func unsetFirstResponder()
 }
 
 public extension BlockInformation {

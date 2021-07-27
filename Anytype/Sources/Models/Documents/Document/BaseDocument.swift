@@ -8,9 +8,9 @@ private extension LoggerCategory {
 }
 
 final class BaseDocument: BaseDocumentProtocol {
-    var rootActiveModel: BlockActiveRecordProtocol? {
+    var rootActiveModel: BlockModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
-        return rootModel?.blocksContainer.record(id: rootId)
+        return rootModel?.blocksContainer.model(id: rootId)
     }
     
     var userSession: UserSession? {
@@ -73,7 +73,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
                 if let rootId = self.documentId,
                    let container = self.rootModel,
-                   let rootModel = container.blocksContainer.record(id: rootId) {
+                   let rootModel = container.blocksContainer.model(id: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
@@ -155,10 +155,8 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let publisher = ourModel.changeInformationPublisher
-        self.defaultDetailsActiveModel.configured(documentId: rootId)
-        self.defaultDetailsActiveModel.configured(publisher: publisher)
-        self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
-        self.listenDefaultDetails()
+        defaultDetailsActiveModel.configured(publisher: publisher)
+        listenDefaultDetails()
     }
 
     // MARK: - Handle new root model
@@ -171,15 +169,15 @@ final class BaseDocument: BaseDocumentProtocol {
     
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
-    private func getModels() -> [BlockActiveRecordProtocol] {
-        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.record(id: rootId) else {
+    private func getModels() -> [BlockModelProtocol] {
+        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.model(id: rootId) else {
             Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
         return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
     }
     
-    private func models(from updates: EventHandlerUpdate) -> [BlockActiveRecordProtocol] {
+    private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
         switch updates {
         case .general:
             return getModels()
@@ -206,8 +204,7 @@ final class BaseDocument: BaseDocumentProtocol {
             Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
-        let result: DetailsActiveModel = .init()
-        result.configured(documentId: id)
+        let result = DetailsActiveModel()
         result.configured(publisher: value.changeInformationPublisher)
         return result
     }

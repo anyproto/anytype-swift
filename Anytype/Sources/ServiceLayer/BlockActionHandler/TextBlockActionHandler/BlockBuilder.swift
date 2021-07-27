@@ -3,8 +3,8 @@ import BlocksModels
 struct BlockBuilder {
     typealias KeyboardAction = CustomTextView.UserAction.KeyboardAction
 
-    static func createInformation(block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
-        switch block.content {
+    static func createInformation(block: BlockModelProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
+        switch block.information.content {
         case .text:
             return createContentType(block: block, action: action, textPayload: textPayload).flatMap { content in
                 BlockInformation.createNew(content: content)
@@ -23,8 +23,8 @@ struct BlockBuilder {
         return BlockInformation.createNew(content: .text(.empty()))
     }
 
-    static func createDefaultInformation(block: BlockActiveRecordProtocol) -> BlockInformation? {
-        switch block.content {
+    static func createDefaultInformation(block: BlockModelProtocol) -> BlockInformation? {
+        switch block.information.content {
         case let .text(value):
             switch value.contentType {
             case .toggle: return BlockInformation.createNew(content: .text(.empty()))
@@ -36,9 +36,9 @@ struct BlockBuilder {
     }
 
     static func createContentType(
-        block: BlockActiveRecordProtocol, action: KeyboardAction, textPayload: String
+        block: BlockModelProtocol, action: KeyboardAction, textPayload: String
     ) -> BlockContent? {
-        switch block.content {
+        switch block.information.content {
         case let .text(blockType):
             switch blockType.contentType {
             case .bulleted where blockType.attributedText.string != "": return .text(.init(contentType: .bulleted))

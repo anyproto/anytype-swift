@@ -10,18 +10,20 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
         ] as [AnyHashable]
     }
     
+    let block: BlockModelProtocol
     let textData: BlockText
-    let block: BlockActiveRecordProtocol
-    var information: BlockInformation { block.blockModel.information }
+    var information: BlockInformation { block.information }
     var indentationLevel: Int { block.indentationLevel }
     private var codeLanguage: CodeLanguage {
-        CodeLanguage.create(middleware: information.fields[FieldName.codeLanguage]?.stringValue)
+        CodeLanguage.create(
+            middleware: information.fields[FieldName.codeLanguage]?.stringValue
+        )
     }
 
     let contextualMenuHandler: DefaultContextualMenuHandler
     let becomeFirstResponder: (BlockModelProtocol) -> ()
-    let textDidChange: (BlockActiveRecordProtocol, UITextView) -> ()
-    let showCodeSelection: (BlockActiveRecordProtocol) -> ()
+    let textDidChange: (BlockModelProtocol, UITextView) -> ()
+    let showCodeSelection: (BlockModelProtocol) -> ()
 
     func makeContentConfiguration() -> UIContentConfiguration {
         return CodeBlockContentConfiguration(
@@ -29,7 +31,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             backgroundColor: information.backgroundColor,
             codeLanguage: codeLanguage,
             becomeFirstResponder: {
-                self.becomeFirstResponder(self.block.blockModel)
+                self.becomeFirstResponder(self.block)
             },
             textDidChange: { textView in
                 self.textDidChange(self.block, textView)
