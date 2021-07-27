@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D69EFE526B009DD002C54C4 /* AssertionLogger.swift */; };
 		3DA4B0C426AF3D2B0000F243 /* AnytypeCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4B0F126AF41940000F243 /* Asserts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D69EFE526B009DD002C54C4 /* AssertionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionLogger.swift; sourceTree = "<group>"; };
 		3DA4B0BF26AF3D2B0000F243 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnytypeCore.h; sourceTree = "<group>"; };
 		3DA4B0C326AF3D2B0000F243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,6 +31,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D69EFE426B009C3002C54C4 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				3D69EFE526B009DD002C54C4 /* AssertionLogger.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
 		3DA4B0B526AF3D2B0000F243 = {
 			isa = PBXGroup;
 			children = (
@@ -48,6 +58,7 @@
 		3DA4B0C126AF3D2B0000F243 /* AnytypeCore */ = {
 			isa = PBXGroup;
 			children = (
+				3D69EFE426B009C3002C54C4 /* Logging */,
 				3DA4B0F126AF41940000F243 /* Asserts.swift */,
 				3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */,
 				3DA4B0C326AF3D2B0000F243 /* Info.plist */,
@@ -134,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */,
 				3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

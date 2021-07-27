@@ -1,20 +1,24 @@
 import UIKit
-//import Firebase
 
 public func anytypeAssertionFailure(_ message: String) {
-    
-//    #if DEBUG
-//        showAlert(message)
-//    #elseif RELEASE
-//
-//    #elseif ENTERPRISE
+    #if RELEASE
+        logNonFatal(message)
+    #elseif ENTERPRISE
         showAlert(message)
-//    #endif
+    #elseif DEBUG
+        assertionFailure(message)
+    #endif
 }
 
-
+private func logNonFatal(_ message: String) {
+    AssertionLogger.shared?.log(message)
+}
 
 private func showAlert(_ message: String) {
+    guard let keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
+        return
+    }
+    
     let copyAction = UIAlertAction(title: "Copy assertion", style: .default) { _ in
         UIPasteboard.general.string = message
     }
@@ -23,5 +27,6 @@ private func showAlert(_ message: String) {
     let alert = UIAlertController(title: "Assertion", message: message, preferredStyle: .alert)
     alert.addAction(copyAction)
     alert.addAction(okAction)
-    UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+    
+    keyWindow.rootViewController?.present(alert, animated: true, completion: nil)
 }

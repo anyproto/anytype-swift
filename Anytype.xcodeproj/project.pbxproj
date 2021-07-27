@@ -285,6 +285,7 @@
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
 		3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */; };
 		3D67F947269E07F800883681 /* MiddlewareBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F946269E07F800883681 /* MiddlewareBuilder.swift */; };
+		3D69EFE026B009A6002C54C4 /* FirebaseNonFatalLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D69EFDF26B009A6002C54C4 /* FirebaseNonFatalLogger.swift */; };
 		3D746D282695F13E005A0919 /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D746D272695F13E005A0919 /* CodeLanguage.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* FileSizeConverter.swift */; };
@@ -871,6 +872,7 @@
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
 		3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DragAndDropDelegate.swift; path = AnyType/Sources/PresentationLayer/Home/View/DragAndDrop/DragAndDropDelegate.swift; sourceTree = SOURCE_ROOT; };
 		3D67F946269E07F800883681 /* MiddlewareBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareBuilder.swift; path = AnyType/Sources/ServiceLayer/Search/MiddlewareBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3D69EFDF26B009A6002C54C4 /* FirebaseNonFatalLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseNonFatalLogger.swift; path = AnyType/Sources/ServiceLayer/Firebase/FirebaseNonFatalLogger.swift; sourceTree = SOURCE_ROOT; };
 		3D746D272695F13E005A0919 /* CodeLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08262684E21500E2168D /* FileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileSizeConverter.swift; path = Anytype/Sources/CoreLayer/Helpers/FileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -1941,6 +1943,7 @@
 			isa = PBXGroup;
 			children = (
 				0ABB73A82549975800F32C6F /* FirebaseConfigurator.swift */,
+				3D69EFDF26B009A6002C54C4 /* FirebaseNonFatalLogger.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -4143,6 +4146,7 @@
 				0ACFCCF9249C17DC002E0477 /* ServiceSuccess.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
 				3D568F8F2666C22D00DC7881 /* ContentFileConverter.swift in Sources */,
+				3D69EFE026B009A6002C54C4 /* FirebaseNonFatalLogger.swift in Sources */,
 				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
 				1215E8C326A870250089AF7E /* MiddlewareImageSource.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
@@ -4489,6 +4493,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "ENTERPRISE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
