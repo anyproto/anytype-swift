@@ -15,13 +15,12 @@ final class LocalEventConverter {
             setFocus(blockId: blockId, position: position)
             return nil
         case let .setTextMerge(blockId):
-            guard let model = container?.blocksContainer.record(id: blockId) else {
+            guard let model = container?.blocksContainer.model(id: blockId) else {
                 assertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
             
             /// We should call didChange publisher to invoke related setText event (`didChangePublisher()` subscription) in viewModel.
-            
             model.didChange()
             
             return .general
@@ -85,7 +84,7 @@ final class LocalEventConverter {
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        guard var model = container?.blocksContainer.record(id: blockId) else {
+        guard var model = container?.blocksContainer.model(id: blockId) else {
             assertionFailure("setFocus. We can't find model by id \(blockId)")
             return
         }

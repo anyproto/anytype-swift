@@ -27,7 +27,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func onEmptySpotTap() {
-        guard let block = document.rootActiveModel?.blockModel, let parentId = document.documentId else {
+        guard let block = document.rootActiveModel, let parentId = document.documentId else {
             return
         }
         handleAction(.createEmptyBlock(parentId: parentId), info: block.information)

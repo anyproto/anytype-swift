@@ -108,7 +108,7 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.delegate = self
         textView.userInteractionDelegate = self
 
-        guard case let .text(text) = self.currentConfiguration.block.content else { return }
+        guard case let .text(text) = self.currentConfiguration.block.information.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
         // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         createEmptyBlockButton.isHidden = true

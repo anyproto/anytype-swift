@@ -40,7 +40,7 @@ final class MiddlewareEventConverter {
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
-        
+    
         case let .blockSetChildrenIds(value):
             updater.set(children: value.childrenIds, parent: value.id)
             return .general

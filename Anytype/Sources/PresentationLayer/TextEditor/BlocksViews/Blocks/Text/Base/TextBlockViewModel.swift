@@ -2,11 +2,10 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct TextBlockViewModel: BlockViewModelProtocol {
-    
+struct TextBlockViewModel: BlockViewModelProtocol {    
     var indentationLevel: Int { block.indentationLevel }
-    var information: BlockInformation { block.blockModel.information }
-    private let block: BlockActiveRecordProtocol
+    var information: BlockInformation { block.information }
+    private let block: BlockModelProtocol
     
     private let content: BlockText
     private let isCheckable: Bool
@@ -29,7 +28,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     init(
-        block: BlockActiveRecordProtocol,
+        block: BlockModelProtocol,
         content: BlockText,
         isCheckable: Bool,
         contextualMenuHandler: DefaultContextualMenuHandler,

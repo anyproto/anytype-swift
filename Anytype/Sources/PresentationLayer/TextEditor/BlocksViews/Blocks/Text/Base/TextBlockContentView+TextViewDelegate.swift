@@ -8,7 +8,7 @@ extension TextBlockContentView: TextViewDelegate {
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
         switch change {
         case .become:
-            currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block.blockModel)
+            currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block)
         case .resign:
             currentConfiguration.blockDelegate.resignFirstResponder()
         }

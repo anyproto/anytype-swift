@@ -104,7 +104,7 @@ class DocumentEditorViewModel: ObservableObject {
         }
 
         for blockId in blockIds {
-            guard let newRecord = document.rootActiveModel?.findChild(by: blockId) else {
+            guard let newRecord = document.rootActiveModel?.container?.model(id: blockId) else {
                 assertionFailure("Could not find object with id: \(blockId)")
                 return
             }
