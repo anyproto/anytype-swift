@@ -86,7 +86,7 @@ final class EditorRouter: EditorRouterProtocol {
             delegate: controller,
             information: information
         ) { [weak controller] action in
-            controller?.viewModel.blockActionHandler.handleAction(action, info: information)
+            controller?.viewModel.blockActionHandler.handleAction(action, blockId: information.id)
         } didShow: { fpc in
             // Initialy keyboard is shown and we open context menu, so keyboard moves away
             // Then we select "Style" item from menu and display bottom sheet

@@ -64,11 +64,7 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
         }
     }
 
-    private var didChangeSubject: PassthroughSubject<Void, Never> = .init()
-
     public required init(information: BlockInformation) {
         self.information = information
     }
-
-    public func didChange() { self.didChangeSubject.send() }
 }

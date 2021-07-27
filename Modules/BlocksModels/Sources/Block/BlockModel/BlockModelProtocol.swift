@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public protocol BlockModelProtocol: BlockHasDidChangePublisherProtocol {
+public protocol BlockModelProtocol {
     var information: BlockInformation { get set }
     init(information: BlockInformation)
 

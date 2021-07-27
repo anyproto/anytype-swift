@@ -6,7 +6,7 @@ import AnytypeCore
 protocol BlockActionHandlerProtocol {
     typealias Completion = (PackOfEvents) -> Void
     
-    func handleBlockAction(_ action: BlockHandlerActionType, info: BlockInformation, completion:  Completion?)
+    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
     func upload(blockId: BlockId, filePath: String)
 }
 
@@ -50,7 +50,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Public methods
     
-    func handleBlockAction(_ action: BlockHandlerActionType, info: BlockInformation, completion:  Completion?) {
+    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?) {
         service.configured { events in
             completion?(events)
         }
@@ -58,33 +58,33 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         switch action {
         case let .turnInto(textStyle):
             let textBlockContentType: BlockContent = .text(BlockText(contentType: textStyle))
-            service.turnInto(blockId: info.id, type: textBlockContentType, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: textBlockContentType, shouldSetFocusOnUpdate: false)
         case let .setTextColor(color):
-            setBlockColor(blockId: info.id, color: color, completion: completion)
+            setBlockColor(blockId: blockId, color: color, completion: completion)
         case let .setBackgroundColor(color):
-            service.setBackgroundColor(blockId: info.id, color: color)
+            service.setBackgroundColor(blockId: blockId, color: color)
         case let .toggleFontStyle(fontAttributes, range):
-            handleFontAction(info: info, range: range, fontAction: fontAttributes)
+            handleFontAction(blockId: blockId, range: range, fontAction: fontAttributes)
         case let .setAlignment(alignment):
-            setAlignment(blockId: info.id, alignment: alignment, completion: completion)
+            setAlignment(blockId: blockId, alignment: alignment, completion: completion)
         case let .setFields(contextID, fields):
             service.setFields(contextID: contextID, blockFields: fields)
         case .duplicate:
-            service.duplicate(blockId: info.id)
+            service.duplicate(blockId: blockId)
         case .setLink(_):
             anytypeAssertionFailure("Action has not implemented yet \(String(describing: action))")
         case .delete:
-            delete(blockId: info.id)
+            delete(blockId: blockId)
         case let .addBlock(type):
-            addBlock(info: info, type: type)
+            addBlock(blockId: blockId, type: type)
         case let .turnIntoBlock(type):
-            turnIntoBlock(info: info, type: type)
+            turnIntoBlock(blockId: blockId, type: type)
         case let .fetch(url: url):
-            service.bookmarkFetch(blockId: info.id, url: url.absoluteString)
+            service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
         case .toggle:
-            service.receivelocalEvents([.setToggled(blockId: info.id)])
+            service.receivelocalEvents([.setToggled(blockId: blockId)])
         case .checkbox(selected: let selected):
-            service.checked(blockId: info.id, newValue: selected)
+            service.checked(blockId: blockId, newValue: selected)
         case let .showPage(pageId):
             router.showPage(with: pageId)
         case .createEmptyBlock(let parentId):
@@ -98,7 +98,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             case let .changeTextStyle(styleAction, range):
                 handleBlockAction(
                     .toggleFontStyle(styleAction, range),
-                    info: info,
+                    blockId: blockId,
                     completion: completion
                 )
             case let .changeTextForStruct(attributedText):
@@ -107,7 +107,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     completion(
                         PackOfEvents(
                             middlewareEvents: [],
-                            localEvents: [.setText(blockId: info.id, text: attributedText.string)]
+                            localEvents: [.setText(blockId: blockId, text: attributedText.string)]
                         )
                     )    
                 }
@@ -121,7 +121,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    private func turnIntoBlock(info: BlockInformation, type: BlockViewType) {
+    private func turnIntoBlock(blockId: BlockId, type: BlockViewType) {
         switch type {
         case let .text(value): // Set Text Style
             let type: BlockContent
@@ -132,7 +132,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             case .h3: type = .text(.init(contentType: .header3))
             case .highlighted: type = .text(.init(contentType: .quote))
             }
-            service.turnInto(blockId: info.id, type: type, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
             
         case let .list(value): // Set Text Style
             let type: BlockContent
@@ -142,7 +142,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             case .numbered: type = .text(.init(contentType: .numbered))
             case .toggle: type = .text(.init(contentType: .toggle))
             }
-            service.turnInto(blockId: info.id, type: type, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
             
         case let .other(value): // Change divider style.
             let type: BlockContent
@@ -151,11 +151,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             case .dotsDivider: type = .divider(.init(style: .dots))
             case .code: return
             }
-            service.turnInto(blockId: info.id, type: type, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
             
         case .objects(.page):
             let type: BlockContent = .smartblock(.init(style: .page))
-            service.turnInto(blockId: info.id, type: type, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
             
         case .objects(.file):
             anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
@@ -172,12 +172,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    private func addBlock(info: BlockInformation, type: BlockViewType) {
+    private func addBlock(blockId: BlockId, type: BlockViewType) {
         switch type {
         case .objects(.page):
             service.createPage(position: .bottom)
         default:
-            guard let newBlock = BlockBuilder.createInformation(blockType: type) else {
+            guard let newBlock = BlockBuilder.createInformation(blockType: type),
+                  let info = document.rootModel?.blocksContainer.model(id: blockId)?.information else {
                 return
             }
             
@@ -232,11 +233,12 @@ private extension BlockActionHandler {
     }
     
     func handleFontAction(
-        info: BlockInformation,
+        blockId: BlockId,
         range: NSRange,
         fontAction: BlockHandlerActionType.TextAttributesType
     ) {
-        guard case let .text(textContentType) = info.content else { return }
+        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
+              case let .text(textContentType) = info.content else { return }
         
         // if range length == 0 then apply to whole block
         if range.length == 0 {
@@ -334,7 +336,6 @@ private extension BlockActionHandler {
         blockUpdater?.update(entry: id) { model in
             var model = model
             model.information.content = .text(content)
-            model.didChange()
         }
         textService.setText(
             contextID: documentId,

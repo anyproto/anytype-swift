@@ -20,7 +20,6 @@ final class MiddlewareEventConverter {
                 var block = block
 
                 block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
-                block.didChange()
             }
             return .update(blockIds: [fields.id])
         case let .blockAdd(value):

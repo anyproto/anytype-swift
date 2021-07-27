@@ -28,7 +28,10 @@ struct BlockActionsBuilder {
                 if type == .bold, restrictions.canApplyBold {
                     result.append(.action(.style(type)))
                 }
-                if (type == .italic || type == .strikethrough) && restrictions.canApplyOtherMarkup {
+                if type == .italic, restrictions.canApplyItalic {
+                    result.append(.action(.style(type)))
+                }
+                if (type == .code || type == .strikethrough || type == .link), restrictions.canApplyOtherMarkup {
                     result.append(.action(.style(type)))
                 }
             }

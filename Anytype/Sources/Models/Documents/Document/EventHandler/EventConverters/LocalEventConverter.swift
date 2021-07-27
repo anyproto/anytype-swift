@@ -16,14 +16,10 @@ final class LocalEventConverter {
             setFocus(blockId: blockId, position: position)
             return nil
         case let .setTextMerge(blockId):
-            guard let model = container?.blocksContainer.model(id: blockId) else {
+            guard (container?.blocksContainer.model(id: blockId)) != nil else {
                 anytypeAssertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
-            
-            /// We should call didChange publisher to invoke related setText event (`didChangePublisher()` subscription) in viewModel.
-            model.didChange()
-            
             return .general
         case .setToggled:
             return .general
