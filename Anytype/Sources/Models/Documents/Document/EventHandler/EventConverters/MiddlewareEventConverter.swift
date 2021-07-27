@@ -313,7 +313,12 @@ final class MiddlewareEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(blockIds: [newData.id])
+        // If toggle changed style to another style or vice versa
+        // we should rebuild all view to display/hide toggle's child blocks
+        let isOldStyleToggle = oldText.contentType == .toggle
+        let isNewStyleToggle = textContent.contentType == .toggle
+        let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
+        return toggleStyleChanged ? .general : .update(blockIds: [newData.id])
     }
     
     private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
