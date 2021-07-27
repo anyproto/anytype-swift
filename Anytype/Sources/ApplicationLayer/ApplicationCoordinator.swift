@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
+import AnytypeCore
 
 final class ApplicationCoordinator {
     

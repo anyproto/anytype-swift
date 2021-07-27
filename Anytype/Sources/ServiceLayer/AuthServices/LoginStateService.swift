@@ -1,3 +1,4 @@
+import AnytypeCore
 
 final class LoginStateService {
     

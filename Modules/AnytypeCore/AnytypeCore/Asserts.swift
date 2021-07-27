@@ -4,7 +4,9 @@ public func anytypeAssertionFailure(_ message: String) {
     #if RELEASE
         logNonFatal(message)
     #elseif ENTERPRISE
+    if FeatureFlags.showAlertOnAssert {
         showAlert(message)
+    }
     #elseif DEBUG
         assertionFailure(message)
     #endif
