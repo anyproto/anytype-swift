@@ -4,7 +4,7 @@ import BlocksModels
 import os
 import ProtobufMessages
 import Amplitude
-
+import AnytypeCore
 
 private extension BlockActionsServiceSingle {
     enum PossibleError: Error {
@@ -54,7 +54,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     // TODO: Remove it or implement it. Unused.
     func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ServiceSuccess, Error> {
-        assertionFailure("method is not implemented")
+        anytypeAssertionFailure("method is not implemented")
         return .empty()
     }
     

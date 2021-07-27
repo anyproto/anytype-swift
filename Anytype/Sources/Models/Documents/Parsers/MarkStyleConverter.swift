@@ -1,5 +1,6 @@
 import BlocksModels
 import ProtobufMessages
+import AnytypeCore
 
 enum MarkStyleConverter {
     
@@ -32,7 +33,7 @@ enum MarkStyleConverter {
         case .mention:
             return .mention(tuple.value)
         case .UNRECOGNIZED:
-            assertionFailure("Unrecognized markup")
+            anytypeAssertionFailure("Unrecognized markup")
             return nil
         }
     }

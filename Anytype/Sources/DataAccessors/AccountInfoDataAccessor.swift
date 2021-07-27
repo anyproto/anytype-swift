@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 final class AccountInfoDataAccessor: ObservableObject {
     
@@ -50,7 +51,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private func obtainAccountInfo() {
         guard let profileBlockId = profileBlockId else {
-            assertionFailure("profileBlockId can`t be nill")
+            anytypeAssertionFailure("profileBlockId can`t be nill")
             return
         }
         

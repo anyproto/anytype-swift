@@ -1,5 +1,5 @@
 import UIKit
-
+import AnytypeCore
 
 extension UIColor {
     static var highlighterColor: UIColor {
@@ -89,7 +89,7 @@ extension UIColor {
     
     private static func color(name: String) -> UIColor {
         guard let color = UIColor(named: name) else {
-            assertionFailure("No color named: \(name)")
+            anytypeAssertionFailure("No color named: \(name)")
             return defaultColor
         }
         

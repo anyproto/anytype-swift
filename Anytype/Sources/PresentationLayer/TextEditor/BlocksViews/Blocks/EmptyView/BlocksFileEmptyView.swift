@@ -1,6 +1,7 @@
 import Combine
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 class BlocksFileEmptyView: UIView & UIContentView {
     private var currentConfiguration: BlocksFileEmptyViewConfiguration
@@ -8,7 +9,7 @@ class BlocksFileEmptyView: UIView & UIContentView {
             get { currentConfiguration }
             set {
                 guard let newConfiguration = newValue as? BlocksFileEmptyViewConfiguration else {
-                    assertionFailure("Wrong configuration: \(newValue) for block file empty view")
+                    anytypeAssertionFailure("Wrong configuration: \(newValue) for block file empty view")
                     return
                 }
                 self.currentConfiguration = newConfiguration

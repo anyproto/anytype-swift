@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 
 extension Array where Element == EventHandlerUpdate {
     var merged: [EventHandlerUpdate] {
@@ -16,7 +17,7 @@ extension Array where Element == EventHandlerUpdate {
             case let .details(detailsData):
                 details = detailsData
             case .general:
-                assertionFailure("No general events soppose to be in mergedUpdates")
+                anytypeAssertionFailure("No general events soppose to be in mergedUpdates")
             }
         }
         

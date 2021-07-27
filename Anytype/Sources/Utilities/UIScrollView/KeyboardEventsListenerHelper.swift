@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 class KeyboardEventsListnerHelper {
     
@@ -18,7 +19,7 @@ class KeyboardEventsListnerHelper {
          didHideAction: Action? = nil) {
 
         guard ![didHideAction, willChangeFrame, didChangeFrame, willHideAction, didHideAction].compactMap({ $0 }).isEmpty else {
-            assertionFailure("No arguments passed")
+            anytypeAssertionFailure("No arguments passed")
             return nil
         }
 

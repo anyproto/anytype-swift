@@ -1,5 +1,6 @@
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 struct UnknownLabelViewModel: BlockViewModelProtocol {
     let indentationLevel = 0
@@ -21,7 +22,7 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
     }
     
     func handle(action: ContextualMenu) {
-        assertionFailure("Handling of contextual menu items not supported")
+        anytypeAssertionFailure("Handling of contextual menu items not supported")
     }
     
     func makeContentConfiguration() -> UIContentConfiguration {

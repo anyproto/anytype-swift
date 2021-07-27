@@ -1,5 +1,6 @@
 import BlocksModels
 import ProtobufMessages
+import AnytypeCore
 
 final class LocalEventConverter {
     private weak var container: RootBlockContainer?
@@ -16,7 +17,7 @@ final class LocalEventConverter {
             return nil
         case let .setTextMerge(blockId):
             guard (container?.blocksContainer.model(id: blockId)) != nil else {
-                assertionFailure("setTextMerge. We can't find model by id \(blockId)")
+                anytypeAssertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
             return .general
@@ -26,11 +27,11 @@ final class LocalEventConverter {
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
             guard var model = container?.blocksContainer.model(id: blockId) else {
-                assertionFailure("setLoadingState. Can't find model by id \(blockId)")
+                anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)")
                 return nil
             }
             guard case var .file(content) = model.information.content else {
-                assertionFailure("Not file content of block \(blockId) for setLoading action")
+                anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action")
                 return nil
             }
             
@@ -49,11 +50,11 @@ final class LocalEventConverter {
         typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
         
         guard var blockModel = container?.blocksContainer.model(id: blockId) else {
-            assertionFailure("Block model with id \(blockId) not found in container")
+            anytypeAssertionFailure("Block model with id \(blockId) not found in container")
             return .general
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            assertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
             return .general
         }
         
@@ -66,7 +67,7 @@ final class LocalEventConverter {
         )
         
         guard var textContent = ContentTextConverter().textContent(middleContent) else {
-            assertionFailure("We cannot block content from: \(middleContent)")
+            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
             return .general
         }
 
@@ -81,7 +82,7 @@ final class LocalEventConverter {
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
         guard var model = container?.blocksContainer.model(id: blockId) else {
-            assertionFailure("setFocus. We can't find model by id \(blockId)")
+            anytypeAssertionFailure("setFocus. We can't find model by id \(blockId)")
             return
         }
         model.isFirstResponder = true

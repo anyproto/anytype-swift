@@ -3,6 +3,7 @@ import Combine
 import os
 import BlocksModels
 import ProtobufMessages
+import AnytypeCore
 
 protocol EventHandlerProtocol: AnyObject {
     func handle(events: PackOfEvents)
@@ -23,7 +24,7 @@ class EventHandler: EventHandlerProtocol {
 
     func configured(_ container: RootBlockContainer) {
         guard let rootId = container.rootId else {
-            assertionFailure("We can't start listening rootId of container: \(container)")
+            anytypeAssertionFailure("We can't start listening rootId of container: \(container)")
             return
         }
 
@@ -52,7 +53,7 @@ class EventHandler: EventHandlerProtocol {
         let updates = middlewareUpdates + localUpdates
         
         guard let container = self.container, let rootId = container.rootId else {
-            assertionFailure("Container or rootId is nil in event handler. Something went wrong.")
+            anytypeAssertionFailure("Container or rootId is nil in event handler. Something went wrong.")
             return
         }
         

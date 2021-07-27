@@ -2,6 +2,7 @@ import UIKit
 import BlocksModels
 import Combine
 import Kingfisher
+import AnytypeCore
 
 struct BlockImageViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
@@ -26,7 +27,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         showIconPicker: @escaping (BlockId) -> ()
     ) {
         guard fileData.contentType == .image else {
-            assertionFailure("Wrong content type of \(fileData), image expected")
+            anytypeAssertionFailure("Wrong content type of \(fileData), image expected")
             return nil
         }
         

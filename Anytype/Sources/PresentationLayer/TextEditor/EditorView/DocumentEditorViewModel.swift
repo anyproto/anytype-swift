@@ -4,7 +4,7 @@ import Combine
 import os
 import BlocksModels
 import Amplitude
-
+import AnytypeCore
 
 class DocumentEditorViewModel: ObservableObject {
     weak private(set) var viewInput: EditorModuleDocumentViewInput?
@@ -105,12 +105,12 @@ class DocumentEditorViewModel: ObservableObject {
 
         for blockId in blockIds {
             guard let newRecord = document.rootActiveModel?.container?.model(id: blockId) else {
-                assertionFailure("Could not find object with id: \(blockId)")
+                anytypeAssertionFailure("Could not find object with id: \(blockId)")
                 return
             }
             
             guard let newModel = blockBuilder.build(newRecord, details: document.defaultDetailsActiveModel.currentDetails) else {
-                assertionFailure("Could not build model from record: \(newRecord)")
+                anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return
             }
             
@@ -153,7 +153,7 @@ extension DocumentEditorViewModel {
 
     private func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
-            assertionFailure("Row doesn't exist")
+            anytypeAssertionFailure("Row doesn't exist")
             return nil
         }
         return modelsHolder.models[at.row]

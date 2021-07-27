@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 extension UIImage {
     static let back = UIImage(named: "TextEditor/Toolbar/Blocks/Back")
@@ -53,7 +54,7 @@ extension UIImage {
     
     private static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
-            assertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)")
             return UIImage()
         }
         

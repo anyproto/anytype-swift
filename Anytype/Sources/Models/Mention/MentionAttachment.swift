@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import Kingfisher
+import AnytypeCore
 
 final class MentionAttachment: NSTextAttachment {
     
@@ -88,7 +89,7 @@ final class MentionAttachment: NSTextAttachment {
             .sink { result in
                 switch result {
                 case let .failure(error):
-                    assertionFailure(error.localizedDescription)
+                    anytypeAssertionFailure(error.localizedDescription)
                 case .finished:
                     break
                 }

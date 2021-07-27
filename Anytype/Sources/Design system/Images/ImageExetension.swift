@@ -1,5 +1,5 @@
 import SwiftUI
-
+import AnytypeCore
 
 extension Image {
     static let logo = createImage("logo")
@@ -66,7 +66,7 @@ private extension Image {
     
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
-            assertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)")
             return Image("no_image_blank_stub")
         }
         
@@ -75,7 +75,7 @@ private extension Image {
     
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
-            assertionFailure("No system image named: \(name)")
+            anytypeAssertionFailure("No system image named: \(name)")
             return Image("no_image_blank_stub")
         }
         
