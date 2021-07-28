@@ -43,26 +43,20 @@ final class BottomSheetsFactory {
         let askAttributes: () -> TextAttributesViewController.AttributesState = {
             guard let information = container.model(id: information.id)?.information,
                   case let .text(textContent) = information.content else {
-                return .init()
+                return .init(
+                    bold: .disabled,
+                    italic: .disabled,
+                    strikethrough: .disabled,
+                    codeStyle: .disabled
+                )
             }
             let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
-            let range = NSRange(location: 0, length: textContent.attributedText.length)
-
-            let hasBold = restrictions.canApplyBold ? textContent.attributedText.wholeStringFontHasTrait(trait: .traitBold) : nil
-            let hasItalic = restrictions.canApplyItalic ? textContent.attributedText.wholeStringFontHasTrait(trait: .traitItalic) : nil
-            let hasStrikethrough = restrictions.canApplyOtherMarkup ? textContent.attributedText.hasAttribute(.strikethroughStyle, at: range) : nil
-            let hasCode = restrictions.canApplyOtherMarkup ? textContent.attributedText.wholeStringWithCodeMarkup() : nil
-            let alignment = information.alignment.asNSTextAlignment
-
-            let attributes = TextAttributesViewController.AttributesState(
-                hasBold: hasBold,
-                hasItalic: hasItalic,
-                hasStrikethrough: hasStrikethrough,
-                hasCodeStyle: hasCode,
-                alignment: alignment,
-                url: ""
+            let markupStateCalculator = MarkupStateCalculator(
+                content: textContent,
+                alignment: information.alignment,
+                restrictions: restrictions
             )
-            return attributes
+            return markupStateCalculator.textAttributes()
         }
 
         let askColor: () -> UIColor? = {

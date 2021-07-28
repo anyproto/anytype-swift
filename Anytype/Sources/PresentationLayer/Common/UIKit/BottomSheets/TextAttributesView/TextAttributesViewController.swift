@@ -13,10 +13,10 @@ final class TextAttributesViewController: UIViewController {
     typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     struct AttributesState {
-        var hasBold: Bool?
-        var hasItalic: Bool?
-        var hasStrikethrough: Bool?
-        var hasCodeStyle: Bool?
+        var bold: MarkupState
+        var italic: MarkupState
+        var strikethrough: MarkupState
+        var codeStyle: MarkupState
         var alignment: NSTextAlignment = .left
         var url: String = ""
     }
@@ -116,8 +116,8 @@ final class TextAttributesViewController: UIViewController {
         let codeButton = makeRoundedButton(
             image: UIImage.textAttributes.code,
             selector: #selector(codeButtonHandler(sender:)),
-            isSelected: attributesState.hasCodeStyle ?? false,
-            isEnabled: attributesState.hasCodeStyle != nil
+            isSelected: attributesState.codeStyle == .applied,
+            isEnabled: attributesState.codeStyle != .disabled
         )
         let urlButton = makeRoundedButton(
             image: UIImage.textAttributes.url,
@@ -134,20 +134,20 @@ final class TextAttributesViewController: UIViewController {
         let boldButton = makeRoundedButton(
             image: UIImage.textAttributes.bold,
             selector: #selector(boldButtonHandler(sender:)),
-            isSelected: attributesState.hasBold ?? false,
-            isEnabled: attributesState.hasBold != nil
+            isSelected: attributesState.bold == .applied,
+            isEnabled: attributesState.bold != .disabled
         )
         let italicButton = makeRoundedButton(
             image: UIImage.textAttributes.italic,
             selector: #selector(italicButtonHandler(sender:)),
-            isSelected: attributesState.hasItalic ?? false,
-            isEnabled: attributesState.hasItalic != nil
+            isSelected: attributesState.italic == .applied,
+            isEnabled: attributesState.italic != .disabled
         )
         let strikethroughButton = makeRoundedButton(
             image: UIImage.textAttributes.strikethrough,
             selector: #selector(strikethrougButtonHandler(sender:)),
-            isSelected: attributesState.hasStrikethrough ?? false,
-            isEnabled: attributesState.hasStrikethrough != nil
+            isSelected: attributesState.strikethrough == .applied,
+            isEnabled: attributesState.strikethrough != .disabled
         )
         leftTopStackView.addArrangedSubview(boldButton)
         leftTopStackView.addArrangedSubview(italicButton)
