@@ -13,14 +13,15 @@ public enum BlockContainerBuilder {
     }
     
     public static func buildTree(container: BlockContainerModelProtocol, id: BlockId) {
-        if let entry = container.model(id: id) {
-            entry.information.childrenIds.forEach { childrenId in
-                var blockModel = container.model(id: childrenId)
-                blockModel?.parent = entry
-                blockModel?.indentationLevel = 0
-                
-                if entry.kind != .meta, blockModel?.kind != .meta {
-                    blockModel?.indentationLevel = entry.indentationLevel + 1
+        if let parentBlock = container.model(id: id) {
+            parentBlock.information.childrenIds.forEach { childrenId in
+                var childBlock = container.model(id: childrenId)
+                childBlock?.parent = parentBlock
+                childBlock?.indentationLevel = 0
+
+                // Don't count indentation if parent or child is meta(not drawing) block
+                if parentBlock.kind != .meta, childBlock?.kind != .meta {
+                    childBlock?.indentationLevel = parentBlock.indentationLevel + 1
                 }
                 self.buildTree(container: container, id: childrenId)
             }

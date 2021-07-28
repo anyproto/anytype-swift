@@ -271,7 +271,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: .changeText(self.textView.textView.attributedText),
-                    activeRecord: self.currentConfiguration.block
+                    block: self.currentConfiguration.block
                 ),
                 blockId: self.currentConfiguration.information.id
             )

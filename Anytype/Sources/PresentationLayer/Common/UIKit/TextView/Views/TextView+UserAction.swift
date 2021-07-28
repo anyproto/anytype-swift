@@ -26,7 +26,8 @@ extension CustomTextView.UserAction {
         /// press enter when content is empty (length == 0)
         case enterOnEmptyContent(String?)
         /// press enter when cursor inside the content (content not empty and cursor not at the end)
-        case enterInsideContent(String?, String?)
+        /// topString - new string of current block, bottomString - string of new block after split
+        case enterInsideContent(topString: String?, bottomString: String?)
         /// press enter  when cursor at the end of the content
         case enterAtTheEndOfContent
         /// press delete with content (length > 0)
@@ -53,7 +54,7 @@ extension CustomTextView.UserAction {
                 let topString = text.prefix(at.location)
                 let bottomStringStart = text.index(text.startIndex, offsetBy: at.location + at.length)
                 let bottomString = text[bottomStringStart..<text.endIndex]
-                return .enterInsideContent(String(topString), String(bottomString))
+                return .enterInsideContent(topString: String(topString), bottomString: String(bottomString))
 
             // Text is empty and range is equal .zero and we press backspace.
             // That means, that our string is empty and we press delete on textView with empty text.

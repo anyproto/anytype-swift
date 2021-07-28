@@ -15,6 +15,7 @@ private extension BlockActionsServiceText {
 }
 
 final class BlockActionsServiceText: BlockActionsServiceTextProtocol {    
+
     @discardableResult
     func setText(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
         let middlewareString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
@@ -52,17 +53,25 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     }
     
     // MARK: Split
-    func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<ServiceSuccess, Error> {
+    func split(contextID: BlockId,
+               blockID: BlockId, range: NSRange,
+               style: Style,
+               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ServiceSuccess, Error> {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
-        return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style).handleEvents(receiveSubscription: { _ in
+
+        return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: mode)
+            .handleEvents(receiveSubscription: { _ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
         }).eraseToAnyPublisher()
     }
 
-    private func split(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: .bottom, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+    private func split(contextID: String, blockID: String,
+                       range: Anytype_Model_Range,
+                       style: Anytype_Model_Block.Content.Text.Style,
+                       mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
 
