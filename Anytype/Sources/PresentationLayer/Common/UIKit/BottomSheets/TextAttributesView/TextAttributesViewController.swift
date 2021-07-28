@@ -113,43 +113,58 @@ final class TextAttributesViewController: UIViewController {
     }
 
     private func setupRightStackView() {
-        let codeButton = ButtonsFactory.makeRoundedButton(
-            image: UIImage(named: "TextAttributes/code"),
-            target: self,
+        let codeButton = makeRoundedButton(
+            image: UIImage.textAttributes.code,
             selector: #selector(codeButtonHandler(sender:)),
-            stateFlag: attributesState.hasCodeStyle
+            isSelected: attributesState.hasCodeStyle ?? false,
+            isEnabled: attributesState.hasCodeStyle != nil
         )
-        
-        let urlButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/url"))
-        urlButton.isSelected = !attributesState.url.isEmpty
-        urlButton.addTarget(self, action: #selector(urlButtonHandler(sender:)), for: .touchUpInside)
+        let urlButton = makeRoundedButton(
+            image: UIImage.textAttributes.url,
+            selector: #selector(urlButtonHandler(sender:)),
+            isSelected: !attributesState.url.isEmpty,
+            isEnabled: true
+        )
 
         rightStackView.addArrangedSubview(codeButton)
         rightStackView.addArrangedSubview(urlButton)
     }
 
     private func setupLeftTopStackView() {
-        let boldButton = ButtonsFactory.makeRoundedButton(
-            image: UIImage(named: "TextAttributes/bold"),
-            target: self,
+        let boldButton = makeRoundedButton(
+            image: UIImage.textAttributes.bold,
             selector: #selector(boldButtonHandler(sender:)),
-            stateFlag: attributesState.hasBold
+            isSelected: attributesState.hasBold ?? false,
+            isEnabled: attributesState.hasBold != nil
         )
-        let italicButton = ButtonsFactory.makeRoundedButton(
-            image: UIImage(named: "TextAttributes/italic"),
-            target: self,
+        let italicButton = makeRoundedButton(
+            image: UIImage.textAttributes.italic,
             selector: #selector(italicButtonHandler(sender:)),
-            stateFlag: attributesState.hasItalic
+            isSelected: attributesState.hasItalic ?? false,
+            isEnabled: attributesState.hasItalic != nil
         )
-        let strikethroughButton = ButtonsFactory.makeRoundedButton(
-            image: UIImage(named: "TextAttributes/strikethrough"),
-            target: self,
+        let strikethroughButton = makeRoundedButton(
+            image: UIImage.textAttributes.strikethrough,
             selector: #selector(strikethrougButtonHandler(sender:)),
-            stateFlag: attributesState.hasStrikethrough
+            isSelected: attributesState.hasStrikethrough ?? false,
+            isEnabled: attributesState.hasStrikethrough != nil
         )
         leftTopStackView.addArrangedSubview(boldButton)
         leftTopStackView.addArrangedSubview(italicButton)
         leftTopStackView.addArrangedSubview(strikethroughButton)
+    }
+    
+    private func makeRoundedButton(
+        image: UIImage?,
+        selector: Selector,
+        isSelected: Bool,
+        isEnabled: Bool
+    ) -> ButtonWithImage {
+        let button = ButtonsFactory.roundedBorderуButton(image: image)
+        button.isSelected = isSelected
+        button.isEnabled = isEnabled
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        return button
     }
 
     private func setupLeftBottomStackView() {

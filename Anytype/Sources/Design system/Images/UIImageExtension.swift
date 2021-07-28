@@ -51,6 +51,14 @@ extension UIImage {
         static let arrow = createImage("TextEditor/Toolbar/turn_into_arrow")
     }
     
+    enum textAttributes {
+        static let code = createImage("TextAttributes/code")
+        static let url = createImage("TextAttributes/url")
+        static let bold = createImage("TextAttributes/bold")
+        static let italic = createImage("TextAttributes/italic")
+        static let strikethrough = createImage("TextAttributes/strikethrough")
+    }
+    
     private static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
             assertionFailure("No image named: \(name)")
