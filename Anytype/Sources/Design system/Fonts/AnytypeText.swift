@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct AnytypeText: View {
     private let textView: AnyView
@@ -15,7 +16,7 @@ struct AnytypeText: View {
         size: CGFloat,
         weight: Font.Weight
     ) {
-        assert(name != .plex, "Custom plex font requires custom line spacing implementation")
+        anytypeAssert(name != .plex, "Custom plex font requires custom line spacing implementation")
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
         textView = Text(LocalizedStringKey(text)).font(font).eraseToAnyView()

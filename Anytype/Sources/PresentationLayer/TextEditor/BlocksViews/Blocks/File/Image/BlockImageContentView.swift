@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import BlocksModels
 import Kingfisher
+import AnytypeCore
 
 final class BlockImageContentView: UIView & UIContentView {
     
@@ -57,7 +58,7 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
-        assert(file.state == .done, "Wrong state \(file.state) for block image")
+        anytypeAssert(file.state == .done, "Wrong state \(file.state) for block image")
         setupImage(file, oldFile)
         invalidateIntrinsicContentSize()
     }

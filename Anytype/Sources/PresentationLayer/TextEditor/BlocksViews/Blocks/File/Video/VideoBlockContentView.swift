@@ -3,6 +3,7 @@ import AVKit
 import Combine
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 final class VideoBlockContentView: UIView, UIContentView {
     private var currentConfiguration: VideoBlockConfiguration
@@ -40,7 +41,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func apply(configuration: VideoBlockConfiguration) {
-        assert(configuration.file.state == .done, "Wrong state \(configuration.file.state) for block file")
+        anytypeAssert(configuration.file.state == .done, "Wrong state \(configuration.file.state) for block file")
         
         guard let url = UrlResolver.resolvedUrl(.file(id: currentConfiguration.file.metadata.hash)) else { return
         }
