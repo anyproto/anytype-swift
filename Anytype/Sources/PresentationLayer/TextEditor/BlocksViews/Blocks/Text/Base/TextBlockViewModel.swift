@@ -3,8 +3,8 @@ import UIKit
 import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {    
-    var indentationLevel: Int { block.indentationLevel }
-    var information: BlockInformation { block.information }
+    var indentationLevel: Int
+    var information: BlockInformation
     private let block: BlockModelProtocol
     
     private let content: BlockText
@@ -46,6 +46,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.configureMentions = configureMentions
         self.showStyleMenu = showStyleMenu
         toggled = block.isToggled
+        self.information = block.information
+        self.indentationLevel = block.indentationLevel
     }
     
     func set(focus: BlockFocusPosition) {

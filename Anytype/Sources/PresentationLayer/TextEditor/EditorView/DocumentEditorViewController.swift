@@ -230,6 +230,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             guard let indexPath = dataSource.indexPath(for: item) else { return }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
             cell.contentConfiguration = viewModel?.makeContentConfiguration()
+            cell.indentationLevel = viewModel?.indentationLevel ?? 0
         }
 
         apply(snapshot) { [weak self] in
