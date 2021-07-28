@@ -4,6 +4,8 @@ import os
 import UIKit
 import Amplitude
 import AnytypeCore
+import ProtobufMessages
+
 
 extension LoggerCategory {
     static let blockActionService: Self = "blockActionService"
@@ -75,22 +77,28 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
 
         let range = NSRange(location: position, length: 0)
-
         let documentId = self.documentId
+        // if splitted block has child then new block should be child of splitted block
+        let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
-            return self?.textService.split(
-                contextID: documentId,
-                blockID: blockId,
-                range: range,
-                style: newBlockContentType) ?? .empty()
-        }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
-            var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
-            events = events.enrichedWith(
-                localEvents: [.setTextMerge(blockId: blockId)]
-            )
-            self?.didReceiveEvent(events)
-        }.store(in: &self.subscriptions)
+        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText)
+            .flatMap { [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
+                return self?.textService.split(
+                    contextID: documentId,
+                    blockID: blockId,
+                    range: range,
+                    style: newBlockContentType,
+                    mode: mode
+                ) ?? .empty()
+            }
+            .sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
+                var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
+                events = events.enrichedWith(
+                    localEvents: [.setTextMerge(blockId: blockId)]
+                )
+                self?.didReceiveEvent(events)
+            }
+            .store(in: &self.subscriptions)
     }
 
     func duplicate(blockId: BlockId) {
@@ -168,28 +176,6 @@ final class BlockActionService: BlockActionServiceProtocol {
 }
 
 private extension BlockActionService {
-    func split(block: BlockInformation, oldText: String, _ completion: @escaping Conversion) {
-        // TODO: You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`
-
-        // We are using old text as a cursor position.
-        let blockId = block.id
-        let position = oldText.count
-
-        let content = block.content
-        guard case let .text(type) = content else {
-            anytypeAssertionFailure("We have unsupported content type: \(content)")
-            return
-        }
-
-        let range = NSRange(location: position, length: 0)
-
-        self.textService.split(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.split without payload") { [weak self] (value) in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
-            }.store(in: &self.subscriptions)
-    }
 
     func setDividerStyle(blockId: BlockId, type: BlockContent) {
         guard case let .divider(value) = type else {

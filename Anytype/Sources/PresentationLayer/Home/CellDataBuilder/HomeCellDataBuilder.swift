@@ -13,14 +13,14 @@ final class HomeCellDataBuilder {
     }
     
     func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
-        let links: [HomePageLink] = updateResult.models.compactMap(activeRecordToPageLink)
+        let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
             .filter { $0.type == .page }
             .map { buildPageCellData(pageLink: $0) }
     }
     
-    private func activeRecordToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
+    private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
         guard case .link(let link) = blockModel.information.content else { return nil }
 
         let details = document.getDetails(by: link.targetBlockID)?.currentDetails

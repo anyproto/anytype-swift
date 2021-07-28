@@ -44,5 +44,5 @@ enum BlockHandlerActionType {
     case showPage(pageId: String)
     
     typealias TextViewAction = CustomTextView.UserAction
-    case textView(action: TextViewAction, activeRecord: BlockModelProtocol)
+    case textView(action: TextViewAction, block: BlockModelProtocol)
 }

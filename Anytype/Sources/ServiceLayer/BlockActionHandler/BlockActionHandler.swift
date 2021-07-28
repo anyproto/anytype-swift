@@ -89,7 +89,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             router.showPage(with: pageId)
         case .createEmptyBlock(let parentId):
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
-        case let .textView(action: action, activeRecord: activeRecord):
+        case let .textView(action: action, block: blockModel):
             switch action {
             case .showMultiActionMenuAction:
                 selectionHandler.selectionEnabled = true
@@ -102,7 +102,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     completion: completion
                 )
             case let .changeTextForStruct(attributedText):
-                textBlockActionHandler.handlingTextViewAction(activeRecord, action)
+                textBlockActionHandler.handlingTextViewAction(blockModel, action)
                 completion.flatMap { completion in
                     completion(
                         PackOfEvents(
@@ -112,7 +112,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     )    
                 }
             default:
-                textBlockActionHandler.handlingTextViewAction(activeRecord, action)
+                textBlockActionHandler.handlingTextViewAction(blockModel, action)
             }
         }
     }

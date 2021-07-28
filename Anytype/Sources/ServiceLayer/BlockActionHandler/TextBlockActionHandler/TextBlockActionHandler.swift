@@ -77,9 +77,9 @@ final class TextBlockActionHandler {
         
         switch action {
         // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
-        case let .enterInsideContent(left, payload):
-            if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
-                if let oldText = left {
+        case let .enterInsideContent(topString, bottomString):
+            if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: bottomString ?? "") {
+                if let oldText = topString {
                     guard case let .text(text) = block.information.content else {
                         anytypeAssertionFailure("Only text block may send keyboard action")
                         return
@@ -135,11 +135,6 @@ final class TextBlockActionHandler {
                 }
             default:
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
-                    /// TODO:
-                    /// Uncomment when you are ready.
-                    //                        self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: true)
-                    // "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it."
-
                     switch block.information.content {
                     case let .text(payload):
                         let isListAndNotToggle = payload.contentType.isListAndNotToggle
@@ -148,6 +143,7 @@ final class TextBlockActionHandler {
                         // and this block has children, we will insert new child block at the beginning
                         // of children list, otherwise we will create new block under current block
                         let childrenIds = block.information.childrenIds
+
                         switch (childrenIds.isEmpty, isToggleAndOpen, isListAndNotToggle) {
                         case (true, true, _):
                             self.service.addChild(info: newBlock, parentBlockId: block.information.id)
@@ -171,7 +167,6 @@ final class TextBlockActionHandler {
                         }
                     default: return
                     }
-
                 }
             }
 

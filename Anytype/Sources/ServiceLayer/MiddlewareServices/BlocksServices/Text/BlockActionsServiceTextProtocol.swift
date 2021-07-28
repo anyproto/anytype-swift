@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import UIKit
 import BlocksModels
+import ProtobufMessages
 
 
 /// Protocol for TextBlockActions service.
@@ -10,7 +11,12 @@ protocol BlockActionsServiceTextProtocol {
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ServiceSuccess, Error>
     func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ServiceSuccess, Error>
-    func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<ServiceSuccess, Error>
+
+    func split(contextID: BlockId,
+               blockID: BlockId,
+               range: NSRange,
+               style: Style,
+               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ServiceSuccess, Error>
     
     /// Protocol for `SetTextColor` for text block.
     /// It is renamed intentionally.

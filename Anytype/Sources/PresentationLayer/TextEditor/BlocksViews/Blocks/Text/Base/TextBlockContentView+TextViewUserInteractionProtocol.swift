@@ -10,7 +10,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
             textView.shouldResignFirstResponder()
             let block = currentConfiguration.block
             currentConfiguration.actionHandler.handleAction(
-                .textView(action: action, activeRecord: block),
+                .textView(action: action, block: block),
                 blockId: currentConfiguration.information.id
             )
         case .changeTextForStruct:
@@ -19,7 +19,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
-                    activeRecord: currentConfiguration.block
+                    block: currentConfiguration.block
                 ),
                 blockId: currentConfiguration.information.id
             )
@@ -36,7 +36,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
                     currentConfiguration.actionHandler.handleAction(
                         .textView(
                             action: action,
-                            activeRecord: currentConfiguration.block
+                            block: currentConfiguration.block
                         ),
                         blockId: currentConfiguration.information.id
                     )
@@ -48,7 +48,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
-                    activeRecord: currentConfiguration.block
+                    block: currentConfiguration.block
                 ),
                 blockId: currentConfiguration.information.id
             )
@@ -56,7 +56,7 @@ extension TextBlockContentView: TextViewUserInteractionProtocol {
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
-                    activeRecord: currentConfiguration.block
+                    block: currentConfiguration.block
                 ),
                 blockId: currentConfiguration.information.id
             )
