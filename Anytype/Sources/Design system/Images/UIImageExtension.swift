@@ -57,6 +57,9 @@ extension UIImage {
         static let bold = createImage("TextAttributes/bold")
         static let italic = createImage("TextAttributes/italic")
         static let strikethrough = createImage("TextAttributes/strikethrough")
+        static let alignLeft = createImage("TextAttributes/align_left")
+        static let alignRight = createImage("TextAttributes/align_right")
+        static let alignCenter = createImage("TextAttributes/align_center")
     }
     
     private static func createImage(_ name: String) -> UIImage {

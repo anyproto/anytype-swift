@@ -168,21 +168,18 @@ final class TextAttributesViewController: UIViewController {
     }
 
     private func setupLeftBottomStackView() {
-        let leftAlignButton = ButtonWithImage()
+        let leftAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignLeft)
         leftAlignButton.isSelected = .left == attributesState.alignment
-        leftAlignButton.setImage(UIImage(named: "TextAttributes/align_left"))
         leftAlignButton.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
         leftAlignButton.addTarget(self, action: #selector(leftAlignButtonHandler(sender:)), for: .touchUpInside)
 
-        let centerAlignButton = ButtonWithImage()
+        let centerAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignCenter)
         centerAlignButton.isSelected = .center == attributesState.alignment
-        centerAlignButton.setImage(UIImage(named: "TextAttributes/align_center"))
         centerAlignButton.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
         centerAlignButton.addTarget(self, action: #selector(centerAlignButtonHandler(sender:)), for: .touchUpInside)
 
-        let rightAlignButton = ButtonWithImage()
+        let rightAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignRight)
         rightAlignButton.isSelected = .right == attributesState.alignment
-        rightAlignButton.setImage(UIImage(named: "TextAttributes/align_right"))
         rightAlignButton.addTarget(self, action: #selector(rightAlignButtonHandler(sender:)), for: .touchUpInside)
 
         leftBottomStackView.addArrangedSubview(leftAlignButton)
