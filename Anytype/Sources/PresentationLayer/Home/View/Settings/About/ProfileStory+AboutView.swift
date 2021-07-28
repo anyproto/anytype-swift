@@ -20,12 +20,36 @@ struct AboutView: View {
     var contentView: some View {
         VStack(alignment: .center) {
             DragIndicator()
-            AnytypeText("Anytype info", style: .title).padding()
+            title
             AnytypeText("Library version", style: .subheading).padding()
             AnytypeText(viewModel.libraryVersion, style: .subheading)
             Spacer()
         }
         .padding([.leading, .trailing])
+        .sheet(isPresented: $showDebugMenu) {
+            FeatureFlagsView()
+        }
+    }
+    
+    @State private var titleTapCount = 0
+    @State private var showDebugMenu = false
+    var title: some View {
+        Label(
+            title: {
+                AnytypeText("Anytype info", style: .title).padding()
+            }, icon: {
+                Image.splashLogo
+                    .resizable()
+                    .frame(width: 40, height: 40)
+            }
+        )
+        .onTapGesture {
+            titleTapCount += 1
+            if titleTapCount == 10 {
+                titleTapCount = 0
+                showDebugMenu = true
+            }
+        }
     }
 }
 

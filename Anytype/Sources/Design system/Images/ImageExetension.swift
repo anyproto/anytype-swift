@@ -3,6 +3,7 @@ import AnytypeCore
 
 extension Image {
     static let logo = createImage("logo")
+    static let splashLogo = createImage("splashLogo")
     static let arrow = createImage("arrowForward")
     
     static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
