@@ -17,7 +17,11 @@ public enum BlockContainerBuilder {
             entry.information.childrenIds.forEach { childrenId in
                 var blockModel = container.model(id: childrenId)
                 blockModel?.parent = entry
-
+                blockModel?.indentationLevel = 0
+                
+                if entry.kind != .meta, blockModel?.kind != .meta {
+                    blockModel?.indentationLevel = entry.indentationLevel + 1
+                }
                 self.buildTree(container: container, id: childrenId)
             }
         }
