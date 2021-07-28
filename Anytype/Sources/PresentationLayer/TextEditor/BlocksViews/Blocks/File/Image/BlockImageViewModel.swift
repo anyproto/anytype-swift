@@ -104,6 +104,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
         alert.addAction(saveAction)
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        windowHolder?.rootNavigationController.present(alert, animated: true, completion: nil)
+        windowHolder?.rootNavigationController.topPresentedController.present(alert, animated: true, completion: nil)
     }
 }

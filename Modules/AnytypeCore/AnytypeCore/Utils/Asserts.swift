@@ -34,6 +34,7 @@ private func logNonFatal(_ message: String) {
 }
 
 private func showAlert(_ message: String) {
+    
     guard let keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
         return
     }
@@ -46,6 +47,9 @@ private func showAlert(_ message: String) {
     let alert = UIAlertController(title: "Assertion", message: message, preferredStyle: .alert)
     alert.addAction(copyAction)
     alert.addAction(okAction)
+
     
-    keyWindow.rootViewController?.present(alert, animated: true, completion: nil)
+    DispatchQueue.main.async {
+        keyWindow.rootViewController?.topPresentedController.present(alert, animated: true, completion: nil)
+    }
 }
