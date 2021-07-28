@@ -51,6 +51,12 @@ final class ButtonWithImage: UIControl {
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            updateColors()
+        }
+    }
+    
     private func updateColors() {
         updateBackgroundColor()
         updateImageTintColor()
