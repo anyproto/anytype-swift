@@ -35,6 +35,7 @@
 		3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21B2687809900C78C28 /* BlockContentDivider.swift */; };
 		3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */; };
 		3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21F268781C300C78C28 /* BlockContentLayout.swift */; };
+		3D43FD8526B14E9E0094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */; };
 		3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */; };
 		3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B42697647600149864 /* MiddlewareColor.swift */; };
 		3DB7DCA42639DBE100635E4C /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA32639DBE100635E4C /* BlockModel.swift */; };
@@ -77,6 +78,7 @@
 		3D22B21B2687809900C78C28 /* BlockContentDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentDivider.swift; sourceTree = "<group>"; };
 		3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentBookmark.swift; sourceTree = "<group>"; };
 		3D22B21F268781C300C78C28 /* BlockContentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentLayout.swift; sourceTree = "<group>"; };
+		3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInformationConverter.swift; sourceTree = "<group>"; };
 		3DB692B42697647600149864 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		3DB7DCA32639DBE100635E4C /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D43FD8526B14E9E0094D4C0 /* AnytypeCore.framework in Frameworks */,
 				53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +279,7 @@
 		53856BE0265BC19400CB1FAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */,
 				53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */,
 			);
 			name = Frameworks;
