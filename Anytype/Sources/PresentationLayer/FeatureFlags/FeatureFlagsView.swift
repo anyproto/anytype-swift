@@ -6,11 +6,11 @@ struct FeatureFlagsView: View {
     
     var body: some View {
         VStack {
+            DragIndicator()
+            AnytypeText("Feature flags 👻", style: .title)
             buttons
             toggles
         }
-        .navigationTitle("Feature flags 🤖")
-        .embedInNavigation()
     }
     
     var buttons: some View {
