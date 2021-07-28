@@ -22,11 +22,9 @@ public func anytypeAssert(
     file: StaticString = #file,
     line: UInt = #line
 ) {
-    guard condition() else {
-        return
+    if condition() != true {
+        anytypeAssertionFailure(message, file: file, line: line)
     }
-    
-    anytypeAssertionFailure(message, file: file, line: line)
 }
 
 // MARK:- Private
