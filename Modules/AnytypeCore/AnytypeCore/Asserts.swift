@@ -1,16 +1,35 @@
 import UIKit
 
-public func anytypeAssertionFailure(_ message: String) {
+public func anytypeAssertionFailure(
+    _ message: String,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
     #if RELEASE
         logNonFatal(message)
     #elseif ENTERPRISE
-    if FeatureFlags.showAlertOnAssert {
-        showAlert(message)
-    }
+        if FeatureFlags.showAlertOnAssert {
+            showAlert(message)
+        }
     #elseif DEBUG
-        assertionFailure(message)
+        assertionFailure(message, file: file, line: line)
     #endif
 }
+
+public func anytypeAssert(
+    _ condition: @autoclosure () -> Bool,
+    _ message: String,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
+    guard condition() else {
+        return
+    }
+    
+    anytypeAssertionFailure(message, file: file, line: line)
+}
+
+// MARK:- Private
 
 private func logNonFatal(_ message: String) {
     AssertionLogger.shared?.log(message)
