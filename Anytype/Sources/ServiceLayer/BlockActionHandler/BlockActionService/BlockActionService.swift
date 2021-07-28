@@ -78,6 +78,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
+        // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
         self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText)
