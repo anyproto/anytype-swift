@@ -267,6 +267,7 @@
 		3D4125ED269ECED6007A6880 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125EC269ECED6007A6880 /* ObjectType.swift */; };
 		3D4125F8269F6548007A6880 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F7269F6548007A6880 /* FontName.swift */; };
 		3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F926A014E1007A6880 /* TextContent+Font.swift */; };
+		3D43FD8D26B162530094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; };
 		3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
@@ -1125,6 +1126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D43FD8D26B162530094D4C0 /* AnytypeCore.framework in Frameworks */,
 				538492DC269E63AD00B5E556 /* Amplitude in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				0A005AB924C60092000520AA /* BlocksModels.framework in Frameworks */,
