@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import os
+import AnytypeCore
 
 private extension LoggerCategory {
     static let uikitUIViewExtensions: Self = "UIKit.UIView.Extensions"

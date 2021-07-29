@@ -63,6 +63,17 @@ extension BlockInformation {
             fields: fields
         )
     }
+    
+    public func updated(with alignment: LayoutAlignment) -> BlockInformation {
+        return BlockInformation(
+            id: id,
+            content: content,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            childrenIds: childrenIds,
+            fields: fields
+        )
+    }
 }
 
 public enum FieldName {
