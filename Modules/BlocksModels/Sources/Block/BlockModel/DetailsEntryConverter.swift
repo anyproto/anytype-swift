@@ -1,9 +1,8 @@
-import BlocksModels
 import SwiftProtobuf
 import AnytypeCore
 
-class DetailsEntryConverter {
-    static func convert(value: Google_Protobuf_Value, kind: DetailsKind) -> DetailsEntry<AnyHashable>? {
+public class DetailsEntryConverter {
+    public static func convert(value: Google_Protobuf_Value, kind: DetailsKind) -> DetailsEntry<AnyHashable>? {
         return {
             switch kind {
             case .name:
