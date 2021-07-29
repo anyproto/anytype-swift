@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 final class MainWindow: UIWindow {
     
@@ -11,7 +12,7 @@ final class MainWindow: UIWindow {
     private func showFeatureFlags() {
         #if DEBUG
             let flagsController = UIHostingController(rootView: FeatureFlagsView())
-            self.rootViewController?.present(flagsController, animated: true)
+            self.rootViewController?.topPresentedController.present(flagsController, animated: true)
         #endif
     }
     
