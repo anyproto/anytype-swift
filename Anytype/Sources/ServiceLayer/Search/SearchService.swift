@@ -1,5 +1,6 @@
 import ProtobufMessages
 import Combine
+import BlocksModels
 
 protocol SearchServiceProtocol {
     func searchArchivedPages(completion: @escaping ([SearchResult]) -> ())
@@ -13,7 +14,7 @@ final class SearchService {
     
     func searchArchivedPages(completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastModifiedDate,
+            relation: DetailsKind.lastModifiedDate,
             type: .desc
         )
         
@@ -36,7 +37,7 @@ final class SearchService {
     
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastOpenedDate,
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
@@ -58,7 +59,7 @@ final class SearchService {
     
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastOpenedDate,
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
@@ -81,7 +82,7 @@ final class SearchService {
     
     func searchSets(completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastOpenedDate,
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [

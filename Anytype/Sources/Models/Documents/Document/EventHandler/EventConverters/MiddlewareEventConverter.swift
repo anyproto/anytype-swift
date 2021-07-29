@@ -270,7 +270,13 @@ final class MiddlewareEventConverter {
         /// After we open document, we would like to receive all blocks of opened page.
         /// For that, we send `blockShow` event to `eventHandler`.
         ///
-        case .objectShow: return .general
+        case let .objectShow(data):
+            data.details.forEach { detail in
+                updater.update(entry: detail.id) { model in
+                    model.update(fields: detail.details.fields)                    
+                }
+            }
+            return .general
         default: return nil
         }
     }
