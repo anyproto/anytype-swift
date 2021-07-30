@@ -1,11 +1,13 @@
 import UIKit
 import Combine
-
+import BlocksModels
+import Kingfisher
 
 final class BlockPageLinkUIKitView: UIView {
 
     private enum Constants {
         static let imageViewWidth: CGFloat = 24
+        static let imageViewHeight: CGFloat = 24
         static let textContainerInset: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 8)
     }
     
@@ -37,36 +39,35 @@ final class BlockPageLinkUIKitView: UIView {
     }
     
     private func setup() {
-        translatesAutoresizingMaskIntoConstraints = false
-        topView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(topView)
+        addSubview(topView) {
+            $0.pinToSuperview()
+        }
+        
         _ = topView.configured(textView: textView)
-        topView.edgesToSuperview()
     }
 
     func apply(_ state: BlockPageLinkState) {
         _ = self.topView.configured(leftChild: {
             switch state.style {
             case .noContent:
-                let imageView = UIImageView(image: UIImage(named: "TextEditor/Style/Page/empty"))
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                
-                let container = UIView()
-                container.translatesAutoresizingMaskIntoConstraints = false
-                container.addSubview(imageView)
-                NSLayoutConstraint.activate([
-                    container.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-                    container.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
-                    container.heightAnchor.constraint(greaterThanOrEqualTo: imageView.heightAnchor),
-                    container.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
-                ])
-                return container
-                
-            case let .emoji(value):
-                let label = UILabel()
-                label.translatesAutoresizingMaskIntoConstraints = false
-                label.text = value
-                return label
+                return placeholder()
+            case let .icon(icon):
+                switch icon {
+                case let .basic(basic):
+                    switch basic {
+                    case let .emoji(emoji):
+                        return string(string: emoji.value)
+                    case let .imageId(imageId):
+                        return image(imageId: imageId)
+                    }
+                case let .profile(proile):
+                    switch proile {
+                    case let .imageId(imageId):
+                        return image(imageId: imageId)
+                    case let .placeholder(placeloder):
+                        return string(string: "\(placeloder)")
+                    }
+                }
             }
         }())
         if !state.title.isEmpty {
@@ -77,5 +78,38 @@ final class BlockPageLinkUIKitView: UIView {
                 attributes: textView.typingAttributes
             )
         }
+    }
+    
+    
+    
+    private func image(imageId: BlockId) -> UIImageView {
+        let imageView = UIImageView()
+        imageView.kf.setImage(
+            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail))
+//            placeholder: placeholder TODO
+        )
+        imageView.layoutUsing.anchors {
+            $0.width.equal(to: Constants.imageViewWidth)
+            $0.height.equal(to: Constants.imageViewHeight)
+        }
+   
+        return imageView
+    }
+    
+    private func placeholder() -> UIView {
+        let imageView = UIImageView(image: UIImage(named: "TextEditor/Style/Page/empty"))
+        
+        imageView.layoutUsing.anchors {
+            $0.width.equal(to: Constants.imageViewWidth)
+            $0.height.equal(to: Constants.imageViewHeight)
+        }
+        return imageView
+    }
+    
+    private func string(string: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = string
+        return label
     }
 }

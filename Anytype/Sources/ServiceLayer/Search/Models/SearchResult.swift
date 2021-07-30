@@ -12,7 +12,7 @@ struct SearchResult: DetailsDataProtocol {
     let coverId: String?
     let coverType: CoverType?
     let layout: DetailsLayout?
-    let alignment: LayoutAlignment?
+    let layoutAlign: LayoutAlignment?
     
     let isArchived: Bool?
     let done: Bool?
@@ -46,7 +46,7 @@ struct SearchResult: DetailsDataProtocol {
         layout = fields[DetailsKind.layout.rawValue].flatMap { rawValue in
             rawValue.safeIntValue.flatMap { DetailsLayout(rawValue: $0) }
         }
-        alignment = fields[DetailsKind.alignment.rawValue].flatMap { rawValue in
+        layoutAlign = fields[DetailsKind.layoutAlign.rawValue].flatMap { rawValue in
             rawValue.safeIntValue.flatMap { LayoutAlignment(rawValue: $0) }
         }
         

@@ -8,7 +8,6 @@ final class BlockPageLinkContentView: UIView & UIContentView {
         static let insets: UIEdgeInsets = .init(top: 5, left: 20, bottom: 5, right: 20)
     }
 
-    private var subscriptions: Set<AnyCancellable> = []
     private let topView: BlockPageLinkUIKitView = .init()
 
     private var currentConfiguration: BlockPageLinkContentConfiguration
@@ -16,7 +15,9 @@ final class BlockPageLinkContentView: UIView & UIContentView {
         get { self.currentConfiguration }
         set {
             guard let configuration = newValue as? BlockPageLinkContentConfiguration else { return }
-            self.apply(configuration: configuration)
+            guard currentConfiguration != configuration else { return }
+            currentConfiguration = configuration
+            applyNewConfiguration()
         }
     }
     
@@ -33,19 +34,13 @@ final class BlockPageLinkContentView: UIView & UIContentView {
     
     /// Setup
     private func setup() {
-        self.topView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(self.topView)
-        self.topView.edgesToSuperview(insets: LayoutConstants.insets)
-    }
-    
-    private func apply(configuration: BlockPageLinkContentConfiguration) {
-        guard self.currentConfiguration != configuration else { return }
-        self.currentConfiguration = configuration
-        self.applyNewConfiguration()
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(self.topView) {
+            $0.pinToSuperview(insets: LayoutConstants.insets)
+        }
     }
     
     private func applyNewConfiguration() {
-        subscriptions.removeAll()
         topView.apply(currentConfiguration.state)
     }
 }

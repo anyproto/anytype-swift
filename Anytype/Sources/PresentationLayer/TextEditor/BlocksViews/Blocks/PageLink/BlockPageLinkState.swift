@@ -4,7 +4,7 @@ extension BlockPageLinkState {
     
     enum Style: Hashable, Equatable {
         case noContent
-        case emoji(String)
+        case icon(DocumentIconType)
     }
     
 }
@@ -16,11 +16,11 @@ struct BlockPageLinkState: Hashable, Equatable {
     let title: String
     let style: Style
     
-    init(pageDetails: DetailsDataProtocol) {
+    init(pageDetails: DetailsDataProtocol) {        
         self.init(
             archived: pageDetails.isArchived ?? false,
             title: pageDetails.name ?? "",
-            style: .init(emoji: pageDetails.iconEmoji)
+            style: pageDetails.icon.flatMap { .icon($0) } ?? .noContent
         )
     }
     
@@ -29,17 +29,4 @@ struct BlockPageLinkState: Hashable, Equatable {
         self.title = title
         self.style = style
     }
-}
-
-private extension BlockPageLinkState.Style {
-    
-    init(emoji: String?) {
-        guard let emoji = emoji, !emoji.isEmpty else {
-            self = .noContent
-            return
-        }
-        
-        self = .emoji(emoji)
-    }
-    
 }
