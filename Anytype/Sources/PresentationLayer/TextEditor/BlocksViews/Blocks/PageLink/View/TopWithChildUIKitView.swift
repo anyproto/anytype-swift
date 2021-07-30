@@ -10,13 +10,9 @@ final class TopWithChildUIKitView: UIView {
         var boundaryWidth = 2
     }
 
-    // MARK: Views
-    // |    topView    | : | leftView | textView |
-    // |   leftView    | : |  button  |
-
-    var contentView: UIView!
-    var topView: TopUIKitView!
-    var leftView: UIView!
+    let contentView = UIView()
+    let topView = TopUIKitView()
+    var leftView = UIView()
     var onLeftChildWillLayout: (UIView?) -> () = { view in
         if let view = view, let superview = view.superview {
             var constraints = [
@@ -54,26 +50,6 @@ final class TopWithChildUIKitView: UIView {
 
     // MARK: UI Elements
     func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.topView = {
-            let view = TopUIKitView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.leftView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
         self.contentView.addSubview(topView)
 
         self.addSubview(contentView)

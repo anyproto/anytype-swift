@@ -1,14 +1,8 @@
-
 import UIKit
 
 final class TopUIKitView: UIView {
-
-    // MARK: Views
-    // |    contentView    | : | leftView | textView |
-
-    var contentView = UIView()
-    var leftView = UIView()
-    var textView = UIView()
+    let leftView = UIView()
+    let textView = UIView()
     
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -16,23 +10,19 @@ final class TopUIKitView: UIView {
         self.setup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
+        fatalError("Not implemented")
     }
 
     // MARK: Setup
     func setup() {
-        contentView.addSubview(leftView) {
+        addSubview(leftView) {
             $0.pinToSuperview(excluding: [.right])
         }
-        self.contentView.addSubview(textView) {
+        addSubview(textView) {
             $0.pinToSuperview(excluding: [.left])
             $0.leading.equal(to: leftView.trailingAnchor)
-        }
-
-        self.addSubview(contentView) {
-            $0.pinToSuperview()
         }
     }
 
