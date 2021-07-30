@@ -1,5 +1,4 @@
 import SwiftProtobuf
-import BlocksModels
 import AnytypeCore
 
 extension Google_Protobuf_Value {

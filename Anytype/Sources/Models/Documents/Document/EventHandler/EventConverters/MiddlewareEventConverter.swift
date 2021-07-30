@@ -271,11 +271,6 @@ final class MiddlewareEventConverter {
         /// For that, we send `blockShow` event to `eventHandler`.
         ///
         case let .objectShow(data):
-            data.details.forEach { detail in
-                updater.update(entry: detail.id) { model in
-                    model.update(fields: detail.details.fields)                    
-                }
-            }
             return .general
         default: return nil
         }

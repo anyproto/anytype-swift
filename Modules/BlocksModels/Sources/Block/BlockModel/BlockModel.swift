@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import os
 import SwiftProtobuf
+import ProtobufMessages
 
 public final class BlockModel: ObservableObject, BlockModelProtocol {
     public var container: BlockContainerModelProtocol?
@@ -67,9 +68,5 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
 
     public required init(information: BlockInformation) {
         self.information = information
-    }
-    
-    public func update(fields: Dictionary<String, Google_Protobuf_Value>) {
-        // TODO
     }
 }

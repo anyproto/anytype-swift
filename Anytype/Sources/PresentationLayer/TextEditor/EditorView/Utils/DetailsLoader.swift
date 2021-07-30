@@ -1,11 +1,12 @@
 import BlocksModels
 import Combine
+import AnytypeCore
 
 class DetailsLoader {
     let document: BaseDocumentProtocol
     let eventProcessor: EventProcessor
     
-    private var subscriptions = [AnyCancellable]()
+    private var subscriptions = [BlockId: AnyCancellable]()
     
     init(
         document: BaseDocumentProtocol,
@@ -15,19 +16,19 @@ class DetailsLoader {
         self.eventProcessor = eventProcessor
     }
     
-    func loadDetails(blockId: BlockId) -> DetailsData? {
-        guard let details = document.getDetails(by: blockId) else {
+    func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> DetailsData? {
+        guard let detailsModel = document.getDetails(by: targetBlockId) else {
+            anytypeAssertionFailure("No block data id: \(targetBlockId) for block link")
             return nil
         }
         
-        let model = DetailsActiveModel()
-        model.configured(publisher: details.wholeDetailsPublisher)
-        model.$currentDetails.sink { [weak self] details in
-            self?.eventProcessor.process(events: PackOfEvents(localEvent: .reload(blockId: blockId)))
-        }.store(in: &subscriptions)
+        let details = detailsModel.currentDetails
+        subscriptions[blockId] = detailsModel.wholeDetailsPublisher.sink { [weak self] newDetails in
+            if newDetails != details {
+                self?.eventProcessor.process(events: PackOfEvents(localEvent: .reload(blockId: blockId)))
+            }
+        }
         
-        // TODO: open block 
-        
-        return details.currentDetails
+        return details
     }    
 }
