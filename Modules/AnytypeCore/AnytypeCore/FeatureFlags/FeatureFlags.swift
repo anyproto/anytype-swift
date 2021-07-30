@@ -1,5 +1,5 @@
 public enum Feature: String, Codable {
-    case analytics = "Analytics(Amplitude)"
+    case analytics = "Analytics Amplitude (only in development)"
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
 }
 
