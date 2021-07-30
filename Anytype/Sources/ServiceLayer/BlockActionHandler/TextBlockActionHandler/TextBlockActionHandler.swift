@@ -191,9 +191,7 @@ final class TextBlockActionHandler {
                     .setFocus(blockId: previousBlockId, position: .at(range))
                 ])
             }
-
             service.merge(firstBlockId: previousModel.blockId, secondBlockId: block.information.id, localEvents: localEvents)
-            break
 
         case .deleteOnEmptyContent:
             service.delete(blockId: block.information.id) { [weak self] value in

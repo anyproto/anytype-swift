@@ -59,7 +59,7 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
 
     public var kind: BlockKind {
         switch self.information.content {
-        case .smartblock, .divider: return .meta
+        case .smartblock: return .meta
         case let .layout(layout) where layout.style == .div: return .meta
         case let .layout(layout) where layout.style == .header: return .meta
         default: return .block

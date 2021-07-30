@@ -2,7 +2,8 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct TextBlockViewModel: BlockViewModelProtocol {    
+
+struct TextBlockViewModel: BlockViewModelProtocol {
     var indentationLevel: Int
     var information: BlockInformation
     private let block: BlockModelProtocol
@@ -45,7 +46,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.actionHandler = actionHandler
         self.configureMentions = configureMentions
         self.showStyleMenu = showStyleMenu
-        toggled = block.isToggled
+        self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
     }
