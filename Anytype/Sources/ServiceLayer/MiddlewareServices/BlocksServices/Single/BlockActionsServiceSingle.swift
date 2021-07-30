@@ -16,10 +16,10 @@ private extension BlockActionsServiceSingle {
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
-    func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<ServiceSuccess, Error> {
+    func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.Open.Service.invoke(
             contextID: contextID, blockID: blockID
-        ).map(\.event).map(ServiceSuccess.init(_:))
+        ).map(\.event).map(ResponseEvent.init(_:))
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
@@ -32,7 +32,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
+    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> AnyPublisher<ResponseEvent, Error> {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
             return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
         }
@@ -42,9 +42,9 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return self.action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
     }
 
-    private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
+    private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
-            .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+            .map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
             .handleEvents(receiveSubscription: { _ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
@@ -53,20 +53,20 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // TODO: Remove it or implement it. Unused.
-    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ServiceSuccess, Error> {
+    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ResponseEvent, Error> {
         anytypeAssertionFailure("method is not implemented")
         return .empty()
     }
     
-    private func replace(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Replace.Service.invoke(contextID: contextID, blockID: blockID, block: block).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+    private func replace(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.Block.Replace.Service.invoke(contextID: contextID, blockID: blockID, block: block).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
     
-    func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error> {
+    func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds)
             .map(\.event)
-            .map(ServiceSuccess.init(_:))
+            .map(ResponseEvent.init(_:))
             .subscribe(on: DispatchQueue.global())
             .handleEvents(receiveSubscription: { _ in
                 // Analytics
@@ -75,15 +75,15 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
 
     /// Duplicate block
-    func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
+    func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ResponseEvent, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail(error: PossibleError.duplicateActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
         return self.action(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position)
     }
     
-    private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+    private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
             .handleEvents(receiveSubscription: { _ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)

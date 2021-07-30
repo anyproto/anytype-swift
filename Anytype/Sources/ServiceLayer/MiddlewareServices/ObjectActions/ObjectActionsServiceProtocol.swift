@@ -11,7 +11,7 @@ protocol ObjectActionsServiceProtocol {
     
     /// Protocol for set details action.
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error>
+    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ResponseEvent, Error>
     
     // MARK: - Actions Protocols
     /// Protocol for create page action.
@@ -22,7 +22,7 @@ protocol ObjectActionsServiceProtocol {
         details: [DetailsKind: DetailsEntry<AnyHashable>],
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<ServiceSuccess, Error>
+    ) -> AnyPublisher<ResponseEvent, Error>
     
     @discardableResult
     func move(
