@@ -9,7 +9,7 @@ public protocol DetailsDataProtocol {
     var coverType: CoverType? { get }
     var isArchived: Bool? { get }
     var layout: DetailsLayout? { get }
-    var alignment: LayoutAlignment? { get }
+    var layoutAlign: LayoutAlignment? { get }
     var done: Bool? { get }
     
 }

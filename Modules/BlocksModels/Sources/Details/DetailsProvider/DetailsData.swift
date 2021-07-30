@@ -52,8 +52,8 @@ extension DetailsData: DetailsDataProtocol {
         value(for: .layout)
     }
     
-    public var alignment: LayoutAlignment? {
-        value(for: .alignment)
+    public var layoutAlign: LayoutAlignment? {
+        value(for: .layoutAlign)
     }
     
     public var done: Bool? {

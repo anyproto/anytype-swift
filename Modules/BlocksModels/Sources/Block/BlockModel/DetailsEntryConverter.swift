@@ -57,7 +57,7 @@ public class DetailsEntryConverter {
                 return value.asDescriptionEntry()
             case .layout:
                 return value.asLayoutEntry()
-            case .alignment:
+            case .layoutAlign:
                 return value.asAlignmentEntry()
             case .done:
                 return value.asDoneEntry()

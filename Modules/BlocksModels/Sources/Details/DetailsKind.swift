@@ -8,7 +8,7 @@ public enum DetailsKind: String {
     case isArchived = "isArchived"
     case description = "description"
     case layout = "layout"
-    case alignment = "layoutAlign"
+    case layoutAlign = "layoutAlign"
     case done = "done"
     case isHidden = "isHidden"
     case lastOpenedDate = "lastOpenedDate"

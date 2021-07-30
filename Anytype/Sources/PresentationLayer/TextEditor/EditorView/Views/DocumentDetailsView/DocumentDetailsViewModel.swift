@@ -42,7 +42,7 @@ final class DocumentDetailsViewModel {
         
         layout = detailsData.layout ?? .basic
         
-        alignment = detailsData.alignment ?? .left
+        alignment = detailsData.layoutAlign ?? .left
         
         onUpdate()
     }
