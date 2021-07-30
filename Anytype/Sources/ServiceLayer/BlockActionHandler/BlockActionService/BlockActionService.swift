@@ -82,7 +82,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
         self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText)
-            .flatMap { [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
+            .flatMap { [weak self] value -> AnyPublisher<ResponseEvent, Error> in
                 return self?.textService.split(
                     contextID: documentId,
                     blockID: blockId,

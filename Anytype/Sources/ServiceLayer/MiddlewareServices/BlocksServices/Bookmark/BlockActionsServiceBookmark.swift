@@ -27,7 +27,7 @@ private extension BlockActionsServiceBookmark {
 extension BlockActionsServiceBookmark {
     /// Structure that adopts `FetchBookmark` action protocol
     struct FetchBookmark: BlockActionsServiceBookmarkProtocolFetchBookmark {
-        typealias Success = ServiceSuccess
+        typealias Success = ResponseEvent
         func action(contextID: BlockId, blockID: BlockId, url: String) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Bookmark.Fetch.Service.invoke(contextID: contextID, blockID: blockID, url: url).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
@@ -36,8 +36,8 @@ extension BlockActionsServiceBookmark {
     
     /// Structure that adopts `CreateAndFetchBookmark` action protocol
     struct CreateAndFetchBookmark: BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
-        typealias Success = ServiceSuccess
-        func action(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) -> AnyPublisher<ServiceSuccess, Error> {
+        typealias Success = ResponseEvent
+        func action(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) -> AnyPublisher<ResponseEvent, Error> {
             guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
                 return Fail.init(error: PossibleError.createAndFetchBookmarkActionPositionConversionHasFailed).eraseToAnyPublisher()
             }

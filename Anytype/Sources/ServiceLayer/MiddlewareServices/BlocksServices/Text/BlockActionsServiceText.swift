@@ -31,12 +31,12 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     }
     
     // MARK: SetStyle
-    func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ServiceSuccess, Error> {
+    func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ResponseEvent, Error> {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
         return setStyle(contextID: contextID, blockID: blockID, style: style)
     }
-    private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+    private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
             .handleEvents(receiveSubscription: { _ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextStyle,
@@ -56,7 +56,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     func split(contextID: BlockId,
                blockID: BlockId, range: NSRange,
                style: Style,
-               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ServiceSuccess, Error> {
+               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ResponseEvent, Error> {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
 
@@ -70,17 +70,17 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     private func split(contextID: String, blockID: String,
                        range: Anytype_Model_Range,
                        style: Anytype_Model_Block.Content.Text.Style,
-                       mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+                       mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global()).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
 
     // MARK: Merge
-    func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ServiceSuccess, Error> {
+    func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.Merge.Service.invoke(
             contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global()
         )    
-        .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
+        .map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
         .handleEvents(receiveSubscription: { _ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
@@ -89,7 +89,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     }
     
     // MARK: Checked
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ServiceSuccess, Error> {
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.Set.Text.Checked.Service.invoke(
             contextID: contextId,
             blockID: blockId,
@@ -97,7 +97,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             queue: .global()
         )
         .map(\.event)
-        .map(ServiceSuccess.init(_:))
+        .map(ResponseEvent.init(_:))
         .subscribe(on: DispatchQueue.global())
         .handleEvents(receiveSubscription: { _ in
             // Analytics
@@ -110,7 +110,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         contextID: BlockId,
         blockID: BlockId,
         style: MarkStyle
-    ) -> AnyPublisher<ServiceSuccess, Error>? {
+    ) -> AnyPublisher<ResponseEvent, Error>? {
         guard let middlewareMark = MarkStyleConverter.asMiddleware(style) else { return nil }
         
         var mark = Anytype_Model_Block.Content.Text.Mark()
@@ -125,7 +125,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             mark: mark
         )
         .map(\.event)
-        .map(ServiceSuccess.init(_:))
+        .map(ResponseEvent.init(_:))
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }

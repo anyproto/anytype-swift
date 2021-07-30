@@ -94,14 +94,14 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - Handle Open
     
-    func open(_ sucess: ServiceSuccess) {
+    func open(_ sucess: ResponseEvent) {
         handleOpen(sucess)
         eventHandler.handle(
             events: PackOfEvents(middlewareEvents: sucess.messages)
         )
     }
     
-    private func handleOpen(_ serviceSuccess: ServiceSuccess) {
+    private func handleOpen(_ serviceSuccess: ResponseEvent) {
         let blocks = eventHandler.handleBlockShow(
             events: .init(middlewareEvents: serviceSuccess.messages)
         )

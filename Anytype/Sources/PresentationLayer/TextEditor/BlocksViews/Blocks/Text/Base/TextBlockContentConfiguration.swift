@@ -52,10 +52,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
-        lhs.information.id == rhs.information.id &&
-        lhs.information.alignment == rhs.information.alignment &&
-        lhs.information.backgroundColor == rhs.information.backgroundColor &&
-        lhs.information.content == rhs.information.content &&
+        lhs.information == rhs.information &&
         lhs.isSelected == rhs.isSelected &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder
     }

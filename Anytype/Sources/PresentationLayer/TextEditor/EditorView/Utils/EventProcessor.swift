@@ -1,3 +1,5 @@
+
+
 class EventProcessor {
     let document: BaseDocumentProtocol
     let modelsHolder: SharedBlockViewModelsHolder
