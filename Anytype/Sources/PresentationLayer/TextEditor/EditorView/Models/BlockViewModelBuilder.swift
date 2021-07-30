@@ -158,7 +158,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = detailsLoader.loadDetails(blockId: block.information.id)
+            let details = detailsLoader.loadDetails(blockId: block.information.id, targetBlockId: content.targetBlockID)
             return BlockPageLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
