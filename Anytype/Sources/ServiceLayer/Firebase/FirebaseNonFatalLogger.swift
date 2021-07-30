@@ -1,7 +1,7 @@
 import AnytypeCore
 import Firebase
 
-final class FirebaseNonFatalLogger: AnytypeCore.Logger {
+final class FirebaseNonFatalLogger: AnytypeLogger {
     private let domain = "AnytypeNonfatalDefaultErrorDomain"
     private let code = 1337
     

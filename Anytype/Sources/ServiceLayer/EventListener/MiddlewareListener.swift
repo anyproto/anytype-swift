@@ -1,6 +1,7 @@
 import ProtobufMessages
 import Foundation
 import os
+import AnytypeCore
 
 private extension LoggerCategory {
     static let eventListening: Self = "EventListening"

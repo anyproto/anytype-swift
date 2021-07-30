@@ -48,7 +48,7 @@ extension Google_Protobuf_Value {
     }
     
     func asCoverTypeEntry() -> DetailsEntry<AnyHashable>? {
-        guard let number = self.safeIntValue else {
+        guard let number = safeIntValue else {
             anytypeAssertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverType)"
             )

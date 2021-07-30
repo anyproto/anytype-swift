@@ -2,6 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 import os
+import AnytypeCore
 
 private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
