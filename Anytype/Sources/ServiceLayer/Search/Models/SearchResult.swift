@@ -29,40 +29,40 @@ struct SearchResult: DetailsDataProtocol {
     let createdDate: Double?
     
     init?(fields: Dictionary<String, Google_Protobuf_Value>) {
-        guard let id = fields[Relations.id]?.stringValue else {
+        guard let id = fields[DetailsKind.id.rawValue]?.stringValue else {
             return nil
         }
         
         self.id = id
-        self.name = fields[Relations.name]?.stringValue
+        name = fields[DetailsKind.name.rawValue]?.stringValue
         
-        self.iconEmoji = fields[Relations.iconEmoji]?.stringValue
-        self.iconImage = fields[Relations.iconImage]?.stringValue
+        iconEmoji = fields[DetailsKind.iconEmoji.rawValue]?.stringValue
+        iconImage = fields[DetailsKind.iconImage.rawValue]?.stringValue
         
-        self.coverId = fields[Relations.coverId]?.stringValue
-        self.coverType = fields[Relations.coverType].flatMap { rawValue in
+        coverId = fields[DetailsKind.coverId.rawValue]?.stringValue
+        coverType = fields[DetailsKind.coverType.rawValue].flatMap { rawValue in
             rawValue.safeIntValue.flatMap { CoverType(rawValue: $0) }
         }
-        self.layout = fields[Relations.layout].flatMap { rawValue in
+        layout = fields[DetailsKind.layout.rawValue].flatMap { rawValue in
             rawValue.safeIntValue.flatMap { DetailsLayout(rawValue: $0) }
         }
-        self.alignment = fields[Relations.alignment].flatMap { rawValue in
+        alignment = fields[DetailsKind.alignment.rawValue].flatMap { rawValue in
             rawValue.safeIntValue.flatMap { LayoutAlignment(rawValue: $0) }
         }
         
-        self.isArchived = fields[Relations.isArchived]?.boolValue
-        self.done = fields[Relations.done]?.boolValue
+        isArchived = fields[DetailsKind.isArchived.rawValue]?.boolValue
+        done = fields[DetailsKind.done.rawValue]?.boolValue
         
-        self.type = fields[Relations.type]?.listValue
+        type = fields[DetailsKind.type.rawValue]?.listValue
             .values.compactMap { rawValue in
                 ObjectType(rawValue: rawValue.stringValue)
             }.first
         
         // Unused
-        self.lastModifiedBy = fields[Relations.lastModifiedBy]?.stringValue
-        self.creator = fields[Relations.creator]?.stringValue
-        self.featuredRelations = fields[Relations.featuredRelations]?.listValue.values.map { $0.stringValue } ?? []
-        self.createdDate = fields[Relations.createdDate]?.numberValue
-        self.lastModifiedDate = fields[Relations.lastModifiedDate]?.numberValue
+        lastModifiedBy = fields[DetailsKind.lastModifiedBy.rawValue]?.stringValue
+        creator = fields[DetailsKind.creator.rawValue]?.stringValue
+        featuredRelations = fields[DetailsKind.featuredRelations.rawValue]?.listValue.values.map { $0.stringValue } ?? []
+        createdDate = fields[DetailsKind.createdDate.rawValue]?.numberValue
+        lastModifiedDate = fields[DetailsKind.lastModifiedDate.rawValue]?.numberValue
     }
 }

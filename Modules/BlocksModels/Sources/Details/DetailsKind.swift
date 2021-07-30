@@ -1,4 +1,5 @@
 public enum DetailsKind: String {
+    case id = "id"
     case name = "name"
     case iconEmoji = "iconEmoji"
     case iconImage = "iconImage"
@@ -9,4 +10,12 @@ public enum DetailsKind: String {
     case layout = "layout"
     case alignment = "layoutAlign"
     case done = "done"
+    case isHidden = "isHidden"
+    case lastOpenedDate = "lastOpenedDate"
+    case type = "type"    
+    case lastModifiedDate = "lastModifiedDate"
+    case lastModifiedBy = "lastModifiedBy"
+    case creator = "creator"
+    case createdDate = "createdDate"
+    case featuredRelations = "featuredRelations"
 }

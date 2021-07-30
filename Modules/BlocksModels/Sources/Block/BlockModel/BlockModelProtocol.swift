@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftProtobuf
 
 public protocol BlockModelProtocol {
     var information: BlockInformation { get set }
@@ -16,6 +17,8 @@ public protocol BlockModelProtocol {
 
     func toggle()
     func unsetFirstResponder()
+    
+    func update(fields: Dictionary<String, Google_Protobuf_Value>)
 }
 
 public extension BlockInformation {

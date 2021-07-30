@@ -1,10 +1,11 @@
 import ProtobufMessages
 import SwiftProtobuf
+import BlocksModels
 
 class MiddlewareBuilder {
-    static func sort(relation: Relation, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) -> Anytype_Model_Block.Content.Dataview.Sort {
+    static func sort(relation: DetailsKind, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) -> Anytype_Model_Block.Content.Dataview.Sort {
         var sort = Anytype_Model_Block.Content.Dataview.Sort()
-        sort.relationKey = relation
+        sort.relationKey = relation.rawValue
         sort.type = type
         
         return sort
@@ -14,7 +15,7 @@ class MiddlewareBuilder {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
         filter.value = Google_Protobuf_Value(boolValue: isArchived)
-        filter.relationKey = Relations.isArchived
+        filter.relationKey = DetailsKind.isArchived.rawValue
         filter.operator = .and
         
         return filter
@@ -24,7 +25,7 @@ class MiddlewareBuilder {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
         filter.value = Google_Protobuf_Value(boolValue: false)
-        filter.relationKey = Relations.isHidden
+        filter.relationKey = DetailsKind.isHidden.rawValue
         filter.operator = .and
         
         return filter
@@ -34,7 +35,7 @@ class MiddlewareBuilder {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
         filter.value = Google_Protobuf_Value(stringValue: type.rawValue)
-        filter.relationKey = Relations.type
+        filter.relationKey = DetailsKind.type.rawValue
         filter.operator = .and
         
         return filter
@@ -48,7 +49,7 @@ class MiddlewareBuilder {
         let listValue = Google_Protobuf_ListValue(values: protobufTypes)
         filter.value = Google_Protobuf_Value(listValue: listValue)
         
-        filter.relationKey = Relations.type
+        filter.relationKey = DetailsKind.type.rawValue
         filter.operator = .and
         
         return filter
