@@ -77,8 +77,15 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
     //                anytypeAssertionFailure("Add converters for this type: \(detail.key)")
                 return
             }
+
+            // Relation fields (for example, iconEmoji/iconImage etc.) can come as single value or as list of values.
+            // For current moment if we receive list of values we handle only first value of the list.
+            var protoValue = element.value
+            if case let .listValue(listValue) = element.value.kind, let firstValue = listValue.values.first {
+                protoValue = firstValue
+            }
             
-            let value = DetailsEntryConverter.convert(value: element.value, kind: kind)
+            let value = DetailsEntryConverter.convert(value: protoValue, kind: kind)
             value.flatMap { result[kind] = $0}
         }
         
