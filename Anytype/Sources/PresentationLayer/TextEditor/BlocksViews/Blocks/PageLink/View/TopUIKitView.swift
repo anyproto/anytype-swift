@@ -6,10 +6,10 @@ final class TopUIKitView: UIView {
     // MARK: Views
     // |    contentView    | : | leftView | textView |
 
-    var contentView: UIView!
-    var leftView: UIView!
-    var textView: UIView!
-
+    var contentView = UIView()
+    var leftView = UIView()
+    var textView = UIView()
+    
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,62 +23,16 @@ final class TopUIKitView: UIView {
 
     // MARK: Setup
     func setup() {
-        self.setupUIElements()
-        self.addLayout()
-    }
-
-    // MARK: UI Elements
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-
-        self.leftView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.textView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView.addSubview(leftView)
-        self.contentView.addSubview(textView)
-
-        self.addSubview(contentView)
-    }
-
-    // MARK: Layout
-    func addLayout() {
-        if let view = self.leftView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
+        contentView.addSubview(leftView) {
+            $0.pinToSuperview(excluding: [.right])
         }
-        if let view = self.textView, let superview = view.superview, let leftView = self.leftView {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
+        self.contentView.addSubview(textView) {
+            $0.pinToSuperview(excluding: [.left])
+            $0.leading.equal(to: leftView.trailingAnchor)
         }
-        if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
+
+        self.addSubview(contentView) {
+            $0.pinToSuperview()
         }
     }
 
