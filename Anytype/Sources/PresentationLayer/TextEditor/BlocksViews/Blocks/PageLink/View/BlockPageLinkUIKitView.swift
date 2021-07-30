@@ -11,7 +11,7 @@ final class BlockPageLinkUIKitView: UIView {
         static let textContainerInset: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 8)
     }
     
-    let topView = TopWithChildUIKitView()
+    let topView = TopUIKitView()
     private let textView: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false
@@ -43,11 +43,11 @@ final class BlockPageLinkUIKitView: UIView {
             $0.pinToSuperview()
         }
         
-        topView.configured(view: textView)
+        topView.updateIfNeeded(rightView: textView)
     }
 
     func apply(_ state: BlockPageLinkState) {
-        topView.updateIfNeeded(leftChild: {
+        topView.updateIfNeeded(leftViewSubview: {
             switch state.style {
             case .noContent:
                 return placeholder()
