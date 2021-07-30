@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 
 protocol BlockActionServiceProtocol {
-    typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
+    typealias Conversion = (ResponseEvent) -> (PackOfEvents)
     
     func configured(documentId: String) -> Self
     func configured(didReceiveEvent: @escaping (PackOfEvents) -> ())

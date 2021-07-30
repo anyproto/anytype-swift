@@ -21,7 +21,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                     details: [DetailsKind: DetailsEntry<AnyHashable>],
                     position: BlockPosition,
                     templateID: String
-    ) -> AnyPublisher<ServiceSuccess, Error> {
+    ) -> AnyPublisher<ResponseEvent, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
@@ -42,17 +42,17 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: Google_Protobuf_Struct,
         position: Anytype_Model_Block.Position,
         templateID: String
-    ) -> AnyPublisher<ServiceSuccess, Error> {
+    ) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.CreatePage.Service.invoke(
             contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
         )
-        .map{ ServiceSuccess($0.event) }
+        .map{ ResponseEvent($0.event) }
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error> {
+    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ResponseEvent, Error> {
         let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
         return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
             // Analytics
@@ -60,8 +60,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).eraseToAnyPublisher()
     }
     
-    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ServiceSuccess, Error> {
-        Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
 
     /// Children to page

@@ -27,7 +27,7 @@ private extension BlockActionsServiceOther {
 
 // MARK: - OtherBlockActionsService / Actions
 extension BlockActionsServiceOther {
-    typealias Success = ServiceSuccess
+    typealias Success = ResponseEvent
 
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.

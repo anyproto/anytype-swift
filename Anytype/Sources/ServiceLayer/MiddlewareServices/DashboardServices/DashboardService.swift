@@ -14,7 +14,7 @@ class DashboardService: DashboardServiceProtocol {
     
     private var subscriptions = [AnyCancellable]()
         
-    func openDashboard(completion: @escaping (ServiceSuccess) -> ()) {
+    func openDashboard(completion: @escaping (ResponseEvent) -> ()) {
         configurationService.obtainConfiguration { [weak self] config in
             guard let self = self else { return }
             
@@ -26,7 +26,7 @@ class DashboardService: DashboardServiceProtocol {
         }
     }
     
-    func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {
+    func createNewPage(contextId: String) -> AnyPublisher<ResponseEvent, Error> {
         objectsService.createPage(
             contextID: contextId,
             targetID: "",

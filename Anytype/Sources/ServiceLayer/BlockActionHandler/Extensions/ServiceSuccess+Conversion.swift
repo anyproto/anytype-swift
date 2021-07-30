@@ -1,6 +1,6 @@
 import AnytypeCore
 
-extension ServiceSuccess {
+extension ResponseEvent {
     var defaultEvent: PackOfEvents {
         PackOfEvents(middlewareEvents: messages, localEvents: [])
     }

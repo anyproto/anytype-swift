@@ -16,7 +16,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var eventHandler: EventHandler { get }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
-    func open(_ value: ServiceSuccess)
+    func open(_ value: ResponseEvent)
     func handle(events: PackOfEvents)
     /// Return publisher that received event on blocks update
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }

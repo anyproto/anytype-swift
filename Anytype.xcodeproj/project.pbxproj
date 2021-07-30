@@ -140,7 +140,7 @@
 		0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */; };
 		0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */; };
 		0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */; };
-		0ACFCCF9249C17DC002E0477 /* ServiceSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* ServiceSuccess.swift */; };
+		0ACFCCF9249C17DC002E0477 /* MiddlewareResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* MiddlewareResponse.swift */; };
 		0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */; };
 		0AD6B24A24CF5DC00097A841 /* BlockBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24924CF5DC00097A841 /* BlockBookmarkViewModel.swift */; };
 		0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */; };
@@ -728,7 +728,7 @@
 		0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOtherProtocol.swift; sourceTree = "<group>"; };
 		0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFileProtocol.swift; sourceTree = "<group>"; };
 		0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceListProtocol.swift; sourceTree = "<group>"; };
-		0ACFCCF8249C17DC002E0477 /* ServiceSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSuccess.swift; sourceTree = "<group>"; };
+		0ACFCCF8249C17DC002E0477 /* MiddlewareResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareResponse.swift; sourceTree = "<group>"; };
 		0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmarkProtocol.swift; sourceTree = "<group>"; };
 		0AD6B24924CF5DC00097A841 /* BlockBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkViewModel.swift; sourceTree = "<group>"; };
 		0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmark.swift; sourceTree = "<group>"; };
@@ -1833,7 +1833,7 @@
 				3D07ECCF261B4FF700C007E2 /* List */,
 				3D9D401E26161DC000B817FD /* Text */,
 				3D9D401B2616036B00B817FD /* Single */,
-				0ACFCCF8249C17DC002E0477 /* ServiceSuccess.swift */,
+				0ACFCCF8249C17DC002E0477 /* MiddlewareResponse.swift */,
 			);
 			path = BlocksServices;
 			sourceTree = "<group>";
@@ -4141,7 +4141,7 @@
 				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */,
-				0ACFCCF9249C17DC002E0477 /* ServiceSuccess.swift in Sources */,
+				0ACFCCF9249C17DC002E0477 /* MiddlewareResponse.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
 				3D568F8F2666C22D00DC7881 /* ContentFileConverter.swift in Sources */,
 				3D69EFE026B009A6002C54C4 /* FirebaseNonFatalLogger.swift in Sources */,
