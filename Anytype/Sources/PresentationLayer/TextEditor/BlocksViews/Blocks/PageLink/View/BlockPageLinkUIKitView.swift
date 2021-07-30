@@ -43,11 +43,11 @@ final class BlockPageLinkUIKitView: UIView {
             $0.pinToSuperview()
         }
         
-        _ = topView.configured(textView: textView)
+        topView.configured(view: textView)
     }
 
     func apply(_ state: BlockPageLinkState) {
-        _ = self.topView.configured(leftChild: {
+        topView.updateIfNeeded(leftChild: {
             switch state.style {
             case .noContent:
                 return placeholder()
@@ -70,6 +70,8 @@ final class BlockPageLinkUIKitView: UIView {
                 }
             }
         }())
+        
+        
         if !state.title.isEmpty {
             textView.text = state.title
         } else {

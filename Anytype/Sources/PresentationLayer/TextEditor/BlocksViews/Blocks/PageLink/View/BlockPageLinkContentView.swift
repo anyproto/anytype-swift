@@ -5,10 +5,10 @@ import Combine
 
 final class BlockPageLinkContentView: UIView & UIContentView {
     private enum LayoutConstants {
-        static let insets: UIEdgeInsets = .init(top: 5, left: 20, bottom: 5, right: 20)
+        static let insets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
     }
 
-    private let topView: BlockPageLinkUIKitView = .init()
+    private let topView = BlockPageLinkUIKitView()
 
     private var currentConfiguration: BlockPageLinkContentConfiguration
     var configuration: UIContentConfiguration {

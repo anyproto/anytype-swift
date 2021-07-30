@@ -82,23 +82,10 @@ final class TopUIKitView: UIView {
         }
     }
 
-    func updateIfNeeded(leftViewSubview: UIView?, _ setConstraints: Bool = true) {
+    func updateIfNeeded(leftViewSubview: UIView?) {
         guard let leftViewSubview = leftViewSubview else { return }
-        for view in self.leftView.subviews {
-            view.removeFromSuperview()
-        }
-        self.leftView.addSubview(leftViewSubview)
-        let view = leftViewSubview
-        if setConstraints, let superview = view.superview {
-            view.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
+        leftView.removeAllSubviews()
+        leftView.addSubview(leftViewSubview)
     }
 
     func updateIfNeeded(rightView: UIView?) {
@@ -120,14 +107,4 @@ final class TopUIKitView: UIView {
         }
     }
 
-    // MARK: Configured
-    func configured(textView: UIView?) -> Self {
-        self.updateIfNeeded(rightView: textView)
-        return self
-    }
-
-    func configured(rightView: UIView?) -> Self {
-        self.updateIfNeeded(rightView: rightView)
-        return self
-    }
 }

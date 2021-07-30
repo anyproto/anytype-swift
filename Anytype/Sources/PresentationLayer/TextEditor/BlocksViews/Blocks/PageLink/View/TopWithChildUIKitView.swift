@@ -4,9 +4,6 @@ import UIKit
 
 
 final class TopWithChildUIKitView: UIView {
-    // TODO: Refactor
-    // OR
-    // We could do it on toggle level or on block parsing level?
     struct Layout {
         var containedViewInset = 8
         var indentationWidth = 8
@@ -84,45 +81,19 @@ final class TopWithChildUIKitView: UIView {
 
     // MARK: Layout
     func addLayout() {
-        if let view = self.topView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-        if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
+        topView.edgesToSuperview()
+        contentView.edgesToSuperview()
     }
 
-    func updateIfNeeded(leftChild: UIView?, setConstraints: Bool = false) {
+    func updateIfNeeded(leftChild: UIView?) {
         guard let leftChild = leftChild else { return }
-        self.topView.updateIfNeeded(leftViewSubview: leftChild, setConstraints)
+        topView.updateIfNeeded(leftViewSubview: leftChild)
         leftChild.translatesAutoresizingMaskIntoConstraints = false
         self.leftView = leftChild
         self.onLeftChildWillLayout(leftChild)
     }
 
-    // MARK: Configured
-    func configured(leftChild: UIView?, setConstraints: Bool = false) -> Self {
-        self.updateIfNeeded(leftChild: leftChild, setConstraints: setConstraints)
-        return self
-    }
-
-    func configured(textView: UIView?) -> Self {
-        _ = self.topView.configured(textView: textView)
-        return self
-    }
-
-    func configured(rightView: UIView?) -> Self {
-        _ = self.topView.configured(rightView: rightView)
-        return self
+    func configured(view: UIView?) {
+        topView.updateIfNeeded(rightView: view)
     }
 }
