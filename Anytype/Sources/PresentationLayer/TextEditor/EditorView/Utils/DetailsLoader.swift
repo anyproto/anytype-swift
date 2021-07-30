@@ -1,5 +1,6 @@
 import BlocksModels
 import Combine
+import AnytypeCore
 
 class DetailsLoader {
     let document: BaseDocumentProtocol
@@ -15,8 +16,9 @@ class DetailsLoader {
         self.eventProcessor = eventProcessor
     }
     
-    func loadDetails(blockId: BlockId, targetBlockId: BlockId) -> DetailsData? {
+    func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> DetailsData? {
         guard let detailsModel = document.getDetails(by: targetBlockId) else {
+            anytypeAssertionFailure("No block data id: \(targetBlockId) for block link")
             return nil
         }
         

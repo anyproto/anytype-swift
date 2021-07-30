@@ -67,10 +67,8 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
 private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
     
     func asModel() -> [DetailsKind: DetailsEntry<AnyHashable>] {
-        let details = self.reduce([String: Google_Protobuf_Value]()) { (dict, detail) -> [String: Google_Protobuf_Value] in
-            var dict = dict
-            dict[detail.key] = detail.value
-            return dict
+        let details = self.reduce(into: [String: Google_Protobuf_Value]()) { result, detail in
+            result[detail.key] = detail.value
         }
         
         return DetailsEntryConverter.convert(details: details)
@@ -81,10 +79,8 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
 private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
     
     func asModel() -> [DetailsKind: DetailsEntry<AnyHashable>] {
-        let details = self.reduce([String: Google_Protobuf_Value]()) { (dict, detail) -> [String: Google_Protobuf_Value] in
-            var dict = dict
-            dict[detail.key] = detail.value
-            return dict
+        let details = self.reduce(into: [String: Google_Protobuf_Value]()) { result, detail in
+            result[detail.key] = detail.value
         }
         
         return DetailsEntryConverter.convert(details: details)

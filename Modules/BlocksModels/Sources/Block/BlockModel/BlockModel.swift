@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import os
 import SwiftProtobuf
+import ProtobufMessages
 
 public final class BlockModel: ObservableObject, BlockModelProtocol {
     public var container: BlockContainerModelProtocol?
