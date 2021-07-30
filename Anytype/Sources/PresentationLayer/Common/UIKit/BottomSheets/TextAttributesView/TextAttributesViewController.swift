@@ -13,10 +13,10 @@ final class TextAttributesViewController: UIViewController {
     typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     struct AttributesState {
-        var hasBold: Bool
-        var hasItalic: Bool
-        var hasStrikethrough: Bool
-        var hasCodeStyle: Bool
+        var bold: MarkupState
+        var italic: MarkupState
+        var strikethrough: MarkupState
+        var codeStyle: MarkupState
         var alignment: NSTextAlignment = .left
         var url: String = ""
     }
@@ -113,51 +113,73 @@ final class TextAttributesViewController: UIViewController {
     }
 
     private func setupRightStackView() {
-        let codeButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/code"))
-        codeButton.isSelected = attributesState.hasCodeStyle
-        let urlButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/url"))
-        urlButton.isSelected = !attributesState.url.isEmpty
-
-        codeButton.addTarget(self, action: #selector(codeButtonHandler(sender:)), for: .touchUpInside)
-        urlButton.addTarget(self, action: #selector(urlButtonHandler(sender:)), for: .touchUpInside)
+        let codeButton = makeRoundedButton(
+            image: UIImage.textAttributes.code,
+            selector: #selector(codeButtonHandler(sender:)),
+            isSelected: attributesState.codeStyle == .applied,
+            isEnabled: attributesState.codeStyle != .disabled
+        )
+        let urlButton = makeRoundedButton(
+            image: UIImage.textAttributes.url,
+            selector: #selector(urlButtonHandler(sender:)),
+            isSelected: !attributesState.url.isEmpty,
+            isEnabled: true
+        )
 
         rightStackView.addArrangedSubview(codeButton)
         rightStackView.addArrangedSubview(urlButton)
     }
 
     private func setupLeftTopStackView() {
-        let boldButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/bold"))
-        boldButton.isSelected = attributesState.hasBold
-        let italicButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/italic"))
-        italicButton.isSelected = attributesState.hasItalic
-        let strikethrougButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "TextAttributes/strikethrough"))
-        strikethrougButton.isSelected = attributesState.hasStrikethrough
-
-        boldButton.addTarget(self, action: #selector(boldButtonHandler(sender:)), for: .touchUpInside)
-        italicButton.addTarget(self, action: #selector(italicButtonHandler(sender:)), for: .touchUpInside)
-        strikethrougButton.addTarget(self, action: #selector(strikethrougButtonHandler(sender:)), for: .touchUpInside)
-
+        let boldButton = makeRoundedButton(
+            image: UIImage.textAttributes.bold,
+            selector: #selector(boldButtonHandler(sender:)),
+            isSelected: attributesState.bold == .applied,
+            isEnabled: attributesState.bold != .disabled
+        )
+        let italicButton = makeRoundedButton(
+            image: UIImage.textAttributes.italic,
+            selector: #selector(italicButtonHandler(sender:)),
+            isSelected: attributesState.italic == .applied,
+            isEnabled: attributesState.italic != .disabled
+        )
+        let strikethroughButton = makeRoundedButton(
+            image: UIImage.textAttributes.strikethrough,
+            selector: #selector(strikethrougButtonHandler(sender:)),
+            isSelected: attributesState.strikethrough == .applied,
+            isEnabled: attributesState.strikethrough != .disabled
+        )
         leftTopStackView.addArrangedSubview(boldButton)
         leftTopStackView.addArrangedSubview(italicButton)
-        leftTopStackView.addArrangedSubview(strikethrougButton)
+        leftTopStackView.addArrangedSubview(strikethroughButton)
+    }
+    
+    private func makeRoundedButton(
+        image: UIImage?,
+        selector: Selector,
+        isSelected: Bool,
+        isEnabled: Bool
+    ) -> ButtonWithImage {
+        let button = ButtonsFactory.roundedBorderуButton(image: image)
+        button.isSelected = isSelected
+        button.isEnabled = isEnabled
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        return button
     }
 
     private func setupLeftBottomStackView() {
-        let leftAlignButton = ButtonWithImage()
+        let leftAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignLeft)
         leftAlignButton.isSelected = .left == attributesState.alignment
-        leftAlignButton.setImage(UIImage(named: "TextAttributes/align_left"))
         leftAlignButton.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
         leftAlignButton.addTarget(self, action: #selector(leftAlignButtonHandler(sender:)), for: .touchUpInside)
 
-        let centerAlignButton = ButtonWithImage()
+        let centerAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignCenter)
         centerAlignButton.isSelected = .center == attributesState.alignment
-        centerAlignButton.setImage(UIImage(named: "TextAttributes/align_center"))
         centerAlignButton.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
         centerAlignButton.addTarget(self, action: #selector(centerAlignButtonHandler(sender:)), for: .touchUpInside)
 
-        let rightAlignButton = ButtonWithImage()
+        let rightAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignRight)
         rightAlignButton.isSelected = .right == attributesState.alignment
-        rightAlignButton.setImage(UIImage(named: "TextAttributes/align_right"))
         rightAlignButton.addTarget(self, action: #selector(rightAlignButtonHandler(sender:)), for: .touchUpInside)
 
         leftBottomStackView.addArrangedSubview(leftAlignButton)

@@ -25,10 +25,20 @@ enum ButtonsFactory {
         backButton.tintColor = .secondaryTextColor
         return backButton
     }
-
-    static func roundedBorderуButton(image: UIImage?) -> ButtonWithImage {
+    
+    static func makeButton(image: UIImage?) -> ButtonWithImage {
         let button = ButtonWithImage()
         button.setImage(image)
+        button.setBackgroundColor(.clear, state: .normal)
+        button.setBackgroundColor(.selected, state: .selected)
+        button.setImageTintColor(.buttonInactive, state: .disabled)
+        button.setImageTintColor(.textColor, state: .normal)
+
+        return button
+    }
+
+    static func roundedBorderуButton(image: UIImage?) -> ButtonWithImage {
+        let button = makeButton(image: image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 0.5
         button.layer.borderColor = UIColor.grayscale30.cgColor

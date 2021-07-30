@@ -10,6 +10,7 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         information: BlockInformation,
+        container: BlockContainerModelProtocol,
         actionHandler: @escaping ActionHandler,
         didShow: @escaping (FloatingPanelController) -> Void
     ) {
@@ -40,27 +41,22 @@ final class BottomSheetsFactory {
         // NOTE: This will be moved to coordinator in next pr
         guard case let .text(textContentType) = information.content.type else { return }
         let askAttributes: () -> TextAttributesViewController.AttributesState = {
-            guard case let .text(textContent) = information.content else {
-                return .init(hasBold: false, hasItalic: false, hasStrikethrough: false, hasCodeStyle: false)
+            guard let information = container.model(id: information.id)?.information,
+                  case let .text(textContent) = information.content else {
+                return .init(
+                    bold: .disabled,
+                    italic: .disabled,
+                    strikethrough: .disabled,
+                    codeStyle: .disabled
+                )
             }
-
-            let range = NSRange(location: 0, length: textContent.attributedText.length)
-
-            let hasBold = textContent.attributedText.wholeStringFontHasTrait(trait: .traitBold)
-            let hasItalic = textContent.attributedText.wholeStringFontHasTrait(trait: .traitItalic)
-            let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
-            let hasCode = textContent.attributedText.wholeStringWithCodeMarkup()
-            let alignment = information.alignment.asNSTextAlignment
-
-            let attributes = TextAttributesViewController.AttributesState(
-                hasBold: hasBold,
-                hasItalic: hasItalic,
-                hasStrikethrough: hasStrikethrough,
-                hasCodeStyle: hasCode,
-                alignment: alignment,
-                url: ""
+            let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
+            let markupStateCalculator = MarkupStateCalculator(
+                content: textContent,
+                alignment: information.alignment,
+                restrictions: restrictions
             )
-            return attributes
+            return markupStateCalculator.textAttributes()
         }
 
         let askColor: () -> UIColor? = {

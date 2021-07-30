@@ -10,9 +10,14 @@ final class EditorAssembly {
     
     static func build(blockId: BlockId) -> DocumentEditorViewController {
         let controller = DocumentEditorViewController()
-        let router = EditorRouter(viewController: controller)
+        let document = BaseDocument()
+        let router = EditorRouter(viewController: controller, document: document)
         
-        let viewModel = buildViewModel(blockId: blockId, viewInput: controller, router: router)
+        let viewModel = buildViewModel(
+            blockId: blockId,
+            viewInput: controller,
+            document: document,
+            router: router)
         
         controller.viewModel = viewModel
         
@@ -20,9 +25,11 @@ final class EditorAssembly {
     }
     
     private static func buildViewModel(
-        blockId: BlockId, viewInput: EditorModuleDocumentViewInput, router: EditorRouter
+        blockId: BlockId,
+        viewInput: EditorModuleDocumentViewInput,
+        document: BaseDocumentProtocol,
+        router: EditorRouter
     ) -> DocumentEditorViewModel {
-        let document: BaseDocumentProtocol = BaseDocument()
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectDetailsService: ObjectDetailsService(

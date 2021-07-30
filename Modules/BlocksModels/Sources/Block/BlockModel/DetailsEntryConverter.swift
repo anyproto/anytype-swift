@@ -18,7 +18,9 @@ public class DetailsEntryConverter {
                     return nil
                 }
                 
-                guard let entry = DetailsEntryConverter.convert(value: value, kind: kind) else {
+                
+                
+                guard let entry = DetailsEntryConverter.convert(value: unwrapListValue(value), kind: kind) else {
                     return nil
                 }
                 
@@ -27,7 +29,16 @@ public class DetailsEntryConverter {
         )
     }
     
-    public static func convert(value: Google_Protobuf_Value, kind: DetailsKind) -> DetailsEntry<AnyHashable>? {
+    private static func unwrapListValue(_ value: Google_Protobuf_Value) -> Google_Protobuf_Value {
+        // Relation fields (for example, iconEmoji/iconImage etc.) can come as single value or as list of values.
+        // For current moment if we receive list of values we handle only first value of the list.
+        if case let .listValue(listValue) = value.kind, let firstValue = listValue.values.first {
+            return firstValue
+        }
+        return value
+    }
+    
+    private static func convert(value: Google_Protobuf_Value, kind: DetailsKind) -> DetailsEntry<AnyHashable>? {
         return {
             switch kind {
             case .name:
