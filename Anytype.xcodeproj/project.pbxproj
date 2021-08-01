@@ -477,6 +477,7 @@
 		EA57F36B26B6FB7E007D4292 /* ItalicMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F36A26B6FB7E007D4292 /* ItalicMarkupStateTests.swift */; };
 		EA57F36D26B6FC44007D4292 /* CodeMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F36C26B6FC44007D4292 /* CodeMarkupStateTests.swift */; };
 		EA57F36F26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */; };
+		EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F37926B740D5007D4292 /* UIFontExtension.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -1066,6 +1067,7 @@
 		EA57F36A26B6FB7E007D4292 /* ItalicMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalicMarkupStateTests.swift; sourceTree = "<group>"; };
 		EA57F36C26B6FC44007D4292 /* CodeMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeMarkupStateTests.swift; sourceTree = "<group>"; };
 		EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughMarkupStateTests.swift; sourceTree = "<group>"; };
+		EA57F37926B740D5007D4292 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
@@ -2574,6 +2576,7 @@
 				3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */,
 				531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */,
 				EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */,
+				EA57F37926B740D5007D4292 /* UIFontExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -3783,6 +3786,7 @@
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
+				EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */,
 				3DEFD65B2689FE680072EA27 /* DocumentCoverView.swift in Sources */,
 				3DDD3D1126AED14400B5673A /* EditorCollectionInformationWrapper.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,

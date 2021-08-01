@@ -27,12 +27,6 @@ extension UIFont {
         font(name: .plex, size: size, weight: .regular)
     }
     
-    func fontByAdding(trait: UIFontDescriptor.SymbolicTraits) -> UIFont? {
-        let traits = fontDescriptor.symbolicTraits.union(trait)
-        guard let descriptor = fontDescriptor.withSymbolicTraits(traits) else { return nil }
-        return UIFont(descriptor: descriptor, size: pointSize)
-    }
-    
     private class func font(name: FontName, size: CGFloat, weight: Weight) -> UIFont {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         var descriptor = UIFontDescriptor(fontAttributes: [
