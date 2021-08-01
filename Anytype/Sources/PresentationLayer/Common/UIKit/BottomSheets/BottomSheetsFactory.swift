@@ -52,11 +52,18 @@ final class BottomSheetsFactory {
             }
             let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
             let markupStateCalculator = MarkupStateCalculator(
-                content: textContent,
-                alignment: information.alignment,
+                attributedText: textContent.attributedText,
+                range: NSRange(location: 0, length: textContent.attributedText.length),
                 restrictions: restrictions
             )
-            return markupStateCalculator.textAttributes()
+            let attributes = TextAttributesViewController.AttributesState(
+                bold: markupStateCalculator.boldState(),
+                italic: markupStateCalculator.italicState(),
+                strikethrough: markupStateCalculator.strikethroughState(),
+                codeStyle: markupStateCalculator.codeState(),
+                alignment: information.alignment.asNSTextAlignment,
+                url: "")
+            return attributes
         }
 
         let askColor: () -> UIColor? = {

@@ -15,7 +15,7 @@ extension NSAttributedString {
     /// - Parameter range: range over which the style are checked
     /// - Returns: true if has given style otherwise false
     func hasTrait(trait: UIFontDescriptor.SymbolicTraits, at range: NSRange) -> Bool {
-        guard length > 0 else { return false }
+        guard check(range: range) else { return false }
         var hasStyle = false
 
         enumerateAttribute(.font, in: range) { font, _, shouldStop in
@@ -29,13 +29,17 @@ extension NSAttributedString {
         return hasStyle
     }
     
-    func wholeStringFontHasTrait(trait: UIFontDescriptor.SymbolicTraits) -> Bool {
-        guard length != 0 else { return false }
+    func fontInWhole(range: NSRange, has trait: UIFontDescriptor.SymbolicTraits) -> Bool {
+        guard check(range: range) else { return false }
         var result = true
         enumerateAttribute(
             .font,
-            in: NSRange(location: 0, length: length)) { value, _, shouldStop in
-            guard let font = value as? UIFont else { return }
+            in: range) { value, _, shouldStop in
+            guard let font = value as? UIFont else {
+                result = false
+                shouldStop[0] = true
+                return
+            }
             if !font.fontDescriptor.symbolicTraits.contains(trait) {
                 result = false
                 shouldStop[0] = true
@@ -50,7 +54,7 @@ extension NSAttributedString {
     ///   - range: attributed range
     /// - Returns: true if attribute founded otherweise false
     func hasAttribute(_ attributeKey: NSAttributedString.Key, at range: NSRange) -> Bool {
-        guard length > 0 else { return false }
+        guard check(range: range) else { return false }
         
         let attributeValue = attribute(
             attributeKey,
@@ -60,6 +64,18 @@ extension NSAttributedString {
         )
         
         return !attributeValue.isNil
+    }
+    
+    func everySymbol(in range: NSRange, has attributeKey: Key) -> Bool {
+        guard check(range: range) else { return false }
+        var result = true
+        enumerateAttribute(attributeKey, in: range) { value, _, shouldStop in
+            if value == nil {
+                result = false
+                shouldStop[0] = true
+            }
+        }
+        return result
     }
     
     /// Add plain string to attributed string and apply all attributes in range of all current string to plain string
@@ -94,17 +110,27 @@ extension NSAttributedString {
         return mutableCopy.string
     }
     
-    func wholeStringWithCodeMarkup() -> Bool {
-        guard length != 0 else { return false }
+    func fontIsCodeInWhole(range: NSRange) -> Bool {
+        guard check(range: range) else { return false }
         var result = true
-        enumerateAttribute(.font,
-                           in: NSRange(location: 0, length: length)) { value, _, shouldStop in
-            guard let font = value as? UIFont else { return }
+        enumerateAttribute(
+            .font,
+            in: range
+        ) { value, _, shouldStop in
+            guard let font = value as? UIFont else {
+                result = false
+                shouldStop[0] = true
+                return
+            }
             if !font.isCode {
                 result = false
                 shouldStop[0] = true
             }
         }
         return result
+    }
+    
+    private func check(range: NSRange) -> Bool {
+        length > 0 && length >= range.length && range.location >= 0
     }
 }

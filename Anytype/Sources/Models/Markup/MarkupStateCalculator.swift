@@ -1,57 +1,46 @@
-import BlocksModels
+import AnytypeCore
+import Foundation
 
 struct MarkupStateCalculator {
     
-    private let content: BlockText
-    private let alignment: LayoutAlignment
+    private let attributedText: NSAttributedString
+    private let range: NSRange
     private let restrictions: BlockRestrictions
     
     init(
-        content: BlockText,
-        alignment: LayoutAlignment,
+        attributedText: NSAttributedString,
+        range: NSRange,
         restrictions: BlockRestrictions
     ) {
-        self.content = content
-        self.alignment = alignment
+        self.attributedText = attributedText
+        self.range = range
         self.restrictions = restrictions
     }
     
-    func textAttributes() -> TextAttributesViewController.AttributesState {
-        TextAttributesViewController.AttributesState(
-            bold: boldState(),
-            italic: italicState(),
-            strikethrough: strikethroughState(),
-            codeStyle: codeState(),
-            alignment: alignment.asNSTextAlignment,
-            url: ""
-        )
-    }
-    
-    private func boldState() -> MarkupState {
+    func boldState() -> MarkupState {
         guard restrictions.canApplyBold else {
             return .disabled
         }
-        return content.attributedText.wholeStringFontHasTrait(trait: .traitBold) ? .applied : .notApplied
+        return attributedText.fontInWhole(range: range, has: .traitBold) ? .applied : .notApplied
     }
     
-    private func italicState() -> MarkupState {
+    func italicState() -> MarkupState {
         guard restrictions.canApplyItalic else {
             return .disabled
         }
-        return content.attributedText.wholeStringFontHasTrait(trait: .traitItalic) ? .applied : .notApplied
+        return attributedText.fontInWhole(range: range, has: .traitItalic) ? .applied : .notApplied
     }
     
-    private func strikethroughState() -> MarkupState {
+    func strikethroughState() -> MarkupState {
         guard restrictions.canApplyOtherMarkup else { return .disabled }
-        guard content.attributedText.length > 0  else { return .notApplied }
-        let range = NSRange(location: 0, length: content.attributedText.length)
-        return content.attributedText.hasAttribute(.strikethroughStyle, at: range) ? .applied : .notApplied
+        guard attributedText.length > 0  else { return .notApplied }
+        return attributedText.everySymbol(in: range, has: .strikethroughStyle) ? .applied : .notApplied
     }
     
-    private func codeState() -> MarkupState {
+    func codeState() -> MarkupState {
         guard restrictions.canApplyOtherMarkup else {
             return .disabled
         }
-        return content.attributedText.wholeStringWithCodeMarkup() ? .applied : .notApplied
+        return attributedText.fontIsCodeInWhole(range: range) ? .applied : .notApplied
     }
 }
