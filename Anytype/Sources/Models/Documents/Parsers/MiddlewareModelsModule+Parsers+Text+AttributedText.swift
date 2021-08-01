@@ -53,10 +53,10 @@ extension Namespace {
             mentionMarks.sort { $0.range.location > $1.range.location }
             
             markAttributes.forEach { attribute in
-                modifier.applyStyle(style: attribute.markStyle, rangeOrWholeString: .range(attribute.range))
+                modifier.applyStyle(style: attribute.markStyle, range: attribute.range)
             }
             mentionMarks.forEach {
-                modifier.applyStyle(style: $0.markStyle, rangeOrWholeString: .range($0.range))
+                modifier.applyStyle(style: $0.markStyle, range: $0.range)
             }
             
             return modifier.attributedString
