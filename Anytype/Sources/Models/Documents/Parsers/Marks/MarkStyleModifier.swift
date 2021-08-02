@@ -32,8 +32,7 @@ final class MarkStyleModifier {
         return result
     }
     
-    // MARK: Applying style
-    private func applyStyle(style: MarkStyle, range: NSRange) {
+    func applyStyle(style: MarkStyle, range: NSRange) {
         let oldAttributes = getAttributes(at: range)
         let update = style.to(old: oldAttributes)
         
@@ -62,29 +61,7 @@ final class MarkStyleModifier {
         }
     }
     
-    func applyStyle(style: MarkStyle, rangeOrWholeString either: RangedEither<NSRange, Bool>) {
-        switch either {
-        case let .range(value):
-            applyStyle(style: style, range: value)
-        case let .whole(whole):
-            if whole {
-                applyStyle(style: style, range: NSRange(location: 0, length: attributedString.length))
-            }
-        }
-    }
-    
-    // MARK: Get Mark Styles
-    private func getMarkStyles(at range: NSRange) -> [MarkStyle] {
+    func getMarkStyles(at range: NSRange) -> [MarkStyle] {
         MarkStyle.from(attributes: getAttributes(at: range))
-    }
-    
-    /// Get all MarkStyles from a RangeEither ( .whole(Bool) or .range(Range)
-    /// - Parameter either: Span parameter. It could be `.whole(Bool)` or `.range(Range)`
-    /// - Returns: Returns list of marks that it finds in a span.
-    func getMarkStyles(at either: RangedEither<NSRange, Bool>) -> [MarkStyle] {
-        switch either {
-        case let .range(value): return getMarkStyles(at: value)
-        case let .whole(value): return value ? getMarkStyles(at: NSRange(location: 0, length: attributedString.length)) : []
-        }
     }
 }

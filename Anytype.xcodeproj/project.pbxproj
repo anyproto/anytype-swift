@@ -504,7 +504,6 @@
 		EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */; };
 		EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */; };
 		EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */; };
-		EAADB1B62678EC9D004B0AF2 /* RangedEither.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1B52678EC9D004B0AF2 /* RangedEither.swift */; };
 		EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1B92678FE01004B0AF2 /* CGSizeExtension.swift */; };
 		EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */; };
 		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
@@ -1084,7 +1083,6 @@
 		EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Mentionable.swift"; sourceTree = "<group>"; };
 		EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutManager+Convenience.swift"; sourceTree = "<group>"; };
 		EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifier.swift; sourceTree = "<group>"; };
-		EAADB1B52678EC9D004B0AF2 /* RangedEither.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangedEither.swift; sourceTree = "<group>"; };
 		EAADB1B92678FE01004B0AF2 /* CGSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtension.swift; sourceTree = "<group>"; };
 		EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedStringExtension.swift; sourceTree = "<group>"; };
 		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
@@ -3472,7 +3470,6 @@
 			isa = PBXGroup;
 			children = (
 				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
-				EAADB1B52678EC9D004B0AF2 /* RangedEither.swift */,
 			);
 			path = Marks;
 			sourceTree = "<group>";
@@ -3983,7 +3980,6 @@
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
-				EAADB1B62678EC9D004B0AF2 /* RangedEither.swift in Sources */,
 				3D29AFFD26A606360095BA18 /* URLInputViewController.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */,
