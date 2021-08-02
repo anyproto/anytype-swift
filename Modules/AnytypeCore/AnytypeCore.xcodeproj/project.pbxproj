@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1263D6EC26B7E59C001D4C8A /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */; };
 		3D43FD7E26B057250094D4C0 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7926B056330094D4C0 /* FeatureFlags.swift */; };
 		3D43FD8026B0573A0094D4C0 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7F26B0573A0094D4C0 /* UserDefault.swift */; };
 		3D43FDAE26B188F80094D4C0 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D43FD7926B056330094D4C0 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3D43FD7F26B0573A0094D4C0 /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
@@ -37,12 +39,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1263D6EC26B7E59C001D4C8A /* ProtobufMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1263D6EA26B7E59C001D4C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3D43FD7A26B056330094D4C0 /* FeatureFlags */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +105,7 @@
 			children = (
 				3DA4B0C126AF3D2B0000F243 /* AnytypeCore */,
 				3DA4B0C026AF3D2B0000F243 /* Products */,
+				1263D6EA26B7E59C001D4C8A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
