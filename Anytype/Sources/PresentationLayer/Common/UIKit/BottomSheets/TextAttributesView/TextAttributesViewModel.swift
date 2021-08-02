@@ -4,7 +4,7 @@ import Foundation
 
 final class TextAttributesViewModel {
     
-    private let actionHandler: BlockActionHandlerProtocol
+    private let actionHandler: EditorActionHandlerProtocol
     private let container: RootBlockContainer
     private let blockId: BlockId
     private var blockEventsListener: TextBlockContentChangeListener?
@@ -12,7 +12,7 @@ final class TextAttributesViewModel {
     private var selectedRange: MarkupRange?
     
     init(
-        actionHandler: BlockActionHandlerProtocol,
+        actionHandler: EditorActionHandlerProtocol,
         container: RootBlockContainer,
         blockId: BlockId
     ) {
@@ -66,10 +66,9 @@ final class TextAttributesViewModel {
         alignment: LayoutAlignment,
         content: BlockText
     ) {
-        actionHandler.handleBlockAction(
+        actionHandler.handleAction(
             .setAlignment(alignment),
-            blockId: blockId,
-            completion: nil
+            blockId: blockId
         )
         displayAttributes(
             from: content,
@@ -83,10 +82,9 @@ final class TextAttributesViewModel {
         alignment: LayoutAlignment
     ) {
         guard let range = selectedRange?.range(for: content.attributedText) else { return }
-        actionHandler.handleBlockAction(
+        actionHandler.handleAction(
             .toggleFontStyle(markup, range),
-            blockId: blockId,
-            completion: nil
+            blockId: blockId
         )
         var displayState = textAttributes(
             from: content,
