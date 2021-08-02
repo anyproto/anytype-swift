@@ -5,6 +5,21 @@ extension BlockPageLinkState {
     enum Style: Hashable, Equatable {
         case noContent
         case icon(DocumentIconType)
+        case checkmark(Bool)
+        
+        init(details: DetailsDataProtocol) {
+            if let objectIcon = details.icon {
+                self = .icon(objectIcon)
+                return
+            }
+            
+            guard case .todo = details.layout else {
+                self = .noContent
+                return
+            }
+            
+            self = .checkmark(details.done ?? false)
+        }
     }
     
 }
@@ -20,7 +35,7 @@ struct BlockPageLinkState: Hashable, Equatable {
         self.init(
             archived: pageDetails.isArchived ?? false,
             title: pageDetails.name ?? "",
-            style: pageDetails.icon.flatMap { .icon($0) } ?? .noContent
+            style: Style(details: pageDetails)
         )
     }
     
@@ -29,4 +44,5 @@ struct BlockPageLinkState: Hashable, Equatable {
         self.title = title
         self.style = style
     }
+    
 }
