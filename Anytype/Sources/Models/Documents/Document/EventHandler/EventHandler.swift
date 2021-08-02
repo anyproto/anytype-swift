@@ -29,7 +29,7 @@ class EventHandler: EventHandlerProtocol {
         }
 
         self.container = container
-        middlewareConverter = MiddlewareEventConverter(container: container)
+        setupMiddlewareConverter(with: container)
         localConverter = LocalEventConverter(container: container)
         eventPublisher.startListening(contextId: rootId)
     }
@@ -66,5 +66,17 @@ class EventHandler: EventHandlerProtocol {
 
             didProcessEventsSubject.send(update)
         }
+    }
+    
+    private func setupMiddlewareConverter(with container: RootBlockContainer) {
+        let validator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
+        let informationCreator = BlockInformationCreator(
+            validator: validator,
+            container: container
+        )
+        middlewareConverter = MiddlewareEventConverter(
+            container: container,
+            informationCreator: informationCreator
+        )
     }
 }

@@ -2,12 +2,12 @@ import Foundation
 import Combine
 import ProtobufMessages
 
-class NotificationEventListener {
+final class NotificationEventListener {
 
     private var subscription: AnyCancellable?
-    private weak var handler: EventHandler?
+    private weak var handler: EventHandlerProtocol?
 
-    init(handler: EventHandler) {
+    init(handler: EventHandlerProtocol) {
         self.handler = handler
     }
     
