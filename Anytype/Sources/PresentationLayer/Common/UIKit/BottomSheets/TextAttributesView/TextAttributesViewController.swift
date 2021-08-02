@@ -12,15 +12,6 @@ import UIKit
 final class TextAttributesViewController: UIViewController {
     typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
-    struct AttributesState {
-        var bold: MarkupState
-        var italic: MarkupState
-        var strikethrough: MarkupState
-        var codeStyle: MarkupState
-        var alignment: NSTextAlignment = .left
-        var url: String = ""
-    }
-
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
