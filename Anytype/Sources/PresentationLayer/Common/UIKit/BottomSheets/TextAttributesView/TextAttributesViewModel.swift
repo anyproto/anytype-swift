@@ -23,6 +23,7 @@ final class TextAttributesViewModel {
     
     func setView(_ view: TextAttributesViewProtocol) {
         self.view = view
+        displayCurrentState()
     }
     
     func setEventsListener(_ listener: TextBlockContentChangeListener) {
@@ -31,15 +32,7 @@ final class TextAttributesViewModel {
     
     func setRange(_ range: MarkupRange) {
         selectedRange = range
-        guard let information = container.blocksContainer.model(id: blockId)?.information else {
-            anytypeAssertionFailure("Unable to get block model by id: \(blockId)")
-            return
-        }
-        guard case let .text(textContent) = information.content else {
-            anytypeAssertionFailure("Expected text content type but got: \(information.content)")
-            return
-        }
-        displayAttributes(from: textContent, alignment: information.alignment)
+        displayCurrentState()
     }
     
     func handle(action: TextAttributesViewModelAction) {
@@ -60,6 +53,18 @@ final class TextAttributesViewModel {
                 alignment: information.alignment
             )
         }
+    }
+    
+    private func displayCurrentState() {
+        guard let information = container.blocksContainer.model(id: blockId)?.information else {
+            anytypeAssertionFailure("Unable to get block model by id: \(blockId)")
+            return
+        }
+        guard case let .text(textContent) = information.content else {
+            anytypeAssertionFailure("Expected text content type but got: \(information.content)")
+            return
+        }
+        displayAttributes(from: textContent, alignment: information.alignment)
     }
     
     private func handleAlignmentChange(
