@@ -108,6 +108,10 @@ final class BlockPageLinkUIKitView: UIView {
     private func makeLabel(with string: String) -> UILabel {
         let label = UILabel()
         label.text = string
+        
+        label.layoutUsing.anchors {
+            $0.size(Constants.imageViewSize)
+        }
         return label
     }
     
