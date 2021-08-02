@@ -4,28 +4,31 @@ import XCTest
 final class CodeMarkupStateTests: XCTestCase {
     
     private lazy var checker = MarkupChecker(
-        markupType: .code,
+        markupType: .keyboard,
         attributedStringBlueprint: attributedStringBlueprint
     )
-    private lazy var wholeStringWithMarkup = NSAttributedString(
-        string: "aaaaaaaaaaaaaaaa",
-        attributes: [.font: UIFont.code]
-    )
     // This is for convenience, you can see which font has each part of attributed string
-    private lazy var attributedStringBlueprint: [(NSRange, Any?)] =
+    private let attributedStringBlueprint: [(NSRange, Any?)] =
         [
         (NSRange(location: 0, length: 3), nil),
         (NSRange(location: 3, length: 4), UIFont.monospacedSystemFont(ofSize: 11, weight: .regular)),
         (NSRange(location: 7, length: 4), UIFont.code),
         (NSRange(location: 11, length: 2), nil),
-            (NSRange(location: 13, length: 6), UIFont.code.fontByAdding(trait: .traitItalic) ?? UIFont.code),
-        (NSRange(location: 19, length: 3), UIFont.code.fontByAdding(trait: .traitBold) ?? UIFont.code),
+            (NSRange(location: 13, length: 6), UIFont.code.adding(trait: .traitItalic) ?? UIFont.code),
+        (NSRange(location: 19, length: 3), UIFont.code.adding(trait: .traitBold) ?? UIFont.code),
         (NSRange(location: 22, length: 6), UIFont.systemFont(ofSize: 22)),
         (NSRange(location: 28, length: 5), UIFont.monospacedSystemFont(ofSize: 29, weight: .regular)),
         (NSRange(location: 33, length: 7), UIFont.code),
         (NSRange(location: 40, length: 10), nil),
         (NSRange(location: 50, length: 8), UIFont.systemFont(ofSize: 18))
         ]
+    
+    override func setUp() {
+        checker = MarkupChecker(
+            markupType: .keyboard,
+            attributedStringBlueprint: attributedStringBlueprint
+        )
+    }
     
     func testIncorrectRangeLocation() {
         let rangeWithIncorrectLocation = NSRange(location: -20, length: 42)
@@ -66,7 +69,7 @@ final class CodeMarkupStateTests: XCTestCase {
         stringWithAttachment.insert(attachmentString, at: 7)
 
         let range = NSRange(location: initialRange.location, length: initialRange.length + 1)
-        let resultWithAttachment = stringWithAttachment.fontIsCodeInWhole(range: range)
+        let resultWithAttachment = stringWithAttachment.isCodeFontInWhole(range: range)
 
         XCTAssertTrue(allFontsHasCode)
         XCTAssertFalse(resultWithAttachment)
@@ -85,8 +88,8 @@ final class CodeMarkupStateTests: XCTestCase {
     }
 
     func testWholeStringWithCode() {
-        let range = NSRange(location: 0, length: wholeStringWithMarkup.length)
-        let allFontsHasCode = wholeStringWithMarkup.fontIsCodeInWhole(range: range)
+        let range = NSRange(location: 0, length: checker.wholeStringWithMarkup.length)
+        let allFontsHasCode = checker.checkWholeStringWithMarkup(in: range)
         XCTAssertTrue(allFontsHasCode)
     }
 

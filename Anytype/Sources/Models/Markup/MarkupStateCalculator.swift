@@ -21,26 +21,26 @@ struct MarkupStateCalculator {
         guard restrictions.canApplyBold else {
             return .disabled
         }
-        return attributedText.fontInWhole(range: range, has: .traitBold) ? .applied : .notApplied
+        return attributedText.isFontInWhole(range: range, has: .traitBold) ? .applied : .notApplied
     }
     
     func italicState() -> MarkupState {
         guard restrictions.canApplyItalic else {
             return .disabled
         }
-        return attributedText.fontInWhole(range: range, has: .traitItalic) ? .applied : .notApplied
+        return attributedText.isFontInWhole(range: range, has: .traitItalic) ? .applied : .notApplied
     }
     
     func strikethroughState() -> MarkupState {
         guard restrictions.canApplyOtherMarkup else { return .disabled }
         guard attributedText.length > 0  else { return .notApplied }
-        return attributedText.everySymbol(in: range, has: .strikethroughStyle) ? .applied : .notApplied
+        return attributedText.isEverySymbol(in: range, has: .strikethroughStyle) ? .applied : .notApplied
     }
     
     func codeState() -> MarkupState {
         guard restrictions.canApplyOtherMarkup else {
             return .disabled
         }
-        return attributedText.fontIsCodeInWhole(range: range) ? .applied : .notApplied
+        return attributedText.isCodeFontInWhole(range: range) ? .applied : .notApplied
     }
 }

@@ -3,12 +3,13 @@ import UIKit
 
 final class MarkupChecker {
     
-    private let markupType: MarkupType
+    private let markupType: BlockHandlerActionType.TextAttributesType
     private let attributedStringBlueprint: [(NSRange, Any?)]
     let exampleString: NSAttributedString
+    let wholeStringWithMarkup: NSAttributedString
     
     init(
-        markupType: MarkupType,
+        markupType: BlockHandlerActionType.TextAttributesType,
         attributedStringBlueprint: [(NSRange, Any?)]
     ) {
         self.markupType = markupType
@@ -23,20 +24,37 @@ final class MarkupChecker {
                 result.addAttribute(markupType.attributedStringKey, value: value, range: range)
             }
         }
-        
         exampleString = NSAttributedString(attributedString: result)
+        
+        wholeStringWithMarkup = NSAttributedString(
+            string: "aaaaaaaaaaaaaaaa",
+            attributes: [markupType.attributedStringKey: markupType.matchingAttribute]
+        )
     }
     
     func checkMarkup(in range: NSRange) -> Bool {
         switch markupType {
         case .bold:
-            return exampleString.fontInWhole(range: range, has: .traitBold)
+            return exampleString.isFontInWhole(range: range, has: .traitBold)
         case .italic:
-            return exampleString.fontInWhole(range: range, has: .traitItalic)
-        case .code:
-            return exampleString.fontIsCodeInWhole(range: range)
+            return exampleString.isFontInWhole(range: range, has: .traitItalic)
+        case .keyboard:
+            return exampleString.isCodeFontInWhole(range: range)
         case .strikethrough:
-            return exampleString.everySymbol(in: range, has: .strikethroughStyle)
+            return exampleString.isEverySymbol(in: range, has: .strikethroughStyle)
+        }
+    }
+    
+    func checkWholeStringWithMarkup(in range: NSRange) -> Bool {
+        switch markupType {
+        case .bold:
+            return wholeStringWithMarkup.isFontInWhole(range: range, has: .traitBold)
+        case .italic:
+            return wholeStringWithMarkup.isFontInWhole(range: range, has: .traitItalic)
+        case .keyboard:
+            return wholeStringWithMarkup.isCodeFontInWhole(range: range)
+        case .strikethrough:
+            return wholeStringWithMarkup.isEverySymbol(in: range, has: .strikethroughStyle)
         }
     }
 }

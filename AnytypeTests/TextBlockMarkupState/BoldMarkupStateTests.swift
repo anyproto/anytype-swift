@@ -7,12 +7,8 @@ final class BoldMarkupStateTests: XCTestCase {
         markupType: .bold,
         attributedStringBlueprint: attributedStringBlueprint
     )
-    private lazy var wholeStringWithMarkup = NSAttributedString(
-        string: "aaaaaaaaaaaaaaaa",
-        attributes: [.font: UIFont.boldSystemFont(ofSize: 33)]
-    )
     // This is for convenience, you can see which font has each part of attributed string
-    private lazy var attributedStringBlueprint: [(NSRange, Any?)] = [
+    private let attributedStringBlueprint: [(NSRange, Any?)] = [
         (NSRange(location: 0, length: 3), nil),
         (NSRange(location: 3, length: 4), UIFont.monospacedSystemFont(ofSize: 11, weight: .regular)),
         (NSRange(location: 7, length: 4), UIFont.boldSystemFont(ofSize: 33)),
@@ -25,6 +21,13 @@ final class BoldMarkupStateTests: XCTestCase {
         (NSRange(location: 40, length: 10), nil),
         (NSRange(location: 50, length: 8), UIFont.systemFont(ofSize: 18))
     ]
+    
+    override func setUp() {
+        checker = MarkupChecker(
+            markupType: .bold,
+            attributedStringBlueprint: attributedStringBlueprint
+        )
+    }
     
     func testIncorrectRangeLocation() {
         let rangeWithIncorrectLocation = NSRange(location: -20, length: 42)
@@ -65,7 +68,7 @@ final class BoldMarkupStateTests: XCTestCase {
         stringWithAttachment.insert(attachmentString, at: 7)
 
         let range = NSRange(location: initialRange.location, length: initialRange.length + 1)
-        let resultWithAttachment = stringWithAttachment.fontInWhole(range: range, has: .traitBold)
+        let resultWithAttachment = stringWithAttachment.isFontInWhole(range: range, has: .traitBold)
 
         XCTAssertTrue(allFontsHasTrait)
         XCTAssertFalse(resultWithAttachment)
@@ -84,8 +87,8 @@ final class BoldMarkupStateTests: XCTestCase {
     }
 
     func testWholeStringWithTrait() {
-        let range = NSRange(location: 0, length: wholeStringWithMarkup.length)
-        let allFontsHasTrait = wholeStringWithMarkup.fontInWhole(range: range, has: .traitBold)
+        let range = NSRange(location: 0, length: checker.wholeStringWithMarkup.length)
+        let allFontsHasTrait = checker.checkWholeStringWithMarkup(in: range)
         XCTAssertTrue(allFontsHasTrait)
     }
 

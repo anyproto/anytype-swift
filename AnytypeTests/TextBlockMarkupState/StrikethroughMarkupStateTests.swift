@@ -7,12 +7,8 @@ final class StrikethroughMarkupStateTests: XCTestCase {
         markupType: .strikethrough,
         attributedStringBlueprint: attributedStringBlueprint
     )
-    private lazy var wholeStringWithMarkup = NSAttributedString(
-        string: "aaaaaaaaaaaaaaaa",
-        attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
-    )
     // This is for convenience, you can see which attibute has each part of attributed string
-    private lazy var attributedStringBlueprint: [(NSRange, Any?)] = [
+    private let attributedStringBlueprint: [(NSRange, Any?)] = [
         (NSRange(location: 0, length: 3), nil),
         (NSRange(location: 3, length: 4), NSUnderlineStyle.single.rawValue),
         (NSRange(location: 7, length: 4), NSUnderlineStyle.double.rawValue),
@@ -25,6 +21,13 @@ final class StrikethroughMarkupStateTests: XCTestCase {
         (NSRange(location: 40, length: 10), nil),
         (NSRange(location: 50, length: 8), NSUnderlineStyle.single.rawValue)
     ]
+    
+    override func setUp() {
+        checker = MarkupChecker(
+            markupType: .strikethrough,
+            attributedStringBlueprint: attributedStringBlueprint
+        )
+    }
     
     func testIncorrectRangeLocation() {
         let rangeWithIncorrectLocation = NSRange(location: -20, length: 42)
@@ -65,7 +68,7 @@ final class StrikethroughMarkupStateTests: XCTestCase {
         stringWithAttachment.insert(attachmentString, at: 7)
 
         let range = NSRange(location: initialRange.location, length: initialRange.length + 1)
-        let resultWithAttachment = stringWithAttachment.everySymbol(in: range, has: .strikethroughStyle)
+        let resultWithAttachment = stringWithAttachment.isEverySymbol(in: range, has: .strikethroughStyle)
 
         XCTAssertTrue(hastStrikethrough)
         XCTAssertFalse(resultWithAttachment)
@@ -84,8 +87,8 @@ final class StrikethroughMarkupStateTests: XCTestCase {
     }
 
     func testWholeStringWithStrikethrough() {
-        let range = NSRange(location: 0, length: wholeStringWithMarkup.length)
-        let hastStrikethrough = wholeStringWithMarkup.everySymbol(in: range, has: .strikethroughStyle)
+        let range = NSRange(location: 0, length: checker.wholeStringWithMarkup.length)
+        let hastStrikethrough = checker.checkWholeStringWithMarkup(in: range)
         XCTAssertTrue(hastStrikethrough)
     }
 
