@@ -41,7 +41,7 @@ final class BlockPageLinkUIKitView: UIView {
         leftView.addSubview(makeIconView(state: state)) {
             $0.pinToSuperview()
         }
-        textView.text = !state.title.isEmpty ? state.title : "Untitled"        
+        textView.text = !state.title.isEmpty ? state.title : "Untitled".localized
     }
     
     // MARK: - Private functions
