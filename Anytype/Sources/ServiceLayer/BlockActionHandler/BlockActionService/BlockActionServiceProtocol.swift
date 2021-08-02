@@ -20,7 +20,7 @@ protocol BlockActionServiceProtocol {
     
     func createPage(position: BlockPosition)
     
-    func split(info: BlockInformation, oldText: String, newBlockContentType: BlockText.Style, shouldSetFocusOnUpdate: Bool)
+    func split(info: BlockInformation, oldText: String, newBlockContentType: BlockText.Style)
     
     func bookmarkFetch(blockId: BlockId, url: String)
     

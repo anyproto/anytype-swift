@@ -56,7 +56,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     func split(contextID: BlockId,
                blockID: BlockId, range: NSRange,
                style: Style,
-               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ResponseEvent, Error> {
+               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error> {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
 
@@ -70,8 +70,10 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     private func split(contextID: String, blockID: String,
                        range: Anytype_Model_Range,
                        style: Anytype_Model_Block.Content.Text.Style,
-                       mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global()).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
+                       mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error> {
+        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global())
+            .map(SplitSuccess.init(_:))
+            .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
 
