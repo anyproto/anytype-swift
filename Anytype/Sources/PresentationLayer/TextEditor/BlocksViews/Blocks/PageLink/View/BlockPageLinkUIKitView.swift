@@ -64,33 +64,69 @@ final class BlockPageLinkUIKitView: UIView {
         case let .icon(icon):
             switch icon {
             case let .basic(basic):
-                switch basic {
-                case let .emoji(emoji):
-                    return makeLabel(with: emoji.value)
-                    
-                case let .imageId(imageId):
-                    return makeImageView(imageId: imageId)
-                }
-            case let .profile(proile):
-                switch proile {
-                case let .imageId(imageId):
-                    return makeImageView(imageId: imageId)
-                    
-                case let .placeholder(placeloder):
-                    return makeLabel(with: "\(placeloder)")
-                }
+                return makeBasicIconView(basic)
+                
+            case let .profile(profile):
+                return makeProfileIconView(profile)
             }
         }
     }
     
-    private func makeImageView(imageId: BlockId) -> UIImageView {
+    private func makeBasicIconView(_ icon: DocumentIconType.Basic) -> UIView {
+        switch icon {
+        case let .emoji(emoji):
+            return makeLabel(with: emoji.value)
+            
+        case let .imageId(imageId):
+            return makeImageView(imageId: imageId, cornerRadius: 4)
+        }
+    }
+    
+    private func makeProfileIconView(_ icon: DocumentIconType.Profile) -> UIView {
+        switch icon {
+        case let .imageId(imageId):
+            return makeImageView(imageId: imageId, cornerRadius: Constants.imageViewSize.width / 2)
+            
+        case let .placeholder(placeloder):
+            return makeLabel(with: "\(placeloder)")
+        }
+    }
+    
+    private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
-        imageView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail))
-//            placeholder: placeholder TODO
+        
+        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else {
+            return imageView
+        }
+        
+        let size = Constants.imageViewSize
+        
+        let processor = ResizingImageProcessor(
+            referenceSize: size,
+            mode: .aspectFill
         )
+            |> CroppingImageProcessor(size: size)
+            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
+        
+        
+        let imageGuideline = ImageGuideline(
+            size: size,
+            cornerRadius: cornerRadius
+        )
+        
+        let image = PlaceholderImageBuilder.placeholder(
+            with: imageGuideline,
+            color: .grayscale30
+        )
+        
+        imageView.kf.setImage(
+            with: url,
+            placeholder: image,
+            options: [.processor(processor)]
+        )
+        
         imageView.layoutUsing.anchors {
-            $0.size(Constants.imageViewSize)
+            $0.size(size)
         }
    
         return imageView
