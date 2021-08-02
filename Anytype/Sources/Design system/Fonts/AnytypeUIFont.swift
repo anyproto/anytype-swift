@@ -20,7 +20,7 @@ extension UIFont {
     var isCode: Bool {
         let attribute = UIFont.attributeKey(name: .plex)
         guard let name = fontDescriptor.fontAttributes[attribute] as? String else { return false }
-        return name == FontName.plex.rawValue
+        return name.hasPrefix(FontName.plex.rawValue) 
     }
     
     static func code(of size: CGFloat) -> UIFont {

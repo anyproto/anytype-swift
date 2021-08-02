@@ -39,6 +39,9 @@
 	<string>NSPhotoLibraryAddUsageDescription</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>IBMPlexMono-Italic.ttf</string>
+		<string>IBMPlexMono-BoldItalic.ttf</string>
+		<string>IBMPlexMono-Bold.ttf</string>
 		<string>IBMPlexMono-Regular.ttf</string>
 		<string>Inter.ttf</string>
 		<string>GraphikLCG-Semibold.ttf</string>

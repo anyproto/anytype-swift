@@ -337,7 +337,6 @@
 		3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */; };
 		3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92F84264BF69900E83276 /* View+CornerRadius.swift */; };
 		3DB92F95264D579C00E83276 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
-		3DB92F97264D57A100E83276 /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */; };
 		3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA0264D8B0100E83276 /* SettingSectionViewModel.swift */; };
 		3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */; };
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
@@ -473,6 +472,7 @@
 		EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */; };
 		EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B0266E5E13004A820B /* MentionsViewModel.swift */; };
 		EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B3266E5EE7004A820B /* MentionsView.swift */; };
+		EA57F35226B5DEAA007D4292 /* IBMPlexMono-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DDA026B5C2D000E66878 /* IBMPlexMono-BoldItalic.ttf */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -496,6 +496,9 @@
 		EA7DE3FE26397C08005AFEE2 /* SlashMenuActionsFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE3FD26397C08005AFEE2 /* SlashMenuActionsFilterService.swift */; };
 		EA7DE40426397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE40326397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift */; };
 		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
+		EAA7E1FE26B5D57000F7A81B /* IBMPlexMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DDA226B5C2DA00E66878 /* IBMPlexMono-Italic.ttf */; };
+		EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */; };
+		EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
 		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */; };
@@ -1037,6 +1040,9 @@
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
 		EA43DD6526B1A28500E66878 /* MarkupState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupState.swift; sourceTree = "<group>"; };
 		EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupStateCalculator.swift; sourceTree = "<group>"; };
+		EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Bold.ttf"; sourceTree = "<group>"; };
+		EA43DDA026B5C2D000E66878 /* IBMPlexMono-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-BoldItalic.ttf"; sourceTree = "<group>"; };
+		EA43DDA226B5C2DA00E66878 /* IBMPlexMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Italic.ttf"; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
 		EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		EA4AC462261C9AAB002E961E /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
@@ -1390,6 +1396,9 @@
 		0388BF7822F10D3D00B73E39 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				EA43DDA226B5C2DA00E66878 /* IBMPlexMono-Italic.ttf */,
+				EA43DDA026B5C2D000E66878 /* IBMPlexMono-BoldItalic.ttf */,
+				EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */,
 				53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */,
 				53178878260A29FC004F9F68 /* Inter.ttf */,
 				EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */,
@@ -3636,14 +3645,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA7E1FE26B5D57000F7A81B /* IBMPlexMono-Italic.ttf in Resources */,
+				EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */,
 				53178879260A29FC004F9F68 /* Inter.ttf in Resources */,
 				3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				0ABB73A425497DB700F32C6F /* GoogleService-Info-Release.plist in Resources */,
-				3DB92F97264D57A100E83276 /* IBMPlexMono-Regular.ttf in Resources */,
+				EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
+				EA57F35226B5DEAA007D4292 /* IBMPlexMono-BoldItalic.ttf in Resources */,
 				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
 				EAED582626A74D7800374A46 /* GoogleService-Info-Dev.plist in Resources */,
 				3DB92F95264D579C00E83276 /* GraphikLCG-Semibold.ttf in Resources */,

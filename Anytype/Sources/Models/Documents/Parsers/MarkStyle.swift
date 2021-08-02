@@ -178,8 +178,22 @@ enum MarkStyle: Equatable, CaseIterable {
     }
     
     private func keyboardUpdate(with attributes: [NSAttributedString.Key: Any], hasStyle: Bool) -> Update {
-        guard let font = attributes[.font] as? UIFont else { return .change([:]) }
-        return hasStyle ? .change([.font: UIFont.code(of: font.pointSize)]) : .change([.font: font])
+        guard let font = attributes[.font] as? UIFont else { return .empty }
+        if !hasStyle {
+            return .change([.font: font])
+        }
+        let codeFont = UIFont.code(of: font.pointSize)
+        var traitsToApply = codeFont.fontDescriptor.symbolicTraits
+        if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
+            traitsToApply.insert(.traitBold)
+        }
+        if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+            traitsToApply.insert(.traitItalic)
+        }
+        if let newFontDescriptor = codeFont.fontDescriptor.withSymbolicTraits(traitsToApply) {
+            return .change([.font: UIFont(descriptor: newFontDescriptor, size: font.pointSize)])
+        }
+        return .change([.font: codeFont])
     }
     
     
