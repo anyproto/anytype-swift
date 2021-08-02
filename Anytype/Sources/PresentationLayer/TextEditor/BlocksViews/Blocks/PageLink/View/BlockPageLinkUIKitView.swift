@@ -69,6 +69,10 @@ final class BlockPageLinkUIKitView: UIView {
             case let .profile(profile):
                 return makeProfileIconView(profile)
             }
+        case let .checkmark(isChecked):
+            let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+            
+            return makeIconImageView(image)
         }
     }
     
