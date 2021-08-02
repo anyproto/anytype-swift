@@ -59,7 +59,7 @@ final class BlockPageLinkUIKitView: UIView {
     private func makeIconView(state: BlockPageLinkState) -> UIView {
         switch state.style {
         case .noContent:
-            return makePlaceholderView()
+            return makeIconImageView()
             
         case let .icon(icon):
             switch icon {
@@ -87,8 +87,8 @@ final class BlockPageLinkUIKitView: UIView {
         case let .imageId(imageId):
             return makeImageView(imageId: imageId, cornerRadius: Constants.imageViewSize.width / 2)
             
-        case let .placeholder(placeloder):
-            return makeLabel(with: "\(placeloder)")
+        case let .placeholder(placeholder):
+            return makePlaceholderView(placeholder)
         }
     }
     
@@ -132,13 +132,32 @@ final class BlockPageLinkUIKitView: UIView {
         return imageView
     }
     
-    private func makePlaceholderView() -> UIView {
-        let imageView = UIImageView(image: UIImage(named: "TextEditor/Style/Page/empty"))
+    private func makeIconImageView(_ image: UIImage? = UIImage(named: "TextEditor/Style/Page/empty") ) -> UIView {
+        let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
             $0.size(Constants.imageViewSize)
         }
         return imageView
+    }
+    
+    private func makePlaceholderView(_ placeholder: Character) -> UIView {
+        let size = Constants.imageViewSize
+        let imageGuideline = ImageGuideline(
+            size: size,
+            cornerRadius: size.width / 2
+        )
+        let placeholderGuideline = PlaceholderImageTextGuideline(
+            text: String(placeholder),
+            font: UIFont.systemFont(ofSize: 17)
+        )
+        let image = PlaceholderImageBuilder.placeholder(
+            with: imageGuideline,
+            color: .grayscale30,
+            textGuideline: placeholderGuideline
+        )
+        
+        return makeIconImageView(image)
     }
     
     private func makeLabel(with string: String) -> UILabel {
