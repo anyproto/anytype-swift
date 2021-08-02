@@ -165,6 +165,6 @@ extension Publisher where Self.Failure == Never {
 
 // MARK: AnyPublisher extensions
 extension AnyPublisher {
-    static func empty() -> Self<Output, Failure> { Empty().eraseToAnyPublisher() }
+    static func empty() -> AnyPublisher<Output, Failure> { Empty().eraseToAnyPublisher() }
 }
 
