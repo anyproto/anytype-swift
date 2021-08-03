@@ -19,7 +19,7 @@ final class BlockTextContentTypeConverter {
         case .numbered: return .numbered
         case .toggle: return .toggle
         
-        case .description_: return nil
+        case .description_: return .description
         case .UNRECOGNIZED: return nil
         }
     }
@@ -27,6 +27,7 @@ final class BlockTextContentTypeConverter {
     static func asMiddleware(_ value: BlockText.Style) -> Anytype_Model_Block.Content.Text.Style {
         switch value {
         case .title: return .title
+        case .description: return .description_
         case .text: return .paragraph
         case .header: return .header1
         case .header2: return .header2

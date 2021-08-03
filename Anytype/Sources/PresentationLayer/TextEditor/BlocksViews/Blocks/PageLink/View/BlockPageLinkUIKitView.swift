@@ -41,7 +41,7 @@ final class BlockPageLinkUIKitView: UIView {
         leftView.addSubview(makeIconView(state: state)) {
             $0.pinToSuperview()
         }
-        textView.text = !state.title.isEmpty ? state.title : "Untitled"        
+        textView.text = !state.title.isEmpty ? state.title : "Untitled".localized
     }
     
     // MARK: - Private functions
@@ -59,45 +59,85 @@ final class BlockPageLinkUIKitView: UIView {
     private func makeIconView(state: BlockPageLinkState) -> UIView {
         switch state.style {
         case .noContent:
-            return makePlaceholderView()
+            return makeIconImageView()
             
         case let .icon(icon):
             switch icon {
             case let .basic(basic):
-                switch basic {
-                case let .emoji(emoji):
-                    return makeLabel(with: emoji.value)
-                    
-                case let .imageId(imageId):
-                    return makeImageView(imageId: imageId)
-                }
-            case let .profile(proile):
-                switch proile {
-                case let .imageId(imageId):
-                    return makeImageView(imageId: imageId)
-                    
-                case let .placeholder(placeloder):
-                    return makeLabel(with: "\(placeloder)")
-                }
+                return makeBasicIconView(basic)
+                
+            case let .profile(profile):
+                return makeProfileIconView(profile)
             }
+        case let .checkmark(isChecked):
+            let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+            
+            return makeIconImageView(image)
         }
     }
     
-    private func makeImageView(imageId: BlockId) -> UIImageView {
+    private func makeBasicIconView(_ icon: DocumentIconType.Basic) -> UIView {
+        switch icon {
+        case let .emoji(emoji):
+            return makeLabel(with: emoji.value)
+            
+        case let .imageId(imageId):
+            return makeImageView(imageId: imageId, cornerRadius: 4)
+        }
+    }
+    
+    private func makeProfileIconView(_ icon: DocumentIconType.Profile) -> UIView {
+        switch icon {
+        case let .imageId(imageId):
+            return makeImageView(imageId: imageId, cornerRadius: Constants.imageViewSize.width / 2)
+            
+        case let .placeholder(placeholder):
+            return makePlaceholderView(placeholder)
+        }
+    }
+    
+    private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
-        imageView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail))
-//            placeholder: placeholder TODO
+        
+        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else {
+            return imageView
+        }
+        
+        let size = Constants.imageViewSize
+        
+        let processor = ResizingImageProcessor(
+            referenceSize: size,
+            mode: .aspectFill
         )
+            |> CroppingImageProcessor(size: size)
+            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
+        
+        
+        let imageGuideline = ImageGuideline(
+            size: size,
+            cornerRadius: cornerRadius
+        )
+        
+        let image = PlaceholderImageBuilder.placeholder(
+            with: imageGuideline,
+            color: .grayscale30
+        )
+        
+        imageView.kf.setImage(
+            with: url,
+            placeholder: image,
+            options: [.processor(processor)]
+        )
+        
         imageView.layoutUsing.anchors {
-            $0.size(Constants.imageViewSize)
+            $0.size(size)
         }
    
         return imageView
     }
     
-    private func makePlaceholderView() -> UIView {
-        let imageView = UIImageView(image: UIImage(named: "TextEditor/Style/Page/empty"))
+    private func makeIconImageView(_ image: UIImage? = UIImage(named: "TextEditor/Style/Page/empty") ) -> UIView {
+        let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
             $0.size(Constants.imageViewSize)
@@ -105,9 +145,32 @@ final class BlockPageLinkUIKitView: UIView {
         return imageView
     }
     
+    private func makePlaceholderView(_ placeholder: Character) -> UIView {
+        let size = Constants.imageViewSize
+        let imageGuideline = ImageGuideline(
+            size: size,
+            cornerRadius: size.width / 2
+        )
+        let placeholderGuideline = PlaceholderImageTextGuideline(
+            text: String(placeholder),
+            font: UIFont.systemFont(ofSize: 17)
+        )
+        let image = PlaceholderImageBuilder.placeholder(
+            with: imageGuideline,
+            color: .grayscale30,
+            textGuideline: placeholderGuideline
+        )
+        
+        return makeIconImageView(image)
+    }
+    
     private func makeLabel(with string: String) -> UILabel {
         let label = UILabel()
         label.text = string
+        
+        label.layoutUsing.anchors {
+            $0.size(Constants.imageViewSize)
+        }
         return label
     }
     

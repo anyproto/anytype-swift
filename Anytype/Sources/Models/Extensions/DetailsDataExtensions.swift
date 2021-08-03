@@ -37,7 +37,7 @@ extension DetailsDataProtocol {
             return DocumentIconType.Profile.imageId(iconImageId)
         }
         
-        return self.name?.first.flatMap {
+        return (self.name ?? "Untitled".localized).first.flatMap {
             DocumentIconType.Profile.placeholder($0)
         }
     }

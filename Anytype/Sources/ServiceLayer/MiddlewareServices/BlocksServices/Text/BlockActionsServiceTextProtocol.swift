@@ -16,7 +16,7 @@ protocol BlockActionsServiceTextProtocol {
                blockID: BlockId,
                range: NSRange,
                style: Style,
-               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<ResponseEvent, Error>
+               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error>
     
     /// Protocol for `SetTextColor` for text block.
     /// It is renamed intentionally.

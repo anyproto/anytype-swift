@@ -118,6 +118,8 @@ final class TextBlockContentView: UIView & UIContentView {
         switch text.contentType {
         case .title:
             setupTitle(text)
+        case .description:
+            setupText(placeholer: "Add a description".localized, font: .body)
         case .text:
             setupText(placeholer: "", font: .body)
         case .toggle:

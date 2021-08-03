@@ -1,7 +1,7 @@
 import BlocksModels
 import ProtobufMessages
 
-/// Entity to listen defined block updates
+/// Entity to listen events from middleware for defined block
 final class TextBlockContentChangeListener {
     
     private lazy var notificationListener = NotificationEventListener(handler: self)
@@ -12,10 +12,10 @@ final class TextBlockContentChangeListener {
     
     init(
         contenxtId: String,
-         options: TextBlockContentChangeListenerOptions,
-         blockId: BlockId,
-         blockInformationCreator: BlockInformationCreator,
-         delegate: TextBlockContentChangeListenerDelegate
+        options: TextBlockContentChangeListenerOptions,
+        blockId: BlockId,
+        blockInformationCreator: BlockInformationCreator,
+        delegate: TextBlockContentChangeListenerDelegate
     ) {
         self.blockId = blockId
         self.options = options
@@ -41,6 +41,14 @@ final class TextBlockContentChangeListener {
         }
         delegate?.blockInformationDidChange(information)
     }
+    
+    private func handleBlockDeleteIfNeeded(data: Anytype_Event.Block.Delete) {
+        guard options.contains(.blockDelete),
+              data.blockIds.contains(blockId) else {
+            return
+        }
+        delegate?.blockHasBeenDeleted()
+    }
 }
 
 extension TextBlockContentChangeListener: EventHandlerProtocol {
@@ -52,6 +60,8 @@ extension TextBlockContentChangeListener: EventHandlerProtocol {
                 self?.handleBlockSetTextIfNeeded(newData)
             case let .blockSetAlign(newData):
                 self?.handleBlockSetAlignIfNeeded(newData)
+            case let .blockDelete(data):
+                self?.handleBlockDeleteIfNeeded(data: data)
             default:
                 return
             }

@@ -301,23 +301,4 @@ final class MiddlewareEventConverter {
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
         return toggleStyleChanged ? .general : .update(blockIds: [newData.id])
     }
-    
-    private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
-        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
-        
-        let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
-        
-        // Workaroung: Some font could set bold style to attributed string
-        // So if header or title style has font that apply bold we remove it
-        // We need it if change style from subheading to text
-        let oldStyle = BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
-        if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
-            marks.marks.removeAll { mark in
-                mark.type == .bold
-            }
-        }
-        
-        return marks
-    }
 }
