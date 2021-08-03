@@ -477,6 +477,9 @@
 		EA57F36F26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */; };
 		EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F37926B740D5007D4292 /* UIFontExtension.swift */; };
 		EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */; };
+		EA57F3D126B83DDF007D4292 /* TextAttributesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */; };
+		EA57F3D526B84592007D4292 /* TextAttributesViewModelAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */; };
+		EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D926B84AA9007D4292 /* MarkupRange.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -1062,6 +1065,9 @@
 		EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughMarkupStateTests.swift; sourceTree = "<group>"; };
 		EA57F37926B740D5007D4292 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationCreator.swift; sourceTree = "<group>"; };
+		EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesState.swift; sourceTree = "<group>"; };
+		EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelAction.swift; sourceTree = "<group>"; };
+		EA57F3D926B84AA9007D4292 /* MarkupRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupRange.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
@@ -1470,6 +1476,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				EA57F3F726B96C81007D4292 /* TextServices */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
 				EAE6BDF52680C98700275788 /* Objects */,
@@ -1489,7 +1496,6 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EA43DD6126B1A26E00E66878 /* Markup */,
 				1215E8C026A86CAC0089AF7E /* ImageSource.swift */,
 				1215E8C226A870250089AF7E /* MiddlewareImageSource.swift */,
 				EAE6BDFA2680CC3A00275788 /* ObjectTypeData */,
@@ -3081,8 +3087,11 @@
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
 			isa = PBXGroup;
 			children = (
+				EA57F3DE26B84AD7007D4292 /* Markup */,
 				533856AF263B22B8005A06A9 /* TextAttributesViewController.swift */,
 				533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */,
+				EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */,
+				EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */,
 			);
 			path = TextAttributesView;
 			sourceTree = "<group>";
@@ -3323,15 +3332,6 @@
 			path = TurnIntoSelection;
 			sourceTree = "<group>";
 		};
-		EA43DD6126B1A26E00E66878 /* Markup */ = {
-			isa = PBXGroup;
-			children = (
-				EA43DD6526B1A28500E66878 /* MarkupState.swift */,
-				EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */,
-			);
-			path = Markup;
-			sourceTree = "<group>";
-		};
 		EA5521AE266E5DA3004A820B /* Mention */ = {
 			isa = PBXGroup;
 			children = (
@@ -3365,6 +3365,23 @@
 				EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */,
 			);
 			path = Creators;
+			sourceTree = "<group>";
+		};
+		EA57F3DE26B84AD7007D4292 /* Markup */ = {
+			isa = PBXGroup;
+			children = (
+				EA43DD6526B1A28500E66878 /* MarkupState.swift */,
+				EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */,
+				EA57F3D926B84AA9007D4292 /* MarkupRange.swift */,
+			);
+			path = Markup;
+			sourceTree = "<group>";
+		};
+		EA57F3F726B96C81007D4292 /* TextServices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TextServices;
 			sourceTree = "<group>";
 		};
 		EA5FB421266A970E00DCD56C /* Mention */ = {
@@ -3870,6 +3887,7 @@
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */,
+				EA57F3D526B84592007D4292 /* TextAttributesViewModelAction.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
@@ -4108,6 +4126,7 @@
 				3D100A3626A1955C005173EF /* EventHandlerUpdate+Merging.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */,
+				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
 				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
@@ -4171,6 +4190,7 @@
 				EA7DE3FE26397C08005AFEE2 /* SlashMenuActionsFilterService.swift in Sources */,
 				3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */,
 				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
+				EA57F3D126B83DDF007D4292 /* TextAttributesState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,
 				533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */,

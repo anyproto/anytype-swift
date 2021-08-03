@@ -40,14 +40,16 @@ final class BottomSheetsFactory {
 
         // NOTE: This will be moved to coordinator in next pr
         guard case let .text(textContentType) = information.content.type else { return }
-        let askAttributes: () -> TextAttributesViewController.AttributesState = {
+        let askAttributes: () -> TextAttributesState = {
             guard let information = container.model(id: information.id)?.information,
                   case let .text(textContent) = information.content else {
                 return .init(
                     bold: .disabled,
                     italic: .disabled,
                     strikethrough: .disabled,
-                    codeStyle: .disabled
+                    codeStyle: .disabled,
+                    alignment: .left,
+                    url: ""
                 )
             }
             let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
@@ -56,7 +58,7 @@ final class BottomSheetsFactory {
                 range: NSRange(location: 0, length: textContent.attributedText.length),
                 restrictions: restrictions
             )
-            let attributes = TextAttributesViewController.AttributesState(
+            let attributes = TextAttributesState(
                 bold: markupStateCalculator.boldState(),
                 italic: markupStateCalculator.italicState(),
                 strikethrough: markupStateCalculator.strikethroughState(),

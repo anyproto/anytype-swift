@@ -112,7 +112,7 @@ final class StyleViewController: UIViewController {
     private var actionHandler: ActionHandler
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
-    private var askTextAttributes: () -> TextAttributesViewController.AttributesState
+    private var askTextAttributes: () -> TextAttributesState
     private var style: BlockText.Style
     // deselect action will be performed on new selection
     private var currentDeselectAction: (() -> Void)?
@@ -128,7 +128,7 @@ final class StyleViewController: UIViewController {
         style: BlockText.Style,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
-        askTextAttributes: @escaping () -> TextAttributesViewController.AttributesState,
+        askTextAttributes: @escaping () -> TextAttributesState,
         actionHandler: @escaping ActionHandler
     ) {
         self.viewControllerForPresenting = viewControllerForPresenting
