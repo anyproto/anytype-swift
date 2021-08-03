@@ -1,16 +1,8 @@
-//
-//  TextAttributesViewController.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 29.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
+import FloatingPanel
 import UIKit
 
 
 final class TextAttributesViewController: UIViewController {
-    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
 
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
@@ -55,18 +47,49 @@ final class TextAttributesViewController: UIViewController {
 
         return rightStackView
     }()
+    
+    private lazy var boldButton = makeRoundedButton(image: .textAttributes.bold) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.bold))
+    }
+    private lazy var italicButton = makeRoundedButton(image: .textAttributes.italic) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.italic))
+    }
+    private lazy var strikethroughButton = makeRoundedButton(image: .textAttributes.strikethrough) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
+    }
+    private lazy var codeButton = makeRoundedButton(image: .textAttributes.code) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.keyboard))
+    }
+    private lazy var urlButton = makeRoundedButton(image: .textAttributes.url, action: {})
+    private lazy var leftAlignButton: ButtonWithImage = {
+        let button = ButtonsFactory.makeButton(image: .textAttributes.alignLeft)
+        button.addBorders(edges: .right, width: 1.0, color: .grayscale30)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.viewModel.handle(action: .selectAlignment(.left))
+        }), for: .touchUpInside)
+        return button
+    }()
+    private lazy var centerAlignButton: ButtonWithImage = {
+        let button = ButtonsFactory.makeButton(image: .textAttributes.alignCenter)
+        button.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.viewModel.handle(action: .selectAlignment(.center))
+        }), for: .touchUpInside)
+        return button
+    }()
+    private lazy var rightAlignButton: ButtonWithImage = {
+        let button = ButtonsFactory.makeButton(image: .textAttributes.alignRight)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.viewModel.handle(action: .selectAlignment(.right))
+        }), for: .touchUpInside)
+        return button
+    }()
 
-    private let attributesState: TextAttributesState
-    private let actionHandler: ActionHandler
+    private let viewModel: TextAttributesViewModel
 
     // MARK: - Lifecycle
-
-    /// Init text attributes view controller
-    /// - Parameter attributesState: Attributes  state
-    init(attributesState: TextAttributesState, actionHandler: @escaping ActionHandler) {
-        self.actionHandler = actionHandler
-        self.attributesState = attributesState
-
+    init(viewModel: TextAttributesViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -104,42 +127,11 @@ final class TextAttributesViewController: UIViewController {
     }
 
     private func setupRightStackView() {
-        let codeButton = makeRoundedButton(
-            image: UIImage.textAttributes.code,
-            selector: #selector(codeButtonHandler(sender:)),
-            isSelected: attributesState.codeStyle == .applied,
-            isEnabled: attributesState.codeStyle != .disabled
-        )
-        let urlButton = makeRoundedButton(
-            image: UIImage.textAttributes.url,
-            selector: #selector(urlButtonHandler(sender:)),
-            isSelected: !attributesState.url.isEmpty,
-            isEnabled: true
-        )
-
         rightStackView.addArrangedSubview(codeButton)
         rightStackView.addArrangedSubview(urlButton)
     }
 
     private func setupLeftTopStackView() {
-        let boldButton = makeRoundedButton(
-            image: UIImage.textAttributes.bold,
-            selector: #selector(boldButtonHandler(sender:)),
-            isSelected: attributesState.bold == .applied,
-            isEnabled: attributesState.bold != .disabled
-        )
-        let italicButton = makeRoundedButton(
-            image: UIImage.textAttributes.italic,
-            selector: #selector(italicButtonHandler(sender:)),
-            isSelected: attributesState.italic == .applied,
-            isEnabled: attributesState.italic != .disabled
-        )
-        let strikethroughButton = makeRoundedButton(
-            image: UIImage.textAttributes.strikethrough,
-            selector: #selector(strikethrougButtonHandler(sender:)),
-            isSelected: attributesState.strikethrough == .applied,
-            isEnabled: attributesState.strikethrough != .disabled
-        )
         leftTopStackView.addArrangedSubview(boldButton)
         leftTopStackView.addArrangedSubview(italicButton)
         leftTopStackView.addArrangedSubview(strikethroughButton)
@@ -147,32 +139,16 @@ final class TextAttributesViewController: UIViewController {
     
     private func makeRoundedButton(
         image: UIImage?,
-        selector: Selector,
-        isSelected: Bool,
-        isEnabled: Bool
+        action: @escaping () -> Void
     ) -> ButtonWithImage {
         let button = ButtonsFactory.roundedBorderуButton(image: image)
-        button.isSelected = isSelected
-        button.isEnabled = isEnabled
-        button.addTarget(self, action: selector, for: .touchUpInside)
+        button.addAction(UIAction(handler: { _ in
+            action()
+        }), for: .touchUpInside)
         return button
     }
 
     private func setupLeftBottomStackView() {
-        let leftAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignLeft)
-        leftAlignButton.isSelected = .left == attributesState.alignment
-        leftAlignButton.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
-        leftAlignButton.addTarget(self, action: #selector(leftAlignButtonHandler(sender:)), for: .touchUpInside)
-
-        let centerAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignCenter)
-        centerAlignButton.isSelected = .center == attributesState.alignment
-        centerAlignButton.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
-        centerAlignButton.addTarget(self, action: #selector(centerAlignButtonHandler(sender:)), for: .touchUpInside)
-
-        let rightAlignButton = ButtonsFactory.makeButton(image: UIImage.textAttributes.alignRight)
-        rightAlignButton.isSelected = .right == attributesState.alignment
-        rightAlignButton.addTarget(self, action: #selector(rightAlignButtonHandler(sender:)), for: .touchUpInside)
-
         leftBottomStackView.addArrangedSubview(leftAlignButton)
         leftBottomStackView.addArrangedSubview(centerAlignButton)
         leftBottomStackView.addArrangedSubview(rightAlignButton)
@@ -182,73 +158,44 @@ final class TextAttributesViewController: UIViewController {
         leftBottomStackView.layer.cornerRadius = 10
         leftBottomStackView.layer.borderColor = UIColor.grayscale30.cgColor
     }
+    
+    private func setup(button: ButtonWithImage, with state: MarkupState) {
+        button.isEnabled = state != .disabled
+        button.isSelected = state == .applied
+    }
+}
 
-    // MARK: - Action handler
-
-    @objc private func leftAlignButtonHandler(sender: ButtonWithImage) {
-        leftBottomStackView.arrangedSubviews.forEach { view in
-            guard let view = view as? UIControl else { return }
-
-            view.backgroundColor = .clear
-            view.isSelected = false
+extension TextAttributesViewController: TextAttributesViewProtocol {
+    
+    func display(_ state: TextAttributesState) {
+        DispatchQueue.main.async {
+            self.setup(button: self.boldButton, with: state.bold)
+            self.setup(button: self.italicButton, with: state.italic)
+            self.setup(button: self.strikethroughButton, with: state.strikethrough)
+            self.setup(button: self.codeButton, with: state.codeStyle)
+            self.urlButton.isEnabled = false
+            self.leftAlignButton.isSelected = state.alignment == .left
+            self.centerAlignButton.isSelected = state.alignment == .center
+            self.rightAlignButton.isSelected = state.alignment == .right
         }
-        sender.isSelected = true
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.setAlignment(.left))
     }
-
-    @objc private func centerAlignButtonHandler(sender: ButtonWithImage) {
-
-        leftBottomStackView.arrangedSubviews.forEach { view in
-            guard let view = view as? UIControl else { return }
-
-            view.backgroundColor = .clear
-            view.isSelected = false
+    
+    func hideView() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
         }
-        sender.isSelected = true
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.setAlignment(.center))
     }
+}
 
-    @objc private func rightAlignButtonHandler(sender: ButtonWithImage) {
-
-        leftBottomStackView.arrangedSubviews.forEach { view in
-            guard let view = view as? UIControl else { return }
-
-            view.backgroundColor = .clear
-            view.isSelected = false
+extension TextAttributesViewController: FloatingPanelControllerDelegate {
+    func floatingPanel(_ fpc: FloatingPanelController,
+                       shouldRemoveAt location: CGPoint,
+                       with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
+            return true
         }
-        sender.isSelected = true
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.setAlignment(.right))
-    }
-
-    @objc private func codeButtonHandler(sender: ButtonWithImage) {
-        sender.isSelected.toggle()
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.toggleFontStyle(.keyboard))
-    }
-
-    @objc private func urlButtonHandler(sender: ButtonWithImage) {
-        sender.isSelected.toggle()
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-    }
-
-    @objc private func boldButtonHandler(sender: ButtonWithImage) {
-        sender.isSelected.toggle()
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.toggleFontStyle(.bold))
-    }
-
-    @objc private func italicButtonHandler(sender: ButtonWithImage) {
-        sender.isSelected.toggle()
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.toggleFontStyle(.italic))
-    }
-
-    @objc private func strikethrougButtonHandler(sender: ButtonWithImage) {
-        sender.isSelected.toggle()
-        sender.backgroundColor = sender.isSelected ? UIColor.selected : .clear
-        actionHandler(.toggleFontStyle(.strikethrough))
+        return false
     }
 }

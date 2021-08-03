@@ -1,3 +1,4 @@
+import AnytypeCore
 import FloatingPanel
 import BlocksModels
 import UIKit
@@ -10,8 +11,8 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         information: BlockInformation,
-        container: BlockContainerModelProtocol,
-        actionHandler: @escaping ActionHandler,
+        container: RootBlockContainer,
+        actionHandler: EditorActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void
     ) {
         let fpc = FloatingPanelController()
@@ -40,31 +41,6 @@ final class BottomSheetsFactory {
 
         // NOTE: This will be moved to coordinator in next pr
         guard case let .text(textContentType) = information.content.type else { return }
-        let askAttributes: () -> TextAttributesState = {
-            guard let information = container.model(id: information.id)?.information,
-                  case let .text(textContent) = information.content else {
-                return .init(
-                    bold: .disabled,
-                    italic: .disabled,
-                    strikethrough: .disabled,
-                    codeStyle: .disabled
-                )
-            }
-            let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
-            let markupStateCalculator = MarkupStateCalculator(
-                attributedText: textContent.attributedText,
-                range: NSRange(location: 0, length: textContent.attributedText.length),
-                restrictions: restrictions
-            )
-            let attributes = TextAttributesState(
-                bold: markupStateCalculator.boldState(),
-                italic: markupStateCalculator.italicState(),
-                strikethrough: markupStateCalculator.strikethroughState(),
-                codeStyle: markupStateCalculator.codeState(),
-                alignment: information.alignment.asNSTextAlignment,
-                url: "")
-            return attributes
-        }
 
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = information.content else { return nil }
@@ -78,15 +54,78 @@ final class BottomSheetsFactory {
             viewControllerForPresenting: parentViewController,
             style: textContentType,
             askColor: askColor,
-            askBackgroundColor: askBackgroundColor,
-            askTextAttributes: askAttributes
-        ) { action in
-            actionHandler(action)
+            askBackgroundColor: askBackgroundColor) { [weak parentViewController] in
+            guard let parentViewController = parentViewController else { return }
+            BottomSheetsFactory.showMarkupBottomSheet(
+                parentViewController: parentViewController,
+                container: container,
+                blockId: information.id,
+                blockActionHandler: actionHandler
+            )
+        } actionHandler: { action in
+            actionHandler.handleAction(action, blockId: information.id)
         }
         
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: parentViewController, animated: true) {
             didShow(fpc)
         }
+    }
+    
+    static func showMarkupBottomSheet(parentViewController: UIViewController,
+                               container: RootBlockContainer,
+                               blockId: BlockId,
+                               blockActionHandler: EditorActionHandlerProtocol)  {
+        guard let rootId = container.rootId else {
+            anytypeAssertionFailure("Unable to get context Id")
+            return
+        }
+        let blockInformationCreator = BlockInformationCreator(
+            validator: BlockValidator(restrictionsFactory: BlockRestrictionsFactory()),
+            container: container
+        )
+        let viewModel = TextAttributesViewModel(
+            actionHandler: blockActionHandler,
+            container: container,
+            blockId: blockId
+        )
+        let eventsListener = TextBlockContentChangeListener(
+            contenxtId: rootId,
+            options: [.blockSetText, .blockSetAlign],
+            blockId: blockId,
+            blockInformationCreator: blockInformationCreator,
+            delegate: viewModel
+        )
+        viewModel.setEventsListener(eventsListener)
+        viewModel.setRange(.whole)
+        let attributesViewController = TextAttributesViewController(viewModel: viewModel)
+        viewModel.setView(attributesViewController)
+        
+        let fpc = FloatingPanelController(delegate: attributesViewController)
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 16.0
+        // Define shadows
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.color = UIColor.grayscale90
+        shadow.offset = CGSize(width: 0, height: 4)
+        shadow.radius = 40
+        shadow.opacity = 0.25
+        appearance.shadows = [shadow]
+
+        let sizeDifference = StylePanelLayout.Constant.panelHeight -  TextAttributesPanelLayout.Constant.panelHeight
+        fpc.layout = TextAttributesPanelLayout(additonalHeight: sizeDifference)
+
+        let bottomInset = parentViewController.view.safeAreaInsets.bottom + 6 + sizeDifference
+        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: bottomInset, right: 10.0)
+        fpc.surfaceView.layer.cornerCurve = .continuous
+        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
+        fpc.surfaceView.grabberHandle.barColor = .grayscale30
+        fpc.surfaceView.appearance = appearance
+        fpc.isRemovalInteractionEnabled = true
+        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        fpc.backdropView.backgroundColor = .clear
+        fpc.contentMode = .static
+        fpc.set(contentViewController: attributesViewController)
+        fpc.addPanel(toParent: parentViewController, animated: true)
     }
 }
