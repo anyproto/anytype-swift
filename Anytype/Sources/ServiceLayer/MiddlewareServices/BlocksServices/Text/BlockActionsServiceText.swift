@@ -27,6 +27,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
             })
             .subscribe(on: DispatchQueue.global())
+            .receiveOnMain()
             .eraseToAnyPublisher()
     }
     
@@ -35,8 +36,10 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
         return setStyle(contextID: contextID, blockID: blockID, style: style)
     }
+
     private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
+            .receiveOnMain()
             .handleEvents(receiveSubscription: { _ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextStyle,
@@ -48,8 +51,10 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     // MARK: SetForegroundColor
     func setForegroundColor(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error> {
         Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextID, blockID: blockID, color: color)
-            .successToVoid().subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+            .successToVoid()
+            .subscribe(on: DispatchQueue.global())
+            .receiveOnMain()
+            .eraseToAnyPublisher()
     }
     
     // MARK: Split
@@ -74,7 +79,8 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global())
             .map(SplitSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+            .receiveOnMain()
+            .eraseToAnyPublisher()
     }
 
     // MARK: Merge
@@ -83,6 +89,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global()
         )    
         .map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
+        .receiveOnMain()
         .handleEvents(receiveSubscription: { _ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
@@ -101,6 +108,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         .map(\.event)
         .map(ResponseEvent.init(_:))
         .subscribe(on: DispatchQueue.global())
+        .receiveOnMain()
         .handleEvents(receiveSubscription: { _ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextChecked)
@@ -129,6 +137,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         .map(\.event)
         .map(ResponseEvent.init(_:))
         .subscribe(on: DispatchQueue.global())
+        .receiveOnMain()
         .eraseToAnyPublisher()
     }
 }

@@ -39,6 +39,7 @@ public extension BlockText {
 public extension BlockText {
     enum Style {
         case title
+        case description
         case text
         case header
         case header2

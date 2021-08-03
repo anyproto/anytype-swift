@@ -14,7 +14,7 @@ extension BlockText.Style {
             return .headlineSemibold
         case .quote:
             return .headline
-        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4:
+        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .description:
             return .body
         case .code:
             return .code
