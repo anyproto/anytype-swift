@@ -482,9 +482,7 @@
 		EA57F3D326B83E5D007D4292 /* TextAttributesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D226B83E5D007D4292 /* TextAttributesViewProtocol.swift */; };
 		EA57F3D526B84592007D4292 /* TextAttributesViewModelAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */; };
 		EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D926B84AA9007D4292 /* MarkupRange.swift */; };
-		EA57F3FF26B96D2B007D4292 /* TextBlockContentChangeListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3FC26B96D2A007D4292 /* TextBlockContentChangeListenerDelegate.swift */; };
-		EA57F40026B96D2B007D4292 /* TextBlockContentChangeListenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3FD26B96D2A007D4292 /* TextBlockContentChangeListenerOptions.swift */; };
-		EA57F40126B96D2B007D4292 /* TextBlockContentChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3FE26B96D2B007D4292 /* TextBlockContentChangeListener.swift */; };
+		EA57F41726B99539007D4292 /* TextAttributesViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41626B99539007D4292 /* TextAttributesViewModelProtocol.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -1075,9 +1073,7 @@
 		EA57F3D226B83E5D007D4292 /* TextAttributesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewProtocol.swift; sourceTree = "<group>"; };
 		EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelAction.swift; sourceTree = "<group>"; };
 		EA57F3D926B84AA9007D4292 /* MarkupRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupRange.swift; sourceTree = "<group>"; };
-		EA57F3FC26B96D2A007D4292 /* TextBlockContentChangeListenerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockContentChangeListenerDelegate.swift; sourceTree = "<group>"; };
-		EA57F3FD26B96D2A007D4292 /* TextBlockContentChangeListenerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockContentChangeListenerOptions.swift; sourceTree = "<group>"; };
-		EA57F3FE26B96D2B007D4292 /* TextBlockContentChangeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockContentChangeListener.swift; sourceTree = "<group>"; };
+		EA57F41626B99539007D4292 /* TextAttributesViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelProtocol.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
@@ -3104,6 +3100,7 @@
 				EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */,
 				EA57F3D226B83E5D007D4292 /* TextAttributesViewProtocol.swift */,
 				EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */,
+				EA57F41626B99539007D4292 /* TextAttributesViewModelProtocol.swift */,
 			);
 			path = TextAttributesView;
 			sourceTree = "<group>";
@@ -3379,14 +3376,6 @@
 			path = Creators;
 			sourceTree = "<group>";
 		};
-		EA57F3F726B96C81007D4292 /* TextServices */ = {
-			isa = PBXGroup;
-			children = (
-				EA57F3FB26B96D21007D4292 /* TextBlockContentChangeListener */,
-			);
-            path = TextServices;
-			sourceTree = "<group>";
-		};
 		EA57F3DE26B84AD7007D4292 /* Markup */ = {
 			isa = PBXGroup;
 			children = (
@@ -3397,14 +3386,11 @@
 			path = Markup;
 			sourceTree = "<group>";
 		};
-		EA57F3FB26B96D21007D4292 /* TextBlockContentChangeListener */ = {
+		EA57F3F726B96C81007D4292 /* TextServices */ = {
 			isa = PBXGroup;
 			children = (
-				EA57F3FE26B96D2B007D4292 /* TextBlockContentChangeListener.swift */,
-				EA57F3FC26B96D2A007D4292 /* TextBlockContentChangeListenerDelegate.swift */,
-				EA57F3FD26B96D2A007D4292 /* TextBlockContentChangeListenerOptions.swift */,
 			);
-			path = TextBlockContentChangeListener;
+			path = TextServices;
 			sourceTree = "<group>";
 		};
 		EA5FB421266A970E00DCD56C /* Mention */ = {
@@ -3868,7 +3854,6 @@
 				3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				534B7F2026264E8B00D712B2 /* EditorAccessoryView.swift in Sources */,
-				EA57F3FF26B96D2B007D4292 /* TextBlockContentChangeListenerDelegate.swift in Sources */,
 				EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* MarkupStateCalculator.swift in Sources */,
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
@@ -4110,7 +4095,6 @@
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
-				EA57F40126B96D2B007D4292 /* TextBlockContentChangeListener.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
@@ -4164,9 +4148,9 @@
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				EA57F3CC26B83DBD007D4292 /* TextAttributesViewModel.swift in Sources */,
 				EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */,
+				EA57F41726B99539007D4292 /* TextAttributesViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
-				EA57F40026B96D2B007D4292 /* TextBlockContentChangeListenerOptions.swift in Sources */,
 				3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
 				120E818426A04A31006FE84E /* ObjectDetailsService.swift in Sources */,

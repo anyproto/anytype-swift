@@ -47,7 +47,9 @@ final class BottomSheetsFactory {
                     bold: .disabled,
                     italic: .disabled,
                     strikethrough: .disabled,
-                    codeStyle: .disabled
+                    codeStyle: .disabled,
+                    alignment: .left,
+                    url: ""
                 )
             }
             let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)

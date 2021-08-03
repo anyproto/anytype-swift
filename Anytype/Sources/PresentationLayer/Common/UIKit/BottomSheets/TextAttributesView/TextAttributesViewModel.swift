@@ -5,20 +5,16 @@ import Foundation
 final class TextAttributesViewModel {
     
     private let actionHandler: EditorActionHandlerProtocol
-    private let container: RootBlockContainer
-    private let blockId: BlockId
-    private var blockEventsListener: TextBlockContentChangeListener?
+    private var blockInformation: BlockInformation
     private weak var view: TextAttributesViewProtocol?
     private var selectedRange: MarkupRange?
     
     init(
         actionHandler: EditorActionHandlerProtocol,
-        container: RootBlockContainer,
-        blockId: BlockId
+        blockInformation: BlockInformation
     ) {
         self.actionHandler = actionHandler
-        self.container = container
-        self.blockId = blockId
+        self.blockInformation = blockInformation
     }
     
     func setView(_ view: TextAttributesViewProtocol) {
@@ -26,87 +22,44 @@ final class TextAttributesViewModel {
         displayCurrentState()
     }
     
-    func setEventsListener(_ listener: TextBlockContentChangeListener) {
-        blockEventsListener = listener
-    }
-    
     func setRange(_ range: MarkupRange) {
         selectedRange = range
         displayCurrentState()
     }
     
-    func handle(action: TextAttributesViewModelAction) {
-        guard let information = container.blocksContainer.model(id: blockId)?.information,
-              case let .text(content) = information.content else {
-            return
-        }
-        switch action {
-        case let .selectAlignment(alignment):
-            handleAlignmentChange(
-                alignment: alignment,
-                content: content
-            )
-        case let .toggleMarkup(markup):
-            handleMarkupChange(
-                markup: markup,
-                content: content,
-                alignment: information.alignment
-            )
-        }
-    }
-    
-    private func displayCurrentState() {
-        guard let information = container.blocksContainer.model(id: blockId)?.information else {
-            anytypeAssertionFailure("Unable to get block model by id: \(blockId)")
-            return
-        }
-        guard case let .text(textContent) = information.content else {
+    func setInformation(_ information: BlockInformation) {
+        guard case .text = information.content else {
             anytypeAssertionFailure("Expected text content type but got: \(information.content)")
             return
         }
-        displayAttributes(from: textContent, alignment: information.alignment)
+        blockInformation = information
+        displayCurrentState()
     }
     
-    private func handleAlignmentChange(
-        alignment: LayoutAlignment,
-        content: BlockText
-    ) {
-        actionHandler.handleAction(
-            .setAlignment(alignment),
-            blockId: blockId
-        )
-        displayAttributes(
-            from: content,
-            alignment: alignment
-        )
+    func hideView() {
+        view?.hideView()
+    }
+    
+    private func displayCurrentState() {
+        guard case let .text(textContent) = blockInformation.content else {
+            return
+        }
+        displayAttributes(from: textContent, alignment: blockInformation.alignment)
+    }
+    
+    private func handleAlignmentChange(alignment: LayoutAlignment) {
+        actionHandler.handleAction(.setAlignment(alignment), blockId: blockInformation.id)
     }
     
     private func handleMarkupChange(
         markup: BlockHandlerActionType.TextAttributesType,
-        content: BlockText,
-        alignment: LayoutAlignment
+        content: BlockText
     ) {
         guard let range = selectedRange?.range(for: content.attributedText) else { return }
         actionHandler.handleAction(
             .toggleFontStyle(markup, range),
-            blockId: blockId
+            blockId: blockInformation.id
         )
-        var displayState = textAttributes(
-            from: content,
-            range: range,
-            alignment: alignment
-        )
-        switch markup {
-        case .bold:
-            displayState.bold.toggleAppliedState()
-        case .italic:
-            displayState.italic.toggleAppliedState()
-        case .keyboard:
-            displayState.codeStyle.toggleAppliedState()
-        case .strikethrough:
-            displayState.strikethrough.toggleAppliedState()
-        }
-        view?.display(displayState)
     }
     
     private func displayAttributes(
@@ -142,16 +95,20 @@ final class TextAttributesViewModel {
     }
 }
 
-extension TextAttributesViewModel: TextBlockContentChangeListenerDelegate {
+extension TextAttributesViewModel: TextAttributesViewModelProtocol {
     
-    func blockInformationDidChange(_ information: BlockInformation) {
-        guard case let .text(textContent) = information.content else {
-            view?.hideView()
+    func handle(action: TextAttributesViewModelAction) {
+        guard case let .text(content) = blockInformation.content else {
             return
         }
-        displayAttributes(
-            from: textContent,
-            alignment: information.alignment
-        )
+        switch action {
+        case let .selectAlignment(alignment):
+            handleAlignmentChange(alignment: alignment)
+        case let .toggleMarkup(markup):
+            handleMarkupChange(
+                markup: markup,
+                content: content
+            )
+        }
     }
 }
