@@ -480,6 +480,9 @@
 		EA57F3D126B83DDF007D4292 /* TextAttributesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */; };
 		EA57F3D526B84592007D4292 /* TextAttributesViewModelAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */; };
 		EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D926B84AA9007D4292 /* MarkupRange.swift */; };
+		EA57F41B26B99937007D4292 /* TextAttributesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41826B99936007D4292 /* TextAttributesViewProtocol.swift */; };
+		EA57F41C26B99937007D4292 /* TextAttributesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41926B99936007D4292 /* TextAttributesViewModel.swift */; };
+		EA57F41D26B99937007D4292 /* TextAttributesViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41A26B99937007D4292 /* TextAttributesViewModelProtocol.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -1068,6 +1071,9 @@
 		EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesState.swift; sourceTree = "<group>"; };
 		EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelAction.swift; sourceTree = "<group>"; };
 		EA57F3D926B84AA9007D4292 /* MarkupRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupRange.swift; sourceTree = "<group>"; };
+		EA57F41826B99936007D4292 /* TextAttributesViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAttributesViewProtocol.swift; sourceTree = "<group>"; };
+		EA57F41926B99936007D4292 /* TextAttributesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModel.swift; sourceTree = "<group>"; };
+		EA57F41A26B99937007D4292 /* TextAttributesViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelProtocol.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
@@ -3092,6 +3098,9 @@
 				533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */,
 				EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */,
 				EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */,
+				EA57F41926B99936007D4292 /* TextAttributesViewModel.swift */,
+				EA57F41A26B99937007D4292 /* TextAttributesViewModelProtocol.swift */,
+				EA57F41826B99936007D4292 /* TextAttributesViewProtocol.swift */,
 			);
 			path = TextAttributesView;
 			sourceTree = "<group>";
@@ -3743,6 +3752,7 @@
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
 				EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */,
+				EA57F41C26B99937007D4292 /* TextAttributesViewModel.swift in Sources */,
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
@@ -3762,6 +3772,7 @@
 				EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */,
 				3D4125F8269F6548007A6880 /* FontName.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
+				EA57F41B26B99937007D4292 /* TextAttributesViewProtocol.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
@@ -4137,6 +4148,7 @@
 				EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */,
+				EA57F41D26B99937007D4292 /* TextAttributesViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
 				3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */,
