@@ -5,12 +5,14 @@ import AnytypeCore
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let container: RootBlockContainer
+    private let informationCreator: BlockInformationCreator
     
-    private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
-    
-    init(container: RootBlockContainer) {
+    init(
+        container: RootBlockContainer,
+        informationCreator: BlockInformationCreator) {
         self.updater = BlockUpdater(container)
         self.container = container
+        self.informationCreator = informationCreator
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate? {
@@ -285,34 +287,12 @@ final class MiddlewareEventConverter {
             anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
             return .general
         }
-
         
-        let color = newData.hasColor ? newData.color.value : oldText.color?.rawValue
-        let text = newData.hasText ? newData.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
-        let checked = newData.hasChecked ? newData.checked.value : oldText.checked
-        let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
-        let marks = buildMarks(newData: newData, oldText: oldText)
-        
-        let middleContent = Anytype_Model_Block.Content.Text(
-            text: text,
-            style: style,
-            marks: marks,
-            checked: checked,
-            color: color ?? ""
-        )
-        
-        guard var textContent = ContentTextConverter().textContent(middleContent) else {
-            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
+        guard let newInformation = informationCreator.createBlockInformation(from: newData),
+              case let .text(textContent) = newInformation.content else {
             return .general
         }
-
-        if !newData.hasStyle {
-            textContent.contentType = oldText.contentType
-        }
-        textContent.number = oldText.number
-        
-        blockModel.information.content = .text(textContent)
-        blockModel.information = blockValidator.validated(information: blockModel.information)
+        blockModel.information = newInformation
         
         // If toggle changed style to another style or vice versa
         // we should rebuild all view to display/hide toggle's child blocks
@@ -320,24 +300,5 @@ final class MiddlewareEventConverter {
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
         return toggleStyleChanged ? .general : .update(blockIds: [newData.id])
-    }
-    
-    private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
-        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
-        
-        let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
-        
-        // Workaroung: Some font could set bold style to attributed string
-        // So if header or title style has font that apply bold we remove it
-        // We need it if change style from subheading to text
-        let oldStyle = BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
-        if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
-            marks.marks.removeAll { mark in
-                mark.type == .bold
-            }
-        }
-        
-        return marks
     }
 }
