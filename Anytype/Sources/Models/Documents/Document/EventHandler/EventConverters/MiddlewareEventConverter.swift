@@ -106,9 +106,19 @@ final class MiddlewareEventConverter {
             
             return .details(newDetails)
             
-        case .objectDetailsUnset:
-            anytypeAssertionFailure("Not implemented")
-            return nil
+        case let .objectDetailsUnset(payload):
+            let details = container.detailsContainer.get(by: payload.id)
+            var newDetails: [DetailsKind: DetailsEntry<AnyHashable>] = details?.detailsData.details ?? [:]
+
+            // remove details with keys from payload
+            payload.keys.forEach { key in
+                guard let detailsKind = DetailsKind(rawValue: key) else { return }
+                newDetails.removeValue(forKey: detailsKind)
+            }
+            // save new details
+            let newDetailsData = DetailsData(details: newDetails, parentId: payload.id)
+            details?.detailsData = newDetailsData
+            return .details(newDetailsData)
             
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
