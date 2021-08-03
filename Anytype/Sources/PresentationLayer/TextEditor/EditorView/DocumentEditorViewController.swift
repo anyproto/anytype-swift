@@ -356,9 +356,9 @@ private extension DocumentEditorViewController {
         }
 
         let dataSource = UICollectionViewDiffableDataSource<DocumentSection, EditorCollectionInformationWrapper>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: EditorCollectionInformationWrapper) -> UICollectionViewCell? in
+            [weak self] (collectionView: UICollectionView, indexPath: IndexPath, item: EditorCollectionInformationWrapper) -> UICollectionViewCell? in
 
-            let blockViewModel = self.viewModel.modelsHolder.models.first { blockViewModel in
+            let blockViewModel = self?.viewModel.modelsHolder.models.first { blockViewModel in
                 blockViewModel.blockId == item.info.id
             }
 
@@ -370,9 +370,9 @@ private extension DocumentEditorViewController {
         }
         
         let supplementaryRegistration = UICollectionView.SupplementaryRegistration
-        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { detailsView, string, indexPath in
+        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak dataSource] detailsView, string, indexPath in
             guard
-                let section = dataSource.snapshot().sectionIdentifiers[safe: indexPath.section]
+                let section = dataSource?.snapshot().sectionIdentifiers[safe: indexPath.section]
             else {
                 return
             }
