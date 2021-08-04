@@ -63,8 +63,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func split(
         info: BlockInformation,
         oldText: String,
-        newBlockContentType: BlockText.Style,
-        shouldSetFocusOnUpdate: Bool
+        newBlockContentType: BlockText.Style
     ) {
         let blockId = info.id
         // We are using old text as a cursor position.
@@ -82,7 +81,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
         self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText)
-            .flatMap { [weak self] value -> AnyPublisher<ResponseEvent, Error> in
+            .flatMap { [weak self] value -> AnyPublisher<SplitSuccess, Error> in
                 return self?.textService.split(
                     contextID: documentId,
                     blockID: blockId,
@@ -92,11 +91,13 @@ final class BlockActionService: BlockActionServiceProtocol {
                 ) ?? .empty()
             }
             .sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
-                var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
-                events = events.enrichedWith(
-                    localEvents: [.setTextMerge(blockId: blockId)]
-                )
-                self?.didReceiveEvent(events)
+                let allEvents = PackOfEvents(
+                    middlewareEvents: serviceSuccess.responseEvent.messages,
+                   localEvents: [
+                       .setFocus(blockId: serviceSuccess.blockId, position: .beginning)
+                   ]
+               )
+                self?.didReceiveEvent(allEvents)
             }
             .store(in: &self.subscriptions)
     }

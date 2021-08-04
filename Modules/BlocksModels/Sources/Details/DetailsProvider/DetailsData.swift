@@ -21,7 +21,11 @@ public struct DetailsData {
 extension DetailsData: DetailsDataProtocol {
     
     public var name: String? {
-        value(for: .name)
+        let nameValue: String? = value(for: .name)
+        
+        guard let nameString = nameValue, !nameString.isEmpty else { return nil }
+        
+        return nameString
     }
     
     public var iconEmoji: String? {

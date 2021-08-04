@@ -127,7 +127,6 @@
 		0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* MediaPicker.swift */; };
 		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
-		0ABB73A425497DB700F32C6F /* GoogleService-Info-Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB73A325497DB600F32C6F /* GoogleService-Info-Release.plist */; };
 		0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB73A82549975800F32C6F /* FirebaseConfigurator.swift */; };
 		0ACA77DB23E44B8F00442690 /* TextViewUserInteractionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77DA23E44B8F00442690 /* TextViewUserInteractionProtocol.swift */; };
 		0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */; };
@@ -185,6 +184,8 @@
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */; };
+		1251592C26B8582E00D53ED6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1251592A26B8582E00D53ED6 /* GoogleService-Info.plist */; };
+		1251592D26B8582E00D53ED6 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1251592B26B8582E00D53ED6 /* GoogleService-Info-Dev.plist */; };
 		127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE7402656CE770047A99A /* MediaPickerViewModel.swift */; };
 		1280E209265C17F800E5AEEE /* PlaceholderImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E208265C17F800E5AEEE /* PlaceholderImageBuilder.swift */; };
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
@@ -451,7 +452,6 @@
 		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
-		EA43DD5A26B16FBB00E66878 /* TextBlockContentChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43DD5926B16FBB00E66878 /* TextBlockContentChangeListener.swift */; };
 		EA43DD6626B1A28500E66878 /* MarkupState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43DD6526B1A28500E66878 /* MarkupState.swift */; };
 		EA43DD6826B1A33000E66878 /* MarkupStateCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
@@ -477,13 +477,12 @@
 		EA57F36F26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */; };
 		EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F37926B740D5007D4292 /* UIFontExtension.swift */; };
 		EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */; };
-		EA57F39A26B74EB8007D4292 /* TextBlockContentChangeListenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F39926B74EB8007D4292 /* TextBlockContentChangeListenerOptions.swift */; };
-		EA57F3AF26B800EC007D4292 /* TextBlockContentChangeListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3AE26B800EC007D4292 /* TextBlockContentChangeListenerDelegate.swift */; };
-		EA57F3CC26B83DBD007D4292 /* TextAttributesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3CB26B83DBD007D4292 /* TextAttributesViewModel.swift */; };
 		EA57F3D126B83DDF007D4292 /* TextAttributesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */; };
-		EA57F3D326B83E5D007D4292 /* TextAttributesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D226B83E5D007D4292 /* TextAttributesViewProtocol.swift */; };
 		EA57F3D526B84592007D4292 /* TextAttributesViewModelAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */; };
 		EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D926B84AA9007D4292 /* MarkupRange.swift */; };
+		EA57F41B26B99937007D4292 /* TextAttributesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41826B99936007D4292 /* TextAttributesViewProtocol.swift */; };
+		EA57F41C26B99937007D4292 /* TextAttributesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41926B99936007D4292 /* TextAttributesViewModel.swift */; };
+		EA57F41D26B99937007D4292 /* TextAttributesViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41A26B99937007D4292 /* TextAttributesViewModelProtocol.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -550,7 +549,6 @@
 		EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */; };
 		EAED581C26A730E500374A46 /* MarkStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED581B26A730E500374A46 /* MarkStyleConverter.swift */; };
 		EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAED581D26A7321600374A46 /* MiddlewareTuple.swift */; };
-		EAED582626A74D7800374A46 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAED582326A74D7800374A46 /* GoogleService-Info-Dev.plist */; };
 		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
 /* End PBXBuildFile section */
 
@@ -726,7 +724,6 @@
 		0AA168DC254060E40097CB23 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0ABB73A325497DB600F32C6F /* GoogleService-Info-Release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Release.plist"; sourceTree = "<group>"; };
 		0ABB73A82549975800F32C6F /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		0ACA77DA23E44B8F00442690 /* TextViewUserInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewUserInteractionProtocol.swift; sourceTree = "<group>"; };
 		0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+UserAction.swift"; sourceTree = "<group>"; };
@@ -783,6 +780,8 @@
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsDataProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
+		1251592A26B8582E00D53ED6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1251592B26B8582E00D53ED6 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		127DE7402656CE770047A99A /* MediaPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaPickerViewModel.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Pickers/MediaPicker/MediaPickerViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1280E208265C17F800E5AEEE /* PlaceholderImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceholderImageBuilder.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/PlaceholderImageBuilder.swift; sourceTree = SOURCE_ROOT; };
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -1043,7 +1042,6 @@
 		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
-		EA43DD5926B16FBB00E66878 /* TextBlockContentChangeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentChangeListener.swift; sourceTree = "<group>"; };
 		EA43DD6526B1A28500E66878 /* MarkupState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupState.swift; sourceTree = "<group>"; };
 		EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupStateCalculator.swift; sourceTree = "<group>"; };
 		EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Bold.ttf"; sourceTree = "<group>"; };
@@ -1070,13 +1068,12 @@
 		EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughMarkupStateTests.swift; sourceTree = "<group>"; };
 		EA57F37926B740D5007D4292 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationCreator.swift; sourceTree = "<group>"; };
-		EA57F39926B74EB8007D4292 /* TextBlockContentChangeListenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentChangeListenerOptions.swift; sourceTree = "<group>"; };
-		EA57F3AE26B800EC007D4292 /* TextBlockContentChangeListenerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentChangeListenerDelegate.swift; sourceTree = "<group>"; };
-		EA57F3CB26B83DBD007D4292 /* TextAttributesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModel.swift; sourceTree = "<group>"; };
 		EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesState.swift; sourceTree = "<group>"; };
-		EA57F3D226B83E5D007D4292 /* TextAttributesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewProtocol.swift; sourceTree = "<group>"; };
 		EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelAction.swift; sourceTree = "<group>"; };
 		EA57F3D926B84AA9007D4292 /* MarkupRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupRange.swift; sourceTree = "<group>"; };
+		EA57F41826B99936007D4292 /* TextAttributesViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAttributesViewProtocol.swift; sourceTree = "<group>"; };
+		EA57F41926B99936007D4292 /* TextAttributesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModel.swift; sourceTree = "<group>"; };
+		EA57F41A26B99937007D4292 /* TextAttributesViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAttributesViewModelProtocol.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
@@ -1141,7 +1138,6 @@
 		EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockContentView+TextViewDelegate.swift"; sourceTree = "<group>"; };
 		EAED581B26A730E500374A46 /* MarkStyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleConverter.swift; sourceTree = "<group>"; };
 		EAED581D26A7321600374A46 /* MiddlewareTuple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareTuple.swift; sourceTree = "<group>"; };
-		EAED582326A74D7800374A46 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1407,7 +1403,6 @@
 		037F2D33239D59C0008C16BF /* EventListener */ = {
 			isa = PBXGroup;
 			children = (
-				EA57F3AA26B800C3007D4292 /* TextBlockContentChangeListener */,
 				3D829177265E53A50007C152 /* Model */,
 				0A2CEDF024A8DB5700D1DCBC /* NotificationEventListener.swift */,
 				3DC7862C265D251900498993 /* MiddlewareListener.swift */,
@@ -1487,6 +1482,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				EA57F3F726B96C81007D4292 /* TextServices */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
 				EAE6BDF52680C98700275788 /* Objects */,
@@ -1958,8 +1954,8 @@
 		0A996BD323F038CB000FDC9C /* Plists */ = {
 			isa = PBXGroup;
 			children = (
-				EAED582326A74D7800374A46 /* GoogleService-Info-Dev.plist */,
-				0ABB73A325497DB600F32C6F /* GoogleService-Info-Release.plist */,
+				1251592B26B8582E00D53ED6 /* GoogleService-Info-Dev.plist */,
+				1251592A26B8582E00D53ED6 /* GoogleService-Info.plist */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
@@ -3100,10 +3096,11 @@
 				EA57F3DE26B84AD7007D4292 /* Markup */,
 				533856AF263B22B8005A06A9 /* TextAttributesViewController.swift */,
 				533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */,
-				EA57F3CB26B83DBD007D4292 /* TextAttributesViewModel.swift */,
 				EA57F3D026B83DDF007D4292 /* TextAttributesState.swift */,
-				EA57F3D226B83E5D007D4292 /* TextAttributesViewProtocol.swift */,
 				EA57F3D426B84592007D4292 /* TextAttributesViewModelAction.swift */,
+				EA57F41926B99936007D4292 /* TextAttributesViewModel.swift */,
+				EA57F41A26B99937007D4292 /* TextAttributesViewModelProtocol.swift */,
+				EA57F41826B99936007D4292 /* TextAttributesViewProtocol.swift */,
 			);
 			path = TextAttributesView;
 			sourceTree = "<group>";
@@ -3379,16 +3376,6 @@
 			path = Creators;
 			sourceTree = "<group>";
 		};
-		EA57F3AA26B800C3007D4292 /* TextBlockContentChangeListener */ = {
-			isa = PBXGroup;
-			children = (
-				EA43DD5926B16FBB00E66878 /* TextBlockContentChangeListener.swift */,
-				EA57F39926B74EB8007D4292 /* TextBlockContentChangeListenerOptions.swift */,
-				EA57F3AE26B800EC007D4292 /* TextBlockContentChangeListenerDelegate.swift */,
-			);
-			path = TextBlockContentChangeListener;
-			sourceTree = "<group>";
-		};
 		EA57F3DE26B84AD7007D4292 /* Markup */ = {
 			isa = PBXGroup;
 			children = (
@@ -3397,6 +3384,13 @@
 				EA57F3D926B84AA9007D4292 /* MarkupRange.swift */,
 			);
 			path = Markup;
+			sourceTree = "<group>";
+		};
+		EA57F3F726B96C81007D4292 /* TextServices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TextServices;
 			sourceTree = "<group>";
 		};
 		EA5FB421266A970E00DCD56C /* Mention */ = {
@@ -3691,19 +3685,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1251592C26B8582E00D53ED6 /* GoogleService-Info.plist in Resources */,
+				1251592D26B8582E00D53ED6 /* GoogleService-Info-Dev.plist in Resources */,
 				EAA7E1FE26B5D57000F7A81B /* IBMPlexMono-Italic.ttf in Resources */,
 				EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */,
 				53178879260A29FC004F9F68 /* Inter.ttf in Resources */,
 				3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
-				0ABB73A425497DB700F32C6F /* GoogleService-Info-Release.plist in Resources */,
 				EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
 				EA57F35226B5DEAA007D4292 /* IBMPlexMono-BoldItalic.ttf in Resources */,
 				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
-				EAED582626A74D7800374A46 /* GoogleService-Info-Dev.plist in Resources */,
 				3DB92F95264D579C00E83276 /* GraphikLCG-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3735,7 +3729,6 @@
 				3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */,
 				0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */,
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
-				EA57F3AF26B800EC007D4292 /* TextBlockContentChangeListenerDelegate.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
@@ -3759,6 +3752,7 @@
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
 				EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */,
+				EA57F41C26B99937007D4292 /* TextAttributesViewModel.swift in Sources */,
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
@@ -3778,6 +3772,7 @@
 				EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */,
 				3D4125F8269F6548007A6880 /* FontName.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
+				EA57F41B26B99937007D4292 /* TextAttributesViewProtocol.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
@@ -3811,7 +3806,6 @@
 				3DDD3D1126AED14400B5673A /* EditorCollectionInformationWrapper.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,
 				3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */,
-				EA57F3D326B83E5D007D4292 /* TextAttributesViewProtocol.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
@@ -4101,7 +4095,6 @@
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
-				EA43DD5A26B16FBB00E66878 /* TextBlockContentChangeListener.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
@@ -4154,11 +4147,10 @@
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
 				EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
-				EA57F3CC26B83DBD007D4292 /* TextAttributesViewModel.swift in Sources */,
 				EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */,
+				EA57F41D26B99937007D4292 /* TextAttributesViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
-				EA57F39A26B74EB8007D4292 /* TextBlockContentChangeListenerOptions.swift in Sources */,
 				3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
 				120E818426A04A31006FE84E /* ObjectDetailsService.swift in Sources */,
@@ -4413,7 +4405,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -4443,7 +4435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -4575,7 +4567,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;

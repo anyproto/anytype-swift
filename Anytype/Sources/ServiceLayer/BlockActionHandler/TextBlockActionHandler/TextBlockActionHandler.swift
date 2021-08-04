@@ -87,8 +87,7 @@ final class TextBlockActionHandler {
                     self.service.split(
                         info: block.information,
                         oldText: oldText,
-                        newBlockContentType: text.contentType.contentTypeForSplit,
-                        shouldSetFocusOnUpdate: true
+                        newBlockContentType: text.contentType.contentTypeForSplit
                     )
                 }
                 else {
@@ -110,8 +109,7 @@ final class TextBlockActionHandler {
                     self.service.split(
                         info: block.information,
                         oldText: "",
-                        newBlockContentType: text.contentType.contentTypeForSplit,
-                        shouldSetFocusOnUpdate: true
+                        newBlockContentType: text.contentType.contentTypeForSplit
                     )
                 }
                 else {
@@ -161,8 +159,7 @@ final class TextBlockActionHandler {
                             self.service.split(
                                 info: block.information,
                                 oldText: oldText,
-                                newBlockContentType: newContentType,
-                                shouldSetFocusOnUpdate: true
+                                newBlockContentType: newContentType
                             )
                         }
                     default: return

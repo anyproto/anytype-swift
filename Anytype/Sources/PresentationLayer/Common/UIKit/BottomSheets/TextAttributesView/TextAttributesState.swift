@@ -1,10 +1,10 @@
 import UIKit
 
 struct TextAttributesState {
-    var bold: MarkupState
-    var italic: MarkupState
-    var strikethrough: MarkupState
-    var codeStyle: MarkupState
-    var alignment: NSTextAlignment = .left
-    var url: String = ""
+    let bold: MarkupState
+    let italic: MarkupState
+    let strikethrough: MarkupState
+    let codeStyle: MarkupState
+    let alignment: NSTextAlignment
+    let url: String
 }

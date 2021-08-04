@@ -106,9 +106,19 @@ final class MiddlewareEventConverter {
             
             return .details(newDetails)
             
-        case .objectDetailsUnset:
-            anytypeAssertionFailure("Not implemented")
-            return nil
+        case let .objectDetailsUnset(payload):
+            let details = container.detailsContainer.get(by: payload.id)
+            var newDetails: [DetailsKind: DetailsEntry<AnyHashable>] = details?.detailsData.details ?? [:]
+
+            // remove details with keys from payload
+            payload.keys.forEach { key in
+                guard let detailsKind = DetailsKind(rawValue: key) else { return }
+                newDetails.removeValue(forKey: detailsKind)
+            }
+            // save new details
+            let newDetailsData = DetailsData(details: newDetails, parentId: payload.id)
+            details?.detailsData = newDetailsData
+            return .details(newDetailsData)
             
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
@@ -300,24 +310,5 @@ final class MiddlewareEventConverter {
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
         return toggleStyleChanged ? .general : .update(blockIds: [newData.id])
-    }
-    
-    private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
-        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
-        
-        let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
-        
-        // Workaroung: Some font could set bold style to attributed string
-        // So if header or title style has font that apply bold we remove it
-        // We need it if change style from subheading to text
-        let oldStyle = BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
-        if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
-            marks.marks.removeAll { mark in
-                mark.type == .bold
-            }
-        }
-        
-        return marks
     }
 }
