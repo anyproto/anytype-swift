@@ -40,7 +40,7 @@ final class BottomSheetsFactory {
 
         // NOTE: This will be moved to coordinator in next pr
         guard case let .text(textContentType) = information.content.type else { return }
-        let askAttributes: () -> TextAttributesState = {
+        let askAttributes: () -> AllMarkupsState = {
             guard let information = container.model(id: information.id)?.information,
                   case let .text(textContent) = information.content else {
                 return .init(
@@ -49,7 +49,7 @@ final class BottomSheetsFactory {
                     strikethrough: .disabled,
                     codeStyle: .disabled,
                     alignment: .left,
-                    url: ""
+                    url: nil
                 )
             }
             let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
@@ -58,13 +58,13 @@ final class BottomSheetsFactory {
                 range: NSRange(location: 0, length: textContent.attributedText.length),
                 restrictions: restrictions
             )
-            let attributes = TextAttributesState(
+            let attributes = AllMarkupsState(
                 bold: markupStateCalculator.boldState(),
                 italic: markupStateCalculator.italicState(),
                 strikethrough: markupStateCalculator.strikethroughState(),
                 codeStyle: markupStateCalculator.codeState(),
                 alignment: information.alignment.asNSTextAlignment,
-                url: "")
+                url: nil)
             return attributes
         }
 

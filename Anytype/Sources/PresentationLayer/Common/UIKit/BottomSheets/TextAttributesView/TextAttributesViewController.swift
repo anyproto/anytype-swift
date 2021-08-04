@@ -56,14 +56,14 @@ final class TextAttributesViewController: UIViewController {
         return rightStackView
     }()
 
-    private let attributesState: TextAttributesState
+    private let attributesState: AllMarkupsState
     private let actionHandler: ActionHandler
 
     // MARK: - Lifecycle
 
     /// Init text attributes view controller
     /// - Parameter attributesState: Attributes  state
-    init(attributesState: TextAttributesState, actionHandler: @escaping ActionHandler) {
+    init(attributesState: AllMarkupsState, actionHandler: @escaping ActionHandler) {
         self.actionHandler = actionHandler
         self.attributesState = attributesState
 
@@ -113,7 +113,7 @@ final class TextAttributesViewController: UIViewController {
         let urlButton = makeRoundedButton(
             image: UIImage.textAttributes.url,
             selector: #selector(urlButtonHandler(sender:)),
-            isSelected: !attributesState.url.isEmpty,
+            isSelected: attributesState.url != nil,
             isEnabled: true
         )
 
