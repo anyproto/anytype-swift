@@ -2,6 +2,6 @@ import Foundation
 
 protocol MarkupViewProtocol: AnyObject {
     
-    func display(_ state: AllMarkupState)
+    func display(_ state: AllMarkupsState)
     func hideView()
 }

@@ -72,14 +72,14 @@ final class MarkupViewModel {
         from content: BlockText,
         range: NSRange,
         alignment: LayoutAlignment
-    ) -> AllMarkupState {
+    ) -> AllMarkupsState {
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: content.contentType)
         let markupCalculator = MarkupStateCalculator(
             attributedText: content.attributedText,
             range: range,
             restrictions: restrictions
         )
-        return AllMarkupState(
+        return AllMarkupsState(
             bold: markupCalculator.boldState(),
             italic: markupCalculator.italicState(),
             strikethrough: markupCalculator.strikethroughState(),

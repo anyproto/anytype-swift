@@ -56,14 +56,14 @@ final class TextAttributesViewController: UIViewController {
         return rightStackView
     }()
 
-    private let attributesState: AllMarkupState
+    private let attributesState: AllMarkupsState
     private let actionHandler: ActionHandler
 
     // MARK: - Lifecycle
 
     /// Init text attributes view controller
     /// - Parameter attributesState: Attributes  state
-    init(attributesState: AllMarkupState, actionHandler: @escaping ActionHandler) {
+    init(attributesState: AllMarkupsState, actionHandler: @escaping ActionHandler) {
         self.actionHandler = actionHandler
         self.attributesState = attributesState
 

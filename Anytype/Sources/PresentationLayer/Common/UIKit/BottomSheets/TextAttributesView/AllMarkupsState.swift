@@ -1,6 +1,6 @@
 import UIKit
 
-struct AllMarkupState {
+struct AllMarkupsState {
     let bold: MarkupState
     let italic: MarkupState
     let strikethrough: MarkupState
