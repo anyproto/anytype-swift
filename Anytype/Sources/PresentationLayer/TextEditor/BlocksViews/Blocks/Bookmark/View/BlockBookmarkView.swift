@@ -27,7 +27,7 @@ final class BlockBookmarkView: UIView {
             return
         }
         
-        layoutWithImage(imageId: payload.iconHash)
+        layoutWithImage(imageId: payload.imageHash)
     }
     
     func layoutWithImage(imageId: BlockId) {
@@ -53,4 +53,3 @@ private extension BlockBookmarkView {
         static let imageHeightConstant: CGFloat = 108
     }
 }
-

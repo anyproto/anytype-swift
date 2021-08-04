@@ -1,6 +1,7 @@
 import BlocksModels
 
 extension BlockBookmark {
+    
     var blockBookmarkState: BlockBookmarkState {
         if url.isEmpty {
             return .empty
@@ -19,7 +20,7 @@ extension BlockBookmark {
             title: title,
             subtitle: theDescription,
             imageHash: imageHash,
-            iconHash: faviconHash
+            favIconHash: faviconHash
         )
     }
 }
