@@ -4,8 +4,9 @@ import os
 import SwiftProtobuf
 import ProtobufMessages
 
+
 public final class BlockModel: ObservableObject, BlockModelProtocol {
-    public var container: BlockContainerModelProtocol?
+    public weak var container: BlockContainerModelProtocol?
 
     @Published public var information: BlockInformation
     public var parent: BlockModelProtocol?
