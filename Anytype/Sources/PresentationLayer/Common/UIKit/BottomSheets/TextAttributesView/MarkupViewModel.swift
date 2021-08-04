@@ -31,7 +31,7 @@ final class MarkupViewModel {
         displayCurrentState()
     }
     
-    func hideView() {
+    func dismissView() {
         view?.dismiss()
     }
     

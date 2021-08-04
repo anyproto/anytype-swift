@@ -11,7 +11,6 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         information: BlockInformation,
-        container: RootBlockContainer,
         actionHandler: EditorActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void
     ) {
@@ -58,8 +57,7 @@ final class BottomSheetsFactory {
             guard let parentViewController = parentViewController else { return }
             BottomSheetsFactory.showMarkupBottomSheet(
                 parentViewController: parentViewController,
-                container: container,
-                blockId: information.id,
+                blockInformation: information,
                 blockActionHandler: actionHandler
             )
         } actionHandler: { action in
@@ -72,36 +70,20 @@ final class BottomSheetsFactory {
         }
     }
     
-    static func showMarkupBottomSheet(parentViewController: UIViewController,
-                               container: RootBlockContainer,
-                               blockId: BlockId,
-                               blockActionHandler: EditorActionHandlerProtocol)  {
-        guard let rootId = container.rootId else {
-            anytypeAssertionFailure("Unable to get context Id")
-            return
-        }
-        let blockInformationCreator = BlockInformationCreator(
-            validator: BlockValidator(restrictionsFactory: BlockRestrictionsFactory()),
-            container: container
-        )
-        let viewModel = TextAttributesViewModel(
+    static func showMarkupBottomSheet(
+        parentViewController: UIViewController,
+        blockInformation: BlockInformation,
+        blockActionHandler: EditorActionHandlerProtocol
+    ) {
+        let viewModel = MarkupViewModel(
             actionHandler: blockActionHandler,
-            container: container,
-            blockId: blockId
+            blockInformation: blockInformation
         )
-        let eventsListener = TextBlockContentChangeListener(
-            contenxtId: rootId,
-            options: [.blockSetText, .blockSetAlign],
-            blockId: blockId,
-            blockInformationCreator: blockInformationCreator,
-            delegate: viewModel
-        )
-        viewModel.setEventsListener(eventsListener)
         viewModel.setRange(.whole)
-        let attributesViewController = TextAttributesViewController(viewModel: viewModel)
-        viewModel.setView(attributesViewController)
+        let markupsViewController = MarkupsViewController(viewModel: viewModel)
+        viewModel.view = markupsViewController
         
-        let fpc = FloatingPanelController(delegate: attributesViewController)
+        let fpc = FloatingPanelController(delegate: markupsViewController)
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 16.0
         // Define shadows
@@ -125,7 +107,7 @@ final class BottomSheetsFactory {
         fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
-        fpc.set(contentViewController: attributesViewController)
+        fpc.set(contentViewController: markupsViewController)
         fpc.addPanel(toParent: parentViewController, animated: true)
     }
 }

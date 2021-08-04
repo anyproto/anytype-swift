@@ -2,7 +2,7 @@ import FloatingPanel
 import UIKit
 
 
-final class TextAttributesViewController: UIViewController {
+final class MarkupsViewController: UIViewController {
 
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
@@ -100,8 +100,9 @@ final class TextAttributesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupViews()
+        viewModel.viewLoaded()
     }
 
     // MARK: -  Setup views
@@ -165,7 +166,7 @@ final class TextAttributesViewController: UIViewController {
     }
 }
 
-extension TextAttributesViewController: MarkupViewProtocol {
+extension MarkupsViewController: MarkupViewProtocol {
     
     func setMarkupState(_ state: AllMarkupsState) {
         DispatchQueue.main.async {
@@ -187,7 +188,7 @@ extension TextAttributesViewController: MarkupViewProtocol {
     }
 }
 
-extension TextAttributesViewController: FloatingPanelControllerDelegate {
+extension MarkupsViewController: FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController,
                        shouldRemoveAt location: CGPoint,
                        with velocity: CGVector) -> Bool {

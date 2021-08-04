@@ -392,7 +392,7 @@
 		533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */; };
 		5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338568626397EB9005A06A9 /* SegmentItemView.swift */; };
 		533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */; };
-		533856B0263B22B8005A06A9 /* TextAttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* TextAttributesViewController.swift */; };
+		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
 		533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
 		534B7F2026264E8B00D712B2 /* EditorAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */; };
@@ -985,7 +985,7 @@
 		533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentControl.swift; sourceTree = "<group>"; };
 		5338568626397EB9005A06A9 /* SegmentItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItemView.swift; sourceTree = "<group>"; };
 		533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorPanelLayout.swift; sourceTree = "<group>"; };
-		533856AF263B22B8005A06A9 /* TextAttributesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesViewController.swift; sourceTree = "<group>"; };
+		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
 		533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesPanelLayout.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAccessoryView.swift; sourceTree = "<group>"; };
@@ -3094,7 +3094,7 @@
 			isa = PBXGroup;
 			children = (
 				EA57F3DE26B84AD7007D4292 /* Markup */,
-				533856AF263B22B8005A06A9 /* TextAttributesViewController.swift */,
+				533856AF263B22B8005A06A9 /* MarkupViewController.swift */,
 				533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */,
 				EA57F3D026B83DDF007D4292 /* AllMarkupsState.swift */,
 				EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */,
@@ -4223,7 +4223,7 @@
 				0A08D4C224AF822C0088ECC2 /* CommonViewsNamespace.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */,
-				533856B0263B22B8005A06A9 /* TextAttributesViewController.swift in Sources */,
+				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
