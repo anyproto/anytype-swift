@@ -1,6 +1,6 @@
 import BlocksModels
 
-enum TextAttributesViewModelAction {
+enum MarkupViewModelAction {
     case toggleMarkup(BlockHandlerActionType.TextAttributesType)
     case selectAlignment(LayoutAlignment)
 }

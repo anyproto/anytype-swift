@@ -38,8 +38,8 @@ final class EditorAssembly {
             )
         )
         
-        let detailsViewModel = DocumentDetailsViewModel {
-            viewInput.updateHeader()
+        let detailsViewModel = DocumentDetailsViewModel { [weak viewInput] in
+            viewInput?.updateHeader()
         }
         
         let selectionHandler = EditorSelectionHandler()

@@ -2,12 +2,12 @@ import AnytypeCore
 import BlocksModels
 import Foundation
 
-final class TextAttributesViewModel {
+final class MarkupViewModel {
     
     private let actionHandler: EditorActionHandlerProtocol
     private var blockInformation: BlockInformation
-    private weak var view: TextAttributesViewProtocol?
     private var selectedRange: MarkupRange?
+    weak var view: MarkupViewProtocol?
     
     init(
         actionHandler: EditorActionHandlerProtocol,
@@ -15,11 +15,6 @@ final class TextAttributesViewModel {
     ) {
         self.actionHandler = actionHandler
         self.blockInformation = blockInformation
-    }
-    
-    func setView(_ view: TextAttributesViewProtocol) {
-        self.view = view
-        displayCurrentState()
     }
     
     func setRange(_ range: MarkupRange) {
@@ -37,21 +32,23 @@ final class TextAttributesViewModel {
     }
     
     func hideView() {
-        view?.hideView()
+        view?.dismiss()
     }
     
     private func displayCurrentState() {
-        guard case let .text(textContent) = blockInformation.content else {
+        guard case let .text(textContent) = blockInformation.content,
+              let range = selectedRange else {
             return
         }
-        displayAttributes(from: textContent, alignment: blockInformation.alignment)
+        let displayState = textAttributes(
+            from: textContent,
+            range: range.range(for: textContent.attributedText),
+            alignment: blockInformation.alignment
+        )
+        view?.setMarkupState(displayState)
     }
     
-    private func handleAlignmentChange(alignment: LayoutAlignment) {
-        actionHandler.handleAction(.setAlignment(alignment), blockId: blockInformation.id)
-    }
-    
-    private func handleMarkupChange(
+    private func setMarkup(
         markup: BlockHandlerActionType.TextAttributesType,
         content: BlockText
     ) {
@@ -62,53 +59,50 @@ final class TextAttributesViewModel {
         )
     }
     
-    private func displayAttributes(
-        from content: BlockText,
-        alignment: LayoutAlignment
-    ) {
-        guard let range = selectedRange else { return }
-        let displayState = textAttributes(from: content,
-                                          range: range.range(for: content.attributedText),
-                                          alignment: alignment)
-        view?.display(displayState)
-    }
-    
     private func textAttributes(
         from content: BlockText,
         range: NSRange,
         alignment: LayoutAlignment
-    ) -> TextAttributesState {
+    ) -> AllMarkupsState {
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: content.contentType)
         let markupCalculator = MarkupStateCalculator(
             attributedText: content.attributedText,
             range: range,
             restrictions: restrictions
         )
-        return TextAttributesState(
+        return AllMarkupsState(
             bold: markupCalculator.boldState(),
             italic: markupCalculator.italicState(),
             strikethrough: markupCalculator.strikethroughState(),
             codeStyle: markupCalculator.codeState(),
             alignment: alignment.asNSTextAlignment,
-            url: ""
+            url: nil
         )
     }
 }
 
-extension TextAttributesViewModel: TextAttributesViewModelProtocol {
+extension MarkupViewModel: MarkupViewModelProtocol {
     
-    func handle(action: TextAttributesViewModelAction) {
+    func handle(action: MarkupViewModelAction) {
         guard case let .text(content) = blockInformation.content else {
+            anytypeAssertionFailure("Expected text content type but got: \(blockInformation.content)")
             return
         }
         switch action {
         case let .selectAlignment(alignment):
-            handleAlignmentChange(alignment: alignment)
+            actionHandler.handleAction(
+                .setAlignment(alignment),
+                blockId: blockInformation.id
+            )
         case let .toggleMarkup(markup):
-            handleMarkupChange(
+            setMarkup(
                 markup: markup,
                 content: content
             )
         }
+    }
+    
+    func viewLoaded() {
+        displayCurrentState()
     }
 }

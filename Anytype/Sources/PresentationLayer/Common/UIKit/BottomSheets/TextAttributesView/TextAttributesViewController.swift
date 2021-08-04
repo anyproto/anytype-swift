@@ -85,10 +85,10 @@ final class TextAttributesViewController: UIViewController {
         return button
     }()
 
-    private let viewModel: TextAttributesViewModel
+    private let viewModel: MarkupViewModelProtocol
 
     // MARK: - Lifecycle
-    init(viewModel: TextAttributesViewModel) {
+    init(viewModel: MarkupViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -165,9 +165,9 @@ final class TextAttributesViewController: UIViewController {
     }
 }
 
-extension TextAttributesViewController: TextAttributesViewProtocol {
+extension TextAttributesViewController: MarkupViewProtocol {
     
-    func display(_ state: TextAttributesState) {
+    func setMarkupState(_ state: AllMarkupsState) {
         DispatchQueue.main.async {
             self.setup(button: self.boldButton, with: state.bold)
             self.setup(button: self.italicButton, with: state.italic)
@@ -180,7 +180,7 @@ extension TextAttributesViewController: TextAttributesViewProtocol {
         }
     }
     
-    func hideView() {
+    func dismiss() {
         DispatchQueue.main.async {
             self.dismiss(animated: true)
         }
