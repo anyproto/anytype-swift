@@ -141,8 +141,7 @@ final class DocumentEditorViewModel: ObservableObject {
         }
         let blockIds = Set(newBlockViewModels.map { $0.blockId })
         guard blockIds.contains(blockIdWithMarkupMenu) else {
-            wholeBlockMarkupViewModel.blockInformation = nil
-            wholeBlockMarkupViewModel.dismissView()
+            wholeBlockMarkupViewModel.removeInformationAndDismiss()
             return
         }
         updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
@@ -151,7 +150,12 @@ final class DocumentEditorViewModel: ObservableObject {
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
         let container = document.rootActiveModel?.container
         guard let currentInformation = container?.model(id: blockId)?.information else {
+            wholeBlockMarkupViewModel.removeInformationAndDismiss()
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            return
+        }
+        guard case .text = currentInformation.content else {
+            wholeBlockMarkupViewModel.removeInformationAndDismiss()
             return
         }
         wholeBlockMarkupViewModel.blockInformation = currentInformation

@@ -23,7 +23,8 @@ final class MarkupViewModel {
         displayCurrentState()
     }
     
-    func dismissView() {
+    func removeInformationAndDismiss() {
+        blockInformation = nil
         view?.dismiss()
     }
     
