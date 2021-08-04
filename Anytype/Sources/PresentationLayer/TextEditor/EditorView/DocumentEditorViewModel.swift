@@ -6,7 +6,7 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-class DocumentEditorViewModel: ObservableObject {
+final class DocumentEditorViewModel: ObservableObject {
     weak private(set) var viewInput: EditorModuleDocumentViewInput?
     
     var document: BaseDocumentProtocol
@@ -18,6 +18,7 @@ class DocumentEditorViewModel: ObservableObject {
     let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
+    let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
@@ -37,7 +38,8 @@ class DocumentEditorViewModel: ObservableObject {
         router: EditorRouterProtocol,
         modelsHolder: SharedBlockViewModelsHolder,
         blockBuilder: BlockViewModelBuilder,
-        blockActionHandler: EditorActionHandler
+        blockActionHandler: EditorActionHandler,
+        wholeBlockMarkupViewModel: MarkupViewModel
     ) {
         self.documentId = documentId
         self.selectionHandler = selectionHandler
@@ -50,6 +52,7 @@ class DocumentEditorViewModel: ObservableObject {
         self.blockBuilder = blockBuilder
         self.blockActionHandler = blockActionHandler
         self.blockDelegate = blockDelegate
+        self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         
         setupSubscriptions()
         obtainDocument(documentId: documentId)
@@ -77,6 +80,7 @@ class DocumentEditorViewModel: ObservableObject {
             let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
             updateBlocksViewModels(models: blocksViewModels)
             if let details = updateResult.details { updateDetails(details) }
+            updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(newDetails):
             updateDetails(newDetails)
         case let .update(updatedIds):
@@ -85,6 +89,7 @@ class DocumentEditorViewModel: ObservableObject {
             }
             
             updateViewModelsWithStructs(updatedIds)
+            updateMarkupViewModel(updatedIds)
             viewInput?.updateRowsWithoutRefreshing(ids: updatedIds)
         }
     }
@@ -120,6 +125,36 @@ class DocumentEditorViewModel: ObservableObject {
                     modelsHolder.models[offset] = newModel
                 }
         }
+    }
+    
+    private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
+              updatedBlockIds.contains(blockIdWithMarkupMenu) else {
+            return
+        }
+        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
+    }
+    
+    private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
+            return
+        }
+        let blockIds = Set(newBlockViewModels.map { $0.blockId })
+        guard blockIds.contains(blockIdWithMarkupMenu) else {
+            wholeBlockMarkupViewModel.blockInformation = nil
+            wholeBlockMarkupViewModel.dismissView()
+            return
+        }
+        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
+    }
+    
+    private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
+        let container = document.rootActiveModel?.container
+        guard let currentInformation = container?.model(id: blockId)?.information else {
+            anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            return
+        }
+        wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
     private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {
