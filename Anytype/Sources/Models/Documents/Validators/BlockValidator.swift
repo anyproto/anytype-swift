@@ -38,7 +38,7 @@ struct BlockValidator {
     }
     
     func validatedAlignment(alignment: LayoutAlignment, restrictions: BlockRestrictions) -> LayoutAlignment {
-        guard restrictions.availableAlignments.contains(alignment) else {
+        guard !restrictions.availableAlignments.contains(alignment) else {
             return alignment
         }
         
