@@ -9,14 +9,14 @@ class BlockBookmarkImageView: UIImageView {
         
         contentMode = .center
         clipsToBounds = true
-        backgroundColor = .white
+        backgroundColor = .backgroundPrimary
     }
     
     
     func update(imageId: String) {
         let placeholder = PlaceholderImageBuilder.placeholder(
             with: ImageGuideline(
-                size: frame.size,
+                size: bounds.size,
                 backgroundColor: UIColor.grayscaleWhite
             ),
             color: UIColor.grayscale10
