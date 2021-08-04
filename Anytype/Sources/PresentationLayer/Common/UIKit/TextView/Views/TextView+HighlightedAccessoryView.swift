@@ -385,7 +385,11 @@ extension CustomTextView.HighlightedToolbar {
         // MARK: Public Setters
         func update(range: NSRange, attributedText: NSMutableAttributedString) {
             self.range = range
-            let modifier = MarkStyleModifier(attributedText: attributedText)
+            // Currently we do not use this entity thats why font is .body
+            let modifier = MarkStyleModifier(
+                attributedText: attributedText,
+                defaultNonCodeFont: .body
+            )
             let styles = modifier.getMarkStyles(at: range)
             let states = StatesConvertor.states(styles)
             self.userResponse = .init(range: range, states: states)

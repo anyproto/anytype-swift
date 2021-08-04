@@ -144,7 +144,7 @@ enum MarkStyle: Equatable, CaseIterable {
     // CAUTION:
     // This method return ONLY SLIDES of correspoding attributes and can return empty dictionary.
     // Second value in a pair is keys to remove.
-    func to(old: [NSAttributedString.Key : Any]) -> Update {
+    func to(old: [NSAttributedString.Key : Any], nonCodeFont: UIFont) -> Update {
         switch self {
         case let .bold(value):
             if let font = old[.font] as? UIFont {
@@ -167,7 +167,11 @@ enum MarkStyle: Equatable, CaseIterable {
             }
             return .empty
         case let .keyboard(hasStyle):
-            return keyboardUpdate(with: old, hasStyle: hasStyle)
+            return keyboardUpdate(
+                with: old,
+                shouldHaveStyle: hasStyle,
+                nonCodeFont: nonCodeFont
+            )
         case let .strikethrough(value): return .change([.strikethroughStyle : value ? 1 : 0])
         case let .underscored(value): return .change([ .underlineStyle : value ? 1 : 0 ])
         case let .textColor(value): return .change([ .foregroundColor : value as Any ])
@@ -177,44 +181,35 @@ enum MarkStyle: Equatable, CaseIterable {
         }
     }
     
-    private func keyboardUpdate(with attributes: [NSAttributedString.Key: Any], hasStyle: Bool) -> Update {
+    private func keyboardUpdate(
+        with attributes: [NSAttributedString.Key: Any],
+        shouldHaveStyle: Bool,
+        nonCodeFont: UIFont
+    ) -> Update {
         guard let font = attributes[.font] as? UIFont else { return .empty }
-        if !hasStyle {
+        
+        var targetFont: UIFont
+        switch (font.isCode, shouldHaveStyle) {
+        case (true, true):
+            return .change([.font: font])
+        case (true, false):
+            targetFont = nonCodeFont
+        case (false, true):
+            targetFont = UIFont.code(of: font.pointSize)
+        case (false, false):
             return .change([.font: font])
         }
-        let codeFont = UIFont.code(of: font.pointSize)
-        var traitsToApply = codeFont.fontDescriptor.symbolicTraits
+        
+        var traitsToApply = targetFont.fontDescriptor.symbolicTraits
         if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
             traitsToApply.insert(.traitBold)
         }
         if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
             traitsToApply.insert(.traitItalic)
         }
-        if let newFontDescriptor = codeFont.fontDescriptor.withSymbolicTraits(traitsToApply) {
+        if let newFontDescriptor = targetFont.fontDescriptor.withSymbolicTraits(traitsToApply) {
             return .change([.font: UIFont(descriptor: newFontDescriptor, size: font.pointSize)])
         }
-        return .change([.font: codeFont])
-    }
-    
-    
-    /// A list version of a single `to(old:)` method.
-    ///
-    /// Consider, that you would like to apply a Sequence of styles to attributes.
-    /// For that, you should perform some updates of these attributes.
-    ///
-    /// This method return a `List<Update>` which  should be applied to `old` attributes.
-    ///
-    /// Can be simplified as:
-    ///
-    /// f: old, style -> update
-    /// f: old, styles -> [update]
-    ///
-    /// - Parameters:
-    ///   - old: Attributes that we would like to change.
-    ///   - styles: Styles that we would like to apply to attributes.
-    /// - Returns: `List<Update>` that should be applied to attributes.
-    ///
-    static func to(old: [NSAttributedString.Key: Any], styles: [Self]) -> [Update] {
-        styles.map({$0.to(old: old)})
+        return .change([.font: targetFont])
     }
 }
