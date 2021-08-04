@@ -50,7 +50,7 @@ final class BlockBookmarkInfoView: UIView {
     private func updateIcon(state: BlockBookmarkContentState) {
         urlStackView.removeAllSubviews()
         
-        guard case let .fetched(payload) = state, !payload.favIconHash.isEmpty else {
+        guard case let .fetched(payload) = state, !payload.faviconHash.isEmpty else {
             iconView.image = nil
             urlStackView.addSubview(urlView) {
                 $0.pinToSuperview()
@@ -80,7 +80,7 @@ final class BlockBookmarkInfoView: UIView {
         .append(another: RoundCornerImageProcessor(radius: .point(2)))
         
         iconView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: payload.favIconHash, width: .thumbnail)),
+            with: UrlResolver.resolvedUrl(.image(id: payload.faviconHash, width: .thumbnail)),
             placeholder: placeholder,
             options: [.processor(processor)]
         )

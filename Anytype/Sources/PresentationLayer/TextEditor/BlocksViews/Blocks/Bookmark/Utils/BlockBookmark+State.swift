@@ -20,7 +20,7 @@ extension BlockBookmark {
             title: title,
             subtitle: theDescription,
             imageHash: imageHash,
-            favIconHash: faviconHash
+            faviconHash: faviconHash
         )
     }
 }
