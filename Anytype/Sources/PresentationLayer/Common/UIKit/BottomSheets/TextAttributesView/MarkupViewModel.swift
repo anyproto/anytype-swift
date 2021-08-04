@@ -32,18 +32,19 @@ final class MarkupViewModel {
     }
     
     func hideView() {
-        view?.hideView()
+        view?.dismiss()
     }
     
     private func displayCurrentState() {
-        guard case let .text(textContent) = blockInformation.content else {
+        guard case let .text(textContent) = blockInformation.content,
+              let range = selectedRange else {
             return
         }
-        displayAttributes(from: textContent, alignment: blockInformation.alignment)
-    }
-    
-    private func handleAlignmentChange(alignment: LayoutAlignment) {
-        actionHandler.handleAction(.setAlignment(alignment), blockId: blockInformation.id)
+        let displayState = textAttributes(from: textContent,
+                                          range: range.range(for: textContent.attributedText),
+                                          alignment: blockInformation.alignment
+        )
+        view?.display(displayState)
     }
     
     private func handleMarkupChange(
@@ -55,17 +56,6 @@ final class MarkupViewModel {
             .toggleFontStyle(markup, range),
             blockId: blockInformation.id
         )
-    }
-    
-    private func displayAttributes(
-        from content: BlockText,
-        alignment: LayoutAlignment
-    ) {
-        guard let range = selectedRange else { return }
-        let displayState = textAttributes(from: content,
-                                          range: range.range(for: content.attributedText),
-                                          alignment: alignment)
-        view?.display(displayState)
     }
     
     private func textAttributes(
@@ -85,7 +75,7 @@ final class MarkupViewModel {
             strikethrough: markupCalculator.strikethroughState(),
             codeStyle: markupCalculator.codeState(),
             alignment: alignment.asNSTextAlignment,
-            url: ""
+            url: nil
         )
     }
 }
@@ -98,7 +88,10 @@ extension MarkupViewModel: MarkupViewModelProtocol {
         }
         switch action {
         case let .selectAlignment(alignment):
-            handleAlignmentChange(alignment: alignment)
+            actionHandler.handleAction(
+                .setAlignment(alignment),
+                blockId: blockInformation.id
+            )
         case let .toggleMarkup(markup):
             handleMarkupChange(
                 markup: markup,
@@ -107,7 +100,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
         }
     }
     
-    func viewDidLoad() {
+    func viewDidBecomeReadyToUse() {
         displayCurrentState()
     }
 }

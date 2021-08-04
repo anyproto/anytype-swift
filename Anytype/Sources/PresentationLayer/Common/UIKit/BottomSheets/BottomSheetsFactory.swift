@@ -49,7 +49,7 @@ final class BottomSheetsFactory {
                     strikethrough: .disabled,
                     codeStyle: .disabled,
                     alignment: .left,
-                    url: ""
+                    url: nil
                 )
             }
             let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
@@ -64,7 +64,7 @@ final class BottomSheetsFactory {
                 strikethrough: markupStateCalculator.strikethroughState(),
                 codeStyle: markupStateCalculator.codeState(),
                 alignment: information.alignment.asNSTextAlignment,
-                url: "")
+                url: nil)
             return attributes
         }
 

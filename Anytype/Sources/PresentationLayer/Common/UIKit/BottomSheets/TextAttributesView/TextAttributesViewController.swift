@@ -113,7 +113,7 @@ final class TextAttributesViewController: UIViewController {
         let urlButton = makeRoundedButton(
             image: UIImage.textAttributes.url,
             selector: #selector(urlButtonHandler(sender:)),
-            isSelected: !attributesState.url.isEmpty,
+            isSelected: attributesState.url != nil,
             isEnabled: true
         )
 

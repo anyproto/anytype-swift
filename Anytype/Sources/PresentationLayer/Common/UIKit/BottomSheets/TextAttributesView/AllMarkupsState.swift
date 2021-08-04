@@ -6,5 +6,5 @@ struct AllMarkupsState {
     let strikethrough: MarkupState
     let codeStyle: MarkupState
     let alignment: NSTextAlignment
-    let url: String
+    let url: URL?
 }
