@@ -110,7 +110,6 @@ final class BlockBookmarkInfoView: UIView {
     
     private let iconView: UIImageView = {
         let view = UIImageView()
-//        view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         view.backgroundColor = .backgroundPrimary
         view.layoutUsing.anchors {
