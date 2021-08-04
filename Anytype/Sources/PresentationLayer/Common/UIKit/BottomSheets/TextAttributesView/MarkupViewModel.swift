@@ -2,12 +2,12 @@ import AnytypeCore
 import BlocksModels
 import Foundation
 
-final class TextAttributesViewModel {
+final class MarkupViewModel {
     
     private let actionHandler: EditorActionHandlerProtocol
     private var blockInformation: BlockInformation
-    private weak var view: TextAttributesViewProtocol?
     private var selectedRange: MarkupRange?
+    weak var view: MarkupViewProtocol?
     
     init(
         actionHandler: EditorActionHandlerProtocol,
@@ -15,11 +15,6 @@ final class TextAttributesViewModel {
     ) {
         self.actionHandler = actionHandler
         self.blockInformation = blockInformation
-    }
-    
-    func setView(_ view: TextAttributesViewProtocol) {
-        self.view = view
-        displayCurrentState()
     }
     
     func setRange(_ range: MarkupRange) {
@@ -77,14 +72,14 @@ final class TextAttributesViewModel {
         from content: BlockText,
         range: NSRange,
         alignment: LayoutAlignment
-    ) -> TextAttributesState {
+    ) -> AllMarkupState {
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: content.contentType)
         let markupCalculator = MarkupStateCalculator(
             attributedText: content.attributedText,
             range: range,
             restrictions: restrictions
         )
-        return TextAttributesState(
+        return AllMarkupState(
             bold: markupCalculator.boldState(),
             italic: markupCalculator.italicState(),
             strikethrough: markupCalculator.strikethroughState(),
@@ -95,9 +90,9 @@ final class TextAttributesViewModel {
     }
 }
 
-extension TextAttributesViewModel: TextAttributesViewModelProtocol {
+extension MarkupViewModel: MarkupViewModelProtocol {
     
-    func handle(action: TextAttributesViewModelAction) {
+    func handle(action: MarkupViewModelAction) {
         guard case let .text(content) = blockInformation.content else {
             return
         }
@@ -110,5 +105,9 @@ extension TextAttributesViewModel: TextAttributesViewModelProtocol {
                 content: content
             )
         }
+    }
+    
+    func viewDidLoad() {
+        displayCurrentState()
     }
 }
