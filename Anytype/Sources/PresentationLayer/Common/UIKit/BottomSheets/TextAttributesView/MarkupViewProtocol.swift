@@ -2,7 +2,7 @@ import Foundation
 
 protocol MarkupViewProtocol: AnyObject {
     
-    func display(_ state: AllMarkupsState)
+    func setMarkupState(_ state: AllMarkupsState)
     func dismiss()
     
 }

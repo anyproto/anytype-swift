@@ -40,14 +40,15 @@ final class MarkupViewModel {
               let range = selectedRange else {
             return
         }
-        let displayState = textAttributes(from: textContent,
-                                          range: range.range(for: textContent.attributedText),
-                                          alignment: blockInformation.alignment
+        let displayState = textAttributes(
+            from: textContent,
+            range: range.range(for: textContent.attributedText),
+            alignment: blockInformation.alignment
         )
-        view?.display(displayState)
+        view?.setMarkupState(displayState)
     }
     
-    private func handleMarkupChange(
+    private func setMarkup(
         markup: BlockHandlerActionType.TextAttributesType,
         content: BlockText
     ) {
@@ -84,6 +85,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
     
     func handle(action: MarkupViewModelAction) {
         guard case let .text(content) = blockInformation.content else {
+            anytypeAssertionFailure("Expected text content type but got: \(blockInformation.content)")
             return
         }
         switch action {
@@ -93,14 +95,14 @@ extension MarkupViewModel: MarkupViewModelProtocol {
                 blockId: blockInformation.id
             )
         case let .toggleMarkup(markup):
-            handleMarkupChange(
+            setMarkup(
                 markup: markup,
                 content: content
             )
         }
     }
     
-    func viewDidBecomeReadyToUse() {
+    func viewLoaded() {
         displayCurrentState()
     }
 }

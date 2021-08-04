@@ -2,7 +2,7 @@
 /// Protocol for views to communicate with view model
 protocol MarkupViewModelProtocol {
     
-    func viewDidBecomeReadyToUse()
+    func viewLoaded()
     func handle(action: MarkupViewModelAction)
     
 }
