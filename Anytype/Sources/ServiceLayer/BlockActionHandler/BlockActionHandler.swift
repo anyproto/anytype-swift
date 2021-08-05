@@ -17,7 +17,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let textService = BlockActionsServiceText()
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
-    private let modelsHolder: SharedBlockViewModelsHolder
+    private weak var modelsHolder: SharedBlockViewModelsHolder?
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
@@ -194,7 +194,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     // self.handlingKeyboardAction(block, .pressKey(.delete))
     private func delete(blockId: BlockId) {
         service.delete(blockId: blockId) { [weak self] value in
-            guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: blockId) else {
+            guard let previousModel = self?.modelsHolder?.findModel(beforeBlockId: blockId) else {
                 return .init(middlewareEvents: value.messages, localEvents: [])
             }
             let previousBlockId = previousModel.blockId
