@@ -193,7 +193,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
             guard let indexPath = dataSource.indexPath(for: item) else { return }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-            cell.contentConfiguration = viewModel?.makeContentConfiguration()
+            cell.contentConfiguration = viewModel?.makeContentConfiguration(maxWidth: cell.bounds.width)
         }
         updateView()
     }
@@ -232,7 +232,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
                 guard let indexPath = self.dataSource.indexPath(for: item) else { return }
                 guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-                cell.contentConfiguration = viewModel?.makeContentConfiguration()
+                cell.contentConfiguration = viewModel?.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = viewModel?.indentationLevel ?? 0
             }
 
@@ -388,7 +388,7 @@ private extension DocumentEditorViewController {
     }
 
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
-        cell.contentConfiguration = item.makeContentConfiguration()
+        cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel
         cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
@@ -473,4 +473,16 @@ private extension DocumentEditorViewController {
         static let cellIndentationWidth: CGFloat = 24
     }
     
+}
+
+struct DocumentEditorViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}
+
+struct DocumentEditorViewController_Previews_2: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
 }

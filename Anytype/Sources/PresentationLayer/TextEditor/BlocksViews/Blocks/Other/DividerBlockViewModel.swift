@@ -22,7 +22,7 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
         self.handler = handler
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         return DividerBlockContentConfiguration(content: dividerContent)
     }
     

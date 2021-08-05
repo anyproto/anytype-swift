@@ -69,7 +69,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         contextualMenuHandler.handle(action: action, info: information)
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         TextBlockContentConfiguration(
             blockDelegate: blockDelegate,
             block: block,
