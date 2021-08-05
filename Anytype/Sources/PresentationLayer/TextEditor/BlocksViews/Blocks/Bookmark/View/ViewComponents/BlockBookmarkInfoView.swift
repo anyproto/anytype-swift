@@ -1,12 +1,13 @@
 import UIKit
 import Combine
+import Kingfisher
 
 final class BlockBookmarkInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
+        backgroundColor = .backgroundPrimary
     }
     
     @available(*, unavailable)
@@ -48,7 +49,8 @@ final class BlockBookmarkInfoView: UIView {
     
     private func updateIcon(state: BlockBookmarkContentState) {
         urlStackView.removeAllSubviews()
-        guard case let .fetched(payload) = state, !payload.iconHash.isEmpty else {
+        
+        guard case let .fetched(payload) = state, !payload.faviconHash.isEmpty else {
             iconView.image = nil
             urlStackView.addSubview(urlView) {
                 $0.pinToSuperview()
@@ -68,15 +70,19 @@ final class BlockBookmarkInfoView: UIView {
         let placeholder = PlaceholderImageBuilder.placeholder(
             with: ImageGuideline(
                 size: Layout.iconSize,
-                cornerRadius: 4,
+                cornerRadius: 2,
                 backgroundColor: UIColor.grayscaleWhite
             ),
             color: UIColor.grayscale10
         )
         
+        let processor = DownsamplingImageProcessor(size: Layout.iconSize)
+        .append(another: RoundCornerImageProcessor(radius: .point(2)))
+        
         iconView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: payload.imageHash, width: .thumbnail)),
-            placeholder: placeholder
+            with: UrlResolver.resolvedUrl(.image(id: payload.faviconHash, width: .thumbnail)),
+            placeholder: placeholder,
+            options: [.processor(processor)]
         )
     }
     
@@ -88,6 +94,7 @@ final class BlockBookmarkInfoView: UIView {
         let view = UILabel()
         view.font = UIFont.captionMedium
         view.textColor = .grayscale90
+        view.backgroundColor = .backgroundPrimary
         return view
     }()
     
@@ -97,15 +104,17 @@ final class BlockBookmarkInfoView: UIView {
         view.lineBreakMode = .byWordWrapping
         view.font = .caption
         view.textColor = .grayscale70
+        view.backgroundColor = .backgroundPrimary
         return view
     }()
     
     private let iconView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.heightAnchor.constraint(equalToConstant: Layout.iconSize.height).isActive = true
-        view.widthAnchor.constraint(equalToConstant: Layout.iconSize.width).isActive = true
+        view.backgroundColor = .backgroundPrimary
+        view.layoutUsing.anchors {
+            $0.size(Layout.iconSize)
+        }
         return view
     }()
     
@@ -114,6 +123,7 @@ final class BlockBookmarkInfoView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.font = .caption
         view.textColor = .grayscale90
+        view.backgroundColor = .backgroundPrimary
         return view
     }()
 }

@@ -87,6 +87,8 @@ extension UIColor {
     /// Color that can be used in case if we couldn't parse color from middleware
     static let defaultColor = grayscale90
     
+    static let backgroundPrimary: UIColor = .white
+    
     private static func color(name: String) -> UIColor {
         guard let color = UIColor(named: name) else {
             anytypeAssertionFailure("No color named: \(name)")

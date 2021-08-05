@@ -31,6 +31,8 @@ extension Color {
     static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
     
+    static let backgroundPrimary: Color = .white
+    
     // Custom
     static let toastBackground = Color("toastBackground")
     static let grayscale10 = Color(ColorName.grayscale10)

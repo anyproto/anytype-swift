@@ -16,6 +16,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
     }
     
     lazy var bookmarkHeight: NSLayoutConstraint = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
+    
     init(configuration: BlockBookmarkConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)

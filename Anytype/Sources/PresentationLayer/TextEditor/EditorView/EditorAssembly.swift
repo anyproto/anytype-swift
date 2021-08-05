@@ -81,6 +81,8 @@ final class EditorAssembly {
             )
         )
         
+        let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
+        
         return DocumentEditorViewModel(
             documentId: blockId,
             document: document,
@@ -92,7 +94,8 @@ final class EditorAssembly {
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
-            blockActionHandler: editorBlockActionHandler
+            blockActionHandler: editorBlockActionHandler,
+            wholeBlockMarkupViewModel: wholeBlockMarkupViewModel
         )
     }
 }

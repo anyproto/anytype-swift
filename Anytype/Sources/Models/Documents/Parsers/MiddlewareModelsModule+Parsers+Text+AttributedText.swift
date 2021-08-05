@@ -23,14 +23,18 @@ extension Namespace {
                 }
                 return (RangeConverter.asModel(value.range), markValue)
             }
-            
-            // Create modifier of an attributed string.
-            let modifier = MarkStyleModifier(attributedText: .init(string: text))
 
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
+            let string = NSMutableAttributedString(string: text)
             let defaultFont = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .body
-            let range: NSRange = .init(location: 0, length: modifier.attributedString.length)
+            let range = NSRange(location: 0, length: string.length)
+            
+            // Create modifier of an attributed string.
+            let modifier = MarkStyleModifier(
+                attributedText: string,
+                defaultNonCodeFont: defaultFont
+            )
             modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
             
             // We need to separate mention marks from others

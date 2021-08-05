@@ -4,17 +4,18 @@ import Foundation
 
 final class MarkupViewModel {
     
-    private let actionHandler: EditorActionHandlerProtocol
-    private var blockInformation: BlockInformation
-    private var selectedRange: MarkupRange?
+    var blockInformation: BlockInformation? {
+        didSet {
+            guard case .text = blockInformation?.content else { return }
+            displayCurrentState()
+        }
+    }
     weak var view: MarkupViewProtocol?
+    private let actionHandler: EditorActionHandlerProtocol
+    private var selectedRange: MarkupRange?
     
-    init(
-        actionHandler: EditorActionHandlerProtocol,
-        blockInformation: BlockInformation
-    ) {
+    init(actionHandler: EditorActionHandlerProtocol) {
         self.actionHandler = actionHandler
-        self.blockInformation = blockInformation
     }
     
     func setRange(_ range: MarkupRange) {
@@ -22,21 +23,14 @@ final class MarkupViewModel {
         displayCurrentState()
     }
     
-    func setInformation(_ information: BlockInformation) {
-        guard case .text = information.content else {
-            anytypeAssertionFailure("Expected text content type but got: \(information.content)")
-            return
-        }
-        blockInformation = information
-        displayCurrentState()
-    }
-    
-    func dismissView() {
+    func removeInformationAndDismiss() {
+        blockInformation = nil
         view?.dismiss()
     }
     
     private func displayCurrentState() {
-        guard case let .text(textContent) = blockInformation.content,
+        guard let blockInformation = blockInformation,
+              case let .text(textContent) = blockInformation.content,
               let range = selectedRange else {
             return
         }
@@ -50,12 +44,13 @@ final class MarkupViewModel {
     
     private func setMarkup(
         markup: BlockHandlerActionType.TextAttributesType,
-        content: BlockText
+        content: BlockText,
+        blockId: BlockId
     ) {
         guard let range = selectedRange?.range(for: content.attributedText) else { return }
         actionHandler.handleAction(
             .toggleFontStyle(markup, range),
-            blockId: blockInformation.id
+            blockId: blockId
         )
     }
     
@@ -84,6 +79,10 @@ final class MarkupViewModel {
 extension MarkupViewModel: MarkupViewModelProtocol {
     
     func handle(action: MarkupViewModelAction) {
+        guard let blockInformation = blockInformation else {
+            anytypeAssertionFailure("blockInformation must not be nil")
+            return
+        }
         guard case let .text(content) = blockInformation.content else {
             anytypeAssertionFailure("Expected text content type but got: \(blockInformation.content)")
             return
@@ -97,7 +96,8 @@ extension MarkupViewModel: MarkupViewModelProtocol {
         case let .toggleMarkup(markup):
             setMarkup(
                 markup: markup,
-                content: content
+                content: content,
+                blockId: blockInformation.id
             )
         }
     }
