@@ -43,4 +43,17 @@ struct MarkupStateCalculator {
         }
         return attributedText.isCodeFontInWhole(range: range) ? .applied : .notApplied
     }
+    
+    func state(for markup: BlockHandlerActionType.TextAttributesType) -> MarkupState {
+        switch markup {
+        case .bold:
+            return boldState()
+        case .italic:
+            return italicState()
+        case .keyboard:
+            return codeState()
+        case .strikethrough:
+            return strikethroughState()
+        }
+    }
 }
