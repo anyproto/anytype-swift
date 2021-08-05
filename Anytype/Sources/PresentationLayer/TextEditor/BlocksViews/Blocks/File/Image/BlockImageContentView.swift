@@ -41,14 +41,11 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .center
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
         
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
         addImageViewLayout()
     }
     
@@ -64,13 +61,10 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     private func addImageViewLayout() {
-        addSubview(imageView)
-    
-        imageContentViewHeight = imageView.heightAnchor.constraint(equalToConstant: Layout.imageContentViewDefaultHeight)
-        // We need priotity here cause cell self size constraint will conflict with ours
-        //                imageContentViewHeight?.priority = .init(750)
-        imageContentViewHeight?.isActive = true
-        imageView.pinAllEdges(to: self, insets: Layout.imageViewInsets)
+        addSubview(imageView) {
+            $0.pinToSuperview(insets: Layout.imageViewInsets)
+            self.imageContentViewHeight = $0.height.equal(to: Layout.imageContentViewDefaultHeight)
+        }
     }
     
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
@@ -79,30 +73,25 @@ final class BlockImageContentView: UIView & UIContentView {
         guard imageId != oldFile?.metadata.hash else { return }
         
         imageView.kf.cancelDownloadTask()
+        
+        let imageWidth = currentConfiguration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left
+        let imageSize = CGSize(
+            width: imageWidth,
+            height: Layout.imageContentViewDefaultHeight
+        )
+        
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(size: imageSize),
+            color: UIColor.grayscale10
+        )
+        
         imageView.kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
-            placeholder: UIImage.blockFile.noImage
-        ) { [weak self] result in
-            guard
-                case let .success(success) = result,
-                let self = self
-            else { return }
-            
-            self.imageView.contentMode = self.isImageLong(image: success.image) ? .scaleAspectFit : .scaleAspectFill
-        }
+            placeholder: placeholder,
+            options: [.processor(DownsamplingImageProcessor(size: imageSize))]
+        )
     }
     
-    private func isImageLong(image: UIImage) -> Bool {
-        if image.size.height / image.size.width > 3 {
-            return true
-        }
-        
-        if image.size.width / image.size.height > 3 {
-            return true
-        }
-        
-        return false
-    }
 }
 
 private extension BlockImageContentView {
