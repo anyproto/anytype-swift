@@ -53,7 +53,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch fileData.state {
         case .empty:
             return emptyViewConfiguration(state: .default)
@@ -62,7 +62,11 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         case .uploading:
             return emptyViewConfiguration(state: .uploading)
         case .done:
-            return BlockImageConfiguration(fileData)
+            return BlockImageConfiguration(
+                fileData: fileData,
+                alignmetn: information.alignment,
+                maxWidth: maxWidth
+            )
         }
     }
         
