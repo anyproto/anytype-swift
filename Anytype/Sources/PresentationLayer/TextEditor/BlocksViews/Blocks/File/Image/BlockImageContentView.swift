@@ -41,14 +41,11 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = currentConfiguration.alignment.imageContentMode
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
         
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
         addImageViewLayout()
     }
     
@@ -64,13 +61,10 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     private func addImageViewLayout() {
-        addSubview(imageView)
-    
-        imageContentViewHeight = imageView.heightAnchor.constraint(equalToConstant: Layout.imageContentViewDefaultHeight)
-        // We need priotity here cause cell self size constraint will conflict with ours
-        //                imageContentViewHeight?.priority = .init(750)
-        imageContentViewHeight?.isActive = true
-        imageView.pinAllEdges(to: self, insets: Layout.imageViewInsets)
+        addSubview(imageView) {
+            $0.pinToSuperview(insets: Layout.imageViewInsets)
+            self.imageContentViewHeight = $0.height.equal(to: Layout.imageContentViewDefaultHeight)
+        }
     }
     
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
@@ -111,4 +105,16 @@ private extension BlockImageContentView {
         static let imageViewTop: CGFloat = 4
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
     }
+}
+
+private extension LayoutAlignment {
+    
+    var imageContentMode: UIView.ContentMode {
+        switch self {
+        case .left: return .left
+        case .center: return .center
+        case .right: return .right
+        }
+    }
+    
 }
