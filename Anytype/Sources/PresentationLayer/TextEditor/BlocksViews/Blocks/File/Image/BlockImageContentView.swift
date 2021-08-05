@@ -41,7 +41,7 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        imageView.contentMode = currentConfiguration.alignment.imageContentMode
+        imageView.contentMode = .center
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
@@ -73,30 +73,25 @@ final class BlockImageContentView: UIView & UIContentView {
         guard imageId != oldFile?.metadata.hash else { return }
         
         imageView.kf.cancelDownloadTask()
+        
+        let imageWidth = currentConfiguration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left
+        let imageSize = CGSize(
+            width: imageWidth,
+            height: Layout.imageContentViewDefaultHeight
+        )
+        
+        let placeholder = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(size: imageSize),
+            color: UIColor.grayscale10
+        )
+        
         imageView.kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
-            placeholder: UIImage.blockFile.noImage
-        ) { [weak self] result in
-            guard
-                case let .success(success) = result,
-                let self = self
-            else { return }
-            
-            self.imageView.contentMode = self.isImageLong(image: success.image) ? .scaleAspectFit : .scaleAspectFill
-        }
+            placeholder: placeholder,
+            options: [.processor(DownsamplingImageProcessor(size: imageSize))]
+        )
     }
     
-    private func isImageLong(image: UIImage) -> Bool {
-        if image.size.height / image.size.width > 3 {
-            return true
-        }
-        
-        if image.size.width / image.size.height > 3 {
-            return true
-        }
-        
-        return false
-    }
 }
 
 private extension BlockImageContentView {
@@ -105,16 +100,4 @@ private extension BlockImageContentView {
         static let imageViewTop: CGFloat = 4
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
     }
-}
-
-private extension LayoutAlignment {
-    
-    var imageContentMode: UIView.ContentMode {
-        switch self {
-        case .left: return .left
-        case .center: return .center
-        case .right: return .right
-        }
-    }
-    
 }
