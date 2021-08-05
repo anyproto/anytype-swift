@@ -29,5 +29,7 @@ struct BlockImageConfiguration: UIContentConfiguration, Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(fileData)
+        hasher.combine(alignment)
+        hasher.combine(maxWidth)
     }
 }

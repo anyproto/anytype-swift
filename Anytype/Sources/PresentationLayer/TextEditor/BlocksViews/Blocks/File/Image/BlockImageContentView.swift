@@ -41,7 +41,7 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        imageView.contentMode = .center
+        imageView.contentMode = currentConfiguration.alignment.asContentMode
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
@@ -69,6 +69,9 @@ final class BlockImageContentView: UIView & UIContentView {
     
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
         guard !file.metadata.hash.isEmpty else { return }
+        
+        imageView.contentMode = currentConfiguration.alignment.asContentMode
+
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
         
@@ -100,4 +103,16 @@ private extension BlockImageContentView {
         static let imageViewTop: CGFloat = 4
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
     }
+}
+
+private extension LayoutAlignment {
+    
+    var asContentMode: UIView.ContentMode {
+        switch self {
+        case .left: return .left
+        case .center: return .center
+        case .right: return .right
+        }
+    }
+    
 }
