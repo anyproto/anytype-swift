@@ -438,6 +438,7 @@
 		EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */; };
 		EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */; };
 		EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE022613703B00DBA9FE /* MediaPickerContentType.swift */; };
+		EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */; };
 		EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289B8A2629A7DD00EA869F /* BlockActionMenuItem.swift */; };
 		EA289B932629A89400EA869F /* SlashMenuItemDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289B922629A89400EA869F /* SlashMenuItemDisplayData.swift */; };
 		EA289BBB2629D52C00EA869F /* TurnIntoSelectionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BBA2629D52C00EA869F /* TurnIntoSelectionStorage.swift */; };
@@ -1028,6 +1029,7 @@
 		EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentView.swift; sourceTree = "<group>"; };
 		EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentViewConfiguration.swift; sourceTree = "<group>"; };
 		EA20CE022613703B00DBA9FE /* MediaPickerContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
+		EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifierTests.swift; sourceTree = "<group>"; };
 		EA289B8A2629A7DD00EA869F /* BlockActionMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionMenuItem.swift; sourceTree = "<group>"; };
 		EA289B922629A89400EA869F /* SlashMenuItemDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItemDisplayData.swift; sourceTree = "<group>"; };
 		EA289BBA2629D52C00EA869F /* TurnIntoSelectionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnIntoSelectionStorage.swift; sourceTree = "<group>"; };
@@ -1628,6 +1630,7 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				EA26403C26BC058E006071BD /* TextBlockApplyMarkup */,
 				EA57F35C26B5F3D8007D4292 /* TextBlockMarkupState */,
 				03C5C54422DFD90C00DD91DE /* Info.plist */,
 			);
@@ -3285,6 +3288,14 @@
 			path = File;
 			sourceTree = "<group>";
 		};
+		EA26403C26BC058E006071BD /* TextBlockApplyMarkup */ = {
+			isa = PBXGroup;
+			children = (
+				EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */,
+			);
+			path = TextBlockApplyMarkup;
+			sourceTree = "<group>";
+		};
 		EA289B872629A7C000EA869F /* BlockActions */ = {
 			isa = PBXGroup;
 			children = (
@@ -4233,6 +4244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA57F36726B6EF26007D4292 /* BlockHandlerActionType.TextAttributesType+Tests.swift in Sources */,
+				EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */,
 				EA57F36426B5F476007D4292 /* BoldMarkupStateTests.swift in Sources */,
 				EA57F36D26B6FC44007D4292 /* CodeMarkupStateTests.swift in Sources */,
 				EA57F36B26B6FB7E007D4292 /* ItalicMarkupStateTests.swift in Sources */,

@@ -98,12 +98,14 @@ final class MarkStyleModifier {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
         let mentionAttachment = MentionAttachment(name: mentionAttributedString.string, pageId: pageId)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
-        if let font = mentionAttributedString.attribute(.font, at: 0, effectiveRange: nil) {
-            mentionAttachmentString.addAttribute(
-                .font,
-                value: font,
-                range: NSRange(location: 0, length: mentionAttachmentString.length))
-        }
+        let currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
+        mentionAttachmentString.addAttributes(
+            currentAttributes,
+            range: NSRange(
+                location: 0,
+                length: mentionAttachmentString.length
+            )
+        )
         attributedString.insert(mentionAttachmentString, at: range.location)
     }
 }
