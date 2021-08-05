@@ -30,6 +30,7 @@ enum ButtonsFactory {
         let button = ButtonWithImage()
         button.setImage(image)
         button.setBackgroundColor(.clear, state: .normal)
+        button.setBackgroundColor(.clear, state: .disabled)
         button.setBackgroundColor(.selected, state: .selected)
         button.setImageTintColor(.buttonInactive, state: .disabled)
         button.setImageTintColor(.textColor, state: .normal)
