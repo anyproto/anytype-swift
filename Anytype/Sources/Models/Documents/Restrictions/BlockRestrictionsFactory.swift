@@ -13,8 +13,14 @@ struct BlockRestrictionsFactory {
             return self.makeTextRestrictions(for: text)
         case .divider:
             return DividerBlockRestrictions()
-        case .file:
-            return FileBlockRestrictions()
+        case let .file(contentType):
+            switch contentType {
+            case .image:
+                return ImageBlockRestrictions()
+            default:
+                return FileBlockRestrictions()
+            }
+            
         case .link:
             return PageBlockRestrictions()
         case .bookmark:
