@@ -32,11 +32,23 @@ public struct BlockInformation: Hashable {
 
 extension BlockInformation {
     public static func createNew(content: BlockContent) -> BlockInformation {
+        let alignment: LayoutAlignment = {
+            guard case .file(let blockFile) = content else {
+                return .left
+            }
+            
+            switch blockFile.contentType {
+            case .image : return .center
+            default:
+                return .left
+            }
+        }()
+        
         return BlockInformation(
             id: BlockId(""),
             content: content,
             backgroundColor: nil,
-            alignment: .left,
+            alignment: alignment,
             childrenIds: [],
             fields: [:]
         )
