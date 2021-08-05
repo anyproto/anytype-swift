@@ -38,7 +38,7 @@ struct BlockPageLinkViewModel: BlockViewModelProtocol {
         self.state = details.flatMap { BlockPageLinkState(pageDetails: $0) } ?? .empty
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         return BlockPageLinkContentConfiguration(content: content, state: state)
     }
     

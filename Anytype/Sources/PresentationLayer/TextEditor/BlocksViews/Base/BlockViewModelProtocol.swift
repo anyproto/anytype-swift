@@ -21,7 +21,7 @@ protocol HashableProvier {
 }
 
 protocol ContentConfigurationProvider {
-    func makeContentConfiguration() -> UIContentConfiguration
+    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
 }
 
 protocol BlockDataProvider {

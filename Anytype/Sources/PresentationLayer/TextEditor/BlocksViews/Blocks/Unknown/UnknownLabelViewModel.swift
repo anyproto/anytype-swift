@@ -25,7 +25,7 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
         anytypeAssertionFailure("Handling of contextual menu items not supported")
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.text = "\(information.content.identifier) -> \(information.id)"
         return contentConfiguration

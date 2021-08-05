@@ -44,7 +44,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         switch fileData.state {
         case .empty:
             return emptyViewConfiguration(state: .default)

@@ -25,7 +25,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     let textDidChange: (BlockModelProtocol, UITextView) -> ()
     let showCodeSelection: (BlockModelProtocol) -> ()
 
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         return CodeBlockContentConfiguration(
             content: textData,
             backgroundColor: information.backgroundColor,

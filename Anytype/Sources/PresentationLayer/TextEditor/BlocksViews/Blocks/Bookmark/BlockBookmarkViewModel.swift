@@ -19,7 +19,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let showBookmarkBar: (BlockInformation) -> ()
     let openUrl: (URL) -> ()
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         let state = bookmarkData.blockBookmarkState
         switch state {
         case .empty:
