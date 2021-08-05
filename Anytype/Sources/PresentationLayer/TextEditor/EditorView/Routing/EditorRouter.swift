@@ -84,17 +84,10 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let parentController = controller.parent,
-              let container = document.rootModel else { return }
+              let parentController = controller.parent else { return }
         controller.view.endEditing(true)
 
-        BottomSheetsFactory.createStyleBottomSheet(
-            parentViewController: parentController,
-            delegate: controller,
-            information: information,
-            container: container,
-            actionHandler: controller.viewModel.blockActionHandler
-        ) { fpc in
+        let didShow: (FloatingPanelController) -> Void  = { fpc in
             // Initialy keyboard is shown and we open context menu, so keyboard moves away
             // Then we select "Style" item from menu and display bottom sheet
             // Then system call "becomeFirstResponder" on UITextView which was firstResponder
@@ -104,7 +97,27 @@ final class EditorRouter: EditorRouterProtocol {
             }
             controller.adjustContentOffset(fpc: fpc)
         }
-
+        
+        BottomSheetsFactory.createStyleBottomSheet(
+            parentViewController: parentController,
+            delegate: controller,
+            information: information,
+            actionHandler: controller.viewModel.blockActionHandler,
+            didShow: didShow,
+            showMarkupMenu: { [weak controller, weak self] in
+                guard let controller = controller,
+                      let parent = controller.parent,
+                      let container = self?.document.rootActiveModel?.container,
+                      let actualInformation = container.model(id: information.id)?.information else {
+                    return
+                }
+                BottomSheetsFactory.showMarkupBottomSheet(
+                    parentViewController: parent,
+                    blockInformation: actualInformation,
+                    viewModel: controller.viewModel.wholeBlockMarkupViewModel
+                )
+            }
+        )
         controller.selectBlock(blockId: information.id)
     }
 }

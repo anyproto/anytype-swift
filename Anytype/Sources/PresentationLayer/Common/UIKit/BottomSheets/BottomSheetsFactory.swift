@@ -12,7 +12,8 @@ final class BottomSheetsFactory {
         delegate: FloatingPanelControllerDelegate,
         information: BlockInformation,
         actionHandler: EditorActionHandlerProtocol,
-        didShow: @escaping (FloatingPanelController) -> Void
+        didShow: @escaping (FloatingPanelController) -> Void,
+        showMarkupMenu: @escaping () -> Void
     ) {
         let fpc = FloatingPanelController()
         fpc.delegate = delegate
@@ -53,14 +54,9 @@ final class BottomSheetsFactory {
             viewControllerForPresenting: parentViewController,
             style: textContentType,
             askColor: askColor,
-            askBackgroundColor: askBackgroundColor) { [weak parentViewController] in
-            guard let parentViewController = parentViewController else { return }
-            BottomSheetsFactory.showMarkupBottomSheet(
-                parentViewController: parentViewController,
-                blockInformation: information,
-                blockActionHandler: actionHandler
-            )
-        } actionHandler: { action in
+            askBackgroundColor: askBackgroundColor,
+            didTapMarkupButton: showMarkupMenu
+        ) { action in
             actionHandler.handleAction(action, blockId: information.id)
         }
         
@@ -73,12 +69,9 @@ final class BottomSheetsFactory {
     static func showMarkupBottomSheet(
         parentViewController: UIViewController,
         blockInformation: BlockInformation,
-        blockActionHandler: EditorActionHandlerProtocol
+        viewModel: MarkupViewModel
     ) {
-        let viewModel = MarkupViewModel(
-            actionHandler: blockActionHandler,
-            blockInformation: blockInformation
-        )
+        viewModel.blockInformation = blockInformation
         viewModel.setRange(.whole)
         let markupsViewController = MarkupsViewController(viewModel: viewModel)
         viewModel.view = markupsViewController
