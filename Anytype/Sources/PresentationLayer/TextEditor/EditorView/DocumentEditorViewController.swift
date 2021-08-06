@@ -393,9 +393,7 @@ private extension DocumentEditorViewController {
         cell.indentationLevel = item.indentationLevel
         cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
 
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .clear
-        cell.selectedBackgroundView = backgroundView
+        cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
     }
 
     func setupInteractions() {
