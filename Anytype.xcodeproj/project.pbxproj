@@ -196,6 +196,7 @@
 		129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */; };
 		129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */; };
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
+		12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12B199EA268DCCCD002B9BD7 /* DocumentCoverViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */; };
 		12B199EE268DD1C9002B9BD7 /* DocumentIconViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */; };
@@ -792,6 +793,7 @@
 		129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
+		12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBlockRestrictions.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12B199E9268DCCCD002B9BD7 /* DocumentCoverViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverViewState.swift; sourceTree = "<group>"; };
 		12B199ED268DD1C9002B9BD7 /* DocumentIconViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewState.swift; sourceTree = "<group>"; };
@@ -2830,6 +2832,7 @@
 				EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */,
 				EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */,
 				3DB6929F2697066500149864 /* DummyRestrictions.swift */,
+				12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */,
 			);
 			path = Restrictions;
 			sourceTree = "<group>";
@@ -4066,6 +4069,7 @@
 				3D568F972666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift in Sources */,
 				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
+				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				3DEFD6652689FE740072EA27 /* DocumentIconImageView.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
