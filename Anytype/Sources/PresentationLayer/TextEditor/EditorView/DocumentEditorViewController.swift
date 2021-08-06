@@ -150,12 +150,16 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             case let .block(block):
                 guard case let .text(text) = block.content else { return true }
                 return text.contentType != .title
+            case .header:
+                return false
             }
         }
         
         switch item {
         case let .block(block):
             guard case .text = block.content else { return true }
+            return false
+        case .header:
             return false
         }
     }
@@ -173,6 +177,8 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
             
             return block.contextMenuConfiguration()
+        case .header:
+            return nil
         }
     }
 }
@@ -193,6 +199,9 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
                 else { return }
                 
                 cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
+            case .header:
+                // TODO: - Implement
+                return
             }
         }
         updateView()
@@ -218,6 +227,9 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
                     
                     cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
                     cell.indentationLevel = block.indentationLevel
+                case .header:
+                    // TODO: - implement
+                    return
                 }
             }
 
@@ -230,6 +242,8 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
+            case .header:
+                return false
             }
         }
         
@@ -284,9 +298,11 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
                 let focus = userSession?.focus ?? .end
                 blockViewModel.set(focus: focus)
             }
-            
+
+        case .header:
+            // TODO: - implement
+            return
         }
-        
     }
 
     func adjustContentOffset(fpc: FloatingPanelController) {
@@ -362,6 +378,9 @@ private extension DocumentEditorViewController {
                 }
                 
                 return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: block)
+            case .header:
+                // TODO: - implement
+                return nil
             }
         }
         
