@@ -15,7 +15,16 @@ struct BlockBuilder {
 
     static func createInformation(blockType: BlockViewType) -> BlockInformation? {
         return createContentType(blockType: blockType).flatMap { content in
-            BlockInformation.createNew(content: content)
+            var block = BlockInformation.createNew(content: content)
+            
+            guard
+                case .file(let blockFile) = content,
+                case .image = blockFile.contentType
+            else { return block }
+            
+            block.alignment = .center
+
+            return block
         }
     }
     
