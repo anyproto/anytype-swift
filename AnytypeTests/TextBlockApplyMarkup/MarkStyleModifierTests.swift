@@ -20,6 +20,10 @@ final class MarkStyleModifierTests: XCTestCase {
         )
     }
     
+    override func tearDown() {
+        sut = nil
+    }
+    
     // MARK: Whole string markup
     
     func testOnlyCodeMarkupApply() {
