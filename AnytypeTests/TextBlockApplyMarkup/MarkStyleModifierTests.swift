@@ -1,222 +1,721 @@
 import XCTest
 @testable import Anytype
 
+
 final class MarkStyleModifierTests: XCTestCase {
     
-    private var sut = MarkStyleModifier(defaultNonCodeFont: .body)
-    private let defaultFont = UIFont.body
+    private var sut: MarkStyleModifier!
     
-    private var wholeStringRange: NSRange {
-        NSRange(location: 0, length: sut.attributedString.length)
-    }
-    private var isWholeItalic: Bool {
-        sut.attributedString.isFontInWhole(range: wholeStringRange, has: .traitItalic)
-    }
-    private var isWholeBold: Bool {
-        sut.attributedString.isFontInWhole(range: wholeStringRange, has: .traitBold)
-    }
-    private var isWholeCode: Bool {
-        sut.attributedString.isCodeFontInWhole(range: wholeStringRange)
-    }
-    private var isWholeStrikethrough: Bool {
-        sut.attributedString.isEverySymbol(in: wholeStringRange, has: .strikethroughStyle)
-    }
+    // MARK: Overrides
     
     override func setUp() {
+        let font = UIFont.body
         let string = NSMutableAttributedString(
             string: "Some string to test MarkStyleModifier entity!",
-            attributes: [.font: defaultFont])
-        sut = MarkStyleModifier(attributedText: string, defaultNonCodeFont: defaultFont)
+            attributes: [.font: font]
+        )
+        sut = MarkStyleModifier(
+            attributedText: string,
+            defaultNonCodeFont: font
+        )
     }
     
     // MARK: Whole string markup
     
     func testOnlyCodeMarkupApply() {
-        applyToWholeString(.keyboard(true))
+        // Given
+        let markup = MarkStyle.keyboard(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeCode)
+        // When
+        sut.applyStyle(
+            style: markup,
+            range: range
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isCodeFontInWhole(range: range)
+        XCTAssertTrue(hasMarkup)
     }
     
     func testOnlyBoldMarkupApply() {
-        applyToWholeString(.bold(true))
+        // Given
+        let markup = MarkStyle.bold(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeBold)
+        // When
+        sut.applyStyle(
+            style: markup,
+            range: range
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitBold
+        )
+        XCTAssertTrue(hasMarkup)
     }
     
     func testOnlyItalicMarkupApply() {
-        applyToWholeString(.italic(true))
+        // Given
+        let markup = MarkStyle.italic(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeItalic)
+        // When
+        sut.applyStyle(
+            style: markup,
+            range: range
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitItalic
+        )
+        XCTAssertTrue(hasMarkup)
     }
     
     func testOnlyStrikethroughMarkupApply() {
-        applyToWholeString(.strikethrough(true))
+        // Given
+        let markup = MarkStyle.strikethrough(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeStrikethrough)
+        // When
+        sut.applyStyle(
+            style: markup,
+            range: range
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isEverySymbol(
+            in: range,
+            has: .strikethroughStyle
+        )
+        XCTAssertTrue(hasMarkup)
     }
     
     func testBoldAndItalicWholeString() {
-        applyToWholeString(.bold(true))
-        applyToWholeString(.italic(true))
+        // Given
+        let bold = MarkStyle.bold(true)
+        let italic = MarkStyle.italic(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeBold)
-        XCTAssertTrue(isWholeItalic)
+        // When
+        sut.applyStyle(
+            style: bold,
+            range: range
+        )
+        sut.applyStyle(
+            style: italic,
+            range: range
+        )
+        
+        // Then
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitBold
+        )
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitItalic
+        )
+        
+        XCTAssertTrue(hasBold)
+        XCTAssertTrue(hasItalic)
     }
     
     func testBoldAndCodeWholeString() {
-        applyToWholeString(.bold(true))
-        applyToWholeString(.keyboard(true))
+        // Given
+        let bold = MarkStyle.bold(true)
+        let code = MarkStyle.keyboard(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeCode)
-        XCTAssertTrue(isWholeBold)
+        // When
+        sut.applyStyle(
+            style: bold,
+            range: range
+        )
+        sut.applyStyle(
+            style: code,
+            range: range
+        )
+        
+        // Then
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitBold
+        )
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: range)
+        
+        XCTAssertTrue(hasBold)
+        XCTAssertTrue(hasCode)
     }
     
     func testBoldAndStrikethroughWholeString() {
-        applyToWholeString(.bold(true))
-        applyToWholeString(.strikethrough(true))
+        // Given
+        let bold = MarkStyle.bold(true)
+        let strikethrough = MarkStyle.strikethrough(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeStrikethrough)
-        XCTAssertTrue(isWholeBold)
+        // When
+        sut.applyStyle(
+            style: bold,
+            range: range
+        )
+        sut.applyStyle(
+            style: strikethrough,
+            range: range
+        )
+        
+        // Then
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitBold
+        )
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: range,
+            has: .strikethroughStyle
+        )
+        
+        XCTAssertTrue(hasBold)
+        XCTAssertTrue(hasStrikethrough)
     }
     
     func testItalicAndCodeWholeString() {
-        applyToWholeString(.keyboard(true))
-        applyToWholeString(.italic(true))
+        // Given
+        let italic = MarkStyle.italic(true)
+        let code = MarkStyle.keyboard(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeItalic)
-        XCTAssertTrue(isWholeCode)
+        // When
+        sut.applyStyle(
+            style: italic,
+            range: range
+        )
+        sut.applyStyle(
+            style: code,
+            range: range
+        )
+        
+        // Then
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitItalic
+        )
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: range)
+        
+        XCTAssertTrue(hasItalic)
+        XCTAssertTrue(hasCode)
     }
     
     func testItalicAndStrikethroughWholeString() {
-        applyToWholeString(.strikethrough(true))
-        applyToWholeString(.italic(true))
+        // Given
+        let italic = MarkStyle.italic(true)
+        let strikethrough = MarkStyle.strikethrough(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeItalic)
-        XCTAssertTrue(isWholeStrikethrough)
+        // When
+        sut.applyStyle(
+            style: italic,
+            range: range
+        )
+        sut.applyStyle(
+            style: strikethrough,
+            range: range
+        )
+        
+        // Then
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitItalic
+        )
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: range,
+            has: .strikethroughStyle
+        )
+        
+        XCTAssertTrue(hasItalic)
+        XCTAssertTrue(hasStrikethrough)
     }
     
     func tesCodeAndStrikethroughWholeString() {
-        applyToWholeString(.keyboard(true))
-        applyToWholeString(.strikethrough(true))
+        // Given
+        let code = MarkStyle.keyboard(true)
+        let strikethrough = MarkStyle.strikethrough(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeCode)
-        XCTAssertTrue(isWholeStrikethrough)
+        // When
+        sut.applyStyle(
+            style: code,
+            range: range
+        )
+        sut.applyStyle(
+            style: strikethrough,
+            range: range
+        )
+        
+        // Then
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: range)
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: range,
+            has: .strikethroughStyle
+        )
+        
+        XCTAssertTrue(hasCode)
+        XCTAssertTrue(hasStrikethrough)
     }
     
     func testBoldItalicCodeStrikethroughMarkupsToWholeString() {
-        applyToWholeString(.keyboard(true))
-        applyToWholeString(.bold(true))
-        applyToWholeString(.italic(true))
-        applyToWholeString(.strikethrough(true))
+        // Given
+        let code = MarkStyle.keyboard(true)
+        let strikethrough = MarkStyle.strikethrough(true)
+        let bold = MarkStyle.bold(true)
+        let italic = MarkStyle.italic(true)
+        let range = NSRange(
+            location: 0,
+            length: sut.attributedString.length
+        )
         
-        XCTAssertTrue(isWholeCode)
-        XCTAssertTrue(isWholeStrikethrough)
-        XCTAssertTrue(isWholeItalic)
-        XCTAssertTrue(isWholeBold)
+        // When
+        sut.applyStyle(
+            style: code,
+            range: range
+        )
+        sut.applyStyle(
+            style: strikethrough,
+            range: range
+        )
+        sut.applyStyle(
+            style: bold,
+            range: range
+        )
+        sut.applyStyle(
+            style: italic,
+            range: range
+        )
+        
+        // Then
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: range)
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: range,
+            has: .strikethroughStyle
+        )
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitBold
+        )
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: range,
+            has: .traitItalic
+        )
+        
+        XCTAssertTrue(hasCode)
+        XCTAssertTrue(hasStrikethrough)
+        XCTAssertTrue(hasBold)
+        XCTAssertTrue(hasItalic)
     }
     
     // MARK: Overlapping
     
     func testBoldAndItalicOverlapping() {
-        let (hasBold, hasItalic) = applyOverlappingMarkups(
-            first: .bold(true),
-            second: .italic(true),
-            firstRange: NSRange(location: 2, length: 5),
-            secondRange: NSRange(location: 3, length: 7)
+        // Given
+        let bold = MarkStyle.bold(true)
+        let italic = MarkStyle.italic(true)
+        let boldRange = NSRange(
+            location: 2,
+            length: 5
         )
+        let italicRange = NSRange(
+            location: 3,
+            length: 7
+        )
+        
+        if !sut.attributedString.isRangeValid(boldRange) ||
+            !sut.attributedString.isRangeValid(italicRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: bold,
+            range: boldRange
+        )
+        sut.applyStyle(
+            style: italic,
+            range: italicRange
+        )
+        
+        // Then
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: boldRange,
+            has: .traitBold
+        )
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: italicRange,
+            has: .traitItalic
+        )
+        
         XCTAssertTrue(hasBold)
         XCTAssertTrue(hasItalic)
     }
     
     func testBoldAndCodeOverlapping() {
-        let (hasBold, hasCode) = applyOverlappingMarkups(
-            first: .bold(true),
-            second: .keyboard(true),
-            firstRange: NSRange(location: 2, length: 5),
-            secondRange: NSRange(location: 3, length: 7)
+        // Given
+        let bold = MarkStyle.bold(true)
+        let code = MarkStyle.keyboard(true)
+        let boldRange = NSRange(
+            location: 2,
+            length: 5
         )
+        let codeRange = NSRange(
+            location: 3,
+            length: 7
+        )
+        
+        if !sut.attributedString.isRangeValid(boldRange) ||
+            !sut.attributedString.isRangeValid(codeRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: bold,
+            range: boldRange
+        )
+        sut.applyStyle(
+            style: code,
+            range: codeRange
+        )
+        
+        // Then
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: boldRange,
+            has: .traitBold
+        )
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: codeRange)
+        
         XCTAssertTrue(hasBold)
         XCTAssertTrue(hasCode)
     }
     
     func testBoldAndStrikethroughOverlapping() {
-        let (hasBold, hasStrikethrough) = applyOverlappingMarkups(
-            first: .bold(true),
-            second: .strikethrough(true),
-            firstRange: NSRange(location: 2, length: 5),
-            secondRange: NSRange(location: 3, length: 7)
+        // Given
+        let bold = MarkStyle.bold(true)
+        let strikethrough = MarkStyle.strikethrough(true)
+        let boldRange = NSRange(
+            location: 2,
+            length: 5
         )
+        let strikethroughRange = NSRange(
+            location: 3,
+            length: 7
+        )
+        
+        if !sut.attributedString.isRangeValid(boldRange) ||
+            !sut.attributedString.isRangeValid(strikethroughRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: bold,
+            range: boldRange
+        )
+        sut.applyStyle(
+            style: strikethrough,
+            range: strikethroughRange
+        )
+        
+        // Then
+        let hasBold = sut.attributedString.isFontInWhole(
+            range: boldRange,
+            has: .traitBold
+        )
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: strikethroughRange,
+            has: .strikethroughStyle
+        )
+        
         XCTAssertTrue(hasBold)
         XCTAssertTrue(hasStrikethrough)
     }
     
     func testItalicAndCodeOverlapping() {
-        let (hasCode, hasItalic) = applyOverlappingMarkups(
-            first: .keyboard(true),
-            second: .italic(true),
-            firstRange: NSRange(location: 2, length: 5),
-            secondRange: NSRange(location: 3, length: 7)
+        // Given
+        let code = MarkStyle.keyboard(true)
+        let italic = MarkStyle.italic(true)
+        let codeRange = NSRange(
+            location: 2,
+            length: 5
         )
+        let italicRange = NSRange(
+            location: 3,
+            length: 7
+        )
+        
+        if !sut.attributedString.isRangeValid(codeRange) ||
+            !sut.attributedString.isRangeValid(italicRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: code,
+            range: codeRange
+        )
+        sut.applyStyle(
+            style: italic,
+            range: italicRange
+        )
+        
+        // Then
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: codeRange)
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: italicRange,
+            has: .traitItalic
+        )
+        
         XCTAssertTrue(hasCode)
         XCTAssertTrue(hasItalic)
     }
     
     func testItalicAndStrikethroughOverlapping() {
-        let (hasStrikethrough, hasItalic) = applyOverlappingMarkups(
-            first: .strikethrough(true),
-            second: .italic(true),
-            firstRange: NSRange(location: 2, length: 5),
-            secondRange: NSRange(location: 3, length: 7)
+        // Given
+        let italic = MarkStyle.italic(true)
+        let strikethrough = MarkStyle.strikethrough(true)
+        let italicRange = NSRange(
+            location: 2,
+            length: 5
         )
-        XCTAssertTrue(hasStrikethrough)
+        let strikethroughRange = NSRange(
+            location: 3,
+            length: 7
+        )
+        
+        if !sut.attributedString.isRangeValid(italicRange) ||
+            !sut.attributedString.isRangeValid(strikethroughRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: italic,
+            range: italicRange
+        )
+        sut.applyStyle(
+            style: strikethrough,
+            range: strikethroughRange
+        )
+        
+        // Then
+        let hasItalic = sut.attributedString.isFontInWhole(
+            range: italicRange,
+            has: .traitItalic
+        )
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: strikethroughRange,
+            has: .strikethroughStyle
+        )
+        
         XCTAssertTrue(hasItalic)
+        XCTAssertTrue(hasStrikethrough)
     }
     
     func testStrikethroughAndCodeOverlapping() {
-        let (hasStrikethrough, hasCode) = applyOverlappingMarkups(
-            first: .strikethrough(true),
-            second: .keyboard(true),
-            firstRange: NSRange(location: 2, length: 5),
-            secondRange: NSRange(location: 3, length: 7)
+        // Given
+        let strikethrough = MarkStyle.strikethrough(true)
+        let code = MarkStyle.keyboard(true)
+        let strikethroughRange = NSRange(
+            location: 2,
+            length: 5
         )
-        XCTAssertTrue(hasStrikethrough)
+        let codeRange = NSRange(
+            location: 3,
+            length: 7
+        )
+        
+        if !sut.attributedString.isRangeValid(strikethroughRange) ||
+            !sut.attributedString.isRangeValid(codeRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: strikethrough,
+            range: strikethroughRange
+        )
+        sut.applyStyle(
+            style: code,
+            range: codeRange
+        )
+        
+        // Then
+        let hasCode = sut.attributedString.isCodeFontInWhole(range: codeRange)
+        let hasStrikethrough = sut.attributedString.isEverySymbol(
+            in: strikethroughRange,
+            has: .strikethroughStyle
+        )
+        
         XCTAssertTrue(hasCode)
+        XCTAssertTrue(hasStrikethrough)
     }
     
     // MARK: Markup then Mention
     
     func testBoldMarkupAndThenMention() {
-        let hasMarkup = applyMarkupAndInsertMention(
-            .bold(true),
-            markRange: NSRange(location: 3, length: 10),
-            mentionRange: NSRange(location: 4, length: 4)
+        // Given
+        let markup = MarkStyle.bold(true)
+        let boldRange = NSRange(location: 3, length: 10)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 4, length: 4)
+        
+        if !sut.attributedString.isRangeValid(boldRange) ||
+            !sut.attributedString.isRangeValid(mentionRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        //When
+        sut.applyStyle(
+            style: markup,
+            range: boldRange
+        )
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        
+        //Then
+        let hasMarkup = sut.attributedString.isFontInWhole(
+            range: boldRange,
+            has: .traitBold
         )
         XCTAssertTrue(hasMarkup)
     }
     
     func testItalicMarkupAndThenMention() {
-        let hasMarkup = applyMarkupAndInsertMention(
-            .italic(true),
-            markRange: NSRange(location: 3, length: 10),
-            mentionRange: NSRange(location: 4, length: 4)
+        // Given
+        let markup = MarkStyle.italic(true)
+        let italicRange = NSRange(location: 3, length: 10)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 4, length: 4)
+        
+        if !sut.attributedString.isRangeValid(italicRange) ||
+            !sut.attributedString.isRangeValid(mentionRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        //When
+        sut.applyStyle(
+            style: markup,
+            range: italicRange
+        )
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        
+        //Then
+        let hasMarkup = sut.attributedString.isFontInWhole(
+            range: italicRange,
+            has: .traitItalic
         )
         XCTAssertTrue(hasMarkup)
     }
     
     func testCodeMarkupAndThenMention() {
-        let hasMarkup = applyMarkupAndInsertMention(
-            .keyboard(true),
-            markRange: NSRange(location: 3, length: 10),
-            mentionRange: NSRange(location: 4, length: 4)
+        // Given
+        let markup = MarkStyle.keyboard(true)
+        let codeRange = NSRange(location: 3, length: 10)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 4, length: 4)
+        
+        if !sut.attributedString.isRangeValid(codeRange) ||
+            !sut.attributedString.isRangeValid(mentionRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        //When
+        sut.applyStyle(
+            style: markup,
+            range: codeRange
         )
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        
+        //Then
+        let hasMarkup = sut.attributedString.isCodeFontInWhole(range: codeRange)
         XCTAssertTrue(hasMarkup)
     }
     
     func testStrikethroughMarkupAndThenMention() {
-        let hasMarkup = applyMarkupAndInsertMention(
-            .strikethrough(true),
-            markRange: NSRange(location: 3, length: 10),
-            mentionRange: NSRange(location: 4, length: 4)
+        // Given
+        let markup = MarkStyle.strikethrough(true)
+        let strikethroughRange = NSRange(location: 3, length: 10)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 4, length: 4)
+        
+        if !sut.attributedString.isRangeValid(strikethroughRange) ||
+            !sut.attributedString.isRangeValid(mentionRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        //When
+        sut.applyStyle(
+            style: markup,
+            range: strikethroughRange
+        )
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        
+        //Then
+        let hasMarkup = sut.attributedString.isEverySymbol(
+            in: strikethroughRange,
+            has: .strikethroughStyle
         )
         XCTAssertTrue(hasMarkup)
     }
@@ -224,127 +723,123 @@ final class MarkStyleModifierTests: XCTestCase {
     // MARK: Mention then Markup
     
     func testInsertMentionAndThenApplyBold() {
-        let hasMarkup = applyMentionAndThenMarkup(
-            .bold(true),
-            mentionRange: NSRange(location: 5, length: 5),
-            markRange: NSRange(location: 4, length: 8)
+        // Given
+        let markup = MarkStyle.bold(true)
+        let markupRange = NSRange(location: 4, length: 8)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 5, length: 5)
+        
+        if !sut.attributedString.isRangeValid(mentionRange) ||
+            !sut.attributedString.isRangeValid(markupRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        sut.applyStyle(
+            style: markup,
+            range: markupRange
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isFontInWhole(
+            range: markupRange,
+            has: .traitBold
         )
         XCTAssertTrue(hasMarkup)
     }
     
     func testInsertMentionAndThenApplyItalic() {
-        let hasMarkup = applyMentionAndThenMarkup(
-            .italic(true),
-            mentionRange: NSRange(location: 5, length: 5),
-            markRange: NSRange(location: 4, length: 8)
+        // Given
+        let markup = MarkStyle.italic(true)
+        let markupRange = NSRange(location: 4, length: 8)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 5, length: 5)
+        
+        if !sut.attributedString.isRangeValid(mentionRange) ||
+            !sut.attributedString.isRangeValid(markupRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        sut.applyStyle(
+            style: markup,
+            range: markupRange
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isFontInWhole(
+            range: markupRange,
+            has: .traitItalic
         )
         XCTAssertTrue(hasMarkup)
     }
     
     func testInsertMentionAndThenApplyCode() {
-        let hasMarkup = applyMentionAndThenMarkup(
-            .keyboard(true),
-            mentionRange: NSRange(location: 5, length: 5),
-            markRange: NSRange(location: 4, length: 8)
+        // Given
+        let markup = MarkStyle.keyboard(true)
+        let markupRange = NSRange(location: 4, length: 8)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 5, length: 5)
+        
+        if !sut.attributedString.isRangeValid(mentionRange) ||
+            !sut.attributedString.isRangeValid(markupRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
         )
+        sut.applyStyle(
+            style: markup,
+            range: markupRange
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isCodeFontInWhole(range: markupRange)
         XCTAssertTrue(hasMarkup)
     }
     
     func testInsertMentionAndThenApplyStrikethrough() {
-        let hasMarkup = applyMentionAndThenMarkup(
-            .strikethrough(true),
-            mentionRange: NSRange(location: 5, length: 5),
-            markRange: NSRange(location: 4, length: 8)
+        // Given
+        let markup = MarkStyle.strikethrough(true)
+        let markupRange = NSRange(location: 4, length: 8)
+        let mention = MarkStyle.mention("randomPage")
+        let mentionRange = NSRange(location: 5, length: 5)
+        
+        if !sut.attributedString.isRangeValid(mentionRange) ||
+            !sut.attributedString.isRangeValid(markupRange) {
+            XCTFail("Ranges out of bounds")
+            return
+        }
+        
+        // When
+        sut.applyStyle(
+            style: mention,
+            range: mentionRange
+        )
+        sut.applyStyle(
+            style: markup,
+            range: markupRange
+        )
+        
+        // Then
+        let hasMarkup = sut.attributedString.isEverySymbol(
+            in: markupRange,
+            has: .strikethroughStyle
         )
         XCTAssertTrue(hasMarkup)
-    }
-    
-    private func applyMentionAndThenMarkup(
-        _ mark: MarkStyle,
-        mentionRange: NSRange,
-        markRange: NSRange
-    ) -> Bool {
-        if !isRangeValid(mentionRange) || !isRangeValid(markRange) {
-            XCTFail("Ranges out of bounds")
-        }
-        sut.applyStyle(style: .mention("randomPage"), range: mentionRange)
-        sut.applyStyle(style: mark, range: markRange)
-        return isThereMarkup(mark: mark, at: markRange)
-    }
-    
-    private func applyMarkupAndInsertMention(
-        _ mark: MarkStyle,
-        markRange: NSRange,
-        mentionRange: NSRange
-    ) -> Bool {
-        if !isRangeValid(mentionRange) || !isRangeValid(markRange) {
-            XCTFail("Ranges out of bounds")
-        }
-        sut.applyStyle(style: mark, range: markRange)
-        sut.applyStyle(style: .mention("randomPage"), range: mentionRange)
-        return isThereMarkup(mark: mark, at: markRange)
-    }
-    
-    private func applyOverlappingMarkups(
-        first: MarkStyle,
-        second: MarkStyle,
-        firstRange: NSRange,
-        secondRange: NSRange
-    ) -> (Bool, Bool) {
-        if !isRangeValid(firstRange) || !isRangeValid(secondRange) {
-            XCTFail("Ranges out of bounds")
-        }
-        sut.applyStyle(style: first, range: firstRange)
-        sut.applyStyle(style: second, range: secondRange)
-        
-        return (isThereMarkup(mark: first, at: firstRange), isThereMarkup(mark: second, at: secondRange))
-    }
-    
-    private func isRangeValid(_ range: NSRange) -> Bool {
-        sut.attributedString.isRangeValid(range)
-    }
-    
-    private func isThereMarkup(mark: MarkStyle, at range: NSRange) -> Bool {
-        switch mark {
-        case let .bold(hasBold):
-            return sut.attributedString.isFontInWhole(range: range, has: .traitBold) == hasBold
-        case let .italic(hasItalic):
-            return sut.attributedString.isFontInWhole(range: range, has: .traitItalic) == hasItalic
-        case let .keyboard(hasCode):
-            return sut.attributedString.isCodeFontInWhole(range: range) == hasCode
-        case let .strikethrough(hasValue):
-            return sut.attributedString.isEverySymbol(in: range, has: .strikethroughStyle) == hasValue
-        case let .backgroundColor(color):
-            let value = sut.attributedString.attribute(
-                .backgroundColor,
-                at: range.location,
-                longestEffectiveRange: nil,
-                in: range
-            ) as? UIColor
-            return value == color
-        case let .textColor(color):
-            let value = sut.attributedString.attribute(
-                .foregroundColor,
-                at: range.location,
-                longestEffectiveRange: nil,
-                in: range
-            ) as? UIColor
-            return value == color
-        case let .mention(pageId):
-            let value = sut.attributedString.attribute(
-                .mention,
-                at: range.location,
-                longestEffectiveRange: nil,
-                in: range
-            ) as? String
-            return value == pageId
-        case .link, .underscored:
-            assertionFailure("Unimplemented \(mark)")
-            return false
-        }
-    }
-    
-    private func applyToWholeString(_ mark: MarkStyle) {
-        sut.applyStyle(style: mark, range: wholeStringRange)
     }
 }
