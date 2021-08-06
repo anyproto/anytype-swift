@@ -130,7 +130,7 @@ extension NSAttributedString {
         return result
     }
     
-    private func isRangeValid(_ range: NSRange) -> Bool {
-        length > 0 && length >= range.length && range.location >= 0
+    func isRangeValid(_ range: NSRange) -> Bool {
+        length > 0 && length >= range.length + range.location && range.location >= 0
     }
 }
