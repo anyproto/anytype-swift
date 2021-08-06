@@ -7,7 +7,7 @@ final class TextBlockActionHandler {
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
-    private let modelsHolder: SharedBlockViewModelsHolder
+    private weak var modelsHolder: SharedBlockViewModelsHolder?
 
     init(
         contextId: String,
@@ -168,7 +168,7 @@ final class TextBlockActionHandler {
             }
 
         case .deleteWithPayload(_):
-            guard let previousModel = modelsHolder.findModel(beforeBlockId: block.information.id) else {
+            guard let previousModel = modelsHolder?.findModel(beforeBlockId: block.information.id) else {
                 anytypeAssertionFailure("""
                     We can't find previous block to focus on at command .deleteWithPayload
                     Block: \(block.information.id)
@@ -192,7 +192,7 @@ final class TextBlockActionHandler {
 
         case .deleteOnEmptyContent:
             service.delete(blockId: block.information.id) { [weak self] value in
-                guard let previousModel = self?.modelsHolder.findModel(beforeBlockId: block.information.id) else {
+                guard let previousModel = self?.modelsHolder?.findModel(beforeBlockId: block.information.id) else {
                     anytypeAssertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.information.id)"
                     )
