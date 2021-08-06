@@ -12,7 +12,6 @@ final class DocumentEditorViewController: UIViewController {
     
     private let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
-        listConfiguration.headerMode = .supplementary
         listConfiguration.backgroundColor = .white
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
@@ -99,7 +98,7 @@ extension DocumentEditorViewController {
     }
         
     private func apply(
-        _ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, DataSourceItem>,
+        _ snapshot: NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>,
         animatingDifferences: Bool = true,
         completion: (() -> Void)? = nil
     ) {
@@ -182,9 +181,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
-        let sectionSnapshot = dataSource.snapshot(
-            for: viewModel.detailsViewModel.makeDocumentSection()
-        )
+        let sectionSnapshot = dataSource.snapshot(for: .main)
         
         sectionSnapshot.visibleItems.forEach { item in
             switch item {
@@ -201,21 +198,9 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         updateView()
     }
     
-    func updateHeader() {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, DataSourceItem>()
-        snapshot.appendSections([
-            viewModel.detailsViewModel.makeDocumentSection()
-        ])
-        
-        snapshot.appendItems(dataSource.snapshot().itemIdentifiers)
-        apply(snapshot)
-    }
-    
     func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, DataSourceItem>()
-        snapshot.appendSections([
-            viewModel.detailsViewModel.makeDocumentSection()
-        ])
+        var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
+        snapshot.appendSections([.main])
 
         let items = blocksViewModels.map { DataSourceItem.block($0) }
         snapshot.appendItems(items)
@@ -223,9 +208,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         apply(snapshot) { [weak self] in
             guard let self = self else { return }
 
-            let sectionSnapshot = self.dataSource.snapshot(
-                for: self.viewModel.detailsViewModel.makeDocumentSection()
-            )
+            let sectionSnapshot = self.dataSource.snapshot(for: .main)
             
             sectionSnapshot.visibleItems.forEach { item in
                 switch item {
@@ -361,7 +344,7 @@ private extension DocumentEditorViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
-    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, DataSourceItem> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -370,7 +353,7 @@ private extension DocumentEditorViewController {
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
-        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, DataSourceItem>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, item: DataSourceItem) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, item: DataSourceItem) -> UICollectionViewCell? in
 
             switch item {
             case let .block(block):
@@ -380,21 +363,6 @@ private extension DocumentEditorViewController {
                 
                 return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: block)
             }
-        }
-        
-        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
-        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak dataSource] detailsView, string, indexPath in
-            guard
-                let section = dataSource?.snapshot().sectionIdentifiers[safe: indexPath.section]
-            else {
-                return
-            }
-            
-            detailsView.configure(model: section)
-        }
-        
-        dataSource.supplementaryViewProvider = { [weak self] in
-            return self?.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
         }
         
         return dataSource
