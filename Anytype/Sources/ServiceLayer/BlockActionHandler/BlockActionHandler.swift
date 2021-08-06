@@ -241,93 +241,78 @@ private extension BlockActionHandler {
               case let .text(textContentType) = info.content else { return }
         
         // if range length == 0 then apply to whole block
-        if range.length == 0 {
-            let subscription = textService.toggleWholeBlockMarkup(
-                contextID: documentId,
-                blockID: info.id,
-                style: fontAction.wholeBlockMarkup)?
-                .sinkWithDefaultCompletion("handleFontAction") { [weak self]  in
-                    self?.document.handle(events: PackOfEvents(middlewareEvents: $0.messages))
-                }
-            subscription.flatMap { subscriptions.append($0) }
+        if range.length == 0 || range.length == textContentType.attributedText.length {
+            applyMarkupToWholeBlock(
+                blockId: blockId,
+                fontAction: fontAction
+            )
             return
         }
-        let newAttributedString = NSMutableAttributedString(attributedString: textContentType.attributedText)
+        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
+            for: textContentType.contentType
+        )
+        let markupCalculator = MarkupStateCalculator(
+            attributedText: textContentType.attributedText,
+            range: range,
+            restrictions: restrictions
+        )
+        let markupState = markupCalculator.state(for: fontAction)
+        guard markupState != .disabled else { return }
         
+        let newAttributedString = NSMutableAttributedString(
+            attributedString: textContentType.attributedText
+        )
+        let marksModifier = MarkStyleModifier(
+            attributedText: newAttributedString,
+            defaultNonCodeFont: textContentType.contentType.uiFont
+        )
+        let shouldApplyMarkup = markupState == .notApplied
         switch fontAction {
         case .bold:
-            applyNewStyle(
-                trait: .traitBold,
-                newString: newAttributedString,
-                content: textContentType,
+            marksModifier.applyStyle(
+                style: .bold(shouldApplyMarkup),
                 range: range
             )
         case .italic:
-            applyNewStyle(
-                trait: .traitItalic,
-                newString: newAttributedString,
-                content: textContentType,
+            marksModifier.applyStyle(
+                style: .italic(shouldApplyMarkup),
                 range: range
             )
         case .strikethrough:
-            if textContentType.attributedText.hasAttribute(.strikethroughStyle, at: range) {
-                newAttributedString.removeAttribute(.strikethroughStyle, range: range)
-            } else {
-                newAttributedString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: range)
-            }
+            marksModifier.applyStyle(
+                style: .strikethrough(shouldApplyMarkup),
+                range: range
+            )
         case .keyboard:
-            applyCode(
-                content: textContentType,
-                newString: newAttributedString,
+            marksModifier.applyStyle(
+                style: .keyboard(shouldApplyMarkup),
                 range: range
             )
         }
         store(
-            newAttributedString,
+            marksModifier.attributedString,
             in: textContentType,
             id: info.id
         )
         document.eventHandler.handle(
             events: PackOfEvents(
-                localEvents: [.setText(blockId: info.id, text: newAttributedString.string)]
+                localEvents: [.setText(blockId: info.id, text: marksModifier.attributedString.string)]
             )
         )
     }
     
-    private func applyCode(content: BlockText, newString: NSMutableAttributedString, range: NSRange) {
-        guard let font = content.attributedText.attribute(
-                .font,
-                at: range.location,
-                effectiveRange: nil) as? UIFont else {
-            return
-        }
-        let resultFont = font.isCode ? content.contentType.uiFont : UIFont.code(of: font.pointSize)
-        newString.addAttribute(.font, value: resultFont, range: range)
-    }
-    
-    private func applyNewStyle(
-        trait: UIFontDescriptor.SymbolicTraits,
-        newString: NSMutableAttributedString,
-        content: BlockText,
-        range: NSRange
-    )  {
-        let hasTrait = content.attributedText.hasTrait(trait: trait, at: range)
-        
-        content.attributedText.enumerateAttribute(.font, in: range) { oldFont, range, _ in
-            guard let oldFont = oldFont as? UIFont else { return }
-            var symbolicTraits = oldFont.fontDescriptor.symbolicTraits
-            
-            if hasTrait {
-                symbolicTraits.remove(trait)
-            } else {
-                symbolicTraits.insert(trait)
+    private func applyMarkupToWholeBlock(
+        blockId: BlockId,
+        fontAction: BlockHandlerActionType.TextAttributesType
+    ) {
+        let subscription = textService.toggleWholeBlockMarkup(
+            contextID: documentId,
+            blockID: blockId,
+            style: fontAction.wholeBlockMarkup)?
+            .sinkWithDefaultCompletion("handleFontAction") { [weak self]  in
+                self?.document.handle(events: PackOfEvents(middlewareEvents: $0.messages))
             }
-            
-            if let newFontDescriptor = oldFont.fontDescriptor.withSymbolicTraits(symbolicTraits) {
-                let newFont = UIFont(descriptor: newFontDescriptor, size: oldFont.pointSize)
-                newString.addAttributes([NSAttributedString.Key.font: newFont], range: range)
-            }
-        }
+        subscription.flatMap { subscriptions.append($0) }
     }
     
     private func store( _ attributedString: NSAttributedString, in content: BlockText, id: BlockId) {
