@@ -1484,7 +1484,6 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				EA57F3F726B96C81007D4292 /* TextServices */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
 				EAE6BDF52680C98700275788 /* Objects */,
@@ -3387,13 +3386,6 @@
 				EA57F3D926B84AA9007D4292 /* MarkupRange.swift */,
 			);
 			path = Markup;
-			sourceTree = "<group>";
-		};
-		EA57F3F726B96C81007D4292 /* TextServices */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TextServices;
 			sourceTree = "<group>";
 		};
 		EA5FB421266A970E00DCD56C /* Mention */ = {
