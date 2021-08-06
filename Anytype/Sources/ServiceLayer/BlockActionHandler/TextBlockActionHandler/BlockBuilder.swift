@@ -13,8 +13,8 @@ struct BlockBuilder {
         }
     }
 
-    static func createInformation(blockType: BlockViewType) -> BlockInformation? {
-        return createContentType(blockType: blockType).flatMap { content in
+    static func createNewBlock(type: BlockViewType) -> BlockInformation? {
+        createContentType(blockType: type).flatMap { content in
             var block = BlockInformation.createNew(content: content)
             
             guard
