@@ -32,7 +32,7 @@ public struct BlockInformation: Hashable {
 
 extension BlockInformation {
     public static func createNew(content: BlockContent) -> BlockInformation {
-        return BlockInformation(
+        BlockInformation(
             id: BlockId(""),
             content: content,
             backgroundColor: nil,
@@ -43,7 +43,7 @@ extension BlockInformation {
     }
     
     public func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
-        return BlockInformation(
+        BlockInformation(
             id: id,
             content: content,
             backgroundColor: backgroundColor,
@@ -54,7 +54,7 @@ extension BlockInformation {
     }
     
     public func updated(with fields: BlockFields) -> BlockInformation {
-        return BlockInformation(
+        BlockInformation(
             id: id,
             content: content,
             backgroundColor: backgroundColor,

@@ -177,7 +177,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case .objects(.page):
             service.createPage(position: .bottom)
         default:
-            guard let newBlock = BlockBuilder.createInformation(blockType: type),
+            guard let newBlock = BlockBuilder.createNewBlock(type: type),
                   let info = document.rootModel?.blocksContainer.model(id: blockId)?.information else {
                 return
             }
