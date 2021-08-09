@@ -26,7 +26,7 @@ final class EditorAssembly {
     
     private static func buildViewModel(
         blockId: BlockId,
-        viewInput: EditorModuleDocumentViewInput,
+        viewInput: DocumentEditorViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter
     ) -> DocumentEditorViewModel {

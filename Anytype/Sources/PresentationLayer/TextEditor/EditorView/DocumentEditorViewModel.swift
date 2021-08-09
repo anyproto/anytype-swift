@@ -7,7 +7,7 @@ import Amplitude
 import AnytypeCore
 
 final class DocumentEditorViewModel: ObservableObject {
-    weak private(set) var viewInput: EditorModuleDocumentViewInput?
+    weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol
     let modelsHolder: SharedBlockViewModelsHolder
@@ -30,7 +30,7 @@ final class DocumentEditorViewModel: ObservableObject {
     init(
         documentId: BlockId,
         document: BaseDocumentProtocol,
-        viewInput: EditorModuleDocumentViewInput,
+        viewInput: DocumentEditorViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
         detailsViewModel: DocumentDetailsViewModel,

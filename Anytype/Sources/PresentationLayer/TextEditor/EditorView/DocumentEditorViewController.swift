@@ -185,9 +185,9 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - EditorModuleDocumentViewInput
+// MARK: - DocumentEditorViewInput
 
-extension DocumentEditorViewController: EditorModuleDocumentViewInput {
+extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
         let sectionSnapshot = dataSource.snapshot(for: .main)
