@@ -6,8 +6,6 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     func updateData(_ rows: [BlockViewModelProtocol])
     func updateRowsWithoutRefreshing(ids: Set<BlockId>)
 
-    func updateHeader()
-
     func selectBlock(blockId: BlockId)
 
     /// Ask view rebuild layout

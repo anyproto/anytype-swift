@@ -38,9 +38,7 @@ final class EditorAssembly {
             )
         )
         
-        let detailsViewModel = DocumentDetailsViewModel { [weak viewInput] in
-            viewInput?.updateHeader()
-        }
+        let detailsViewModel = DocumentDetailsViewModel { }
         
         let selectionHandler = EditorSelectionHandler()
         let modelsHolder = SharedBlockViewModelsHolder()
