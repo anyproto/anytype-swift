@@ -36,6 +36,8 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
                   appliedConfiguration != configuration else {
                 return
             }
+            
+            // TODO: implement apply
         }
     }
     
