@@ -219,7 +219,8 @@ private extension BlockActionHandler {
         let markupCalculator = MarkupStateCalculator(
             attributedText: textContentType.attributedText,
             range: range,
-            restrictions: restrictions
+            restrictions: restrictions,
+            alignment: nil
         )
         let markupState = markupCalculator.state(for: fontAction)
         guard markupState != .disabled else { return }
