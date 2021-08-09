@@ -9,7 +9,7 @@ protocol BlockActionServiceProtocol {
     
     func upload(blockId: BlockId, filePath: String)
     
-    func turnInto(blockId: BlockId, type: BlockContent, shouldSetFocusOnUpdate: Bool)
+    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool)
     
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(info: BlockInformation, parentBlockId: BlockId)

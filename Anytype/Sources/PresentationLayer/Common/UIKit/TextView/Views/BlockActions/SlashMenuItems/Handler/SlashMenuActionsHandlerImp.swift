@@ -36,7 +36,7 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
             blockActionHandler.handleActionForFirstResponder(.addBlock(media.blockViewsType))
         case .objects:
             addMiddwareEventsListener()
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.objects(.page)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.smartblock(.page)))
         case .relations:
             break
         case let .other(other):
@@ -83,21 +83,21 @@ private extension SlashMenuActionsHandlerImp {
         case .text:
             blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
         case .title:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.h1)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header)))
         case .heading:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.h2)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header2)))
         case .subheading:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.h3)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header3)))
         case .highlighted:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.highlighted)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.quote)))
         case .checkbox:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.checkbox)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.checkbox)))
         case .bulleted:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.bulleted)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.bulleted)))
         case .numberedList:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.numbered)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.numbered)))
         case .toggle:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.list(.toggle)))
+            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.toggle)))
         case .bold:
             blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.bold))
         case .italic:

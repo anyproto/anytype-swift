@@ -13,7 +13,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createNewBlock(type: BlockViewType) -> BlockInformation? {
+    static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContentType(blockType: type).flatMap { content in
             var block = BlockInformation.createNew(content: content)
             
@@ -61,39 +61,19 @@ struct BlockBuilder {
         }
     }
 
-    private static func createContentType(blockType: BlockViewType) -> BlockContent? {
+    private static func createContentType(blockType: BlockContentType) -> BlockContent? {
         switch blockType {
-        case let .text(value):
-            switch value {
-            case .text: return .text(.init(contentType: .text))
-            case .h1: return .text(.init(contentType: .header))
-            case .h2: return .text(.init(contentType: .header2))
-            case .h3: return .text(.init(contentType: .header3))
-            case .highlighted: return .text(.init(contentType: .quote))
-            }
-        case let .list(value):
-            switch value {
-            case .bulleted: return .text(.init(contentType: .bulleted))
-            case .checkbox: return .text(.init(contentType: .checkbox))
-            case .numbered: return .text(.init(contentType: .numbered))
-            case .toggle: return .text(.init(contentType: .toggle))
-            }
-        case let .objects(mediaType):
-            switch mediaType {
-            case .page: return .link(.init(style: .page))
-            case .picture: return .file(.empty(contentType: .image))
-            case .bookmark: return .bookmark(.empty())
-            case .file: return .file(.empty(contentType: .file))
-            case .video: return .file(.empty(contentType: .video))
-            case .linkToObject: return nil
-            }
-        case let .other(value):
-            switch value {
-            case .lineDivider: return .divider(.init(style: .line))
-            case .dotsDivider: return .divider(.init(style: .dots))
-            case .code: return .text(BlockText(contentType: .code))
-            }
-        case .tool(_):
+        case let .text(style):
+            return .text(.init(contentType: style))
+        case .bookmark:
+            return .bookmark(.empty())
+        case let .divider(style):
+            return .divider(.init(style: style))
+        case let .file(type):
+            return .file(.empty(contentType: type))
+        case let .link(style):
+            return .link(.init(style: style))
+        case .layout, .smartblock:
             return nil
         }
     }

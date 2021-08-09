@@ -114,6 +114,7 @@ final class StyleViewController: UIViewController {
     private var askBackgroundColor: () -> UIColor?
     private var didTapMarkupButton: () -> Void
     private var style: BlockText.Style
+    private var restrictions: BlockRestrictions
     // deselect action will be performed on new selection
     private var currentDeselectAction: (() -> Void)?
 
@@ -126,6 +127,7 @@ final class StyleViewController: UIViewController {
     init(
         viewControllerForPresenting: UIViewController,
         style: BlockText.Style,
+        restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
         didTapMarkupButton: @escaping () -> Void,
@@ -137,6 +139,7 @@ final class StyleViewController: UIViewController {
         self.askBackgroundColor = askBackgroundColor
         self.didTapMarkupButton = didTapMarkupButton
         self.actionHandler = actionHandler
+        self.restrictions = restrictions
 
         super.init(nibName: nil, bundle: nil)
     }

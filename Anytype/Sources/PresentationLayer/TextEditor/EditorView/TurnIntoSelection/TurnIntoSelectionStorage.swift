@@ -1,5 +1,5 @@
-
 import BlocksModels
+
 
 final class TurnIntoSelectionStorage {
     
@@ -27,12 +27,12 @@ final class TurnIntoSelectionStorage {
         }
     }
     
-    func turnIntoOptions() -> [BlockViewType] {
+    func turnIntoOptions() -> [BlockContentType] {
         guard let initialResult = self.storage.first?.value.turnIntoOptions else { return [] }
         let turnIntoTypesIntersection = self.storage.values.reduce(into: initialResult) { result, bucket in
             result = result.intersection(bucket.turnIntoOptions)
         }
-        return turnIntoTypesIntersection.sorted { $0 < $1 }
+        return turnIntoTypesIntersection.sorted { $0.style < $1.style }
     }
     
     func clear() {

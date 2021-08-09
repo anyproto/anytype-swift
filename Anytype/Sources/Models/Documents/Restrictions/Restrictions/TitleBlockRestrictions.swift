@@ -17,5 +17,5 @@ struct TitleBlockRestrictions: BlockRestrictions {
     let canApplyBackgroundColor = true
     let canApplyMention = true
     let availableAlignments = LayoutAlignment.allCases
-    let turnIntoStyles: [BlockViewType] = []
+    let turnIntoStyles: [BlockContentType] = []
 }
