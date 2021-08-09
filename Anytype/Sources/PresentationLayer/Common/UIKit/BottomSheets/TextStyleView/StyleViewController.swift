@@ -18,12 +18,16 @@ private extension StyleViewController {
 
         private let identifier = UUID()
 
-        static let all: [Item] = [
-            Item(kind: .header, text: "Title".localized, font: .heading),
-            Item(kind: .header2, text: "Heading".localized, font: .subheading),
-            Item(kind: .header3, text: "Subheading".localized, font: .headlineSemibold),
-            Item(kind: .text, text: "Text".localized, font: UIFont.body)
-        ]
+        static func all(selectedStyle: BlockText.Style) -> [Item] {
+            let title: BlockText.Style = selectedStyle == .title ? .title : .header
+
+            return [
+                Item(kind: title, text: "Title".localized, font: .heading),
+                Item(kind: .header2, text: "Heading".localized, font: .subheading),
+                Item(kind: .header3, text: "Subheading".localized, font: .headlineSemibold),
+                Item(kind: .text, text: "Text".localized, font: UIFont.body)
+            ]
+        }
     }
 
     struct ListItem {
@@ -194,9 +198,15 @@ final class StyleViewController: UIViewController {
             let button = ButtonsFactory.roundedBorderуButton(image: item.icon)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.heightAnchor.constraint(equalToConstant: 48).isActive = true
+
+            if item.kind != self.style {
+                let isEnabled = restrictions.turnIntoStyles.contains(.text(item.kind))
+                button.isEnabled = isEnabled
+            }
             listStackView.addArrangedSubview(button)
 
             setupAction(for: button, with: item.kind)
+
         }
     }
 
@@ -205,6 +215,13 @@ final class StyleViewController: UIViewController {
         setupAction(for: highlightedButton, with: .quote)
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
         setupAction(for: calloutButton, with: .code)
+
+        if .quote != self.style {
+            highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
+        }
+        if .code != self.style {
+            calloutButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.code))
+        }
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
@@ -281,6 +298,12 @@ final class StyleViewController: UIViewController {
             content.text = item.text
             content.font = item.font
 
+            if item.kind != self?.style {
+                let isDisabled = !(self?.restrictions.turnIntoStyles.contains(.text(item.kind)) ?? false)
+                cell.isUserInteractionEnabled = !isDisabled
+                content.isDisabled = isDisabled
+            }
+
             cell.contentConfiguration = content
         }
 
@@ -292,7 +315,7 @@ final class StyleViewController: UIViewController {
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(Item.all)
+        snapshot.appendItems(Item.all(selectedStyle: style))
         styleDataSource?.apply(snapshot, animatingDifferences: false)
     }
 
