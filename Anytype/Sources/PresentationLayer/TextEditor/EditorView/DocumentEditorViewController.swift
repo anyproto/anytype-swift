@@ -15,8 +15,10 @@ final class DocumentEditorViewController: UIViewController {
         listConfiguration.backgroundColor = .white
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
-        let collectionView = UICollectionView(frame: UIScreen.main.bounds,
-                                               collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: UIScreen.main.bounds,
+            collectionViewLayout: layout
+        )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .systemBackground
         return collectionView
@@ -186,6 +188,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
 // MARK: - EditorModuleDocumentViewInput
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
+    
     func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
         let sectionSnapshot = dataSource.snapshot(for: .main)
         
@@ -207,12 +210,18 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         updateView()
     }
     
-    func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
+    func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.main])
-
-        let items = blocksViewModels.map { DataSourceItem.block($0) }
-        snapshot.appendItems(items)
+        snapshot.appendSections([.header, .main])
+        
+        header.flatMap {
+            snapshot.appendItems([.header($0)], toSection: .header)
+        }
+        
+        snapshot.appendItems(
+            blocks.map { DataSourceItem.block($0) },
+            toSection: .main
+        )
 
         apply(snapshot) { [weak self] in
             guard let self = self else { return }
@@ -228,7 +237,6 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
                     cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
                     cell.indentationLevel = block.indentationLevel
                 case .header:
-                    // TODO: - implement
                     return
                 }
             }
@@ -236,6 +244,36 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             self.focusOnFocusedBlock()
         }
     }
+    
+//    func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
+//        var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
+//        snapshot.appendSections([.main])
+//
+//        let items = blocksViewModels.map { DataSourceItem.block($0) }
+//        snapshot.appendItems(items)
+//
+//        apply(snapshot) { [weak self] in
+//            guard let self = self else { return }
+//
+//            let sectionSnapshot = self.dataSource.snapshot(for: .main)
+//            
+//            sectionSnapshot.visibleItems.forEach { item in
+//                switch item {
+//                case let .block(block):
+//                    guard let indexPath = self.dataSource.indexPath(for: item) else { return }
+//                    guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+//                    
+//                    cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
+//                    cell.indentationLevel = block.indentationLevel
+//                case .header:
+//                    // TODO: - implement
+//                    return
+//                }
+//            }
+//
+//            self.focusOnFocusedBlock()
+//        }
+//    }
 
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
@@ -361,6 +399,12 @@ private extension DocumentEditorViewController {
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
+        
+        let headerCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> { cell, _, item in
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+        }
+        
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -378,9 +422,12 @@ private extension DocumentEditorViewController {
                 }
                 
                 return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: block)
-            case .header:
-                // TODO: - implement
-                return nil
+            case let .header(header):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: headerCellRegistration,
+                    for: indexPath,
+                    item: header
+                )
             }
         }
         

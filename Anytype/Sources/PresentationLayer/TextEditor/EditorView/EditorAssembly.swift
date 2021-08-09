@@ -41,7 +41,7 @@ final class EditorAssembly {
         let detailsViewModel = DocumentDetailsViewModel { }
         
         let selectionHandler = EditorSelectionHandler()
-        let modelsHolder = SharedBlockViewModelsHolder()
+        let modelsHolder = SharedBlockViewModelsHolder(objectId: blockId)
         
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
