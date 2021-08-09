@@ -1,9 +1,9 @@
 import BlocksModels
 
 // We need to share models between several mutating services
-// Using reference semantics of SharedBlockViewModelsHolder to share pointer
+// Using reference semantics of ObjectContentViewModelsSharedHolder to share pointer
 // To the same models everywhere
-final class SharedBlockViewModelsHolder {
+final class ObjectContentViewModelsSharedHolder {
     
     let objectId: String
     
@@ -29,7 +29,7 @@ final class SharedBlockViewModelsHolder {
     }
 }
 
-extension SharedBlockViewModelsHolder {
+extension ObjectContentViewModelsSharedHolder {
     
     func apply(newDetails: DetailsData?) {
         guard let newDetails = newDetails else {

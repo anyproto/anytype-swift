@@ -10,7 +10,7 @@ final class DocumentEditorViewModel: ObservableObject {
     weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol
-    let modelsHolder: SharedBlockViewModelsHolder
+    let modelsHolder: ObjectContentViewModelsSharedHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
@@ -36,7 +36,7 @@ final class DocumentEditorViewModel: ObservableObject {
         detailsViewModel: DocumentDetailsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
-        modelsHolder: SharedBlockViewModelsHolder,
+        modelsHolder: ObjectContentViewModelsSharedHolder,
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel

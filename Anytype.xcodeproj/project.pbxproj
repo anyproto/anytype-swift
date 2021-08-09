@@ -264,7 +264,7 @@
 		3D36B0CA26A9575F0046C90F /* BlockBookmarkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B0C926A9575F0046C90F /* BlockBookmarkImageView.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */; };
-		3D402BF0268A5195002E938C /* SharedBlockViewModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D402BEF268A5195002E938C /* SharedBlockViewModelsHolder.swift */; };
+		3D402BF0268A5195002E938C /* ObjectContentViewModelsSharedHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D402BEF268A5195002E938C /* ObjectContentViewModelsSharedHolder.swift */; };
 		3D402BF4268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D402BF3268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D4125ED269ECED6007A6880 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125EC269ECED6007A6880 /* ObjectType.swift */; };
@@ -866,7 +866,7 @@
 		3D36B0C926A9575F0046C90F /* BlockBookmarkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBookmarkImageView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/ViewComponents/BlockBookmarkImageView.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
-		3D402BEF268A5195002E938C /* SharedBlockViewModelsHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedBlockViewModelsHolder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/SharedBlockViewModelsHolder.swift; sourceTree = SOURCE_ROOT; };
+		3D402BEF268A5195002E938C /* ObjectContentViewModelsSharedHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjectContentViewModelsSharedHolder.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/ObjectContentViewModelsSharedHolder.swift; sourceTree = SOURCE_ROOT; };
 		3D402BF3268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift"; path = "Anytype/Sources/PresentationLayer/TextEditor/EditorView/Selection/DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D4125EC269ECED6007A6880 /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjectType.swift; path = Anytype/Sources/ServiceLayer/Search/Models/ObjectType.swift; sourceTree = SOURCE_ROOT; };
@@ -1778,7 +1778,7 @@
 				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
 				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
-				3D402BEF268A5195002E938C /* SharedBlockViewModelsHolder.swift */,
+				3D402BEF268A5195002E938C /* ObjectContentViewModelsSharedHolder.swift */,
 				537F49712677EB6700C81BA0 /* BlockDelegate.swift */,
 			);
 			path = EditorView;
@@ -3925,7 +3925,7 @@
 				3D568F8B2666C17300DC7881 /* ContentLinkConverter.swift in Sources */,
 				3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
-				3D402BF0268A5195002E938C /* SharedBlockViewModelsHolder.swift in Sources */,
+				3D402BF0268A5195002E938C /* ObjectContentViewModelsSharedHolder.swift in Sources */,
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
 				123FDAC726C132A200F6F44B /* IconOnlyObjectHeaderConfiguration.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
