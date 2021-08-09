@@ -168,6 +168,7 @@ final class TextBlockActionHandler {
             }
 
         case .deleteWithPayload(_):
+            guard block.information.content.type != .text(.description) else { return }
             guard let previousModel = modelsHolder?.findModel(beforeBlockId: block.information.id) else {
                 anytypeAssertionFailure("""
                     We can't find previous block to focus on at command .deleteWithPayload

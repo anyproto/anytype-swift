@@ -14,18 +14,12 @@ final class CustomTextView: UIView {
     var textSize: CGSize?
 
     private(set) lazy var textView = createTextView()
-    let accessoryViewSwitcher: AccessoryViewSwitcher
-    
     private var firstResponderSubscription: AnyCancellable?
 
-    let options: CustomTextViewOptions
+    var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
+    var accessoryViewSwitcher: AccessoryViewSwitcher?
     
-    init(
-        options: CustomTextViewOptions,
-        accessoryViewSwitcher: AccessoryViewSwitcher
-    ) {
-        self.options = options
-        self.accessoryViewSwitcher = accessoryViewSwitcher
+    init() {
         super.init(frame: .zero)
 
         setupView()
@@ -46,6 +40,14 @@ final class CustomTextView: UIView {
         addSubview(textView) {
             $0.pinToSuperview()
         }
+    }
+
+    func setCustomTextViewOptions(options: CustomTextViewOptions) {
+        self.options = options
+    }
+
+    func setAccessoryViewSwitcher(accessoryViewSwitcher: AccessoryViewSwitcher) {
+        self.accessoryViewSwitcher = accessoryViewSwitcher
     }
 }
 
