@@ -81,7 +81,7 @@ extension DocumentIconView: ConfigurableView {
     private func showEmojiView(_ emoji: IconEmoji) {
         iconEmojiView.configure(model: emoji.value)
         
-        heightConstraint.constant = iconEmojiView.height
+//        heightConstraint.constant = iconEmojiView.height
         
         let cornerRadius = iconEmojiView.layer.cornerRadius
         containerView.layer.cornerRadius = cornerRadius

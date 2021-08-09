@@ -140,9 +140,7 @@ private extension IconOnlyObjectHeaderContentView {
         
         activityIndicatorView.show()
     }
-    
-
-    
+  
 }
 
 // MARK: - Private extension
@@ -158,17 +156,28 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     func setupLayout() {
+        
         stackView = layoutUsing.stack(
             layout: { stack in
                 stack.layoutUsing.anchors {
-                    $0.leading.equal(to: self.leadingAnchor)
-                    $0.trailing.equal(to: self.trailingAnchor)
+                    $0.leading.equal(
+                        to: self.leadingAnchor,
+                        constant: Constants.horizontalInset
+                    )
+                    $0.trailing.equal(
+                        to: self.trailingAnchor,
+                        constant: Constants.horizontalInset
+                    )
                     $0.bottom.equal(to: self.bottomAnchor, constant: 16)
                     $0.top.equal(to: self.topAnchor, constant: 52)
                 }
             },
             builder: {
-                $0.hStack(containerView)
+                $0.hStack(
+                    $0.hGap(),
+                    containerView,
+                    $0.hGap()
+                )
             }
         )
     }
@@ -179,6 +188,7 @@ private extension IconOnlyObjectHeaderContentView {
     
     enum Constants {
         static let borderWidth: CGFloat = 4
+        static let horizontalInset: CGFloat = 20 - Constants.borderWidth
     }
     
 }
