@@ -1,9 +1,7 @@
 import UIKit
 
 final class DocumentIconEmojiView: UIView {
-    
-    let height: CGFloat
-    
+        
     // MARK: - Private properties
     
     private let emojiLabel: UILabel = UILabel()
@@ -11,15 +9,17 @@ final class DocumentIconEmojiView: UIView {
     // MARK: Initialization
     
     init(
-        font: UIFont = .systemFont(ofSize: 64),
+        font: UIFont = .systemFont(ofSize: 48),
         cornerRadius: CGFloat = Constants.cornerRadius,
         size: CGSize = Constants.size
     ) {
-        self.height = size.height
-        
         super.init(frame: .zero)
         
-        setupView(font: font, cornerRadius: cornerRadius, size: size)
+        setupView(
+            font: font,
+            cornerRadius: cornerRadius,
+            size: size
+        )
     }
     
     @available(*, unavailable)
@@ -77,8 +77,8 @@ private extension DocumentIconEmojiView {
 private extension DocumentIconEmojiView {
     
     enum Constants {
-        static let cornerRadius: CGFloat = 20
-        static let size = CGSize(width: 96, height: 96)
+        static let cornerRadius: CGFloat = 18
+        static let size = CGSize(width: 80, height: 80)
     }
     
 }
