@@ -57,7 +57,10 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
-        let controller = URLInputViewController(didCreateURL: completion)
+        let controller = URLInputViewController { url in
+            guard let url = url else { return }
+            completion(url)
+        }
         controller.modalPresentationStyle = .overCurrentContext
         viewController?.present(controller, animated: false)
     }
