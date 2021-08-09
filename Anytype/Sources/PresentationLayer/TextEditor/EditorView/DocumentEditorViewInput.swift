@@ -2,7 +2,7 @@ import BlocksModels
 
 
 /// Input data for document view
-protocol EditorModuleDocumentViewInput: AnyObject {
+protocol DocumentEditorViewInput: AnyObject {
     func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol])
     func updateRowsWithoutRefreshing(ids: Set<BlockId>)
 

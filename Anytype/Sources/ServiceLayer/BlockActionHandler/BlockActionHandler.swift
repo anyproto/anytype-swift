@@ -17,7 +17,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let textService = BlockActionsServiceText()
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
-    private weak var modelsHolder: SharedBlockViewModelsHolder?
+    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
@@ -29,7 +29,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     init(
         documentId: String,
-        modelsHolder: SharedBlockViewModelsHolder,
+        modelsHolder: ObjectContentViewModelsSharedHolder,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol

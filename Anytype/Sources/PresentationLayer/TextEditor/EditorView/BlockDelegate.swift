@@ -16,11 +16,11 @@ protocol BlockDelegate: AnyObject {
 }
 
 final class BlockDelegateImpl: BlockDelegate {
-    weak private(set) var viewInput: EditorModuleDocumentViewInput?
+    weak private(set) var viewInput: DocumentEditorViewInput?
     let document: BaseDocumentProtocol
     
     init(
-        viewInput: EditorModuleDocumentViewInput?,
+        viewInput: DocumentEditorViewInput?,
         document: BaseDocumentProtocol
     ) {
         self.viewInput = viewInput
