@@ -15,8 +15,10 @@ final class DocumentEditorViewController: UIViewController {
         listConfiguration.backgroundColor = .white
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
-        let collectionView = UICollectionView(frame: UIScreen.main.bounds,
-                                               collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: UIScreen.main.bounds,
+            collectionViewLayout: layout
+        )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .systemBackground
         return collectionView
@@ -150,12 +152,16 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             case let .block(block):
                 guard case let .text(text) = block.content else { return true }
                 return text.contentType != .title
+            case .header:
+                return false
             }
         }
         
         switch item {
         case let .block(block):
             guard case .text = block.content else { return true }
+            return false
+        case .header:
             return false
         }
     }
@@ -173,6 +179,8 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
             
             return block.contextMenuConfiguration()
+        case .header:
+            return nil
         }
     }
 }
@@ -180,6 +188,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
 // MARK: - EditorModuleDocumentViewInput
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
+    
     func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
         let sectionSnapshot = dataSource.snapshot(for: .main)
         
@@ -193,17 +202,26 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
                 else { return }
                 
                 cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
+            case .header:
+                // TODO: - Implement
+                return
             }
         }
         updateView()
     }
     
-    func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
+    func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.main])
-
-        let items = blocksViewModels.map { DataSourceItem.block($0) }
-        snapshot.appendItems(items)
+        snapshot.appendSections([.header, .main])
+        
+        header.flatMap {
+            snapshot.appendItems([.header($0)], toSection: .header)
+        }
+        
+        snapshot.appendItems(
+            blocks.map { DataSourceItem.block($0) },
+            toSection: .main
+        )
 
         apply(snapshot) { [weak self] in
             guard let self = self else { return }
@@ -218,18 +236,22 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
                     
                     cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
                     cell.indentationLevel = block.indentationLevel
+                case .header:
+                    return
                 }
             }
 
             self.focusOnFocusedBlock()
         }
     }
-
+ 
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
+            case .header:
+                return false
             }
         }
         
@@ -284,9 +306,11 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
                 let focus = userSession?.focus ?? .end
                 blockViewModel.set(focus: focus)
             }
-            
+
+        case .header:
+            // TODO: - implement
+            return
         }
-        
     }
 
     func adjustContentOffset(fpc: FloatingPanelController) {
@@ -345,6 +369,12 @@ private extension DocumentEditorViewController {
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
+        
+        let headerCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> { cell, _, item in
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+        }
+        
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -362,6 +392,12 @@ private extension DocumentEditorViewController {
                 }
                 
                 return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: block)
+            case let .header(header):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: headerCellRegistration,
+                    for: indexPath,
+                    item: header
+                )
             }
         }
         

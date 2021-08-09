@@ -78,8 +78,12 @@ final class DocumentEditorViewModel: ObservableObject {
         switch updateResult.updates {
         case .general:
             let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
-            updateBlocksViewModels(models: blocksViewModels)
-            if let details = updateResult.details { updateDetails(details) }
+            
+            handleGeneralUpdate(
+                with: updateResult.details,
+                models: blocksViewModels
+            )
+            
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(newDetails):
             updateDetails(newDetails)
@@ -161,12 +165,21 @@ final class DocumentEditorViewModel: ObservableObject {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {
-        let difference = models.difference(from: modelsHolder.models) { $0.hashable == $1.hashable }
-        if !difference.isEmpty, let result = modelsHolder.models.applying(difference) {
-            modelsHolder.models = result
-            viewInput?.updateData(result)
+    private func handleGeneralUpdate(with details: DetailsData?, models: [BlockViewModelProtocol]) {
+        modelsHolder.apply(newModels: models)
+        modelsHolder.apply(newDetails: details)
+        
+        guard let details = modelsHolder.details else {
+            viewInput?.updateData(header: nil, blocks: modelsHolder.models)
+            return
         }
+        
+        viewInput?.updateData(
+            header: details.icon.flatMap { ObjectHeader.iconOnly(.icon($0)) },
+            blocks: modelsHolder.models
+        )
+        
+        objectSettingsViewModel.update(with: details)
     }
 }
 
