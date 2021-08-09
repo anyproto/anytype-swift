@@ -2398,10 +2398,10 @@
 		3D180220264E9C0000224815 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				126C46D226BD909300D31DBF /* ObjectSection.swift */,
 				0ACC357525C851650003CF3A /* BlockViewModelBuilder.swift */,
 				0A0965E125BEF5B000C004BD /* DocumentSection.swift */,
 				12A8CCED26BD5F3B00090468 /* DataSourceItem.swift */,
-				126C46D226BD909300D31DBF /* ObjectSection.swift */,
 				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
 				123FDAC626C132A200F6F44B /* IconOnlyObjectHeaderConfiguration.swift */,
 				123FDACB26C132E700F6F44B /* IconOnlyObjectHeaderContentView.swift */,
