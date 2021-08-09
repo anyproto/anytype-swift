@@ -15,10 +15,11 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     private let activityIndicatorView = ActivityIndicatorView()
     
     private let containerView = UIView()
-    private var contentView: UIView!
     private var stackView: UIStackView!
     
     // MARK: - Private variables
+    
+    private var topConstraint: NSLayoutConstraint!
     
     private var appliedConfiguration: IconOnlyObjectHeaderConfiguration!
     
@@ -27,12 +28,14 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         get { self.appliedConfiguration }
         set {
-            guard let configuration = newValue as? IconOnlyObjectHeaderConfiguration,
-                  appliedConfiguration != configuration else {
+            guard
+                let configuration = newValue as? IconOnlyObjectHeaderConfiguration,
+                appliedConfiguration != configuration
+            else {
                 return
             }
             
-            // TODO: implement apply
+            apply(configuration: configuration)
         }
     }
     
@@ -77,6 +80,7 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
+        topConstraint.constant = Constants.basicTopInset
         switch basicIcon {
         case let .emoji(emoji):
             showEmojiView(emoji)
@@ -86,6 +90,7 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     private func configureProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+        topConstraint.constant = Constants.profileTopInset
         switch profileIcon {
         case let .imageId(imageId):
             showImageView(.profile(.imageId(imageId)))
@@ -96,40 +101,38 @@ private extension IconOnlyObjectHeaderContentView {
     
     private func showEmojiView(_ emoji: IconEmoji) {
         let iconEmojiView = DocumentIconEmojiView()
-        
-        iconEmojiView.configure(model: emoji.value)
+            .configured(with: emoji.value)
                 
-        let cornerRadius = iconEmojiView.layer.cornerRadius
-        containerView.layer.cornerRadius = cornerRadius
-//        configureBorder(cornerRadius: cornerRadius)
-        
-        containerView.removeAllSubviews()
-        containerView.addSubview(iconEmojiView) {
-            $0.pinToSuperview()
-        }
+        addContentViewToContainer(iconEmojiView)
     }
     
     private func showImageView(_ model: DocumentIconImageView.Model) {
         let iconImageView = DocumentIconImageView()
-
-        iconImageView.configure(model: model)
+            .configured(with: model)
         
+        addContentViewToContainer(iconImageView)
+    }
+    
+    private func addContentViewToContainer(_ contentView: UIView) {
+        let cornerRadius = contentView.layer.cornerRadius
         
-        let cornerRadius = iconImageView.layer.cornerRadius
-        containerView.layer.cornerRadius = cornerRadius
-//        configureBorder(cornerRadius: cornerRadius)
-        
+        containerView.layer.cornerRadius = cornerRadius + Constants.borderWidth
+                
         containerView.removeAllSubviews()
-        containerView.addSubview(iconImageView) {
-            $0.pinToSuperview()
-        }
+        containerView.addSubview(contentView) {
+            $0.center(in: containerView)
+            $0.leading.equal(to: containerView.leadingAnchor, constant: Constants.borderWidth)
+            $0.top.equal(to: containerView.topAnchor, constant: Constants.borderWidth)
+        }        
     }
     
     private func configurePreviewState(_ preview: ObjectIconPreviewType) {
         switch preview {
         case let .basic(image):
+            topConstraint.constant = Constants.basicTopInset
             showImageView(.basic(.preview(image)))
         case let .profile(image):
+            topConstraint.constant = Constants.profileTopInset
             showImageView(.profile(.preview(image)))
         }
         
@@ -156,7 +159,6 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     func setupLayout() {
-        
         stackView = layoutUsing.stack(
             layout: { stack in
                 stack.layoutUsing.anchors {
@@ -168,8 +170,14 @@ private extension IconOnlyObjectHeaderContentView {
                         to: self.trailingAnchor,
                         constant: Constants.horizontalInset
                     )
-                    $0.bottom.equal(to: self.bottomAnchor, constant: 16)
-                    $0.top.equal(to: self.topAnchor, constant: 52)
+                    $0.bottom.equal(
+                        to: self.bottomAnchor,
+                        constant: Constants.bottomInset
+                    )
+                    self.topConstraint = $0.top.equal(
+                        to: self.topAnchor,
+                        constant: Constants.basicTopInset
+                    )
                 }
             },
             builder: {
@@ -189,6 +197,9 @@ private extension IconOnlyObjectHeaderContentView {
     enum Constants {
         static let borderWidth: CGFloat = 4
         static let horizontalInset: CGFloat = 20 - Constants.borderWidth
+        static let bottomInset: CGFloat = 16
+        static let basicTopInset: CGFloat = 76 - Constants.borderWidth
+        static let profileTopInset: CGFloat = 52 - Constants.borderWidth
     }
     
 }
