@@ -123,7 +123,10 @@ private extension IconOnlyObjectHeaderContentView {
             $0.center(in: containerView)
             $0.leading.equal(to: containerView.leadingAnchor, constant: Constants.borderWidth)
             $0.top.equal(to: containerView.topAnchor, constant: Constants.borderWidth)
-        }        
+        }
+        containerView.addSubview(activityIndicatorView) {
+            $0.pinToSuperview()
+        }
     }
     
     private func configurePreviewState(_ preview: ObjectIconPreviewType) {
