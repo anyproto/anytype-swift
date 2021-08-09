@@ -4,7 +4,6 @@ import BlocksModels
 /// Input data for document view
 protocol EditorModuleDocumentViewInput: AnyObject {
     func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol])
-//    func updateData(_ rows: [BlockViewModelProtocol])
     func updateRowsWithoutRefreshing(ids: Set<BlockId>)
 
     func selectBlock(blockId: BlockId)

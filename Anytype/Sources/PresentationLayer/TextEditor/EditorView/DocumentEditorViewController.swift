@@ -244,37 +244,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             self.focusOnFocusedBlock()
         }
     }
-    
-//    func updateData(_ blocksViewModels: [BlockViewModelProtocol]) {
-//        var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-//        snapshot.appendSections([.main])
-//
-//        let items = blocksViewModels.map { DataSourceItem.block($0) }
-//        snapshot.appendItems(items)
-//
-//        apply(snapshot) { [weak self] in
-//            guard let self = self else { return }
-//
-//            let sectionSnapshot = self.dataSource.snapshot(for: .main)
-//            
-//            sectionSnapshot.visibleItems.forEach { item in
-//                switch item {
-//                case let .block(block):
-//                    guard let indexPath = self.dataSource.indexPath(for: item) else { return }
-//                    guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-//                    
-//                    cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
-//                    cell.indentationLevel = block.indentationLevel
-//                case .header:
-//                    // TODO: - implement
-//                    return
-//                }
-//            }
-//
-//            self.focusOnFocusedBlock()
-//        }
-//    }
-
+ 
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
