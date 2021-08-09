@@ -15,15 +15,10 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     private let activityIndicatorView = ActivityIndicatorView()
     
     private let containerView = UIView()
-    private let iconEmojiView = DocumentIconEmojiView()
-    private let iconImageView = DocumentIconImageView()
+    private var contentView: UIView!
+    private var stackView: UIStackView!
     
     // MARK: - Private variables
-    
-    private var heightConstraint: NSLayoutConstraint!
-    
-    private var borderConstraintX: NSLayoutConstraint!
-    private var borderConstraintY: NSLayoutConstraint!
     
     private var appliedConfiguration: IconOnlyObjectHeaderConfiguration!
     
@@ -100,29 +95,34 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     private func showEmojiView(_ emoji: IconEmoji) {
+        let iconEmojiView = DocumentIconEmojiView()
+        
         iconEmojiView.configure(model: emoji.value)
-        
-        heightConstraint.constant = iconEmojiView.height
-        
+                
         let cornerRadius = iconEmojiView.layer.cornerRadius
         containerView.layer.cornerRadius = cornerRadius
-        configureBorder(cornerRadius: cornerRadius)
+//        configureBorder(cornerRadius: cornerRadius)
         
-        iconEmojiView.isHidden = false
-        iconImageView.isHidden = true
+        containerView.removeAllSubviews()
+        containerView.addSubview(iconEmojiView) {
+            $0.pinToSuperview()
+        }
     }
     
     private func showImageView(_ model: DocumentIconImageView.Model) {
+        let iconImageView = DocumentIconImageView()
+
         iconImageView.configure(model: model)
         
-        heightConstraint.constant = iconImageView.height
         
         let cornerRadius = iconImageView.layer.cornerRadius
         containerView.layer.cornerRadius = cornerRadius
-        configureBorder(cornerRadius: cornerRadius)
+//        configureBorder(cornerRadius: cornerRadius)
         
-        iconEmojiView.isHidden = true
-        iconImageView.isHidden = false
+        containerView.removeAllSubviews()
+        containerView.addSubview(iconImageView) {
+            $0.pinToSuperview()
+        }
     }
     
     private func configurePreviewState(_ preview: ObjectIconPreviewType) {
@@ -141,24 +141,7 @@ private extension IconOnlyObjectHeaderContentView {
         activityIndicatorView.show()
     }
     
-    private func configureEmptyState() {
-        activityIndicatorView.hide()
-        
-        heightConstraint.constant = 0
-        
-        borderConstraintY.constant = 0
-        borderConstraintX.constant = 0
-        
-        iconEmojiView.isHidden = true
-        iconImageView.isHidden = true
-    }
-    
-    private func configureBorder(cornerRadius: CGFloat) {
-        borderConstraintX.constant = Constants.borderWidth
-        borderConstraintY.constant = Constants.borderWidth
-        
-        layer.cornerRadius = cornerRadius + Constants.borderWidth
-    }
+
     
 }
 
@@ -175,28 +158,19 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     func setupLayout() {
-        addSubview(containerView) {
-            $0.center(in: self)
-            
-            $0.width.equal(to: $0.height)
-            
-            heightConstraint = $0.height.equal(to: 0)
-            
-            borderConstraintX = $0.leading.equal(to: leadingAnchor)
-            borderConstraintY = $0.top.equal(to: topAnchor)
-        }
-        
-        containerView.addSubview(iconEmojiView) {
-            $0.pinToSuperview()
-        }
-        
-        containerView.addSubview(iconImageView) {
-            $0.pinToSuperview()
-        }
-        
-        containerView.addSubview(activityIndicatorView) {
-            $0.pinToSuperview()
-        }
+        stackView = layoutUsing.stack(
+            layout: { stack in
+                stack.layoutUsing.anchors {
+                    $0.leading.equal(to: self.leadingAnchor)
+                    $0.trailing.equal(to: self.trailingAnchor)
+                    $0.bottom.equal(to: self.bottomAnchor, constant: 16)
+                    $0.top.equal(to: self.topAnchor, constant: 52)
+                }
+            },
+            builder: {
+                $0.hStack(containerView)
+            }
+        )
     }
     
 }

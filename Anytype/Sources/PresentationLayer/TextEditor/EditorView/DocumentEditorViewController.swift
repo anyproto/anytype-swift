@@ -317,7 +317,6 @@ private extension DocumentEditorViewController {
     func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
         .init { cell, _, item in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
         }
     }
     
