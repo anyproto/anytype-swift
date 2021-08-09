@@ -73,6 +73,23 @@ extension DetailsDataProtocol {
         }
     }
     
+    var objectHeader: ObjectHeader? {
+        if let icon = icon, let cover = documentCover {
+            // FIXME: not implemented
+            return nil
+        }
+        
+        if let icon = icon {
+            return .iconOnly(.icon(icon))
+        }
+        
+        if let cover = documentCover {
+            return .coverOnly(.cover(cover))
+        }
+        
+        return nil
+    }
+    
 }
 
 private enum Constants {

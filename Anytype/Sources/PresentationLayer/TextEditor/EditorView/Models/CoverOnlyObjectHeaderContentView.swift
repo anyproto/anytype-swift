@@ -56,14 +56,14 @@ final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
 private extension CoverOnlyObjectHeaderContentView  {
     
     func apply(configuration: CoverOnlyObjectHeaderConfiguration) {
+        appliedConfiguration = configuration
+
         switch configuration.cover {
         case let .cover(cover):
             configureCoverState(cover)
         case let .preview(image):
             configurePreviewState(image)
         }
-        
-        appliedConfiguration = configuration
     }
     
     private func configureCoverState(_ cover: DocumentCover) {
@@ -83,7 +83,7 @@ private extension CoverOnlyObjectHeaderContentView  {
         let imageGuideline = ImageGuideline(
             size: CGSize(
                 width: appliedConfiguration.maxWidth,
-                height: Constants.height
+                height: Constants.coverHeight
             )
         )
         
@@ -110,7 +110,7 @@ private extension CoverOnlyObjectHeaderContentView  {
             with: ImageGuideline(
                 size: CGSize(
                     width: appliedConfiguration.maxWidth,
-                    height: Constants.height
+                    height: Constants.coverHeight
                 )
             ),
             color: color
@@ -122,7 +122,7 @@ private extension CoverOnlyObjectHeaderContentView  {
         imageView.image = PlaceholderImageBuilder.gradient(
             size: CGSize(
                 width: appliedConfiguration.maxWidth,
-                height: Constants.height
+                height: Constants.coverHeight
             ),
             startColor: startColor,
             endColor: endColor,
@@ -152,15 +152,18 @@ private extension CoverOnlyObjectHeaderContentView {
     
     func setupLayout() {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            $0.height.equal(to: Constants.coverHeight + Constants.bottomInset)
         }
+        translatesAutoresizingMaskIntoConstraints = true
         
         addSubview(imageView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.height.equal(to: Constants.coverHeight)
         }
         
         addSubview(activityIndicatorView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.height.equal(to: Constants.coverHeight)
         }
     }
     
@@ -169,7 +172,8 @@ private extension CoverOnlyObjectHeaderContentView {
 private extension CoverOnlyObjectHeaderContentView {
     
     enum Constants {
-        static let height: CGFloat = 224
+        static let coverHeight: CGFloat = 224
+        static let bottomInset: CGFloat = 32
     }
     
 }

@@ -86,6 +86,7 @@ final class DocumentEditorViewModel: ObservableObject {
             
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(newDetails):
+            // TODO: - fix this
             updateDetails(newDetails)
         case let .update(updatedIds):
             guard !updatedIds.isEmpty else {
@@ -175,7 +176,7 @@ final class DocumentEditorViewModel: ObservableObject {
         }
         
         viewInput?.updateData(
-            header: details.icon.flatMap { ObjectHeader.iconOnly(.icon($0)) },
+            header: details.objectHeader,
             blocks: modelsHolder.models
         )
         

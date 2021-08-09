@@ -10,12 +10,12 @@ final class DocumentEditorViewController: UIViewController {
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
     let collectionView: UICollectionView = {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .white
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         let collectionView = UICollectionView(
-            frame: UIScreen.main.bounds,
+            frame: .zero,
             collectionViewLayout: layout
         )
         collectionView.allowsMultipleSelection = true
