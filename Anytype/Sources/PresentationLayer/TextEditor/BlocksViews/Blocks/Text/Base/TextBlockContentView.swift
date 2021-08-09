@@ -8,7 +8,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
     
-    private(set) lazy var textView = buildTextView()
+    private(set) lazy var textView: CustomTextView = .init()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
     
     private let mainStackView: UIStackView = {
@@ -99,6 +99,8 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
+        buildTextView()
+
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
         setupText(placeholer: "", font: .body)
@@ -252,7 +254,7 @@ final class TextBlockContentView: UIView & UIContentView {
         topStackView.insertArrangedSubview(leftView, at: 0)
     }
     
-    private func buildTextView() -> CustomTextView {
+    private func buildTextView() {
         let actionsHandler = SlashMenuActionsHandlerImp(
             blockActionHandler: currentConfiguration.actionHandler
         )
@@ -263,7 +265,7 @@ final class TextBlockContentView: UIView & UIContentView {
         
         let mentionsSelectionHandler = { [weak self] (mention: MentionObject) in
             guard let self = self,
-                  let mentionSymbolPosition = self.textView.accessoryViewSwitcher.accessoryViewTriggerSymbolPosition,
+                  let mentionSymbolPosition = self.textView.accessoryViewSwitcher?.accessoryViewTriggerSymbolPosition,
                   let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
                                                                                 offset: -1),
                   let caretPosition = self.textView.textView.caretPosition() else { return }
@@ -289,8 +291,8 @@ final class TextBlockContentView: UIView & UIContentView {
         
         let dismissActionsMenu = { [weak self] in
             guard let self = self else { return }
-            self.textView.accessoryViewSwitcher.cleanupDisplayedView()
-            self.textView.accessoryViewSwitcher.showEditingBars(textView: self.textView.textView)
+            self.textView.accessoryViewSwitcher?.cleanupDisplayedView()
+            self.textView.accessoryViewSwitcher?.showEditingBars(textView: self.textView.textView)
         }
 
         let slashMenuView = SlashMenuView(
@@ -305,18 +307,20 @@ final class TextBlockContentView: UIView & UIContentView {
             dismissHandler: dismissActionsMenu,
             mentionsSelectionHandler: mentionsSelectionHandler)
         
-        let handler = EditorAccessoryViewActionHandler(delegate: self)
-        let textView = CustomTextView(
-            options: options,
-            accessoryViewSwitcher: AccessoryViewSwitcher(
-                mentionsView: mentionsView,
-                slashMenuView: slashMenuView,
-                handler: handler
-            )
-        )
-        handler.customTextView = textView
-        handler.switcher = textView.accessoryViewSwitcher
-        return textView
+        let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
+
+        var accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
+
+        if currentConfiguration.information.content.type == .text(.title) {
+            accessoryView = EditorAccessoryView(items: [.style, .mention], actionHandler: editorAccessoryhandler)
+        }
+
+        let accessoryViewSwitcher = AccessoryViewSwitcher(mentionsView: mentionsView, slashMenuView: slashMenuView, accessoryView: accessoryView)
+        textView.setAccessoryViewSwitcher(accessoryViewSwitcher: accessoryViewSwitcher)
+        textView.setCustomTextViewOptions(options: options)
+
+        editorAccessoryhandler.customTextView = textView
+        editorAccessoryhandler.switcher = textView.accessoryViewSwitcher
     }
     
     private func buildCreateEmptyBlockButton() -> UIButton {
@@ -356,7 +360,7 @@ final class TextBlockContentView: UIView & UIContentView {
             for: currentConfiguration.information.content.type
         )
         let builder = BlockActionsBuilder(restrictions: restrictions)
-        textView.accessoryViewSwitcher.slashMenuView.menuItems = builder.makeBlockActionsMenuItems()
+        textView.accessoryViewSwitcher?.slashMenuView.menuItems = builder.makeBlockActionsMenuItems()
     }
     
     private enum LayoutConstants {

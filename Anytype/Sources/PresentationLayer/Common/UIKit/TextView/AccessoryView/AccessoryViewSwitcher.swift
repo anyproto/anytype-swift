@@ -11,19 +11,18 @@ final class AccessoryViewSwitcher {
     
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
-    private(set) lazy var accessoryView = EditorAccessoryView(actionHandler: handler)
-    let handler: EditorAccessoryViewActionHandler
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     private let mentionsView: (DismissableInputAccessoryView & FilterableItemsView)
+    let accessoryView: EditorAccessoryView
     let slashMenuView: SlashMenuView
     
     init(mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
          slashMenuView: SlashMenuView,
-         handler: EditorAccessoryViewActionHandler) {
+         accessoryView: EditorAccessoryView) {
         self.mentionsView = mentionsView
         self.slashMenuView = slashMenuView
-        self.handler = handler
+        self.accessoryView = accessoryView
     }
     
     func switchInputs(textView: UITextView) {
