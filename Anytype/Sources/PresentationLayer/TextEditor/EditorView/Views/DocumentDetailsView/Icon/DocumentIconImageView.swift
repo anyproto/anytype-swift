@@ -11,26 +11,23 @@ import Combine
 import Kingfisher
 
 final class DocumentIconImageView: UIView {
-    
-    let height: CGFloat
-    
+        
     // MARK: - Private properties
     
-    private let imageView: UIImageView = UIImageView()
+    private let imageView = UIImageView()
+    
+    private var heightConstraint: NSLayoutConstraint!
+    private var widthConstraint: NSLayoutConstraint!
     
     // MARK: Initialization
     
     override init(frame: CGRect) {
-        self.height = Constants.size.height
-        
         super.init(frame: frame)
         
         setupView()
     }
     
     required init?(coder: NSCoder) {
-        self.height = Constants.size.height
-        
         super.init(coder: coder)
         
         setupView()
@@ -42,6 +39,11 @@ final class DocumentIconImageView: UIView {
 
 extension DocumentIconImageView: ConfigurableView {
     
+    enum Model {
+        case basic(BasicIconModel)
+        case profile(ProfileIconModel)
+    }
+    
     enum BasicIconModel {
         case imageId(String)
         case preview(UIImage?)
@@ -51,11 +53,6 @@ extension DocumentIconImageView: ConfigurableView {
         case imageId(String)
         case placeholder(Character)
         case preview(UIImage?)
-    }
-    
-    enum Model {
-        case basic(BasicIconModel)
-        case profile(ProfileIconModel)
     }
     
     func configure(model: Model) {
@@ -70,29 +67,44 @@ extension DocumentIconImageView: ConfigurableView {
     }
     
     private func configureBasicIcon(_ basicIcon: BasicIconModel) {
-        layer.cornerRadius = Constants.basicCornerRadius
+        layer.cornerRadius = Constants.Basic.cornerRadius
+        heightConstraint.constant = Constants.Basic.size.height
+        widthConstraint.constant = Constants.Basic.size.width
         
         switch basicIcon {
         case let .imageId(imageId):
-            downloadImage(imageId: imageId, cornerRadius: Constants.basicCornerRadius)
+            downloadImage(
+                imageId: imageId,
+                imageGuideline: ImageGuideline(
+                    size: Constants.Basic.size,
+                    cornerRadius: Constants.Basic.cornerRadius,
+                    backgroundColor: UIColor.grayscaleWhite
+                )
+            )
         case let .preview(image):
             imageView.image = image
         }
     }
     
     private func configureProfileIcon(_ profileIcon: ProfileIconModel) {
-        layer.cornerRadius = Constants.profileCornerRadius
+        layer.cornerRadius = Constants.Profile.cornerRadius
+        heightConstraint.constant = Constants.Profile.size.height
+        widthConstraint.constant = Constants.Profile.size.width
         
+        let imageGuideline = ImageGuideline(
+            size: Constants.Profile.size,
+            cornerRadius: Constants.Profile.cornerRadius,
+            backgroundColor: UIColor.grayscaleWhite
+        )
         switch profileIcon {
         case let .imageId(imageId):
-            downloadImage(imageId: imageId, cornerRadius: Constants.profileCornerRadius)
+            downloadImage(
+                imageId: imageId,
+                imageGuideline: imageGuideline
+            )
         case let .placeholder(character):
             imageView.image = PlaceholderImageBuilder.placeholder(
-                with: ImageGuideline(
-                    size: Constants.size,
-                    cornerRadius: Constants.profileCornerRadius,
-                    backgroundColor: UIColor.grayscaleWhite
-                ),
+                with: imageGuideline,
                 color: UIColor.grayscale30,
                 textGuideline: PlaceholderImageTextGuideline(text: String(character))
             )
@@ -101,19 +113,20 @@ extension DocumentIconImageView: ConfigurableView {
         }
     }
     
-    private func downloadImage(imageId: String, cornerRadius: CGFloat) {
+    private func downloadImage(imageId: String, imageGuideline: ImageGuideline) {
         let placeholder = PlaceholderImageBuilder.placeholder(
-            with: ImageGuideline(
-                size: Constants.size,
-                cornerRadius: cornerRadius,
-                backgroundColor: UIColor.grayscaleWhite
-            ),
+            with: imageGuideline,
             color: UIColor.grayscale10
         )
         
-        let processor = ResizingImageProcessor(referenceSize: Constants.size, mode: .aspectFill)
-        .append(another: CroppingImageProcessor(size: Constants.size))
-        .append(another: RoundCornerImageProcessor(radius: .point(cornerRadius)))
+        let processor = ResizingImageProcessor(
+            referenceSize: imageGuideline.size,
+            mode: .aspectFill
+        )
+        |> CroppingImageProcessor(size: imageGuideline.size)
+        |> RoundCornerImageProcessor(
+            radius: .point(imageGuideline.cornersGuideline.radius)
+        )
         
         imageView.kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
@@ -138,9 +151,13 @@ private extension DocumentIconImageView {
     }
     
     func setupLayout() {
+        layoutUsing.anchors {
+            heightConstraint = $0.height.equal(to: Constants.Basic.size.height)
+            widthConstraint = $0.width.equal(to: Constants.Basic.size.width)
+        }
+        
         addSubview(imageView) {
             $0.pinToSuperview()
-            $0.size(Constants.size)
         }
     }
     
@@ -151,9 +168,15 @@ private extension DocumentIconImageView {
 private extension DocumentIconImageView {
     
     enum Constants {
-        static let basicCornerRadius: CGFloat = 22
-        static let profileCornerRadius: CGFloat = Constants.size.height / 2
-        static let size = CGSize(width: 122, height: 122)
+        enum Basic {
+            static let size = CGSize(width: 96, height: 96)
+            static let cornerRadius: CGFloat = 4
+        }
+        
+        enum Profile {
+            static let size = CGSize(width: 112, height: 112)
+            static let cornerRadius: CGFloat = Constants.Profile.size.height / 2
+        }
     }
     
 }

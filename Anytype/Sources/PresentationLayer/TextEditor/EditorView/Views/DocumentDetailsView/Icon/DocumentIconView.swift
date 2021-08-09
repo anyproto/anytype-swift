@@ -94,7 +94,7 @@ extension DocumentIconView: ConfigurableView {
     private func showImageView(_ model: DocumentIconImageView.Model) {
         iconImageView.configure(model: model)
         
-        heightConstraint.constant = iconImageView.height
+//        heightConstraint.constant = iconImageView.height
         
         let cornerRadius = iconImageView.layer.cornerRadius
         containerView.layer.cornerRadius = cornerRadius
