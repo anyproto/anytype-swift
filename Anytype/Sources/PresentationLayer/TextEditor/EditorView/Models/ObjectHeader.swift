@@ -13,6 +13,7 @@ enum ObjectHeader: Hashable {
     
     case iconOnly(ObjectIcon)
     case coverOnly(ObjectCover)
+    case iconAndCover(ObjectIcon, ObjectCover)
     
 }
 
@@ -26,6 +27,16 @@ extension ObjectHeader: ContentConfigurationProvider {
             return CoverOnlyObjectHeaderConfiguration(
                 cover: objectCover,
                 maxWidth: maxWidth
+            )
+        case let .iconAndCover(objectIcon, objectCover):
+            return IconAndCoverObjectHeaderConfiguration(
+                iconConfiguration: IconOnlyObjectHeaderConfiguration(
+                    icon: objectIcon
+                ),
+                coverConfiguration: CoverOnlyObjectHeaderConfiguration(
+                    cover: objectCover,
+                    maxWidth: maxWidth
+                )
             )
         }
     }

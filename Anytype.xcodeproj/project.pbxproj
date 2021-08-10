@@ -189,6 +189,8 @@
 		123FDADD26C17CBA00F6F44B /* ObjectCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDADC26C17CBA00F6F44B /* ObjectCover.swift */; };
 		123FDAE226C17CEF00F6F44B /* CoverOnlyObjectHeaderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAE126C17CEF00F6F44B /* CoverOnlyObjectHeaderConfiguration.swift */; };
 		123FDAE426C17CF900F6F44B /* CoverOnlyObjectHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAE326C17CF900F6F44B /* CoverOnlyObjectHeaderContentView.swift */; };
+		123FDAF226C2951900F6F44B /* IconAndCoverObjectHeaderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAF126C2951900F6F44B /* IconAndCoverObjectHeaderConfiguration.swift */; };
+		123FDAF726C2959600F6F44B /* IconAndCoverObjectHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAF626C2959600F6F44B /* IconAndCoverObjectHeaderContentView.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */; };
@@ -798,6 +800,8 @@
 		123FDADC26C17CBA00F6F44B /* ObjectCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCover.swift; sourceTree = "<group>"; };
 		123FDAE126C17CEF00F6F44B /* CoverOnlyObjectHeaderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverOnlyObjectHeaderConfiguration.swift; sourceTree = "<group>"; };
 		123FDAE326C17CF900F6F44B /* CoverOnlyObjectHeaderContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverOnlyObjectHeaderContentView.swift; sourceTree = "<group>"; };
+		123FDAF126C2951900F6F44B /* IconAndCoverObjectHeaderConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndCoverObjectHeaderConfiguration.swift; sourceTree = "<group>"; };
+		123FDAF626C2959600F6F44B /* IconAndCoverObjectHeaderContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndCoverObjectHeaderContentView.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsDataProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
@@ -2420,6 +2424,8 @@
 				123FDACB26C132E700F6F44B /* IconOnlyObjectHeaderContentView.swift */,
 				126C46D626BD966700D31DBF /* ObjectIcon.swift */,
 				123FDADC26C17CBA00F6F44B /* ObjectCover.swift */,
+				123FDAF126C2951900F6F44B /* IconAndCoverObjectHeaderConfiguration.swift */,
+				123FDAF626C2959600F6F44B /* IconAndCoverObjectHeaderContentView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3914,6 +3920,7 @@
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
 				EA5FB42B266A970F00DCD56C /* MentionDisplayData.swift in Sources */,
 				537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */,
+				123FDAF226C2951900F6F44B /* IconAndCoverObjectHeaderConfiguration.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				3D82917B265E53BB0007C152 /* LocalEvent.swift in Sources */,
 				3DEFD6622689FE740072EA27 /* DocumentIconView.swift in Sources */,
@@ -4204,6 +4211,7 @@
 				3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
 				120E818426A04A31006FE84E /* ObjectDetailsService.swift in Sources */,
+				123FDAF726C2959600F6F44B /* IconAndCoverObjectHeaderContentView.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
 				3D36B09D26A6DE250046C90F /* ContextualMenu+Image.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,

@@ -75,8 +75,7 @@ extension DetailsDataProtocol {
     
     var objectHeader: ObjectHeader? {
         if let icon = icon, let cover = documentCover {
-            // FIXME: not implemented
-            return nil
+            return .iconAndCover(.icon(icon), .cover(cover))
         }
         
         if let icon = icon {
