@@ -80,11 +80,12 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        topConstraint.constant = Constants.basicTopInset
         switch basicIcon {
         case let .emoji(emoji):
+            topConstraint.constant = Constants.basicEmojiTopInset
             showEmojiView(emoji)
         case let .imageId(imageId):
+            topConstraint.constant = Constants.basicIconTopInset
             showImageView(.basic(.imageId(imageId)))
         }
     }
@@ -132,7 +133,7 @@ private extension IconOnlyObjectHeaderContentView {
     private func configurePreviewState(_ preview: ObjectIconPreviewType) {
         switch preview {
         case let .basic(image):
-            topConstraint.constant = Constants.basicTopInset
+            topConstraint.constant = Constants.basicIconTopInset
             showImageView(.basic(.preview(image)))
         case let .profile(image):
             topConstraint.constant = Constants.profileTopInset
@@ -179,7 +180,7 @@ private extension IconOnlyObjectHeaderContentView {
                     )
                     self.topConstraint = $0.top.equal(
                         to: self.topAnchor,
-                        constant: Constants.basicTopInset
+                        constant: Constants.basicEmojiTopInset
                     )
                 }
             },
@@ -199,10 +200,13 @@ private extension IconOnlyObjectHeaderContentView {
     
     enum Constants {
         static let borderWidth: CGFloat = 4
+        
         static let horizontalInset: CGFloat = 20 - Constants.borderWidth
-        static let bottomInset: CGFloat = 16
-        static let basicTopInset: CGFloat = 76 - Constants.borderWidth
-        static let profileTopInset: CGFloat = 52 - Constants.borderWidth
+        static let bottomInset: CGFloat = 16 - Constants.borderWidth
+        
+        static let basicIconTopInset: CGFloat = 108 - Constants.borderWidth
+        static let basicEmojiTopInset: CGFloat = 124 - Constants.borderWidth
+        static let profileTopInset: CGFloat = 92 - Constants.borderWidth
     }
     
 }
