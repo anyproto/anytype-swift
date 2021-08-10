@@ -1,20 +1,23 @@
 import AnytypeCore
-import Foundation
+import UIKit
+
 
 struct MarkupStateCalculator {
-    
     private let attributedText: NSAttributedString
     private let range: NSRange
     private let restrictions: BlockRestrictions
+    private let alignment: NSTextAlignment?
     
     init(
         attributedText: NSAttributedString,
         range: NSRange,
-        restrictions: BlockRestrictions
+        restrictions: BlockRestrictions,
+        alignment: NSTextAlignment?
     ) {
         self.attributedText = attributedText
         self.range = range
         self.restrictions = restrictions
+        self.alignment = alignment
     }
     
     func boldState() -> MarkupState {
@@ -42,6 +45,14 @@ struct MarkupStateCalculator {
             return .disabled
         }
         return attributedText.isCodeFontInWhole(range: range) ? .applied : .notApplied
+    }
+
+    func alignmentState() -> NSTextAlignment? {
+        guard !restrictions.availableAlignments.isEmpty else {
+            return nil
+        }
+
+        return alignment
     }
     
     func state(for markup: BlockHandlerActionType.TextAttributesType) -> MarkupState {
