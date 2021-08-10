@@ -22,4 +22,3 @@ struct CoverOnlyObjectHeaderConfiguration: UIContentConfiguration, Hashable {
     }
     
 }
-
