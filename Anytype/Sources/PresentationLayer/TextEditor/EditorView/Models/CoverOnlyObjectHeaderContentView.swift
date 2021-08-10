@@ -154,6 +154,7 @@ private extension CoverOnlyObjectHeaderContentView {
         layoutUsing.anchors {
             $0.height.equal(to: Constants.coverHeight + Constants.bottomInset)
         }
+        // Modern collection view requirement
         translatesAutoresizingMaskIntoConstraints = true
         
         addSubview(imageView) {
