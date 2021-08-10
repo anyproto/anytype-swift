@@ -361,8 +361,9 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
-        let availableAttributes = BlockHandlerActionType.TextAttributesType.allCases.filter {
-            switch $0 {
+        let allAttributes = BlockHandlerActionType.TextAttributesType.allCases
+        let availableAttributes = allAttributes.filter { attribute -> Bool in
+            switch attribute {
             case .bold:
                 return restrictions.canApplyBold
             case .italic:
