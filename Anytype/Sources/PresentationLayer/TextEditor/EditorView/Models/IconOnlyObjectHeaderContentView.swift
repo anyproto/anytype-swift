@@ -58,14 +58,14 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
 private extension IconOnlyObjectHeaderContentView {
 
     func apply(configuration: IconOnlyObjectHeaderConfiguration) {
+        appliedConfiguration = configuration
+        
         switch configuration.icon {
         case let .icon(icon):
             configureIconState(icon)
         case let .preview(preview):
             configurePreviewState(preview)
         }
-        
-        appliedConfiguration = configuration
     }
     
     private func configureIconState(_ icon: DocumentIconType) {
@@ -123,7 +123,10 @@ private extension IconOnlyObjectHeaderContentView {
             $0.center(in: containerView)
             $0.leading.equal(to: containerView.leadingAnchor, constant: Constants.borderWidth)
             $0.top.equal(to: containerView.topAnchor, constant: Constants.borderWidth)
-        }        
+        }
+        containerView.addSubview(activityIndicatorView) {
+            $0.pinToSuperview()
+        }
     }
     
     private func configurePreviewState(_ preview: ObjectIconPreviewType) {
@@ -168,11 +171,11 @@ private extension IconOnlyObjectHeaderContentView {
                     )
                     $0.trailing.equal(
                         to: self.trailingAnchor,
-                        constant: Constants.horizontalInset
+                        constant: -Constants.horizontalInset
                     )
                     $0.bottom.equal(
                         to: self.bottomAnchor,
-                        constant: Constants.bottomInset
+                        constant: -Constants.bottomInset
                     )
                     self.topConstraint = $0.top.equal(
                         to: self.topAnchor,

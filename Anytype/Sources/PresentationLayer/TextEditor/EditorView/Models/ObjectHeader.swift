@@ -12,15 +12,21 @@ import UIKit
 enum ObjectHeader: Hashable {
     
     case iconOnly(ObjectIcon)
+    case coverOnly(ObjectCover)
     
 }
 
 extension ObjectHeader: ContentConfigurationProvider {
     
-    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {
         case let .iconOnly(objectIcon):
             return IconOnlyObjectHeaderConfiguration(icon: objectIcon)
+        case let .coverOnly(objectCover):
+            return CoverOnlyObjectHeaderConfiguration(
+                cover: objectCover,
+                maxWidth: maxWidth
+            )
         }
     }
     
