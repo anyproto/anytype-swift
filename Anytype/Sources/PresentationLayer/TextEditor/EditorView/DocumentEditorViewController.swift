@@ -96,27 +96,6 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateRowsWithoutRefreshing(ids: Set<BlockId>) {
-        let sectionSnapshot = dataSource.snapshot(for: .main)
-        
-        sectionSnapshot.visibleItems.forEach { item in
-            switch item {
-            case let .block(block):
-                guard
-                    ids.contains(block.information.id),
-                    let indexPath = dataSource.indexPath(for: item),
-                    let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell
-                else { return }
-                
-                cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
-            case .header:
-                // TODO: - Implement
-                return
-            }
-        }
-        updateView()
-    }
-    
     func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
