@@ -173,7 +173,7 @@ private extension CoverOnlyObjectHeaderContentView {
 private extension CoverOnlyObjectHeaderContentView {
     
     enum Constants {
-        static let coverHeight: CGFloat = 224
+        static let coverHeight: CGFloat = 188
         static let bottomInset: CGFloat = 32
     }
     
