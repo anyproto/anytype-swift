@@ -4,7 +4,7 @@ import Combine
 import BlocksModels
 
 
-struct BlockPageLinkViewModel: BlockViewModelProtocol {    
+struct BlockLinkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             indentationLevel,
@@ -16,7 +16,7 @@ struct BlockPageLinkViewModel: BlockViewModelProtocol {
     let information: BlockInformation
 
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let state: BlockPageLinkState
+    private let state: BlockLinkState
     
     private let content: BlockLink
     private let openLink: (BlockId) -> ()
@@ -35,11 +35,11 @@ struct BlockPageLinkViewModel: BlockViewModelProtocol {
         self.content = content
         self.contextualMenuHandler = contextualMenuHandler
         self.openLink = openLink
-        self.state = details.flatMap { BlockPageLinkState(pageDetails: $0) } ?? .empty
+        self.state = details.flatMap { BlockLinkState(pageDetails: $0) } ?? .empty
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        return BlockPageLinkContentConfiguration(content: content, state: state)
+        return BlockLinkContentConfiguration(content: content, state: state)
     }
     
     func didSelectRowInTableView() {

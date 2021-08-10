@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 import Kingfisher
 
-final class BlockPageLinkUIKitView: UIView {
+final class BlockLinkUIKitView: UIView {
     
     // MARK: - Views
     private let leftView = UIView()
@@ -36,7 +36,7 @@ final class BlockPageLinkUIKitView: UIView {
     }
 
     // MARK: - Internal functions
-    func apply(_ state: BlockPageLinkState) {
+    func apply(_ state: BlockLinkState) {
         leftView.removeAllSubviews()
         leftView.addSubview(makeIconView(state: state)) {
             $0.pinToSuperview()
@@ -56,7 +56,7 @@ final class BlockPageLinkUIKitView: UIView {
         }
     }
     
-    private func makeIconView(state: BlockPageLinkState) -> UIView {
+    private func makeIconView(state: BlockLinkState) -> UIView {
         switch state.style {
         case .noContent:
             return makeIconImageView()
@@ -178,7 +178,7 @@ final class BlockPageLinkUIKitView: UIView {
 
 // MARK: - Constants
 
-private extension BlockPageLinkUIKitView {
+private extension BlockLinkUIKitView {
     
     enum Constants {
         static let imageViewSize = CGSize(width: 24, height: 24)

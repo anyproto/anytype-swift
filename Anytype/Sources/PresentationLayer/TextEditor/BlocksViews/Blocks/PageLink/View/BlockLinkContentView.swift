@@ -3,18 +3,18 @@ import BlocksModels
 import Combine
 
 
-final class BlockPageLinkContentView: UIView & UIContentView {
+final class BlockLinkContentView: UIView & UIContentView {
     private enum LayoutConstants {
         static let insets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
     }
 
-    private let topView = BlockPageLinkUIKitView()
+    private let topView = BlockLinkUIKitView()
 
-    private var currentConfiguration: BlockPageLinkContentConfiguration
+    private var currentConfiguration: BlockLinkContentConfiguration
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
-            guard let configuration = newValue as? BlockPageLinkContentConfiguration else { return }
+            guard let configuration = newValue as? BlockLinkContentConfiguration else { return }
             guard currentConfiguration != configuration else { return }
             currentConfiguration = configuration
             applyNewConfiguration()
@@ -25,7 +25,7 @@ final class BlockPageLinkContentView: UIView & UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
             
-    init(configuration: BlockPageLinkContentConfiguration) {
+    init(configuration: BlockLinkContentConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         self.setup()

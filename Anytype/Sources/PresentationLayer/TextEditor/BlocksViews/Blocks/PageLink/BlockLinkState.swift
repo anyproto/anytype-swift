@@ -1,6 +1,6 @@
 import BlocksModels
 
-extension BlockPageLinkState {
+extension BlockLinkState {
     
     enum Style: Hashable, Equatable {
         case noContent
@@ -24,8 +24,8 @@ extension BlockPageLinkState {
     
 }
 
-struct BlockPageLinkState: Hashable, Equatable {
-    static let empty = BlockPageLinkState(archived: false, title: "", style: .noContent)
+struct BlockLinkState: Hashable, Equatable {
+    static let empty = BlockLinkState(archived: false, title: "", style: .noContent)
 
     let archived: Bool
     let title: String
