@@ -1,6 +1,4 @@
-import Foundation
 import UIKit
-import Combine
 
 // MARK: - TextView
 
@@ -44,6 +42,16 @@ final class TextViewWithPlaceholder: UITextView {
             blockLayoutManager.primaryColor = selectedColor
         }
     }
+    
+    /// Available markup options (bold, italic, strikethrough, etc)
+    var availableTextAttributes = [BlockHandlerActionType.TextAttributesType]() {
+        didSet {
+            if availableTextAttributes != oldValue {
+                setupMenu()
+                UIMenuController.shared.update()
+            }
+        }
+    }
 
     // MARK: - Overrides
     
@@ -64,12 +72,18 @@ final class TextViewWithPlaceholder: UITextView {
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
         onFirstResponderChange(.become)
+        if value {
+            setupMenu()
+        }
         return value
     }
 
     override func resignFirstResponder() -> Bool {
         let value = super.resignFirstResponder()
         onFirstResponderChange(.resign)
+        if value {
+            UIMenuController.shared.menuItems = nil
+        }
         return value
     }
 
@@ -113,7 +127,6 @@ private extension TextViewWithPlaceholder {
     func setup() {
         setupUIElements()
         updatePlaceholderLayout()
-        setupMenu()
     }
 
     func setupUIElements() {
@@ -143,7 +156,7 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupMenu() {
-        UIMenuController.shared.menuItems = BlockHandlerActionType.TextAttributesType.allCases.map { item in
+        UIMenuController.shared.menuItems = availableTextAttributes.map { item in
             let selector: Selector = {
                 switch item {
                 case .bold:

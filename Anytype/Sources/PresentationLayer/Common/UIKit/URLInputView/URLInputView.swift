@@ -9,6 +9,7 @@ final class URLInputView: UIView {
         textField.keyboardType = .URL
         textField.autocapitalizationType = .none
         textField.font = .headline
+        textField.clearButtonMode = .always
         textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
         textField.attributedPlaceholder = NSAttributedString(
             string: "Paste or type URL".localized,
@@ -35,13 +36,9 @@ final class URLInputView: UIView {
                                   for: .disabled)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
-        button.addAction(UIAction(handler: { [weak self]_ in
-            guard let self = self,
-                  let text = self.textField.text,
-                  let url = URL(string: text) else { return }
-            self.didCreateURL(url)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.didTapDoneButton()
         }), for: .touchUpInside)
-        button.isEnabled = false
         return button
     }()
     
@@ -61,12 +58,16 @@ final class URLInputView: UIView {
     }
     
     private var notificationToken: NSObjectProtocol?
-    private let didCreateURL: (URL) -> Void
+    private let didSetURL: (URL?) -> Void
     
-    init(didCreateURL: @escaping (URL) -> Void) {
-        self.didCreateURL = didCreateURL
+    init(
+        url: URL? = nil,
+        didSetURL: @escaping (URL?) -> Void
+    ) {
+        self.didSetURL = didSetURL
         super.init(frame: .zero)
         setup()
+        textField.text = url?.absoluteString
     }
     
     required init?(coder: NSCoder) {
@@ -79,6 +80,7 @@ final class URLInputView: UIView {
         addSubview(stackView)
         stackView.pinAllEdges(to: self, insets: Constants.insets)
         addTopLine()
+        updateDoneButton()
     }
     
     private func addTextFieldTextChangeObserver() {
@@ -87,9 +89,8 @@ final class URLInputView: UIView {
             object: textField,
             queue: .main,
             using: { [weak self] _ in
-                guard let self = self else { return }
-                self.doneButton.isEnabled = self.textField.text?.isValidURL() ?? false
-        })
+                self?.updateDoneButton()
+            })
     }
     
     private func addTopLine() {
@@ -103,6 +104,22 @@ final class URLInputView: UIView {
             $0.trailing.equal(to: trailingAnchor)
             $0.height.equal(to: Constants.lineHeight)
         }
+    }
+    
+    private func didTapDoneButton() {
+        if textField.text?.isEmpty ?? true {
+            didSetURL(nil)
+            return
+        }
+        if let text = textField.text, let url = URL(string: text) {
+            didSetURL(url)
+        }
+    }
+    
+    private func updateDoneButton() {
+        let isValidURL = textField.text?.isValidURL() ?? false
+        let isEmptyURL = textField.text?.isEmpty ?? true
+        doneButton.isEnabled = isValidURL || isEmptyURL
     }
 }
 

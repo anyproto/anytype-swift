@@ -109,7 +109,11 @@ final class TextBlockContentView: UIView & UIContentView {
         subscriptions.removeAll()
         textView.delegate = self
         textView.userInteractionDelegate = self
-        updateSlashMenuItems()
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(
+            for: currentConfiguration.information.content.type
+        )
+        updateSlashMenuItems(restrictions: restrictions)
+        updatePartialTextSelectionMenuItems(restrictions: restrictions)
 
         guard case let .text(text) = self.currentConfiguration.block.information.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
@@ -355,12 +359,24 @@ final class TextBlockContentView: UIView & UIContentView {
         return button
     }
     
-    private func updateSlashMenuItems() {
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: currentConfiguration.information.content.type
-        )
+    private func updateSlashMenuItems(restrictions: BlockRestrictions) {
         let builder = BlockActionsBuilder(restrictions: restrictions)
         textView.accessoryViewSwitcher?.slashMenuView.menuItems = builder.makeBlockActionsMenuItems()
+    }
+    
+    private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
+        let allAttributes = BlockHandlerActionType.TextAttributesType.allCases
+        let availableAttributes = allAttributes.filter { attribute -> Bool in
+            switch attribute {
+            case .bold:
+                return restrictions.canApplyBold
+            case .italic:
+                return restrictions.canApplyItalic
+            case .strikethrough, .keyboard:
+                return restrictions.canApplyOtherMarkup
+            }
+        }
+        textView.textView.availableTextAttributes = availableAttributes
     }
     
     private enum LayoutConstants {
