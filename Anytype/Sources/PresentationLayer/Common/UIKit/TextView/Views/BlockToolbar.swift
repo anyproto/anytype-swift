@@ -1,3 +1,0 @@
-extension CustomTextView {
-    enum BlockToolbar {}
-}
