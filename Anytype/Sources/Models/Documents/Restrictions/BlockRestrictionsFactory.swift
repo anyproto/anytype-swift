@@ -34,7 +34,9 @@ struct BlockRestrictionsFactory {
         switch contentType {
         case .text:
             return TextBlockRestrictions()
-        case .title, .header, .header2, .header3, .header4, .description:
+        case .title, .description:
+            return TitleBlockRestrictions()
+        case .header, .header2, .header3, .header4:
             return HeaderBlockRestrictions()
         case .bulleted, .numbered, .toggle, .checkbox:
             return ListBlockRestrictions()

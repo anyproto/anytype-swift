@@ -3,6 +3,45 @@ import Amplitude
 
 
 class EditorAccessoryView: UIView {
+    enum Item {
+        case mention
+        case slash
+        case style
+
+        var image: UIImage {
+            switch self {
+            case .mention:
+                return UIImage.edititngToolbar.mention
+            case .slash:
+                return UIImage.edititngToolbar.addNew
+            case .style:
+                return UIImage.edititngToolbar.style
+            }
+        }
+
+        var action: EditorAccessoryViewAction {
+            switch self {
+            case .mention:
+                return .mention
+            case .slash:
+                return .slashMenu
+            case .style:
+                return .showStyleMenu
+            }
+        }
+
+        var analyticsEvent: String {
+            switch self {
+            case .mention:
+                return AmplitudeEventsName.buttonMentionMenu
+            case .slash:
+                return AmplitudeEventsName.buttonSlashMenu
+            case .style:
+                return AmplitudeEventsName.buttonStyleMenu
+            }
+        }
+    }
+
     // MARK: - Views
 
     private let stackView: UIStackView = {
@@ -16,11 +55,14 @@ class EditorAccessoryView: UIView {
     }()
 
     private let actionHandler: EditorAccessoryViewActionHandler
+    private let items: [Item]
 
     // MARK: - Lifecycle
 
-    init(actionHandler: EditorAccessoryViewActionHandler) {
+    init(items: [Item] = [.slash, .style, .mention], actionHandler: EditorAccessoryViewActionHandler) {
         self.actionHandler = actionHandler
+        self.items = items
+
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
 
         setupViews()
@@ -43,26 +85,14 @@ class EditorAccessoryView: UIView {
 
     private func setupLayout() {
         stackView.edgesToSuperview()
-    
-        addBarButtonItem(image: UIImage.edititngToolbar.addNew) { [weak self] _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonSlashMenu)
 
-            self?.actionHandler.handle(.slashMenu)
-        }
+        items.forEach { item in
+            addBarButtonItem(image: item.image) { [weak self] _ in
+                // Analytics
+                Amplitude.instance().logEvent(item.analyticsEvent)
 
-        addBarButtonItem(image: UIImage.edititngToolbar.style) {[weak self] _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonStyleMenu)
-
-            self?.actionHandler.handle(.showStyleMenu)
-        }
-        
-        addBarButtonItem(image: UIImage.edititngToolbar.mention) { [weak self] _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonMentionMenu)
-
-            self?.actionHandler.handle(.mention)
+                self?.actionHandler.handle(item.action)
+            }
         }
         
         addBarButtonItem(title: "Done".localized) { [weak self]_ in
