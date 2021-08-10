@@ -58,16 +58,13 @@ final class URLInputView: UIView {
     }
     
     private var notificationToken: NSObjectProtocol?
-    private let allowEmptyURL: Bool
-    private let didCreateURL: (URL?) -> Void
+    private let didSetURL: (URL?) -> Void
     
     init(
         url: URL? = nil,
-        allowEmptyURL: Bool = false,
-        didCreateURL: @escaping (URL?) -> Void
+        didSetURL: @escaping (URL?) -> Void
     ) {
-        self.allowEmptyURL = allowEmptyURL
-        self.didCreateURL = didCreateURL
+        self.didSetURL = didSetURL
         super.init(frame: .zero)
         setup()
         textField.text = url?.absoluteString
@@ -110,19 +107,19 @@ final class URLInputView: UIView {
     }
     
     private func didTapDoneButton() {
-        if allowEmptyURL, (textField.text?.isEmpty ?? true) {
-            didCreateURL(nil)
+        if textField.text?.isEmpty ?? true {
+            didSetURL(nil)
             return
         }
         if let text = textField.text, let url = URL(string: text) {
-            didCreateURL(url)
+            didSetURL(url)
         }
     }
     
     private func updateDoneButton() {
         let isValidURL = textField.text?.isValidURL() ?? false
-        let isEmptyURLAllowed = (textField.text?.isEmpty ?? true) && allowEmptyURL
-        doneButton.isEnabled = isValidURL || isEmptyURLAllowed
+        let isEmptyURL = textField.text?.isEmpty ?? true
+        doneButton.isEnabled = isValidURL || isEmptyURL
     }
 }
 
