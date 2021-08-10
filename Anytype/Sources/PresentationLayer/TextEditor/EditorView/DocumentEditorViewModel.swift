@@ -82,7 +82,29 @@ final class DocumentEditorViewModel: ObservableObject {
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
-        // TODO: - add implementation
+        let header = modelsHolder.details?.objectHeader
+        
+        guard let header = header else {
+            let fakeHeader: ObjectHeader = {
+                switch event {
+                case .iconUploading(let uIImage):
+                    return ObjectHeader.iconOnly(.preview(.basic(uIImage)))
+                case .coverUploading(let uIImage):
+                    return ObjectHeader.coverOnly(.preview(uIImage))
+                }
+            }()
+            
+            viewInput?.updateData(
+                header: fakeHeader,
+                blocks: modelsHolder.models
+            )
+            return
+        }
+        
+        viewInput?.updateData(
+            header: header.modifiedByLocalEvent(event),
+            blocks: modelsHolder.models
+        )
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {

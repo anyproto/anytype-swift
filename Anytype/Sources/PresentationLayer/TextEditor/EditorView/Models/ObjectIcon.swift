@@ -15,6 +15,6 @@ enum ObjectIcon: Hashable {
 }
 
 enum ObjectIconPreviewType: Hashable {
-    case basic(UIImage?)
-    case profile(UIImage?)
+    case basic(UIImage)
+    case profile(UIImage)
 }
