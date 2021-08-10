@@ -30,6 +30,7 @@ struct StyleCellBackgroundConfiguration {
 struct StyleCellContentConfiguration: UIContentConfiguration, Hashable {
     var text: String? = nil
     var font: UIFont? = nil
+    var isDisabled: Bool = false
 
     func makeContentView() -> UIView & UIContentView {
         return StyleCellContentView(configuration: self)

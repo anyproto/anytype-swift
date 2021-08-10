@@ -1,9 +1,12 @@
+import BlocksModels
+
+
 enum EditorSelectionIncomingEvent {
     enum CountEvent {
         static var `default`: Self = .isEmpty
         case isEmpty
-        case nonEmpty(UInt, turnIntoStyles: [BlockViewType])
-        static func from(_ value: Int, turnIntoStyles: [BlockViewType]) -> Self {
+        case nonEmpty(UInt, turnIntoStyles: [BlockContentType])
+        static func from(_ value: Int, turnIntoStyles: [BlockContentType]) -> Self {
             value <= 0 ? .isEmpty : nonEmpty(.init(value), turnIntoStyles: turnIntoStyles)
         }
     }

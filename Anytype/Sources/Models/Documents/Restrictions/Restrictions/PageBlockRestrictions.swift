@@ -9,10 +9,10 @@ struct PageBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = false
     let canApplyBackgroundColor = true
     let canApplyMention = false
-    let turnIntoStyles: [BlockViewType] = [
-        .text(.text), .text(.h1), .text(.h2), .text(.h3), .text(.highlighted),
-        .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
-        .objects(.page)
+    let turnIntoStyles: [BlockContentType] = [
+        .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),
+        .text(.checkbox), .text(.bulleted), .text(.numbered), .text(.toggle),
+        .smartblock(.page)
     ]
    
     let availableAlignments = LayoutAlignment.allCases

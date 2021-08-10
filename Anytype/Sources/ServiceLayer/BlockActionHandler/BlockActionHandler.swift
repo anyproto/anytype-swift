@@ -57,8 +57,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         switch action {
         case let .turnInto(textStyle):
+            // TODO: why we need here turnInto only for text block?
             let textBlockContentType: BlockContent = .text(BlockText(contentType: textStyle))
-            service.turnInto(blockId: blockId, type: textBlockContentType, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: textBlockContentType.type, shouldSetFocusOnUpdate: false)
         case let .setTextColor(color):
             setBlockColor(blockId: blockId, color: color, completion: completion)
         case let .setBackgroundColor(color):
@@ -121,60 +122,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    private func turnIntoBlock(blockId: BlockId, type: BlockViewType) {
+    private func turnIntoBlock(blockId: BlockId, type: BlockContentType) {
         switch type {
-        case let .text(value): // Set Text Style
-            let type: BlockContent
-            switch value {
-            case .text: type = .text(.empty())
-            case .h1: type = .text(.init(contentType: .header))
-            case .h2: type = .text(.init(contentType: .header2))
-            case .h3: type = .text(.init(contentType: .header3))
-            case .highlighted: type = .text(.init(contentType: .quote))
-            }
+        case .file(.file):
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
+        case .file(.image):
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
+        case .file(.video):
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
+        case .bookmark(.page):
+            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
+        default:
             service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
-            
-        case let .list(value): // Set Text Style
-            let type: BlockContent
-            switch value {
-            case .bulleted: type = .text(.init(contentType: .bulleted))
-            case .checkbox: type = .text(.init(contentType: .checkbox))
-            case .numbered: type = .text(.init(contentType: .numbered))
-            case .toggle: type = .text(.init(contentType: .toggle))
-            }
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
-            
-        case let .other(value): // Change divider style.
-            let type: BlockContent
-            switch value {
-            case .lineDivider: type = .divider(.init(style: .line))
-            case .dotsDivider: type = .divider(.init(style: .dots))
-            case .code: return
-            }
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
-            
-        case .objects(.page):
-            let type: BlockContent = .smartblock(.init(style: .page))
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
-            
-        case .objects(.file):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .objects(.picture):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .objects(.video):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .objects(.bookmark):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .objects(.linkToObject):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .tool(_):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         }
     }
     
-    private func addBlock(blockId: BlockId, type: BlockViewType) {
+    private func addBlock(blockId: BlockId, type: BlockContentType) {
         switch type {
-        case .objects(.page):
+        case .smartblock(.page):
             service.createPage(position: .bottom)
         default:
             guard let newBlock = BlockBuilder.createNewBlock(type: type),
@@ -254,7 +219,8 @@ private extension BlockActionHandler {
         let markupCalculator = MarkupStateCalculator(
             attributedText: textContentType.attributedText,
             range: range,
-            restrictions: restrictions
+            restrictions: restrictions,
+            alignment: nil
         )
         let markupState = markupCalculator.state(for: fontAction)
         guard markupState != .disabled else { return }

@@ -32,8 +32,8 @@ enum BlockHandlerActionType {
     
     case duplicate
     case delete
-    case addBlock(BlockViewType)
-    case turnIntoBlock(BlockViewType)
+    case addBlock(BlockContentType)
+    case turnIntoBlock(BlockContentType)
     case createEmptyBlock(parentId: BlockId)
     
     case fetch(url: URL)

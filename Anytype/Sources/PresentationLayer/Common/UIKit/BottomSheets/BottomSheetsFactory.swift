@@ -50,9 +50,12 @@ final class BottomSheetsFactory {
             return information.backgroundColor?.color(background: true)
         }
 
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
+
         let contentVC = StyleViewController(
             viewControllerForPresenting: parentViewController,
             style: textContentType,
+            restrictions: restrictions,
             askColor: askColor,
             askBackgroundColor: askBackgroundColor,
             didTapMarkupButton: showMarkupMenu

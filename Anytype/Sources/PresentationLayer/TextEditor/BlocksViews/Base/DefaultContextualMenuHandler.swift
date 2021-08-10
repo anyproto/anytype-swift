@@ -21,7 +21,7 @@ final class DefaultContextualMenuHandler {
         case .duplicate:
             handler.handleAction(.duplicate, blockId: info.id)
         case .turnIntoPage:
-            handler.handleAction(.turnIntoBlock(.objects(.page)), blockId: info.id)
+            handler.handleAction(.turnIntoBlock(.smartblock(.page)), blockId: info.id)
         case .style:
             router.showStyleMenu(information: info)
         case .download,.replace:
