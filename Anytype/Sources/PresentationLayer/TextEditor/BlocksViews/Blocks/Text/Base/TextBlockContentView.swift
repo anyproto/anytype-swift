@@ -299,12 +299,15 @@ final class TextBlockContentView: UIView & UIContentView {
             self.textView.accessoryViewSwitcher?.showEditingBars(textView: self.textView.textView)
         }
 
-        let slashMenuView = SlashMenuView(
-            frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
-            menuItems: blockActionBuilder.makeBlockActionsMenuItems(),
-            slashMenuActionsHandler: actionsHandler,
-            actionsMenuDismissHandler: dismissActionsMenu
-        )
+        var slashMenuView: SlashMenuView?
+        if currentConfiguration.information.content.type != .text(.title) {
+            slashMenuView = SlashMenuView(
+                frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
+                menuItems: blockActionBuilder.makeBlockActionsMenuItems(),
+                slashMenuActionsHandler: actionsHandler,
+                actionsMenuDismissHandler: dismissActionsMenu
+            )
+        }
         
         let mentionsView = MentionView(
             frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
@@ -319,7 +322,9 @@ final class TextBlockContentView: UIView & UIContentView {
             accessoryView = EditorAccessoryView(items: [.style, .mention], actionHandler: editorAccessoryhandler)
         }
 
-        let accessoryViewSwitcher = AccessoryViewSwitcher(mentionsView: mentionsView, slashMenuView: slashMenuView, accessoryView: accessoryView)
+        let accessoryViewSwitcher = AccessoryViewSwitcher(mentionsView: mentionsView,
+                                                          slashMenuView: slashMenuView,
+                                                          accessoryView: accessoryView)
         textView.setAccessoryViewSwitcher(accessoryViewSwitcher: accessoryViewSwitcher)
         textView.setCustomTextViewOptions(options: options)
 
@@ -361,7 +366,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func updateSlashMenuItems(restrictions: BlockRestrictions) {
         let builder = BlockActionsBuilder(restrictions: restrictions)
-        textView.accessoryViewSwitcher?.slashMenuView.menuItems = builder.makeBlockActionsMenuItems()
+        textView.accessoryViewSwitcher?.slashMenuView?.menuItems = builder.makeBlockActionsMenuItems()
     }
     
     private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {

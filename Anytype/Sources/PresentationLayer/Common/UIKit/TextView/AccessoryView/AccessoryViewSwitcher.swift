@@ -15,10 +15,10 @@ final class AccessoryViewSwitcher {
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     private let mentionsView: (DismissableInputAccessoryView & FilterableItemsView)
     let accessoryView: EditorAccessoryView
-    let slashMenuView: SlashMenuView
+    let slashMenuView: SlashMenuView?
     
     init(mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
-         slashMenuView: SlashMenuView,
+         slashMenuView: SlashMenuView?,
          accessoryView: EditorAccessoryView) {
         self.mentionsView = mentionsView
         self.slashMenuView = slashMenuView
