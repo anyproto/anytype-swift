@@ -42,7 +42,7 @@ final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
     init(configuration: CoverOnlyObjectHeaderConfiguration) {
         super.init(frame: .zero)
         
-        setupLayout()
+        setupView()
         apply(configuration: configuration)
     }
     
@@ -149,6 +149,12 @@ private extension CoverOnlyObjectHeaderContentView  {
 // MARK: - Private extension
 
 private extension CoverOnlyObjectHeaderContentView {
+    
+    func setupView() {
+        imageView.clipsToBounds = true
+        
+        setupLayout()
+    }
     
     func setupLayout() {
         layoutUsing.anchors {

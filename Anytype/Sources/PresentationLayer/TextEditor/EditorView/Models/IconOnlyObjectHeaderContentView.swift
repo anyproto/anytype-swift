@@ -125,7 +125,7 @@ private extension IconOnlyObjectHeaderContentView {
             $0.leading.equal(to: containerView.leadingAnchor, constant: Constants.borderWidth)
             $0.top.equal(to: containerView.topAnchor, constant: Constants.borderWidth)
         }
-        containerView.addSubview(activityIndicatorView) {
+        contentView.addSubview(activityIndicatorView) {
             $0.pinToSuperview()
         }
     }
@@ -157,6 +157,7 @@ private extension IconOnlyObjectHeaderContentView {
     func setupView() {
         containerView.clipsToBounds = true
         
+        containerView.backgroundColor = .grayscaleWhite
         backgroundColor = .grayscaleWhite
         
         setupLayout()
