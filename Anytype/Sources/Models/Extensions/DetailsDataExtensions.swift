@@ -74,12 +74,14 @@ extension DetailsDataProtocol {
     }
     
     var objectHeader: ObjectHeader? {
+        let layoutAlign = self.layoutAlign ?? .left
+        
         if let icon = icon, let cover = documentCover {
-            return .iconAndCover(.icon(icon), .cover(cover))
+            return .iconAndCover(.icon(icon, layoutAlign), .cover(cover))
         }
         
         if let icon = icon {
-            return .iconOnly(.icon(icon))
+            return .iconOnly(.icon(icon, layoutAlign))
         }
         
         if let cover = documentCover {

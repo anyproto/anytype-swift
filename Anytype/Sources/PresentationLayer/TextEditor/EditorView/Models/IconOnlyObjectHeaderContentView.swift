@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlocksModels
 
 final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     
@@ -20,6 +21,9 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     // MARK: - Private variables
     
     private var topConstraint: NSLayoutConstraint!
+    private var leadingConstraint: NSLayoutConstraint!
+    private var centerConstraint: NSLayoutConstraint!
+    private var trailingConstraint: NSLayoutConstraint!
     
     private var appliedConfiguration: IconOnlyObjectHeaderConfiguration!
     
@@ -61,14 +65,15 @@ private extension IconOnlyObjectHeaderContentView {
         appliedConfiguration = configuration
         
         switch configuration.icon {
-        case let .icon(icon):
-            configureIconState(icon)
-        case let .preview(preview):
-            configurePreviewState(preview)
+        case let .icon(icon, alignment):
+            configureIconState(icon, alignment)
+        case let .preview(preview, alignment):
+            configurePreviewState(preview, alignment)
         }
     }
     
-    private func configureIconState(_ icon: DocumentIconType) {
+    private func configureIconState(_ icon: DocumentIconType, _ alignment: LayoutAlignment) {
+        handleAlignment(alignment)
         activityIndicatorView.hide()
 
         switch icon {
@@ -130,7 +135,9 @@ private extension IconOnlyObjectHeaderContentView {
         }
     }
     
-    private func configurePreviewState(_ preview: ObjectIconPreviewType) {
+    private func configurePreviewState(_ preview: ObjectIconPreviewType, _ alignment: LayoutAlignment) {
+        handleAlignment(alignment)
+        
         switch preview {
         case let .basic(image):
             topConstraint.constant = Constants.basicIconTopInset
@@ -146,6 +153,23 @@ private extension IconOnlyObjectHeaderContentView {
         activityIndicatorView.layer.add(animation, forKey: nil)
         
         activityIndicatorView.show()
+    }
+    
+    private func handleAlignment(_ alignment: LayoutAlignment) {
+        switch alignment {
+        case .left:
+            leadingConstraint.isActive = true
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = false
+        case .center:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = true
+            trailingConstraint.isActive = false
+        case .right:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = true
+        }
     }
   
 }
@@ -164,35 +188,32 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     func setupLayout() {
-        stackView = layoutUsing.stack(
-            layout: { stack in
-                stack.layoutUsing.anchors {
-                    $0.leading.equal(
-                        to: self.leadingAnchor,
-                        constant: Constants.horizontalInset
-                    )
-                    $0.trailing.equal(
-                        to: self.trailingAnchor,
-                        constant: -Constants.horizontalInset
-                    )
-                    $0.bottom.equal(
-                        to: self.bottomAnchor,
-                        constant: -Constants.bottomInset
-                    )
-                    self.topConstraint = $0.top.equal(
-                        to: self.topAnchor,
-                        constant: Constants.basicEmojiTopInset
-                    )
-                }
-            },
-            builder: {
-                $0.hStack(
-                    $0.hGap(),
-                    containerView,
-                    $0.hGap()
-                )
-            }
-        )
+        addSubview(containerView) {
+            leadingConstraint = $0.leading.equal(
+                to: leadingAnchor,
+                constant: Constants.horizontalInset
+            )
+            
+            centerConstraint = $0.centerX.equal(
+                to: centerXAnchor,
+                activate: false
+            )
+            trailingConstraint =  $0.trailing.equal(
+                to: trailingAnchor,
+                constant: -Constants.horizontalInset,
+                activate: false
+            )
+            
+            topConstraint = $0.top.equal(
+                to: self.topAnchor,
+                constant: Constants.basicEmojiTopInset
+            )
+            
+            $0.bottom.equal(
+                to: self.bottomAnchor,
+                constant: -Constants.bottomInset
+            )
+        }
     }
     
 }
@@ -208,6 +229,21 @@ private extension IconOnlyObjectHeaderContentView {
         static let basicIconTopInset: CGFloat = 108 - Constants.borderWidth
         static let basicEmojiTopInset: CGFloat = 124 - Constants.borderWidth
         static let profileTopInset: CGFloat = 92 - Constants.borderWidth
+    }
+    
+}
+
+private extension LayoutAlignment {
+    
+    var asStackViewAlignment: UIStackView.Alignment {
+        switch self {
+        case .left:
+            return .leading
+        case .center:
+            return .center
+        case .right:
+            return .trailing
+        }
     }
     
 }
