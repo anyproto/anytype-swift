@@ -1,66 +1,14 @@
 import UIKit
-import Combine
 import BlocksModels
 import Kingfisher
 
-final class BlockPageLinkUIKitView: UIView {
+struct BlockLinkIconMaker {
+    private let imageViewSize = CGSize(width: 24, height: 24)
     
-    // MARK: - Views
-    private let leftView = UIView()
-    
-    private let textView: UITextView = {
-        let view = UITextView()
-        view.isScrollEnabled = false
-        view.font = .body
-        view.typingAttributes = [
-            .font: UIFont.body,
-            .foregroundColor: UIColor.textColor,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .underlineColor: UIColor.textColor
-        ]
-        view.textContainerInset = Constants.textContainerInset
-        view.textColor = .textColor
-        view.isUserInteractionEnabled = false
-        return view
-    }()
-    
-    // MARK: - Initializers
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("Not implemented")
-    }
-
-    // MARK: - Internal functions
-    func apply(_ state: BlockPageLinkState) {
-        leftView.removeAllSubviews()
-        leftView.addSubview(makeIconView(state: state)) {
-            $0.pinToSuperview()
-        }
-        textView.text = !state.title.isEmpty ? state.title : "Untitled".localized
-    }
-    
-    // MARK: - Private functions
-    
-    private func setup() {
-        addSubview(leftView) {
-            $0.pinToSuperview(excluding: [.right])
-        }
-        addSubview(textView) {
-            $0.pinToSuperview(excluding: [.left])
-            $0.leading.equal(to: leftView.trailingAnchor)
-        }
-    }
-    
-    private func makeIconView(state: BlockPageLinkState) -> UIView {
+    func makeIconView(state: BlockLinkState) -> UIView {
         switch state.style {
         case .noContent:
             return makeIconImageView()
-            
         case let .icon(icon):
             switch icon {
             case let .basic(basic):
@@ -89,7 +37,7 @@ final class BlockPageLinkUIKitView: UIView {
     private func makeProfileIconView(_ icon: DocumentIconType.Profile) -> UIView {
         switch icon {
         case let .imageId(imageId):
-            return makeImageView(imageId: imageId, cornerRadius: Constants.imageViewSize.width / 2)
+            return makeImageView(imageId: imageId, cornerRadius: imageViewSize.width / 2)
             
         case let .placeholder(placeholder):
             return makePlaceholderView(placeholder)
@@ -103,7 +51,7 @@ final class BlockPageLinkUIKitView: UIView {
             return imageView
         }
         
-        let size = Constants.imageViewSize
+        let size = imageViewSize
         
         let processor = ResizingImageProcessor(
             referenceSize: size,
@@ -140,13 +88,13 @@ final class BlockPageLinkUIKitView: UIView {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
-            $0.size(Constants.imageViewSize)
+            $0.size(imageViewSize)
         }
         return imageView
     }
     
     private func makePlaceholderView(_ placeholder: Character) -> UIView {
-        let size = Constants.imageViewSize
+        let size = imageViewSize
         let imageGuideline = ImageGuideline(
             size: size,
             cornerRadius: size.width / 2
@@ -169,20 +117,8 @@ final class BlockPageLinkUIKitView: UIView {
         label.text = string
         
         label.layoutUsing.anchors {
-            $0.size(Constants.imageViewSize)
+            $0.size(imageViewSize)
         }
         return label
     }
-    
-}
-
-// MARK: - Constants
-
-private extension BlockPageLinkUIKitView {
-    
-    enum Constants {
-        static let imageViewSize = CGSize(width: 24, height: 24)
-        static let textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 8)
-    }
-    
 }
