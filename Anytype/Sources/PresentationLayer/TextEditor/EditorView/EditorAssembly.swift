@@ -37,9 +37,7 @@ final class EditorAssembly {
                 objectId: blockId
             )
         )
-        
-        let detailsViewModel = DocumentDetailsViewModel { }
-        
+                
         let selectionHandler = EditorSelectionHandler()
         let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
@@ -87,7 +85,6 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            detailsViewModel: detailsViewModel,
             selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,
