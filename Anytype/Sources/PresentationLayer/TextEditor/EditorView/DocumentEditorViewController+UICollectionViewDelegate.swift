@@ -31,6 +31,10 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         self.viewModel.didSelectBlock(at: indexPath)
     }
     
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let item = dataSource.itemIdentifier(for: indexPath)
