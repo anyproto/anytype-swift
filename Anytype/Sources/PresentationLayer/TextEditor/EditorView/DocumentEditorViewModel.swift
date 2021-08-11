@@ -17,8 +17,6 @@ final class DocumentEditorViewModel: ObservableObject {
     
     let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    // FIXME: - remove
-    let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
@@ -36,7 +34,6 @@ final class DocumentEditorViewModel: ObservableObject {
         viewInput: DocumentEditorViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
-        detailsViewModel: DocumentDetailsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
         modelsHolder: ObjectContentViewModelsSharedHolder,
@@ -47,7 +44,6 @@ final class DocumentEditorViewModel: ObservableObject {
         self.documentId = documentId
         self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
-        self.detailsViewModel = detailsViewModel
         self.viewInput = viewInput
         self.document = document
         self.router = router
