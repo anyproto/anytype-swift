@@ -7,12 +7,12 @@ final class TextBlockActionHandler {
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
-    private weak var modelsHolder: SharedBlockViewModelsHolder?
+    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
 
     init(
         contextId: String,
         service: BlockActionServiceProtocol,
-        modelsHolder: SharedBlockViewModelsHolder
+        modelsHolder: ObjectContentViewModelsSharedHolder
     ) {
         self.service = service
         self.contextId = contextId

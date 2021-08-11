@@ -26,7 +26,7 @@ final class EditorAssembly {
     
     private static func buildViewModel(
         blockId: BlockId,
-        viewInput: EditorModuleDocumentViewInput,
+        viewInput: DocumentEditorViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter
     ) -> DocumentEditorViewModel {
@@ -37,13 +37,9 @@ final class EditorAssembly {
                 objectId: blockId
             )
         )
-        
-        let detailsViewModel = DocumentDetailsViewModel { [weak viewInput] in
-            viewInput?.updateHeader()
-        }
-        
+                
         let selectionHandler = EditorSelectionHandler()
-        let modelsHolder = SharedBlockViewModelsHolder()
+        let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
@@ -89,7 +85,6 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            detailsViewModel: detailsViewModel,
             selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,

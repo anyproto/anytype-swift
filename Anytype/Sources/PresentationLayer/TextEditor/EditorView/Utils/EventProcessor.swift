@@ -2,11 +2,11 @@
 
 class EventProcessor {
     let document: BaseDocumentProtocol
-    weak var modelsHolder: SharedBlockViewModelsHolder?
+    weak var modelsHolder: ObjectContentViewModelsSharedHolder?
     
     init(
         document: BaseDocumentProtocol,
-        modelsHolder: SharedBlockViewModelsHolder
+        modelsHolder: ObjectContentViewModelsSharedHolder
     ) {
         self.document = document
         self.modelsHolder = modelsHolder

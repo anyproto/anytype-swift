@@ -7,15 +7,16 @@ import Amplitude
 import AnytypeCore
 
 final class DocumentEditorViewModel: ObservableObject {
-    weak private(set) var viewInput: EditorModuleDocumentViewInput?
+    weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol
-    let modelsHolder: SharedBlockViewModelsHolder
+    let modelsHolder: ObjectContentViewModelsSharedHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
+    
+    let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
@@ -30,13 +31,12 @@ final class DocumentEditorViewModel: ObservableObject {
     init(
         documentId: BlockId,
         document: BaseDocumentProtocol,
-        viewInput: EditorModuleDocumentViewInput,
+        viewInput: DocumentEditorViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
-        detailsViewModel: DocumentDetailsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
-        modelsHolder: SharedBlockViewModelsHolder,
+        modelsHolder: ObjectContentViewModelsSharedHolder,
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel
@@ -44,7 +44,6 @@ final class DocumentEditorViewModel: ObservableObject {
         self.documentId = documentId
         self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
-        self.detailsViewModel = detailsViewModel
         self.viewInput = viewInput
         self.document = document
         self.router = router
@@ -67,6 +66,10 @@ final class DocumentEditorViewModel: ObservableObject {
     }
 
     private func setupSubscriptions() {
+        objectHeaderLocalEventsListener.beginObservingEvents { [weak self] event in
+            self?.handleObjectHeaderLocalEvent(event)
+        }
+        
         document.updateBlockModelPublisher
             .receiveOnMain()
             .sink { [weak self] updateResult in
@@ -74,15 +77,48 @@ final class DocumentEditorViewModel: ObservableObject {
             }.store(in: &self.subscriptions)
     }
     
+    private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
+        let header = modelsHolder.details?.objectHeader
+        
+        guard let header = header else {
+            let fakeHeader: ObjectHeader = {
+                switch event {
+                case .iconUploading(let uIImage):
+                    return ObjectHeader.iconOnly(.preview(.basic(uIImage), .left))
+                case .coverUploading(let uIImage):
+                    return ObjectHeader.coverOnly(.preview(uIImage))
+                }
+            }()
+            
+            viewInput?.updateData(
+                header: fakeHeader,
+                blocks: modelsHolder.models
+            )
+            return
+        }
+        
+        viewInput?.updateData(
+            header: header.modifiedByLocalEvent(event),
+            blocks: modelsHolder.models
+        )
+    }
+    
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
             let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
-            updateBlocksViewModels(models: blocksViewModels)
-            if let details = updateResult.details { updateDetails(details) }
+            
+            handleGeneralUpdate(
+                with: updateResult.details,
+                models: blocksViewModels
+            )
+            
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(newDetails):
-            updateDetails(newDetails)
+            handleGeneralUpdate(
+                with: newDetails,
+                models: modelsHolder.models
+            )
         case let .update(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -90,17 +126,12 @@ final class DocumentEditorViewModel: ObservableObject {
             
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
-            viewInput?.updateRowsWithoutRefreshing(ids: updatedIds)
+            
+            viewInput?.updateData(
+                header: modelsHolder.details?.objectHeader,
+                blocks: modelsHolder.models
+            )
         }
-    }
-    
-    private func updateDetails(_ details: DetailsData) {
-        guard details.parentId == documentId else {
-            return
-        }
-        
-        objectSettingsViewModel.update(with: details)
-        detailsViewModel.performUpdateUsingDetails(details)
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
@@ -161,12 +192,21 @@ final class DocumentEditorViewModel: ObservableObject {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {
-        let difference = models.difference(from: modelsHolder.models) { $0.hashable == $1.hashable }
-        if !difference.isEmpty, let result = modelsHolder.models.applying(difference) {
-            modelsHolder.models = result
-            viewInput?.updateData(result)
+    private func handleGeneralUpdate(with details: DetailsData?, models: [BlockViewModelProtocol]) {
+        modelsHolder.apply(newModels: models)
+        modelsHolder.apply(newDetails: details)
+        
+        guard let details = modelsHolder.details else {
+            viewInput?.updateData(header: nil, blocks: modelsHolder.models)
+            return
         }
+        
+        viewInput?.updateData(
+            header: details.objectHeader,
+            blocks: modelsHolder.models
+        )
+        
+        objectSettingsViewModel.update(with: details)
     }
 }
 
