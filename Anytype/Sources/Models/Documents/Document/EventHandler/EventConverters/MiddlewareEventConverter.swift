@@ -282,7 +282,7 @@ final class MiddlewareEventConverter {
         /// After we open document, we would like to receive all blocks of opened page.
         /// For that, we send `blockShow` event to `eventHandler`.
         ///
-        case let .objectShow(data):
+        case .objectShow:
             return .general
         default: return nil
         }
