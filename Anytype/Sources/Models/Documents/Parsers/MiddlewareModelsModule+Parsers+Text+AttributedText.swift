@@ -74,7 +74,7 @@ extension Namespace {
             mutableAttributedText.removeAllMentionAttachmets()
             let wholeText = mutableAttributedText.string
             let wholeStringRange = NSRange(location: 0, length: mutableAttributedText.length)
-            mutableAttributedText.enumerateAttributes(in: wholeStringRange, options: []) { (attributes, range, booleanFlag) in
+            mutableAttributedText.enumerateAttributes(in: wholeStringRange) { attributes, range, _ in
                 
                 // 2. Take all attributes in specific range and convert them to
                 let marks = MarkStyle.from(attributes: attributes)
