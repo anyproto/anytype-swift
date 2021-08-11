@@ -13,17 +13,11 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     
     // MARK: - Views
     
-    private let activityIndicatorView = ActivityIndicatorView()
-    
-    private let containerView = UIView()
-    private var stackView: UIStackView!
-    
+    private let iconView = ObjectIconView()
+
     // MARK: - Private variables
     
     private var topConstraint: NSLayoutConstraint!
-    private var leadingConstraint: NSLayoutConstraint!
-    private var centerConstraint: NSLayoutConstraint!
-    private var trailingConstraint: NSLayoutConstraint!
     
     private var appliedConfiguration: IconOnlyObjectHeaderConfiguration!
     
@@ -70,105 +64,33 @@ private extension IconOnlyObjectHeaderContentView {
         case let .preview(preview, alignment):
             configurePreviewState(preview, alignment)
         }
+        
+        iconView.configure(model: configuration)
     }
     
-    private func configureIconState(_ icon: DocumentIconType, _ alignment: LayoutAlignment) {
-        handleAlignment(alignment)
-        activityIndicatorView.hide()
-
+    private func configureIconState(_ icon: DocumentIconType,
+                                    _ alignment: LayoutAlignment) {
         switch icon {
         case let .basic(basic):
-            configureBasicIcon(basic)
-        case let .profile(profile):
-            configureProfileIcon(profile)
-        }
-    }
-    
-    private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
-        case let .emoji(emoji):
-            topConstraint.constant = Constants.basicEmojiTopInset
-            showEmojiView(emoji)
-        case let .imageId(imageId):
-            topConstraint.constant = Constants.basicIconTopInset
-            showImageView(.basic(.imageId(imageId)))
-        }
-    }
-    
-    private func configureProfileIcon(_ profileIcon: DocumentIconType.Profile) {
-        topConstraint.constant = Constants.profileTopInset
-        switch profileIcon {
-        case let .imageId(imageId):
-            showImageView(.profile(.imageId(imageId)))
-        case let .placeholder(character):
-            showImageView(.profile(.placeholder(character)))
-        }
-    }
-    
-    private func showEmojiView(_ emoji: IconEmoji) {
-        let iconEmojiView = DocumentIconEmojiView()
-            .configured(with: emoji.value)
-                
-        addContentViewToContainer(iconEmojiView)
-    }
-    
-    private func showImageView(_ model: DocumentIconImageView.Model) {
-        let iconImageView = DocumentIconImageView()
-            .configured(with: model)
-        
-        addContentViewToContainer(iconImageView)
-    }
-    
-    private func addContentViewToContainer(_ contentView: UIView) {
-        let cornerRadius = contentView.layer.cornerRadius
-        
-        containerView.layer.cornerRadius = cornerRadius + Constants.borderWidth
-                
-        containerView.removeAllSubviews()
-        containerView.addSubview(contentView) {
-            $0.center(in: containerView)
-            $0.leading.equal(to: containerView.leadingAnchor, constant: Constants.borderWidth)
-            $0.top.equal(to: containerView.topAnchor, constant: Constants.borderWidth)
-        }
-        contentView.addSubview(activityIndicatorView) {
-            $0.pinToSuperview()
-        }
-    }
-    
-    private func configurePreviewState(_ preview: ObjectIconPreviewType, _ alignment: LayoutAlignment) {
-        handleAlignment(alignment)
-        
-        switch preview {
-        case let .basic(image):
-            topConstraint.constant = Constants.basicIconTopInset
-            showImageView(.basic(.preview(image)))
-        case let .profile(image):
+            switch basic {
+            case .emoji:
+                topConstraint.constant = Constants.basicEmojiTopInset
+            case .imageId:
+                topConstraint.constant = Constants.basicIconTopInset
+            }
+            
+        case .profile:
             topConstraint.constant = Constants.profileTopInset
-            showImageView(.profile(.preview(image)))
         }
-        
-        let animation = CATransition()
-        animation.type = .fade;
-        animation.duration = 0.3;
-        activityIndicatorView.layer.add(animation, forKey: nil)
-        
-        activityIndicatorView.show()
     }
     
-    private func handleAlignment(_ alignment: LayoutAlignment) {
-        switch alignment {
-        case .left:
-            leadingConstraint.isActive = true
-            centerConstraint.isActive = false
-            trailingConstraint.isActive = false
-        case .center:
-            leadingConstraint.isActive = false
-            centerConstraint.isActive = true
-            trailingConstraint.isActive = false
-        case .right:
-            leadingConstraint.isActive = false
-            centerConstraint.isActive = false
-            trailingConstraint.isActive = true
+    private func configurePreviewState(_ preview: ObjectIconPreviewType,
+                                       _ alignment: LayoutAlignment) {
+        switch preview {
+        case .basic:
+            topConstraint.constant = Constants.basicIconTopInset
+        case .profile:
+            topConstraint.constant = Constants.profileTopInset
         }
     }
   
@@ -179,29 +101,20 @@ private extension IconOnlyObjectHeaderContentView {
 private extension IconOnlyObjectHeaderContentView {
     
     func setupView() {
-        containerView.clipsToBounds = true
-        
-        containerView.backgroundColor = .grayscaleWhite
         backgroundColor = .grayscaleWhite
         
         setupLayout()
     }
     
     func setupLayout() {
-        addSubview(containerView) {
-            leadingConstraint = $0.leading.equal(
+        addSubview(iconView) {
+            $0.leading.equal(
                 to: leadingAnchor,
                 constant: Constants.horizontalInset
             )
-            
-            centerConstraint = $0.centerX.equal(
-                to: centerXAnchor,
-                activate: false
-            )
-            trailingConstraint =  $0.trailing.equal(
+            $0.trailing.equal(
                 to: trailingAnchor,
-                constant: -Constants.horizontalInset,
-                activate: false
+                constant: -Constants.horizontalInset
             )
             
             topConstraint = $0.top.equal(
@@ -221,29 +134,13 @@ private extension IconOnlyObjectHeaderContentView {
 private extension IconOnlyObjectHeaderContentView {
     
     enum Constants {
-        static let borderWidth: CGFloat = 4
+        static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
+        static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
         
-        static let horizontalInset: CGFloat = 20 - Constants.borderWidth
-        static let bottomInset: CGFloat = 16 - Constants.borderWidth
-        
-        static let basicIconTopInset: CGFloat = 108 - Constants.borderWidth
-        static let basicEmojiTopInset: CGFloat = 124 - Constants.borderWidth
-        static let profileTopInset: CGFloat = 92 - Constants.borderWidth
+        static let basicIconTopInset: CGFloat = 60 - ObjectIconView.Constants.borderWidth
+        static let basicEmojiTopInset: CGFloat = 76 - ObjectIconView.Constants.borderWidth
+        static let profileTopInset: CGFloat = 52 - ObjectIconView.Constants.borderWidth
     }
     
 }
 
-private extension LayoutAlignment {
-    
-    var asStackViewAlignment: UIStackView.Alignment {
-        switch self {
-        case .left:
-            return .leading
-        case .center:
-            return .center
-        case .right:
-            return .trailing
-        }
-    }
-    
-}
