@@ -8,16 +8,18 @@
 
 
 import UIKit
+import BlocksModels
 
 final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
     
     // MARK: - Views
     
-    private let iconContentView: IconOnlyObjectHeaderContentView
-    private let coverContentView: CoverOnlyObjectHeaderContentView
+    private let iconView = ObjectIconView()
+    private let coverView = ObjectCoverView()
     
     // MARK: - Private variables
     
+    private var topConstraint: NSLayoutConstraint!
     private var appliedConfiguration: IconAndCoverObjectHeaderConfiguration!
     
     // MARK: - Internal variables
@@ -39,12 +41,6 @@ final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
     // MARK: - Initializers
     
     init(configuration: IconAndCoverObjectHeaderConfiguration) {
-        self.iconContentView = IconOnlyObjectHeaderContentView(
-            configuration: configuration.iconConfiguration
-        )
-        self.coverContentView = CoverOnlyObjectHeaderContentView(
-            configuration: configuration.coverConfiguration
-        )
         super.init(frame: .zero)
         
         setupView()
@@ -63,8 +59,41 @@ private extension IconAndCoverObjectHeaderContentView {
     func apply(configuration: IconAndCoverObjectHeaderConfiguration) {
         appliedConfiguration = configuration
         
-        iconContentView.configuration = configuration.iconConfiguration
-        coverContentView.configuration = configuration.coverConfiguration
+        switch configuration.icon {
+        case let .icon(icon, _):
+            configureIconTopInset(icon)
+        case let .preview(preview, _):
+            configurePreviewTopInset(preview)
+        }
+        
+        iconView.configure(model: configuration.icon)
+        coverView.configure(
+            model: (configuration.cover, configuration.maxWidth)
+        )
+    }
+    
+    private func configureIconTopInset(_ icon: DocumentIconType) {
+        switch icon {
+        case let .basic(basic):
+            switch basic {
+            case .emoji:
+                topConstraint.constant = Constants.basicEmojiTopInset
+            case .imageId:
+                topConstraint.constant = Constants.basicIconTopInset
+            }
+            
+        case .profile:
+            topConstraint.constant = Constants.profileTopInset
+        }
+    }
+    
+    private func configurePreviewTopInset(_ preview: ObjectIconPreviewType) {
+        switch preview {
+        case .basic:
+            topConstraint.constant = Constants.basicIconTopInset
+        case .profile:
+            topConstraint.constant = Constants.profileTopInset
+        }
     }
     
 }
@@ -72,18 +101,47 @@ private extension IconAndCoverObjectHeaderContentView {
 private extension IconAndCoverObjectHeaderContentView {
 
     func setupView() {
-        iconContentView.backgroundColor = .clear
         setupLayout()
     }
     
     func setupLayout() {
-        addSubview(coverContentView) {
+        addSubview(coverView) {
             $0.pinToSuperview()
         }
         
-        addSubview(iconContentView) {
-            $0.pinToSuperview()
+        addSubview(iconView) {
+            $0.leading.equal(
+                to: leadingAnchor,
+                constant: Constants.horizontalInset
+            )
+            $0.trailing.equal(
+                to: trailingAnchor,
+                constant: -Constants.horizontalInset
+            )
+            
+            topConstraint = $0.top.equal(
+                to: self.topAnchor,
+                constant: Constants.basicEmojiTopInset
+            )
+            
+            $0.bottom.equal(
+                to: self.bottomAnchor,
+                constant: -Constants.bottomInset
+            )
         }
+    }
+    
+}
+
+private extension IconAndCoverObjectHeaderContentView {
+    
+    enum Constants {
+        static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
+        static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
+        
+        static let basicIconTopInset: CGFloat = 108 - ObjectIconView.Constants.borderWidth
+        static let basicEmojiTopInset: CGFloat = 124 - ObjectIconView.Constants.borderWidth
+        static let profileTopInset: CGFloat = 92 - ObjectIconView.Constants.borderWidth
     }
     
 }

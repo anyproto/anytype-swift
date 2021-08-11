@@ -143,4 +143,3 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
 }
-
