@@ -162,7 +162,7 @@ final class BlockViewModelBuilder {
                 blockId: block.information.id,
                 targetBlockId: content.targetBlockID
             )
-            return BlockPageLinkViewModel(
+            return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
                 content: content,

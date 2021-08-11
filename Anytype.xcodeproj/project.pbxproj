@@ -79,7 +79,7 @@
 		0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA749240146B5003A2935 /* UIView+Extensions.swift */; };
 		0A0AA75724018631003A2935 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA75624018631003A2935 /* DataStructures.swift */; };
 		0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */; };
-		0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */; };
+		0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockLinkViewModel.swift */; };
 		0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F0D9224DDCE0100A8B488 /* AboutView.swift */; };
 		0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* PackOfEvents.swift */; };
 		0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */; };
@@ -277,6 +277,7 @@
 		3D43FD8D26B162530094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; };
 		3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */; };
 		3D43FDB526B18E490094D4C0 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */; };
+		3D471E1F26C3B60200457DE5 /* BlockLinkIconMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */; };
 		3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F02C26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift */; };
@@ -365,10 +366,9 @@
 		3DD67E9C2652705A0025ED6F /* EditorSelectionIncomingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67E9B2652705A0025ED6F /* EditorSelectionIncomingEvent.swift */; };
 		3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67E9E2652708A0025ED6F /* EditorSelectionHandlerStorage.swift */; };
 		3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67EA2265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift */; };
-		3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */; };
-		3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */; };
-		3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */; };
-		3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */; };
+		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
+		3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkView.swift */; };
+		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
 		3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */; };
 		3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */; };
 		3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */; };
@@ -687,7 +687,7 @@
 		0A0AA749240146B5003A2935 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		0A0AA75624018631003A2935 /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+IndexDictionary.swift"; sourceTree = "<group>"; };
-		0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkViewModel.swift; sourceTree = "<group>"; };
+		0A10CC7B248ECF2D000FF498 /* BlockLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkViewModel.swift; sourceTree = "<group>"; };
 		0A1F0D9224DDCE0100A8B488 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		0A2ADCDF2496921500FA135D /* PackOfEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackOfEvents.swift; sourceTree = "<group>"; };
 		0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingleProtocol.swift; sourceTree = "<group>"; };
@@ -877,6 +877,7 @@
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/Fonts/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+SafeCall.swift"; path = "Anytype/Sources/FrameworkExtensions/Array+SafeCall.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutViewModel.swift; path = Anytype/Sources/PresentationLayer/Home/View/Settings/About/AboutViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkIconMaker.swift; sourceTree = "<group>"; };
 		3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksFileEmptyViewConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/EmptyView/BlocksFileEmptyViewConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D53F02C26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlocksModelsDetailsConverter.swift; sourceTree = "<group>"; };
@@ -964,10 +965,9 @@
 		3DD67E9B2652705A0025ED6F /* EditorSelectionIncomingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionIncomingEvent.swift; sourceTree = "<group>"; };
 		3DD67E9E2652708A0025ED6F /* EditorSelectionHandlerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionHandlerStorage.swift; sourceTree = "<group>"; };
 		3DD67EA2265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorModuleSelectionHandlerProtocol.swift; sourceTree = "<group>"; };
-		3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkState.swift; sourceTree = "<group>"; };
-		3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkUIKitView.swift; sourceTree = "<group>"; };
-		3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentView.swift; sourceTree = "<group>"; };
-		3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentConfiguration.swift; sourceTree = "<group>"; };
+		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
+		3DDC6A63262707CB004F5EA4 /* BlockLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkView.swift; sourceTree = "<group>"; };
+		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
 		3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BlockFile+MediaData.swift"; path = "Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Utils/BlockFile+MediaData.swift"; sourceTree = SOURCE_ROOT; };
 		3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/Support/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
@@ -2451,15 +2451,6 @@
 			path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/Routing/Controllers;
 			sourceTree = SOURCE_ROOT;
 		};
-		3D29AFFE26A60A440095BA18 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */,
-				3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		3D36B0A526A71B4A0046C90F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2497,6 +2488,15 @@
 				3D4125EC269ECED6007A6880 /* ObjectType.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3D471E1D26C3B5D000457DE5 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */,
+				3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		3D486C132631726400A9B625 /* UIKit */ = {
@@ -2989,10 +2989,10 @@
 		3DDC6A5E2627070C004F5EA4 /* PageLink */ = {
 			isa = PBXGroup;
 			children = (
-				3D29AFFE26A60A440095BA18 /* View */,
-				0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */,
-				3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */,
-				3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */,
+				3D471E1D26C3B5D000457DE5 /* Support */,
+				3DDC6A63262707CB004F5EA4 /* BlockLinkView.swift */,
+				0A10CC7B248ECF2D000FF498 /* BlockLinkViewModel.swift */,
+				3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */,
 			);
 			path = PageLink;
 			sourceTree = "<group>";
@@ -3830,7 +3830,7 @@
 				3D568F912666C27100DC7881 /* ContentBookmarkConverter.swift in Sources */,
 				EA77E527262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
-				3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */,
+				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
@@ -3924,7 +3924,7 @@
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
-				3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */,
+				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				3DEFD671268A32D70072EA27 /* EditorActionHandler.swift in Sources */,
@@ -4016,9 +4016,8 @@
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
 				12A7B6C326C3E47200544037 /* CoverConstants.swift in Sources */,
 				3DD67E99265270450025ED6F /* EditorSelectionIncomingCellEvent.swift in Sources */,
-				3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
-				3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */,
+				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				120F7D7E267F88FF00327734 /* BlockBookmark+State.swift in Sources */,
 				3DB6E249268B65BD00C303E5 /* DefaultContextualMenuHandler.swift in Sources */,
 				EAC6BB54262888B0004C8C06 /* AccessoryViewSwitcher.swift in Sources */,
@@ -4172,6 +4171,7 @@
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				123FDADD26C17CBA00F6F44B /* ObjectCover.swift in Sources */,
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
+				3D471E1F26C3B60200457DE5 /* BlockLinkIconMaker.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
@@ -4215,7 +4215,7 @@
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
-				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
+				0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
 				EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */,
 				3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */,

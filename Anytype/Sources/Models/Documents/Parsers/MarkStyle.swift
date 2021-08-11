@@ -83,31 +83,6 @@ enum MarkStyle: Equatable, CaseIterable {
     
     case mention(String?)
     
-    // MARK: Opposite
-    func opposite() -> Self {
-        switch self {
-        case let .bold(value): return
-            .bold(!value)
-        case let .italic(value): return
-            .italic(!value)
-        case let .keyboard(value): return
-            .keyboard(!value)
-        case let .strikethrough(value): return
-            .strikethrough(!value)
-        case let .underscored(value): return
-            .underscored(!value)
-            
-        case let .textColor(value): return
-            .textColor(value) // or nil maybe?
-        case let .backgroundColor(value): return
-            .backgroundColor(value) // or nil maybe?
-        case let .link(value): return
-            .link(value) // or nil maybe?
-        case let .mention(pageId):
-            return .mention(pageId)
-        }
-    }
-    
     // MARK: Conversion
     func from(attributes: [NSAttributedString.Key : Any]) -> Self {
         switch self {

@@ -128,3 +128,4 @@ extension Anytype_Rpc.ApplyTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Sync.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Thread.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Tree.Response.Error: Swift.Error {}
+extension Anytype_Rpc.GenericErrorResponse.Error: Swift.Error {}

@@ -58,10 +58,6 @@ final class MarkStyleModifier {
         }
     }
     
-    func getMarkStyles(at range: NSRange) -> [MarkStyle] {
-        MarkStyle.from(attributes: getAttributes(at: range))
-    }
-    
     private func applyStyle(_ style: MarkStyle, toWhole range: NSRange) {
         let oldAttributes = getAttributes(at: range)
         let update = style.to(
