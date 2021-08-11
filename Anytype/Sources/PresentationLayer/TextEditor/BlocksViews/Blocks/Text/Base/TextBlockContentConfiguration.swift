@@ -54,7 +54,8 @@ extension TextBlockContentConfiguration: Hashable {
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
         lhs.information == rhs.information &&
         lhs.isSelected == rhs.isSelected &&
-        lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder
+        lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
+        lhs.isCheckable == rhs.isCheckable
     }
     
     func hash(into hasher: inout Hasher) {
@@ -64,5 +65,6 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information.content)
         hasher.combine(isSelected)
         hasher.combine(shouldDisplayPlaceholder)
+        hasher.combine(isCheckable)
     }
 }
