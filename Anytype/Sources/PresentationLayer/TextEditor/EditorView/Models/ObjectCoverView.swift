@@ -37,7 +37,7 @@ final class ObjectCoverView: UIView {
 
 extension ObjectCoverView: ConfigurableView {
 
-    func configure(model: CoverOnlyObjectHeaderConfiguration) {
+    func configure(model: (cover: ObjectCover, maxWidth: CGFloat)) {
         switch model.cover {
         case let .cover(cover):
             configureCoverState(

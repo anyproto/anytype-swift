@@ -55,7 +55,9 @@ private extension CoverOnlyObjectHeaderContentView  {
     
     func apply(configuration: CoverOnlyObjectHeaderConfiguration) {
         appliedConfiguration = configuration
-        coverView.configure(model: configuration)
+        coverView.configure(
+            model: (configuration.cover, configuration.maxWidth)
+        )
     }
     
     func setupLayout() {
