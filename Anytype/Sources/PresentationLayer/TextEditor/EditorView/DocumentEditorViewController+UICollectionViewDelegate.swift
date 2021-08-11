@@ -32,7 +32,10 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return false
+        if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
+            return false
+        }
+        return true
     }
     
     func collectionView(_ collectionView: UICollectionView,
