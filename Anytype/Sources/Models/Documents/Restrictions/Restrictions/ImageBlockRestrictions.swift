@@ -7,6 +7,6 @@ struct ImageBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = false
     let canApplyBackgroundColor = true
     let canApplyMention = false
-    let turnIntoStyles = [BlockViewType]()
+    let turnIntoStyles = [BlockContentType]()
     let availableAlignments = LayoutAlignment.allCases
 }

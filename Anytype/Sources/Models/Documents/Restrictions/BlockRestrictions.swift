@@ -7,7 +7,7 @@ protocol BlockRestrictions {
     var canApplyBlockColor: Bool { get }
     var canApplyBackgroundColor: Bool { get }
     var canApplyMention: Bool { get }
-    var turnIntoStyles: [BlockViewType] { get }
+    var turnIntoStyles: [BlockContentType] { get }
     var availableAlignments: [LayoutAlignment] { get }
     
     /// If block can create block below current on enter pressing

@@ -127,7 +127,7 @@ final class TextBlockActionHandler {
                     /// TODO: Add focus on this block.
                     self.service.turnInto(
                         blockId: block.information.id,
-                        type: newContentType,
+                        type: newContentType.type,
                         shouldSetFocusOnUpdate: true
                     )
                 }

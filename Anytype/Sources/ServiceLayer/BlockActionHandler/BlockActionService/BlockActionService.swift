@@ -132,7 +132,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func turnInto(blockId: BlockId, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
+    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
         switch type {
         case .text: setTextStyle(blockId: blockId, type: type, shouldFocus: shouldSetFocusOnUpdate)
         case .smartblock: setPageStyle(blockId: blockId, type: type)
@@ -178,21 +178,21 @@ final class BlockActionService: BlockActionServiceProtocol {
 
 private extension BlockActionService {
 
-    func setDividerStyle(blockId: BlockId, type: BlockContent) {
-        guard case let .divider(value) = type else {
+    func setDividerStyle(blockId: BlockId, type: BlockContentType) {
+        guard case let .divider(style) = type else {
             anytypeAssertionFailure("SetDividerStyle content is not divider: \(type)")
             return
         }
 
         let blocksIds = [blockId]
 
-        listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: value.style)
+        listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: style)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
     }
 
-    func setPageStyle(blockId: BlockId, type: BlockContent) {
+    func setPageStyle(blockId: BlockId, type: BlockContentType) {
         let objectType = ""
 
         guard case .smartblock = type else {
@@ -207,13 +207,13 @@ private extension BlockActionService {
         .store(in: &self.subscriptions)
     }
 
-    func setTextStyle(blockId: BlockId, type: BlockContent, shouldFocus: Bool) {
-        guard case let .text(text) = type else {
+    func setTextStyle(blockId: BlockId, type: BlockContentType, shouldFocus: Bool) {
+        guard case let .text(style) = type else {
             anytypeAssertionFailure("Set Text style content is not text style: \(type)")
             return
         }
 
-        self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
+        self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: style)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] serviceSuccess in
                 let events = shouldFocus ? serviceSuccess.turnIntoTextEvent : serviceSuccess.defaultEvent

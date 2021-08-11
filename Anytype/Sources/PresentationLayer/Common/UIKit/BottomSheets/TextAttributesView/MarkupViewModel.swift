@@ -63,14 +63,15 @@ final class MarkupViewModel {
         let markupCalculator = MarkupStateCalculator(
             attributedText: content.attributedText,
             range: range,
-            restrictions: restrictions
+            restrictions: restrictions,
+            alignment: alignment.asNSTextAlignment
         )
         return AllMarkupsState(
             bold: markupCalculator.boldState(),
             italic: markupCalculator.italicState(),
             strikethrough: markupCalculator.strikethroughState(),
             codeStyle: markupCalculator.codeState(),
-            alignment: alignment.asNSTextAlignment,
+            alignment: markupCalculator.alignmentState(),
             url: nil
         )
     }
