@@ -1,6 +1,6 @@
 //
-//  IconAndCoverObjectHeaderContentView.swift
-//  IconAndCoverObjectHeaderContentView
+//  ObjectHeaderIconAndCoverContentView.swift
+//  ObjectHeaderIconAndCoverContentView
 //
 //  Created by Konstantin Mordan on 10.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -10,7 +10,7 @@
 import UIKit
 import BlocksModels
 
-final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
+final class ObjectHeaderIconAndCoverContentView: UIView, UIContentView {
     
     // MARK: - Views
     
@@ -20,7 +20,7 @@ final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
     // MARK: - Private variables
     
     private var topConstraint: NSLayoutConstraint!
-    private var appliedConfiguration: IconAndCoverObjectHeaderConfiguration!
+    private var appliedConfiguration: ObjectHeaderIconAndCoverConfiguration!
     
     // MARK: - Internal variables
     
@@ -28,7 +28,7 @@ final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
         get { self.appliedConfiguration }
         set {
             guard
-                let configuration = newValue as? IconAndCoverObjectHeaderConfiguration,
+                let configuration = newValue as? ObjectHeaderIconAndCoverConfiguration,
                 appliedConfiguration != configuration
             else {
                 return
@@ -40,7 +40,7 @@ final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
     
     // MARK: - Initializers
     
-    init(configuration: IconAndCoverObjectHeaderConfiguration) {
+    init(configuration: ObjectHeaderIconAndCoverConfiguration) {
         super.init(frame: .zero)
         
         setupView()
@@ -54,9 +54,9 @@ final class IconAndCoverObjectHeaderContentView: UIView, UIContentView {
     
 }
 
-private extension IconAndCoverObjectHeaderContentView {
+private extension ObjectHeaderIconAndCoverContentView {
 
-    func apply(configuration: IconAndCoverObjectHeaderConfiguration) {
+    func apply(configuration: ObjectHeaderIconAndCoverConfiguration) {
         appliedConfiguration = configuration
         
         switch configuration.icon {
@@ -98,7 +98,7 @@ private extension IconAndCoverObjectHeaderContentView {
     
 }
 
-private extension IconAndCoverObjectHeaderContentView {
+private extension ObjectHeaderIconAndCoverContentView {
 
     func setupView() {
         setupLayout()
@@ -133,7 +133,7 @@ private extension IconAndCoverObjectHeaderContentView {
     
 }
 
-private extension IconAndCoverObjectHeaderContentView {
+private extension ObjectHeaderIconAndCoverContentView {
     
     enum Constants {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
