@@ -219,23 +219,23 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         }
         snapshot.appendItems(items)
 
-        apply(snapshot) { [weak self] in
-            guard let self = self else { return }
-
-            let sectionSnapshot = self.dataSource.snapshot(
-                for: self.viewModel.detailsViewModel.makeDocumentSection()
-            )
-            sectionSnapshot.visibleItems.forEach { item in
-                let viewModel = blocksViewModels.first { viewModel in
-                    viewModel.blockId == item.info.id
-                }
-
-                guard let indexPath = self.dataSource.indexPath(for: item) else { return }
-                guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-                cell.contentConfiguration = viewModel?.makeContentConfiguration(maxWidth: cell.bounds.width)
-                cell.indentationLevel = viewModel?.indentationLevel ?? 0
+        let sectionSnapshot = self.dataSource.snapshot(
+            for: self.viewModel.detailsViewModel.makeDocumentSection()
+        )
+        sectionSnapshot.visibleItems.forEach { item in
+            let viewModel = blocksViewModels.first { viewModel in
+                viewModel.blockId == item.info.id
             }
 
+            guard let viewModel = viewModel else { return }
+            guard let indexPath = self.dataSource.indexPath(for: item) else { return }
+            guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+            cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = viewModel.indentationLevel
+        }
+
+        apply(snapshot) { [weak self] in
+            guard let self = self else { return }
             self.focusOnFocusedBlock()
         }
     }
