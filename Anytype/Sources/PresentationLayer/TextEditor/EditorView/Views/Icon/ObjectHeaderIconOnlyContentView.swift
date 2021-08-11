@@ -1,6 +1,6 @@
 //
-//  IconOnlyObjectHeaderContentView.swift
-//  IconOnlyObjectHeaderContentView
+//  ObjectHeaderIconOnlyContentView.swift
+//  ObjectHeaderIconOnlyContentView
 //
 //  Created by Konstantin Mordan on 09.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import BlocksModels
 
-final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
+final class ObjectHeaderIconOnlyContentView: UIView, UIContentView {
     
     // MARK: - Views
     
@@ -19,7 +19,7 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     
     private var topConstraint: NSLayoutConstraint!
     
-    private var appliedConfiguration: IconOnlyObjectHeaderConfiguration!
+    private var appliedConfiguration: ObjectHeaderIconOnlyConfiguration!
     
     // MARK: - Internal variables
     
@@ -27,7 +27,7 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
         get { self.appliedConfiguration }
         set {
             guard
-                let configuration = newValue as? IconOnlyObjectHeaderConfiguration,
+                let configuration = newValue as? ObjectHeaderIconOnlyConfiguration,
                 appliedConfiguration != configuration
             else {
                 return
@@ -39,7 +39,7 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     
     // MARK: - Initializers
     
-    init(configuration: IconOnlyObjectHeaderConfiguration) {
+    init(configuration: ObjectHeaderIconOnlyConfiguration) {
         super.init(frame: .zero)
         
         setupView()
@@ -53,9 +53,9 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     
 }
 
-private extension IconOnlyObjectHeaderContentView {
+private extension ObjectHeaderIconOnlyContentView {
 
-    func apply(configuration: IconOnlyObjectHeaderConfiguration) {
+    func apply(configuration: ObjectHeaderIconOnlyConfiguration) {
         appliedConfiguration = configuration
         
         switch configuration.icon {
@@ -98,7 +98,7 @@ private extension IconOnlyObjectHeaderContentView {
 
 // MARK: - Private extension
 
-private extension IconOnlyObjectHeaderContentView {
+private extension ObjectHeaderIconOnlyContentView {
     
     func setupView() {
         backgroundColor = .grayscaleWhite
@@ -131,7 +131,7 @@ private extension IconOnlyObjectHeaderContentView {
     
 }
 
-private extension IconOnlyObjectHeaderContentView {
+private extension ObjectHeaderIconOnlyContentView {
     
     enum Constants {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth

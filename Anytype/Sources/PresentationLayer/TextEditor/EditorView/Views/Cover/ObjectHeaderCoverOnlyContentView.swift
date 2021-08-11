@@ -1,6 +1,6 @@
 //
-//  CoverOnlyObjectHeaderContentView.swift
-//  CoverOnlyObjectHeaderContentView
+//  ObjectHeaderCoverOnlyContentView.swift
+//  ObjectHeaderCoverOnlyContentView
 //
 //  Created by Konstantin Mordan on 09.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
+final class ObjectHeaderCoverOnlyContentView: UIView, UIContentView {
     
     // MARK: - Views
     
@@ -17,7 +17,7 @@ final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
         
     // MARK: - Private variables
 
-    private var appliedConfiguration: CoverOnlyObjectHeaderConfiguration!
+    private var appliedConfiguration: ObjectHeaderCoverOnlyConfiguration!
     
     // MARK: - Internal variables
     
@@ -25,7 +25,7 @@ final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
         get { self.appliedConfiguration }
         set {
             guard
-                let configuration = newValue as? CoverOnlyObjectHeaderConfiguration,
+                let configuration = newValue as? ObjectHeaderCoverOnlyConfiguration,
                 appliedConfiguration != configuration
             else {
                 return
@@ -37,7 +37,7 @@ final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
     
     // MARK: - Initializers
     
-    init(configuration: CoverOnlyObjectHeaderConfiguration) {
+    init(configuration: ObjectHeaderCoverOnlyConfiguration) {
         super.init(frame: .zero)
         
         setupLayout()
@@ -51,9 +51,9 @@ final class CoverOnlyObjectHeaderContentView: UIView, UIContentView {
     
 }
 
-private extension CoverOnlyObjectHeaderContentView  {
+private extension ObjectHeaderCoverOnlyContentView  {
     
-    func apply(configuration: CoverOnlyObjectHeaderConfiguration) {
+    func apply(configuration: ObjectHeaderCoverOnlyConfiguration) {
         appliedConfiguration = configuration
         coverView.configure(
             model: (configuration.cover, configuration.maxWidth)
@@ -64,8 +64,6 @@ private extension CoverOnlyObjectHeaderContentView  {
         addSubview(coverView) {
             $0.pinToSuperview()
         }
-        
-        // Modern collection view requirement
-        translatesAutoresizingMaskIntoConstraints = true
     }
+    
 }
