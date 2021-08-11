@@ -14,6 +14,8 @@ final class DocumentEditorViewModel: ObservableObject {
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
+    
+    let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
     // FIXME: - remove
     let detailsViewModel: DocumentDetailsViewModel
@@ -68,11 +70,19 @@ final class DocumentEditorViewModel: ObservableObject {
     }
 
     private func setupSubscriptions() {
+        objectHeaderLocalEventsListener.beginObservingEvents { [weak self] event in
+            self?.handleObjectHeaderLocalEvent(event)
+        }
+        
         document.updateBlockModelPublisher
             .receiveOnMain()
             .sink { [weak self] updateResult in
                 self?.handleUpdate(updateResult: updateResult)
             }.store(in: &self.subscriptions)
+    }
+    
+    private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
+        // TODO: - add implementation
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
