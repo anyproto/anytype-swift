@@ -15,6 +15,7 @@ final class DocumentEditorViewModel: ObservableObject {
     
     let router: EditorRouterProtocol
     let objectSettingsViewModel: ObjectSettingsViewModel
+    // FIXME: - remove
     let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
@@ -86,8 +87,10 @@ final class DocumentEditorViewModel: ObservableObject {
             
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(newDetails):
-            // TODO: - fix this
-            updateDetails(newDetails)
+            handleGeneralUpdate(
+                with: newDetails,
+                models: modelsHolder.models
+            )
         case let .update(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -95,17 +98,12 @@ final class DocumentEditorViewModel: ObservableObject {
             
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
-            viewInput?.updateRowsWithoutRefreshing(ids: updatedIds)
+            
+            viewInput?.updateData(
+                header: modelsHolder.details?.objectHeader,
+                blocks: modelsHolder.models
+            )
         }
-    }
-    
-    private func updateDetails(_ details: DetailsData) {
-        guard details.parentId == documentId else {
-            return
-        }
-        
-        objectSettingsViewModel.update(with: details)
-        detailsViewModel.performUpdateUsingDetails(details)
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
