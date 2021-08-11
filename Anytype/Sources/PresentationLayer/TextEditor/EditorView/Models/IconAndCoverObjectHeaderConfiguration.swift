@@ -10,8 +10,9 @@ import UIKit
 
 struct IconAndCoverObjectHeaderConfiguration: UIContentConfiguration, Hashable {
     
-    let iconConfiguration: IconOnlyObjectHeaderConfiguration
-    let coverConfiguration: CoverOnlyObjectHeaderConfiguration
+    let icon: ObjectIcon
+    let cover: ObjectCover
+    let maxWidth: CGFloat
     
     func makeContentView() -> UIView & UIContentView {
        IconAndCoverObjectHeaderContentView(configuration: self)

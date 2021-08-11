@@ -23,20 +23,18 @@ extension ObjectHeader: ContentConfigurationProvider {
         switch self {
         case let .iconOnly(objectIcon):
             return IconOnlyObjectHeaderConfiguration(icon: objectIcon)
+            
         case let .coverOnly(objectCover):
             return CoverOnlyObjectHeaderConfiguration(
                 cover: objectCover,
                 maxWidth: maxWidth
             )
+            
         case let .iconAndCover(objectIcon, objectCover):
             return IconAndCoverObjectHeaderConfiguration(
-                iconConfiguration: IconOnlyObjectHeaderConfiguration(
-                    icon: objectIcon
-                ),
-                coverConfiguration: CoverOnlyObjectHeaderConfiguration(
-                    cover: objectCover,
-                    maxWidth: maxWidth
-                )
+                icon: objectIcon,
+                cover: objectCover,
+                maxWidth: maxWidth
             )
         }
     }

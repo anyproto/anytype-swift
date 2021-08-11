@@ -65,7 +65,7 @@ private extension IconOnlyObjectHeaderContentView {
             configurePreviewState(preview, alignment)
         }
         
-        iconView.configure(model: configuration)
+        iconView.configure(model: configuration.icon)
     }
     
     private func configureIconState(_ icon: DocumentIconType,
@@ -143,4 +143,3 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
 }
-
