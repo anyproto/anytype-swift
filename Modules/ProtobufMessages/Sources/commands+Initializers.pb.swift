@@ -1989,6 +1989,19 @@ extension Anytype_Rpc.ExternalDrop.Files.Response.Error {
   }
 }
 
+extension Anytype_Rpc.GenericErrorResponse {
+  public init(error: Anytype_Rpc.GenericErrorResponse.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.GenericErrorResponse.Error {
+  public init(code: Anytype_Rpc.GenericErrorResponse.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.History.SetVersion.Request {
   public init(pageID: String, versionID: String) {
     self.pageID = pageID
