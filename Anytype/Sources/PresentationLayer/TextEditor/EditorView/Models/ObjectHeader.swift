@@ -59,7 +59,7 @@ extension ObjectHeader {
         case .iconOnly(let objectIcon):
             return .iconOnly(modifiedObjectIcon(objectIcon, image))
         case .coverOnly(let objectCover):
-            return .iconAndCover(.preview(.basic(image)), objectCover)
+            return .iconAndCover(.preview(.basic(image), .left), objectCover)
         case .iconAndCover(let objectIcon, let objectCover):
             return .iconAndCover(modifiedObjectIcon(objectIcon, image), objectCover)
         }
@@ -67,19 +67,19 @@ extension ObjectHeader {
     
     private func modifiedObjectIcon(_ objectIcon: ObjectIcon, _ image: UIImage) -> ObjectIcon {
         switch objectIcon {
-        case .icon(let documentIconType):
+        case .icon(let documentIconType, let layoutAlignment):
             switch documentIconType {
             case .basic:
-                return .preview(.basic(image))
+                return .preview(.basic(image), layoutAlignment)
             case .profile:
-                return .preview(.profile(image))
+                return .preview(.profile(image), layoutAlignment)
             }
-        case .preview(let objectIconPreviewType):
+        case .preview(let objectIconPreviewType, let layoutAlignment):
             switch objectIconPreviewType {
             case .basic:
-                return .preview(.basic(image))
+                return .preview(.basic(image), layoutAlignment)
             case .profile:
-                return .preview(.profile(image))
+                return .preview(.profile(image), layoutAlignment)
             }
         }
     }

@@ -88,7 +88,7 @@ final class DocumentEditorViewModel: ObservableObject {
             let fakeHeader: ObjectHeader = {
                 switch event {
                 case .iconUploading(let uIImage):
-                    return ObjectHeader.iconOnly(.preview(.basic(uIImage)))
+                    return ObjectHeader.iconOnly(.preview(.basic(uIImage), .left))
                 case .coverUploading(let uIImage):
                     return ObjectHeader.coverOnly(.preview(uIImage))
                 }

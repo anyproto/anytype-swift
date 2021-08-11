@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlocksModels
 
 final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     
@@ -61,14 +62,17 @@ private extension IconOnlyObjectHeaderContentView {
         appliedConfiguration = configuration
         
         switch configuration.icon {
-        case let .icon(icon):
-            configureIconState(icon)
-        case let .preview(preview):
-            configurePreviewState(preview)
+        case let .icon(icon, alignment):
+            configureIconState(icon, alignment)
+        case let .preview(preview, alignment):
+            configurePreviewState(preview, alignment)
         }
     }
     
-    private func configureIconState(_ icon: DocumentIconType) {
+    private func configureIconState(_ icon: DocumentIconType, _ alignment: LayoutAlignment) {
+//        stackView.alignment = alignment.asStackViewAlignment
+//        stackView.setNeedsLayout()
+//        stackView.layoutIfNeeded()
         activityIndicatorView.hide()
 
         switch icon {
@@ -130,7 +134,9 @@ private extension IconOnlyObjectHeaderContentView {
         }
     }
     
-    private func configurePreviewState(_ preview: ObjectIconPreviewType) {
+    private func configurePreviewState(_ preview: ObjectIconPreviewType, _ alignment: LayoutAlignment) {
+//        stackView.alignment = alignment.asStackViewAlignment
+        
         switch preview {
         case let .basic(image):
             topConstraint.constant = Constants.basicIconTopInset
@@ -186,10 +192,10 @@ private extension IconOnlyObjectHeaderContentView {
                 }
             },
             builder: {
-                $0.hStack(
-                    $0.hGap(),
-                    containerView,
-                    $0.hGap()
+                $0.vStack(
+//                    $0.hGap(),
+                    containerView
+//                    $0.hGap()
                 )
             }
         )
@@ -208,6 +214,21 @@ private extension IconOnlyObjectHeaderContentView {
         static let basicIconTopInset: CGFloat = 108 - Constants.borderWidth
         static let basicEmojiTopInset: CGFloat = 124 - Constants.borderWidth
         static let profileTopInset: CGFloat = 92 - Constants.borderWidth
+    }
+    
+}
+
+private extension LayoutAlignment {
+    
+    var asStackViewAlignment: UIStackView.Alignment {
+        switch self {
+        case .left:
+            return .leading
+        case .center:
+            return .center
+        case .right:
+            return .trailing
+        }
     }
     
 }
