@@ -108,25 +108,24 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             blocks.map { DataSourceItem.block($0) },
             toSection: .main
         )
+        
+        let sectionSnapshot = self.dataSource.snapshot(for: .main)
+        
+        sectionSnapshot.visibleItems.forEach { item in
+            switch item {
+            case let .block(block):
+                guard let indexPath = self.dataSource.indexPath(for: item) else { return }
+                guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+                
+                cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
+                cell.indentationLevel = block.indentationLevel
+            case .header:
+                return
+            }
+        }
 
         apply(snapshot) { [weak self] in
             guard let self = self else { return }
-
-            let sectionSnapshot = self.dataSource.snapshot(for: .main)
-            
-            sectionSnapshot.visibleItems.forEach { item in
-                switch item {
-                case let .block(block):
-                    guard let indexPath = self.dataSource.indexPath(for: item) else { return }
-                    guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-                    
-                    cell.contentConfiguration = block.makeContentConfiguration(maxWidth: cell.bounds.width)
-                    cell.indentationLevel = block.indentationLevel
-                case .header:
-                    return
-                }
-            }
-
             self.focusOnFocusedBlock()
         }
     }
