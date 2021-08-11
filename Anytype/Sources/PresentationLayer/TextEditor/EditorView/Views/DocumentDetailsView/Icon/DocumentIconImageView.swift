@@ -131,7 +131,7 @@ extension DocumentIconImageView: ConfigurableView {
         imageView.kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
             placeholder: placeholder,
-            options: [.processor(processor)]
+            options: [.processor(processor), .transition(.fade(0.3))]
         )
     }
     
