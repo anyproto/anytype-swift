@@ -151,30 +151,3 @@ private extension MarkStyle {
         }
     }
 }
-
-extension Namespace {
-    enum RangeConverter {
-        /// We have to map correctly range from middleware and our range.
-        /// For example, our range equals:
-        ///
-        /// | Middleware | NSRange |  Description   |
-        /// |   (5, 5)   |  (5, 0) | At position 5 and length equal 0 |
-        /// |   (0, 1)   |  (0, 1) | At position 0 and length equal 1 |
-        /// |   (3, 2)   |  (3, ?) | Invalid case |
-        ///
-        /// Middleware: (NSRange.from, NSRange.from + NSRange.length )
-        ///
-        /// NSRange: ( Middleware.from, Middleware.to - Middleware.from )
-        ///
-        static func asModel(_ range: Anytype_Model_Range) -> NSRange {
-            .init(location: Int(range.from), length: Int(range.to) - Int(range.from))
-        }
-        
-        /// As soon as upperBound is equal to ( range.length + range.lowerBound ),
-        /// We could safely set
-        ///
-        static func asMiddleware(_ range: NSRange) -> Anytype_Model_Range {
-            .init(from: Int32(range.lowerBound), to: Int32(range.lowerBound + range.length))
-        }
-    }
-}

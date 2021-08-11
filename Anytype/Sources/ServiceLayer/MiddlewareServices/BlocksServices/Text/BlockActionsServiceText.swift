@@ -63,7 +63,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
                style: Style,
                mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error> {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
-        let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
+        let middlewareRange = RangeConverter.asMiddleware(range)
 
         return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: mode)
             .handleEvents(receiveSubscription: { _ in
