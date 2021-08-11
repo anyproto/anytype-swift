@@ -21,6 +21,9 @@ final class IconOnlyObjectHeaderContentView: UIView, UIContentView {
     // MARK: - Private variables
     
     private var topConstraint: NSLayoutConstraint!
+    private var leadingConstraint: NSLayoutConstraint!
+    private var centerConstraint: NSLayoutConstraint!
+    private var trailingConstraint: NSLayoutConstraint!
     
     private var appliedConfiguration: IconOnlyObjectHeaderConfiguration!
     
@@ -70,9 +73,7 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     private func configureIconState(_ icon: DocumentIconType, _ alignment: LayoutAlignment) {
-//        stackView.alignment = alignment.asStackViewAlignment
-//        stackView.setNeedsLayout()
-//        stackView.layoutIfNeeded()
+        handleAlignment(alignment)
         activityIndicatorView.hide()
 
         switch icon {
@@ -135,7 +136,7 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     private func configurePreviewState(_ preview: ObjectIconPreviewType, _ alignment: LayoutAlignment) {
-//        stackView.alignment = alignment.asStackViewAlignment
+        handleAlignment(alignment)
         
         switch preview {
         case let .basic(image):
@@ -152,6 +153,23 @@ private extension IconOnlyObjectHeaderContentView {
         activityIndicatorView.layer.add(animation, forKey: nil)
         
         activityIndicatorView.show()
+    }
+    
+    private func handleAlignment(_ alignment: LayoutAlignment) {
+        switch alignment {
+        case .left:
+            leadingConstraint.isActive = true
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = false
+        case .center:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = true
+            trailingConstraint.isActive = false
+        case .right:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = true
+        }
     }
   
 }
@@ -170,35 +188,32 @@ private extension IconOnlyObjectHeaderContentView {
     }
     
     func setupLayout() {
-        stackView = layoutUsing.stack(
-            layout: { stack in
-                stack.layoutUsing.anchors {
-                    $0.leading.equal(
-                        to: self.leadingAnchor,
-                        constant: Constants.horizontalInset
-                    )
-                    $0.trailing.equal(
-                        to: self.trailingAnchor,
-                        constant: -Constants.horizontalInset
-                    )
-                    $0.bottom.equal(
-                        to: self.bottomAnchor,
-                        constant: -Constants.bottomInset
-                    )
-                    self.topConstraint = $0.top.equal(
-                        to: self.topAnchor,
-                        constant: Constants.basicEmojiTopInset
-                    )
-                }
-            },
-            builder: {
-                $0.vStack(
-//                    $0.hGap(),
-                    containerView
-//                    $0.hGap()
-                )
-            }
-        )
+        addSubview(containerView) {
+            leadingConstraint = $0.leading.equal(
+                to: leadingAnchor,
+                constant: Constants.horizontalInset
+            )
+            
+            centerConstraint = $0.centerX.equal(
+                to: centerXAnchor,
+                activate: false
+            )
+            trailingConstraint =  $0.trailing.equal(
+                to: trailingAnchor,
+                constant: -Constants.horizontalInset,
+                activate: false
+            )
+            
+            topConstraint = $0.top.equal(
+                to: self.topAnchor,
+                constant: Constants.basicEmojiTopInset
+            )
+            
+            $0.bottom.equal(
+                to: self.bottomAnchor,
+                constant: -Constants.bottomInset
+            )
+        }
     }
     
 }
