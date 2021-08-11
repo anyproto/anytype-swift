@@ -1,6 +1,6 @@
 import UIKit
 
-enum MarkStyle: Equatable, CaseIterable {
+enum MarkStyle: Equatable {
     enum Update {
         case empty
         case change([NSAttributedString.Key : Any])
@@ -19,24 +19,6 @@ enum MarkStyle: Equatable, CaseIterable {
             case let .changeAndDeletedKeys(_, keys): return keys
             }
         }
-    }
-    
-    static var allCases: [MarkStyle] {
-        return [
-            .bold(false),
-            .italic(false),
-            .keyboard(false),
-            .strikethrough(false),
-            .underscored(false),
-            .textColor(nil),
-            .backgroundColor(nil),
-            .link(nil),
-            .mention(nil)
-        ]
-    }
-    
-    static var emptyCases: [MarkStyle] {
-        allCases
     }
     
     // change font to bold
@@ -82,39 +64,6 @@ enum MarkStyle: Equatable, CaseIterable {
     case link(URL?)
     
     case mention(String?)
-    
-    // MARK: Conversion
-    func from(attributes: [NSAttributedString.Key : Any]) -> Self {
-        switch self {
-        case .bold:
-            guard let font = attributes[.font] as? UIFont,
-                  font.fontDescriptor.symbolicTraits.contains(.traitBold) else { return .bold(false) }
-            let traitsWithoutBold = font.fontDescriptor.symbolicTraits.subtracting(.traitBold)
-            guard !font.fontDescriptor.withSymbolicTraits(traitsWithoutBold).isNil else {
-                // This means that we can not create same font without bold traits
-                // So bold is necessary attribute for this font
-                return .bold(false)
-            }
-            return .bold( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitBold) ?? false )
-        case .italic: return .italic( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitItalic) ?? false )
-        case .keyboard:
-            guard let font = attributes[.font] as? UIFont else { return .keyboard(false) }
-            return .keyboard(font.isCode)
-        case .strikethrough: return .strikethrough( (attributes[.strikethroughStyle] as? Int) == 1 )
-        case .underscored: return .underscored( (attributes[.underlineStyle] as? Int) == 1 )
-        case .textColor: return .textColor( attributes[.foregroundColor] as? UIColor )
-        case .backgroundColor: return .backgroundColor(attributes[.backgroundColor] as? UIColor)
-        case .link: return .link( attributes[.link] as? URL )
-        case .mention:
-            return .mention(attributes[.mention] as? String)
-        }
-    }
-    
-    // TODO: rethink.
-    // Should we make option set here?
-    static func from(attributes: [NSAttributedString.Key : Any]) -> [Self] {
-        return allCases.map { $0.from(attributes: attributes) }
-    }
     
     // CAUTION:
     // This method return ONLY SLIDES of correspoding attributes and can return empty dictionary.
