@@ -1,10 +1,11 @@
 import UIKit
 
+
 // MARK: - TextView
 
 final class TextViewWithPlaceholder: UITextView {
 
-    weak var userInteractionDelegate: TextViewUserInteractionProtocol?
+    weak var customTextViewDelegate: TextViewDelegate?
 
     
     // MARK: - Views
@@ -201,7 +202,7 @@ extension TextViewWithPlaceholder {
     private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
         let range = selectedRange
 
-        userInteractionDelegate?.didReceiveAction(
+        customTextViewDelegate?.didReceiveAction(
             .changeTextStyle(action, range)
         )
     }

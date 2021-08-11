@@ -15,12 +15,12 @@ enum EditorAccessoryViewAction {
 
 
 final class EditorAccessoryViewActionHandler {
-    private weak var delegate: TextViewUserInteractionProtocol?
+    private weak var delegate: TextViewDelegate?
     weak var switcher: AccessoryViewSwitcher?
     weak var customTextView: CustomTextView?
     
     init(
-        delegate: TextViewUserInteractionProtocol?
+        delegate: TextViewDelegate?
     ) {
         self.delegate = delegate
     }

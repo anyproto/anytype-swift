@@ -108,7 +108,6 @@ final class TextBlockContentView: UIView & UIContentView {
         
         subscriptions.removeAll()
         textView.delegate = self
-        textView.userInteractionDelegate = self
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
             for: currentConfiguration.information.content.type
         )
@@ -172,7 +171,6 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
-        currentConfiguration.configureMentions(textView.textView)
     }
     
     private func setupTitle(_ blockText: BlockText) {
