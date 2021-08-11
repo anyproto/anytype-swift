@@ -43,8 +43,8 @@ final class ObjectIconView: UIView {
 
 extension ObjectIconView: ConfigurableView {
 
-    func configure(model: IconOnlyObjectHeaderConfiguration) {
-        switch model.icon {
+    func configure(model: ObjectIcon) {
+        switch model {
         case let .icon(icon, alignment):
             configureIconState(icon, alignment)
         case let .preview(preview, alignment):
