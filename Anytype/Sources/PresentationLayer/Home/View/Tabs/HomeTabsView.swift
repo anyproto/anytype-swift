@@ -26,12 +26,12 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
-                .tag(Tab.favourites)
-            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.recent)
             HomeCollectionView(cellData: model.inboxCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.inbox)
+            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.recent)
+            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
+            .tag(Tab.favourites)
             HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.archive)
         }
@@ -65,9 +65,9 @@ struct HomeTabsView: View {
     
     private var tabHeaders: some View {
         HStack(){
-            tabButton(text: "Favorites", tab: .favourites)
-            tabButton(text: "Recent", tab: .recent)
             tabButton(text: "Inbox", tab: .inbox)
+            tabButton(text: "Recent", tab: .recent)
+            tabButton(text: "Favorites", tab: .favourites)
             tabButton(text: "Archive", tab: .archive)
         }
         .padding()
