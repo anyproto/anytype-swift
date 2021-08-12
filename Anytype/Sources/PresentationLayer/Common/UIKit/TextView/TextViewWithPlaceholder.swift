@@ -10,12 +10,10 @@ final class TextViewWithPlaceholder: UITextView {
         label.font = self.font
         label.textAlignment = self.textAlignment
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let blockLayoutManager = TextBlockLayoutManager()
-    private var placeholderConstraints = [NSLayoutConstraint]()
 
     private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
 
@@ -131,19 +129,13 @@ private extension TextViewWithPlaceholder {
     }
 
     func setupPlaceholderLayout() {
-        if !placeholderConstraints.isEmpty {
-            removeConstraints(placeholderConstraints)
-        }
+        removeConstraints(placeholderLabel.constraints)
         
-        let insets = textContainerInset
-        let lineFragmentPadding = textContainer.lineFragmentPadding
         placeholderLabel.layoutUsing.anchors {
-            placeholderConstraints = [
-                $0.leading.equal(to: leadingAnchor, constant: insets.left + lineFragmentPadding),
-                $0.trailing.equal(to: trailingAnchor, constant: -(insets.right + lineFragmentPadding)),
-                $0.top.equal(to: topAnchor, constant: insets.top),
-                $0.bottom.equal(to: bottomAnchor, constant: -insets.bottom)
-            ]
+            $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
+            $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
+            $0.top.equal(to: topAnchor, constant: textContainerInset.top)
+            $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
         }
     }
     
