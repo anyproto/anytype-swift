@@ -66,10 +66,12 @@ struct PageCell: View {
     private var icon: some View {
         Group {
             if isRedacted {
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: Constants.Icon.Basic.cornerRadius)
                     .foregroundColor(Color.grayscale10)
-                    .frame(width: Constants.iconImageSize.width,
-                           height: Constants.iconImageSize.height)
+                    .frame(
+                        width: Constants.Icon.Basic.imageSize.width,
+                        height: Constants.Icon.Basic.imageSize.height
+                    )
             } else {
                 switch cellData.icon {
                 case let .basic(basicIcon):
@@ -89,7 +91,7 @@ struct PageCell: View {
             case let .emoji(emoji):
                 AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
             case let .imageId(imageId):
-                iconView(imageId: imageId, radius: .point(10))
+                iconView(imageId: imageId, radius: .point(Constants.Icon.Basic.cornerRadius))
             }
         }
         
@@ -120,10 +122,10 @@ struct PageCell: View {
         KFImage.url(UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)))
             .setProcessors([
                 ResizingImageProcessor(
-                    referenceSize: Constants.iconImageSize,
+                    referenceSize: Constants.Icon.Basic.imageSize,
                     mode: .aspectFill
                 ),
-                CroppingImageProcessor(size: Constants.iconImageSize),
+                CroppingImageProcessor(size: Constants.Icon.Basic.imageSize),
                 RoundCornerImageProcessor(radius: radius)
             ])
     }
@@ -152,7 +154,12 @@ struct PageCell: View {
 private extension PageCell {
     
     enum Constants {
-        static let iconImageSize = CGSize(width: 48, height: 48)
+        enum Icon {
+            enum Basic {
+                static let imageSize = CGSize(width: 48, height: 48)
+                static let cornerRadius: CGFloat = 2
+            }
+        }
     }
     
 }
