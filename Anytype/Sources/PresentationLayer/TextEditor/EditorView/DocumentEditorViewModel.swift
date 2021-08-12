@@ -98,7 +98,7 @@ final class DocumentEditorViewModel: ObservableObject {
         }
         
         viewInput?.updateData(
-            header: header.modifiedByLocalEvent(event),
+            header: header.modifiedByLocalEvent(event) ?? .empty,
             blocks: modelsHolder.models
         )
     }
@@ -128,7 +128,7 @@ final class DocumentEditorViewModel: ObservableObject {
             updateMarkupViewModel(updatedIds)
             
             viewInput?.updateData(
-                header: modelsHolder.details?.objectHeader,
+                header: modelsHolder.details?.objectHeader ?? .empty,
                 blocks: modelsHolder.models
             )
         }
@@ -197,7 +197,10 @@ final class DocumentEditorViewModel: ObservableObject {
         modelsHolder.apply(newDetails: details)
         
         guard let details = modelsHolder.details else {
-            viewInput?.updateData(header: nil, blocks: modelsHolder.models)
+            viewInput?.updateData(
+                header: .empty,
+                blocks: modelsHolder.models
+            )
             return
         }
         

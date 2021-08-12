@@ -14,6 +14,7 @@ enum ObjectHeader: Hashable {
     case iconOnly(ObjectIcon)
     case coverOnly(ObjectCover)
     case iconAndCover(ObjectIcon, ObjectCover)
+    case empty
     
 }
 
@@ -36,6 +37,8 @@ extension ObjectHeader: ContentConfigurationProvider {
                 cover: objectCover,
                 maxWidth: maxWidth
             )
+        case .empty:
+            return ObjectHeaderEmptyConfiguration()
         }
     }
     
@@ -60,6 +63,8 @@ extension ObjectHeader {
             return .iconAndCover(.preview(.basic(image), .left), objectCover)
         case .iconAndCover(let objectIcon, let objectCover):
             return .iconAndCover(modifiedObjectIcon(objectIcon, image), objectCover)
+        case .empty:
+            return .iconOnly(.preview(.profile(image), .left))
         }
     }
     
@@ -90,6 +95,8 @@ extension ObjectHeader {
             return .coverOnly(.preview(image))
         case .iconAndCover(let objectIcon, _):
             return .iconAndCover(objectIcon, .preview(image))
+        case .empty:
+            return .coverOnly(.preview(image))
         }
     }
     

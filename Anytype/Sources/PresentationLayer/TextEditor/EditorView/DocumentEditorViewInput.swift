@@ -3,7 +3,7 @@ import BlocksModels
 
 /// Input data for document view
 protocol DocumentEditorViewInput: AnyObject {
-    func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol])
+    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol])
 
     func selectBlock(blockId: BlockId)
 
