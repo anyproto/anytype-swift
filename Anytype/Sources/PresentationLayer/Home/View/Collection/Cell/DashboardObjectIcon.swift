@@ -32,9 +32,12 @@ struct DashboardObjectIcon: View {
                     size: 30,
                     weight: .regular
                 )
-                    .frame(maxWidth: 48, maxHeight: 48)
+                    .frame(
+                        maxWidth: Constants.Emoji.imageSize.width,
+                        maxHeight: Constants.Emoji.imageSize.height
+                    )
                     .background(Color.grayscale10)
-                    .cornerRadius(10)
+                    .cornerRadius(Constants.Emoji.cornerRadius)
             case let .imageId(imageId):
                 kfImage(
                     imageId: imageId,
@@ -88,6 +91,11 @@ extension DashboardObjectIcon {
         enum Basic {
             static let imageSize = CGSize(width: 48, height: 48)
             static let cornerRadius: CGFloat = 2
+        }
+        
+        enum Emoji {
+            static let imageSize = CGSize(width: 48, height: 48)
+            static let cornerRadius: CGFloat = 10
         }
     }
     
