@@ -25,9 +25,17 @@ struct DashboardObjectIcon: View {
         Group {
             switch basicIcon {
             case let .emoji(emoji):
-                AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
+                AnytypeText(
+                    emoji.value,
+                    name: .inter,
+                    size: 48,
+                    weight: .regular
+                )
             case let .imageId(imageId):
-                iconView(imageId: imageId, radius: .point(DashboardObjectIcon.Constants.Basic.cornerRadius))
+                kfImage(
+                    imageId: imageId,
+                    radius: .point(Constants.Basic.cornerRadius)
+                )
             }
         }
         
@@ -37,7 +45,10 @@ struct DashboardObjectIcon: View {
         Group {
             switch profileIcon {
             case let .imageId(imageId):
-                iconView(imageId: imageId, radius: .widthFraction(0.5))
+                kfImage(
+                    imageId: imageId,
+                    radius: .widthFraction(0.5)
+                )
             case let .placeholder(character):
                 AnytypeText(
                     String(character),
@@ -54,14 +65,14 @@ struct DashboardObjectIcon: View {
         .clipShape(Circle())
     }
     
-    private func iconView(imageId: String, radius: RoundCornerImageProcessor.Radius) -> KFImage {
+    private func kfImage(imageId: String, radius: RoundCornerImageProcessor.Radius) -> KFImage {
         KFImage.url(UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)))
             .setProcessors([
                 ResizingImageProcessor(
-                    referenceSize: DashboardObjectIcon.Constants.Basic.imageSize,
+                    referenceSize: Constants.Basic.imageSize,
                     mode: .aspectFill
                 ),
-                CroppingImageProcessor(size: DashboardObjectIcon.Constants.Basic.imageSize),
+                CroppingImageProcessor(size: Constants.Basic.imageSize),
                 RoundCornerImageProcessor(radius: radius)
             ])
     }
