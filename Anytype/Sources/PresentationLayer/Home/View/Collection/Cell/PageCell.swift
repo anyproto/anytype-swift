@@ -67,12 +67,12 @@ struct PageCell: View {
         Group {
             if isRedacted {
                 RoundedRectangle(
-                    cornerRadius: DashboardObjectIcon.Constants.Basic.cornerRadius
+                    cornerRadius: DashboardObjectIcon.Constants.basicImageIconCornerRadius
                 )
                     .foregroundColor(Color.grayscale10)
                     .frame(
-                        width: DashboardObjectIcon.Constants.Basic.imageSize.width,
-                        height: DashboardObjectIcon.Constants.Basic.imageSize.height
+                        width: DashboardObjectIcon.Constants.iconSize.width,
+                        height: DashboardObjectIcon.Constants.iconSize.height
                     )
             } else {
                 switch cellData.icon {

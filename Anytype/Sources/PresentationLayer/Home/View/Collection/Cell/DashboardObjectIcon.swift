@@ -33,15 +33,15 @@ struct DashboardObjectIcon: View {
                     weight: .regular
                 )
                     .frame(
-                        maxWidth: Constants.Emoji.imageSize.width,
-                        maxHeight: Constants.Emoji.imageSize.height
+                        maxWidth: Constants.iconSize.width,
+                        maxHeight: Constants.iconSize.height
                     )
                     .background(Color.grayscale10)
-                    .cornerRadius(Constants.Emoji.cornerRadius)
+                    .cornerRadius(Constants.emojiIconCornerRadius)
             case let .imageId(imageId):
                 kfImage(
                     imageId: imageId,
-                    radius: .point(Constants.Basic.cornerRadius)
+                    radius: .point(Constants.basicImageIconCornerRadius)
                 )
             }
         }
@@ -75,10 +75,10 @@ struct DashboardObjectIcon: View {
         KFImage.url(UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)))
             .setProcessors([
                 ResizingImageProcessor(
-                    referenceSize: Constants.Basic.imageSize,
+                    referenceSize: Constants.iconSize,
                     mode: .aspectFill
                 ),
-                CroppingImageProcessor(size: Constants.Basic.imageSize),
+                CroppingImageProcessor(size: Constants.iconSize),
                 RoundCornerImageProcessor(radius: radius)
             ])
     }
@@ -88,15 +88,10 @@ struct DashboardObjectIcon: View {
 extension DashboardObjectIcon {
     
     enum Constants {
-        enum Basic {
-            static let imageSize = CGSize(width: 48, height: 48)
-            static let cornerRadius: CGFloat = 2
-        }
+        static let iconSize = CGSize(width: 48, height: 48)
         
-        enum Emoji {
-            static let imageSize = CGSize(width: 48, height: 48)
-            static let cornerRadius: CGFloat = 10
-        }
+        static let basicImageIconCornerRadius: CGFloat = 2
+        static let emojiIconCornerRadius: CGFloat = 10
     }
     
 }
