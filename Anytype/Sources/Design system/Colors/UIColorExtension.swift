@@ -33,6 +33,8 @@ extension UIColor {
     static let darkColdGray = color(name: ColorName.darkColdGray)
     static let lightColdGray = color(name: ColorName.lightColdGray)
 
+    static let divider = color(name: ColorName.divider)
+    static let dividerSecondary = color(name: ColorName.dividerSecondary)
 
     static var darkGreen: UIColor {
         .init(hexString: "#57C600")

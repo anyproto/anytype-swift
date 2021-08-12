@@ -53,7 +53,7 @@ struct DashboardObjectIcon: View {
             case let .imageId(imageId):
                 kfImage(
                     imageId: imageId,
-                    radius: .widthFraction(0.5)
+                    radius: .widthFraction(Constants.profileImageIconCornerRadius)
                 )
             case let .placeholder(character):
                 AnytypeText(
@@ -62,13 +62,16 @@ struct DashboardObjectIcon: View {
                     size: 28,
                     weight: .regular
                 )
-                .frame(maxWidth: 48, maxHeight: 48)
+                    .frame(
+                        maxWidth: Constants.iconSize.width,
+                        maxHeight: Constants.iconSize.height
+                    )
                 .foregroundColor(.grayscaleWhite)
-                .background(Color.grayscale30)
-                
+                .background(Color.dividerSecondary)
+                .clipShape(Circle())
             }
         }
-        .clipShape(Circle())
+        
     }
     
     private func kfImage(imageId: String, radius: RoundCornerImageProcessor.Radius) -> KFImage {
@@ -92,6 +95,7 @@ extension DashboardObjectIcon {
         
         static let basicImageIconCornerRadius: CGFloat = 2
         static let emojiIconCornerRadius: CGFloat = 10
+        static let profileImageIconCornerRadius: CGFloat = 0.5
     }
     
 }
