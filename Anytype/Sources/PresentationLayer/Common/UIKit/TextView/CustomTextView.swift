@@ -4,13 +4,12 @@ import BlocksModels
 
 final class CustomTextView: UIView {
     
-    weak var delegate: TextViewDelegate?
-    weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
+    weak var delegate: TextViewDelegate? {
         didSet {
-            textView.userInteractionDelegate = userInteractionDelegate
+            textView.customTextViewDelegate = delegate
         }
     }
-    
+
     var textSize: CGSize?
 
     private(set) lazy var textView = createTextView()

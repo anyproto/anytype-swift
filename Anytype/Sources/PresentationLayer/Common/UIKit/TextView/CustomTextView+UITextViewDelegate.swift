@@ -21,12 +21,12 @@ extension CustomTextView: UITextViewDelegate {
             if case let .enterInsideContent(currentText, _) = keyAction {
                 self.textView.text = currentText
             }
-            return userInteractionDelegate?.didReceiveAction(
+            return delegate?.didReceiveAction(
                 CustomTextView.UserAction.keyboardAction(keyAction)
             ) ?? true
         }
 
-        return userInteractionDelegate?.didReceiveAction(
+        return delegate?.didReceiveAction(
             .shouldChangeText(
                 range: range,
                 replacementText: text,
@@ -39,7 +39,7 @@ extension CustomTextView: UITextViewDelegate {
         accessoryViewSwitcher?.switchInputs(textView: textView)
 
         if textView.isFirstResponder {
-            userInteractionDelegate?.didReceiveAction(
+            delegate?.didReceiveAction(
                 .changeCaretPosition(textView.selectedRange)
             )
         }
@@ -67,7 +67,7 @@ extension CustomTextView: UITextViewDelegate {
         delegate?.didChangeText(textView: textView)
         if !(accessoryViewSwitcher?.textTypingIsUsingForAccessoryViewContentFiltering() ?? false) {
             // We type only text to filter content inside accessory view
-            userInteractionDelegate?.didReceiveAction(
+            delegate?.didReceiveAction(
                 .changeText(textView.attributedText)
             )
         }
