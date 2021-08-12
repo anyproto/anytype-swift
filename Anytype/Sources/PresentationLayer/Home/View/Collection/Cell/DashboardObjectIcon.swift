@@ -29,9 +29,15 @@ struct DashboardObjectIcon: View {
                 AnytypeText(
                     emoji.value,
                     name: .inter,
-                    size: 48,
+                    size: 30,
                     weight: .regular
                 )
+                    .frame(
+                        maxWidth: Constants.Emoji.imageSize.width,
+                        maxHeight: Constants.Emoji.imageSize.height
+                    )
+                    .background(Color.grayscale10)
+                    .cornerRadius(Constants.Emoji.cornerRadius)
             case let .imageId(imageId):
                 kfImage(
                     imageId: imageId,
@@ -39,7 +45,6 @@ struct DashboardObjectIcon: View {
                 )
             }
         }
-        
     }
     
     private func makeProfileIconView(_ profileIcon: DocumentIconType.Profile) -> some View {
@@ -86,6 +91,11 @@ extension DashboardObjectIcon {
         enum Basic {
             static let imageSize = CGSize(width: 48, height: 48)
             static let cornerRadius: CGFloat = 2
+        }
+        
+        enum Emoji {
+            static let imageSize = CGSize(width: 48, height: 48)
+            static let cornerRadius: CGFloat = 10
         }
     }
     
