@@ -30,18 +30,23 @@ struct PageCell: View {
         Group {
             switch cellData.title {
             case let .default(title):
-                defaultTitle(with: title)
+                defaultTitle(with: title, lineLimit: 1)
             case let .todo(title, isChecked):
                 todoTitle(with: title, isChecked: isChecked)
             }
         }
     }
     
-    private func defaultTitle(with text: String) -> some View {
+    private func defaultTitle(with text: String, lineLimit: Int? = nil) -> some View {
         var titleString = text.isEmpty ? "Untitled".localized : text
         titleString = isRedacted ? RedactedText.pageTitle : titleString
         
-        return AnytypeText(titleString, style: .captionMedium).foregroundColor(.textPrimary)
+        return AnytypeText(
+            titleString,
+            style: .captionMedium
+        )
+            .foregroundColor(.textPrimary)
+            .lineLimit(lineLimit)
     }
     
     private func todoTitle(with text: String, isChecked: Bool) -> some View {
@@ -54,7 +59,7 @@ struct PageCell: View {
                 .resizable()
                 .frame(width: 18, height: 18)
             
-            defaultTitle(with: text)
+            defaultTitle(with: text).multilineTextAlignment(.leading)
         }
     }
     
@@ -66,16 +71,18 @@ struct PageCell: View {
     private var icon: some View {
         Group {
             if isRedacted {
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(
+                    cornerRadius: DashboardObjectIcon.Constants.basicImageIconCornerRadius
+                )
                     .foregroundColor(Color.grayscale10)
-                    .frame(width: Constants.iconImageSize.width,
-                           height: Constants.iconImageSize.height)
+                    .frame(
+                        width: DashboardObjectIcon.Constants.iconSize.width,
+                        height: DashboardObjectIcon.Constants.iconSize.height
+                    )
             } else {
                 switch cellData.icon {
-                case let .basic(basicIcon):
-                    makeBasicIconView(basicIcon)
-                case let .profile(profileIcon):
-                    makeProfileIconView(profileIcon)
+                case .some(let icon):
+                    DashboardObjectIcon(icon: icon)
                 case .none:
                     EmptyView()
                 }
@@ -83,50 +90,7 @@ struct PageCell: View {
         }
     }
     
-    private func makeBasicIconView(_ basicIcon: DocumentIconType.Basic) -> some View {
-        Group {
-            switch basicIcon {
-            case let .emoji(emoji):
-                AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
-            case let .imageId(imageId):
-                iconView(imageId: imageId, radius: .point(10))
-            }
-        }
-        
-    }
     
-    private func makeProfileIconView(_ profileIcon: DocumentIconType.Profile) -> some View {
-        Group {
-            switch profileIcon {
-            case let .imageId(imageId):
-                iconView(imageId: imageId, radius: .widthFraction(0.5))
-            case let .placeholder(character):
-                AnytypeText(
-                    String(character),
-                    name: .inter,
-                    size: 28,
-                    weight: .regular
-                )
-                .frame(maxWidth: 48, maxHeight: 48)
-                .foregroundColor(.grayscaleWhite)
-                .background(Color.grayscale30)
-                
-            }
-        }
-        .clipShape(Circle())
-    }
-    
-    private func iconView(imageId: String, radius: RoundCornerImageProcessor.Radius) -> KFImage {
-        KFImage.url(UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)))
-            .setProcessors([
-                ResizingImageProcessor(
-                    referenceSize: Constants.iconImageSize,
-                    mode: .aspectFill
-                ),
-                CroppingImageProcessor(size: Constants.iconImageSize),
-                RoundCornerImageProcessor(radius: radius)
-            ])
-    }
     
     private var iconSpacer: some View {
         Group {
@@ -149,13 +113,6 @@ struct PageCell: View {
     }
 }
 
-private extension PageCell {
-    
-    enum Constants {
-        static let iconImageSize = CGSize(width: 48, height: 48)
-    }
-    
-}
 
 struct PageCell_Previews: PreviewProvider {
     static let columns = [
