@@ -30,18 +30,23 @@ struct PageCell: View {
         Group {
             switch cellData.title {
             case let .default(title):
-                defaultTitle(with: title)
+                defaultTitle(with: title, lineLimit: 1)
             case let .todo(title, isChecked):
                 todoTitle(with: title, isChecked: isChecked)
             }
         }
     }
     
-    private func defaultTitle(with text: String) -> some View {
+    private func defaultTitle(with text: String, lineLimit: Int? = nil) -> some View {
         var titleString = text.isEmpty ? "Untitled".localized : text
         titleString = isRedacted ? RedactedText.pageTitle : titleString
         
-        return AnytypeText(titleString, style: .captionMedium).foregroundColor(.textPrimary)
+        return AnytypeText(
+            titleString,
+            style: .captionMedium
+        )
+            .foregroundColor(.textPrimary)
+            .lineLimit(lineLimit)
     }
     
     private func todoTitle(with text: String, isChecked: Bool) -> some View {
@@ -54,7 +59,7 @@ struct PageCell: View {
                 .resizable()
                 .frame(width: 18, height: 18)
             
-            defaultTitle(with: text)
+            defaultTitle(with: text).multilineTextAlignment(.leading)
         }
     }
     
