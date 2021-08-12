@@ -56,15 +56,21 @@ final class TextViewWithPlaceholder: UITextView {
     
     override var textContainerInset: UIEdgeInsets {
         didSet {
-            self.setupPlaceholderLayout()
+            setupPlaceholderLayout()
         }
     }
 
     override var typingAttributes: [NSAttributedString.Key : Any] {
         didSet {
             if let font = super.typingAttributes[.font] as? UIFont {
-                self.placeholderLabel.font = font
+                placeholderLabel.font = font
             }
+        }
+    }
+    
+    override var textAlignment: NSTextAlignment {
+        didSet {
+            placeholderLabel.textAlignment = textAlignment
         }
     }
     
@@ -130,12 +136,12 @@ private extension TextViewWithPlaceholder {
 
     func setupPlaceholderLayout() {
         removeConstraints(placeholderLabel.constraints)
-        
         placeholderLabel.layoutUsing.anchors {
             $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
             $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
             $0.top.equal(to: topAnchor, constant: textContainerInset.top)
             $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
+            $0.width.equal(to: widthAnchor)
         }
     }
     
@@ -210,7 +216,7 @@ extension TextViewWithPlaceholder: NSTextStorageDelegate {
 extension TextViewWithPlaceholder {
     
     func update(placeholder: NSAttributedString?) {
-        self.placeholderLabel.attributedText = placeholder
+        placeholderLabel.attributedText = placeholder
     }
 }
 
