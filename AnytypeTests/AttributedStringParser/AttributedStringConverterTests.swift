@@ -4,9 +4,21 @@ import XCTest
 
 final class AttributedStringConverterTests: XCTestCase {
     
-    private var sut = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.self
+    private var attributedStringConverter: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.Type!
     
-    func testOneBoldMarkupConvertation() {
+    // MARK: Overriden methods
+    
+    override func setUp() {
+        attributedStringConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.self
+    }
+    
+    override func tearDown() {
+        attributedStringConverter = nil
+    }
+    
+    // MARK: Tests
+    
+    func testConvertOneBoldMarkup() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -20,19 +32,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.boldSystemFont(ofSize: 22),
             range: boldRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 1)
+        XCTAssertTrue(middleMarks.count == 1)
         guard let firstMark = middleMarks.first else {
             return
         }
-        XCTAssert(firstMark.type == .bold)
-        XCTAssert(firstMark.range.from == boldRange.location)
-        XCTAssert(firstMark.range.to == boldRange.location + boldRange.length)
+        XCTAssertTrue(firstMark.type == .bold)
+        XCTAssertTrue(firstMark.range.from == boldRange.location)
+        XCTAssertTrue(firstMark.range.to == boldRange.location + boldRange.length)
     }
     
-    func testOneItalicMarkupConvertation() {
+    func testConvertOneItalicMarkup() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -46,19 +58,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.italicSystemFont(ofSize: 22),
             range: italicRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 1)
+        XCTAssertTrue(middleMarks.count == 1)
         guard let firstMark = middleMarks.first else {
             return
         }
-        XCTAssert(firstMark.type == .italic)
-        XCTAssert(firstMark.range.from == italicRange.location)
-        XCTAssert(firstMark.range.to == italicRange.location + italicRange.length)
+        XCTAssertTrue(firstMark.type == .italic)
+        XCTAssertTrue(firstMark.range.from == italicRange.location)
+        XCTAssertTrue(firstMark.range.to == italicRange.location + italicRange.length)
     }
     
-    func testOneCodeMarkupConvertation() {
+    func testConvertOneCodeMarkup() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -72,19 +84,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.code,
             range: codeRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 1)
+        XCTAssertTrue(middleMarks.count == 1)
         guard let firstMark = middleMarks.first else {
             return
         }
-        XCTAssert(firstMark.type == .keyboard)
-        XCTAssert(firstMark.range.from == codeRange.location)
-        XCTAssert(firstMark.range.to == codeRange.location + codeRange.length)
+        XCTAssertTrue(firstMark.type == .keyboard)
+        XCTAssertTrue(firstMark.range.from == codeRange.location)
+        XCTAssertTrue(firstMark.range.to == codeRange.location + codeRange.length)
     }
     
-    func testOneStrikethroughMarkupConvertation() {
+    func testConvertOneStrikethroughMarkup() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -98,19 +110,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: NSUnderlineStyle.single.rawValue,
             range: strikethroughRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 1)
+        XCTAssertTrue(middleMarks.count == 1)
         guard let firstMark = middleMarks.first else {
             return
         }
-        XCTAssert(firstMark.type == .strikethrough)
-        XCTAssert(firstMark.range.from == strikethroughRange.location)
-        XCTAssert(firstMark.range.to == strikethroughRange.location + strikethroughRange.length)
+        XCTAssertTrue(firstMark.type == .strikethrough)
+        XCTAssertTrue(firstMark.range.from == strikethroughRange.location)
+        XCTAssertTrue(firstMark.range.to == strikethroughRange.location + strikethroughRange.length)
     }
     
-    func testTwoSeparateBoldMarkupsConvertation() {
+    func testConvertTwoSeparateBoldMarkups() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -130,24 +142,24 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.boldSystemFont(ofSize: 44),
             range: secondRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 2)
+        XCTAssertTrue(middleMarks.count == 2)
         guard let firstMark = middleMarks.first,
               let lastMark = middleMarks.last else {
             return
         }
-        XCTAssert(firstMark.type == .bold)
-        XCTAssert(firstMark.range.from == firstRange.location)
-        XCTAssert(firstMark.range.to == firstRange.location + firstRange.length)
+        XCTAssertTrue(firstMark.type == .bold)
+        XCTAssertTrue(firstMark.range.from == firstRange.location)
+        XCTAssertTrue(firstMark.range.to == firstRange.location + firstRange.length)
      
-        XCTAssert(lastMark.type == .bold)
-        XCTAssert(lastMark.range.from == secondRange.location)
-        XCTAssert(lastMark.range.to == secondRange.location + secondRange.length)
+        XCTAssertTrue(lastMark.type == .bold)
+        XCTAssertTrue(lastMark.range.from == secondRange.location)
+        XCTAssertTrue(lastMark.range.to == secondRange.location + secondRange.length)
     }
     
-    func testTwoSeparateItalicMarkupsConvertation() {
+    func testConvertTwoSeparateItalicMarkups() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -167,24 +179,24 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.italicSystemFont(ofSize: 44),
             range: secondRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 2)
+        XCTAssertTrue(middleMarks.count == 2)
         guard let firstMark = middleMarks.first,
               let lastMark = middleMarks.last else {
             return
         }
-        XCTAssert(firstMark.type == .italic)
-        XCTAssert(firstMark.range.from == firstRange.location)
-        XCTAssert(firstMark.range.to == firstRange.location + firstRange.length)
+        XCTAssertTrue(firstMark.type == .italic)
+        XCTAssertTrue(firstMark.range.from == firstRange.location)
+        XCTAssertTrue(firstMark.range.to == firstRange.location + firstRange.length)
      
-        XCTAssert(lastMark.type == .italic)
-        XCTAssert(lastMark.range.from == secondRange.location)
-        XCTAssert(lastMark.range.to == secondRange.location + secondRange.length)
+        XCTAssertTrue(lastMark.type == .italic)
+        XCTAssertTrue(lastMark.range.from == secondRange.location)
+        XCTAssertTrue(lastMark.range.to == secondRange.location + secondRange.length)
     }
     
-    func testTwoSeparateCodeMarkupsConvertation() {
+    func testConvertTwoSeparateCodeMarkups() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -204,24 +216,24 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.code,
             range: secondRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 2)
+        XCTAssertTrue(middleMarks.count == 2)
         guard let firstMark = middleMarks.first,
               let lastMark = middleMarks.last else {
             return
         }
-        XCTAssert(firstMark.type == .keyboard)
-        XCTAssert(firstMark.range.from == firstRange.location)
-        XCTAssert(firstMark.range.to == firstRange.location + firstRange.length)
+        XCTAssertTrue(firstMark.type == .keyboard)
+        XCTAssertTrue(firstMark.range.from == firstRange.location)
+        XCTAssertTrue(firstMark.range.to == firstRange.location + firstRange.length)
      
-        XCTAssert(lastMark.type == .keyboard)
-        XCTAssert(lastMark.range.from == secondRange.location)
-        XCTAssert(lastMark.range.to == secondRange.location + secondRange.length)
+        XCTAssertTrue(lastMark.type == .keyboard)
+        XCTAssertTrue(lastMark.range.from == secondRange.location)
+        XCTAssertTrue(lastMark.range.to == secondRange.location + secondRange.length)
     }
     
-    func testTwoSeparateStrikethroughMarkupsConvertation() {
+    func testConvertTwoSeparateStrikethroughMarkups() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
@@ -241,24 +253,24 @@ final class AttributedStringConverterTests: XCTestCase {
             value: NSUnderlineStyle.single.rawValue,
             range: secondRange
         )
-        let middleMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middleMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middleMarks.count == 2)
+        XCTAssertTrue(middleMarks.count == 2)
         guard let firstMark = middleMarks.first,
               let lastMark = middleMarks.last else {
             return
         }
-        XCTAssert(firstMark.type == .strikethrough)
-        XCTAssert(firstMark.range.from == firstRange.location)
-        XCTAssert(firstMark.range.to == firstRange.location + firstRange.length)
+        XCTAssertTrue(firstMark.type == .strikethrough)
+        XCTAssertTrue(firstMark.range.from == firstRange.location)
+        XCTAssertTrue(firstMark.range.to == firstRange.location + firstRange.length)
      
-        XCTAssert(lastMark.type == .strikethrough)
-        XCTAssert(lastMark.range.from == secondRange.location)
-        XCTAssert(lastMark.range.to == secondRange.location + secondRange.length)
+        XCTAssertTrue(lastMark.type == .strikethrough)
+        XCTAssertTrue(lastMark.range.from == secondRange.location)
+        XCTAssertTrue(lastMark.range.to == secondRange.location + secondRange.length)
     }
     
-    func testThreeBoldMarkupsJoinInOneConvertion() {
+    func testThatThreeNighboringBoldMarkupsConvertToOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -290,19 +302,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.boldSystemFont(ofSize: 11),
             range: thirdRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 1)
+        XCTAssertTrue(middlewareMarks.count == 1)
         guard let mark = middlewareMarks.first else {
             return
         }
-        XCTAssert(mark.type == .bold)
-        XCTAssert(mark.range.from == firstRange.location)
-        XCTAssert(mark.range.to == thirdRange.location + thirdRange.length)
+        XCTAssertTrue(mark.type == .bold)
+        XCTAssertTrue(mark.range.from == firstRange.location)
+        XCTAssertTrue(mark.range.to == thirdRange.location + thirdRange.length)
     }
     
-    func testThreeItalicMarkupsJoinInOneConvertion() {
+    func testThatThreeNighboringItalicMarkupsConvertToOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -334,19 +346,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.italicSystemFont(ofSize: 11),
             range: thirdRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 1)
+        XCTAssertTrue(middlewareMarks.count == 1)
         guard let mark = middlewareMarks.first else {
             return
         }
-        XCTAssert(mark.type == .italic)
-        XCTAssert(mark.range.from == firstRange.location)
-        XCTAssert(mark.range.to == thirdRange.location + thirdRange.length)
+        XCTAssertTrue(mark.type == .italic)
+        XCTAssertTrue(mark.range.from == firstRange.location)
+        XCTAssertTrue(mark.range.to == thirdRange.location + thirdRange.length)
     }
     
-    func testThreeCodeMarkupsJoinInOneConvertion() {
+    func testThatThreeNighboringCodeMarkupsConvertToOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -378,19 +390,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.code,
             range: thirdRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 1)
+        XCTAssertTrue(middlewareMarks.count == 1)
         guard let mark = middlewareMarks.first else {
             return
         }
-        XCTAssert(mark.type == .keyboard)
-        XCTAssert(mark.range.from == firstRange.location)
-        XCTAssert(mark.range.to == thirdRange.location + thirdRange.length)
+        XCTAssertTrue(mark.type == .keyboard)
+        XCTAssertTrue(mark.range.from == firstRange.location)
+        XCTAssertTrue(mark.range.to == thirdRange.location + thirdRange.length)
     }
     
-    func testThreeStrikethroughMarkupsJoinInOneConvertion() {
+    func testThatThreeNighboringStrikethroughMarkupsConvertToOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -422,19 +434,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: NSUnderlineStyle.single.rawValue,
             range: thirdRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 1)
+        XCTAssertTrue(middlewareMarks.count == 1)
         guard let mark = middlewareMarks.first else {
             return
         }
-        XCTAssert(mark.type == .strikethrough)
-        XCTAssert(mark.range.from == firstRange.location)
-        XCTAssert(mark.range.to == thirdRange.location + thirdRange.length)
+        XCTAssertTrue(mark.type == .strikethrough)
+        XCTAssertTrue(mark.range.from == firstRange.location)
+        XCTAssertTrue(mark.range.to == thirdRange.location + thirdRange.length)
     }
     
-    func testThreeStrikethroughMarkupsWithDifferentValuesConvertion() {
+    func testConvertThreeStrikethroughMarkupsWithDifferentValues() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -466,19 +478,19 @@ final class AttributedStringConverterTests: XCTestCase {
             value: NSUnderlineStyle.patternDot.rawValue,
             range: thirdRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 1)
+        XCTAssertTrue(middlewareMarks.count == 1)
         guard let mark = middlewareMarks.first else {
             return
         }
-        XCTAssert(mark.type == .strikethrough)
-        XCTAssert(mark.range.from == firstRange.location)
-        XCTAssert(mark.range.to == firstRange.location + firstRange.length)
+        XCTAssertTrue(mark.type == .strikethrough)
+        XCTAssertTrue(mark.range.from == firstRange.location)
+        XCTAssertTrue(mark.range.to == firstRange.location + firstRange.length)
     }
     
-    func testBoldAndCodeAndItalicNotJoiningToOneMarkConvertion() {
+    func testNotConvertBoldCodeItalicMarksupsIntoOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -510,30 +522,30 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.italicSystemFont(ofSize: 55),
             range: italicRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 3)
+        XCTAssertTrue(middlewareMarks.count == 3)
         guard let boldMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .bold }),
               let italicMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .italic }),
               let codeMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .keyboard }) else {
             XCTFail("Unexpected mark types")
             return
         }
-        XCTAssert(boldMark.type == .bold)
-        XCTAssert(boldMark.range.from == boldRange.location)
-        XCTAssert(boldMark.range.to == boldRange.location + boldRange.length)
+        XCTAssertTrue(boldMark.type == .bold)
+        XCTAssertTrue(boldMark.range.from == boldRange.location)
+        XCTAssertTrue(boldMark.range.to == boldRange.location + boldRange.length)
         
-        XCTAssert(codeMark.type == .keyboard)
-        XCTAssert(codeMark.range.from == codeRange.location)
-        XCTAssert(codeMark.range.to == codeRange.location + codeRange.length)
+        XCTAssertTrue(codeMark.type == .keyboard)
+        XCTAssertTrue(codeMark.range.from == codeRange.location)
+        XCTAssertTrue(codeMark.range.to == codeRange.location + codeRange.length)
         
-        XCTAssert(italicMark.type == .italic)
-        XCTAssert(italicMark.range.from == italicRange.location)
-        XCTAssert(italicMark.range.to == italicRange.location + italicRange.length)
+        XCTAssertTrue(italicMark.type == .italic)
+        XCTAssertTrue(italicMark.range.from == italicRange.location)
+        XCTAssertTrue(italicMark.range.to == italicRange.location + italicRange.length)
     }
     
-    func testCodeAndItalicAmdBoldNotJoiningToOneMarkConvertion() {
+    func testNotConvertCodeItalicBoldMarksupsIntoOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -565,30 +577,30 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.italicSystemFont(ofSize: 55),
             range: italicRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 3)
+        XCTAssertTrue(middlewareMarks.count == 3)
         guard let boldMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .bold }),
               let italicMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .italic }),
               let codeMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .keyboard }) else {
             XCTFail("Unexpected mark types")
             return
         }
-        XCTAssert(boldMark.type == .bold)
-        XCTAssert(boldMark.range.from == boldRange.location)
-        XCTAssert(boldMark.range.to == boldRange.location + boldRange.length)
+        XCTAssertTrue(boldMark.type == .bold)
+        XCTAssertTrue(boldMark.range.from == boldRange.location)
+        XCTAssertTrue(boldMark.range.to == boldRange.location + boldRange.length)
         
-        XCTAssert(codeMark.type == .keyboard)
-        XCTAssert(codeMark.range.from == codeRange.location)
-        XCTAssert(codeMark.range.to == codeRange.location + codeRange.length)
+        XCTAssertTrue(codeMark.type == .keyboard)
+        XCTAssertTrue(codeMark.range.from == codeRange.location)
+        XCTAssertTrue(codeMark.range.to == codeRange.location + codeRange.length)
         
-        XCTAssert(italicMark.type == .italic)
-        XCTAssert(italicMark.range.from == italicRange.location)
-        XCTAssert(italicMark.range.to == italicRange.location + italicRange.length)
+        XCTAssertTrue(italicMark.type == .italic)
+        XCTAssertTrue(italicMark.range.from == italicRange.location)
+        XCTAssertTrue(italicMark.range.to == italicRange.location + italicRange.length)
     }
     
-    func testBoldAndItalicAndCodeNotJoiningToOneMarkConvertion() {
+    func testNotConvertBoldItalicCodeMarksupsIntoOne() {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
@@ -620,26 +632,26 @@ final class AttributedStringConverterTests: XCTestCase {
             value: UIFont.italicSystemFont(ofSize: 55),
             range: italicRange
         )
-        let middlewareMarks = sut.asMiddleware(attributedText: testString).marks.marks
+        let middlewareMarks = attributedStringConverter.asMiddleware(attributedText: testString).marks.marks
         
         // Then
-        XCTAssert(middlewareMarks.count == 3)
+        XCTAssertTrue(middlewareMarks.count == 3)
         guard let boldMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .bold }),
               let italicMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .italic }),
               let codeMark = middlewareMarks.first(where: { mark -> Bool in mark.type == .keyboard }) else {
             XCTFail("Unexpected mark types")
             return
         }
-        XCTAssert(boldMark.type == .bold)
-        XCTAssert(boldMark.range.from == boldRange.location)
-        XCTAssert(boldMark.range.to == boldRange.location + boldRange.length)
+        XCTAssertTrue(boldMark.type == .bold)
+        XCTAssertTrue(boldMark.range.from == boldRange.location)
+        XCTAssertTrue(boldMark.range.to == boldRange.location + boldRange.length)
         
-        XCTAssert(codeMark.type == .keyboard)
-        XCTAssert(codeMark.range.from == codeRange.location)
-        XCTAssert(codeMark.range.to == codeRange.location + codeRange.length)
+        XCTAssertTrue(codeMark.type == .keyboard)
+        XCTAssertTrue(codeMark.range.from == codeRange.location)
+        XCTAssertTrue(codeMark.range.to == codeRange.location + codeRange.length)
         
-        XCTAssert(italicMark.type == .italic)
-        XCTAssert(italicMark.range.from == italicRange.location)
-        XCTAssert(italicMark.range.to == italicRange.location + italicRange.length)
+        XCTAssertTrue(italicMark.type == .italic)
+        XCTAssertTrue(italicMark.range.from == italicRange.location)
+        XCTAssertTrue(italicMark.range.to == italicRange.location + italicRange.length)
     }
 }
