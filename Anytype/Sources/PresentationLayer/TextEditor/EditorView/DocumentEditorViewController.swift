@@ -96,13 +96,10 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateData(header: ObjectHeader?, blocks: [BlockViewModelProtocol]) {
+    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
-        
-        header.flatMap {
-            snapshot.appendItems([.header($0)], toSection: .header)
-        }
+        snapshot.appendItems([.header(header)], toSection: .header)
         
         snapshot.appendItems(
             blocks.map { DataSourceItem.block($0) },
