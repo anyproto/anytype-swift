@@ -13,25 +13,27 @@ enum ObjectActionsServicePossibleError: Error {
 /// Concrete service that adopts Object actions service.
 /// NOTE: Use it as default service IF you want to use desired functionality.
 final class ObjectActionsService: ObjectActionsServiceProtocol {
-    // MARK: - ObjectActionsService / CreatePage
-    /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    func createPage(contextID: BlockId,
-                    targetID: BlockId,
-                    details: [DetailsKind: DetailsEntry<AnyHashable>],
-                    position: BlockPosition,
-                    templateID: String
-    ) -> AnyPublisher<ResponseEvent, Error> {
+    func createPage(
+        contextID: BlockId,
+        targetID: BlockId,
+        details: [DetailsKind: DetailsEntry<AnyHashable>],
+        position: BlockPosition,
+        templateID: String
+    ) -> AnyPublisher<CreatePageResponse, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
+            return Fail(
+                error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed
+            ).eraseToAnyPublisher()
         }
         
-        let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(
-            models: details
-        )
-        let preparedDetails = convertedDetails.map({($0.key, $0.value)})
-        let protobufDetails: [String: Google_Protobuf_Value] = .init(preparedDetails) { (lhs, rhs) in rhs }
-        let protobufStruct: Google_Protobuf_Struct = .init(fields: protobufDetails)
+        let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        let protobufDetails = convertedDetails.reduce([String: Google_Protobuf_Value]()) { result, detail in
+            var result = result
+            result[detail.key] = detail.value
+            return result
+        }
+        let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
         return createPage(contextID: contextID, targetID: targetID, details: protobufStruct, position: position, templateID: templateID)
     }
@@ -42,11 +44,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: Google_Protobuf_Struct,
         position: Anytype_Model_Block.Position,
         templateID: String
-    ) -> AnyPublisher<ResponseEvent, Error> {
+    ) -> AnyPublisher<CreatePageResponse, Error> {
         Anytype_Rpc.Block.CreatePage.Service.invoke(
             contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
         )
-        .map{ ResponseEvent($0.event) }
+        .map { CreatePageResponse($0) }
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
