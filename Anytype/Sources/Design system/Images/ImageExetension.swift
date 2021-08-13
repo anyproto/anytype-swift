@@ -7,6 +7,8 @@ extension Image {
     static let arrow = createImage("arrowForward")
     
     static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
+    
+    static let noImage = Image("no_image_blank_stub")
 }
 
 extension Image {
@@ -68,7 +70,7 @@ private extension Image {
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
             anytypeAssertionFailure("No image named: \(name)")
-            return Image("no_image_blank_stub")
+            return .noImage
         }
         
         return Image(uiImage: image)
@@ -77,7 +79,7 @@ private extension Image {
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
             anytypeAssertionFailure("No system image named: \(name)")
-            return Image("no_image_blank_stub")
+            return .noImage
         }
         
         return Image(uiImage: image)

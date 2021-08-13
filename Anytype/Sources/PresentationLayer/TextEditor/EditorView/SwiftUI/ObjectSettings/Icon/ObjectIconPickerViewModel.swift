@@ -18,8 +18,8 @@ final class ObjectIconPickerViewModel: ObservableObject {
             return true
         case .profile:
             return !(details.iconImage?.isEmpty ?? true)
-        case .todo:
-            anytypeAssertionFailure("`ObjectIconPickerViewModel` unavailable in `todo`")
+        default:
+            anytypeAssertionFailure("`ObjectIconPickerViewModel` unavailable in \(detailsLayout)")
             return true
         }
     }
