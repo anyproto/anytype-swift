@@ -56,7 +56,10 @@ private extension ObjectHeaderCoverOnlyContentView  {
     func apply(configuration: ObjectHeaderCoverOnlyConfiguration) {
         appliedConfiguration = configuration
         coverView.configure(
-            model: (configuration.cover, configuration.maxWidth)
+            model: .init(
+                cover: configuration.cover,
+                maxWidth: configuration.maxWidth
+            )
         )
     }
     

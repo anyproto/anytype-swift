@@ -18,6 +18,7 @@ final class ObjectHeaderIconOnlyContentView: UIView, UIContentView {
     // MARK: - Private variables
     
     private var topConstraint: NSLayoutConstraint!
+    private var bottomConstraint: NSLayoutConstraint!
     
     private var appliedConfiguration: ObjectHeaderIconOnlyConfiguration!
     
@@ -79,8 +80,11 @@ private extension ObjectHeaderIconOnlyContentView {
                 topConstraint.constant = Constants.basicIconTopInset
             }
             
+            bottomConstraint.constant = -Constants.basicBottomInset
+            
         case .profile:
             topConstraint.constant = Constants.profileTopInset
+            bottomConstraint.constant = -Constants.profileBottomInset
         }
     }
     
@@ -89,8 +93,10 @@ private extension ObjectHeaderIconOnlyContentView {
         switch preview {
         case .basic:
             topConstraint.constant = Constants.basicIconTopInset
+            bottomConstraint.constant = -Constants.basicBottomInset
         case .profile:
             topConstraint.constant = Constants.profileTopInset
+            bottomConstraint.constant = -Constants.profileBottomInset
         }
     }
   
@@ -122,9 +128,9 @@ private extension ObjectHeaderIconOnlyContentView {
                 constant: Constants.basicEmojiTopInset
             )
             
-            $0.bottom.equal(
+            bottomConstraint = $0.bottom.equal(
                 to: self.bottomAnchor,
-                constant: -Constants.bottomInset
+                constant: -Constants.basicBottomInset
             )
         }
     }
@@ -135,11 +141,12 @@ private extension ObjectHeaderIconOnlyContentView {
     
     enum Constants {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
-        static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
+        static let basicBottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
+        static let profileBottomInset: CGFloat = 12 - ObjectIconView.Constants.borderWidth
         
-        static let basicIconTopInset: CGFloat = 60 - ObjectIconView.Constants.borderWidth
-        static let basicEmojiTopInset: CGFloat = 76 - ObjectIconView.Constants.borderWidth
-        static let profileTopInset: CGFloat = 52 - ObjectIconView.Constants.borderWidth
+        static let basicIconTopInset: CGFloat = 152 - ObjectIconView.Constants.borderWidth
+        static let basicEmojiTopInset: CGFloat = 168 - ObjectIconView.Constants.borderWidth
+        static let profileTopInset: CGFloat = 144 - ObjectIconView.Constants.borderWidth
     }
     
 }
