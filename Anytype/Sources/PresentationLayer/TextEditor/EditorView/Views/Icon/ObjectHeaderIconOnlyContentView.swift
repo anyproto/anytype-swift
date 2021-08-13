@@ -137,9 +137,9 @@ private extension ObjectHeaderIconOnlyContentView {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
         static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
         
-        static let basicIconTopInset: CGFloat = 60 - ObjectIconView.Constants.borderWidth
-        static let basicEmojiTopInset: CGFloat = 76 - ObjectIconView.Constants.borderWidth
-        static let profileTopInset: CGFloat = 52 - ObjectIconView.Constants.borderWidth
+        static let basicIconTopInset: CGFloat = 152 - ObjectIconView.Constants.borderWidth
+        static let basicEmojiTopInset: CGFloat = 168 - ObjectIconView.Constants.borderWidth
+        static let profileTopInset: CGFloat = 144 - ObjectIconView.Constants.borderWidth
     }
     
 }
