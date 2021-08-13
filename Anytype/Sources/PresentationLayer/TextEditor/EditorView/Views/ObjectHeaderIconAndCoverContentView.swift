@@ -79,11 +79,9 @@ private extension ObjectHeaderIconAndCoverContentView {
         switch icon {
         case .basic:
             bottomConstraint.constant = -Constants.bottomInset
-            coverView.configure(bottomInset: .basic)
             
         case .profile:
             bottomConstraint.constant = -Constants.profileBottomInset
-            coverView.configure(bottomInset: .profile)
         }
     }
     
@@ -91,11 +89,9 @@ private extension ObjectHeaderIconAndCoverContentView {
         switch preview {
         case .basic:
             bottomConstraint.constant = -Constants.bottomInset
-            coverView.configure(bottomInset: .basic)
 
         case .profile:
             bottomConstraint.constant = -Constants.profileBottomInset
-            coverView.configure(bottomInset: .profile)
         }
     }
     
