@@ -23,6 +23,8 @@ final class HomeViewModel: ObservableObject {
     @Published var inboxCellData: [PageCellData] = []
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
+    @Published var showSearch = false
+    
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
@@ -129,5 +131,9 @@ extension HomeViewModel {
 
                 self.newPageData = NewPageData(pageId: response.newBlockId, showingNewPage: true)
         }
+    }
+    
+    func startSearch() {
+        showSearch = true
     }
 }
