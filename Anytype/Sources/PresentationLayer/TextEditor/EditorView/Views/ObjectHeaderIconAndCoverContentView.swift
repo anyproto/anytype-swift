@@ -19,7 +19,6 @@ final class ObjectHeaderIconAndCoverContentView: UIView, UIContentView {
     
     // MARK: - Private variables
     
-    private var bottomConstraint: NSLayoutConstraint!
     private var appliedConfiguration: ObjectHeaderIconAndCoverConfiguration!
     
     // MARK: - Internal variables
@@ -58,14 +57,7 @@ private extension ObjectHeaderIconAndCoverContentView {
 
     func apply(configuration: ObjectHeaderIconAndCoverConfiguration) {
         appliedConfiguration = configuration
-        
-        switch configuration.icon {
-        case let .icon(icon, _):
-            configureIconTopInset(icon)
-        case let .preview(preview, _):
-            configurePreviewTopInset(preview)
-        }
-        
+
         iconView.configure(model: configuration.icon)
         coverView.configure(
             model: .init(
@@ -73,30 +65,6 @@ private extension ObjectHeaderIconAndCoverContentView {
                 maxWidth: configuration.maxWidth
             )
         )
-    }
-    
-    private func configureIconTopInset(_ icon: DocumentIconType) {
-        switch icon {
-        case .basic:
-            bottomConstraint.constant = -Constants.bottomInset
-            coverView.configure(bottomInset: .basic)
-            
-        case .profile:
-            bottomConstraint.constant = -Constants.profileBottomInset
-            coverView.configure(bottomInset: .profile)
-        }
-    }
-    
-    private func configurePreviewTopInset(_ preview: ObjectIconPreviewType) {
-        switch preview {
-        case .basic:
-            bottomConstraint.constant = -Constants.bottomInset
-            coverView.configure(bottomInset: .basic)
-
-        case .profile:
-            bottomConstraint.constant = -Constants.profileBottomInset
-            coverView.configure(bottomInset: .profile)
-        }
     }
     
 }
@@ -122,7 +90,7 @@ private extension ObjectHeaderIconAndCoverContentView {
                 constant: -Constants.horizontalInset
             )
             
-            bottomConstraint = $0.bottom.equal(
+            $0.bottom.equal(
                 to: self.bottomAnchor,
                 constant: -Constants.bottomInset
             )
@@ -136,7 +104,6 @@ private extension ObjectHeaderIconAndCoverContentView {
     enum Constants {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
         static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
-        static let profileBottomInset: CGFloat = 12 - ObjectIconView.Constants.borderWidth
     }
     
 }
