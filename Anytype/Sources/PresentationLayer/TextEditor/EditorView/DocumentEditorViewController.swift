@@ -20,6 +20,8 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .systemBackground
+        collectionView.contentInsetAdjustmentBehavior = .never
+
         return collectionView
     }()
     
@@ -67,7 +69,6 @@ final class DocumentEditorViewController: UIViewController {
             action: #selector(showDocumentSettings)
         )
         
-        windowHolder?.configureNavigationBarWithOpaqueBackground()
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
