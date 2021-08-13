@@ -15,9 +15,12 @@ final class ObjectCoverView: UIView {
     // MARK: - Views
     
     private let imageView = UIImageView()
+    private let bottomGapView = UIView()
     
     private let activityIndicatorView = ActivityIndicatorView()
         
+    private var bottomGapViewHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -37,7 +40,12 @@ final class ObjectCoverView: UIView {
 
 extension ObjectCoverView: ConfigurableView {
 
-    func configure(model: (cover: ObjectCover, maxWidth: CGFloat)) {
+    struct Model {
+        let cover: ObjectCover
+        let maxWidth: CGFloat
+    }
+    
+    func configure(model: Model) {
         switch model.cover {
         case let .cover(cover):
             configureCoverState(
@@ -47,6 +55,10 @@ extension ObjectCoverView: ConfigurableView {
         case let .preview(image):
             configurePreviewState(image)
         }
+    }
+    
+    func configure(bottomInset: BottomInset) {
+        bottomGapViewHeightConstraint.constant = bottomInset.rawValue
     }
     
     private func configureCoverState(cover: DocumentCover, maxWidth: CGFloat) {
@@ -140,28 +152,36 @@ private extension ObjectCoverView {
     }
     
     func setupLayout() {
-        layoutUsing.anchors {
-            $0.height.equal(to: Constants.coverHeight + Constants.bottomInset)
-        }
+        addSubview(imageView)
+        addSubview(bottomGapView)
         
-        addSubview(imageView) {
+        imageView.layoutUsing.anchors {
             $0.pinToSuperview(excluding: [.bottom])
             $0.height.equal(to: Constants.coverHeight)
+            $0.bottom.equal(to: bottomGapView.topAnchor)
         }
         
-        addSubview(activityIndicatorView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: Constants.coverHeight)
+        bottomGapView.layoutUsing.anchors {
+            $0.pinToSuperview(excluding: [.top])
+            bottomGapViewHeightConstraint = $0.height.equal(to: BottomInset.basic.rawValue)
+        }
+        
+        imageView.addSubview(activityIndicatorView) {
+            $0.pinToSuperview()
         }
     }
     
 }
 
-private extension ObjectCoverView {
+extension ObjectCoverView {
     
-    enum Constants {
+    enum BottomInset: CGFloat {
+        case basic = 32
+        case profile = 36
+    }
+    
+    private enum Constants {
         static let coverHeight: CGFloat = 232
-        static let bottomInset: CGFloat = 32
     }
     
 }
