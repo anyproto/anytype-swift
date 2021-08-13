@@ -69,7 +69,6 @@ final class DocumentEditorViewController: UIViewController {
             action: #selector(showDocumentSettings)
         )
         
-        windowHolder?.configureNavigationBarWithOpaqueBackground()
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
