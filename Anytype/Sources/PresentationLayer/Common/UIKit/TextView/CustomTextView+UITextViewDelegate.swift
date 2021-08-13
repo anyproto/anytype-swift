@@ -80,4 +80,11 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         accessoryViewSwitcher?.textViewChange = nil
     }
+    
+    func textView(_ textView: UITextView,
+                  shouldInteractWith URL: URL,
+                  in characterRange: NSRange,
+                  interaction: UITextItemInteraction) -> Bool {
+        return !textView.isFirstResponder && interaction == .invokeDefaultAction
+    }
 }

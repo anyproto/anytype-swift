@@ -40,32 +40,47 @@ final class TextBlockLayoutManager: NSLayoutManager {
     
     override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
         let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-        textStorage?.enumerateAttribute(.mention,
-                                        in: characterRange,
-                                        options: .longestEffectiveRangeNotRequired,
-                                        using: { value, subrange, _ in
-                                            guard value is String else { return }
-                                            let mentionGlypeRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
-                                            drawMention(forGlyphRange: mentionGlypeRange, origin: origin)
-                                        })
+        drawUnderline(for: .mention, characterRange: characterRange, origin: origin) { value -> Bool in
+            return value is String
+        }
+        drawUnderline(for: .link, characterRange: characterRange, origin: origin) { value -> Bool in
+            return value is URL
+        }
         super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
     }
+    
+    private func drawUnderline(
+        for attribute: NSAttributedString.Key,
+        characterRange: NSRange,
+        origin: CGPoint,
+        valueCheck: (Any?) -> Bool
+    ) {
+        textStorage?.enumerateAttribute(
+            attribute,
+            in: characterRange,
+            options: .longestEffectiveRangeNotRequired,
+            using: { value, subrange, _ in
+                guard valueCheck(value) else { return }
+                let glyphRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
+                drawUnderline(forGlyphRange: glyphRange, origin: origin)
+            })
+    }
          
-    private func drawMention(forGlyphRange mentionGlypeRange: NSRange, origin: CGPoint) {
-            guard let textContainer = textContainer(forGlyphAt: mentionGlypeRange.location,
-                                                    effectiveRange: nil) else { return }
-            let withinRange = NSRange(location: NSNotFound, length: 0)
-            enumerateEnclosingRects(forGlyphRange: mentionGlypeRange,
-                                    withinSelectedGlyphRange: withinRange,
-                                    in: textContainer) { rect, _ in
-                let mentionTextRect = rect.offsetBy(dx: origin.x, dy: origin.y)
-                UIColor.textColor.setFill()
-                UIBezierPath(rect: CGRect(origin: CGPoint(x: mentionTextRect.minX,
-                                                          y: mentionTextRect.maxY),
-                                          size: CGSize(width: mentionTextRect.width,
-                                                       height: 1))).fill()
-            }
+    private func drawUnderline(forGlyphRange glyphRange: NSRange, origin: CGPoint) {
+        guard let textContainer = textContainer(forGlyphAt: glyphRange.location,
+                                                effectiveRange: nil) else { return }
+        let withinRange = NSRange(location: NSNotFound, length: 0)
+        enumerateEnclosingRects(forGlyphRange: glyphRange,
+                                withinSelectedGlyphRange: withinRange,
+                                in: textContainer) { rect, _ in
+            let textRect = rect.offsetBy(dx: origin.x, dy: origin.y)
+            UIColor.textColor.setFill()
+            UIBezierPath(rect: CGRect(origin: CGPoint(x: textRect.minX,
+                                                      y: textRect.maxY),
+                                      size: CGSize(width: textRect.width,
+                                                   height: 1))).fill()
         }
+    }
     
     private func obtainCustomFontColor(hasForegroundColor: Bool) -> CGColor? {
         if let primaryColor = primaryColor {
