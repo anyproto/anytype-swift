@@ -4,6 +4,11 @@ enum ObjectType: String {
     case page = "_otpage"
     case set = "_otset"
     case template = "_ottemplate"
+    case type = "_otobjectType"
+    case relation = "_otrelation"
+    case profile = "_otprofile"
+    case image = "_otimage"
+    case file = "_otfile"
     
     var name: String {
         switch self {
@@ -13,6 +18,16 @@ enum ObjectType: String {
             return "Set".localized
         case .template:
             return "Template".localized
+        case .type:
+            return "Type".localized
+        case .relation:
+            return "Relation".localized
+        case .profile:
+            return "Profile".localized
+        case .image:
+            return "Image".localized
+        case .file:
+            return "File".localized
         }
     }
 }

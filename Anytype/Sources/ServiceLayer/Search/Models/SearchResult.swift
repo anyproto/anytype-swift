@@ -5,6 +5,7 @@ import ProtobufMessages
 struct SearchResult: DetailsDataProtocol {
     let id: BlockId
     let name: String?
+    let description: String?
     
     let iconEmoji: String?
     let iconImage: String?
@@ -35,6 +36,7 @@ struct SearchResult: DetailsDataProtocol {
         
         self.id = id
         name = fields[DetailsKind.name.rawValue]?.stringValue
+        description = fields[DetailsKind.description.rawValue]?.stringValue
         
         iconEmoji = fields[DetailsKind.iconEmoji.rawValue]?.stringValue
         iconImage = fields[DetailsKind.iconImage.rawValue]?.stringValue
@@ -53,10 +55,20 @@ struct SearchResult: DetailsDataProtocol {
         isArchived = fields[DetailsKind.isArchived.rawValue]?.boolValue
         done = fields[DetailsKind.done.rawValue]?.boolValue
         
-        type = fields[DetailsKind.type.rawValue]?.listValue
-            .values.compactMap { rawValue in
-                ObjectType(rawValue: rawValue.stringValue)
-            }.first
+        let type: ObjectType?
+        if let rawType = fields[DetailsKind.type.rawValue]?.stringValue {
+            type = ObjectType(rawValue: rawType)
+        } else {
+            type = fields[DetailsKind.type.rawValue]?.listValue
+                .values.compactMap { rawValue in
+                    ObjectType(rawValue: rawValue.stringValue)
+                }.first
+        }
+        self.type = type
+        assert(
+            fields[DetailsKind.type.rawValue] == nil || type != nil,
+            "Cannot parse type :\(String(describing: fields[DetailsKind.type.rawValue]))"
+        )
         
         // Unused
         lastModifiedBy = fields[DetailsKind.lastModifiedBy.rawValue]?.stringValue
@@ -65,4 +77,5 @@ struct SearchResult: DetailsDataProtocol {
         createdDate = fields[DetailsKind.createdDate.rawValue]?.numberValue
         lastModifiedDate = fields[DetailsKind.lastModifiedDate.rawValue]?.numberValue
     }
+    
 }
