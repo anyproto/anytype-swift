@@ -26,9 +26,9 @@ class DashboardService: DashboardServiceProtocol {
         }
     }
     
-    func createNewPage(contextId: String) -> AnyPublisher<ResponseEvent, Error> {
+    func createNewPage() -> AnyPublisher<CreatePageResponse, Error> {
         objectsService.createPage(
-            contextID: contextId,
+            contextID: "",
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: .bottom,

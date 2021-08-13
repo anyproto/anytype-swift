@@ -116,9 +116,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func createPage(position: BlockPosition = .bottom) {
+    func createPage(position: BlockPosition) {
         pageService.createPage(
-            contextID: self.documentId,
+            contextID: documentId,
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: position,
