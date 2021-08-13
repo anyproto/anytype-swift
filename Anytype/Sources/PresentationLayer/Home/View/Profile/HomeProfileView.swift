@@ -67,11 +67,9 @@ struct HomeProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            Button(action: {}) {
-                HomeProfileViewButtonImage(
-                    image: Image.main.search.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
-                )
-            }.disabled(true)
+            Button(action: model.startSearch) {
+                HomeProfileViewButtonImage(image: Image.main.search)
+            }
             Button(action: {}) {
                 HomeProfileViewButtonImage(
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
