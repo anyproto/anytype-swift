@@ -10,6 +10,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private(set) lazy var textView: CustomTextView = .init()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
+    private var accessoryViewSwitcher: AccessoryViewSwitcher?
     
     private let mainStackView: UIStackView = {
         let mainStackView = UIStackView()
@@ -54,6 +55,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
+        buildAccessoryViews()
         setupViews()
         applyNewConfiguration()
     }
@@ -99,8 +101,6 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
-        buildTextView()
-
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
         setupText(placeholer: "", font: .body)
@@ -111,8 +111,15 @@ final class TextBlockContentView: UIView & UIContentView {
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
             for: currentConfiguration.information.content.type
         )
-        updateSlashMenuItems(restrictions: restrictions)
+        updateAccessoryView(restrictions: restrictions)
         updatePartialTextSelectionMenuItems(restrictions: restrictions)
+
+        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
+        let options = CustomTextViewOptions(
+            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
+            autocorrect: autocorrect
+        )
+        textView.setCustomTextViewOptions(options: options)
 
         guard case let .text(text) = self.currentConfiguration.block.information.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
@@ -256,80 +263,6 @@ final class TextBlockContentView: UIView & UIContentView {
         topStackView.insertArrangedSubview(leftView, at: 0)
     }
     
-    private func buildTextView() {
-        let actionsHandler = SlashMenuActionsHandlerImp(
-            blockActionHandler: currentConfiguration.actionHandler
-        )
-        
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: currentConfiguration.information.content.type
-        )
-        
-        let mentionsSelectionHandler = { [weak self] (mention: MentionObject) in
-            guard let self = self,
-                  let mentionSymbolPosition = self.textView.accessoryViewSwitcher?.accessoryViewTriggerSymbolPosition,
-                  let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
-                                                                                offset: -1),
-                  let caretPosition = self.textView.textView.caretPosition() else { return }
-
-            self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
-            self.currentConfiguration.configureMentions(self.textView.textView)
-            self.currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: .changeText(self.textView.textView.attributedText),
-                    block: self.currentConfiguration.block
-                ),
-                blockId: self.currentConfiguration.information.id
-            )
-        }
-        
-        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
-        let options = CustomTextViewOptions(
-            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
-            autocorrect: autocorrect
-        )
-
-        let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
-        
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else { return }
-            self.textView.accessoryViewSwitcher?.cleanupDisplayedView()
-            self.textView.accessoryViewSwitcher?.showEditingBars(textView: self.textView.textView)
-        }
-
-        var slashMenuView: SlashMenuView?
-        if currentConfiguration.information.content.type != .text(.title) {
-            slashMenuView = SlashMenuView(
-                frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
-                menuItems: blockActionBuilder.makeBlockActionsMenuItems(),
-                slashMenuActionsHandler: actionsHandler,
-                actionsMenuDismissHandler: dismissActionsMenu
-            )
-        }
-        
-        let mentionsView = MentionView(
-            frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
-            dismissHandler: dismissActionsMenu,
-            mentionsSelectionHandler: mentionsSelectionHandler)
-        
-        let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
-
-        var accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
-
-        if currentConfiguration.information.content.type == .text(.title) {
-            accessoryView = EditorAccessoryView(items: [.style, .mention], actionHandler: editorAccessoryhandler)
-        }
-
-        let accessoryViewSwitcher = AccessoryViewSwitcher(mentionsView: mentionsView,
-                                                          slashMenuView: slashMenuView,
-                                                          accessoryView: accessoryView)
-        textView.setAccessoryViewSwitcher(accessoryViewSwitcher: accessoryViewSwitcher)
-        textView.setCustomTextViewOptions(options: options)
-
-        editorAccessoryhandler.customTextView = textView
-        editorAccessoryhandler.switcher = textView.accessoryViewSwitcher
-    }
-    
     private func buildCreateEmptyBlockButton() -> UIButton {
         let button = UIButton(
             primaryAction: .init(
@@ -362,11 +295,6 @@ final class TextBlockContentView: UIView & UIContentView {
         return button
     }
     
-    private func updateSlashMenuItems(restrictions: BlockRestrictions) {
-        let builder = BlockActionsBuilder(restrictions: restrictions)
-        textView.accessoryViewSwitcher?.slashMenuView?.menuItems = builder.makeBlockActionsMenuItems()
-    }
-    
     private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
         let allAttributes = BlockHandlerActionType.TextAttributesType.allCases
         let availableAttributes = allAttributes.filter { attribute -> Bool in
@@ -389,6 +317,74 @@ final class TextBlockContentView: UIView & UIContentView {
         static let menuActionsViewSize = CGSize(
             width: UIScreen.main.bounds.width,
             height: UIScreen.main.isFourInch ? 160 : 215
+        )
+    }
+}
+
+// MARK: - Accessory view
+
+extension TextBlockContentView {
+    private func buildAccessoryViews() {
+        let mentionsView = MentionView(frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize))
+        let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
+        let accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
+
+        let accessoryViewSwitcher = AccessoryViewSwitcher(textView: textView.textView,
+                                                          delegate: self,
+                                                          mentionsView: mentionsView,
+                                                          accessoryView: accessoryView)
+        textView.setAccessoryViewSwitcher(accessoryViewSwitcher: accessoryViewSwitcher)
+        mentionsView.delegate = accessoryViewSwitcher
+        editorAccessoryhandler.customTextView = textView
+        editorAccessoryhandler.switcher = accessoryViewSwitcher
+        self.accessoryViewSwitcher = accessoryViewSwitcher
+    }
+
+    private func updateAccessoryView(restrictions: BlockRestrictions) {
+        if currentConfiguration.information.content.type == .text(.title) {
+            accessoryViewSwitcher?.editingView.updateMenuItems([.style, .mention])
+        } else {
+            accessoryViewSwitcher?.editingView.updateMenuItems([.slash, .style, .mention])
+        }
+
+        // don't show slash menu for title
+        if currentConfiguration.information.content.type != .text(.title) {
+            let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
+
+            if accessoryViewSwitcher?.slashMenuView == nil {
+                let actionsHandler = SlashMenuActionsHandlerImp(
+                    blockActionHandler: currentConfiguration.actionHandler
+                )
+
+                let slashMenuView = SlashMenuView(
+                    frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
+                    menuItems: items,
+                    slashMenuActionsHandler: actionsHandler
+                )
+                accessoryViewSwitcher?.slashMenuView = slashMenuView
+            } else {
+                accessoryViewSwitcher?.slashMenuView?.menuItems = items
+            }
+        } else {
+            accessoryViewSwitcher?.slashMenuView = nil
+        }
+    }
+}
+
+// MARK: - TextBlockAccessoryViewSwitcherDeleagte
+
+extension TextBlockContentView: TextBlockAccessoryViewSwitcherDeleagte {
+    func mentionSelected(_ mention: MentionObject, from: UITextPosition, to: UITextPosition) {
+        // TODO: Accessory check if no need
+//        mentionConfiguration.configure(textView: textView.textView)
+        textView.textView.insert(mention, from: from, to: to)
+
+        self.currentConfiguration.actionHandler.handleAction(
+            .textView(
+                action: .changeText(self.textView.textView.attributedText),
+                block: self.currentConfiguration.block
+            ),
+            blockId: self.currentConfiguration.information.id
         )
     }
 }

@@ -29,8 +29,6 @@ final class EditorAccessoryViewActionHandler {
         guard let customTextView = customTextView, let switcher = switcher else {
             return
         }
-        
-        switcher.switchInputs(textView: customTextView.textView)
 
         switch action {
         case .slashMenu:

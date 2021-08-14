@@ -9,34 +9,36 @@ extension CustomTextView: UITextViewDelegate {
         replacementText text: String
     ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
-        
-        accessoryViewSwitcher?.textViewChange = textView.textChangeType(changeTextRange: range, replacementText: text)
 
         let keyAction = CustomTextView.UserAction.KeyboardAction.convert(
             textView,
             shouldChangeTextIn: range,
             replacementText: text
         )
+
         if let keyAction = keyAction {
             if case let .enterInsideContent(currentText, _) = keyAction {
                 self.textView.text = currentText
             }
-            return delegate?.didReceiveAction(
-                CustomTextView.UserAction.keyboardAction(keyAction)
-            ) ?? true
+            guard delegate?.didReceiveAction(
+                .keyboardAction(keyAction)
+            ) ?? true else { return false }
+        } else {
+            guard delegate?.didReceiveAction(
+                .shouldChangeText(
+                    range: range,
+                    replacementText: text,
+                    mentionsHolder: textView
+                )
+            ) ?? true else { return false }
         }
+        accessoryViewSwitcher?.textWillChange(textView: textView, replacementText: text, range: range)
 
-        return delegate?.didReceiveAction(
-            .shouldChangeText(
-                range: range,
-                replacementText: text,
-                mentionsHolder: textView
-            )
-        ) ?? true
+        return true
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
-        accessoryViewSwitcher?.switchInputs(textView: textView)
+        accessoryViewSwitcher?.selectionDidChange(textView: textView)
 
         if textView.isFirstResponder {
             delegate?.didReceiveAction(
@@ -46,10 +48,7 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if textView.inputAccessoryView.isNil {
-            textView.inputAccessoryView = accessoryViewSwitcher?.accessoryView
-        }
-        accessoryViewSwitcher?.switchInputs(textView: textView)
+        accessoryViewSwitcher?.didBeginEditing(textView: textView)
         delegate?.willBeginEditing()
 
         return true
@@ -63,14 +62,11 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let contentSize = textView.intrinsicContentSize
 
-        accessoryViewSwitcher?.switchInputs(textView: textView)
-        delegate?.didChangeText(textView: textView)
-        if !(accessoryViewSwitcher?.textTypingIsUsingForAccessoryViewContentFiltering() ?? false) {
-            // We type only text to filter content inside accessory view
-            delegate?.didReceiveAction(
-                .changeText(textView.attributedText)
-            )
-        }
+        accessoryViewSwitcher?.textDidChange(textView: textView)
+
+        delegate?.didReceiveAction(
+            .changeText(textView.attributedText)
+        )
 
         guard textSize?.height != contentSize.height else { return }
         textSize = contentSize
@@ -78,6 +74,6 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        accessoryViewSwitcher?.textViewChange = nil
+        accessoryViewSwitcher?.didEndEditing(textView: textView)
     }
 }

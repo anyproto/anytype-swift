@@ -1,7 +1,16 @@
 import UIKit
 
-final class AccessoryViewSwitcher {
-    
+
+protocol TextBlockAccessoryViewSwitcherDeleagte: AnyObject {
+    // mention events
+    func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
+    // editor events
+    // slash events
+    // done events
+}
+
+
+final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private enum Constants {
         static let displayActionsViewDelay: TimeInterval = 0.3
     }
@@ -11,24 +20,70 @@ final class AccessoryViewSwitcher {
     
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
-    var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     private let mentionsView: (DismissableInputAccessoryView & FilterableItemsView)
-    let accessoryView: EditorAccessoryView
-    let slashMenuView: SlashMenuView?
+    let editingView: EditorAccessoryView
+    var slashMenuView: SlashMenuView?
+    private weak var textView: UITextView?
+    private weak var delegate: TextBlockAccessoryViewSwitcherDeleagte?
     
-    init(mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
-         slashMenuView: SlashMenuView?,
+    init(textView: UITextView,
+         delegate: TextBlockAccessoryViewSwitcherDeleagte,
+         mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
+         slashMenuView: SlashMenuView? = nil,
          accessoryView: EditorAccessoryView) {
-        self.mentionsView = mentionsView
+        self.textView = textView
+        self.delegate = delegate
         self.slashMenuView = slashMenuView
-        self.accessoryView = accessoryView
+        self.editingView = accessoryView
+        self.mentionsView = mentionsView
+
+        let dismissActionsMenu = { [weak self] in
+            self?.cleanupDisplayedView()
+
+            if let textView = self?.textView {
+                self?.showEditingBars(textView: textView)
+            }
+        }
+
+        self.mentionsView.dismissHandler = dismissActionsMenu
+        self.slashMenuView?.dismissHandler = dismissActionsMenu
     }
-    
-    func switchInputs(textView: UITextView) {
-        updateDisplayedAccessoryViewState(textView: textView)
+
+    // MARK: - AccessoryViewSwitcherProtocol
+
+    func didBeginEditing(textView: UITextView) {
+        self.textView = textView
+
+        let dismissActionsMenu = { [weak self] in
+            self?.cleanupDisplayedView()
+
+            if let textView = self?.textView {
+                self?.showEditingBars(textView: textView)
+            }
+        }
+
+        self.mentionsView.dismissHandler = dismissActionsMenu
+        self.slashMenuView?.dismissHandler = dismissActionsMenu
+
+        textView.inputAccessoryView = editingView
+    }
+
+    func textWillChange(textView: UITextView, replacementText: String, range: NSRange) {
+        let textChangeType = textView.textChangeType(changeTextRange: range, replacementText: replacementText)
+        updateDisplayedAccessoryViewState(textView: textView, textChangeType: textChangeType, replacementText: replacementText)
+    }
+
+    func textDidChange(textView: UITextView) {
         showEditingBars(textView: textView)
     }
+
+    func selectionDidChange(textView: UITextView) {}
+
+    func didEndEditing(textView: UITextView) {}
+
+    // MARK: -
+    
     
     func textTypingIsUsingForAccessoryViewContentFiltering() -> Bool {
         if let displayedView = displayedView, !displayedView.window.isNil {
@@ -109,7 +164,7 @@ final class AccessoryViewSwitcher {
         } else {
             cleanupDisplayedView()
         }
-        return self.accessoryView
+        return self.editingView
     }
     
     // We do want to continue displaying menu view or mention view
@@ -125,13 +180,16 @@ final class AccessoryViewSwitcher {
         return true
     }
     
-    private func updateDisplayedAccessoryViewState(textView: UITextView) {
+    private func updateDisplayedAccessoryViewState(textView: UITextView,
+                                                   textChangeType: TextViewTextChangeType,
+                                                   replacementText: String) {
         displayAcessoryViewTask?.cancel()
         // We want do to display actions menu in case
         // text was changed - "text" -> "text/"
         // but do not want to display in case
         // "text/a" -> "text/"
         guard let caretPosition = textView.caretPosition() else { return }
+
         if let accessoryView = displayedView,
            !accessoryView.window.isNil,
            let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
@@ -140,17 +198,14 @@ final class AccessoryViewSwitcher {
             return
         }
         
-        guard let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
-              let text = textView.text(in: textRange),
-        let textViewChange = textViewChange,
-           textViewChange != .deletingSymbols else { return }
-        
-        if text.hasSuffix(textToTriggerActionsViewDisplay) {
+        guard textChangeType != .deletingSymbols else { return }
+
+        if replacementText == textToTriggerActionsViewDisplay {
             createDelayedAcessoryViewTask(
                 accessoryView: slashMenuView,
                 textView: textView
             )
-        } else if text.hasSuffix(textToTriggerMentionViewDisplay) {
+        } else if replacementText == textToTriggerMentionViewDisplay {
             createDelayedAcessoryViewTask(
                 accessoryView: mentionsView,
                 textView: textView
@@ -169,4 +224,20 @@ final class AccessoryViewSwitcher {
         displayAcessoryViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)
     }
+}
+
+// MARK: - MentionViewDelegate
+
+extension AccessoryViewSwitcher: MentionViewDelegate {
+
+    func selectMention(_ mention: MentionObject) {
+        guard
+            let mentionSymbolPosition = accessoryViewTriggerSymbolPosition,
+            let previousToMentionSymbol = textView?.position(from: mentionSymbolPosition,
+                                                                      offset: -1),
+            let caretPosition = textView?.caretPosition() else { return }
+
+        self.delegate?.mentionSelected(mention, from: previousToMentionSymbol, to: caretPosition)
+    }
+
 }

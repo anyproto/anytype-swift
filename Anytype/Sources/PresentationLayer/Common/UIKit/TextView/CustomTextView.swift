@@ -16,7 +16,7 @@ final class CustomTextView: UIView {
     private var firstResponderSubscription: AnyCancellable?
 
     var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
-    var accessoryViewSwitcher: AccessoryViewSwitcher?
+    var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
     
     init() {
         super.init(frame: .zero)
