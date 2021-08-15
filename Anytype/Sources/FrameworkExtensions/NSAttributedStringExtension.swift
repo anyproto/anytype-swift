@@ -89,4 +89,17 @@ extension NSAttributedString {
     func isRangeValid(_ range: NSRange) -> Bool {
         length > 0 && length >= range.length + range.location && range.location >= 0
     }
+    
+    func rangesWithLinkAttribute() -> [NSRange]? {
+        guard length > 0 else { return nil }
+        var linkRanges = [NSRange]()
+        enumerateAttribute(
+            .link,
+            in: NSRange(location: 0, length: length)
+        ) { value, subrange, _ in
+            guard value is URL else { return }
+            linkRanges.append(subrange)
+        }
+        return linkRanges
+    }
 }

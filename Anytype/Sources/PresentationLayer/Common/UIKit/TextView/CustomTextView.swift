@@ -85,6 +85,7 @@ private extension CustomTextView {
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
         textView.linkTextAttributes = [:]
+        textView.addInteraction(TextViewLinkSelectorInteraction(textView: textView))
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }
