@@ -12,7 +12,7 @@ protocol SearchServiceProtocol {
 
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
-    private let supportedTypes = [ObjectType.page.rawValue]
+    private let supportedTypes = [ObjectType.profile.rawValue, ObjectType.page.rawValue]
     
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(

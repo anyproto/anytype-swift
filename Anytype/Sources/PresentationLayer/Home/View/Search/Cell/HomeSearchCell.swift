@@ -38,7 +38,13 @@ struct HomeSearchCell: View {
     }
     
     private var icon: some View {
-        Image.Title.TodoLayout.checkmark
+        Group {
+            if let icon = data.icon {
+                DashboardObjectIcon(icon: icon)
+            } else {
+                EmptyView()
+            }
+        }
     }
     
     private var text: some View {
