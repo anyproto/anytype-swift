@@ -1,7 +1,7 @@
 import UIKit
 
 
-protocol TextBlockAccessoryViewSwitcherDeleagte: AnyObject {
+protocol TextBlockAccessoryViewSwitcherDelegate: AnyObject {
     // mention events
     func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
     // editor events
@@ -25,10 +25,10 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     let editingView: EditorAccessoryView
     var slashMenuView: SlashMenuView?
     private weak var textView: UITextView?
-    private weak var delegate: TextBlockAccessoryViewSwitcherDeleagte?
+    private weak var delegate: TextBlockAccessoryViewSwitcherDelegate?
     
     init(textView: UITextView,
-         delegate: TextBlockAccessoryViewSwitcherDeleagte,
+         delegate: TextBlockAccessoryViewSwitcherDelegate,
          mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
          slashMenuView: SlashMenuView? = nil,
          accessoryView: EditorAccessoryView) {

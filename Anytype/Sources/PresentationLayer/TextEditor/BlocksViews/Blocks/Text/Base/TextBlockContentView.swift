@@ -373,7 +373,7 @@ extension TextBlockContentView {
 
 // MARK: - TextBlockAccessoryViewSwitcherDeleagte
 
-extension TextBlockContentView: TextBlockAccessoryViewSwitcherDeleagte {
+extension TextBlockContentView: TextBlockAccessoryViewSwitcherDelegate {
     func mentionSelected(_ mention: MentionObject, from: UITextPosition, to: UITextPosition) {
         // TODO: Accessory check if no need
 //        mentionConfiguration.configure(textView: textView.textView)
