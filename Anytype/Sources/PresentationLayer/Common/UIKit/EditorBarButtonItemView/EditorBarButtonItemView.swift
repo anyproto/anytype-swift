@@ -21,17 +21,7 @@ final class EditorBarButtonItemView: UIView {
     init(image: UIImage?, action: @escaping () -> Void) {
         super.init(frame: .zero)
         
-        button.setImage(image, for: .normal)
-        button.addAction(
-            UIAction(
-                handler: {_ in
-                    action()
-                }
-            ),
-            for: .touchUpInside
-        )
-        
-        setupView()
+        setupView(image: image, action: action)
     }
     
     @available(*, unavailable)
@@ -42,10 +32,20 @@ final class EditorBarButtonItemView: UIView {
 
 private extension EditorBarButtonItemView {
     
-    func setupView() {
+    func setupView(image: UIImage?, action: @escaping () -> Void) {
         decorate(with: .clipped())
         decorate(with: .rounded(radius: 7))
         decorate(with: .size(28, 28))
+        
+        button.setImage(image, for: .normal)
+        button.addAction(
+            UIAction(
+                handler: {_ in
+                    action()
+                }
+            ),
+            for: .touchUpInside
+        )
         
         addSubview(button) {
             $0.pinToSuperview()

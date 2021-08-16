@@ -70,8 +70,12 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        controllerForNavigationItems?.setupBackBarButtonItem(UIBarButtonItem(customView: backBarButtonItemView))
-        controllerForNavigationItems?.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsBarButtonItemView)
+        controllerForNavigationItems?.setupBackBarButtonItem(
+            UIBarButtonItem(customView: backBarButtonItemView)
+        )
+        controllerForNavigationItems?.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            customView: settingsBarButtonItemView
+        )
         
         updateBarButtonItemsBackground(withBackgfound: false)
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
