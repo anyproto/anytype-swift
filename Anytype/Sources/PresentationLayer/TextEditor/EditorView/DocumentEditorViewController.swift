@@ -37,6 +37,14 @@ final class DocumentEditorViewController: UIViewController {
         return recognizer
     }()
 
+    private lazy var backBarButtonItemView = EditorBarButtonItemView(image: .backArrow) { [weak self] in
+        self?.navigationController?.popViewController(animated: true)
+    }
+    
+    private lazy var settingsBarButtonItemView = EditorBarButtonItemView(image: .more) { [weak self] in
+        self?.showDocumentSettings()
+    }
+    
     var viewModel: DocumentEditorViewModel!
 
     // MARK: - Initializers
@@ -62,26 +70,18 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        setupNavigationBarItems(withBackground: false, animated: false)
+        controllerForNavigationItems?.setupBackBarButtonItem(
+            UIBarButtonItem(customView: backBarButtonItemView)
+        )
+        controllerForNavigationItems?.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            customView: settingsBarButtonItemView
+        )
+        
+        updateBarButtonItemsBackground(withBackground: false)
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
         )
-    }
-    
-    private func setupNavigationBarItems(withBackground: Bool, animated: Bool) {
-        let rightBarButtonItem = UIBarButtonItem.settings(
-            withBackground: withBackground,
-            action: { [weak self] in
-                self?.showDocumentSettings()
-            }
-        )
-        controllerForNavigationItems?.navigationItem.setRightBarButton(
-            rightBarButtonItem,
-            animated: animated
-        )
-        
-        controllerForNavigationItems?.setupNavigationBarBackItem(withBackground: withBackground)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -107,7 +107,7 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        setupNavigationBarItems(withBackground: header.isWithCover, animated: true)
+        updateBarButtonItemsBackground(withBackground: header.isWithCover)
 
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
@@ -169,6 +169,11 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func textBlockDidBeginEditing() {
         collectionView.setContentOffset(contentOffset, animated: false)
+    }
+    
+    private func updateBarButtonItemsBackground(withBackground: Bool) {
+        backBarButtonItemView.withBackground = withBackground
+        settingsBarButtonItemView.withBackground = withBackground
     }
     
     private func updateView() {
