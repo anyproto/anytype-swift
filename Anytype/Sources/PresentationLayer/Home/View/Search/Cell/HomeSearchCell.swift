@@ -58,7 +58,7 @@ struct HomeSearchCell: View {
             if let descriptionText = data.description {
                 if !descriptionText.isEmpty {
                     AnytypeText(descriptionText, style: .footnote)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textPrimary)
                         .lineLimit(1)
                 } else {
                     EmptyView()
