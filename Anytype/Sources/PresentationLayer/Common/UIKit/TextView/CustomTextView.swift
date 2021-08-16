@@ -16,7 +16,7 @@ final class CustomTextView: UIView {
     private var firstResponderSubscription: AnyCancellable?
 
     var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
-    var accessoryViewSwitcher: AccessoryViewSwitcher?
+    var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
     
     init() {
         super.init(frame: .zero)
@@ -76,7 +76,7 @@ extension CustomTextView: TextViewManagingFocus {
 
 // MARK: - Views
 
-extension CustomTextView {
+private extension CustomTextView {
     func createTextView() -> TextViewWithPlaceholder {
         let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { [weak self] change in
             self?.delegate?.changeFirstResponderState(change)
@@ -84,6 +84,13 @@ extension CustomTextView {
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
+        textView.linkTextAttributes = [:]
+        textView.removeInteractions { interaction in
+            return interaction is UIContextMenuInteraction ||
+            interaction is UIDragInteraction ||
+            interaction is UIDropInteraction
+        }
+        textView.addInteraction(TextViewLinkSelectorInteraction(textView: textView))
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }

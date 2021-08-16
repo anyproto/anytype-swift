@@ -21,9 +21,6 @@ protocol TextViewDelegate: AnyObject {
 
     /// Text did begin editing
     func didBeginEditing()
-    
-    /// Text was changed
-    func didChangeText(textView: UITextView)
 
     /// Handle action from text input
     /// - Parameters:

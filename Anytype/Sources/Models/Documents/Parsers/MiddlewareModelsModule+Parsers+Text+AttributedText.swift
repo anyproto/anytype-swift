@@ -68,7 +68,7 @@ extension Namespace {
         
         static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareResult {
             // 1. Iterate over all ranges in a string.
-            var marksStyles: [MarkStyle.HashableKey: NSMutableIndexSet] = [:]
+            var marksTuples = [MiddlewareTuple: NSMutableIndexSet]()
             let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
             // We remove mention attachments to save correct markup ranges
             mutableAttributedText.removeAllMentionAttachmets()
@@ -77,7 +77,7 @@ extension Namespace {
             mutableAttributedText.enumerateAttributes(in: wholeStringRange) { attributes, range, _ in
                 
                 // 2. Take all attributes in specific range and convert them to
-                let marks = MarkStyle.from(attributes: attributes)
+                let marks = middlewareTuples(from: attributes)
                 
                 // Discussion:
                 // This algorithm uses API and feature of `IndexSet` structure.
@@ -100,54 +100,108 @@ extension Namespace {
 
                 // 3. Iterate over all marks in this range.
                 for mark in marks {
-                    
-                    let key: MarkStyle.HashableKey = .init(markStyle: mark)
                                         
                     // 4. If key exists, so, we must add range to result indexSet.
-                    if let value = marksStyles[key] {
+                    if let value = marksTuples[mark] {
                         value.add(in: range)
                     }
                     // 5. Otherwise, we should init new indexSet from current range.
                     else {
-                        marksStyles[key] = .init(indexesIn: range)
+                        marksTuples[mark] = NSMutableIndexSet(indexesIn: range)
                     }
                 }
             }
             
-            // Filter out all cases that are "empty".
-            let filteredMarkStyles = marksStyles.filter {
-                !MarkStyle.emptyCases.contains($0.0.markStyle)
-            }
-            
-            let middlewareMarks = filteredMarkStyles.compactMap { (tuple) -> [Anytype_Model_Block.Content.Text.Mark]? in
-                let (key, value) = tuple
-                let type = MarkStyleConverter.asMiddleware(key.markStyle)
-
-                // For example, return nil if we couldn't convert UIColor to middlware color so
-                // all ranges will be skipped for this `mark` value
-                guard let markAttribute = type else { return  nil }
-
+            let middlewareMarks = marksTuples.compactMap { (tuple, value) -> [Anytype_Model_Block.Content.Text.Mark]? in
                 let indexSet: IndexSet = value as IndexSet
 
                 return indexSet.rangeView.enumerated().map {
-                    Anytype_Model_Block.Content.Text.Mark(range: RangeConverter.asMiddleware(NSRange($0.element)),
-                                                          type: markAttribute.attribute, param: markAttribute.value)
+                    let range = RangeConverter.asMiddleware(NSRange($0.element))
+                    return Anytype_Model_Block.Content.Text.Mark(
+                        range: range,
+                        type: tuple.attribute,
+                        param: tuple.value
+                    )
                 }
             }.flatMap { $0 }
             
-            let wholeMarks: Anytype_Model_Block.Content.Text.Marks = .init(marks: middlewareMarks)
-            return .init(text: wholeText, marks: wholeMarks)
+            let wholeMarks = Anytype_Model_Block.Content.Text.Marks(marks: middlewareMarks)
+            return MiddlewareResult(text: wholeText, marks: wholeMarks)
         }
-    }
-}
-
-private extension MarkStyle {
-    struct HashableKey: Hashable {
-
-        let markStyle: MarkStyle
-
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(String(describing: markStyle))
+        
+        private static func middlewareTuples(from attributes: [NSAttributedString.Key: Any]) -> [MiddlewareTuple] {
+            let allMarks = Anytype_Model_Block.Content.Text.Mark.TypeEnum.allCases
+            return allMarks.compactMap { mark -> MiddlewareTuple? in
+                guard let markValue = middlewareValue(
+                        for: mark,
+                        from: attributes
+                ) else {
+                    return nil
+                }
+                return MiddlewareTuple(attribute: mark, value: markValue)
+            }
+        }
+        
+        private static func middlewareValue(
+            for mark: Anytype_Model_Block.Content.Text.Mark.TypeEnum,
+            from attributes: [NSAttributedString.Key: Any]
+        ) -> String? {
+            switch mark {
+            case .bold:
+                guard let font = attributes[.font] as? UIFont,
+                      font.fontDescriptor.symbolicTraits.contains(.traitBold) else {
+                    return nil
+                }
+                return ""
+            case .italic:
+                guard let font = attributes[.font] as? UIFont,
+                      font.fontDescriptor.symbolicTraits.contains(.traitItalic) else {
+                    return nil
+                }
+                return ""
+            case .keyboard:
+                guard let font = attributes[.font] as? UIFont,
+                      font.isCode else {
+                    return nil
+                }
+                return ""
+            case .strikethrough:
+                guard let strikethroughValue = attributes[.strikethroughStyle] as? Int,
+                      strikethroughValue == NSUnderlineStyle.single.rawValue else {
+                    return nil
+                }
+                return ""
+            case .underscored:
+                guard let underscoredValue = attributes[.underlineStyle] as? Int,
+                      underscoredValue == NSUnderlineStyle.single.rawValue else {
+                    return nil
+                }
+                return ""
+            case .textColor:
+                guard let color = attributes[.foregroundColor] as? UIColor,
+                      let colorValue = color.middlewareString(background: false) else {
+                    return nil
+                }
+                return colorValue
+            case .backgroundColor:
+                guard let color = attributes[.backgroundColor] as? UIColor,
+                      let colorValue = color.middlewareString(background: true) else {
+                    return nil
+                }
+                return colorValue
+            case .link:
+                guard let url = attributes[.link] as? URL else {
+                    return nil
+                }
+                return url.absoluteString
+            case .mention:
+                guard let pageId = attributes[.mention] as? String else {
+                    return nil
+                }
+                return pageId
+            case .UNRECOGNIZED:
+                return nil
+            }
         }
     }
 }

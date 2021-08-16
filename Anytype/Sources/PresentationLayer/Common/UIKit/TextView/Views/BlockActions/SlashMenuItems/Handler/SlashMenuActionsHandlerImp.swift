@@ -99,13 +99,13 @@ private extension SlashMenuActionsHandlerImp {
         case .toggle:
             blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.toggle)))
         case .bold:
-            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.bold))
+            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.bold))
         case .italic:
-            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.italic))
+            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.italic))
         case .strikethrough:
-            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.strikethrough))
+            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.strikethrough))
         case .code:
-            blockActionHandler.handleActionForFirstResponder(.toggleFontStyle(.keyboard))
+            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.keyboard))
         case .link:
             break
         }

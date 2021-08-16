@@ -17,7 +17,7 @@ final class ObjectCoverView: UIView {
     private let imageView = UIImageView()
     
     private let activityIndicatorView = ActivityIndicatorView()
-        
+    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -37,7 +37,12 @@ final class ObjectCoverView: UIView {
 
 extension ObjectCoverView: ConfigurableView {
 
-    func configure(model: (cover: ObjectCover, maxWidth: CGFloat)) {
+    struct Model {
+        let cover: ObjectCover
+        let maxWidth: CGFloat
+    }
+    
+    func configure(model: Model) {
         switch model.cover {
         case let .cover(cover):
             configureCoverState(
@@ -140,18 +145,13 @@ private extension ObjectCoverView {
     }
     
     func setupLayout() {
-        layoutUsing.anchors {
-            $0.height.equal(to: Constants.coverHeight + Constants.bottomInset)
-        }
-        
         addSubview(imageView) {
             $0.pinToSuperview(excluding: [.bottom])
             $0.height.equal(to: Constants.coverHeight)
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.bottomInset)
         }
-        
-        addSubview(activityIndicatorView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: Constants.coverHeight)
+        imageView.addSubview(activityIndicatorView) {
+            $0.pinToSuperview()
         }
     }
     
@@ -160,7 +160,7 @@ private extension ObjectCoverView {
 private extension ObjectCoverView {
     
     enum Constants {
-        static let coverHeight: CGFloat = 188
+        static let coverHeight: CGFloat = 232
         static let bottomInset: CGFloat = 32
     }
     

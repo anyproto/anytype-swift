@@ -1,12 +1,6 @@
 import UIKit
 
-
-// MARK: - TextView
-
 final class TextViewWithPlaceholder: UITextView {
-
-    weak var customTextViewDelegate: TextViewDelegate?
-
     
     // MARK: - Views
     
@@ -16,12 +10,16 @@ final class TextViewWithPlaceholder: UITextView {
         label.font = self.font
         label.textAlignment = self.textAlignment
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let blockLayoutManager = TextBlockLayoutManager()
-    private var placeholderConstraints = [NSLayoutConstraint]()
+
+    private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
+
+    // MARK: - Internal variables
+    
+    weak var customTextViewDelegate: TextViewDelegate?
 
     /// Custom color that applyed after `primaryColor`and `foregroundColor`
     var tertiaryColor: UIColor? {
@@ -58,15 +56,21 @@ final class TextViewWithPlaceholder: UITextView {
     
     override var textContainerInset: UIEdgeInsets {
         didSet {
-            self.updatePlaceholderLayout()
+            setupPlaceholderLayout()
         }
     }
 
     override var typingAttributes: [NSAttributedString.Key : Any] {
         didSet {
             if let font = super.typingAttributes[.font] as? UIFont {
-                self.placeholderLabel.font = font
+                placeholderLabel.font = font
             }
+        }
+    }
+    
+    override var textAlignment: NSTextAlignment {
+        didSet {
+            placeholderLabel.textAlignment = textAlignment
         }
     }
     
@@ -89,9 +93,7 @@ final class TextViewWithPlaceholder: UITextView {
     }
 
     // MARK: - Initialization
-    
-    private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
-    
+        
     init(
         frame: CGRect,
         textContainer: NSTextContainer?,
@@ -126,34 +128,25 @@ final class TextViewWithPlaceholder: UITextView {
 private extension TextViewWithPlaceholder {
     
     func setup() {
-        setupUIElements()
-        updatePlaceholderLayout()
+        textStorage.delegate = self
+        addSubview(placeholderLabel)
+        
+        setupPlaceholderLayout()
     }
 
-    func setupUIElements() {
-        self.textStorage.delegate = self
-        self.addSubview(self.placeholderLabel)
-    }
-
-    func updatePlaceholderLayout() {
-        let view = self.placeholderLabel
-        if let superview = view.superview {
-            let insets = self.textContainerInset
-            let lineFragmentPadding = self.textContainer.lineFragmentPadding
-
-            if !self.placeholderConstraints.isEmpty {
-                self.removeConstraints(self.placeholderConstraints)
-            }
-
-            self.placeholderConstraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: insets.left + lineFragmentPadding),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -(insets.right + lineFragmentPadding)),
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: insets.top),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -insets.bottom)
-            ]
-
-            NSLayoutConstraint.activate(self.placeholderConstraints)
+    func setupPlaceholderLayout() {
+        removeConstraints(placeholderLabel.constraints)
+        placeholderLabel.layoutUsing.anchors {
+            $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
+            $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
+            $0.top.equal(to: topAnchor, constant: textContainerInset.top)
+            $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
+            $0.width.equal(to: widthAnchor)
         }
+    }
+    
+    private func syncPlaceholder() {
+        self.placeholderLabel.isHidden = !self.text.isEmpty
     }
     
     func setupMenu() {
@@ -222,12 +215,8 @@ extension TextViewWithPlaceholder: NSTextStorageDelegate {
 
 extension TextViewWithPlaceholder {
     
-    private func syncPlaceholder() {
-        self.placeholderLabel.isHidden = !self.text.isEmpty
-    }
-    
     func update(placeholder: NSAttributedString?) {
-        self.placeholderLabel.attributedText = placeholder
+        placeholderLabel.attributedText = placeholder
     }
 }
 

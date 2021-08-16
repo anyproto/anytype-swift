@@ -116,28 +116,4 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         .eraseToAnyPublisher()
     }
     
-    func toggleWholeBlockMarkup(
-        contextID: BlockId,
-        blockID: BlockId,
-        style: MarkStyle
-    ) -> AnyPublisher<ResponseEvent, Error>? {
-        guard let middlewareMark = MarkStyleConverter.asMiddleware(style) else { return nil }
-        
-        var mark = Anytype_Model_Block.Content.Text.Mark()
-        mark.type = middlewareMark.attribute
-        mark.param = middlewareMark.value
-        
-        let service = Anytype_Rpc.BlockList.Set.Text.Mark.Service.self
-        
-        return service.invoke(
-            contextID: contextID,
-            blockIds: [blockID],
-            mark: mark
-        )
-        .map(\.event)
-        .map(ResponseEvent.init(_:))
-        .subscribe(on: DispatchQueue.global())
-        .receiveOnMain()
-        .eraseToAnyPublisher()
-    }
 }

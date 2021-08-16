@@ -22,7 +22,6 @@ struct HomeView: View {
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
-                windowHolder?.configureNavigationBarWithTransparentBackground()
                 viewModel.viewLoaded()
             }
     }

@@ -16,11 +16,11 @@ final class MentionsViewController: UITableViewController {
     
     let viewModel: MentionsViewModel
     private lazy var dataSource = makeDataSource()
-    private let dismissAction: () -> Void
+    private let dismissAction: (() -> Void)?
     
     init(style: UITableView.Style,
          viewModel: MentionsViewModel,
-         dismissAction: @escaping () -> Void) {
+         dismissAction: (() -> Void)?) {
         self.viewModel = viewModel
         self.dismissAction = dismissAction
         super.init(style: style)
@@ -159,6 +159,6 @@ extension MentionsViewController: MentionsView {
     }
     
     func dismiss() {
-        dismissAction()
+        dismissAction?()
     }
 }

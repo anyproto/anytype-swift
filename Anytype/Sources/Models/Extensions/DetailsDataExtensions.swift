@@ -73,7 +73,7 @@ extension DetailsDataProtocol {
         }
     }
     
-    var objectHeader: ObjectHeader? {
+    var objectHeader: ObjectHeader {
         let layoutAlign = self.layoutAlign ?? .left
         
         if let icon = icon, let cover = documentCover {
@@ -88,7 +88,7 @@ extension DetailsDataProtocol {
             return .coverOnly(.cover(cover))
         }
         
-        return nil
+        return .empty
     }
     
 }

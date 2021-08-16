@@ -64,6 +64,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             setBlockColor(blockId: blockId, color: color, completion: completion)
         case let .setBackgroundColor(color):
             service.setBackgroundColor(blockId: blockId, color: color)
+        case let .toggleWholeBlockMarkup(markup):
+            handleWholeBlockMarkupToggle(blockId: blockId, markup: markup)
         case let .toggleFontStyle(fontAttributes, range):
             handleFontAction(blockId: blockId, range: range, fontAction: fontAttributes)
         case let .setAlignment(alignment):
@@ -197,6 +199,22 @@ private extension BlockActionHandler {
             .store(in: &self.subscriptions)
     }
     
+    func handleWholeBlockMarkupToggle(
+        blockId: BlockId,
+        markup: BlockHandlerActionType.TextAttributesType
+    ) {
+        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
+              case let .text(textContentType) = info.content else { return }
+        handleFontAction(
+            blockId: blockId,
+            range: NSRange(
+                location: 0,
+                length: textContentType.attributedText.length
+            ),
+            fontAction: markup
+        )
+    }
+    
     func handleFontAction(
         blockId: BlockId,
         range: NSRange,
@@ -205,14 +223,6 @@ private extension BlockActionHandler {
         guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
               case let .text(textContentType) = info.content else { return }
         
-        // if range length == 0 then apply to whole block
-        if range.length == 0 || range.length == textContentType.attributedText.length {
-            applyMarkupToWholeBlock(
-                blockId: blockId,
-                fontAction: fontAction
-            )
-            return
-        }
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
             for: textContentType.contentType
         )
@@ -265,20 +275,6 @@ private extension BlockActionHandler {
                 localEvents: [.setText(blockId: info.id, text: marksModifier.attributedString.string)]
             )
         )
-    }
-    
-    private func applyMarkupToWholeBlock(
-        blockId: BlockId,
-        fontAction: BlockHandlerActionType.TextAttributesType
-    ) {
-        let subscription = textService.toggleWholeBlockMarkup(
-            contextID: documentId,
-            blockID: blockId,
-            style: fontAction.wholeBlockMarkup)?
-            .sinkWithDefaultCompletion("handleFontAction") { [weak self]  in
-                self?.document.handle(events: PackOfEvents(middlewareEvents: $0.messages))
-            }
-        subscription.flatMap { subscriptions.append($0) }
     }
     
     private func store( _ attributedString: NSAttributedString, in content: BlockText, id: BlockId) {

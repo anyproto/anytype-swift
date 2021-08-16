@@ -3,9 +3,9 @@ import UIKit
 final class SlashMenuItemsViewControllerCoordinatorImp: SlashMenuItemsViewControllerCoordinator {
     
     private let actionsHandler: SlashMenuActionsHandler
-    private let dismissHandler: () -> Void
+    private let dismissHandler: (() -> Void)?
     
-    init(actionsHandler: SlashMenuActionsHandler, dismissHandler: @escaping () -> Void) {
+    init(actionsHandler: SlashMenuActionsHandler, dismissHandler: (() -> Void)?) {
         self.actionsHandler = actionsHandler
         self.dismissHandler = dismissHandler
     }
@@ -26,7 +26,7 @@ final class SlashMenuItemsViewControllerCoordinatorImp: SlashMenuItemsViewContro
             controler.navigationController?.pushViewController(childController, animated: true)
         case let .action(action):
             actionsHandler.handle(action: action)
-            dismissHandler()
+            dismissHandler?()
         case .sectionDivider:
             break
         }

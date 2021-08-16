@@ -21,10 +21,6 @@ extension TextBlockContentView: TextViewDelegate {
     func didBeginEditing() {
         currentConfiguration.blockDelegate.didBeginEditing()
     }
-    
-    func didChangeText(textView: UITextView) {
-        currentConfiguration.configureMentions(textView)
-    }
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
@@ -40,6 +36,9 @@ extension TextBlockContentView: TextViewDelegate {
         case .changeTextForStruct:
             fallthrough
         case .changeText:
+            // TODO: Accessory need refactoring
+            currentConfiguration.configureMentions(textView.textView)
+
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
