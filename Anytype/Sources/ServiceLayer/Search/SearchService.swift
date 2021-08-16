@@ -3,6 +3,7 @@ import Combine
 import BlocksModels
 
 protocol SearchServiceProtocol {
+    func search(text: String, completion: @escaping ([SearchResult]) -> ())
     func searchArchivedPages(completion: @escaping ([SearchResult]) -> ())
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
@@ -11,6 +12,29 @@ protocol SearchServiceProtocol {
 
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
+    
+    func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
+        let sort = MiddlewareBuilder.sort(
+            relation: DetailsKind.lastModifiedDate,
+            type: .desc
+        )
+        
+        let filters = [
+            MiddlewareBuilder.isArchivedFilter(isArchived: false),
+            MiddlewareBuilder.notHiddenFilter()
+        ]
+        
+        makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: text,
+            offset: 0,
+            limit: 100,
+            objectTypeFilter: [],
+            keys: [],
+            completion: completion
+        )
+    }
     
     func searchArchivedPages(completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
