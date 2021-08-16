@@ -29,7 +29,7 @@ extension UIBarButtonItem {
                 
         let button = UIButton(type: .system)
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor.grayscaleWhite
+        button.tintColor = withBackground ? UIColor.grayscaleWhite : UIColor.secondaryTextColor
         button.addAction(
             UIAction(
                 handler: {_ in
