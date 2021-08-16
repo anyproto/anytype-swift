@@ -77,7 +77,7 @@ final class DocumentEditorViewController: UIViewController {
             customView: settingsBarButtonItemView
         )
         
-        updateBarButtonItemsBackground(withBackgfound: false)
+        updateBarButtonItemsBackground(withBackground: false)
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
@@ -107,7 +107,7 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        updateBarButtonItemsBackground(withBackgfound: header.isWithCover)
+        updateBarButtonItemsBackground(withBackground: header.isWithCover)
 
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
@@ -171,9 +171,9 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         collectionView.setContentOffset(contentOffset, animated: false)
     }
     
-    private func updateBarButtonItemsBackground(withBackgfound: Bool) {
-        backBarButtonItemView.withBackground = withBackgfound
-        settingsBarButtonItemView.withBackground = withBackgfound
+    private func updateBarButtonItemsBackground(withBackground: Bool) {
+        backBarButtonItemView.withBackground = withBackground
+        settingsBarButtonItemView.withBackground = withBackground
     }
     
     private func updateView() {
