@@ -12,6 +12,7 @@ protocol EditorRouterProtocol: AnyObject {
     func showPage(with id: BlockId)
     func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (URL) -> ())
+    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
     
     func showFilePicker(model: FilePickerModel)
     func showImagePicker(model: MediaPickerViewModel)
@@ -57,12 +58,14 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
-        let controller = URLInputViewController { url in
+        showURLInputViewController { url in
             guard let url = url else { return }
             completion(url)
         }
-        controller.modalPresentationStyle = .overCurrentContext
-        viewController?.present(controller, animated: false)
+    }
+    
+    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void) {
+        showURLInputViewController(url: url, completion: completion)
     }
     
     func showFilePicker(model: FilePickerModel) {
@@ -122,5 +125,14 @@ final class EditorRouter: EditorRouterProtocol {
             }
         )
         controller.selectBlock(blockId: information.id)
+    }
+    
+    private func showURLInputViewController(
+        url: URL? = nil,
+        completion: @escaping(URL?) -> Void
+    ) {
+        let controller = URLInputViewController(url: url, didSetURL: completion)
+        controller.modalPresentationStyle = .overCurrentContext
+        viewController?.present(controller, animated: false)
     }
 }

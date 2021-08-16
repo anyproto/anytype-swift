@@ -9,28 +9,42 @@ struct HomeSearchCellData: Identifiable {
     
     init(searchResult: SearchResult) {
         self.id = searchResult.id
-        self.title = searchResult.name ?? "Untitled".localized
         self.description = searchResult.description
-        self.type = searchResult.type?.name ?? "Page".localized
         self.icon = searchResult.icon
+        
+        if let title = searchResult.name, !title.isEmpty {
+            self.title = title
+        } else {
+            self.title = "Untitled".localized
+        }
+        
+        if let type = searchResult.type?.name, !type.isEmpty {
+            self.type = type
+        } else {
+            self.type = "Page".localized
+        }
     }
 }
 
 struct HomeSearchCell: View {
     let data: HomeSearchCellData
-    init(data: HomeSearchCellData) {
-        self.data = data
-    }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 12) {
             icon
             text
         }
+        .frame(height: 57)
     }
     
     private var icon: some View {
-        Image.Title.TodoLayout.checkmark
+        Group {
+            if let icon = data.icon {
+                DashboardObjectIcon(icon: icon)
+            } else {
+                EmptyView()
+            }
+        }
     }
     
     private var text: some View {
@@ -47,10 +61,14 @@ struct HomeSearchCell: View {
     
     private var description: some View {
         Group {
-            if let description = data.description {
-                AnytypeText(description, style: .footnote)
-                    .foregroundColor(.primary)
-                    .lineLimit(1)
+            if let descriptionText = data.description {
+                if !descriptionText.isEmpty {
+                    AnytypeText(descriptionText, style: .footnote)
+                        .foregroundColor(.textPrimary)
+                        .lineLimit(1)
+                } else {
+                    EmptyView()
+                }
             } else {
                 EmptyView()
             }

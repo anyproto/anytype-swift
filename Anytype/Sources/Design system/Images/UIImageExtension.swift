@@ -2,9 +2,11 @@ import UIKit
 import AnytypeCore
 
 extension UIImage {
-    static let back = UIImage(named: "TextEditor/Toolbar/Blocks/Back")
-    static let more = UIImage(named: "TextEditor/More")
+    static let back = createImage("TextEditor/Toolbar/Blocks/Back")
     static let backArrow = createImage("backArrow")
+    
+    static let more = createImage("TextEditor/More")
+    static let searchIcon = createImage("searchTextFieldIcon")
 }
 
 extension UIImage {

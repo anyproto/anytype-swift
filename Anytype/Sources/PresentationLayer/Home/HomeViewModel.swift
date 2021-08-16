@@ -128,12 +128,19 @@ extension HomeViewModel {
                     anytypeAssertionFailure("No new block id in create new page response")
                     return
                 }
-
-                self.newPageData = NewPageData(pageId: response.newBlockId, showingNewPage: true)
+                
+                self.showPage(pageId: response.newBlockId)
         }
     }
     
     func startSearch() {
         showSearch = true
+    }
+    
+    func showPage(pageId: BlockId) {
+        newPageData = NewPageData(
+            pageId: pageId,
+            showingNewPage: true
+        )
     }
 }
