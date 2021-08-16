@@ -7,6 +7,8 @@ extension Image {
     static let arrow = createImage("arrowForward")
     
     static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
+    
+    static let noImage = Image("no_image_blank_stub")
 }
 
 extension Image {
@@ -37,7 +39,7 @@ extension Image {
 extension Image {
     
     enum SearchBar {
-        static let magnifyingglass = createSystemImage("magnifyingglass")
+        static let magnifyingGlass = createImage("searchTextFieldIcon")
         static let circleFill = createSystemImage("multiply.circle.fill")
     }
     
@@ -48,9 +50,9 @@ extension Image {
     }
     
     enum LayoutSettings {
-        static let basic = Image("layout_settings_basic")
-        static let profile = Image("layout_settings_profile")
-        static let todo = Image("layout_settings_todo")
+        static let basic = createImage("layout_settings_basic")
+        static let profile = createImage("layout_settings_profile")
+        static let todo = createImage("layout_settings_todo")
         
         static let checkmark = Image("layout_settings_checkmark")
     }
@@ -68,7 +70,7 @@ private extension Image {
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
             anytypeAssertionFailure("No image named: \(name)")
-            return Image("no_image_blank_stub")
+            return .noImage
         }
         
         return Image(uiImage: image)
@@ -77,7 +79,7 @@ private extension Image {
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
             anytypeAssertionFailure("No system image named: \(name)")
-            return Image("no_image_blank_stub")
+            return .noImage
         }
         
         return Image(uiImage: image)

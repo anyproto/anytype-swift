@@ -15,7 +15,7 @@ extension DetailsDataProtocol {
             return basicIcon.flatMap { DocumentIconType.basic($0) }
         case .profile:
             return profileIcon.flatMap { DocumentIconType.profile($0) }
-        case .todo:
+        default:
             return nil
         }
     }
