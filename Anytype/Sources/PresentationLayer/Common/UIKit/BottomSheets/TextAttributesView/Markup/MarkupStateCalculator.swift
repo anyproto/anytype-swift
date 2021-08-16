@@ -46,6 +46,14 @@ struct MarkupStateCalculator {
         }
         return attributedText.isCodeFontInWhole(range: range) ? .applied : .notApplied
     }
+    
+    func linkState() -> MarkupState {
+        guard restrictions.canApplyOtherMarkup else {
+            return .disabled
+        }
+        let url: URL? = attributedText.value(for: .link, range: range)
+        return url.isNil ? .notApplied : .applied
+    }
 
     func alignmentState() -> NSTextAlignment? {
         guard !restrictions.availableAlignments.isEmpty else {
