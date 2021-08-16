@@ -38,7 +38,13 @@ struct HomeSearchCell: View {
     }
     
     private var icon: some View {
-        Image.Title.TodoLayout.checkmark
+        Group {
+            if let icon = data.icon {
+                DashboardObjectIcon(icon: icon)
+            } else {
+                EmptyView()
+            }
+        }
     }
     
     private var text: some View {
@@ -58,7 +64,7 @@ struct HomeSearchCell: View {
             if let descriptionText = data.description {
                 if !descriptionText.isEmpty {
                     AnytypeText(descriptionText, style: .footnote)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.textPrimary)
                         .lineLimit(1)
                 } else {
                     EmptyView()

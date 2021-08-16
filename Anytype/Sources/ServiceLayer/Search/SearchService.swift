@@ -12,10 +12,11 @@ protocol SearchServiceProtocol {
 
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
+    private let supportedTypes = [ObjectType.profile.rawValue, ObjectType.page.rawValue]
     
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
-            relation: DetailsKind.lastModifiedDate,
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         
@@ -30,7 +31,7 @@ final class SearchService {
             fullText: text,
             offset: 0,
             limit: 100,
-            objectTypeFilter: [],
+            objectTypeFilter: supportedTypes,
             keys: [],
             completion: completion
         )
@@ -53,7 +54,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: [],
+            objectTypeFilter: supportedTypes,
             keys: [],
             completion: completion
         )
@@ -65,7 +66,6 @@ final class SearchService {
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.objectTypeFilter(types: [.set, .page]),
             MiddlewareBuilder.notHiddenFilter()
         ]
         
@@ -75,7 +75,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: [],
+            objectTypeFilter: supportedTypes,
             keys: [],
             completion: completion
         )
@@ -88,7 +88,6 @@ final class SearchService {
         )
         let filters = [
             MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.objectTypeFilter(type: .page),
             MiddlewareBuilder.notHiddenFilter()
         ]
         
@@ -98,7 +97,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 50,
-            objectTypeFilter: [],
+            objectTypeFilter: supportedTypes,
             keys: [],
             completion: completion
         )
@@ -111,7 +110,6 @@ final class SearchService {
         )
         let filters = [
             MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.objectTypeFilter(type: .set),
             MiddlewareBuilder.notHiddenFilter()
         ]
         
@@ -121,7 +119,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: [],
+            objectTypeFilter: supportedTypes,
             keys: [],
             completion: completion
         )
