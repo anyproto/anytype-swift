@@ -10,15 +10,10 @@ import UIKit
 
 extension UIViewController {
     
-    func setupNavigationBarBackItem(withBackground: Bool) {
+    func setupBackBarButtonItem(_ item: UIBarButtonItem) {
         navigationItem.hidesBackButton = true
         
-        navigationItem.leftBarButtonItem = .back(
-            withBackground: withBackground,
-            action: { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }
-        )
+        navigationItem.leftBarButtonItem = item
         
         // This trick enables screen edge pan gesture after setting left bar button.
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
