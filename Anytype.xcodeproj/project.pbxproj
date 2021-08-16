@@ -201,6 +201,7 @@
 		12A52DC626C5522D000F0333 /* DashboardObjectIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DC526C5522D000F0333 /* DashboardObjectIcon.swift */; };
 		12A52DCE26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DCD26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift */; };
 		12A52DD326C56940000F0333 /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DD226C56940000F0333 /* ObjectHeaderEmptyContentView.swift */; };
+		12A52DFC26CA73D4000F0333 /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DFB26CA73D4000F0333 /* UIBarButtonItemExtensions.swift */; };
 		12A7B6AD26C3D50300544037 /* ObjectCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6AC26C3D50300544037 /* ObjectCoverView.swift */; };
 		12A7B6B226C3D75D00544037 /* ObjectIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6B126C3D75D00544037 /* ObjectIconView.swift */; };
 		12A7B6BE26C3E47200544037 /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6B526C3E47200544037 /* IconEmoji.swift */; };
@@ -807,6 +808,7 @@
 		12A52DC526C5522D000F0333 /* DashboardObjectIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardObjectIcon.swift; sourceTree = "<group>"; };
 		12A52DCD26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12A52DD226C56940000F0333 /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
+		12A52DFB26CA73D4000F0333 /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		12A7B6AC26C3D50300544037 /* ObjectCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCoverView.swift; sourceTree = "<group>"; };
 		12A7B6B126C3D75D00544037 /* ObjectIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconView.swift; sourceTree = "<group>"; };
 		12A7B6B526C3E47200544037 /* IconEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconEmoji.swift; sourceTree = "<group>"; };
@@ -2329,6 +2331,7 @@
 				12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */,
 				12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */,
 				1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */,
+				12A52DFB26CA73D4000F0333 /* UIBarButtonItemExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3903,6 +3906,7 @@
 				3DEFD6492689FE180072EA27 /* FloaterWrapper.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
+				12A52DFC26CA73D4000F0333 /* UIBarButtonItemExtensions.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
