@@ -39,7 +39,7 @@ class SearchTextFieldView: UIView, ObservableObject {
 
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "searchTextFieldIcon")
+        imageView.image = UIImage.searchIcon
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView

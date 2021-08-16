@@ -4,6 +4,8 @@ import AnytypeCore
 extension UIImage {
     static let back = UIImage(named: "TextEditor/Toolbar/Blocks/Back")
     static let more = UIImage(named: "TextEditor/More")
+    
+    static let searchIcon = UIImage(named: "searchTextFieldIcon")
 }
 
 extension UIImage {

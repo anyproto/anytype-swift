@@ -39,7 +39,7 @@ extension Image {
 extension Image {
     
     enum SearchBar {
-        static let magnifyingglass = createSystemImage("magnifyingglass")
+        static let magnifyingGlass = createImage("searchTextFieldIcon")
         static let circleFill = createSystemImage("multiply.circle.fill")
     }
     
@@ -50,9 +50,9 @@ extension Image {
     }
     
     enum LayoutSettings {
-        static let basic = Image("layout_settings_basic")
-        static let profile = Image("layout_settings_profile")
-        static let todo = Image("layout_settings_todo")
+        static let basic = createImage("layout_settings_basic")
+        static let profile = createImage("layout_settings_profile")
+        static let todo = createImage("layout_settings_todo")
         
         static let checkmark = Image("layout_settings_checkmark")
     }
