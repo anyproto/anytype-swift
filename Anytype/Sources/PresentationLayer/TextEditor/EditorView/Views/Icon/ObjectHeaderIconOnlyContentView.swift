@@ -78,7 +78,7 @@ private extension ObjectHeaderIconOnlyContentView {
             case .imageId:
                 topConstraint.constant = Constants.basicIconTopInset
             }
-            
+                        
         case .profile:
             topConstraint.constant = Constants.profileTopInset
         }
@@ -124,7 +124,7 @@ private extension ObjectHeaderIconOnlyContentView {
             
             $0.bottom.equal(
                 to: self.bottomAnchor,
-                constant: -Constants.bottomInset
+                constant: -Constants.basicBottomInset
             )
         }
     }
@@ -135,11 +135,12 @@ private extension ObjectHeaderIconOnlyContentView {
     
     enum Constants {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
-        static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
+                
+        static let basicIconTopInset: CGFloat = 152 - ObjectIconView.Constants.borderWidth
+        static let basicEmojiTopInset: CGFloat = 168 - ObjectIconView.Constants.borderWidth
+        static let profileTopInset: CGFloat = 136 - ObjectIconView.Constants.borderWidth
         
-        static let basicIconTopInset: CGFloat = 60 - ObjectIconView.Constants.borderWidth
-        static let basicEmojiTopInset: CGFloat = 76 - ObjectIconView.Constants.borderWidth
-        static let profileTopInset: CGFloat = 52 - ObjectIconView.Constants.borderWidth
+        static let basicBottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
     }
     
 }

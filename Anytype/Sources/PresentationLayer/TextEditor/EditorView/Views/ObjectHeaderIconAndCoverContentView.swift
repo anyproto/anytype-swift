@@ -19,7 +19,6 @@ final class ObjectHeaderIconAndCoverContentView: UIView, UIContentView {
     
     // MARK: - Private variables
     
-    private var topConstraint: NSLayoutConstraint!
     private var appliedConfiguration: ObjectHeaderIconAndCoverConfiguration!
     
     // MARK: - Internal variables
@@ -58,42 +57,14 @@ private extension ObjectHeaderIconAndCoverContentView {
 
     func apply(configuration: ObjectHeaderIconAndCoverConfiguration) {
         appliedConfiguration = configuration
-        
-        switch configuration.icon {
-        case let .icon(icon, _):
-            configureIconTopInset(icon)
-        case let .preview(preview, _):
-            configurePreviewTopInset(preview)
-        }
-        
+
         iconView.configure(model: configuration.icon)
         coverView.configure(
-            model: (configuration.cover, configuration.maxWidth)
+            model: .init(
+                cover: configuration.cover,
+                maxWidth: configuration.maxWidth
+            )
         )
-    }
-    
-    private func configureIconTopInset(_ icon: DocumentIconType) {
-        switch icon {
-        case let .basic(basic):
-            switch basic {
-            case .emoji:
-                topConstraint.constant = Constants.basicEmojiTopInset
-            case .imageId:
-                topConstraint.constant = Constants.basicIconTopInset
-            }
-            
-        case .profile:
-            topConstraint.constant = Constants.profileTopInset
-        }
-    }
-    
-    private func configurePreviewTopInset(_ preview: ObjectIconPreviewType) {
-        switch preview {
-        case .basic:
-            topConstraint.constant = Constants.basicIconTopInset
-        case .profile:
-            topConstraint.constant = Constants.profileTopInset
-        }
     }
     
 }
@@ -119,11 +90,6 @@ private extension ObjectHeaderIconAndCoverContentView {
                 constant: -Constants.horizontalInset
             )
             
-            topConstraint = $0.top.equal(
-                to: self.topAnchor,
-                constant: Constants.basicEmojiTopInset
-            )
-            
             $0.bottom.equal(
                 to: self.bottomAnchor,
                 constant: -Constants.bottomInset
@@ -138,10 +104,6 @@ private extension ObjectHeaderIconAndCoverContentView {
     enum Constants {
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
         static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
-        
-        static let basicIconTopInset: CGFloat = 108 - ObjectIconView.Constants.borderWidth
-        static let basicEmojiTopInset: CGFloat = 124 - ObjectIconView.Constants.borderWidth
-        static let profileTopInset: CGFloat = 92 - ObjectIconView.Constants.borderWidth
     }
     
 }

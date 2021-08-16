@@ -4,16 +4,16 @@ import Amplitude
 
 extension HomeTabsView {
     enum Tab {
-        case favourites
-        case recent
         case inbox
+        case recent
+        case favourites
         case archive
     }
 }
 
 struct HomeTabsView: View {
     @EnvironmentObject var model: HomeViewModel
-    @State private var tabSelection = Tab.favourites
+    @State private var tabSelection = Tab.inbox
     
     let offsetChanged: (CGPoint) -> Void
     

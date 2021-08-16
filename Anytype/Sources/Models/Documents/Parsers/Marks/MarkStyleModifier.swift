@@ -60,19 +60,13 @@ final class MarkStyleModifier {
     
     private func applyStyle(_ style: MarkStyle, toWhole range: NSRange) {
         let oldAttributes = getAttributes(at: range)
-        let update = style.to(
-            old: oldAttributes,
-            nonCodeFont: defaultNonCodeFont
-        )
-        
-        let changedAttributes = update.attributes()
-        let deletedKeys = update.deletedKeys()
+        guard let update = apply(style: style, to: oldAttributes) else { return }
         
         var newAttributes = mergeAttributes(
             origin: oldAttributes,
-            changes: changedAttributes
+            changes: update.changeAttributes
         )
-        for key in deletedKeys {
+        for key in update.deletedKeys {
             newAttributes.removeValue(forKey: key)
             attributedString.removeAttribute(key, range: range)
         }
@@ -103,5 +97,85 @@ final class MarkStyleModifier {
             )
         )
         attributedString.insert(mentionAttachmentString, at: range.location)
+    }
+    
+    func apply(style: MarkStyle, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
+        switch style {
+        case let .bold(shouldApplyMarkup):
+            if let font = old[.font] as? UIFont {
+                let oldTraits = font.fontDescriptor.symbolicTraits
+                let traits = shouldApplyMarkup ? oldTraits.union(.traitBold) : oldTraits.symmetricDifference(.traitBold)
+                if let newDescriptor = font.fontDescriptor.withSymbolicTraits(traits) {
+                    let newFont = UIFont(descriptor: newDescriptor, size: font.pointSize)
+                    return AttributedStringChange(changeAttributes: [.font : newFont])
+                }
+            }
+            return nil
+        case let .italic(shouldApplyMarkup):
+            if let font = old[.font] as? UIFont {
+                let oldTraits = font.fontDescriptor.symbolicTraits
+                let traits = shouldApplyMarkup ? oldTraits.union(.traitItalic) : oldTraits.symmetricDifference(.traitItalic)
+                if let newDescriptor = font.fontDescriptor.withSymbolicTraits(traits) {
+                    let newFont = UIFont(descriptor: newDescriptor, size: font.pointSize)
+                    return AttributedStringChange(changeAttributes:[.font : newFont])
+                }
+            }
+            return nil
+        case let .keyboard(hasStyle):
+            return keyboardUpdate(
+                with: old,
+                shouldHaveStyle: hasStyle
+            )
+        case let .strikethrough(shouldApplyMarkup):
+            return AttributedStringChange(
+                changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
+            )
+        case let .underscored(shouldApplyMarkup):
+            return AttributedStringChange(
+                changeAttributes: [.underlineStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
+            )
+        case let .textColor(color):
+            return AttributedStringChange(changeAttributes: [.foregroundColor : color as Any])
+        case let .backgroundColor(color):
+            return AttributedStringChange(changeAttributes: [.backgroundColor : color as Any])
+        case let .link(url):
+            return AttributedStringChange(
+                changeAttributes: [.link : url as Any],
+                deletedKeys: url.isNil ? [.link] : []
+            )
+        case let .mention(pageId):
+            return AttributedStringChange(changeAttributes: [.mention: pageId as Any])
+        }
+    }
+    
+    private func keyboardUpdate(
+        with attributes: [NSAttributedString.Key: Any],
+        shouldHaveStyle: Bool
+    ) -> AttributedStringChange? {
+        guard let font = attributes[.font] as? UIFont else { return nil }
+        
+        var targetFont: UIFont
+        switch (font.isCode, shouldHaveStyle) {
+        case (true, true):
+            return AttributedStringChange(changeAttributes: [.font: font])
+        case (true, false):
+            targetFont = defaultNonCodeFont
+        case (false, true):
+            targetFont = UIFont.code(of: font.pointSize)
+        case (false, false):
+            return AttributedStringChange(changeAttributes: [.font: font])
+        }
+        
+        var traitsToApply = targetFont.fontDescriptor.symbolicTraits
+        if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
+            traitsToApply.insert(.traitBold)
+        }
+        if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+            traitsToApply.insert(.traitItalic)
+        }
+        if let newFontDescriptor = targetFont.fontDescriptor.withSymbolicTraits(traitsToApply) {
+            return AttributedStringChange(changeAttributes: [.font: UIFont(descriptor: newFontDescriptor, size: font.pointSize)])
+        }
+        return AttributedStringChange(changeAttributes: [.font: targetFont])
     }
 }

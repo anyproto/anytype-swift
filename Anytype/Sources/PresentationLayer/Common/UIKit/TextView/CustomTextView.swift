@@ -85,6 +85,11 @@ private extension CustomTextView {
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
         textView.linkTextAttributes = [:]
+        textView.removeInteractions { interaction in
+            return interaction is UIContextMenuInteraction ||
+            interaction is UIDragInteraction ||
+            interaction is UIDropInteraction
+        }
         textView.addInteraction(TextViewLinkSelectorInteraction(textView: textView))
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
