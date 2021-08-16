@@ -470,6 +470,7 @@
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA4B6E232689F07900F717D3 /* BlockFileIconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A005AAB24C4731D000520AA /* BlockFileIconBuilder.swift */; };
 		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
+		EA54128E26C5807100C9B6F3 /* TextViewLinkSelectorInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54128D26C5807100C9B6F3 /* TextViewLinkSelectorInteraction.swift */; };
 		EA54129C26C6856B00C9B6F3 /* AttributedStringChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */; };
 		EA5521A3266E5CB5004A820B /* FilterableItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */; };
 		EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A5266E5D6D004A820B /* MentionView.swift */; };
@@ -1071,6 +1072,7 @@
 		EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoaderReturnValue.swift; sourceTree = "<group>"; };
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
+		EA54128D26C5807100C9B6F3 /* TextViewLinkSelectorInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewLinkSelectorInteraction.swift; sourceTree = "<group>"; };
 		EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringChange.swift; sourceTree = "<group>"; };
 		EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterableItemsView.swift; sourceTree = "<group>"; };
 		EA5521A5266E5D6D004A820B /* MentionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
@@ -1709,6 +1711,7 @@
 		03E2AD4323A93C8C00C701CE /* TextView */ = {
 			isa = PBXGroup;
 			children = (
+				EA54128926C5803A00C9B6F3 /* Interactions */,
 				3D29AFEF26A5D2640095BA18 /* Models */,
 				0A08D4C024AF81F30088ECC2 /* ViewControllers */,
 				534B7F1B26264E0100D712B2 /* AccessoryView */,
@@ -3375,6 +3378,14 @@
 			path = TurnIntoSelection;
 			sourceTree = "<group>";
 		};
+		EA54128926C5803A00C9B6F3 /* Interactions */ = {
+			isa = PBXGroup;
+			children = (
+				EA54128D26C5807100C9B6F3 /* TextViewLinkSelectorInteraction.swift */,
+			);
+			path = Interactions;
+			sourceTree = "<group>";
+		};
 		EA5521AE266E5DA3004A820B /* Mention */ = {
 			isa = PBXGroup;
 			children = (
@@ -3897,6 +3908,7 @@
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
+				EA54128E26C5807100C9B6F3 /* TextViewLinkSelectorInteraction.swift in Sources */,
 				EA5FB42B266A970F00DCD56C /* MentionDisplayData.swift in Sources */,
 				537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */,
 				123FDAF226C2951900F6F44B /* ObjectHeaderIconAndCoverConfiguration.swift in Sources */,
