@@ -62,14 +62,14 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        setupSettingsNavigationBarItem(withBackground: false, animated: false)
+        setupNavigationBarItems(withBackground: false, animated: false)
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
         )
     }
     
-    private func setupSettingsNavigationBarItem(withBackground: Bool, animated: Bool) {
+    private func setupNavigationBarItems(withBackground: Bool, animated: Bool) {
         let rightBarButtonItem = UIBarButtonItem.settings(
             withBackground: withBackground,
             action: { [weak self] in
@@ -80,6 +80,8 @@ final class DocumentEditorViewController: UIViewController {
             rightBarButtonItem,
             animated: animated
         )
+        
+        controllerForNavigationItems?.setupNavigationBarBackItem(withBackground: withBackground)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -105,7 +107,7 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        setupSettingsNavigationBarItem(withBackground: header.isWithCover, animated: true)
+        setupNavigationBarItems(withBackground: header.isWithCover, animated: true)
 
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
