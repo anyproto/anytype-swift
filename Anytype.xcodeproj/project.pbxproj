@@ -202,6 +202,7 @@
 		12A52DCE26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DCD26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift */; };
 		12A52DD326C56940000F0333 /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DD226C56940000F0333 /* ObjectHeaderEmptyContentView.swift */; };
 		12A52DFC26CA73D4000F0333 /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52DFB26CA73D4000F0333 /* UIBarButtonItemExtensions.swift */; };
+		12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E0026CA7BF6000F0333 /* UIViewControllerExtensions.swift */; };
 		12A7B6AD26C3D50300544037 /* ObjectCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6AC26C3D50300544037 /* ObjectCoverView.swift */; };
 		12A7B6B226C3D75D00544037 /* ObjectIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6B126C3D75D00544037 /* ObjectIconView.swift */; };
 		12A7B6BE26C3E47200544037 /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6B526C3E47200544037 /* IconEmoji.swift */; };
@@ -811,6 +812,7 @@
 		12A52DCD26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12A52DD226C56940000F0333 /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
 		12A52DFB26CA73D4000F0333 /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
+		12A52E0026CA7BF6000F0333 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		12A7B6AC26C3D50300544037 /* ObjectCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCoverView.swift; sourceTree = "<group>"; };
 		12A7B6B126C3D75D00544037 /* ObjectIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconView.swift; sourceTree = "<group>"; };
 		12A7B6B526C3E47200544037 /* IconEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconEmoji.swift; sourceTree = "<group>"; };
@@ -2336,6 +2338,7 @@
 				12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */,
 				1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */,
 				12A52DFB26CA73D4000F0333 /* UIBarButtonItemExtensions.swift */,
+				12A52E0026CA7BF6000F0333 /* UIViewControllerExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4185,6 +4188,7 @@
 				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,
 				1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
+				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
 				EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
