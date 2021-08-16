@@ -3,16 +3,17 @@ import UIKit
 import Amplitude
 
 
+protocol MentionViewDelegate: AnyObject {
+    func selectMention(_ mention: MentionObject)
+}
+
 final class MentionView: DismissableInputAccessoryView {
 
     private weak var mentionsController: MentionsViewController?
-    private let mentionsSelectionHandler: (MentionObject) -> Void
+    weak var delegate: MentionViewDelegate?
     
-    init(frame: CGRect,
-         dismissHandler: @escaping () -> Void,
-         mentionsSelectionHandler: @escaping (MentionObject) -> Void) {
-        self.mentionsSelectionHandler = mentionsSelectionHandler
-        super.init(frame: frame, dismissHandler: dismissHandler)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     override func didMoveToWindow() {
@@ -29,7 +30,9 @@ final class MentionView: DismissableInputAccessoryView {
     private func addMentionsController(to controller: UIViewController) {
         let service = MentionObjectsService()
         let viewModel = MentionsViewModel(service: service,
-                                          selectionHandler: mentionsSelectionHandler)
+                                          selectionHandler: { [weak self] mentionObject in
+                                            self?.delegate?.selectMention(mentionObject)
+                                          })
         let mentionsController = MentionsViewController(style: .plain,
                                                         viewModel: viewModel,
                                                         dismissAction: dismissHandler)

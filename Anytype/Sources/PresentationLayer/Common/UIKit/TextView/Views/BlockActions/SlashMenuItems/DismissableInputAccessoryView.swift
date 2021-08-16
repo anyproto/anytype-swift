@@ -6,15 +6,11 @@ class DismissableInputAccessoryView: UIView {
         static let separatorHeight: CGFloat = 0.5
     }
     
-    let dismissHandler: () -> Void
+    var dismissHandler: (() -> Void)?
     private(set) weak var topSeparator: UIView?
     private var transparentView: UIView?
     
-    init(
-        frame: CGRect,
-        dismissHandler: @escaping () -> Void
-    ) {
-        self.dismissHandler = dismissHandler
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
     }
@@ -69,6 +65,6 @@ class DismissableInputAccessoryView: UIView {
     
     @objc private func handleTransparentViewTap() {
         removeFromSuperview()
-        dismissHandler()
+        dismissHandler?()
     }
 }

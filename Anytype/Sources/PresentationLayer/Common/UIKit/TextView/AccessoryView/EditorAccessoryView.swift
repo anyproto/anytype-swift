@@ -55,17 +55,15 @@ class EditorAccessoryView: UIView {
     }()
 
     private let actionHandler: EditorAccessoryViewActionHandler
-    private let items: [Item]
 
     // MARK: - Lifecycle
 
     init(items: [Item] = [.slash, .style, .mention], actionHandler: EditorAccessoryViewActionHandler) {
         self.actionHandler = actionHandler
-        self.items = items
 
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
 
-        setupViews()
+        setupViews(items)
     }
 
     @available(*, unavailable)
@@ -73,18 +71,13 @@ class EditorAccessoryView: UIView {
     @available(*, unavailable)
     override init(frame: CGRect) { fatalError("Not been implemented") }
 
-    // MARK: - Setup views
+    // MARK: - Public methods
 
-    private func setupViews() {
-        autoresizingMask = .flexibleHeight
-        backgroundColor = .white
-        addSubview(stackView)
-
-        setupLayout()
-    }
-
-    private func setupLayout() {
-        stackView.edgesToSuperview()
+    func updateMenuItems(_ items: [Item]) {
+        stackView.arrangedSubviews.forEach { view in
+            stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
 
         items.forEach { item in
             addBarButtonItem(image: item.image) { [weak self] _ in
@@ -94,13 +87,24 @@ class EditorAccessoryView: UIView {
                 self?.actionHandler.handle(item.action)
             }
         }
-        
-        addBarButtonItem(title: "Done".localized) { [weak self]_ in
+
+        addBarButtonItem(title: "Done".localized) { [weak self] _ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.buttonHideKeyboard)
 
             self?.actionHandler.handle(.keyboardDismiss)
         }
+    }
+
+    // MARK: - Setup views
+
+    private func setupViews(_ items: [Item]) {
+        autoresizingMask = .flexibleHeight
+        backgroundColor = .white
+        addSubview(stackView)
+        stackView.edgesToSuperview()
+
+        updateMenuItems(items)
     }
 
     // MARK: - Private methods
