@@ -470,6 +470,7 @@
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA4B6E232689F07900F717D3 /* BlockFileIconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A005AAB24C4731D000520AA /* BlockFileIconBuilder.swift */; };
 		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
+		EA54129C26C6856B00C9B6F3 /* AttributedStringChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */; };
 		EA5521A3266E5CB5004A820B /* FilterableItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */; };
 		EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A5266E5D6D004A820B /* MentionView.swift */; };
 		EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A6266E5D6D004A820B /* MentionsViewController.swift */; };
@@ -1070,6 +1071,7 @@
 		EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoaderReturnValue.swift; sourceTree = "<group>"; };
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
+		EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringChange.swift; sourceTree = "<group>"; };
 		EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterableItemsView.swift; sourceTree = "<group>"; };
 		EA5521A5266E5D6D004A820B /* MentionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
 		EA5521A6266E5D6D004A820B /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
@@ -1957,6 +1959,7 @@
 				EAED581B26A730E500374A46 /* MarkStyleConverter.swift */,
 				EAED581D26A7321600374A46 /* MiddlewareTuple.swift */,
 				EA2640C926C3DDF6006071BD /* RangeConverter.swift */,
+				EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -4124,6 +4127,7 @@
 				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
+				EA54129C26C6856B00C9B6F3 /* AttributedStringChange.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
