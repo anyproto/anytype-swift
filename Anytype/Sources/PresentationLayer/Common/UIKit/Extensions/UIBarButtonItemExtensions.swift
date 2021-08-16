@@ -11,7 +11,7 @@ import UIKit
 extension UIBarButtonItem {
     
     static func back(withBackground: Bool, action: @escaping () -> Void) -> UIBarButtonItem? {
-        editorBarButtonItem(with: .backArrow, withBackground: withBackground, action: action)
+        editorBarButtonItem(with: .backArrow, withBackground: withBackground, action: action )
     }
     
     static func settings(withBackground: Bool, action: @escaping () -> Void) -> UIBarButtonItem? {
