@@ -61,17 +61,24 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        controllerForNavigationItems?.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: .more,
-            style: .plain,
-            target: self,
-            action: #selector(showDocumentSettings)
-        )
-        
+
+        setupSettingsNavigationBarItem(withBackground: false, animated: false)
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
+        )
+    }
+    
+    private func setupSettingsNavigationBarItem(withBackground: Bool, animated: Bool) {
+        let rightBarButtonItem = UIBarButtonItem.settings(
+            withBackground: withBackground,
+            action: { [weak self] in
+                self?.showDocumentSettings()
+            }
+        )
+        controllerForNavigationItems?.navigationItem.setRightBarButton(
+            rightBarButtonItem,
+            animated: animated
         )
     }
     
@@ -98,6 +105,8 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
+        setupSettingsNavigationBarItem(withBackground: header.isWithCover, animated: true)
+
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
         snapshot.appendItems([.header(header)], toSection: .header)
@@ -380,4 +389,21 @@ struct DocumentEditorViewController_Previews_2: PreviewProvider {
     static var previews: some View {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
+}
+
+private extension ObjectHeader {
+    
+    var isWithCover: Bool {
+        switch self {
+        case .iconOnly:
+            return false
+        case .coverOnly:
+            return true
+        case .iconAndCover:
+            return true
+        case .empty:
+            return false
+        }
+    }
+    
 }
