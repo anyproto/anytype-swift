@@ -33,9 +33,11 @@ final class EditorBarButtonItemView: UIView {
 private extension EditorBarButtonItemView {
     
     func setupView(image: UIImage?, action: @escaping () -> Void) {
-        decorate(with: .clipped())
-        decorate(with: .rounded(radius: 7))
-        decorate(with: .size(28, 28))
+        clipsToBounds = true
+        layer.cornerRadius = 7
+        layoutUsing.anchors {
+            $0.size(CGSize(width: 28, height: 28))
+        }
         
         button.setImage(image, for: .normal)
         button.addAction(
