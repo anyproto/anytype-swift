@@ -97,7 +97,6 @@ final class DocumentEditorViewController: UIViewController {
         
         insetsHelper = nil
         firstResponderHelper = nil
-        guard isMovingFromParent else { return }
     }
     
 }
