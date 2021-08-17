@@ -72,11 +72,11 @@ struct AnytypeFontBuilder {
             return 28
         case .heading:
             return 22
-        case .subheading, .headline, .headlineSemibold, .headlineMedium:
+        case .subheading, .headline, .headlineSemibold, .headlineMedium, .body, .bodyBold, .bodySemibold, .bodyMedium:
             return 17
-        case .body, .bodyBold, .bodySemibold, .bodyMedium, .codeBlock:
+        case .codeBlock, .captionMedium:
             return 15
-        case .caption, .captionMedium:
+        case .caption:
             return 13
         case .footnote, .footnoteMedium:
             return 12
@@ -87,17 +87,15 @@ struct AnytypeFontBuilder {
 
     static func weight(_ textStyle: TextStyle) -> Weight {
         switch textStyle {
-        case .title, .heading:
-            return .regular
-        case .headline, .body, .caption, .footnote, .caption2:
-            return .regular
-        case .codeBlock:
+        case .title, .heading, .subheading:
+            return .bold
+        case .headline, .body, .caption, .footnote, .caption2, .codeBlock:
             return .regular
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
             return .medium
         case .headlineSemibold, .bodySemibold:
             return .semibold
-        case .subheading, .bodyBold:
+        case .bodyBold:
             return .bold
         }
     }

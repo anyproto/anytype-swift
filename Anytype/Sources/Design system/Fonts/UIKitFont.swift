@@ -51,7 +51,7 @@ extension AnytypeFontBuilder {
 
     private static func attributeKey(name: FontName) -> UIFontDescriptor.AttributeName {
         switch name {
-        case .graphik, .plex:
+        case .plex:
             return UIFontDescriptor.AttributeName.name
         case .inter:
             return UIFontDescriptor.AttributeName.family
