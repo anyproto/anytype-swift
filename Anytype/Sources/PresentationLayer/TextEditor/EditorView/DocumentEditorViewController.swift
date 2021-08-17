@@ -78,6 +78,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         
         updateBarButtonItemsBackground(hasBackground: false)
+        windowHolder?.configureNavigationBarAppearance(.opaque)
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
