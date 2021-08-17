@@ -16,7 +16,7 @@ final class EditorBarButtonItemView: UIView {
         }
     }
     
-    private let button = UIButton(type: .system)
+    private let button = UIButton(type: .custom)
     
     init(image: UIImage?, action: @escaping () -> Void) {
         super.init(frame: .zero)
@@ -40,6 +40,8 @@ private extension EditorBarButtonItemView {
         }
         
         button.setImage(image, for: .normal)
+        button.adjustsImageWhenHighlighted = false
+        
         button.addAction(
             UIAction(
                 handler: {_ in
@@ -48,17 +50,51 @@ private extension EditorBarButtonItemView {
             ),
             for: .touchUpInside
         )
-        
+                
         addSubview(button) {
             $0.pinToSuperview()
         }
         
         handleUpdateBackground()
+        
+        enableAnimation(
+            .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
+            .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
+        )
     }
     
     func handleUpdateBackground() {
         backgroundColor = withBackground ? .black.withAlphaComponent(0.35) : .clear
         button.tintColor = withBackground ? UIColor.grayscaleWhite : UIColor.secondaryTextColor
+    }
+    
+}
+
+private extension EditorBarButtonItemView {
+    
+    func enableAnimation(_ inAnimator: ViewAnimator<UIView>, _ outAnimator: ViewAnimator<UIView>) {
+        let recognizer = TouchGestureRecognizer { [weak self] recognizer in
+            guard
+                let self = self
+            else {
+                return
+            }
+            switch recognizer.state {
+            case .began:
+                inAnimator.animate(self.button)
+            case .ended, .cancelled, .failed:
+                outAnimator.animate(self.button)
+            default:
+                return
+            }
+        }
+        recognizer.cancelsTouchesInView = false
+        button.addGestureRecognizer(recognizer)
+    }
+    
+    enum Constants {
+        static let animationDuration: TimeInterval = 0.1
+        static let pressedScale: CGFloat = 0.8
     }
     
 }
