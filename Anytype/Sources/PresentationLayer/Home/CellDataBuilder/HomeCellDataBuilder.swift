@@ -8,16 +8,16 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buldCellData(_ searchResults: [SearchResult]) -> [PageCellData] {
-        searchResults.map { PageCellData.create(searchResult: $0) }
+    func buldCellData(_ searchResults: [SearchResult]) -> [HomeCellData] {
+        searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
+    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
         let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
             .filter { $0.type == .page }
-            .map { buildPageCellData(pageLink: $0) }
+            .map { buildHomeCellData(pageLink: $0) }
     }
     
     private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
@@ -32,8 +32,8 @@ final class HomeCellDataBuilder {
         )
     }
     
-    private func buildPageCellData(pageLink: HomePageLink) -> PageCellData {
-        return PageCellData(
+    private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
+        return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
             icon: pageLink.details?.icon,
@@ -44,8 +44,8 @@ final class HomeCellDataBuilder {
         )
     }
     
-    func updatedCellData(newDetails: DetailsData, oldData: PageCellData) -> PageCellData {
-        return PageCellData(
+    func updatedCellData(newDetails: DetailsData, oldData: HomeCellData) -> HomeCellData {
+        return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
             icon: newDetails.icon,

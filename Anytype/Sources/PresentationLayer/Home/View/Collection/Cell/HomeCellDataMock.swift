@@ -1,9 +1,9 @@
 import UIKit
 
 // TODO: add #if DEBUG
-struct PageCellDataMock {
+struct HomeCellDataMock {
     static let data = [
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .basic(.emoji(IconEmoji("📘")!)),
@@ -12,7 +12,7 @@ struct PageCellDataMock {
             isLoading: false,
             isArchived: true
         ),
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .none,
@@ -21,7 +21,7 @@ struct PageCellDataMock {
             isLoading: false,
             isArchived: true
         ),
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .none,
@@ -30,7 +30,7 @@ struct PageCellDataMock {
             isLoading: true,
             isArchived: true
         ),
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .basic(.emoji(IconEmoji("📘")!)),
@@ -39,7 +39,7 @@ struct PageCellDataMock {
             isLoading: false,
             isArchived: true
         ),
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .profile(.imageId("1337")),
@@ -48,7 +48,7 @@ struct PageCellDataMock {
             isLoading: false,
             isArchived: true
         ),
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .basic(.imageId("1337")),
@@ -58,7 +58,7 @@ struct PageCellDataMock {
             isArchived: true
         ),
         
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .none,
@@ -68,7 +68,7 @@ struct PageCellDataMock {
             isArchived: true
         ),
         
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .none,
@@ -78,7 +78,7 @@ struct PageCellDataMock {
             isArchived: true
         ),
         
-        PageCellData(
+        HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
             icon: .none,

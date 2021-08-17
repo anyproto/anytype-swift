@@ -3,8 +3,8 @@ import SwiftUI
 
 struct HomeCollectionDropInsideDelegate: DropDelegate {
     let dragAndDropDelegate: DragAndDropDelegate
-    let delegateData: PageCellData
-    var cellData: [PageCellData]
+    let delegateData: HomeCellData
+    var cellData: [HomeCellData]
     @Binding var data: DropData
     
     func dropEntered(info: DropInfo) {

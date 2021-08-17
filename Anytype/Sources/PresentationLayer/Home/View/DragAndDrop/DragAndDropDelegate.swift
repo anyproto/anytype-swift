@@ -3,13 +3,13 @@ import AnytypeCore
 
 // MARK: - CellDataManager
 protocol DragAndDropDelegate {
-    func onDrag(from: PageCellData, to: PageCellData) -> DropData.Direction?
-    func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool
+    func onDrag(from: HomeCellData, to: HomeCellData) -> DropData.Direction?
+    func onDrop(from: HomeCellData, to: HomeCellData, direction: DropData.Direction) -> Bool
 }
 
 // Drag and drop only for favorites
 extension HomeViewModel: DragAndDropDelegate {
-    func onDrag(from: PageCellData, to: PageCellData) -> DropData.Direction? {
+    func onDrag(from: HomeCellData, to: HomeCellData) -> DropData.Direction? {
         guard from.id != to.id else {
             return nil
         }
@@ -29,7 +29,7 @@ extension HomeViewModel: DragAndDropDelegate {
         return dropAfter ? .after : .before
     }
     
-    func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool {
+    func onDrop(from: HomeCellData, to: HomeCellData, direction: DropData.Direction) -> Bool {
         guard let homeBlockId = MiddlewareConfiguration.shared?.homeBlockID else {
             anytypeAssertionFailure("Shared configuration is nil")
             return false

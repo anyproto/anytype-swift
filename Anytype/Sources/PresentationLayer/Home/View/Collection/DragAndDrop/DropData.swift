@@ -15,7 +15,7 @@ struct DropData {
         }
     }
     
-    var draggingCellData: PageCellData?
-    var dropPositionCellData: PageCellData?
+    var draggingCellData: HomeCellData?
+    var dropPositionCellData: HomeCellData?
     var direction: Direction?
 }
