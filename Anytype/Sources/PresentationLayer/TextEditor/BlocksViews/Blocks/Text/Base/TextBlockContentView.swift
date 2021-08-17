@@ -296,18 +296,23 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
-        let allAttributes = BlockHandlerActionType.TextAttributesType.allCases
-        let availableAttributes = allAttributes.filter { attribute -> Bool in
-            switch attribute {
-            case .bold:
-                return restrictions.canApplyBold
-            case .italic:
-                return restrictions.canApplyItalic
-            case .strikethrough, .keyboard:
+        let allOptions = TextViewContextMenuOption.allCases
+        let availableOptions = allOptions.filter { option -> Bool in
+            switch option {
+            case let .toggleMarkup(type):
+                switch type {
+                case .bold:
+                    return restrictions.canApplyBold
+                case .italic:
+                    return restrictions.canApplyItalic
+                case .strikethrough, .keyboard:
+                    return restrictions.canApplyOtherMarkup
+                }
+            case .setLink:
                 return restrictions.canApplyOtherMarkup
             }
         }
-        textView.textView.availableTextAttributes = availableAttributes
+        textView.textView.availableContextMenuOptions = availableOptions
     }
     
     private enum LayoutConstants {

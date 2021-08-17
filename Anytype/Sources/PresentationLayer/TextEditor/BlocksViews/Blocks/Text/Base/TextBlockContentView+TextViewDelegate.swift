@@ -1,3 +1,4 @@
+import AnytypeCore
 import UIKit
 
 extension TextBlockContentView: TextViewDelegate {
@@ -98,6 +99,13 @@ extension TextBlockContentView: TextViewDelegate {
                                                       range: range)
             }
             return shouldChangeText
+        case let .changeLink(range):
+            guard case let .text(content) = currentConfiguration.block.information.content else {
+                anytypeAssertionFailure("Unexpected block content \(currentConfiguration.block.information.content)")
+                return true
+            }
+            let link: URL? = content.attributedText.value(for: .link, range: range)
+            accessoryViewSwitcher?.showURLInput(textView: textView.textView, url: link)
         }
         return true
     }
