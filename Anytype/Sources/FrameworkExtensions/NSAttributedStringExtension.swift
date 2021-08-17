@@ -88,6 +88,10 @@ extension NSAttributedString {
     
     /// Get value by attribute in attributed string
     ///
+    /// Example: value exists in rangeWithValue (0, 5)
+    /// Will return true if range with value contains range
+    /// Will return false otherwise
+    ///
     /// - Parameters:
     ///   - attributeKey: Key by which to search value for
     ///   - range: Range at which to search value for
