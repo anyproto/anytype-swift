@@ -171,8 +171,11 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     }
     
     private func updateBarButtonItemsBackground(withBackground: Bool) {
-        backBarButtonItemView.withBackground = withBackground
-        settingsBarButtonItemView.withBackground = withBackground
+        [backBarButtonItemView, settingsBarButtonItemView].forEach {
+            guard $0.withBackground != withBackground else { return }
+            
+            $0.withBackground = withBackground
+        }
     }
     
     private func updateView() {
