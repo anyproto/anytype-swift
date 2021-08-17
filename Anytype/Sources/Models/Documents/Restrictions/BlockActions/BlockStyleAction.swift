@@ -130,9 +130,7 @@ enum BlockStyleAction: CaseIterable {
             return .text(.toggle)
         case .code:
             return .text(.code)
-        case .link:
-            return .smartblock(.page)
-        case .bold, .italic, .strikethrough:
+        case .bold, .italic, .strikethrough, .link:
             return nil
         }
     }
