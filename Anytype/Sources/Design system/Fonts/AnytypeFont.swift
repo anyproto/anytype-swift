@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
@@ -28,6 +29,13 @@ extension AnytypeFontBuilder {
         case caption2Medium
         case caption2
     }
+
+    enum Weight {
+        case regular
+        case medium
+        case semibold
+        case bold
+    }
 }
 
 struct AnytypeFontBuilder {
@@ -37,7 +45,7 @@ struct AnytypeFontBuilder {
     }
     
     static func font(textStyle: TextStyle) -> Font {
-        return font(name: fontName(textStyle), size: size(textStyle), weight: weight(textStyle))
+        return font(name: fontName(textStyle), size: size(textStyle), weight: swiftUIWeight(textStyle))
     }
     
     static func customLineSpacing(textStyle: TextStyle) -> CGFloat? {
@@ -87,8 +95,8 @@ struct AnytypeFontBuilder {
             return 11
         }
     }
-    
-    private static func weight(_ textStyle: TextStyle) -> Font.Weight {
+
+    private static func weight(_ textStyle: TextStyle) -> Weight {
         switch textStyle {
         case .title, .heading:
             return .regular
@@ -102,6 +110,65 @@ struct AnytypeFontBuilder {
             return .semibold
         case .subheading, .bodyBold:
             return .bold
+        }
+    }
+
+    // SwiftUI weight
+    private static func swiftUIWeight(_ textStyle: TextStyle) -> Font.Weight {
+        switch weight(textStyle) {
+        case .regular:
+            return .regular
+        case .medium:
+            return .medium
+        case .semibold:
+            return .semibold
+        case .bold:
+            return .bold
+        }
+    }
+
+    // UIKit weight
+    private static func uiKitWeight(_ textStyle: TextStyle) -> UIFont.Weight {
+        switch weight(textStyle) {
+        case .regular:
+            return .regular
+        case .medium:
+            return .medium
+        case .semibold:
+            return .semibold
+        case .bold:
+            return .bold
+        }
+    }
+
+    // uikit font
+
+    static func uiKitFont(textStyle: TextStyle) -> UIFont {
+        return uiKitFont(name: fontName(textStyle), size: size(textStyle), weight: uiKitWeight(textStyle))
+    }
+
+    static func uiKitFont(name: FontName, size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
+        var descriptor = UIFontDescriptor(fontAttributes: [
+            attributeKey(name: name): name.rawValue,
+            UIFontDescriptor.AttributeName.size: scaledSize,
+        ])
+
+        descriptor = descriptor.addingAttributes(
+            [
+                .traits: [ UIFontDescriptor.TraitKey.weight: weight ]
+            ]
+        )
+
+        return UIFont(descriptor: descriptor, size: scaledSize)
+    }
+
+    private static func attributeKey(name: FontName) -> UIFontDescriptor.AttributeName {
+        switch name {
+        case .graphik, .plex:
+            return UIFontDescriptor.AttributeName.name
+        case .inter:
+            return UIFontDescriptor.AttributeName.family
         }
     }
 }
