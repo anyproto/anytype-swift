@@ -74,8 +74,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.setFields(contextID: contextID, blockFields: fields)
         case .duplicate:
             service.duplicate(blockId: blockId)
-        case .setLink(_):
-            anytypeAssertionFailure("Action has not implemented yet \(String(describing: action))")
+        case let .setLink(url, range):
+            handleSetURL(url, range: range, blockId: blockId)
         case .delete:
             delete(blockId: blockId)
         case let .addBlock(type):
@@ -288,6 +288,35 @@ private extension BlockActionHandler {
             contextID: documentId,
             blockID: id,
             attributedString: attributedString
+        )
+    }
+    
+    private func handleSetURL(_ url: URL?, range: NSRange, blockId: BlockId) {
+        guard let model = document.rootModel?.blocksContainer.model(id: blockId) else {
+            anytypeAssertionFailure("Can't find block with id: \(blockId)")
+            return
+        }
+        guard case let .text(content) = model.information.content else {
+            anytypeAssertionFailure("Unexpeccted block type \(model.information.content)")
+            return
+        }
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: .text(content))
+        guard restrictions.canApplyOtherMarkup else { return }
+        
+        let modifier = MarkStyleModifier(attributedText: NSMutableAttributedString(
+                                            attributedString: content.attributedText),
+                                         defaultNonCodeFont: content.contentType.uiFont
+        )
+        modifier.applyStyle(style: .link(url), range: range)
+        store(
+            modifier.attributedString,
+            in: content,
+            id: blockId
+        )
+        document.eventHandler.handle(
+            events: PackOfEvents(
+                localEvents: [.setText(blockId: blockId, text: modifier.attributedString.string)]
+            )
         )
     }
 }

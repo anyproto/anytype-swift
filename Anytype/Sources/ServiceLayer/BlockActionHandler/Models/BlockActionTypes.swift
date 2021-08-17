@@ -15,7 +15,7 @@ enum BlockHandlerActionType {
     case toggleWholeBlockMarkup(TextAttributesType)
     case toggleFontStyle(TextAttributesType, NSRange)
     case setAlignment(LayoutAlignment)
-    case setLink(String)
+    case setLink(URL?, NSRange)
     case setFields(contextID: BlockId, fields: [BlockFields])
     
     case duplicate

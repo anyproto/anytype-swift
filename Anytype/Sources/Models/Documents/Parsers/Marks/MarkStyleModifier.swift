@@ -99,7 +99,7 @@ final class MarkStyleModifier {
         attributedString.insert(mentionAttachmentString, at: range.location)
     }
     
-    func apply(style: MarkStyle, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
+    private func apply(style: MarkStyle, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
         switch style {
         case let .bold(shouldApplyMarkup):
             if let font = old[.font] as? UIFont {
