@@ -8,5 +8,7 @@ protocol MainWindowHolder {
     func startNewRootView<ViewType: View>(_ view: ViewType)
         
     func configureMiddlewareConfiguration()
+    
+    func configureNavigationBarAppearance(_ appearance: NavigationBarAppearance)
 
 }

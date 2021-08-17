@@ -40,13 +40,8 @@ final class ApplicationCoordinator {
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
-                
-        controller.navigationBar.compactAppearance = navBarAppearance
-        controller.navigationBar.standardAppearance = navBarAppearance
-        controller.navigationBar.scrollEdgeAppearance = navBarAppearance
         
-        controller.navigationBar.barTintColor = UIColor.darkColdGray
-        controller.navigationBar.tintColor = UIColor.darkColdGray
+        modifyNavigationBarAppearance(navBarAppearance, controller)
 
         return controller
     }
@@ -93,7 +88,7 @@ private extension ApplicationCoordinator {
         startNewRootView(authAssembly.authView())
     }
     
-}
+} 
 
 // MARK: - MainWindowHolde
 
@@ -115,4 +110,31 @@ extension ApplicationCoordinator: MainWindowHolder {
     func configureMiddlewareConfiguration() {
         MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
     }
+    
+    func configureNavigationBarAppearance(_ appearance: NavigationBarAppearance) {
+        let navBarAppearance: UINavigationBarAppearance
+        
+        switch appearance {
+        case .opaque:
+            navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.shadowImage = UIImage()
+            navBarAppearance.shadowColor = nil
+        case .transparent:
+            navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithTransparentBackground()
+        }
+        
+        modifyNavigationBarAppearance(navBarAppearance, rootNavigationController)
+    }
+    
+    private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance,
+                                               _ vc: UINavigationController) {
+        vc.navigationBar.compactAppearance = appearance
+        vc.navigationBar.standardAppearance = appearance
+        vc.navigationBar.scrollEdgeAppearance = appearance
+        vc.navigationBar.barTintColor = UIColor.grayscaleWhite
+        vc.navigationBar.tintColor = UIColor.grayscaleWhite
+    }
+    
 }
