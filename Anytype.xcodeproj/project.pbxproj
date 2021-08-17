@@ -3223,6 +3223,7 @@
 				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
 				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
 				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
+				EAAD6DE626CBFC2E005CE1E7 /* URLInput */,
 				533AED7A26CB49760018E33C /* EditorAccessoryView */,
 				EA289B9F2629B25C00EA869F /* SlashMenuItems */,
 				EA5521AE266E5DA3004A820B /* Mention */,
@@ -3555,6 +3556,14 @@
 			path = Filtering;
 			sourceTree = "<group>";
 		};
+		EAAD6DE626CBFC2E005CE1E7 /* URLInput */ = {
+			isa = PBXGroup;
+			children = (
+				EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */,
+			);
+			path = URLInput;
+			sourceTree = "<group>";
+		};
 		EAC5FD4A2657DC3D006BB24E /* UIScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3627,7 +3636,6 @@
 			isa = PBXGroup;
 			children = (
 				EAE8C6A5269304B600324B46 /* URLInputView.swift */,
-				EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */,
 			);
 			path = URLInputView;
 			sourceTree = "<group>";
