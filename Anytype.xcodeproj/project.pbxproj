@@ -206,6 +206,7 @@
 		12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E2626CAA166000F0333 /* ViewAnimator.swift */; };
 		12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E2826CAA17B000F0333 /* AnimatableView.swift */; };
 		12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E2B26CAA1A2000F0333 /* ViewAnimator+Scale.swift */; };
+		12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E3326CAA6EE000F0333 /* TouchGestureRecognizer.swift */; };
 		12A7B6AD26C3D50300544037 /* ObjectCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6AC26C3D50300544037 /* ObjectCoverView.swift */; };
 		12A7B6B226C3D75D00544037 /* ObjectIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6B126C3D75D00544037 /* ObjectIconView.swift */; };
 		12A7B6BE26C3E47200544037 /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A7B6B526C3E47200544037 /* IconEmoji.swift */; };
@@ -819,6 +820,7 @@
 		12A52E2626CAA166000F0333 /* ViewAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAnimator.swift; sourceTree = "<group>"; };
 		12A52E2826CAA17B000F0333 /* AnimatableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableView.swift; sourceTree = "<group>"; };
 		12A52E2B26CAA1A2000F0333 /* ViewAnimator+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewAnimator+Scale.swift"; sourceTree = "<group>"; };
+		12A52E3326CAA6EE000F0333 /* TouchGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchGestureRecognizer.swift; sourceTree = "<group>"; };
 		12A7B6AC26C3D50300544037 /* ObjectCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCoverView.swift; sourceTree = "<group>"; };
 		12A7B6B126C3D75D00544037 /* ObjectIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconView.swift; sourceTree = "<group>"; };
 		12A7B6B526C3E47200544037 /* IconEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconEmoji.swift; sourceTree = "<group>"; };
@@ -2260,6 +2262,7 @@
 			isa = PBXGroup;
 			children = (
 				12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */,
+				12A52E3326CAA6EE000F0333 /* TouchGestureRecognizer.swift */,
 			);
 			path = GestureRecognizer;
 			sourceTree = "<group>";
@@ -3877,6 +3880,7 @@
 				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
+				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
