@@ -529,6 +529,7 @@
 		EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */; };
 		EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */; };
 		EAAD6DB026CAAC43005CE1E7 /* LinkMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */; };
+		EAAD6DC726CBBFBF005CE1E7 /* URLInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
 		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */; };
@@ -1136,6 +1137,7 @@
 		EA7DE40326397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsFilterEntry.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
 		EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkMarkupStateTests.swift; sourceTree = "<group>"; };
+		EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputAccessoryView.swift; sourceTree = "<group>"; };
 		EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAttachment.swift; sourceTree = "<group>"; };
 		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
 		EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Mentionable.swift"; sourceTree = "<group>"; };
@@ -3625,6 +3627,7 @@
 			isa = PBXGroup;
 			children = (
 				EAE8C6A5269304B600324B46 /* URLInputView.swift */,
+				EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */,
 			);
 			path = URLInputView;
 			sourceTree = "<group>";
@@ -4255,6 +4258,7 @@
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
 				120E818426A04A31006FE84E /* ObjectDetailsService.swift in Sources */,
 				123FDAF726C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift in Sources */,
+				EAAD6DC726CBBFBF005CE1E7 /* URLInputAccessoryView.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
 				3D36B09D26A6DE250046C90F /* ContextualMenu+Image.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
