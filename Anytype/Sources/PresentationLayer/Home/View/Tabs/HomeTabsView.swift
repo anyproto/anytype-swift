@@ -64,13 +64,15 @@ struct HomeTabsView: View {
     
     
     private var tabHeaders: some View {
-        HStack(){
+        HStack(spacing: 20) {
             tabButton(text: "Inbox", tab: .inbox)
             tabButton(text: "Recent", tab: .recent)
             tabButton(text: "Favorites", tab: .favourites)
             tabButton(text: "Archive", tab: .archive)
+            Spacer()
         }
-        .padding()
+        .padding(.leading, 20)
+        .frame(height: 72)
     }
     
     private func tabButton(text: String, tab: Tab) -> some View {

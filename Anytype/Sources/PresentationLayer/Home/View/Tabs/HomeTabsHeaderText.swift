@@ -6,9 +6,10 @@ struct HomeTabsHeaderText: View {
     
     var body: some View {
         AnytypeText(text, style: .subheading)
-            .frame(maxWidth: .infinity)
+            .frame(alignment: .leading)
             .foregroundColor(isSelected ? .textPrimary : .white)
             .blendMode(isSelected ? .normal : .softLight)
+            .lineLimit(1)
     }
 }
 struct HomeTabsHeaderText_Previews: PreviewProvider {
