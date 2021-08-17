@@ -31,7 +31,7 @@ struct BlockActionsBuilder {
                 if type == .italic, restrictions.canApplyItalic {
                     result.append(.action(.style(type)))
                 }
-                if (type == .code || type == .strikethrough || type == .link), restrictions.canApplyOtherMarkup {
+                if (type == .code || type == .strikethrough), restrictions.canApplyOtherMarkup {
                     result.append(.action(.style(type)))
                 }
             }
