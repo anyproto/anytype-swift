@@ -528,6 +528,7 @@
 		EAA7E1FE26B5D57000F7A81B /* IBMPlexMono-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DDA226B5C2DA00E66878 /* IBMPlexMono-Italic.ttf */; };
 		EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */; };
 		EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */; };
+		EAAD6DB026CAAC43005CE1E7 /* LinkMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
 		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */; };
@@ -1134,6 +1135,7 @@
 		EA7DE3FD26397C08005AFEE2 /* SlashMenuActionsFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsFilterService.swift; sourceTree = "<group>"; };
 		EA7DE40326397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsFilterEntry.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
+		EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkMarkupStateTests.swift; sourceTree = "<group>"; };
 		EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAttachment.swift; sourceTree = "<group>"; };
 		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
 		EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Mentionable.swift"; sourceTree = "<group>"; };
@@ -3465,6 +3467,7 @@
 				EA57F36A26B6FB7E007D4292 /* ItalicMarkupStateTests.swift */,
 				EA57F36C26B6FC44007D4292 /* CodeMarkupStateTests.swift */,
 				EA57F36E26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift */,
+				EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */,
 			);
 			path = TextBlockMarkupState;
 			sourceTree = "<group>";
@@ -4339,6 +4342,7 @@
 				EA57F36426B5F476007D4292 /* BoldMarkupStateTests.swift in Sources */,
 				EA57F36D26B6FC44007D4292 /* CodeMarkupStateTests.swift in Sources */,
 				EA57F36B26B6FB7E007D4292 /* ItalicMarkupStateTests.swift in Sources */,
+				EAAD6DB026CAAC43005CE1E7 /* LinkMarkupStateTests.swift in Sources */,
 				EA57F36F26B6FF0E007D4292 /* StrikethroughMarkupStateTests.swift in Sources */,
 				EA57F36926B6EF79007D4292 /* MarkupChecker.swift in Sources */,
 			);
