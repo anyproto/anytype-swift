@@ -10,7 +10,7 @@ import UIKit
 
 final class EditorBarButtonItemView: UIView {
     
-    var withBackground: Bool = false {
+    var hasBackground: Bool = false {
         didSet {
             handleUpdateBackground()
         }
@@ -64,8 +64,8 @@ private extension EditorBarButtonItemView {
     }
     
     func handleUpdateBackground() {
-        backgroundColor = withBackground ? .black.withAlphaComponent(0.35) : .clear
-        button.tintColor = withBackground ? UIColor.grayscaleWhite : UIColor.secondaryTextColor
+        backgroundColor = hasBackground ? .black.withAlphaComponent(0.35) : .clear
+        button.tintColor = hasBackground ? UIColor.grayscaleWhite : UIColor.secondaryTextColor
     }
     
 }
