@@ -6,6 +6,10 @@ protocol AccessoryViewSwitcherDelegate: AnyObject {
     // mention events
     func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
     
+    /// Delegate method called after url was entered from accessory view
+    ///
+    /// - Parameters:
+    ///   - url: URL
     func didEnterURL(_ url: URL?)
     // editor events
     // slash events
