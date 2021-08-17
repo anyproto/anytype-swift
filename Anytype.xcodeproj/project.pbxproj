@@ -260,7 +260,6 @@
 		3D24F439269C930100FA0F5F /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24F438269C930100FA0F5F /* SearchService.swift */; };
 		3D24F43D269CC3D400FA0F5F /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24F43C269CC3D400FA0F5F /* SearchResult.swift */; };
 		3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */; };
-		3D29AFF826A5F76F0095BA18 /* EditorAccessoryViewActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFF726A5F76F0095BA18 /* EditorAccessoryViewActionHandler.swift */; };
 		3D29AFFB26A6019C0095BA18 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFFA26A6019C0095BA18 /* LoadingViewController.swift */; };
 		3D29AFFD26A606360095BA18 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFFC26A606360095BA18 /* URLInputViewController.swift */; };
 		3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */; };
@@ -407,6 +406,7 @@
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
 		533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
+		533AED7926CB494F0018E33C /* EditorAccessoryViewActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED7826CB494F0018E33C /* EditorAccessoryViewActionHandler.swift */; };
 		534B7F2026264E8B00D712B2 /* EditorAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */; };
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
@@ -873,7 +873,6 @@
 		3D24F438269C930100FA0F5F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchService.swift; path = Anytype/Sources/ServiceLayer/Search/SearchService.swift; sourceTree = SOURCE_ROOT; };
 		3D24F43C269CC3D400FA0F5F /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchResult.swift; path = Anytype/Sources/ServiceLayer/Search/Models/SearchResult.swift; sourceTree = SOURCE_ROOT; };
 		3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomTextViewOptions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/TextView/Models/CustomTextViewOptions.swift; sourceTree = SOURCE_ROOT; };
-		3D29AFF726A5F76F0095BA18 /* EditorAccessoryViewActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorAccessoryViewActionHandler.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/TextView/AccessoryView/EditorAccessoryViewActionHandler.swift; sourceTree = SOURCE_ROOT; };
 		3D29AFFA26A6019C0095BA18 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		3D29AFFC26A606360095BA18 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
 		3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -1017,6 +1016,7 @@
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
 		533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesPanelLayout.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
+		533AED7826CB494F0018E33C /* EditorAccessoryViewActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorAccessoryViewActionHandler.swift; sourceTree = "<group>"; };
 		534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAccessoryView.swift; sourceTree = "<group>"; };
 		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
@@ -1727,8 +1727,6 @@
 			children = (
 				EA54128926C5803A00C9B6F3 /* Interactions */,
 				3D29AFEF26A5D2640095BA18 /* Models */,
-				0A08D4C024AF81F30088ECC2 /* ViewControllers */,
-				534B7F1B26264E0100D712B2 /* AccessoryView */,
 				539653512600D1B700A74C11 /* CustomAttributedString */,
 				534CAC0025FA6F230026FB93 /* Views */,
 				53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */,
@@ -1766,14 +1764,6 @@
 				3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */,
 			);
 			path = Other;
-			sourceTree = "<group>";
-		};
-		0A08D4C024AF81F30088ECC2 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				EA5521AE266E5DA3004A820B /* Mention */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		0A0965B525BEE7DE00C004BD /* Document */ = {
@@ -3104,6 +3094,7 @@
 		530470F42682044000C9EE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				534B7F1B26264E0100D712B2 /* AccessoryView */,
 				530470F52682046900C9EE78 /* TextBlockIconView.swift */,
 			);
 			path = Views;
@@ -3196,12 +3187,38 @@
 			path = TextBlockActionHandler;
 			sourceTree = "<group>";
 		};
+		533AED7A26CB49760018E33C /* EditorAccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				533AED7826CB494F0018E33C /* EditorAccessoryViewActionHandler.swift */,
+				534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */,
+			);
+			path = EditorAccessoryView;
+			sourceTree = "<group>";
+		};
+		533AED7B26CB49BE0018E33C /* MentionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EA5521A6266E5D6D004A820B /* MentionsViewController.swift */,
+				EA5521A7266E5D6D004A820B /* ContentConfigurationWithEmoji.swift */,
+				EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */,
+				EA5FB423266A970E00DCD56C /* MentionSection.swift */,
+				EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */,
+				EA5521B0266E5E13004A820B /* MentionsViewModel.swift */,
+				EA5521B3266E5EE7004A820B /* MentionsView.swift */,
+			);
+			path = MentionViewController;
+			sourceTree = "<group>";
+		};
 		534B7F1B26264E0100D712B2 /* AccessoryView */ = {
 			isa = PBXGroup;
 			children = (
+				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
+				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
 				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
-				534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */,
-				3D29AFF726A5F76F0095BA18 /* EditorAccessoryViewActionHandler.swift */,
+				533AED7A26CB49760018E33C /* EditorAccessoryView */,
+				EA289B9F2629B25C00EA869F /* SlashMenuItems */,
+				EA5521AE266E5DA3004A820B /* Mention */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
@@ -3211,7 +3228,6 @@
 			children = (
 				3D29AFF426A5D4860095BA18 /* Mentionable */,
 				EAE6BDC2267CB6A000275788 /* Mentions */,
-				EA289B9E2629B24C00EA869F /* BlockActions */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3398,16 +3414,6 @@
 			path = BlockActions;
 			sourceTree = "<group>";
 		};
-		EA289B9E2629B24C00EA869F /* BlockActions */ = {
-			isa = PBXGroup;
-			children = (
-				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
-				EA5FB421266A970E00DCD56C /* Mention */,
-				EA289B9F2629B25C00EA869F /* SlashMenuItems */,
-			);
-			path = BlockActions;
-			sourceTree = "<group>";
-		};
 		EA289B9F2629B25C00EA869F /* SlashMenuItems */ = {
 			isa = PBXGroup;
 			children = (
@@ -3417,7 +3423,6 @@
 				EA77E524262DAAA6009F91D9 /* BaseAccessoryMenuItemsViewController.swift */,
 				EA77E51F262DAAA5009F91D9 /* SlashMenuItemsViewController.swift */,
 				EAC6BB5626289201004C8C06 /* SlashMenuView.swift */,
-				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
 			);
 			path = SlashMenuItems;
 			sourceTree = "<group>";
@@ -3442,13 +3447,8 @@
 		EA5521AE266E5DA3004A820B /* Mention */ = {
 			isa = PBXGroup;
 			children = (
-				EA5521A6266E5D6D004A820B /* MentionsViewController.swift */,
-				EA5521A7266E5D6D004A820B /* ContentConfigurationWithEmoji.swift */,
-				EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */,
-				EA5FB423266A970E00DCD56C /* MentionSection.swift */,
-				EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */,
-				EA5521B0266E5E13004A820B /* MentionsViewModel.swift */,
-				EA5521B3266E5EE7004A820B /* MentionsView.swift */,
+				533AED7B26CB49BE0018E33C /* MentionViewController */,
+				EA5521A5266E5D6D004A820B /* MentionView.swift */,
 			);
 			path = Mention;
 			sourceTree = "<group>";
@@ -3482,14 +3482,6 @@
 				EA57F3D926B84AA9007D4292 /* MarkupRange.swift */,
 			);
 			path = Markup;
-			sourceTree = "<group>";
-		};
-		EA5FB421266A970E00DCD56C /* Mention */ = {
-			isa = PBXGroup;
-			children = (
-				EA5521A5266E5D6D004A820B /* MentionView.swift */,
-			);
-			path = Mention;
 			sourceTree = "<group>";
 		};
 		EA5FB452266E2F6500DCD56C /* Mention */ = {
@@ -3904,7 +3896,6 @@
 				123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
 				EA77E54B262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift in Sources */,
-				3D29AFF826A5F76F0095BA18 /* EditorAccessoryViewActionHandler.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				1280E209265C17F800E5AEEE /* PlaceholderImageBuilder.swift in Sources */,
@@ -4266,6 +4257,7 @@
 				1219F971269350A5009DE4D4 /* DocumentIconType.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationService.swift in Sources */,
 				0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */,
+				533AED7926CB494F0018E33C /* EditorAccessoryViewActionHandler.swift in Sources */,
 				EA289BBB2629D52C00EA869F /* TurnIntoSelectionStorage.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
