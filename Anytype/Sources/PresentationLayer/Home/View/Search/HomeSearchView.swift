@@ -12,6 +12,18 @@ struct HomeSearchView: View {
     var body: some View {
         DragIndicator(bottomPadding: 0)
         SearchBar(text: $searchText)
+        Group {
+            if data.isEmpty {
+                emptyState
+            } else {
+                searchResults
+            }
+        }
+        .onChange(of: searchText) { search(text: $0) }
+        .onAppear { search(text: searchText) }
+    }
+    
+    private var searchResults: some View {
         List(data) { data in
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
@@ -20,10 +32,29 @@ struct HomeSearchView: View {
                 HomeSearchCell(data: data)
             }
         }
-        .onChange(of: searchText) { text in
-            service.search(text: text) { results in
-                data = results.map { HomeSearchCellData(searchResult: $0) }
-            }
+    }
+    
+    private var emptyState: some View {
+        VStack(alignment: .center) {
+            AnytypeText(
+                "\("There is no object named".localized) \"\(searchText)\"",
+                style: .headline
+            )
+            .foregroundColor(.textPrimary)
+            .multilineTextAlignment(.center)
+            AnytypeText(
+                "Try to create a new one or searching someone else",
+                style: .headline
+            )
+            .foregroundColor(.textSecondary)
+            .multilineTextAlignment(.center)
+            Spacer()
+        }.padding(.horizontal)
+    }
+    
+    private func search(text: String) {
+        service.search(text: text) { results in
+            data = results.map { HomeSearchCellData(searchResult: $0) }
         }
     }
 }
