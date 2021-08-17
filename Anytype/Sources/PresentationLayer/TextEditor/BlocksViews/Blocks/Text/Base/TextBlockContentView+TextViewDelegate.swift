@@ -15,9 +15,10 @@ extension TextBlockContentView: TextViewDelegate {
     }
     
     func willBeginEditing() {
+        accessoryViewSwitcher?.didBeginEditing(textView: textView.textView)
         currentConfiguration.blockDelegate.willBeginEditing()
     }
-    
+
     func didBeginEditing() {
         currentConfiguration.blockDelegate.didBeginEditing()
     }
@@ -36,6 +37,7 @@ extension TextBlockContentView: TextViewDelegate {
         case .changeTextForStruct:
             fallthrough
         case .changeText:
+            accessoryViewSwitcher?.textDidChange(textView: textView.textView)
             // TODO: Accessory need refactoring
             currentConfiguration.configureMentions(textView.textView)
 
@@ -76,6 +78,8 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case .changeTextStyle, .changeCaretPosition:
+            accessoryViewSwitcher?.selectionDidChange(textView: textView.textView)
+
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
@@ -84,10 +88,16 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            return !mentionsHolder.removeMentionIfNeeded(
+            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
                 replacementRange: range,
                 replacementText: replacementText
             )
+            if shouldChangeText {
+                accessoryViewSwitcher?.textWillChange(textView: textView.textView,
+                                                      replacementText: replacementText,
+                                                      range: range)
+            }
+            return shouldChangeText
         }
         return true
     }
