@@ -52,8 +52,7 @@ struct AnytypeFontBuilder {
     static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
         case .title, .heading:
-            return .graphik
-
+            return .inter
         case .subheading, .headline, .body, .caption, .footnote, .caption2:
             return .inter
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
@@ -62,7 +61,6 @@ struct AnytypeFontBuilder {
             return .inter
         case .bodyBold:
             return .inter
-
         case .codeBlock:
             return .plex
         }

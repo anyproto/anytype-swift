@@ -59,7 +59,7 @@ struct UserIconView: View {
             .overlay(
                 AnytypeText(
                     character.flatMap { String($0) } ?? "",
-                    name: .graphik,
+                    name: .inter,
                     size: 45,
                     weight: .regular
                 )
