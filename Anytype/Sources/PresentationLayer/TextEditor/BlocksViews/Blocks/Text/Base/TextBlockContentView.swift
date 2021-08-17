@@ -10,7 +10,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private(set) lazy var textView: CustomTextView = .init()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
-    private var accessoryViewSwitcher: AccessoryViewSwitcher?
+    private(set) var accessoryViewSwitcher: AccessoryViewSwitcher?
     
     private let mainStackView: UIStackView = {
         let mainStackView = UIStackView()
@@ -111,7 +111,7 @@ final class TextBlockContentView: UIView & UIContentView {
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
             for: currentConfiguration.information.content.type
         )
-        updateAccessoryView(restrictions: restrictions)
+        accessoryViewSwitcher?.updateBlockType(with: currentConfiguration.information.content.type)
         updatePartialTextSelectionMenuItems(restrictions: restrictions)
 
         let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
@@ -328,52 +328,34 @@ extension TextBlockContentView {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize))
         let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
         let accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
+        let actionsHandler = SlashMenuActionsHandlerImp(
+            blockActionHandler: currentConfiguration.actionHandler
+        )
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(
+            for: currentConfiguration.information.content.type
+        )
+        let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
+        let slashMenuView = SlashMenuView(
+            frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
+            menuItems: items,
+            slashMenuActionsHandler: actionsHandler
+        )
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(textView: textView.textView,
                                                           delegate: self,
                                                           mentionsView: mentionsView,
+                                                          slashMenuView: slashMenuView,
                                                           accessoryView: accessoryView)
-        textView.setAccessoryViewSwitcher(accessoryViewSwitcher: accessoryViewSwitcher)
         mentionsView.delegate = accessoryViewSwitcher
         editorAccessoryhandler.customTextView = textView
         editorAccessoryhandler.switcher = accessoryViewSwitcher
         self.accessoryViewSwitcher = accessoryViewSwitcher
     }
-
-    private func updateAccessoryView(restrictions: BlockRestrictions) {
-        if currentConfiguration.information.content.type == .text(.title) {
-            accessoryViewSwitcher?.editingView.updateMenuItems([.style, .mention])
-        } else {
-            accessoryViewSwitcher?.editingView.updateMenuItems([.slash, .style, .mention])
-        }
-
-        // don't show slash menu for title
-        if currentConfiguration.information.content.type != .text(.title) {
-            let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
-
-            if accessoryViewSwitcher?.slashMenuView == nil {
-                let actionsHandler = SlashMenuActionsHandlerImp(
-                    blockActionHandler: currentConfiguration.actionHandler
-                )
-
-                let slashMenuView = SlashMenuView(
-                    frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
-                    menuItems: items,
-                    slashMenuActionsHandler: actionsHandler
-                )
-                accessoryViewSwitcher?.slashMenuView = slashMenuView
-            } else {
-                accessoryViewSwitcher?.slashMenuView?.menuItems = items
-            }
-        } else {
-            accessoryViewSwitcher?.slashMenuView = nil
-        }
-    }
 }
 
 // MARK: - TextBlockAccessoryViewSwitcherDeleagte
 
-extension TextBlockContentView: TextBlockAccessoryViewSwitcherDelegate {
+extension TextBlockContentView: AccessoryViewSwitcherDelegate {
     func mentionSelected(_ mention: MentionObject, from: UITextPosition, to: UITextPosition) {
         // TODO: Accessory check if no need
 //        mentionConfiguration.configure(textView: textView.textView)

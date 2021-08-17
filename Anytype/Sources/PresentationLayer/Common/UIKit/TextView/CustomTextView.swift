@@ -2,6 +2,7 @@ import Combine
 import UIKit
 import BlocksModels
 
+
 final class CustomTextView: UIView {
     
     weak var delegate: TextViewDelegate? {
@@ -11,13 +12,10 @@ final class CustomTextView: UIView {
     }
 
     var textSize: CGSize?
-
     private(set) lazy var textView = createTextView()
     private var firstResponderSubscription: AnyCancellable?
-
     var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
-    var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
-    
+
     init() {
         super.init(frame: .zero)
 
@@ -43,10 +41,6 @@ final class CustomTextView: UIView {
 
     func setCustomTextViewOptions(options: CustomTextViewOptions) {
         self.options = options
-    }
-
-    func setAccessoryViewSwitcher(accessoryViewSwitcher: AccessoryViewSwitcher) {
-        self.accessoryViewSwitcher = accessoryViewSwitcher
     }
 }
 

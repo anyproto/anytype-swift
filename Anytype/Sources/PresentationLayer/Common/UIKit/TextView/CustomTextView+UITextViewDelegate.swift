@@ -23,23 +23,20 @@ extension CustomTextView: UITextViewDelegate {
             guard delegate?.didReceiveAction(
                 .keyboardAction(keyAction)
             ) ?? true else { return false }
-        } else {
-            guard delegate?.didReceiveAction(
-                .shouldChangeText(
-                    range: range,
-                    replacementText: text,
-                    mentionsHolder: textView
-                )
-            ) ?? true else { return false }
         }
-        accessoryViewSwitcher?.textWillChange(textView: textView, replacementText: text, range: range)
+
+        guard delegate?.didReceiveAction(
+            .shouldChangeText(
+                range: range,
+                replacementText: text,
+                mentionsHolder: textView
+            )
+        ) ?? true else { return false }
 
         return true
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
-        accessoryViewSwitcher?.selectionDidChange(textView: textView)
-
         if textView.isFirstResponder {
             delegate?.didReceiveAction(
                 .changeCaretPosition(textView.selectedRange)
@@ -48,9 +45,7 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        accessoryViewSwitcher?.didBeginEditing(textView: textView)
         delegate?.willBeginEditing()
-
         return true
     }
 
@@ -62,8 +57,6 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let contentSize = textView.intrinsicContentSize
 
-        accessoryViewSwitcher?.textDidChange(textView: textView)
-
         delegate?.didReceiveAction(
             .changeText(textView.attributedText)
         )
@@ -71,10 +64,6 @@ extension CustomTextView: UITextViewDelegate {
         guard textSize?.height != contentSize.height else { return }
         textSize = contentSize
         delegate?.sizeChanged()
-    }
-
-    func textViewDidEndEditing(_ textView: UITextView) {
-        accessoryViewSwitcher?.didEndEditing(textView: textView)
     }
     
     func textView(_ textView: UITextView,

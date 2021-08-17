@@ -1,7 +1,8 @@
 import UIKit
+import BlocksModels
 
 
-protocol TextBlockAccessoryViewSwitcherDelegate: AnyObject {
+protocol AccessoryViewSwitcherDelegate: AnyObject {
     // mention events
     func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
     // editor events
@@ -10,7 +11,7 @@ protocol TextBlockAccessoryViewSwitcherDelegate: AnyObject {
 }
 
 
-final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
+final class AccessoryViewSwitcher {
     private enum Constants {
         static let displayActionsViewDelay: TimeInterval = 0.3
     }
@@ -21,33 +22,22 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
-    private let mentionsView: (DismissableInputAccessoryView & FilterableItemsView)
+    private let mentionsView: MentionView
     let editingView: EditorAccessoryView
-    var slashMenuView: SlashMenuView?
+    var slashMenuView: SlashMenuView
     private weak var textView: UITextView?
-    private weak var delegate: TextBlockAccessoryViewSwitcherDelegate?
+    private weak var delegate: AccessoryViewSwitcherDelegate?
     
     init(textView: UITextView,
-         delegate: TextBlockAccessoryViewSwitcherDelegate,
-         mentionsView: (DismissableInputAccessoryView & FilterableItemsView),
-         slashMenuView: SlashMenuView? = nil,
+         delegate: AccessoryViewSwitcherDelegate,
+         mentionsView: MentionView,
+         slashMenuView: SlashMenuView,
          accessoryView: EditorAccessoryView) {
         self.textView = textView
         self.delegate = delegate
         self.slashMenuView = slashMenuView
         self.editingView = accessoryView
         self.mentionsView = mentionsView
-
-        let dismissActionsMenu = { [weak self] in
-            self?.cleanupDisplayedView()
-
-            if let textView = self?.textView {
-                self?.showEditingBars(textView: textView)
-            }
-        }
-
-        self.mentionsView.dismissHandler = dismissActionsMenu
-        self.slashMenuView?.dismissHandler = dismissActionsMenu
     }
 
     // MARK: - AccessoryViewSwitcherProtocol
@@ -64,7 +54,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
 
         self.mentionsView.dismissHandler = dismissActionsMenu
-        self.slashMenuView?.dismissHandler = dismissActionsMenu
+        self.slashMenuView.dismissHandler = dismissActionsMenu
 
         textView.inputAccessoryView = editingView
     }
@@ -80,7 +70,24 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     func selectionDidChange(textView: UITextView) {}
 
-    func didEndEditing(textView: UITextView) {}
+    func updateBlockType(with type: BlockContentType) {
+        if type == .text(.title) {
+            editingView.updateMenuItems([.style, .mention])
+        } else {
+            editingView.updateMenuItems([.slash, .style, .mention])
+        }
+
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: type)
+
+        // don't show slash menu for title
+        if type != .text(.title) {
+            slashMenuView.isHidden = false
+            let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
+            slashMenuView.menuItems = items
+        } else {
+            slashMenuView.isHidden = true
+        }
+    }
 
     // MARK: -
     
@@ -200,7 +207,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         guard textChangeType != .deletingSymbols else { return }
 
-        if replacementText == textToTriggerActionsViewDisplay {
+        if replacementText == textToTriggerActionsViewDisplay, !slashMenuView.isHidden {
             createDelayedAcessoryViewTask(
                 accessoryView: slashMenuView,
                 textView: textView
