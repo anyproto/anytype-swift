@@ -297,15 +297,15 @@ private extension BlockActionHandler {
             return
         }
         guard case let .text(content) = model.information.content else {
-            anytypeAssertionFailure("Unexpeccted block type \(model.information.content)")
+            anytypeAssertionFailure("Unexpected block type \(model.information.content)")
             return
         }
         let restrictions = BlockRestrictionsFactory().makeRestrictions(for: .text(content))
         guard restrictions.canApplyOtherMarkup else { return }
         
-        let modifier = MarkStyleModifier(attributedText: NSMutableAttributedString(
-                                            attributedString: content.attributedText),
-                                         defaultNonCodeFont: content.contentType.uiFont
+        let modifier = MarkStyleModifier(
+            attributedText: NSMutableAttributedString(attributedString: content.attributedText),
+            defaultNonCodeFont: content.contentType.uiFont
         )
         modifier.applyStyle(style: .link(url), range: range)
         store(
