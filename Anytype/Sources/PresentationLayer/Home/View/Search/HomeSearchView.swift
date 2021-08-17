@@ -36,6 +36,7 @@ struct HomeSearchView: View {
     
     private var emptyState: some View {
         VStack(alignment: .center) {
+            Spacer()
             AnytypeText(
                 "\("There is no object named".localized) \"\(searchText)\"",
                 style: .headline
@@ -43,7 +44,7 @@ struct HomeSearchView: View {
             .foregroundColor(.textPrimary)
             .multilineTextAlignment(.center)
             AnytypeText(
-                "Try to create a new one or searching someone else",
+                "Try to create a new one or search for something else",
                 style: .headline
             )
             .foregroundColor(.textSecondary)
