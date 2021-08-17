@@ -15,7 +15,8 @@ struct HomeProfileView: View {
                 VStack {
                     hiText(containerHeight: geometry.size.height)
                     avatar
-                    buttons.padding(.top, geometry.size.height * buttonsPaddingRatio)
+                    buttons
+                        .padding(.top, geometry.size.height * buttonsPaddingRatio)
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
                 slogan(containerHeight: geometry.size.height)
@@ -66,7 +67,7 @@ struct HomeProfileView: View {
     }
     
     private var buttons: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 20) {
             Button(action: model.startSearch) {
                 HomeProfileViewButtonImage(image: Image.main.search)
             }
