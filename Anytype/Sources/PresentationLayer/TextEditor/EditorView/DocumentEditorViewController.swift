@@ -8,7 +8,7 @@ import Amplitude
 final class DocumentEditorViewController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-    
+        
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .white
@@ -37,14 +37,17 @@ final class DocumentEditorViewController: UIViewController {
         return recognizer
     }()
 
+    let navigationBarBackgroundView = UIView()
+
     private lazy var backBarButtonItemView = EditorBarButtonItemView(image: .backArrow) { [weak self] in
         self?.navigationController?.popViewController(animated: true)
     }
-    
     private lazy var settingsBarButtonItemView = EditorBarButtonItemView(image: .more) { [weak self] in
         self?.showDocumentSettings()
     }
     
+    private(set) var isBarButtonItemsWithBackground = false
+
     var viewModel: DocumentEditorViewModel!
 
     // MARK: - Initializers
@@ -77,12 +80,30 @@ final class DocumentEditorViewController: UIViewController {
             customView: settingsBarButtonItemView
         )
         
-        updateBarButtonItemsBackground(hasBackground: false)
-        windowHolder?.configureNavigationBarAppearance(.opaque)
+        updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
+                
+        // FIXME: - looks like it can be removed
+        windowHolder?.configureNavigationBarAppearance(.transparent)
+        
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
         )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        insetsHelper = nil
+        firstResponderHelper = nil
+    }
+    
+    func updateBarButtonItemsBackground(hasBackground: Bool) {
+        [backBarButtonItemView, settingsBarButtonItemView].forEach {
+            guard $0.hasBackground != hasBackground else { return }
+            
+            $0.hasBackground = hasBackground
+        }
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -93,13 +114,6 @@ final class DocumentEditorViewController: UIViewController {
         return self
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        insetsHelper = nil
-        firstResponderHelper = nil
-    }
-    
 }
 
 // MARK: - DocumentEditorViewInput
@@ -107,7 +121,8 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        updateBarButtonItemsBackground(hasBackground: header.isWithCover)
+        isBarButtonItemsWithBackground = header.isWithCover
+        updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
 
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
@@ -171,14 +186,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         collectionView.setContentOffset(contentOffset, animated: false)
     }
     
-    private func updateBarButtonItemsBackground(hasBackground: Bool) {
-        [backBarButtonItemView, settingsBarButtonItemView].forEach {
-            guard $0.hasBackground != hasBackground else { return }
-            
-            $0.hasBackground = hasBackground
-        }
-    }
-    
     private func updateView() {
         UIView.performWithoutAnimation {
             dataSource.refresh(animatingDifferences: true)
@@ -195,6 +202,8 @@ private extension DocumentEditorViewController {
     func setupUI() {
         setupCollectionView()
         setupInteractions()
+        
+        setupNavigationBarBackgroundView()
     }
 
     func setupCollectionView() {
@@ -218,6 +227,18 @@ private extension DocumentEditorViewController {
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
         self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+    }
+    
+    func setupNavigationBarBackgroundView() {
+        navigationBarBackgroundView.backgroundColor = .grayscaleWhite
+        navigationBarBackgroundView.alpha = 0.0
+
+        view.addSubview(navigationBarBackgroundView) {
+            $0.top.equal(to: view.topAnchor)
+            $0.leading.equal(to: view.leadingAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
+            $0.bottom.equal(to: view.layoutMarginsGuide.topAnchor)
+        }
     }
     
     @objc
