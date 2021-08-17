@@ -2,8 +2,8 @@ import SwiftUI
 import Kingfisher
 
 // figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=4061%3A0
-struct PageCell: View {
-    var cellData: PageCellData
+struct HomeCell: View {
+    var cellData: HomeCellData
     
     private var isRedacted: Bool {
         cellData.isLoading
@@ -114,7 +114,7 @@ struct PageCell: View {
 }
 
 
-struct PageCell_Previews: PreviewProvider {
+struct HomeCell_Previews: PreviewProvider {
     static let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -123,8 +123,8 @@ struct PageCell_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
-                ForEach(PageCellDataMock.data) { data in
-                    PageCell(cellData: data)
+                ForEach(HomeCellDataMock.data) { data in
+                    HomeCell(cellData: data)
                 }
             }
             .padding()

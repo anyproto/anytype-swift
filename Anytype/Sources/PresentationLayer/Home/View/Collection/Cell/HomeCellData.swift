@@ -3,7 +3,7 @@ import UIKit
 import Combine
 
 
-struct PageCellData: Identifiable {
+struct HomeCellData: Identifiable {
     let id: String
     let destinationId: String
     let icon: DocumentIconType?
@@ -12,8 +12,8 @@ struct PageCellData: Identifiable {
     let isLoading: Bool
     let isArchived: Bool
     
-    static func create(searchResult: SearchResult) -> PageCellData {
-        PageCellData(
+    static func create(searchResult: SearchResult) -> HomeCellData {
+        HomeCellData(
             id: searchResult.id,
             destinationId: searchResult.id,
             icon: searchResult.icon,
@@ -25,7 +25,7 @@ struct PageCellData: Identifiable {
     }
 }
 
-extension PageCellData {
+extension HomeCellData {
     
     enum Title {
         case `default`(title: String)

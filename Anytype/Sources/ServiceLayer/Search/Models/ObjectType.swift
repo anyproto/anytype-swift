@@ -10,6 +10,7 @@ enum ObjectType: String {
     case image = "_otimage"
     case file = "_otfile"
     case video = "_otvideo"
+    case bug = "_otbug"
     
     var name: String {
         switch self {
@@ -31,6 +32,8 @@ enum ObjectType: String {
             return "File".localized
         case .video:
             return "Video".localized
+        case .bug:
+            return "Bug".localized
         }
     }
 }
