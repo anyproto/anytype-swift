@@ -39,14 +39,6 @@ extension AnytypeFontBuilder {
 }
 
 struct AnytypeFontBuilder {
-    static func font(name: FontName, size: CGFloat, weight: Font.Weight) -> Font {        
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        return Font.custom(name.rawValue, size: scaledSize).weight(weight)
-    }
-    
-    static func font(textStyle: TextStyle) -> Font {
-        return font(name: fontName(textStyle), size: size(textStyle), weight: swiftUIWeight(textStyle))
-    }
     
     static func customLineSpacing(textStyle: TextStyle) -> CGFloat? {
         switch textStyle {
@@ -57,12 +49,11 @@ struct AnytypeFontBuilder {
         }
     }
     
-    // MARK: - Private
-    private static func fontName(_ textStyle: TextStyle) -> FontName {
+    static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
         case .title, .heading:
             return .graphik
-            
+
         case .subheading, .headline, .body, .caption, .footnote, .caption2:
             return .inter
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
@@ -71,13 +62,13 @@ struct AnytypeFontBuilder {
             return .inter
         case .bodyBold:
             return .inter
-            
+
         case .codeBlock:
             return .plex
         }
     }
     
-    private static func size(_ textStyle: TextStyle) -> CGFloat {
+    static func size(_ textStyle: TextStyle) -> CGFloat {
         switch textStyle {
         case .title:
             return 28
@@ -96,7 +87,7 @@ struct AnytypeFontBuilder {
         }
     }
 
-    private static func weight(_ textStyle: TextStyle) -> Weight {
+    static func weight(_ textStyle: TextStyle) -> Weight {
         switch textStyle {
         case .title, .heading:
             return .regular
@@ -112,70 +103,6 @@ struct AnytypeFontBuilder {
             return .bold
         }
     }
-
-    // SwiftUI weight
-    private static func swiftUIWeight(_ textStyle: TextStyle) -> Font.Weight {
-        switch weight(textStyle) {
-        case .regular:
-            return .regular
-        case .medium:
-            return .medium
-        case .semibold:
-            return .semibold
-        case .bold:
-            return .bold
-        }
-    }
-
-    // UIKit weight
-    private static func uiKitWeight(_ textStyle: TextStyle) -> UIFont.Weight {
-        switch weight(textStyle) {
-        case .regular:
-            return .regular
-        case .medium:
-            return .medium
-        case .semibold:
-            return .semibold
-        case .bold:
-            return .bold
-        }
-    }
-
-    // uikit font
-
-    static func uiKitFont(textStyle: TextStyle) -> UIFont {
-        return uiKitFont(name: fontName(textStyle), size: size(textStyle), weight: uiKitWeight(textStyle))
-    }
-
-    static func uiKitFont(name: FontName, size: CGFloat, weight: UIFont.Weight) -> UIFont {
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        var descriptor = UIFontDescriptor(fontAttributes: [
-            attributeKey(name: name): name.rawValue,
-            UIFontDescriptor.AttributeName.size: scaledSize,
-        ])
-
-        descriptor = descriptor.addingAttributes(
-            [
-                .traits: [ UIFontDescriptor.TraitKey.weight: weight ]
-            ]
-        )
-
-        return UIFont(descriptor: descriptor, size: scaledSize)
-    }
-
-    private static func attributeKey(name: FontName) -> UIFontDescriptor.AttributeName {
-        switch name {
-        case .graphik, .plex:
-            return UIFontDescriptor.AttributeName.name
-        case .inter:
-            return UIFontDescriptor.AttributeName.family
-        }
-    }
-}
-
-
-extension Font {
-    static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption)
 }
 
 struct OptionalLineSpacingModifier: ViewModifier {
