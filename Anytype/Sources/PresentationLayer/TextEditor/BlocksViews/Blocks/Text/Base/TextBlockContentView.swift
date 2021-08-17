@@ -369,4 +369,8 @@ extension TextBlockContentView: AccessoryViewSwitcherDelegate {
             blockId: self.currentConfiguration.information.id
         )
     }
+    
+    func didEnterURL(_ url: URL?) {
+        
+    }
 }

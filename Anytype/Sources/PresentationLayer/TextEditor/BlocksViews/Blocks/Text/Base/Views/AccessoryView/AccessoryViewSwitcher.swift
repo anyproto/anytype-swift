@@ -5,6 +5,12 @@ import BlocksModels
 protocol AccessoryViewSwitcherDelegate: AnyObject {
     // mention events
     func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
+    
+    /// Delegate method called after url was entered from accessory view
+    ///
+    /// - Parameters:
+    ///   - url: URL
+    func didEnterURL(_ url: URL?)
     // editor events
     // slash events
     // done events
@@ -122,6 +128,25 @@ final class AccessoryViewSwitcher {
     
     func showSlashMenuView(textView: UITextView) {
         showAccessoryView(accessoryView: slashMenuView, textView: textView)
+    }
+    
+    func showURLInput(textView: UITextView, url: URL?) {
+        let dismissHandler = { [weak self] in
+            guard let self = self, let textView = self.textView else { return }
+            self.showEditingBars(textView: textView)
+        }
+        let urlInputView = URLInputAccessoryView(url: url) { [weak self] enteredURL in
+            self?.delegate?.didEnterURL(enteredURL)
+            dismissHandler()
+        }
+        urlInputView.dismissHandler = dismissHandler
+        switchInputs(
+            animated: false,
+            textView: textView,
+            accessoryView: urlInputView
+        )
+        urlInputView.urlInputView.textField.becomeFirstResponder()
+        cleanupDisplayedView()
     }
     
     // MARK: - Private
