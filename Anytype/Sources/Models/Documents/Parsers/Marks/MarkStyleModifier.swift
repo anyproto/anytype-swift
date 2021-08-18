@@ -38,12 +38,12 @@ final class MarkStyleModifier {
         return result
     }
     
-    func applyStyle(style: MarkStyleAction, range: NSRange) {
+    func apply(_ action: MarkStyleAction, range: NSRange) {
         guard range.location >= 0, attributedString.length >= range.length else {
             anytypeAssertionFailure("Range out of bounds in \(#function)")
             return
         }
-        switch style {
+        switch action {
         case .bold,
              .italic,
              .keyboard,
@@ -52,15 +52,15 @@ final class MarkStyleModifier {
              .link,
              .underscored,
              .strikethrough:
-            applyStyle(style, toAllSubrangesIn: range)
+            apply(action, toAllSubrangesIn: range)
         case .mention:
-            applyStyle(style, toWhole: range)
+            apply(action, toWhole: range)
         }
     }
     
-    private func applyStyle(_ style: MarkStyleAction, toWhole range: NSRange) {
+    private func apply(_ action: MarkStyleAction, toWhole range: NSRange) {
         let oldAttributes = getAttributes(at: range)
-        guard let update = apply(style: style, to: oldAttributes) else { return }
+        guard let update = apply(style: action, to: oldAttributes) else { return }
         
         var newAttributes = mergeAttributes(
             origin: oldAttributes,
@@ -72,14 +72,14 @@ final class MarkStyleModifier {
         }
 
         attributedString.addAttributes(newAttributes, range: range)
-        if case let .mention(id) = style, let pageId = id {
+        if case let .mention(id) = action, let pageId = id {
             applyMention(pageId: pageId, range: range)
         }
     }
     
-    private func applyStyle(_ style: MarkStyleAction, toAllSubrangesIn range: NSRange) {
+    private func apply(_ action: MarkStyleAction, toAllSubrangesIn range: NSRange) {
         attributedString.enumerateAttributes(in: range) { _, subrange, _ in
-            applyStyle(style, toWhole: subrange)
+            apply(action, toWhole: subrange)
         }
     }
     

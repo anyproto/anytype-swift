@@ -35,8 +35,8 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -54,8 +54,8 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -76,8 +76,8 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -98,8 +98,8 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -121,12 +121,12 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
         
@@ -154,12 +154,12 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
         
@@ -184,12 +184,12 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
         
@@ -217,12 +217,12 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
         
@@ -247,12 +247,12 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
         
@@ -280,12 +280,12 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
         
@@ -312,20 +312,20 @@ final class MarkStyleModifierTests: XCTestCase {
         )
         
         // When
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
         
@@ -372,12 +372,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: boldRange
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: italicRange
         )
         
@@ -415,12 +415,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: boldRange
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: codeRange
         )
         
@@ -455,12 +455,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: boldRange
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: strikethroughRange
         )
         
@@ -498,12 +498,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: codeRange
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: italicRange
         )
         
@@ -538,12 +538,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: italicRange
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: strikethroughRange
         )
         
@@ -581,12 +581,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: strikethroughRange
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: codeRange
         )
         
@@ -617,12 +617,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: boldRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -648,12 +648,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: italicRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -679,12 +679,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: codeRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -707,12 +707,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: strikethroughRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -740,12 +740,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
@@ -771,12 +771,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
@@ -802,12 +802,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
@@ -830,12 +830,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
