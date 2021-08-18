@@ -3,8 +3,8 @@ import UIKit
 import BlocksModels
     
 final class BlockBookmarkView: UIView {
-    private var informationView = BlockBookmarkInfoView()
-    private var imageView = BlockBookmarkImageView()
+    private let informationView = BlockBookmarkInfoView()
+    private let imageView = BlockBookmarkImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,20 +17,24 @@ final class BlockBookmarkView: UIView {
     
     func handle(state: BlockBookmarkState) {
         removeAllSubviews()
-        informationView.update(state: state)
         
         guard case let .fetched(payload) = state, !payload.imageHash.isEmpty else {
-            addSubview(informationView) {
-                $0.pinToSuperview()
-            }
-            
+            layoutWithoutImage(state: state)
             return
         }
         
-        layoutWithImage(imageId: payload.imageHash)
+        layoutWithImage(imageId: payload.imageHash, state: state)
     }
     
-    func layoutWithImage(imageId: BlockId) {
+    private func layoutWithoutImage(state: BlockBookmarkState) {
+        informationView.update(state: state)
+        addSubview(informationView) {
+            $0.pinToSuperview()
+        }
+    }
+    
+    private func layoutWithImage(imageId: BlockId, state: BlockBookmarkState) {
+        informationView.update(state: state)
         imageView.update(imageId: imageId)
         
         addSubview(informationView) {
