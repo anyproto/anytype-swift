@@ -26,12 +26,44 @@ final class EditorNavigationBarTitleView: UIView {
     
 }
 
+extension EditorNavigationBarTitleView: ConfigurableView {
+    
+    enum Icon {
+        case objectIcon(ObjectIcon)
+        case todo(Bool)
+    }
+    
+    struct Model {
+        let icon: Icon
+        let title: String
+    }
+    
+    func configure(model: Model) {
+        titleLabel.text = model.title
+        
+        switch model.icon {
+        case .objectIcon:
+            // TODO: - implement
+            iconImageView.image = nil
+            break
+        case .todo(let isChecked):
+            iconImageView.image = isChecked ?
+            UIImage.Title.TodoLayout.checkmark :
+            UIImage.Title.TodoLayout.checkbox
+        }
+    }
+    
+}
+
 private extension EditorNavigationBarTitleView {
     
     func setupView() {
         titleLabel.font = .bodyMedium
         titleLabel.textColor = .textColor
         titleLabel.numberOfLines = 1
+        
+        iconImageView.contentMode = .scaleAspectFit
+        setupLayout()
     }
     
     func setupLayout() {
@@ -45,6 +77,10 @@ private extension EditorNavigationBarTitleView {
         
         titleLabel.layoutUsing.anchors {
             $0.width.equal(to: 160)
+        }
+        
+        iconImageView.layoutUsing.anchors {
+            $0.size(CGSize(width: 18, height: 18))
         }
     }
     
