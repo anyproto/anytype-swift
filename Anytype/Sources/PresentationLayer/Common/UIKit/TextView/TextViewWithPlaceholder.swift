@@ -43,9 +43,9 @@ final class TextViewWithPlaceholder: UITextView {
     }
     
     /// Available markup options (bold, italic, strikethrough, etc)
-    var availableTextAttributes = [BlockHandlerActionType.TextAttributesType]() {
+    var availableContextMenuOptions = [TextViewContextMenuOption]() {
         didSet {
-            if availableTextAttributes != oldValue {
+            if availableContextMenuOptions != oldValue {
                 setupMenu()
                 UIMenuController.shared.update()
             }
@@ -150,17 +150,22 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupMenu() {
-        UIMenuController.shared.menuItems = availableTextAttributes.map { item in
+        UIMenuController.shared.menuItems = availableContextMenuOptions.map { item in
             let selector: Selector = {
                 switch item {
-                case .bold:
-                    return #selector(didSelectContextMenuActionBold)
-                case .italic:
-                    return #selector(didSelectContextMenuActionItalic)
-                case .strikethrough:
-                    return #selector(didSelectContextMenuActionStrikethrough)
-                case .keyboard:
-                    return #selector(didSelectContextMenuActionCode)
+                case let .toggleMarkup(type):
+                    switch type {
+                    case .bold:
+                        return #selector(didSelectContextMenuActionBold)
+                    case .italic:
+                        return #selector(didSelectContextMenuActionItalic)
+                    case .strikethrough:
+                        return #selector(didSelectContextMenuActionStrikethrough)
+                    case .keyboard:
+                        return #selector(didSelectContextMenuActionCode)
+                    }
+                case .setLink:
+                    return #selector(didSelectContextMenuLink)
                 }
             }()
             
@@ -190,6 +195,10 @@ extension TextViewWithPlaceholder {
     
     @objc private func didSelectContextMenuActionCode() {
         handleMenuAction(.keyboard)
+    }
+    
+    @objc private func didSelectContextMenuLink() {
+        customTextViewDelegate?.didReceiveAction(.changeLink(selectedRange))
     }
 
     private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
@@ -222,7 +231,7 @@ extension TextViewWithPlaceholder {
 
 // MARK: - ContextMenuAction
 
-private extension BlockHandlerActionType.TextAttributesType {
+extension BlockHandlerActionType.TextAttributesType {
 
     var title: String {
         switch self {

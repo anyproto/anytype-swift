@@ -245,23 +245,23 @@ private extension BlockActionHandler {
         let shouldApplyMarkup = markupState == .notApplied
         switch fontAction {
         case .bold:
-            marksModifier.applyStyle(
-                style: .bold(shouldApplyMarkup),
+            marksModifier.apply(
+                .bold(shouldApplyMarkup),
                 range: range
             )
         case .italic:
-            marksModifier.applyStyle(
-                style: .italic(shouldApplyMarkup),
+            marksModifier.apply(
+                .italic(shouldApplyMarkup),
                 range: range
             )
         case .strikethrough:
-            marksModifier.applyStyle(
-                style: .strikethrough(shouldApplyMarkup),
+            marksModifier.apply(
+                .strikethrough(shouldApplyMarkup),
                 range: range
             )
         case .keyboard:
-            marksModifier.applyStyle(
-                style: .keyboard(shouldApplyMarkup),
+            marksModifier.apply(
+                .keyboard(shouldApplyMarkup),
                 range: range
             )
         }

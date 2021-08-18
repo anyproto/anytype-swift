@@ -94,16 +94,6 @@ final class AccessoryViewSwitcher {
             slashMenuView.isHidden = true
         }
     }
-
-    // MARK: -
-    
-    
-    func textTypingIsUsingForAccessoryViewContentFiltering() -> Bool {
-        if let displayedView = displayedView, !displayedView.window.isNil {
-            return true
-        }
-        return false
-    }
     
     func cleanupDisplayedView() {
         displayedView = nil
