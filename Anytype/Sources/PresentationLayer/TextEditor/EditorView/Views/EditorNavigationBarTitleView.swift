@@ -73,9 +73,7 @@ private extension EditorNavigationBarTitleView {
         stackView.axis = .horizontal
         stackView.spacing = 8
         
-        setupLayout()
-        
-        fillSubviewsWithRandomColors()
+        setupLayout()        
     }
     
     func setupLayout() {

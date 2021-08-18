@@ -79,39 +79,4 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let startAppearingOffset: CGFloat = 200
-        let endAppearingOffset: CGFloat = 232
-
-        let navigationBarHeight = navigationBarBackgroundView.bounds.height
-        
-        let yFullOffset = scrollView.contentOffset.y + navigationBarHeight
-
-        let alpha: CGFloat? = {
-            if yFullOffset < startAppearingOffset {
-                isTitleViewHidden = true
-                titleView.isHidden = isTitleViewHidden
-                updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
-                return 0
-            } else if yFullOffset > endAppearingOffset {
-                isTitleViewHidden = false
-                titleView.isHidden = isTitleViewHidden
-                updateBarButtonItemsBackground(hasBackground: false)
-                return 1
-            } else if yFullOffset > startAppearingOffset, yFullOffset < endAppearingOffset {
-                let currentDiff = yFullOffset - startAppearingOffset
-                let max = endAppearingOffset - startAppearingOffset
-                return currentDiff / max
-            }
-            
-            return nil
-        }()
-        
-        guard let alpha = alpha else {
-            return
-        }
-
-        navigationBarBackgroundView.alpha = alpha
-    }
-    
 }

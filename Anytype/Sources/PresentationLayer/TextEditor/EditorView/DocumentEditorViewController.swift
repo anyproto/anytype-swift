@@ -37,18 +37,14 @@ final class DocumentEditorViewController: UIViewController {
         return recognizer
     }()
 
-    let navigationBarBackgroundView = UIView()
-    let titleView = EditorNavigationBarTitleView()
-    
-    private lazy var backBarButtonItemView = EditorBarButtonItemView(image: .backArrow) { [weak self] in
-        self?.navigationController?.popViewController(animated: true)
-    }
-    private lazy var settingsBarButtonItemView = EditorBarButtonItemView(image: .more) { [weak self] in
-        self?.showDocumentSettings()
-    }
-    
-    private(set) var isBarButtonItemsWithBackground = false
-    var isTitleViewHidden = true
+    private lazy var navigationBarHelper = EditorNavigationBarHelper(
+        onBackBarButtonItemTap: { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        },
+        onSettingsBarButtonItemTap: { [weak self] in
+            self?.showDocumentSettings()
+        }
+    )
 
     var viewModel: DocumentEditorViewModel!
 
@@ -75,17 +71,7 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        controllerForNavigationItems?.navigationItem.titleView = titleView
-        titleView.isHidden = isTitleViewHidden
-        
-        controllerForNavigationItems?.setupBackBarButtonItem(
-            UIBarButtonItem(customView: backBarButtonItemView)
-        )
-        controllerForNavigationItems?.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            customView: settingsBarButtonItemView
-        )
-        
-        updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
+        navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
         
         // FIXME: - looks like it can be removed
         windowHolder?.configureNavigationBarAppearance(.transparent)
@@ -99,16 +85,9 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
         firstResponderHelper = nil
-    }
-    
-    func updateBarButtonItemsBackground(hasBackground: Bool) {
-        [backBarButtonItemView, settingsBarButtonItemView].forEach {
-            guard $0.hasBackground != hasBackground else { return }
-            
-            $0.hasBackground = hasBackground
-        }
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -126,9 +105,11 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        isBarButtonItemsWithBackground = header.isWithCover
-        updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
-
+        navigationBarHelper.configureNavigationBarUsing(
+            header: header,
+            titleBlockText: getTitleBlockText(from: blocks)
+        )
+        
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
         snapshot.appendItems([.header(header)], toSection: .header)
@@ -137,24 +118,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             blocks.map { DataSourceItem.block($0) },
             toSection: .main
         )
-        
-        let block = blocks.first {
-            guard
-                $0.information.content.isText,
-                case .text(let style) = $0.information.content.type
-            else { return false }
-            
-            return style == .title
-        }
-        
-        if case .text(let text) = block?.information.content {
-            titleView.configure(
-                model: EditorNavigationBarTitleView.Model(
-                    icon: nil,
-                    title: text.attributedText.string
-                )
-            )
-        }
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
         
@@ -214,6 +177,24 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             dataSource.refresh(animatingDifferences: true)
         }
     }
+    
+    private func getTitleBlockText(from blocks: [BlockViewModelProtocol]) -> BlockText? {
+        let block = blocks.first {
+            guard
+                case .text(let style) = $0.information.content.type
+            else { return false }
+            
+            return style == .title
+        }
+        
+        guard
+            case .text(let text) = block?.information.content
+        else {
+            return nil
+        }
+        
+        return text
+    }
 
 }
 
@@ -226,7 +207,7 @@ private extension DocumentEditorViewController {
         setupCollectionView()
         setupInteractions()
         
-        setupNavigationBarBackgroundView()
+        navigationBarHelper.addNavigationBarBackgroundView(to: view)
     }
 
     func setupCollectionView() {
@@ -250,18 +231,6 @@ private extension DocumentEditorViewController {
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
         self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
-    }
-    
-    func setupNavigationBarBackgroundView() {
-        navigationBarBackgroundView.backgroundColor = .grayscaleWhite
-        navigationBarBackgroundView.alpha = 0.0
-
-        view.addSubview(navigationBarBackgroundView) {
-            $0.top.equal(to: view.topAnchor)
-            $0.leading.equal(to: view.leadingAnchor)
-            $0.trailing.equal(to: view.trailingAnchor)
-            $0.bottom.equal(to: view.layoutMarginsGuide.topAnchor)
-        }
     }
     
     @objc
@@ -443,21 +412,4 @@ struct DocumentEditorViewController_Previews_2: PreviewProvider {
     static var previews: some View {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
-}
-
-private extension ObjectHeader {
-    
-    var isWithCover: Bool {
-        switch self {
-        case .iconOnly:
-            return false
-        case .coverOnly:
-            return true
-        case .iconAndCover:
-            return true
-        case .empty:
-            return false
-        }
-    }
-    
 }
