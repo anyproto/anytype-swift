@@ -15,7 +15,7 @@ final class BlockBookmarkInfoView: UIView {
         fatalError("Not implemented")
     }
     
-    func update(state: BlockBookmarkContentState) {
+    func update(state: BlockBookmarkState) {
         updateIcon(state: state)
         removeAllSubviews()
         
@@ -47,7 +47,7 @@ final class BlockBookmarkInfoView: UIView {
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 15, trailing: 16)
     }
     
-    private func updateIcon(state: BlockBookmarkContentState) {
+    private func updateIcon(state: BlockBookmarkState) {
         urlStackView.removeAllSubviews()
         
         guard case let .fetched(payload) = state, !payload.faviconHash.isEmpty else {

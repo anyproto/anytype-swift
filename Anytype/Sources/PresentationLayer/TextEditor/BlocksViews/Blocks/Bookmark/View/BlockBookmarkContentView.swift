@@ -35,7 +35,7 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func apply(state: BlockBookmarkContentState) {
+    private func apply(state: BlockBookmarkState) {
         removeAllSubviews()
         
         switch state {

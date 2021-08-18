@@ -22,7 +22,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         let state = bookmarkData.blockBookmarkState
         switch state {
-        case .empty:
+        case .none:
             return BlocksFileEmptyViewConfiguration(
                 image: UIImage.blockFile.empty.bookmark,
                 text: "Add a web bookmark".localized,

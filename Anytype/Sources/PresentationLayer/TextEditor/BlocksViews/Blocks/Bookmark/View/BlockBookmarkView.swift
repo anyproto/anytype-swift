@@ -15,7 +15,7 @@ final class BlockBookmarkView: UIView {
         fatalError("Not implemented")
     }
     
-    func handle(state: BlockBookmarkContentState) {
+    func handle(state: BlockBookmarkState) {
         removeAllSubviews()
         informationView.update(state: state)
         
