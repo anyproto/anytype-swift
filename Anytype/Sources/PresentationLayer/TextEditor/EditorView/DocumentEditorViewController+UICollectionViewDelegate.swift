@@ -89,9 +89,13 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
 
         let alpha: CGFloat? = {
             if yFullOffset < startAppearingOffset {
+                isTitleViewHidden = true
+                titleView.isHidden = isTitleViewHidden
                 updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
                 return 0
             } else if yFullOffset > endAppearingOffset {
+                isTitleViewHidden = false
+                titleView.isHidden = isTitleViewHidden
                 updateBarButtonItemsBackground(hasBackground: false)
                 return 1
             } else if yFullOffset > startAppearingOffset, yFullOffset < endAppearingOffset {

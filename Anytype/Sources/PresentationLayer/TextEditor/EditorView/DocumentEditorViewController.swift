@@ -38,7 +38,8 @@ final class DocumentEditorViewController: UIViewController {
     }()
 
     let navigationBarBackgroundView = UIView()
-
+    let titleView = EditorNavigationBarTitleView()
+    
     private lazy var backBarButtonItemView = EditorBarButtonItemView(image: .backArrow) { [weak self] in
         self?.navigationController?.popViewController(animated: true)
     }
@@ -47,6 +48,7 @@ final class DocumentEditorViewController: UIViewController {
     }
     
     private(set) var isBarButtonItemsWithBackground = false
+    var isTitleViewHidden = true
 
     var viewModel: DocumentEditorViewModel!
 
@@ -73,8 +75,9 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        controllerForNavigationItems?.navigationItem.titleView = EditorNavigationBarTitleView()
-
+        controllerForNavigationItems?.navigationItem.titleView = titleView
+        titleView.isHidden = isTitleViewHidden
+        
         controllerForNavigationItems?.setupBackBarButtonItem(
             UIBarButtonItem(customView: backBarButtonItemView)
         )
@@ -116,10 +119,6 @@ final class DocumentEditorViewController: UIViewController {
         return self
     }
     
-    private var titleView: EditorNavigationBarTitleView? {
-        controllerForNavigationItems?.navigationItem.titleView as? EditorNavigationBarTitleView
-    }
-    
 }
 
 // MARK: - DocumentEditorViewInput
@@ -138,6 +137,24 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             blocks.map { DataSourceItem.block($0) },
             toSection: .main
         )
+        
+        let block = blocks.first {
+            guard
+                $0.information.content.isText,
+                case .text(let style) = $0.information.content.type
+            else { return false }
+            
+            return style == .title
+        }
+        
+        if case .text(let text) = block?.information.content {
+            titleView.configure(
+                model: EditorNavigationBarTitleView.Model(
+                    icon: nil,
+                    title: text.attributedText.string
+                )
+            )
+        }
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
         

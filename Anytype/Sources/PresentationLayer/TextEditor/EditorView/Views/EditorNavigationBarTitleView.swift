@@ -87,7 +87,7 @@ private extension EditorNavigationBarTitleView {
         stackView.addArrangedSubview(titleLabel)
         
         titleLabel.layoutUsing.anchors {
-            $0.width.equal(to: 160)
+            $0.width.lessThanOrEqual(to: 160)
         }
         
         iconImageView.layoutUsing.anchors {
