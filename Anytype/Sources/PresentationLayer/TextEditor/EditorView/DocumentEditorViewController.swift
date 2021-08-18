@@ -73,6 +73,8 @@ final class DocumentEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        controllerForNavigationItems?.navigationItem.titleView = EditorNavigationBarTitleView()
+
         controllerForNavigationItems?.setupBackBarButtonItem(
             UIBarButtonItem(customView: backBarButtonItemView)
         )
@@ -81,7 +83,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         
         updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
-                
+        
         // FIXME: - looks like it can be removed
         windowHolder?.configureNavigationBarAppearance(.transparent)
         
@@ -112,6 +114,10 @@ final class DocumentEditorViewController: UIViewController {
         }
 
         return self
+    }
+    
+    private var titleView: EditorNavigationBarTitleView? {
+        controllerForNavigationItems?.navigationItem.titleView as? EditorNavigationBarTitleView
     }
     
 }

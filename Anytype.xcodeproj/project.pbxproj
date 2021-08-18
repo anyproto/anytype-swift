@@ -2189,13 +2189,13 @@
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
 				123FDAF126C2951900F6F44B /* ObjectHeaderIconAndCoverConfiguration.swift */,
 				123FDAF626C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift */,
 				12A7B6B826C3E47200544037 /* Cover */,
 				12A7B6B326C3E47200544037 /* Icon */,
 				12A52DCD26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift */,
 				12A52DD226C56940000F0333 /* ObjectHeaderEmptyContentView.swift */,
-				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

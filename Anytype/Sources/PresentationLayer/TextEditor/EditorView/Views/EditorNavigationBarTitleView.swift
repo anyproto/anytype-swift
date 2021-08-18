@@ -11,6 +11,8 @@ import UIKit
 
 final class EditorNavigationBarTitleView: UIView {
     
+    private let stackView = UIStackView()
+    
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     
@@ -34,7 +36,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
     }
     
     struct Model {
-        let icon: Icon
+        let icon: Icon?
         let title: String
     }
     
@@ -45,11 +47,15 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case .objectIcon:
             // TODO: - implement
             iconImageView.image = nil
+            iconImageView.isHidden = false
             break
         case .todo(let isChecked):
+            iconImageView.isHidden = false
             iconImageView.image = isChecked ?
             UIImage.Title.TodoLayout.checkmark :
             UIImage.Title.TodoLayout.checkbox
+        case .none:
+            iconImageView.isHidden = true
         }
     }
     
@@ -63,17 +69,22 @@ private extension EditorNavigationBarTitleView {
         titleLabel.numberOfLines = 1
         
         iconImageView.contentMode = .scaleAspectFit
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        
         setupLayout()
+        
+        fillSubviewsWithRandomColors()
     }
     
     func setupLayout() {
-        layoutUsing.stack {
-            $0.hStack(
-                iconImageView,
-                $0.hGap(fixed: 8),
-                titleLabel
-            )
+        addSubview(stackView) {
+            $0.pinToSuperview()
         }
+        
+        stackView.addArrangedSubview(iconImageView)
+        stackView.addArrangedSubview(titleLabel)
         
         titleLabel.layoutUsing.anchors {
             $0.width.equal(to: 160)
