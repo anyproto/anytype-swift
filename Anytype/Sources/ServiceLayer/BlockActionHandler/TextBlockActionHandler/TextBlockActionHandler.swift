@@ -27,7 +27,7 @@ final class TextBlockActionHandler {
             fallthrough
         case let .changeText(attributedText):
             handleChangeText(block, text: attributedText)
-        case .changeTextStyle:
+        case .changeTextStyle, .changeLink:
             anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition:
             break

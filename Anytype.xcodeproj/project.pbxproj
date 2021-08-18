@@ -531,6 +531,7 @@
 		EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */; };
 		EAAD6DB026CAAC43005CE1E7 /* LinkMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */; };
 		EAAD6DC726CBBFBF005CE1E7 /* URLInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */; };
+		EAAD6DEE26CC69E8005CE1E7 /* TextViewContextMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DED26CC69E8005CE1E7 /* TextViewContextMenuOption.swift */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
 		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */; };
@@ -1140,6 +1141,7 @@
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
 		EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkMarkupStateTests.swift; sourceTree = "<group>"; };
 		EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputAccessoryView.swift; sourceTree = "<group>"; };
+		EAAD6DED26CC69E8005CE1E7 /* TextViewContextMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewContextMenuOption.swift; sourceTree = "<group>"; };
 		EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAttachment.swift; sourceTree = "<group>"; };
 		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
 		EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Mentionable.swift"; sourceTree = "<group>"; };
@@ -1743,6 +1745,7 @@
 				0A2C0D52247144F4008ADD86 /* CustomTextView.swift */,
 				537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */,
 				0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */,
+				EAAD6DED26CC69E8005CE1E7 /* TextViewContextMenuOption.swift */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -4151,6 +4154,7 @@
 				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
 				EAC54F6525E9458200B745A8 /* AnytypeUIFont.swift in Sources */,
 				3D568F952666C2DA00DC7881 /* ContentLayoutConverter.swift in Sources */,
+				EAAD6DEE26CC69E8005CE1E7 /* TextViewContextMenuOption.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				EA7DE40426397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
