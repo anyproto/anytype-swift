@@ -17,8 +17,12 @@ extension Namespace {
                             marks: Anytype_Model_Block.Content.Text.Marks,
                             style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
-            var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markStyle: MarkStyle)? in
-                guard let markValue = MarkStyleConverter.asModel(.init(attribute: value.type, value: value.param)) else {
+            var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markStyle: MarkStyleAction)? in
+                let middlewareTuple = MiddlewareTuple(
+                    attribute: value.type,
+                    value: value.param
+                )
+                guard let markValue = MarkStyleActionConverter.asModel(middlewareTuple) else {
                     return nil
                 }
                 return (RangeConverter.asModel(value.range), markValue)
@@ -44,7 +48,7 @@ extension Namespace {
             //
             // If we will add mentions after other markup and starting from tail of string
             // it will not break ranges
-            var mentionMarks = [(range: NSRange, markStyle: MarkStyle)]()
+            var mentionMarks = [(range: NSRange, markStyle: MarkStyleAction)]()
             
             markAttributes.removeAll { (range, markStyle) -> Bool in
                 if case .mention = markStyle {

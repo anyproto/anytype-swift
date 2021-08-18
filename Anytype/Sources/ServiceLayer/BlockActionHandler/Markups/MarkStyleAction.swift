@@ -1,6 +1,6 @@
 import UIKit
 
-enum MarkStyle: Equatable {
+enum MarkStyleAction: Equatable {
     
     case bold(Bool = true)
     case italic(Bool = true)

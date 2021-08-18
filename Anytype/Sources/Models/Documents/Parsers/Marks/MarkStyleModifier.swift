@@ -38,7 +38,7 @@ final class MarkStyleModifier {
         return result
     }
     
-    func applyStyle(style: MarkStyle, range: NSRange) {
+    func applyStyle(style: MarkStyleAction, range: NSRange) {
         guard range.location >= 0, attributedString.length >= range.length else {
             anytypeAssertionFailure("Range out of bounds in \(#function)")
             return
@@ -58,7 +58,7 @@ final class MarkStyleModifier {
         }
     }
     
-    private func applyStyle(_ style: MarkStyle, toWhole range: NSRange) {
+    private func applyStyle(_ style: MarkStyleAction, toWhole range: NSRange) {
         let oldAttributes = getAttributes(at: range)
         guard let update = apply(style: style, to: oldAttributes) else { return }
         
@@ -77,7 +77,7 @@ final class MarkStyleModifier {
         }
     }
     
-    private func applyStyle(_ style: MarkStyle, toAllSubrangesIn range: NSRange) {
+    private func applyStyle(_ style: MarkStyleAction, toAllSubrangesIn range: NSRange) {
         attributedString.enumerateAttributes(in: range) { _, subrange, _ in
             applyStyle(style, toWhole: subrange)
         }
@@ -99,7 +99,7 @@ final class MarkStyleModifier {
         attributedString.insert(mentionAttachmentString, at: range.location)
     }
     
-    func apply(style: MarkStyle, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
+    func apply(style: MarkStyleAction, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
         switch style {
         case let .bold(shouldApplyMarkup):
             if let font = old[.font] as? UIFont {
