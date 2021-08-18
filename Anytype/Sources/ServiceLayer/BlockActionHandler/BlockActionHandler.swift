@@ -307,7 +307,7 @@ private extension BlockActionHandler {
             attributedText: NSMutableAttributedString(attributedString: content.attributedText),
             defaultNonCodeFont: content.contentType.uiFont
         )
-        modifier.applyStyle(style: .link(url), range: range)
+        modifier.apply(.link(url), range: range)
         store(
             modifier.attributedString,
             in: content,
