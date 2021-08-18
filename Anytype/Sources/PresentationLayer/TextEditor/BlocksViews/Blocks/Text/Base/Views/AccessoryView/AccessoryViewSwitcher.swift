@@ -127,6 +127,8 @@ final class AccessoryViewSwitcher {
         }
         let urlInputView = URLInputAccessoryView(url: url) { [weak self] enteredURL in
             self?.delegate?.didEnterURL(enteredURL)
+            let urlInput = self?.textView?.inputAccessoryView as? URLInputAccessoryView
+            urlInput?.dismiss()
             dismissHandler()
         }
         urlInputView.dismissHandler = dismissHandler
