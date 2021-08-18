@@ -72,7 +72,7 @@ struct HomeTabsView: View {
             Spacer()
         }
         .padding(.leading, 20)
-        .frame(height: 72)
+        .frame(height: 72, alignment: .center)
     }
     
     private func tabButton(text: String, tab: Tab) -> some View {

@@ -97,7 +97,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 50,
-            objectTypeFilter: supportedTypes,
+            objectTypeFilter: [ObjectType.page.rawValue],
             keys: [],
             completion: completion
         )
