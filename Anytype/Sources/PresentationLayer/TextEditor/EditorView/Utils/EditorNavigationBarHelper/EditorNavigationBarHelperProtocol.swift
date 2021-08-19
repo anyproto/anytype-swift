@@ -11,7 +11,7 @@ import BlocksModels
 
 protocol EditorNavigationBarHelperProtocol {
     
-    func addNavigationBarBackgroundView(to view: UIView)
+    func addFakeNavigationBarBackgroundView(to view: UIView)
     
     func handleViewWillAppear(_ vc: UIViewController?, _ scrollView: UIScrollView)
     func handleViewWillDisappear()
