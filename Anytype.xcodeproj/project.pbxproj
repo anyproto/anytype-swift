@@ -472,6 +472,7 @@
 		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
+		EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */; };
 		EA43DD6626B1A28500E66878 /* MarkupState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43DD6526B1A28500E66878 /* MarkupState.swift */; };
 		EA43DD6826B1A33000E66878 /* MarkupStateCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
@@ -534,6 +535,7 @@
 		EAAD6DB026CAAC43005CE1E7 /* LinkMarkupStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */; };
 		EAAD6DC726CBBFBF005CE1E7 /* URLInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */; };
 		EAAD6DEE26CC69E8005CE1E7 /* TextViewContextMenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DED26CC69E8005CE1E7 /* TextViewContextMenuOption.swift */; };
+		EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAD6DFF26CD436F005CE1E7 /* BlockMarkupChanger.swift */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
 		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */; };
@@ -1086,6 +1088,7 @@
 		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
+		EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChangerProtocol.swift; sourceTree = "<group>"; };
 		EA43DD6526B1A28500E66878 /* MarkupState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupState.swift; sourceTree = "<group>"; };
 		EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupStateCalculator.swift; sourceTree = "<group>"; };
 		EA43DD9E26B5C2C500E66878 /* IBMPlexMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Bold.ttf"; sourceTree = "<group>"; };
@@ -1146,6 +1149,7 @@
 		EAAD6DAF26CAAC43005CE1E7 /* LinkMarkupStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkMarkupStateTests.swift; sourceTree = "<group>"; };
 		EAAD6DC626CBBFBF005CE1E7 /* URLInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputAccessoryView.swift; sourceTree = "<group>"; };
 		EAAD6DED26CC69E8005CE1E7 /* TextViewContextMenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewContextMenuOption.swift; sourceTree = "<group>"; };
+		EAAD6DFF26CD436F005CE1E7 /* BlockMarkupChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChanger.swift; sourceTree = "<group>"; };
 		EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAttachment.swift; sourceTree = "<group>"; };
 		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
 		EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Mentionable.swift"; sourceTree = "<group>"; };
@@ -3129,7 +3133,7 @@
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
-				EAAD6E0726CD484E005CE1E7 /* Markups */,
+				EAAD6E0726CD484E005CE1E7 /* Markup */,
 				5338E7E425DC32E5008CB97D /* TextBlockActionHandler */,
 				3D8C76782689E19800353CDC /* BlockActionService */,
 				3DE5120C2672201200153962 /* Extensions */,
@@ -3576,12 +3580,14 @@
 			path = URLInput;
 			sourceTree = "<group>";
 		};
-		EAAD6E0726CD484E005CE1E7 /* Markups */ = {
+		EAAD6E0726CD484E005CE1E7 /* Markup */ = {
 			isa = PBXGroup;
 			children = (
 				0A78328524BDEB5900A1B6F6 /* MarkStyleAction.swift */,
+				EAAD6DFF26CD436F005CE1E7 /* BlockMarkupChanger.swift */,
+				EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */,
 			);
-			path = Markups;
+			path = Markup;
 			sourceTree = "<group>";
 		};
 		EAC5FD4A2657DC3D006BB24E /* UIScrollView */ = {
@@ -3854,6 +3860,7 @@
 				3D36B0A726A71B660046C90F /* EventProcessor.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
+				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
@@ -4116,6 +4123,7 @@
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
+				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				EAE6BE092680D0CE00275788 /* SlashMenuItemIconData.swift in Sources */,
 				12A7B6AD26C3D50300544037 /* ObjectCoverView.swift in Sources */,

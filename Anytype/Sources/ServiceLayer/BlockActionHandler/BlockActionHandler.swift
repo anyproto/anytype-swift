@@ -14,7 +14,6 @@ protocol BlockActionHandlerProtocol {
 final class BlockActionHandler: BlockActionHandlerProtocol {
     private let service: BlockActionServiceProtocol
     private let listService = BlockActionsServiceList()
-    private let textService = BlockActionsServiceText()
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
     private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
@@ -22,17 +21,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let textBlockActionHandler: TextBlockActionHandler
-    private lazy var blockUpdater: BlockUpdater? = {
-        guard let container = document.rootModel else { return nil }
-        return BlockUpdater(container)
-    }()
+    private let markupChanger: BlockMarkupChangerProtocol
 
     init(
         documentId: String,
         modelsHolder: ObjectContentViewModelsSharedHolder,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        markupChanger: BlockMarkupChangerProtocol
     ) {
         self.modelsHolder = modelsHolder
         self.documentId = documentId
@@ -40,6 +37,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.selectionHandler = selectionHandler
         self.document = document
         self.router = router
+        self.markupChanger = markupChanger
         
         self.textBlockActionHandler = TextBlockActionHandler(
             contextId: documentId,
@@ -67,15 +65,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .toggleWholeBlockMarkup(markup):
             handleWholeBlockMarkupToggle(blockId: blockId, markup: markup)
         case let .toggleFontStyle(fontAttributes, range):
-            handleFontAction(blockId: blockId, range: range, fontAction: fontAttributes)
+            markupChanger.toggleMarkup(fontAttributes, for: blockId, in: range)
         case let .setAlignment(alignment):
             setAlignment(blockId: blockId, alignment: alignment, completion: completion)
         case let .setFields(contextID, fields):
             service.setFields(contextID: contextID, blockFields: fields)
         case .duplicate:
             service.duplicate(blockId: blockId)
-        case .setLink(_):
-            anytypeAssertionFailure("Action has not implemented yet \(String(describing: action))")
+        case let .setLink(url, range):
+            markupChanger.setLink(url, for: blockId, in: range)
         case .delete:
             delete(blockId: blockId)
         case let .addBlock(type):
@@ -205,89 +203,14 @@ private extension BlockActionHandler {
     ) {
         guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
               case let .text(textContentType) = info.content else { return }
-        handleFontAction(
-            blockId: blockId,
-            range: NSRange(
-                location: 0,
-                length: textContentType.attributedText.length
-            ),
-            fontAction: markup
+        let range = NSRange(
+            location: 0,
+            length: textContentType.attributedText.length
         )
-    }
-    
-    func handleFontAction(
-        blockId: BlockId,
-        range: NSRange,
-        fontAction: BlockHandlerActionType.TextAttributesType
-    ) {
-        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
-              case let .text(textContentType) = info.content else { return }
-        
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
-            for: textContentType.contentType
-        )
-        let markupCalculator = MarkupStateCalculator(
-            attributedText: textContentType.attributedText,
-            range: range,
-            restrictions: restrictions,
-            alignment: nil
-        )
-        let markupState = markupCalculator.state(for: fontAction)
-        guard markupState != .disabled else { return }
-        
-        let newAttributedString = NSMutableAttributedString(
-            attributedString: textContentType.attributedText
-        )
-        let marksModifier = MarkStyleModifier(
-            attributedText: newAttributedString,
-            defaultNonCodeFont: textContentType.contentType.uiFont
-        )
-        let shouldApplyMarkup = markupState == .notApplied
-        switch fontAction {
-        case .bold:
-            marksModifier.apply(
-                .bold(shouldApplyMarkup),
-                range: range
-            )
-        case .italic:
-            marksModifier.apply(
-                .italic(shouldApplyMarkup),
-                range: range
-            )
-        case .strikethrough:
-            marksModifier.apply(
-                .strikethrough(shouldApplyMarkup),
-                range: range
-            )
-        case .keyboard:
-            marksModifier.apply(
-                .keyboard(shouldApplyMarkup),
-                range: range
-            )
-        }
-        store(
-            marksModifier.attributedString,
-            in: textContentType,
-            id: info.id
-        )
-        document.eventHandler.handle(
-            events: PackOfEvents(
-                localEvents: [.setText(blockId: info.id, text: marksModifier.attributedString.string)]
-            )
-        )
-    }
-    
-    private func store( _ attributedString: NSAttributedString, in content: BlockText, id: BlockId) {
-        var content = content
-        content.attributedText = attributedString
-        blockUpdater?.update(entry: id) { model in
-            var model = model
-            model.information.content = .text(content)
-        }
-        textService.setText(
-            contextID: documentId,
-            blockID: id,
-            attributedString: attributedString
+        markupChanger.toggleMarkup(
+            markup,
+            for: blockId,
+            in: range
         )
     }
 }
