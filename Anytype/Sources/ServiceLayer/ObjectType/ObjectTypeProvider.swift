@@ -3,6 +3,12 @@ import SwiftProtobuf
 import AnytypeCore
 
 final class ObjectTypeProvider {
+    // https://airtable.com/tblTjKSGFBqA0UYeL/viwi3waIIrz4Wktrh?blocks=hide
+    static var supportedTypeUrls: [String] {
+        objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
+            .map { $0.url }
+    }
+    
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
         types.filter {
             !Set($0.types).intersection(smartblockTypes).isEmpty
