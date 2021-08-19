@@ -18,10 +18,9 @@ final class EditorNavigationBarHelper {
     private let backBarButtonItemView: EditorBarButtonItemView
     private let settingsBarButtonItemView: EditorBarButtonItemView
     
-    private var isBarButtonItemsWithBackground = false
-    
     private var contentOffsetObservation: NSKeyValueObservation?
     
+    private var isObjectHeaderWithCover = false
     private var objectHeaderHeight: CGFloat = 0.0
     
     init(onBackBarButtonItemTap: @escaping () -> Void,
@@ -77,10 +76,10 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func configureNavigationBarUsing(header: ObjectHeader, titleBlockText: BlockText?) {
+        isObjectHeaderWithCover = header.isWithCover
         objectHeaderHeight = header.height
         
-        isBarButtonItemsWithBackground = header.isWithCover
-        updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
+        updateBarButtonItemsBackground(alpha: isObjectHeaderWithCover ? 1.0 : 0.0)
         
         let title: String = {
             guard
@@ -118,15 +117,13 @@ private extension EditorNavigationBarHelper {
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
             customView: settingsBarButtonItemView
         )
-        
-        updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
     }
     
-    func updateBarButtonItemsBackground(hasBackground: Bool) {
+    func updateBarButtonItemsBackground(alpha: CGFloat) {
         [backBarButtonItemView, settingsBarButtonItemView].forEach {
-            guard $0.hasBackground != hasBackground else { return }
+            guard !$0.backgroundAlpha.isEqual(to: alpha) else { return }
             
-            $0.hasBackground = hasBackground
+            $0.backgroundAlpha = alpha
         }
     }
     
@@ -156,16 +153,19 @@ private extension EditorNavigationBarHelper {
             return
         }
         
-        switch alpha {
-        case 0.0:
-            updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
-        case 1.0:
-            updateBarButtonItemsBackground(hasBackground: false)
-        default:
-            break
-        }
+        let barButtonItemsBackgroundAlpha: CGFloat = {
+            guard isObjectHeaderWithCover else { return 0.0 }
+            
+            switch alpha {
+            case 0.0:
+                return isObjectHeaderWithCover ? 1.0 : 0.0
+            default:
+                return 1.0 - alpha
+            }
+        }()
 
         navigationBarTitleView.setAlphaForSubviews(alpha)
+        updateBarButtonItemsBackground(alpha: barButtonItemsBackgroundAlpha)
         navigationBarBackgroundView.alpha = alpha
     }
     

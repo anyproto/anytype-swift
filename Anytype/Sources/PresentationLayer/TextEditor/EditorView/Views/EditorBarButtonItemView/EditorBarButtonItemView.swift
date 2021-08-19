@@ -10,11 +10,13 @@ import UIKit
 
 final class EditorBarButtonItemView: UIView {
     
-    var hasBackground: Bool = false {
+    var backgroundAlpha: CGFloat = 0.0 {
         didSet {
-            handleUpdateBackground()
+            handleAlphaUpdate(backgroundAlpha)
         }
     }
+    
+    private let backgroundView = UIView()
     
     private let button = UIButton(type: .custom)
     
@@ -33,12 +35,25 @@ final class EditorBarButtonItemView: UIView {
 private extension EditorBarButtonItemView {
     
     func setupView(image: UIImage?, action: @escaping () -> Void) {
-        clipsToBounds = true
-        layer.cornerRadius = 7
-        layoutUsing.anchors {
-            $0.size(CGSize(width: 28, height: 28))
-        }
+        setupBackgroundView()
+        setupButton(image: image, action: action)
+        setupLayout()
         
+        handleAlphaUpdate(backgroundAlpha)
+        
+        enableAnimation(
+            .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
+            .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
+        )
+    }
+    
+    func setupBackgroundView() {
+        backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
+        backgroundView.clipsToBounds = true
+        backgroundView.layer.cornerRadius = 7
+    }
+    
+    func setupButton(image: UIImage?, action: @escaping () -> Void) {
         button.setImage(image, for: .normal)
         button.adjustsImageWhenHighlighted = false
         
@@ -50,27 +65,26 @@ private extension EditorBarButtonItemView {
             ),
             for: .touchUpInside
         )
-                
-        addSubview(button) {
+    }
+    
+    func setupLayout() {
+        layoutUsing.anchors {
+            $0.size(CGSize(width: 28, height: 28))
+        }
+        
+        addSubview(backgroundView) {
             $0.pinToSuperview()
         }
         
-        handleUpdateBackground()
-        
-        enableAnimation(
-            .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
-            .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
-        )
+        addSubview(button) {
+            $0.pinToSuperview()
+        }
     }
     
-    func handleUpdateBackground() {
-        backgroundColor = hasBackground ? .black.withAlphaComponent(0.35) : .clear
-        button.tintColor = hasBackground ? UIColor.grayscaleWhite : UIColor.secondaryTextColor
+    func handleAlphaUpdate(_ alpha: CGFloat) {
+        backgroundView.alpha = alpha
+        button.tintColor = alpha.isLess(than: 0.5) ? UIColor.secondaryTextColor : UIColor.grayscaleWhite
     }
-    
-}
-
-private extension EditorBarButtonItemView {
     
     func enableAnimation(_ inAnimator: ViewAnimator<UIView>, _ outAnimator: ViewAnimator<UIView>) {
         let recognizer = TouchGestureRecognizer { [weak self] recognizer in
@@ -91,6 +105,10 @@ private extension EditorBarButtonItemView {
         recognizer.cancelsTouchesInView = false
         button.addGestureRecognizer(recognizer)
     }
+    
+}
+
+private extension EditorBarButtonItemView {
     
     enum Constants {
         static let animationDuration: TimeInterval = 0.1
