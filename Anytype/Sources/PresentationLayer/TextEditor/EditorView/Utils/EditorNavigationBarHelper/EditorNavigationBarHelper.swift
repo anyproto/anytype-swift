@@ -19,7 +19,6 @@ final class EditorNavigationBarHelper {
     private let settingsBarButtonItemView: EditorBarButtonItemView
     
     private var isBarButtonItemsWithBackground = false
-    private var isTitleViewHidden = true
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -38,6 +37,8 @@ final class EditorNavigationBarHelper {
         
         self.navigationBarBackgroundView.backgroundColor = .grayscaleWhite
         self.navigationBarBackgroundView.alpha = 0.0
+        
+        self.navigationBarTitleView.setAlphaForSubviews(0.0)
     }
     
 }
@@ -108,7 +109,6 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
 private extension EditorNavigationBarHelper {
     
     func configureNavigationItem(in vc: UIViewController) {
-        navigationBarTitleView.isHidden = isTitleViewHidden
         vc.navigationItem.titleView = navigationBarTitleView
         
         vc.setupBackBarButtonItem(
@@ -158,17 +158,14 @@ private extension EditorNavigationBarHelper {
         
         switch alpha {
         case 0.0:
-            isTitleViewHidden = true
-            navigationBarTitleView.isHidden = isTitleViewHidden
             updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
         case 1.0:
-            isTitleViewHidden = false
-            navigationBarTitleView.isHidden = isTitleViewHidden
             updateBarButtonItemsBackground(hasBackground: false)
         default:
             break
         }
 
+        navigationBarTitleView.setAlphaForSubviews(alpha)
         navigationBarBackgroundView.alpha = alpha
     }
     

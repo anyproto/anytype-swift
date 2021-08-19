@@ -59,6 +59,12 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         }
     }
     
+    /// Parents alpha sets automatically by system when it attaches to NavigationBar. 
+    func setAlphaForSubviews(_ alpha: CGFloat) {
+        titleLabel.alpha = alpha
+        iconImageView.alpha = alpha
+    }
+    
 }
 
 private extension EditorNavigationBarTitleView {
