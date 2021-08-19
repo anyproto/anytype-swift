@@ -111,23 +111,6 @@ extension ApplicationCoordinator: MainWindowHolder {
         MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
     }
     
-    func configureNavigationBarAppearance(_ appearance: NavigationBarAppearance) {
-        let navBarAppearance: UINavigationBarAppearance
-        
-        switch appearance {
-        case .opaque:
-            navBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithOpaqueBackground()
-            navBarAppearance.shadowImage = UIImage()
-            navBarAppearance.shadowColor = nil
-        case .transparent:
-            navBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithTransparentBackground()
-        }
-        
-        modifyNavigationBarAppearance(navBarAppearance, rootNavigationController)
-    }
-    
     private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance,
                                                _ vc: UINavigationController) {
         vc.navigationBar.compactAppearance = appearance
