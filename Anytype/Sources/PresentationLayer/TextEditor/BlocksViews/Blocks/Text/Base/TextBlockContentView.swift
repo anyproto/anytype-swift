@@ -376,6 +376,10 @@ extension TextBlockContentView: AccessoryViewSwitcherDelegate {
     }
     
     func didEnterURL(_ url: URL?) {
-        
+        let range = textView.textView.selectedRange
+        currentConfiguration.actionHandler.handleAction(
+            .setLink(url, range),
+            blockId: currentConfiguration.information.id
+        )
     }
 }
