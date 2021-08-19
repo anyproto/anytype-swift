@@ -64,6 +64,10 @@ extension DetailsData: DetailsDataProtocol {
         value(for: .done)
     }
     
+    public var typeUrl: String? {
+        value(for: .type)
+    }
+    
     private func value<V>(for kind: DetailsKind) -> V? {
         guard let entry = details[kind] else {
             return nil
