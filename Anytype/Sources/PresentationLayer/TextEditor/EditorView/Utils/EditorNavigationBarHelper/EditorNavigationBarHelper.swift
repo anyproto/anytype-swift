@@ -12,21 +12,11 @@ import BlocksModels
 
 final class EditorNavigationBarHelper {
     
-    let onBackBarButtonItemTap: () -> Void
-    let onSettingsBarButtonItemTap: () -> Void
-    
     private let navigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
-    private lazy var backBarButtonItemView = EditorBarButtonItemView(
-        image: .backArrow,
-        action: onBackBarButtonItemTap
-    )
-    
-    private lazy var settingsBarButtonItemView = EditorBarButtonItemView(
-        image: .more,
-        action: onSettingsBarButtonItemTap
-    )
+    private let backBarButtonItemView: EditorBarButtonItemView
+    private let settingsBarButtonItemView: EditorBarButtonItemView
     
     private var isBarButtonItemsWithBackground = false
     private var isTitleViewHidden = true
@@ -35,17 +25,35 @@ final class EditorNavigationBarHelper {
     
     private var objectHeaderHeight: CGFloat = 0.0
     
-    init(onBackBarButtonItemTap: @escaping () -> Void, onSettingsBarButtonItemTap: @escaping () -> Void) {
-        self.onBackBarButtonItemTap = onBackBarButtonItemTap
-        self.onSettingsBarButtonItemTap = onSettingsBarButtonItemTap
+    init(onBackBarButtonItemTap: @escaping () -> Void,
+         onSettingsBarButtonItemTap: @escaping () -> Void) {
+        self.backBarButtonItemView = EditorBarButtonItemView(
+            image: .backArrow,
+            action: onBackBarButtonItemTap
+        )
+        self.settingsBarButtonItemView = EditorBarButtonItemView(
+            image: .more,
+            action: onSettingsBarButtonItemTap
+        )
         
-        navigationBarBackgroundView.backgroundColor = .grayscaleWhite
-        navigationBarBackgroundView.alpha = 0.0
+        self.navigationBarBackgroundView.backgroundColor = .grayscaleWhite
+        self.navigationBarBackgroundView.alpha = 0.0
     }
     
 }
 
-extension EditorNavigationBarHelper {
+// MARK: - EditorNavigationBarHelperProtocol
+
+extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
+    
+    func addNavigationBarBackgroundView(to view: UIView) {
+        view.addSubview(navigationBarBackgroundView) {
+            $0.top.equal(to: view.topAnchor)
+            $0.leading.equal(to: view.leadingAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
+            $0.bottom.equal(to: view.layoutMarginsGuide.topAnchor)
+        }
+    }
     
     func handleViewWillAppear(_ vc: UIViewController?, _ scrollView: UIScrollView) {
         guard let vc = vc else {
@@ -93,16 +101,9 @@ extension EditorNavigationBarHelper {
         
     }
     
-    func addNavigationBarBackgroundView(to view: UIView) {
-        view.addSubview(navigationBarBackgroundView) {
-            $0.top.equal(to: view.topAnchor)
-            $0.leading.equal(to: view.leadingAnchor)
-            $0.trailing.equal(to: view.trailingAnchor)
-            $0.bottom.equal(to: view.layoutMarginsGuide.topAnchor)
-        }
-    }
-    
 }
+
+// MARK: - Private extension
 
 private extension EditorNavigationBarHelper {
     
@@ -172,6 +173,8 @@ private extension EditorNavigationBarHelper {
     }
     
 }
+
+// MARK: - ObjectHeader
 
 private extension ObjectHeader {
     
