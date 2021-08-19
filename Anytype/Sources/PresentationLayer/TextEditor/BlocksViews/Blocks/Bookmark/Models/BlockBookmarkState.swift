@@ -1,5 +1,4 @@
 enum BlockBookmarkState: Hashable, Equatable {
-    case empty
     case onlyURL(String)
     case fetched(BlockBookmarkPayload)
 }

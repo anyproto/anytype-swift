@@ -41,12 +41,19 @@ final class EditorAssembly {
         let selectionHandler = EditorSelectionHandler()
         let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
+        let markupChanger = BlockMarkupChanger(
+            document: document,
+            documentId: blockId,
+            textService: BlockActionsServiceText()
+        )
+        
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
             modelsHolder: modelsHolder,
             selectionHandler: selectionHandler,
             document: document,
-            router: router
+            router: router,
+            markupChanger: markupChanger
         )
         
         let eventProcessor = EventProcessor(document: document, modelsHolder: modelsHolder)

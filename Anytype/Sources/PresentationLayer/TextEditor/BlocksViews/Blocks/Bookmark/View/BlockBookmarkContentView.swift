@@ -15,14 +15,14 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         }
     }
     
-    lazy var bookmarkHeight: NSLayoutConstraint = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
+    lazy var bookmarkHeight = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
     
     init(configuration: BlockBookmarkConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         
+        setup()
         apply(state: currentConfiguration.state)
-        bookmarkHeight.isActive = true
     }
     
     @available(*, unavailable)
@@ -35,23 +35,22 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func apply(state: BlockBookmarkContentState) {
-        removeAllSubviews()
-        
-        switch state {
-        case let .onlyURL(url):
-            addSubview(bookmarkView) {
-                $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
-            }
-            bookmarkHeight.constant = Layout.emptyViewHeight
-            bookmarkView.handle(state: .onlyURL(url))
-        case let .fetched(payload):
-            addSubview(bookmarkView) {
-                $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
-            }
-            bookmarkHeight.constant = Layout.bookmarkViewHeight
-            bookmarkView.handle(state: .fetched(payload))
+    private func setup() {
+        addSubview(bookmarkView) {
+            $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
         }
+        bookmarkHeight.isActive = true
+    }
+    
+    private func apply(state: BlockBookmarkState) {
+        switch state {
+        case .onlyURL:
+            bookmarkHeight.constant = Layout.emptyViewHeight
+        case .fetched:
+            bookmarkHeight.constant = Layout.bookmarkViewHeight
+        }
+        
+        bookmarkView.handle(state: state)
     }
 
     private let bookmarkView: BlockBookmarkView = {
@@ -70,6 +69,5 @@ private extension BlockBookmarkContentView {
         static let emptyViewHeight: CGFloat = 48
         static let bookmarkViewHeight: CGFloat = 108
         static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
-        static let emptyViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
     }
 }

@@ -12,7 +12,7 @@ import BlocksModels
 
 final class EditorNavigationBarHelper {
     
-    private let navigationBarBackgroundView = UIView()
+    private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
     private let backBarButtonItemView: EditorBarButtonItemView
@@ -34,8 +34,8 @@ final class EditorNavigationBarHelper {
             action: onSettingsBarButtonItemTap
         )
         
-        self.navigationBarBackgroundView.backgroundColor = .grayscaleWhite
-        self.navigationBarBackgroundView.alpha = 0.0
+        self.fakeNavigationBarBackgroundView.backgroundColor = .grayscaleWhite
+        self.fakeNavigationBarBackgroundView.alpha = 0.0
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
     }
@@ -46,8 +46,8 @@ final class EditorNavigationBarHelper {
 
 extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     
-    func addNavigationBarBackgroundView(to view: UIView) {
-        view.addSubview(navigationBarBackgroundView) {
+    func addFakeNavigationBarBackgroundView(to view: UIView) {
+        view.addSubview(fakeNavigationBarBackgroundView) {
             $0.top.equal(to: view.topAnchor)
             $0.leading.equal(to: view.leadingAnchor)
             $0.trailing.equal(to: view.trailingAnchor)
@@ -131,7 +131,7 @@ private extension EditorNavigationBarHelper {
         let startAppearingOffset = objectHeaderHeight - 50
         let endAppearingOffset = objectHeaderHeight
 
-        let navigationBarHeight = navigationBarBackgroundView.bounds.height
+        let navigationBarHeight = fakeNavigationBarBackgroundView.bounds.height
         
         let yFullOffset = newOffset + navigationBarHeight
 
@@ -166,7 +166,7 @@ private extension EditorNavigationBarHelper {
 
         navigationBarTitleView.setAlphaForSubviews(alpha)
         updateBarButtonItemsBackground(alpha: barButtonItemsBackgroundAlpha)
-        navigationBarBackgroundView.alpha = alpha
+        fakeNavigationBarBackgroundView.alpha = alpha
     }
     
 }

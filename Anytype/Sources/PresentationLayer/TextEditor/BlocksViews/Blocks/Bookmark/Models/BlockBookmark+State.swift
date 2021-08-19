@@ -2,9 +2,9 @@ import BlocksModels
 
 extension BlockBookmark {
     
-    var blockBookmarkState: BlockBookmarkState {
+    var blockBookmarkState: BlockBookmarkState? {
         if url.isEmpty {
-            return .empty
+            return nil
         }
         
         if title.isEmpty {

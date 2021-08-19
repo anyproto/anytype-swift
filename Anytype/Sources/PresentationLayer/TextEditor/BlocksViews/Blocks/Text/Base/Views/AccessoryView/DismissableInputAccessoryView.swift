@@ -34,6 +34,11 @@ class DismissableInputAccessoryView: UIView {
     
     func didShow(from textView: UITextView) {}
     
+    @objc func dismiss() {
+        removeFromSuperview()
+        dismissHandler?()
+    }
+    
     private func addTopSeparator() {
         let topSeparator = UIView()
         topSeparator.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +57,7 @@ class DismissableInputAccessoryView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                         action: #selector(handleTransparentViewTap)))
+                                                         action: #selector(dismiss)))
         parentView.addSubview(view)
         NSLayoutConstraint.activate([
             view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
@@ -61,10 +66,5 @@ class DismissableInputAccessoryView: UIView {
             view.topAnchor.constraint(equalTo: parentView.topAnchor)
         ])
         transparentView = view
-    }
-    
-    @objc private func handleTransparentViewTap() {
-        removeFromSuperview()
-        dismissHandler?()
     }
 }

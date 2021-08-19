@@ -60,7 +60,7 @@ final class MarkStyleModifier {
     
     private func apply(_ action: MarkStyleAction, toWhole range: NSRange) {
         let oldAttributes = getAttributes(at: range)
-        guard let update = apply(style: action, to: oldAttributes) else { return }
+        guard let update = apply(action, to: oldAttributes) else { return }
         
         var newAttributes = mergeAttributes(
             origin: oldAttributes,
@@ -99,8 +99,8 @@ final class MarkStyleModifier {
         attributedString.insert(mentionAttachmentString, at: range.location)
     }
     
-    func apply(style: MarkStyleAction, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
-        switch style {
+    private func apply(_ action: MarkStyleAction, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
+        switch action {
         case let .bold(shouldApplyMarkup):
             if let font = old[.font] as? UIFont {
                 let oldTraits = font.fontDescriptor.symbolicTraits

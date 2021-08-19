@@ -207,7 +207,7 @@ private extension DocumentEditorViewController {
         setupCollectionView()
         setupInteractions()
         
-        navigationBarHelper.addNavigationBarBackgroundView(to: view)
+        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
 
     func setupCollectionView() {
