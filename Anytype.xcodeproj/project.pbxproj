@@ -2037,10 +2037,9 @@
 		0AD6B24624CF5D0A0097A841 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
-				3D7EA8CA268F52C700C76974 /* Utils */,
+				3D7EA8CA268F52C700C76974 /* Models */,
 				3D7EA8C7268F523100C76974 /* View */,
 				0AD6B24924CF5DC00097A841 /* BlockBookmarkViewModel.swift */,
-				120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */,
 				3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */,
 			);
 			path = Bookmark;
@@ -2725,12 +2724,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		3D7EA8CA268F52C700C76974 /* Utils */ = {
+		3D7EA8CA268F52C700C76974 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				120F7D7D267F88FF00327734 /* BlockBookmark+State.swift */,
+				120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */,
 			);
-			path = Utils;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3D829177265E53A50007C152 /* Model */ = {

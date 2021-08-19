@@ -15,24 +15,26 @@ final class BlockBookmarkInfoView: UIView {
         fatalError("Not implemented")
     }
     
-    func update(state: BlockBookmarkContentState) {
+    func update(state: BlockBookmarkState) {
         updateIcon(state: state)
         removeAllSubviews()
         
-        let stackView: UIStackView
         switch state {
         case let .onlyURL(url):
             urlView.text = url
             
-            stackView = layoutUsing.stack {
-                $0.vStack(urlStackView)
+            addSubview(urlStackView) {
+                $0.pinToSuperview(insets: Layout.contentInsets)
             }
+            
         case let .fetched(payload):
             titleView.text = payload.title
             descriptionView.text = payload.subtitle
             urlView.text = payload.url
             
-            stackView = layoutUsing.stack {
+            layoutUsing.stack {
+                $0.edgesToSuperview(insets: Layout.contentInsets)
+            } builder: {
                 $0.vStack(
                     titleView,
                     $0.vGap(fixed: 5),
@@ -42,12 +44,9 @@ final class BlockBookmarkInfoView: UIView {
                 )
             }
         }
-        
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 15, trailing: 16)
     }
     
-    private func updateIcon(state: BlockBookmarkContentState) {
+    private func updateIcon(state: BlockBookmarkState) {
         urlStackView.removeAllSubviews()
         
         guard case let .fetched(payload) = state, !payload.faviconHash.isEmpty else {
@@ -131,5 +130,6 @@ final class BlockBookmarkInfoView: UIView {
 extension BlockBookmarkInfoView {
     enum Layout {
         static let iconSize = CGSize(width: 16, height: 16)
+        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: -15, right: -16)
     }
 }
