@@ -2208,6 +2208,7 @@
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				12A52E1626CA88C9000F0333 /* EditorBarButtonItemView */,
 				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
 				123FDAF126C2951900F6F44B /* ObjectHeaderIconAndCoverConfiguration.swift */,
 				123FDAF626C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift */,
@@ -2599,7 +2600,6 @@
 			isa = PBXGroup;
 			children = (
 				12A52E2526CAA156000F0333 /* ViewAnimator */,
-				12A52E1626CA88C9000F0333 /* EditorBarButtonItemView */,
 				03E2AD4323A93C8C00C701CE /* TextView */,
 				EAE8C6A12693011C00324B46 /* URLInputView */,
 				1211D6582667CEC100541D9C /* ActivityIndicatorView */,
