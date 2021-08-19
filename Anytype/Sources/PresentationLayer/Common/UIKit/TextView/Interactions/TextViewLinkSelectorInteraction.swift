@@ -12,7 +12,7 @@ final class TextViewLinkSelectorInteraction: NSObject {
     
     private func linkRects() -> [CGRect]? {
         guard let textView = textView,
-              let linkRanges = textView.attributedText.rangesWithLinkAttribute() else {
+              let linkRanges = textView.attributedText.rangesWith(attribute: .link) else {
             return nil
         }
         let glyphRanges = linkRanges.map { range in

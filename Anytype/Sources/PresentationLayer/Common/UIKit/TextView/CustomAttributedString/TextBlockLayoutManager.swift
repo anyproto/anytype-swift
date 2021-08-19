@@ -40,21 +40,25 @@ final class TextBlockLayoutManager: NSLayoutManager {
     
     override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
         let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-        drawUnderline(for: .mention, characterRange: characterRange, origin: origin) { value -> Bool in
-            return value is String
-        }
-        drawUnderline(for: .link, characterRange: characterRange, origin: origin) { value -> Bool in
-            return value is URL
-        }
+        drawUnderline(
+            for: .mention,
+            characterRange: characterRange,
+            origin: origin
+        )
+        drawUnderline(
+            for: .link,
+            characterRange: characterRange,
+            origin: origin
+        )
         super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
     }
     
     private func drawUnderline(
         for attribute: NSAttributedString.Key,
         characterRange: NSRange,
-        origin: CGPoint,
-        valueCheck: (Any?) -> Bool
+        origin: CGPoint
     ) {
+        let valueCheck = attribute.valueChecker
         textStorage?.enumerateAttribute(
             attribute,
             in: characterRange,
