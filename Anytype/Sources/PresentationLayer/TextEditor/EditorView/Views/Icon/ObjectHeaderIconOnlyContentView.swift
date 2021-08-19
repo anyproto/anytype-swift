@@ -131,14 +131,24 @@ private extension ObjectHeaderIconOnlyContentView {
     
 }
 
-private extension ObjectHeaderIconOnlyContentView {
+extension ObjectHeaderIconOnlyContentView {
     
     enum Constants {
+        static let height: CGFloat = 232
+
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
                 
-        static let basicIconTopInset: CGFloat = 152 - ObjectIconView.Constants.borderWidth
-        static let basicEmojiTopInset: CGFloat = 168 - ObjectIconView.Constants.borderWidth
-        static let profileTopInset: CGFloat = 136 - ObjectIconView.Constants.borderWidth
+        static let basicIconTopInset = height -
+        DocumentIconImageView.Constants.Basic.size.height -
+        ObjectIconView.Constants.borderWidth
+        
+        static let basicEmojiTopInset: CGFloat = height -
+        DocumentIconEmojiView.Constants.size.height -
+        ObjectIconView.Constants.borderWidth
+        
+        static let profileTopInset: CGFloat = height -
+        DocumentIconImageView.Constants.Profile.size.height -
+        ObjectIconView.Constants.borderWidth
         
         static let basicBottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
     }
