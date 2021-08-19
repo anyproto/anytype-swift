@@ -20,6 +20,9 @@ struct SearchResult: DetailsDataProtocol {
     let done: Bool?
     
     let type: ObjectType?
+    var typeUrl: String? {
+        type?.url
+    }
     
     // Unused
     let creator: BlockId?

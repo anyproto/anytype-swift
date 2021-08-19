@@ -61,8 +61,23 @@ public class DetailsEntryConverter {
                 return value.asAlignmentEntry()
             case .done:
                 return value.asDoneEntry()
-            default:
-//                anytypeAssertionFailure("TODO")
+            case .type:
+                return value.asTypeEntry()
+            case .id:
+                return nil
+            case .isHidden:
+                return nil
+            case .lastOpenedDate:
+                return nil
+            case .lastModifiedDate:
+                return nil
+            case .lastModifiedBy:
+                return nil
+            case .creator:
+                return nil
+            case .createdDate:
+                return nil
+            case .featuredRelations:
                 return nil
             }
         }()
