@@ -11,6 +11,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
+    /// Block that upper than current.
+    /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
+    private let upperBlock: BlockModelProtocol?
     
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
@@ -30,6 +33,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     init(
         block: BlockModelProtocol,
+        upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
         contextualMenuHandler: DefaultContextualMenuHandler,
@@ -39,6 +43,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         showStyleMenu:  @escaping (BlockInformation) -> Void)
     {
         self.block = block
+        self.upperBlock = upperBlock
         self.content = content
         self.isCheckable = isCheckable
         self.contextualMenuHandler = contextualMenuHandler
@@ -73,6 +78,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         TextBlockContentConfiguration(
             blockDelegate: blockDelegate,
             block: block,
+            upperBlock: upperBlock,
             isCheckable: isCheckable,
             actionHandler: actionHandler,
             configureMentions: configureMentions,

@@ -99,6 +99,41 @@ struct AnytypeFontBuilder {
             return .bold
         }
     }
+
+    static func lineHeight(_ textStyle: TextStyle) -> CGFloat {
+        switch textStyle {
+        case .title:
+            return 32
+        case .heading:
+            return 26
+        case .subheading, .headline, .headlineSemibold, .headlineMedium, .body, .bodyBold, .bodySemibold, .bodyMedium:
+            return 24
+        case .codeBlock:
+            return 22
+        case .caption, .captionMedium:
+            return 18
+        case .footnote, .footnoteMedium:
+            return 15
+        case .caption2, .caption2Medium:
+            return 14
+        }
+    }
+
+    /// Line spacing.
+    ///
+    /// In desing tool to specify space between lines used line height font parameter.  iOS API have only line spacing attribute.
+    /// So if in desing font line height differ from default value we need calculate line spacing by self.
+    ///
+    /// To set correct line spacing we need do follow:
+    /// - Get default line height of font. We can do it progrmmatically using lineHeight font property.
+    /// - Calculate and set line spacing. **Line spacing = Line height in design - Default line height**.
+    /// - Set  top/bottom space for text view as  **Top/Bottom Space =  Line spacing / 2**.
+    ///
+    /// - Parameter textStyle: Text style type.
+    /// - Returns: Line spacing for given text style.
+    static func lineSpacing(_ textStyle: TextStyle) -> CGFloat {
+        return lineHeight(textStyle) - uiKitFont(textStyle: textStyle).lineHeight
+    }
 }
 
 struct OptionalLineSpacingModifier: ViewModifier {
