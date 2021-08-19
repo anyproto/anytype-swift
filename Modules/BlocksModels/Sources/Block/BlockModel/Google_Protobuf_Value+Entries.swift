@@ -84,7 +84,7 @@ extension Google_Protobuf_Value {
     func asLayoutEntry() -> DetailsEntry<AnyHashable>? {
         guard let number = self.safeIntValue else {
             anytypeAssertionFailure(
-                "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.layout)"
             )
             return nil
         }
@@ -96,7 +96,7 @@ extension Google_Protobuf_Value {
     func asAlignmentEntry() -> DetailsEntry<AnyHashable>? {
         guard let number = self.safeIntValue else {
             anytypeAssertionFailure(
-                "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.layoutAlign)"
             )
             return nil
         }
@@ -108,11 +108,21 @@ extension Google_Protobuf_Value {
     func asDoneEntry() -> DetailsEntry<AnyHashable>? {
         guard case let .boolValue(bool) = kind else {
             anytypeAssertionFailure(
-                "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.done)"
             )
             return nil
         }
         return DetailsEntry(value: bool)
     }
     
+    func asTypeEntry() -> DetailsEntry<AnyHashable>? {
+        guard case let .stringValue(string) = kind else {
+            anytypeAssertionFailure(
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.type)"
+            )
+            return nil
+        }
+        
+        return DetailsEntry(value: string)
+    }
 }
