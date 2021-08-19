@@ -34,9 +34,9 @@ class DismissableInputAccessoryView: UIView {
     
     func didShow(from textView: UITextView) {}
     
-    @objc func dismiss() {
-        removeFromSuperview()
+    @objc private func dismiss() {
         dismissHandler?()
+        removeFromSuperview()
     }
     
     private func addTopSeparator() {
