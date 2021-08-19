@@ -17,8 +17,12 @@ extension Namespace {
                             marks: Anytype_Model_Block.Content.Text.Marks,
                             style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
-            var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markStyle: MarkStyle)? in
-                guard let markValue = MarkStyleConverter.asModel(.init(attribute: value.type, value: value.param)) else {
+            var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markAction: MarkStyleAction)? in
+                let middlewareTuple = MiddlewareTuple(
+                    attribute: value.type,
+                    value: value.param
+                )
+                guard let markValue = MarkStyleActionConverter.asModel(middlewareTuple) else {
                     return nil
                 }
                 return (RangeConverter.asModel(value.range), markValue)
@@ -44,11 +48,11 @@ extension Namespace {
             //
             // If we will add mentions after other markup and starting from tail of string
             // it will not break ranges
-            var mentionMarks = [(range: NSRange, markStyle: MarkStyle)]()
+            var mentionMarks = [(range: NSRange, markAction: MarkStyleAction)]()
             
-            markAttributes.removeAll { (range, markStyle) -> Bool in
-                if case .mention = markStyle {
-                    mentionMarks.append((range: range, markStyle: markStyle))
+            markAttributes.removeAll { (range, markAction) -> Bool in
+                if case .mention = markAction {
+                    mentionMarks.append((range: range, markAction: markAction))
                     return true
                 }
                 return false
@@ -57,10 +61,10 @@ extension Namespace {
             mentionMarks.sort { $0.range.location > $1.range.location }
             
             markAttributes.forEach { attribute in
-                modifier.applyStyle(style: attribute.markStyle, range: attribute.range)
+                modifier.apply(attribute.markAction, range: attribute.range)
             }
             mentionMarks.forEach {
-                modifier.applyStyle(style: $0.markStyle, range: $0.range)
+                modifier.apply($0.markAction, range: $0.range)
             }
             
             return modifier.attributedString

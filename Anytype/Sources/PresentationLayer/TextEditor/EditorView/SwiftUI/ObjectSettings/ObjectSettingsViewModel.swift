@@ -17,8 +17,6 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases
         case .todo:
             return ObjectSetting.allCases.filter { $0 != .icon }
-        default:
-            return ObjectSetting.allCases
         }
     }
     

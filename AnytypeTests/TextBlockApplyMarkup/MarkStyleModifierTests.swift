@@ -28,15 +28,15 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testOnlyCodeMarkupApply() {
         // Given
-        let markup = MarkStyle.keyboard(true)
+        let markup = MarkStyleAction.keyboard(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -47,15 +47,15 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testOnlyBoldMarkupApply() {
         // Given
-        let markup = MarkStyle.bold(true)
+        let markup = MarkStyleAction.bold(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -69,15 +69,15 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testOnlyItalicMarkupApply() {
         // Given
-        let markup = MarkStyle.italic(true)
+        let markup = MarkStyleAction.italic(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -91,15 +91,15 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testOnlyStrikethroughMarkupApply() {
         // Given
-        let markup = MarkStyle.strikethrough(true)
+        let markup = MarkStyleAction.strikethrough(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: range
         )
         
@@ -113,20 +113,20 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldAndItalicWholeString() {
         // Given
-        let bold = MarkStyle.bold(true)
-        let italic = MarkStyle.italic(true)
+        let bold = MarkStyleAction.bold(true)
+        let italic = MarkStyleAction.italic(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
         
@@ -146,20 +146,20 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldAndCodeWholeString() {
         // Given
-        let bold = MarkStyle.bold(true)
-        let code = MarkStyle.keyboard(true)
+        let bold = MarkStyleAction.bold(true)
+        let code = MarkStyleAction.keyboard(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
         
@@ -176,20 +176,20 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldAndStrikethroughWholeString() {
         // Given
-        let bold = MarkStyle.bold(true)
-        let strikethrough = MarkStyle.strikethrough(true)
+        let bold = MarkStyleAction.bold(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
         
@@ -209,20 +209,20 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testItalicAndCodeWholeString() {
         // Given
-        let italic = MarkStyle.italic(true)
-        let code = MarkStyle.keyboard(true)
+        let italic = MarkStyleAction.italic(true)
+        let code = MarkStyleAction.keyboard(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
         
@@ -239,20 +239,20 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testItalicAndStrikethroughWholeString() {
         // Given
-        let italic = MarkStyle.italic(true)
-        let strikethrough = MarkStyle.strikethrough(true)
+        let italic = MarkStyleAction.italic(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
         
@@ -272,20 +272,20 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func tesCodeAndStrikethroughWholeString() {
         // Given
-        let code = MarkStyle.keyboard(true)
-        let strikethrough = MarkStyle.strikethrough(true)
+        let code = MarkStyleAction.keyboard(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
         
@@ -302,30 +302,30 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldItalicCodeStrikethroughMarkupsToWholeString() {
         // Given
-        let code = MarkStyle.keyboard(true)
-        let strikethrough = MarkStyle.strikethrough(true)
-        let bold = MarkStyle.bold(true)
-        let italic = MarkStyle.italic(true)
+        let code = MarkStyleAction.keyboard(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
+        let bold = MarkStyleAction.bold(true)
+        let italic = MarkStyleAction.italic(true)
         let range = NSRange(
             location: 0,
             length: sut.attributedString.length
         )
         
         // When
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: range
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: range
         )
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: range
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: range
         )
         
@@ -354,8 +354,8 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldAndItalicOverlapping() {
         // Given
-        let bold = MarkStyle.bold(true)
-        let italic = MarkStyle.italic(true)
+        let bold = MarkStyleAction.bold(true)
+        let italic = MarkStyleAction.italic(true)
         let boldRange = NSRange(
             location: 2,
             length: 5
@@ -372,12 +372,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: boldRange
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: italicRange
         )
         
@@ -397,8 +397,8 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldAndCodeOverlapping() {
         // Given
-        let bold = MarkStyle.bold(true)
-        let code = MarkStyle.keyboard(true)
+        let bold = MarkStyleAction.bold(true)
+        let code = MarkStyleAction.keyboard(true)
         let boldRange = NSRange(
             location: 2,
             length: 5
@@ -415,12 +415,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: boldRange
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: codeRange
         )
         
@@ -437,8 +437,8 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldAndStrikethroughOverlapping() {
         // Given
-        let bold = MarkStyle.bold(true)
-        let strikethrough = MarkStyle.strikethrough(true)
+        let bold = MarkStyleAction.bold(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
         let boldRange = NSRange(
             location: 2,
             length: 5
@@ -455,12 +455,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: bold,
+        sut.apply(
+            bold,
             range: boldRange
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: strikethroughRange
         )
         
@@ -480,8 +480,8 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testItalicAndCodeOverlapping() {
         // Given
-        let code = MarkStyle.keyboard(true)
-        let italic = MarkStyle.italic(true)
+        let code = MarkStyleAction.keyboard(true)
+        let italic = MarkStyleAction.italic(true)
         let codeRange = NSRange(
             location: 2,
             length: 5
@@ -498,12 +498,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: codeRange
         )
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: italicRange
         )
         
@@ -520,8 +520,8 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testItalicAndStrikethroughOverlapping() {
         // Given
-        let italic = MarkStyle.italic(true)
-        let strikethrough = MarkStyle.strikethrough(true)
+        let italic = MarkStyleAction.italic(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
         let italicRange = NSRange(
             location: 2,
             length: 5
@@ -538,12 +538,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: italic,
+        sut.apply(
+            italic,
             range: italicRange
         )
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: strikethroughRange
         )
         
@@ -563,8 +563,8 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testStrikethroughAndCodeOverlapping() {
         // Given
-        let strikethrough = MarkStyle.strikethrough(true)
-        let code = MarkStyle.keyboard(true)
+        let strikethrough = MarkStyleAction.strikethrough(true)
+        let code = MarkStyleAction.keyboard(true)
         let strikethroughRange = NSRange(
             location: 2,
             length: 5
@@ -581,12 +581,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: strikethrough,
+        sut.apply(
+            strikethrough,
             range: strikethroughRange
         )
-        sut.applyStyle(
-            style: code,
+        sut.apply(
+            code,
             range: codeRange
         )
         
@@ -605,9 +605,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testBoldMarkupAndThenMention() {
         // Given
-        let markup = MarkStyle.bold(true)
+        let markup = MarkStyleAction.bold(true)
         let boldRange = NSRange(location: 3, length: 10)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 4, length: 4)
         
         if !sut.attributedString.isRangeValid(boldRange) ||
@@ -617,12 +617,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: boldRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -636,9 +636,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testItalicMarkupAndThenMention() {
         // Given
-        let markup = MarkStyle.italic(true)
+        let markup = MarkStyleAction.italic(true)
         let italicRange = NSRange(location: 3, length: 10)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 4, length: 4)
         
         if !sut.attributedString.isRangeValid(italicRange) ||
@@ -648,12 +648,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: italicRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -667,9 +667,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testCodeMarkupAndThenMention() {
         // Given
-        let markup = MarkStyle.keyboard(true)
+        let markup = MarkStyleAction.keyboard(true)
         let codeRange = NSRange(location: 3, length: 10)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 4, length: 4)
         
         if !sut.attributedString.isRangeValid(codeRange) ||
@@ -679,12 +679,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: codeRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -695,9 +695,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testStrikethroughMarkupAndThenMention() {
         // Given
-        let markup = MarkStyle.strikethrough(true)
+        let markup = MarkStyleAction.strikethrough(true)
         let strikethroughRange = NSRange(location: 3, length: 10)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 4, length: 4)
         
         if !sut.attributedString.isRangeValid(strikethroughRange) ||
@@ -707,12 +707,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         //When
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: strikethroughRange
         )
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
         
@@ -728,9 +728,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testInsertMentionAndThenApplyBold() {
         // Given
-        let markup = MarkStyle.bold(true)
+        let markup = MarkStyleAction.bold(true)
         let markupRange = NSRange(location: 4, length: 8)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 5, length: 5)
         
         if !sut.attributedString.isRangeValid(mentionRange) ||
@@ -740,12 +740,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
@@ -759,9 +759,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testInsertMentionAndThenApplyItalic() {
         // Given
-        let markup = MarkStyle.italic(true)
+        let markup = MarkStyleAction.italic(true)
         let markupRange = NSRange(location: 4, length: 8)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 5, length: 5)
         
         if !sut.attributedString.isRangeValid(mentionRange) ||
@@ -771,12 +771,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
@@ -790,9 +790,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testInsertMentionAndThenApplyCode() {
         // Given
-        let markup = MarkStyle.keyboard(true)
+        let markup = MarkStyleAction.keyboard(true)
         let markupRange = NSRange(location: 4, length: 8)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 5, length: 5)
         
         if !sut.attributedString.isRangeValid(mentionRange) ||
@@ -802,12 +802,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
@@ -818,9 +818,9 @@ final class MarkStyleModifierTests: XCTestCase {
     
     func testInsertMentionAndThenApplyStrikethrough() {
         // Given
-        let markup = MarkStyle.strikethrough(true)
+        let markup = MarkStyleAction.strikethrough(true)
         let markupRange = NSRange(location: 4, length: 8)
-        let mention = MarkStyle.mention("randomPage")
+        let mention = MarkStyleAction.mention("randomPage")
         let mentionRange = NSRange(location: 5, length: 5)
         
         if !sut.attributedString.isRangeValid(mentionRange) ||
@@ -830,12 +830,12 @@ final class MarkStyleModifierTests: XCTestCase {
         }
         
         // When
-        sut.applyStyle(
-            style: mention,
+        sut.apply(
+            mention,
             range: mentionRange
         )
-        sut.applyStyle(
-            style: markup,
+        sut.apply(
+            markup,
             range: markupRange
         )
         
