@@ -99,9 +99,11 @@ private extension ObjectHeaderIconAndCoverContentView {
     
 }
 
-private extension ObjectHeaderIconAndCoverContentView {
+extension ObjectHeaderIconAndCoverContentView {
     
     enum Constants {
+        static let height = ObjectCoverView.Constants.coverHeight
+        
         static let horizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
         static let bottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
     }

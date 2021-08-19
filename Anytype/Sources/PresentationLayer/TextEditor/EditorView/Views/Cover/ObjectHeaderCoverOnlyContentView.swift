@@ -70,3 +70,11 @@ private extension ObjectHeaderCoverOnlyContentView  {
     }
     
 }
+
+extension ObjectHeaderCoverOnlyContentView {
+    
+    enum Constants {
+        static let height = ObjectCoverView.Constants.coverHeight
+    }
+    
+}

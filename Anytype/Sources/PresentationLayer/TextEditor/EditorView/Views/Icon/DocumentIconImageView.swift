@@ -165,7 +165,7 @@ private extension DocumentIconImageView {
 
 // MARK: - Constants
 
-private extension DocumentIconImageView {
+extension DocumentIconImageView {
     
     enum Constants {
         enum Basic {

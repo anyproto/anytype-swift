@@ -157,7 +157,7 @@ private extension ObjectCoverView {
     
 }
 
-private extension ObjectCoverView {
+extension ObjectCoverView {
     
     enum Constants {
         static let coverHeight: CGFloat = 232

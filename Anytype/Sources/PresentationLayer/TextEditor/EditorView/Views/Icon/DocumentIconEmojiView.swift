@@ -74,7 +74,7 @@ private extension DocumentIconEmojiView {
 
 // MARK: - Constants
 
-private extension DocumentIconEmojiView {
+extension DocumentIconEmojiView {
     
     enum Constants {
         static let cornerRadius: CGFloat = 18

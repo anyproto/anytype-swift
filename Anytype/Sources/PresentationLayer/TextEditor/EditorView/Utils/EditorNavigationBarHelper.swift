@@ -33,6 +33,8 @@ final class EditorNavigationBarHelper {
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
+    private var objectHeaderHeight: CGFloat = 0.0
+    
     init(onBackBarButtonItemTap: @escaping () -> Void, onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.onBackBarButtonItemTap = onBackBarButtonItemTap
         self.onSettingsBarButtonItemTap = onSettingsBarButtonItemTap
@@ -66,6 +68,8 @@ extension EditorNavigationBarHelper {
     }
     
     func configureNavigationBarUsing(header: ObjectHeader, titleBlockText: BlockText?) {
+        objectHeaderHeight = header.height
+        
         isBarButtonItemsWithBackground = header.isWithCover
         updateBarButtonItemsBackground(hasBackground: isBarButtonItemsWithBackground)
         
@@ -126,8 +130,8 @@ private extension EditorNavigationBarHelper {
     }
     
     func handleScrollViewOffsetChange(_ newOffset: CGFloat) {
-        let startAppearingOffset: CGFloat = 200
-        let endAppearingOffset: CGFloat = 232
+        let startAppearingOffset = objectHeaderHeight - 50
+        let endAppearingOffset = objectHeaderHeight
 
         let navigationBarHeight = navigationBarBackgroundView.bounds.height
         
@@ -181,6 +185,19 @@ private extension ObjectHeader {
             return true
         case .empty:
             return false
+        }
+    }
+    
+    var height: CGFloat {
+        switch self {
+        case .iconOnly:
+            return ObjectHeaderIconOnlyContentView.Constants.height
+        case .coverOnly:
+            return ObjectHeaderCoverOnlyContentView.Constants.height
+        case .iconAndCover:
+            return ObjectHeaderIconAndCoverContentView.Constants.height
+        case .empty:
+            return ObjectHeaderEmptyContentView.Constants.height
         }
     }
     
