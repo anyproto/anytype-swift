@@ -1,6 +1,7 @@
 import BlocksModels
 import SwiftProtobuf
 import ProtobufMessages
+import AnytypeCore
 
 struct SearchResult: DetailsDataProtocol {
     let id: BlockId
@@ -55,21 +56,14 @@ struct SearchResult: DetailsDataProtocol {
         isArchived = fields[DetailsKind.isArchived.rawValue]?.boolValue
         done = fields[DetailsKind.done.rawValue]?.boolValue
         
-        let type: ObjectType?
-        if let rawType = fields[DetailsKind.type.rawValue]?.stringValue {
-            type = ObjectType(rawValue: rawType)
+        if let url = fields[DetailsKind.type.rawValue]?.stringValue {
+            let type = ObjectTypeProvider.objectType(url: url)
+            anytypeAssert(type != nil, "Cannot parse type :\(url))")
+            self.type = type
         } else {
-            type = fields[DetailsKind.type.rawValue]?.listValue
-                .values.compactMap { rawValue in
-                    ObjectType(rawValue: rawValue.stringValue)
-                }.first
+            self.type = nil
         }
-        self.type = type
-        assert(
-            fields[DetailsKind.type.rawValue] == nil || type != nil,
-            "Cannot parse type :\(String(describing: fields[DetailsKind.type.rawValue]))"
-        )
-        
+
         // Unused
         lastModifiedBy = fields[DetailsKind.lastModifiedBy.rawValue]?.stringValue
         creator = fields[DetailsKind.creator.rawValue]?.stringValue

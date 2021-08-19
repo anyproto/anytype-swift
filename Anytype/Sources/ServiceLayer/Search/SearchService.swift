@@ -12,7 +12,13 @@ protocol SearchServiceProtocol {
 
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
-    private let supportedTypes = [ObjectType.profile.rawValue, ObjectType.page.rawValue]
+    
+    // https://airtable.com/tblTjKSGFBqA0UYeL/viwi3waIIrz4Wktrh?blocks=hide
+    private var supportedTypeUrls: [String] {
+        ObjectTypeProvider
+            .objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
+            .map { $0.url }
+    }
     
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
@@ -31,7 +37,7 @@ final class SearchService {
             fullText: text,
             offset: 0,
             limit: 100,
-            objectTypeFilter: supportedTypes,
+            objectTypeFilter: supportedTypeUrls,
             keys: [],
             completion: completion
         )
@@ -54,7 +60,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: supportedTypes,
+            objectTypeFilter: supportedTypeUrls,
             keys: [],
             completion: completion
         )
@@ -75,7 +81,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: supportedTypes,
+            objectTypeFilter: supportedTypeUrls,
             keys: [],
             completion: completion
         )
@@ -91,13 +97,17 @@ final class SearchService {
             MiddlewareBuilder.notHiddenFilter()
         ]
         
+        let objectTypeFilter = ObjectTypeProvider
+            .objectTypes(smartblockTypes: [.page])
+            .map { $0.url }
+        
         makeRequest(
             filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 50,
-            objectTypeFilter: [ObjectType.page.rawValue],
+            objectTypeFilter: objectTypeFilter,
             keys: [],
             completion: completion
         )
@@ -119,7 +129,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: supportedTypes,
+            objectTypeFilter: supportedTypeUrls,
             keys: [],
             completion: completion
         )
