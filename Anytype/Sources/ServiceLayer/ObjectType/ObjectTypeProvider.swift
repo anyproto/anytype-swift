@@ -9,6 +9,15 @@ final class ObjectTypeProvider {
             .map { $0.url }
     }
     
+    static func isSupported(typeUrl: String?) -> Bool {
+        guard let typeUrl = typeUrl else {
+            anytypeAssertionFailure("Nil type url")
+            return false
+        }
+        
+        return supportedTypeUrls.contains(typeUrl)
+    }
+    
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
         types.filter {
             !Set($0.types).intersection(smartblockTypes).isEmpty

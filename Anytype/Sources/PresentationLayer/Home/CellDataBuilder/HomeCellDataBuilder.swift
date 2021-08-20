@@ -22,12 +22,7 @@ final class HomeCellDataBuilder {
                     return true
                 }
                 
-                guard let typeUrl = details.typeUrl else {
-                    anytypeAssertionFailure("No type url for dashboard link")
-                    return false
-                }
-                
-                return ObjectTypeProvider.supportedTypeUrls.contains(typeUrl)
+                return ObjectTypeProvider.isSupported(typeUrl: details.typeUrl)
 
             }
             .map { buildHomeCellData(pageLink: $0) }

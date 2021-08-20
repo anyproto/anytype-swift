@@ -23,17 +23,22 @@ final class MentionObjectsService {
     
     func obtainMentionsPublisher() -> AnyPublisher<[MentionObject], Error> {
         let service = Anytype_Rpc.Navigation.ListObjects.Service.self
-        let publisher = service.invoke(context: .navigation,
-                                       fullText: filterString,
-                                       limit: pageObjectsCount,
-                                       offset: offset,
-                                       queue: accessQueue)
-            .compactMap { [weak self] response -> [MentionObject]? in
-                guard let self = self else { return nil }
-                self.possibleToObtainNextPage = response.objects.count == self.pageObjectsCount
-                return self.parser.parseMentions(from: response)
-            }
-            .eraseToAnyPublisher()
+        let publisher = service.invoke(
+            context: .navigation,
+            fullText: filterString,
+            limit: pageObjectsCount,
+            offset: offset,
+            queue: accessQueue
+        )
+        .compactMap { [weak self] response -> [MentionObject]? in
+            guard let self = self else { return nil }
+            self.possibleToObtainNextPage = response.objects.count == self.pageObjectsCount
+            return self.parser
+                .parseMentions(from: response)
+                .filter { ObjectTypeProvider.isSupported(typeUrl: $0.type?.url) }
+        }
+        .eraseToAnyPublisher()
+        
         offset += pageObjectsCount
         return publisher
     }
