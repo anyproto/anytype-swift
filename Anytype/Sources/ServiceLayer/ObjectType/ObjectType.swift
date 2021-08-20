@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-struct ObjectType {
+struct ObjectType: Equatable, Hashable {
     let url: String
     let name: String
     let iconEmoji: String

@@ -111,6 +111,10 @@ extension ApplicationCoordinator: MainWindowHolder {
         MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
     }
     
+    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+        rootNavigationController.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
     private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance,
                                                _ vc: UINavigationController) {
         vc.navigationBar.compactAppearance = appearance
