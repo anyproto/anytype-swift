@@ -64,11 +64,13 @@ struct BlockInformationCreator {
         return blockModel.information.updated(with: alignment)
     }
     
-    private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
-        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
+    private func buildMarks(
+        newData: Anytype_Event.Block.Set.Text,
+        oldText: BlockText
+    ) -> Anytype_Model_Block.Content.Text.Marks {
         
         let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
+        var marks = useNewMarks ? newData.marks.value : AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
         
         // Workaroung: Some font could set bold style to attributed string
         // So if header or title style has font that apply bold we remove it

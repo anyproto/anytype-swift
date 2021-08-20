@@ -4,12 +4,12 @@ import XCTest
 
 final class AttributedStringConverterTests: XCTestCase {
     
-    private var attributedStringConverter: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.Type!
+    private var attributedStringConverter: AttributedTextConverter.Type!
     
     // MARK: Overriden methods
     
     override func setUp() {
-        attributedStringConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.self
+        attributedStringConverter = AttributedTextConverter.self
     }
     
     override func tearDown() {
