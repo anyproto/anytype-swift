@@ -8,7 +8,7 @@ extension Image {
     
     static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
     
-    static let noImage = Image("no_image_blank_stub")
+    static let noImage = Image("no_image")
 }
 
 extension Image {

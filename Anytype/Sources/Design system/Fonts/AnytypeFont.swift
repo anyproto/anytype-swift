@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
@@ -28,17 +29,16 @@ extension AnytypeFontBuilder {
         case caption2Medium
         case caption2
     }
+
+    enum Weight {
+        case regular
+        case medium
+        case semibold
+        case bold
+    }
 }
 
 struct AnytypeFontBuilder {
-    static func font(name: FontName, size: CGFloat, weight: Font.Weight) -> Font {        
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        return Font.custom(name.rawValue, size: scaledSize).weight(weight)
-    }
-    
-    static func font(textStyle: TextStyle) -> Font {
-        return font(name: fontName(textStyle), size: size(textStyle), weight: weight(textStyle))
-    }
     
     static func customLineSpacing(textStyle: TextStyle) -> CGFloat? {
         switch textStyle {
@@ -49,12 +49,10 @@ struct AnytypeFontBuilder {
         }
     }
     
-    // MARK: - Private
-    private static func fontName(_ textStyle: TextStyle) -> FontName {
+    static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
         case .title, .heading:
-            return .graphik
-            
+            return .inter
         case .subheading, .headline, .body, .caption, .footnote, .caption2:
             return .inter
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
@@ -63,23 +61,22 @@ struct AnytypeFontBuilder {
             return .inter
         case .bodyBold:
             return .inter
-            
         case .codeBlock:
             return .plex
         }
     }
     
-    private static func size(_ textStyle: TextStyle) -> CGFloat {
+    static func size(_ textStyle: TextStyle) -> CGFloat {
         switch textStyle {
         case .title:
             return 28
         case .heading:
             return 22
-        case .subheading, .headline, .headlineSemibold, .headlineMedium:
+        case .subheading, .headline, .headlineSemibold, .headlineMedium, .body, .bodyBold, .bodySemibold, .bodyMedium:
             return 17
-        case .body, .bodyBold, .bodySemibold, .bodyMedium, .codeBlock:
+        case .codeBlock, .captionMedium:
             return 15
-        case .caption, .captionMedium:
+        case .caption:
             return 13
         case .footnote, .footnoteMedium:
             return 12
@@ -87,28 +84,56 @@ struct AnytypeFontBuilder {
             return 11
         }
     }
-    
-    private static func weight(_ textStyle: TextStyle) -> Font.Weight {
+
+    static func weight(_ textStyle: TextStyle) -> Weight {
         switch textStyle {
-        case .title, .heading:
-            return .regular
-        case .headline, .body, .caption, .footnote, .caption2:
-            return .regular
-        case .codeBlock:
+        case .title, .heading, .subheading:
+            return .bold
+        case .headline, .body, .caption, .footnote, .caption2, .codeBlock:
             return .regular
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
             return .medium
         case .headlineSemibold, .bodySemibold:
             return .semibold
-        case .subheading, .bodyBold:
+        case .bodyBold:
             return .bold
         }
     }
-}
 
+    static func lineHeight(_ textStyle: TextStyle) -> CGFloat {
+        switch textStyle {
+        case .title:
+            return 32
+        case .heading:
+            return 26
+        case .subheading, .headline, .headlineSemibold, .headlineMedium, .body, .bodyBold, .bodySemibold, .bodyMedium:
+            return 24
+        case .codeBlock:
+            return 22
+        case .caption, .captionMedium:
+            return 18
+        case .footnote, .footnoteMedium:
+            return 15
+        case .caption2, .caption2Medium:
+            return 14
+        }
+    }
 
-extension Font {
-    static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption)
+    /// Line spacing.
+    ///
+    /// In desing tool to specify space between lines used line height font parameter.  iOS API have only line spacing attribute.
+    /// So if in desing font line height differ from default value we need calculate line spacing by self.
+    ///
+    /// To set correct line spacing we need do follow:
+    /// - Get default line height of font. We can do it progrmmatically using lineHeight font property.
+    /// - Calculate and set line spacing. **Line spacing = Line height in design - Default line height**.
+    /// - Set  top/bottom space for text view as  **Top/Bottom Space =  Line spacing / 2**.
+    ///
+    /// - Parameter textStyle: Text style type.
+    /// - Returns: Line spacing for given text style.
+    static func lineSpacing(_ textStyle: TextStyle) -> CGFloat {
+        return lineHeight(textStyle) - uiKitFont(textStyle: textStyle).lineHeight
+    }
 }
 
 struct OptionalLineSpacingModifier: ViewModifier {
