@@ -97,17 +97,13 @@ final class SearchService {
             MiddlewareBuilder.notHiddenFilter()
         ]
         
-        let objectTypeFilter = ObjectTypeProvider
-            .objectTypes(smartblockTypes: [.page])
-            .map { $0.url }
-        
         makeRequest(
             filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 50,
-            objectTypeFilter: objectTypeFilter,
+            objectTypeFilter: ["_otpage"], // Only pages
             keys: [],
             completion: completion
         )

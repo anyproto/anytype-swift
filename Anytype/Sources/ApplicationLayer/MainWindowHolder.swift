@@ -9,6 +9,4 @@ protocol MainWindowHolder {
         
     func configureMiddlewareConfiguration()
     
-    func configureNavigationBarAppearance(_ appearance: NavigationBarAppearance)
-
 }

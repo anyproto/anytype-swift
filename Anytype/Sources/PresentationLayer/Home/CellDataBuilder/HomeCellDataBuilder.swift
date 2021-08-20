@@ -16,7 +16,7 @@ final class HomeCellDataBuilder {
         let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
-            .filter { $0.type == .page }
+            .filter { $0.linkStyle == .page }
             .map { buildHomeCellData(pageLink: $0) }
     }
     
@@ -28,17 +28,21 @@ final class HomeCellDataBuilder {
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
             details: details,
-            type: link.style
+            linkStyle: link.style
         )
     }
     
     private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
+        let type = pageLink.details?.typeUrl.flatMap {
+            ObjectTypeProvider.objectType(url: $0)?.name
+        } ?? "Object".localized
+        
         return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
             icon: pageLink.details?.icon,
             title: pageLink.details?.pageCellTitle ?? .default(title: ""),
-            type: pageLink.type.rawValue,
+            type: type,
             isLoading: pageLink.isLoading,
             isArchived: pageLink.details?.isArchived ?? false
         )

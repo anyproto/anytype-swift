@@ -11,5 +11,6 @@ public protocol DetailsDataProtocol {
     var layout: DetailsLayout? { get }
     var layoutAlign: LayoutAlignment? { get }
     var done: Bool? { get }
+    var typeUrl: String? { get }
     
 }

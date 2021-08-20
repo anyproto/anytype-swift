@@ -2,7 +2,7 @@ import AnytypeCore
 import UIKit
 
 /// Entity to select text with .link attribute by double tap
-final class TextViewLinkSelectorInteraction: NSObject {
+final class TextViewLinkSelectionInteraction: NSObject {
     
     private weak var textView: UITextView?
     
@@ -56,7 +56,7 @@ final class TextViewLinkSelectorInteraction: NSObject {
     
 }
 
-extension TextViewLinkSelectorInteraction: UIInteraction {
+extension TextViewLinkSelectionInteraction: UIInteraction {
 
     var view: UIView? {
         textView
@@ -75,7 +75,7 @@ extension TextViewLinkSelectorInteraction: UIInteraction {
     }
 }
 
-extension TextViewLinkSelectorInteraction: UIGestureRecognizerDelegate {
+extension TextViewLinkSelectionInteraction: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let linkRects = linkRects() else {

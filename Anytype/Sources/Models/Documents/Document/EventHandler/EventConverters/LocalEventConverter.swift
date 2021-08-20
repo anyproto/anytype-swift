@@ -47,7 +47,6 @@ final class LocalEventConverter {
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
-        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
         
         guard var blockModel = container?.blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container")
@@ -61,7 +60,7 @@ final class LocalEventConverter {
         let middleContent = Anytype_Model_Block.Content.Text(
             text: text,
             style: BlockTextContentTypeConverter.asMiddleware(oldText.contentType),
-            marks: TextConverter.asMiddleware(attributedText: oldText.attributedText).marks,
+            marks: AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks,
             checked: oldText.checked,
             color: oldText.color?.rawValue ?? ""
         )

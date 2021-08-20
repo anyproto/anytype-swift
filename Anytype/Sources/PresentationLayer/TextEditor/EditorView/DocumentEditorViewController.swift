@@ -72,10 +72,7 @@ final class DocumentEditorViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
-        
-        // FIXME: - looks like it can be removed
-        windowHolder?.configureNavigationBarAppearance(.transparent)
-        
+                
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
