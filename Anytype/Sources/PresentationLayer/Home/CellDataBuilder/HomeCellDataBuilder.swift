@@ -18,7 +18,11 @@ final class HomeCellDataBuilder {
         
         return links
             .filter {
-                guard let typeUrl = $0.details?.typeUrl else {
+                guard let details = $0.details else {
+                    return true
+                }
+                
+                guard let typeUrl = details.typeUrl else {
                     anytypeAssertionFailure("No type url for dashboard link")
                     return false
                 }
