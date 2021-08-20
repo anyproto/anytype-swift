@@ -45,9 +45,11 @@ extension UITextView: Mentionable {
         return result
     }
     
-    func insert(_ mention: MentionObject,
-                from: UITextPosition,
-                to: UITextPosition) {
+    func insert(
+        _ mention: MentionObject,
+        from: UITextPosition,
+        to: UITextPosition
+    ) {
         guard let name = mention.name else { return }
         let pageId = mention.id
         let length = offset(from: from, to: to)
@@ -57,7 +59,7 @@ extension UITextView: Mentionable {
         attributedString.deleteCharacters(in: replacementRange)
         
         let mentionAttachment = MentionAttachment(
-            name: name, pageId: pageId, icon: mention.icon
+            name: name, pageId: pageId, type: mention.type, icon: mention.icon
         )
         let mentionString = NSMutableAttributedString(attachment: mentionAttachment)
         let font = self.font ?? .body

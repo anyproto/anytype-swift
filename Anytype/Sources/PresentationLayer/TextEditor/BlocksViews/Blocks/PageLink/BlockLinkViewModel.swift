@@ -48,22 +48,12 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
             return
         }
         
-        showNotSupportedAlert()
-    }
-    
-    func showNotSupportedAlert() {
+
         let typeName = state.type?.name ?? ""
-        let alert = UIAlertController(
+        AlertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",
-            message: "You can open it via desktop",
-            preferredStyle: .actionSheet
+            message: "You can open it via desktop"
         )
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
-          alert.dismiss(animated: true, completion: nil)
-        }
-        
-        windowHolder?.presentOnTop(alert, animated: true)
     }
     
     func handle(action: ContextualMenu) {
