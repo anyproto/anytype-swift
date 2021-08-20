@@ -116,16 +116,16 @@ extension NSAttributedString {
         length > 0 && length >= range.length + range.location && range.location >= 0
     }
     
-    func rangesWithLinkAttribute() -> [NSRange]? {
+    func rangesWith(attribute: Key) -> [NSRange]? {
         guard length > 0 else { return nil }
-        var linkRanges = [NSRange]()
+        var ranges = [NSRange]()
         enumerateAttribute(
             .link,
             in: NSRange(location: 0, length: length)
         ) { value, subrange, _ in
-            guard value is URL else { return }
-            linkRanges.append(subrange)
+            guard attribute.checkValue(value) else { return }
+            ranges.append(subrange)
         }
-        return linkRanges
+        return ranges
     }
 }
