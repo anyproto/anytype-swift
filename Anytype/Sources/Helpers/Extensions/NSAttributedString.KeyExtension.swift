@@ -4,54 +4,50 @@ import UIKit
 extension NSAttributedString.Key {
     static let mention = NSAttributedString.Key("Mention") // Value for this key should be page Id
     
-    /// Closure can be used to validate value by key in NSAttributedString
-    var valueChecker: (Any?) -> Bool {
+    /// Method can be used to validate value by key in NSAttributedString
+    func checkValue(_ value: Any?) -> Bool {
         switch self {
         case .font:
-            return { $0 is UIFont}
+            return value is UIFont
         case .paragraphStyle:
-            return { $0 is NSParagraphStyle}
+            return value is NSParagraphStyle
         case .mention,
              .textEffect:
-            return { $0 is String }
+            return value is String
         case .link:
-            return { $0 is URL }
+            return value is URL
         case .backgroundColor,
              .foregroundColor,
              .strikethroughStyle,
              .underlineStyle,
              .strokeColor:
-            return { $0 is UIColor }
+            return value is UIColor
         case .kern,
              .tracking,
              .strokeWidth,
              .obliqueness,
              .expansion:
-            return {
-                guard let value = $0 as? Float, !value.isZero else {
-                    return false
-                }
-                return true
+            guard let value = value as? Float, !value.isZero else {
+                return false
             }
+            return true
         case .shadow:
-            return { $0 is NSShadow }
+            return value is NSShadow
         case .ligature,
              .strikethroughStyle,
              .underlineStyle:
-            return {
-                guard let value = $0 as? Int, value != 0 else {
-                    return false
-                }
-                return true
+            guard let value = value as? Int, value != 0 else {
+                return false
             }
+            return true
         case .attachment:
-            return { $0 is NSTextAttachment }
+            return value is NSTextAttachment
         case .writingDirection:
-            return { $0 is [Int] }
+            return value is [Int]
         case .verticalGlyphForm:
-            return { $0 is Int }
+            return value is Int
         default:
-            return { _ in false }
+            return false
         }
     }
 }

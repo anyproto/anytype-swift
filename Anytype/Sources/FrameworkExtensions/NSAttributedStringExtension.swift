@@ -119,12 +119,11 @@ extension NSAttributedString {
     func rangesWith(attribute: Key) -> [NSRange]? {
         guard length > 0 else { return nil }
         var ranges = [NSRange]()
-        let valueChecker = attribute.valueChecker
         enumerateAttribute(
             .link,
             in: NSRange(location: 0, length: length)
         ) { value, subrange, _ in
-            guard valueChecker(value) else { return }
+            guard attribute.checkValue(value) else { return }
             ranges.append(subrange)
         }
         return ranges

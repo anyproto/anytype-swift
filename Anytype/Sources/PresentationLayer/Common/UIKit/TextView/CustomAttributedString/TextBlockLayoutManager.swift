@@ -58,13 +58,12 @@ final class TextBlockLayoutManager: NSLayoutManager {
         characterRange: NSRange,
         origin: CGPoint
     ) {
-        let valueCheck = attribute.valueChecker
         textStorage?.enumerateAttribute(
             attribute,
             in: characterRange,
             options: .longestEffectiveRangeNotRequired,
             using: { value, subrange, _ in
-                guard valueCheck(value) else { return }
+                guard attribute.checkValue(value) else { return }
                 let glyphRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
                 drawUnderline(forGlyphRange: glyphRange, origin: origin)
             })
