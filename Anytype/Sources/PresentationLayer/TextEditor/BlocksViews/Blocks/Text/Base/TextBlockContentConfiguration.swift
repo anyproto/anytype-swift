@@ -15,11 +15,13 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let pressingEnterTimeChecker = TimeChecker()
     let information: BlockInformation
     let isCheckable: Bool
+    let upperBlock: BlockModelProtocol?
     private(set) var isSelected: Bool = false
     
     init(
         blockDelegate: BlockDelegate,
         block: BlockModelProtocol,
+        upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
         showPage: @escaping (String) -> Void,
@@ -29,6 +31,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     ) {
         self.blockDelegate = blockDelegate
         self.block = block
+        self.upperBlock = upperBlock
         self.configureMentions = configureMentions
         self.actionHandler = actionHandler
         self.showPage = showPage

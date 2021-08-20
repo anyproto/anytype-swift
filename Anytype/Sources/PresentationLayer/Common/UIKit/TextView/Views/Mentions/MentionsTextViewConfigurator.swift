@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 final class MentionsConfigurator  {
     
@@ -6,9 +7,9 @@ final class MentionsConfigurator  {
         static let buttonOffset = CGPoint(x: 4, y: 4)
     }
     
-    private let didSelectMention: (String) -> Void
+    private let didSelectMention: (BlockId, ObjectType?) -> Void
     
-    init(didSelectMention: @escaping (String) -> Void) {
+    init(didSelectMention: @escaping (BlockId, ObjectType?) -> Void) {
         self.didSelectMention = didSelectMention
     }
     
@@ -26,21 +27,31 @@ final class MentionsConfigurator  {
                     self?.addMentionInteractionButtons(
                         to: textView,
                         frames: [mentionRect, attachmentRect],
-                        pageId: attachment.pageId
+                        pageId: attachment.pageId,
+                        type: attachment.type
                     )
                 }
             }
         }
     }
     
-    private func addMentionInteractionButtons(to textView: UITextView, frames: [CGRect], pageId: String) {
+    private func addMentionInteractionButtons(to textView: UITextView, frames: [CGRect], pageId: String, type: ObjectType?) {
         frames.forEach {
-            let button = MentionButton(frame: $0.offsetBy(dx: Constants.buttonOffset.x,
-                                                          dy: Constants.buttonOffset.y))
+            let button = MentionButton(
+                frame: $0.offsetBy(
+                    dx: Constants.buttonOffset.x,
+                    dy: Constants.buttonOffset.y
+                )
+            )
+            
             button.isExclusiveTouch = true
-            button.addAction(UIAction(handler: { [weak self] _ in
-                self?.didSelectMention(pageId)
-            }), for: .touchUpInside)
+            button.addAction(
+                UIAction(
+                    handler: { [weak self] _ in
+                        self?.didSelectMention(pageId, type)
+                    }
+                ), for: .touchUpInside
+            )
             textView.addSubview(button)
         }
     }

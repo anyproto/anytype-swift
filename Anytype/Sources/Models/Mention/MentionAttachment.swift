@@ -2,11 +2,13 @@ import Combine
 import UIKit
 import Kingfisher
 import AnytypeCore
+import BlocksModels
 
 final class MentionAttachment: NSTextAttachment {
     
-    let pageId: String
+    let pageId: BlockId
     let name: String
+    let type: ObjectType?
     
     private weak var layoutManager: NSLayoutManager?
     
@@ -18,9 +20,10 @@ final class MentionAttachment: NSTextAttachment {
     
     private var subscriptions = [AnyCancellable]()
     
-    init(name: String, pageId: String, icon: MentionIcon? = nil) {
+    init(name: String, pageId: String, type: ObjectType?, icon: MentionIcon? = nil) {
         self.pageId = pageId
         self.name = name
+        self.type = type
         self.icon = icon
         
         super.init(data: nil, ofType: nil)

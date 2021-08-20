@@ -86,7 +86,11 @@ final class MarkStyleModifier {
     private func applyMention(pageId: String, range: NSRange) {
         // This attachment is for displaying icon in front of mention: 🦊Fox
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
-        let mentionAttachment = MentionAttachment(name: mentionAttributedString.string, pageId: pageId)
+        let mentionAttachment = MentionAttachment(
+            name: mentionAttributedString.string,
+            pageId: pageId,
+            type: nil
+        )
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         let currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         mentionAttachmentString.addAttributes(

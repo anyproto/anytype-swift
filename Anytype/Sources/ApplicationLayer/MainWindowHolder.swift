@@ -9,4 +9,11 @@ protocol MainWindowHolder {
         
     func configureMiddlewareConfiguration()
     
+    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
+}
+
+extension MainWindowHolder {
+    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool) {
+        self.presentOnTop(viewControllerToPresent, animated: flag, completion: nil)
+    }
 }

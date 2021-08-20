@@ -32,10 +32,15 @@ final class BlockViewModelBuilder {
     }
 
     func build(_ blocks: [BlockModelProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
-        blocks.compactMap { build($0, details: details) }
+        var previousBlock: BlockModelProtocol?
+        return blocks.compactMap { block -> BlockViewModelProtocol? in
+            let blockViewModel = build(block, details: details, previousBlock: previousBlock)
+            previousBlock = block
+            return blockViewModel
+        }
     }
 
-    func build(_ block: BlockModelProtocol, details: DetailsData?) -> BlockViewModelProtocol? {
+    func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol? = nil) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
@@ -71,6 +76,7 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? details?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
+                    upperBlock: previousBlock,
                     content: content,
                     isCheckable: isCheckable,
                     contextualMenuHandler: contextualMenuHandler,
