@@ -120,7 +120,7 @@ extension NSAttributedString {
         guard length > 0 else { return nil }
         var ranges = [NSRange]()
         enumerateAttribute(
-            .link,
+            attribute,
             in: NSRange(location: 0, length: length)
         ) { value, subrange, _ in
             guard attribute.checkValue(value) else { return }

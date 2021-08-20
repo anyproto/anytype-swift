@@ -94,7 +94,7 @@ extension TextViewAttributeSelectionInteraction: UIGestureRecognizerDelegate {
         _ gestureRecognizer: UIGestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
     ) -> Bool {
-        true
+        false
     }
     
     func gestureRecognizer(
