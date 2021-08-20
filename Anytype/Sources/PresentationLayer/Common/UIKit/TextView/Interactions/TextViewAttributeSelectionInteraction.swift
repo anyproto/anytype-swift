@@ -1,21 +1,30 @@
-import AnytypeCore
 import UIKit
 
-/// Entity to select text with .link attribute by double tap
-final class TextViewLinkSelectionInteraction: NSObject {
+final class TextViewAttributeSelectionInteraction: NSObject {
     
     private weak var textView: UITextView?
+    private let attributeKey: NSAttributedString.Key
+    private let numberOfTapsRequired: Int
+    private let tapHandler: TextViewAttributeSelectionHandler
     
-    init(textView: UITextView) {
+    init(
+        textView: UITextView,
+        attributeKey: NSAttributedString.Key,
+        numberOfTapsRequired: Int,
+        tapHandler: TextViewAttributeSelectionHandler
+    ) {
         self.textView = textView
+        self.attributeKey = attributeKey
+        self.numberOfTapsRequired = numberOfTapsRequired
+        self.tapHandler = tapHandler
     }
     
-    private func linkRects() -> [CGRect]? {
+    private func attributeRectsForTap() -> [CGRect]? {
         guard let textView = textView,
-              let linkRanges = textView.attributedText.rangesWith(attribute: .link) else {
+              let ranges = textView.attributedText.rangesWith(attribute: attributeKey) else {
             return nil
         }
-        let glyphRanges = linkRanges.map { range in
+        let glyphRanges = ranges.map { range in
             textView.layoutManager.glyphRange(
                 forCharacterRange: range,
                 actualCharacterRange: nil
@@ -41,22 +50,16 @@ final class TextViewLinkSelectionInteraction: NSObject {
     }
     
     @objc private func handle(gestureRecognizer: UITapGestureRecognizer) {
-        let tapLocation = gestureRecognizer.location(in: textView)
-        
-        guard let position = textView?.closestPosition(to: tapLocation) else { return }
-        
-        textView?.select(gestureRecognizer)
-        let range = textView?.tokenizer.rangeEnclosingPosition(
-            position,
-            with: .word,
-            inDirection: .storage(.forward)
+        guard let textView = textView else { return }
+        tapHandler.didSelect(
+            attributeKey,
+            in: textView,
+            recognizer: gestureRecognizer
         )
-        textView?.selectedTextRange = range
     }
-    
 }
 
-extension TextViewLinkSelectionInteraction: UIInteraction {
+extension TextViewAttributeSelectionInteraction: UIInteraction {
 
     var view: UIView? {
         textView
@@ -69,20 +72,20 @@ extension TextViewLinkSelectionInteraction: UIInteraction {
             target: self,
             action: #selector(handle)
         )
-        gestureRecognizer.numberOfTapsRequired = 2
+        gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
         gestureRecognizer.delegate = self
         view?.addGestureRecognizer(gestureRecognizer)
     }
 }
 
-extension TextViewLinkSelectionInteraction: UIGestureRecognizerDelegate {
+extension TextViewAttributeSelectionInteraction: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard let linkRects = linkRects() else {
+        guard let rects = attributeRectsForTap() else {
             return false
         }
         let tapLocation = gestureRecognizer.location(in: textView)
-        return linkRects.contains { rect in
+        return rects.contains { rect in
             rect.contains(tapLocation)
         }
     }
@@ -101,3 +104,4 @@ extension TextViewLinkSelectionInteraction: UIGestureRecognizerDelegate {
         false
     }
 }
+
