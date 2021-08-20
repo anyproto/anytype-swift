@@ -46,15 +46,20 @@ final class MentionsViewModel {
         let service = Anytype_Rpc.Page.Create.Service.self
         let emojiValue = Google_Protobuf_Value(stringValue: emoji)
         let nameValue = Google_Protobuf_Value(stringValue: name)
-        let details = Google_Protobuf_Struct(fields: [DetailsKind.name.rawValue: nameValue,
-                                                      DetailsKind.iconEmoji.rawValue: emojiValue])
+        let details = Google_Protobuf_Struct(
+            fields: [
+                DetailsKind.name.rawValue: nameValue,
+                DetailsKind.iconEmoji.rawValue: emojiValue
+            ]
+        )
         switch service.invoke(details: details) {
         case let .success(response):
             let mention = MentionObject(
                 id: response.pageID,
                 icon: MentionIcon(emoji: emoji),
                 name: name,
-                description: nil
+                description: nil,
+                type: nil
             )
             didSelectMention(mention)
         case let .failure(error):
