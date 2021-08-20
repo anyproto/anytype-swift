@@ -74,8 +74,16 @@ final class EditorAssembly {
             router: router,
             delegate: blockDelegate,
             mentionsConfigurator: MentionsConfigurator(
-                didSelectMention: { pageId in
-                    router.showPage(with: pageId)
+                didSelectMention: { pageId, type in
+                    if ObjectTypeProvider.isSupported(type: type) {
+                        router.showPage(with: pageId)
+                    }  else {
+                        let typeName = type?.name ?? ""
+                        AlertHelper.showToast(
+                            title: "Not supported type \"\(typeName)\"",
+                            message: "You can open it via desktop"
+                        )
+                    }
                 }
             ),
             detailsLoader: DetailsLoader(
