@@ -1,11 +1,3 @@
-//
-//  MentionAttributeSelectionHandler.swift
-//  Anytype
-//
-//  Created by Kovalev Alexander on 20.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 struct MentionAttributeSelectionHandler {
