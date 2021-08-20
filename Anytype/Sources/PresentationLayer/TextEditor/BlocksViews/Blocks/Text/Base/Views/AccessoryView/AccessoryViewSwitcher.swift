@@ -123,12 +123,11 @@ final class AccessoryViewSwitcher {
     func showURLInput(textView: UITextView, url: URL?) {
         let dismissHandler = { [weak self] in
             guard let self = self, let textView = self.textView else { return }
+            textView.becomeFirstResponder()
             self.showEditingBars(textView: textView)
         }
         let urlInputView = URLInputAccessoryView(url: url) { [weak self] enteredURL in
             self?.delegate?.didEnterURL(enteredURL)
-            let urlInput = self?.textView?.inputAccessoryView as? URLInputAccessoryView
-            urlInput?.dismiss()
             dismissHandler()
         }
         urlInputView.dismissHandler = dismissHandler

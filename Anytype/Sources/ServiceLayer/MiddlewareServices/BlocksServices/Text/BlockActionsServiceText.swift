@@ -18,7 +18,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
 
     @discardableResult
     func setText(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
-        let middlewareString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: attributedString)
         return Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextID, blockID: blockID, text: middlewareString.text, marks: middlewareString.marks, queue: .global())
             .successToVoid()

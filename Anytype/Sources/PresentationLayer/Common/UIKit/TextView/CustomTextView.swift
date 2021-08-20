@@ -84,7 +84,13 @@ private extension CustomTextView {
             interaction is UIDragInteraction ||
             interaction is UIDropInteraction
         }
-        textView.addInteraction(TextViewLinkSelectorInteraction(textView: textView))
+        let linkSelection = TextViewAttributeSelectionInteraction(
+            textView: textView,
+            attributeKey: .link,
+            numberOfTapsRequired: 2,
+            tapHandler: LinkAttributeSelectionHandler()
+        )
+        textView.addInteraction(linkSelection)
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }

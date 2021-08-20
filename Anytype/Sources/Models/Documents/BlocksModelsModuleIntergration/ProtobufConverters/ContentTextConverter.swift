@@ -9,7 +9,7 @@ class ContentTextConverter {
     
     func textContent(_ from: Anytype_Model_Block.Content.Text) -> BlockText? {
         return BlockTextContentTypeConverter.asModel(from.style).flatMap { contentType in
-            let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
+            let attributedString = AttributedTextConverter.asModel(
                 text: from.text,
                 marks: from.marks,
                 style: from.style
@@ -30,7 +30,7 @@ func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
             Anytype_Model_Block.Content.Text(
                 text: from.attributedText.string,
                 style: style,
-                marks: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(
+                marks: AttributedTextConverter.asMiddleware(
                     attributedText: from.attributedText
                 ).marks,
                 checked: from.checked,
