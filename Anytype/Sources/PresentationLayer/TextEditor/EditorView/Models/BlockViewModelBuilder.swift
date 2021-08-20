@@ -67,27 +67,18 @@ final class BlockViewModelBuilder {
                         }
                     }
                 )
-            case .title:
-                return TextBlockViewModel(
-                    block: block,
-                    content: content,
-                    isCheckable: details?.layout == .todo,
-                    contextualMenuHandler: contextualMenuHandler,
-                    blockDelegate: delegate,
-                    actionHandler: blockActionHandler
-                ) { [weak self] textView in
-                    self?.mentionsConfigurator.configure(textView: textView)
-                } showStyleMenu: { [weak self] information in
-                    self?.router.showStyleMenu(information: information)
-                }
             default:
+                let isCheckable = content.contentType == .title ? details?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
                     content: content,
-                    isCheckable: false,
+                    isCheckable: isCheckable,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    actionHandler: blockActionHandler
+                    actionHandler: blockActionHandler,
+                    showPage: { [weak self] pageId in
+                        self?.router.showPage(with: pageId)
+                    }
                 ) { [weak self] textView in
                     self?.mentionsConfigurator.configure(textView: textView)
                 } showStyleMenu: { [weak self] information in
