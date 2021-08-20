@@ -9,6 +9,14 @@ final class ObjectTypeProvider {
             .map { $0.url }
     }
     
+    static func isSupported(type: ObjectType?) -> Bool {
+        guard let type = type else {
+            return false
+        }
+        
+        return isSupported(typeUrl: type.url)
+    }
+    
     static func isSupported(typeUrl: String?) -> Bool {
         guard let typeUrl = typeUrl else {
             anytypeAssertionFailure("Nil type url")
@@ -24,8 +32,12 @@ final class ObjectTypeProvider {
         }
     }
     
-    static func objectType(url: String) -> ObjectType? {
-        types.filter { $0.url == url }.first
+    static func objectType(url: String?) -> ObjectType? {
+        guard let url = url else {
+            return nil
+        }
+        
+        return types.filter { $0.url == url }.first
     }    
     
     private static var cachedTypes = [ObjectType]()
