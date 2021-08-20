@@ -1,5 +1,6 @@
 import Combine
 import BlocksModels
+import AnytypeCore
 
 import SwiftUI
 final class HomeCellDataBuilder {
@@ -16,7 +17,19 @@ final class HomeCellDataBuilder {
         let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
-            .filter { $0.linkStyle == .page }
+            .filter {
+                guard let details = $0.details else {
+                    return true
+                }
+                
+                guard let typeUrl = details.typeUrl else {
+                    anytypeAssertionFailure("No type url for dashboard link")
+                    return false
+                }
+                
+                return ObjectTypeProvider.supportedTypeUrls.contains(typeUrl)
+
+            }
             .map { buildHomeCellData(pageLink: $0) }
     }
     
@@ -27,8 +40,7 @@ final class HomeCellDataBuilder {
         return HomePageLink(
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
-            details: details,
-            linkStyle: link.style
+            details: details
         )
     }
     
@@ -44,7 +56,7 @@ final class HomeCellDataBuilder {
             title: pageLink.details?.pageCellTitle ?? .default(title: ""),
             type: type,
             isLoading: pageLink.isLoading,
-            isArchived: pageLink.details?.isArchived ?? false
+            isArchived: pageLink.isArchived
         )
     }
     

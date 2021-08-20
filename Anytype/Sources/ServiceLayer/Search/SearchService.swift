@@ -13,13 +13,6 @@ protocol SearchServiceProtocol {
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
     
-    // https://airtable.com/tblTjKSGFBqA0UYeL/viwi3waIIrz4Wktrh?blocks=hide
-    private var supportedTypeUrls: [String] {
-        ObjectTypeProvider
-            .objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
-            .map { $0.url }
-    }
-    
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
             relation: DetailsKind.lastOpenedDate,
@@ -37,7 +30,7 @@ final class SearchService {
             fullText: text,
             offset: 0,
             limit: 100,
-            objectTypeFilter: supportedTypeUrls,
+            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
             keys: [],
             completion: completion
         )
@@ -60,7 +53,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: supportedTypeUrls,
+            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
             keys: [],
             completion: completion
         )
@@ -81,7 +74,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: supportedTypeUrls,
+            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
             keys: [],
             completion: completion
         )
@@ -125,7 +118,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: supportedTypeUrls,
+            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
             keys: [],
             completion: completion
         )
