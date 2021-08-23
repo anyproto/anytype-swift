@@ -150,8 +150,7 @@
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
 		120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D57267D071400327734 /* PickerSectionHeaderView.swift */; };
 		120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D5B267D0C4400327734 /* Color+Extensions.swift */; };
-		120F7D78267F873500327734 /* BlockBookmarkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D77267F873500327734 /* BlockBookmarkContentView.swift */; };
-		120F7D7C267F881700327734 /* BlockBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D7B267F881700327734 /* BlockBookmarkView.swift */; };
+		120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D77267F873500327734 /* BlockBookmarkView.swift */; };
 		120F7D7E267F88FF00327734 /* BlockBookmark+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D7D267F88FF00327734 /* BlockBookmark+State.swift */; };
 		120F7D80267F8A2B00327734 /* BlockBookmarkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */; };
 		120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D85267F9E8000327734 /* URLExtensions.swift */; };
@@ -779,8 +778,7 @@
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
 		120F7D57267D071400327734 /* PickerSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerSectionHeaderView.swift; sourceTree = "<group>"; };
 		120F7D5B267D0C4400327734 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		120F7D77267F873500327734 /* BlockBookmarkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkContentView.swift; sourceTree = "<group>"; };
-		120F7D7B267F881700327734 /* BlockBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkView.swift; sourceTree = "<group>"; };
+		120F7D77267F873500327734 /* BlockBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkView.swift; sourceTree = "<group>"; };
 		120F7D7D267F88FF00327734 /* BlockBookmark+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+State.swift"; sourceTree = "<group>"; };
 		120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkState.swift; sourceTree = "<group>"; };
 		120F7D85267F9E8000327734 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
@@ -3087,9 +3085,8 @@
 		3DCC548C26D3B4AA002517AC /* FullData */ = {
 			isa = PBXGroup;
 			children = (
-				120F7D77267F873500327734 /* BlockBookmarkContentView.swift */,
-				120F7D7B267F881700327734 /* BlockBookmarkView.swift */,
 				3D7EA8CF268F636300C76974 /* BookmarkConfiguration.swift */,
+				120F7D77267F873500327734 /* BlockBookmarkView.swift */,
 			);
 			path = FullData;
 			sourceTree = "<group>";
@@ -3923,7 +3920,6 @@
 				3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
-				120F7D7C267F881700327734 /* BlockBookmarkView.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
@@ -4133,7 +4129,7 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
-				120F7D78267F873500327734 /* BlockBookmarkContentView.swift in Sources */,
+				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				12A52DCE26C56919000F0333 /* ObjectHeaderEmptyConfiguration.swift in Sources */,

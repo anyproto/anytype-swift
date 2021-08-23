@@ -6,7 +6,7 @@ struct BlockBookmarkConfiguration: UIContentConfiguration, Hashable {
     let payload: BlockBookmarkPayload
             
     func makeContentView() -> UIView & UIContentView {
-        BlockBookmarkContentView(configuration: self)
+        BlockBookmarkView(configuration: self)
     }
     
     func updated(for state: UIConfigurationState) -> BlockBookmarkConfiguration {

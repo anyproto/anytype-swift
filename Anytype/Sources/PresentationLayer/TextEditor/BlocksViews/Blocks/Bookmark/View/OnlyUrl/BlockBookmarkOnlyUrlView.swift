@@ -32,8 +32,8 @@ final class BlockBookmarkOnlyUrlView: UIView & UIContentView {
     }
     
     // MARK: - Views
-    private let backgroundView: BlockBookmarkView = {
-        let view = BlockBookmarkView()
+    private let backgroundView: UIView = {
+        let view = UIView()
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor.stroke.cgColor
         view.layer.cornerRadius = 16
@@ -76,6 +76,6 @@ final class BlockBookmarkOnlyUrlView: UIView & UIContentView {
 private extension BlockBookmarkOnlyUrlView {
     enum Layout {
         static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
-        static let contentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        static let contentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: -16)
     }
 }
