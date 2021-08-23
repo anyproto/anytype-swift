@@ -30,11 +30,7 @@ class BlocksFileEmptyView: UIView & UIContentView {
     }
     
     private func setup() {
-        addSubview(backgroundVew) {
-            $0.pinToSuperview()
-        }
-        
-        backgroundVew.addSubview(contentView) {
+        addSubview(contentView) {
             $0.height.equal(to: 48)
             $0.pinToSuperview(insets: Layout.placeholderInsets)
         }
@@ -52,8 +48,7 @@ class BlocksFileEmptyView: UIView & UIContentView {
         }
     
         icon.layoutUsing.anchors {
-            $0.width.equal(to: Layout.iconSize.width)
-            $0.height.equal(to: Layout.iconSize.height)
+            $0.width.equal(to: Layout.iconWidth)
         }
     }
     
@@ -74,8 +69,6 @@ class BlocksFileEmptyView: UIView & UIContentView {
             activityIndicator.stopAnimating()
         }
     }
-    
-    private let backgroundVew = UIView()
     
     private let contentView: UIView = {
         let view = UIView()
@@ -114,7 +107,7 @@ extension BlocksFileEmptyView {
         static let iconLeading: CGFloat = 12
         static let labelSpacing: CGFloat = 10
         static let activityIndicatorTrailing: CGFloat = 18
-        static let iconSize = CGSize(width: 20, height: 20)
+        static let iconWidth: CGFloat =  20
     }
     
     private enum Constants {

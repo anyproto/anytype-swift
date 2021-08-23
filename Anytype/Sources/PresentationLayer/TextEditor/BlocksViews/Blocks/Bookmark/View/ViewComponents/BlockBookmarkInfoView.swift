@@ -130,6 +130,6 @@ final class BlockBookmarkInfoView: UIView {
 extension BlockBookmarkInfoView {
     enum Layout {
         static let iconSize = CGSize(width: 16, height: 16)
-        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: -15, right: -16)
+        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 16)
     }
 }
