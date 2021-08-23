@@ -9,7 +9,7 @@ final class LoginStateService {
     }
     
     func setupStateAfterLoginOrAuth() {
-        ObjectTypeService.shared.loadObjects()
+        ObjectTypeProvider.loadObjects()
     }
     
     func cleanStateAfterLogout() {
