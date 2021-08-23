@@ -39,7 +39,7 @@ final class MarkStyleModifier {
     }
     
     func apply(_ action: MarkStyleAction, range: NSRange) {
-        guard range.location >= 0, attributedString.length >= range.length else {
+        guard attributedString.isRangeValid(range) else {
             anytypeAssertionFailure("Range out of bounds in \(#function)")
             return
         }
