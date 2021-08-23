@@ -82,7 +82,7 @@ final class SearchService {
     
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
         let sort = MiddlewareBuilder.sort(
-            relation: DetailsKind.lastOpenedDate,
+            relation: DetailsKind.lastModifiedDate,
             type: .desc
         )
         let filters = [

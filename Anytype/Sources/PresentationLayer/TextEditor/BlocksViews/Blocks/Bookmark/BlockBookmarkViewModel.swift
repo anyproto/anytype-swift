@@ -20,8 +20,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let openUrl: (URL) -> ()
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let state = bookmarkData.blockBookmarkState
-        switch state {
+        switch bookmarkData.blockBookmarkState {
         case .none:
             return BlocksFileEmptyViewConfiguration(
                 image: UIImage.blockFile.empty.bookmark,
@@ -29,9 +28,9 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                 state: .default
             )
         case let .fetched(payload):
-            return BlockBookmarkConfiguration(state: .fetched(payload))
+            return BlockBookmarkConfiguration(payload: payload)
         case let .onlyURL(url):
-            return BlockBookmarkConfiguration(state: .onlyURL(url))
+            return BlockBookmarkOnlyUrlConfiguration(ulr: url)
         }
     }
     
