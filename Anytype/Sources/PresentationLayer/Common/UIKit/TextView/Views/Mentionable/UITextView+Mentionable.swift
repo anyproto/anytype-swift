@@ -17,13 +17,11 @@ extension UITextView: Mentionable {
                   subrange.location + subrange.length == selectedRange.location else { return }
 
             let mutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
-            removeMentionInteractionButton(from: subrange)
             mutableAttributedString.deleteCharacters(in: subrange)
 
             if subrange.location > 0 {
                 let mentionAttachmentRange = NSRange(location: subrange.location - Constants.attachmentLenght,
                                                      length: Constants.attachmentLenght)
-                removeMentionInteractionButton(from: mentionAttachmentRange)
                 mutableAttributedString.deleteCharacters(in: mentionAttachmentRange)
                 mentionLocation = mentionAttachmentRange.location
             }
@@ -72,16 +70,5 @@ extension UITextView: Mentionable {
         attributedString.insert(mentionString, at: location)
         attributedText = attributedString
         selectedRange = NSRange(location: location + mentionString.length, length: 0)
-    }
-    
-    private func removeMentionInteractionButton(from range: NSRange) {
-        guard let start = position(from: beginningOfDocument, offset: range.location),
-              let end = position(from: start, offset: range.length),
-              let textRange = textRange(from: start, to: end) else { return }
-        let rect = firstRect(for: textRange)
-        let view = hitTest(CGPoint(x: rect.midX, y: rect.midY), with: nil)
-        if view is MentionButton {
-            view?.removeFromSuperview()
-        }
     }
 }

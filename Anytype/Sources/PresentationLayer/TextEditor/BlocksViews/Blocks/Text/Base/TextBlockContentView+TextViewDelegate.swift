@@ -40,7 +40,6 @@ extension TextBlockContentView: TextViewDelegate {
         case .changeText:
             accessoryViewSwitcher?.textDidChange(textView: textView.textView)
             // TODO: Accessory need refactoring
-            currentConfiguration.configureMentions(textView.textView)
 
             currentConfiguration.actionHandler.handleAction(
                 .textView(

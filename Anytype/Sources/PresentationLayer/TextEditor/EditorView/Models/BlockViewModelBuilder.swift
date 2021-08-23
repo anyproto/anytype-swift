@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let mentionsConfigurator: MentionsConfigurator
     private let detailsLoader: DetailsLoader
 
     init(
@@ -16,7 +15,6 @@ final class BlockViewModelBuilder {
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        mentionsConfigurator: MentionsConfigurator,
         detailsLoader: DetailsLoader
     ) {
         self.document = document
@@ -27,7 +25,6 @@ final class BlockViewModelBuilder {
             handler: blockActionHandler,
             router: router
         )
-        self.mentionsConfigurator = mentionsConfigurator
         self.detailsLoader = detailsLoader
     }
 
@@ -85,9 +82,7 @@ final class BlockViewModelBuilder {
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
                     }
-                ) { [weak self] textView in
-                    self?.mentionsConfigurator.configure(textView: textView)
-                } showStyleMenu: { [weak self] information in
+                ) { [weak self] information in
                     self?.router.showStyleMenu(information: information)
                 }
             }

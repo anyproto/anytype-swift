@@ -73,19 +73,6 @@ final class EditorAssembly {
             blockActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            mentionsConfigurator: MentionsConfigurator(
-                didSelectMention: { pageId, type in
-                    if ObjectTypeProvider.isSupported(type: type) {
-                        router.showPage(with: pageId)
-                    }  else {
-                        let typeName = type?.name ?? ""
-                        AlertHelper.showToast(
-                            title: "Not supported type \"\(typeName)\"",
-                            message: "You can open it via desktop"
-                        )
-                    }
-                }
-            ),
             detailsLoader: DetailsLoader(
                 document: document,
                 eventProcessor: eventProcessor
