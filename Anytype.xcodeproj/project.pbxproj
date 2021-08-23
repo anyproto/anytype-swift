@@ -104,7 +104,7 @@
 		0A78327124B8D2B400A1B6F6 /* BlockTextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327024B8D2B400A1B6F6 /* BlockTextConverter.swift */; };
 		0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */; };
 		0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78326E24B8D2A200A1B6F6 /* PageEventConverter.swift */; };
-		0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */; };
+		0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328224BDEAE700A1B6F6 /* AttributedTextConverter.swift */; };
 		0A78328624BDEB5900A1B6F6 /* MarkStyleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328524BDEB5900A1B6F6 /* MarkStyleAction.swift */; };
 		0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081025D562AC0067EEC9 /* ObjectActionsService.swift */; };
 		0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */; };
@@ -734,7 +734,7 @@
 		0A78326E24B8D2A200A1B6F6 /* PageEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEventConverter.swift; sourceTree = "<group>"; };
 		0A78327024B8D2B400A1B6F6 /* BlockTextConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTextConverter.swift; sourceTree = "<group>"; };
 		0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentConverters.swift; sourceTree = "<group>"; };
-		0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text+AttributedText.swift"; sourceTree = "<group>"; };
+		0A78328224BDEAE700A1B6F6 /* AttributedTextConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextConverter.swift; sourceTree = "<group>"; };
 		0A78328524BDEB5900A1B6F6 /* MarkStyleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleAction.swift; sourceTree = "<group>"; };
 		0A83081025D562AC0067EEC9 /* ObjectActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsService.swift; sourceTree = "<group>"; };
 		0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingle.swift; sourceTree = "<group>"; };
@@ -1991,7 +1991,7 @@
 				EAE6BE002680CD2900275788 /* ObjectTypes */,
 				EAE6BDFF2680CD2200275788 /* Mentions */,
 				EAE6BDFE2680CD1800275788 /* Marks */,
-				0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */,
+				0A78328224BDEAE700A1B6F6 /* AttributedTextConverter.swift */,
 				3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */,
 				EAED581B26A730E500374A46 /* MarkStyleConverter.swift */,
 				EAED581D26A7321600374A46 /* MiddlewareTuple.swift */,
@@ -4238,7 +4238,7 @@
 				EA77E528262DAAA6009F91D9 /* BaseAccessoryMenuItemsViewController.swift in Sources */,
 				0A0965F125BEF5B000C004BD /* EditorSelectionHandler.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
-				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
+				0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */,
 				3D568F952666C2DA00DC7881 /* ContentLayoutConverter.swift in Sources */,
 				EAAD6DEE26CC69E8005CE1E7 /* TextViewContextMenuOption.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
