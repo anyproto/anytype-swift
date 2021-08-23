@@ -90,7 +90,17 @@ private extension CustomTextView {
             numberOfTapsRequired: 2,
             tapHandler: LinkAttributeSelectionHandler()
         )
+        let mentionSelectionHandler = MentionAttributeSelectionHandler { [weak self] pageId in
+            self?.delegate?.didReceiveAction(.showPage(pageId))
+        }
+        let mentionSelection = TextViewAttributeSelectionInteraction(
+            textView: textView,
+            attributeKey: .mention,
+            numberOfTapsRequired: 1,
+            tapHandler: mentionSelectionHandler
+        )
         textView.addInteraction(linkSelection)
+        textView.addInteraction(mentionSelection)
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }

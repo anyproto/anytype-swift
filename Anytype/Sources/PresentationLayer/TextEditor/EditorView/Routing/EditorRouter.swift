@@ -4,6 +4,7 @@ import SafariServices
 import Combine
 import SwiftUI
 import FloatingPanel
+import AnytypeCore
 
 typealias FilePickerModel = CommonViews.Pickers.File.Picker.ViewModel
 
@@ -40,6 +41,18 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
+        guard let details = document.rootModel?.detailsContainer.get(by: id) else {
+            anytypeAssertionFailure("Unable to get details to show page by \(id)")
+            return
+        }
+        let typeUrl = details.detailsData.typeUrl
+        guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
+            AlertHelper.showToast(
+                title: "Not supported type",
+                message: "You can open it via desktop"
+            )
+            return
+        }
         let newEditorViewController = EditorAssembly.build(blockId: id)
         
         viewController?.navigationController?.pushViewController(
