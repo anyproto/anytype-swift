@@ -46,9 +46,10 @@ final class EditorRouter: EditorRouterProtocol {
             return
         }
         let typeUrl = details.detailsData.typeUrl
+        let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? ""
         guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
             AlertHelper.showToast(
-                title: "Not supported type",
+                title: "Not supported type \"\(typeName)\"",
                 message: "You can open it via desktop"
             )
             return
