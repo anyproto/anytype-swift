@@ -567,8 +567,6 @@
 		EAC6BB5726289201004C8C06 /* SlashMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* SlashMenuView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */; };
-		EAE6BDBD267CB11D00275788 /* MentionsTextViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */; };
-		EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDBF267CB69700275788 /* MentionButton.swift */; };
 		EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDF62680C99500275788 /* ObjectTypeService.swift */; };
 		EAE6BDFC2680CC5900275788 /* ObjectTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDFB2680CC5900275788 /* ObjectTypeData.swift */; };
 		EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */; };
@@ -1188,8 +1186,6 @@
 		EAC6BB5626289201004C8C06 /* SlashMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.KeyExtension.swift; sourceTree = "<group>"; };
-		EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsTextViewConfigurator.swift; sourceTree = "<group>"; };
-		EAE6BDBF267CB69700275788 /* MentionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionButton.swift; sourceTree = "<group>"; };
 		EAE6BDF62680C99500275788 /* ObjectTypeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeService.swift; sourceTree = "<group>"; };
 		EAE6BDFB2680CC5900275788 /* ObjectTypeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeData.swift; sourceTree = "<group>"; };
 		EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeParser.swift; sourceTree = "<group>"; };
@@ -3305,7 +3301,6 @@
 			isa = PBXGroup;
 			children = (
 				3D29AFF426A5D4860095BA18 /* Mentionable */,
-				EAE6BDC2267CB6A000275788 /* Mentions */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3665,15 +3660,6 @@
 				EAC6BA9E262711D2004C8C06 /* BlockValidator.swift */,
 			);
 			path = Validators;
-			sourceTree = "<group>";
-		};
-		EAE6BDC2267CB6A000275788 /* Mentions */ = {
-			isa = PBXGroup;
-			children = (
-				EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */,
-				EAE6BDBF267CB69700275788 /* MentionButton.swift */,
-			);
-			path = Mentions;
 			sourceTree = "<group>";
 		};
 		EAE6BDF52680C98700275788 /* Objects */ = {
@@ -4167,7 +4153,6 @@
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				125FD32326CE97BD00D21F5A /* ObjectIconImageSize.swift in Sources */,
-				EAE6BDBD267CB11D00275788 /* MentionsTextViewConfigurator.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */,
 				3D568F9D2666D45B00DC7881 /* BlockInformationConverter.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
@@ -4347,7 +4332,6 @@
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
 				EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
-				EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */,
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
