@@ -278,7 +278,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
-            .foregroundColor: UIColor.secondaryTextColor,
+            .foregroundColor: UIColor.textSecondary,
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
@@ -300,7 +300,7 @@ final class TextBlockContentView: UIView & UIContentView {
         replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Checkbox".localized, textStyle: .body)
         // selected color
-        textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
+        textView.textView.selectedColor = checked ? UIColor.textSecondary : nil
     }
     
     private func setupForBulleted() {
@@ -362,7 +362,7 @@ final class TextBlockContentView: UIView & UIContentView {
                 string: "Toggle empty Click and drop block inside".localized,
                 attributes: [
                     .font: UIFont.body,
-                    .foregroundColor: UIColor.secondaryTextColor
+                    .foregroundColor: UIColor.textSecondary
                 ]
             ),
             for: .normal

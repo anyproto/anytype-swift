@@ -28,7 +28,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         
         let noItemsLabel = UILabel()
         noItemsLabel.font = .body
-        noItemsLabel.textColor = .secondaryTextColor
+        noItemsLabel.textColor = .textSecondary
         noItemsLabel.lineBreakMode = .byWordWrapping
         noItemsLabel.numberOfLines = 0
         noItemsLabel.text = "No items match filter".localized
@@ -135,7 +135,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         if let subtitle = subtitle {
             configuration.secondaryText = subtitle
             configuration.secondaryTextProperties.font = .caption
-            configuration.secondaryTextProperties.color = .secondaryTextColor
+            configuration.secondaryTextProperties.color = .textSecondary
         }
         return configuration
     }

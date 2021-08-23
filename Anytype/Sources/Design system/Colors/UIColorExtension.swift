@@ -7,8 +7,8 @@ extension UIColor {
     }
     
     static let textColor = color(name: ColorName.textPrimary)
-    static let secondaryTextColor = color(name: ColorName.textSecondary)
-    static let tertiaryTextColor = color(name: ColorName.textTertiary)
+    static let textSecondary = color(name: ColorName.textSecondary)
+    static let textTertiary = color(name: ColorName.textTertiary)
     
     static let stroke = color(name: ColorName.stroke)
     

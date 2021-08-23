@@ -83,7 +83,7 @@ private extension EditorBarButtonItemView {
     
     func handleAlphaUpdate(_ alpha: CGFloat) {
         backgroundView.alpha = alpha
-        button.tintColor = alpha.isLess(than: 0.5) ? UIColor.secondaryTextColor : UIColor.grayscaleWhite
+        button.tintColor = alpha.isLess(than: 0.5) ? UIColor.textSecondary : UIColor.grayscaleWhite
     }
     
     func enableAnimation(_ inAnimator: ViewAnimator<UIView>, _ outAnimator: ViewAnimator<UIView>) {

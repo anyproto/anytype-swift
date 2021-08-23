@@ -33,7 +33,7 @@ final class ContentViewWithEmoji: UIView, UIContentView {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .caption
-        label.textColor = .secondaryTextColor
+        label.textColor = .textSecondary
         return label
     }()
     private let emojiView: DocumentIconEmojiView = {

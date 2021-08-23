@@ -22,7 +22,7 @@ enum ButtonsFactory {
         )
         backButton.setImage(.back, for: .normal)
         backButton.setImageAndTitleSpacing(Constants.backButtonImageToTitlePadding)
-        backButton.tintColor = .secondaryTextColor
+        backButton.tintColor = .textSecondary
         return backButton
     }
     

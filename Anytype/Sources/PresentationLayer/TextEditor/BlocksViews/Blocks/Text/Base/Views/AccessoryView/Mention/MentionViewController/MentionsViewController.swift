@@ -120,7 +120,7 @@ final class MentionsViewController: UITableViewController {
         
         configuration.secondaryText = mention.description
         configuration.secondaryTextProperties.font = .caption
-        configuration.secondaryTextProperties.color = .secondaryTextColor
+        configuration.secondaryTextProperties.color = .textSecondary
         return configuration
     }
     
@@ -128,7 +128,7 @@ final class MentionsViewController: UITableViewController {
         var configuration = UIListContentConfiguration.cell()
         configuration.text = "Create new object".localized
         configuration.textProperties.font = .body
-        configuration.textProperties.color = .secondaryTextColor
+        configuration.textProperties.color = .textSecondary
         
         configuration.image = UIImage(named: "createNewObject")
         configuration.imageProperties.reservedLayoutSize = CGSize(width: 40, height: 40)
