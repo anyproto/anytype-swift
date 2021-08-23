@@ -21,7 +21,7 @@ extension Color {
     static let buttonSecondaryBorder = stroke
     static let buttonSecondaryText = textPrimary
     
-    static let buttonActive = Color(ColorName.buttonActive)
+    static let buttonActive = Color(ColorName.grayscale50)
     static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
     

@@ -303,7 +303,7 @@
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
 		3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */; };
-		3D67F947269E07F800883681 /* MiddlewareBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F946269E07F800883681 /* MiddlewareBuilder.swift */; };
+		3D67F947269E07F800883681 /* SearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F946269E07F800883681 /* SearchHelper.swift */; };
 		3D69EFE026B009A6002C54C4 /* FirebaseNonFatalLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D69EFDF26B009A6002C54C4 /* FirebaseNonFatalLogger.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* FileSizeConverter.swift */; };
@@ -928,7 +928,7 @@
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
 		3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DragAndDropDelegate.swift; path = Anytype/Sources/PresentationLayer/Home/View/DragAndDrop/DragAndDropDelegate.swift; sourceTree = SOURCE_ROOT; };
-		3D67F946269E07F800883681 /* MiddlewareBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareBuilder.swift; path = Anytype/Sources/ServiceLayer/Search/MiddlewareBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3D67F946269E07F800883681 /* SearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchHelper.swift; path = Anytype/Sources/ServiceLayer/Search/SearchHelper.swift; sourceTree = SOURCE_ROOT; };
 		3D69EFDF26B009A6002C54C4 /* FirebaseNonFatalLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseNonFatalLogger.swift; path = Anytype/Sources/ServiceLayer/Firebase/FirebaseNonFatalLogger.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08262684E21500E2168D /* FileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileSizeConverter.swift; path = Anytype/Sources/CoreLayer/Helpers/FileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -1545,7 +1545,6 @@
 				3DE8D5AE26CD76CF006F31C1 /* ObjectType */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
-				EAE6BDF52680C98700275788 /* Objects */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
 				0ACA781023E5C99A00442690 /* ServiceLocator */,
@@ -2494,7 +2493,7 @@
 			children = (
 				3D4125F0269ECEDC007A6880 /* Models */,
 				3D24F438269C930100FA0F5F /* SearchService.swift */,
-				3D67F946269E07F800883681 /* MiddlewareBuilder.swift */,
+				3D67F946269E07F800883681 /* SearchHelper.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3159,6 +3158,7 @@
 			children = (
 				3D4125EC269ECED6007A6880 /* ObjectType.swift */,
 				3DE8D5AF26CD76E2006F31C1 /* ObjectTypeProvider.swift */,
+				EAE6BDF62680C99500275788 /* ObjectTypeService.swift */,
 			);
 			path = ObjectType;
 			sourceTree = "<group>";
@@ -3662,12 +3662,13 @@
 			path = Validators;
 			sourceTree = "<group>";
 		};
-		EAE6BDF52680C98700275788 /* Objects */ = {
+		EAE6BDC2267CB6A000275788 /* Mentions */ = {
 			isa = PBXGroup;
 			children = (
-				EAE6BDF62680C99500275788 /* ObjectTypeService.swift */,
+				EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */,
+				EAE6BDBF267CB69700275788 /* MentionButton.swift */,
 			);
-			path = Objects;
+			path = Mentions;
 			sourceTree = "<group>";
 		};
 		EAE6BDFA2680CC3A00275788 /* ObjectTypeData */ = {
@@ -3955,7 +3956,7 @@
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				EA3D1E3226CEEE3B001A31D9 /* MiddlewareResult.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
-				3D67F947269E07F800883681 /* MiddlewareBuilder.swift in Sources */,
+				3D67F947269E07F800883681 /* SearchHelper.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* DocumentEditorViewInput.swift in Sources */,
 				12B346B926A5B8C700D5A0C4 /* MentionIcon.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,

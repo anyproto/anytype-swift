@@ -14,14 +14,15 @@ final class SearchService {
     private var subscriptions = [AnyCancellable]()
     
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
+        let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(
@@ -30,21 +31,22 @@ final class SearchService {
             fullText: text,
             offset: 0,
             limit: 100,
-            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )
     }
     
     func searchArchivedPages(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
+        let sort = SearchHelper.sort(
             relation: DetailsKind.lastModifiedDate,
             type: .desc
         )
         
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: true),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: true),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(
@@ -53,19 +55,20 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )
     }
     
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
+        let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(
@@ -74,20 +77,21 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )
     }
     
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
+        let sort = SearchHelper.sort(
             relation: DetailsKind.lastModifiedDate,
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ["_otpage"])
         ]
         
         makeRequest(
@@ -96,20 +100,21 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 50,
-            objectTypeFilter: ["_otpage"], // Only pages
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )
     }
     
     func searchSets(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
+        let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(
@@ -118,7 +123,7 @@ final class SearchService {
             fullText: "",
             offset: 0,
             limit: 100,
-            objectTypeFilter: ObjectTypeProvider.supportedTypeUrls,
+            objectTypeFilter: [],
             keys: [],
             completion: completion
         )

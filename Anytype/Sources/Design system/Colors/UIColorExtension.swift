@@ -15,7 +15,7 @@ extension UIColor {
     static let divider = color(name: ColorName.divider)
     static let dividerSecondary = color(name: ColorName.dividerSecondary)
     
-    static let buttonActive = color(name: ColorName.buttonActive)
+    static let buttonActive = color(name: ColorName.grayscale50)
     static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
     
