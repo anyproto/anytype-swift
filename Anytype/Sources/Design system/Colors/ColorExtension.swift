@@ -13,14 +13,7 @@ extension Color {
 
     static let stroke = Color(ColorName.stroke)
     
-    static let pureAmber = Color(ColorName.pureAmber)
-    static let pureRed = Color(ColorName.pureRed)
-    static let pureBlue = Color(ColorName.pureBlue)
-    static let lightBlue = Color(ColorName.lightBlue)
-    static let darkBlue = Color(ColorName.darkBlue)
-    
-    
-    // Mapping
+    // MARK: - Mapping
     static let buttonPrimary = pureAmber
     static let buttonPrimartText = white
     
@@ -33,9 +26,15 @@ extension Color {
     static let buttonSelected = Color(ColorName.buttonSelected)
     
     static let backgroundPrimary: Color = .white
-    
-    // Custom
     static let toastBackground = Color("toastBackground")
+    
+    // MARK: - Color palette
+    static let pureAmber = Color(ColorName.pureAmber)
+    static let pureRed = Color(ColorName.pureRed)
+    static let pureBlue = Color(ColorName.pureBlue)
+    static let lightBlue = Color(ColorName.lightBlue)
+    static let darkBlue = Color(ColorName.darkBlue)
+    
     static let grayscale10 = Color(ColorName.grayscale10)
     static let grayscale30 = Color(ColorName.grayscale30)
     static let grayscale50 = Color(ColorName.grayscale50)

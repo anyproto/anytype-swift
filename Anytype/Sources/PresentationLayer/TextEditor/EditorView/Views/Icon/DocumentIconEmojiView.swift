@@ -57,7 +57,7 @@ private extension DocumentIconEmojiView {
     func configureEmojiLabel(font: UIFont) {
         emojiLabel.backgroundColor = .grayscale10
         emojiLabel.font = font
-        emojiLabel.textColor = .secondaryTextColor
+        emojiLabel.textColor = .textSecondary
         emojiLabel.textAlignment = .center
         emojiLabel.adjustsFontSizeToFitWidth = true
         emojiLabel.isUserInteractionEnabled = false

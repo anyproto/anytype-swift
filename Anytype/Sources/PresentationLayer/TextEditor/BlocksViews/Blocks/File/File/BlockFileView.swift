@@ -88,7 +88,7 @@ class BlockFileView: UIView & UIContentView {
     let sizeView: UILabel = {
         let view = UILabel()
         view.font = .caption
-        view.textColor = .secondaryTextColor
+        view.textColor = .textSecondary
         return view
     }()
 }
