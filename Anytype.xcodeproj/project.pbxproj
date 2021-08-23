@@ -1547,7 +1547,6 @@
 				3DE8D5AE26CD76CF006F31C1 /* ObjectType */,
 				120E818226A04A23006FE84E /* Details */,
 				3D24F435269C92F700FA0F5F /* Search */,
-				EAE6BDF52680C98700275788 /* Objects */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
 				0ACA781023E5C99A00442690 /* ServiceLocator */,
@@ -3161,6 +3160,7 @@
 			children = (
 				3D4125EC269ECED6007A6880 /* ObjectType.swift */,
 				3DE8D5AF26CD76E2006F31C1 /* ObjectTypeProvider.swift */,
+				EAE6BDF62680C99500275788 /* ObjectTypeService.swift */,
 			);
 			path = ObjectType;
 			sourceTree = "<group>";
@@ -3671,14 +3671,6 @@
 				EAE6BDBF267CB69700275788 /* MentionButton.swift */,
 			);
 			path = Mentions;
-			sourceTree = "<group>";
-		};
-		EAE6BDF52680C98700275788 /* Objects */ = {
-			isa = PBXGroup;
-			children = (
-				EAE6BDF62680C99500275788 /* ObjectTypeService.swift */,
-			);
-			path = Objects;
 			sourceTree = "<group>";
 		};
 		EAE6BDFA2680CC3A00275788 /* ObjectTypeData */ = {

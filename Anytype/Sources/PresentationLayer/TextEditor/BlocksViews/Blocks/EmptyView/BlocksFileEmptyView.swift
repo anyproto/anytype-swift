@@ -31,14 +31,18 @@ class BlocksFileEmptyView: UIView & UIContentView {
     
     private func setup() {
         addSubview(contentView) {
-            $0.height.equal(to: 48)
+            $0.height.equal(to: 52)
             $0.pinToSuperview(insets: Layout.placeholderInsets)
         }
         
         contentView.layoutUsing.stack {
             $0.hStack(
                 $0.hGap(fixed: Layout.iconLeading),
-                icon,
+                $0.vStack(
+                    $0.vGap(fixed: 15),
+                    icon,
+                    $0.vGap(fixed: 15)
+                ),
                 $0.hGap(fixed: Layout.labelSpacing),
                 label,
                 $0.hGap(fixed: Layout.labelSpacing),
@@ -72,9 +76,9 @@ class BlocksFileEmptyView: UIView & UIContentView {
     
     private let contentView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.grayscale30.cgColor
-        view.layer.cornerRadius = 4
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.stroke.cgColor
+        view.layer.cornerRadius = 2
         view.clipsToBounds = true
         return view
     }()
@@ -82,7 +86,7 @@ class BlocksFileEmptyView: UIView & UIContentView {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .body
-        label.textColor = .grayscale50
+        label.textColor = .buttonActive
         return label
     }()
     
@@ -107,7 +111,7 @@ extension BlocksFileEmptyView {
         static let iconLeading: CGFloat = 12
         static let labelSpacing: CGFloat = 10
         static let activityIndicatorTrailing: CGFloat = 18
-        static let iconWidth: CGFloat =  20
+        static let iconWidth: CGFloat =  22
     }
     
     private enum Constants {
