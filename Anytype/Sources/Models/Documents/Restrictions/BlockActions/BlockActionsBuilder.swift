@@ -48,8 +48,11 @@ struct BlockActionsBuilder {
     }
     
     private func makeObjectsMenuItem() -> BlockActionMenuItem? {
-        let objects = ObjectTypeService.shared.objects
-        guard !objects.isEmpty else { return nil }
+        guard let draft = ObjectTypeProvider.objectType(url: ObjectTypeProvider.pageObjectURL) else {
+            return nil
+        }
+        
+        let objects = [ draft ]
         return .menu(.objects, objects.map { .action(.objects($0)) })
     }
     

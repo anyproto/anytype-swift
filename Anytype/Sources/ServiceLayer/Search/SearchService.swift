@@ -91,7 +91,7 @@ final class SearchService {
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.notHiddenFilter(),
-            SearchHelper.typeFilter(typeUrls: ["_otpage"])
+            SearchHelper.typeFilter(typeUrls: [ObjectTypeProvider.pageObjectURL])
         ]
         
         makeRequest(
