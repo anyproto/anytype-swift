@@ -11,7 +11,7 @@ extension Color {
     static let divider = Color(ColorName.divider)
     static let dividerSecondary = Color(ColorName.dividerSecondary)
 
-    static let stroke = Color("stroke")
+    static let stroke = Color(ColorName.stroke)
     
     static let pureAmber = Color(ColorName.pureAmber)
     static let pureRed = Color(ColorName.pureRed)

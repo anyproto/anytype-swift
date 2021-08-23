@@ -15,41 +15,31 @@ final class BlockBookmarkInfoView: UIView {
         fatalError("Not implemented")
     }
     
-    func update(state: BlockBookmarkState) {
-        updateIcon(state: state)
+    func update(payload: BlockBookmarkPayload) {
+        updateIcon(payload: payload)
         removeAllSubviews()
         
-        switch state {
-        case let .onlyURL(url):
-            urlView.text = url
-            
-            addSubview(urlStackView) {
-                $0.pinToSuperview(insets: Layout.contentInsets)
-            }
-            
-        case let .fetched(payload):
-            titleView.text = payload.title
-            descriptionView.text = payload.subtitle
-            urlView.text = payload.url
-            
-            layoutUsing.stack {
-                $0.edgesToSuperview(insets: Layout.contentInsets)
-            } builder: {
-                $0.vStack(
-                    titleView,
-                    $0.vGap(fixed: 5),
-                    descriptionView,
-                    $0.vGap(min: 5),
-                    urlStackView
-                )
-            }
+        titleView.text = payload.title
+        descriptionView.text = payload.subtitle
+        urlView.text = payload.url
+        
+        layoutUsing.stack {
+            $0.edgesToSuperview(insets: Layout.contentInsets)
+        } builder: {
+            $0.vStack(
+                titleView,
+                $0.vGap(fixed: 5),
+                descriptionView,
+                $0.vGap(min: 5),
+                urlStackView
+            )
         }
     }
     
-    private func updateIcon(state: BlockBookmarkState) {
+    private func updateIcon(payload: BlockBookmarkPayload) {
         urlStackView.removeAllSubviews()
         
-        guard case let .fetched(payload) = state, !payload.faviconHash.isEmpty else {
+        guard !payload.faviconHash.isEmpty else {
             iconView.image = nil
             urlStackView.addSubview(urlView) {
                 $0.pinToSuperview()
@@ -130,6 +120,6 @@ final class BlockBookmarkInfoView: UIView {
 extension BlockBookmarkInfoView {
     enum Layout {
         static let iconSize = CGSize(width: 16, height: 16)
-        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: -15, right: -16)
+        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 16)
     }
 }

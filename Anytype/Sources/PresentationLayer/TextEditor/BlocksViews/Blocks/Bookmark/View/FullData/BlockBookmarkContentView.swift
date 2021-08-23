@@ -11,18 +11,18 @@ final class BlockBookmarkContentView: UIView & UIContentView {
                   configuration != currentConfiguration else { return }
             
             currentConfiguration = configuration
-            apply(state: currentConfiguration.state)
+            apply(payload: currentConfiguration.payload)
         }
     }
     
-    lazy var bookmarkHeight = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
+    lazy var bookmarkHeight = bookmarkView.heightAnchor.constraint(equalToConstant: Layout.bookmarkViewHeight)
     
     init(configuration: BlockBookmarkConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         
         setup()
-        apply(state: currentConfiguration.state)
+        apply(payload: currentConfiguration.payload)
     }
     
     @available(*, unavailable)
@@ -42,15 +42,8 @@ final class BlockBookmarkContentView: UIView & UIContentView {
         bookmarkHeight.isActive = true
     }
     
-    private func apply(state: BlockBookmarkState) {
-        switch state {
-        case .onlyURL:
-            bookmarkHeight.constant = Layout.emptyViewHeight
-        case .fetched:
-            bookmarkHeight.constant = Layout.bookmarkViewHeight
-        }
-        
-        bookmarkView.handle(state: state)
+    private func apply(payload: BlockBookmarkPayload) {
+        bookmarkView.handle(payload: payload)
     }
 
     private let bookmarkView: BlockBookmarkView = {

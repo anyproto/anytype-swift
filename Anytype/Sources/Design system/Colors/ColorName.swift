@@ -13,6 +13,7 @@ enum ColorName {
 
     static let divider = "divider"
     static let dividerSecondary = "dividerSecondary"
+    static let stroke = "stroke"
     
     static let darkColdGray = "darkColdGray"
     static let lightColdGray = "lightColdGray"

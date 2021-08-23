@@ -41,7 +41,7 @@ struct HomeCell: View {
         var titleString = text.isEmpty ? "Untitled".localized : text
         titleString = isRedacted ? RedactedText.pageTitle : titleString
         
-        return AnytypeText(titleString, style: .body)
+        return AnytypeText(titleString, style: .captionMedium)
             .foregroundColor(.textPrimary)
             .lineLimit(lineLimit)
     }
