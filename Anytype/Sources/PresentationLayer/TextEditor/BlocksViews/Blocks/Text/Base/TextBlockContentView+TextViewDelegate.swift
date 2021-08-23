@@ -40,7 +40,6 @@ extension TextBlockContentView: TextViewDelegate {
         case .changeText:
             accessoryViewSwitcher?.textDidChange(textView: textView.textView)
             // TODO: Accessory need refactoring
-            currentConfiguration.configureMentions(textView.textView)
 
             currentConfiguration.actionHandler.handleAction(
                 .textView(
@@ -106,6 +105,8 @@ extension TextBlockContentView: TextViewDelegate {
             }
             let link: URL? = content.attributedText.value(for: .link, range: range)
             accessoryViewSwitcher?.showURLInput(textView: textView.textView, url: link)
+        case let .showPage(pageId):
+            currentConfiguration.showPage(pageId)
         }
         return true
     }

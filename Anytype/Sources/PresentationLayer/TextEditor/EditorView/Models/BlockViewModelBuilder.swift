@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let mentionsConfigurator: MentionsConfigurator
     private let detailsLoader: DetailsLoader
 
     init(
@@ -16,7 +15,6 @@ final class BlockViewModelBuilder {
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        mentionsConfigurator: MentionsConfigurator,
         detailsLoader: DetailsLoader
     ) {
         self.document = document
@@ -27,7 +25,6 @@ final class BlockViewModelBuilder {
             handler: blockActionHandler,
             router: router
         )
-        self.mentionsConfigurator = mentionsConfigurator
         self.detailsLoader = detailsLoader
     }
 
@@ -72,30 +69,20 @@ final class BlockViewModelBuilder {
                         }
                     }
                 )
-            case .title:
-                return TextBlockViewModel(
-                    block: block, upperBlock: previousBlock,
-                    content: content,
-                    isCheckable: details?.layout == .todo,
-                    contextualMenuHandler: contextualMenuHandler,
-                    blockDelegate: delegate,
-                    actionHandler: blockActionHandler
-                ) { [weak self] textView in
-                    self?.mentionsConfigurator.configure(textView: textView)
-                } showStyleMenu: { [weak self] information in
-                    self?.router.showStyleMenu(information: information)
-                }
             default:
+                let isCheckable = content.contentType == .title ? details?.layout == .todo : false
                 return TextBlockViewModel(
-                    block: block, upperBlock: previousBlock,
+                    block: block,
+                    upperBlock: previousBlock,
                     content: content,
-                    isCheckable: false,
+                    isCheckable: isCheckable,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    actionHandler: blockActionHandler
-                ) { [weak self] textView in
-                    self?.mentionsConfigurator.configure(textView: textView)
-                } showStyleMenu: { [weak self] information in
+                    actionHandler: blockActionHandler,
+                    showPage: { [weak self] pageId in
+                        self?.router.showPage(with: pageId)
+                    }
+                ) { [weak self] information in
                     self?.router.showStyleMenu(information: information)
                 }
             }

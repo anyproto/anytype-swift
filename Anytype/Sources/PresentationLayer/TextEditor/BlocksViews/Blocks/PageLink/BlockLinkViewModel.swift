@@ -43,17 +43,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {
-        if ObjectTypeProvider.isSupported(type: state.type) {
-            openLink(content.targetBlockID)
-            return
-        }
-        
-
-        let typeName = state.type?.name ?? ""
-        AlertHelper.showToast(
-            title: "Not supported type \"\(typeName)\"",
-            message: "You can open it via desktop"
-        )
+        openLink(content.targetBlockID)
     }
     
     func handle(action: ContextualMenu) {
