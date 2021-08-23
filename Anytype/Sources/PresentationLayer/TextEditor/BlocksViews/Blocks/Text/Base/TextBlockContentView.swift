@@ -113,7 +113,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         // Update top indentaion if current block not in the header and upper block is in the header block
         if currentConfiguration.block.parent?.information.content.type != .layout(.header),
-           currentConfiguration.upperBlock?.information.content.type == .layout(.header) {
+           currentConfiguration.upperBlock?.parent?.information.content.type == .layout(.header) {
             mainInset = LayoutConstants.mainInsetForBlockAfterHeader
 
         }
@@ -139,7 +139,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
-        setupText(placeholer: "", textStyle: .body)
+        setupText(placeholer: "", textStyle: .bodyRegular)
         contentStackView.spacing = 4
 
         updateAllConstraint(blockTextStyle: text.contentType)
@@ -179,35 +179,35 @@ final class TextBlockContentView: UIView & UIContentView {
             setupTitle(text)
             setupLineHeight(textStyle: .title)
         case .description:
-            setupText(placeholer: "Add a description".localized, textStyle: .body)
-            setupLineHeight(textStyle: .body)
+            setupText(placeholer: "Add a description".localized, textStyle: .relation2Regular)
+            setupLineHeight(textStyle: .relation2Regular)
         case .text:
-            setupText(placeholer: "", textStyle: .body)
-            setupLineHeight(textStyle: .body)
+            setupText(placeholer: "", textStyle: .bodyRegular)
+            setupLineHeight(textStyle: .bodyRegular)
         case .toggle:
             setupForToggle()
-            setupLineHeight(textStyle: .body)
+            setupLineHeight(textStyle: .bodyRegular)
         case .bulleted:
             setupForBulleted()
-            setupLineHeight(textStyle: .body)
+            setupLineHeight(textStyle: .bodyRegular)
         case .checkbox:
             setupForCheckbox(checked: text.checked)
-            setupLineHeight(textStyle: .body)
+            setupLineHeight(textStyle: .bodyRegular)
         case .numbered:
             setupForNumbered(number: text.number)
-            setupLineHeight(textStyle: .body)
+            setupLineHeight(textStyle: .bodyRegular)
         case .quote:
             setupForQuote()
-            setupLineHeight(textStyle: .body)
+            setupLineHeight(textStyle: .bodyRegular)
         case .header:
             setupText(placeholer: "Title".localized, textStyle: .title)
             setupLineHeight(textStyle: .title)
         case .header2:
-            setupText(placeholer: "Heading".localized, textStyle: .subheading)
-            setupLineHeight(textStyle: .subheading)
+            setupText(placeholer: "Heading".localized, textStyle: .heading)
+            setupLineHeight(textStyle: .heading)
         case .header3:
-            setupText(placeholer: "Subheading".localized, textStyle: .headlineSemibold)
-            setupLineHeight(textStyle: .headlineSemibold)
+            setupText(placeholer: "Subheading".localized, textStyle: .subheading)
+            setupLineHeight(textStyle: .subheading)
         case .header4, .code:
             break
         }
@@ -298,7 +298,7 @@ final class TextBlockContentView: UIView & UIContentView {
             )
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Checkbox".localized, textStyle: .body)
+        setupText(placeholer: "Checkbox".localized, textStyle: .bodyRegular)
         // selected color
         textView.textView.selectedColor = checked ? UIColor.textSecondary : nil
     }
@@ -306,17 +306,17 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForBulleted() {
         let leftView = TextBlockIconView(viewType: .bulleted)
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Bulleted placeholder".localized, textStyle: .body)
+        setupText(placeholer: "Bulleted placeholder".localized, textStyle: .bodyRegular)
     }
     
     private func setupForNumbered(number: Int) {
         let leftView = TextBlockIconView(viewType: .numbered(number))
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Numbered placeholder".localized, textStyle: .body)
+        setupText(placeholer: "Numbered placeholder".localized, textStyle: .bodyRegular)
     }
     
     private func setupForQuote() {
-        setupText(placeholer: "Quote".localized, textStyle: .headline)
+        setupText(placeholer: "Quote".localized, textStyle: .bodyRegular)
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
@@ -331,7 +331,7 @@ final class TextBlockContentView: UIView & UIContentView {
             )
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Toggle block".localized, textStyle: .body)
+        setupText(placeholer: "Toggle block".localized, textStyle: .bodyRegular)
         createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
 
@@ -361,7 +361,7 @@ final class TextBlockContentView: UIView & UIContentView {
             .init(
                 string: "Toggle empty Click and drop block inside".localized,
                 attributes: [
-                    .font: UIFont.body,
+                    .font: UIFont.bodyRegular,
                     .foregroundColor: UIColor.textSecondary
                 ]
             ),

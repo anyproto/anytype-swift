@@ -6,16 +6,16 @@ extension BlockText.Style {
         switch self {
         case .title:
             return .title
+        case .description:
+            return .caption1Regular
         case .header:
-            return .heading
+            return .title
         case .header2:
-            return .subheading
+            return .heading
         case .header3:
-            return .headlineSemibold
-        case .quote:
-            return .headline
-        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .description:
-            return .body
+            return .subheading
+        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .quote:
+            return .bodyRegular
         case .code:
             return .code
         }

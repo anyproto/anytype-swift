@@ -92,7 +92,7 @@ final class CodeBlockView: UIView & UIContentView {
 
     private lazy var codeSelectButton: ButtonWithImage = {
         let button = ButtonWithImage()
-        button.label.font = .body
+        button.label.font = .uxBodyRegular
         button.label.textColor = .darkColdGray
         let image = UIImage.codeBlock.arrow
         button.setImage(image)

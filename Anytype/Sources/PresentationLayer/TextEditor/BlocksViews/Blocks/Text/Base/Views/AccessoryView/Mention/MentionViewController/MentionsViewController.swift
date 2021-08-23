@@ -114,12 +114,12 @@ final class MentionsViewController: UITableViewController {
         configuration.image = viewModel.image(for: mention, size: imageSize, radius: imageCornerRadius)
         
         configuration.text = mention.name
-        configuration.textProperties.font = .body
+        configuration.textProperties.font = .bodyRegular
         configuration.textProperties.color = .textColor
         configuration.textToSecondaryTextVerticalPadding = Constants.textsVerticalPadding
         
         configuration.secondaryText = mention.description
-        configuration.secondaryTextProperties.font = .caption
+        configuration.secondaryTextProperties.font = .relation2Regular
         configuration.secondaryTextProperties.color = .textSecondary
         return configuration
     }
@@ -127,7 +127,7 @@ final class MentionsViewController: UITableViewController {
     private func createNewObjectContentConfiguration() -> UIContentConfiguration {
         var configuration = UIListContentConfiguration.cell()
         configuration.text = "Create new object".localized
-        configuration.textProperties.font = .body
+        configuration.textProperties.font = .uxTitle2Regular
         configuration.textProperties.color = .textSecondary
         
         configuration.image = UIImage(named: "createNewObject")

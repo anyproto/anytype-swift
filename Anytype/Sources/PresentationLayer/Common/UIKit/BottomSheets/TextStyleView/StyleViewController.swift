@@ -22,10 +22,10 @@ private extension StyleViewController {
             let title: BlockText.Style = selectedStyle == .title ? .title : .header
 
             return [
-                Item(kind: title, text: "Title".localized, font: .heading),
-                Item(kind: .header2, text: "Heading".localized, font: .subheading),
-                Item(kind: .header3, text: "Subheading".localized, font: .headlineSemibold),
-                Item(kind: .text, text: "Text".localized, font: UIFont.body)
+                Item(kind: title, text: "Title".localized, font: .title),
+                Item(kind: .header2, text: "Heading".localized, font: .heading),
+                Item(kind: .header3, text: "Subheading".localized, font: .subheading),
+                Item(kind: .text, text: "Text".localized, font: UIFont.bodyRegular)
             ]
         }
     }

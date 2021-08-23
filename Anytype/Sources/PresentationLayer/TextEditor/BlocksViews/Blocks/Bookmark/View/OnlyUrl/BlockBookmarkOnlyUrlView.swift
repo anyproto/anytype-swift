@@ -43,7 +43,7 @@ final class BlockBookmarkOnlyUrlView: UIView & UIContentView {
     
     private let urlView: UILabel = {
         let view = UILabel()
-        view.font = .caption
+        view.font = .relation3Regular
         view.textColor = .textSecondary
         view.backgroundColor = .backgroundPrimary
         return view

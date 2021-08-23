@@ -87,7 +87,7 @@ final class ButtonWithImage: UIControl {
         imageView.isHidden = true
         imageView.isUserInteractionEnabled = false
 
-        label.font = .body
+        label.font = .uxCalloutRegular
         label.isHidden = true
         label.textColor = MiddlewareColor.grey.color(background: false)
         label.isUserInteractionEnabled = false

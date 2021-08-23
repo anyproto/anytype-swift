@@ -42,13 +42,13 @@ struct EmojiGridView: View {
             // TODO: - fix localisation. it does not work now
             AnytypeText(
                 "There is no emoji named" + " \"\(placeholder)\"",
-                style: .headline
+                style: .uxBodyRegular
             )
             .multilineTextAlignment(.center)
             
             AnytypeText(
                 "Try to find a new one or upload your image",
-                style: .headline
+                style: .uxBodyRegular
             )
             .foregroundColor(Color.textSecondary)
             .multilineTextAlignment(.center)

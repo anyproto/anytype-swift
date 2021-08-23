@@ -6,15 +6,20 @@ extension UIFont {
     static let title = AnytypeFontBuilder.uiKitFont(textStyle: .title)
     static let heading = AnytypeFontBuilder.uiKitFont(textStyle: .heading)
     static let subheading = AnytypeFontBuilder.uiKitFont(textStyle: .subheading)
+    
+    static let bodyRegular = AnytypeFontBuilder.uiKitFont(textStyle: .bodyRegular)
+    static let bodyBold = AnytypeFontBuilder.uiKitFont(textStyle: .bodyBold)
+    static let calloutRegular = AnytypeFontBuilder.uiKitFont(textStyle: .calloutRegular)
 
-    static let headlineSemibold = AnytypeFontBuilder.uiKitFont(textStyle: .headlineSemibold)
-    static let headline = AnytypeFontBuilder.uiKitFont(textStyle: .headline)
-
-    static let body = AnytypeFontBuilder.uiKitFont(textStyle: .body)
-    static let bodyMedium = AnytypeFontBuilder.uiKitFont(textStyle: .bodyMedium)
-
-    static let caption = AnytypeFontBuilder.uiKitFont(textStyle: .caption)
-    static let captionMedium = AnytypeFontBuilder.uiKitFont(textStyle: .captionMedium)
+    static let relation2Regular = AnytypeFontBuilder.uiKitFont(textStyle: .relation2Regular)
+    static let relation3Regular = AnytypeFontBuilder.uiKitFont(textStyle: .relation3Regular)
+    static let uxBodyRegular = AnytypeFontBuilder.uiKitFont(textStyle: .uxBodyRegular)
+    static let caption1Regular = AnytypeFontBuilder.uiKitFont(textStyle: .caption1Regular)
+    static let caption1Medium = AnytypeFontBuilder.uiKitFont(textStyle: .caption1Medium)
+    static let uxTitle2Regular = AnytypeFontBuilder.uiKitFont(textStyle: .uxTitle2Regular)
+    static let uxCalloutRegular = AnytypeFontBuilder.uiKitFont(textStyle: .uxCalloutRegular)
+    static let uxCalloutMedium = AnytypeFontBuilder.uiKitFont(textStyle: .uxCalloutMedium)
+    static let previewTitle2Regular = AnytypeFontBuilder.uiKitFont(textStyle: .previewTitle2Regular)
 
     static let code = AnytypeFontBuilder.uiKitFont(textStyle: .codeBlock)
 

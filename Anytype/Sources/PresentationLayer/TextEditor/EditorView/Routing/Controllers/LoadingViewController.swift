@@ -83,7 +83,7 @@ final class LoadingViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = self.informationText
         label.textAlignment = .center
-        label.font = .headline
+        label.font = .uxBodyRegular
         label.numberOfLines = Constants.maxNumberOfLinesInInformationLabel
         
         let cancelButton = UIButton(
@@ -99,7 +99,7 @@ final class LoadingViewController: UIViewController {
                 string: NSLocalizedString("Cancel",comment: ""),
                 attributes: [
                     .foregroundColor: UIColor.systemBackground,
-                    .font: UIFont.headline
+                    .font: UIFont.uxBodyRegular
                 ]
             ),
             for: .normal

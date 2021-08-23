@@ -30,7 +30,7 @@ struct FeatureFlagsView: View {
             Toggle(
                 isOn: $flags[index].onChange(FeatureFlags.update).value
             ) {
-                AnytypeText(flags[index].key.rawValue, style: .body)
+                AnytypeText(flags[index].key.rawValue, style: .bodyRegular)
             }
             .padding()
         }

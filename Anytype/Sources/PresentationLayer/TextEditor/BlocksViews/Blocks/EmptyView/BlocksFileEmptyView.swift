@@ -85,7 +85,7 @@ class BlocksFileEmptyView: UIView & UIContentView {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.font = .body
+        label.font = .bodyRegular
         label.textColor = .buttonActive
         return label
     }()

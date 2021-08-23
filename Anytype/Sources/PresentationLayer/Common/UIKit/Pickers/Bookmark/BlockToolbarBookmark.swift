@@ -72,7 +72,7 @@ extension BlockToolbarBookmark {
                 Button(action: {
                     self.model.choose(url: self.model.typingURL)
                 }) {
-                    AnytypeText(self.model.buttonTitle, style: .body)
+                    AnytypeText(self.model.buttonTitle, style: .uxBodyRegular)
                 }.modifier(RoundedButtonViewModifier(style: .presentation))
                 Spacer(minLength: 10)
             }.padding(10)

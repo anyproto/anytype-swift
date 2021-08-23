@@ -43,14 +43,14 @@ struct ObjectBasicIconPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText("Change icon", style: .headlineSemibold)
+            AnytypeText("Change icon", style: .uxTitle1Semibold)
                 .multilineTextAlignment(.center)
         } rightButton: {
             Button {
                 viewModel.removeIcon()
                 presentationMode.wrappedValue.dismiss()
             } label: {
-                AnytypeText("Remove", style: .headline)
+                AnytypeText("Remove", style: .uxBodyRegular)
                     .foregroundColor(.pureRed)
             }
         }
@@ -88,7 +88,7 @@ struct ObjectBasicIconPicker: View {
             }
             
         } label: {
-            AnytypeText(tab.title, style: .headline)
+            AnytypeText(tab.title, style: .uxBodyRegular)
                 .foregroundColor(selectedTab == tab ? Color.buttonSelected : Color.buttonActive)
         }
         .frame(maxWidth: .infinity)
@@ -103,7 +103,7 @@ struct ObjectBasicIconPicker: View {
                 handleSelectedEmoji($0)
             }
         } label: {
-            AnytypeText("Random", style: .headline)
+            AnytypeText("Random", style: .uxBodyRegular)
                 .foregroundColor(Color.buttonActive)
         }
         .frame(maxWidth: .infinity)

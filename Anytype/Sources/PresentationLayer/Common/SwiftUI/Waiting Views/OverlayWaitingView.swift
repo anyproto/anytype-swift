@@ -13,7 +13,7 @@ struct OverlayWaitingView<Presenting>: View where Presenting: View {
                     
                 
                 VStack() {
-                    AnytypeText("Loading...", style: .body)
+                    AnytypeText("Loading...", style: .uxBodyRegular)
                     ActivityIndicator(style: .large)
                 }
                 .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.25)
@@ -30,7 +30,7 @@ struct OverlayWaitingView<Presenting>: View where Presenting: View {
 struct OverlayWaitingView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack() {
-            AnytypeText("main screen", style: .body)
+            AnytypeText("main screen", style: .uxBodyRegular)
         }
         return OverlayWaitingView(isShowing: .constant(true), presenting: view)
     }

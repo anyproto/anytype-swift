@@ -41,7 +41,7 @@ struct HomeCell: View {
         var titleString = text.isEmpty ? "Untitled".localized : text
         titleString = isRedacted ? RedactedText.pageTitle : titleString
         
-        return AnytypeText(titleString, style: .captionMedium)
+        return AnytypeText(titleString, style: .previewTitle2Medium)
             .foregroundColor(.textPrimary)
             .lineLimit(lineLimit)
     }
@@ -62,7 +62,7 @@ struct HomeCell: View {
     
     private var type: some View {
         let type = isRedacted ? RedactedText.pageType : cellData.type
-        return AnytypeText(type, style: .footnote).foregroundColor(.textSecondary)
+        return AnytypeText(type, style: .relation3Regular).foregroundColor(.textSecondary)
     }
     
     private var icon: some View {

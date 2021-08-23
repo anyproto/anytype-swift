@@ -38,7 +38,7 @@ struct StandardButtonView: View {
     let style: StandardButtonStyle
     
     var body: some View {
-        AnytypeText(text, style: .headline)
+        AnytypeText(text, style: style == .primary ? .button1Semibold : .button1Regular)
             .padding(.all)
             .foregroundColor(disabled ? .textSecondary : style.textColor)
             .frame(minWidth: 0, maxWidth: .infinity)

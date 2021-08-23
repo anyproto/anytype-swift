@@ -81,7 +81,7 @@ final class BlockBookmarkInfoView: UIView {
     
     private let titleView: UILabel = {
         let view = UILabel()
-        view.font = UIFont.captionMedium
+        view.font = UIFont.previewTitle2Regular
         view.textColor = .grayscale90
         view.backgroundColor = .backgroundPrimary
         return view
@@ -91,7 +91,7 @@ final class BlockBookmarkInfoView: UIView {
         let view = UILabel()
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
-        view.font = .caption
+        view.font = .relation2Regular
         view.textColor = .grayscale70
         view.backgroundColor = .backgroundPrimary
         return view
@@ -110,7 +110,7 @@ final class BlockBookmarkInfoView: UIView {
     private let urlView: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.font = .caption
+        view.font = .relation3Regular
         view.textColor = .grayscale90
         view.backgroundColor = .backgroundPrimary
         return view

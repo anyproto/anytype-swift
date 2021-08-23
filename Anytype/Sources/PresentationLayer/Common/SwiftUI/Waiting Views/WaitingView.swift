@@ -31,10 +31,10 @@ struct WaitingView: View {
                             .transition(.opacity)
                     }
                     
-                    AnytypeText(text, style: .bodyBold)
+                    AnytypeText(text, style: .heading)
                     
                     if showError {
-                        AnytypeText(errorText, style: .body)
+                        AnytypeText(errorText, style: .heading)
                             .padding(.top, -10)
                             .transition(.opacity)
                         
