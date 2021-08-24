@@ -285,7 +285,9 @@
 		3D43FD8D26B162530094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; };
 		3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */; };
 		3D43FDB526B18E490094D4C0 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */; };
+		3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */; };
 		3D44984526D53D61005A3E06 /* DocumentEditorViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */; };
+		3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */; };
 		3D471E1F26C3B60200457DE5 /* BlockLinkIconMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */; };
 		3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */; };
 		3D471E4026C6A5A000457DE5 /* HomeSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3F26C6A5A000457DE5 /* HomeSearchCell.swift */; };
@@ -910,7 +912,9 @@
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/Fonts/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+SafeCall.swift"; path = "Anytype/Sources/FrameworkExtensions/Array+SafeCall.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutViewModel.swift; path = Anytype/Sources/PresentationLayer/Home/View/Settings/About/AboutViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectHeader+Mutation.swift"; sourceTree = "<group>"; };
 		3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewOutput.swift; sourceTree = "<group>"; };
+		3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableGestureRecognizer.swift; sourceTree = "<group>"; };
 		3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkIconMaker.swift; sourceTree = "<group>"; };
 		3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchView.swift; sourceTree = "<group>"; };
 		3D471E3F26C6A5A000457DE5 /* HomeSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCell.swift; sourceTree = "<group>"; };
@@ -1457,6 +1461,7 @@
 				03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */,
 				EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */,
 				3DE8D5C326CFFFE4006F31C1 /* AlertHelper.swift */,
+				3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2609,6 +2614,7 @@
 			isa = PBXGroup;
 			children = (
 				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
+				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
 				126C46D626BD966700D31DBF /* ObjectIcon.swift */,
 				123FDADC26C17CBA00F6F44B /* ObjectCover.swift */,
 			);
@@ -4127,6 +4133,7 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
+				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
@@ -4308,6 +4315,7 @@
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				3D36B09726A6DE1C0046C90F /* ContextualMenu.swift in Sources */,
 				3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */,
+				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
 				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,
