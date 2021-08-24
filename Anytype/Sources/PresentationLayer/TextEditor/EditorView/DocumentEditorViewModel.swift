@@ -31,6 +31,11 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         UISelectionFeedbackGenerator().selectionChanged()
         self.showSettings()
     }
+    
+    private lazy var onCoverTap = {
+        UISelectionFeedbackGenerator().selectionChanged()
+        self.showSettings()
+    }
 
     // MARK: - Initialization
     init(
@@ -83,7 +88,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
-        let header = modelsHolder.details?.objectHeader(onIconTap: onIconTap)
+        let header = modelsHolder.details?.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap)
         
         guard let header = header else {
             let fakeHeader: ObjectHeader = {
@@ -98,7 +103,9 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
                         )
                     )
                 case .coverUploading(let uIImage):
-                    return ObjectHeader.coverOnly(.preview(uIImage))
+                    return ObjectHeader.coverOnly(
+                        ObjectCover(state: .preview(uIImage), onTap: onCoverTap)
+                    )
                 }
             }()
             
@@ -110,7 +117,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         }
         
         viewInput?.updateData(
-            header: header.modifiedByLocalEvent(event, onIconTap: onIconTap) ?? .empty,
+            header: header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty,
             blocks: modelsHolder.models
         )
     }
@@ -140,7 +147,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
             updateMarkupViewModel(updatedIds)
             
             viewInput?.updateData(
-                header: modelsHolder.details?.objectHeader(onIconTap: onIconTap) ?? .empty,
+                header: modelsHolder.details?.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty,
                 blocks: modelsHolder.models
             )
         }
@@ -217,7 +224,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         }
         
         viewInput?.updateData(
-            header: details.objectHeader(onIconTap: onIconTap),
+            header: details.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap),
             blocks: modelsHolder.models
         )
         
