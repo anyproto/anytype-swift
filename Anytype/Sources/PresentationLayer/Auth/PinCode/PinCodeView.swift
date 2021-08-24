@@ -5,7 +5,7 @@ struct PinCodeView: View {
     var body: some View {
         VStack {
             VStack(spacing: 0) {
-                AnytypeText("Choose pin code", style: .title)
+                AnytypeText("Choose pin code", style: .heading)
                     .padding(.bottom, 17)
                 
                 HStack {
@@ -29,7 +29,7 @@ struct PinCodeView: View {
             Button(action: {
                 
             }) {
-                AnytypeText("Do it later", style: .body)
+                AnytypeText("Do it later", style: .uxBodyRegular)
                     .foregroundColor(.textSecondary)
             }
         }

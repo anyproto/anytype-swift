@@ -64,9 +64,9 @@ final class BlockLinkView: UIView, UIContentView {
     private let textView: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false
-        view.font = .body
+        view.font = .bodyRegular
         view.typingAttributes = [
-            .font: UIFont.body,
+            .font: UIFont.bodyRegular,
             .foregroundColor: UIColor.textColor,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
             .underlineColor: UIColor.textColor

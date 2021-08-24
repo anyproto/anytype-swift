@@ -60,7 +60,7 @@ struct LoginView: View {
             
             TextEditor(text: $viewModel.seed).lineLimit(3)
                 .font(AnytypeFontBuilder.font(textStyle: .codeBlock))
-                .lineSpacing(AnytypeFontBuilder.customLineSpacing(textStyle: .codeBlock) ?? 7)
+                .lineSpacing(AnytypeFontBuilder.lineSpacing(.codeBlock))
                 .frame(height: 80)
                 .foregroundColor(.textSecondary)
                 .padding(.top, 12)
@@ -79,7 +79,7 @@ struct LoginView: View {
                 HStack {
                     Image.auth.qr
                         .padding(.trailing, 15)
-                    AnytypeText("Scan QR code", style: .headline).foregroundColor(.textPrimary)
+                    AnytypeText("Scan QR code", style: .uxCalloutRegular).foregroundColor(.textPrimary)
                     Spacer()
                     Image.arrow
                 }

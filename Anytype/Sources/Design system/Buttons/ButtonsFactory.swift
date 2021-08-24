@@ -16,7 +16,7 @@ enum ButtonsFactory {
         backButton.setAttributedTitle(
             NSAttributedString(
                 string: "Back".localized,
-                attributes: [.font: UIFont.caption]
+                attributes: [.font: UIFont.caption1Regular]
             ),
             for: .normal
         )

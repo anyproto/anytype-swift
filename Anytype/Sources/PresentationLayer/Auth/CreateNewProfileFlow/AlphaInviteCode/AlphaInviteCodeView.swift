@@ -23,7 +23,7 @@ struct AlphaInviteCodeView: View {
             VStack(alignment: .leading) {
                 AnytypeText("Enter your invitation code", style: .heading)
                     .padding(.bottom, 14)
-                AnytypeText("Do not have invite", style: .body)
+                AnytypeText("Do not have invite", style: .uxCalloutRegular)
                     .lineSpacing(7)
                     .padding(.bottom, 14)
 

@@ -22,10 +22,10 @@ struct ObjectSettingRow: View {
                 setting.image.frame(width: 44, height: 44)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    AnytypeText(setting.title, style: .bodyMedium)
+                    AnytypeText(setting.title, style: .uxTitle2Regular)
                         .foregroundColor(.textPrimary)
                         .padding(.vertical, 2)
-                    AnytypeText(setting.description, style: .caption)
+                    AnytypeText(setting.description, style: .caption1Regular)
                         .foregroundColor(.textSecondary)
                         .padding(.vertical, 2)
                 }

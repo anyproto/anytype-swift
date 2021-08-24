@@ -12,7 +12,7 @@ struct SettingsView: View {
             DragIndicator()
             SettingsSectionView()
             Button(action: { logginOut = true }) {
-                AnytypeText("Log out", style: .body)
+                AnytypeText("Log out".localized, style: .uxCalloutRegular)
                     .foregroundColor(.textSecondary)
                     .padding()
             }
@@ -33,12 +33,12 @@ struct SettingsView: View {
             title: AnytypeText.buildText("Log out", style: .title),
             message: AnytypeText.buildText("Have you backed up your keychain phrase?", style: .subheading),
             primaryButton: Alert.Button.default(
-                AnytypeText.buildText("Backup keychain phrase", style: .body)
+                AnytypeText.buildText("Backup keychain phrase", style: .bodyRegular)
             ) {
                 settingsSectionModel.keychain = true
             },
             secondaryButton: Alert.Button.destructive(
-                AnytypeText.buildText("Log out", style: .body)
+                AnytypeText.buildText("Log out", style: .bodyRegular)
             ) {
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileLogOut)

@@ -17,7 +17,7 @@ struct ObjectLayoutPicker: View {
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator(bottomPadding: 0)
-            AnytypeText("Choose layout type", style: .headlineSemibold)
+            AnytypeText("Choose layout type", style: .uxTitle1Semibold)
                 .padding([.top, .bottom], 12)
             layoutList
         }

@@ -5,29 +5,44 @@ import UIKit
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
 extension AnytypeFontBuilder {
     enum TextStyle: CaseIterable {
+        // Content fonts
         case title
         case heading
         case subheading
         
-        case headlineSemibold
-        case headlineMedium
-        case headline
-        
+        case previewTitle1Medium
+        case previewTitle2Regular
+        case previewTitle2Medium
+
         case bodyBold
-        case bodySemibold
-        case bodyMedium
-        case body
-        
+        case bodyRegular
+
+        case calloutRegular
+
+        case relation1Regular
+        case relation2Regular
+        case relation3Regular
+
         case codeBlock
-        
-        case captionMedium
-        case caption
-        
-        case footnoteMedium
-        case footnote
-        
+
+        // UX fonts
+        case uxTitle1Semibold
+        case uxTitle2Regular
+        case uxBodyRegular
+
+        case uxCalloutRegular
+        case uxCalloutMedium
+
+
+        case caption1Regular
+        case caption1Medium
+        case caption2Regular
         case caption2Medium
-        case caption2
+        
+        case button1Regular
+        case button1Semibold
+
+
     }
 
     enum Weight {
@@ -40,29 +55,12 @@ extension AnytypeFontBuilder {
 
 struct AnytypeFontBuilder {
     
-    static func customLineSpacing(textStyle: TextStyle) -> CGFloat? {
-        switch textStyle {
-        case .codeBlock:
-            return 7
-        default:
-            return nil
-        }
-    }
-    
     static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
-        case .title, .heading:
-            return .inter
-        case .subheading, .headline, .body, .caption, .footnote, .caption2:
-            return .inter
-        case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
-            return .inter
-        case .headlineSemibold, .bodySemibold:
-            return .inter
-        case .bodyBold:
-            return .inter
         case .codeBlock:
             return .plex
+        default:
+            return .inter
         }
     }
     
@@ -72,15 +70,15 @@ struct AnytypeFontBuilder {
             return 28
         case .heading:
             return 22
-        case .subheading, .headline, .headlineSemibold, .headlineMedium, .body, .bodyBold, .bodySemibold, .bodyMedium:
+        case .subheading, .previewTitle1Medium, .bodyBold, .bodyRegular, .uxTitle1Semibold,. uxBodyRegular, .button1Regular, .button1Semibold:
             return 17
-        case .codeBlock, .captionMedium:
+        case .codeBlock, .previewTitle2Medium, .previewTitle2Regular, .calloutRegular, .relation1Regular, .uxTitle2Regular, .uxCalloutMedium, .uxCalloutRegular:
             return 15
-        case .caption:
+        case .relation2Regular, .caption1Regular, .caption1Medium:
             return 13
-        case .footnote, .footnoteMedium:
+        case .relation3Regular:
             return 12
-        case .caption2, .caption2Medium:
+        case .caption2Regular, .caption2Medium:
             return 11
         }
     }
@@ -89,14 +87,12 @@ struct AnytypeFontBuilder {
         switch textStyle {
         case .title, .heading, .subheading:
             return .bold
-        case .headline, .body, .caption, .footnote, .caption2, .codeBlock:
+        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular:
             return .regular
-        case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
+        case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium:
             return .medium
-        case .headlineSemibold, .bodySemibold:
+        case .bodyBold, .uxTitle1Semibold, .button1Semibold:
             return .semibold
-        case .bodyBold:
-            return .bold
         }
     }
 
@@ -106,15 +102,17 @@ struct AnytypeFontBuilder {
             return 32
         case .heading:
             return 26
-        case .subheading, .headline, .headlineSemibold, .headlineMedium, .body, .bodyBold, .bodySemibold, .bodyMedium:
+        case .subheading, .bodyBold, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
             return 24
-        case .codeBlock:
+        case .codeBlock, .previewTitle1Medium, .calloutRegular, .relation1Regular, .uxCalloutMedium, .uxCalloutRegular:
             return 22
-        case .caption, .captionMedium:
+        case .previewTitle2Regular, .previewTitle2Medium, .uxTitle2Regular:
+            return 20
+        case .caption1Medium, .relation2Regular, .caption1Regular:
             return 18
-        case .footnote, .footnoteMedium:
+        case .relation3Regular:
             return 15
-        case .caption2, .caption2Medium:
+        case .caption2Regular, .caption2Medium:
             return 14
         }
     }

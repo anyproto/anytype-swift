@@ -23,7 +23,7 @@ enum AttributedTextConverter {
         // We have to set some font, because all styles `change` font attribute.
         // Not the best place to set attribute, however, we don't have best place...
         let string = NSMutableAttributedString(string: text)
-        let defaultFont = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .body
+        let defaultFont = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .bodyRegular
         let range = NSRange(location: 0, length: string.length)
         
         // Create modifier of an attributed string.

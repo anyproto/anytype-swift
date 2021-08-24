@@ -17,7 +17,7 @@ struct PlaceholderImageTextGuideline {
     // MARK: - Initializers
     
     init(text: String,
-         font: UIFont =  UIFont.body.withSize(72),
+         font: UIFont =  UIFont.bodyRegular.withSize(72),
          textColor: UIColor = UIColor.grayscaleWhite) {
         self.text = text
         self.font = font

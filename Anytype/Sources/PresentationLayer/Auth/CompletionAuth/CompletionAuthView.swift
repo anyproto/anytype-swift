@@ -19,7 +19,7 @@ struct CompletionAuthView: View {
                         .frame(width: 64, height: 64)
                     AnytypeText("Congratulations!", style: .bodyBold)
                         .padding(.top, 16)
-                    AnytypeText("CongratulationDescription", style: .body)
+                    AnytypeText("CongratulationDescription", style: .uxCalloutRegular)
                         .padding(.top, 10)
                     StandardButton(disabled: false, text: "Let’s start!", style: .primary) {
                         self.delegate?.showDashboardDidTap()

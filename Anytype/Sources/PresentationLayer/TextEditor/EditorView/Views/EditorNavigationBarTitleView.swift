@@ -70,7 +70,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 private extension EditorNavigationBarTitleView {
     
     func setupView() {
-        titleLabel.font = .bodyMedium
+        titleLabel.font = .uxCalloutRegular
         titleLabel.textColor = .textColor
         titleLabel.numberOfLines = 1
         

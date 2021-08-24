@@ -5,7 +5,7 @@ struct AnytypeText: View {
     private let textView: AnyView
     
     init(_ text: String, style: AnytypeFontBuilder.TextStyle) {
-        let spacing = AnytypeFontBuilder.customLineSpacing(textStyle: style)
+        let spacing = AnytypeFontBuilder.lineSpacing(style)
         
         textView = Self.buildText(text, style: style).modifier(OptionalLineSpacingModifier(spacing: spacing)).eraseToAnyView()
     }
@@ -37,8 +37,8 @@ struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             AnytypeText("Foo", style: .title)
-            AnytypeText("Foo", style: .body)
-            AnytypeText("Foo", style: .footnote)
+            AnytypeText("Foo", style: .bodyRegular)
+            AnytypeText("Foo", style: .relation3Regular)
             AnytypeText("collapse", style: .codeBlock)
         }
     }

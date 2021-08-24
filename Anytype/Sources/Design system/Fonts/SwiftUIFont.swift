@@ -34,5 +34,5 @@ extension AnytypeFontBuilder {
 }
 
 extension Font {
-    static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption)
+    static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption2Regular)
 }

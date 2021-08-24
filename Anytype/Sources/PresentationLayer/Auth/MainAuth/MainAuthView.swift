@@ -34,9 +34,9 @@ struct MainAuthView: View {
     private var bottomSheet: some View {
         VStack(alignment: .leading) {
             VStack {
-                AnytypeText("Welcome to Anytype", style: .title)
+                AnytypeText("Welcome to Anytype", style: .heading)
                     .padding(.bottom)
-                AnytypeText("OrganizeEverythingDescription", style: .body)
+                AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular)
                     .lineSpacing(7)
             }.padding(20)
             
