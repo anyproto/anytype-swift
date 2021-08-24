@@ -284,7 +284,7 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
         textView.textView.font = font
         textView.textView.typingAttributes = [.font: font]
-        textView.textView.defaultFontColor = .textColor
+        textView.textView.defaultFontColor = .textPrimary
     }
     
     private func setupForCheckbox(checked: Bool) {
