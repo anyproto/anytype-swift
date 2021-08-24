@@ -28,11 +28,15 @@ final class BlockBookmarkInfoView: UIView {
         } builder: {
             $0.vStack(
                 titleView,
-                $0.vGap(fixed: 5),
+                $0.vGap(fixed: 2),
                 descriptionView,
-                $0.vGap(min: 5),
+                $0.vGap(min: 4, max: 22),
                 urlStackView
             )
+        }
+        
+        titleView.layoutUsing.anchors {
+            $0.bottom.equal(to: urlStackView.topAnchor, constant: -42)
         }
     }
     
@@ -77,12 +81,20 @@ final class BlockBookmarkInfoView: UIView {
     
     // MARK: - Views
     private var stackView = UIView()
-    private var urlStackView = UIView()
+    private var urlStackView: UIView = {
+        let view = UIView()
+        view.layoutUsing.anchors {
+            $0.height.equal(to: 16)
+        }
+        return view
+    }()
     
     private let titleView: UILabel = {
         let view = UILabel()
-        view.font = UIFont.previewTitle2Regular
-        view.textColor = .grayscale90
+        view.font = .previewTitle2Regular
+        view.numberOfLines = 2
+        view.lineBreakMode = .byWordWrapping
+        view.textColor = .textColor
         view.backgroundColor = .backgroundPrimary
         return view
     }()
@@ -92,7 +104,7 @@ final class BlockBookmarkInfoView: UIView {
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
         view.font = .relation2Regular
-        view.textColor = .grayscale70
+        view.textColor = .textSecondary
         view.backgroundColor = .backgroundPrimary
         return view
     }()
@@ -109,9 +121,8 @@ final class BlockBookmarkInfoView: UIView {
     
     private let urlView: UILabel = {
         let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.font = .relation3Regular
-        view.textColor = .grayscale90
+        view.textColor = .textSecondary
         view.backgroundColor = .backgroundPrimary
         return view
     }()
@@ -120,6 +131,6 @@ final class BlockBookmarkInfoView: UIView {
 extension BlockBookmarkInfoView {
     enum Layout {
         static let iconSize = CGSize(width: 16, height: 16)
-        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 16)
+        static let contentInsets = UIEdgeInsets(top: 14, left: 16, bottom: 14, right: 16)
     }
 }
