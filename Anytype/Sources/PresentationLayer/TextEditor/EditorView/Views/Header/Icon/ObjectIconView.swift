@@ -38,7 +38,7 @@ final class ObjectIconView: UIView {
 extension ObjectIconView: ConfigurableView {
 
     func configure(model: ObjectIcon) {
-        tapGesture.action = model.onTap
+        tapGesture.action = model.onIconTap
         
         switch model.state {
         case let .icon(icon, alignment):

@@ -97,9 +97,8 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
                     return ObjectHeader.iconOnly(
                         ObjectIcon(
                             state: .preview(.basic(uIImage), .left),
-                            onTap: { [weak self] in
-                                self?.showSettings()
-                            }
+                            onIconTap: onIconTap,
+                            onCoverTap: onCoverTap
                         )
                     )
                 case .coverUploading(let uIImage):

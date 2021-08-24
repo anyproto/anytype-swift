@@ -3,7 +3,8 @@ import BlocksModels
 
 struct ObjectIcon: Hashable {
     let state: ObjectIconState
-    let onTap: () -> ()
+    let onIconTap: () -> ()
+    let onCoverTap: () -> ()
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(state)
