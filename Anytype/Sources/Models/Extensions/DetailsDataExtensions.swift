@@ -38,7 +38,7 @@ extension DetailsDataProtocol {
         }
         
         return (self.name ?? "Untitled".localized).first.flatMap {
-            DocumentIconType.Profile.placeholder($0)
+            DocumentIconType.Profile.character($0)
         }
     }
     

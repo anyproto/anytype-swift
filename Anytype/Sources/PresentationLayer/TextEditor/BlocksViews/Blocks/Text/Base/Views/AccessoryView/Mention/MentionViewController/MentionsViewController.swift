@@ -84,7 +84,7 @@ final class MentionsViewController: UITableViewController {
             switch profile {
             case .imageId:
                 return mentionWithImageConfiguration(mention: mention, isCircle: true)
-            case .placeholder:
+            case .character:
                 return mentionWithImageConfiguration(mention: mention, isCircle: true)
             }
         case .basic:

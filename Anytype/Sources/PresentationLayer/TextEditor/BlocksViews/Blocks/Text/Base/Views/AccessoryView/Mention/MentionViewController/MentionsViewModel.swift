@@ -83,7 +83,7 @@ final class MentionsViewModel {
                 switch profile {
                 case let .imageId(id):
                     loadImage(by: id, mention: mention)
-                case let .placeholder(character):
+                case let .character(character):
                     let imageGuideline = ImageGuideline(
                         size: size,
                         cornerRadius: radius

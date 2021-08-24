@@ -13,7 +13,7 @@ extension DocumentIconType {
     
     enum Profile: Hashable {
         case imageId(String)
-        case placeholder(Character)
+        case character(Character)
     }
     
 }
