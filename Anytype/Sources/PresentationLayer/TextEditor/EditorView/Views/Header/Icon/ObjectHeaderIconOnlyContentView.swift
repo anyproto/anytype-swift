@@ -58,7 +58,7 @@ private extension ObjectHeaderIconOnlyContentView {
     func apply(configuration: ObjectHeaderIconOnlyConfiguration) {
         appliedConfiguration = configuration
         
-        switch configuration.icon {
+        switch configuration.icon.state {
         case let .icon(icon, alignment):
             configureIconState(icon, alignment)
         case let .preview(preview, alignment):

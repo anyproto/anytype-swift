@@ -73,15 +73,26 @@ extension DetailsDataProtocol {
         }
     }
     
-    var objectHeader: ObjectHeader {
+    func objectHeader(onIconTap: @escaping ()->()) -> ObjectHeader {
         let layoutAlign = self.layoutAlign ?? .left
         
         if let icon = icon, let cover = documentCover {
-            return .iconAndCover(.icon(icon, layoutAlign), .cover(cover))
+            return .iconAndCover(
+                icon: ObjectIcon(
+                    state: .icon(icon, layoutAlign),
+                    onTap: onIconTap
+                ),
+                cover: .cover(cover)
+            )
         }
         
         if let icon = icon {
-            return .iconOnly(.icon(icon, layoutAlign))
+            return .iconOnly(
+                ObjectIcon(
+                    state: .icon(icon, layoutAlign),
+                    onTap: onIconTap
+                )
+            )
         }
         
         if let cover = documentCover {
