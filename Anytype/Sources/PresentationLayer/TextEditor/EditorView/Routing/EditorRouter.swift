@@ -23,6 +23,7 @@ protocol EditorRouterProtocol: AnyObject {
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
     func showStyleMenu(information: BlockInformation)
+    func showSettings(settingsViewModel: ObjectSettingsViewModel)
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -139,6 +140,31 @@ final class EditorRouter: EditorRouterProtocol {
             }
         )
         controller.selectBlock(blockId: information.id)
+    }
+    
+    func showSettings(settingsViewModel: ObjectSettingsViewModel) {
+        guard let viewController = viewController else {
+            return
+        }
+        
+        let controller = UIHostingController(
+            rootView: ObjectSettingsContainerView(
+                viewModel: settingsViewModel
+            )
+        )
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        
+        controller.rootView.onHide = { [weak controller] in
+            controller?.dismiss(animated: false)
+        }
+        
+        viewController.present(
+            controller,
+            animated: false
+        )
     }
     
     private func showURLInputViewController(

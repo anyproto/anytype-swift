@@ -42,11 +42,12 @@ final class DocumentEditorViewController: UIViewController {
             self?.navigationController?.popViewController(animated: true)
         },
         onSettingsBarButtonItemTap: { [weak self] in
-            self?.showDocumentSettings()
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.viewModel.showSettings()
         }
     )
 
-    var viewModel: DocumentEditorViewModel!
+    var viewModel: DocumentEditorViewOutput!
 
     // MARK: - Initializers
     
@@ -262,29 +263,6 @@ private extension DocumentEditorViewController {
     func deselectAllBlocks() {
         self.collectionView.deselectAllSelectedItems()
         self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
-    }
-    
-    @objc
-    func showDocumentSettings() {
-        UISelectionFeedbackGenerator().selectionChanged()
-        
-        // TODO: move to assembly
-        let controller = UIHostingController(
-            rootView: ObjectSettingsContainerView(viewModel: viewModel.objectSettingsViewModel)
-        )
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        controller.rootView.onHide = { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
-        
-        present(
-            controller,
-            animated: false
-        )
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
