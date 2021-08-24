@@ -285,6 +285,7 @@
 		3D43FD8D26B162530094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; };
 		3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */; };
 		3D43FDB526B18E490094D4C0 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */; };
+		3D44984526D53D61005A3E06 /* DocumentEditorViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */; };
 		3D471E1F26C3B60200457DE5 /* BlockLinkIconMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */; };
 		3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */; };
 		3D471E4026C6A5A000457DE5 /* HomeSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3F26C6A5A000457DE5 /* HomeSearchCell.swift */; };
@@ -909,6 +910,7 @@
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/Fonts/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+SafeCall.swift"; path = "Anytype/Sources/FrameworkExtensions/Array+SafeCall.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutViewModel.swift; path = Anytype/Sources/PresentationLayer/Home/View/Settings/About/AboutViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewOutput.swift; sourceTree = "<group>"; };
 		3D471E1E26C3B60200457DE5 /* BlockLinkIconMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkIconMaker.swift; sourceTree = "<group>"; };
 		3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchView.swift; sourceTree = "<group>"; };
 		3D471E3F26C6A5A000457DE5 /* HomeSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCell.swift; sourceTree = "<group>"; };
@@ -1814,6 +1816,7 @@
 				533341F2262E0F5400238121 /* Selection */,
 				EA289BB72629D50000EA869F /* TurnIntoSelection */,
 				3DD67E9026526D8D0025ED6F /* DocumentEditorViewInput.swift */,
+				3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */,
 				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
 				123FDACF26C1505700F6F44B /* DocumentEditorViewController+UICollectionViewDelegate.swift */,
 				123FDAD126C150F500F6F44B /* DocumentEditorViewController+FloatingPanelControllerDelegate.swift */,
@@ -4258,6 +4261,7 @@
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
+				3D44984526D53D61005A3E06 /* DocumentEditorViewOutput.swift in Sources */,
 				12A7B6BE26C3E47200544037 /* IconEmoji.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
