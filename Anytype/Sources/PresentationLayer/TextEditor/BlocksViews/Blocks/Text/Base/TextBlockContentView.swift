@@ -177,37 +177,26 @@ final class TextBlockContentView: UIView & UIContentView {
         switch text.contentType {
         case .title:
             setupTitle(text)
-            setupLineHeight(textStyle: .title)
         case .description:
             setupText(placeholer: "Add a description".localized, textStyle: .relation2Regular)
-            setupLineHeight(textStyle: .relation2Regular)
         case .text:
             setupText(placeholer: "", textStyle: .bodyRegular)
-            setupLineHeight(textStyle: .bodyRegular)
         case .toggle:
             setupForToggle()
-            setupLineHeight(textStyle: .bodyRegular)
         case .bulleted:
             setupForBulleted()
-            setupLineHeight(textStyle: .bodyRegular)
         case .checkbox:
             setupForCheckbox(checked: text.checked)
-            setupLineHeight(textStyle: .bodyRegular)
         case .numbered:
             setupForNumbered(number: text.number)
-            setupLineHeight(textStyle: .bodyRegular)
         case .quote:
             setupForQuote()
-            setupLineHeight(textStyle: .bodyRegular)
         case .header:
             setupText(placeholer: "Title".localized, textStyle: .title)
-            setupLineHeight(textStyle: .title)
         case .header2:
             setupText(placeholer: "Heading".localized, textStyle: .heading)
-            setupLineHeight(textStyle: .heading)
         case .header3:
             setupText(placeholer: "Subheading".localized, textStyle: .subheading)
-            setupLineHeight(textStyle: .subheading)
         case .header4, .code:
             break
         }
@@ -239,20 +228,6 @@ final class TextBlockContentView: UIView & UIContentView {
         }
     }
 
-    // Setup line height
-    private func setupLineHeight(textStyle: AnytypeFontBuilder.TextStyle) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = AnytypeFontBuilder.lineSpacing(textStyle)
-
-        let range = NSMakeRange(0, textView.textView.textStorage.length)
-        textView.textView.textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
-
-        let topBottomTextSpacing = AnytypeFontBuilder.lineSpacing(textStyle) / 2
-        textView.textView.textContainerInset = .init(top: topBottomTextSpacing, left: 0, bottom: topBottomTextSpacing, right: 0)
-        textView.textView.typingAttributes = [.paragraphStyle: paragraphStyle]
-            .merging(textView.textView.typingAttributes, uniquingKeysWith: { (first, _) in first })
-    }
-
     // MARK: - Setups for different type of text block
     
     private func setupTitle(_ blockText: BlockText) {
@@ -282,8 +257,18 @@ final class TextBlockContentView: UIView & UIContentView {
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
-        textView.textView.font = font
-        textView.textView.typingAttributes = [.font: font]
+
+        // setup line height
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = AnytypeFontBuilder.lineSpacing(textStyle)
+
+        let range = NSMakeRange(0, textView.textView.textStorage.length)
+        textView.textView.textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+
+        let topBottomTextSpacing = AnytypeFontBuilder.lineSpacing(textStyle) / 2
+        textView.textView.textContainerInset = .init(top: topBottomTextSpacing, left: 0, bottom: topBottomTextSpacing, right: 0)
+
+        textView.textView.typingAttributes = [.font: font, .paragraphStyle: paragraphStyle]
         textView.textView.defaultFontColor = .textPrimary
     }
     
