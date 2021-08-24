@@ -62,13 +62,13 @@ extension ObjectIconView: ConfigurableView {
             configureBasicIcon(basic)
         case let .profile(profile):
             configureProfileIcon(profile)
+        case let .emoji(emoji):
+            showEmojiView(emoji)
         }
     }
     
     private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
         switch basicIcon {
-        case let .emoji(emoji):
-            showEmojiView(emoji)
         case let .imageId(imageId):
             showImageView(.basic(.imageId(imageId)))
         }

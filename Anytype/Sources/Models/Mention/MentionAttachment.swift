@@ -117,6 +117,16 @@ final class MentionAttachment: NSTextAttachment {
                 displayBasicIcon(basic)
             case let .profile(profile):
                 displayProfileIcon(profile)
+            case let .emoji(emoji):
+                guard
+                    let fontSize = fontPointSize,
+                    let image = emoji.value.image(fontPointSize: fontSize)
+                else { return }
+                
+                let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+                let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
+                
+                display(resizedImage)
             }
         case let .checkmark(isChecked):
             displayCheckmarkIcon(isChecked: isChecked)
@@ -125,16 +135,6 @@ final class MentionAttachment: NSTextAttachment {
     
     private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
         switch basicIcon {
-        case let .emoji(emoji):
-            guard
-                let fontSize = fontPointSize,
-                let image = emoji.value.image(fontPointSize: fontSize)
-            else { return }
-            
-            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-            let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
-            
-            display(resizedImage)
         case let .imageId(imageId):
             loadImage(imageId: imageId, isBasicLayout: true)
         }

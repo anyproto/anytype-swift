@@ -19,25 +19,25 @@ struct DashboardObjectIcon: View {
             makeBasicIconView(basicIcon)
         case let .profile(profileIcon):
             makeProfileIconView(profileIcon)
+        case let .emoji(emoji):
+            AnytypeText(
+                emoji.value,
+                name: .inter,
+                size: 30,
+                weight: .regular
+            )
+                .frame(
+                    maxWidth: Constants.iconSize.width,
+                    maxHeight: Constants.iconSize.height
+                )
+                .background(Color.grayscale10)
+                .cornerRadius(Constants.emojiIconCornerRadius)
         }
     }
     
     private func makeBasicIconView(_ basicIcon: DocumentIconType.Basic) -> some View {
         Group {
             switch basicIcon {
-            case let .emoji(emoji):
-                AnytypeText(
-                    emoji.value,
-                    name: .inter,
-                    size: 30,
-                    weight: .regular
-                )
-                    .frame(
-                        maxWidth: Constants.iconSize.width,
-                        maxHeight: Constants.iconSize.height
-                    )
-                    .background(Color.grayscale10)
-                    .cornerRadius(Constants.emojiIconCornerRadius)
             case let .imageId(imageId):
                 kfImage(
                     imageId: imageId,
@@ -103,7 +103,7 @@ extension DashboardObjectIcon {
 struct DashboardObjectIcon_Previews: PreviewProvider {
     static var previews: some View {
         DashboardObjectIcon(
-            icon: .basic(.emoji(IconEmoji("🥶")!))
+            icon: .emoji(IconEmoji("🥶")!)
         )
     }
 }

@@ -76,6 +76,8 @@ extension ObjectHeader {
                 return .preview(.basic(image), layoutAlignment)
             case .profile:
                 return .preview(.profile(image), layoutAlignment)
+            case .emoji:
+                return .preview(.basic(image), layoutAlignment)
             }
         case .preview(let objectIconPreviewType, let layoutAlignment):
             switch objectIconPreviewType {

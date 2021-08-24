@@ -26,6 +26,17 @@ extension ObjectIconImageBuilder: ObjectIconImageBuilderProtocol {
             basicIconImage(basicIcon: basic, size: size, onCompletion: onCompletion)
         case .profile(let profile):
             profileIconImage(profileIcon: profile, size: size, onCompletion: onCompletion)
+        case let .emoji(emoji):
+            let image = PlaceholderImageBuilder.placeholder(
+                with: size.emoji,
+                color: UIColor.grayscale10,
+                textGuideline: PlaceholderImageTextGuideline(
+                    text: emoji.value,
+                    font: .systemFont(ofSize: 48)
+                )
+            )
+            
+            onCompletion(image)
         }
     }
     
@@ -43,17 +54,6 @@ private extension ObjectIconImageBuilder {
                 imageGuideline: size.basic,
                 onCompletion: onCompletion
             )
-        case let .emoji(emoji):
-            let image = PlaceholderImageBuilder.placeholder(
-                with: size.emoji,
-                color: UIColor.grayscale10,
-                textGuideline: PlaceholderImageTextGuideline(
-                    text: emoji.value,
-                    font: .systemFont(ofSize: 48)
-                )
-            )
-            
-            onCompletion(image)
         }
     }
     

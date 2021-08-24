@@ -6,7 +6,7 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .basic(.emoji(IconEmoji("📘")!)),
+            icon: .emoji(IconEmoji("📘")!),
             title: .default(title: "Ubik"),
             type: "Book",
             isLoading: false,
@@ -33,7 +33,7 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .basic(.emoji(IconEmoji("📘")!)),
+            icon: .emoji(IconEmoji("📘")!),
             title: .default(title: "Ubik"),
             type: "Book",
             isLoading: false,

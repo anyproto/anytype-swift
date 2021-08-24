@@ -3,6 +3,8 @@ enum DocumentIconType: Hashable {
     case basic(Basic)
     case profile(Profile)
     
+    case emoji(IconEmoji)
+    
 }
 
 // MARK: - BasicIcon
@@ -11,7 +13,7 @@ extension DocumentIconType {
     
     enum Basic: Hashable {
         case imageId(String)
-        case emoji(IconEmoji)
+        
     }
 
 }

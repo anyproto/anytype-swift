@@ -7,12 +7,12 @@ extension DetailsDataProtocol {
     
     var icon: DocumentIconType? {
         guard let layout = self.layout else {
-            return basicIcon.flatMap { DocumentIconType.basic($0) }
+            return basicIcon
         }
         
         switch layout {
         case .basic:
-            return basicIcon.flatMap { DocumentIconType.basic($0) }
+            return basicIcon
         case .profile:
             return profileIcon.flatMap { DocumentIconType.profile($0) }
         default:
@@ -20,13 +20,13 @@ extension DetailsDataProtocol {
         }
     }
     
-    private var basicIcon: DocumentIconType.Basic? {
+    private var basicIcon: DocumentIconType? {
         if let iconImageId = self.iconImage, !iconImageId.isEmpty {
-            return DocumentIconType.Basic.imageId(iconImageId)
+            return DocumentIconType.basic(.imageId(iconImageId))
         }
         
         if let iconEmoji = IconEmoji(self.iconEmoji) {
-            return DocumentIconType.Basic.emoji(iconEmoji)
+            return DocumentIconType.emoji(iconEmoji)
         }
         
         return nil
