@@ -117,7 +117,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         }
         
         viewInput?.updateData(
-            header: header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty,
+            header: header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap)),
             blocks: modelsHolder.models
         )
     }
@@ -147,7 +147,8 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
             updateMarkupViewModel(updatedIds)
             
             viewInput?.updateData(
-                header: modelsHolder.details?.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty,
+                header: modelsHolder.details?.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap) ??
+                    .empty(ObjectHeaderEmptyData(onTap: onCoverTap)),
                 blocks: modelsHolder.models
             )
         }
@@ -217,7 +218,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         
         guard let details = modelsHolder.details else {
             viewInput?.updateData(
-                header: .empty,
+                header: .empty(ObjectHeaderEmptyData(onTap: onCoverTap)),
                 blocks: modelsHolder.models
             )
             return
