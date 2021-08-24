@@ -51,7 +51,7 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .basic(.imageId("1337")),
+            icon: .basic("1337"),
             title: .default(title: "Neo"),
             type: "Character",
             isLoading: false,

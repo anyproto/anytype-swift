@@ -15,8 +15,11 @@ struct DashboardObjectIcon: View {
     
     var body: some View {
         switch icon {
-        case let .basic(basicIcon):
-            makeBasicIconView(basicIcon)
+        case let .basic(id):
+            kfImage(
+                imageId: id,
+                radius: .point(Constants.basicImageIconCornerRadius)
+            )
         case let .profile(profileIcon):
             makeProfileIconView(profileIcon)
         case let .emoji(emoji):
@@ -32,18 +35,6 @@ struct DashboardObjectIcon: View {
                 )
                 .background(Color.grayscale10)
                 .cornerRadius(Constants.emojiIconCornerRadius)
-        }
-    }
-    
-    private func makeBasicIconView(_ basicIcon: DocumentIconType.Basic) -> some View {
-        Group {
-            switch basicIcon {
-            case let .imageId(imageId):
-                kfImage(
-                    imageId: imageId,
-                    radius: .point(Constants.basicImageIconCornerRadius)
-                )
-            }
         }
     }
     

@@ -77,11 +77,8 @@ final class MentionsViewModel {
         switch icon {
         case let .objectIcon(objectIcon):
             switch objectIcon {
-            case let .basic(basic):
-                switch basic {
-                case let .imageId(id):
-                    loadImage(by: id, mention: mention)
-                }
+            case let .basic(id):
+                loadImage(by: id, mention: mention)
             case let .profile(profile):
                 switch profile {
                 case let .imageId(id):

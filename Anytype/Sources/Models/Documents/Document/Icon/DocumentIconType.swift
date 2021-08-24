@@ -1,21 +1,10 @@
 enum DocumentIconType: Hashable {
     
-    case basic(Basic)
+    case basic(String)
     case profile(Profile)
     
     case emoji(IconEmoji)
     
-}
-
-// MARK: - BasicIcon
-
-extension DocumentIconType {
-    
-    enum Basic: Hashable {
-        case imageId(String)
-        
-    }
-
 }
 
 // MARK: - ProfileIcon

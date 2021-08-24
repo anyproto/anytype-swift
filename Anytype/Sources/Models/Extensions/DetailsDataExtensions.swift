@@ -22,7 +22,7 @@ extension DetailsDataProtocol {
     
     private var basicIcon: DocumentIconType? {
         if let iconImageId = self.iconImage, !iconImageId.isEmpty {
-            return DocumentIconType.basic(.imageId(iconImageId))
+            return DocumentIconType.basic(iconImageId)
         }
         
         if let iconEmoji = IconEmoji(self.iconEmoji) {

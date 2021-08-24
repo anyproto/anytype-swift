@@ -71,11 +71,8 @@ private extension ObjectHeaderIconOnlyContentView {
     private func configureIconState(_ icon: DocumentIconType,
                                     _ alignment: LayoutAlignment) {
         switch icon {
-        case let .basic(basic):
-            switch basic {
-            case .imageId:
-                topConstraint.constant = Constants.basicIconTopInset
-            }
+        case .basic:
+            topConstraint.constant = Constants.basicIconTopInset
                         
         case .profile:
             topConstraint.constant = Constants.profileTopInset

@@ -113,8 +113,8 @@ final class MentionAttachment: NSTextAttachment {
         switch icon {
         case let .objectIcon(objectIcon):
             switch objectIcon {
-            case let .basic(basic):
-                displayBasicIcon(basic)
+            case let .basic(id):
+                loadImage(imageId: id, isBasicLayout: true)
             case let .profile(profile):
                 displayProfileIcon(profile)
             case let .emoji(emoji):
@@ -130,13 +130,6 @@ final class MentionAttachment: NSTextAttachment {
             }
         case let .checkmark(isChecked):
             displayCheckmarkIcon(isChecked: isChecked)
-        }
-    }
-    
-    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
-        case let .imageId(imageId):
-            loadImage(imageId: imageId, isBasicLayout: true)
         }
     }
     

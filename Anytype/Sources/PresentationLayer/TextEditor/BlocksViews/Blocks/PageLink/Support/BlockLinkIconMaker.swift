@@ -11,8 +11,8 @@ struct BlockLinkIconMaker {
             return makeIconImageView()
         case let .icon(icon):
             switch icon {
-            case let .basic(basic):
-                return makeBasicIconView(basic)
+            case let .basic(id):
+                return makeImageView(imageId: id, cornerRadius: 4)
                 
             case let .profile(profile):
                 return makeProfileIconView(profile)
@@ -24,13 +24,6 @@ struct BlockLinkIconMaker {
             let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
             
             return makeIconImageView(image)
-        }
-    }
-    
-    private func makeBasicIconView(_ icon: DocumentIconType.Basic) -> UIView {
-        switch icon {
-        case let .imageId(imageId):
-            return makeImageView(imageId: imageId, cornerRadius: 4)
         }
     }
     
