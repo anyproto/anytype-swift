@@ -187,7 +187,7 @@ extension TextBlockIconView {
 
 private extension TextBlockIconView {
     private enum Constants {
-        static let size = CGSize(width: 30, height: 35)
+        static let size = CGSize(width: 24, height: 24)
 
         enum Quote {
             static let viewWidth: CGFloat = 14
