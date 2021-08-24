@@ -115,7 +115,7 @@ final class MentionsViewController: UITableViewController {
         
         configuration.text = mention.name
         configuration.textProperties.font = .bodyRegular
-        configuration.textProperties.color = .textColor
+        configuration.textProperties.color = .textPrimary
         configuration.textToSecondaryTextVerticalPadding = Constants.textsVerticalPadding
         
         configuration.secondaryText = mention.description

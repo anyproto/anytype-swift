@@ -67,12 +67,12 @@ final class BlockLinkView: UIView, UIContentView {
         view.font = .bodyRegular
         view.typingAttributes = [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.textColor,
+            .foregroundColor: UIColor.textPrimary,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .underlineColor: UIColor.textColor
+            .underlineColor: UIColor.textPrimary
         ]
         view.textContainerInset = Constants.textContainerInset
-        view.textColor = .textColor
+        view.textColor = .textPrimary
         view.isUserInteractionEnabled = false
         return view
     }()

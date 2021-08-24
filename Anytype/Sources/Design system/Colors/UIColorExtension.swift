@@ -6,7 +6,7 @@ extension UIColor {
         .init(red: 255.0/255.0, green: 181.0/255.0, blue: 34.0/255.0, alpha: 1)
     }
     
-    static let textColor = color(name: ColorName.textPrimary)
+    static let textPrimary = color(name: ColorName.textPrimary)
     static let textSecondary = color(name: ColorName.textSecondary)
     static let textTertiary = color(name: ColorName.textTertiary)
     

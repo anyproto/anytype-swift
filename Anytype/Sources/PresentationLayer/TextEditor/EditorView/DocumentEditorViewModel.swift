@@ -6,7 +6,7 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-final class DocumentEditorViewModel: ObservableObject {
+final class DocumentEditorViewModel: DocumentEditorViewOutput {
     weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol
@@ -248,6 +248,12 @@ extension DocumentEditorViewModel {
             id: item.blockId,
             type: item.content.type
         )
+    }
+}
+
+extension DocumentEditorViewModel {
+    func showSettings() {
+        router.showSettings(settingsViewModel: objectSettingsViewModel)
     }
 }
 

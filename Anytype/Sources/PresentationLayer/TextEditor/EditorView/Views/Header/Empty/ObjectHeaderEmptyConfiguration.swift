@@ -1,14 +1,7 @@
-//
-//  ObjectHeaderEmptyConfiguration.swift
-//  ObjectHeaderEmptyConfiguration
-//
-//  Created by Konstantin Mordan on 12.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 struct ObjectHeaderEmptyConfiguration: UIContentConfiguration, Hashable {
+//    let data: ObjectHeader
     
     func makeContentView() -> UIView & UIContentView {
        ObjectHeaderEmptyContentView(configuration: self)

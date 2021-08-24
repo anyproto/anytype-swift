@@ -269,7 +269,7 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.textView.textContainerInset = .init(top: topBottomTextSpacing, left: 0, bottom: topBottomTextSpacing, right: 0)
 
         textView.textView.typingAttributes = [.font: font, .paragraphStyle: paragraphStyle]
-        textView.textView.defaultFontColor = .textColor
+        textView.textView.defaultFontColor = .textPrimary
     }
     
     private func setupForCheckbox(checked: Bool) {

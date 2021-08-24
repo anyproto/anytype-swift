@@ -6,8 +6,6 @@ import AnytypeCore
 
 final class BlockImageContentView: UIView & UIContentView {
     
-    private var imageContentViewHeight: NSLayoutConstraint?
-    
     private let imageView = UIImageView()
     
     private var currentConfiguration: BlockImageConfiguration
@@ -35,18 +33,17 @@ final class BlockImageContentView: UIView & UIContentView {
         handleFile(currentConfiguration.fileData, nil)
     }
     
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func setupUIElements() {
-        imageView.contentMode = currentConfiguration.alignment.asContentMode
+        // TODO: Support alignments than looks beautiful
+        imageView.contentMode = .center
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
         
-        addImageViewLayout()
+        addSubview(imageView) {
+            $0.pinToSuperview(insets: Layout.imageViewInsets)
+            $0.height.equal(to: Layout.imageContentViewDefaultHeight)
+        }
     }
     
     /// MARK: - EditorModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
@@ -60,17 +57,11 @@ final class BlockImageContentView: UIView & UIContentView {
         invalidateIntrinsicContentSize()
     }
     
-    private func addImageViewLayout() {
-        addSubview(imageView) {
-            $0.pinToSuperview(insets: Layout.imageViewInsets)
-            self.imageContentViewHeight = $0.height.equal(to: Layout.imageContentViewDefaultHeight)
-        }
-    }
-    
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
         guard !file.metadata.hash.isEmpty else { return }
         
-        imageView.contentMode = currentConfiguration.alignment.asContentMode
+        // TODO: Support alignments that does not look ugly
+        imageView.contentMode = .center // currentConfiguration.alignment.asContentMode
 
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
@@ -95,12 +86,16 @@ final class BlockImageContentView: UIView & UIContentView {
         )
     }
     
+    // MARK: - Unavailable
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 private extension BlockImageContentView {
     enum Layout {
         static let imageContentViewDefaultHeight: CGFloat = 250
-        static let imageViewTop: CGFloat = 4
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
     }
 }

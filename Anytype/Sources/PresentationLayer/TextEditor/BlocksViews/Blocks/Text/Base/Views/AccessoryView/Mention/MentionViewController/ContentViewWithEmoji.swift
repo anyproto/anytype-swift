@@ -26,7 +26,7 @@ final class ContentViewWithEmoji: UIView, UIContentView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .previewTitle2Regular
-        label.textColor = .textColor
+        label.textColor = .textPrimary
         return label
     }()
     private let subtitleLabel: UILabel = {

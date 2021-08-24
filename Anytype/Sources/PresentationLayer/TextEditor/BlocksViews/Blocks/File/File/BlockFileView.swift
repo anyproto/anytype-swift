@@ -9,16 +9,6 @@ struct BlockFileMediaData: Hashable {
 
 class BlockFileView: UIView & UIContentView {
     private var currentConfiguration: BlockFileConfiguration
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockFileConfiguration else { return }
-            guard self.currentConfiguration != configuration else { return }
-            self.currentConfiguration = configuration
-            
-            handle(data: currentConfiguration.data)
-        }
-    }
     
     init(configuration: BlockFileConfiguration) {
         self.currentConfiguration = configuration
@@ -58,7 +48,6 @@ class BlockFileView: UIView & UIContentView {
         
         imageView.layoutUsing.anchors {
             $0.width.equal(to: 18)
-            $0.height.equal(to: 18)
         }
         
         translatesAutoresizingMaskIntoConstraints = true
@@ -70,6 +59,7 @@ class BlockFileView: UIView & UIContentView {
         sizeView.text = data.size
     }
     
+    // MARK: - Views
     let contentView = UIView()
     
     let imageView: UIImageView  = {
@@ -81,7 +71,7 @@ class BlockFileView: UIView & UIContentView {
     let titleView: UILabel = {
         let view = UILabel()
         view.font = .bodyRegular
-        view.textColor = .textColor
+        view.textColor = .textPrimary
         return view
     }()
     
@@ -91,4 +81,16 @@ class BlockFileView: UIView & UIContentView {
         view.textColor = . textSecondary
         return view
     }()
+    
+    // MARK: - UIContentView
+    var configuration: UIContentConfiguration {
+        get { currentConfiguration }
+        set {
+            guard let configuration = newValue as? BlockFileConfiguration else { return }
+            guard self.currentConfiguration != configuration else { return }
+            self.currentConfiguration = configuration
+            
+            handle(data: currentConfiguration.data)
+        }
+    }
 }

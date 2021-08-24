@@ -71,7 +71,7 @@ private extension EditorNavigationBarTitleView {
     
     func setupView() {
         titleLabel.font = .uxCalloutRegular
-        titleLabel.textColor = .textColor
+        titleLabel.textColor = .textPrimary
         titleLabel.numberOfLines = 1
         
         iconImageView.contentMode = .scaleAspectFit
