@@ -133,7 +133,7 @@ final class MentionAttachment: NSTextAttachment {
         }
     }
     
-    private func displayProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+    private func displayProfileIcon(_ profileIcon: ObjectIconType.Profile) {
         switch profileIcon {
         case let .imageId(id):
             loadImage(imageId: id, isBasicLayout: false)

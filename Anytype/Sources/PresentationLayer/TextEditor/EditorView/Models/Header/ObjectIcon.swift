@@ -10,7 +10,7 @@ import UIKit.UIImage
 import BlocksModels
 
 enum ObjectIcon: Hashable {
-    case icon(DocumentIconType, LayoutAlignment)
+    case icon(ObjectIconType, LayoutAlignment)
     case preview(ObjectIconPreviewType, LayoutAlignment)
 }
 

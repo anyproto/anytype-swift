@@ -68,7 +68,7 @@ private extension ObjectHeaderIconOnlyContentView {
         iconView.configure(model: configuration.icon)
     }
     
-    private func configureIconState(_ icon: DocumentIconType,
+    private func configureIconState(_ icon: ObjectIconType,
                                     _ alignment: LayoutAlignment) {
         switch icon {
         case .basic:

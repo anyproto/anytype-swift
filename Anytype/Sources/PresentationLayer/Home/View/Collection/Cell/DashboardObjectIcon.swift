@@ -11,7 +11,7 @@ import Kingfisher
 
 struct DashboardObjectIcon: View {
     
-    let icon: DocumentIconType
+    let icon: ObjectIconType
     
     var body: some View {
         switch icon {
@@ -38,7 +38,7 @@ struct DashboardObjectIcon: View {
         }
     }
     
-    private func makeProfileIconView(_ profileIcon: DocumentIconType.Profile) -> some View {
+    private func makeProfileIconView(_ profileIcon: ObjectIconType.Profile) -> some View {
         Group {
             switch profileIcon {
             case let .imageId(imageId):

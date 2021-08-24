@@ -52,7 +52,7 @@ extension ObjectIconView: ConfigurableView {
         }
     }
     
-    private func configureIconState(_ icon: DocumentIconType,
+    private func configureIconState(_ icon: ObjectIconType,
                                     _ alignment: LayoutAlignment) {
         handleAlignment(alignment)
         activityIndicatorView.hide()
@@ -67,7 +67,7 @@ extension ObjectIconView: ConfigurableView {
         }
     }
     
-    private func configureProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+    private func configureProfileIcon(_ profileIcon: ObjectIconType.Profile) {
         switch profileIcon {
         case let .imageId(imageId):
             showImageView(.profile(.imageId(imageId)))

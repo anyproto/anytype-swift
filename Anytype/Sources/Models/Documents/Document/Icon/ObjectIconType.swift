@@ -1,4 +1,4 @@
-enum DocumentIconType: Hashable {
+enum ObjectIconType: Hashable {
     
     case basic(String)
     case profile(Profile)
@@ -9,7 +9,7 @@ enum DocumentIconType: Hashable {
 
 // MARK: - ProfileIcon
 
-extension DocumentIconType {
+extension ObjectIconType {
     
     enum Profile: Hashable {
         case imageId(String)

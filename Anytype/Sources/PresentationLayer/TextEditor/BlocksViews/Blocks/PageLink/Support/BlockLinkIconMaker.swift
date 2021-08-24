@@ -27,7 +27,7 @@ struct BlockLinkIconMaker {
         }
     }
     
-    private func makeProfileIconView(_ icon: DocumentIconType.Profile) -> UIView {
+    private func makeProfileIconView(_ icon: ObjectIconType.Profile) -> UIView {
         switch icon {
         case let .imageId(imageId):
             return makeImageView(imageId: imageId, cornerRadius: imageViewSize.width / 2)

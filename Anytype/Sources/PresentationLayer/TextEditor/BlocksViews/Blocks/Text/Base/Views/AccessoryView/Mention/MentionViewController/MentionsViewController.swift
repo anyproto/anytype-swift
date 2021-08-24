@@ -78,7 +78,7 @@ final class MentionsViewController: UITableViewController {
         }
     }
     
-    private func configurationForObjectIcon(_ objectIcon: DocumentIconType, mention: MentionObject) -> UIContentConfiguration {
+    private func configurationForObjectIcon(_ objectIcon: ObjectIconType, mention: MentionObject) -> UIContentConfiguration {
         switch objectIcon {
         case let .profile(profile):
             switch profile {
