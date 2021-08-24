@@ -31,6 +31,7 @@ struct HomeProfileView: View {
             .foregroundColor(.white)
             .padding(.top, containerHeight * topPaddingRatio)
             .padding(.bottom, 15)
+            .padding(.horizontal)
             .transition(.opacity)
     }
     

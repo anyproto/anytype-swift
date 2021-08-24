@@ -7,9 +7,17 @@ class BlockBookmarkImageView: UIImageView {
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
-        contentMode = .center
+        contentMode = .scaleAspectFill
+        
         clipsToBounds = true
+        layer.cornerRadius = 2
+        addDimmedOverlay(with: .black.withAlphaComponent(0.05))
         backgroundColor = .backgroundPrimary
+        
+        layoutUsing.anchors {
+            $0.width.equal(to: 78)
+            $0.height.equal(to: 78)
+        }
     }
     
     

@@ -14,14 +14,13 @@ final class BlockBookmarkView: UIView & UIContentView {
     }
     
     private func setup() {
-        addSubview(bookmarkView) {
-            $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
-            $0.height.equal(to: 108)
+        addSubview(backgroundView) {
+            $0.pinToSuperview(insets: Layout.backgroundViewInsets)
         }
     }
     
     private func apply(payload: BlockBookmarkPayload) {
-        bookmarkView.removeAllSubviews()
+        backgroundView.removeAllSubviews()
         
         guard !payload.imageHash.isEmpty else {
             layoutWithoutImage(payload: payload)
@@ -31,21 +30,20 @@ final class BlockBookmarkView: UIView & UIContentView {
         informationView.update(payload: payload)
         imageView.update(imageId: payload.imageHash)
         
-        bookmarkView.addSubview(informationView) {
+        backgroundView.addSubview(informationView) {
             $0.pinToSuperview(excluding: [.right])
         }
         
-        bookmarkView.addSubview(imageView) {
-            $0.height.equal(to: heightAnchor)
-            $0.width.equal(to: widthAnchor, multiplier: Layout.imageSizeFactor)
+        backgroundView.addSubview(imageView) {
             $0.leading.equal(to: informationView.trailingAnchor)
-            $0.trailing.equal(to: trailingAnchor)
+            $0.trailing.equal(to: backgroundView.trailingAnchor, constant: -16)
+            $0.centerY.equal(to: backgroundView.centerYAnchor)
         }
     }
     
     private func layoutWithoutImage(payload: BlockBookmarkPayload) {
         informationView.update(payload: payload)
-        bookmarkView.addSubview(informationView) {
+        backgroundView.addSubview(informationView) {
             $0.pinToSuperview()
         }
     }
@@ -53,11 +51,11 @@ final class BlockBookmarkView: UIView & UIContentView {
     // MARK: - Views
     private let informationView = BlockBookmarkInfoView()
     private let imageView = BlockBookmarkImageView()
-    private let bookmarkView: UIView = {
+    private let backgroundView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.grayscale30.cgColor
-        view.layer.cornerRadius = 4
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.stroke.cgColor
+        view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view
     }()
@@ -88,10 +86,6 @@ final class BlockBookmarkView: UIView & UIContentView {
 
 private extension BlockBookmarkView {
     enum Layout {
-        static let emptyViewHeight: CGFloat = 48
-        static let bookmarkViewHeight: CGFloat = 108
-        static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
-        static let imageSizeFactor: CGFloat = 1 / 3
-        static let imageHeightConstant: CGFloat = 108
+        static let backgroundViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
     }
 }
