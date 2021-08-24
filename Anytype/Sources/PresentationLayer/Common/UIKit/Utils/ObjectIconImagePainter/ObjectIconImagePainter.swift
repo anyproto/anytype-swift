@@ -15,11 +15,7 @@ final class ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         return nil
     }
     
-    func emojiImage(_ emoji: IconEmoji) -> UIImage? {
-        return nil
-    }
-    
-    func profilePlaceholderImage(character: Character) -> UIImage? {
+    func image(with string: String, font: UIFont) -> UIImage? {
         return nil
     }
        

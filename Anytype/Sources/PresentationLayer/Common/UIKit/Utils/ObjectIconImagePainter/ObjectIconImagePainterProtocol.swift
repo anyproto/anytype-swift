@@ -12,7 +12,6 @@ import UIKit
 protocol ObjectIconImagePainterProtocol {
     
     func todoImage(isChecked: Bool) -> UIImage?
-    func emojiImage(_ emoji: IconEmoji) -> UIImage?
-    func profilePlaceholderImage(character: Character) -> UIImage?
+    func image(with string: String, font: UIFont) -> UIImage?
     
 }
