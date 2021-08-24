@@ -94,7 +94,7 @@ final class BlockBookmarkInfoView: UIView {
         view.font = .previewTitle2Regular
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
-        view.textColor = .textColor
+        view.textColor = .textPrimary
         view.backgroundColor = .backgroundPrimary
         return view
     }()

@@ -33,7 +33,7 @@ enum ButtonsFactory {
         button.setBackgroundColor(.clear, state: .disabled)
         button.setBackgroundColor(.selected, state: .selected)
         button.setImageTintColor(.buttonInactive, state: .disabled)
-        button.setImageTintColor(.textColor, state: .normal)
+        button.setImageTintColor(.textPrimary, state: .normal)
 
         return button
     }

@@ -77,7 +77,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
                                 withinSelectedGlyphRange: withinRange,
                                 in: textContainer) { rect, _ in
             let textRect = rect.offsetBy(dx: origin.x, dy: origin.y)
-            UIColor.textColor.setFill()
+            UIColor.textPrimary.setFill()
             UIBezierPath(rect: CGRect(origin: CGPoint(x: textRect.minX,
                                                       y: textRect.maxY),
                                       size: CGSize(width: textRect.width,

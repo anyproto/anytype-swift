@@ -127,7 +127,7 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         var configuration = UIListContentConfiguration.subtitleCell()
         configuration.text = title
         configuration.textProperties.font = .uxTitle2Regular
-        configuration.textProperties.color = .textColor
+        configuration.textProperties.color = .textPrimary
         configuration.image = UIImage(named: imageName)
         configuration.imageToTextPadding = Constants.imageToTextPadding
         configuration.imageProperties.reservedLayoutSize = Constants.imageSize
