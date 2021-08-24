@@ -16,7 +16,7 @@ final class ObjectIconView: UIView {
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
     
-    private var tapGesture = BindableGestureRecognizer(action: {})
+    private let tapGesture = BindableGestureRecognizer()
     
     // MARK: - Initializers
     
