@@ -36,18 +36,14 @@ class BlocksFileEmptyView: UIView & UIContentView {
         }
         
         contentView.layoutUsing.stack {
+            $0.edgesToSuperview(insets: Layout.contentInsets)
+        } builder: {
             $0.hStack(
-                $0.hGap(fixed: Layout.iconLeading),
-                $0.vStack(
-                    $0.vGap(fixed: 15),
-                    icon,
-                    $0.vGap(fixed: 15)
-                ),
+                icon,
                 $0.hGap(fixed: Layout.labelSpacing),
                 label,
                 $0.hGap(fixed: Layout.labelSpacing),
-                activityIndicator,
-                $0.hGap(fixed: Layout.activityIndicatorTrailing)
+                activityIndicator
             )
         }
     
@@ -108,9 +104,8 @@ class BlocksFileEmptyView: UIView & UIContentView {
 extension BlocksFileEmptyView {
     private enum Layout {
         static let placeholderInsets = UIEdgeInsets(top: 7, left: 20, bottom: -7, right: -20)
-        static let iconLeading: CGFloat = 12
+        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 18)
         static let labelSpacing: CGFloat = 10
-        static let activityIndicatorTrailing: CGFloat = 18
         static let iconWidth: CGFloat =  22
     }
     
