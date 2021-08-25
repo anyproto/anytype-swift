@@ -33,7 +33,7 @@ struct ObjectIconImageView: View {
             case .profile(let profile):
                 profileIconImage(profile: profile)
             case .emoji(let iconEmoji):
-                EmptyView()
+                stringIconImage(iconEmoji.value)
             }
         }
     }
@@ -55,6 +55,27 @@ struct ObjectIconImageView: View {
             case .imageId(let id):
                 loadableIconImage(id: id)
             case .character(let character):
+                stringIconImage(String(character))
+            }
+        }
+    }
+    
+    private func stringIconImage(_ string: String) -> some View {
+        Group {
+            let imageGuideline = position.objectIconImageGuidelineSet.imageGuideline(
+                for: iconImage
+            )
+            let font = position.objectIconImageFontSet.imageFont(for: iconImage)
+            
+            if let imageGuideline = imageGuideline, let font = font {
+                Image(
+                    uiImage: painter.image(
+                        with: string,
+                        font: font,
+                        imageGuideline: imageGuideline
+                    )
+                )
+            } else {
                 EmptyView()
             }
         }

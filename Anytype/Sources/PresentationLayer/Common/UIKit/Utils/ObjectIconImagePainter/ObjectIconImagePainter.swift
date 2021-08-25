@@ -13,6 +13,7 @@ final class ObjectIconImagePainter {
     
     static let shared = ObjectIconImagePainter()
     
+    // TODO: Create common imagecache
     private let cache = NSCache<NSString, UIImage>()
        
 }
@@ -40,8 +41,15 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         return modifiedImage
     }
     
-    func image(with string: String, font: UIFont) -> UIImage? {
-        return nil
+    func image(with string: String, font: UIFont, imageGuideline: ImageGuideline) -> UIImage {
+        PlaceholderImageBuilder.placeholder(
+            with: imageGuideline,
+            color: UIColor.grayscale30,
+            textGuideline: PlaceholderImageTextGuideline(
+                text: string,
+                font: font
+            )
+        )
     }
     
 }
