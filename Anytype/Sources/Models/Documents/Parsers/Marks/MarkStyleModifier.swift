@@ -88,8 +88,7 @@ final class MarkStyleModifier {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
         let mentionAttachment = MentionAttachment(
             name: mentionAttributedString.string,
-            pageId: pageId,
-            type: nil
+            pageId: pageId
         )
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         let currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
