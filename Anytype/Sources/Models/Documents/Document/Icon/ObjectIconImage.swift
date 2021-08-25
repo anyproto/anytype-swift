@@ -15,7 +15,7 @@ enum ObjectIconImage {
 
 extension ObjectIconImage {
     
-    func imageGuideline(for sizeGroup: ObjectIconImageSizeGroup) -> ImageGuideline? {
+    func imageGuideline(for sizeGroup: ObjectIconImagePosition) -> ImageGuideline? {
         switch self {
         case .icon(let objectIconType):
             switch objectIconType {
