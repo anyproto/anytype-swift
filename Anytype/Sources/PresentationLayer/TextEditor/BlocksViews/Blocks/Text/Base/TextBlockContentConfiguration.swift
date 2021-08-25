@@ -10,6 +10,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
     let showPage: (String) -> Void
+    let openURL: (URL) -> Void
     let showStyleMenu: (BlockInformation) -> Void
     let pressingEnterTimeChecker = TimeChecker()
     let information: BlockInformation
@@ -24,6 +25,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
         showPage: @escaping (String) -> Void,
+        openURL: @escaping (URL) -> Void,
         showStyleMenu: @escaping (BlockInformation) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
@@ -32,6 +34,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.upperBlock = upperBlock
         self.actionHandler = actionHandler
         self.showPage = showPage
+        self.openURL = openURL
         self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
         self.information = block.information

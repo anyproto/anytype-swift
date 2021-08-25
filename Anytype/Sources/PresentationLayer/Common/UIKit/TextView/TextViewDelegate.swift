@@ -46,6 +46,7 @@ extension CustomTextView {
         case changeCaretPosition(NSRange)
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
         case showPage(String)
+        case openURL(URL)
     }
 }
 
