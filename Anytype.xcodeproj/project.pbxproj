@@ -224,6 +224,7 @@
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF31F26D53866001E56B2 /* ObjectIconImagePainter.swift */; };
 		12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF32226D53878001E56B2 /* ObjectIconImagePainterProtocol.swift */; };
+		12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF33D26D63473001E56B2 /* ObjectIconImage.swift */; };
 		12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */; };
 		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
@@ -851,6 +852,7 @@
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12CAF31F26D53866001E56B2 /* ObjectIconImagePainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImagePainter.swift; sourceTree = "<group>"; };
 		12CAF32226D53878001E56B2 /* ObjectIconImagePainterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImagePainterProtocol.swift; sourceTree = "<group>"; };
+		12CAF33D26D63473001E56B2 /* ObjectIconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImage.swift; sourceTree = "<group>"; };
 		12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectBasicIconPicker.swift; sourceTree = "<group>"; };
 		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
@@ -2166,6 +2168,7 @@
 			isa = PBXGroup;
 			children = (
 				1219F970269350A5009DE4D4 /* ObjectIconType.swift */,
+				12CAF33D26D63473001E56B2 /* ObjectIconImage.swift */,
 			);
 			path = Icon;
 			sourceTree = "<group>";
@@ -4030,6 +4033,7 @@
 				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
+				12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */,
 				3D24F439269C930100FA0F5F /* SearchService.swift in Sources */,
 				3D24F43D269CC3D400FA0F5F /* SearchResult.swift in Sources */,
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
