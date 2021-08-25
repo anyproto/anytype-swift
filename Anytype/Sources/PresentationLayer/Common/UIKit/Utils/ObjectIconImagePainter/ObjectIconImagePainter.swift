@@ -20,7 +20,7 @@ final class ObjectIconImagePainter {
 extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
-        let hash = "todo.\(imageGuideline.identifier)"
+        let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
         
         if let image = obtainImageFromCache(hash: hash) {
             return image
