@@ -272,7 +272,7 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func showSettings() {
-        router.showSettings(settingsViewModel: objectSettingsViewModel)
+        router.showSettings(viewModel: objectSettingsViewModel)
     }
 }
 

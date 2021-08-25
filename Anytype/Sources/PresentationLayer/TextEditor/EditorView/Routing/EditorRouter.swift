@@ -23,7 +23,7 @@ protocol EditorRouterProtocol: AnyObject {
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
     func showStyleMenu(information: BlockInformation)
-    func showSettings(settingsViewModel: ObjectSettingsViewModel)
+    func showSettings(viewModel: ObjectSettingsViewModel)
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
     func showIconPicker(viewModel: ObjectIconPickerViewModel)
 }
@@ -32,6 +32,7 @@ final class EditorRouter: EditorRouterProtocol {
     private weak var viewController: DocumentEditorViewController?
     private let fileRouter: FileRouter
     private let document: BaseDocumentProtocol
+    private let settingAssembly = ObjectSettingAssembly()
 
     init(
         viewController: DocumentEditorViewController,
@@ -57,7 +58,7 @@ final class EditorRouter: EditorRouterProtocol {
             )
             return
         }
-        let newEditorViewController = EditorAssembly.build(blockId: id)
+        let newEditorViewController = EditorAssembly.buildEditor(blockId: id)
         
         viewController?.navigationController?.pushViewController(
             newEditorViewController,
@@ -144,14 +145,14 @@ final class EditorRouter: EditorRouterProtocol {
         controller.selectBlock(blockId: information.id)
     }
     
-    func showSettings(settingsViewModel: ObjectSettingsViewModel) {
+    func showSettings(viewModel: ObjectSettingsViewModel) {
         guard let viewController = viewController else {
             return
         }
         
         let controller = UIHostingController(
             rootView: ObjectSettingsContainerView(
-                viewModel: settingsViewModel
+                viewModel: viewModel
             )
         )
         controller.modalPresentationStyle = .overCurrentContext
@@ -167,36 +168,14 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {
-        guard let viewController = viewController else {
-            return
-        }
-        
-        let controller = UIHostingController(
-            rootView: ObjectCoverPicker(viewModel: viewModel)
-        )
-        
-        controller.rootView.onDismiss = { [weak controller] in
-            controller?.dismiss(animated: true)
-        }
-        
+        guard let viewController = viewController else { return }
+        let controller = settingAssembly.coverPicker(viewModel: viewModel)
         viewController.present(controller, animated: true)
     }
     
     func showIconPicker(viewModel: ObjectIconPickerViewModel) {
-        guard let viewController = viewController else {
-            return
-        }
-        
-        let controller = UIHostingController(
-            rootView: ObjectIconPicker(viewModel: viewModel)
-        )
-        
-        controller.rootView.dismissHandler = DismissHandler(
-            onDismiss:  { [weak controller] in
-                controller?.dismiss(animated: true)
-            }
-        )
-        
+        guard let viewController = viewController else { return }
+        let controller = settingAssembly.iconPicker(viewModel: viewModel)
         viewController.present(controller, animated: true)
     }
     
