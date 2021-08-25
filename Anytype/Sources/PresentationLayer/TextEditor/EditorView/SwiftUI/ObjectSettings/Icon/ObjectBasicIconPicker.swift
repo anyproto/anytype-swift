@@ -7,6 +7,8 @@ struct ObjectBasicIconPicker: View {
     @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     @State private var selectedTab: Tab = .emoji
+    
+    var onDismiss: () -> () = {}
         
     var body: some View {
         VStack(spacing: 0) {
@@ -48,7 +50,7 @@ struct ObjectBasicIconPicker: View {
         } rightButton: {
             Button {
                 viewModel.removeIcon()
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } label: {
                 AnytypeText("Remove", style: .uxBodyRegular)
                     .foregroundColor(.pureRed)
@@ -61,7 +63,7 @@ struct ObjectBasicIconPicker: View {
             item.flatMap {
                 viewModel.uploadImage(from: $0)
             }
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
         .transition(
             .asymmetric(
@@ -111,9 +113,13 @@ struct ObjectBasicIconPicker: View {
     
     private func handleSelectedEmoji(_ emoji: Emoji) {
         viewModel.setEmoji(emoji.unicode)
-        presentationMode.wrappedValue.dismiss()
+        dismiss()
     }
     
+    private func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+        onDismiss()
+    }
 }
 
 // MARK: - Private extension

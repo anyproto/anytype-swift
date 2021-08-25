@@ -1,0 +1,3 @@
+struct DismissHandler {
+    var onDismiss: () -> ()
+}

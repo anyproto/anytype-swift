@@ -29,12 +29,12 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
     
     private lazy var onIconTap = {
         UISelectionFeedbackGenerator().selectionChanged()
-        self.showSettings()
+        self.router.showIconPicker(viewModel: self.objectSettingsViewModel.iconPickerViewModel)
     }
     
     private lazy var onCoverTap = {
         UISelectionFeedbackGenerator().selectionChanged()
-        self.showSettings()
+        self.router.showCoverPicker(viewModel: self.objectSettingsViewModel.coverPickerViewModel)
     }
 
     // MARK: - Initialization
