@@ -18,6 +18,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
     private let showPage: (String) -> Void
+    private let openURL: (URL) -> Void
     private let showStyleMenu: (BlockInformation) -> Void
     private let actionHandler: EditorActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
@@ -40,6 +41,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         blockDelegate: BlockDelegate,
         actionHandler: EditorActionHandlerProtocol,
         showPage: @escaping (String) -> Void,
+        openURL: @escaping (URL) -> Void,
         showStyleMenu:  @escaping (BlockInformation) -> Void)
     {
         self.block = block
@@ -50,6 +52,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
         self.showPage = showPage
+        self.openURL = openURL
         self.showStyleMenu = showStyleMenu
         self.toggled = block.isToggled
         self.information = block.information
@@ -82,6 +85,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             isCheckable: isCheckable,
             actionHandler: actionHandler,
             showPage: showPage,
+            openURL: openURL,
             showStyleMenu: showStyleMenu,
             focusPublisher: focusSubject.eraseToAnyPublisher())
     }

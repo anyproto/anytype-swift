@@ -107,6 +107,8 @@ extension TextBlockContentView: TextViewDelegate {
             accessoryViewSwitcher?.showURLInput(textView: textView.textView, url: link)
         case let .showPage(pageId):
             currentConfiguration.showPage(pageId)
+        case let .openURL(url):
+            currentConfiguration.openURL(url)
         }
         return true
     }

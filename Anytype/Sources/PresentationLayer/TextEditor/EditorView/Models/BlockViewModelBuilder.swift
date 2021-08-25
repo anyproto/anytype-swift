@@ -81,10 +81,13 @@ final class BlockViewModelBuilder {
                     actionHandler: blockActionHandler,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
-                    }
-                ) { [weak self] information in
-                    self?.router.showStyleMenu(information: information)
-                }
+                    },
+                    openURL: { [weak self] url in
+                        self?.router.openUrl(url)
+                    },
+                    showStyleMenu: { [weak self] information in
+                        self?.router.showStyleMenu(information: information)
+                    })
             }
         case let .file(content):
             switch content.contentType {
