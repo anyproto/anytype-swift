@@ -67,12 +67,15 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func openUrl(_ url: URL) {
-        guard url.containsHttpProtocol else {
+        let url = url.urlByAddingHttpIfSchemeIsEmpty()
+        if url.containsHttpProtocol {
+            let safariController = SFSafariViewController(url: url)
+            viewController?.present(safariController, animated: true)
             return
         }
-        
-        let safariController = SFSafariViewController(url: url)
-        viewController?.present(safariController, animated: true, completion: nil)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
     }
     
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
