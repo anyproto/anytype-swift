@@ -13,7 +13,25 @@ extension URL {
     var containsHttpProtocol: Bool {
         guard let scheme = scheme else { return false }
         
-        return scheme.isEqual("https") || scheme.isEqual("http")
+        return scheme.isEqual(Constants.https) || scheme.isEqual(Constants.http)
+    }
+    
+    func urlByAddingHttpIfSchemeIsEmpty() -> URL {
+        guard scheme.isNil || scheme == "" else {
+            return self
+        }
+        return urlBySettingScheme(Constants.http)
+    }
+    
+    private func urlBySettingScheme(_ scheme: String) -> URL {
+        var components = URLComponents(string: absoluteString)
+        components?.scheme = scheme
+        return components?.url ?? self
+    }
+    
+    enum Constants {
+        static let http = "http"
+        static let https = "https"
     }
     
 }
