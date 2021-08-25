@@ -18,8 +18,8 @@ final class ObjectHeaderIconOnlyContentView: UIView, UIContentView {
     // MARK: - Private variables
     
     private var topConstraint: NSLayoutConstraint!
-    
     private var appliedConfiguration: ObjectHeaderIconOnlyConfiguration!
+    private let tapGesture = BindableGestureRecognizer()
     
     // MARK: - Internal variables
     
@@ -57,8 +57,9 @@ private extension ObjectHeaderIconOnlyContentView {
 
     func apply(configuration: ObjectHeaderIconOnlyConfiguration) {
         appliedConfiguration = configuration
+        tapGesture.action = configuration.icon.onCoverTap
         
-        switch configuration.icon {
+        switch configuration.icon.state {
         case let .icon(icon, alignment):
             configureIconState(icon, alignment)
         case let .preview(preview, alignment):
@@ -68,8 +69,10 @@ private extension ObjectHeaderIconOnlyContentView {
         iconView.configure(model: configuration.icon)
     }
     
-    private func configureIconState(_ icon: ObjectIconType,
-                                    _ alignment: LayoutAlignment) {
+    private func configureIconState(
+        _ icon: ObjectIconType,
+        _ alignment: LayoutAlignment
+    ) {
         switch icon {
         case .basic:
             topConstraint.constant = Constants.basicIconTopInset
@@ -100,11 +103,8 @@ private extension ObjectHeaderIconOnlyContentView {
     
     func setupView() {
         backgroundColor = .grayscaleWhite
+        addGestureRecognizer(tapGesture)
         
-        setupLayout()
-    }
-    
-    func setupLayout() {
         addSubview(iconView) {
             $0.leading.equal(
                 to: leadingAnchor,

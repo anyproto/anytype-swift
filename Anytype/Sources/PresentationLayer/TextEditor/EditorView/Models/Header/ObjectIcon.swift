@@ -1,15 +1,21 @@
-//
-//  ObjectIcon.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 06.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit.UIImage
 import BlocksModels
 
-enum ObjectIcon: Hashable {
+struct ObjectIcon: Hashable {
+    let state: ObjectIconState
+    let onIconTap: () -> ()
+    let onCoverTap: () -> ()
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(state)
+    }
+    
+    static func == (lhs: ObjectIcon, rhs: ObjectIcon) -> Bool {
+        lhs.state == rhs.state
+    }
+}
+
+enum ObjectIconState: Hashable {
     case icon(ObjectIconType, LayoutAlignment)
     case preview(ObjectIconPreviewType, LayoutAlignment)
 }

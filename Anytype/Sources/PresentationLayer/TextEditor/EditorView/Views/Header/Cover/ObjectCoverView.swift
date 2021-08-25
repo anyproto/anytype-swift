@@ -17,6 +17,7 @@ final class ObjectCoverView: UIView {
     private let imageView = UIImageView()
     
     private let activityIndicatorView = ActivityIndicatorView()
+    private let tapGesture = BindableGestureRecognizer()
     
     // MARK: - Initializers
     
@@ -43,7 +44,9 @@ extension ObjectCoverView: ConfigurableView {
     }
     
     func configure(model: Model) {
-        switch model.cover {
+        tapGesture.action = model.cover.onTap
+        
+        switch model.cover.state {
         case let .cover(cover):
             configureCoverState(
                 cover: cover,
@@ -140,6 +143,7 @@ private extension ObjectCoverView {
     
     func setupView() {
         imageView.clipsToBounds = true
+        addGestureRecognizer(tapGesture)
         
         setupLayout()
     }
