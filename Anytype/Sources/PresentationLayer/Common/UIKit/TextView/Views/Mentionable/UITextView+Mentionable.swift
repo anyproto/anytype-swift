@@ -55,20 +55,19 @@ extension UITextView: Mentionable {
         let replacementRange = NSRange(location: location, length: length)
         let attributedString = NSMutableAttributedString(attributedString: attributedText)
         attributedString.deleteCharacters(in: replacementRange)
-        
-        let mentionAttachment = MentionAttachment(
-            name: name, pageId: pageId, type: mention.type, icon: mention.icon
+        let stringWithMentionName = attributedString.attributedStringByInserting(name, at: location)
+        let modifier = MarkStyleModifier(
+            attributedText: NSMutableAttributedString(attributedString: stringWithMentionName),
+            defaultNonCodeFont: .bodyRegular
         )
-        let mentionString = NSMutableAttributedString(attachment: mentionAttachment)
-        let font = self.font ?? .bodyRegular
-        mentionString.addAttribute(.font, value: font, range: NSRange(location: 0, length: 1))
-        let mentionNameString = NSAttributedString(string: name,
-                                                   attributes: [.mention: pageId,
-                                                                .font: font])
-        mentionString.append(mentionNameString)
-        
-        attributedString.insert(mentionString, at: location)
-        attributedText = attributedString
-        selectedRange = NSRange(location: location + mentionString.length, length: 0)
+        modifier.apply(
+            .mention(pageId),
+            range: NSRange(
+                location: location,
+                length: name.count
+            )
+        )
+        attributedText = NSAttributedString(attributedString: modifier.attributedString)
+        selectedRange = NSRange(location: location + name.count + Constants.attachmentLenght, length: 0)
     }
 }
