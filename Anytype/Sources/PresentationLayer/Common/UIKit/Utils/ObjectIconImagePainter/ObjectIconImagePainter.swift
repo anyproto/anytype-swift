@@ -41,10 +41,13 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         return modifiedImage
     }
     
-    func image(with string: String, font: UIFont, imageGuideline: ImageGuideline) -> UIImage {
+    func image(with string: String,
+               font: UIFont,
+               imageGuideline: ImageGuideline,
+               backgroundColor: UIColor) -> UIImage {
         PlaceholderImageBuilder.placeholder(
             with: imageGuideline,
-            color: UIColor.grayscale30,
+            color: backgroundColor,
             textGuideline: PlaceholderImageTextGuideline(
                 text: string,
                 font: font

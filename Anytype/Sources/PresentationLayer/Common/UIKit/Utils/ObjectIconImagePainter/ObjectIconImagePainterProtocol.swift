@@ -12,6 +12,9 @@ import UIKit
 protocol ObjectIconImagePainterProtocol {
     
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage
-    func image(with string: String, font: UIFont, imageGuideline: ImageGuideline) -> UIImage
+    func image(with string: String,
+               font: UIFont,
+               imageGuideline: ImageGuideline,
+               backgroundColor: UIColor) -> UIImage
     
 }

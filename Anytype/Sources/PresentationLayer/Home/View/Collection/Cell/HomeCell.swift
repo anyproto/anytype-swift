@@ -75,7 +75,10 @@ struct HomeCell: View {
             } else {
                 switch cellData.icon {
                 case .some(let icon):
-                    DashboardObjectIcon(icon: icon)
+                    ObjectIconImageView(
+                        iconImage: .icon(icon),
+                        position: .dashboardList
+                    )
                 case .none:
                     EmptyView()
                 }

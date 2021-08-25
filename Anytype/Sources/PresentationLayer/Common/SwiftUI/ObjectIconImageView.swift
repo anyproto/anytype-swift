@@ -33,7 +33,7 @@ struct ObjectIconImageView: View {
             case .profile(let profile):
                 profileIconImage(profile: profile)
             case .emoji(let iconEmoji):
-                stringIconImage(iconEmoji.value)
+                stringIconImage(iconEmoji.value, backgroundColor: .grayscale10)
             }
         }
     }
@@ -55,12 +55,12 @@ struct ObjectIconImageView: View {
             case .imageId(let id):
                 loadableIconImage(id: id)
             case .character(let character):
-                stringIconImage(String(character))
+                stringIconImage(String(character), backgroundColor: .dividerSecondary)
             }
         }
     }
     
-    private func stringIconImage(_ string: String) -> some View {
+    private func stringIconImage(_ string: String, backgroundColor: UIColor) -> some View {
         Group {
             let imageGuideline = position.objectIconImageGuidelineSet.imageGuideline(
                 for: iconImage
@@ -72,7 +72,8 @@ struct ObjectIconImageView: View {
                     uiImage: painter.image(
                         with: string,
                         font: font,
-                        imageGuideline: imageGuideline
+                        imageGuideline: imageGuideline,
+                        backgroundColor: backgroundColor
                     )
                 )
             } else {
