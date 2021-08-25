@@ -11,7 +11,7 @@ import UIKit
 
 enum TodoObjectIconImageGuidelineFactory {
     
-    static func imageGuideline(for sizeGroup: ObjectIconImageSizeGroup) -> ImageGuideline? {
+    static func imageGuideline(for sizeGroup: ObjectIconImagePosition) -> ImageGuideline? {
         switch sizeGroup {
         case .openedObject:
             return Constants.x30

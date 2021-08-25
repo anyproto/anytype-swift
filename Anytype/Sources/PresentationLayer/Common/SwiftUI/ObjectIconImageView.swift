@@ -14,7 +14,7 @@ struct ObjectIconImageView: View {
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
     
     let objectIconImage: ObjectIconImage
-    let sizeGroup: ObjectIconImageSizeGroup
+    let sizeGroup: ObjectIconImagePosition
     
     var body: some View {
         switch objectIconImage {

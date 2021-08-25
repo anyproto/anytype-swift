@@ -186,7 +186,7 @@
 		125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */; };
 		125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD2E826CD6D2100D21F5A /* EditorNavigationBarHelper.swift */; };
 		125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD2FD26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift */; };
-		125FD32326CE97BD00D21F5A /* ObjectIconImageSizeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD32226CE97BD00D21F5A /* ObjectIconImageSizeGroup.swift */; };
+		125FD32326CE97BD00D21F5A /* ObjectIconImagePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD32226CE97BD00D21F5A /* ObjectIconImagePosition.swift */; };
 		126C46D326BD909300D31DBF /* ObjectSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C46D226BD909300D31DBF /* ObjectSection.swift */; };
 		126C46D726BD966700D31DBF /* ObjectIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C46D626BD966700D31DBF /* ObjectIcon.swift */; };
 		127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE7402656CE770047A99A /* MediaPickerViewModel.swift */; };
@@ -823,7 +823,7 @@
 		125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarTitleView.swift; sourceTree = "<group>"; };
 		125FD2E826CD6D2100D21F5A /* EditorNavigationBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarHelper.swift; sourceTree = "<group>"; };
 		125FD2FD26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarHelperProtocol.swift; sourceTree = "<group>"; };
-		125FD32226CE97BD00D21F5A /* ObjectIconImageSizeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageSizeGroup.swift; sourceTree = "<group>"; };
+		125FD32226CE97BD00D21F5A /* ObjectIconImagePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImagePosition.swift; sourceTree = "<group>"; };
 		126C46D226BD909300D31DBF /* ObjectSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSection.swift; sourceTree = "<group>"; };
 		126C46D626BD966700D31DBF /* ObjectIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIcon.swift; sourceTree = "<group>"; };
 		127DE7402656CE770047A99A /* MediaPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaPickerViewModel.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Pickers/MediaPicker/MediaPickerViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -1389,7 +1389,7 @@
 		0331BBE122E608AC002AD179 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				125FD32226CE97BD00D21F5A /* ObjectIconImageSizeGroup.swift */,
+				125FD32226CE97BD00D21F5A /* ObjectIconImagePosition.swift */,
 				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */,
 				3D486C162631726A00A9B625 /* SwiftUI */,
 				3D486C132631726400A9B625 /* UIKit */,
@@ -4207,7 +4207,7 @@
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
-				125FD32326CE97BD00D21F5A /* ObjectIconImageSizeGroup.swift in Sources */,
+				125FD32326CE97BD00D21F5A /* ObjectIconImagePosition.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */,
 				3D568F9D2666D45B00DC7881 /* BlockInformationConverter.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
