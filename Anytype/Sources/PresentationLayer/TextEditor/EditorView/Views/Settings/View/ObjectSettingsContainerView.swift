@@ -56,8 +56,7 @@ struct ObjectSettingsContainerView: View {
                     isCoverPickerPresented = false
                 }
             ) {
-                ObjectCoverPicker()
-                    .environmentObject(viewModel.coverPickerViewModel)
+                ObjectCoverPicker(viewModel: viewModel.coverPickerViewModel)
             }
             .sheet(
                 isPresented: $isIconPickerPresented,
@@ -66,18 +65,7 @@ struct ObjectSettingsContainerView: View {
                     isIconPickerPresented = false
                 }
             ) {
-                Group {
-                    switch viewModel.iconPickerViewModel.detailsLayout {
-                    case .basic:
-                        ObjectBasicIconPicker()
-                            .environmentObject(viewModel.iconPickerViewModel)
-                    case .profile:
-                        ObjectProfileIconPicker()
-                            .environmentObject(viewModel.iconPickerViewModel)
-                    default:
-                        EmptyView()
-                    }
-                }
+                ObjectIconPicker(viewModel: viewModel.iconPickerViewModel)
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,

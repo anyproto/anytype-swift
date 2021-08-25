@@ -71,45 +71,7 @@ extension DetailsDataProtocol {
                 DocumentCover.imageId($0)
             }
         }
-    }
-    
-    func objectHeader(
-        onIconTap: @escaping ()->(),
-        onCoverTap: @escaping ()->()
-    ) -> ObjectHeader {
-        let layoutAlign = self.layoutAlign ?? .left
-        
-        if let icon = icon, let cover = documentCover {
-            return .iconAndCover(
-                icon: ObjectIcon(
-                    state: .icon(icon, layoutAlign),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                ),
-                cover: ObjectCover(
-                    state:  .cover(cover),
-                    onTap: onCoverTap
-                )
-            )
-        }
-        
-        if let icon = icon {
-            return .iconOnly(
-                ObjectIcon(
-                    state: .icon(icon, layoutAlign),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
-            )
-        }
-        
-        if let cover = documentCover {
-            return .coverOnly(ObjectCover(state: .cover(cover), onTap: onCoverTap))
-        }
-        
-        return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
-    }
-    
+    }    
 }
 
 private enum Constants {

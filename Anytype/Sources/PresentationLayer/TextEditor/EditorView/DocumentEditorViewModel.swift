@@ -6,7 +6,7 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-final class DocumentEditorViewModel: DocumentEditorViewOutput {
+final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol
@@ -23,19 +23,10 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
     
     private let blockBuilder: BlockViewModelBuilder
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let headerBuilder: ObjectHeaderBuilder
     
     private var subscriptions = Set<AnyCancellable>()
     private let documentId: BlockId
-    
-    private lazy var onIconTap = {
-        UISelectionFeedbackGenerator().selectionChanged()
-        self.showSettings()
-    }
-    
-    private lazy var onCoverTap = {
-        UISelectionFeedbackGenerator().selectionChanged()
-        self.showSettings()
-    }
 
     // MARK: - Initialization
     init(
@@ -49,7 +40,8 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         modelsHolder: ObjectContentViewModelsSharedHolder,
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
-        wholeBlockMarkupViewModel: MarkupViewModel
+        wholeBlockMarkupViewModel: MarkupViewModel,
+        headerBuilder: ObjectHeaderBuilder
     ) {
         self.documentId = documentId
         self.selectionHandler = selectionHandler
@@ -62,6 +54,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         self.blockActionHandler = blockActionHandler
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
+        self.headerBuilder = headerBuilder
         
         setupSubscriptions()
         obtainDocument(documentId: documentId)
@@ -88,37 +81,9 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
-        let header = modelsHolder.details?.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap)
+        let header = headerBuilder.objectHeaderForLocalEvent(details: modelsHolder.details, event: event)
         
-        guard let header = header else {
-            let fakeHeader: ObjectHeader = {
-                switch event {
-                case .iconUploading(let uIImage):
-                    return ObjectHeader.iconOnly(
-                        ObjectIcon(
-                            state: .preview(.basic(uIImage), .left),
-                            onIconTap: onIconTap,
-                            onCoverTap: onCoverTap
-                        )
-                    )
-                case .coverUploading(let uIImage):
-                    return ObjectHeader.coverOnly(
-                        ObjectCover(state: .preview(uIImage), onTap: onCoverTap)
-                    )
-                }
-            }()
-            
-            viewInput?.updateData(
-                header: fakeHeader,
-                blocks: modelsHolder.models
-            )
-            return
-        }
-        
-        viewInput?.updateData(
-            header: header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap)),
-            blocks: modelsHolder.models
-        )
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -146,8 +111,7 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
             updateMarkupViewModel(updatedIds)
             
             viewInput?.updateData(
-                header: modelsHolder.details?.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap) ??
-                    .empty(ObjectHeaderEmptyData(onTap: onCoverTap)),
+                header: headerBuilder.objectHeader(details: modelsHolder.details),
                 blocks: modelsHolder.models
             )
         }
@@ -215,20 +179,12 @@ final class DocumentEditorViewModel: DocumentEditorViewOutput {
         modelsHolder.apply(newModels: models)
         modelsHolder.apply(newDetails: details)
         
-        guard let details = modelsHolder.details else {
-            viewInput?.updateData(
-                header: .empty(ObjectHeaderEmptyData(onTap: onCoverTap)),
-                blocks: modelsHolder.models
-            )
-            return
+        let header = headerBuilder.objectHeader(details: modelsHolder.details)
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        
+        if let details = modelsHolder.details {
+            objectSettingsViewModel.update(with: details)
         }
-        
-        viewInput?.updateData(
-            header: details.objectHeader(onIconTap: onIconTap, onCoverTap: onCoverTap),
-            blocks: modelsHolder.models
-        )
-        
-        objectSettingsViewModel.update(with: details)
     }
 }
 
@@ -272,7 +228,7 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func showSettings() {
-        router.showSettings(settingsViewModel: objectSettingsViewModel)
+        router.showSettings(viewModel: objectSettingsViewModel)
     }
 }
 
