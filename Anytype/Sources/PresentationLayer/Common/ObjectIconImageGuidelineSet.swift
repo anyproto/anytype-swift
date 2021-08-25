@@ -14,15 +14,18 @@ struct ObjectIconImageGuidelineSet {
     private let profileImageGuideline: ImageGuideline?
     private let emojiImageGuideline: ImageGuideline?
     private let todoImageGuideline: ImageGuideline?
- 
+    private let placeholderImageGuideline: ImageGuideline?
+    
     init(basicImageGuideline: ImageGuideline?,
          profileImageGuideline: ImageGuideline?,
          emojiImageGuideline: ImageGuideline?,
-         todoImageGuideline: ImageGuideline?) {
+         todoImageGuideline: ImageGuideline?,
+         placeholderImageGuideline: ImageGuideline?) {
         self.basicImageGuideline = basicImageGuideline
         self.profileImageGuideline = profileImageGuideline
         self.emojiImageGuideline = emojiImageGuideline
         self.todoImageGuideline = todoImageGuideline
+        self.placeholderImageGuideline = placeholderImageGuideline
     }
     
     func imageGuideline(for iconImage: ObjectIconImage) -> ImageGuideline? {
@@ -38,6 +41,8 @@ struct ObjectIconImageGuidelineSet {
             }
         case .todo:
             return todoImageGuideline
+        case .placeholder:
+            return placeholderImageGuideline
         }
     }
     

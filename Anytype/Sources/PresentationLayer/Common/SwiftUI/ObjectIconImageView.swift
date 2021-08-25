@@ -22,6 +22,12 @@ struct ObjectIconImageView: View {
             iconImage(type: type)
         case .todo(let isChecked):
             todoIconImage(isChecked: isChecked)
+        case .placeholder(let character):
+            stringIconImage(
+                character.flatMap { String($0) } ?? "",
+                textColor: UIColor.textTertiary,
+                backgroundColor: .grayscale10
+            )
         }
     }
     
@@ -33,7 +39,11 @@ struct ObjectIconImageView: View {
             case .profile(let profile):
                 profileIconImage(profile: profile)
             case .emoji(let iconEmoji):
-                stringIconImage(iconEmoji.value, backgroundColor: .grayscale10)
+                stringIconImage(
+                    iconEmoji.value,
+                    textColor: .grayscaleWhite,
+                    backgroundColor: .grayscale10
+                )
             }
         }
     }
@@ -55,12 +65,14 @@ struct ObjectIconImageView: View {
             case .imageId(let id):
                 loadableIconImage(id: id)
             case .character(let character):
-                stringIconImage(String(character), backgroundColor: .dividerSecondary)
+                stringIconImage(String(character),
+                                textColor: .grayscaleWhite,
+                                backgroundColor: .dividerSecondary)
             }
         }
     }
     
-    private func stringIconImage(_ string: String, backgroundColor: UIColor) -> some View {
+    private func stringIconImage(_ string: String, textColor: UIColor, backgroundColor: UIColor) -> some View {
         Group {
             let imageGuideline = position.objectIconImageGuidelineSet.imageGuideline(
                 for: iconImage
@@ -72,6 +84,7 @@ struct ObjectIconImageView: View {
                     uiImage: painter.image(
                         with: string,
                         font: font,
+                        textColor: textColor,
                         imageGuideline: imageGuideline,
                         backgroundColor: backgroundColor
                     )
