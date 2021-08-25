@@ -7,7 +7,7 @@ struct ObjectProfileIconPicker: View {
     @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     
-    var onDismiss: () -> () = {}
+    var onDismiss: (() -> ())?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -42,7 +42,7 @@ struct ObjectProfileIconPicker: View {
     
     private func dismiss() {
         presentationMode.wrappedValue.dismiss()
-        onDismiss()
+        onDismiss?()
     }
 }
 
