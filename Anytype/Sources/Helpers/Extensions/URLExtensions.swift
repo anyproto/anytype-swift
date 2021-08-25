@@ -23,7 +23,7 @@ extension URL {
         return urlBySettingScheme(Constants.http)
     }
     
-    func urlBySettingScheme(_ scheme: String) -> URL {
+    private func urlBySettingScheme(_ scheme: String) -> URL {
         var components = URLComponents(string: absoluteString)
         components?.scheme = scheme
         return components?.url ?? self
