@@ -87,17 +87,14 @@ final class MentionsViewController: UITableViewController {
             case .placeholder:
                 return mentionWithImageConfiguration(mention: mention, isCircle: true)
             }
-        case let .basic(basic):
-            switch basic {
-            case let .emoji(emoji):
-                return ContentConfigurationWithEmoji(
-                    emoji: emoji.value,
-                    name: mention.name,
-                    description: mention.description
-                )
-            case .imageId:
-                return mentionWithImageConfiguration(mention: mention, isCircle: false)
-            }
+        case .basic:
+            return mentionWithImageConfiguration(mention: mention, isCircle: false)
+        case let .emoji(emoji):
+            return ContentConfigurationWithEmoji(
+                emoji: emoji.value,
+                name: mention.name,
+                description: mention.description
+            )
         }
     }
     

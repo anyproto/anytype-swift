@@ -56,19 +56,12 @@ extension ObjectIconView: ConfigurableView {
         activityIndicatorView.hide()
 
         switch icon {
-        case let .basic(basic):
-            configureBasicIcon(basic)
+        case let .basic(id):
+            showImageView(.basic(.imageId(id)))
         case let .profile(profile):
             configureProfileIcon(profile)
-        }
-    }
-    
-    private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
         case let .emoji(emoji):
             showEmojiView(emoji)
-        case let .imageId(imageId):
-            showImageView(.basic(.imageId(imageId)))
         }
     }
     

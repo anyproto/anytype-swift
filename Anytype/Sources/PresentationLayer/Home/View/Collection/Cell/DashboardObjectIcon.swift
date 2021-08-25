@@ -15,35 +15,26 @@ struct DashboardObjectIcon: View {
     
     var body: some View {
         switch icon {
-        case let .basic(basicIcon):
-            makeBasicIconView(basicIcon)
+        case let .basic(id):
+            kfImage(
+                imageId: id,
+                radius: .point(Constants.basicImageIconCornerRadius)
+            )
         case let .profile(profileIcon):
             makeProfileIconView(profileIcon)
-        }
-    }
-    
-    private func makeBasicIconView(_ basicIcon: DocumentIconType.Basic) -> some View {
-        Group {
-            switch basicIcon {
-            case let .emoji(emoji):
-                AnytypeText(
-                    emoji.value,
-                    name: .inter,
-                    size: 30,
-                    weight: .regular
+        case let .emoji(emoji):
+            AnytypeText(
+                emoji.value,
+                name: .inter,
+                size: 30,
+                weight: .regular
+            )
+                .frame(
+                    maxWidth: Constants.iconSize.width,
+                    maxHeight: Constants.iconSize.height
                 )
-                    .frame(
-                        maxWidth: Constants.iconSize.width,
-                        maxHeight: Constants.iconSize.height
-                    )
-                    .background(Color.grayscale10)
-                    .cornerRadius(Constants.emojiIconCornerRadius)
-            case let .imageId(imageId):
-                kfImage(
-                    imageId: imageId,
-                    radius: .point(Constants.basicImageIconCornerRadius)
-                )
-            }
+                .background(Color.grayscale10)
+                .cornerRadius(Constants.emojiIconCornerRadius)
         }
     }
     
@@ -103,7 +94,7 @@ extension DashboardObjectIcon {
 struct DashboardObjectIcon_Previews: PreviewProvider {
     static var previews: some View {
         DashboardObjectIcon(
-            icon: .basic(.emoji(IconEmoji("🥶")!))
+            icon: .emoji(IconEmoji("🥶")!)
         )
     }
 }

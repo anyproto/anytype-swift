@@ -77,13 +77,8 @@ final class MentionsViewModel {
         switch icon {
         case let .objectIcon(objectIcon):
             switch objectIcon {
-            case let .basic(basic):
-                switch basic {
-                case .emoji:
-                    return nil
-                case let .imageId(id):
-                    loadImage(by: id, mention: mention)
-                }
+            case let .basic(id):
+                loadImage(by: id, mention: mention)
             case let .profile(profile):
                 switch profile {
                 case let .imageId(id):
@@ -103,6 +98,8 @@ final class MentionsViewModel {
                         textGuideline: placeholderGuideline
                     )
                 }
+            case .emoji:
+                return nil
             }
         
         case let .checkmark(isChecked):
