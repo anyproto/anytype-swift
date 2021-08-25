@@ -1819,7 +1819,6 @@
 			children = (
 				3D36B0A526A71B4A0046C90F /* Utils */,
 				0A0965BF25BEF5B000C004BD /* Routing */,
-				3DBED6B2266FF47D00B9E9AB /* SwiftUI */,
 				3D180220264E9C0000224815 /* Models */,
 				12858E79264ABA9900A7FE0F /* Views */,
 				533341F2262E0F5400238121 /* Selection */,
@@ -2079,7 +2078,7 @@
 			path = MediaPicker;
 			sourceTree = "<group>";
 		};
-		120E816B269F26BE006FE84E /* ObjectSettings */ = {
+		120E816B269F26BE006FE84E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				3D38CC8E26D625F200E4F7BF /* View */,
@@ -2090,7 +2089,7 @@
 				120E8176269F3474006FE84E /* ObjectSetting.swift */,
 				3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */,
 			);
-			path = ObjectSettings;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		120E818226A04A23006FE84E /* Details */ = {
@@ -2231,6 +2230,8 @@
 			children = (
 				12A52E1A26CA88CD000F0333 /* EditorBarButtonItemView.swift */,
 				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
+				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
+				120E816B269F26BE006FE84E /* Settings */,
 				3D44983D26D5314B005A3E06 /* Header */,
 			);
 			path = Views;
@@ -2473,7 +2474,6 @@
 		3D180220264E9C0000224815 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D44983E26D53973005A3E06 /* Header */,
 				12A7B6B526C3E47200544037 /* IconEmoji.swift */,
 				0ACC357525C851650003CF3A /* BlockViewModelBuilder.swift */,
 				12A8CCED26BD5F3B00090468 /* DataSourceItem.swift */,
@@ -2569,6 +2569,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3D38CC9426D631AE00E4F7BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3D44983C26D530EE005A3E06 /* Empty */,
+				3D44983826D530C9005A3E06 /* IconAndCover */,
+				12A7B6B826C3E47200544037 /* Cover */,
+				12A7B6B326C3E47200544037 /* Icon */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
@@ -2607,15 +2618,13 @@
 		3D44983D26D5314B005A3E06 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				3D44983C26D530EE005A3E06 /* Empty */,
-				3D44983826D530C9005A3E06 /* IconAndCover */,
-				12A7B6B826C3E47200544037 /* Cover */,
-				12A7B6B326C3E47200544037 /* Icon */,
+				3D38CC9426D631AE00E4F7BF /* View */,
+				3D44983E26D53973005A3E06 /* Model */,
 			);
 			path = Header;
 			sourceTree = "<group>";
 		};
-		3D44983E26D53973005A3E06 /* Header */ = {
+		3D44983E26D53973005A3E06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
@@ -2624,7 +2633,7 @@
 				123FDADC26C17CBA00F6F44B /* ObjectCover.swift */,
 				3D44985426D562BC005A3E06 /* ObjectHeaderEmptyData.swift */,
 			);
-			path = Header;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3D471E1D26C3B5D000457DE5 /* Support */ = {
@@ -3054,15 +3063,6 @@
 				124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
-				120E816B269F26BE006FE84E /* ObjectSettings */,
-			);
-			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		3DC06DFC26774DD6005F0A45 /* Combine */ = {

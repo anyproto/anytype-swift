@@ -18,7 +18,5 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(
         _ uiViewController: DocumentEditorViewController,
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
-    ) {
-    }
-    
+    ) { }
 }
