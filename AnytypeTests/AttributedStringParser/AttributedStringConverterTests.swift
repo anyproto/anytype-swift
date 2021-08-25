@@ -22,7 +22,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let boldRange = NSRange(location: 3, length: 2)
         
@@ -48,7 +48,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let italicRange = NSRange(location: 3, length: 2)
         
@@ -74,7 +74,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let codeRange = NSRange(location: 3, length: 2)
         
@@ -100,7 +100,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let strikethroughRange = NSRange(location: 3, length: 2)
         
@@ -126,7 +126,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(location: 5, length: 3)
@@ -163,7 +163,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(location: 5, length: 3)
@@ -200,7 +200,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(location: 5, length: 3)
@@ -237,7 +237,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(location: 5, length: 3)
@@ -274,7 +274,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(
@@ -318,7 +318,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(
@@ -362,7 +362,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(
@@ -406,7 +406,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(
@@ -450,7 +450,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let firstRange = NSRange(location: 2, length: 2)
         let secondRange = NSRange(
@@ -494,7 +494,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let boldRange = NSRange(location: 2, length: 2)
         let codeRange = NSRange(
@@ -549,7 +549,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let codeRange = NSRange(location: 2, length: 2)
         let italicRange = NSRange(
@@ -604,7 +604,7 @@ final class AttributedStringConverterTests: XCTestCase {
         // Given
         let testString = NSMutableAttributedString(
             string: "aaaaaaaaaaaaaaaaaaaa",
-            attributes: [.font: UIFont.body]
+            attributes: [.font: UIFont.bodyRegular]
         )
         let boldRange = NSRange(location: 2, length: 2)
         let italicRange = NSRange(

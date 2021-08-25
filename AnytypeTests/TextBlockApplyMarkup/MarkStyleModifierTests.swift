@@ -9,7 +9,7 @@ final class MarkStyleModifierTests: XCTestCase {
     // MARK: Overrides
     
     override func setUp() {
-        let font = UIFont.body
+        let font = UIFont.bodyRegular
         let string = NSMutableAttributedString(
             string: "Some string to test MarkStyleModifier entity!",
             attributes: [.font: font]
