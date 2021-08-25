@@ -69,7 +69,7 @@ extension ObjectIconView: ConfigurableView {
         switch profileIcon {
         case let .imageId(imageId):
             showImageView(.profile(.imageId(imageId)))
-        case let .placeholder(character):
+        case let .character(character):
             showImageView(.profile(.placeholder(character)))
         }
     }

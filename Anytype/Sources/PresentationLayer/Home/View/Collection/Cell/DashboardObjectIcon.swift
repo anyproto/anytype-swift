@@ -46,7 +46,7 @@ struct DashboardObjectIcon: View {
                     imageId: imageId,
                     radius: .widthFraction(Constants.profileImageIconCornerRadius)
                 )
-            case let .placeholder(character):
+            case let .character(character):
                 AnytypeText(
                     String(character),
                     name: .inter,

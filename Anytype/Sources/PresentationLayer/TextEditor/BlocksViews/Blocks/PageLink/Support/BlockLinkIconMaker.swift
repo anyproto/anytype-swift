@@ -32,7 +32,7 @@ struct BlockLinkIconMaker {
         case let .imageId(imageId):
             return makeImageView(imageId: imageId, cornerRadius: imageViewSize.width / 2)
             
-        case let .placeholder(placeholder):
+        case let .character(placeholder):
             return makePlaceholderView(placeholder)
         }
     }

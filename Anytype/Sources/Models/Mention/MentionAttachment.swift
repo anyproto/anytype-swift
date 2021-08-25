@@ -137,7 +137,7 @@ final class MentionAttachment: NSTextAttachment {
         switch profileIcon {
         case let .imageId(id):
             loadImage(imageId: id, isBasicLayout: false)
-        case let .placeholder(placeholder):
+        case let .character(placeholder):
             loadPlaceholderImage(placehodler: placeholder)
         }
     }
