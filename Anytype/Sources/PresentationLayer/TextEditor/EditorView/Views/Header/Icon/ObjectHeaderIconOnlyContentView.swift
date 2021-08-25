@@ -70,7 +70,7 @@ private extension ObjectHeaderIconOnlyContentView {
     }
     
     private func configureIconState(
-        _ icon: DocumentIconType,
+        _ icon: ObjectIconType,
         _ alignment: LayoutAlignment
     ) {
         switch icon {

@@ -70,7 +70,8 @@ extension ObjectHeader {
             case .emoji:
                 return ObjectIcon(
                     state: .preview(.basic(image), layoutAlignment),
-                    onTap: objectIcon.onTap
+                    onIconTap: onIconTap,
+                    onCoverTap: onCoverTap
                 )
             }
         case .preview(let objectIconPreviewType, let layoutAlignment):

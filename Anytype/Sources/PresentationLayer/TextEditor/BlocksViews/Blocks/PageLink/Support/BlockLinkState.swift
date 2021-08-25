@@ -4,7 +4,7 @@ extension BlockLinkState {
     
     enum Style: Hashable, Equatable {
         case noContent
-        case icon(DocumentIconType)
+        case icon(ObjectIconType)
         case checkmark(Bool)
         
         init(details: DetailsDataProtocol) {

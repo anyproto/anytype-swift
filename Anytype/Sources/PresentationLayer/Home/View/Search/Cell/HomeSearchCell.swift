@@ -5,7 +5,7 @@ struct HomeSearchCellData: Identifiable {
     let title: String
     let description: String?
     let type: String
-    let icon: DocumentIconType?
+    let icon: ObjectIconType?
     
     init(searchResult: SearchResult) {
         self.id = searchResult.id

@@ -16,7 +16,7 @@ struct ObjectIcon: Hashable {
 }
 
 enum ObjectIconState: Hashable {
-    case icon(DocumentIconType, LayoutAlignment)
+    case icon(ObjectIconType, LayoutAlignment)
     case preview(ObjectIconPreviewType, LayoutAlignment)
 }
 

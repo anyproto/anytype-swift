@@ -7,7 +7,7 @@
 //
 
 enum MentionIcon {
-    case objectIcon(DocumentIconType)
+    case objectIcon(ObjectIconType)
     case checkmark(Bool)
 }
 
