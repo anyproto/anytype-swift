@@ -1,14 +1,19 @@
-//
-//  ObjectCover.swift
-//  ObjectCover
-//
-//  Created by Konstantin Mordan on 09.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit.UIColor
 
-enum ObjectCover: Hashable {
+struct ObjectCover: Hashable {
+    let state: ObjectCoverState
+    let onTap: () -> ()
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(state)
+    }
+    
+    static func == (lhs: ObjectCover, rhs: ObjectCover) -> Bool {
+        lhs.state == rhs.state
+    }
+}
+
+enum ObjectCoverState: Hashable {
     case cover(DocumentCover)
     case preview(UIImage)
 }

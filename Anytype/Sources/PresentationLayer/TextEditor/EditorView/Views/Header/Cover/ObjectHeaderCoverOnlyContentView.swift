@@ -24,10 +24,8 @@ final class ObjectHeaderCoverOnlyContentView: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         get { self.appliedConfiguration }
         set {
-            guard
-                let configuration = newValue as? ObjectHeaderCoverOnlyConfiguration,
-                appliedConfiguration != configuration
-            else {
+            guard let configuration = newValue as? ObjectHeaderCoverOnlyConfiguration,
+                  appliedConfiguration != configuration else {
                 return
             }
             

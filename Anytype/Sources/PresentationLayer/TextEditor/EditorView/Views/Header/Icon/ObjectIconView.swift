@@ -1,11 +1,3 @@
-//
-//  ObjectIconView.swift
-//  ObjectIconView
-//
-//  Created by Konstantin Mordan on 11.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import BlocksModels
@@ -23,6 +15,8 @@ final class ObjectIconView: UIView {
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
+    
+    private let tapGesture = BindableGestureRecognizer()
     
     // MARK: - Initializers
     
@@ -44,7 +38,9 @@ final class ObjectIconView: UIView {
 extension ObjectIconView: ConfigurableView {
 
     func configure(model: ObjectIcon) {
-        switch model {
+        tapGesture.action = model.onTap
+        
+        switch model.state {
         case let .icon(icon, alignment):
             configureIconState(icon, alignment)
         case let .preview(preview, alignment):
@@ -52,8 +48,10 @@ extension ObjectIconView: ConfigurableView {
         }
     }
     
-    private func configureIconState(_ icon: DocumentIconType,
-                                    _ alignment: LayoutAlignment) {
+    private func configureIconState(
+        _ icon: DocumentIconType,
+        _ alignment: LayoutAlignment
+    ) {
         handleAlignment(alignment)
         activityIndicatorView.hide()
 
@@ -154,9 +152,12 @@ extension ObjectIconView: ConfigurableView {
 private extension ObjectIconView {
     
     func setupView() {
+        
         containerView.clipsToBounds = true
         
         containerView.backgroundColor = .grayscaleWhite
+        
+        containerView.addGestureRecognizer(tapGesture)
         
         setupLayout()
     }
