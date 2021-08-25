@@ -8,7 +8,7 @@ final class EditorAssembly {
         EditorViewRepresentable(documentId: blockId).eraseToAnyView()
     }
     
-    static func build(blockId: BlockId) -> DocumentEditorViewController {
+    static func buildEditor(blockId: BlockId) -> DocumentEditorViewController {
         let controller = DocumentEditorViewController()
         let document = BaseDocument()
         let router = EditorRouter(viewController: controller, document: document)
@@ -17,7 +17,8 @@ final class EditorAssembly {
             blockId: blockId,
             viewInput: controller,
             document: document,
-            router: router)
+            router: router
+        )
         
         controller.viewModel = viewModel
         
