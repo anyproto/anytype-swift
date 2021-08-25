@@ -44,11 +44,9 @@ extension UIImage {
         }
     }
     
-    enum Title {
-        enum TodoLayout {
-            static let checkbox = createImage("title_todo_checkbox")
-            static let checkmark = createImage("title_todo_checkmark")
-        }
+    enum ObjectIcon {
+        static let checkbox = createImage("todo_checkbox")
+        static let checkmark = createImage("todo_checkmark")
     }
     
     enum codeBlock {

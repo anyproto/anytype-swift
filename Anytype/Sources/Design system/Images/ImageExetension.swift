@@ -56,13 +56,6 @@ extension Image {
         
         static let checkmark = Image("layout_settings_checkmark")
     }
-    
-    enum Title {
-        enum TodoLayout {
-            static let checkbox = createImage("title_todo_checkbox")
-            static let checkmark = createImage("title_todo_checkmark")
-        }
-    }
 }
 
 private extension Image {

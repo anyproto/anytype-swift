@@ -52,8 +52,8 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case .todo(let isChecked):
             iconImageView.isHidden = false
             iconImageView.image = isChecked ?
-            UIImage.Title.TodoLayout.checkmark :
-            UIImage.Title.TodoLayout.checkbox
+            UIImage.ObjectIcon.checkmark :
+            UIImage.ObjectIcon.checkbox
         case .none:
             iconImageView.isHidden = true
         }
