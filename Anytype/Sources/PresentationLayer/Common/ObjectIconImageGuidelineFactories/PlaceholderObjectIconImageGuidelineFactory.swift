@@ -13,8 +13,7 @@ enum PlaceholderObjectIconImageGuidelineFactory {
     
     static let x48 = ImageGuideline(
         size: CGSize(width: 48, height: 48),
-        cornerRadius: 10,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 10
     )
     
 }

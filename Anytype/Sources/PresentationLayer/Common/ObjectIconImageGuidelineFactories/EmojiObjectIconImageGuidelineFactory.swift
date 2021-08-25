@@ -13,14 +13,12 @@ enum EmojiObjectIconImageGuidelineFactory {
     
     static let x80 = ImageGuideline(
         size: CGSize(width: 80, height: 80),
-        cornerRadius: 18,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 18
     )
     
     static let x48 = ImageGuideline(
         size: CGSize(width: 48, height: 48),
-        cornerRadius: 10,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 10
     )
     
 }

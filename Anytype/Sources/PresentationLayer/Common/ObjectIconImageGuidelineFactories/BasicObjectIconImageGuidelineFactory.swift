@@ -13,14 +13,12 @@ enum BasicObjectIconImageGuidelineFactory {
     
     static let x96 = ImageGuideline(
         size: CGSize(width: 96, height: 96),
-        cornerRadius: 4,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 4
     )
     
     static let x48 = ImageGuideline(
         size: CGSize(width: 48, height: 48),
-        cornerRadius: 2,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 2
     )
     
 }
