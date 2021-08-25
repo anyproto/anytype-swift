@@ -20,12 +20,12 @@ final class TextBlockContentView: UIView & UIContentView {
     }()
     
     private let contentStackView: UIStackView = {
-        let topStackView = UIStackView()
-        topStackView.axis = .horizontal
-        topStackView.distribution = .fill
-        topStackView.spacing = 4
-        topStackView.alignment = .top
-        return topStackView
+        let contentStackView = UIStackView()
+        contentStackView.axis = .horizontal
+        contentStackView.distribution = .fill
+        contentStackView.spacing = 4
+        contentStackView.alignment = .top
+        return contentStackView
     }()
 
     // MARK: Configuration
