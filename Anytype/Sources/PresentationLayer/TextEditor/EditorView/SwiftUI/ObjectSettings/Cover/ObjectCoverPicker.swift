@@ -4,8 +4,10 @@ import Amplitude
 
 struct ObjectCoverPicker: View {
     
-    @EnvironmentObject private var viewModel: ObjectCoverPickerViewModel
+    @ObservedObject var viewModel: ObjectCoverPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
+    
+    var onDismiss: () -> Void = {}
     
     @State private var selectedTab: Tab = .gallery
     
@@ -37,7 +39,7 @@ struct ObjectCoverPicker: View {
                 case let .gradient(gradient):
                     viewModel.setGradient(gradient.name)
                 }
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         }
         .transition(
@@ -53,7 +55,7 @@ struct ObjectCoverPicker: View {
             itemProvider.flatMap {
                 viewModel.uploadImage(from: $0)
             }
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }
         .transition(
             .asymmetric(
@@ -70,7 +72,7 @@ struct ObjectCoverPicker: View {
         } rightButton: {
             Button {
                 viewModel.removeCover()
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } label: {
                 AnytypeText("Remove", style: .uxBodyRegular)
                     .foregroundColor(.red)
@@ -100,6 +102,10 @@ struct ObjectCoverPicker: View {
         .frame(maxWidth: .infinity)
     }
     
+    private func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+        onDismiss()
+    }
 }
 
 // MARK: - Private extension
@@ -120,8 +126,3 @@ private extension ObjectCoverPicker {
     
 }
 
-struct DocumentCoverPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        ObjectCoverPicker()
-    }
-}

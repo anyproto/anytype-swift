@@ -24,6 +24,8 @@ protocol EditorRouterProtocol: AnyObject {
     
     func showStyleMenu(information: BlockInformation)
     func showSettings(settingsViewModel: ObjectSettingsViewModel)
+    func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
+    func showIconPicker(viewModel: ObjectIconPickerViewModel)
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -161,10 +163,41 @@ final class EditorRouter: EditorRouterProtocol {
             controller?.dismiss(animated: false)
         }
         
-        viewController.present(
-            controller,
-            animated: false
+        viewController.present(controller, animated: false)
+    }
+    
+    func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {
+        guard let viewController = viewController else {
+            return
+        }
+        
+        let controller = UIHostingController(
+            rootView: ObjectCoverPicker(viewModel: viewModel)
         )
+        
+        controller.rootView.onDismiss = { [weak controller] in
+            controller?.dismiss(animated: true)
+        }
+        
+        viewController.present(controller, animated: true)
+    }
+    
+    func showIconPicker(viewModel: ObjectIconPickerViewModel) {
+        guard let viewController = viewController else {
+            return
+        }
+        
+        let controller = UIHostingController(
+            rootView: ObjectIconPicker(viewModel: viewModel)
+        )
+        
+        controller.rootView.dismissHandler = DismissHandler(
+            onDismiss:  { [weak controller] in
+                controller?.dismiss(animated: true)
+            }
+        )
+        
+        viewController.present(controller, animated: true)
     }
     
     private func showURLInputViewController(
