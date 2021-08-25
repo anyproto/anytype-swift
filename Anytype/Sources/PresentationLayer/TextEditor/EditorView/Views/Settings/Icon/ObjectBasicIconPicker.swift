@@ -8,7 +8,7 @@ struct ObjectBasicIconPicker: View {
     @Environment(\.presentationMode) private var presentationMode
     @State private var selectedTab: Tab = .emoji
     
-    var onDismiss: () -> () = {}
+    var onDismiss: (() -> ())?
         
     var body: some View {
         VStack(spacing: 0) {
@@ -118,7 +118,7 @@ struct ObjectBasicIconPicker: View {
     
     private func dismiss() {
         presentationMode.wrappedValue.dismiss()
-        onDismiss()
+        onDismiss?()
     }
 }
 

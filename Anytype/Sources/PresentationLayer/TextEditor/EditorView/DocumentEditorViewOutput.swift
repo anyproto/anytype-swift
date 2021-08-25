@@ -1,6 +1,6 @@
 import Foundation
 
-protocol DocumentEditorViewOutput {
+protocol DocumentEditorViewModelProtocol {
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
