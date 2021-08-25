@@ -1389,8 +1389,8 @@
 		0331BBE122E608AC002AD179 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */,
 				125FD32226CE97BD00D21F5A /* ObjectIconImageSizeGroup.swift */,
+				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */,
 				3D486C162631726A00A9B625 /* SwiftUI */,
 				3D486C132631726400A9B625 /* UIKit */,
 				03F7BD1F22F7A58400F47583 /* PinCodeView */,
@@ -2718,6 +2718,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				12CAF34226D6359B001E56B2 /* ObjectIconImageView.swift */,
 				3D829171265E50190007C152 /* RedactedText.swift */,
 				1206DB8C267A3017000A48A7 /* MediaPicker */,
 				128495DC2673705000351C66 /* SettingsDividerModifier */,
@@ -2741,7 +2742,6 @@
 				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
 				3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */,
 				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
-				12CAF34226D6359B001E56B2 /* ObjectIconImageView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";

@@ -21,7 +21,7 @@ struct BlockLinkIconMaker {
                 
             }
         case let .checkmark(isChecked):
-            let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+            let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
             
             return makeIconImageView(image)
         }

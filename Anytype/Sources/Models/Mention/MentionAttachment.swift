@@ -143,7 +143,7 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func displayCheckmarkIcon(isChecked: Bool) {
-        let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
         
         let size = iconSize ?? Constants.defaultIconSize
         

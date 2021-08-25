@@ -103,7 +103,7 @@ final class MentionsViewModel {
             }
         
         case let .checkmark(isChecked):
-            return isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+            return isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
         }
         
         return nil
