@@ -49,8 +49,8 @@ struct HomeCell: View {
     private func todoTitle(with text: String, isChecked: Bool) -> some View {
         HStack(alignment: .top, spacing: 6) {
             ObjectIconImageView(
-                objectIconImage: .todo(isChecked),
-                sizeGroup: .dashboardList
+                iconImage: .todo(isChecked),
+                position: .dashboardList
             )
             defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
         }
