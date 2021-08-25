@@ -6,7 +6,7 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-final class DocumentEditorViewModel: DocumentEditorViewOutput {
+final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol

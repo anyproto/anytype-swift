@@ -47,7 +47,7 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
 
-    var viewModel: DocumentEditorViewOutput!
+    var viewModel: DocumentEditorViewModelProtocol!
 
     // MARK: - Initializers
     
