@@ -6,7 +6,7 @@ import Combine
 struct HomeCellData: Identifiable {
     let id: String
     let destinationId: String
-    let icon: DocumentIconType?
+    let icon: ObjectIconType?
     let title: Title
     let type: String
     let isLoading: Bool

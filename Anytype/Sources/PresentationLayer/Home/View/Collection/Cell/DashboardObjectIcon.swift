@@ -11,43 +11,34 @@ import Kingfisher
 
 struct DashboardObjectIcon: View {
     
-    let icon: DocumentIconType
+    let icon: ObjectIconType
     
     var body: some View {
         switch icon {
-        case let .basic(basicIcon):
-            makeBasicIconView(basicIcon)
+        case let .basic(id):
+            kfImage(
+                imageId: id,
+                radius: .point(Constants.basicImageIconCornerRadius)
+            )
         case let .profile(profileIcon):
             makeProfileIconView(profileIcon)
+        case let .emoji(emoji):
+            AnytypeText(
+                emoji.value,
+                name: .inter,
+                size: 30,
+                weight: .regular
+            )
+                .frame(
+                    maxWidth: Constants.iconSize.width,
+                    maxHeight: Constants.iconSize.height
+                )
+                .background(Color.grayscale10)
+                .cornerRadius(Constants.emojiIconCornerRadius)
         }
     }
     
-    private func makeBasicIconView(_ basicIcon: DocumentIconType.Basic) -> some View {
-        Group {
-            switch basicIcon {
-            case let .emoji(emoji):
-                AnytypeText(
-                    emoji.value,
-                    name: .inter,
-                    size: 30,
-                    weight: .regular
-                )
-                    .frame(
-                        maxWidth: Constants.iconSize.width,
-                        maxHeight: Constants.iconSize.height
-                    )
-                    .background(Color.grayscale10)
-                    .cornerRadius(Constants.emojiIconCornerRadius)
-            case let .imageId(imageId):
-                kfImage(
-                    imageId: imageId,
-                    radius: .point(Constants.basicImageIconCornerRadius)
-                )
-            }
-        }
-    }
-    
-    private func makeProfileIconView(_ profileIcon: DocumentIconType.Profile) -> some View {
+    private func makeProfileIconView(_ profileIcon: ObjectIconType.Profile) -> some View {
         Group {
             switch profileIcon {
             case let .imageId(imageId):
@@ -55,7 +46,7 @@ struct DashboardObjectIcon: View {
                     imageId: imageId,
                     radius: .widthFraction(Constants.profileImageIconCornerRadius)
                 )
-            case let .placeholder(character):
+            case let .character(character):
                 AnytypeText(
                     String(character),
                     name: .inter,
@@ -103,7 +94,7 @@ extension DashboardObjectIcon {
 struct DashboardObjectIcon_Previews: PreviewProvider {
     static var previews: some View {
         DashboardObjectIcon(
-            icon: .basic(.emoji(IconEmoji("🥶")!))
+            icon: .emoji(IconEmoji("🥶")!)
         )
     }
 }

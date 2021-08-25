@@ -5,40 +5,40 @@ extension DetailsDataProtocol {
     
     // MARK: - Icon
     
-    var icon: DocumentIconType? {
+    var icon: ObjectIconType? {
         guard let layout = self.layout else {
-            return basicIcon.flatMap { DocumentIconType.basic($0) }
+            return basicIcon
         }
         
         switch layout {
         case .basic:
-            return basicIcon.flatMap { DocumentIconType.basic($0) }
+            return basicIcon
         case .profile:
-            return profileIcon.flatMap { DocumentIconType.profile($0) }
-        default:
+            return profileIcon.flatMap { ObjectIconType.profile($0) }
+        case .todo:
             return nil
         }
     }
     
-    private var basicIcon: DocumentIconType.Basic? {
+    private var basicIcon: ObjectIconType? {
         if let iconImageId = self.iconImage, !iconImageId.isEmpty {
-            return DocumentIconType.Basic.imageId(iconImageId)
+            return ObjectIconType.basic(iconImageId)
         }
         
         if let iconEmoji = IconEmoji(self.iconEmoji) {
-            return DocumentIconType.Basic.emoji(iconEmoji)
+            return ObjectIconType.emoji(iconEmoji)
         }
         
         return nil
     }
     
-    private var profileIcon: DocumentIconType.Profile? {
+    private var profileIcon: ObjectIconType.Profile? {
         if let iconImageId = self.iconImage, !iconImageId.isEmpty {
-            return DocumentIconType.Profile.imageId(iconImageId)
+            return ObjectIconType.Profile.imageId(iconImageId)
         }
         
         return (self.name ?? "Untitled".localized).first.flatMap {
-            DocumentIconType.Profile.placeholder($0)
+            ObjectIconType.Profile.character($0)
         }
     }
     

@@ -78,26 +78,23 @@ final class MentionsViewController: UITableViewController {
         }
     }
     
-    private func configurationForObjectIcon(_ objectIcon: DocumentIconType, mention: MentionObject) -> UIContentConfiguration {
+    private func configurationForObjectIcon(_ objectIcon: ObjectIconType, mention: MentionObject) -> UIContentConfiguration {
         switch objectIcon {
         case let .profile(profile):
             switch profile {
             case .imageId:
                 return mentionWithImageConfiguration(mention: mention, isCircle: true)
-            case .placeholder:
+            case .character:
                 return mentionWithImageConfiguration(mention: mention, isCircle: true)
             }
-        case let .basic(basic):
-            switch basic {
-            case let .emoji(emoji):
-                return ContentConfigurationWithEmoji(
-                    emoji: emoji.value,
-                    name: mention.name,
-                    description: mention.description
-                )
-            case .imageId:
-                return mentionWithImageConfiguration(mention: mention, isCircle: false)
-            }
+        case .basic:
+            return mentionWithImageConfiguration(mention: mention, isCircle: false)
+        case let .emoji(emoji):
+            return ContentConfigurationWithEmoji(
+                emoji: emoji.value,
+                name: mention.name,
+                description: mention.description
+            )
         }
     }
     

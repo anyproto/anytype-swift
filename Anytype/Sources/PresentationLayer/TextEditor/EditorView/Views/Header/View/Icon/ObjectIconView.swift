@@ -49,34 +49,27 @@ extension ObjectIconView: ConfigurableView {
     }
     
     private func configureIconState(
-        _ icon: DocumentIconType,
+        _ icon: ObjectIconType,
         _ alignment: LayoutAlignment
     ) {
         handleAlignment(alignment)
         activityIndicatorView.hide()
 
         switch icon {
-        case let .basic(basic):
-            configureBasicIcon(basic)
+        case let .basic(id):
+            showImageView(.basic(.imageId(id)))
         case let .profile(profile):
             configureProfileIcon(profile)
-        }
-    }
-    
-    private func configureBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
         case let .emoji(emoji):
             showEmojiView(emoji)
-        case let .imageId(imageId):
-            showImageView(.basic(.imageId(imageId)))
         }
     }
     
-    private func configureProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+    private func configureProfileIcon(_ profileIcon: ObjectIconType.Profile) {
         switch profileIcon {
         case let .imageId(imageId):
             showImageView(.profile(.imageId(imageId)))
-        case let .placeholder(character):
+        case let .character(character):
             showImageView(.profile(.placeholder(character)))
         }
     }

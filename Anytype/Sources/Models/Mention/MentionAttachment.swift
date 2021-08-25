@@ -113,38 +113,31 @@ final class MentionAttachment: NSTextAttachment {
         switch icon {
         case let .objectIcon(objectIcon):
             switch objectIcon {
-            case let .basic(basic):
-                displayBasicIcon(basic)
+            case let .basic(id):
+                loadImage(imageId: id, isBasicLayout: true)
             case let .profile(profile):
                 displayProfileIcon(profile)
+            case let .emoji(emoji):
+                guard
+                    let fontSize = fontPointSize,
+                    let image = emoji.value.image(fontPointSize: fontSize)
+                else { return }
+                
+                let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+                let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
+                
+                display(resizedImage)
             }
         case let .checkmark(isChecked):
             displayCheckmarkIcon(isChecked: isChecked)
         }
     }
     
-    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
-        case let .emoji(emoji):
-            guard
-                let fontSize = fontPointSize,
-                let image = emoji.value.image(fontPointSize: fontSize)
-            else { return }
-            
-            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-            let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
-            
-            display(resizedImage)
-        case let .imageId(imageId):
-            loadImage(imageId: imageId, isBasicLayout: true)
-        }
-    }
-    
-    private func displayProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+    private func displayProfileIcon(_ profileIcon: ObjectIconType.Profile) {
         switch profileIcon {
         case let .imageId(id):
             loadImage(imageId: id, isBasicLayout: false)
-        case let .placeholder(placeholder):
+        case let .character(placeholder):
             loadPlaceholderImage(placehodler: placeholder)
         }
     }
