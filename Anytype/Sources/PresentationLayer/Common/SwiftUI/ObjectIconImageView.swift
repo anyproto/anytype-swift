@@ -21,20 +21,25 @@ struct ObjectIconImageView: View {
         case .icon:
             EmptyView()
         case .todo(let isChecked):
-            let imageGuideline = TodoObjectIconImageGuidelineFactory.imageGuideline(for: sizeGroup)
-            switch imageGuideline {
-            case .none:
-                EmptyView()
-            case .some(let imageGuideline):
+            todoIconImage(isChecked: isChecked)
+        }
+    }
+    
+    private func todoIconImage(isChecked: Bool) -> some View {
+        Group {
+            if let imageGuideline = objectIconImage.imageGuideline(for: sizeGroup) {
                 Image(
                     uiImage: painter.todoImage(
                         isChecked: isChecked,
                         imageGuideline: imageGuideline
                     )
                 )
+            } else {
+                EmptyView()
             }
         }
     }
+    
 }
 
 struct ObjectIconImageView_Previews: PreviewProvider {
