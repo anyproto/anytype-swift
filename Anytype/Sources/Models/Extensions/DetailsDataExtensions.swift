@@ -105,7 +105,7 @@ extension DetailsDataProtocol {
             return .coverOnly(ObjectCover(state: .cover(cover), onTap: onCoverTap))
         }
         
-        return .empty
+        return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
     }
     
 }
