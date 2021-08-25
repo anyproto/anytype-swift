@@ -200,8 +200,8 @@ private extension TextBlockIconView {
         }
 
         enum TitleCheckbox {
-            static let checkedImageName = "title_todo_checkmark"
-            static let uncheckedImageName = "title_todo_checkbox"
+            static let checkedImageName = "todo_checkmark"
+            static let uncheckedImageName = "todo_checkbox"
             static let imageSize = CGSize(width: 28, height: 28)
         }
         enum Checkbox {

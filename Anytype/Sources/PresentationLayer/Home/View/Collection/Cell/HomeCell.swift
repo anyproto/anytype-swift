@@ -48,14 +48,10 @@ struct HomeCell: View {
     
     private func todoTitle(with text: String, isChecked: Bool) -> some View {
         HStack(alignment: .top, spacing: 6) {
-            isChecked ?
-                Image.Title.TodoLayout.checkmark
-                .resizable()
-                .frame(width: 18, height: 18) :
-                Image.Title.TodoLayout.checkbox
-                .resizable()
-                .frame(width: 18, height: 18)
-            
+            ObjectIconImageView(
+                objectIconImage: .todo(isChecked),
+                sizeGroup: .dashboardList
+            )
             defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
         }
     }
