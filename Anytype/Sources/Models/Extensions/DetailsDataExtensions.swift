@@ -83,7 +83,8 @@ extension DetailsDataProtocol {
             return .iconAndCover(
                 icon: ObjectIcon(
                     state: .icon(icon, layoutAlign),
-                    onTap: onIconTap
+                    onIconTap: onIconTap,
+                    onCoverTap: onCoverTap
                 ),
                 cover: ObjectCover(
                     state:  .cover(cover),
@@ -96,7 +97,8 @@ extension DetailsDataProtocol {
             return .iconOnly(
                 ObjectIcon(
                     state: .icon(icon, layoutAlign),
-                    onTap: onIconTap
+                    onIconTap: onIconTap,
+                    onCoverTap: onCoverTap
                 )
             )
         }
