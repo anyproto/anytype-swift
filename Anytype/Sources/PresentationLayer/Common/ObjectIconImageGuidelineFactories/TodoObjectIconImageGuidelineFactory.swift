@@ -7,8 +7,38 @@
 //
 
 import Foundation
+import UIKit
 
 enum TodoObjectIconImageGuidelineFactory {
-    case x30
-    case x18
+    
+    func imageGuideline(for sizeGroup: ObjectIconImageSizeGroup) -> ImageGuideline? {
+        switch sizeGroup {
+        case .openedObject:
+            return Constants.x30
+        case .dashboardList:
+            return Constants.x18
+        case .dashboardProfile:
+            return nil
+        case .dashboardSearch:
+            return Constants.x18
+        }
+    }
+    
+}
+
+private extension TodoObjectIconImageGuidelineFactory {
+    
+    enum Constants {
+        static let x30 = ImageGuideline(
+            size: CGSize(width: 28, height: 28),
+            cornerRadius: 7,
+            backgroundColor: UIColor.grayscaleWhite
+        )
+        
+        static let x18 = ImageGuideline(
+            size: CGSize(width: 18, height: 18),
+            cornerRadius: 4,
+            backgroundColor: UIColor.grayscaleWhite
+        )
+    }
 }
