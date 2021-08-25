@@ -41,7 +41,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
     override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
         let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
         drawUnderline(
-            for: .mention,
+            for: .localUnderline,
             characterRange: characterRange,
             origin: origin
         )

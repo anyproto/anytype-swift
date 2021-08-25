@@ -91,7 +91,8 @@ final class MarkStyleModifier {
             pageId: pageId
         )
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
-        let currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
+        var currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
+        currentAttributes.removeValue(forKey: .localUnderline)
         mentionAttachmentString.addAttributes(
             currentAttributes,
             range: NSRange(
@@ -147,7 +148,10 @@ final class MarkStyleModifier {
                 deletedKeys: url.isNil ? [.link] : []
             )
         case let .mention(pageId):
-            return AttributedStringChange(changeAttributes: [.mention: pageId as Any])
+            return AttributedStringChange(changeAttributes: [
+                .mention: pageId as Any,
+                .localUnderline: true
+            ])
         }
     }
     
