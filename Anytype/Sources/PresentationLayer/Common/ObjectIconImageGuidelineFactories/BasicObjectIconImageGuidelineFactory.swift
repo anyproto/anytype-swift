@@ -11,7 +11,7 @@ import UIKit
 
 enum BasicObjectIconImageGuidelineFactory {
     
-    func imageGuideline(for sizeGroup: ObjectIconImageSizeGroup) -> ImageGuideline? {
+    static func imageGuideline(for sizeGroup: ObjectIconImageSizeGroup) -> ImageGuideline? {
         switch sizeGroup {
         case .openedObject:
             return Constants.x96
