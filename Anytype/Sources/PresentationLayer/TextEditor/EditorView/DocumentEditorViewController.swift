@@ -103,11 +103,6 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        navigationBarHelper.configureNavigationBarUsing(
-            header: header,
-            titleBlockText: getTitleBlockText(from: blocks)
-        )
-        
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.header, .main])
         snapshot.appendItems([.header(header)], toSection: .header)
@@ -139,6 +134,13 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             guard let self = self else { return }
             self.focusOnFocusedBlock()
         }
+    }
+    
+    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
+        navigationBarHelper.configureNavigationBar(
+            using: header,
+            details: details
+        )
     }
  
     func selectBlock(blockId: BlockId) {
@@ -176,23 +178,23 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         }
     }
     
-    private func getTitleBlockText(from blocks: [BlockViewModelProtocol]) -> BlockText? {
-        let block = blocks.first {
-            guard
-                case .text(let style) = $0.information.content.type
-            else { return false }
-            
-            return style == .title
-        }
-        
-        guard
-            case .text(let text) = block?.information.content
-        else {
-            return nil
-        }
-        
-        return text
-    }
+//    private func getTitleBlockText(from blocks: [BlockViewModelProtocol]) -> BlockText? {
+//        let block = blocks.first {
+//            guard
+//                case .text(let style) = $0.information.content.type
+//            else { return false }
+//
+//            return style == .title
+//        }
+//
+//        guard
+//            case .text(let text) = block?.information.content
+//        else {
+//            return nil
+//        }
+//
+//        return text
+//    }
 
 }
 

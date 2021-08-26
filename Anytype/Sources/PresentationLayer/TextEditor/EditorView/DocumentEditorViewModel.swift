@@ -84,6 +84,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         let header = headerBuilder.objectHeaderForLocalEvent(details: modelsHolder.details, event: event)
         
         viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        viewInput?.configureNavigationBar(using: header, details: modelsHolder.details)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -110,10 +111,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
             
-            viewInput?.updateData(
-                header: headerBuilder.objectHeader(details: modelsHolder.details),
-                blocks: modelsHolder.models
-            )
+            updateView()
         }
     }
     
@@ -179,12 +177,19 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         modelsHolder.apply(newModels: models)
         modelsHolder.apply(newDetails: details)
         
-        let header = headerBuilder.objectHeader(details: modelsHolder.details)
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        updateView()
         
         if let details = modelsHolder.details {
             objectSettingsViewModel.update(with: details)
         }
+    }
+    
+    func updateView() {
+        let details = modelsHolder.details
+        let header = headerBuilder.objectHeader(details: details)
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        viewInput?.configureNavigationBar(using: header, details: details)
+        
     }
 }
 
