@@ -99,32 +99,6 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         )
     }
     
-    func configureNavigationBarUsing(header: ObjectHeader, titleBlockText: BlockText?) {
-        isObjectHeaderWithCover = header.isWithCover
-        objectHeaderHeight = header.height
-        
-        updateBarButtonItemsBackground(alpha: isObjectHeaderWithCover ? 1.0 : 0.0)
-        
-        let title: String = {
-            guard
-                let string = titleBlockText?.attributedText.string,
-                !string.isEmpty
-            else {
-                return "Untitled".localized
-            }
-            
-            return string
-        }()
-        
-        navigationBarTitleView.configure(
-            model: EditorNavigationBarTitleView.Model(
-                icon: nil,
-                title: title
-            )
-        )
-        
-    }
-    
 }
 
 // MARK: - Private extension

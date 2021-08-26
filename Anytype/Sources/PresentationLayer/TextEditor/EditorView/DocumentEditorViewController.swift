@@ -177,24 +177,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             dataSource.refresh(animatingDifferences: true)
         }
     }
-    
-//    private func getTitleBlockText(from blocks: [BlockViewModelProtocol]) -> BlockText? {
-//        let block = blocks.first {
-//            guard
-//                case .text(let style) = $0.information.content.type
-//            else { return false }
-//
-//            return style == .title
-//        }
-//
-//        guard
-//            case .text(let text) = block?.information.content
-//        else {
-//            return nil
-//        }
-//
-//        return text
-//    }
 
 }
 
