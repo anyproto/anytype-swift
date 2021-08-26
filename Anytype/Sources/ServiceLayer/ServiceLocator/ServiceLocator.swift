@@ -13,19 +13,20 @@ final class ServiceLocator {
     }
     
     func seedService() -> SeedServiceProtocol {
-        SeedService(
-            keychainStore: KeychainStore()
-        )
+        SeedService(keychainStore: KeychainStore())
     }
     
     /// creates new authService
     func authService() -> AuthServiceProtocol {
-        let service = seedService()
         return AuthService(
             localRepoService: localRepoService(),
-            seedService: service,
-            loginStateService: LoginStateService(seedService: service)
+            seedService: seedService(),
+            loginStateService: loginStateService()
         )
+    }
+    
+    func loginStateService() -> LoginStateService {
+        LoginStateService(seedService: seedService())
     }
     
     func dashboardService() -> DashboardServiceProtocol {
