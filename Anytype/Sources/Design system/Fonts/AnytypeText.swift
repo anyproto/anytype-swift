@@ -4,8 +4,8 @@ import AnytypeCore
 struct AnytypeText: View {
     private let textView: AnyView
     
-    init(_ text: String, style: AnytypeFontBuilder.TextStyle) {
-        let spacing = AnytypeFontBuilder.lineSpacing(style)
+    init(_ text: String, style: AnytypeFont) {
+        let spacing = style.lineSpacing
         
         textView = Self.buildText(text, style: style)
             .modifier(OptionalLineSpacingModifier(spacing: spacing))
@@ -14,7 +14,7 @@ struct AnytypeText: View {
     
     init(
         _ text: String,
-        name: FontName,
+        name: AnytypeFont.FontName,
         size: CGFloat,
         weight: Font.Weight
     ) {
@@ -28,8 +28,8 @@ struct AnytypeText: View {
         textView
     }
     
-    static func buildText(_ text: String, style: AnytypeFontBuilder.TextStyle) -> Text {
-        let font = AnytypeFontBuilder.font(textStyle: style)
+    static func buildText(_ text: String, style: AnytypeFont) -> Text {
+        let font = AnytypeFontBuilder.font(anytypeFont: style)
         
         return Text(LocalizedStringKey(text)).font(font)
     }
