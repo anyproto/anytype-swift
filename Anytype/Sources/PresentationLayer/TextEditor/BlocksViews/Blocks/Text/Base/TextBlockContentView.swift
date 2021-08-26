@@ -268,6 +268,8 @@ final class TextBlockContentView: UIView & UIContentView {
         // set kern
         if let kern = AnytypeFontBuilder.kern(textStyle) {
             textView.textView.textStorage.addAttribute(.kern, value: kern, range: range)
+        } else {
+            textView.textView.textStorage.removeAttribute(.kern, range: range)
         }
 
         let topBottomTextSpacing = AnytypeFontBuilder.lineSpacing(textStyle) / 2
