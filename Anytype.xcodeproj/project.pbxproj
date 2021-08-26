@@ -230,6 +230,7 @@
 		12CAF34A26D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34926D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift */; };
 		12CAF34C26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */; };
 		12CAF34E26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */; };
+		12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */; };
 		12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */; };
 		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
@@ -867,6 +868,7 @@
 		12CAF34926D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
 		12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
 		12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
+		12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageGuidelineSet.swift; sourceTree = "<group>"; };
 		12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectBasicIconPicker.swift; sourceTree = "<group>"; };
 		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
@@ -1390,6 +1392,7 @@
 			isa = PBXGroup;
 			children = (
 				125FD32226CE97BD00D21F5A /* ObjectIconImagePosition.swift */,
+				12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */,
 				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */,
 				3D486C162631726A00A9B625 /* SwiftUI */,
 				3D486C132631726400A9B625 /* UIKit */,
@@ -4414,6 +4417,7 @@
 				0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */,
 				533AED7926CB494F0018E33C /* EditorAccessoryViewActionHandler.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
+				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
 				EA289BBB2629D52C00EA869F /* TurnIntoSelectionStorage.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,

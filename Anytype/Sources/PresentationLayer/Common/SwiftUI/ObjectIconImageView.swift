@@ -13,11 +13,11 @@ struct ObjectIconImageView: View {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
     
-    let objectIconImage: ObjectIconImage
-    let sizeGroup: ObjectIconImagePosition
+    let iconImage: ObjectIconImage
+    let position: ObjectIconImagePosition
     
     var body: some View {
-        switch objectIconImage {
+        switch iconImage {
         case .icon:
             EmptyView()
         case .todo(let isChecked):
@@ -27,7 +27,7 @@ struct ObjectIconImageView: View {
     
     private func todoIconImage(isChecked: Bool) -> some View {
         Group {
-            if let imageGuideline = objectIconImage.imageGuideline(for: sizeGroup) {
+            if let imageGuideline = position.objectIconImageGuidelineSet.imageGuideline(for: iconImage) {
                 Image(
                     uiImage: painter.todoImage(
                         isChecked: isChecked,
@@ -45,8 +45,8 @@ struct ObjectIconImageView: View {
 struct ObjectIconImageView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectIconImageView(
-            objectIconImage: .todo(false),
-            sizeGroup: .openedObject
+            iconImage: .todo(false),
+            position: .openedObject
         )
     }
 }
