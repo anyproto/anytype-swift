@@ -80,7 +80,7 @@ extension Namespace.Picker {
 // MARK: Controller
 private extension Namespace.Picker {
     func createPickerController() -> UIViewController {
-        let picker = UIKitPickerViewController.init(forOpeningContentTypes: self.viewModel.types, asCopy: true)
+        let picker = UIKitPickerViewController(forOpeningContentTypes: self.viewModel.types, asCopy: true)
         picker.allowsMultipleSelection = false
         picker.delegate = self
         return picker
@@ -111,14 +111,7 @@ extension Namespace.Picker {
     final class ViewModel: BaseFilePickerViewModel {
         // TODO: Move to Mime Type Provider.
         private(set) var types: [UTType] = [
-            .text,
-            .spreadsheet,
-            .presentation,
-            .pdf,
-            .image,
-            .audio,
-            .video,
-            .archive
+            .item
         ]
     }
 }
