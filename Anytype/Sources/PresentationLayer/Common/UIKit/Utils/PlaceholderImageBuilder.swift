@@ -13,7 +13,7 @@ final class PlaceholderImageBuilder {
 
     // MARK: - Private variables
     
-    private static let cache = NSCache<NSString, UIImage>()
+    private static let imageStorage: ImageStorageProtocol = ImageStorage.shared
     
     // MARK: - Internal functions
     
@@ -22,7 +22,7 @@ final class PlaceholderImageBuilder {
                             textGuideline: PlaceholderImageTextGuideline? = nil) -> UIImage {
         let hash = "\(guideline.identifier).\(color.toHexString()).\(textGuideline?.identifier ?? "")"
         
-        if let cachedImage = obtainImageFromCache(hash: hash) {
+        if let cachedImage = imageStorage.image(forKey: hash) {
             return cachedImage
         }
         
@@ -49,7 +49,7 @@ final class PlaceholderImageBuilder {
                 backgroundColor: guideline.cornersGuideline.backgroundColor?.cgColor
         )
 
-        saveImageToCache(image, hash: hash)
+        imageStorage.saveImage(image, forKey: hash)
 
         return image
     }
@@ -67,7 +67,7 @@ final class PlaceholderImageBuilder {
         \(endPoint.identifier)
         """
         
-        if let cachedImage = obtainImageFromCache(hash: hash) {
+        if let cachedImage = imageStorage.image(forKey: hash) {
             return cachedImage
         }
 
@@ -79,7 +79,7 @@ final class PlaceholderImageBuilder {
             endPoint: endPoint
         )
         
-        saveImageToCache(image, hash: hash)
+        imageStorage.saveImage(image, forKey: hash)
         
         return image
     }
@@ -89,14 +89,6 @@ final class PlaceholderImageBuilder {
 // MARK: - Private extension
 
 private extension PlaceholderImageBuilder {
-
-    static func obtainImageFromCache(hash: String) -> UIImage? {
-        Self.cache.object(forKey: hash as NSString)
-    }
-
-    static func saveImageToCache(_ image: UIImage, hash: String) {
-        Self.cache.setObject(image, forKey: hash as NSString)
-    }
     
     static func draw(textGuideline: PlaceholderImageTextGuideline, using guideline: ImageGuideline) {
         let textSize = NSString(string: textGuideline.text).size(withAttributes: [.font: textGuideline.font])

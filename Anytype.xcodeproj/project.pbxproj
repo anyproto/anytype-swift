@@ -233,6 +233,8 @@
 		12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */; };
 		12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */; };
 		12CAF36026D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35F26D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift */; };
+		12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF36F26D6A9B0001E56B2 /* ImageStorage.swift */; };
+		12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF37126D6A9E3001E56B2 /* ImageStorageProtocol.swift */; };
 		12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */; };
 		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
@@ -873,6 +875,8 @@
 		12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageGuidelineSet.swift; sourceTree = "<group>"; };
 		12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageFontSet.swift; sourceTree = "<group>"; };
 		12CAF35F26D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
+		12CAF36F26D6A9B0001E56B2 /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
+		12CAF37126D6A9E3001E56B2 /* ImageStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageProtocol.swift; sourceTree = "<group>"; };
 		12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectBasicIconPicker.swift; sourceTree = "<group>"; };
 		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
@@ -1703,6 +1707,7 @@
 			children = (
 				030DF4B62399C1DD00AD3BC3 /* LocalStore */,
 				03C5C53522DF6C9900DD91DE /* KeychainStore */,
+				12CAF37326D6AAF8001E56B2 /* ImageStorage */,
 			);
 			path = StoreLayer;
 			sourceTree = "<group>";
@@ -2340,6 +2345,15 @@
 				12CAF35F26D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift */,
 			);
 			path = ObjectIconImageGuidelineFactories;
+			sourceTree = "<group>";
+		};
+		12CAF37326D6AAF8001E56B2 /* ImageStorage */ = {
+			isa = PBXGroup;
+			children = (
+				12CAF36F26D6A9B0001E56B2 /* ImageStorage.swift */,
+				12CAF37126D6A9E3001E56B2 /* ImageStorageProtocol.swift */,
+			);
+			path = ImageStorage;
 			sourceTree = "<group>";
 		};
 		12DE4038264ACF83007B5074 /* View protocols */ = {
@@ -3960,6 +3974,7 @@
 				3D36B0A726A71B660046C90F /* EventProcessor.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
+				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
@@ -4291,6 +4306,7 @@
 				EA7DE40426397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
 				12CAF36026D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift in Sources */,
+				12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,
 				123FDACC26C132E700F6F44B /* ObjectHeaderIconOnlyContentView.swift in Sources */,
