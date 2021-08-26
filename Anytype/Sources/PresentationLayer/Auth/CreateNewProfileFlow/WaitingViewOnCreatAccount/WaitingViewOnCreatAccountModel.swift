@@ -12,10 +12,12 @@ final class SignUpData: ObservableObject {
     }
 }
 
-class WaitingViewOnCreatAccountModel: ObservableObject {
+class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
+    private let loginStateService = ServiceLocator.shared.loginStateService()
+    private let homeViewAssembly = HomeViewAssembly()
     
-    private var diskStorage = DiskStorage()
+    private let diskStorage = DiskStorage()
     
     private let signUpData: SignUpData
     
@@ -46,7 +48,8 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                         self.showError = true
                     case .success:
                         windowHolder?.configureMiddlewareConfiguration()
-                        windowHolder?.startNewRootView(self.obtainCompletionView())
+                        self.loginStateService.setupStateAfterLoginOrAuth()
+                        windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
                     }
                 }
             }
@@ -61,10 +64,5 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
         let avatar = ProfileModel.Avatar.imagePath(imagePath ?? "")
                 
         return  CreateAccountRequest(name: signUpData.userName, avatar: avatar)
-    }
-    
-    private func obtainCompletionView() -> some View {
-        let completionView = CompletionAuthViewCoordinator()
-        return completionView.start()
     }
 }
