@@ -231,6 +231,7 @@
 		12CAF34C26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */; };
 		12CAF34E26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */; };
 		12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */; };
+		12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */; };
 		12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */; };
 		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
@@ -869,6 +870,7 @@
 		12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
 		12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
 		12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageGuidelineSet.swift; sourceTree = "<group>"; };
+		12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageFontSet.swift; sourceTree = "<group>"; };
 		12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectBasicIconPicker.swift; sourceTree = "<group>"; };
 		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
@@ -1392,6 +1394,7 @@
 			isa = PBXGroup;
 			children = (
 				125FD32226CE97BD00D21F5A /* ObjectIconImagePosition.swift */,
+				12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */,
 				12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */,
 				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */,
 				3D486C162631726A00A9B625 /* SwiftUI */,
@@ -4187,6 +4190,7 @@
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
+				12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */,
 				3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				EA5521A3266E5CB5004A820B /* FilterableItemsView.swift in Sources */,

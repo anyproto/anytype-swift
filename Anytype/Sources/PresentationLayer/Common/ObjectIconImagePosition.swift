@@ -51,4 +51,57 @@ extension ObjectIconImagePosition {
         }
     }
     
+    var objectIconImageFontSet: ObjectIconImageFontSet {
+        switch self {
+        case .openedObject:
+            return ObjectIconImageFontSet(
+                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 48,
+                    weight: .regular
+                ),
+                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 72,
+                    weight: .regular
+                )
+            )
+        case .dashboardList:
+            return ObjectIconImageFontSet(
+                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 28,
+                    weight: .regular
+                ),
+                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 30,
+                    weight: .regular
+                )
+            )
+        case .dashboardProfile:
+            return ObjectIconImageFontSet(
+                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 44,
+                    weight: .regular
+                ),
+                emojiImageFont: nil
+            )
+        case .dashboardSearch:
+            return ObjectIconImageFontSet(
+                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 28,
+                    weight: .regular
+                ),
+                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 30,
+                    weight: .regular
+                )
+            )
+        }
+    }
+    
 }
