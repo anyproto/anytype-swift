@@ -249,8 +249,6 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupText(placeholer: String, textStyle: AnytypeFontBuilder.TextStyle) {
-        let font = AnytypeFontBuilder.uiKitFont(textStyle: textStyle)
-
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
             .foregroundColor: UIColor.textSecondary,
@@ -272,7 +270,6 @@ final class TextBlockContentView: UIView & UIContentView {
             textView.textView.textStorage.removeAttribute(.kern, range: range)
         }
 
-        let topBottomTextSpacing = AnytypeFontBuilder.lineSpacing(textStyle) / 2
         textView.textView.textContainerInset = .init(top: topBottomTextSpacing, left: 0, bottom: topBottomTextSpacing, right: 0)
 
         textView.textView.typingAttributes = [.font: font, .paragraphStyle: paragraphStyle]

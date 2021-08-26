@@ -9,14 +9,9 @@ class ContentTextConverter {
     
     func textContent(_ from: Anytype_Model_Block.Content.Text) -> BlockText? {
         return BlockTextContentTypeConverter.asModel(from.style).flatMap { contentType in
-            let attributedString = AttributedTextConverter.asModel(
+            return BlockText(
                 text: from.text,
                 marks: from.marks,
-                style: from.style
-            )
-            
-            return BlockText(
-                attributedText: attributedString,
                 color: MiddlewareColor(rawValue: from.color),
                 contentType: contentType,
                 checked: from.checked
@@ -28,11 +23,9 @@ func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
         let style = BlockTextContentTypeConverter.asMiddleware(from.contentType)
         return .text(
             Anytype_Model_Block.Content.Text(
-                text: from.attributedText.string,
+                text: from.text,
                 style: style,
-                marks: AttributedTextConverter.asMiddleware(
-                    attributedText: from.attributedText
-                ).marks,
+                marks: from.marks,
                 checked: from.checked,
                 color: from.color?.rawValue ?? ""
             )
