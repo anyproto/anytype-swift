@@ -5,17 +5,25 @@ struct HomeSearchCellData: Identifiable {
     let title: String
     let description: String?
     let type: String
-    let icon: ObjectIconType?
+    let icon: ObjectIconImage
     
     init(searchResult: SearchResult) {
         self.id = searchResult.id
         self.description = searchResult.description
-        self.icon = searchResult.icon
         
-        if let title = searchResult.name, !title.isEmpty {
-            self.title = title
+        let title: String = {
+            if let title = searchResult.name, !title.isEmpty {
+                return title
+            } else {
+                return "Untitled".localized
+            }
+        }()
+        self.title = title
+        
+        if let layout = searchResult.layout, layout == .todo {
+            self.icon = .todo(searchResult.done ?? false)
         } else {
-            self.title = "Untitled".localized
+            self.icon = searchResult.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
         }
         
         if let type = searchResult.type?.name, !type.isEmpty {
@@ -31,20 +39,13 @@ struct HomeSearchCell: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            icon
+            ObjectIconImageView(
+                iconImage: data.icon,
+                position: .dashboardSearch
+            ).frame(width: 48, height: 48)
             text
         }
         .frame(height: 57)
-    }
-    
-    private var icon: some View {
-        Group {
-            if let icon = data.icon {
-                DashboardObjectIcon(icon: icon)
-            } else {
-                EmptyView()
-            }
-        }
     }
     
     private var text: some View {

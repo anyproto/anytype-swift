@@ -11,4 +11,5 @@ import Foundation
 enum ObjectIconImage {
     case icon(ObjectIconType)
     case todo(Bool)
+    case placeholder(Character?)
 }

@@ -43,6 +43,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     
     func image(with string: String,
                font: UIFont,
+               textColor: UIColor,
                imageGuideline: ImageGuideline,
                backgroundColor: UIColor) -> UIImage {
         PlaceholderImageBuilder.placeholder(
@@ -50,7 +51,8 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
             color: backgroundColor,
             textGuideline: PlaceholderImageTextGuideline(
                 text: string,
-                font: font
+                font: font,
+                textColor: textColor
             )
         )
     }
