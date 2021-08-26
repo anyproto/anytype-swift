@@ -13,7 +13,6 @@ struct AlphaInviteCodeView: View {
                 .padding()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
     }
     
     
@@ -28,6 +27,7 @@ struct AlphaInviteCodeView: View {
                     .padding(.bottom, 14)
 
                 CustomTextField(text: $signUpData.inviteCode, title: "Invitation code")
+                    .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
                     .padding(.bottom, 24)
                 
                 HStack(spacing: 12) {
@@ -48,7 +48,7 @@ struct AlphaInviteCodeView: View {
             .navigationBarBackButtonHidden(true)
             .padding()
             .background(Color.background)
-            .cornerRadius(12.0)
+            .cornerRadius(16.0)
         }
     }
 }

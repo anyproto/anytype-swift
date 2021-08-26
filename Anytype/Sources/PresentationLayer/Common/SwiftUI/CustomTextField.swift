@@ -5,7 +5,7 @@ struct CustomTextField: View {
     var title: String
     
     var body: some View {
-        VStack(spacing: 13) {
+        VStack(spacing: 10) {
             TextField(title, text: $text)
             Divider()
         }

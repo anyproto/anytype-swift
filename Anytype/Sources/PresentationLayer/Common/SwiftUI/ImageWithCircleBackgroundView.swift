@@ -5,7 +5,15 @@ struct ImageWithCircleBackgroundView: View {
     var backgroundColor: UIColor? // TODO: Remove it.
     var backgroundImage: UIImage?
     
-    func aspectRatio() -> CGFloat {
+    var body: some View {
+        ZStack {
+            chosenImage()
+            image
+        }
+        .clipShape(Circle())
+    }
+    
+    private func aspectRatio() -> CGFloat {
         if let image = self.backgroundImage, image.size.height != 0, image.size.width != 0 {
             let width = image.size.width
             let height = image.size.height
@@ -17,33 +25,34 @@ struct ImageWithCircleBackgroundView: View {
         return 0
     }
     
-    func chosenImage() -> some View {
+    private func chosenImage() -> some View {
         Group {
             if let value = self.backgroundColor {
                 Color(value)
             }
             else if let value = self.backgroundImage {
-                Image(uiImage: value).renderingMode(.original).resizable().correctAspectRatio(ofImage: value, contentMode: .fill)
+                Image(uiImage: value)
+                    .renderingMode(.original)
+                    .resizable()
+                    .correctAspectRatio(ofImage: value, contentMode: .fill)
             }
             else {
                 Color(.clear)
             }
         }
     }
-    
-    var body: some View {
-        ZStack {
-            self.chosenImage()
-            image
-        }
-        .clipShape(Circle())
-    }
 }
 
 struct ImageWithCircleBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ImageWithCircleBackgroundView(image: .logo, backgroundColor: .secondarySystemBackground)
-        }
+        ScrollView {
+            Group {
+                ImageWithCircleBackgroundView(image: .logo, backgroundColor: .secondarySystemBackground)
+                    .frame(width: 200, height: 200)
+                
+                ImageWithCircleBackgroundView(image: .logo, backgroundImage: UIImage(named: "splashLogo"))
+                    .frame(width: 150, height: 150)
+            }
+        }.background(Color.blue)
     }
 }

@@ -345,7 +345,6 @@
 		3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3D26317E3A00C7D1EA /* HomeBottomSheetView.swift */; };
 		3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */; };
 		3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */; };
-		3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D4B26317E9200C7D1EA /* NavigationButtonView.swift */; };
 		3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */; };
 		3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5126317EFB00C7D1EA /* CommonViews+Pickers.swift */; };
 		3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */; };
@@ -985,7 +984,6 @@
 		3D932D3D26317E3A00C7D1EA /* HomeBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomSheetView.swift; sourceTree = "<group>"; };
 		3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProfileView.swift; sourceTree = "<group>"; };
 		3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabsView.swift; sourceTree = "<group>"; };
-		3D932D4B26317E9200C7D1EA /* NavigationButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
 		3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButtonView.swift; sourceTree = "<group>"; };
 		3D932D5126317EFB00C7D1EA /* CommonViews+Pickers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers.swift"; sourceTree = "<group>"; };
 		3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers+File+UIKit.swift"; sourceTree = "<group>"; };
@@ -2955,7 +2953,6 @@
 		3D932D4A26317E9200C7D1EA /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				3D932D4B26317E9200C7D1EA /* NavigationButtonView.swift */,
 				3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */,
 				3DC9F260266018B000B115B9 /* StandardButton.swift */,
 			);
@@ -4345,7 +4342,6 @@
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
-				3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */,
 				3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */,
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
 				EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */,

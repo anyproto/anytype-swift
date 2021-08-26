@@ -19,7 +19,8 @@ struct LoginView: View {
             Spacer()
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Login with keychain", style: .title)
-                    .padding(.bottom, 27)
+                    .padding(.bottom, 32)
+                    .padding(.top, 23)
                 
                 scanQR
                 enterMnemonic
@@ -37,7 +38,7 @@ struct LoginView: View {
             }
             .padding()
             .background(Color.background)
-            .cornerRadius(12.0)
+            .cornerRadius(16.0)
             .sheet(isPresented: $viewModel.showQrCodeView) {
                 QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
             }
@@ -75,11 +76,10 @@ struct LoginView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             viewModel.showQrCodeView = true
         }) {
-            VStack(spacing: 13) {
+            VStack(spacing: 10) {
                 HStack {
-                    Image.auth.qr
-                        .padding(.trailing, 15)
-                    AnytypeText("Scan QR code", style: .uxCalloutRegular).foregroundColor(.textPrimary)
+                    AnytypeText("Scan QR code", style: .uxBodyRegular)
+                        .foregroundColor(.textPrimary)
                     Spacer()
                     Image.arrow
                 }
