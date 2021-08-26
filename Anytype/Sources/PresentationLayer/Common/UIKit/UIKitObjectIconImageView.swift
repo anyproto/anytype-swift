@@ -140,6 +140,7 @@ private extension UIKitObjectIconImageView {
     
     func setupView() {
         clipsToBounds = true
+        imageView.contentMode = .center
         setupLayout()
     }
     

@@ -48,10 +48,10 @@ struct HomeCell: View {
     
     private func todoTitle(with text: String, isChecked: Bool) -> some View {
         HStack(alignment: .top, spacing: 6) {
-            ObjectIconImageView(
+            SwiftUIObjectIconImageView(
                 iconImage: .todo(isChecked),
                 usecase: .dashboardList
-            )
+            ).frame(width: 18, height: 18)
             defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
         }
     }
@@ -75,9 +75,12 @@ struct HomeCell: View {
             } else {
                 switch cellData.icon {
                 case .some(let icon):
-                    ObjectIconImageView(
+                    SwiftUIObjectIconImageView(
                         iconImage: .icon(icon),
                         usecase: .dashboardList
+                    ).frame(
+                        width: Constants.iconSize.width,
+                        height: Constants.iconSize.height
                     )
                 case .none:
                     EmptyView()
