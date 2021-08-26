@@ -28,6 +28,7 @@ extension AnytypeFontBuilder {
         // UX fonts
         case uxTitle1Semibold
         case uxTitle2Regular
+        case uxTitle2Medium
         case uxBodyRegular
 
         case uxCalloutRegular
@@ -72,7 +73,7 @@ struct AnytypeFontBuilder {
             return 22
         case .subheading, .previewTitle1Medium, .bodyBold, .bodyRegular, .uxTitle1Semibold,. uxBodyRegular, .button1Regular, .button1Semibold:
             return 17
-        case .codeBlock, .previewTitle2Medium, .previewTitle2Regular, .calloutRegular, .relation1Regular, .uxTitle2Regular, .uxCalloutMedium, .uxCalloutRegular:
+        case .codeBlock, .previewTitle2Medium, .previewTitle2Regular, .calloutRegular, .relation1Regular, .uxTitle2Regular, .uxCalloutMedium, .uxCalloutRegular, .uxTitle2Medium:
             return 15
         case .relation2Regular, .caption1Regular, .caption1Medium:
             return 13
@@ -87,7 +88,7 @@ struct AnytypeFontBuilder {
         switch textStyle {
         case .title, .heading, .subheading:
             return .bold
-        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular:
+        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular, .uxTitle2Medium:
             return .regular
         case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium:
             return .medium
@@ -106,7 +107,7 @@ struct AnytypeFontBuilder {
             return 24
         case .codeBlock, .previewTitle1Medium, .calloutRegular, .relation1Regular, .uxCalloutMedium, .uxCalloutRegular:
             return 22
-        case .previewTitle2Regular, .previewTitle2Medium, .uxTitle2Regular:
+        case .previewTitle2Regular, .previewTitle2Medium, .uxTitle2Regular, .uxTitle2Medium:
             return 20
         case .caption1Medium, .relation2Regular, .caption1Regular:
             return 18
@@ -114,6 +115,30 @@ struct AnytypeFontBuilder {
             return 15
         case .caption2Regular, .caption2Medium:
             return 14
+        }
+    }
+
+    /// Font kern. If nil then use default.
+    /// - Parameter textStyle: text style
+    /// - Returns: kern
+    static func kern(_ textStyle: TextStyle) -> CGFloat? {
+        switch textStyle {
+        case .title:
+            return -0.48
+        case .heading:
+            return -0.36
+        case .subheading:
+            return -0.28
+        case .previewTitle1Medium, .bodyBold, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
+            return -0.41
+        case .previewTitle2Regular, .previewTitle2Medium, .calloutRegular, .relation1Regular, .codeBlock, .uxTitle2Regular, .uxTitle2Medium, .uxCalloutMedium, .uxCalloutRegular:
+            return -0.24
+        case .caption1Medium, .relation2Regular, .caption1Regular:
+            return -0.08
+        case .caption2Regular, .caption2Medium:
+            return -0.07
+        case .relation3Regular:
+            return nil
         }
     }
 
