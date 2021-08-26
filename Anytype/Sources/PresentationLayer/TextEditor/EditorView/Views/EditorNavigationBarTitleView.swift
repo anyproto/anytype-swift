@@ -13,7 +13,7 @@ final class EditorNavigationBarTitleView: UIView {
     
     private let stackView = UIStackView()
     
-    private let iconImageView = UIImageView()
+    private let iconImageView = UIKitObjectIconImageView()
     private let titleLabel = UILabel()
     
     init() {
@@ -30,13 +30,8 @@ final class EditorNavigationBarTitleView: UIView {
 
 extension EditorNavigationBarTitleView: ConfigurableView {
     
-    enum Icon {
-        case objectIcon(ObjectIcon)
-        case todo(Bool)
-    }
-    
     struct Model {
-        let icon: Icon?
+        let icon: ObjectIconImage?
         let title: String
     }
     
@@ -44,16 +39,14 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         titleLabel.text = model.title
         
         switch model.icon {
-        case .objectIcon:
-            // TODO: - implement
-            iconImageView.image = nil
+        case .some(let objectIconImage):
             iconImageView.isHidden = false
-            break
-        case .todo(let isChecked):
-            iconImageView.isHidden = false
-            iconImageView.image = isChecked ?
-            UIImage.ObjectIcon.checkmark :
-            UIImage.ObjectIcon.checkbox
+            iconImageView.configure(
+                model: UIKitObjectIconImageView.Model(
+                    iconImage: objectIconImage,
+                    usecase: .openedObjectNavigationBar
+                )
+            )
         case .none:
             iconImageView.isHidden = true
         }
