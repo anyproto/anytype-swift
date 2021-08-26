@@ -5,9 +5,14 @@ struct WaitingOnCreatAccountView: View {
     
     var body: some View {
         VStack {
-            WaitingView(text: "Setting up the wallet…", showError: $viewModel.showError, errorText: $viewModel.error) {
-                viewModel.showWaitingView = false
-            }
+            WaitingView(
+                text: "Setting up the wallet…",
+                showError: $viewModel.showError,
+                errorText: $viewModel.error,
+                onErrorTap: {
+                    viewModel.showWaitingView = false
+                }
+            )
         }
         .onAppear {
             self.viewModel.createAccount()

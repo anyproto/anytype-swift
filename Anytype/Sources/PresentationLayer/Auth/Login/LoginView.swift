@@ -11,7 +11,6 @@ struct LoginView: View {
             keychainPhraseView.padding()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
     }
 
     private var keychainPhraseView: some View {

@@ -24,7 +24,6 @@ struct SelectProfileView: View {
             presentationMode.wrappedValue.dismiss()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
         .onAppear {
             viewModel.accountRecover()
         }
