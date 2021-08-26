@@ -10,23 +10,11 @@ import Foundation
 
 struct ObjectIconImageGuidelineSet {
     
-    private let basicImageGuideline: ImageGuideline?
-    private let profileImageGuideline: ImageGuideline?
-    private let emojiImageGuideline: ImageGuideline?
-    private let todoImageGuideline: ImageGuideline?
-    private let placeholderImageGuideline: ImageGuideline?
-    
-    init(basicImageGuideline: ImageGuideline?,
-         profileImageGuideline: ImageGuideline?,
-         emojiImageGuideline: ImageGuideline?,
-         todoImageGuideline: ImageGuideline?,
-         placeholderImageGuideline: ImageGuideline?) {
-        self.basicImageGuideline = basicImageGuideline
-        self.profileImageGuideline = profileImageGuideline
-        self.emojiImageGuideline = emojiImageGuideline
-        self.todoImageGuideline = todoImageGuideline
-        self.placeholderImageGuideline = placeholderImageGuideline
-    }
+    let basicImageGuideline: ImageGuideline?
+    let profileImageGuideline: ImageGuideline?
+    let emojiImageGuideline: ImageGuideline?
+    let todoImageGuideline: ImageGuideline?
+    let placeholderImageGuideline: ImageGuideline?
     
     func imageGuideline(for iconImage: ObjectIconImage) -> ImageGuideline? {
         switch iconImage {
