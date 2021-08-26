@@ -18,10 +18,45 @@ struct ObjectIconImageView: View {
     
     var body: some View {
         switch iconImage {
-        case .icon:
-            EmptyView()
+        case .icon(let type):
+            iconImage(type: type)
         case .todo(let isChecked):
             todoIconImage(isChecked: isChecked)
+        }
+    }
+    
+    private func iconImage(type: ObjectIconType) -> some View {
+        Group {
+            switch type {
+            case .basic(let id):
+                loadableIconImage(id: id)
+            case .profile(let profile):
+                profileIconImage(profile: profile)
+            case .emoji(let iconEmoji):
+                EmptyView()
+            }
+        }
+    }
+    
+    private func loadableIconImage(id: String) -> some View {
+        Group {
+            switch position.objectIconImageGuidelineSet.imageGuideline(for: iconImage) {
+            case .none:
+                EmptyView()
+            case .some(let imageGuideline):
+                kfImage(imageId: id, imageGuidline: imageGuideline)
+            }
+        }
+    }
+    
+    private func profileIconImage(profile: ObjectIconType.Profile) -> some View {
+        Group {
+            switch profile {
+            case .imageId(let id):
+                loadableIconImage(id: id)
+            case .character(let character):
+                EmptyView()
+            }
         }
     }
     
@@ -38,6 +73,21 @@ struct ObjectIconImageView: View {
                 EmptyView()
             }
         }
+    }
+    
+    private func kfImage(imageId: String, imageGuidline: ImageGuideline) -> KFImage {
+        KFImage.url(UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)))
+            .setProcessors([
+                ResizingImageProcessor(
+                    referenceSize: imageGuidline.size,
+                    mode: .aspectFill
+                ),
+                CroppingImageProcessor(size: imageGuidline.size),
+                RoundCornerImageProcessor(
+                    radius: .point(imageGuidline.cornersGuideline.radius),
+                    backgroundColor: imageGuidline.cornersGuideline.backgroundColor
+                )
+            ])
     }
     
 }
