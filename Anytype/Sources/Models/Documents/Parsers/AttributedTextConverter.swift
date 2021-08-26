@@ -7,7 +7,7 @@ enum AttributedTextConverter {
     
     static func asModel(text: String,
                         marks: Anytype_Model_Block.Content.Text.Marks,
-                        style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
+                        style: Anytype_Model_Block.Content.Text.Style) -> UIKitAnytypeText {
         // Map attributes to our internal format.
         var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markAction: MarkStyleAction)? in
             let middlewareTuple = MiddlewareTuple(
@@ -19,20 +19,10 @@ enum AttributedTextConverter {
             }
             return (RangeConverter.asModel(value.range), markValue)
         }
-        
-        // We have to set some font, because all styles `change` font attribute.
-        // Not the best place to set attribute, however, we don't have best place...
-        let string = NSMutableAttributedString(string: text)
-        let defaultFont = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .bodyRegular
-        let range = NSRange(location: 0, length: string.length)
-        
-        // Create modifier of an attributed string.
-        let modifier = MarkStyleModifier(
-            attributedText: string,
-            defaultNonCodeFont: defaultFont
-        )
-        modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
-        
+
+        let font = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .bodyRegular
+        let anytypeText = UIKitAnytypeText(text: text, style: font)
+
         // We need to separate mention marks from others
         // because mention not only adds attributes to attributed string
         // it will add 1 attachment for icon, so resulting string length will change
@@ -53,13 +43,13 @@ enum AttributedTextConverter {
         mentionMarks.sort { $0.range.location > $1.range.location }
         
         markAttributes.forEach { attribute in
-            modifier.apply(attribute.markAction, range: attribute.range)
+            anytypeText.apply(attribute.markAction, range: attribute.range)
         }
         mentionMarks.forEach {
-            modifier.apply($0.markAction, range: $0.range)
+            anytypeText.apply($0.markAction, range: $0.range)
         }
         
-        return modifier.attributedString
+        return anytypeText
     }
     
     static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareResult {
