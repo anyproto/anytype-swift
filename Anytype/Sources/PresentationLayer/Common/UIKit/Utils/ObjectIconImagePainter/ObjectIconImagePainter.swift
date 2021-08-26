@@ -13,8 +13,7 @@ final class ObjectIconImagePainter {
     
     static let shared = ObjectIconImagePainter()
     
-    // TODO: Create common imagecache
-    private let cache = NSCache<NSString, UIImage>()
+    private let imageStorage: ImageStorageProtocol = ImageStorage.shared
        
 }
 
@@ -23,7 +22,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
         
-        if let image = obtainImageFromCache(hash: hash) {
+        if let image = imageStorage.image(forKey: hash) {
             return image
         }
         
@@ -36,7 +35,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
                 backgroundColor: imageGuideline.cornersGuideline.backgroundColor?.cgColor
             )
         
-        saveImageToCache(modifiedImage, hash: hash)
+        imageStorage.saveImage(modifiedImage, forKey: hash)
         
         return modifiedImage
     }
@@ -55,18 +54,6 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
                 textColor: textColor
             )
         )
-    }
-    
-}
-
-private extension ObjectIconImagePainter {
-    
-    func obtainImageFromCache(hash: String) -> UIImage? {
-        cache.object(forKey: hash as NSString)
-    }
-
-    func saveImageToCache(_ image: UIImage, hash: String) {
-        cache.setObject(image, forKey: hash as NSString)
     }
     
 }
