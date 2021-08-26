@@ -23,8 +23,6 @@ final class TextBlockActionHandler {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
-        case let .changeTextForStruct(attributedText):
-            fallthrough
         case let .changeText(attributedText):
             handleChangeText(block, text: attributedText)
         case .changeTextStyle, .changeLink:

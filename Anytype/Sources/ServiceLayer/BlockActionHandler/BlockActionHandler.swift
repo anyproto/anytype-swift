@@ -102,16 +102,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     blockId: blockId,
                     completion: completion
                 )
-            case let .changeTextForStruct(attributedText):
-                textBlockActionHandler.handlingTextViewAction(blockModel, action)
-                completion.flatMap { completion in
-                    completion(
-                        PackOfEvents(
-                            middlewareEvents: [],
-                            localEvents: [.setText(blockId: blockId, text: attributedText.string)]
-                        )
-                    )    
-                }
             default:
                 textBlockActionHandler.handlingTextViewAction(blockModel, action)
             }
