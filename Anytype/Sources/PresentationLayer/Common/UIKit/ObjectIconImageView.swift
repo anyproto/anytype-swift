@@ -1,6 +1,6 @@
 //
-//  UIKitObjectIconImageView.swift
-//  UIKitObjectIconImageView
+//  ObjectIconImageView.swift
+//  ObjectIconImageView
 //
 //  Created by Konstantin Mordan on 26.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-// TODO: rename
-final class UIKitObjectIconImageView: UIView {
+final class ObjectIconImageView: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
     private let imageView = UIImageView()
@@ -31,7 +30,7 @@ final class UIKitObjectIconImageView: UIView {
 
 // MARK: - ConfigurableView
 
-extension UIKitObjectIconImageView: ConfigurableView {
+extension ObjectIconImageView: ConfigurableView {
     
     struct Model {
         let iconImage: ObjectIconImage
@@ -136,7 +135,7 @@ extension UIKitObjectIconImageView: ConfigurableView {
 
 // MARK: - Private extension
 
-private extension UIKitObjectIconImageView {
+private extension ObjectIconImageView {
     
     func setupView() {
         clipsToBounds = true
@@ -152,9 +151,9 @@ private extension UIKitObjectIconImageView {
     
 }
 
-// MARK: - Private `UIKitObjectIconImageView.Model` extension
+// MARK: - Private `ObjectIconImageView.Model` extension
 
-private extension UIKitObjectIconImageView.Model {
+private extension ObjectIconImageView.Model {
     
     var imageGuideline: ImageGuideline? {
         self.usecase.objectIconImageGuidelineSet.imageGuideline(

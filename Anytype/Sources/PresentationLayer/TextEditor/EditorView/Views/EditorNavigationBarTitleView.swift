@@ -13,7 +13,7 @@ final class EditorNavigationBarTitleView: UIView {
     
     private let stackView = UIStackView()
     
-    private let iconImageView = UIKitObjectIconImageView()
+    private let iconImageView = ObjectIconImageView()
     private let titleLabel = UILabel()
     
     init() {
@@ -42,7 +42,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case .some(let objectIconImage):
             iconImageView.isHidden = false
             iconImageView.configure(
-                model: UIKitObjectIconImageView.Model(
+                model: ObjectIconImageView.Model(
                     iconImage: objectIconImage,
                     usecase: .openedObjectNavigationBar
                 )
