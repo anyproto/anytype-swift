@@ -13,13 +13,13 @@ struct SwiftUIObjectIconImageView: UIViewRepresentable {
     let iconImage: ObjectIconImage
     let usecase: ObjectIconImageUsecase
     
-    func makeUIView(context: Context) -> UIKitObjectIconImageView {
-        UIKitObjectIconImageView()
+    func makeUIView(context: Context) -> ObjectIconImageView {
+        ObjectIconImageView()
     }
     
-    func updateUIView(_ uiView: UIKitObjectIconImageView, context: Context) {
+    func updateUIView(_ uiView: ObjectIconImageView, context: Context) {
         uiView.configure(
-            model: UIKitObjectIconImageView.Model(
+            model: ObjectIconImageView.Model(
                 iconImage: iconImage,
                 usecase: usecase
             )
