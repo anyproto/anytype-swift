@@ -14,7 +14,7 @@ struct ObjectIconImageView: View {
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
     
     let iconImage: ObjectIconImage
-    let position: ObjectIconImagePosition
+    let usecase: ObjectIconImageUsecase
     
     var body: some View {
         switch iconImage {
@@ -50,7 +50,7 @@ struct ObjectIconImageView: View {
     
     private func loadableIconImage(id: String) -> some View {
         Group {
-            switch position.objectIconImageGuidelineSet.imageGuideline(for: iconImage) {
+            switch usecase.objectIconImageGuidelineSet.imageGuideline(for: iconImage) {
             case .none:
                 EmptyView()
             case .some(let imageGuideline):
@@ -74,10 +74,10 @@ struct ObjectIconImageView: View {
     
     private func stringIconImage(_ string: String, textColor: UIColor, backgroundColor: UIColor) -> some View {
         Group {
-            let imageGuideline = position.objectIconImageGuidelineSet.imageGuideline(
+            let imageGuideline = usecase.objectIconImageGuidelineSet.imageGuideline(
                 for: iconImage
             )
-            let font = position.objectIconImageFontSet.imageFont(for: iconImage)
+            let font = usecase.objectIconImageFontSet.imageFont(for: iconImage)
             
             if let imageGuideline = imageGuideline, let font = font {
                 Image(
@@ -97,7 +97,7 @@ struct ObjectIconImageView: View {
     
     private func todoIconImage(isChecked: Bool) -> some View {
         Group {
-            if let imageGuideline = position.objectIconImageGuidelineSet.imageGuideline(for: iconImage) {
+            if let imageGuideline = usecase.objectIconImageGuidelineSet.imageGuideline(for: iconImage) {
                 Image(
                     uiImage: painter.todoImage(
                         isChecked: isChecked,
@@ -105,6 +105,7 @@ struct ObjectIconImageView: View {
                     )
                 )
             } else {
+                // todo: - assert?
                 EmptyView()
             }
         }
@@ -131,7 +132,7 @@ struct ObjectIconImageView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectIconImageView(
             iconImage: .todo(false),
-            position: .openedObject
+            usecase: .openedObject
         )
     }
 }

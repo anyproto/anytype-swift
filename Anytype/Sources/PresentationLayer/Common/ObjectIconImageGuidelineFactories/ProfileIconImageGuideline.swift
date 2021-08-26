@@ -1,6 +1,6 @@
 //
-//  ProfileObjectIconImageGuidelineFactory.swift
-//  ProfileObjectIconImageGuidelineFactory
+//  ProfileIconImageGuideline.swift
+//  ProfileIconImageGuideline
 //
 //  Created by Konstantin Mordan on 25.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum ProfileObjectIconImageGuidelineFactory {
+enum ProfileIconImageGuideline {
     
     static let x112 = ImageGuideline(
         size: CGSize(width: 112, height: 112),

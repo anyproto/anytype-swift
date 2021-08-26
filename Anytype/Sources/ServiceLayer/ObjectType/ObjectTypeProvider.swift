@@ -17,6 +17,7 @@ protocol ObjectTypeProviderProtocol {
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     static let pageObjectURL = "_otpage"
+    static let myProfileURL = "_otprofile"
     
     // https://airtable.com/tblTjKSGFBqA0UYeL/viwi3waIIrz4Wktrh?blocks=hide
     static var supportedTypeUrls: [String] {

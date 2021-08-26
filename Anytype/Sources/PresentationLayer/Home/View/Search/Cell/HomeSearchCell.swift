@@ -41,7 +41,7 @@ struct HomeSearchCell: View {
         HStack(alignment: .center, spacing: 12) {
             ObjectIconImageView(
                 iconImage: data.icon,
-                position: .dashboardSearch
+                usecase: .dashboardSearch
             ).frame(width: 48, height: 48)
             text
         }
