@@ -22,35 +22,35 @@ extension ObjectIconImageUsecase {
         switch self {
         case .openedObject:
             return ObjectIconImageGuidelineSet(
-                basicImageGuideline: BasicObjectIconImageGuidelineFactory.x96,
-                profileImageGuideline: ProfileObjectIconImageGuidelineFactory.x112,
-                emojiImageGuideline: EmojiObjectIconImageGuidelineFactory.x80,
-                todoImageGuideline: TodoObjectIconImageGuidelineFactory.x28,
+                basicImageGuideline: BasicIconImageGuideline.x96,
+                profileImageGuideline: ProfileIconImageGuideline.x112,
+                emojiImageGuideline: EmojiIconImageGuideline.x80,
+                todoImageGuideline: TodoIconImageGuideline.x28,
                 placeholderImageGuideline: nil
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
-                basicImageGuideline: BasicObjectIconImageGuidelineFactory.x48,
-                profileImageGuideline: ProfileObjectIconImageGuidelineFactory.x48,
-                emojiImageGuideline: EmojiObjectIconImageGuidelineFactory.x48,
-                todoImageGuideline: TodoObjectIconImageGuidelineFactory.x18,
+                basicImageGuideline: BasicIconImageGuideline.x48,
+                profileImageGuideline: ProfileIconImageGuideline.x48,
+                emojiImageGuideline: EmojiIconImageGuideline.x48,
+                todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil
             )
         case .dashboardProfile:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: nil,
-                profileImageGuideline: ProfileObjectIconImageGuidelineFactory.x80,
+                profileImageGuideline: ProfileIconImageGuideline.x80,
                 emojiImageGuideline: nil,
                 todoImageGuideline: nil,
                 placeholderImageGuideline: nil
             )
         case .dashboardSearch:
             return ObjectIconImageGuidelineSet(
-                basicImageGuideline: BasicObjectIconImageGuidelineFactory.x48,
-                profileImageGuideline: ProfileObjectIconImageGuidelineFactory.x48,
-                emojiImageGuideline: EmojiObjectIconImageGuidelineFactory.x48,
-                todoImageGuideline: TodoObjectIconImageGuidelineFactory.x18,
-                placeholderImageGuideline: PlaceholderObjectIconImageGuidelineFactory.x48
+                basicImageGuideline: BasicIconImageGuideline.x48,
+                profileImageGuideline: ProfileIconImageGuideline.x48,
+                emojiImageGuideline: EmojiIconImageGuideline.x48,
+                todoImageGuideline: TodoIconImageGuideline.x18,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x48
             )
         }
     }

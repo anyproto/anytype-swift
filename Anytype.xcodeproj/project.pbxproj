@@ -226,13 +226,13 @@
 		12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF32226D53878001E56B2 /* ObjectIconImagePainterProtocol.swift */; };
 		12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF33D26D63473001E56B2 /* ObjectIconImage.swift */; };
 		12CAF34326D6359B001E56B2 /* ObjectIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34226D6359B001E56B2 /* ObjectIconImageView.swift */; };
-		12CAF34826D64231001E56B2 /* BasicObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34726D64231001E56B2 /* BasicObjectIconImageGuidelineFactory.swift */; };
-		12CAF34A26D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34926D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift */; };
-		12CAF34C26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */; };
-		12CAF34E26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */; };
+		12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34726D64231001E56B2 /* BasicIconImageGuideline.swift */; };
+		12CAF34A26D643C0001E56B2 /* ProfileIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34926D643C0001E56B2 /* ProfileIconImageGuideline.swift */; };
+		12CAF34C26D643F7001E56B2 /* EmojiIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34B26D643F7001E56B2 /* EmojiIconImageGuideline.swift */; };
+		12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF34D26D64440001E56B2 /* TodoIconImageGuideline.swift */; };
 		12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */; };
 		12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */; };
-		12CAF36026D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35F26D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift */; };
+		12CAF36026D69F31001E56B2 /* PlaceholderIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF35F26D69F31001E56B2 /* PlaceholderIconImageGuideline.swift */; };
 		12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF36F26D6A9B0001E56B2 /* ImageStorage.swift */; };
 		12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CAF37126D6A9E3001E56B2 /* ImageStorageProtocol.swift */; };
 		12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */; };
@@ -868,13 +868,13 @@
 		12CAF32226D53878001E56B2 /* ObjectIconImagePainterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImagePainterProtocol.swift; sourceTree = "<group>"; };
 		12CAF33D26D63473001E56B2 /* ObjectIconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImage.swift; sourceTree = "<group>"; };
 		12CAF34226D6359B001E56B2 /* ObjectIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageView.swift; sourceTree = "<group>"; };
-		12CAF34726D64231001E56B2 /* BasicObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
-		12CAF34926D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
-		12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
-		12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
+		12CAF34726D64231001E56B2 /* BasicIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicIconImageGuideline.swift; sourceTree = "<group>"; };
+		12CAF34926D643C0001E56B2 /* ProfileIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIconImageGuideline.swift; sourceTree = "<group>"; };
+		12CAF34B26D643F7001E56B2 /* EmojiIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiIconImageGuideline.swift; sourceTree = "<group>"; };
+		12CAF34D26D64440001E56B2 /* TodoIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoIconImageGuideline.swift; sourceTree = "<group>"; };
 		12CAF35B26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageGuidelineSet.swift; sourceTree = "<group>"; };
 		12CAF35D26D67540001E56B2 /* ObjectIconImageFontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageFontSet.swift; sourceTree = "<group>"; };
-		12CAF35F26D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderObjectIconImageGuidelineFactory.swift; sourceTree = "<group>"; };
+		12CAF35F26D69F31001E56B2 /* PlaceholderIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderIconImageGuideline.swift; sourceTree = "<group>"; };
 		12CAF36F26D6A9B0001E56B2 /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		12CAF37126D6A9E3001E56B2 /* ImageStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageProtocol.swift; sourceTree = "<group>"; };
 		12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectBasicIconPicker.swift; sourceTree = "<group>"; };
@@ -2338,11 +2338,11 @@
 		12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */ = {
 			isa = PBXGroup;
 			children = (
-				12CAF34726D64231001E56B2 /* BasicObjectIconImageGuidelineFactory.swift */,
-				12CAF34926D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift */,
-				12CAF34B26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift */,
-				12CAF34D26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift */,
-				12CAF35F26D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift */,
+				12CAF34726D64231001E56B2 /* BasicIconImageGuideline.swift */,
+				12CAF34926D643C0001E56B2 /* ProfileIconImageGuideline.swift */,
+				12CAF34B26D643F7001E56B2 /* EmojiIconImageGuideline.swift */,
+				12CAF34D26D64440001E56B2 /* TodoIconImageGuideline.swift */,
+				12CAF35F26D69F31001E56B2 /* PlaceholderIconImageGuideline.swift */,
 			);
 			path = ObjectIconImageGuidelineFactories;
 			sourceTree = "<group>";
@@ -4178,7 +4178,7 @@
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* RangeConverter.swift in Sources */,
-				12CAF34826D64231001E56B2 /* BasicObjectIconImageGuidelineFactory.swift in Sources */,
+				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
 				3D471E4026C6A5A000457DE5 /* HomeSearchCell.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				3DEFD671268A32D70072EA27 /* EditorActionHandler.swift in Sources */,
@@ -4305,13 +4305,13 @@
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				EA7DE40426397D40005AFEE2 /* SlashMenuActionsFilterEntry.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
-				12CAF36026D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift in Sources */,
+				12CAF36026D69F31001E56B2 /* PlaceholderIconImageGuideline.swift in Sources */,
 				12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,
 				123FDACC26C132E700F6F44B /* ObjectHeaderIconOnlyContentView.swift in Sources */,
 				123FDB0226C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift in Sources */,
-				12CAF34A26D643C0001E56B2 /* ProfileObjectIconImageGuidelineFactory.swift in Sources */,
+				12CAF34A26D643C0001E56B2 /* ProfileIconImageGuideline.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
@@ -4352,7 +4352,7 @@
 				0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */,
-				12CAF34C26D643F7001E56B2 /* EmojiObjectIconImageGuidelineFactory.swift in Sources */,
+				12CAF34C26D643F7001E56B2 /* EmojiIconImageGuideline.swift in Sources */,
 				3D0BCACF26665794002F7A0D /* HomeCellDataBuilder.swift in Sources */,
 				3DD67E9C2652705A0025ED6F /* EditorSelectionIncomingEvent.swift in Sources */,
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
@@ -4504,7 +4504,7 @@
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				0A08D4C224AF822C0088ECC2 /* CommonViewsNamespace.swift in Sources */,
-				12CAF34E26D64440001E56B2 /* TodoObjectIconImageGuidelineFactory.swift in Sources */,
+				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
