@@ -50,7 +50,7 @@ struct HomeCell: View {
         HStack(alignment: .top, spacing: 6) {
             ObjectIconImageView(
                 iconImage: .todo(isChecked),
-                position: .dashboardList
+                usecase: .dashboardList
             )
             defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
         }
@@ -77,7 +77,7 @@ struct HomeCell: View {
                 case .some(let icon):
                     ObjectIconImageView(
                         iconImage: .icon(icon),
-                        position: .dashboardList
+                        usecase: .dashboardList
                     )
                 case .none:
                     EmptyView()

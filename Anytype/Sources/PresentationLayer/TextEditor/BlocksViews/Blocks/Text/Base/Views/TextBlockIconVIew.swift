@@ -41,7 +41,7 @@ final class TextBlockIconView: UIView {
         switch type {
         case let .titleCheckbox(isSelected):
             let painer = ObjectIconImagePainter.shared
-            let imageGuideline = ObjectIconImagePosition.openedObject.objectIconImageGuidelineSet.todoImageGuideline
+            let imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.todoImageGuideline
             
             let uncheckedImage: UIImage? = imageGuideline.flatMap {
                 painer.todoImage(isChecked: false, imageGuideline: $0)

@@ -1,6 +1,6 @@
 //
-//  ObjectIconImagePosition.swift
-//  ObjectIconImagePosition
+//  ObjectIconImageUsecase.swift
+//  ObjectIconImageUsecase
 //
 //  Created by Konstantin Mordan on 19.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-enum ObjectIconImagePosition {
+enum ObjectIconImageUsecase {
     case openedObject
     case dashboardList
     case dashboardProfile
     case dashboardSearch
 }
 
-extension ObjectIconImagePosition {
+extension ObjectIconImageUsecase {
     
     var objectIconImageGuidelineSet: ObjectIconImageGuidelineSet {
         switch self {
