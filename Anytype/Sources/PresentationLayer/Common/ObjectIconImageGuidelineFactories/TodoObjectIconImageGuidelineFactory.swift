@@ -13,14 +13,12 @@ enum TodoObjectIconImageGuidelineFactory {
     
     static let x28 = ImageGuideline(
         size: CGSize(width: 28, height: 28),
-        cornerRadius: 7,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 7
     )
     
     static let x18 = ImageGuideline(
         size: CGSize(width: 18, height: 18),
-        cornerRadius: 4,
-        backgroundColor: UIColor.grayscaleWhite
+        cornerRadius: 4
     )
     
 }
