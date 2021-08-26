@@ -40,17 +40,31 @@ final class TextBlockIconView: UIView {
     private func addContentView() {
         switch type {
         case let .titleCheckbox(isSelected):
+            let painer = ObjectIconImagePainter.shared
+            let imageGuideline = ObjectIconImagePosition.openedObject.objectIconImageGuidelineSet.todoImageGuideline
+            
+            let uncheckedImage: UIImage? = imageGuideline.flatMap {
+                painer.todoImage(isChecked: false, imageGuideline: $0)
+            }
+            let checkedImage: UIImage? = imageGuideline.flatMap {
+                painer.todoImage(isChecked: true, imageGuideline: $0)
+            }
+            
             currentView = createCheckboxView(
                 isSelected: isSelected,
-                uncheckedImageName: Constants.TitleCheckbox.uncheckedImageName,
-                checkedImageName: Constants.TitleCheckbox.checkedImageName,
+                uncheckedImage: uncheckedImage,
+                checkedImage: checkedImage,
                 imageSize: Constants.TitleCheckbox.imageSize
             )
         case let .checkbox(isSelected):
             currentView = createCheckboxView(
                 isSelected: isSelected,
-                uncheckedImageName: Constants.Checkbox.uncheckedImageName,
-                checkedImageName: Constants.Checkbox.checkedImageName,
+                uncheckedImage: UIImage(
+                    imageLiteralResourceName: Constants.Checkbox.uncheckedImageName
+                ),
+                checkedImage: UIImage(
+                    imageLiteralResourceName: Constants.Checkbox.checkedImageName
+                ),
                 imageSize: Constants.Checkbox.imageSize
             )
         case let .numbered(number):
@@ -101,13 +115,13 @@ extension TextBlockIconView {
 
     private func createCheckboxView(
         isSelected: Bool,
-        uncheckedImageName: String,
-        checkedImageName: String,
+        uncheckedImage: UIImage?,
+        checkedImage: UIImage?,
         imageSize: CGSize
     ) -> UIButton {
         let checkboxView = UIButton()
-        checkboxView.setImage(.init(imageLiteralResourceName: uncheckedImageName), for: .normal)
-        checkboxView.setImage(.init(imageLiteralResourceName: checkedImageName), for: .selected)
+        checkboxView.setImage(uncheckedImage, for: .normal)
+        checkboxView.setImage(checkedImage, for: .selected)
         checkboxView.contentMode = .center
         checkboxView.isSelected = isSelected
         checkboxView.addAction(
