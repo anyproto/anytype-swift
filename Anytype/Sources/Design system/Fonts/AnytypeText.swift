@@ -7,7 +7,9 @@ struct AnytypeText: View {
     init(_ text: String, style: AnytypeFontBuilder.TextStyle) {
         let spacing = AnytypeFontBuilder.lineSpacing(style)
         
-        textView = Self.buildText(text, style: style).modifier(OptionalLineSpacingModifier(spacing: spacing)).eraseToAnyView()
+        textView = Self.buildText(text, style: style)
+            .modifier(OptionalLineSpacingModifier(spacing: spacing))
+            .eraseToAnyView()
     }
     
     init(

@@ -33,14 +33,14 @@ struct MainAuthView: View {
     
     private var bottomSheet: some View {
         VStack(alignment: .leading) {
-            VStack {
+            VStack(alignment: .leading) {
                 AnytypeText("Welcome to Anytype", style: .heading)
-                    .padding(.bottom)
+                    .padding(.bottom, 11)
                 AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular)
                     .lineSpacing(7)
             }.padding(20)
             
-            HStack(spacing: 12) {
+            HStack(spacing: 10) {
                 StandardButton(text: "Sign up", style: .secondary) {
                     viewModel.singUp()
                 }
@@ -52,10 +52,10 @@ struct MainAuthView: View {
                 }
             }
             .padding([.leading, .trailing], 20)
-            .padding(.bottom, 16)
+            .padding(.bottom, 10)
         }
         .background(Color.background)
-        .cornerRadius(12.0)
+        .cornerRadius(16.0)
         .padding(20)
     }
     
