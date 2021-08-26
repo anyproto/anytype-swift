@@ -90,7 +90,7 @@ extension ObjectIconImageUsecase {
                 ),
                 emojiImageFont: AnytypeFontBuilder.uiKitFont(
                     name: .inter,
-                    size: 18,
+                    size: 14,
                     weight: .regular
                 ),
                 placeholderImageFont: nil

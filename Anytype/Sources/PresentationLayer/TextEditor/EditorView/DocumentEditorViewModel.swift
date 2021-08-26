@@ -83,8 +83,8 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
         let header = headerBuilder.objectHeaderForLocalEvent(details: modelsHolder.details, event: event)
         
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
         viewInput?.configureNavigationBar(using: header, details: modelsHolder.details)
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -187,9 +187,8 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     func updateView() {
         let details = modelsHolder.details
         let header = headerBuilder.objectHeader(details: details)
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
         viewInput?.configureNavigationBar(using: header, details: details)
-        
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
     }
 }
 
