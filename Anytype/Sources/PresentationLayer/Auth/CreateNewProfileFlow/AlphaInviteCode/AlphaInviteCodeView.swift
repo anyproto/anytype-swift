@@ -46,7 +46,9 @@ struct AlphaInviteCodeView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-            .padding()
+            .padding(.top, 23)
+            .padding(.horizontal, 14)
+            .padding(.bottom, 10)
             .background(Color.background)
             .cornerRadius(16.0)
         }

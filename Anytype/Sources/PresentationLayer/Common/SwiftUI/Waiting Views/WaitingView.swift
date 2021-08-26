@@ -12,48 +12,71 @@ struct WaitingView: View {
     var body: some View {
         ZStack {
             Gradients.authBackground()
-            VStack(alignment: .leading) {
+            VStack() {
                 Spacer()
-                
-                VStack(alignment: .leading, spacing: 16) {
-                    if !showError {
-                        Image("clock")
-                            .background(Circle().fill(Color.background)
-                                .frame(width: 64, height: 64)
-                        )
-                            .frame(width: 64, height: 64)
-                            .animation(.default)
-                            .transition(.scale)
-                    } else {
-                        AnytypeText("Failed", style: .title)
-                            .foregroundColor(.pureRed)
-                            .padding(.bottom, 5)
-                            .transition(.opacity)
-                    }
-                    
-                    AnytypeText(text, style: .heading)
-                    
+                VStack(spacing: 16) {
                     if showError {
-                        AnytypeText(errorText, style: .heading)
-                            .padding(.top, -10)
-                            .transition(.opacity)
-                        
-                        StandardButton(disabled: false, text: "Ok", style: .secondary) {
-                            presentationMode.wrappedValue.dismiss()
-                            onErrorTap()
-                        }
-                        .transition(.opacity)
+                        errorView
+                    } else {
+                        loadingAnimation.padding(.top, 16)
+                        AnytypeText(text, style: .heading)
                     }
                 }
                 .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity)
                 .background(Color.background)
-                .cornerRadius(12.0)
+                .cornerRadius(16.0)
             }
             .padding(20)
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
+    }
+    
+    private var errorView: some View {
+        Group {
+            AnytypeText(errorText, style: .heading)
+                .padding(.top, -10)
+                .transition(.opacity)
+            
+            StandardButton(disabled: false, text: "Ok", style: .secondary) {
+                presentationMode.wrappedValue.dismiss()
+                onErrorTap()
+            }
+            .transition(.opacity)
+        }
+    }
+    
+    @State private var shouldAnimate = false
+    private var loadingAnimation: some View {
+        HStack(alignment: .center) {
+            Circle()
+                .fill(shouldAnimate ? Color.stroke : Color.grayscale10)
+                .frame(width: 20, height: 20)
+                .scaleEffect(shouldAnimate ? 1.0 : 0.5)
+                .animation(
+                    Animation.easeInOut(duration: 0.5).repeatForever(),
+                    value: shouldAnimate
+                )
+            Circle()
+                .fill(shouldAnimate ? Color.stroke : Color.grayscale10)
+                .frame(width: 20, height: 20)
+                .scaleEffect(shouldAnimate ? 1.0 : 0.5)
+                .animation(
+                    Animation.easeInOut(duration: 0.5).repeatForever().delay(0.3),
+                    value: shouldAnimate
+                )
+            Circle()
+                .fill(shouldAnimate ? Color.stroke : Color.grayscale10)
+                .frame(width: 20, height: 20)
+                .scaleEffect(shouldAnimate ? 1.0 : 0.5)
+                .animation(
+                    Animation.easeInOut(duration: 0.5).repeatForever().delay(0.6),
+                    value: shouldAnimate
+                )
+        }
+        .onAppear {
+            shouldAnimate = true
+        }
     }
 }
 

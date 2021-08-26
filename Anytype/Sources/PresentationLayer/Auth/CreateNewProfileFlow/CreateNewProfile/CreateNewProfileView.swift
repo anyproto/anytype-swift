@@ -18,7 +18,6 @@ struct CreateNewProfileView: View {
                 .padding()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
     }
     
     private var contentView: some View {
