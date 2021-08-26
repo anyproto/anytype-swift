@@ -33,7 +33,7 @@ final class EditorAccessoryViewActionHandler {
         switch action {
         case .slashMenu:
             customTextView.textView.insertStringToAttributedString(
-                switcher.textToTriggerActionsViewDisplay
+                switcher.textToTriggerSlashViewDisplay
             )
             switcher.showSlashMenuView(textView: customTextView.textView)
         case .multiActionMenu:

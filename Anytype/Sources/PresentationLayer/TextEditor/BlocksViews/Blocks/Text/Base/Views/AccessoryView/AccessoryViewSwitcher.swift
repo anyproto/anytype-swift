@@ -22,7 +22,7 @@ final class AccessoryViewSwitcher {
         static let displayActionsViewDelay: TimeInterval = 0.3
     }
     
-    let textToTriggerActionsViewDisplay = "/"
+    let textToTriggerSlashViewDisplay = "/"
     let textToTriggerMentionViewDisplay = "@"
     
     private var displayAcessoryViewTask: DispatchWorkItem?
@@ -33,6 +33,7 @@ final class AccessoryViewSwitcher {
     var slashMenuView: SlashMenuView
     private weak var textView: UITextView?
     private weak var delegate: AccessoryViewSwitcherDelegate?
+    private var latestTextViewTextChange: TextViewTextChangeType?
     
     init(textView: UITextView,
          delegate: AccessoryViewSwitcherDelegate,
@@ -46,7 +47,7 @@ final class AccessoryViewSwitcher {
         self.mentionsView = mentionsView
     }
 
-    // MARK: - AccessoryViewSwitcherProtocol
+    // MARK: - Public methods
 
     func didBeginEditing(textView: UITextView) {
         self.textView = textView
@@ -59,19 +60,29 @@ final class AccessoryViewSwitcher {
             }
         }
 
-        self.mentionsView.dismissHandler = dismissActionsMenu
-        self.slashMenuView.dismissHandler = dismissActionsMenu
+        mentionsView.dismissHandler = dismissActionsMenu
+        slashMenuView.dismissHandler = dismissActionsMenu
 
         textView.inputAccessoryView = editingView
     }
 
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange) {
-        let textChangeType = textView.textChangeType(changeTextRange: range, replacementText: replacementText)
-        updateDisplayedAccessoryViewState(textView: textView, textChangeType: textChangeType, replacementText: replacementText)
+        latestTextViewTextChange = textView.textChangeType(
+            changeTextRange: range,
+            replacementText: replacementText
+        )
     }
 
     func textDidChange(textView: UITextView) {
-        showEditingBars(textView: textView)
+        displayAcessoryViewTask?.cancel()
+        switch latestTextViewTextChange {
+        case .none:
+            return
+        case .deletingSymbols:
+            handleSymbolsDeleted(in: textView)
+        case .typingSymbols:
+            handleSymbolsTyped(in: textView)
+        }
     }
 
     func selectionDidChange(textView: UITextView) {}
@@ -93,23 +104,6 @@ final class AccessoryViewSwitcher {
         } else {
             slashMenuView.isHidden = true
         }
-    }
-    
-    func cleanupDisplayedView() {
-        displayedView = nil
-        accessoryViewTriggerSymbolPosition = nil
-    }
-    
-    func showEditingBars(textView: UITextView) {
-        let accessoryView = variantsFromState(
-            textView: textView,
-            accessoryView: textView.inputAccessoryView
-        )
-        switchInputs(
-            animated: false,
-            textView: textView,
-            accessoryView: accessoryView
-        )
     }
     
     func showMentionsView(textView: UITextView) {
@@ -140,7 +134,20 @@ final class AccessoryViewSwitcher {
         cleanupDisplayedView()
     }
     
-    // MARK: - Private
+    // MARK: - Private methods
+    
+    private func showEditingBars(textView: UITextView) {
+        switchInputs(
+            animated: false,
+            textView: textView,
+            accessoryView: editingView
+        )
+    }
+    
+    private func cleanupDisplayedView() {
+        displayedView = nil
+        accessoryViewTriggerSymbolPosition = nil
+    }
     
     private func showAccessoryView(
         accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
@@ -178,66 +185,10 @@ final class AccessoryViewSwitcher {
         }
     }
     
-    private func variantsFromState(
-        textView: UITextView,
-        accessoryView: UIView?
-    ) -> UIView? {
-        if shouldContinueToDisplayAccessoryView(textView: textView) {
-            return accessoryView
-        } else {
-            cleanupDisplayedView()
-        }
-        return self.editingView
-    }
-    
-    // We do want to continue displaying menu view or mention view
-    // if current caret position more far from begining
-    // then / or @ symbol and if menu view displays any items(not empty)
-    private func shouldContinueToDisplayAccessoryView(textView: UITextView) -> Bool {
-        guard let accessoryView = displayedView,
-              !accessoryView.window.isNil,
-              let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
-              let caretPosition = textView.caretPosition(),
-              textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
-              accessoryView.shouldContinueToDisplayView() else { return false }
-        return true
-    }
-    
-    private func updateDisplayedAccessoryViewState(textView: UITextView,
-                                                   textChangeType: TextViewTextChangeType,
-                                                   replacementText: String) {
-        displayAcessoryViewTask?.cancel()
-        // We want do to display actions menu in case
-        // text was changed - "text" -> "text/"
-        // but do not want to display in case
-        // "text/a" -> "text/"
-        guard let caretPosition = textView.caretPosition() else { return }
-
-        if let accessoryView = displayedView,
-           !accessoryView.window.isNil,
-           let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
-           let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) {
-            accessoryView.setFilterText(filterText: textView.text(in: range) ?? "")
-            return
-        }
-        
-        guard textChangeType != .deletingSymbols else { return }
-
-        if replacementText == textToTriggerActionsViewDisplay, !slashMenuView.isHidden {
-            createDelayedAcessoryViewTask(
-                accessoryView: slashMenuView,
-                textView: textView
-            )
-        } else if replacementText == textToTriggerMentionViewDisplay {
-            createDelayedAcessoryViewTask(
-                accessoryView: mentionsView,
-                textView: textView
-            )
-        }
-    }
-    
-    private func createDelayedAcessoryViewTask(accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
-                                             textView: UITextView) {
+    private func createDelayedAcessoryViewTask(
+        accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
+        textView: UITextView
+    ) {
         let task = DispatchWorkItem(block: { [weak self] in
             self?.showAccessoryView(
                 accessoryView: accessoryView,
@@ -246,6 +197,72 @@ final class AccessoryViewSwitcher {
         })
         displayAcessoryViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)
+    }
+    
+    private func isFilterableViewCurrentlyVisible() -> Bool {
+        guard let accessoryView = displayedView,
+              !accessoryView.window.isNil else {
+            return false
+        }
+        return true
+    }
+    
+    private func filterText(from textView: UITextView) -> String? {
+        guard let caretPosition = textView.caretPosition(),
+              let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
+              let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) else {
+            return nil
+        }
+        return textView.text(in: range)
+    }
+    
+    private func dismissDisplayedViewIfNeeded(textView: UITextView) {
+        if displayedView?.shouldContinueToDisplayView() == false {
+            cleanupDisplayedView()
+            showEditingBars(textView: textView)
+            return
+        }
+        guard let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
+              let caretPosition = textView.caretPosition(),
+              textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending else {
+            return
+        }
+        cleanupDisplayedView()
+        showEditingBars(textView: textView)
+    }
+    
+    private func setFilterTextToView(in textView: UITextView) {
+        guard let filterText = filterText(from: textView) else { return }
+        displayedView?.setFilterText(filterText: filterText)
+        dismissDisplayedViewIfNeeded(textView: textView)
+    }
+    
+    private func displayFilterableViewIfNeeded(textView: UITextView) {
+        guard let textBeforeCaret = textView.textBeforeCaret() else { return }
+        if textBeforeCaret.hasSuffix(textToTriggerSlashViewDisplay) {
+            createDelayedAcessoryViewTask(
+                accessoryView: slashMenuView,
+                textView: textView
+            )
+        } else if textBeforeCaret.hasSuffix(textToTriggerMentionViewDisplay) {
+            createDelayedAcessoryViewTask(
+                accessoryView: mentionsView,
+                textView: textView
+            )
+        }
+    }
+    
+    private func handleSymbolsTyped(in textView: UITextView) {
+        if isFilterableViewCurrentlyVisible() {
+            setFilterTextToView(in: textView)
+        } else {
+            displayFilterableViewIfNeeded(textView: textView)
+        }
+    }
+    
+    private func handleSymbolsDeleted(in textView: UITextView) {
+        guard isFilterableViewCurrentlyVisible() else { return }
+        setFilterTextToView(in: textView)
     }
 }
 
