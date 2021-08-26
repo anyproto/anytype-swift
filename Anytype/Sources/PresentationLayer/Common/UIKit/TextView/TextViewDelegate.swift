@@ -37,7 +37,6 @@ extension CustomTextView {
         case showStyleMenu
 
         case changeText(NSAttributedString)
-        case changeTextForStruct(NSAttributedString)
         case changeTextStyle(BlockHandlerActionType.TextAttributesType, NSRange)
         case changeLink(NSRange)
 
