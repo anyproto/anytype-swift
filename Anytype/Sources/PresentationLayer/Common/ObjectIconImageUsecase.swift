@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 
+//@see https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=123%3A981
 enum ObjectIconImageUsecase {
     case openedObject
+    case openedObjectNavigationBar
     case dashboardList
     case dashboardProfile
     case dashboardSearch
@@ -26,6 +28,14 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x112,
                 emojiImageGuideline: EmojiIconImageGuideline.x80,
                 todoImageGuideline: TodoIconImageGuideline.x28,
+                placeholderImageGuideline: nil
+            )
+        case .openedObjectNavigationBar:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x18,
+                profileImageGuideline: ProfileIconImageGuideline.x18,
+                emojiImageGuideline: EmojiIconImageGuideline.x18,
+                todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil
             )
         case .dashboardList:
@@ -67,6 +77,20 @@ extension ObjectIconImageUsecase {
                 emojiImageFont: AnytypeFontBuilder.uiKitFont(
                     name: .inter,
                     size: 72,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil
+            )
+        case .openedObjectNavigationBar:
+            return ObjectIconImageFontSet(
+                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 11,
+                    weight: .regular
+                ),
+                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 18,
                     weight: .regular
                 ),
                 placeholderImageFont: nil
