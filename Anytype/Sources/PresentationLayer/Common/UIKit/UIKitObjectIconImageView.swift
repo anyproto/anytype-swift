@@ -82,7 +82,7 @@ extension UIKitObjectIconImageView: ConfigurableView {
                 model: model,
                 string: iconEmoji.value,
                 textColor: UIColor.grayscaleWhite,
-                backgroundColor: UIColor.grayscale10
+                backgroundColor: model.usecase == .openedObjectNavigationBar ? .clear : UIColor.grayscale10
             )
         }
     }

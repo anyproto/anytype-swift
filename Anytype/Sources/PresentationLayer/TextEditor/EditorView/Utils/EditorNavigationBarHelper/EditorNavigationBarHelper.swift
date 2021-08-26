@@ -75,7 +75,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         contentOffsetObservation = nil
     }
     
-    func configureNavigationBarUsing(header: ObjectHeader, titleBlockText: BlockText?) {
+    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
         isObjectHeaderWithCover = header.isWithCover
         objectHeaderHeight = header.height
         
@@ -83,8 +83,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         
         let title: String = {
             guard
-                let string = titleBlockText?.attributedText.string,
-                !string.isEmpty
+                let string = details?.name, !string.isEmpty
             else {
                 return "Untitled".localized
             }
@@ -94,11 +93,10 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         
         navigationBarTitleView.configure(
             model: EditorNavigationBarTitleView.Model(
-                icon: nil,
+                icon: details?.iconImage,
                 title: title
             )
         )
-        
     }
     
 }

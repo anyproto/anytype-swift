@@ -16,6 +16,6 @@ protocol EditorNavigationBarHelperProtocol {
     func handleViewWillAppear(_ vc: UIViewController?, _ scrollView: UIScrollView)
     func handleViewWillDisappear()
     
-    func configureNavigationBarUsing(header: ObjectHeader, titleBlockText: BlockText?)
+    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?)
     
 }

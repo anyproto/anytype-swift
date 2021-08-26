@@ -71,7 +71,19 @@ extension DetailsDataProtocol {
                 DocumentCover.imageId($0)
             }
         }
-    }    
+    }
+    
+    var iconImage: ObjectIconImage? {
+        if let icon = icon {
+            return .icon(icon)
+        }
+        
+        if let layout = layout, layout == .todo {
+            return .todo(done ?? false)
+        }
+        
+        return nil
+    }
 }
 
 private enum Constants {
