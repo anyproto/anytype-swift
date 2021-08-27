@@ -55,6 +55,18 @@ extension UITextView {
         }
         return .typingSymbols
     }
+    
+    func textBeforeCaret() -> String? {
+        guard let caretPosition = caretPosition(),
+              let range = textRange(
+                from: beginningOfDocument,
+                to: caretPosition
+              )
+        else {
+            return nil
+        }
+        return text(in: range)
+    }
 }
 
 extension UITextView: TextViewManagingFocus {
