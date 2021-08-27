@@ -275,6 +275,7 @@
 		3D29AFFD26A606360095BA18 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFFC26A606360095BA18 /* URLInputViewController.swift */; };
 		3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */; };
 		3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */; };
+		3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */; };
 		3D36B09726A6DE1C0046C90F /* ContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B09626A6DE1C0046C90F /* ContextualMenu.swift */; };
 		3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B09926A6DE250046C90F /* ContextualMenu+Title.swift */; };
 		3D36B09D26A6DE250046C90F /* ContextualMenu+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B09A26A6DE250046C90F /* ContextualMenu+Image.swift */; };
@@ -913,6 +914,7 @@
 		3D29AFFC26A606360095BA18 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
 		3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageContentView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageContentView.swift; sourceTree = SOURCE_ROOT; };
+		3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		3D36B09626A6DE1C0046C90F /* ContextualMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContextualMenu.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/ContextualMenu/ContextualMenu.swift; sourceTree = SOURCE_ROOT; };
 		3D36B09926A6DE250046C90F /* ContextualMenu+Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContextualMenu+Title.swift"; sourceTree = "<group>"; };
 		3D36B09A26A6DE250046C90F /* ContextualMenu+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContextualMenu+Image.swift"; sourceTree = "<group>"; };
@@ -1425,6 +1427,7 @@
 				03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */,
 				03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */,
 				032E00112395D0C300620E1A /* WaitingView.swift */,
+				3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */,
 			);
 			path = "Waiting Views";
 			sourceTree = "<group>";
@@ -4286,6 +4289,7 @@
 				12CAF36026D69F31001E56B2 /* PlaceholderObjectIconImageGuidelineFactory.swift in Sources */,
 				12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
+				3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */,
 				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,
 				123FDACC26C132E700F6F44B /* ObjectHeaderIconOnlyContentView.swift in Sources */,
 				123FDB0226C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift in Sources */,
