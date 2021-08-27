@@ -94,9 +94,8 @@ extension SlashMenuView: FilterableItemsView {
         
         let oldFilterText = menuItemsController.filterString
         menuItemsController.filterString = filterText
-        let currentItemsIsEmpty = menuItemsController.items.isEmpty
         
-        if !currentItemsIsEmpty {
+        if !menuItemsController.items.isEmpty {
             filterStringMismatchLength = 0
             return
         }
