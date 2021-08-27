@@ -55,9 +55,13 @@ extension UITextView: Mentionable {
         let replacementRange = NSRange(location: location, length: length)
         let attributedString = NSMutableAttributedString(attributedString: attributedText)
         attributedString.deleteCharacters(in: replacementRange)
-        let stringWithMentionName = attributedString.attributedStringByInserting(name, at: location)
+        attributedText = attributedString
+        insertStringToAttributedString(
+            name,
+            location: location
+        )
         let modifier = MarkStyleModifier(
-            attributedText: NSMutableAttributedString(attributedString: stringWithMentionName),
+            attributedText: NSMutableAttributedString(attributedString: attributedText),
             defaultNonCodeFont: .bodyRegular
         )
         modifier.apply(
