@@ -10,9 +10,9 @@ struct HomeSearchView: View {
     private let service = SearchService()
     
     var body: some View {
-        DragIndicator(bottomPadding: 0)
-        SearchBar(text: $searchText)
-        Group {
+        VStack() {
+            DragIndicator(bottomPadding: 0)
+            SearchBar(text: $searchText)
             if data.isEmpty {
                 emptyState
             } else {
