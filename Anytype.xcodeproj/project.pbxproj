@@ -2206,11 +2206,19 @@
 		1270CE8E26DA848B00B2D443 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1270CE9C26DA88C800B2D443 /* Gradient */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		1270CE9C26DA88C800B2D443 /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
 				1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */,
 				1270CE9626DA85E900B2D443 /* GradientPoint.swift */,
 				1270CE9426DA85BB00B2D443 /* GradientColor.swift */,
 			);
-			path = Images;
+			path = Gradient;
 			sourceTree = "<group>";
 		};
 		127DE74A26579F380047A99A /* MediaPicker */ = {
