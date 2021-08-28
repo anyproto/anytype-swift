@@ -78,7 +78,7 @@ extension ObjectCoverView: ConfigurableView {
             )
         )
         
-        let placeholder = PlaceholderImageBuilder.placeholder(
+        let placeholder = ImageBuilder.placeholder(
             with: imageGuideline,
             color: UIColor.grayscale10
         )
@@ -97,7 +97,7 @@ extension ObjectCoverView: ConfigurableView {
     }
     
     private func showImageBasedOnColor(_ color: UIColor, maxWidth: CGFloat) {
-        imageView.image = PlaceholderImageBuilder.placeholder(
+        imageView.image = ImageBuilder.placeholder(
             with: ImageGuideline(
                 size: CGSize(
                     width: maxWidth,

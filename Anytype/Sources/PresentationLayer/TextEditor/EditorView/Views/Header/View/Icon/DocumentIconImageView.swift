@@ -103,7 +103,7 @@ extension DocumentIconImageView: ConfigurableView {
                 imageGuideline: imageGuideline
             )
         case let .placeholder(character):
-            imageView.image = PlaceholderImageBuilder.placeholder(
+            imageView.image = ImageBuilder.placeholder(
                 with: imageGuideline,
                 color: UIColor.grayscale30,
                 textGuideline: PlaceholderImageTextGuideline(text: String(character))
@@ -114,7 +114,7 @@ extension DocumentIconImageView: ConfigurableView {
     }
     
     private func downloadImage(imageId: String, imageGuideline: ImageGuideline) {
-        let placeholder = PlaceholderImageBuilder.placeholder(
+        let placeholder = ImageBuilder.placeholder(
             with: imageGuideline,
             color: UIColor.grayscale10
         )

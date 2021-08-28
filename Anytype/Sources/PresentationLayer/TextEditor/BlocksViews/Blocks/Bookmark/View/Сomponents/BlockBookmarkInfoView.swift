@@ -60,7 +60,7 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
-        let placeholder = PlaceholderImageBuilder.placeholder(
+        let placeholder = ImageBuilder.placeholder(
             with: ImageGuideline(
                 size: Layout.iconSize,
                 cornerRadius: 2,

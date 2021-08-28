@@ -1,5 +1,5 @@
 //
-//  PlaceholderImageBuilder.swift
+//  ImageBuilder.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 24.05.2021.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class PlaceholderImageBuilder {
+final class ImageBuilder {
 
     // MARK: - Private variables
     
@@ -58,7 +58,7 @@ final class PlaceholderImageBuilder {
 
 // MARK: - Private extension
 
-private extension PlaceholderImageBuilder {
+private extension ImageBuilder {
     
     static func draw(textGuideline: PlaceholderImageTextGuideline, using guideline: ImageGuideline) {
         let textSize = NSString(string: textGuideline.text).size(withAttributes: [.font: textGuideline.font])
@@ -85,14 +85,6 @@ private extension PlaceholderImageBuilder {
             ],
             context: nil
         )
-    }
-    
-}
-
-private extension CGPoint {
-    
-    var identifier: String {
-        NSCoder.string(for: self)
     }
     
 }
