@@ -353,8 +353,6 @@
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
 		3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* HomeCellDataMock.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
-		3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */; };
-		3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */; };
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
@@ -994,8 +992,6 @@
 		3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* HomeCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellDataMock.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
-		3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CorrectAspectRatio.swift"; sourceTree = "<group>"; };
-		3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithCircleBackgroundView.swift; sourceTree = "<group>"; };
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
 		3DA6263C2657AB8000942249 /* AnimationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
 		3DA626522657ADA700942249 /* PopupExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupExtension.swift; sourceTree = "<group>"; };
@@ -2758,8 +2754,6 @@
 				3D155276264D977600B0E976 /* Popups */,
 				3D932D4A26317E9200C7D1EA /* Buttons */,
 				0A005AAF24C5D2F1000520AA /* ImagePicker */,
-				3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */,
-				3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */,
 				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
 				03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */,
@@ -4151,7 +4145,6 @@
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
-				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */,
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
@@ -4264,7 +4257,6 @@
 				12A7B6AD26C3D50300544037 /* ObjectCoverView.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
-				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
 				3D929B6226332ACA0063F1BE /* HomeCellData.swift in Sources */,
 				126C46D326BD909300D31DBF /* ObjectSection.swift in Sources */,
