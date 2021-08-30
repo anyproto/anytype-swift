@@ -18,9 +18,9 @@ final class ImageBuilderNEW {
     
     private var text: String?
     private var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    private var textColor = UIColor.textPrimary
+    private var textColor = UIColor.grayscaleWhite
     
-    init(imageGuideline: ImageGuideline) {
+    init(_ imageGuideline: ImageGuideline) {
         self.imageGuideline = imageGuideline
     }
     

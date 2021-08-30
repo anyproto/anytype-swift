@@ -92,11 +92,11 @@ final class MentionsViewModel {
                         text: String(character),
                         font: UIFont.systemFont(ofSize: 28)
                     )
-                    return ImageBuilder.placeholder(
-                        with: imageGuideline,
-                        color: .grayscale30,
-                        textGuideline: placeholderGuideline
-                    )
+                    return ImageBuilderNEW(imageGuideline)
+                        .setImageColor(.grayscale30)
+                        .setText(String(character))
+                        .setFont(UIFont.systemFont(ofSize: 28))
+                        .build()
                 }
             case .emoji:
                 return nil

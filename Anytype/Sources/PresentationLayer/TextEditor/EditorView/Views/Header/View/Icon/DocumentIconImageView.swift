@@ -103,21 +103,18 @@ extension DocumentIconImageView: ConfigurableView {
                 imageGuideline: imageGuideline
             )
         case let .placeholder(character):
-            imageView.image = ImageBuilder.placeholder(
-                with: imageGuideline,
-                color: UIColor.grayscale30,
-                textGuideline: PlaceholderImageTextGuideline(text: String(character))
-            )
+            imageView.image = ImageBuilderNEW(imageGuideline)
+                .setImageColor(.grayscale30)
+                .setText(String(character))
+                .setFont(UIFont.bodyRegular.withSize(72))
+                .build()
         case let .preview(image):
             imageView.image = image
         }
     }
     
     private func downloadImage(imageId: String, imageGuideline: ImageGuideline) {
-        let placeholder = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: UIColor.grayscale10
-        )
+        let placeholder = ImageBuilderNEW(imageGuideline).build()
         
         let processor = ResizingImageProcessor(
             referenceSize: imageGuideline.size,

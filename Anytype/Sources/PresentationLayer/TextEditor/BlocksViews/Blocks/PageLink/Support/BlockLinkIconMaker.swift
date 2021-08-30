@@ -59,10 +59,9 @@ struct BlockLinkIconMaker {
             cornerRadius: cornerRadius
         )
         
-        let image = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30
-        )
+        let image = ImageBuilderNEW(imageGuideline)
+            .setImageColor(.grayscale30)
+            .build()
         
         imageView.kf.setImage(
             with: url,
@@ -92,16 +91,12 @@ struct BlockLinkIconMaker {
             size: size,
             cornerRadius: size.width / 2
         )
-        let placeholderGuideline = PlaceholderImageTextGuideline(
-            text: String(placeholder),
-            font: UIFont.systemFont(ofSize: 17)
-        )
-        let image = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30,
-            textGuideline: placeholderGuideline
-        )
         
+        let image = ImageBuilderNEW(imageGuideline)
+            .setImageColor(.grayscale30)
+            .setText(String(placeholder))
+            .setFont(UIFont.systemFont(ofSize: 17))
+            .build()
         return makeIconImageView(image)
     }
     
