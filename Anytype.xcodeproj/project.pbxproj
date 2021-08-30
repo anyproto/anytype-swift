@@ -175,6 +175,8 @@
 		123FDAF726C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAF626C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift */; };
 		123FDB0226C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDB0126C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift */; };
 		123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDB0626C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift */; };
+		12426A1126DCE1A400693B1F /* ImageBuilderNEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A1026DCE1A400693B1F /* ImageBuilderNEW.swift */; };
+		12426A1626DCE1B900693B1F /* ImageBuilderNEWProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A1526DCE1B900693B1F /* ImageBuilderNEWProtocol.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */; };
@@ -816,6 +818,8 @@
 		123FDAF626C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderIconAndCoverContentView.swift; sourceTree = "<group>"; };
 		123FDB0126C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderLocalEventsListener.swift; sourceTree = "<group>"; };
 		123FDB0626C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderLocalEvent.swift; sourceTree = "<group>"; };
+		12426A1026DCE1A400693B1F /* ImageBuilderNEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBuilderNEW.swift; sourceTree = "<group>"; };
+		12426A1526DCE1B900693B1F /* ImageBuilderNEWProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBuilderNEWProtocol.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsDataProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
@@ -2211,6 +2215,8 @@
 				1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */,
 				1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */,
 				1270CE9C26DA88C800B2D443 /* Gradient */,
+				12426A1026DCE1A400693B1F /* ImageBuilderNEW.swift */,
+				12426A1526DCE1B900693B1F /* ImageBuilderNEWProtocol.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -4051,6 +4057,7 @@
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
+				12426A1626DCE1B900693B1F /* ImageBuilderNEWProtocol.swift in Sources */,
 				EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,
 				3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */,
@@ -4429,6 +4436,7 @@
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
+				12426A1126DCE1A400693B1F /* ImageBuilderNEW.swift in Sources */,
 				12A52DD326C56940000F0333 /* ObjectHeaderEmptyContentView.swift in Sources */,
 				3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
