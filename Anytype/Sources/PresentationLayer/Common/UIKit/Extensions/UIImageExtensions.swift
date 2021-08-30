@@ -1,15 +1,13 @@
-//
-//  UIImageExtensions.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 24.05.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 extension UIImage {
+    func circleImage(width: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
+        cropToSquare()
+        .scaled(to: CGSize(width: width, height: width))
+        .rounded(radius: width / 2, opaque: opaque, backgroundColor: backgroundColor)
+    }
+    
     
     /// Makes rounded image with given corner radius.
     ///
@@ -105,9 +103,43 @@ extension UIImage {
     /// - Parameters:
     ///   - scaledSize: Size of new image
     /// - Returns: New image
-    func scaled(to scaledSize: CGSize) -> UIImage {
+    func scaled(to scaledSize: CGSize, cropToBounds: Bool = false) -> UIImage {
         let rect = CGRect(origin: .zero, size: scaledSize)
         let renderer = UIGraphicsImageRenderer(bounds: rect)
         return renderer.image { _ in draw(in: rect)}
     }
+    
+    func cropToSquare() -> UIImage {
+            let cgimage = cgImage!
+            let contextImage: UIImage = UIImage(cgImage: cgimage)
+            let contextSize: CGSize = contextImage.size
+        
+            let posX: CGFloat
+            let posY: CGFloat
+            let cgwidth: CGFloat
+            let cgheight: CGFloat
+
+            // See what size is longer and create the center off of that
+            if contextSize.width > contextSize.height {
+                posX = ((contextSize.width - contextSize.height) / 2)
+                posY = 0
+                cgwidth = contextSize.height
+                cgheight = contextSize.height
+            } else {
+                posX = 0
+                posY = ((contextSize.height - contextSize.width) / 2)
+                cgwidth = contextSize.width
+                cgheight = contextSize.width
+            }
+
+            let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
+
+            // Create bitmap image from context using the rect
+            let imageRef: CGImage = cgimage.cropping(to: rect)!
+
+            // Create a new image based on the imageRef and rotate back to the original orientation
+            let image: UIImage = UIImage(cgImage: imageRef, scale: scale, orientation: imageOrientation)
+
+            return image
+        }
 }

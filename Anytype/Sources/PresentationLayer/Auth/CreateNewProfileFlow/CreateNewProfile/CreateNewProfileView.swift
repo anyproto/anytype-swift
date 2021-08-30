@@ -59,23 +59,22 @@ struct CreateNewProfileView: View {
         }
     }
     
+    private let imageWidth: CGFloat = 96
     private var imagePickerButton: some View {
         Button(action: {
             self.showImagePicker = true
         }) {
-            if !signUpData.image.isNil {
-                ImageWithCircleBackgroundView(
-                    image: Image.auth.photo,
-                    backgroundImage: signUpData.image
-                )
-            } else {
-                ImageWithCircleBackgroundView(
-                    image: Image.auth.photo,
-                    backgroundColor: .stroke
-                )
+            ZStack {
+                if let image = signUpData.image {
+                    Image(uiImage: image.circleImage(width: imageWidth))
+                } else {
+                    Color.stroke
+                        .clipShape(Circle())
+                        .frame(width: imageWidth, height: imageWidth)
+                }
+                Image.auth.photo
             }
         }
-        .frame(width: 96, height: 96)
     }
 }
 
