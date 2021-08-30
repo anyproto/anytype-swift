@@ -6,8 +6,6 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-typealias FilePickerModel = CommonViews.Pickers.File.Picker.ViewModel
-
 protocol EditorRouterProtocol: AnyObject {
     
     func showPage(with id: BlockId)
@@ -15,7 +13,7 @@ protocol EditorRouterProtocol: AnyObject {
     func showBookmarkBar(completion: @escaping (URL) -> ())
     func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
     
-    func showFilePicker(model: FilePickerModel)
+    func showFilePicker(model: Picker.ViewModel)
     func showImagePicker(model: MediaPickerViewModel)
     
     func saveFile(fileURL: URL)
@@ -89,8 +87,8 @@ final class EditorRouter: EditorRouterProtocol {
         showURLInputViewController(url: url, completion: completion)
     }
     
-    func showFilePicker(model: FilePickerModel) {
-        let vc = CommonViews.Pickers.File.Picker(model)
+    func showFilePicker(model: Picker.ViewModel) {
+        let vc = Picker(model)
         viewController?.present(vc, animated: true, completion: nil)
     }
     

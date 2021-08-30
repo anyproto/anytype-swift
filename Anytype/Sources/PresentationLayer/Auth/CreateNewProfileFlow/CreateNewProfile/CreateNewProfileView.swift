@@ -31,8 +31,9 @@ struct CreateNewProfileView: View {
                     Spacer()
                 }
                 .padding(.bottom, 6)
-                CustomTextField(text: $signUpData.userName, title: "Enter your name")
+                TextField("Enter your name", text: $signUpData.userName)
                     .font(AnytypeFontBuilder.font(textStyle: .heading))
+                    .modifier(DividerModifier(spacing: 10))
                     .padding(.bottom, 20)
                 
                 HStack(spacing: 12) {

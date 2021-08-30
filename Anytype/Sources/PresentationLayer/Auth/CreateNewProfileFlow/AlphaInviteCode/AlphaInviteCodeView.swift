@@ -26,9 +26,10 @@ struct AlphaInviteCodeView: View {
                     .lineSpacing(7)
                     .padding(.bottom, 14)
 
-                CustomTextField(text: $signUpData.inviteCode, title: "Invitation code")
+                TextField("Invitation code", text: $signUpData.inviteCode)
                     .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
-                    .padding(.bottom, 24)
+                    .modifier(DividerModifier(spacing: 10))
+                    .padding(.bottom, 20)
                 
                 HStack(spacing: 12) {
                     StandardButton(text: "Back", style: .secondary) {
