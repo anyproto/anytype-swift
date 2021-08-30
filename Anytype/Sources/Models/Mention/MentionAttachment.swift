@@ -161,7 +161,7 @@ final class MentionAttachment: NSTextAttachment {
             text: String(placehodler),
             font: UIFont.systemFont(ofSize: fontPointSize ?? 0)
         )
-        let image = PlaceholderImageBuilder.placeholder(
+        let image = ImageBuilder.placeholder(
             with: imageGuideline,
             color: .grayscale30,
             textGuideline: placeholderGuideline

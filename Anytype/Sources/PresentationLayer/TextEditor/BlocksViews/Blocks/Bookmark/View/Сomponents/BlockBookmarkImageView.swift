@@ -22,7 +22,7 @@ class BlockBookmarkImageView: UIImageView {
     
     
     func update(imageId: String) {
-        let placeholder = PlaceholderImageBuilder.placeholder(
+        let placeholder = ImageBuilder.placeholder(
             with: ImageGuideline(
                 size: bounds.size,
                 backgroundColor: UIColor.grayscaleWhite

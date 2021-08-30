@@ -92,7 +92,7 @@ extension ObjectIconImageView: ConfigurableView {
             return
         }
         
-        let placeholder = PlaceholderImageBuilder.placeholder(
+        let placeholder = ImageBuilder.placeholder(
             with: imageGuideline,
             color: UIColor.grayscale10
         )

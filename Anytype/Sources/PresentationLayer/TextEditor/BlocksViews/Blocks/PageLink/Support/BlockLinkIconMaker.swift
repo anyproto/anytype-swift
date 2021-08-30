@@ -59,7 +59,7 @@ struct BlockLinkIconMaker {
             cornerRadius: cornerRadius
         )
         
-        let image = PlaceholderImageBuilder.placeholder(
+        let image = ImageBuilder.placeholder(
             with: imageGuideline,
             color: .grayscale30
         )
@@ -96,7 +96,7 @@ struct BlockLinkIconMaker {
             text: String(placeholder),
             font: UIFont.systemFont(ofSize: 17)
         )
-        let image = PlaceholderImageBuilder.placeholder(
+        let image = ImageBuilder.placeholder(
             with: imageGuideline,
             color: .grayscale30,
             textGuideline: placeholderGuideline
