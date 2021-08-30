@@ -14,15 +14,21 @@ struct WaitingView: View {
             Gradients.authBackground()
             VStack() {
                 Spacer()
-                VStack(spacing: 16) {
+                VStack(alignment: .center, spacing: 16) {
+                    LoadingAnimationView(showError: $showError)
+                        .padding(.top, 24)
+                        .padding(.bottom, 10)
+                    AnytypeText(showError ? errorText : text, style: .heading)
+                        .padding(.bottom, 19)
                     if showError {
-                        errorView
-                    } else {
-                        loadingAnimation.padding(.top, 16)
-                        AnytypeText(text, style: .heading)
+                        StandardButton(disabled: false, text: "Dismiss", style: .secondary) {
+                            presentationMode.wrappedValue.dismiss()
+                            onErrorTap()
+                        }
+                        .padding(.bottom, 10)
                     }
                 }
-                .padding()
+                .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity)
                 .background(Color.background)
                 .cornerRadius(16.0)
@@ -30,54 +36,13 @@ struct WaitingView: View {
             .padding(20)
         }
         .navigationBarHidden(true)
-    }
-    
-    private var errorView: some View {
-        Group {
-            AnytypeText(errorText, style: .heading)
-                .padding(.top, -10)
-                .transition(.opacity)
-            
-            StandardButton(disabled: false, text: "Ok", style: .secondary) {
-                presentationMode.wrappedValue.dismiss()
-                onErrorTap()
+        .onChange(of: showError) { showError in
+            if showError {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
-            .transition(.opacity)
         }
     }
     
-    @State private var shouldAnimate = false
-    private var loadingAnimation: some View {
-        HStack(alignment: .center) {
-            Circle()
-                .fill(shouldAnimate ? Color.stroke : Color.grayscale10)
-                .frame(width: 20, height: 20)
-                .scaleEffect(shouldAnimate ? 1.0 : 0.5)
-                .animation(
-                    Animation.easeInOut(duration: 0.5).repeatForever(),
-                    value: shouldAnimate
-                )
-            Circle()
-                .fill(shouldAnimate ? Color.stroke : Color.grayscale10)
-                .frame(width: 20, height: 20)
-                .scaleEffect(shouldAnimate ? 1.0 : 0.5)
-                .animation(
-                    Animation.easeInOut(duration: 0.5).repeatForever().delay(0.3),
-                    value: shouldAnimate
-                )
-            Circle()
-                .fill(shouldAnimate ? Color.stroke : Color.grayscale10)
-                .frame(width: 20, height: 20)
-                .scaleEffect(shouldAnimate ? 1.0 : 0.5)
-                .animation(
-                    Animation.easeInOut(duration: 0.5).repeatForever().delay(0.6),
-                    value: shouldAnimate
-                )
-        }
-        .onAppear {
-            shouldAnimate = true
-        }
-    }
 }
 
 struct WaitingView_Previews: PreviewProvider {
