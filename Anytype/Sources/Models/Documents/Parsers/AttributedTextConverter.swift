@@ -7,7 +7,7 @@ enum AttributedTextConverter {
     
     static func asModel(text: String,
                         marks: Anytype_Model_Block.Content.Text.Marks,
-                        style: Anytype_Model_Block.Content.Text.Style) -> UIKitAnytypeText {
+                        style: BlockText.Style) -> UIKitAnytypeText {
         // Map attributes to our internal format.
         var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markAction: MarkStyleAction)? in
             let middlewareTuple = MiddlewareTuple(
@@ -20,7 +20,7 @@ enum AttributedTextConverter {
             return (RangeConverter.asModel(value.range), markValue)
         }
 
-        let font = BlockTextContentTypeConverter.asModel(style)?.uiFont ?? .bodyRegular
+        let font = style.uiFont
         let anytypeText = UIKitAnytypeText(text: text, style: font)
 
         // We need to separate mention marks from others
@@ -52,7 +52,7 @@ enum AttributedTextConverter {
         return anytypeText
     }
     
-    static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareResult {
+    static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareString {
         // 1. Iterate over all ranges in a string.
         var marksTuples = [MiddlewareTuple: NSMutableIndexSet]()
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
@@ -112,7 +112,7 @@ enum AttributedTextConverter {
         }.flatMap { $0 }
         
         let wholeMarks = Anytype_Model_Block.Content.Text.Marks(marks: middlewareMarks)
-        return MiddlewareResult(text: wholeText, marks: wholeMarks)
+        return MiddlewareString(text: wholeText, marks: wholeMarks)
     }
     
     private static func middlewareTuples(from attributes: [NSAttributedString.Key: Any]) -> [MiddlewareTuple] {

@@ -490,7 +490,7 @@
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
 		EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */; };
-		EA3D1E3226CEEE3B001A31D9 /* MiddlewareResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E3126CEEE3B001A31D9 /* MiddlewareResult.swift */; };
+		EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */; };
 		EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E4E26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift */; };
 		EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E5326CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift */; };
 		EA3D1E5626CFCE58001A31D9 /* LinkAttributeSelectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E5526CFCE58001A31D9 /* LinkAttributeSelectionHandler.swift */; };
@@ -1121,7 +1121,7 @@
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
 		EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChangerProtocol.swift; sourceTree = "<group>"; };
-		EA3D1E3126CEEE3B001A31D9 /* MiddlewareResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareResult.swift; sourceTree = "<group>"; };
+		EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareString.swift; sourceTree = "<group>"; };
 		EA3D1E4E26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewAttributeSelectionInteraction.swift; sourceTree = "<group>"; };
 		EA3D1E5326CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewAttributeSelectionHandler.swift; sourceTree = "<group>"; };
 		EA3D1E5526CFCE58001A31D9 /* LinkAttributeSelectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAttributeSelectionHandler.swift; sourceTree = "<group>"; };
@@ -1985,7 +1985,7 @@
 				EAED581D26A7321600374A46 /* MiddlewareTuple.swift */,
 				EA2640C926C3DDF6006071BD /* RangeConverter.swift */,
 				EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */,
-				EA3D1E3126CEEE3B001A31D9 /* MiddlewareResult.swift */,
+				EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -4031,7 +4031,7 @@
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				3D402BF4268A62EE002E938C /* DocumentEditorViewModel+EditorModuleSelectionHandlerHolderProtocol.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
-				EA3D1E3226CEEE3B001A31D9 /* MiddlewareResult.swift in Sources */,
+				EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
 				3D67F947269E07F800883681 /* SearchHelper.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* DocumentEditorViewInput.swift in Sources */,

@@ -42,10 +42,13 @@ final class TextBlockActionHandler {
         var blockModel = block
 
         let blockId = blockModel.information.id
-        textContentType.attributedText = text
         blockModel.information.content = .text(textContentType)
 
-        textService.setText(contextID: contextId, blockID: blockId, attributedString: text)
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+        textContentType.text = middlewareString.text
+        textContentType.marks = middlewareString.marks
+
+        textService.setText(contextID: contextId, blockID: blockId, middlewareString: middlewareString)
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {
@@ -119,9 +122,9 @@ final class TextBlockActionHandler {
             // BUSINESS LOGIC:
             // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
             switch block.information.content {
-            case let .text(value) where value.contentType.isList && value.attributedText.string == "":
+            case let .text(value) where value.contentType.isList && value.text == "":
                 // Turn Into empty text block.
-                if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.attributedText.string) {
+                if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.text) {
                     /// TODO: Add focus on this block.
                     self.service.turnInto(
                         blockId: block.information.id,
@@ -153,10 +156,10 @@ final class TextBlockActionHandler {
                             )
                         default:
                             let newContentType = payload.contentType.isList ? payload.contentType : .text
-                            let oldText = payload.attributedText.clearedFromMentionAtachmentsString()
+
                             self.service.split(
                                 info: block.information,
-                                oldText: oldText,
+                                oldText: payload.text,
                                 newBlockContentType: newContentType
                             )
                         }
@@ -181,7 +184,7 @@ final class TextBlockActionHandler {
             
             var localEvents = [LocalEvent]()
             if case let .text(text) = previousModel.information.content {
-                let range = NSRange(location: text.attributedText.length, length: 0)
+                let range = NSRange(location: text.text.count, length: 0)
                 localEvents.append(contentsOf: [
                     .setTextMerge(blockId: previousBlockId),
                     .setFocus(blockId: previousBlockId, position: .at(range))

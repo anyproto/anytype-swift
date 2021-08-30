@@ -5,7 +5,6 @@ public struct BlockText: Hashable {
     public var text: String
     public var marks: Anytype_Model_Block.Content.Text.Marks
     
-
     /// Block color
     public var color: MiddlewareColor?
     public var contentType: Style

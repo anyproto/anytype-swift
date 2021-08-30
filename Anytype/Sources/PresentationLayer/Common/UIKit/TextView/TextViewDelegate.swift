@@ -37,8 +37,8 @@ extension CustomTextView {
         case showStyleMenu
 
         case changeText(NSAttributedString)
-        case changeTextStyle(BlockHandlerActionType.TextAttributesType, NSRange)
-        case changeLink(NSRange)
+        case changeTextStyle(NSAttributedString, BlockHandlerActionType.TextAttributesType, NSRange)
+        case changeLink(NSAttributedString, NSRange)
 
         case keyboardAction(KeyboardAction)
         case showMultiActionMenuAction

@@ -35,14 +35,15 @@ final class BlockMarkupChanger {
     
     private func apply(
         _ action: MarkStyleAction,
+        attrText: NSAttributedString,
         content: BlockText,
         range: NSRange
     ) -> NSAttributedString {
         let modifier = MarkStyleModifier(
             attributedText: NSMutableAttributedString(
-                attributedString: content.attributedText
+                attributedString: attrText
             ),
-            defaultNonCodeFont: content.contentType.uiFont
+            defaultNonCodeFont: content.contentType.uiFont.uiKitFont
         )
         modifier.apply(action, range: range)
         return NSAttributedString(attributedString: modifier.attributedString)
@@ -53,8 +54,11 @@ final class BlockMarkupChanger {
         blockId: BlockId,
         content: BlockText
     ) {
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: attributedString)
         var content = content
-        content.attributedText = attributedString
+        content.marks = middlewareString.marks
+        content.text = middlewareString.text
+
         blockUpdater?.update(entry: blockId) { model in
             var model = model
             model.information.content = .text(content)
@@ -62,7 +66,7 @@ final class BlockMarkupChanger {
         textService.setText(
             contextID: documentId,
             blockID: blockId,
-            attributedString: attributedString
+            middlewareString: middlewareString
         )
     }
     
@@ -70,10 +74,12 @@ final class BlockMarkupChanger {
         _ action: MarkStyleAction,
         blockId: BlockId,
         content: BlockText,
+        attributedText: NSAttributedString,
         range: NSRange
     ) {
         let result = apply(
             action,
+            attrText: attributedText,
             content: content,
             range: range
         )
@@ -94,6 +100,7 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     func toggleMarkup(
         _ markup: BlockHandlerActionType.TextAttributesType,
+        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     ) {
@@ -103,7 +110,7 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
             for: content.contentType
         )
         let markupCalculator = MarkupStateCalculator(
-            attributedText: content.attributedText,
+            attributedText: attributedText,
             range: range,
             restrictions: restrictions,
             alignment: nil
@@ -118,6 +125,7 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
                 .bold(shouldApplyMarkup),
                 blockId: blockId,
                 content: content,
+                attributedText: attributedText,
                 range: range
             )
         case .italic:
@@ -125,6 +133,7 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
                 .italic(shouldApplyMarkup),
                 blockId: blockId,
                 content: content,
+                attributedText: attributedText,
                 range: range
             )
         case .strikethrough:
@@ -132,6 +141,7 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
                 .strikethrough(shouldApplyMarkup),
                 blockId: blockId,
                 content: content,
+                attributedText: attributedText,
                 range: range
             )
         case .keyboard:
@@ -139,13 +149,15 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
                 .keyboard(shouldApplyMarkup),
                 blockId: blockId,
                 content: content,
+                attributedText: attributedText,
                 range: range
             )
         }
     }
-    
+
     func setLink(
         _ link: URL?,
+        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     ) {
@@ -160,6 +172,7 @@ extension BlockMarkupChanger: BlockMarkupChangerProtocol {
             .link(link),
             blockId: blockId,
             content: content,
+            attributedText: attributedText,
             range: range
         )
     }

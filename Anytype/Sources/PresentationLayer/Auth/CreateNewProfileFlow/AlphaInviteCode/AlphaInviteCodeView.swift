@@ -27,7 +27,7 @@ struct AlphaInviteCodeView: View {
                     .padding(.bottom, 14)
 
                 TextField("Invitation code", text: $signUpData.inviteCode)
-                    .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
+                    .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .modifier(DividerModifier(spacing: 10))
                     .padding(.bottom, 20)
                 

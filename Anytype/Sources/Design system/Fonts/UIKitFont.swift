@@ -32,6 +32,13 @@ extension UIFont {
     }
 }
 
+extension AnytypeFont {
+    var uiKitFont: UIFont {
+        UIKitFontBuilder.uiKitFont(font: self)
+    }
+}
+
+
 struct UIKitFontBuilder {
 
     static func uiKitFont(font: AnytypeFont) -> UIFont {

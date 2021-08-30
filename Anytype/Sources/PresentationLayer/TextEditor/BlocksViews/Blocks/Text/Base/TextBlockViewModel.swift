@@ -6,8 +6,9 @@ import BlocksModels
 struct TextBlockViewModel: BlockViewModelProtocol {
     var indentationLevel: Int
     var information: BlockInformation
+
     private let block: BlockModelProtocol
-    
+    private let text: UIKitAnytypeText
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
@@ -34,6 +35,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     init(
         block: BlockModelProtocol,
+        text: UIKitAnytypeText,
         upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
@@ -45,6 +47,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         showStyleMenu:  @escaping (BlockInformation) -> Void)
     {
         self.block = block
+        self.text = text
         self.upperBlock = upperBlock
         self.content = content
         self.isCheckable = isCheckable
@@ -80,6 +83,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         TextBlockContentConfiguration(
             blockDelegate: blockDelegate,
+            text: text,
             block: block,
             upperBlock: upperBlock,
             isCheckable: isCheckable,

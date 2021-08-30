@@ -64,16 +64,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.setBackgroundColor(blockId: blockId, color: color)
         case let .toggleWholeBlockMarkup(markup):
             handleWholeBlockMarkupToggle(blockId: blockId, markup: markup)
-        case let .toggleFontStyle(fontAttributes, range):
-            markupChanger.toggleMarkup(fontAttributes, for: blockId, in: range)
+        case let .toggleFontStyle(attrText, fontAttributes, range):
+            markupChanger.toggleMarkup(fontAttributes, attributedText: attrText, for: blockId, in: range)
         case let .setAlignment(alignment):
             setAlignment(blockId: blockId, alignment: alignment, completion: completion)
         case let .setFields(contextID, fields):
             service.setFields(contextID: contextID, blockFields: fields)
         case .duplicate:
             service.duplicate(blockId: blockId)
-        case let .setLink(url, range):
-            markupChanger.setLink(url, for: blockId, in: range)
+        case let .setLink(attrText, url, range):
+            markupChanger.setLink(url, attributedText: attrText, for: blockId, in: range)
         case .delete:
             delete(blockId: blockId)
         case let .addBlock(type):
@@ -96,9 +96,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 selectionHandler.selectionEnabled = true
             case let .changeCaretPosition(selectedRange):
                 document.userSession?.focus = .at(selectedRange)
-            case let .changeTextStyle(styleAction, range):
+            case let .changeTextStyle(string, styleAction, range):
                 handleBlockAction(
-                    .toggleFontStyle(styleAction, range),
+                    .toggleFontStyle(string, styleAction, range),
                     blockId: blockId,
                     completion: completion
                 )
@@ -195,10 +195,14 @@ private extension BlockActionHandler {
               case let .text(textContentType) = info.content else { return }
         let range = NSRange(
             location: 0,
-            length: textContentType.attributedText.length
+            length: textContentType.text.count
         )
+        let anytypeText = AttributedTextConverter.asModel(text: textContentType.text,
+                                                          marks: textContentType.marks,
+                                                          style: textContentType.contentType)
         markupChanger.toggleMarkup(
             markup,
+            attributedText: anytypeText.attrString,
             for: blockId,
             in: range
         )

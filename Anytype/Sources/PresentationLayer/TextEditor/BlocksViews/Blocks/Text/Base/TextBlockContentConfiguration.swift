@@ -16,10 +16,12 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let information: BlockInformation
     let isCheckable: Bool
     let upperBlock: BlockModelProtocol?
+    let text: UIKitAnytypeText
     private(set) var isSelected: Bool = false
     
     init(
         blockDelegate: BlockDelegate,
+        text: UIKitAnytypeText,
         block: BlockModelProtocol,
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
@@ -30,6 +32,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
         self.blockDelegate = blockDelegate
+        self.text = text
         self.block = block
         self.upperBlock = upperBlock
         self.actionHandler = actionHandler

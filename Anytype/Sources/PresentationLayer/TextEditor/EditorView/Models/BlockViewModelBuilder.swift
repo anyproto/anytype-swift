@@ -76,6 +76,7 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? details?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
+                    text: anytypeText,
                     upperBlock: previousBlock,
                     content: content,
                     isCheckable: isCheckable,

@@ -10,11 +10,11 @@ import UIKit
 import AnytypeCore
 
 
-class UIKitAnytypeText: Hashable {
-    private let font: UIFont
+final class UIKitAnytypeText: Hashable {
     private let paragraphStyle: NSParagraphStyle
     private let textModifier: MarkStyleModifier
 
+    let font: UIFont
     let anytypeFont: AnytypeFont
     let attrString: NSAttributedString
 
