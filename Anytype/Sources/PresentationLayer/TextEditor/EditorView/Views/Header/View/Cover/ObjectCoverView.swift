@@ -78,10 +78,7 @@ extension ObjectCoverView: ConfigurableView {
             )
         )
         
-        let placeholder = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: UIColor.grayscale10
-        )
+        let placeholder = ImageBuilder(imageGuideline).build()
         
         let processor = ResizingImageProcessor(
             referenceSize: imageGuideline.size,
@@ -90,22 +87,24 @@ extension ObjectCoverView: ConfigurableView {
         |> CroppingImageProcessor(size: imageGuideline.size)
         
         imageView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            with: ImageID(id: imageId, width: .default).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.3))]
         )
     }
     
     private func showImageBasedOnColor(_ color: UIColor, maxWidth: CGFloat) {
-        imageView.image = ImageBuilder.placeholder(
-            with: ImageGuideline(
-                size: CGSize(
-                    width: maxWidth,
-                    height: Constants.coverHeight
-                )
-            ),
-            color: color
+        let imageGuideline = ImageGuideline(
+            size: CGSize(
+                width: maxWidth,
+                height: Constants.coverHeight
+            )
         )
+        
+        imageView.image = ImageBuilder(imageGuideline)
+            .setImageColor(color)
+            .build()
+        
         imageView.contentMode = .scaleAspectFill
     }
     

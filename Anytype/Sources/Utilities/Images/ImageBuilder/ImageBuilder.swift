@@ -1,6 +1,6 @@
 //
-//  ImageBuilderNEW.swift
-//  ImageBuilderNEW
+//  ImageBuilder.swift
+//  ImageBuilder
 //
 //  Created by Konstantin Mordan on 30.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class ImageBuilderNEW {
+final class ImageBuilder {
         
     private let imageStorage: ImageStorageProtocol = ImageStorage.shared
     
@@ -18,43 +18,43 @@ final class ImageBuilderNEW {
     
     private var text: String?
     private var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    private var textColor = UIColor.textPrimary
+    private var textColor = UIColor.grayscaleWhite
     
-    init(imageGuideline: ImageGuideline) {
+    init(_ imageGuideline: ImageGuideline) {
         self.imageGuideline = imageGuideline
     }
     
 }
 
-extension ImageBuilderNEW: ImageBuilderNEWProtocol {
+extension ImageBuilder: ImageBuilderProtocol {
     
     @discardableResult
-    func setImageColor(_ imageColor: UIColor) -> ImageBuilderNEWProtocol {
+    func setImageColor(_ imageColor: UIColor) -> ImageBuilderProtocol {
         self.imageColor = imageColor
         return self
     }
     
     @discardableResult
-    func setText(_ text: String) -> ImageBuilderNEWProtocol {
+    func setText(_ text: String) -> ImageBuilderProtocol {
         self.text = text
         return self
     }
     
     @discardableResult
-    func setTextColor(_ textColor: UIColor) -> ImageBuilderNEWProtocol {
+    func setTextColor(_ textColor: UIColor) -> ImageBuilderProtocol {
         self.textColor = textColor
         return self
     }
     
     @discardableResult
-    func setFont(_ font: UIFont) -> ImageBuilderNEWProtocol {
+    func setFont(_ font: UIFont) -> ImageBuilderProtocol {
         self.font = font
         return self
     }
     
     func build() -> UIImage {
         var key = """
-        \(ImageBuilderNEW.self).
+        \(ImageBuilder.self).
         \(imageGuideline.identifier).
         \(imageColor.hexString).
         """

@@ -468,7 +468,6 @@ extension TextBlockContentView {
 extension TextBlockContentView: AccessoryViewSwitcherDelegate {
     func mentionSelected(_ mention: MentionObject, from: UITextPosition, to: UITextPosition) {
         // TODO: Accessory check if no need
-//        mentionConfiguration.configure(textView: textView.textView)
         textView.textView.insert(mention, from: from, to: to)
 
         self.currentConfiguration.actionHandler.handleAction(

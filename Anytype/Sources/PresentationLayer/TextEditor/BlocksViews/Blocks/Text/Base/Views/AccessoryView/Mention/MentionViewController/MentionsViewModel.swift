@@ -88,15 +88,11 @@ final class MentionsViewModel {
                         size: size,
                         cornerRadius: radius
                     )
-                    let placeholderGuideline = PlaceholderImageTextGuideline(
-                        text: String(character),
-                        font: UIFont.systemFont(ofSize: 28)
-                    )
-                    return ImageBuilder.placeholder(
-                        with: imageGuideline,
-                        color: .grayscale30,
-                        textGuideline: placeholderGuideline
-                    )
+                    return ImageBuilder(imageGuideline)
+                        .setImageColor(.grayscale30)
+                        .setText(String(character))
+                        .setFont(UIFont.systemFont(ofSize: 28))
+                        .build()
                 }
             case .emoji:
                 return nil
@@ -110,7 +106,7 @@ final class MentionsViewModel {
     }
     
     private func loadImage(by id: String, mention: MentionObject) {
-        guard let url = UrlResolver.resolvedUrl(.image(id: id, width: .thumbnail)) else { return }
+        guard let url = ImageID(id: id).resolvedUrl else { return }
         let imageSize = CGSize(width: 40, height: 40)
         
         let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)

@@ -45,15 +45,12 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
                textColor: UIColor,
                imageGuideline: ImageGuideline,
                backgroundColor: UIColor) -> UIImage {
-        ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: backgroundColor,
-            textGuideline: PlaceholderImageTextGuideline(
-                text: string,
-                font: font,
-                textColor: textColor
-            )
-        )
+        ImageBuilder(imageGuideline)
+            .setText(string)
+            .setFont(font)
+            .setTextColor(textColor)
+            .setImageColor(backgroundColor)
+            .build()
     }
     
 }

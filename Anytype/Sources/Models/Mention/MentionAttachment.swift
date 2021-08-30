@@ -157,25 +157,25 @@ final class MentionAttachment: NSTextAttachment {
                 size.height
             ) / 2
         )
-        let placeholderGuideline = PlaceholderImageTextGuideline(
-            text: String(placehodler),
-            font: UIFont.systemFont(ofSize: fontPointSize ?? 0)
-        )
-        let image = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30,
-            textGuideline: placeholderGuideline
-        )
-        addLeadingSpaceAndDisplay(image)
+        
+        var imageBuilder = ImageBuilder(imageGuideline)
+            .setImageColor(.grayscale30)
+            .setText(String(placehodler))
+        if let fontPointSize = fontPointSize {
+            imageBuilder = imageBuilder.setFont(UIFont.systemFont(ofSize: fontPointSize))
+        }
+        addLeadingSpaceAndDisplay(imageBuilder.build())
     }
     
     private func loadImage(imageId: String, isBasicLayout: Bool) {
-        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
+        guard let url = ImageID(id: imageId).resolvedUrl else { return }
         let imageSize = self.iconSize ?? Constants.defaultIconSize
         let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
-        let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
-            |> CroppingImageProcessor(size: imageSize)
-            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: imageSize,
+            cornerRadius: .point(cornerRadius)
+        ).processor
         
         KingfisherManager.shared.retrieveImage(
             with: url,

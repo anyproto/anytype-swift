@@ -60,20 +60,22 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
-        let placeholder = ImageBuilder.placeholder(
-            with: ImageGuideline(
-                size: Layout.iconSize,
-                cornerRadius: 2,
-                backgroundColor: UIColor.grayscaleWhite
-            ),
-            color: UIColor.grayscale10
+        let imageGuideline = ImageGuideline(
+            size: Layout.iconSize,
+            cornerRadius: 2,
+            backgroundColor: UIColor.grayscaleWhite
         )
         
-        let processor = DownsamplingImageProcessor(size: Layout.iconSize)
-        .append(another: RoundCornerImageProcessor(radius: .point(2)))
+        let placeholder = ImageBuilder(imageGuideline).build()
+        
+        let processor = KFProcessorBuilder(
+            scalingType: .downsampling,
+            targetSize: Layout.iconSize,
+            cornerRadius: .point(2)
+        ).processor
         
         iconView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: payload.faviconHash, width: .thumbnail)),
+            with: ImageID(id: payload.faviconHash).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(processor)]
         )

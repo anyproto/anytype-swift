@@ -86,14 +86,21 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
+            accessoryViewSwitcher?.textWillChange(textView: textView.textView,
+                                                  replacementText: replacementText,
+                                                  range: range)
             let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
                 replacementRange: range,
                 replacementText: replacementText
             )
-            if shouldChangeText {
-                accessoryViewSwitcher?.textWillChange(textView: textView.textView,
-                                                      replacementText: replacementText,
-                                                      range: range)
+            if !shouldChangeText {
+                currentConfiguration.actionHandler.handleAction(
+                    .textView(
+                        action: .changeText(textView.textView.attributedText),
+                        block: currentConfiguration.block
+                    ),
+                    blockId: currentConfiguration.information.id
+                )
             }
             return shouldChangeText
         case let .changeLink(range):

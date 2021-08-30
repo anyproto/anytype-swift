@@ -40,29 +40,26 @@ struct BlockLinkIconMaker {
     private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
         
-        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else {
+        guard let url = ImageID(id: imageId).resolvedUrl else {
             return imageView
         }
         
         let size = imageViewSize
         
-        let processor = ResizingImageProcessor(
-            referenceSize: size,
-            mode: .aspectFill
-        )
-            |> CroppingImageProcessor(size: size)
-            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
-        
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: size,
+            cornerRadius: .point(cornerRadius)
+        ).processor
         
         let imageGuideline = ImageGuideline(
             size: size,
             cornerRadius: cornerRadius
         )
         
-        let image = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30
-        )
+        let image = ImageBuilder(imageGuideline)
+            .setImageColor(.grayscale30)
+            .build()
         
         imageView.kf.setImage(
             with: url,
@@ -92,16 +89,12 @@ struct BlockLinkIconMaker {
             size: size,
             cornerRadius: size.width / 2
         )
-        let placeholderGuideline = PlaceholderImageTextGuideline(
-            text: String(placeholder),
-            font: UIFont.systemFont(ofSize: 17)
-        )
-        let image = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30,
-            textGuideline: placeholderGuideline
-        )
         
+        let image = ImageBuilder(imageGuideline)
+            .setImageColor(.grayscale30)
+            .setText(String(placeholder))
+            .setFont(UIFont.systemFont(ofSize: 17))
+            .build()
         return makeIconImageView(image)
     }
     

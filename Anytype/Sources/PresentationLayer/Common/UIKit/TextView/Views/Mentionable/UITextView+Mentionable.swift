@@ -11,20 +11,12 @@ extension UITextView: Mentionable {
         let mentionSearchRange = NSRange(location: 0, length: selectedRange.location)
         
         var result = false
-        var mentionLocation: Int?
         attributedText.enumerateAttribute(.mention, in: mentionSearchRange) { value, subrange, shouldStop in
             guard value is String,
                   subrange.location + subrange.length == selectedRange.location else { return }
 
             let mutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
             mutableAttributedString.deleteCharacters(in: subrange)
-
-            if subrange.location > 0 {
-                let mentionAttachmentRange = NSRange(location: subrange.location - Constants.attachmentLenght,
-                                                     length: Constants.attachmentLenght)
-                mutableAttributedString.deleteCharacters(in: mentionAttachmentRange)
-                mentionLocation = mentionAttachmentRange.location
-            }
             result = true
 
             // If we will set empty attributed string it will erase all typing attributes
@@ -35,9 +27,8 @@ extension UITextView: Mentionable {
             } else {
                 attributedText = mutableAttributedString
             }
-            if let location = mentionLocation {
-                selectedRange = NSRange(location: location, length: 0)
-            }
+
+            selectedRange = NSRange(location: subrange.location, length: 0)
             shouldStop[0] = true
         }
         return result

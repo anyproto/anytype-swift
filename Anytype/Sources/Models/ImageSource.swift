@@ -11,5 +11,5 @@ import Kingfisher
 
 enum ImageSource {
     case local(UIImage)
-    case middleware(MiddlewareImageSource)
+    case middleware(ImageID)
 }
