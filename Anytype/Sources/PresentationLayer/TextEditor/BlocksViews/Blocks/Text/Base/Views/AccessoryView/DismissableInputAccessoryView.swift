@@ -41,30 +41,22 @@ class DismissableInputAccessoryView: UIView {
     
     private func addTopSeparator() {
         let topSeparator = UIView()
-        topSeparator.translatesAutoresizingMaskIntoConstraints = false
         topSeparator.backgroundColor = .systemGray4
-        addSubview(topSeparator)
-        NSLayoutConstraint.activate([
-            topSeparator.topAnchor.constraint(equalTo: topAnchor),
-            topSeparator.heightAnchor.constraint(equalToConstant: Constants.separatorHeight),
-            topSeparator.leadingAnchor.constraint(equalTo: leadingAnchor),
-            topSeparator.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
+        addSubview(topSeparator) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.height.equal(to: Constants.separatorHeight)
+        }
         self.topSeparator = topSeparator
     }
     
     private func addTransparentViewForDismissAction(parentView: UIWindow) {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                         action: #selector(dismiss)))
-        parentView.addSubview(view)
-        NSLayoutConstraint.activate([
-            view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: topAnchor),
-            view.topAnchor.constraint(equalTo: parentView.topAnchor)
-        ])
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
+        parentView.addSubview(view) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: topAnchor)
+        }
+
         transparentView = view
     }
 }

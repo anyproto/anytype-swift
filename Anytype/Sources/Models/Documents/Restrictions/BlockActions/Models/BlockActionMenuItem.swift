@@ -2,7 +2,7 @@
 import Foundation
 
 enum BlockActionMenuItem {
-    case menu(SlashMenuItemType, [BlockActionMenuItem])
+    case menu(item: SlashMenuItemType, children: [BlockActionMenuItem])
     case action(BlockActionType)
     case sectionDivider(String)
     

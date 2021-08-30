@@ -10,18 +10,32 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     var menuItems: [BlockActionMenuItem]
     private weak var menuNavigationController: UINavigationController?
-    private weak var menuItemsViewController: SlashMenuItemsViewController?
+    private weak var menuItemsViewController: SlashMenuViewController?
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     private var filterStringMismatchLength = 0
     
-    init(frame: CGRect,
-         menuItems: [BlockActionMenuItem],
-         slashMenuActionsHandler: SlashMenuActionsHandler) {
-
+    init(
+        frame: CGRect,
+        menuItems: [BlockActionMenuItem],
+        slashMenuActionsHandler: SlashMenuActionsHandler
+    ) {
         self.menuItems = menuItems
         self.slashMenuActionsHandler = slashMenuActionsHandler
 
         super.init(frame: frame)
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        menuNavigationController?.willMove(toParent: nil)
+        menuNavigationController?.view.removeFromSuperview()
+        menuNavigationController?.removeFromParent()
+        
+        filterStringMismatchLength = 0
+        
+        guard let windowRootViewController = window?.rootViewController?.children.last else { return }
+        setup(parentViewController: windowRootViewController)
     }
     
     private func setup(parentViewController: UIViewController) {
@@ -29,39 +43,27 @@ final class SlashMenuView: DismissableInputAccessoryView {
         menuNavigationController = menuViewController
         menuViewController.view.translatesAutoresizingMaskIntoConstraints = false
         parentViewController.addChild(menuViewController)
-        addSubview(menuViewController.view)
-        NSLayoutConstraint.activate([
-            menuViewController.view.topAnchor.constraint(equalTo: topSeparator?.bottomAnchor ?? topAnchor),
-            menuViewController.view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            menuViewController.view.trailingAnchor.constraint(equalTo: trailingAnchor),
-            menuViewController.view.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        addSubview(menuViewController.view) {
+            $0.pinToSuperview(excluding: [.top])
+            $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
+        }
         menuViewController.didMove(toParent: parentViewController)
     }
     
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        menuNavigationController?.willMove(toParent: nil)
-        menuNavigationController?.view.removeFromSuperview()
-        menuNavigationController?.removeFromParent()
-        filterStringMismatchLength = 0
-        guard let windowRootViewController = window?.rootViewController?.children.last else { return }
-        setup(parentViewController: windowRootViewController)
-    }
-    
     override func didShow(from textView: UITextView) {
-        // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.popupSlashMenu)
         
         slashMenuActionsHandler.didShowMenuView(from: textView)
     }
     
+    // MARK: - Views
+    
     private func makeMenuController() -> UINavigationController {
-        let coordinator = SlashMenuItemsViewControllerCoordinatorImp(
+        let coordinator = SlashMenuViewControllerCoordinatorImp(
             actionsHandler: slashMenuActionsHandler,
             dismissHandler: dismissHandler
         )
-        let controller = SlashMenuItemsViewController(
+        let controller = SlashMenuViewController(
             coordinator: coordinator,
             items: menuItems
         )
@@ -74,10 +76,12 @@ final class SlashMenuView: DismissableInputAccessoryView {
 }
 
 extension SlashMenuView: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController,
-                              willShow viewController: UIViewController,
-                              animated: Bool) {
-        let baseBlockMenuItemsController = viewController as? BaseAccessoryMenuItemsViewController
+    func navigationController(
+        _ navigationController: UINavigationController,
+        willShow viewController: UIViewController,
+        animated: Bool
+    ) {
+        let baseBlockMenuItemsController = viewController as? SlashMenuViewController
         let isPresentingFirstController = viewController == navigationController.viewControllers.first
         baseBlockMenuItemsController?.setTopBarHidden(isPresentingFirstController)
     }

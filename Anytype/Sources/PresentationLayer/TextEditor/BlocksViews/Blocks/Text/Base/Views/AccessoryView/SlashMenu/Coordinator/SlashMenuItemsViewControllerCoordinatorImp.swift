@@ -1,6 +1,6 @@
 import UIKit
 
-final class SlashMenuItemsViewControllerCoordinatorImp: SlashMenuItemsViewControllerCoordinator {
+final class SlashMenuViewControllerCoordinatorImp: SlashMenuViewControllerCoordinator {
     
     private let actionsHandler: SlashMenuActionsHandler
     private let dismissHandler: (() -> Void)?
@@ -14,11 +14,11 @@ final class SlashMenuItemsViewControllerCoordinatorImp: SlashMenuItemsViewContro
         switch menuItem {
         case let .menu(type, children):
             guard !children.isEmpty else { return }
-            let coordinator = SlashMenuItemsViewControllerCoordinatorImp(
+            let coordinator = SlashMenuViewControllerCoordinatorImp(
                 actionsHandler: actionsHandler,
                 dismissHandler: dismissHandler
             )
-            let childController = SlashMenuItemsViewController(
+            let childController = SlashMenuViewController(
                 coordinator: coordinator,
                 items: children
             )

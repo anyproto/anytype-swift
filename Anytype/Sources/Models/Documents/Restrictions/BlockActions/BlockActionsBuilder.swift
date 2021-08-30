@@ -8,21 +8,23 @@ struct BlockActionsBuilder {
     }
     
     func makeBlockActionsMenuItems() -> [BlockActionMenuItem] {
-        return [self.makeStyleMenuItem(),
-                self.makeMediaMenuItem(),
-                self.makeObjectsMenuItem(),
-                self.makeRelationMenuItem(),
-                self.makeOtherMenuItem(),
-                self.makeActionsMenuItem(),
-                self.makeAlignmentMenuItem(),
-                self.makeBlockColorMenuItem(),
-                self.makeBackgroundColorMenuItem()].compactMap { $0 }
+        return [
+            styleMenuItem,
+            mediaMenuItem,
+            objectsMenuItem,
+            relationMenuItem,
+            otherMenuItem,
+            actionsMenuItem,
+            alignmentMenuItem,
+            blockColorMenuItem,
+            backgroundColorMenuItem
+        ].compactMap { $0 }
     }
     
-    private func makeStyleMenuItem() -> BlockActionMenuItem? {
+    private var styleMenuItem: BlockActionMenuItem? {
         let children = BlockStyleAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, type in
             if let mappedType = type.blockViewsType {
-                guard self.restrictions.turnIntoStyles.contains(mappedType) else { return }
+                guard restrictions.turnIntoStyles.contains(mappedType) else { return }
                 result.append(.action(.style(type)))
             } else {
                 if type == .bold, restrictions.canApplyBold {
@@ -39,38 +41,38 @@ struct BlockActionsBuilder {
         if children.isEmpty {
             return nil
         }
-        return .menu(.style, children)
+        return .menu(item: .style, children: children)
     }
     
-    private func makeMediaMenuItem() -> BlockActionMenuItem? {
+    private var mediaMenuItem: BlockActionMenuItem? {
         let children: [BlockActionMenuItem] = BlockMediaAction.allCases.map { .action(.media($0)) }
-        return .menu(.media, children)
+        return .menu(item: .media, children: children)
     }
     
-    private func makeObjectsMenuItem() -> BlockActionMenuItem? {
+    private var objectsMenuItem: BlockActionMenuItem? {
         guard let draft = ObjectTypeProvider.objectType(url: ObjectTypeProvider.pageObjectURL) else {
             return nil
         }
         
         let objects = [ draft ]
-        return .menu(.objects, objects.map { .action(.objects($0)) })
+        return .menu(item: .objects, children: objects.map { .action(.objects($0)) })
     }
     
-    private func makeRelationMenuItem() -> BlockActionMenuItem? {
+    private var relationMenuItem: BlockActionMenuItem? {
         nil
     }
     
-    private func makeOtherMenuItem() -> BlockActionMenuItem? {
+    private var otherMenuItem: BlockActionMenuItem {
         let children: [BlockActionMenuItem] = BlockOtherAction.allCases.map { .action(.other($0)) }
-        return .menu(.other, children)
+        return .menu(item: .other, children: children)
     }
     
-    private func makeActionsMenuItem() -> BlockActionMenuItem? {
+    private var actionsMenuItem: BlockActionMenuItem {
         let children: [BlockActionMenuItem] = [BlockAction.delete, BlockAction.duplicate].map { .action(.actions($0)) }
-        return .menu(.actions, children)
+        return .menu(item: .actions, children: children)
     }
     
-    private func makeAlignmentMenuItem() -> BlockActionMenuItem? {
+    private var alignmentMenuItem: BlockActionMenuItem? {
         let children = BlockAlignmentAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, alignment in
             guard self.restrictions.availableAlignments.contains(alignment.blockAlignment) else { return }
             result.append(.action(.alignment(alignment)))
@@ -78,20 +80,20 @@ struct BlockActionsBuilder {
         if children.isEmpty {
             return nil
         }
-        return .menu(.alignment, children)
+        return .menu(item: .alignment, children: children)
     }
     
-    private func makeBlockColorMenuItem() -> BlockActionMenuItem? {
+    private var blockColorMenuItem: BlockActionMenuItem? {
         if !restrictions.canApplyBlockColor {
             return nil
         }
-        return .menu(.color, BlockColor.allCases.map { .action(.color($0)) })
+        return .menu(item: .color, children: BlockColor.allCases.map { .action(.color($0)) })
     }
     
-    private func makeBackgroundColorMenuItem() -> BlockActionMenuItem? {
+    private var backgroundColorMenuItem: BlockActionMenuItem? {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }
-        return .menu(.background, BlockBackgroundColor.allCases.map { .action(.background($0)) })
+        return .menu(item: .background, children: BlockBackgroundColor.allCases.map { .action(.background($0)) })
     }
 }

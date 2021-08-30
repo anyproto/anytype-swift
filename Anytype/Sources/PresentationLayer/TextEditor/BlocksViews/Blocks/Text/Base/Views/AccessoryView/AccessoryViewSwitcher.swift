@@ -7,13 +7,7 @@ protocol AccessoryViewSwitcherDelegate: AnyObject {
     func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
     
     /// Delegate method called after url was entered from accessory view
-    ///
-    /// - Parameters:
-    ///   - url: URL
     func didEnterURL(_ url: URL?)
-    // editor events
-    // slash events
-    // done events
 }
 
 
@@ -27,7 +21,9 @@ final class AccessoryViewSwitcher {
     
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
+    
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
+    
     private let mentionsView: MentionView
     let editingView: EditorAccessoryView
     var slashMenuView: SlashMenuView
@@ -35,11 +31,13 @@ final class AccessoryViewSwitcher {
     private weak var delegate: AccessoryViewSwitcherDelegate?
     private var latestTextViewTextChange: TextViewTextChangeType?
     
-    init(textView: UITextView,
-         delegate: AccessoryViewSwitcherDelegate,
-         mentionsView: MentionView,
-         slashMenuView: SlashMenuView,
-         accessoryView: EditorAccessoryView) {
+    init(
+        textView: UITextView,
+        delegate: AccessoryViewSwitcherDelegate,
+        mentionsView: MentionView,
+        slashMenuView: SlashMenuView,
+        accessoryView: EditorAccessoryView
+    ) {
         self.textView = textView
         self.delegate = delegate
         self.slashMenuView = slashMenuView
@@ -269,7 +267,6 @@ final class AccessoryViewSwitcher {
 // MARK: - MentionViewDelegate
 
 extension AccessoryViewSwitcher: MentionViewDelegate {
-
     func selectMention(_ mention: MentionObject) {
         guard
             let mentionSymbolPosition = accessoryViewTriggerSymbolPosition,
