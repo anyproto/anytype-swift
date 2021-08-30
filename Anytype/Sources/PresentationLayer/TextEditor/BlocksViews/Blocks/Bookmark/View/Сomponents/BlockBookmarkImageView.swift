@@ -27,7 +27,7 @@ class BlockBookmarkImageView: UIImageView {
             backgroundColor: UIColor.grayscaleWhite
         )
         
-        let placeholder = ImageBuilderNEW(imageGuideline).build()
+        let placeholder = ImageBuilder(imageGuideline).build()
         
         kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),

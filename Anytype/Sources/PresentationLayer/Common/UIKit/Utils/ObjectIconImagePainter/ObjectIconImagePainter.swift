@@ -45,7 +45,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
                textColor: UIColor,
                imageGuideline: ImageGuideline,
                backgroundColor: UIColor) -> UIImage {
-        ImageBuilderNEW(imageGuideline)
+        ImageBuilder(imageGuideline)
             .setText(string)
             .setFont(font)
             .setTextColor(textColor)

@@ -78,7 +78,7 @@ extension ObjectCoverView: ConfigurableView {
             )
         )
         
-        let placeholder = ImageBuilderNEW(imageGuideline).build()
+        let placeholder = ImageBuilder(imageGuideline).build()
         
         let processor = ResizingImageProcessor(
             referenceSize: imageGuideline.size,
@@ -101,7 +101,7 @@ extension ObjectCoverView: ConfigurableView {
             )
         )
         
-        imageView.image = ImageBuilderNEW(imageGuideline)
+        imageView.image = ImageBuilder(imageGuideline)
             .setImageColor(color)
             .build()
         
