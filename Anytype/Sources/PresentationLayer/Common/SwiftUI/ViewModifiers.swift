@@ -6,21 +6,18 @@ struct RoundedButtonViewModifier: ViewModifier {
     }
 }
 
-struct OuterHorizontalStackViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        HStack(alignment: .top) {
-            VStack {
-                content
-                Spacer(minLength: 10)
-            }
-        }.padding(16)
+struct DividerModifier: ViewModifier {
+    
+    let spacing: CGFloat?
+    
+    init(spacing: CGFloat? = nil) {
+        self.spacing = spacing
     }
-}
-
-struct HorizontalStackViewModifier: ViewModifier {
+    
     func body(content: Content) -> some View {
-        HStack(alignment: .center, spacing: 5) {
+        VStack(spacing: spacing) {
             content
+            Divider().foregroundColor(Color.divider)
         }
     }
 }

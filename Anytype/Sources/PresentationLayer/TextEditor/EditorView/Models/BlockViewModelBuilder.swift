@@ -186,7 +186,7 @@ final class BlockViewModelBuilder {
     }
     
     private func showFilePicker(blockId: BlockId) {
-        let model = CommonViews.Pickers.File.Picker.ViewModel()
+        let model = Picker.ViewModel()
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.blockActionHandler.upload(blockId: blockId, filePath: result.filePath)
         }.store(in: &subscriptions)
