@@ -8,9 +8,10 @@ protocol SearchServiceProtocol {
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
     func searchSets(completion: @escaping ([SearchResult]) -> ())
+    func searchMentions(text: String, completion: @escaping ([SearchResult]) -> ())
 }
 
-final class SearchService {
+final class SearchService: SearchServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
@@ -125,6 +126,37 @@ final class SearchService {
             limit: 100,
             objectTypeFilter: [],
             keys: [],
+            completion: completion
+        )
+    }
+    
+    func searchMentions(text: String, completion: @escaping ([SearchResult]) -> ()) {
+        let sort = SearchHelper.sort(relation: .name, type: .asc)
+        
+        let filter = SearchHelper.notHiddenFilter()
+        
+        let objectTypes = ObjectTypeProvider.supportedTypeUrls
+        
+        let keys = [DetailsKind.id,
+                    DetailsKind.name,
+                    DetailsKind.description,
+                    DetailsKind.iconEmoji,
+                    DetailsKind.iconImage,
+                    DetailsKind.type,
+                    DetailsKind.layout,
+                    DetailsKind.isHidden,
+                    DetailsKind.isArchived,
+                    DetailsKind.done]
+            .map(\.rawValue)
+        
+        makeRequest(
+            filters: [filter],
+            sorts: [sort],
+            fullText: text,
+            offset: 0,
+            limit: 0,
+            objectTypeFilter: objectTypes,
+            keys: keys,
             completion: completion
         )
     }
