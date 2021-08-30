@@ -11,7 +11,6 @@ import UIKit
 
 protocol ImageBuilderNEWProtocol {
     
-//    func setImageGuideline(_ imageGuideline: ImageGuideline) -> ImageBuilderNEWProtocol
     func setImageColor(_ imageColor: UIColor) -> ImageBuilderNEWProtocol
     func setText(_ text: String) -> ImageBuilderNEWProtocol
     func setTextColor(_ textColor: UIColor) -> ImageBuilderNEWProtocol

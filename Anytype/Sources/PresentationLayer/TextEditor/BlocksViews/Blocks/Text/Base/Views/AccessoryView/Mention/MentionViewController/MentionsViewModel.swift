@@ -88,10 +88,6 @@ final class MentionsViewModel {
                         size: size,
                         cornerRadius: radius
                     )
-                    let placeholderGuideline = PlaceholderImageTextGuideline(
-                        text: String(character),
-                        font: UIFont.systemFont(ofSize: 28)
-                    )
                     return ImageBuilderNEW(imageGuideline)
                         .setImageColor(.grayscale30)
                         .setText(String(character))
