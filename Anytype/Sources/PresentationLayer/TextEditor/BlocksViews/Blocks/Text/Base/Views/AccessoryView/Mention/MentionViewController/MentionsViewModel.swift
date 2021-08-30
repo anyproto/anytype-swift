@@ -88,7 +88,7 @@ final class MentionsViewModel {
                         size: size,
                         cornerRadius: radius
                     )
-                    return ImageBuilderNEW(imageGuideline)
+                    return ImageBuilder(imageGuideline)
                         .setImageColor(.grayscale30)
                         .setText(String(character))
                         .setFont(UIFont.systemFont(ofSize: 28))

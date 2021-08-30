@@ -158,7 +158,7 @@ final class MentionAttachment: NSTextAttachment {
             ) / 2
         )
         
-        var imageBuilder = ImageBuilderNEW(imageGuideline)
+        var imageBuilder = ImageBuilder(imageGuideline)
             .setImageColor(.grayscale30)
             .setText(String(placehodler))
         if let fontPointSize = fontPointSize {
