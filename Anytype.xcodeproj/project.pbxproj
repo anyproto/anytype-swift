@@ -2197,6 +2197,15 @@
 			path = Icon;
 			sourceTree = "<group>";
 		};
+		12426A1D26DCECB000693B1F /* ImageBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				12426A1026DCE1A400693B1F /* ImageBuilder.swift */,
+				12426A1526DCE1B900693B1F /* ImageBuilderProtocol.swift */,
+			);
+			path = ImageBuilder;
+			sourceTree = "<group>";
+		};
 		125FD2F926CE522000D21F5A /* EditorNavigationBarHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2212,8 +2221,7 @@
 				1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */,
 				1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */,
 				1270CE9C26DA88C800B2D443 /* Gradient */,
-				12426A1026DCE1A400693B1F /* ImageBuilder.swift */,
-				12426A1526DCE1B900693B1F /* ImageBuilderProtocol.swift */,
+				12426A1D26DCECB000693B1F /* ImageBuilder */,
 			);
 			path = Images;
 			sourceTree = "<group>";
