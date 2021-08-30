@@ -28,7 +28,7 @@ final class MentionView: DismissableInputAccessoryView {
     }
     
     private func addMentionsController(to controller: UIViewController) {
-        let service = MentionObjectsService()
+        let service = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
         let viewModel = MentionsViewModel(service: service,
                                           selectionHandler: { [weak self] mentionObject in
                                             self?.delegate?.selectMention(mentionObject)
