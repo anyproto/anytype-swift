@@ -4,24 +4,30 @@ import UIKit
 
 extension UITextView {
     
-    /// Append plain string to attributed string.
+    /// Append plain string to attributed string after caret.
     /// If attributedText is empty, `typingAttributes` will be set to default.
     /// This method avoids this undesired behavior and set `typingAttributes` properly.
     ///
     /// - Parameters:
     ///   - string: String to insert
-    func insertStringToAttributedString(_ string: String) {
-        guard !string.isEmpty else { return }
+    func insertStringToAttributedStringAfterCaret(_ string: String) {
+        insertStringToAttributedString(
+            string,
+            location: selectedRange.location
+        )
+    }
+    
+    func insertStringToAttributedString(_ string: String, location: Int) {
+        guard !string.isEmpty, location <= attributedText.length else { return }
         if attributedText.length == 0 {
             attributedText = NSAttributedString(string: string, attributes: typingAttributes)
         } else {
-            let selectedRangeLocation = selectedRange.location
             attributedText = attributedText?.attributedStringByInserting(
                 string,
-                at: selectedRangeLocation,
+                at: location,
                 attachmentAttributes: typingAttributes
             )
-            selectedRange.location = selectedRangeLocation + string.count
+            selectedRange.location = location + string.count
         }
     }
     

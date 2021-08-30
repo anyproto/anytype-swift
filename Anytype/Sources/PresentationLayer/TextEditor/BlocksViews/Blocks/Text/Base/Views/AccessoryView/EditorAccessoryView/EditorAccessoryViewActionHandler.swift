@@ -32,7 +32,7 @@ final class EditorAccessoryViewActionHandler {
 
         switch action {
         case .slashMenu:
-            customTextView.textView.insertStringToAttributedString(
+            customTextView.textView.insertStringToAttributedStringAfterCaret(
                 switcher.textToTriggerSlashViewDisplay
             )
             switcher.showSlashMenuView(textView: customTextView.textView)
@@ -47,7 +47,7 @@ final class EditorAccessoryViewActionHandler {
         case .keyboardDismiss:
             UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
         case .mention:
-            customTextView.textView.insertStringToAttributedString(
+            customTextView.textView.insertStringToAttributedStringAfterCaret(
                 switcher.textToTriggerMentionViewDisplay
             )
             switcher.showMentionsView(textView: customTextView.textView)

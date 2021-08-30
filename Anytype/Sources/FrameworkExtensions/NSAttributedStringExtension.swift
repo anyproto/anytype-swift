@@ -45,7 +45,12 @@ extension NSAttributedString {
     func attributedStringByInserting(_ string: String,
                                      at index: Int,
                                      attachmentAttributes: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
-        guard !string.isEmpty, index <= length else { return self }
+        guard length != 0 else {
+            return NSAttributedString(string: string)
+        }
+        guard !string.isEmpty, index <= length else {
+            return self
+        }
         let attributesIndex = index == length ? index - 1 : index
         var attributesAtIndex = attributes(at: attributesIndex,
                                            effectiveRange: nil)
