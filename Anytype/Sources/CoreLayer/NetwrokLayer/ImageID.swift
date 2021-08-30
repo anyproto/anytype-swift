@@ -9,8 +9,8 @@
 import Foundation
 
 struct ImageID {
-    let id: String
-    let width: UrlResolver.ImageWidth
+    private let id: String
+    private let width: UrlResolver.ImageWidth
     
     init(id: String, width: UrlResolver.ImageWidth = .thumbnail) {
         self.id = id
