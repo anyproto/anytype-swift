@@ -20,20 +20,9 @@ final class SearchService: SearchServiceProtocol {
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
-        ]
-        
-        makeRequest(
-            filters: filters,
+        makeSearchTextRequest(
+            text: text,
             sorts: [sort],
-            fullText: text,
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: [],
             completion: completion
         )
     }
@@ -133,30 +122,32 @@ final class SearchService: SearchServiceProtocol {
     func searchMentions(text: String, completion: @escaping ([SearchResult]) -> ()) {
         let sort = SearchHelper.sort(relation: .name, type: .asc)
         
-        let filter = SearchHelper.notHiddenFilter()
-        
-        let objectTypes = ObjectTypeProvider.supportedTypeUrls
-        
-        let keys = [DetailsKind.id,
-                    DetailsKind.name,
-                    DetailsKind.description,
-                    DetailsKind.iconEmoji,
-                    DetailsKind.iconImage,
-                    DetailsKind.type,
-                    DetailsKind.layout,
-                    DetailsKind.isHidden,
-                    DetailsKind.isArchived,
-                    DetailsKind.done]
-            .map(\.rawValue)
+        makeSearchTextRequest(
+            text: text,
+            sorts: [sort],
+            completion: completion
+        )
+    }
+    
+    private func makeSearchTextRequest(
+        text: String,
+        sorts: [Anytype_Model_Block.Content.Dataview.Sort],
+        completion: @escaping ([SearchResult]) -> ()
+    ) {
+        let filters = [
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        ]
         
         makeRequest(
-            filters: [filter],
-            sorts: [sort],
+            filters: filters,
+            sorts: sorts,
             fullText: text,
             offset: 0,
-            limit: 0,
-            objectTypeFilter: objectTypes,
-            keys: keys,
+            limit: 100,
+            objectTypeFilter: [],
+            keys: [],
             completion: completion
         )
     }
