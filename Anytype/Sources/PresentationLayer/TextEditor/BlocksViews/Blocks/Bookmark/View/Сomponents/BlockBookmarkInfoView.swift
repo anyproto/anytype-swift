@@ -68,8 +68,11 @@ final class BlockBookmarkInfoView: UIView {
         
         let placeholder = ImageBuilder(imageGuideline).build()
         
-        let processor = DownsamplingImageProcessor(size: Layout.iconSize)
-        .append(another: RoundCornerImageProcessor(radius: .point(2)))
+        let processor = KFProcessorBuilder(
+            scalingType: .downsampling,
+            targetSize: Layout.iconSize,
+            cornerRadius: .point(2)
+        ).processor
         
         iconView.kf.setImage(
             with: UrlResolver.resolvedUrl(.image(id: payload.faviconHash, width: .thumbnail)),
