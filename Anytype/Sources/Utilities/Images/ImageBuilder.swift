@@ -20,7 +20,7 @@ final class ImageBuilder {
     static func placeholder(with guideline: ImageGuideline,
                             color: UIColor,
                             textGuideline: PlaceholderImageTextGuideline? = nil) -> UIImage {
-        let hash = "\(guideline.identifier).\(color.toHexString()).\(textGuideline?.identifier ?? "")"
+        let hash = "\(guideline.identifier).\(color.hexString).\(textGuideline?.identifier ?? "")"
         
         if let cachedImage = imageStorage.image(forKey: hash) {
             return cachedImage
