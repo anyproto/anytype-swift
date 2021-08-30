@@ -60,14 +60,13 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
-        let placeholder = ImageBuilder.placeholder(
-            with: ImageGuideline(
-                size: Layout.iconSize,
-                cornerRadius: 2,
-                backgroundColor: UIColor.grayscaleWhite
-            ),
-            color: UIColor.grayscale10
+        let imageGuideline = ImageGuideline(
+            size: Layout.iconSize,
+            cornerRadius: 2,
+            backgroundColor: UIColor.grayscaleWhite
         )
+        
+        let placeholder = ImageBuilderNEW(imageGuideline).build()
         
         let processor = DownsamplingImageProcessor(size: Layout.iconSize)
         .append(another: RoundCornerImageProcessor(radius: .point(2)))

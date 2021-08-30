@@ -157,16 +157,14 @@ final class MentionAttachment: NSTextAttachment {
                 size.height
             ) / 2
         )
-        let placeholderGuideline = PlaceholderImageTextGuideline(
-            text: String(placehodler),
-            font: UIFont.systemFont(ofSize: fontPointSize ?? 0)
-        )
-        let image = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30,
-            textGuideline: placeholderGuideline
-        )
-        addLeadingSpaceAndDisplay(image)
+        
+        var imageBuilder = ImageBuilderNEW(imageGuideline)
+            .setImageColor(.grayscale30)
+            .setText(String(placehodler))
+        if let fontPointSize = fontPointSize {
+            imageBuilder = imageBuilder.setFont(UIFont.systemFont(ofSize: fontPointSize))
+        }
+        addLeadingSpaceAndDisplay(imageBuilder.build())
     }
     
     private func loadImage(imageId: String, isBasicLayout: Bool) {

@@ -92,10 +92,7 @@ extension ObjectIconImageView: ConfigurableView {
             return
         }
         
-        let placeholder = ImageBuilder.placeholder(
-            with: imageGuideline,
-            color: UIColor.grayscale10
-        )
+        let placeholder = ImageBuilderNEW(imageGuideline).build()
         
         let processor = ResizingImageProcessor(
             referenceSize: imageGuideline.size,
