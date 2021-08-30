@@ -103,7 +103,8 @@ extension ObjectIconImageView: ConfigurableView {
         )
         |> CroppingImageProcessor(size: imageGuideline.size)
         |> RoundCornerImageProcessor(
-            radius: .point(imageGuideline.cornersGuideline.radius)
+            radius: .point(imageGuideline.cornersGuideline.radius),
+            backgroundColor: imageGuideline.cornersGuideline.backgroundColor
         )
         
         imageView.kf.setImage(
