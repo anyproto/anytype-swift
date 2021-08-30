@@ -40,7 +40,7 @@ struct BlockLinkIconMaker {
     private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
         
-        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else {
+        guard let url = ImageID(id: imageId).resolvedUrl else {
             return imageView
         }
         

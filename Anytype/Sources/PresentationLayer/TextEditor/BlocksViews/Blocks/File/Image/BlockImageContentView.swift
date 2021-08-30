@@ -79,7 +79,7 @@ final class BlockImageContentView: UIView & UIContentView {
         ).build()
         
         imageView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            with: ImageID(id: imageId, width: .default).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(DownsamplingImageProcessor(size: imageSize))]
         )

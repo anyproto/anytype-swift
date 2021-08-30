@@ -30,7 +30,7 @@ class BlockBookmarkImageView: UIImageView {
         let placeholder = ImageBuilder(imageGuideline).build()
         
         kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            with: ImageID(id: imageId, width: .default).resolvedUrl,
             placeholder: placeholder
         )
     }
