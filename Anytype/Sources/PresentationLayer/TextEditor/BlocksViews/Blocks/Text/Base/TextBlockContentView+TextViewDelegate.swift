@@ -35,8 +35,6 @@ extension TextBlockContentView: TextViewDelegate {
                 .textView(action: action, block: block),
                 blockId: currentConfiguration.information.id
             )
-        case .changeTextForStruct:
-            fallthrough
         case .changeText:
             accessoryViewSwitcher?.textDidChange(textView: textView.textView)
             // TODO: Accessory need refactoring

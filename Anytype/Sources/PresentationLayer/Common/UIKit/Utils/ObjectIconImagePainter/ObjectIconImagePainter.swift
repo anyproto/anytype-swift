@@ -45,7 +45,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
                textColor: UIColor,
                imageGuideline: ImageGuideline,
                backgroundColor: UIColor) -> UIImage {
-        PlaceholderImageBuilder.placeholder(
+        ImageBuilder.placeholder(
             with: imageGuideline,
             color: backgroundColor,
             textGuideline: PlaceholderImageTextGuideline(

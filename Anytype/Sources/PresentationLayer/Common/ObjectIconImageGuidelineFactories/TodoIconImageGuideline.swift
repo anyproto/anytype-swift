@@ -1,6 +1,6 @@
 //
-//  TodoObjectIconImageGuidelineFactory.swift
-//  TodoObjectIconImageGuidelineFactory
+//  TodoIconImageGuideline.swift
+//  TodoIconImageGuideline
 //
 //  Created by Konstantin Mordan on 25.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum TodoObjectIconImageGuidelineFactory {
+enum TodoIconImageGuideline {
     
     static let x28 = ImageGuideline(
         size: CGSize(width: 28, height: 28),

@@ -48,10 +48,10 @@ struct HomeCell: View {
     
     private func todoTitle(with text: String, isChecked: Bool) -> some View {
         HStack(alignment: .top, spacing: 6) {
-            ObjectIconImageView(
+            SwiftUIObjectIconImageView(
                 iconImage: .todo(isChecked),
-                position: .dashboardList
-            )
+                usecase: .dashboardList
+            ).frame(width: 18, height: 18)
             defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
         }
     }
@@ -65,19 +65,22 @@ struct HomeCell: View {
         Group {
             if isRedacted {
                 RoundedRectangle(
-                    cornerRadius: DashboardObjectIcon.Constants.basicImageIconCornerRadius
+                    cornerRadius: Constants.iconCornerRadius
                 )
                     .foregroundColor(Color.grayscale10)
                     .frame(
-                        width: DashboardObjectIcon.Constants.iconSize.width,
-                        height: DashboardObjectIcon.Constants.iconSize.height
+                        width: Constants.iconSize.width,
+                        height: Constants.iconSize.height
                     )
             } else {
                 switch cellData.icon {
                 case .some(let icon):
-                    ObjectIconImageView(
+                    SwiftUIObjectIconImageView(
                         iconImage: .icon(icon),
-                        position: .dashboardList
+                        usecase: .dashboardList
+                    ).frame(
+                        width: Constants.iconSize.width,
+                        height: Constants.iconSize.height
                     )
                 case .none:
                     EmptyView()
@@ -85,9 +88,7 @@ struct HomeCell: View {
             }
         }
     }
-    
-    
-    
+
     private var iconSpacer: some View {
         Group {
             if !cellData.icon.isNil || isRedacted {
@@ -107,6 +108,15 @@ struct HomeCell: View {
             }
         }
     }
+}
+
+private extension HomeCell {
+    
+    enum Constants {
+        static let iconSize = CGSize(width: 48, height: 48)
+        static let iconCornerRadius: CGFloat = 2
+    }
+    
 }
 
 

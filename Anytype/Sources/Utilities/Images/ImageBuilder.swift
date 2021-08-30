@@ -1,5 +1,5 @@
 //
-//  PlaceholderImageBuilder.swift
+//  ImageBuilder.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 24.05.2021.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class PlaceholderImageBuilder {
+final class ImageBuilder {
 
     // MARK: - Private variables
     
@@ -54,41 +54,11 @@ final class PlaceholderImageBuilder {
         return image
     }
     
-    static func gradient(size: CGSize,
-                         startColor: UIColor,
-                         endColor: UIColor,
-                         startPoint: CGPoint,
-                         endPoint: CGPoint) -> UIImage {
-        let hash = """
-        \(size).
-        \(startColor.toHexString()).
-        \(endColor.toHexString()).
-        \(startPoint.identifier).
-        \(endPoint.identifier)
-        """
-        
-        if let cachedImage = imageStorage.image(forKey: hash) {
-            return cachedImage
-        }
-
-        let image = UIImage.gradient(
-            size: size,
-            startColor: startColor,
-            endColor: endColor,
-            startPoint: startPoint,
-            endPoint: endPoint
-        )
-        
-        imageStorage.saveImage(image, forKey: hash)
-        
-        return image
-    }
-    
 }
 
 // MARK: - Private extension
 
-private extension PlaceholderImageBuilder {
+private extension ImageBuilder {
     
     static func draw(textGuideline: PlaceholderImageTextGuideline, using guideline: ImageGuideline) {
         let textSize = NSString(string: textGuideline.text).size(withAttributes: [.font: textGuideline.font])
@@ -115,14 +85,6 @@ private extension PlaceholderImageBuilder {
             ],
             context: nil
         )
-    }
-    
-}
-
-private extension CGPoint {
-    
-    var identifier: String {
-        NSCoder.string(for: self)
     }
     
 }

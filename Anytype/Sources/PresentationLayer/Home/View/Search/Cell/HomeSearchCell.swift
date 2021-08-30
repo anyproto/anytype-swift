@@ -39,9 +39,9 @@ struct HomeSearchCell: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            ObjectIconImageView(
+            SwiftUIObjectIconImageView(
                 iconImage: data.icon,
-                position: .dashboardSearch
+                usecase: .dashboardSearch
             ).frame(width: 48, height: 48)
             text
         }

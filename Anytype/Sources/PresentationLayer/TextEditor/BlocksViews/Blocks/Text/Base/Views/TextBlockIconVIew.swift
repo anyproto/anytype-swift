@@ -41,7 +41,7 @@ final class TextBlockIconView: UIView {
         switch type {
         case let .titleCheckbox(isSelected):
             let painer = ObjectIconImagePainter.shared
-            let imageGuideline = ObjectIconImagePosition.openedObject.objectIconImageGuidelineSet.todoImageGuideline
+            let imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.todoImageGuideline
             
             let uncheckedImage: UIImage? = imageGuideline.flatMap {
                 painer.todoImage(isChecked: false, imageGuideline: $0)
@@ -54,6 +54,7 @@ final class TextBlockIconView: UIView {
                 isSelected: isSelected,
                 uncheckedImage: uncheckedImage,
                 checkedImage: checkedImage,
+                viewSize: Constants.TitleCheckbox.viewSize,
                 imageSize: Constants.TitleCheckbox.imageSize
             )
         case let .checkbox(isSelected):
@@ -65,6 +66,7 @@ final class TextBlockIconView: UIView {
                 checkedImage: UIImage(
                     imageLiteralResourceName: Constants.Checkbox.checkedImageName
                 ),
+                viewSize: Constants.size,
                 imageSize: Constants.Checkbox.imageSize
             )
         case let .numbered(number):
@@ -117,6 +119,7 @@ extension TextBlockIconView {
         isSelected: Bool,
         uncheckedImage: UIImage?,
         checkedImage: UIImage?,
+        viewSize: CGSize,
         imageSize: CGSize
     ) -> UIButton {
         let checkboxView = UIButton()
@@ -133,8 +136,8 @@ extension TextBlockIconView {
             for: .touchUpInside
         )
         addSubview(checkboxView) {
-            $0.width.equal(to: Constants.size.width)
-            $0.height.equal(to: Constants.size.height)
+            $0.width.equal(to: viewSize.width)
+            $0.height.equal(to: viewSize.height)
             $0.leading.equal(to: leadingAnchor)
             $0.top.equal(to: topAnchor)
             $0.bottom.equal(to: bottomAnchor)
@@ -217,6 +220,7 @@ private extension TextBlockIconView {
             static let checkedImageName = "todo_checkmark"
             static let uncheckedImageName = "todo_checkbox"
             static let imageSize = CGSize(width: 28, height: 28)
+            static let viewSize = CGSize(width: 28, height: 32) // height is equel to height of 1 line in text view
         }
         enum Checkbox {
             static let checkedImageName = "TextEditor/Style/Text/Checkbox/checked"

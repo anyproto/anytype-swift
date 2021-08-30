@@ -6,7 +6,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     @Published private(set) var details = DetailsData.empty
     var settings: [ObjectSetting] {
-        if details.typeUrl == Constants.myProfileType {
+        if details.typeUrl == ObjectTypeProvider.myProfileURL {
             return ObjectSetting.allCases.filter { $0 != .layout }
         }
         
@@ -50,14 +50,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.details = details
         iconPickerViewModel.details = details
         layoutPickerViewModel.details = details
-    }
-    
-}
-
-private extension ObjectSettingsViewModel {
-    
-    enum Constants {
-        static let myProfileType = "_otprofile"
     }
     
 }

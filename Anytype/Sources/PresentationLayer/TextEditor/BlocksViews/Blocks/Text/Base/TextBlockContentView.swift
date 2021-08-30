@@ -265,6 +265,13 @@ final class TextBlockContentView: UIView & UIContentView {
         let range = NSMakeRange(0, textView.textView.textStorage.length)
         textView.textView.textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
 
+        // set kern
+        if let kern = AnytypeFontBuilder.kern(textStyle) {
+            textView.textView.textStorage.addAttribute(.kern, value: kern, range: range)
+        } else {
+            textView.textView.textStorage.removeAttribute(.kern, range: range)
+        }
+
         let topBottomTextSpacing = AnytypeFontBuilder.lineSpacing(textStyle) / 2
         textView.textView.textContainerInset = .init(top: topBottomTextSpacing, left: 0, bottom: topBottomTextSpacing, right: 0)
 

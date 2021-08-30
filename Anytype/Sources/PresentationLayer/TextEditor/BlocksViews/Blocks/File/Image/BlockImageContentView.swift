@@ -74,7 +74,7 @@ final class BlockImageContentView: UIView & UIContentView {
             height: Layout.imageContentViewDefaultHeight
         )
         
-        let placeholder = PlaceholderImageBuilder.placeholder(
+        let placeholder = ImageBuilder.placeholder(
             with: ImageGuideline(size: imageSize),
             color: UIColor.grayscale10
         )
