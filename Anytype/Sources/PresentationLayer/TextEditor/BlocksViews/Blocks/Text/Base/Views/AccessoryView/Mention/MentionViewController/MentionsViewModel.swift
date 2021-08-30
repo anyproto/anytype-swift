@@ -106,7 +106,7 @@ final class MentionsViewModel {
     }
     
     private func loadImage(by id: String, mention: MentionObject) {
-        guard let url = UrlResolver.resolvedUrl(.image(id: id, width: .thumbnail)) else { return }
+        guard let url = ImageID(id: id).resolvedUrl else { return }
         let imageSize = CGSize(width: 40, height: 40)
         
         let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
