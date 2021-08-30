@@ -13,8 +13,6 @@ final class TextViewWithPlaceholder: UITextView {
         return label
     }()
 
-    private var placeholderConstraints: [NSLayoutConstraint]?
-
     private let blockLayoutManager = TextBlockLayoutManager()
 
     private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
@@ -137,18 +135,15 @@ private extension TextViewWithPlaceholder {
     }
 
     func setupPlaceholderLayout() {
-        if let placeholderConstraints = placeholderConstraints {
-            placeholderLabel.removeConstraints(placeholderConstraints)
-        }
-
+        removeConstraints(placeholderLabel.constraints)
+        
         placeholderLabel.layoutUsing.anchors {
-            placeholderConstraints?.append($0.leading.equal(to: leadingAnchor, constant: textContainerInset.left))
-            placeholderConstraints?.append($0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right))
-            placeholderConstraints?.append($0.top.equal(to: topAnchor, constant: textContainerInset.top))
-            placeholderConstraints?.append($0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom))
-            placeholderConstraints?.append($0.width.equal(to: widthAnchor))
+            $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
+            $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
+            $0.top.equal(to: topAnchor, constant: textContainerInset.top)
+            $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
+            $0.width.equal(to: widthAnchor)
         }
-        setNeedsUpdateConstraints()
     }
     
     private func syncPlaceholder() {
