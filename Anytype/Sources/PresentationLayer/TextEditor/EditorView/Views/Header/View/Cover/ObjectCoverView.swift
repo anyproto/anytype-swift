@@ -110,15 +110,19 @@ extension ObjectCoverView: ConfigurableView {
     }
     
     private func showImageBaseOnGradient(_ startColor: UIColor, _ endColor: UIColor, maxWidth: CGFloat) {
-        imageView.image = PlaceholderImageBuilder.gradient(
+        imageView.image = GradientImageBuilder().image(
             size: CGSize(
                 width: maxWidth,
                 height: Constants.coverHeight
             ),
-            startColor: startColor,
-            endColor: endColor,
-            startPoint: CGPoint(x: 0.5, y: 0),
-            endPoint: CGPoint(x: 0.5, y: 1)
+            color: GradientColor(
+                start: startColor,
+                end: endColor
+            ),
+            point: GradientPoint(
+                start: CGPoint(x: 0.5, y: 0),
+                end: CGPoint(x: 0.5, y: 1)
+            )
         )
         imageView.contentMode = .scaleToFill
     }

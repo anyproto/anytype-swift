@@ -54,36 +54,6 @@ final class PlaceholderImageBuilder {
         return image
     }
     
-    static func gradient(size: CGSize,
-                         startColor: UIColor,
-                         endColor: UIColor,
-                         startPoint: CGPoint,
-                         endPoint: CGPoint) -> UIImage {
-        let hash = """
-        \(size).
-        \(startColor.toHexString()).
-        \(endColor.toHexString()).
-        \(startPoint.identifier).
-        \(endPoint.identifier)
-        """
-        
-        if let cachedImage = imageStorage.image(forKey: hash) {
-            return cachedImage
-        }
-
-        let image = UIImage.gradient(
-            size: size,
-            startColor: startColor,
-            endColor: endColor,
-            startPoint: startPoint,
-            endPoint: endPoint
-        )
-        
-        imageStorage.saveImage(image, forKey: hash)
-        
-        return image
-    }
-    
 }
 
 // MARK: - Private extension
