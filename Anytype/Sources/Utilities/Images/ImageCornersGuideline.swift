@@ -28,7 +28,7 @@ extension ImageCornersGuideline {
 extension ImageCornersGuideline {
     
     var identifier: String {
-        "\(ImageCornersGuideline.self).\(radius).\(backgroundColor?.toHexString() ?? "")"
+        "\(ImageCornersGuideline.self).\(radius).\(backgroundColor?.hexString ?? "")"
     }
     
 }

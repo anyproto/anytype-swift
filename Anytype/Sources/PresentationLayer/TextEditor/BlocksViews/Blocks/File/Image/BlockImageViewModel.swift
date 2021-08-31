@@ -92,7 +92,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     private func downloadImage() {
         guard
-            let url = UrlResolver.resolvedUrl(.image(id: fileData.metadata.hash, width: .default))
+            let url = ImageID(id: fileData.metadata.hash, width: .default).resolvedUrl
         else {
             return
         }

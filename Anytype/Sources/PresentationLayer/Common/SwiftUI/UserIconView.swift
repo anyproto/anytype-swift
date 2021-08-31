@@ -40,12 +40,11 @@ struct UserIconView: View {
                     .url(source.resolvedUrl)
                     .setProcessors(
                         [
-                            ResizingImageProcessor(
-                                referenceSize: Constants.size,
-                                mode: .aspectFill
-                            ),
-                            CroppingImageProcessor(size: Constants.size),
-                            RoundCornerImageProcessor(radius: .widthFraction(0.5))
+                            KFProcessorBuilder(
+                                scalingType: .resizing(.aspectFill),
+                                targetSize: Constants.size,
+                                cornerRadius: .widthFraction(0.5)
+                            ).processor
                         ]
                     )
                     .fade(duration: 0.25)

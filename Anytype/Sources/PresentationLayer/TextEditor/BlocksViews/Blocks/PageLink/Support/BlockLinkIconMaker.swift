@@ -40,19 +40,17 @@ struct BlockLinkIconMaker {
     private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
         
-        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else {
+        guard let url = ImageID(id: imageId).resolvedUrl else {
             return imageView
         }
         
         let size = imageViewSize
         
-        let processor = ResizingImageProcessor(
-            referenceSize: size,
-            mode: .aspectFill
-        )
-            |> CroppingImageProcessor(size: size)
-            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
-        
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: size,
+            cornerRadius: .point(cornerRadius)
+        ).processor
         
         let imageGuideline = ImageGuideline(
             size: size,

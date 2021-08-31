@@ -10,7 +10,7 @@ extension UIColor {
         return UIColor(red: random(), green: random(), blue: random(), alpha: 1)
     }
     
-    func toHexString() -> String {
+    var hexString: String {
         var r:CGFloat = 0
         var g:CGFloat = 0
         var b:CGFloat = 0

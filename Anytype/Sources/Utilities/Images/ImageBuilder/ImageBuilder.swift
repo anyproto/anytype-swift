@@ -56,11 +56,11 @@ extension ImageBuilder: ImageBuilderProtocol {
         var key = """
         \(ImageBuilder.self).
         \(imageGuideline.identifier).
-        \(imageColor.toHexString()).
+        \(imageColor.hexString).
         """
         if let text = text {
             key.append(text)
-            key.append(textColor.toHexString())
+            key.append(textColor.hexString)
             key.append("\(font)")
         }
         

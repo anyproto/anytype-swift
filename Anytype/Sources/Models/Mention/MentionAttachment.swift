@@ -163,12 +163,14 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func loadImage(imageId: String, isBasicLayout: Bool) {
-        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
+        guard let url = ImageID(id: imageId).resolvedUrl else { return }
         let imageSize = self.iconSize ?? Constants.defaultIconSize
         let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
-        let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
-            |> CroppingImageProcessor(size: imageSize)
-            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: imageSize,
+            cornerRadius: .point(cornerRadius)
+        ).processor
         
         KingfisherManager.shared.retrieveImage(
             with: url,

@@ -116,17 +116,14 @@ extension DocumentIconImageView: ConfigurableView {
     private func downloadImage(imageId: String, imageGuideline: ImageGuideline) {
         let placeholder = ImageBuilder(imageGuideline).build()
         
-        let processor = ResizingImageProcessor(
-            referenceSize: imageGuideline.size,
-            mode: .aspectFill
-        )
-        |> CroppingImageProcessor(size: imageGuideline.size)
-        |> RoundCornerImageProcessor(
-            radius: .point(imageGuideline.cornersGuideline.radius)
-        )
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: imageGuideline.size,
+            cornerRadius: .point(imageGuideline.cornersGuideline.radius)
+        ).processor
         
         imageView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
+            with: ImageID(id: imageId, width: .default).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.3))]
         )
