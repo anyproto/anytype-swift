@@ -14,7 +14,7 @@ final class MentionObjectsService {
     }
     
     func loadMentions(completion: @escaping ([MentionObject]) -> Void) {
-        searchService.searchMentions(text: filterString) { [weak self] searchResults in
+        searchService.search(text: filterString) { [weak self] searchResults in
             completion(self?.parser.parseMentions(from: searchResults) ?? [])
         }
     }
