@@ -1900,6 +1900,27 @@ extension Anytype_Rpc.Debug.threadInfo {
   }
 }
 
+extension Anytype_Rpc.DownloadFile.Request {
+  public init(hash: String, path: String) {
+    self.hash = hash
+    self.path = path
+  }
+}
+
+extension Anytype_Rpc.DownloadFile.Response {
+  public init(error: Anytype_Rpc.DownloadFile.Response.Error, localPath: String) {
+    self.error = error
+    self.localPath = localPath
+  }
+}
+
+extension Anytype_Rpc.DownloadFile.Response.Error {
+  public init(code: Anytype_Rpc.DownloadFile.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Export.Request {
   public init(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool) {
     self.path = path
@@ -2302,6 +2323,53 @@ extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response {
 
 extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error {
   public init(code: Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Edge {
+  public init(source: String, target: String, name: String, type: Anytype_Rpc.Object.Graph.Edge.TypeEnum, description_p: String, iconImage: String, iconEmoji: String) {
+    self.source = source
+    self.target = target
+    self.name = name
+    self.type = type
+    self.description_p = description_p
+    self.iconImage = iconImage
+    self.iconEmoji = iconEmoji
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Node {
+  public init(id: String, type: String, name: String, layout: Int32, description_p: String, iconImage: String, iconEmoji: String) {
+    self.id = id
+    self.type = type
+    self.name = name
+    self.layout = layout
+    self.description_p = description_p
+    self.iconImage = iconImage
+    self.iconEmoji = iconEmoji
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Request {
+  public init(filters: [Anytype_Model_Block.Content.Dataview.Filter], limit: Int32, objectTypeFilter: [String]) {
+    self.filters = filters
+    self.limit = limit
+    self.objectTypeFilter = objectTypeFilter
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Response {
+  public init(error: Anytype_Rpc.Object.Graph.Response.Error, nodes: [Anytype_Rpc.Object.Graph.Node], edges: [Anytype_Rpc.Object.Graph.Edge]) {
+    self.error = error
+    self.nodes = nodes
+    self.edges = edges
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Response.Error {
+  public init(code: Anytype_Rpc.Object.Graph.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
