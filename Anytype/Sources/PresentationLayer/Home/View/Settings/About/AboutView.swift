@@ -5,52 +5,55 @@ import Amplitude
 import AnytypeCore
 
 struct AboutView: View {
-    @ObservedObject var viewModel: AboutViewModel
-    
     var body: some View {
         contentView
             .onAppear {
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.showAboutScreen)
-
-                viewModel.viewLoaded()
             }
     }
     
     var contentView: some View {
-        VStack(alignment: .center) {
-            DragIndicator()
-            title
+        VStack(alignment: .center, spacing: 0) {
+            DragIndicator().padding(.bottom, 70)
+            title.padding(.bottom, 27)
             VStack(alignment: .leading, spacing: 30) {
                 if let version = MetadataProvider.appVersion {
-                    AnytypeText("🤖 App version: \(version)", style: .title)
+                    aboutRow(label: "App version", value: version)
                 }
                 if let buildNumber = MetadataProvider.buildNumber {
-                    AnytypeText("🛠 Build number: \(buildNumber)", style: .title)
+                    aboutRow(label: "Build number", value: buildNumber)
                 }
-                AnytypeText("🧙 Library: \(viewModel.libraryVersion)", style: .title)
-            }.padding()
+                if let libraryVersion = MiddlewareConfigurationService.shared.libraryVersion() {
+                    aboutRow(label: "Library", value: libraryVersion)
+                }
+            }.padding(.horizontal)
             Spacer()
         }
-        .padding([.leading, .trailing])
         .sheet(isPresented: $showDebugMenu) {
             FeatureFlagsView()
         }
     }
     
+    func aboutRow(label: String, value: String) -> some View {
+        HStack {
+            AnytypeText(label, style: .uxBodyRegular).foregroundColor(.textSecondary)
+            Spacer()
+            AnytypeText(value, style: .uxBodyRegular).foregroundColor(.textPrimary)
+        }
+        .modifier(DividerModifier())
+    }
+    
     @State private var titleTapCount = 0
     @State private var showDebugMenu = false
     var title: some View {
-        Label(
-            title: { AnytypeText("Anytype info", style: .title).padding() },
-            icon: { Image.splashLogo.resizable().frame(width: 40, height: 40) }
-        )
-        .onTapGesture {
-            titleTapCount += 1
-            if titleTapCount == 10 {
-                titleTapCount = 0
-                showDebugMenu = true
+        AnytypeText("About", style: .title)
+            .onTapGesture {
+                titleTapCount += 1
+                if titleTapCount == 10 {
+                    titleTapCount = 0
+                    showDebugMenu = true
+                }
             }
-        }
     }
 }

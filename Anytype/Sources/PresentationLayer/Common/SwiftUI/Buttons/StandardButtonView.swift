@@ -51,7 +51,7 @@ struct StandardButtonView: View {
     
     var body: some View {
         AnytypeText(text, style: style == .primary ? .button1Semibold : .button1Regular)
-            .padding(.all)
+            .padding(.all, 12)
             .foregroundColor(style.textColor(disabled: disabled))
             .frame(minWidth: 0, maxWidth: .infinity)
             .background(style.backgroundColor(disabled: disabled))

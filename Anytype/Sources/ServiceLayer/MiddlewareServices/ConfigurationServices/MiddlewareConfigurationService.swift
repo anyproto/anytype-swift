@@ -24,11 +24,8 @@ extension MiddlewareConfigurationService {
         configuration = nil
     }
     
-    func libraryVersionPublisher() -> AnyPublisher<MiddlewareVersion, Error> {
-        Anytype_Rpc.Version.Get.Service.invoke()
-            .map { MiddlewareVersion(version: $0.details) }
-            .subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
+    func libraryVersion() -> String? {
+        return try? Anytype_Rpc.Version.Get.Service.invoke().get().version
     }
     
     func getConfiguration(onCompletion: @escaping (MiddlewareConfiguration) -> Void) {

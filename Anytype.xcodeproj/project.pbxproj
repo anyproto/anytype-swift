@@ -303,7 +303,6 @@
 		3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F926A014E1007A6880 /* TextContent+Font.swift */; };
 		3D43FD8D26B162530094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; };
 		3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */; };
-		3D43FDB526B18E490094D4C0 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */; };
 		3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */; };
 		3D44984526D53D61005A3E06 /* DocumentEditorViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */; };
 		3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */; };
@@ -938,7 +937,6 @@
 		3D4125F7269F6548007A6880 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FontName.swift; path = "Anytype/Sources/Design system/Fonts/FontName.swift"; sourceTree = SOURCE_ROOT; };
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/Fonts/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
 		3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+SafeCall.swift"; path = "Anytype/Sources/FrameworkExtensions/Array+SafeCall.swift"; sourceTree = SOURCE_ROOT; };
-		3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutViewModel.swift; path = Anytype/Sources/PresentationLayer/Home/View/Settings/About/AboutViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectHeader+Mutation.swift"; sourceTree = "<group>"; };
 		3D44984426D53D61005A3E06 /* DocumentEditorViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewOutput.swift; sourceTree = "<group>"; };
 		3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -1882,7 +1880,6 @@
 			isa = PBXGroup;
 			children = (
 				0A1F0D9224DDCE0100A8B488 /* AboutView.swift */,
-				3D43FDB426B18E490094D4C0 /* AboutViewModel.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -4105,7 +4102,6 @@
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
 				3D4125ED269ECED6007A6880 /* ObjectType.swift in Sources */,
-				3D43FDB526B18E490094D4C0 /* AboutViewModel.swift in Sources */,
 				3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */,
 				3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
