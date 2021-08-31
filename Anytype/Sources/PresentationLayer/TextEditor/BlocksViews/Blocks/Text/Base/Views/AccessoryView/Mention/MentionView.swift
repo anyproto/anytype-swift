@@ -29,22 +29,23 @@ final class MentionView: DismissableInputAccessoryView {
     
     private func addMentionsController(to controller: UIViewController) {
         let service = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
-        let viewModel = MentionsViewModel(service: service,
-                                          selectionHandler: { [weak self] mentionObject in
-                                            self?.delegate?.selectMention(mentionObject)
-                                          })
-        let mentionsController = MentionsViewController(style: .plain,
-                                                        viewModel: viewModel,
-                                                        dismissAction: dismissHandler)
+        let viewModel = MentionsViewModel(
+            service: service,
+            selectionHandler: { [weak self] mentionObject in
+                self?.delegate?.selectMention(mentionObject)
+            }
+        )
+        let mentionsController = MentionsViewController(
+            style: .plain,
+            viewModel: viewModel,
+            dismissAction: dismissHandler
+        )
         mentionsController.view.translatesAutoresizingMaskIntoConstraints = false
         controller.addChild(mentionsController)
-        addSubview(mentionsController.view)
-        NSLayoutConstraint.activate([
-            (topSeparator?.bottomAnchor ?? topAnchor).constraint(equalTo: mentionsController.view.topAnchor),
-            mentionsController.view.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mentionsController.view.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mentionsController.view.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        addSubview(mentionsController.view) {
+            $0.pinToSuperview(excluding: [.top])
+            $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
+        }
         mentionsController.didMove(toParent: controller)
         self.mentionsController = mentionsController
     }

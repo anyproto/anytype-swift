@@ -436,8 +436,10 @@ final class TextBlockContentView: UIView & UIContentView {
 extension TextBlockContentView {
     private func buildAccessoryViews() {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize))
+        
         let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
         let accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
+        
         let actionsHandler = SlashMenuActionsHandlerImp(
             blockActionHandler: currentConfiguration.actionHandler
         )
@@ -445,20 +447,25 @@ extension TextBlockContentView {
             for: currentConfiguration.information.content.type
         )
         let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
+        
         let slashMenuView = SlashMenuView(
             frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
             menuItems: items,
             slashMenuActionsHandler: actionsHandler
         )
 
-        let accessoryViewSwitcher = AccessoryViewSwitcher(textView: textView.textView,
-                                                          delegate: self,
-                                                          mentionsView: mentionsView,
-                                                          slashMenuView: slashMenuView,
-                                                          accessoryView: accessoryView)
+        let accessoryViewSwitcher = AccessoryViewSwitcher(
+            textView: textView.textView,
+            delegate: self,
+            mentionsView: mentionsView,
+            slashMenuView: slashMenuView,
+            accessoryView: accessoryView
+        )
+        
         mentionsView.delegate = accessoryViewSwitcher
         editorAccessoryhandler.customTextView = textView
         editorAccessoryhandler.switcher = accessoryViewSwitcher
+        
         self.accessoryViewSwitcher = accessoryViewSwitcher
     }
 }
