@@ -267,6 +267,12 @@ extension Anytype_Model_Relation.Option {
   }
 }
 
+extension Anytype_Model_RelationOptions {
+  public init(options: [Anytype_Model_Relation.Option]) {
+    self.options = options
+  }
+}
+
 extension Anytype_Model_RelationWithValue {
   public init(relation: Anytype_Model_Relation, value: SwiftProtobuf.Google_Protobuf_Value) {
     self.relation = relation
