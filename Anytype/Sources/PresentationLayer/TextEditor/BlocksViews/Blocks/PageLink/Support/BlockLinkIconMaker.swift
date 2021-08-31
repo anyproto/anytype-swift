@@ -39,12 +39,12 @@ struct BlockLinkIconMaker {
     
     private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
-        
-        guard let url = ImageID(id: imageId).resolvedUrl else {
+        let size = imageViewSize
+
+        guard let url = ImageID(id: imageId, width: size.width).resolvedUrl else {
             return imageView
         }
         
-        let size = imageViewSize
         
         let processor = KFProcessorBuilder(
             scalingType: .resizing(.aspectFill),

@@ -163,8 +163,9 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func loadImage(imageId: String, isBasicLayout: Bool) {
-        guard let url = ImageID(id: imageId).resolvedUrl else { return }
         let imageSize = self.iconSize ?? Constants.defaultIconSize
+
+        guard let url = ImageID(id: imageId, width: imageSize.width).resolvedUrl else { return }
         let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
         let processor = KFProcessorBuilder(
             scalingType: .resizing(.aspectFill),

@@ -71,7 +71,7 @@ struct UserIconView: View {
     
 }
 
-private extension UserIconView {
+extension UserIconView {
     
     enum Constants {
         static let size = CGSize(width: 80, height: 80)
