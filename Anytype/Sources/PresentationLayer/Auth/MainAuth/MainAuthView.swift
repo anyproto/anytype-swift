@@ -26,35 +26,39 @@ struct MainAuthView: View {
         VStack() {
             Spacer()
             bottomSheet
+                .padding(20)
         }
     }
     
     private var bottomSheet: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Welcome to Anytype", style: .heading)
                     .padding(.bottom, 11)
                 AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular)
-                    .lineSpacing(7)
-            }.padding(20)
-            
-            HStack(spacing: 10) {
-                StandardButton(text: "Sign up", style: .secondary) {
-                    viewModel.singUp()
-                }
-                
-                NavigationLink(
-                    destination: viewModel.loginView()
-                ) {
-                    StandardButtonView(text: "Login", style: .primary)
-                }
+                    .padding(.bottom, 18)
+                buttons
             }
-            .padding([.leading, .trailing], 20)
+            .padding(.top, 23)
+            .padding(.horizontal, 20)
             .padding(.bottom, 10)
         }
         .background(Color.background)
         .cornerRadius(16.0)
-        .padding(20)
+    }
+    
+    private var buttons: some View {
+        HStack(spacing: 10) {
+            StandardButton(text: "Sign up", style: .secondary) {
+                viewModel.singUp()
+            }
+            
+            NavigationLink(
+                destination: viewModel.loginView()
+            ) {
+                StandardButtonView(text: "Login", style: .primary)
+            }
+        }
     }
     
     private var navigation: some View {
