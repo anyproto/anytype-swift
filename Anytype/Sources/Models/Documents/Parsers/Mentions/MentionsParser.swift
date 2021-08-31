@@ -10,10 +10,15 @@ struct MentionsParser {
         MentionObject(
             id: searchResult.id,
             icon: mentionIcon(from: searchResult),
-            name: searchResult.name,
+            name: mentionName(from: searchResult),
             description: searchResult.description,
             type: searchResult.type
         )
+    }
+    
+    private func mentionName(from result: SearchResult) -> String {
+        let name = result.name ?? ""
+        return name.isEmpty ? "Untitled".localized : name
     }
     
     private func mentionIcon(from details: DetailsDataProtocol) -> MentionIcon? {
