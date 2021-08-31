@@ -3,6 +3,8 @@ import UIKit
 import AnytypeCore
 
 struct UnknownLabelViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+    
     let indentationLevel = 0
     let information: BlockInformation
     

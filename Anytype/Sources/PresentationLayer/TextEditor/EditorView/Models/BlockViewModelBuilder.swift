@@ -37,7 +37,7 @@ final class BlockViewModelBuilder {
         }
     }
 
-    func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol? = nil) -> BlockViewModelProtocol? {
+    func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             let anytypeText = AttributedTextConverter.asModel(text: content.text,

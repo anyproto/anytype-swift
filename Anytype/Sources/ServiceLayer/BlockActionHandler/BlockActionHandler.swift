@@ -103,7 +103,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                     completion: completion
                 )
             default:
-                textBlockActionHandler.handlingTextViewAction(blockModel, action)
+                textBlockActionHandler.handlingTextViewAction(blockModel, action, completion: completion)
             }
         }
     }

@@ -5,6 +5,8 @@ import Kingfisher
 import AnytypeCore
 
 struct BlockImageViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+    
     var hashable: AnyHashable {
         [
             indentationLevel,
