@@ -25,8 +25,6 @@ struct HomeCollectionView: View {
                         ),
                         label: {
                             HomeCell(cellData: data)
-                                .cornerRadius(16)
-                                .frame(idealHeight: 124)
                         }
                     )
                     .disabled(data.isLoading)

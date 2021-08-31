@@ -15,15 +15,16 @@ struct HomeCell: View {
                 icon
                 iconSpacer
                 title
-                textSpacer
+                Spacer(minLength: 2)
                 type
             }
             Spacer()
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 13, trailing: 16))
         .background(Color.background)
-        .cornerRadius(16)
         .redacted(reason: isRedacted ? .placeholder : [])
+        .frame(height: 126)
+        .cornerRadius(16)
     }
     
     private var title: some View {
@@ -91,20 +92,10 @@ struct HomeCell: View {
 
     private var iconSpacer: some View {
         Group {
-            if !cellData.icon.isNil || isRedacted {
+            if cellData.icon.isNotNil || isRedacted {
                 Spacer(minLength: 12)
             } else {
                 EmptyView()
-            }
-        }
-    }
-    
-    private var textSpacer: some View {
-        Group {
-            if !cellData.icon.isNil || isRedacted {
-                EmptyView()
-            } else {
-                Spacer(minLength: 2)
             }
         }
     }

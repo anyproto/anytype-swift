@@ -39,9 +39,7 @@ struct MainAuthView: View {
                     .padding(.bottom, 18)
                 buttons
             }
-            .padding(.top, 23)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 10)
+            .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
         .background(Color.background)
         .cornerRadius(16.0)
