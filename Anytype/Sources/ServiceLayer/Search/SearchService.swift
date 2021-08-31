@@ -8,7 +8,6 @@ protocol SearchServiceProtocol {
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
     func searchSets(completion: @escaping ([SearchResult]) -> ())
-    func searchMentions(text: String, completion: @escaping ([SearchResult]) -> ())
 }
 
 final class SearchService: SearchServiceProtocol {
@@ -20,9 +19,20 @@ final class SearchService: SearchServiceProtocol {
             type: .desc
         )
         
-        makeSearchTextRequest(
-            text: text,
+        let filters = [
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        ]
+        
+        makeRequest(
+            filters: filters,
             sorts: [sort],
+            fullText: text,
+            offset: 0,
+            limit: 100,
+            objectTypeFilter: [],
+            keys: [],
             completion: completion
         )
     }
@@ -111,39 +121,6 @@ final class SearchService: SearchServiceProtocol {
             filters: filters,
             sorts: [sort],
             fullText: "",
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: [],
-            completion: completion
-        )
-    }
-    
-    func searchMentions(text: String, completion: @escaping ([SearchResult]) -> ()) {
-        let sort = SearchHelper.sort(relation: .name, type: .asc)
-        
-        makeSearchTextRequest(
-            text: text,
-            sorts: [sort],
-            completion: completion
-        )
-    }
-    
-    private func makeSearchTextRequest(
-        text: String,
-        sorts: [Anytype_Model_Block.Content.Dataview.Sort],
-        completion: @escaping ([SearchResult]) -> ()
-    ) {
-        let filters = [
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
-        ]
-        
-        makeRequest(
-            filters: filters,
-            sorts: sorts,
-            fullText: text,
             offset: 0,
             limit: 100,
             objectTypeFilter: [],
