@@ -22,7 +22,7 @@ struct ImageID {
 extension ImageID {
     
     var resolvedUrl: URL? {
-        UrlResolver.resolvedUrl(.image(id: id, width: .default))
+        UrlResolver.resolvedUrl(.image(id: id, width: width))
     }
     
 }

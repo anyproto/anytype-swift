@@ -1,5 +1,6 @@
 import Foundation
 import AnytypeCore
+import UIKit
 
 final class UrlResolver {
        
@@ -34,14 +35,27 @@ private extension UrlResolver {
         return components.url
     }
     
-    static func makeImageUrl(initialComponents: URLComponents, imageId: String, width: ImageWidth) -> URL? {
+    static func makeImageUrl(initialComponents: URLComponents, imageId: String, width: CGFloat?) -> URL? {
         guard !imageId.isEmpty else { return nil }
         
         var components = initialComponents
         components.path = "\(Constants.imageSubPath)/\(imageId)"
-        components.queryItems = [
-            URLQueryItem(name: "width", value: width.rawValue)
-        ]
+        
+        guard let width = width else {
+            return components.url
+        }
+        
+        let calculatedWidth = Int(width * UIScreen.main.scale)
+        
+        if calculatedWidth > 0 {
+            components.queryItems = [
+                URLQueryItem(name: "width", value: "\(calculatedWidth)")
+            ]
+        } else {
+            components.queryItems = [
+                URLQueryItem(name: "width", value: "700")
+            ]
+        }
         
         return components.url
     }
@@ -52,12 +66,7 @@ extension UrlResolver {
     
     enum UrlType {
         case file(id: String)
-        case image(id: String, width: ImageWidth)
-    }
-    
-    enum ImageWidth: String {
-        case `default` = "1080"
-        case thumbnail = "100"
+        case image(id: String, width: CGFloat?)
     }
     
 }
