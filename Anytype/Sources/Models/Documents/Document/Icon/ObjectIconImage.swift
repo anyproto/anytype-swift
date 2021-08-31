@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ObjectIconImage {
+enum ObjectIconImage: Hashable {
     case icon(ObjectIconType)
     case todo(Bool)
     case placeholder(Character?)
