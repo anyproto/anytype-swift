@@ -9,49 +9,57 @@ struct AlphaInviteCodeView: View {
     var body: some View {
         ZStack {
             Gradients.authBackground()
-            contentView
-                .padding()
+            bottomSheet
         }
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+    }
+    
+    private var bottomSheet: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            contentView
+                .padding(20)
+        }
     }
     
     
     private var contentView: some View {
-        VStack {
-            Spacer()
-            VStack(alignment: .leading) {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Enter your invitation code", style: .heading)
-                    .padding(.bottom, 14)
+                    .padding(.bottom, 11)
                 AnytypeText("Do not have invite", style: .uxCalloutRegular)
-                    .lineSpacing(7)
-                    .padding(.bottom, 14)
-
+                    .padding(.bottom, 30)
+                    
                 TextField("Invitation code", text: $signUpData.inviteCode)
                     .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
-                    .modifier(DividerModifier(spacing: 10))
+                    .modifier(DividerModifier(spacing: 11))
                     .padding(.bottom, 20)
                 
-                HStack(spacing: 12) {
-                    StandardButton(text: "Back", style: .secondary) {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                    NavigationLink(
-                        destination: CreateNewProfileView(
-                            viewModel: CreateNewProfileViewModel(),
-                            showCreateNewProfile: $showCreateNewProfile
-                        ).environmentObject(signUpData),
-                        isActive: $showCreateNewProfile
-                    ) {
-                        StandardButtonView(disabled: signUpData.inviteCode.isEmpty, text: "Confirm", style: .primary)
-                    }.disabled(signUpData.inviteCode.isEmpty)
-                }
+                buttons
             }
-            .navigationBarBackButtonHidden(true)
-            .padding(.top, 23)
-            .padding(.horizontal, 14)
-            .padding(.bottom, 10)
-            .background(Color.background)
-            .cornerRadius(16.0)
+            .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
+        }
+        .background(Color.background)
+        .cornerRadius(16.0)
+    }
+    
+    private var buttons: some View {
+        HStack(spacing: 10) {
+            StandardButton(text: "Back", style: .secondary) {
+                presentationMode.wrappedValue.dismiss()
+            }
+            
+            NavigationLink(
+                destination: CreateNewProfileView(
+                    viewModel: CreateNewProfileViewModel(),
+                    showCreateNewProfile: $showCreateNewProfile
+                ).environmentObject(signUpData),
+                isActive: $showCreateNewProfile
+            ) {
+                StandardButtonView(disabled: signUpData.inviteCode.isEmpty, text: "Confirm", style: .primary)
+            }.disabled(signUpData.inviteCode.isEmpty)
         }
     }
 }

@@ -45,7 +45,7 @@ final class EditorAccessoryViewActionHandler {
             delegate?.didReceiveAction(.showStyleMenu)
 
         case .keyboardDismiss:
-            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+            UIApplication.shared.hideKeyboard()
         case .mention:
             customTextView.textView.insertStringToAttributedStringAfterCaret(
                 switcher.textToTriggerMentionViewDisplay

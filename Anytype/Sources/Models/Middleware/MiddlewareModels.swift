@@ -13,10 +13,6 @@ struct MiddlewareConfiguration: Hashable {
     let gatewayURL: String
 }
 
-struct MiddlewareVersion: Hashable {
-    let version: String
-}
-
 struct BlockFields {
     let blockId: String
     let fields: [String: String]

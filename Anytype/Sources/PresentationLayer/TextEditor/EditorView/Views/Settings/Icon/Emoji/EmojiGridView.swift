@@ -63,12 +63,7 @@ struct EmojiGridView: View {
             makeGridView(groups: groups)
         }.gesture(
             DragGesture().onChanged { _ in
-                UIApplication.shared.sendAction(
-                    #selector(UIResponder.resignFirstResponder),
-                    to: nil,
-                    from: nil,
-                    for: nil
-                )
+                UIApplication.shared.hideKeyboard()
             }
         )
         .padding(.horizontal, 16)
