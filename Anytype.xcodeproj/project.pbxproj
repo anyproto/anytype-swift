@@ -192,6 +192,7 @@
 		1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */; };
 		1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */; };
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
+		12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12870A2B26DE6A7400A6F46A /* ImageWidth.swift */; };
 		129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */; };
 		129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */; };
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
@@ -828,6 +829,7 @@
 		1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGuideline.swift; path = Anytype/Sources/Utilities/Images/ImageGuideline.swift; sourceTree = SOURCE_ROOT; };
 		1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCornersGuideline.swift; path = Anytype/Sources/Utilities/Images/ImageCornersGuideline.swift; sourceTree = SOURCE_ROOT; };
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
+		12870A2B26DE6A7400A6F46A /* ImageWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidth.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
@@ -1714,6 +1716,7 @@
 				03CB3F0E230C4137003D5DFD /* Image */,
 				1215E8A826A82DFD0089AF7E /* UrlResolver.swift */,
 				12426A2B26DD006500693B1F /* ImageID.swift */,
+				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
 			);
 			path = NetwrokLayer;
 			sourceTree = "<group>";
@@ -4088,6 +4091,7 @@
 				03B1619E239F3A2000BF27D1 /* WaitingOnCreatAccountView.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
+				12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				EA289BE8262AE62E00EA869F /* BlockColor.swift in Sources */,
 				120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */,

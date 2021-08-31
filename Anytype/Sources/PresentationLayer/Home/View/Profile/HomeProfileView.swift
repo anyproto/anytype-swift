@@ -55,7 +55,9 @@ struct HomeProfileView: View {
         let iconType: UserIconView.IconType = {
             if let imageId = accountData.avatarId {
                 return UserIconView.IconType.image(
-                    .middleware(ImageID(id: imageId, width: UserIconView.Constants.size.width))
+                    .middleware(
+                        ImageID(id: imageId, width: UserIconView.Constants.size.width.asImageWidth)
+                    )
                 )
             } else if let firstCharacter = accountData.name?.first {
                 return UserIconView.IconType.placeholder(firstCharacter)

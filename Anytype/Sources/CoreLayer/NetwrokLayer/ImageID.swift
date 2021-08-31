@@ -11,9 +11,9 @@ import  UIKit
 
 struct ImageID {
     private let id: String
-    private let width: CGFloat?
+    private let width: ImageWidth
     
-    init(id: String, width: CGFloat?) {
+    init(id: String, width: ImageWidth) {
         self.id = id
         self.width = width
     }
@@ -22,7 +22,7 @@ struct ImageID {
 extension ImageID {
     
     var resolvedUrl: URL? {
-        UrlResolver.resolvedUrl(.image(id: id, width: width))
+        UrlResolver.resolvedUrl(.image(id: id, width: 0.0))
     }
     
 }

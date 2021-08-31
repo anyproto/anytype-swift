@@ -41,7 +41,7 @@ struct BlockLinkIconMaker {
         let imageView = UIImageView()
         let size = imageViewSize
 
-        guard let url = ImageID(id: imageId, width: size.width).resolvedUrl else {
+        guard let url = ImageID(id: imageId, width: size.width.asImageWidth).resolvedUrl else {
             return imageView
         }
         

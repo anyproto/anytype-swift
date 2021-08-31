@@ -106,7 +106,7 @@ final class MentionsViewModel {
     private func loadImage(by id: String, mention: MentionObject) {
         let imageSize = CGSize(width: 40, height: 40)
         
-        guard let url = ImageID(id: id, width: imageSize.width).resolvedUrl else { return }
+        guard let url = ImageID(id: id, width: imageSize.width.asImageWidth).resolvedUrl else { return }
         
         let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
             |> CroppingImageProcessor(size: imageSize)
