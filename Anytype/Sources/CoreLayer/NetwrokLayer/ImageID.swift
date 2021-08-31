@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import  UIKit
 
 struct ImageID {
     private let id: String
-    private let width: UrlResolver.ImageWidth
+    private let width: ImageWidth
     
-    init(id: String, width: UrlResolver.ImageWidth = .thumbnail) {
+    init(id: String, width: ImageWidth) {
         self.id = id
         self.width = width
     }
