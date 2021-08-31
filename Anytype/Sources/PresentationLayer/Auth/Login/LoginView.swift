@@ -17,7 +17,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Spacer()
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Login with keychain", style: .title)
+                AnytypeText("Login with keychain", style: .heading)
                     .padding(.bottom, 32)
                     .padding(.top, 23)
                 

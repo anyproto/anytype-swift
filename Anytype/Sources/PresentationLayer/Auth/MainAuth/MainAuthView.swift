@@ -8,9 +8,7 @@ struct MainAuthView: View {
     var body: some View {
         ZStack {
             navigation
-            Image.auth.background
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
+            Gradients.authBackground()
             contentView
                 
             .errorToast(
