@@ -1,4 +1,3 @@
-import Combine
 import UIKit
 import Kingfisher
 import AnytypeCore
@@ -11,13 +10,15 @@ final class MentionAttachment: NSTextAttachment {
     
     private weak var layoutManager: NSLayoutManager?
     
-    private let mentionService = MentionObjectsService()
+    private let mentionService = MentionObjectsService(
+        searchService: ServiceLocator.shared.searchService()
+    )
     
     private var icon: MentionIcon?
     private var iconSize: CGSize?
     private var fontPointSize: CGFloat?
     
-    private var subscriptions = [AnyCancellable]()
+    private var isLoadingMention = false
     
     init(name: String, pageId: String, icon: MentionIcon? = nil) {
         self.pageId = pageId
@@ -79,32 +80,26 @@ final class MentionAttachment: NSTextAttachment {
         }
         if let icon = icon {
             displayIcon(icon)
-        } else if subscriptions.isEmpty {
+        } else if !isLoadingMention {
             loadMention()
         }
     }
     
     private func loadMention() {
-        mentionService.obtainMentionsPublisher()
-            .receiveOnMain()
-            .sink { result in
-                switch result {
-                case let .failure(error):
-                    anytypeAssertionFailure(error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] mentions in
-                guard
-                    let mention = mentions.first(where: { $0.id == self?.pageId }),
-                    let icon = mention.icon,
-                    let self = self
-                else { return }
-                
-                self.icon = icon
-                self.displayIcon(icon)
+        isLoadingMention = true
+        mentionService.loadMentions { [weak self] mentions in
+            guard
+                let mention = mentions.first(where: { $0.id == self?.pageId }),
+                let icon = mention.icon,
+                let self = self
+            else {
+                self?.isLoadingMention = false
+                return
             }
-            .store(in: &subscriptions)
+            self.isLoadingMention = false
+            self.icon = icon
+            self.displayIcon(icon)
+        }
     }
     
     private func displayIcon(_ icon: MentionIcon) {

@@ -1,5 +1,4 @@
 import BlocksModels
-import Combine
 import ProtobufMessages
 import SwiftProtobuf
 import UIKit
@@ -14,7 +13,6 @@ final class MentionsViewModel {
     
     private let service: MentionObjectsService
     private weak var view: MentionsView?
-    private var subscription: AnyCancellable?
     private let selectionHandler: (MentionObject) -> Void
     private var imageStorage = [String: UIImage]()
     
@@ -127,14 +125,7 @@ final class MentionsViewModel {
     }
     
     private func obtainMentions() {
-        subscription = service.obtainMentionsPublisher().sink(receiveCompletion: { result in
-            switch result {
-            case let .failure(error):
-                anytypeAssertionFailure(error.localizedDescription)
-            case .finished:
-                break
-            }
-        }) { [weak self] mentions in
+        service.loadMentions { [weak self] mentions in
             self?.view?.display(mentions.map { .mention($0) })
         }
     }
