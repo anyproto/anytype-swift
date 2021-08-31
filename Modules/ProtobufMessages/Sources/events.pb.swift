@@ -3091,6 +3091,7 @@ public struct Anytype_Model {
       case dropFiles // = 0
       case `import` // = 1
       case export // = 2
+      case saveFile // = 3
       case UNRECOGNIZED(Int)
 
       public init() {
@@ -3102,6 +3103,7 @@ public struct Anytype_Model {
         case 0: self = .dropFiles
         case 1: self = .import
         case 2: self = .export
+        case 3: self = .saveFile
         default: self = .UNRECOGNIZED(rawValue)
         }
       }
@@ -3111,6 +3113,7 @@ public struct Anytype_Model {
         case .dropFiles: return 0
         case .import: return 1
         case .export: return 2
+        case .saveFile: return 3
         case .UNRECOGNIZED(let i): return i
         }
       }
@@ -3186,6 +3189,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
     .dropFiles,
     .import,
     .export,
+    .saveFile,
   ]
 }
 
@@ -8620,6 +8624,7 @@ extension Anytype_Model.Process.TypeEnum: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "DropFiles"),
     1: .same(proto: "Import"),
     2: .same(proto: "Export"),
+    3: .same(proto: "SaveFile"),
   ]
 }
 

@@ -95,6 +95,7 @@ extension Anytype_Rpc.Ping.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: Swift.Error {}
 extension Anytype_Rpc.LinkPreview.Response.Error: Swift.Error {}
 extension Anytype_Rpc.UploadFile.Response.Error: Swift.Error {}
+extension Anytype_Rpc.DownloadFile.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Navigation.ListObjects.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: Swift.Error {}
 extension Anytype_Rpc.History.Versions.Response.Error: Swift.Error {}
@@ -116,6 +117,7 @@ extension Anytype_Rpc.Object.RelationOptionUpdate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: Swift.Error {}
