@@ -19,6 +19,7 @@ class EventHandler: EventHandlerProtocol {
     
     private var middlewareConverter: MiddlewareEventConverter?
     private var localConverter: LocalEventConverter?
+    private var mentionMarkupUpdater: MentionMarkupEventProvider?
     
     private let pageEventConverter = PageEventConverter()
 
@@ -32,6 +33,7 @@ class EventHandler: EventHandlerProtocol {
         setupMiddlewareConverter(with: container)
         localConverter = LocalEventConverter(container: container)
         eventPublisher.startListening(contextId: rootId)
+        mentionMarkupUpdater = MentionMarkupEventProvider(container: container)
     }
     
     func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
@@ -50,7 +52,8 @@ class EventHandler: EventHandlerProtocol {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter?.convert($0) ?? nil
         }
         let localUpdates = events.localEvents.compactMap { localConverter?.convert($0) ?? nil }
-        let updates = middlewareUpdates + localUpdates
+        let markupUpdates = [mentionMarkupUpdater?.updateMentionsEvent()].compactMap { $0 }
+        let updates = middlewareUpdates + localUpdates + markupUpdates
         
         guard let container = self.container, let rootId = container.rootId else {
             anytypeAssertionFailure("Container or rootId is nil in event handler. Something went wrong.")
