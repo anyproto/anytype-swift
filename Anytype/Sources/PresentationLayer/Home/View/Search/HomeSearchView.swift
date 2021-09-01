@@ -39,15 +39,15 @@ struct HomeSearchView: View {
             Spacer()
             AnytypeText(
                 "\("There is no object named".localized) \"\(searchText)\"",
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: .textPrimary
             )
-            .foregroundColor(.textPrimary)
             .multilineTextAlignment(.center)
             AnytypeText(
                 "Try to create a new one or search for something else",
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: .textSecondary
             )
-            .foregroundColor(.textSecondary)
             .multilineTextAlignment(.center)
             Spacer()
         }.padding(.horizontal)

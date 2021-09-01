@@ -40,11 +40,11 @@ struct InlineNavigationBar_Previews: PreviewProvider {
     static var previews: some View {
         InlineNavigationBar(
             title: {
-                AnytypeText("ad", style: .uxTitle1Semibold)
+                AnytypeText("ad", style: .uxTitle1Semibold, color: .textPrimary)
             },
             rightButton: {
                 Button(action: {}) {
-                    AnytypeText("ad", style: .uxBodyRegular)
+                    AnytypeText("ad", style: .uxBodyRegular, color: .textPrimary)
                 }
             }
         )
