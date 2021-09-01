@@ -39,7 +39,7 @@ class SelectProfileViewModel: ObservableObject {
         didSet {
             showError = false
             
-            if !error.isNil {
+            if error.isNotNil {
                 showError = true
             }
         }

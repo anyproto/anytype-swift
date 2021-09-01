@@ -47,7 +47,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: rangeWithIncorrectLocation)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
 
@@ -59,7 +59,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: rangeWithIncorrentLength)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
 
@@ -71,7 +71,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
 
@@ -83,7 +83,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
 
@@ -95,7 +95,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
 
@@ -103,7 +103,7 @@ final class LinkMarkupStateTests: XCTestCase {
         // Given
         let initialRange = NSRange(location: 7, length: 4)
         let url: URL? = exampleString.value(for: .link, range: initialRange)
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
 
         let stringWithAttachment = NSMutableAttributedString(attributedString: exampleString)
         let attachmentString = NSAttributedString(attachment: NSTextAttachment())
@@ -111,7 +111,7 @@ final class LinkMarkupStateTests: XCTestCase {
 
         let range = NSRange(location: initialRange.location, length: initialRange.length + 1)
         let resultURL: URL? = stringWithAttachment.value(for: .link, range: range)
-        let hasURLInRangeWithAttachment = !resultURL.isNil
+        let hasURLInRangeWithAttachment = resultURL.isNotNil
 
         XCTAssertTrue(hasMarkup)
         XCTAssertFalse(hasURLInRangeWithAttachment)
@@ -125,7 +125,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
     
@@ -137,7 +137,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertFalse(hasMarkup)
     }
 
@@ -149,7 +149,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = wholeStringWithMarkup.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertTrue(hasMarkup)
     }
 
@@ -161,7 +161,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertTrue(hasMarkup)
     }
 
@@ -173,7 +173,7 @@ final class LinkMarkupStateTests: XCTestCase {
         let url: URL? = exampleString.value(for: .link, range: range)
         
         // Then
-        let hasMarkup = !url.isNil
+        let hasMarkup = url.isNotNil
         XCTAssertTrue(hasMarkup)
     }
 }

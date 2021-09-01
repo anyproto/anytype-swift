@@ -199,7 +199,7 @@ final class AccessoryViewSwitcher {
     
     private func isFilterableViewCurrentlyVisible() -> Bool {
         guard let accessoryView = displayedView,
-              !accessoryView.window.isNil else {
+              accessoryView.window.isNotNil else {
             return false
         }
         return true

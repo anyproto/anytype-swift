@@ -60,12 +60,12 @@ public extension UIView {
             switch config.axis {
             case .vertical:
                 $0.width.equal(to: scrollView.widthAnchor)
-                if !stackViewLayout.isNil {
+                if stackViewLayout.isNotNil {
                     $0.height.greaterThanOrEqual(to: scrollView.heightAnchor)
                 }
             case .horizontal:
                 $0.height.equal(to: scrollView.heightAnchor)
-                if !stackViewLayout.isNil {
+                if stackViewLayout.isNotNil {
                     $0.width.greaterThanOrEqual(to: scrollView.widthAnchor)
                 }
             case .mixed:

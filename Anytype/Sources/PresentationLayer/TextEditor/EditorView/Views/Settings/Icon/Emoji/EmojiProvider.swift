@@ -18,7 +18,7 @@ final class EmojiProvider {
         
         let filteredGroups: [EmojiGroup] = emojiGroups.compactMap { group in
             let filteredEmoji: [Emoji] = group.emojis.filter { emoji in
-                !emoji.name.lowercased().range(of: lowercasedKeyword).isNil
+                emoji.name.lowercased().range(of: lowercasedKeyword).isNotNil
             }
             
             guard !filteredEmoji.isEmpty else { return nil }
