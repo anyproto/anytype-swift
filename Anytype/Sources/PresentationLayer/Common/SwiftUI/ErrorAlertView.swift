@@ -14,8 +14,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                 
                 VStack() {
 
-                    AnytypeText(self.errorText, style: .bodyRegular)
-                        .foregroundColor(.white)
+                    AnytypeText(self.errorText, style: .bodyRegular, color: .white)
                         .padding()
                         .layoutPriority(1)
                     
@@ -26,8 +25,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                             isShowing.toggle()
                             onOkPressed()
                         }) {
-                            AnytypeText("Ok", style: .bodyRegular)
-                                .foregroundColor(.textSecondary)
+                            AnytypeText("Ok", style: .bodyRegular, color: .textSecondary)
                                 .padding()
                         }
                     }
@@ -45,7 +43,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
 struct ErrorAlertView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack {
-            AnytypeText("ParentView", style: .bodyRegular)
+            AnytypeText("ParentView", style: .bodyRegular, color: .textPrimary)
         }
         return ErrorAlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view, onOkPressed: {})
     }

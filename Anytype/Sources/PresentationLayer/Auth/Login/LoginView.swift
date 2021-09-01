@@ -31,7 +31,7 @@ struct LoginView: View {
     private var keychainPhraseView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Login with keychain", style: .heading)
+                AnytypeText("Login with keychain", style: .heading, color: .textPrimary)
                     .padding(.bottom, 32)
                 scanQR
                 enterMnemonic
@@ -60,8 +60,7 @@ struct LoginView: View {
     private var enterMnemonic: some View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
-                AnytypeText("or Type your keychain phrase", style: .codeBlock)
-                    .foregroundColor(.textSecondary)
+                AnytypeText("or Type your keychain phrase", style: .codeBlock, color: .textSecondary)
                     .padding(.top, 17)
                     .padding(.leading, 6)
             }
@@ -85,8 +84,7 @@ struct LoginView: View {
             }
         ) {
             HStack {
-                AnytypeText("Scan QR code", style: .uxBodyRegular)
-                    .foregroundColor(.textPrimary)
+                AnytypeText("Scan QR code", style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 Image.arrow
             }

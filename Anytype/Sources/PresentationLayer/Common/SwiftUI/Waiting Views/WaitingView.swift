@@ -36,7 +36,7 @@ struct WaitingView: View {
                 LoadingAnimationView(showError: $showError)
                     .padding(.top, 24)
                     .padding(.bottom, 15)
-                AnytypeText(showError ? errorText : text, style: .heading)
+                AnytypeText(showError ? errorText : text, style: .heading, color: .textPrimary)
                     .padding(.bottom, 19)
                 if showError {
                     StandardButton(disabled: false, text: "Dismiss", style: .secondary) {

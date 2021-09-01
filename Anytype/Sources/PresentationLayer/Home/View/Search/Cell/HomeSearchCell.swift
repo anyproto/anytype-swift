@@ -50,12 +50,10 @@ struct HomeSearchCell: View {
     
     private var text: some View {
         VStack(alignment: .leading) {
-            AnytypeText(data.title, style: .previewTitle2Medium)
-                .foregroundColor(.textPrimary)
+            AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
                 .lineLimit(1)
             description
-            AnytypeText(data.type, style: .relation3Regular)
-                .foregroundColor(.textSecondary)
+            AnytypeText(data.type, style: .relation3Regular, color: .textSecondary)
                 .lineLimit(1)
         }
     }
@@ -64,8 +62,7 @@ struct HomeSearchCell: View {
         Group {
             if let descriptionText = data.description {
                 if !descriptionText.isEmpty {
-                    AnytypeText(descriptionText, style: .relation3Regular)
-                        .foregroundColor(.textPrimary)
+                    AnytypeText(descriptionText, style: .relation3Regular, color: .textPrimary)
                         .lineLimit(1)
                 } else {
                     EmptyView()

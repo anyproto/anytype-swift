@@ -9,9 +9,9 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             
-            AnytypeText("Keychain phrase", style: .title)
+            AnytypeText("Keychain phrase", style: .title, color: .textPrimary)
                 .padding(.top, 58)
-            AnytypeText("Keychain phrase description", style: .uxBodyRegular)
+            AnytypeText("Keychain phrase description", style: .uxBodyRegular, color: .textPrimary)
                 .padding(.top, 25)
             SeedPhraseView(phrase: $viewModel.recoveryPhrase, onTap: viewModel.onSeedViewTap)
                 .padding(.top, 34)
@@ -20,7 +20,10 @@ struct KeychainPhraseView: View {
         }
         .cornerRadius(12)
         .padding([.leading, .trailing])
-        .snackbar(isShowing: $viewModel.showSnackbar, text: AnytypeText("Keychain phrase copied to clipboard", style: .uxCalloutRegular))
+        .snackbar(
+            isShowing: $viewModel.showSnackbar,
+            text: AnytypeText("Keychain phrase copied to clipboard", style: .uxCalloutRegular, color: .textPrimary)
+        )
         .onAppear {
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.showKeychainPhraseScreen)

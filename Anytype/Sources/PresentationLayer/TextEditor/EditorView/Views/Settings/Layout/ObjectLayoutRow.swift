@@ -23,8 +23,7 @@ struct ObjectLayoutRow: View {
         label: {
             HStack(spacing: 9) {
                 layout.icon.frame(width: 24, height: 24)
-                AnytypeText(layout.title, style: .uxBodyRegular)
-                    .foregroundColor(.textPrimary)
+                AnytypeText(layout.title, style: .uxBodyRegular, color: .textPrimary)
                 
                 Spacer()
                 

@@ -27,9 +27,9 @@ struct AlphaInviteCodeView: View {
     private var contentView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Enter your invitation code", style: .heading)
+                AnytypeText("Enter your invitation code", style: .heading, color: .textPrimary)
                     .padding(.bottom, 11)
-                AnytypeText("Do not have invite", style: .uxCalloutRegular)
+                AnytypeText("Do not have invite", style: .uxCalloutRegular, color: .textPrimary)
                     .padding(.bottom, 30)
                     
                 TextField("Invitation code", text: $signUpData.inviteCode)

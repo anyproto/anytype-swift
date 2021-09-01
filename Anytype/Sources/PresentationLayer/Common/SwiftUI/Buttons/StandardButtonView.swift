@@ -50,18 +50,21 @@ struct StandardButtonView: View {
     let style: StandardButtonStyle
     
     var body: some View {
-        AnytypeText(text, style: style == .primary ? .button1Semibold : .button1Regular)
-            .foregroundColor(style.textColor(disabled: disabled))
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .frame(height: 48)
-            .background(style.backgroundColor(disabled: disabled))
-            .cornerRadius(10.0)
-            .eraseToAnyView()
-            .ifLet(style.borderColor) { button, borderColor in
-                button.overlay(
-                    RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
-                )
-            }
+        AnytypeText(
+            text,
+            style: style == .primary ? .button1Semibold : .button1Regular,
+            color: style.textColor(disabled: disabled)
+        )
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .frame(height: 48)
+        .background(style.backgroundColor(disabled: disabled))
+        .cornerRadius(10.0)
+        .eraseToAnyView()
+        .ifLet(style.borderColor) { button, borderColor in
+            button.overlay(
+                RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
+            )
+        }
     }
 }
 

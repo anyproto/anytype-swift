@@ -12,8 +12,7 @@ struct SettingsView: View {
             DragIndicator()
             SettingsSectionView()
             Button(action: { logginOut = true }) {
-                AnytypeText("Log out".localized, style: .uxCalloutRegular)
-                    .foregroundColor(.textSecondary)
+                AnytypeText("Log out".localized, style: .uxCalloutRegular, color: .textSecondary)
                     .padding()
             }
         }

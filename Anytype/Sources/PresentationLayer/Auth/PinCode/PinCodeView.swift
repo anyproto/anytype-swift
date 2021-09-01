@@ -5,7 +5,7 @@ struct PinCodeView: View {
     var body: some View {
         VStack {
             VStack(spacing: 0) {
-                AnytypeText("Choose pin code", style: .heading)
+                AnytypeText("Choose pin code", style: .heading, color: .textPrimary)
                     .padding(.bottom, 17)
                 
                 HStack {
@@ -29,8 +29,7 @@ struct PinCodeView: View {
             Button(action: {
                 
             }) {
-                AnytypeText("Do it later", style: .uxBodyRegular)
-                    .foregroundColor(.textSecondary)
+                AnytypeText("Do it later", style: .uxBodyRegular, color: .textSecondary)
             }
         }
         .padding(.top, 45)
@@ -67,8 +66,7 @@ struct NumberPadView: View {
                         Button(action: {
                             
                         }) {
-                            AnytypeText("\((vIndex - 1) * row_columns + hIndex)", style: .title)
-                                .foregroundColor(.textPrimary)
+                            AnytypeText("\((vIndex - 1) * row_columns + hIndex)", style: .title, color: .textPrimary)
                         }
                         .buttonStyle(NumpadButtonStyle())
                     }
@@ -79,8 +77,7 @@ struct NumberPadView: View {
                 Button(action: {
                     
                 }) {
-                    AnytypeText("0", style: .title)
-                        .foregroundColor(.textPrimary)
+                    AnytypeText("0", style: .title, color: .textPrimary)
                 }
                 .alignmentGuide(.buttonAlignment, computeValue: { d in d[HorizontalAlignment.center]})
                 .buttonStyle(NumpadButtonStyle())
@@ -90,7 +87,6 @@ struct NumberPadView: View {
                 }) {
                     Image("clear")
                         .frame(width: 72, height: 72)
-                        .foregroundColor(.textPrimary)
                 }
             }
         }

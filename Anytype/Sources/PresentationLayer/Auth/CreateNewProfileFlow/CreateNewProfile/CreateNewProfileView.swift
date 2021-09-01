@@ -42,8 +42,7 @@ struct CreateNewProfileView: View {
                 .padding(.bottom, 11)
             
             HStack {
-                AnytypeText("New profile", style: .caption1Regular)
-                    .foregroundColor(.textSecondary)
+                AnytypeText("New profile", style: .caption1Regular, color: .textSecondary)
                 Spacer()
             }.padding(.bottom, 6)
             
