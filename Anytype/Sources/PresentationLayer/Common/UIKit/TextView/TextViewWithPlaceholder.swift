@@ -1,6 +1,13 @@
 import UIKit
 
+
 final class TextViewWithPlaceholder: UITextView {
+    private enum InsetEdgeType {
+        case top
+        case bottom
+        case left
+        case right
+    }
     
     // MARK: - Views
     
@@ -13,8 +20,8 @@ final class TextViewWithPlaceholder: UITextView {
         return label
     }()
 
+    private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
     private let blockLayoutManager = TextBlockLayoutManager()
-
     private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
 
     // MARK: - Internal variables
@@ -56,7 +63,7 @@ final class TextViewWithPlaceholder: UITextView {
     
     override var textContainerInset: UIEdgeInsets {
         didSet {
-            setupPlaceholderLayout()
+            updatePlaceholderLayout()
         }
     }
 
@@ -131,19 +138,21 @@ private extension TextViewWithPlaceholder {
         textStorage.delegate = self
         addSubview(placeholderLabel)
         
-        setupPlaceholderLayout()
+        placeholderLabel.layoutUsing.anchors {
+            placeholderConstraints[.left] = $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
+            placeholderConstraints[.right] = $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
+            placeholderConstraints[.top] = $0.top.equal(to: topAnchor, constant: textContainerInset.top)
+            placeholderConstraints[.bottom] = $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
+            $0.width.equal(to: widthAnchor).priority = .defaultHigh - 1
+        }
+        placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
 
-    func setupPlaceholderLayout() {
-        removeConstraints(placeholderLabel.constraints)
-        
-        placeholderLabel.layoutUsing.anchors {
-            $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
-            $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
-            $0.top.equal(to: topAnchor, constant: textContainerInset.top)
-            $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
-            $0.width.equal(to: widthAnchor)
-        }
+    func updatePlaceholderLayout() {
+        placeholderConstraints[.left]?.constant = textContainerInset.left
+        placeholderConstraints[.right]?.constant = textContainerInset.right
+        placeholderConstraints[.top]?.constant = textContainerInset.top
+        placeholderConstraints[.bottom]?.constant = textContainerInset.bottom
     }
     
     private func syncPlaceholder() {

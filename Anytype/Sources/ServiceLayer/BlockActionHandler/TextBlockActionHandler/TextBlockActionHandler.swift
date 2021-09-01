@@ -43,12 +43,12 @@ final class TextBlockActionHandler {
         guard case var .text(textContentType) = block.information.content else { return }
         var blockModel = block
 
-        let blockId = blockModel.information.id
-        blockModel.information.content = .text(textContentType)
-
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
         textContentType.text = middlewareString.text
         textContentType.marks = middlewareString.marks
+
+        let blockId = blockModel.information.id
+        blockModel.information.content = .text(textContentType)
 
         textService.setText(contextID: contextId, blockID: blockId, middlewareString: middlewareString)
 
