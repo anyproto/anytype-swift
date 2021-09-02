@@ -96,7 +96,7 @@ final class MentionMarkupEventProvider {
         range: Anytype_Model_Range
     ) -> Range<String.Index>? {
         guard range.from < string.count,
-              range.to < string.count else {
+              range.to <= string.count else {
             anytypeAssertionFailure("Index out of bounds \(range) in \(string)")
             return nil
         }
