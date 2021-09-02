@@ -29,13 +29,11 @@ final class MentionMarkupEventProvider {
         blockModels.forEach { model in
             guard case let .text(content) = model.information.content else { return }
 
-            let middlewareText = AttributedTextConverter.asMiddleware(
-                attributedText: content.attributedText
-            )
-            guard !middlewareText.marks.marks.isEmpty else { return }
+            guard !content.marks.marks.isEmpty else { return }
             
-            var string = middlewareText.text
-            var sortedMarks = middlewareText.marks.marks.sorted { $0.range.from < $1.range.from }
+            var string = content.text
+            
+            var sortedMarks = content.marks.marks.sorted { $0.range.from < $1.range.from }
             
             for offset in 0..<sortedMarks.count {
                 let mark = sortedMarks[offset]
@@ -112,11 +110,8 @@ final class MentionMarkupEventProvider {
         string: String,
         marks: [Anytype_Model_Block.Content.Text.Mark]) {
         if case var .text(content) = model.information.content {
-            content.attributedText = AttributedTextConverter.asModel(
-                text: string,
-                marks: Anytype_Model_Block.Content.Text.Marks(marks: marks),
-                style: BlockTextContentTypeConverter.asMiddleware(content.contentType)
-            )
+            content.text = string
+            content.marks = Anytype_Model_Block.Content.Text.Marks(marks: marks)
             var model = model
             model.information.content = .text(content)
         }
