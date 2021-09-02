@@ -54,7 +54,7 @@ final class TextBlockActionHandler {
 
         completion?(
             PackOfEvents(localEvent:
-                .setText(blockId: blockId, text: text.string)
+                .setText(blockId: blockId, text: middlewareString.text)
             )
         )
     }
