@@ -30,6 +30,15 @@ extension HomeCellData {
     enum Title {
         case `default`(title: String)
         case todo(title: String, isChecked: Bool)
+        
+        var isTodo: Bool {
+            switch self {
+            case .todo:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
 }

@@ -15,9 +15,12 @@ struct AboutView: View {
     
     var contentView: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator().padding(.bottom, 70)
-            title.padding(.bottom, 27)
-            VStack(alignment: .leading, spacing: 30) {
+            DragIndicator()
+            Spacer.fixedHeight(70)
+            title
+            Spacer.fixedHeight(27)
+            
+            VStack(alignment: .leading, spacing: 0) {
                 if let version = MetadataProvider.appVersion {
                     aboutRow(label: "App version", value: version)
                 }
@@ -27,7 +30,8 @@ struct AboutView: View {
                 if let libraryVersion = MiddlewareConfigurationService.shared.libraryVersion() {
                     aboutRow(label: "Library", value: libraryVersion)
                 }
-            }.padding(.horizontal)
+            }
+            .padding(.horizontal, 20)
             Spacer()
         }
         .sheet(isPresented: $showDebugMenu) {
@@ -41,7 +45,8 @@ struct AboutView: View {
             Spacer()
             AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
         }
-        .modifier(DividerModifier())
+        .padding(.vertical, 12)
+        .modifier(DividerModifier(spacing: 0))
     }
     
     @State private var titleTapCount = 0
@@ -55,5 +60,11 @@ struct AboutView: View {
                     showDebugMenu = true
                 }
             }
+    }
+}
+
+struct AboutView_Previews: PreviewProvider {
+    static var previews: some View {
+        AboutView()
     }
 }

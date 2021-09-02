@@ -20,11 +20,19 @@ struct HomeCell: View {
             }
             Spacer()
         }
-        .padding(EdgeInsets(top: 16, leading: 16, bottom: 13, trailing: 16))
+        .padding(padding)
         .background(Color.background)
         .redacted(reason: isRedacted ? .placeholder : [])
         .frame(height: 126)
         .cornerRadius(16)
+    }
+    
+    private var padding: EdgeInsets {
+        if cellData.title.isTodo {
+            return EdgeInsets(top: 16, leading: 11, bottom: 13, trailing: 16)
+        } else {
+            return EdgeInsets(top: 16, leading: 16, bottom: 13, trailing: 16)
+        }
     }
     
     private var title: some View {
@@ -59,6 +67,9 @@ struct HomeCell: View {
     private var type: some View {
         let type = isRedacted ? RedactedText.pageType : cellData.type
         return AnytypeText(type, style: .relation3Regular, color: .textSecondary)
+            .if(cellData.title.isTodo) {
+                $0.padding(.leading, 5)
+            }
     }
     
     private var icon: some View {

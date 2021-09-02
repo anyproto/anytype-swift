@@ -39,22 +39,28 @@ struct CreateNewProfileView: View {
     private var contentView: some View {
         VStack(alignment: .center, spacing: 0) {
             imagePickerButton
-                .padding(.bottom, 11)
+            Spacer.fixedHeight(11)
             
             HStack {
                 AnytypeText("New profile", style: .caption1Regular, color: .textSecondary)
                 Spacer()
-            }.padding(.bottom, 6)
+            }
+            Spacer.fixedHeight(6)
             
-            TextField("Enter your name", text: $signUpData.userName)
+            TextField("", text: $signUpData.userName)
+                .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+                .placeholder(when: signUpData.userName.isEmpty) {
+                    AnytypeText("Enter your name", style: .heading, color: .textTertiary)
+                }
                 .modifier(DividerModifier(spacing: 10))
-                .padding(.bottom, 20)
+            
+            Spacer.fixedHeight(20)
             
             buttons
+            Spacer.fixedHeight(10)
         }
         .padding([.top, .horizontal], 20)
-        .padding(.bottom, 10)
     }
     
     private var buttons: some View {
