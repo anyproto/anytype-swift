@@ -3,7 +3,9 @@ import BlocksModels
 import UIKit
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
-struct BlockBookmarkViewModel: BlockViewModelProtocol {    
+struct BlockBookmarkViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+    
     var hashable: AnyHashable {
         [
             indentationLevel,

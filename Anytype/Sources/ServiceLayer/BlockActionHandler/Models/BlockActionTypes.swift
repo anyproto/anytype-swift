@@ -13,9 +13,9 @@ enum BlockHandlerActionType {
     case setTextColor(BlockColor)
     case setBackgroundColor(BlockBackgroundColor)
     case toggleWholeBlockMarkup(TextAttributesType)
-    case toggleFontStyle(TextAttributesType, NSRange)
+    case toggleFontStyle(NSAttributedString, TextAttributesType, NSRange)
     case setAlignment(LayoutAlignment)
-    case setLink(URL?, NSRange)
+    case setLink(NSAttributedString, URL?, NSRange)
     case setFields(contextID: BlockId, fields: [BlockFields])
     
     case duplicate

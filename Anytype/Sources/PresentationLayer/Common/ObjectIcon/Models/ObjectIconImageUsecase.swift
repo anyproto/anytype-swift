@@ -69,12 +69,12 @@ extension ObjectIconImageUsecase {
         switch self {
         case .openedObject:
             return ObjectIconImageFontSet(
-                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 48,
                     weight: .regular
                 ),
-                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 72,
                     weight: .regular
@@ -83,12 +83,12 @@ extension ObjectIconImageUsecase {
             )
         case .openedObjectNavigationBar:
             return ObjectIconImageFontSet(
-                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 11,
                     weight: .regular
                 ),
-                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 14,
                     weight: .regular
@@ -97,12 +97,12 @@ extension ObjectIconImageUsecase {
             )
         case .dashboardList:
             return ObjectIconImageFontSet(
-                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 28,
                     weight: .regular
                 ),
-                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 30,
                     weight: .regular
@@ -111,7 +111,7 @@ extension ObjectIconImageUsecase {
             )
         case .dashboardProfile:
             return ObjectIconImageFontSet(
-                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 44,
                     weight: .regular
@@ -121,17 +121,17 @@ extension ObjectIconImageUsecase {
             )
         case .dashboardSearch:
             return ObjectIconImageFontSet(
-                profileImageFont: AnytypeFontBuilder.uiKitFont(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 28,
                     weight: .regular
                 ),
-                emojiImageFont: AnytypeFontBuilder.uiKitFont(
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 30,
                     weight: .regular
                 ),
-                placeholderImageFont: AnytypeFontBuilder.uiKitFont(
+                placeholderImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 28,
                     weight: .regular

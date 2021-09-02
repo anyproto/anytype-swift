@@ -3,42 +3,49 @@ import BlocksModels
 
 
 extension UIFont {
-    static let title = AnytypeFontBuilder.uiKitFont(textStyle: .title)
-    static let heading = AnytypeFontBuilder.uiKitFont(textStyle: .heading)
-    static let subheading = AnytypeFontBuilder.uiKitFont(textStyle: .subheading)
+    static let title = UIKitFontBuilder.uiKitFont(font: .title)
+    static let heading = UIKitFontBuilder.uiKitFont(font: .heading)
+    static let subheading = UIKitFontBuilder.uiKitFont(font: .subheading)
     
-    static let bodyRegular = AnytypeFontBuilder.uiKitFont(textStyle: .bodyRegular)
-    static let bodyBold = AnytypeFontBuilder.uiKitFont(textStyle: .bodyBold)
-    static let calloutRegular = AnytypeFontBuilder.uiKitFont(textStyle: .calloutRegular)
+    static let bodyRegular = UIKitFontBuilder.uiKitFont(font: .bodyRegular)
+    static let bodyBold = UIKitFontBuilder.uiKitFont(font: .bodyBold)
+    static let calloutRegular = UIKitFontBuilder.uiKitFont(font: .calloutRegular)
 
-    static let relation2Regular = AnytypeFontBuilder.uiKitFont(textStyle: .relation2Regular)
-    static let relation3Regular = AnytypeFontBuilder.uiKitFont(textStyle: .relation3Regular)
-    static let uxBodyRegular = AnytypeFontBuilder.uiKitFont(textStyle: .uxBodyRegular)
-    static let caption1Regular = AnytypeFontBuilder.uiKitFont(textStyle: .caption1Regular)
-    static let caption1Medium = AnytypeFontBuilder.uiKitFont(textStyle: .caption1Medium)
-    static let uxTitle2Regular = AnytypeFontBuilder.uiKitFont(textStyle: .uxTitle2Regular)
-    static let uxCalloutRegular = AnytypeFontBuilder.uiKitFont(textStyle: .uxCalloutRegular)
-    static let uxCalloutMedium = AnytypeFontBuilder.uiKitFont(textStyle: .uxCalloutMedium)
-    static let previewTitle2Regular = AnytypeFontBuilder.uiKitFont(textStyle: .previewTitle2Regular)
+    static let relation2Regular = UIKitFontBuilder.uiKitFont(font: .relation2Regular)
+    static let relation3Regular = UIKitFontBuilder.uiKitFont(font: .relation3Regular)
+    static let uxBodyRegular = UIKitFontBuilder.uiKitFont(font: .uxBodyRegular)
+    static let caption1Regular = UIKitFontBuilder.uiKitFont(font: .caption1Regular)
+    static let caption1Medium = UIKitFontBuilder.uiKitFont(font: .caption1Medium)
+    static let uxTitle2Regular = UIKitFontBuilder.uiKitFont(font: .uxTitle2Regular)
+    static let uxCalloutRegular = UIKitFontBuilder.uiKitFont(font: .uxCalloutRegular)
+    static let uxCalloutMedium = UIKitFontBuilder.uiKitFont(font: .uxCalloutMedium)
+    static let previewTitle2Regular = UIKitFontBuilder.uiKitFont(font: .previewTitle2Regular)
 
-    static let code = AnytypeFontBuilder.uiKitFont(textStyle: .codeBlock)
+    static let code = UIKitFontBuilder.uiKitFont(font: .codeBlock)
 
     var isCode: Bool {
-        return fontName.hasPrefix(FontName.plex.rawValue)
+        return fontName.hasPrefix(AnytypeFont.FontName.plex.rawValue)
     }
 
     static func code(of size: CGFloat) -> UIFont {
-        AnytypeFontBuilder.uiKitFont(name: .plex, size: size, weight: .regular)
+        UIKitFontBuilder.uiKitFont(name: .plex, size: size, weight: .regular)
     }
 }
 
-extension AnytypeFontBuilder {
+extension AnytypeFont {
+    var uiKitFont: UIFont {
+        UIKitFontBuilder.uiKitFont(font: self)
+    }
+}
 
-    static func uiKitFont(textStyle: TextStyle) -> UIFont {
-        return uiKitFont(name: fontName(textStyle), size: size(textStyle), weight: uiKitWeight(textStyle))
+
+struct UIKitFontBuilder {
+
+    static func uiKitFont(font: AnytypeFont) -> UIFont {
+        return uiKitFont(name: font.fontName, size: font.size, weight: uiKitWeight(font))
     }
 
-    static func uiKitFont(name: FontName, size: CGFloat, weight: UIFont.Weight) -> UIFont {
+    static func uiKitFont(name: AnytypeFont.FontName, size: CGFloat, weight: UIFont.Weight) -> UIFont {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         var descriptor = UIFontDescriptor(fontAttributes: [
             attributeKey(name: name): name.rawValue,
@@ -54,7 +61,7 @@ extension AnytypeFontBuilder {
         return UIFont(descriptor: descriptor, size: scaledSize)
     }
 
-    private static func attributeKey(name: FontName) -> UIFontDescriptor.AttributeName {
+    private static func attributeKey(name: AnytypeFont.FontName) -> UIFontDescriptor.AttributeName {
         switch name {
         case .plex:
             return UIFontDescriptor.AttributeName.name
@@ -63,8 +70,8 @@ extension AnytypeFontBuilder {
         }
     }
 
-    private static func uiKitWeight(_ textStyle: TextStyle) -> UIFont.Weight {
-        switch weight(textStyle) {
+    private static func uiKitWeight(_ font: AnytypeFont) -> UIFont.Weight {
+        switch font.weight {
         case .regular:
             return .regular
         case .medium:

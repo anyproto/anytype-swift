@@ -27,7 +27,7 @@ public extension BlockInformation {
             case .code:
                 return false
             default:
-                return textData.attributedText.string.isEmpty
+                return textData.text.isEmpty
             }
         default:
             return false

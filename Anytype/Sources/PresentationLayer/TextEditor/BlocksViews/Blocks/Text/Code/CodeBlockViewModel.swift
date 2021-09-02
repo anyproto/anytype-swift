@@ -2,7 +2,9 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct CodeBlockViewModel: BlockViewModelProtocol {    
+struct CodeBlockViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+    
     var hashable: AnyHashable {
         [
             information,
@@ -11,12 +13,12 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     }
     
     let block: BlockModelProtocol
-    let textData: BlockText
     var information: BlockInformation { block.information }
     var indentationLevel: Int { block.indentationLevel }
+    let textData: UIKitAnytypeText
     private var codeLanguage: CodeLanguage {
         CodeLanguage.create(
-            middleware: information.fields[FieldName.codeLanguage]?.stringValue
+            middleware: block.information.fields[FieldName.codeLanguage]?.stringValue
         )
     }
 
@@ -28,7 +30,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         return CodeBlockContentConfiguration(
             content: textData,
-            backgroundColor: information.backgroundColor,
+            backgroundColor: block.information.backgroundColor,
             codeLanguage: codeLanguage,
             becomeFirstResponder: {
                 self.becomeFirstResponder(self.block)
@@ -47,7 +49,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     }
     
     func handle(action: ContextualMenu) {
-        contextualMenuHandler.handle(action: action, info: information)
+        contextualMenuHandler.handle(action: action, info: block.information)
     }
     
     func didSelectRowInTableView() { }
@@ -57,6 +59,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)\ntext: \(textData.attributedText.string.prefix(10))...\ntype: \(textData.contentType)"
+        return "id: \(blockId)\ntext: \(textData.attrString.string.prefix(10))...\ntype: \(block.information.content.type.style.description)"
     }
 }

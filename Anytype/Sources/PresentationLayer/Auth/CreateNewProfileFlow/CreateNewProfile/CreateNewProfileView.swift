@@ -49,7 +49,7 @@ struct CreateNewProfileView: View {
             
             TextField("", text: $signUpData.userName)
                 .foregroundColor(.textPrimary)
-                .font(AnytypeFontBuilder.font(textStyle: .heading))
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                 .placeholder(when: signUpData.userName.isEmpty) {
                     AnytypeText("Enter your name", style: .heading, color: .textTertiary)
                 }

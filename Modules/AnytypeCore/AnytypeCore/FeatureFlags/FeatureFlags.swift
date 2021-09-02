@@ -1,4 +1,5 @@
 public enum Feature: String, Codable {
+    case rainbowCells = "Paint editor cells 🌈"
     case analytics = "Analytics Amplitude (only in development)"
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
 }
@@ -11,6 +12,7 @@ public final class FeatureFlags {
     }
     
     private static let defaultValues: Features = [
+        .rainbowCells: false,
         .showAlertOnAssert : true,
         .analytics : false
     ]
@@ -29,5 +31,9 @@ public extension FeatureFlags {
 
     static var analytics: Bool {
         features[.analytics, default: false]
+    }
+    
+    static var rainbowCells: Bool {
+        features[.rainbowCells, default: false]
     }
 }

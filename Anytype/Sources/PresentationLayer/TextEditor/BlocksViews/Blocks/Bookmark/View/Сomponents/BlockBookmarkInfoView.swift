@@ -75,7 +75,10 @@ final class BlockBookmarkInfoView: UIView {
         ).processor
         
         iconView.kf.setImage(
-            with: ImageID(id: payload.faviconHash).resolvedUrl,
+            with: ImageID(
+                id: payload.faviconHash,
+                width: imageGuideline.size.width.asImageWidth
+            ).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(processor)]
         )

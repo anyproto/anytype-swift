@@ -65,8 +65,8 @@ struct LoginView: View {
             }
             
             TextEditor(text: $viewModel.seed).lineLimit(3)
-                .font(AnytypeFontBuilder.font(textStyle: .codeBlock))
-                .lineSpacing(AnytypeFontBuilder.lineSpacing(.codeBlock))
+                .font(AnytypeFontBuilder.font(anytypeFont: .codeBlock))
+                .lineSpacing(AnytypeFont.codeBlock.lineSpacing)
                 .foregroundColor(.textPrimary)
                 .padding(.top, 9)
                 .padding(.leading, -5)

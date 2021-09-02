@@ -2,7 +2,7 @@ import UIKit
 import BlocksModels
 
 extension BlockText.Style {
-    var uiFont: UIFont {
+    var uiFont: AnytypeFont {
         switch self {
         case .title:
             return .title
@@ -17,7 +17,7 @@ extension BlockText.Style {
         case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .quote:
             return .bodyRegular
         case .code:
-            return .code
+            return .codeBlock
         }
     }
 }

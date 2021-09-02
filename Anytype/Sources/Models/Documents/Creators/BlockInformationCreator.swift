@@ -27,7 +27,7 @@ struct BlockInformationCreator {
         }
 
         let color = newData.hasColor ? newData.color.value : oldText.color?.rawValue
-        let text = newData.hasText ? newData.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
+        let text = newData.hasText ? newData.text.value : oldText.text
         let checked = newData.hasChecked ? newData.checked.value : oldText.checked
         let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
         let marks = buildMarks(newData: newData, oldText: oldText)
@@ -70,7 +70,7 @@ struct BlockInformationCreator {
     ) -> Anytype_Model_Block.Content.Text.Marks {
         
         let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
+        var marks = useNewMarks ? newData.marks.value : oldText.marks
         
         // Workaroung: Some font could set bold style to attributed string
         // So if header or title style has font that apply bold we remove it

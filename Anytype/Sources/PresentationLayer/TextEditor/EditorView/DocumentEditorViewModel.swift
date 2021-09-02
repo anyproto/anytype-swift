@@ -125,17 +125,26 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
                 anytypeAssertionFailure("Could not find object with id: \(blockId)")
                 return
             }
+
+            let viewModelIndex = modelsHolder.models.firstIndex {
+                $0.blockId == blockId
+            }
+
+            guard let viewModelIndex = viewModelIndex else {
+                return
+            }
+
+            let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
             
-            guard let newModel = blockBuilder.build(newRecord, details: document.defaultDetailsActiveModel.currentDetails) else {
+            guard let newModel = blockBuilder.build(newRecord,
+                                                    details: document.defaultDetailsActiveModel.currentDetails,
+                                                    previousBlock: upperBlock)
+            else {
                 anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return
             }
-            
-            modelsHolder.models.enumerated()
-                .first { $0.element.blockId == blockId }
-                .flatMap { offset, data in
-                    modelsHolder.models[offset] = newModel
-                }
+
+            modelsHolder.models[viewModelIndex] = newModel
         }
     }
     

@@ -6,14 +6,16 @@ final class MarkupViewModel {
     
     var blockInformation: BlockInformation? {
         didSet {
-            guard case .text = blockInformation?.content else { return }
+            guard case let .text(textBlock) = blockInformation?.content else { return }
             displayCurrentState()
+            anytypeText = AttributedTextConverter.asModel(text: textBlock.text, marks: textBlock.marks, style: textBlock.contentType)
         }
     }
     weak var view: MarkupViewProtocol?
     private let actionHandler: EditorActionHandlerProtocol
     private var selectedRange: MarkupRange?
-    
+    private var anytypeText: UIKitAnytypeText?
+
     init(actionHandler: EditorActionHandlerProtocol) {
         self.actionHandler = actionHandler
     }
@@ -31,12 +33,14 @@ final class MarkupViewModel {
     private func displayCurrentState() {
         guard let blockInformation = blockInformation,
               case let .text(textContent) = blockInformation.content,
-              let range = selectedRange else {
+              let range = selectedRange,
+              let anytypeText = anytypeText else {
             return
         }
         let displayState = textAttributes(
+            anytypeText: anytypeText,
             from: textContent,
-            range: range.range(for: textContent.attributedText),
+            range: range.range(for: anytypeText.attrString),
             alignment: blockInformation.alignment
         )
         view?.setMarkupState(displayState)
@@ -47,21 +51,24 @@ final class MarkupViewModel {
         content: BlockText,
         blockId: BlockId
     ) {
-        guard let range = selectedRange?.range(for: content.attributedText) else { return }
+        guard let anytypeText = anytypeText,
+            let range = selectedRange?.range(for: anytypeText.attrString) else { return }
         actionHandler.handleAction(
-            .toggleFontStyle(markup, range),
+            .toggleFontStyle(anytypeText.attrString, markup, range),
             blockId: blockId
         )
     }
     
     private func textAttributes(
+        anytypeText: UIKitAnytypeText,
         from content: BlockText,
         range: NSRange,
         alignment: LayoutAlignment
     ) -> AllMarkupsState {
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: content.contentType)
+
         let markupCalculator = MarkupStateCalculator(
-            attributedText: content.attributedText,
+            attributedText: anytypeText.attrString,
             range: range,
             restrictions: restrictions,
             alignment: alignment.asNSTextAlignment

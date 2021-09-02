@@ -34,7 +34,7 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        // TODO: Support alignments than looks beautiful
+        // TODO: Support image alignments
         imageView.contentMode = .center
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -79,7 +79,7 @@ final class BlockImageContentView: UIView & UIContentView {
         ).build()
         
         imageView.kf.setImage(
-            with: ImageID(id: imageId, width: .default).resolvedUrl,
+            with: ImageID(id: imageId, width: imageSize.width.asImageWidth).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(DownsamplingImageProcessor(size: imageSize))]
         )
