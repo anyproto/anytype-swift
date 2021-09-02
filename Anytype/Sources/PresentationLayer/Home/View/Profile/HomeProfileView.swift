@@ -27,8 +27,7 @@ struct HomeProfileView: View {
     }
     
     func hiText(containerHeight: CGFloat) -> some View {
-        AnytypeText("Hi, \(accountData.name ?? "")", style: .title)
-            .foregroundColor(.white)
+        AnytypeText("Hi, \(accountData.name ?? "")", style: .title, color: .white)
             .padding(.top, containerHeight * topPaddingRatio)
             .padding(.bottom, 15)
             .padding(.horizontal)
@@ -55,7 +54,9 @@ struct HomeProfileView: View {
         let iconType: UserIconView.IconType = {
             if let imageId = accountData.avatarId {
                 return UserIconView.IconType.image(
-                    .middleware(ImageID(id: imageId))
+                    .middleware(
+                        ImageID(id: imageId, width: UserIconView.Constants.size.width.asImageWidth)
+                    )
                 )
             } else if let firstCharacter = accountData.name?.first {
                 return UserIconView.IconType.placeholder(firstCharacter)
@@ -84,11 +85,10 @@ struct HomeProfileView: View {
     }
     
     private func slogan(containerHeight: CGFloat) -> some View {
-        AnytypeText("The future will be the one you build", style: .title)
+        AnytypeText("The future will be the one you build", style: .title, color: .white)
             .padding(.bottom, containerHeight / 6)
             .padding()
             .multilineTextAlignment(.center)
-            .foregroundColor(.white)
             .lineLimit(nil)
             .fixedSize(horizontal: false, vertical: true)
     }

@@ -6,8 +6,8 @@ struct TypographyExample: View {
         ScrollView() {
             ForEach(AnytypeFont.allCases, id: \.self) { style in
                 VStack {
-                    AnytypeText("\(String(describing: style))", style: style)
-                    AnytypeText("The quick brown fox jumps over the lazy dog", style: style)
+                    AnytypeText("\(String(describing: style))", style: style, color: .textPrimary)
+                    AnytypeText("The quick brown fox jumps over the lazy dog", style: style, color: .textPrimary)
                 }.padding(10)
             }
         }

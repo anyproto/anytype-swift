@@ -11,10 +11,10 @@ struct SettingsSectionItemView: View {
         Button(action: { pressed = true }) {
             HStack(spacing: 8) {
                 icon.frame(width: 28.0, height: 28.0)
-                AnytypeText(name, style: .uxBodyRegular).foregroundColor(.textPrimary)
+                AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 if comingSoon {
-                    AnytypeText("Soon", style: .uxCalloutRegular).foregroundColor(.textTertiary)
+                    AnytypeText("Soon", style: .uxCalloutRegular, color: .textTertiary)
                 } else {
                     Image.arrow.frame(width: 24, height: 24)
                 }

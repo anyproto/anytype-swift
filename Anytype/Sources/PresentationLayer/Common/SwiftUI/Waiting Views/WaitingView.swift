@@ -12,28 +12,7 @@ struct WaitingView: View {
     var body: some View {
         ZStack {
             Gradients.authBackground()
-            VStack() {
-                Spacer()
-                VStack(alignment: .center, spacing: 16) {
-                    LoadingAnimationView(showError: $showError)
-                        .padding(.top, 24)
-                        .padding(.bottom, 10)
-                    AnytypeText(showError ? errorText : text, style: .heading)
-                        .padding(.bottom, 19)
-                    if showError {
-                        StandardButton(disabled: false, text: "Dismiss", style: .secondary) {
-                            presentationMode.wrappedValue.dismiss()
-                            onErrorTap()
-                        }
-                        .padding(.bottom, 10)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .frame(maxWidth: .infinity)
-                .background(Color.background)
-                .cornerRadius(16.0)
-            }
-            .padding(20)
+            bottomSheet
         }
         .navigationBarHidden(true)
         .onChange(of: showError) { showError in
@@ -41,6 +20,36 @@ struct WaitingView: View {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
         }
+    }
+    
+    private var bottomSheet: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            contentView
+                .padding(20)
+        }
+    }
+    
+    private var contentView: some View {
+        VStack() {
+            VStack(alignment: .center, spacing: 0) {
+                LoadingAnimationView(showError: $showError)
+                    .padding(.top, 24)
+                    .padding(.bottom, 15)
+                AnytypeText(showError ? errorText : text, style: .heading, color: .textPrimary)
+                    .padding(.bottom, 19)
+                if showError {
+                    StandardButton(disabled: false, text: "Dismiss", style: .secondary) {
+                        presentationMode.wrappedValue.dismiss()
+                        onErrorTap()
+                    }
+                    .padding(.bottom, 10)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.background)
+        .cornerRadius(16.0)
     }
     
 }

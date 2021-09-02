@@ -33,16 +33,16 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .emoji(IconEmoji("📘")!),
-            title: .default(title: "Ubik"),
-            type: "Book",
+            icon: .emoji(IconEmoji("🤡")!),
+            title: .todo(title: "DO IT!", isChecked: false),
+            type: "Task",
             isLoading: false,
             isArchived: true
         ),
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .profile(.imageId("1337")),
+            icon: .profile(.character("👽")),
             title: .default(title: "Neo"),
             type: "Character",
             isLoading: false,
@@ -51,8 +51,8 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .basic("1337"),
-            title: .default(title: "Neo"),
+            icon: .none,
+            title: .todo(title: "Relax", isChecked: true),
             type: "Character",
             isLoading: false,
             isArchived: true
@@ -71,9 +71,9 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .none,
-            title: .todo(title: "Todo", isChecked: false),
-            type: "Void",
+            icon: .profile(.character("A")),
+            title: .default(title: "Anton"),
+            type: "Humanoid",
             isLoading: false,
             isArchived: true
         ),

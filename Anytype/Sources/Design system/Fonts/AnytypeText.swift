@@ -4,10 +4,11 @@ import AnytypeCore
 struct AnytypeText: View {
     private let textView: AnyView
     
-    init(_ text: String, style: AnytypeFont) {
+    init(_ text: String, style: AnytypeFont, color: Color) {
         let spacing = style.lineSpacing
         
         textView = Self.buildText(text, style: style)
+            .foregroundColor(color)
             .modifier(OptionalLineSpacingModifier(spacing: spacing))
             .eraseToAnyView()
     }
@@ -38,10 +39,10 @@ struct AnytypeText: View {
 struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AnytypeText("Foo", style: .title)
-            AnytypeText("Foo", style: .bodyRegular)
-            AnytypeText("Foo", style: .relation3Regular)
-            AnytypeText("collapse", style: .codeBlock)
+            AnytypeText("Foo", style: .title, color: .textPrimary)
+            AnytypeText("Foo", style: .bodyRegular, color: .textPrimary)
+            AnytypeText("Foo", style: .relation3Regular, color: .textPrimary)
+            AnytypeText("collapse", style: .codeBlock, color: .textPrimary)
         }
     }
 }

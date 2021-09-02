@@ -7,7 +7,7 @@ struct FeatureFlagsView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Feature flags 👻", style: .title)
+            AnytypeText("Feature flags 👻", style: .title, color: .textPrimary)
             buttons
             toggles
         }
@@ -30,7 +30,7 @@ struct FeatureFlagsView: View {
             Toggle(
                 isOn: $flags[index].onChange(FeatureFlags.update).value
             ) {
-                AnytypeText(flags[index].key.rawValue, style: .bodyRegular)
+                AnytypeText(flags[index].key.rawValue, style: .bodyRegular, color: .textPrimary)
             }
             .padding()
         }

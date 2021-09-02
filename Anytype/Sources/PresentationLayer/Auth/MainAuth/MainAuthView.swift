@@ -8,9 +8,7 @@ struct MainAuthView: View {
     var body: some View {
         ZStack {
             navigation
-            Image.auth.background
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
+            Gradients.authBackground()
             contentView
                 
             .errorToast(
@@ -28,35 +26,37 @@ struct MainAuthView: View {
         VStack() {
             Spacer()
             bottomSheet
+                .padding(20)
         }
     }
     
     private var bottomSheet: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                AnytypeText("Welcome to Anytype", style: .heading)
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
+                AnytypeText("Welcome to Anytype", style: .heading, color: .textPrimary)
                     .padding(.bottom, 11)
-                AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular)
-                    .lineSpacing(7)
-            }.padding(20)
-            
-            HStack(spacing: 10) {
-                StandardButton(text: "Sign up", style: .secondary) {
-                    viewModel.singUp()
-                }
-                
-                NavigationLink(
-                    destination: viewModel.loginView()
-                ) {
-                    StandardButtonView(text: "Login", style: .primary)
-                }
+                AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular, color: .textPrimary)
+                    .padding(.bottom, 18)
+                buttons
             }
-            .padding([.leading, .trailing], 20)
-            .padding(.bottom, 10)
+            .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
         .background(Color.background)
         .cornerRadius(16.0)
-        .padding(20)
+    }
+    
+    private var buttons: some View {
+        HStack(spacing: 10) {
+            StandardButton(text: "Sign up", style: .secondary) {
+                viewModel.singUp()
+            }
+            
+            NavigationLink(
+                destination: viewModel.loginView()
+            ) {
+                StandardButtonView(text: "Login", style: .primary)
+            }
+        }
     }
     
     private var navigation: some View {
