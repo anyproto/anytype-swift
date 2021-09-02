@@ -468,6 +468,7 @@
 		EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA02612F2625D0AB00AE6D86 /* CodeBlockRestrictions.swift */; };
 		EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261322625D0E100AE6D86 /* ListBlockRestrictions.swift */; };
 		EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261352625D12000AE6D86 /* BlockRestrictionsFactory.swift */; };
+		EA074A2F26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA074A2E26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift */; };
 		EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */; };
 		EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */; };
 		EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */; };
@@ -1100,6 +1101,7 @@
 		EA02612F2625D0AB00AE6D86 /* CodeBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockRestrictions.swift; sourceTree = "<group>"; };
 		EA0261322625D0E100AE6D86 /* ListBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockRestrictions.swift; sourceTree = "<group>"; };
 		EA0261352625D12000AE6D86 /* BlockRestrictionsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictionsFactory.swift; sourceTree = "<group>"; };
+		EA074A2E26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionMarkupEventProvider.swift; sourceTree = "<group>"; };
 		EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChecker.swift; sourceTree = "<group>"; };
 		EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockViewModel.swift; sourceTree = "<group>"; };
 		EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentView.swift; sourceTree = "<group>"; };
@@ -3034,6 +3036,7 @@
 				3D100A3226A19549005173EF /* Model */,
 				3DC78632265D43E900498993 /* EventConverters */,
 				3DCE79F92615215D00E09593 /* EventHandler.swift */,
+				EA074A2E26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift */,
 			);
 			path = EventHandler;
 			sourceTree = "<group>";
@@ -4069,6 +4072,7 @@
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
 				EA77E54B262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
+				EA074A2F26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				EA43DD6626B1A28500E66878 /* MarkupState.swift in Sources */,
