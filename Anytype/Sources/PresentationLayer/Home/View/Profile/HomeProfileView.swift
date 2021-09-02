@@ -11,25 +11,25 @@ struct HomeProfileView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack() {
-                VStack {
-                    hiText(containerHeight: geometry.size.height)
+            VStack(spacing: 0) {
+                VStack(spacing: 0) {
+                    Spacer.fixedHeight(geometry.size.height * topPaddingRatio)
+                    hiText
+                    Spacer.fixedHeight(15)
                     avatar
+                    Spacer.fixedHeight(geometry.size.height * buttonsPaddingRatio)
                     buttons
-                        .padding(.top, geometry.size.height * buttonsPaddingRatio)
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
                 slogan(containerHeight: geometry.size.height)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
-            .animation(.default, value: accountData.profileBlockId) // ???????????
+            .animation(.default, value: accountData.profileBlockId)
         }
     }
     
-    func hiText(containerHeight: CGFloat) -> some View {
+    var hiText: some View {
         AnytypeText("Hi, \(accountData.name ?? "")", style: .title, color: .white)
-            .padding(.top, containerHeight * topPaddingRatio)
-            .padding(.bottom, 15)
             .padding(.horizontal)
             .transition(.opacity)
     }
@@ -85,17 +85,22 @@ struct HomeProfileView: View {
     }
     
     private func slogan(containerHeight: CGFloat) -> some View {
-        AnytypeText("The future will be the one you build", style: .title, color: .white)
-            .padding(.bottom, containerHeight / 6)
-            .padding()
-            .multilineTextAlignment(.center)
-            .lineLimit(nil)
-            .fixedSize(horizontal: false, vertical: true)
+        Group {
+            AnytypeText("The future will be the one you build", style: .title, color: .white)
+                .padding()
+                .multilineTextAlignment(.center)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer.fixedHeight(containerHeight / 6)
+        }
     }
 }
 
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
+            .environmentObject(AccountInfoDataAccessor())
+            .environmentObject(HomeViewModel())
+            .background(Color.pureBlue)
     }
 }

@@ -35,15 +35,15 @@ struct WaitingView: View {
             VStack(alignment: .center, spacing: 0) {
                 LoadingAnimationView(showError: $showError)
                     .padding(.top, 24)
-                    .padding(.bottom, 15)
+                Spacer.fixedHeight(15)
                 AnytypeText(showError ? errorText : text, style: .heading, color: .textPrimary)
-                    .padding(.bottom, 19)
+                Spacer.fixedHeight(19)
                 if showError {
                     StandardButton(disabled: false, text: "Dismiss", style: .secondary) {
                         presentationMode.wrappedValue.dismiss()
                         onErrorTap()
                     }
-                    .padding(.bottom, 10)
+                    Spacer.fixedHeight(10)
                 }
             }
         }

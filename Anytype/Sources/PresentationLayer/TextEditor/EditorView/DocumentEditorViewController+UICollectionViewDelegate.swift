@@ -14,8 +14,10 @@ import BlocksModels
 
 extension DocumentEditorViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         viewModel.didSelectBlock(at: indexPath)
         if viewModel.selectionHandler.selectionEnabled {
             return
@@ -23,8 +25,10 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: false)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didDeselectItemAt indexPath: IndexPath
+    ) {
         if !viewModel.selectionHandler.selectionEnabled {
             return
         }
@@ -38,8 +42,10 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         return true
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        shouldSelectItemAt indexPath: IndexPath
+    ) -> Bool {
         guard let item = dataSource.itemIdentifier(for: indexPath)
         else { return false }
         
@@ -62,9 +68,10 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        contextMenuConfigurationForItemAt indexPath: IndexPath,
-                        point: CGPoint
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemAt indexPath: IndexPath,
+        point: CGPoint
     ) -> UIContextMenuConfiguration? {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
 

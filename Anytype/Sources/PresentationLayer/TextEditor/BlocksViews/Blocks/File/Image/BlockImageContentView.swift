@@ -34,7 +34,7 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
-        // TODO: Support alignments than looks beautiful
+        // TODO: Support image alignments
         imageView.contentMode = .center
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
