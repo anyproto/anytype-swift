@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import Combine
+import AnytypeCore
 
 import SwiftUI
 import Amplitude
@@ -311,6 +312,9 @@ private extension DocumentEditorViewController {
         cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
 
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
+        if FeatureFlags.rainbowCells {
+            cell.fillSubviewsWithRandomColors(recursively: false)
+        }
     }
 
 }
