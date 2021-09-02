@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 
 struct CodeBlockContentConfiguration {
-    let content: BlockText
+    let content: UIKitAnytypeText
     let backgroundColor: MiddlewareColor?
     let codeLanguage: CodeLanguage
     

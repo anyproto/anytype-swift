@@ -3,6 +3,8 @@ import BlocksModels
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+    
     var hashable: AnyHashable {
         [
             indentationLevel,

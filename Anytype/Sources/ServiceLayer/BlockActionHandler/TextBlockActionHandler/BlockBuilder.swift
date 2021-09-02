@@ -50,11 +50,11 @@ struct BlockBuilder {
         switch block.information.content {
         case let .text(blockType):
             switch blockType.contentType {
-            case .bulleted where blockType.attributedText.string != "": return .text(.init(contentType: .bulleted))
-            case .checkbox where blockType.attributedText.string != "": return .text(.init(contentType: .checkbox))
-            case .numbered where blockType.attributedText.string != "": return .text(.init(contentType: .numbered))
+            case .bulleted where blockType.text != "": return .text(.init(contentType: .bulleted))
+            case .checkbox where blockType.text != "": return .text(.init(contentType: .checkbox))
+            case .numbered where blockType.text != "": return .text(.init(contentType: .numbered))
             case .toggle where block.isToggled: return .text(.init(contentType: .text))
-            case .toggle where blockType.attributedText.string != "": return .text(.init(contentType: .toggle))
+            case .toggle where blockType.text != "": return .text(.init(contentType: .toggle))
             default: return .text(.init(contentType: .text))
             }
         default: return nil

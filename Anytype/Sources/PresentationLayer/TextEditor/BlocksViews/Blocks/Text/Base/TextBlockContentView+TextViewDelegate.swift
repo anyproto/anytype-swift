@@ -37,7 +37,6 @@ extension TextBlockContentView: TextViewDelegate {
             )
         case .changeText:
             accessoryViewSwitcher?.textDidChange(textView: textView.textView)
-            // TODO: Accessory need refactoring
 
             currentConfiguration.actionHandler.handleAction(
                 .textView(
@@ -103,12 +102,8 @@ extension TextBlockContentView: TextViewDelegate {
                 )
             }
             return shouldChangeText
-        case let .changeLink(range):
-            guard case let .text(content) = currentConfiguration.block.information.content else {
-                anytypeAssertionFailure("Unexpected block content \(currentConfiguration.block.information.content)")
-                return true
-            }
-            let link: URL? = content.attributedText.value(for: .link, range: range)
+        case let .changeLink(attrText, range):
+            let link: URL? = attrText.value(for: .link, range: range)
             accessoryViewSwitcher?.showURLInput(textView: textView.textView, url: link)
         case let .showPage(pageId):
             currentConfiguration.showPage(pageId)

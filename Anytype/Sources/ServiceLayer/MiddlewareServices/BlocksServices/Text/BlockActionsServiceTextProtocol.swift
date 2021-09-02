@@ -49,6 +49,6 @@ protocol BlockActionsServiceTextProtocol {
     /// Later, TextView update NSAttributedString and send updates back.
     ///
     @discardableResult
-    func setText(contextID: BlockId, blockID: BlockId, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
+    func setText(contextID: BlockId, blockID: BlockId, middlewareString: MiddlewareString) -> AnyPublisher<Void, Error>
     
 }

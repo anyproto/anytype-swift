@@ -13,7 +13,14 @@ final class NumberedBlockNormalizer: BlockChildrenNormalizer {
                 case let .text(value) where value.contentType == .numbered:
                     number += 1
 
-                    blockModel.information.content = .text(.init(attributedText: value.attributedText, color: value.color, contentType: value.contentType, checked: value.checked, number: number))
+                    blockModel.information.content = .text(
+                        .init(text: value.text,
+                              marks: value.marks,
+                              color: value.color,
+                              contentType: value.contentType,
+                              checked: value.checked,
+                              number: number)
+                    )
                 default: number = 0
                 }
             }

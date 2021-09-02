@@ -47,7 +47,7 @@ struct CreateNewProfileView: View {
             }.padding(.bottom, 6)
             
             TextField("Enter your name", text: $signUpData.userName)
-                .font(AnytypeFontBuilder.font(textStyle: .heading))
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                 .modifier(DividerModifier(spacing: 10))
                 .padding(.bottom, 20)
             
