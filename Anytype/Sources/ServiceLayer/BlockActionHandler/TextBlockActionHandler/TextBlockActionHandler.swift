@@ -4,6 +4,8 @@ import Combine
 import AnytypeCore
 
 final class TextBlockActionHandler {
+    typealias Completion = (PackOfEvents) -> Void
+
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
@@ -19,12 +21,12 @@ final class TextBlockActionHandler {
         self.modelsHolder = modelsHolder
     }
 
-    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction) {
+    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction, completion: Completion?) {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
         case let .changeText(attributedText):
-            handleChangeText(block, text: attributedText)
+            handleChangeText(block, text: attributedText, completion: completion)
         case .changeTextStyle, .changeLink:
             anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition, .showPage, .openURL:
@@ -37,18 +39,24 @@ final class TextBlockActionHandler {
         }
     }
     
-    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString) {
+    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString, completion: Completion?) {
         guard case var .text(textContentType) = block.information.content else { return }
         var blockModel = block
-
-        let blockId = blockModel.information.id
-        blockModel.information.content = .text(textContentType)
 
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
         textContentType.text = middlewareString.text
         textContentType.marks = middlewareString.marks
 
+        let blockId = blockModel.information.id
+        blockModel.information.content = .text(textContentType)
+
         textService.setText(contextID: contextId, blockID: blockId, middlewareString: middlewareString)
+
+        completion?(
+            PackOfEvents(localEvent:
+                .setText(blockId: blockId, text: text.string)
+            )
+        )
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {

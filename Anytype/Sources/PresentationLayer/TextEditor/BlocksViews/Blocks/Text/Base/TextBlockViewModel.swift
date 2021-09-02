@@ -4,6 +4,8 @@ import BlocksModels
 
 
 struct TextBlockViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+
     var indentationLevel: Int
     var information: BlockInformation
 
@@ -12,9 +14,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
-    /// Block that upper than current.
-    /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
-    private let upperBlock: BlockModelProtocol?
     
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate

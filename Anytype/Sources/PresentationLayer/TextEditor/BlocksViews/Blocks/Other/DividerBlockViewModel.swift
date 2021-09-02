@@ -1,7 +1,9 @@
 import BlocksModels
 import UIKit
 
-struct DividerBlockViewModel: BlockViewModelProtocol {    
+struct DividerBlockViewModel: BlockViewModelProtocol {
+    var upperBlock: BlockModelProtocol?
+
     var hashable: AnyHashable {
         [
             indentationLevel,
