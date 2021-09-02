@@ -31,9 +31,13 @@ struct AlphaInviteCodeView: View {
                 Spacer.fixedHeight(11)
                 AnytypeText("Do not have invite", style: .uxCalloutRegular, color: .textPrimary)
                 Spacer.fixedHeight(30)
-                TextField("Invitation code", text: $signUpData.inviteCode)
+                TextField("", text: $signUpData.inviteCode)
                     .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
-                    .modifier(DividerModifier(spacing: 11))
+                    .foregroundColor(.textPrimary)
+                    .placeholder(when: signUpData.inviteCode.isEmpty) {
+                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .grayscale50)
+                    }
+                    .modifier(DividerModifier(spacing: 11.5))
                 Spacer.fixedHeight(20)
                 
                 buttons

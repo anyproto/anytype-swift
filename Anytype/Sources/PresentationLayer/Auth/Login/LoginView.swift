@@ -62,14 +62,14 @@ struct LoginView: View {
             if(viewModel.seed.isEmpty) {
                 AnytypeText("or Type your keychain phrase", style: .codeBlock, color: .textSecondary)
                     .padding(.top, 17)
-                    .padding(.leading, 6)
             }
             
             TextEditor(text: $viewModel.seed).lineLimit(3)
                 .font(AnytypeFontBuilder.font(textStyle: .codeBlock))
                 .lineSpacing(AnytypeFontBuilder.lineSpacing(.codeBlock))
-                .foregroundColor(.textSecondary)
+                .foregroundColor(.textPrimary)
                 .padding(.top, 9)
+                .padding(.leading, -5)
                 .opacity(viewModel.seed.isEmpty ? 0.25 : 1)
                 .autocapitalization(.none)
                 .frame(height: 124)

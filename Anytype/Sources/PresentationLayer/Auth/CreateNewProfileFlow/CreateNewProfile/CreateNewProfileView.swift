@@ -45,11 +45,16 @@ struct CreateNewProfileView: View {
                 AnytypeText("New profile", style: .caption1Regular, color: .textSecondary)
                 Spacer()
             }
-            Spacer.fixedHeight(11)
+            Spacer.fixedHeight(6)
             
-            TextField("Enter your name", text: $signUpData.userName)
+            TextField("", text: $signUpData.userName)
+                .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(textStyle: .heading))
+                .placeholder(when: signUpData.userName.isEmpty) {
+                    AnytypeText("Enter your name", style: .heading, color: .textTertiary)
+                }
                 .modifier(DividerModifier(spacing: 10))
+            
             Spacer.fixedHeight(20)
             
             buttons

@@ -10,6 +10,7 @@ struct AnytypeText: View {
         textView = Self.buildText(text, style: style)
             .foregroundColor(color)
             .modifier(OptionalLineSpacingModifier(spacing: spacing))
+            .padding(.vertical, spacing / 2)
             .eraseToAnyView()
     }
     
