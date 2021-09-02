@@ -11,25 +11,25 @@ struct HomeProfileView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack() {
-                VStack {
+            VStack(spacing: 0) {
+                VStack(spacing: 0) {
                     hiText(containerHeight: geometry.size.height)
+                        .padding(.top, geometry.size.height * topPaddingRatio)
+                        .padding(.bottom, 15)
                     avatar
+                        .padding(.bottom, geometry.size.height * buttonsPaddingRatio)
                     buttons
-                        .padding(.top, geometry.size.height * buttonsPaddingRatio)
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
                 slogan(containerHeight: geometry.size.height)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
-            .animation(.default, value: accountData.profileBlockId) // ???????????
+            .animation(.default, value: accountData.profileBlockId)
         }
     }
     
     func hiText(containerHeight: CGFloat) -> some View {
         AnytypeText("Hi, \(accountData.name ?? "")", style: .title, color: .white)
-            .padding(.top, containerHeight * topPaddingRatio)
-            .padding(.bottom, 15)
             .padding(.horizontal)
             .transition(.opacity)
     }
@@ -95,5 +95,8 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
+            .environmentObject(AccountInfoDataAccessor())
+            .environmentObject(HomeViewModel())
+            .background(Color.pureBlue)
     }
 }
