@@ -34,9 +34,9 @@ struct MainAuthView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Welcome to Anytype", style: .heading, color: .textPrimary)
-                    .padding(.bottom, 11)
+                Spacer.fixedHeight(11)
                 AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular, color: .textPrimary)
-                    .padding(.bottom, 18)
+                Spacer.fixedHeight(18)
                 buttons
             }
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))

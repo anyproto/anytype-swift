@@ -32,7 +32,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Login with keychain", style: .heading, color: .textPrimary)
-                    .padding(.bottom, 32)
+                Spacer.fixedHeight(32)
                 scanQR
                 enterMnemonic
                 buttons

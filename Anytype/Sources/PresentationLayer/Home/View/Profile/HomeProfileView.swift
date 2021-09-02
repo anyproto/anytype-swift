@@ -13,11 +13,11 @@ struct HomeProfileView: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 VStack(spacing: 0) {
-                    hiText(containerHeight: geometry.size.height)
-                        .padding(.top, geometry.size.height * topPaddingRatio)
-                        .padding(.bottom, 15)
+                    Spacer.fixedHeight(geometry.size.height * topPaddingRatio)
+                    hiText
+                    Spacer.fixedHeight(15)
                     avatar
-                        .padding(.bottom, geometry.size.height * buttonsPaddingRatio)
+                    Spacer.fixedHeight(geometry.size.height * buttonsPaddingRatio)
                     buttons
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
@@ -28,7 +28,7 @@ struct HomeProfileView: View {
         }
     }
     
-    func hiText(containerHeight: CGFloat) -> some View {
+    var hiText: some View {
         AnytypeText("Hi, \(accountData.name ?? "")", style: .title, color: .white)
             .padding(.horizontal)
             .transition(.opacity)
@@ -83,12 +83,14 @@ struct HomeProfileView: View {
     }
     
     private func slogan(containerHeight: CGFloat) -> some View {
-        AnytypeText("The future will be the one you build", style: .title, color: .white)
-            .padding(.bottom, containerHeight / 6)
-            .padding()
-            .multilineTextAlignment(.center)
-            .lineLimit(nil)
-            .fixedSize(horizontal: false, vertical: true)
+        Group {
+            AnytypeText("The future will be the one you build", style: .title, color: .white)
+                .padding()
+                .multilineTextAlignment(.center)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer.fixedHeight(containerHeight / 6)
+        }
     }
 }
 

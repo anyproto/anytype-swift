@@ -28,14 +28,13 @@ struct AlphaInviteCodeView: View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Enter your invitation code", style: .heading, color: .textPrimary)
-                    .padding(.bottom, 11)
+                Spacer.fixedHeight(11)
                 AnytypeText("Do not have invite", style: .uxCalloutRegular, color: .textPrimary)
-                    .padding(.bottom, 30)
-                    
+                Spacer.fixedHeight(30)
                 TextField("Invitation code", text: $signUpData.inviteCode)
                     .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
                     .modifier(DividerModifier(spacing: 11))
-                    .padding(.bottom, 20)
+                Spacer.fixedHeight(20)
                 
                 buttons
             }

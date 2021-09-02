@@ -15,8 +15,11 @@ struct AboutView: View {
     
     var contentView: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator().padding(.bottom, 70)
-            title.padding(.bottom, 27)
+            DragIndicator()
+            Spacer.fixedHeight(70)
+            title
+            Spacer.fixedHeight(27)
+            
             VStack(alignment: .leading, spacing: 0) {
                 if let version = MetadataProvider.appVersion {
                     aboutRow(label: "App version", value: version)
