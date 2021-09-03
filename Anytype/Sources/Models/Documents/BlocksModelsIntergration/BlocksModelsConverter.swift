@@ -20,13 +20,9 @@ enum BlocksModelsConverter {
         case .bookmark(let data): return contentBookmark.blockType(data)
         case .div(let data): return contentDivider.blockType(data)
         case .layout(let data): return contentLayout.blockType(data)
-        
-        case .featuredRelations: return nil
-        case .relation: return nil
-            
+
         default:
-            anytypeAssertionFailure("No converter for type: \(String(describing: middleware))")
-            return nil
+            return .unsupported
         }
     }
 
@@ -39,6 +35,7 @@ enum BlocksModelsConverter {
         case .bookmark(let data): return contentBookmark.middleware(data)
         case .divider(let data): return contentDivider.middleware(data)
         case .layout(let data): return contentLayout.middleware(data)
+        case .unsupported: return nil
         }
     }
 }
