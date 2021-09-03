@@ -11,7 +11,7 @@ struct WaitingView: View {
     
     var body: some View {
         ZStack {
-            Gradients.authBackground()
+            Gradients.mainBackground()
             bottomSheet
         }
         .navigationBarHidden(true)

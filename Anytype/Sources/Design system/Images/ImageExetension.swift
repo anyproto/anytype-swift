@@ -17,8 +17,6 @@ extension Image {
         static let search = createImage("main_search")
         static let settings = createImage("main_settings")
         static let marketplace = createImage("marketplace")
-        
-        static let wallpaper = createImage("default_home_wallpaper")
     }
     
     enum settings {

@@ -11,7 +11,7 @@ struct SelectProfileView: View {
     var body: some View {
         HStack {
             ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
-                Gradients.authBackground()
+                Gradients.mainBackground()
                 
                 if self.viewModel.isMultipleAccountsEnabled {
                     multipleAccountsPicket
