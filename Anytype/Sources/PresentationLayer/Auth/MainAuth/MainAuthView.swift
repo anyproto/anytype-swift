@@ -8,7 +8,7 @@ struct MainAuthView: View {
     var body: some View {
         ZStack {
             navigation
-            Gradients.authBackground()
+            Gradients.mainBackground()
             contentView
                 
             .errorToast(

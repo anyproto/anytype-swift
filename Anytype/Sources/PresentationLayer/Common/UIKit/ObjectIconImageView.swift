@@ -107,14 +107,13 @@ extension ObjectIconImageView: ConfigurableView {
         )
     }
     
-    private func stringIconImage(model: Model,
-                                 string: String,
-                                 textColor: UIColor,
-                                 backgroundColor: UIColor) -> UIImage? {
-        guard
-            let imageGuideline = model.imageGuideline,
-                let font = model.font
-        else { return nil}
+    private func stringIconImage(
+        model: Model,
+        string: String,
+        textColor: UIColor,
+        backgroundColor: UIColor
+    ) -> UIImage? {
+        guard let imageGuideline = model.imageGuideline, let font = model.font else { return nil}
         
         return painter.image(
             with: string,

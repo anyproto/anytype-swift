@@ -11,7 +11,7 @@ struct WaitingView: View {
     
     var body: some View {
         ZStack {
-            Gradients.authBackground()
+            Gradients.mainBackground()
             bottomSheet
         }
         .navigationBarHidden(true)
@@ -43,6 +43,7 @@ struct WaitingView: View {
                         presentationMode.wrappedValue.dismiss()
                         onErrorTap()
                     }
+                    .padding(.horizontal, 20)
                     Spacer.fixedHeight(10)
                 }
             }

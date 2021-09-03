@@ -17,6 +17,8 @@
 		3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D69EFE526B009DD002C54C4 /* AssertionLogger.swift */; };
 		3DA4B0C426AF3D2B0000F243 /* AnytypeCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4B0F126AF41940000F243 /* Asserts.swift */; };
+		3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */; };
+		3DFE7F4126E22B530093EECB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4026E22B530093EECB /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnytypeCore.h; sourceTree = "<group>"; };
 		3DA4B0C326AF3D2B0000F243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DA4B0F126AF41940000F243 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
+		3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
+		3DFE7F4026E22B530093EECB /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +79,8 @@
 		3D43FDAC26B188E70094D4C0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3D53F03726B30356001A6EEE /* Logger.swift */,
 				3D53F03426B30116001A6EEE /* SwiftProtobuf */,
+				3D53F03726B30356001A6EEE /* Logger.swift */,
 				3DA4B0F126AF41940000F243 /* Asserts.swift */,
 				3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */,
 				3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */,
@@ -120,12 +124,22 @@
 		3DA4B0C126AF3D2B0000F243 /* AnytypeCore */ = {
 			isa = PBXGroup;
 			children = (
+				3DFE7F3A26E229230093EECB /* Extensions */,
 				3D43FDAC26B188E70094D4C0 /* Utils */,
 				3D43FDAB26B188D50094D4C0 /* SupportFiles */,
 				3D43FD7A26B056330094D4C0 /* FeatureFlags */,
 				3D69EFE426B009C3002C54C4 /* Logging */,
 			);
 			path = AnytypeCore;
+			sourceTree = "<group>";
+		};
+		3DFE7F3A26E229230093EECB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */,
+				3DFE7F4026E22B530093EECB /* StringExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,11 +223,13 @@
 			files = (
 				3D43FD8026B0573A0094D4C0 /* UserDefault.swift in Sources */,
 				3D43FD7E26B057250094D4C0 /* FeatureFlags.swift in Sources */,
+				3DFE7F4126E22B530093EECB /* StringExtension.swift in Sources */,
 				3D53F03626B30116001A6EEE /* GoogleProtobufValueExtensions.swift in Sources */,
 				3D43FDAE26B188F80094D4C0 /* MetadataProvider.swift in Sources */,
 				3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */,
 				3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */,
 				3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */,
+				3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */,
 				3D53F03826B30356001A6EEE /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

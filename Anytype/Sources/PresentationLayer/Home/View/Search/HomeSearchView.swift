@@ -24,12 +24,18 @@ struct HomeSearchView: View {
     }
     
     private var searchResults: some View {
-        List(data) { data in
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.showPage(pageId: data.id)
-            }) {
-                HomeSearchCell(data: data)
+        ScrollView {
+            LazyVStack {
+                ForEach(data) { data in
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                        viewModel.showPage(pageId: data.id)
+                    }) {
+                        HomeSearchCell(data: data)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
+                }
             }
         }
     }

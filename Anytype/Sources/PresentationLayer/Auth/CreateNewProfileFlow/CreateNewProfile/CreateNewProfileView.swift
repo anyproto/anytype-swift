@@ -13,7 +13,7 @@ struct CreateNewProfileView: View {
     
     var body: some View {
         ZStack {
-            Gradients.authBackground()
+            Gradients.mainBackground()
             bottomSheet
                 .padding(20)
         }
