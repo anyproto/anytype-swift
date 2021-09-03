@@ -234,7 +234,6 @@
 		12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */; };
 		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
-		12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE403C264AD15D007B5074 /* OptionalExtensions.swift */; };
 		12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4046264AE455007B5074 /* StackedLayout.swift */; };
 		12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4047264AE455007B5074 /* UIView+Layout.swift */; };
 		12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4051264AE455007B5074 /* LayoutProperty.swift */; };
@@ -411,6 +410,8 @@
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DEFD671268A32D70072EA27 /* EditorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
+		3DFE7F2726E122290093EECB /* HomeSearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */; };
+		3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */; };
 		53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */; };
 		530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconView.swift */; };
 		530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A5429269FB8FF009016AE /* AmplitudeConstants.swift */; };
@@ -874,7 +875,6 @@
 		12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectBasicIconPicker.swift; sourceTree = "<group>"; };
 		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
-		12DE403C264AD15D007B5074 /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
 		12DE4046264AE455007B5074 /* StackedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedLayout.swift; sourceTree = "<group>"; };
 		12DE4047264AE455007B5074 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		12DE4051264AE455007B5074 /* LayoutProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutProperty.swift; sourceTree = "<group>"; };
@@ -1050,6 +1050,8 @@
 		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorActionHandler.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/Utils/EditorActionHandler.swift; sourceTree = SOURCE_ROOT; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
+		3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellData.swift; sourceTree = "<group>"; };
+		3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellDataMock.swift; sourceTree = "<group>"; };
 		53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAnytypeText.swift; sourceTree = "<group>"; };
 		530470F52682046900C9EE78 /* TextBlockIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconView.swift; sourceTree = "<group>"; };
 		530A5429269FB8FF009016AE /* AmplitudeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeConstants.swift; sourceTree = "<group>"; };
@@ -2354,7 +2356,6 @@
 		12DE403B264AD14E007B5074 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				12DE403C264AD15D007B5074 /* OptionalExtensions.swift */,
 				12472316264EAFD400B1E753 /* StringExtensions.swift */,
 				1247231A264EB21800B1E753 /* CharacterExtensions.swift */,
 				EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */,
@@ -2743,6 +2744,8 @@
 			isa = PBXGroup;
 			children = (
 				3D471E3F26C6A5A000457DE5 /* HomeSearchCell.swift */,
+				3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */,
+				3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -4074,7 +4077,6 @@
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				3D16841326DD672E008B9DFF /* ContentLinkConverter.swift in Sources */,
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
-				12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */,
 				123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
 				EA77E54B262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift in Sources */,
@@ -4265,6 +4267,7 @@
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
+				3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
@@ -4514,6 +4517,7 @@
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
+				3DFE7F2726E122290093EECB /* HomeSearchCellData.swift in Sources */,
 				3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,

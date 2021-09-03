@@ -11,7 +11,6 @@ struct SettingsSectionView: View {
                 comingSoon: true,
                 pressed: $viewModel.wallpaper
             )
-            .modifier(DividerModifier())
             
             SettingsSectionItemView(
                 name: "Keychain phrase",
@@ -19,7 +18,6 @@ struct SettingsSectionView: View {
                 comingSoon: false,
                 pressed: $viewModel.keychain
             )
-            .modifier(DividerModifier())
             .sheet(isPresented: $viewModel.keychain) {
                 KeychainPhraseView(viewModel: .init())
             }
@@ -30,7 +28,6 @@ struct SettingsSectionView: View {
                 comingSoon: true,
                 pressed: $viewModel.pincode
             )
-            .modifier(DividerModifier())
             
             SettingsSectionItemView(
                 name: "About",
@@ -38,7 +35,6 @@ struct SettingsSectionView: View {
                 comingSoon: false,
                 pressed: $viewModel.about
             )
-            .modifier(DividerModifier())
             .sheet(isPresented: $viewModel.about) {
                 AboutView()
             }
@@ -53,6 +49,7 @@ struct SettingsSectionView: View {
 struct SettingsSectionView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsSectionView()
+            .environmentObject(SettingSectionViewModel())
             .previewLayout(.sizeThatFits)
     }
 }

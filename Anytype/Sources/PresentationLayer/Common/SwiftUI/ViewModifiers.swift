@@ -9,15 +9,24 @@ struct RoundedButtonViewModifier: ViewModifier {
 struct DividerModifier: ViewModifier {
     
     let spacing: CGFloat?
+    let leadingPadding: CGFloat
+    let trailingPadding: CGFloat
+    let alignment: HorizontalAlignment
     
-    init(spacing: CGFloat? = nil) {
+    init(spacing: CGFloat? = nil, leadingPadding: CGFloat = 0, trailingPadding: CGFloat = 0, alignment: HorizontalAlignment? = nil) {
         self.spacing = spacing
+        self.leadingPadding = leadingPadding
+        self.trailingPadding = trailingPadding
+        self.alignment = alignment ?? .center
     }
     
     func body(content: Content) -> some View {
-        VStack(spacing: spacing) {
+        VStack(alignment: alignment, spacing: spacing) {
             content
-            Divider().foregroundColor(Color.divider)
+            Divider()
+                .foregroundColor(Color.divider)
+                .padding(.leading, leadingPadding)
+                .padding(.trailing, trailingPadding)
         }
     }
 }

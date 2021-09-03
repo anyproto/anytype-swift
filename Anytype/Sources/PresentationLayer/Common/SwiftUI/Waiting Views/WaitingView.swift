@@ -43,6 +43,7 @@ struct WaitingView: View {
                         presentationMode.wrappedValue.dismiss()
                         onErrorTap()
                     }
+                    .padding(.horizontal, 20)
                     Spacer.fixedHeight(10)
                 }
             }
