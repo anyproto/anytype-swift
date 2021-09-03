@@ -188,6 +188,8 @@ final class TextBlockActionHandler {
                 self.handlingKeyboardAction(block, .deleteOnEmptyContent)
                 return
             }
+            guard previousModel.content != .unsupported else { return }
+            
             let previousBlockId = previousModel.blockId
             
             var localEvents = [LocalEvent]()
