@@ -172,6 +172,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case .smartblock, .layout: return nil
+        case .unsupported: return UnsupportedBlockViewModel(information: block.information)
         }
     }
     
