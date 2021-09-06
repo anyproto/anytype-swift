@@ -10,7 +10,7 @@ protocol SearchServiceProtocol {
     func searchSets(completion: @escaping ([SearchResult]) -> ())
 }
 
-final class SearchService {
+final class SearchService: SearchServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
     func search(text: String, completion: @escaping ([SearchResult]) -> ()) {

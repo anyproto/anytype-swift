@@ -11,7 +11,7 @@ struct SelectProfileView: View {
     var body: some View {
         HStack {
             ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
-                Gradients.authBackground()
+                Gradients.mainBackground()
                 
                 if self.viewModel.isMultipleAccountsEnabled {
                     multipleAccountsPicket
@@ -40,7 +40,7 @@ struct SelectProfileView: View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    AnytypeText("Choose profile", style: .title)
+                    AnytypeText("Choose profile", style: .title, color: .textPrimary)
                         .animation(nil)
                     
                     ForEach(self.viewModel.profilesViewModels) { profile in
@@ -80,8 +80,7 @@ struct AddProfileView: View {
         HStack {
             Image("plus")
                 .frame(width: 48, height: 48)
-            AnytypeText("Add profile", style: .uxBodyRegular)
-                .foregroundColor(.textSecondary)
+            AnytypeText("Add profile", style: .uxBodyRegular, color: .textSecondary)
         }
     }
 }
@@ -95,14 +94,16 @@ private struct ProfileNameView: View {
             UserIconView(icon: viewModel.userIcon)
                 .frame(width: 80, height: 80)
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(viewModel.name, style: .uxBodyRegular)
-                    .foregroundColor(.textPrimary)
+                AnytypeText(viewModel.name, style: .uxBodyRegular, color: .textPrimary)
                     .padding(.bottom, 3)
                 HStack {
                     Image("uploaded")
                         .clipShape(Circle())
-                    AnytypeText(viewModel.peers ?? "no peers", style: .uxBodyRegular)
-                        .foregroundColor(!viewModel.peers.isNil ? .textPrimary : .textSecondary)
+                    AnytypeText(
+                        viewModel.peers ?? "no peers",
+                        style: .uxBodyRegular,
+                        color: viewModel.peers.isNotNil ? .textPrimary : .textSecondary
+                    )
                 }
             }
             Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)

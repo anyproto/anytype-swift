@@ -3,48 +3,44 @@ import UIKit
 
 
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
-extension AnytypeFontBuilder {
-    enum TextStyle: CaseIterable {
-        // Content fonts
-        case title
-        case heading
-        case subheading
-        
-        case previewTitle1Medium
-        case previewTitle2Regular
-        case previewTitle2Medium
+enum AnytypeFont: CaseIterable {
+    // Content fonts
+    case title
+    case heading
+    case subheading
 
-        case bodyBold
-        case bodyRegular
+    case previewTitle1Medium
+    case previewTitle2Regular
+    case previewTitle2Medium
 
-        case calloutRegular
+    case bodyBold
+    case bodyRegular
 
-        case relation1Regular
-        case relation2Regular
-        case relation3Regular
+    case calloutRegular
 
-        case codeBlock
+    case relation1Regular
+    case relation2Regular
+    case relation3Regular
 
-        // UX fonts
-        case uxTitle1Semibold
-        case uxTitle2Regular
-        case uxTitle2Medium
-        case uxBodyRegular
+    case codeBlock
 
-        case uxCalloutRegular
-        case uxCalloutMedium
+    // UX fonts
+    case uxTitle1Semibold
+    case uxTitle2Regular
+    case uxTitle2Medium
+    case uxBodyRegular
 
-
-        case caption1Regular
-        case caption1Medium
-        case caption2Regular
-        case caption2Medium
-        
-        case button1Regular
-        case button1Semibold
+    case uxCalloutRegular
+    case uxCalloutMedium
 
 
-    }
+    case caption1Regular
+    case caption1Medium
+    case caption2Regular
+    case caption2Medium
+
+    case button1Regular
+    case button1Semibold
 
     enum Weight {
         case regular
@@ -52,21 +48,23 @@ extension AnytypeFontBuilder {
         case semibold
         case bold
     }
-}
 
-struct AnytypeFontBuilder {
-    
-    static func fontName(_ textStyle: TextStyle) -> FontName {
-        switch textStyle {
+    enum FontName: String {
+        case plex = "IBMPlexMono"
+        case inter = "Inter"
+    }
+
+    var fontName: FontName {
+        switch self {
         case .codeBlock:
             return .plex
         default:
             return .inter
         }
     }
-    
-    static func size(_ textStyle: TextStyle) -> CGFloat {
-        switch textStyle {
+
+    var size: CGFloat {
+        switch self {
         case .title:
             return 28
         case .heading:
@@ -84,21 +82,21 @@ struct AnytypeFontBuilder {
         }
     }
 
-    static func weight(_ textStyle: TextStyle) -> Weight {
-        switch textStyle {
+    var weight: Weight {
+        switch self {
         case .title, .heading, .subheading:
             return .bold
-        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular, .uxTitle2Medium:
+        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular:
             return .regular
-        case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium:
+        case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium, .uxTitle2Medium:
             return .medium
         case .bodyBold, .uxTitle1Semibold, .button1Semibold:
             return .semibold
         }
     }
 
-    static func lineHeight(_ textStyle: TextStyle) -> CGFloat {
-        switch textStyle {
+    var lineHeight: CGFloat {
+        switch self {
         case .title:
             return 32
         case .heading:
@@ -119,10 +117,8 @@ struct AnytypeFontBuilder {
     }
 
     /// Font kern. If nil then use default.
-    /// - Parameter textStyle: text style
-    /// - Returns: kern
-    static func kern(_ textStyle: TextStyle) -> CGFloat? {
-        switch textStyle {
+    var kern: CGFloat? {
+        switch self {
         case .title:
             return -0.48
         case .heading:
@@ -151,20 +147,7 @@ struct AnytypeFontBuilder {
     /// - Get default line height of font. We can do it progrmmatically using lineHeight font property.
     /// - Calculate and set line spacing. **Line spacing = Line height in design - Default line height**.
     /// - Set  top/bottom space for text view as  **Top/Bottom Space =  Line spacing / 2**.
-    ///
-    /// - Parameter textStyle: Text style type.
-    /// - Returns: Line spacing for given text style.
-    static func lineSpacing(_ textStyle: TextStyle) -> CGFloat {
-        return lineHeight(textStyle) - uiKitFont(textStyle: textStyle).lineHeight
-    }
-}
-
-struct OptionalLineSpacingModifier: ViewModifier {
-    var spacing: CGFloat?
-    
-    func body(content: Content) -> some View {
-        spacing.map { spacing in
-            content.lineSpacing(spacing).eraseToAnyView()
-        } ?? content.eraseToAnyView()
+    var lineSpacing: CGFloat {
+        return lineHeight - UIKitFontBuilder.uiKitFont(font: self).lineHeight
     }
 }

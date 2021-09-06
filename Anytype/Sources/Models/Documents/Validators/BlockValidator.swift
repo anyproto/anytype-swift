@@ -46,8 +46,7 @@ struct BlockValidator {
     }
     
     func validatedTextContent(content: BlockText, restrictions: BlockRestrictions) -> BlockText {
-        let marks = AttributedTextConverter.asMiddleware(attributedText: content.attributedText).marks.marks
-        let filteredMarks = marks.filter { mark in
+        let filteredMarks = content.marks.marks.filter { mark in
             switch mark.type {
             case .strikethrough, .keyboard, .underscored, .link:
                 return restrictions.canApplyOtherMarkup
@@ -65,15 +64,10 @@ struct BlockValidator {
                 return false
             }
         }
-        let style = BlockTextContentTypeConverter.asMiddleware(content.contentType)
-        let attributedString = AttributedTextConverter.asModel(
-            text: content.attributedText.clearedFromMentionAtachmentsString(),
-            marks: .init(marks: filteredMarks),
-            style: style
-        )
         
         return BlockText(
-            attributedText: attributedString,
+            text: content.text,
+            marks: .init(marks: filteredMarks),
             color: content.color,
             contentType: content.contentType,
             checked: content.checked,

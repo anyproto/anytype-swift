@@ -4,6 +4,8 @@ import Combine
 import AnytypeCore
 
 final class TextBlockActionHandler {
+    typealias Completion = (PackOfEvents) -> Void
+
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
@@ -19,12 +21,12 @@ final class TextBlockActionHandler {
         self.modelsHolder = modelsHolder
     }
 
-    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction) {
+    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction, completion: Completion?) {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
         case let .changeText(attributedText):
-            handleChangeText(block, text: attributedText)
+            handleChangeText(block, text: attributedText, completion: completion)
         case .changeTextStyle, .changeLink:
             anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition, .showPage, .openURL:
@@ -37,15 +39,24 @@ final class TextBlockActionHandler {
         }
     }
     
-    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString) {
+    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString, completion: Completion?) {
         guard case var .text(textContentType) = block.information.content else { return }
         var blockModel = block
 
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+        textContentType.text = middlewareString.text
+        textContentType.marks = middlewareString.marks
+
         let blockId = blockModel.information.id
-        textContentType.attributedText = text
         blockModel.information.content = .text(textContentType)
 
-        textService.setText(contextID: contextId, blockID: blockId, attributedString: text)
+        textService.setText(contextID: contextId, blockID: blockId, middlewareString: middlewareString)
+
+        completion?(
+            PackOfEvents(localEvent:
+                .setText(blockId: blockId, text: middlewareString.text)
+            )
+        )
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {
@@ -103,7 +114,7 @@ final class TextBlockActionHandler {
                 return
             }
             if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
-                if !payload.isNil, case let .text(text) = block.information.content {
+                if payload.isNotNil, case let .text(text) = block.information.content {
                     self.service.split(
                         info: block.information,
                         oldText: "",
@@ -119,9 +130,9 @@ final class TextBlockActionHandler {
             // BUSINESS LOGIC:
             // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
             switch block.information.content {
-            case let .text(value) where value.contentType.isList && value.attributedText.string == "":
+            case let .text(value) where value.contentType.isList && value.text == "":
                 // Turn Into empty text block.
-                if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.attributedText.string) {
+                if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.text) {
                     /// TODO: Add focus on this block.
                     self.service.turnInto(
                         blockId: block.information.id,
@@ -153,10 +164,10 @@ final class TextBlockActionHandler {
                             )
                         default:
                             let newContentType = payload.contentType.isList ? payload.contentType : .text
-                            let oldText = payload.attributedText.clearedFromMentionAtachmentsString()
+
                             self.service.split(
                                 info: block.information,
-                                oldText: oldText,
+                                oldText: payload.text,
                                 newBlockContentType: newContentType
                             )
                         }
@@ -177,11 +188,13 @@ final class TextBlockActionHandler {
                 self.handlingKeyboardAction(block, .deleteOnEmptyContent)
                 return
             }
+            guard previousModel.content != .unsupported else { return }
+            
             let previousBlockId = previousModel.blockId
             
             var localEvents = [LocalEvent]()
             if case let .text(text) = previousModel.information.content {
-                let range = NSRange(location: text.attributedText.length, length: 0)
+                let range = NSRange(location: text.text.count, length: 0)
                 localEvents.append(contentsOf: [
                     .setTextMerge(blockId: previousBlockId),
                     .setFocus(blockId: previousBlockId, position: .at(range))

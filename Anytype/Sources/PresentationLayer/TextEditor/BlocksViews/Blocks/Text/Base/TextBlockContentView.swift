@@ -8,7 +8,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
     private let contentView = UIView()
-    
+
     private(set) lazy var textView: CustomTextView = .init()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
     private(set) var accessoryViewSwitcher: AccessoryViewSwitcher?
@@ -133,16 +133,16 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
-        guard case let .text(text) = self.currentConfiguration.block.information.content else { return }
+        guard case let .text(blockText) = self.currentConfiguration.block.information.content else { return }
 
         textView.textView.textContainerInset = .zero
 
         // reset content cell to plain text
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
-        setupText(placeholer: "", textStyle: .bodyRegular)
+        setupText(placeholer: "")
         contentStackView.spacing = 4
 
-        updateAllConstraint(blockTextStyle: text.contentType)
+        updateAllConstraint(blockTextStyle: blockText.contentType)
 
         // reset subscriptions
         subscriptions.removeAll()
@@ -169,34 +169,31 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.textView.selectedColor = nil
 
         // setup attr text
-        let string = NSMutableAttributedString(attributedString: text.attributedText)
-        if string != textView.textView.textStorage {
-            textView.textView.textStorage.setAttributedString(string)
-        }
+        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
 
-        switch text.contentType {
+        switch blockText.contentType {
         case .title:
-            setupTitle(text)
+            setupTitle(blockText)
         case .description:
-            setupText(placeholer: "Add a description".localized, textStyle: .relation2Regular)
+            setupText(placeholer: "Add a description".localized)
         case .text:
-            setupText(placeholer: "", textStyle: .bodyRegular)
+            setupText(placeholer: "")
         case .toggle:
             setupForToggle()
         case .bulleted:
             setupForBulleted()
         case .checkbox:
-            setupForCheckbox(checked: text.checked)
+            setupForCheckbox(checked: blockText.checked)
         case .numbered:
-            setupForNumbered(number: text.number)
+            setupForNumbered(number: blockText.number)
         case .quote:
             setupForQuote()
         case .header:
-            setupText(placeholer: "Title".localized, textStyle: .title)
+            setupText(placeholer: "Title".localized)
         case .header2:
-            setupText(placeholer: "Heading".localized, textStyle: .heading)
+            setupText(placeholer: "Heading".localized)
         case .header3:
-            setupText(placeholer: "Subheading".localized, textStyle: .subheading)
+            setupText(placeholer: "Subheading".localized)
         case .header4, .code:
             break
         }
@@ -207,7 +204,7 @@ final class TextBlockContentView: UIView & UIContentView {
         }.store(in: &subscriptions)
 
         // Config content background color
-        textView.textView.tertiaryColor = text.color?.color(background: false)
+        textView.textView.tertiaryColor = blockText.color?.color(background: false)
         // Config content text alingment
         textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
         // Config cursorPosition
@@ -231,7 +228,7 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Setups for different type of text block
     
     private func setupTitle(_ blockText: BlockText) {
-        setupText(placeholer: "Untitled".localized, textStyle: .title)
+        setupText(placeholer: "Untitled".localized)
 
         if currentConfiguration.isCheckable {
             let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) { [weak self] in
@@ -248,34 +245,19 @@ final class TextBlockContentView: UIView & UIContentView {
         }
     }
     
-    private func setupText(placeholer: String, textStyle: AnytypeFontBuilder.TextStyle) {
-        let font = AnytypeFontBuilder.uiKitFont(textStyle: textStyle)
-
+    private func setupText(placeholer: String) {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
+            .font: currentConfiguration.text.font,
             .foregroundColor: UIColor.textSecondary,
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
+        textView.textView.textContainerInset = .init(top: currentConfiguration.text.topBottomTextSpacingForContainer,
+                                                     left: 0,
+                                                     bottom: currentConfiguration.text.topBottomTextSpacingForContainer,
+                                                     right: 0)
 
-        // setup line height
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = AnytypeFontBuilder.lineSpacing(textStyle)
-
-        let range = NSMakeRange(0, textView.textView.textStorage.length)
-        textView.textView.textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
-
-        // set kern
-        if let kern = AnytypeFontBuilder.kern(textStyle) {
-            textView.textView.textStorage.addAttribute(.kern, value: kern, range: range)
-        } else {
-            textView.textView.textStorage.removeAttribute(.kern, range: range)
-        }
-
-        let topBottomTextSpacing = AnytypeFontBuilder.lineSpacing(textStyle) / 2
-        textView.textView.textContainerInset = .init(top: topBottomTextSpacing, left: 0, bottom: topBottomTextSpacing, right: 0)
-
-        textView.textView.typingAttributes = [.font: font, .paragraphStyle: paragraphStyle]
+        textView.textView.typingAttributes = currentConfiguration.text.typingAttributes
         textView.textView.defaultFontColor = .textPrimary
     }
     
@@ -290,7 +272,7 @@ final class TextBlockContentView: UIView & UIContentView {
             )
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Checkbox".localized, textStyle: .bodyRegular)
+        setupText(placeholer: "Checkbox".localized)
         // selected color
         textView.textView.selectedColor = checked ? UIColor.textSecondary : nil
     }
@@ -298,17 +280,17 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForBulleted() {
         let leftView = TextBlockIconView(viewType: .bulleted)
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Bulleted placeholder".localized, textStyle: .bodyRegular)
+        setupText(placeholer: "Bulleted placeholder".localized)
     }
     
     private func setupForNumbered(number: Int) {
         let leftView = TextBlockIconView(viewType: .numbered(number))
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Numbered placeholder".localized, textStyle: .bodyRegular)
+        setupText(placeholer: "Numbered placeholder".localized)
     }
     
     private func setupForQuote() {
-        setupText(placeholer: "Quote".localized, textStyle: .bodyRegular)
+        setupText(placeholer: "Quote".localized)
         replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
@@ -323,7 +305,7 @@ final class TextBlockContentView: UIView & UIContentView {
             )
         }
         replaceCurrentLeftView(with: leftView)
-        setupText(placeholer: "Toggle block".localized, textStyle: .bodyRegular)
+        setupText(placeholer: "Toggle block".localized)
         createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
 
@@ -436,8 +418,10 @@ final class TextBlockContentView: UIView & UIContentView {
 extension TextBlockContentView {
     private func buildAccessoryViews() {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize))
+        
         let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
         let accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
+        
         let actionsHandler = SlashMenuActionsHandlerImp(
             blockActionHandler: currentConfiguration.actionHandler
         )
@@ -445,20 +429,25 @@ extension TextBlockContentView {
             for: currentConfiguration.information.content.type
         )
         let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
+        
         let slashMenuView = SlashMenuView(
             frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
             menuItems: items,
             slashMenuActionsHandler: actionsHandler
         )
 
-        let accessoryViewSwitcher = AccessoryViewSwitcher(textView: textView.textView,
-                                                          delegate: self,
-                                                          mentionsView: mentionsView,
-                                                          slashMenuView: slashMenuView,
-                                                          accessoryView: accessoryView)
+        let accessoryViewSwitcher = AccessoryViewSwitcher(
+            textView: textView.textView,
+            delegate: self,
+            mentionsView: mentionsView,
+            slashMenuView: slashMenuView,
+            accessoryView: accessoryView
+        )
+        
         mentionsView.delegate = accessoryViewSwitcher
         editorAccessoryhandler.customTextView = textView
         editorAccessoryhandler.switcher = accessoryViewSwitcher
+        
         self.accessoryViewSwitcher = accessoryViewSwitcher
     }
 }
@@ -482,7 +471,7 @@ extension TextBlockContentView: AccessoryViewSwitcherDelegate {
     func didEnterURL(_ url: URL?) {
         let range = textView.textView.selectedRange
         currentConfiguration.actionHandler.handleAction(
-            .setLink(url, range),
+            .setLink(currentConfiguration.text.attrString, url, range),
             blockId: currentConfiguration.information.id
         )
     }

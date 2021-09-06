@@ -8,7 +8,7 @@ struct SearchBar: View {
         TextField("Search", text: $text)
             .padding(8)
             .padding(.horizontal, 25)
-            .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
+            .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
             .background(Color.grayscale10)
             .cornerRadius(10)
             .overlay(overlay)

@@ -30,7 +30,7 @@ struct HomeView: View {
         GeometryReader { geometry in
             ZStack {
                 Group {
-                    Image.main.wallpaper.resizable().aspectRatio(contentMode: .fill)
+                    Gradients.mainBackground()
                     newPageNavigation
                     HomeProfileView()
                     

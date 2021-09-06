@@ -8,90 +8,92 @@ struct BlockActionsBuilder {
     }
     
     func makeBlockActionsMenuItems() -> [BlockActionMenuItem] {
-        return [self.makeStyleMenuItem(),
-                self.makeMediaMenuItem(),
-                self.makeObjectsMenuItem(),
-                self.makeRelationMenuItem(),
-                self.makeOtherMenuItem(),
-                self.makeActionsMenuItem(),
-                self.makeAlignmentMenuItem(),
-                self.makeBlockColorMenuItem(),
-                self.makeBackgroundColorMenuItem()].compactMap { $0 }
+        return [
+            styleMenuItem,
+            mediaMenuItem,
+            objectsMenuItem,
+            relationMenuItem,
+            otherMenuItem,
+            actionsMenuItem,
+            alignmentMenuItem,
+            blockColorMenuItem,
+            backgroundColorMenuItem
+        ].compactMap { $0 }
     }
     
-    private func makeStyleMenuItem() -> BlockActionMenuItem? {
-        let children = BlockStyleAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, type in
+    private var styleMenuItem: BlockActionMenuItem? {
+        let children = BlockStyleAction.allCases.reduce(into: [BlockActionType]()) { result, type in
             if let mappedType = type.blockViewsType {
-                guard self.restrictions.turnIntoStyles.contains(mappedType) else { return }
-                result.append(.action(.style(type)))
+                guard restrictions.turnIntoStyles.contains(mappedType) else { return }
+                result.append(.style(type))
             } else {
                 if type == .bold, restrictions.canApplyBold {
-                    result.append(.action(.style(type)))
+                    result.append(.style(type))
                 }
                 if type == .italic, restrictions.canApplyItalic {
-                    result.append(.action(.style(type)))
+                    result.append(.style(type))
                 }
                 if (type == .code || type == .strikethrough), restrictions.canApplyOtherMarkup {
-                    result.append(.action(.style(type)))
+                    result.append(.style(type))
                 }
             }
         }
         if children.isEmpty {
             return nil
         }
-        return .menu(.style, children)
+        return BlockActionMenuItem(item: .style, children: children)
     }
     
-    private func makeMediaMenuItem() -> BlockActionMenuItem? {
-        let children: [BlockActionMenuItem] = BlockMediaAction.allCases.map { .action(.media($0)) }
-        return .menu(.media, children)
+    private var mediaMenuItem: BlockActionMenuItem? {
+        let children: [BlockActionType] = BlockMediaAction.allCases.map { .media($0) }
+        return BlockActionMenuItem(item: .media, children: children)
     }
     
-    private func makeObjectsMenuItem() -> BlockActionMenuItem? {
+    private var objectsMenuItem: BlockActionMenuItem? {
         guard let draft = ObjectTypeProvider.objectType(url: ObjectTypeProvider.pageObjectURL) else {
             return nil
         }
         
         let objects = [ draft ]
-        return .menu(.objects, objects.map { .action(.objects($0)) })
+        return BlockActionMenuItem(item: .objects, children: objects.map { .objects($0) })
     }
     
-    private func makeRelationMenuItem() -> BlockActionMenuItem? {
+    private var relationMenuItem: BlockActionMenuItem? {
         nil
     }
     
-    private func makeOtherMenuItem() -> BlockActionMenuItem? {
-        let children: [BlockActionMenuItem] = BlockOtherAction.allCases.map { .action(.other($0)) }
-        return .menu(.other, children)
+    private var otherMenuItem: BlockActionMenuItem {
+        let children: [BlockActionType] = BlockOtherAction.allCases.map { .other($0) }
+        return BlockActionMenuItem(item: .other, children: children)
     }
     
-    private func makeActionsMenuItem() -> BlockActionMenuItem? {
-        let children: [BlockActionMenuItem] = [BlockAction.delete, BlockAction.duplicate].map { .action(.actions($0)) }
-        return .menu(.actions, children)
+    private var actionsMenuItem: BlockActionMenuItem {
+        let children: [BlockActionType] = [BlockAction.delete, BlockAction.duplicate].map { .actions($0) }
+        return BlockActionMenuItem(item: .actions, children: children)
     }
     
-    private func makeAlignmentMenuItem() -> BlockActionMenuItem? {
-        let children = BlockAlignmentAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, alignment in
+    private var alignmentMenuItem: BlockActionMenuItem? {
+        let children = BlockAlignmentAction.allCases.reduce(into: [BlockActionType]()) { result, alignment in
             guard self.restrictions.availableAlignments.contains(alignment.blockAlignment) else { return }
-            result.append(.action(.alignment(alignment)))
+            result.append(.alignment(alignment))
         }
         if children.isEmpty {
             return nil
         }
-        return .menu(.alignment, children)
+        return BlockActionMenuItem(item: .alignment, children: children)
     }
     
-    private func makeBlockColorMenuItem() -> BlockActionMenuItem? {
+    private var blockColorMenuItem: BlockActionMenuItem? {
         if !restrictions.canApplyBlockColor {
             return nil
         }
-        return .menu(.color, BlockColor.allCases.map { .action(.color($0)) })
+        return BlockActionMenuItem(item: .color, children: BlockColor.allCases.map { .color($0) })
     }
     
-    private func makeBackgroundColorMenuItem() -> BlockActionMenuItem? {
+    private var backgroundColorMenuItem: BlockActionMenuItem? {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }
-        return .menu(.background, BlockBackgroundColor.allCases.map { .action(.background($0)) })
+        return BlockActionMenuItem(item: .background, children: BlockBackgroundColor.allCases.map { .background($0) })
     }
 }

@@ -93,6 +93,7 @@
 "Cancel" = "Cancel";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
+"Unsupported block" = "Unsupported block";
 
 // Home
 "Favorites" = "Favorites";
@@ -130,7 +131,7 @@
 "or Type your keychain phrase" = "or Type your keychain phrase";
 "Choose pin code" = "Choose pin code";
 "Do it later" = "Do it later";
-"Setting up the wallet…" = "Setting up the wallet…";
+"Setting up the wallet" = "Setting up the wallet";
 "Enter your name" = "Enter your name";
 "New profile" = "New profile";
 "Create" = "Create";

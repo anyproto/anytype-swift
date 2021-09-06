@@ -17,8 +17,6 @@ extension Image {
         static let search = createImage("main_search")
         static let settings = createImage("main_settings")
         static let marketplace = createImage("marketplace")
-        
-        static let wallpaper = createImage("default_home_wallpaper")
     }
     
     enum settings {
@@ -30,7 +28,6 @@ extension Image {
     
     enum auth {
         static let qr = createImage("auth_qr_code")
-        static let background = createImage("mainAuthBackground")
         static let photo = createImage("auth_photo_icon")
         static let congrats = createImage("auth_congrats")
     }

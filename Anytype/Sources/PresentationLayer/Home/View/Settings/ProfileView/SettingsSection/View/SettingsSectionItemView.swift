@@ -6,20 +6,36 @@ struct SettingsSectionItemView: View {
     let comingSoon: Bool
     
     @Binding var pressed: Bool
+    
+    private let iconWidth: CGFloat = 28
+    private let iconSpacing: CGFloat = 12
 
     var body: some View {
         Button(action: { pressed = true }) {
-            HStack(spacing: 8) {
-                icon.frame(width: 28.0, height: 28.0)
-                AnytypeText(name, style: .uxBodyRegular).foregroundColor(.textPrimary)
+            HStack(alignment: .center, spacing: 0) {
+                icon.frame(width: iconWidth, height: iconWidth)
+                Spacer.fixedWidth(iconSpacing)
+                AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 if comingSoon {
-                    AnytypeText("Soon", style: .uxCalloutRegular).foregroundColor(.textTertiary)
+                    AnytypeText("Soon", style: .uxCalloutRegular, color: .textTertiary)
                 } else {
-                    Image.arrow.frame(width: 24, height: 24)
+                    Image.arrow
                 }
             }
         }
         .disabled(comingSoon)
+        .modifier(
+            DividerModifier(
+                spacing: 12,
+                leadingPadding: iconWidth + iconSpacing
+            )
+        )
+    }
+}
+
+struct SettingsSectionItemView_Preview: PreviewProvider {
+    static var previews: some View {
+        SettingsSectionItemView(name: "keychain", icon: Image.settings.pin, comingSoon: false, pressed: .constant(false))
     }
 }

@@ -24,12 +24,18 @@ struct HomeSearchView: View {
     }
     
     private var searchResults: some View {
-        List(data) { data in
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.showPage(pageId: data.id)
-            }) {
-                HomeSearchCell(data: data)
+        ScrollView {
+            LazyVStack {
+                ForEach(data) { data in
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                        viewModel.showPage(pageId: data.id)
+                    }) {
+                        HomeSearchCell(data: data)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
+                }
             }
         }
     }
@@ -39,15 +45,15 @@ struct HomeSearchView: View {
             Spacer()
             AnytypeText(
                 "\("There is no object named".localized) \"\(searchText)\"",
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: .textPrimary
             )
-            .foregroundColor(.textPrimary)
             .multilineTextAlignment(.center)
             AnytypeText(
                 "Try to create a new one or search for something else",
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: .textSecondary
             )
-            .foregroundColor(.textSecondary)
             .multilineTextAlignment(.center)
             Spacer()
         }.padding(.horizontal)

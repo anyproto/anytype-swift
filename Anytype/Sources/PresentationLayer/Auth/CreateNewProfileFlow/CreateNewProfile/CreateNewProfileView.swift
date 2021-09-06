@@ -13,50 +13,67 @@ struct CreateNewProfileView: View {
     
     var body: some View {
         ZStack {
-            Gradients.authBackground()
-            contentView
-                .padding()
+            Gradients.mainBackground()
+            bottomSheet
+                .padding(20)
         }
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+        
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: $signUpData.image)
+        }
     }
     
-    private var contentView: some View {
+    private var bottomSheet: some View {
         VStack {
             Spacer()
-            VStack(alignment: .center, spacing: 0) {
-                imagePickerButton.padding(.bottom, 11)
-                HStack {
-                    AnytypeText("New profile", style: .caption1Regular)
-                        .foregroundColor(.textSecondary)
-                    Spacer()
-                }
-                .padding(.bottom, 6)
-                TextField("Enter your name", text: $signUpData.userName)
-                    .font(AnytypeFontBuilder.font(textStyle: .heading))
-                    .modifier(DividerModifier(spacing: 10))
-                    .padding(.bottom, 20)
-                
-                HStack(spacing: 12) {
-                    StandardButton(disabled: false, text: "Back", style: .secondary) {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                    
-                    NavigationLink(
-                        destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile)
-                    ) {
-                        StandardButtonView(disabled: signUpData.userName.isEmpty, text: "Create", style: .primary)
-                    }.disabled(signUpData.userName.isEmpty)
-                }
-                .padding(.bottom, 16)
+            VStack(spacing: 0) {
+                contentView
             }
-            .navigationBarBackButtonHidden(true)
-            .padding([.horizontal, .top], 20)
-            .padding(.bottom, 10)
             .background(Color.background)
             .cornerRadius(16.0)
         }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $signUpData.image)
+    }
+    
+    private var contentView: some View {
+        VStack(alignment: .center, spacing: 0) {
+            imagePickerButton
+            Spacer.fixedHeight(11)
+            
+            HStack {
+                AnytypeText("New profile", style: .caption1Regular, color: .textSecondary)
+                Spacer()
+            }
+            Spacer.fixedHeight(6)
+            
+            TextField("", text: $signUpData.userName)
+                .foregroundColor(.textPrimary)
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+                .placeholder(when: signUpData.userName.isEmpty) {
+                    AnytypeText("Enter your name", style: .heading, color: .textTertiary)
+                }
+                .modifier(DividerModifier(spacing: 10))
+            
+            Spacer.fixedHeight(20)
+            
+            buttons
+            Spacer.fixedHeight(10)
+        }
+        .padding([.top, .horizontal], 20)
+    }
+    
+    private var buttons: some View {
+        HStack(spacing: 10) {
+            StandardButton(disabled: false, text: "Back", style: .secondary) {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+            
+            NavigationLink(
+                destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile)
+            ) {
+                StandardButtonView(disabled: signUpData.userName.isEmpty, text: "Create", style: .primary)
+            }.disabled(signUpData.userName.isEmpty)
         }
     }
     
@@ -68,6 +85,9 @@ struct CreateNewProfileView: View {
             ZStack {
                 if let image = signUpData.image {
                     Image(uiImage: image.circleImage(width: imageWidth))
+                    Color.black.opacity(0.05)
+                        .clipShape(Circle())
+                        .frame(width: imageWidth, height: imageWidth)
                 } else {
                     Color.stroke
                         .clipShape(Circle())

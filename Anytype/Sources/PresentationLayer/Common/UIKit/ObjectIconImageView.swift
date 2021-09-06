@@ -101,20 +101,19 @@ extension ObjectIconImageView: ConfigurableView {
         ).processor
         
         imageView.kf.setImage(
-            with: ImageID(id: imageId, width: .default).resolvedUrl,
+            with: ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.3))]
         )
     }
     
-    private func stringIconImage(model: Model,
-                                 string: String,
-                                 textColor: UIColor,
-                                 backgroundColor: UIColor) -> UIImage? {
-        guard
-            let imageGuideline = model.imageGuideline,
-                let font = model.font
-        else { return nil}
+    private func stringIconImage(
+        model: Model,
+        string: String,
+        textColor: UIColor,
+        backgroundColor: UIColor
+    ) -> UIImage? {
+        guard let imageGuideline = model.imageGuideline, let font = model.font else { return nil}
         
         return painter.image(
             with: string,
