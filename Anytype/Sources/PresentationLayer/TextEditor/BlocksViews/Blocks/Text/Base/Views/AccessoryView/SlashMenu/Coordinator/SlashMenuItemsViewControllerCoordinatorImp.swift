@@ -27,7 +27,7 @@ final class SlashMenuViewControllerCoordinatorImp: SlashMenuViewControllerCoordi
         case let .action(action):
             actionsHandler.handle(action: action)
             dismissHandler?()
-        case .sectionDivider:
+        case .header:
             break
         }
     }

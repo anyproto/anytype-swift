@@ -20,7 +20,7 @@ extension SlashMenuViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch cellData[indexPath.row] {
-        case .sectionDivider:
+        case .header:
             return false
         case .action, .menu:
             return true
@@ -37,7 +37,7 @@ extension SlashMenuViewController: UITableViewDelegate {
         switch item {
         case .action, .menu:
             return Self.cellHeight
-        case .sectionDivider:
+        case .header:
             return Self.dividerCellhHeight
         }
     }
@@ -61,9 +61,9 @@ extension SlashMenuViewController: UITableViewDataSource {
             cell.accessoryType = children.isEmpty ? .none : .disclosureIndicator
             cell.separatorInset = SlashMenuConstants.separatorInsets
             cell.contentConfiguration = configurationFactory.configuration(displayData: itemType.displayData)
-        case let .sectionDivider(divider):
+        case let .header(title):
             cell.separatorInset = SlashMenuConstants.dividerSeparatorInsets
-            cell.contentConfiguration = configurationFactory.dividerConfiguration(title: divider)
+            cell.contentConfiguration = configurationFactory.dividerConfiguration(title: title)
         }
 
         return cell
