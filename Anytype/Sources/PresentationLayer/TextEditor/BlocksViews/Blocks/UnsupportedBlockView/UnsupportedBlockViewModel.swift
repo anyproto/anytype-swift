@@ -36,8 +36,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
     }
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        var contentConfiguration = UIListContentConfiguration.cell()
-        contentConfiguration.attributedText = UIKitAnytypeText(text: "Unsupported block".localized, style: .bodyRegular).attrString
+        let contentConfiguration = UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
         return contentConfiguration
     }
 
