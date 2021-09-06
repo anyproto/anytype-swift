@@ -29,7 +29,7 @@ class UnsupportedBlockView: UIView & UIContentView {
 
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = .textSecondary
+        label.textColor = .textTertiary
         return label
     }()
 
