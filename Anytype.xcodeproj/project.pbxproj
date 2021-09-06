@@ -436,6 +436,8 @@
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
 		5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */; };
+		5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */; };
+		5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */; };
 		537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */; };
 		537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F49712677EB6700C81BA0 /* BlockDelegate.swift */; };
 		538492DC269E63AD00B5E556 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 538492DB269E63AD00B5E556 /* Amplitude */; };
@@ -1076,6 +1078,8 @@
 		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockViewModel.swift; sourceTree = "<group>"; };
+		5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockView.swift; sourceTree = "<group>"; };
+		5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomTextView+UITextViewDelegate.swift"; sourceTree = "<group>"; };
 		537F49712677EB6700C81BA0 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
 		53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockViewModel.swift; sourceTree = "<group>"; };
@@ -3449,6 +3453,8 @@
 			isa = PBXGroup;
 			children = (
 				5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */,
+				5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */,
+				5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */,
 			);
 			path = UnsupportedBlockView;
 			sourceTree = "<group>";
@@ -4306,6 +4312,7 @@
 				0A78328624BDEB5900A1B6F6 /* MarkStyleAction.swift in Sources */,
 				12A7B6C326C3E47200544037 /* CoverConstants.swift in Sources */,
 				3DD67E99265270450025ED6F /* EditorSelectionIncomingCellEvent.swift in Sources */,
+				5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				120F7D7E267F88FF00327734 /* BlockBookmark+State.swift in Sources */,
@@ -4323,6 +4330,7 @@
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* EditorBarButtonItemView.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
+				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				3D29AFFD26A606360095BA18 /* URLInputViewController.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
