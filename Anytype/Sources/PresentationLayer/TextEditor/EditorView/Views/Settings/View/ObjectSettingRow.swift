@@ -27,16 +27,16 @@ struct ObjectSettingRow: View {
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(
                         setting.title,
-                        style: .uxTitle2Regular,
+                        style: .uxTitle2Medium,
                         color: .textPrimary
                     )
-                        .padding(.vertical, 2)
+                        .padding(.vertical, 1)
                     AnytypeText(
                         setting.description,
                         style: .caption1Regular,
                         color: .textSecondary
                     )
-                        .padding(.vertical, 2)
+                        .padding(.vertical, 1)
                 }
                 
                 Spacer()
