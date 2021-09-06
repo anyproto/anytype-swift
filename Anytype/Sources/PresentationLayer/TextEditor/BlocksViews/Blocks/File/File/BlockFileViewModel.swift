@@ -3,25 +3,20 @@ import BlocksModels
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            fileData,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     
+    let indentationLevel: Int
     let information: BlockInformation
     let fileData: BlockFile
-    let indentationLevel: Int
-    let contextualMenuHandler: DefaultContextualMenuHandler
     
+    let contextualMenuHandler: DefaultContextualMenuHandler
     let showFilePicker: (BlockId) -> ()
     let downloadFile: (FileId) -> ()
-    
-    func makeContentConfiguration() -> UIContentConfiguration {
-        BlockFileConfiguration(fileData)
-    }
     
     func makeContextualMenu() -> [ContextualMenu] {
         BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
@@ -47,5 +42,26 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .uploading:
             return
         }
+    }
+    
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+        switch fileData.state {
+        case .empty:
+            return emptyViewConfiguration(state: .default)
+        case .uploading:
+            return emptyViewConfiguration(state: .uploading)
+        case .error:
+            return emptyViewConfiguration(state: .error)
+        case .done:
+            return BlockFileConfiguration(fileData.mediaData)
+        }
+    }
+    
+    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+        BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.file,
+            text: "Upload a file",
+            state: state
+        )
     }
 }

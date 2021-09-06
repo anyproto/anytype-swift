@@ -11,7 +11,7 @@ import BlocksModels
 
 extension DetailsDataProtocol {
     
-    var pageCellTitle: PageCellData.Title {
+    var pageCellTitle: HomeCellData.Title {
         let title = name ?? ""
         
         guard case .todo = layout else {

@@ -13,7 +13,6 @@ struct AlphaInviteCodeView: View {
                 .padding()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
     }
     
     
@@ -23,12 +22,14 @@ struct AlphaInviteCodeView: View {
             VStack(alignment: .leading) {
                 AnytypeText("Enter your invitation code", style: .heading)
                     .padding(.bottom, 14)
-                AnytypeText("Do not have invite", style: .body)
+                AnytypeText("Do not have invite", style: .uxCalloutRegular)
                     .lineSpacing(7)
                     .padding(.bottom, 14)
 
-                CustomTextField(text: $signUpData.inviteCode, title: "Invitation code")
-                    .padding(.bottom, 24)
+                TextField("Invitation code", text: $signUpData.inviteCode)
+                    .font(AnytypeFontBuilder.font(textStyle: .uxBodyRegular))
+                    .modifier(DividerModifier(spacing: 10))
+                    .padding(.bottom, 20)
                 
                 HStack(spacing: 12) {
                     StandardButton(text: "Back", style: .secondary) {
@@ -46,9 +47,11 @@ struct AlphaInviteCodeView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-            .padding()
+            .padding(.top, 23)
+            .padding(.horizontal, 14)
+            .padding(.bottom, 10)
             .background(Color.background)
-            .cornerRadius(12.0)
+            .cornerRadius(16.0)
         }
     }
 }

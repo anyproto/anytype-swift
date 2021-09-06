@@ -21,7 +21,11 @@ public struct DetailsData {
 extension DetailsData: DetailsDataProtocol {
     
     public var name: String? {
-        value(for: .name)
+        let nameValue: String? = value(for: .name)
+        
+        guard let nameString = nameValue, !nameString.isEmpty else { return nil }
+        
+        return nameString
     }
     
     public var iconEmoji: String? {
@@ -52,12 +56,16 @@ extension DetailsData: DetailsDataProtocol {
         value(for: .layout)
     }
     
-    public var alignment: LayoutAlignment? {
-        value(for: .alignment)
+    public var layoutAlign: LayoutAlignment? {
+        value(for: .layoutAlign)
     }
     
     public var done: Bool? {
         value(for: .done)
+    }
+    
+    public var typeUrl: String? {
+        value(for: .type)
     }
     
     private func value<V>(for kind: DetailsKind) -> V? {

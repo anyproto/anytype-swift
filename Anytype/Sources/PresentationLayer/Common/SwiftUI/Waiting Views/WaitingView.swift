@@ -12,49 +12,37 @@ struct WaitingView: View {
     var body: some View {
         ZStack {
             Gradients.authBackground()
-            VStack(alignment: .leading) {
+            VStack() {
                 Spacer()
-                
-                VStack(alignment: .leading, spacing: 16) {
-                    if !showError {
-                        Image("clock")
-                            .background(Circle().fill(Color.background)
-                                .frame(width: 64, height: 64)
-                        )
-                            .frame(width: 64, height: 64)
-                            .animation(.default)
-                            .transition(.scale)
-                    } else {
-                        AnytypeText("Failed", style: .title)
-                            .foregroundColor(.pureRed)
-                            .padding(.bottom, 5)
-                            .transition(.opacity)
-                    }
-                    
-                    AnytypeText(text, style: .bodyBold)
-                    
+                VStack(alignment: .center, spacing: 16) {
+                    LoadingAnimationView(showError: $showError)
+                        .padding(.top, 24)
+                        .padding(.bottom, 10)
+                    AnytypeText(showError ? errorText : text, style: .heading)
+                        .padding(.bottom, 19)
                     if showError {
-                        AnytypeText(errorText, style: .body)
-                            .padding(.top, -10)
-                            .transition(.opacity)
-                        
-                        StandardButton(disabled: false, text: "Ok", style: .secondary) {
+                        StandardButton(disabled: false, text: "Dismiss", style: .secondary) {
                             presentationMode.wrappedValue.dismiss()
                             onErrorTap()
                         }
-                        .transition(.opacity)
+                        .padding(.bottom, 10)
                     }
                 }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20)
+                .frame(maxWidth: .infinity)
                 .background(Color.background)
-                .cornerRadius(12.0)
+                .cornerRadius(16.0)
             }
             .padding(20)
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
+        .onChange(of: showError) { showError in
+            if showError {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            }
+        }
     }
+    
 }
 
 struct WaitingView_Previews: PreviewProvider {

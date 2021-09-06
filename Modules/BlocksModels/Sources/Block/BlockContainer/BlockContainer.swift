@@ -1,121 +1,89 @@
 import Foundation
 import Combine
 import os
+import AnytypeCore
 
-final class BlockContainer {
-    private var _rootId: BlockId?
-    private var _models: [BlockId: BlockModel] = [:]
+final class BlockContainer: BlockContainerModelProtocol {
+    var rootId: BlockId?
     var userSession = UserSession()
-    
-    func _choose(by id: BlockId) -> BlockActiveRecord? {
-        if let value = self._models[id] {
-            return .init(container: self, chosenBlock: value)
-        }
-        else {
-            return nil
-        }
-    }
-                    
-    private func _get(by id: BlockId) -> BlockModel? {
-        self._models[id]
-    }
-    
-    private func _add(_ block: BlockModel) {
-        if self._models[block.information.id] != nil {
-            assertionFailure("We shouldn't replace block by add operation. Skipping...")
-            return
-        }
-        self._models[block.information.id] = block
-    }
-}
-
-extension BlockContainer: BlockContainerModelProtocol {
-    // MARK: RootId
-    var rootId: BlockId? {
-        get {
-            self._rootId
-        }
-        set {
-            self._rootId = newValue
-        }
-    }
+    private var models = [BlockId: BlockModelProtocol]()
     
     func children(of id: BlockId) -> [BlockId] {
-        if let value = self._models[id] {
-            return value.information.childrenIds
+        guard let value = models[id] else {
+            return []
         }
-        return []
+        
+        return value.information.childrenIds
     }
-    // MARK: - Operations / Choose
-    func record(id: BlockId) -> BlockActiveRecordProtocol? {
-        self._choose(by: id)
-    }
-    // MARK: - Operations / Get
+
     func model(id: BlockId) -> BlockModelProtocol? {
-        self._models[id]
+        models[id]
     }
-    // MARK: - Operations / Remove
+
     func remove(_ id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = model(id: id)?.parent, let parent = self._get(by: parentId) {
+        if let parentId = model(id: id)?.parent,
+           var parent = models[parentId.information.id] {
             var information = parent.information
-            information.childrenIds = information.childrenIds.filter({$0 != id})
+            information.childrenIds = information.childrenIds.filter {$0 != id}
             parent.information = information
-            //                self.blocks[parentId] = parent
         }
         
         if let block = self.model(id: id) {
-            self._models.removeValue(forKey: id)
+            models.removeValue(forKey: id)
             block.information.childrenIds.forEach(self.remove(_:))
         }
     }
-    // MARK: - Operations / Add
+
     func add(_ block: BlockModelProtocol) {
-        let blockModel: BlockModel = .init(information: block.information)
-        blockModel.parent = block.parent
-        self._add(blockModel)
+        var block = block
+        block.container = self
+        
+        if models[block.information.id] != nil {
+            anytypeAssertionFailure("We shouldn't replace block by add operation. Skipping...")
+            return
+        }
+        models[block.information.id] = block
     }
-    // MARK: - Children / Add Before
+
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
-        guard let parentModel = record(id: parentId) else {
-            assertionFailure("I can't find parent with id: \(parentId)")
+        guard var parentModel = model(id: parentId) else {
+            anytypeAssertionFailure("I can't find parent with id: \(parentId)")
             return
         }
         
         guard var childModel = self.model(id: childId) else {
-            assertionFailure("I can't find child with id: \(childId)")
+            anytypeAssertionFailure("I can't find child with id: \(childId)")
             return
         }
         
-        var parent = parentModel.blockModel
-        var childrenIds = parent.information.childrenIds
+        var childrenIds = parentModel.information.childrenIds
         childrenIds.insert(childId, at: index)
-        parent.information.childrenIds = childrenIds
+        parentModel.information.childrenIds = childrenIds
         
         /// And now set parent
-        childModel.parent = parentId
+        childModel.parent = parentModel
     }
+
     func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
-        guard let parent = record(id: beforeChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: beforeChild) else {
-            assertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
+        guard let parent = model(id: beforeChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: beforeChild) else {
+            anytypeAssertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
             return
         }
-        
-        let parentId = parent.blockId
-        
+
+        let parentId = parent.information.id
         self.insert(childId: child, parentId: parentId, at: index)
     }
-    // MARK: - Children / Add
+
     func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
-        guard let parent = record(id: afterChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: afterChild) else {
-            assertionFailure("I can't find either parent or block itself with id: \(afterChild)")
+        guard let parent = model(id: afterChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: afterChild) else {
+            anytypeAssertionFailure("I can't find either parent or block itself with id: \(afterChild)")
             return
         }
-        
-        let parentId = parent.blockId
-        
+
+        let parentId = parent.information.id
         let newIndex = index.advanced(by: 1)
         self.insert(childId: child, parentId: parentId, at: newIndex)
     }
@@ -135,25 +103,28 @@ extension BlockContainer: BlockContainerModelProtocol {
     ///   - childrenIds: Associated keys to children entries which parent we would like to change.
     ///   - parentId: An associated key to a parent entry in which we would like to change children.
     ///   - shouldSkipGuardAgainstMissingIds: A flag that notes if we should skip condition about existing entries.
-    func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool = false) {
+    func replace(
+        childrenIds: [BlockId],
+        parentId: BlockId,
+        shouldSkipGuardAgainstMissingIds: Bool = false
+    ) {
         
-        guard let parent = record(id: parentId) else {
-            assertionFailure("I can't find entry with id: \(parentId)")
+        guard var parent = model(id: parentId) else {
+            anytypeAssertionFailure("I can't find entry with id: \(parentId)")
             return
         }
                 
         let existedIds = !shouldSkipGuardAgainstMissingIds ? childrenIds.filter { (childId) in
-            if record(id: childId) != nil {
+            if model(id: childId) != nil {
                 return true
             }
             else {
-                assertionFailure("I can't find entry with id: \(parentId)")
+                anytypeAssertionFailure("I can't find entry with id: \(parentId)")
                 return false
             }
         } : childrenIds
-        
-        var parentModel = parent.blockModel
-        parentModel.information.childrenIds = existedIds
+
+        parent.information.childrenIds = existedIds
         /// TODO: Set children their new parentId if needed?
         /// Actually, yes, but not now.
         /// Do it later.

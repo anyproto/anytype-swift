@@ -2,19 +2,31 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 
+struct CreatePageResponse {
+    let newBlockId: BlockId
+    let messages: [Anytype_Event.Message]
 
-/// Protocol for Object actions service
+    init(_ response: ProtobufMessages.Anytype_Rpc.Block.CreatePage.Response) {
+        self.newBlockId = response.targetID
+        self.messages = response.event.messages
+    }
+}
+
+
 protocol ObjectActionsServiceProtocol {
-    /// Protocol for convert children to page action.
     /// NOTE: Action supports List context.
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<Void, Error>
+    func convertChildrenToPages(
+        contextID: BlockId,
+        blocksIds: [BlockId],
+        objectType: String
+    ) -> AnyPublisher<Void, Error>
     
-    /// Protocol for set details action.
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error>
+    func setDetails(
+        contextID: BlockId,
+        details: [DetailsKind: DetailsEntry<AnyHashable>]
+    ) -> AnyPublisher<ResponseEvent, Error>
     
-    // MARK: - Actions Protocols
-    /// Protocol for create page action.
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
         contextID: BlockId,
@@ -22,7 +34,7 @@ protocol ObjectActionsServiceProtocol {
         details: [DetailsKind: DetailsEntry<AnyHashable>],
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<ServiceSuccess, Error>
+    ) -> AnyPublisher<CreatePageResponse, Error>
     
     @discardableResult
     func move(

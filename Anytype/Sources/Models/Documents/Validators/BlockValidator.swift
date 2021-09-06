@@ -38,7 +38,7 @@ struct BlockValidator {
     }
     
     func validatedAlignment(alignment: LayoutAlignment, restrictions: BlockRestrictions) -> LayoutAlignment {
-        guard restrictions.availableAlignments.contains(alignment) else {
+        guard !restrictions.availableAlignments.contains(alignment) else {
             return alignment
         }
         
@@ -46,7 +46,7 @@ struct BlockValidator {
     }
     
     func validatedTextContent(content: BlockText, restrictions: BlockRestrictions) -> BlockText {
-        let marks = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: content.attributedText).marks.marks
+        let marks = AttributedTextConverter.asMiddleware(attributedText: content.attributedText).marks.marks
         let filteredMarks = marks.filter { mark in
             switch mark.type {
             case .strikethrough, .keyboard, .underscored, .link:
@@ -66,7 +66,7 @@ struct BlockValidator {
             }
         }
         let style = BlockTextContentTypeConverter.asMiddleware(content.contentType)
-        let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
+        let attributedString = AttributedTextConverter.asModel(
             text: content.attributedText.clearedFromMentionAtachmentsString(),
             marks: .init(marks: filteredMarks),
             style: style

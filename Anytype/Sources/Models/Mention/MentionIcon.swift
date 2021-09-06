@@ -7,7 +7,7 @@
 //
 
 enum MentionIcon {
-    case objectIcon(DocumentIconType)
+    case objectIcon(ObjectIconType)
     case checkmark(Bool)
 }
 
@@ -16,7 +16,7 @@ extension MentionIcon {
     init?(emoji: String) {
         guard let emoji = IconEmoji(emoji) else { return nil }
         
-        self = .objectIcon(.basic(.emoji(emoji)))
+        self = .objectIcon(.emoji(emoji))
     }
     
 }

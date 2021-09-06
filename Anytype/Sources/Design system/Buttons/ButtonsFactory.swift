@@ -16,19 +16,30 @@ enum ButtonsFactory {
         backButton.setAttributedTitle(
             NSAttributedString(
                 string: "Back".localized,
-                attributes: [.font: UIFont.caption]
+                attributes: [.font: UIFont.caption1Regular]
             ),
             for: .normal
         )
         backButton.setImage(.back, for: .normal)
         backButton.setImageAndTitleSpacing(Constants.backButtonImageToTitlePadding)
-        backButton.tintColor = .secondaryTextColor
+        backButton.tintColor = .textSecondary
         return backButton
+    }
+    
+    static func makeButton(image: UIImage?) -> ButtonWithImage {
+        let button = ButtonWithImage()
+        button.setImage(image)
+        button.setBackgroundColor(.clear, state: .normal)
+        button.setBackgroundColor(.clear, state: .disabled)
+        button.setBackgroundColor(.selected, state: .selected)
+        button.setImageTintColor(.buttonInactive, state: .disabled)
+        button.setImageTintColor(.textPrimary, state: .normal)
+
+        return button
     }
 
     static func roundedBorderуButton(image: UIImage?) -> ButtonWithImage {
-        let button = ButtonWithImage()
-        button.setImage(image)
+        let button = makeButton(image: image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 0.5
         button.layer.borderColor = UIColor.grayscale30.cgColor

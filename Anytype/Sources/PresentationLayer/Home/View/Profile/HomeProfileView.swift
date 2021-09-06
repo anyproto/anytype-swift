@@ -15,7 +15,8 @@ struct HomeProfileView: View {
                 VStack {
                     hiText(containerHeight: geometry.size.height)
                     avatar
-                    buttons.padding(.top, geometry.size.height * buttonsPaddingRatio)
+                    buttons
+                        .padding(.top, geometry.size.height * buttonsPaddingRatio)
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
                 slogan(containerHeight: geometry.size.height)
@@ -30,6 +31,7 @@ struct HomeProfileView: View {
             .foregroundColor(.white)
             .padding(.top, containerHeight * topPaddingRatio)
             .padding(.bottom, 15)
+            .padding(.horizontal)
             .transition(.opacity)
     }
     
@@ -53,7 +55,7 @@ struct HomeProfileView: View {
         let iconType: UserIconView.IconType = {
             if let imageId = accountData.avatarId {
                 return UserIconView.IconType.image(
-                    .middleware(MiddlewareImageSource(id: imageId))
+                    .middleware(ImageID(id: imageId))
                 )
             } else if let firstCharacter = accountData.name?.first {
                 return UserIconView.IconType.placeholder(firstCharacter)
@@ -66,12 +68,10 @@ struct HomeProfileView: View {
     }
     
     private var buttons: some View {
-        HStack(spacing: 10) {
-            Button(action: {}) {
-                HomeProfileViewButtonImage(
-                    image: Image.main.search.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
-                )
-            }.disabled(true)
+        HStack(spacing: 20) {
+            Button(action: model.startSearch) {
+                HomeProfileViewButtonImage(image: Image.main.search)
+            }
             Button(action: {}) {
                 HomeProfileViewButtonImage(
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))

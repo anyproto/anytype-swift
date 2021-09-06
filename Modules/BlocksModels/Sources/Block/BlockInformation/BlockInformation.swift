@@ -28,20 +28,11 @@ public struct BlockInformation: Hashable {
         self.childrenIds = childrenIds
         self.fields = fields
     }
-
-    // TODO: Remove, used for collection view diff
-    public static func == (lhs: BlockInformation, rhs: BlockInformation) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }
 
 extension BlockInformation {
     public static func createNew(content: BlockContent) -> BlockInformation {
-        return BlockInformation(
+        BlockInformation(
             id: BlockId(""),
             content: content,
             backgroundColor: nil,
@@ -52,7 +43,7 @@ extension BlockInformation {
     }
     
     public func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
-        return BlockInformation(
+        BlockInformation(
             id: id,
             content: content,
             backgroundColor: backgroundColor,
@@ -63,6 +54,17 @@ extension BlockInformation {
     }
     
     public func updated(with fields: BlockFields) -> BlockInformation {
+        BlockInformation(
+            id: id,
+            content: content,
+            backgroundColor: backgroundColor,
+            alignment: alignment,
+            childrenIds: childrenIds,
+            fields: fields
+        )
+    }
+    
+    public func updated(with alignment: LayoutAlignment) -> BlockInformation {
         return BlockInformation(
             id: id,
             content: content,

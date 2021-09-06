@@ -1,12 +1,16 @@
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 struct UnknownLabelViewModel: BlockViewModelProtocol {
     let indentationLevel = 0
     let information: BlockInformation
     
-    var diffable: AnyHashable {
-        information.id
+    var hashable: AnyHashable {
+        [
+            indentationLevel,
+            information
+        ] as [AnyHashable]
     }
     
     init(information: BlockInformation) {
@@ -18,10 +22,10 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
     }
     
     func handle(action: ContextualMenu) {
-        assertionFailure("Handling of contextual menu items not supported")
+        anytypeAssertionFailure("Handling of contextual menu items not supported")
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.text = "\(information.content.identifier) -> \(information.id)"
         return contentConfiguration

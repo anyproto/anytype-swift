@@ -1,5 +1,6 @@
 import Combine
 import BlocksModels
+import AnytypeCore
 
 import SwiftUI
 final class HomeCellDataBuilder {
@@ -8,44 +9,54 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buldCellData(_ searchResults: [SearchResult]) -> [PageCellData] {
-        searchResults.map { PageCellData.create(searchResult: $0) }
+    func buldCellData(_ searchResults: [SearchResult]) -> [HomeCellData] {
+        searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
-        let links: [HomePageLink] = updateResult.models.compactMap(activeRecordToPageLink)
+    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
+        let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
-            .filter { $0.type == .page }
-            .map { buildPageCellData(pageLink: $0) }
+            .filter {
+                guard let details = $0.details else {
+                    return true
+                }
+                
+                return ObjectTypeProvider.isSupported(typeUrl: details.typeUrl)
+
+            }
+            .map { buildHomeCellData(pageLink: $0) }
     }
     
-    private func activeRecordToPageLink(_ activeRecord: BlockActiveRecordProtocol) -> HomePageLink? {
-        guard case .link(let link) = activeRecord.content else { return nil }
+    private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
+        guard case .link(let link) = blockModel.information.content else { return nil }
 
         let details = document.getDetails(by: link.targetBlockID)?.currentDetails
         return HomePageLink(
-            blockId: activeRecord.blockId,
+            blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
-            details: details,
-            type: link.style
+            details: details
         )
     }
     
-    private func buildPageCellData(pageLink: HomePageLink) -> PageCellData {
-        return PageCellData(
+    private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
+        let type = pageLink.details?.typeUrl.flatMap {
+            ObjectTypeProvider.objectType(url: $0)?.name
+        } ?? "Object".localized
+        
+        return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
             icon: pageLink.details?.icon,
             title: pageLink.details?.pageCellTitle ?? .default(title: ""),
-            type: pageLink.type.rawValue,
+            type: type,
             isLoading: pageLink.isLoading,
-            isArchived: pageLink.details?.isArchived ?? false
+            isArchived: pageLink.isArchived
         )
     }
     
-    func updatedCellData(newDetails: DetailsData, oldData: PageCellData) -> PageCellData {
-        return PageCellData(
+    func updatedCellData(newDetails: DetailsData, oldData: HomeCellData) -> HomeCellData {
+        return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
             icon: newDetails.icon,

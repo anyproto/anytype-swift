@@ -18,30 +18,23 @@ struct CreateNewProfileView: View {
                 .padding()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
     }
     
     private var contentView: some View {
         VStack {
             Spacer()
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Create a new profile", style: .title)
-                    .padding(.bottom, 27)
+            VStack(alignment: .center, spacing: 0) {
+                imagePickerButton.padding(.bottom, 11)
                 HStack {
-                    Button(action: {
-                        self.showImagePicker = true
-                    }) {
-                        if !signUpData.image.isNil {
-                            ImageWithCircleBackgroundView(image: Image.auth.photo, backgroundImage: signUpData.image)
-                        } else {
-                            ImageWithCircleBackgroundView(image: Image.auth.photo, backgroundColor: .gray)
-                        }
-                    }
-                    .frame(width: 64, height: 64)
-                    
-                    CustomTextField(text: $signUpData.userName, title: "Enter your name")
+                    AnytypeText("New profile", style: .caption1Regular)
+                        .foregroundColor(.textSecondary)
+                    Spacer()
                 }
-                .padding(.bottom, 24)
+                .padding(.bottom, 6)
+                TextField("Enter your name", text: $signUpData.userName)
+                    .font(AnytypeFontBuilder.font(textStyle: .heading))
+                    .modifier(DividerModifier(spacing: 10))
+                    .padding(.bottom, 20)
                 
                 HStack(spacing: 12) {
                     StandardButton(disabled: false, text: "Back", style: .secondary) {
@@ -57,12 +50,31 @@ struct CreateNewProfileView: View {
                 .padding(.bottom, 16)
             }
             .navigationBarBackButtonHidden(true)
-            .padding()
+            .padding([.horizontal, .top], 20)
+            .padding(.bottom, 10)
             .background(Color.background)
-            .cornerRadius(12.0)
+            .cornerRadius(16.0)
         }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: $signUpData.image)
+        }
+    }
+    
+    private let imageWidth: CGFloat = 96
+    private var imagePickerButton: some View {
+        Button(action: {
+            self.showImagePicker = true
+        }) {
+            ZStack {
+                if let image = signUpData.image {
+                    Image(uiImage: image.circleImage(width: imageWidth))
+                } else {
+                    Color.stroke
+                        .clipShape(Circle())
+                        .frame(width: imageWidth, height: imageWidth)
+                }
+                Image.auth.photo
+            }
         }
     }
 }
@@ -70,6 +82,10 @@ struct CreateNewProfileView: View {
 
 struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateNewProfileView(viewModel: CreateNewProfileViewModel(), showCreateNewProfile: .constant(true))
+        CreateNewProfileView(
+            viewModel: CreateNewProfileViewModel(),
+            showCreateNewProfile: .constant(true)
+        )
+        .environmentObject(SignUpData())
     }
 }

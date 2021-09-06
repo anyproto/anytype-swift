@@ -34,6 +34,7 @@
 "Back" = "Back";
 "Text" = "Text";
 "Title" = "Title";
+"Add a description" = "Add a description";
 "Heading" = "Heading";
 "Subheading" = "Subheading";
 "Highlighted" = "Highlighted";
@@ -130,11 +131,9 @@
 "Choose pin code" = "Choose pin code";
 "Do it later" = "Do it later";
 "Setting up the wallet…" = "Setting up the wallet…";
-"Create a new profile" = "Create a new profile";
 "Enter your name" = "Enter your name";
+"New profile" = "New profile";
 "Create" = "Create";
-"Congratulations!" = "Congratulations!";
-"CongratulationDescription" = "You’ve created your first profile!\nIt is stored on your device and nobody will know about it until you share it!";
 "Let’s start!" = "Let’s start!";
 "Choose profile" = "Choose profile";
 "no peers" = "no peers";
@@ -142,7 +141,7 @@
 "Scan QR code" = "Scan QR code";
 
 "Enter your invitation code" = "Enter your invitation code";
-"Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
+"Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
 "Sign up error" = "No internet connection / invalid invitation code";
 "Account recover error" = "Account recover error, probably no internet connection";
 
@@ -203,3 +202,7 @@
 "Specific.Style" = "Style";
 "Specific.Download" = "Download";
 "Specific.Replace" = "Replace";
+
+// MARK: - Main search
+"There is no object named" = "There is no object named";
+"Try to create a new one or search for something else" = "Try to create a new one or search for something else";

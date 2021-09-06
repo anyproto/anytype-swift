@@ -1,10 +1,12 @@
 import BlocksModels
 import SwiftProtobuf
 import ProtobufMessages
+import AnytypeCore
 
 struct SearchResult: DetailsDataProtocol {
     let id: BlockId
     let name: String?
+    let description: String?
     
     let iconEmoji: String?
     let iconImage: String?
@@ -12,12 +14,15 @@ struct SearchResult: DetailsDataProtocol {
     let coverId: String?
     let coverType: CoverType?
     let layout: DetailsLayout?
-    let alignment: LayoutAlignment?
+    let layoutAlign: LayoutAlignment?
     
     let isArchived: Bool?
     let done: Bool?
     
     let type: ObjectType?
+    var typeUrl: String? {
+        type?.url
+    }
     
     // Unused
     let creator: BlockId?
@@ -29,40 +34,45 @@ struct SearchResult: DetailsDataProtocol {
     let createdDate: Double?
     
     init?(fields: Dictionary<String, Google_Protobuf_Value>) {
-        guard let id = fields[Relations.id]?.stringValue else {
+        guard let id = fields[DetailsKind.id.rawValue]?.stringValue else {
             return nil
         }
         
         self.id = id
-        self.name = fields[Relations.name]?.stringValue
+        name = fields[DetailsKind.name.rawValue]?.stringValue
+        description = fields[DetailsKind.description.rawValue]?.stringValue
         
-        self.iconEmoji = fields[Relations.iconEmoji]?.stringValue
-        self.iconImage = fields[Relations.iconImage]?.stringValue
+        iconEmoji = fields[DetailsKind.iconEmoji.rawValue]?.stringValue
+        iconImage = fields[DetailsKind.iconImage.rawValue]?.stringValue
         
-        self.coverId = fields[Relations.coverId]?.stringValue
-        self.coverType = fields[Relations.coverType].flatMap { rawValue in
-            CoverType(rawValue: Int(rawValue.numberValue))
+        coverId = fields[DetailsKind.coverId.rawValue]?.stringValue
+        coverType = fields[DetailsKind.coverType.rawValue].flatMap { rawValue in
+            rawValue.safeIntValue.flatMap { CoverType(rawValue: $0) }
         }
-        self.layout = fields[Relations.layout].flatMap { rawValue in
-            DetailsLayout(rawValue: Int(rawValue.numberValue))
+        layout = fields[DetailsKind.layout.rawValue].flatMap { rawValue in
+            rawValue.safeIntValue.flatMap { DetailsLayout(rawValue: $0) }
         }
-        self.alignment = fields[Relations.alignment].flatMap { rawValue in
-            LayoutAlignment(rawValue: Int(rawValue.numberValue))
+        layoutAlign = fields[DetailsKind.layoutAlign.rawValue].flatMap { rawValue in
+            rawValue.safeIntValue.flatMap { LayoutAlignment(rawValue: $0) }
         }
         
-        self.isArchived = fields[Relations.isArchived]?.boolValue
-        self.done = fields[Relations.done]?.boolValue
+        isArchived = fields[DetailsKind.isArchived.rawValue]?.boolValue
+        done = fields[DetailsKind.done.rawValue]?.boolValue
         
-        self.type = fields[Relations.type]?.listValue
-            .values.compactMap { rawValue in
-                ObjectType(rawValue: rawValue.stringValue)
-            }.first
-        
+        if let url = fields[DetailsKind.type.rawValue]?.stringValue {
+            let type = ObjectTypeProvider.objectType(url: url)
+            anytypeAssert(type != nil, "Cannot parse type :\(url))")
+            self.type = type
+        } else {
+            self.type = nil
+        }
+
         // Unused
-        self.lastModifiedBy = fields[Relations.lastModifiedBy]?.stringValue
-        self.creator = fields[Relations.creator]?.stringValue
-        self.featuredRelations = fields[Relations.featuredRelations]?.listValue.values.map { $0.stringValue } ?? []
-        self.createdDate = fields[Relations.createdDate]?.numberValue
-        self.lastModifiedDate = fields[Relations.lastModifiedDate]?.numberValue
+        lastModifiedBy = fields[DetailsKind.lastModifiedBy.rawValue]?.stringValue
+        creator = fields[DetailsKind.creator.rawValue]?.stringValue
+        featuredRelations = fields[DetailsKind.featuredRelations.rawValue]?.listValue.values.map { $0.stringValue } ?? []
+        createdDate = fields[DetailsKind.createdDate.rawValue]?.numberValue
+        lastModifiedDate = fields[DetailsKind.lastModifiedDate.rawValue]?.numberValue
     }
+    
 }

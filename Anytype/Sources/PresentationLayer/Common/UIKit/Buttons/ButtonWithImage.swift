@@ -8,6 +8,8 @@ final class ButtonWithImage: UIControl {
 
     private(set) var label: UILabel = .init()
     private(set) var imageView: UIImageView = .init()
+    private var backgroundColorsMap = [UInt: UIColor]()
+    private var imageTintColorsMap = [UInt: UIColor]()
 
     init() {
         super.init(frame: .zero)
@@ -26,11 +28,48 @@ final class ButtonWithImage: UIControl {
             privateAddBorders(edges: borderEdges, width: borderWidth, color: borderColor)
         }
     }
+    
+    func setBackgroundColor(_ backgroundColor: UIColor?, state: UIControl.State) {
+        backgroundColorsMap[state.rawValue] = backgroundColor
+        updateColors()
+    }
+    
+    func setImageTintColor(_ color: UIColor?, state: UIControl.State) {
+        imageTintColorsMap[state.rawValue] = color
+        updateColors()
+    }
 
     override var isSelected: Bool {
         didSet {
-            backgroundColor = isSelected ? UIColor.selected : .clear
+            updateColors()
         }
+    }
+    
+    override var isEnabled: Bool {
+        didSet {
+            updateColors()
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            updateColors()
+        }
+    }
+    
+    private func updateColors() {
+        updateBackgroundColor()
+        updateImageTintColor()
+    }
+    
+    private func updateBackgroundColor() {
+        guard let color = backgroundColorsMap[state.rawValue] else { return }
+        backgroundColor = color
+    }
+    
+    private func updateImageTintColor() {
+        guard let color = imageTintColorsMap[state.rawValue] else { return }
+        imageView.tintColor = color
     }
 
     private func setupViews() {
@@ -48,7 +87,7 @@ final class ButtonWithImage: UIControl {
         imageView.isHidden = true
         imageView.isUserInteractionEnabled = false
 
-        label.font = .body
+        label.font = .uxCalloutRegular
         label.isHidden = true
         label.textColor = MiddlewareColor.grey.color(background: false)
         label.isUserInteractionEnabled = false

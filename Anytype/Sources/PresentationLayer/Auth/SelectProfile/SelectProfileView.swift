@@ -24,7 +24,6 @@ struct SelectProfileView: View {
             presentationMode.wrappedValue.dismiss()
         }
         .navigationBarHidden(true)
-        .modifier(LogoOverlay())
         .onAppear {
             viewModel.accountRecover()
         }
@@ -81,7 +80,7 @@ struct AddProfileView: View {
         HStack {
             Image("plus")
                 .frame(width: 48, height: 48)
-            AnytypeText("Add profile", style: .bodySemibold)
+            AnytypeText("Add profile", style: .uxBodyRegular)
                 .foregroundColor(.textSecondary)
         }
     }
@@ -96,13 +95,13 @@ private struct ProfileNameView: View {
             UserIconView(icon: viewModel.userIcon)
                 .frame(width: 80, height: 80)
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(viewModel.name, style: .body)
+                AnytypeText(viewModel.name, style: .uxBodyRegular)
                     .foregroundColor(.textPrimary)
                     .padding(.bottom, 3)
                 HStack {
                     Image("uploaded")
                         .clipShape(Circle())
-                    AnytypeText(viewModel.peers ?? "no peers", style: .body)
+                    AnytypeText(viewModel.peers ?? "no peers", style: .uxBodyRegular)
                         .foregroundColor(!viewModel.peers.isNil ? .textPrimary : .textSecondary)
                 }
             }

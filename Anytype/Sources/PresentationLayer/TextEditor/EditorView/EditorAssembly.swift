@@ -8,11 +8,17 @@ final class EditorAssembly {
         EditorViewRepresentable(documentId: blockId).eraseToAnyView()
     }
     
-    static func build(blockId: BlockId) -> DocumentEditorViewController {
+    static func buildEditor(blockId: BlockId) -> DocumentEditorViewController {
         let controller = DocumentEditorViewController()
-        let router = EditorRouter(viewController: controller)
+        let document = BaseDocument()
+        let router = EditorRouter(viewController: controller, document: document)
         
-        let viewModel = buildViewModel(blockId: blockId, viewInput: controller, router: router)
+        let viewModel = buildViewModel(
+            blockId: blockId,
+            viewInput: controller,
+            document: document,
+            router: router
+        )
         
         controller.viewModel = viewModel
         
@@ -20,9 +26,11 @@ final class EditorAssembly {
     }
     
     private static func buildViewModel(
-        blockId: BlockId, viewInput: EditorModuleDocumentViewInput, router: EditorRouter
+        blockId: BlockId,
+        viewInput: DocumentEditorViewInput,
+        document: BaseDocumentProtocol,
+        router: EditorRouter
     ) -> DocumentEditorViewModel {
-        let document: BaseDocumentProtocol = BaseDocument()
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectDetailsService: ObjectDetailsService(
@@ -30,20 +38,23 @@ final class EditorAssembly {
                 objectId: blockId
             )
         )
-        
-        let detailsViewModel = DocumentDetailsViewModel {
-            viewInput.updateHeader()
-        }
-        
+                
         let selectionHandler = EditorSelectionHandler()
-        let modelsHolder = SharedBlockViewModelsHolder()
+        let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
+        
+        let markupChanger = BlockMarkupChanger(
+            document: document,
+            documentId: blockId,
+            textService: BlockActionsServiceText()
+        )
         
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
             modelsHolder: modelsHolder,
             selectionHandler: selectionHandler,
             document: document,
-            router: router
+            router: router,
+            markupChanger: markupChanger
         )
         
         let eventProcessor = EventProcessor(document: document, modelsHolder: modelsHolder)
@@ -63,16 +74,15 @@ final class EditorAssembly {
             blockActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            mentionsConfigurator: MentionsConfigurator(
-                didSelectMention: { pageId in
-                    router.showPage(with: pageId)
-                }
-            ),
             detailsLoader: DetailsLoader(
                 document: document,
                 eventProcessor: eventProcessor
             )
         )
+        
+        let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
+        
+        let headerBuilder = ObjectHeaderBuilder(settingsViewModel: objectSettinsViewModel, router: router)
         
         return DocumentEditorViewModel(
             documentId: blockId,
@@ -80,12 +90,13 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            detailsViewModel: detailsViewModel,
             selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
-            blockActionHandler: editorBlockActionHandler
+            blockActionHandler: editorBlockActionHandler,
+            wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
+            headerBuilder: headerBuilder
         )
     }
 }

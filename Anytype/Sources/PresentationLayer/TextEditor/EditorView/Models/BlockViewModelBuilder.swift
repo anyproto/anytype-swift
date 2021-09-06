@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let mentionsConfigurator: MentionsConfigurator
     private let detailsLoader: DetailsLoader
 
     init(
@@ -16,7 +15,6 @@ final class BlockViewModelBuilder {
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        mentionsConfigurator: MentionsConfigurator,
         detailsLoader: DetailsLoader
     ) {
         self.document = document
@@ -27,16 +25,20 @@ final class BlockViewModelBuilder {
             handler: blockActionHandler,
             router: router
         )
-        self.mentionsConfigurator = mentionsConfigurator
         self.detailsLoader = detailsLoader
     }
 
-    func build(_ blocks: [BlockActiveRecordProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
-        blocks.compactMap { build($0, details: details) }
+    func build(_ blocks: [BlockModelProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
+        var previousBlock: BlockModelProtocol?
+        return blocks.compactMap { block -> BlockViewModelProtocol? in
+            let blockViewModel = build(block, details: details, previousBlock: previousBlock)
+            previousBlock = block
+            return blockViewModel
+        }
     }
 
-    func build(_ block: BlockActiveRecordProtocol, details: DetailsData?) -> BlockViewModelProtocol? {
-        switch block.content {
+    func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol? = nil) -> BlockViewModelProtocol? {
+        switch block.information.content {
         case let .text(content):
             switch content.contentType {
             case .code:
@@ -49,57 +51,51 @@ final class BlockViewModelBuilder {
                     },
                     textDidChange: { block, textView in
                         self.blockActionHandler.handleAction(
-                            .textView(action: .changeTextForStruct(textView.attributedText), activeRecord: block),
-                            info: block.blockModel.information
+                            .textView(action: .changeText(textView.attributedText), block: block),
+                            blockId: block.information.id
                         )
                     },
                     showCodeSelection: { [weak self] block in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
                             guard let contextId = block.container?.rootId else { return }
                             let fields = BlockFields(
-                                blockId: block.blockId,
+                                blockId: block.information.id,
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
                             self?.blockActionHandler.handleAction(
-                                .setFields(contextID: contextId, fields: [fields]), info: block.blockModel.information
+                                .setFields(contextID: contextId, fields: [fields]),
+                                blockId: block.information.id
                             )
                         }
                     }
                 )
-            case .title:
-                return TextBlockViewModel(
-                    block: block,
-                    content: content,
-                    isCheckable: details?.layout == .todo,
-                    contextualMenuHandler: contextualMenuHandler,
-                    blockDelegate: delegate,
-                    actionHandler: blockActionHandler
-                ) { [weak self] textView in
-                    self?.mentionsConfigurator.configure(textView: textView)
-                } showStyleMenu: { [weak self] information in
-                    self?.router.showStyleMenu(information: information)
-                }
             default:
+                let isCheckable = content.contentType == .title ? details?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
+                    upperBlock: previousBlock,
                     content: content,
-                    isCheckable: false,
+                    isCheckable: isCheckable,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    actionHandler: blockActionHandler
-                ) { [weak self] textView in
-                    self?.mentionsConfigurator.configure(textView: textView)
-                } showStyleMenu: { [weak self] information in
-                    self?.router.showStyleMenu(information: information)
-                }
+                    actionHandler: blockActionHandler,
+                    showPage: { [weak self] pageId in
+                        self?.router.showPage(with: pageId)
+                    },
+                    openURL: { [weak self] url in
+                        self?.router.openUrl(url)
+                    },
+                    showStyleMenu: { [weak self] information in
+                        self?.router.showStyleMenu(information: information)
+                    })
             }
         case let .file(content):
             switch content.contentType {
             case .file:
                 return BlockFileViewModel(
-                    information: block.blockModel.information,
-                    fileData: content,
                     indentationLevel: block.indentationLevel,
+                    information: block.information,
+                    fileData: content,
                     contextualMenuHandler: contextualMenuHandler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
@@ -109,10 +105,10 @@ final class BlockViewModelBuilder {
                     }
                 )
             case .none:
-                return UnknownLabelViewModel(information: block.blockModel.information)
+                return UnknownLabelViewModel(information: block.information)
             case .image:
                 return BlockImageViewModel(
-                    information: block.blockModel.information,
+                    information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
                     contextualMenuHandler: contextualMenuHandler,
@@ -122,9 +118,9 @@ final class BlockViewModelBuilder {
                 )
             case .video:
                 return VideoBlockViewModel(
-                    information: block.blockModel.information,
-                    fileData: content,
                     indentationLevel: block.indentationLevel,
+                    information: block.information,
+                    fileData: content,
                     contextualMenuHandler: contextualMenuHandler,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
@@ -137,14 +133,14 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(
                 content: content,
-                information: block.blockModel.information,
+                information: block.information,
                 indentationLevel: block.indentationLevel,
                 handler: contextualMenuHandler
             )
         case let .bookmark(data):
             return BlockBookmarkViewModel(
                 indentationLevel: block.indentationLevel,
-                information: block.blockModel.information,
+                information: block.information,
                 bookmarkData: data,
                 handleContextualMenu: { [weak self] action, info in
                     self?.contextualMenuHandler.handle(action: action, info: info)
@@ -157,10 +153,13 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = detailsLoader.loadDetails(blockId: block.blockId)
-            return BlockPageLinkViewModel(
+            let details = detailsLoader.loadDetailsForBlockLink(
+                blockId: block.information.id,
+                targetBlockId: content.targetBlockID
+            )
+            return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
-                information: block.blockModel.information,
+                information: block.information,
                 content: content,
                 details: details,
                 contextualMenuHandler: contextualMenuHandler,
@@ -187,7 +186,7 @@ final class BlockViewModelBuilder {
     }
     
     private func showFilePicker(blockId: BlockId) {
-        let model = CommonViews.Pickers.File.Picker.ViewModel()
+        let model = Picker.ViewModel()
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.blockActionHandler.upload(blockId: blockId, filePath: result.filePath)
         }.store(in: &subscriptions)
@@ -206,7 +205,8 @@ final class BlockViewModelBuilder {
             guard let self = self else { return }
             
             self.blockActionHandler.handleAction(
-                .fetch(url: url), info: info
+                .fetch(url: url),
+                blockId: info.id
             )
         }
     }

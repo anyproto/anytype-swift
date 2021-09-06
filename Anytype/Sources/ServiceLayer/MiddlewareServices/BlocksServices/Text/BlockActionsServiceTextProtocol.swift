@@ -2,15 +2,21 @@ import Foundation
 import Combine
 import UIKit
 import BlocksModels
+import ProtobufMessages
 
 
 /// Protocol for TextBlockActions service.
 protocol BlockActionsServiceTextProtocol {
     typealias Style = BlockText.Style
     
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ServiceSuccess, Error>
-    func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ServiceSuccess, Error>
-    func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<ServiceSuccess, Error>
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ResponseEvent, Error>
+    func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ResponseEvent, Error>
+
+    func split(contextID: BlockId,
+               blockID: BlockId,
+               range: NSRange,
+               style: Style,
+               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error>
     
     /// Protocol for `SetTextColor` for text block.
     /// It is renamed intentionally.
@@ -33,7 +39,7 @@ protocol BlockActionsServiceTextProtocol {
     /// It is used in `TurnInto` actions in UI.
     /// When you would like to update style of block ( or turn into this block to another block ),
     /// you will use this method.
-    func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ServiceSuccess, Error>
+    func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ResponseEvent, Error>
     
     // MARK: - Actions Protocols
     /// Protocol for `Set Text and Marks` for text block.
@@ -45,15 +51,4 @@ protocol BlockActionsServiceTextProtocol {
     @discardableResult
     func setText(contextID: BlockId, blockID: BlockId, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
     
-    /// Toggle block markup for whole block string
-    ///
-    /// - Parameters:
-    ///   - contextID: Document identifier,
-    ///   - blockID: Block identifier
-    ///   - style: Markup
-    func toggleWholeBlockMarkup(
-        contextID: BlockId,
-        blockID: BlockId,
-        style: MarkStyle
-    ) -> AnyPublisher<ServiceSuccess, Error>?
 }

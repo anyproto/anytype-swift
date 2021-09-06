@@ -5,36 +5,42 @@ import UIKit
 struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let blockDelegate: BlockDelegate
-    let block: BlockActiveRecordProtocol
+    let block: BlockModelProtocol
     let shouldDisplayPlaceholder: Bool
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
-    let configureMentions: (UITextView) -> Void
+    let showPage: (String) -> Void
+    let openURL: (URL) -> Void
     let showStyleMenu: (BlockInformation) -> Void
     let pressingEnterTimeChecker = TimeChecker()
     let information: BlockInformation
     let isCheckable: Bool
+    let upperBlock: BlockModelProtocol?
     private(set) var isSelected: Bool = false
     
     init(
         blockDelegate: BlockDelegate,
-        block: BlockActiveRecordProtocol,
+        block: BlockModelProtocol,
+        upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
-        configureMentions: @escaping (UITextView) -> Void,
+        showPage: @escaping (String) -> Void,
+        openURL: @escaping (URL) -> Void,
         showStyleMenu: @escaping (BlockInformation) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
         self.blockDelegate = blockDelegate
         self.block = block
-        self.configureMentions = configureMentions
+        self.upperBlock = upperBlock
         self.actionHandler = actionHandler
+        self.showPage = showPage
+        self.openURL = openURL
         self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
-        self.information = block.blockModel.information
+        self.information = block.information
         self.isCheckable = isCheckable
         
-        shouldDisplayPlaceholder = block.isToggled && block.blockModel.information.childrenIds.isEmpty
+        shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     
     func makeContentView() -> UIView & UIContentView {
@@ -52,12 +58,10 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
-        lhs.information.id == rhs.information.id &&
-        lhs.information.alignment == rhs.information.alignment &&
-        lhs.information.backgroundColor == rhs.information.backgroundColor &&
-        lhs.information.content == rhs.information.content &&
+        lhs.information == rhs.information &&
         lhs.isSelected == rhs.isSelected &&
-        lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder
+        lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
+        lhs.isCheckable == rhs.isCheckable
     }
     
     func hash(into hasher: inout Hasher) {
@@ -67,5 +71,6 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information.content)
         hasher.combine(isSelected)
         hasher.combine(shouldDisplayPlaceholder)
+        hasher.combine(isCheckable)
     }
 }

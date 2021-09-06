@@ -11,6 +11,9 @@ enum ColorName {
     static let grayscale30 = "grayscale30"
     static let grayscale10 = "grayscale10"
 
+    static let divider = "divider"
+    static let dividerSecondary = "dividerSecondary"
+    static let stroke = "stroke"
     
     static let darkColdGray = "darkColdGray"
     static let lightColdGray = "lightColdGray"
@@ -28,7 +31,6 @@ enum ColorName {
     static let lightBlue = "lightBlue"
     static let darkBlue = "darkBlue"
     
-    static let buttonActive = "buttonActive"
     static let buttonInactive = "buttonInactive"
     static let buttonSelected = "buttonSelected"
 }

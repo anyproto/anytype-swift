@@ -1,7 +1,9 @@
 import ProtobufMessages
 import Combine
+import BlocksModels
 
 protocol SearchServiceProtocol {
+    func search(text: String, completion: @escaping ([SearchResult]) -> ())
     func searchArchivedPages(completion: @escaping ([SearchResult]) -> ())
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
@@ -11,15 +13,40 @@ protocol SearchServiceProtocol {
 final class SearchService {
     private var subscriptions = [AnyCancellable]()
     
-    func searchArchivedPages(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastModifiedDate,
+    func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
+        let sort = SearchHelper.sort(
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: true),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        ]
+        
+        makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: text,
+            offset: 0,
+            limit: 100,
+            objectTypeFilter: [],
+            keys: [],
+            completion: completion
+        )
+    }
+    
+    func searchArchivedPages(completion: @escaping ([SearchResult]) -> ()) {
+        let sort = SearchHelper.sort(
+            relation: DetailsKind.lastModifiedDate,
+            type: .desc
+        )
+        
+        let filters = [
+            SearchHelper.isArchivedFilter(isArchived: true),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(
@@ -35,13 +62,13 @@ final class SearchService {
     }
     
     func searchRecentPages(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastOpenedDate,
+        let sort = SearchHelper.sort(
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.objectTypeFilter(types: [.set, .page]),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(
@@ -57,14 +84,14 @@ final class SearchService {
     }
     
     func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastOpenedDate,
+        let sort = SearchHelper.sort(
+            relation: DetailsKind.lastModifiedDate,
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.objectTypeFilter(type: .page),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: [ObjectTypeProvider.pageObjectURL])
         ]
         
         makeRequest(
@@ -80,14 +107,14 @@ final class SearchService {
     }
     
     func searchSets(completion: @escaping ([SearchResult]) -> ()) {
-        let sort = MiddlewareBuilder.sort(
-            relation: Relations.lastOpenedDate,
+        let sort = SearchHelper.sort(
+            relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
-            MiddlewareBuilder.isArchivedFilter(isArchived: false),
-            MiddlewareBuilder.objectTypeFilter(type: .set),
-            MiddlewareBuilder.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
         makeRequest(

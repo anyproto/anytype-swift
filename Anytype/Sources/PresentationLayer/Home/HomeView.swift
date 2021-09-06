@@ -22,7 +22,6 @@ struct HomeView: View {
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
-                windowHolder?.configureNavigationBarWithTransparentBackground()
                 viewModel.viewLoaded()
             }
     }
@@ -61,6 +60,9 @@ struct HomeView: View {
         }
         .bottomFloater(isPresented: $showSettings) {
             viewModel.coordinator.settingsView().padding(8)
+        }
+        .sheet(isPresented: $viewModel.showSearch) {
+            HomeSearchView()
         }
         .navigationBarTitleDisplayMode(.inline)
     }

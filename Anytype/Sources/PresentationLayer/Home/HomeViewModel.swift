@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 import Foundation
 import ProtobufMessages
-
+import AnytypeCore
 
 extension HomeViewModel {
     struct NewPageData {
@@ -13,16 +13,18 @@ extension HomeViewModel {
 }
 
 final class HomeViewModel: ObservableObject {
-    @Published var favoritesCellData: [PageCellData] = []
-    var nonArchivedFavoritesCellData: [PageCellData] {
+    @Published var favoritesCellData: [HomeCellData] = []
+    var nonArchivedFavoritesCellData: [HomeCellData] {
         favoritesCellData.filter { $0.isArchived == false }
     }
     
-    @Published var archiveCellData: [PageCellData] = []
-    @Published var recentCellData: [PageCellData] = []
-    @Published var inboxCellData: [PageCellData] = []
+    @Published var archiveCellData: [HomeCellData] = []
+    @Published var recentCellData: [HomeCellData] = []
+    @Published var inboxCellData: [HomeCellData] = []
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
+    @Published var showSearch = false
+    
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
@@ -75,7 +77,7 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
+    private func onOpenDashboard(_ serviceSuccess: ResponseEvent) {
         document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
             self?.onDashboardChange(updateResult: updateResult)
         }.store(in: &self.subscriptions)
@@ -96,7 +98,7 @@ final class HomeViewModel: ObservableObject {
     
     private func updateCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = document.getDetails(by: blockId)?.currentDetails else {
-            assertionFailure("Could not find object with id: \(blockId)")
+            anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
 
@@ -111,25 +113,34 @@ final class HomeViewModel: ObservableObject {
 // MARK: - New page
 extension HomeViewModel {
     func createNewPage() {
-        guard let rootId = document.documentId else { return }
-        
-        newPageSubscription = dashboardService.createNewPage(contextId: rootId)
+        newPageSubscription = dashboardService.createNewPage()
             .receiveOnMain()
-            .sinkWithDefaultCompletion("Create page") { [weak self] success in
+            .sinkWithDefaultCompletion("Create page") { [weak self] response in
                 guard let self = self else {
                     return
                 }
 
                 self.document.handle(
-                    events: PackOfEvents(middlewareEvents: success.messages)
+                    events: PackOfEvents(middlewareEvents: response.messages)
                 )
 
-                guard let newBlockId = success.newBlockId else {
-                    assertionFailure("No new block id in create new page response")
+                guard !response.newBlockId.isEmpty else {
+                    anytypeAssertionFailure("No new block id in create new page response")
                     return
                 }
-
-                self.newPageData = NewPageData(pageId: newBlockId, showingNewPage: true)
+                
+                self.showPage(pageId: response.newBlockId)
         }
+    }
+    
+    func startSearch() {
+        showSearch = true
+    }
+    
+    func showPage(pageId: BlockId) {
+        newPageData = NewPageData(
+            pageId: pageId,
+            showingNewPage: true
+        )
     }
 }

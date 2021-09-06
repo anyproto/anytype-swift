@@ -2,14 +2,14 @@ import BlocksModels
 import UIKit
 
 protocol BlockActionServiceProtocol {
-    typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
+    typealias Conversion = (ResponseEvent) -> (PackOfEvents)
     
     func configured(documentId: String) -> Self
     func configured(didReceiveEvent: @escaping (PackOfEvents) -> ())
     
     func upload(blockId: BlockId, filePath: String)
     
-    func turnInto(blockId: BlockId, type: BlockContent, shouldSetFocusOnUpdate: Bool)
+    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool)
     
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(info: BlockInformation, parentBlockId: BlockId)
@@ -20,7 +20,7 @@ protocol BlockActionServiceProtocol {
     
     func createPage(position: BlockPosition)
     
-    func split(info: BlockInformation, oldText: String, newBlockContentType: BlockText.Style, shouldSetFocusOnUpdate: Bool)
+    func split(info: BlockInformation, oldText: String, newBlockContentType: BlockText.Style)
     
     func bookmarkFetch(blockId: BlockId, url: String)
     

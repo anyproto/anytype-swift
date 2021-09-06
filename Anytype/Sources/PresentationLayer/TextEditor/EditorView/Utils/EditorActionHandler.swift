@@ -1,11 +1,11 @@
 import BlocksModels
+import AnytypeCore
 
 protocol EditorActionHandlerProtocol: AnyObject {
     func onEmptySpotTap()    
     
-    func handleAction(_ action: BlockHandlerActionType, info: BlockInformation)
+    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
-    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, info: BlockInformation)
     
     func upload(blockId: BlockId, filePath: String)
 }
@@ -27,23 +27,23 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func onEmptySpotTap() {
-        guard let block = document.rootActiveModel?.blockModel, let parentId = document.documentId else {
+        guard let block = document.rootActiveModel, let parentId = document.documentId else {
             return
         }
-        handleAction(.createEmptyBlock(parentId: parentId), info: block.information)
+        handleAction(.createEmptyBlock(parentId: parentId), blockId: block.information.id)
     }
     
     func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
         guard let firstResponder = document.userSession?.firstResponder else {
-            assertionFailure("No first responder for action \(action)")
+            anytypeAssertionFailure("No first responder for action \(action)")
             return
         }
         
-        handleAction(action, info: firstResponder.information)
+        handleAction(action, blockId: firstResponder.information.id)
     }
     
-    func handleAction(_ action: BlockHandlerActionType, info: BlockInformation) {
-        blockActionHandler.handleBlockAction(action, info: info) { [weak self] events in
+    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
+        blockActionHandler.handleBlockAction(action, blockId: blockId) { [weak self] events in
             self?.eventProcessor.process(events: events)
         }
     }
@@ -54,10 +54,5 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         )
         
         blockActionHandler.upload(blockId: blockId, filePath: filePath)
-    }
-    
-    
-    func handleActionWithoutCompletion(_ action: BlockHandlerActionType, info: BlockInformation) {
-        blockActionHandler.handleBlockAction(action, info: info, completion: nil)
     }
 }

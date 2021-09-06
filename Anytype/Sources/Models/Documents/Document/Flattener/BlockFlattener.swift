@@ -49,13 +49,14 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options
     /// - Returns: A list of block ids.
-    private static func flatten(root model: BlockActiveRecordProtocol,
+    private static func flatten(root model: BlockModelProtocol,
                                 in container: RootBlockContainer,
                                 options: BlockFlattenerOptions) -> [BlockId] {
         var result: Array<BlockId> = .init()
         let stack: DataStructures.Stack<BlockId> = .init()
-        stack.push(model.blockId)
+        stack.push(model.information.id)
         var isInRootModel = true
+        
         while !stack.isEmpty {
             if let value = stack.pop() {
                 /// Various flatteners?
@@ -84,12 +85,12 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of active models.
-    static func flatten(root model: BlockActiveRecordProtocol, in container: RootBlockContainer, options: BlockFlattenerOptions) -> [BlockActiveRecordProtocol] {
+    static func flatten(root model: BlockModelProtocol, in container: RootBlockContainer, options: BlockFlattenerOptions) -> [BlockModelProtocol] {
         let ids = flattenIds(root: model,
                               in: container,
                               options: options)
          let blocksContainer = container.blocksContainer
-         return ids.compactMap { blocksContainer.record(id: $0) }
+         return ids.compactMap { blocksContainer.model(id: $0) }
     }
     
     /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
@@ -99,7 +100,7 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of block ids.
-    @discardableResult static func flattenIds(root model: BlockActiveRecordProtocol,
+    @discardableResult static func flattenIds(root model: BlockModelProtocol,
                                               in container: RootBlockContainer,
                                               options: BlockFlattenerOptions) -> [BlockId] {
         /// TODO: Fix it.
@@ -108,7 +109,7 @@ final class BlockFlattener {
         ///
         /// But for any other parent block it will work properly.
         ///
-        let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.blockId, in: container)
+        let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.information.id, in: container)
         if options.shouldIncludeRootNode || rootItemIsAlreadySkipped {
             return self.flatten(root: model,
                                 in: container,
@@ -131,10 +132,10 @@ private extension BlockFlattener {
     ///   - container: Container.
     /// - Returns: A condition if we would like to keep item in list.
     private static func shouldKeep(item: BlockId, in container: RootBlockContainer) -> Bool {
-        guard let model = container.blocksContainer.record(id: item) else {
+        guard let model = container.blocksContainer.model(id: item) else {
             return false
         }
-        switch model.content {
+        switch model.information.content {
         case .smartblock, .layout: return false
         default: return true
         }
@@ -151,10 +152,10 @@ private extension BlockFlattener {
     private static func filteredChildren(of item: BlockId,
                                          in container: RootBlockContainer,
                                          shouldCheckIsToggleOpened: Bool) -> [BlockId] {
-        guard let model = container.blocksContainer.record(id: item) else {
+        guard let model = container.blocksContainer.model(id: item) else {
             return []
         }
-        switch model.content {
+        switch model.information.content {
         case let .text(value) where value.contentType == .toggle:
                 return ToggleFlattener(shouldCheckToggleFlag: shouldCheckIsToggleOpened).processedChildren(item,
                                                                                                            in: container)

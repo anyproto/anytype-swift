@@ -1,114 +1,162 @@
 import SwiftUI
+import UIKit
 
 
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
 extension AnytypeFontBuilder {
     enum TextStyle: CaseIterable {
+        // Content fonts
         case title
         case heading
         case subheading
         
-        case headlineSemibold
-        case headlineMedium
-        case headline
-        
+        case previewTitle1Medium
+        case previewTitle2Regular
+        case previewTitle2Medium
+
         case bodyBold
-        case bodySemibold
-        case bodyMedium
-        case body
-        
+        case bodyRegular
+
+        case calloutRegular
+
+        case relation1Regular
+        case relation2Regular
+        case relation3Regular
+
         case codeBlock
-        
-        case captionMedium
-        case caption
-        
-        case footnoteMedium
-        case footnote
-        
+
+        // UX fonts
+        case uxTitle1Semibold
+        case uxTitle2Regular
+        case uxTitle2Medium
+        case uxBodyRegular
+
+        case uxCalloutRegular
+        case uxCalloutMedium
+
+
+        case caption1Regular
+        case caption1Medium
+        case caption2Regular
         case caption2Medium
-        case caption2
+        
+        case button1Regular
+        case button1Semibold
+
+
+    }
+
+    enum Weight {
+        case regular
+        case medium
+        case semibold
+        case bold
     }
 }
 
 struct AnytypeFontBuilder {
-    static func font(name: FontName, size: CGFloat, weight: Font.Weight) -> Font {        
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        return Font.custom(name.rawValue, size: scaledSize).weight(weight)
-    }
     
-    static func font(textStyle: TextStyle) -> Font {
-        return font(name: fontName(textStyle), size: size(textStyle), weight: weight(textStyle))
-    }
-    
-    static func customLineSpacing(textStyle: TextStyle) -> CGFloat? {
+    static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
-        case .codeBlock:
-            return 7
-        default:
-            return nil
-        }
-    }
-    
-    // MARK: - Private
-    private static func fontName(_ textStyle: TextStyle) -> FontName {
-        switch textStyle {
-        case .title, .heading:
-            return .graphik
-            
-        case .subheading, .headline, .body, .caption, .footnote, .caption2:
-            return .inter
-        case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
-            return .inter
-        case .headlineSemibold, .bodySemibold:
-            return .inter
-        case .bodyBold:
-            return .inter
-            
         case .codeBlock:
             return .plex
+        default:
+            return .inter
         }
     }
     
-    private static func size(_ textStyle: TextStyle) -> CGFloat {
+    static func size(_ textStyle: TextStyle) -> CGFloat {
         switch textStyle {
         case .title:
             return 28
         case .heading:
             return 22
-        case .subheading, .headline, .headlineSemibold, .headlineMedium:
+        case .subheading, .previewTitle1Medium, .bodyBold, .bodyRegular, .uxTitle1Semibold,. uxBodyRegular, .button1Regular, .button1Semibold:
             return 17
-        case .body, .bodyBold, .bodySemibold, .bodyMedium, .codeBlock:
+        case .codeBlock, .previewTitle2Medium, .previewTitle2Regular, .calloutRegular, .relation1Regular, .uxTitle2Regular, .uxCalloutMedium, .uxCalloutRegular, .uxTitle2Medium:
             return 15
-        case .caption, .captionMedium:
+        case .relation2Regular, .caption1Regular, .caption1Medium:
             return 13
-        case .footnote, .footnoteMedium:
+        case .relation3Regular:
             return 12
-        case .caption2, .caption2Medium:
+        case .caption2Regular, .caption2Medium:
             return 11
         }
     }
-    
-    private static func weight(_ textStyle: TextStyle) -> Font.Weight {
+
+    static func weight(_ textStyle: TextStyle) -> Weight {
         switch textStyle {
-        case .title, .heading:
-            return .regular
-        case .headline, .body, .caption, .footnote, .caption2:
-            return .regular
-        case .codeBlock:
-            return .regular
-        case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
-            return .medium
-        case .headlineSemibold, .bodySemibold:
-            return .semibold
-        case .subheading, .bodyBold:
+        case .title, .heading, .subheading:
             return .bold
+        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular, .uxTitle2Medium:
+            return .regular
+        case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium:
+            return .medium
+        case .bodyBold, .uxTitle1Semibold, .button1Semibold:
+            return .semibold
         }
     }
-}
 
+    static func lineHeight(_ textStyle: TextStyle) -> CGFloat {
+        switch textStyle {
+        case .title:
+            return 32
+        case .heading:
+            return 26
+        case .subheading, .bodyBold, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
+            return 24
+        case .codeBlock, .previewTitle1Medium, .calloutRegular, .relation1Regular, .uxCalloutMedium, .uxCalloutRegular:
+            return 22
+        case .previewTitle2Regular, .previewTitle2Medium, .uxTitle2Regular, .uxTitle2Medium:
+            return 20
+        case .caption1Medium, .relation2Regular, .caption1Regular:
+            return 18
+        case .relation3Regular:
+            return 15
+        case .caption2Regular, .caption2Medium:
+            return 14
+        }
+    }
 
-extension Font {
-    static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption)
+    /// Font kern. If nil then use default.
+    /// - Parameter textStyle: text style
+    /// - Returns: kern
+    static func kern(_ textStyle: TextStyle) -> CGFloat? {
+        switch textStyle {
+        case .title:
+            return -0.48
+        case .heading:
+            return -0.36
+        case .subheading:
+            return -0.28
+        case .previewTitle1Medium, .bodyBold, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
+            return -0.41
+        case .previewTitle2Regular, .previewTitle2Medium, .calloutRegular, .relation1Regular, .codeBlock, .uxTitle2Regular, .uxTitle2Medium, .uxCalloutMedium, .uxCalloutRegular:
+            return -0.24
+        case .caption1Medium, .relation2Regular, .caption1Regular:
+            return -0.08
+        case .caption2Regular, .caption2Medium:
+            return -0.07
+        case .relation3Regular:
+            return nil
+        }
+    }
+
+    /// Line spacing.
+    ///
+    /// In desing tool to specify space between lines used line height font parameter.  iOS API have only line spacing attribute.
+    /// So if in desing font line height differ from default value we need calculate line spacing by self.
+    ///
+    /// To set correct line spacing we need do follow:
+    /// - Get default line height of font. We can do it progrmmatically using lineHeight font property.
+    /// - Calculate and set line spacing. **Line spacing = Line height in design - Default line height**.
+    /// - Set  top/bottom space for text view as  **Top/Bottom Space =  Line spacing / 2**.
+    ///
+    /// - Parameter textStyle: Text style type.
+    /// - Returns: Line spacing for given text style.
+    static func lineSpacing(_ textStyle: TextStyle) -> CGFloat {
+        return lineHeight(textStyle) - uiKitFont(textStyle: textStyle).lineHeight
+    }
 }
 
 struct OptionalLineSpacingModifier: ViewModifier {

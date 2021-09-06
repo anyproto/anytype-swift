@@ -1,18 +1,27 @@
 import UIKit
-
+import AnytypeCore
 
 extension UIColor {
     static var highlighterColor: UIColor {
         .init(red: 255.0/255.0, green: 181.0/255.0, blue: 34.0/255.0, alpha: 1)
     }
     
-    static let textColor = color(name: ColorName.textPrimary)
-    static let secondaryTextColor = color(name: ColorName.textSecondary)
-    static let tertiaryTextColor = color(name: ColorName.textTertiary)
+    static let textPrimary = color(name: ColorName.textPrimary)
+    static let textSecondary = color(name: ColorName.textSecondary)
+    static let textTertiary = color(name: ColorName.textTertiary)
     
-    static var selectedItemColor: UIColor {
-        .init(red: 229.0/255.0, green: 239.0/255.0, blue: 249.0/255.0, alpha: 1)
-    }
+    static let stroke = color(name: ColorName.stroke)
+    
+    static let divider = color(name: ColorName.divider)
+    static let dividerSecondary = color(name: ColorName.dividerSecondary)
+    
+    static let buttonActive = color(name: ColorName.grayscale50)
+    static let buttonInactive = color(name: ColorName.buttonInactive)
+    static let buttonSelected = color(name: ColorName.buttonSelected)
+    
+    static let backgroundPrimary: UIColor = .white
+    
+    // MARK: - Color palette
     
     static let grayscale90 = color(name: ColorName.grayscale90)
     static let grayscale70 = color(name: ColorName.grayscale70)
@@ -32,11 +41,6 @@ extension UIColor {
     
     static let darkColdGray = color(name: ColorName.darkColdGray)
     static let lightColdGray = color(name: ColorName.lightColdGray)
-
-
-    static var darkGreen: UIColor {
-        .init(hexString: "#57C600")
-    }
 
     // MARK: - Color for background
 
@@ -80,16 +84,12 @@ extension UIColor {
         .init(hexString: "#867D42", alpha: 0.1)
     }
     
-    static let buttonActive = color(name: ColorName.buttonActive)
-    static let buttonInactive = color(name: ColorName.buttonInactive)
-    static let buttonSelected = color(name: ColorName.buttonSelected)
-    
     /// Color that can be used in case if we couldn't parse color from middleware
     static let defaultColor = grayscale90
     
     private static func color(name: String) -> UIColor {
         guard let color = UIColor(named: name) else {
-            assertionFailure("No color named: \(name)")
+            anytypeAssertionFailure("No color named: \(name)")
             return defaultColor
         }
         

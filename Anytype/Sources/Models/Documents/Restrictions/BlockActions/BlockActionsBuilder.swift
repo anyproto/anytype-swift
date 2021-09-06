@@ -28,7 +28,10 @@ struct BlockActionsBuilder {
                 if type == .bold, restrictions.canApplyBold {
                     result.append(.action(.style(type)))
                 }
-                if (type == .italic || type == .strikethrough) && restrictions.canApplyOtherMarkup {
+                if type == .italic, restrictions.canApplyItalic {
+                    result.append(.action(.style(type)))
+                }
+                if (type == .code || type == .strikethrough), restrictions.canApplyOtherMarkup {
                     result.append(.action(.style(type)))
                 }
             }
@@ -45,8 +48,11 @@ struct BlockActionsBuilder {
     }
     
     private func makeObjectsMenuItem() -> BlockActionMenuItem? {
-        let objects = ObjectTypeService.shared.objects
-        guard !objects.isEmpty else { return nil }
+        guard let draft = ObjectTypeProvider.objectType(url: ObjectTypeProvider.pageObjectURL) else {
+            return nil
+        }
+        
+        let objects = [ draft ]
         return .menu(.objects, objects.map { .action(.objects($0)) })
     }
     

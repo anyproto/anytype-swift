@@ -4,19 +4,19 @@ import Combine
 struct BaseDocumentUpdateResult {
     var updates: EventHandlerUpdate
     var details: DetailsData?
-    var models: [BlockActiveRecordProtocol]
+    var models: [BlockModelProtocol]
 }
 
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: UserSession? { get set }
-    var rootActiveModel: BlockActiveRecordProtocol? { get }
+    var rootActiveModel: BlockModelProtocol? { get }
     var rootModel: RootBlockContainer? { get }
     var eventHandler: EventHandler { get }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
-    func open(_ value: ServiceSuccess)
+    func open(_ value: ResponseEvent)
     func handle(events: PackOfEvents)
     /// Return publisher that received event on blocks update
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }

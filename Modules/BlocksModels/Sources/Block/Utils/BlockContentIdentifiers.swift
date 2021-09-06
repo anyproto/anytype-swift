@@ -15,6 +15,7 @@ extension BlockContent {
 extension BlockText {
     public var textIdentifier: String {
         switch self.contentType {
+        case .description: return "description"
         case .title: return ".title"
         case .text: return ".text"
         case .header: return ".header"

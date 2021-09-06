@@ -2,57 +2,61 @@ import Combine
 import UIKit
 import BlocksModels
 
+
 struct TextBlockViewModel: BlockViewModelProtocol {
+    var indentationLevel: Int
+    var information: BlockInformation
+    private let block: BlockModelProtocol
     
-    let block: BlockActiveRecordProtocol
-    let content: BlockText
-    let isCheckable: Bool
-    
+    private let content: BlockText
+    private let isCheckable: Bool
     private let toggled: Bool
+    /// Block that upper than current.
+    /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
+    private let upperBlock: BlockModelProtocol?
+    
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
-    private let configureMentions: (UITextView) -> Void
+    private let showPage: (String) -> Void
+    private let openURL: (URL) -> Void
     private let showStyleMenu: (BlockInformation) -> Void
     private let actionHandler: EditorActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     
-    var indentationLevel: Int {
-        block.indentationLevel
-    }
-    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
             indentationLevel,
-            toggled,
+            information,
             isCheckable,
-            block.blockModel.information.content
+            toggled
         ] as [AnyHashable]
     }
     
-    var information: BlockInformation {
-        block.blockModel.information
-    }
-    
     init(
-        block: BlockActiveRecordProtocol,
+        block: BlockModelProtocol,
+        upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
         contextualMenuHandler: DefaultContextualMenuHandler,
         blockDelegate: BlockDelegate,
         actionHandler: EditorActionHandlerProtocol,
-        configureMentions: @escaping (UITextView) -> Void,
+        showPage: @escaping (String) -> Void,
+        openURL: @escaping (URL) -> Void,
         showStyleMenu:  @escaping (BlockInformation) -> Void)
     {
         self.block = block
+        self.upperBlock = upperBlock
         self.content = content
         self.isCheckable = isCheckable
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
-        self.configureMentions = configureMentions
+        self.showPage = showPage
+        self.openURL = openURL
         self.showStyleMenu = showStyleMenu
-        toggled = block.isToggled
+        self.toggled = block.isToggled
+        self.information = block.information
+        self.indentationLevel = block.indentationLevel
     }
     
     func set(focus: BlockFocusPosition) {
@@ -73,13 +77,15 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         contextualMenuHandler.handle(action: action, info: information)
     }
     
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         TextBlockContentConfiguration(
             blockDelegate: blockDelegate,
             block: block,
+            upperBlock: upperBlock,
             isCheckable: isCheckable,
             actionHandler: actionHandler,
-            configureMentions: configureMentions,
+            showPage: showPage,
+            openURL: openURL,
             showStyleMenu: showStyleMenu,
             focusPublisher: focusSubject.eraseToAnyPublisher())
     }

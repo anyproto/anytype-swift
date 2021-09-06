@@ -4,23 +4,26 @@ import Combine
 import os
 import BlocksModels
 import Amplitude
+import AnytypeCore
 
-
-class DocumentEditorViewModel: ObservableObject {
-    weak private(set) var viewInput: EditorModuleDocumentViewInput?
+final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
+    weak private(set) var viewInput: DocumentEditorViewInput?
     
     var document: BaseDocumentProtocol
-    let modelsHolder: SharedBlockViewModelsHolder
+    let modelsHolder: ObjectContentViewModelsSharedHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
+    
+    let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let detailsViewModel: DocumentDetailsViewModel
     let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
+    let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let headerBuilder: ObjectHeaderBuilder
     
     private var subscriptions = Set<AnyCancellable>()
     private let documentId: BlockId
@@ -29,20 +32,20 @@ class DocumentEditorViewModel: ObservableObject {
     init(
         documentId: BlockId,
         document: BaseDocumentProtocol,
-        viewInput: EditorModuleDocumentViewInput,
+        viewInput: DocumentEditorViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
-        detailsViewModel: DocumentDetailsViewModel,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
-        modelsHolder: SharedBlockViewModelsHolder,
+        modelsHolder: ObjectContentViewModelsSharedHolder,
         blockBuilder: BlockViewModelBuilder,
-        blockActionHandler: EditorActionHandler
+        blockActionHandler: EditorActionHandler,
+        wholeBlockMarkupViewModel: MarkupViewModel,
+        headerBuilder: ObjectHeaderBuilder
     ) {
         self.documentId = documentId
         self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
-        self.detailsViewModel = detailsViewModel
         self.viewInput = viewInput
         self.document = document
         self.router = router
@@ -50,6 +53,8 @@ class DocumentEditorViewModel: ObservableObject {
         self.blockBuilder = blockBuilder
         self.blockActionHandler = blockActionHandler
         self.blockDelegate = blockDelegate
+        self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
+        self.headerBuilder = headerBuilder
         
         setupSubscriptions()
         obtainDocument(documentId: documentId)
@@ -64,6 +69,10 @@ class DocumentEditorViewModel: ObservableObject {
     }
 
     private func setupSubscriptions() {
+        objectHeaderLocalEventsListener.beginObservingEvents { [weak self] event in
+            self?.handleObjectHeaderLocalEvent(event)
+        }
+        
         document.updateBlockModelPublisher
             .receiveOnMain()
             .sink { [weak self] updateResult in
@@ -71,33 +80,39 @@ class DocumentEditorViewModel: ObservableObject {
             }.store(in: &self.subscriptions)
     }
     
+    private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
+        let header = headerBuilder.objectHeaderForLocalEvent(details: modelsHolder.details, event: event)
+        
+        viewInput?.configureNavigationBar(using: header, details: modelsHolder.details)
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+    }
+    
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
             let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
-            updateBlocksViewModels(models: blocksViewModels)
-            if let details = updateResult.details {
-                updateDetails(details)
-            }
+            
+            handleGeneralUpdate(
+                with: updateResult.details,
+                models: blocksViewModels
+            )
+            
+            updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(newDetails):
-            updateDetails(newDetails)
+            handleGeneralUpdate(
+                with: newDetails,
+                models: modelsHolder.models
+            )
         case let .update(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
             }
             
             updateViewModelsWithStructs(updatedIds)
-            viewInput?.updateRowsWithoutRefreshing(ids: updatedIds)
+            updateMarkupViewModel(updatedIds)
+            
+            updateView()
         }
-    }
-    
-    private func updateDetails(_ details: DetailsData) {
-        guard details.parentId == documentId else {
-            return
-        }
-        
-        objectSettingsViewModel.update(with: details)
-        detailsViewModel.performUpdateUsingDetails(details)
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
@@ -106,13 +121,13 @@ class DocumentEditorViewModel: ObservableObject {
         }
 
         for blockId in blockIds {
-            guard let newRecord = document.rootActiveModel?.findChild(by: blockId) else {
-                assertionFailure("Could not find object with id: \(blockId)")
+            guard let newRecord = document.rootActiveModel?.container?.model(id: blockId) else {
+                anytypeAssertionFailure("Could not find object with id: \(blockId)")
                 return
             }
             
             guard let newModel = blockBuilder.build(newRecord, details: document.defaultDetailsActiveModel.currentDetails) else {
-                assertionFailure("Could not build model from record: \(newRecord)")
+                anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return
             }
             
@@ -123,13 +138,57 @@ class DocumentEditorViewModel: ObservableObject {
                 }
         }
     }
-
-    private func updateBlocksViewModels(models: [BlockViewModelProtocol]) {
-        let difference = models.difference(from: modelsHolder.models) { $0.diffable == $1.diffable }
-        if !difference.isEmpty, let result = modelsHolder.models.applying(difference) {
-            modelsHolder.models = result
-            self.viewInput?.updateData(result)
+    
+    private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
+              updatedBlockIds.contains(blockIdWithMarkupMenu) else {
+            return
         }
+        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
+    }
+    
+    private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
+            return
+        }
+        let blockIds = Set(newBlockViewModels.map { $0.blockId })
+        guard blockIds.contains(blockIdWithMarkupMenu) else {
+            wholeBlockMarkupViewModel.removeInformationAndDismiss()
+            return
+        }
+        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
+    }
+    
+    private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
+        let container = document.rootActiveModel?.container
+        guard let currentInformation = container?.model(id: blockId)?.information else {
+            wholeBlockMarkupViewModel.removeInformationAndDismiss()
+            anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            return
+        }
+        guard case .text = currentInformation.content else {
+            wholeBlockMarkupViewModel.removeInformationAndDismiss()
+            return
+        }
+        wholeBlockMarkupViewModel.blockInformation = currentInformation
+    }
+
+    private func handleGeneralUpdate(with details: DetailsData?, models: [BlockViewModelProtocol]) {
+        modelsHolder.apply(newModels: models)
+        modelsHolder.apply(newDetails: details)
+        
+        updateView()
+        
+        if let details = modelsHolder.details {
+            objectSettingsViewModel.update(with: details)
+        }
+    }
+    
+    func updateView() {
+        let details = modelsHolder.details
+        let header = headerBuilder.objectHeader(details: details)
+        viewInput?.configureNavigationBar(using: header, details: details)
+        viewInput?.updateData(header: header, blocks: modelsHolder.models)
     }
 }
 
@@ -155,7 +214,7 @@ extension DocumentEditorViewModel {
 
     private func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
-            assertionFailure("Row doesn't exist")
+            anytypeAssertionFailure("Row doesn't exist")
             return nil
         }
         return modelsHolder.models[at.row]
@@ -168,6 +227,12 @@ extension DocumentEditorViewModel {
             id: item.blockId,
             type: item.content.type
         )
+    }
+}
+
+extension DocumentEditorViewModel {
+    func showSettings() {
+        router.showSettings(viewModel: objectSettingsViewModel)
     }
 }
 

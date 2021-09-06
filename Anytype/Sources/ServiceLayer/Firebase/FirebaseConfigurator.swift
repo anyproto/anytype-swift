@@ -1,4 +1,5 @@
 import Firebase
+import AnytypeCore
 
 final class FirebaseConfigurator: AppConfiguratorProtocol {
     #if RELEASE
@@ -7,11 +8,13 @@ final class FirebaseConfigurator: AppConfiguratorProtocol {
     private let settingsFile = "GoogleService-Info-Dev"
     #endif
     
-    func configure() {
+    func configure() {        
         guard let path = Bundle.main.path(forResource: settingsFile, ofType: "plist"),
               let options = FirebaseOptions(contentsOfFile: path) else {
             return
         }
         FirebaseApp.configure(options: options)
+        
+        AssertionLogger.shared = FirebaseNonFatalLogger()
     }
 }

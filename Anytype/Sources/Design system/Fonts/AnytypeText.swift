@@ -1,12 +1,15 @@
 import SwiftUI
+import AnytypeCore
 
 struct AnytypeText: View {
     private let textView: AnyView
     
     init(_ text: String, style: AnytypeFontBuilder.TextStyle) {
-        let spacing = AnytypeFontBuilder.customLineSpacing(textStyle: style)
+        let spacing = AnytypeFontBuilder.lineSpacing(style)
         
-        textView = Self.buildText(text, style: style).modifier(OptionalLineSpacingModifier(spacing: spacing)).eraseToAnyView()
+        textView = Self.buildText(text, style: style)
+            .modifier(OptionalLineSpacingModifier(spacing: spacing))
+            .eraseToAnyView()
     }
     
     init(
@@ -15,7 +18,7 @@ struct AnytypeText: View {
         size: CGFloat,
         weight: Font.Weight
     ) {
-        assert(name != .plex, "Custom plex font requires custom line spacing implementation")
+        anytypeAssert(name != .plex, "Custom plex font requires custom line spacing implementation")
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
         textView = Text(LocalizedStringKey(text)).font(font).eraseToAnyView()
@@ -36,8 +39,8 @@ struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             AnytypeText("Foo", style: .title)
-            AnytypeText("Foo", style: .body)
-            AnytypeText("Foo", style: .footnote)
+            AnytypeText("Foo", style: .bodyRegular)
+            AnytypeText("Foo", style: .relation3Regular)
             AnytypeText("collapse", style: .codeBlock)
         }
     }

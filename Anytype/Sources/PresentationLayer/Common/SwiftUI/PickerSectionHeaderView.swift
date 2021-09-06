@@ -7,7 +7,7 @@ struct PickerSectionHeaderView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            AnytypeText(title, style: .captionMedium)
+            AnytypeText(title, style: .caption1Medium)
                 .foregroundColor(Color.textSecondary)
         }
         .frame(maxWidth: .infinity)

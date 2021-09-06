@@ -1,11 +1,14 @@
 import SwiftUI
-
+import AnytypeCore
 
 extension Image {
     static let logo = createImage("logo")
+    static let splashLogo = createImage("splashLogo")
     static let arrow = createImage("arrowForward")
     
     static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
+    
+    static let noImage = Image("no_image")
 }
 
 extension Image {
@@ -36,7 +39,7 @@ extension Image {
 extension Image {
     
     enum SearchBar {
-        static let magnifyingglass = createSystemImage("magnifyingglass")
+        static let magnifyingGlass = createImage("searchTextFieldIcon")
         static let circleFill = createSystemImage("multiply.circle.fill")
     }
     
@@ -47,18 +50,11 @@ extension Image {
     }
     
     enum LayoutSettings {
-        static let basic = Image("layout_settings_basic")
-        static let profile = Image("layout_settings_profile")
-        static let todo = Image("layout_settings_todo")
+        static let basic = createImage("layout_settings_basic")
+        static let profile = createImage("layout_settings_profile")
+        static let todo = createImage("layout_settings_todo")
         
         static let checkmark = Image("layout_settings_checkmark")
-    }
-    
-    enum Title {
-        enum TodoLayout {
-            static let checkbox = createImage("title_todo_checkbox")
-            static let checkmark = createImage("title_todo_checkmark")
-        }
     }
 }
 
@@ -66,8 +62,8 @@ private extension Image {
     
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
-            assertionFailure("No image named: \(name)")
-            return Image("no_image_blank_stub")
+            anytypeAssertionFailure("No image named: \(name)")
+            return .noImage
         }
         
         return Image(uiImage: image)
@@ -75,8 +71,8 @@ private extension Image {
     
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
-            assertionFailure("No system image named: \(name)")
-            return Image("no_image_blank_stub")
+            anytypeAssertionFailure("No system image named: \(name)")
+            return .noImage
         }
         
         return Image(uiImage: image)

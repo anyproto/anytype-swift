@@ -1,10 +1,12 @@
 import Combine
 import UIKit
 import Kingfisher
+import AnytypeCore
+import BlocksModels
 
 final class MentionAttachment: NSTextAttachment {
     
-    let pageId: String
+    let pageId: BlockId
     let name: String
     
     private weak var layoutManager: NSLayoutManager?
@@ -88,7 +90,7 @@ final class MentionAttachment: NSTextAttachment {
             .sink { result in
                 switch result {
                 case let .failure(error):
-                    assertionFailure(error.localizedDescription)
+                    anytypeAssertionFailure(error.localizedDescription)
                 case .finished:
                     break
                 }
@@ -109,44 +111,37 @@ final class MentionAttachment: NSTextAttachment {
         switch icon {
         case let .objectIcon(objectIcon):
             switch objectIcon {
-            case let .basic(basic):
-                displayBasicIcon(basic)
+            case let .basic(id):
+                loadImage(imageId: id, isBasicLayout: true)
             case let .profile(profile):
                 displayProfileIcon(profile)
+            case let .emoji(emoji):
+                guard
+                    let fontSize = fontPointSize,
+                    let image = emoji.value.image(fontPointSize: fontSize)
+                else { return }
+                
+                let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+                let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
+                
+                display(resizedImage)
             }
         case let .checkmark(isChecked):
             displayCheckmarkIcon(isChecked: isChecked)
         }
     }
     
-    private func displayBasicIcon(_ basicIcon: DocumentIconType.Basic) {
-        switch basicIcon {
-        case let .emoji(emoji):
-            guard
-                let fontSize = fontPointSize,
-                let image = emoji.value.image(fontPointSize: fontSize)
-            else { return }
-            
-            let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-            let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
-            
-            display(resizedImage)
-        case let .imageId(imageId):
-            loadImage(imageId: imageId, isBasicLayout: true)
-        }
-    }
-    
-    private func displayProfileIcon(_ profileIcon: DocumentIconType.Profile) {
+    private func displayProfileIcon(_ profileIcon: ObjectIconType.Profile) {
         switch profileIcon {
         case let .imageId(id):
             loadImage(imageId: id, isBasicLayout: false)
-        case let .placeholder(placeholder):
+        case let .character(placeholder):
             loadPlaceholderImage(placehodler: placeholder)
         }
     }
     
     private func displayCheckmarkIcon(isChecked: Bool) {
-        let image = isChecked ? UIImage.Title.TodoLayout.checkmark : UIImage.Title.TodoLayout.checkbox
+        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
         
         let size = iconSize ?? Constants.defaultIconSize
         
@@ -162,25 +157,25 @@ final class MentionAttachment: NSTextAttachment {
                 size.height
             ) / 2
         )
-        let placeholderGuideline = PlaceholderImageTextGuideline(
-            text: String(placehodler),
-            font: UIFont.systemFont(ofSize: fontPointSize ?? 0)
-        )
-        let image = PlaceholderImageBuilder.placeholder(
-            with: imageGuideline,
-            color: .grayscale30,
-            textGuideline: placeholderGuideline
-        )
-        addLeadingSpaceAndDisplay(image)
+        
+        var imageBuilder = ImageBuilder(imageGuideline)
+            .setImageColor(.grayscale30)
+            .setText(String(placehodler))
+        if let fontPointSize = fontPointSize {
+            imageBuilder = imageBuilder.setFont(UIFont.systemFont(ofSize: fontPointSize))
+        }
+        addLeadingSpaceAndDisplay(imageBuilder.build())
     }
     
     private func loadImage(imageId: String, isBasicLayout: Bool) {
-        guard let url = UrlResolver.resolvedUrl(.image(id: imageId, width: .thumbnail)) else { return }
+        guard let url = ImageID(id: imageId).resolvedUrl else { return }
         let imageSize = self.iconSize ?? Constants.defaultIconSize
         let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
-        let processor = ResizingImageProcessor(referenceSize: imageSize, mode: .aspectFill)
-            |> CroppingImageProcessor(size: imageSize)
-            |> RoundCornerImageProcessor(radius: .point(cornerRadius))
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: imageSize,
+            cornerRadius: .point(cornerRadius)
+        ).processor
         
         KingfisherManager.shared.retrieveImage(
             with: url,

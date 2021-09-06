@@ -1,4 +1,5 @@
 import Combine
+import AnytypeCore
 
 extension Publisher {
     public func sinkWithDefaultCompletion(_ actionName: String, receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
@@ -10,7 +11,7 @@ extension Publisher {
             switch completion {
             case .finished: return
             case let .failure(error):
-                assertionFailure("\(actionName) error: \(error)")
+                anytypeAssertionFailure("\(actionName) error: \(error)")
             }
         }
     }

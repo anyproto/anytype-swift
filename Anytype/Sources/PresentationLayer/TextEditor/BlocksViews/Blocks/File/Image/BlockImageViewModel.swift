@@ -2,13 +2,13 @@ import UIKit
 import BlocksModels
 import Combine
 import Kingfisher
+import AnytypeCore
 
 struct BlockImageViewModel: BlockViewModelProtocol {
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            fileData,
-            indentationLevel
+            indentationLevel,
+            information,
         ] as [AnyHashable]
     }
     
@@ -16,7 +16,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
     
     let contextualMenuHandler: DefaultContextualMenuHandler
-    
     let indentationLevel: Int
     let showIconPicker: (BlockId) -> ()
     
@@ -28,7 +27,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         showIconPicker: @escaping (BlockId) -> ()
     ) {
         guard fileData.contentType == .image else {
-            assertionFailure("Wrong content type of \(fileData), image expected")
+            anytypeAssertionFailure("Wrong content type of \(fileData), image expected")
             return nil
         }
         
@@ -37,10 +36,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         self.contextualMenuHandler = contextualMenuHandler
         self.indentationLevel = indentationLevel
         self.showIconPicker = showIconPicker
-    }
-    
-    func makeContentConfiguration() -> UIContentConfiguration {
-        BlockImageConfiguration(fileData)
     }
     
     func makeContextualMenu() -> [ContextualMenu] {
@@ -58,6 +53,31 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         }
     }
     
+    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+        switch fileData.state {
+        case .empty:
+            return emptyViewConfiguration(state: .default)
+        case .error:
+            return emptyViewConfiguration(state: .error)
+        case .uploading:
+            return emptyViewConfiguration(state: .uploading)
+        case .done:
+            return BlockImageConfiguration(
+                fileData: fileData,
+                alignmetn: information.alignment,
+                maxWidth: maxWidth
+            )
+        }
+    }
+        
+    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+        BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.image,
+            text: "Upload a picture".localized,
+            state: state
+        )
+    }
+    
     func didSelectRowInTableView() {
         switch fileData.state {
         case .done:
@@ -72,7 +92,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     private func downloadImage() {
         guard
-            let url = UrlResolver.resolvedUrl(.image(id: fileData.metadata.hash, width: .default))
+            let url = ImageID(id: fileData.metadata.hash, width: .default).resolvedUrl
         else {
             return
         }
@@ -88,6 +108,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
         alert.addAction(saveAction)
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        windowHolder?.rootNavigationController.present(alert, animated: true, completion: nil)
+        windowHolder?.presentOnTop(alert, animated: true)
     }
 }

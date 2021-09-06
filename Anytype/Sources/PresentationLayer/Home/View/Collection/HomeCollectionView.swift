@@ -8,7 +8,7 @@ struct HomeCollectionView: View {
         GridItem(.flexible()),
     ]
     
-    var cellData: [PageCellData]
+    var cellData: [HomeCellData]
     let coordinator: HomeCoordinator
     let dragAndDropDelegate: DragAndDropDelegate?
     let offsetChanged: (CGPoint) -> Void
@@ -24,7 +24,7 @@ struct HomeCollectionView: View {
                             selectedDocumentId: data.destinationId
                         ),
                         label: {
-                            PageCell(cellData: data)
+                            HomeCell(cellData: data)
                                 .cornerRadius(16)
                                 .frame(idealHeight: 124)
                         }
@@ -47,6 +47,7 @@ struct HomeCollectionView: View {
             .padding()
         }
         .animation(.spring())
+        .padding([.top], -22)
     }
 }
 

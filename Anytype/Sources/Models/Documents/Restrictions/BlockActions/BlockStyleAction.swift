@@ -1,3 +1,5 @@
+import BlocksModels
+
 
 enum BlockStyleAction: CaseIterable {
     case text
@@ -106,31 +108,29 @@ enum BlockStyleAction: CaseIterable {
         }
     }
     
-    var blockViewsType: BlockViewType? {
+    var blockViewsType: BlockContentType? {
         switch self {
         case .text:
             return .text(.text)
         case .title:
-            return .text(.h1)
+            return .text(.header)
         case .heading:
-            return .text(.h2)
+            return .text(.header2)
         case .subheading:
-            return .text(.h3)
+            return .text(.header3)
         case .highlighted:
-            return .text(.highlighted)
+            return .text(.quote)
         case .checkbox:
-            return .list(.checkbox)
+            return .text(.checkbox)
         case .bulleted:
-            return .list(.bulleted)
+            return .text(.bulleted)
         case .numberedList:
-            return .list(.numbered)
+            return .text(.numbered)
         case .toggle:
-            return .list(.toggle)
+            return .text(.toggle)
         case .code:
-            return .other(.code)
-        case .link:
-            return .objects(.page)
-        case .bold, .italic, .strikethrough:
+            return .text(.code)
+        case .bold, .italic, .strikethrough, .link:
             return nil
         }
     }

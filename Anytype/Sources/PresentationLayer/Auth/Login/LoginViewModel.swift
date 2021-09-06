@@ -37,7 +37,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func recoverWallet() {
-        authService.walletRecovery(mnemonic: seed) { result in
+        authService.walletRecovery(mnemonic: seed.trimmingCharacters(in: .whitespacesAndNewlines)) { result in
             DispatchQueue.main.async { [weak self] in
                 if case .failure(let .recoverWalletError(error)) = result {
                     self?.error = error

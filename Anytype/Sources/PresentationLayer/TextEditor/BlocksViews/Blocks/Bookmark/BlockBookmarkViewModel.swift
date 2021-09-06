@@ -2,12 +2,12 @@ import Combine
 import BlocksModels
 import UIKit
 
+// https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            bookmarkData,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     
@@ -20,8 +20,19 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let showBookmarkBar: (BlockInformation) -> ()
     let openUrl: (URL) -> ()
     
-    func makeContentConfiguration() -> UIContentConfiguration {
-        BlockBookmarkConfiguration(state: bookmarkData.blockBookmarkState)
+    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
+        switch bookmarkData.blockBookmarkState {
+        case .none:
+            return BlocksFileEmptyViewConfiguration(
+                image: UIImage.blockFile.empty.bookmark,
+                text: "Add a web bookmark".localized,
+                state: .default
+            )
+        case let .fetched(payload):
+            return BlockBookmarkConfiguration(payload: payload)
+        case let .onlyURL(url):
+            return BlockBookmarkOnlyUrlConfiguration(ulr: url)
+        }
     }
     
     func didSelectRowInTableView() {

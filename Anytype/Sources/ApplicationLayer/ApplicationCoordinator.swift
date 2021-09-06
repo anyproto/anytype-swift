@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
+import AnytypeCore
 
 final class ApplicationCoordinator {
     
@@ -39,13 +40,8 @@ final class ApplicationCoordinator {
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
-                
-        controller.navigationBar.compactAppearance = navBarAppearance
-        controller.navigationBar.standardAppearance = navBarAppearance
-        controller.navigationBar.scrollEdgeAppearance = navBarAppearance
         
-        controller.navigationBar.barTintColor = UIColor.darkColdGray
-        controller.navigationBar.tintColor = UIColor.darkColdGray
+        modifyNavigationBarAppearance(navBarAppearance, controller)
 
         return controller
     }
@@ -92,7 +88,7 @@ private extension ApplicationCoordinator {
         startNewRootView(authAssembly.authView())
     }
     
-}
+} 
 
 // MARK: - MainWindowHolde
 
@@ -106,35 +102,26 @@ extension ApplicationCoordinator: MainWindowHolder {
         )
         self.rootNavigationController = rootNavigationController
         
+        
         window.rootViewController = rootNavigationController
         window.makeKeyAndVisible()
-    }
-    
-    func configureNavigationBarWithOpaqueBackground() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.shadowImage = UIImage()
-        navBarAppearance.shadowColor = nil
-        
-        modifyNavigationBarAppearance(navBarAppearance)
-    }
-    
-    func configureNavigationBarWithTransparentBackground() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        
-        modifyNavigationBarAppearance(navBarAppearance)
     }
     
     func configureMiddlewareConfiguration() {
         MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
     }
     
-    private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance) {
-        rootNavigationController.navigationBar.compactAppearance = appearance
-        rootNavigationController.navigationBar.standardAppearance = appearance
-        rootNavigationController.navigationBar.scrollEdgeAppearance = appearance
-        rootNavigationController.navigationBar.barTintColor = UIColor.darkColdGray
-        rootNavigationController.navigationBar.tintColor = UIColor.darkColdGray
+    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+        rootNavigationController.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
     }
+    
+    private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance,
+                                               _ vc: UINavigationController) {
+        vc.navigationBar.compactAppearance = appearance
+        vc.navigationBar.standardAppearance = appearance
+        vc.navigationBar.scrollEdgeAppearance = appearance
+        vc.navigationBar.barTintColor = UIColor.grayscaleWhite
+        vc.navigationBar.tintColor = UIColor.grayscaleWhite
+    }
+    
 }

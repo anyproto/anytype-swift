@@ -4,16 +4,16 @@ import Amplitude
 
 extension HomeTabsView {
     enum Tab {
-        case favourites
-        case recent
         case inbox
+        case recent
+        case favourites
         case archive
     }
 }
 
 struct HomeTabsView: View {
     @EnvironmentObject var model: HomeViewModel
-    @State private var tabSelection = Tab.favourites
+    @State private var tabSelection = Tab.inbox
     
     let offsetChanged: (CGPoint) -> Void
     
@@ -26,12 +26,12 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
-                .tag(Tab.favourites)
-            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.recent)
             HomeCollectionView(cellData: model.inboxCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.inbox)
+            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.recent)
+            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
+            .tag(Tab.favourites)
             HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.archive)
         }
@@ -64,13 +64,15 @@ struct HomeTabsView: View {
     
     
     private var tabHeaders: some View {
-        HStack(){
-            tabButton(text: "Favorites", tab: .favourites)
-            tabButton(text: "Recent", tab: .recent)
+        HStack(spacing: 20) {
             tabButton(text: "Inbox", tab: .inbox)
+            tabButton(text: "Recent", tab: .recent)
+            tabButton(text: "Favorites", tab: .favourites)
             tabButton(text: "Archive", tab: .archive)
+            Spacer()
         }
-        .padding()
+        .padding(.leading, 20)
+        .frame(height: 72, alignment: .center)
     }
     
     private func tabButton(text: String, tab: Tab) -> some View {

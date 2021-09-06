@@ -40,12 +40,11 @@ struct UserIconView: View {
                     .url(source.resolvedUrl)
                     .setProcessors(
                         [
-                            ResizingImageProcessor(
-                                referenceSize: Constants.size,
-                                mode: .aspectFill
-                            ),
-                            CroppingImageProcessor(size: Constants.size),
-                            RoundCornerImageProcessor(radius: .widthFraction(0.5))
+                            KFProcessorBuilder(
+                                scalingType: .resizing(.aspectFill),
+                                targetSize: Constants.size,
+                                cornerRadius: .widthFraction(0.5)
+                            ).processor
                         ]
                     )
                     .fade(duration: 0.25)
@@ -53,18 +52,21 @@ struct UserIconView: View {
         }
     }
     
-    private func placeholderIcon(_ character: Character?) -> some View {
-        AnytypeText(
-            character.flatMap { String($0) } ?? "",
-            name: .graphik,
-            size: 45,
-            weight: .regular
-        )
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .foregroundColor(.black)
-        .blendMode(.overlay)
-        .background(HomeBackgroundBlurView())
-        .clipShape(Circle())
+    private func placeholderIcon(_ character: Character?) -> some View {        
+        HomeBackgroundBlurView()
+            .clipShape(Circle())
+            .overlay(
+                AnytypeText(
+                    character.flatMap { String($0) } ?? "",
+                    name: .inter,
+                    size: 45,
+                    weight: .regular
+                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .foregroundColor(.black)
+                .blendMode(.overlay)
+                .padding(.top, 2)
+            )
     }
     
 }

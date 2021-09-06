@@ -11,21 +11,14 @@ extension UITextView: Mentionable {
         let mentionSearchRange = NSRange(location: 0, length: selectedRange.location)
         
         var result = false
-        var mentionLocation: Int?
         attributedText.enumerateAttribute(.mention, in: mentionSearchRange) { value, subrange, shouldStop in
             guard value is String,
                   subrange.location + subrange.length == selectedRange.location else { return }
+
             let mutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
-            removeMentionInteractionButton(from: subrange)
             mutableAttributedString.deleteCharacters(in: subrange)
-            if subrange.location > 0 {
-                let mentionAttachmentRange = NSRange(location: subrange.location - Constants.attachmentLenght,
-                                                     length: Constants.attachmentLenght)
-                removeMentionInteractionButton(from: mentionAttachmentRange)
-                mutableAttributedString.deleteCharacters(in: mentionAttachmentRange)
-                mentionLocation = mentionAttachmentRange.location
-            }
             result = true
+
             // If we will set empty attributed string it will erase all typing attributes
             if mutableAttributedString.length == 0 {
                 let oldTypingAttributes = typingAttributes
@@ -34,17 +27,18 @@ extension UITextView: Mentionable {
             } else {
                 attributedText = mutableAttributedString
             }
-            if let location = mentionLocation {
-                selectedRange = NSRange(location: location, length: 0)
-            }
+
+            selectedRange = NSRange(location: subrange.location, length: 0)
             shouldStop[0] = true
         }
         return result
     }
     
-    func insert(_ mention: MentionObject,
-                from: UITextPosition,
-                to: UITextPosition) {
+    func insert(
+        _ mention: MentionObject,
+        from: UITextPosition,
+        to: UITextPosition
+    ) {
         guard let name = mention.name else { return }
         let pageId = mention.id
         let length = offset(from: from, to: to)
@@ -52,31 +46,23 @@ extension UITextView: Mentionable {
         let replacementRange = NSRange(location: location, length: length)
         let attributedString = NSMutableAttributedString(attributedString: attributedText)
         attributedString.deleteCharacters(in: replacementRange)
-        
-        let mentionAttachment = MentionAttachment(
-            name: name, pageId: pageId, icon: mention.icon
-        )
-        let mentionString = NSMutableAttributedString(attachment: mentionAttachment)
-        let font = self.font ?? .body
-        mentionString.addAttribute(.font, value: font, range: NSRange(location: 0, length: 1))
-        let mentionNameString = NSAttributedString(string: name,
-                                                   attributes: [.mention: pageId,
-                                                                .font: font])
-        mentionString.append(mentionNameString)
-        
-        attributedString.insert(mentionString, at: location)
         attributedText = attributedString
-        selectedRange = NSRange(location: location + mentionString.length, length: 0)
-    }
-    
-    private func removeMentionInteractionButton(from range: NSRange) {
-        guard let start = position(from: beginningOfDocument, offset: range.location),
-              let end = position(from: start, offset: range.length),
-              let textRange = textRange(from: start, to: end) else { return }
-        let rect = firstRect(for: textRange)
-        let view = hitTest(CGPoint(x: rect.midX, y: rect.midY), with: nil)
-        if view is MentionButton {
-            view?.removeFromSuperview()
-        }
+        insertStringToAttributedString(
+            name,
+            location: location
+        )
+        let modifier = MarkStyleModifier(
+            attributedText: NSMutableAttributedString(attributedString: attributedText),
+            defaultNonCodeFont: .bodyRegular
+        )
+        modifier.apply(
+            .mention(pageId),
+            range: NSRange(
+                location: location,
+                length: name.count
+            )
+        )
+        attributedText = NSAttributedString(attributedString: modifier.attributedString)
+        selectedRange = NSRange(location: location + name.count + Constants.attachmentLenght, length: 0)
     }
 }

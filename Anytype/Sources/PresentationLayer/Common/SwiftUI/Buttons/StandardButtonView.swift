@@ -4,21 +4,33 @@ enum StandardButtonStyle {
     case primary
     case secondary
     
-    var backgroundColor: Color {
+    func backgroundColor(disabled: Bool) -> Color {
         switch self {
         case .secondary:
             return .buttonSecondary
         case .primary:
-            return .buttonPrimary
+            if disabled {
+                return .stroke
+            } else {
+                return .buttonPrimary
+            }
         }
     }
     
-    var textColor: Color {
+    func textColor(disabled: Bool) -> Color {
         switch self {
         case .secondary:
-            return .buttonSecondaryText
+            if disabled {
+                return .textSecondary
+            } else {
+                return .buttonSecondaryText
+            }
         case .primary:
-            return .buttonPrimartText
+            if disabled {
+                return .white
+            } else {
+                return .buttonPrimartText
+            }
         }
     }
     
@@ -38,12 +50,12 @@ struct StandardButtonView: View {
     let style: StandardButtonStyle
     
     var body: some View {
-        AnytypeText(text, style: .headline)
+        AnytypeText(text, style: style == .primary ? .button1Semibold : .button1Regular)
             .padding(.all)
-            .foregroundColor(disabled ? .textSecondary : style.textColor)
+            .foregroundColor(style.textColor(disabled: disabled))
             .frame(minWidth: 0, maxWidth: .infinity)
-            .background(style.backgroundColor)
-            .cornerRadius(8.0)
+            .background(style.backgroundColor(disabled: disabled))
+            .cornerRadius(10.0)
             .eraseToAnyView()
             .ifLet(style.borderColor) { button, borderColor in
                 button.overlay(
@@ -56,10 +68,10 @@ struct StandardButtonView: View {
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            StandardButton(disabled: false ,text: "Button text", style: .secondary, action: {})
-            StandardButton(disabled: true ,text: "Button text", style: .secondary, action: {})
-            StandardButton(disabled: false ,text: "Button text", style: .primary, action: {})
-            StandardButton(disabled: true ,text: "Button text", style: .primary, action: {})
+            StandardButton(disabled: false ,text: "Secondary enabled", style: .secondary, action: {})
+            StandardButton(disabled: true ,text: "Secondary disabled", style: .secondary, action: {})
+            StandardButton(disabled: false ,text: "Primary enabled", style: .primary, action: {})
+            StandardButton(disabled: true ,text: "Primary disabled", style: .primary, action: {})
         }.padding()
     }
 }

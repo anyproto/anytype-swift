@@ -47,7 +47,7 @@ final class SegmentItemView: UIView {
         addGestureRecognizer(tapGestureRecognizer)
 
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.bodyMedium
+        label.font = UIFont.uxCalloutMedium
         label.tintColor = UIColor.grayscale90
 
         addSubview(label)

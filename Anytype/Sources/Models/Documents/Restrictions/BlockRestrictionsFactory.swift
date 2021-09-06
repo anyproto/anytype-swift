@@ -13,8 +13,14 @@ struct BlockRestrictionsFactory {
             return self.makeTextRestrictions(for: text)
         case .divider:
             return DividerBlockRestrictions()
-        case .file:
-            return FileBlockRestrictions()
+        case let .file(contentType):
+            switch contentType {
+            case .image:
+                return ImageBlockRestrictions()
+            default:
+                return FileBlockRestrictions()
+            }
+            
         case .link:
             return PageBlockRestrictions()
         case .bookmark:
@@ -28,7 +34,9 @@ struct BlockRestrictionsFactory {
         switch contentType {
         case .text:
             return TextBlockRestrictions()
-        case .title, .header, .header2, .header3, .header4:
+        case .title, .description:
+            return TitleBlockRestrictions()
+        case .header, .header2, .header3, .header4:
             return HeaderBlockRestrictions()
         case .bulleted, .numbered, .toggle, .checkbox:
             return ListBlockRestrictions()

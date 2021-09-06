@@ -1,41 +1,19 @@
-//
-//  NSAttributedStringExtension.swift
-//  AnyType
-//
-//  Created by Батвинкин Денис Сергеевич on 10.03.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
-import Foundation
 import UIKit
 
+
 extension NSAttributedString {
-
-    /// Check if string has particular style at least for one symbol from range
-    /// - Parameter range: range over which the style are checked
-    /// - Returns: true if has given style otherwise false
-    func hasTrait(trait: UIFontDescriptor.SymbolicTraits, at range: NSRange) -> Bool {
-        guard length > 0 else { return false }
-        var hasStyle = false
-
-        enumerateAttribute(.font, in: range) { font, _, shouldStop in
-            guard let font = font as? UIFont else { return }
-
-            if font.fontDescriptor.symbolicTraits.contains(trait) {
-                hasStyle = true
-                shouldStop[0] = true
-            }
-        }
-        return hasStyle
-    }
     
-    func wholeStringFontHasTrait(trait: UIFontDescriptor.SymbolicTraits) -> Bool {
-        guard length != 0 else { return false }
+    func isFontInWhole(range: NSRange, has trait: UIFontDescriptor.SymbolicTraits) -> Bool {
+        guard isRangeValid(range) else { return false }
         var result = true
         enumerateAttribute(
             .font,
-            in: NSRange(location: 0, length: length)) { value, _, shouldStop in
-            guard let font = value as? UIFont else { return }
+            in: range) { value, _, shouldStop in
+            guard let font = value as? UIFont else {
+                result = false
+                shouldStop[0] = true
+                return
+            }
             if !font.fontDescriptor.symbolicTraits.contains(trait) {
                 result = false
                 shouldStop[0] = true
@@ -43,23 +21,17 @@ extension NSAttributedString {
         }
         return result
     }
-
-    /// Check if string has attribute
-    /// - Parameters:
-    ///   - attributeKey: attributed that we check
-    ///   - range: attributed range
-    /// - Returns: true if attribute founded otherweise false
-    func hasAttribute(_ attributeKey: NSAttributedString.Key, at range: NSRange) -> Bool {
-        guard length > 0 else { return false }
-        
-        let attributeValue = attribute(
-            attributeKey,
-            at: range.location,
-            longestEffectiveRange: nil,
-            in: range
-        )
-        
-        return !attributeValue.isNil
+    
+    func isEverySymbol(in range: NSRange, has attributeKey: Key) -> Bool {
+        guard isRangeValid(range) else { return false }
+        var result = true
+        enumerateAttribute(attributeKey, in: range) { value, _, shouldStop in
+            if value == nil {
+                result = false
+                shouldStop[0] = true
+            }
+        }
+        return result
     }
     
     /// Add plain string to attributed string and apply all attributes in range of all current string to plain string
@@ -73,7 +45,12 @@ extension NSAttributedString {
     func attributedStringByInserting(_ string: String,
                                      at index: Int,
                                      attachmentAttributes: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
-        guard !string.isEmpty, index <= length else { return self }
+        guard length != 0 else {
+            return NSAttributedString(string: string)
+        }
+        guard !string.isEmpty, index <= length else {
+            return self
+        }
         let attributesIndex = index == length ? index - 1 : index
         var attributesAtIndex = attributes(at: attributesIndex,
                                            effectiveRange: nil)
@@ -94,17 +71,66 @@ extension NSAttributedString {
         return mutableCopy.string
     }
     
-    func wholeStringWithCodeMarkup() -> Bool {
-        guard length != 0 else { return false }
+    func isCodeFontInWhole(range: NSRange) -> Bool {
+        guard isRangeValid(range) else { return false }
         var result = true
-        enumerateAttribute(.font,
-                           in: NSRange(location: 0, length: length)) { value, _, shouldStop in
-            guard let font = value as? UIFont else { return }
+        enumerateAttribute(
+            .font,
+            in: range
+        ) { value, _, shouldStop in
+            guard let font = value as? UIFont else {
+                result = false
+                shouldStop[0] = true
+                return
+            }
             if !font.isCode {
                 result = false
                 shouldStop[0] = true
             }
         }
         return result
+    }
+    
+    /// Get value by attribute in attributed string
+    ///
+    /// Example: value exists in rangeWithValue (0, 5)
+    /// Will return true if rangeWithValue contains range
+    /// Will return false otherwise
+    ///
+    /// - Parameters:
+    ///   - attributeKey: Key by which to search value for
+    ///   - range: Range at which to search value for
+    /// - Returns: Returns non nil value only if it exists in a whole passed range
+    func value<Result>(for attributeKey: NSAttributedString.Key, range: NSRange) -> Result? {
+        guard isRangeValid(range) else { return nil }
+        var longestRange = NSRange()
+        let value = attribute(
+            attributeKey,
+            at: range.location,
+            longestEffectiveRange: &longestRange,
+            in: range
+        )
+        guard let intersection = longestRange.intersection(range),
+              intersection == range else {
+            return nil
+        }
+        return value as? Result
+    }
+    
+    func isRangeValid(_ range: NSRange) -> Bool {
+        length > 0 && length >= range.length + range.location && range.location >= 0
+    }
+    
+    func rangesWith(attribute: Key) -> [NSRange]? {
+        guard length > 0 else { return nil }
+        var ranges = [NSRange]()
+        enumerateAttribute(
+            attribute,
+            in: NSRange(location: 0, length: length)
+        ) { value, subrange, _ in
+            guard attribute.checkValue(value) else { return }
+            ranges.append(subrange)
+        }
+        return ranges
     }
 }

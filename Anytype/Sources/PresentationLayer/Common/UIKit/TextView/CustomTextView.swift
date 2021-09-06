@@ -2,30 +2,21 @@ import Combine
 import UIKit
 import BlocksModels
 
+
 final class CustomTextView: UIView {
     
-    weak var delegate: TextViewDelegate?
-    weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
+    weak var delegate: TextViewDelegate? {
         didSet {
-            textView.userInteractionDelegate = userInteractionDelegate
+            textView.customTextViewDelegate = delegate
         }
     }
-    
+
     var textSize: CGSize?
-
     private(set) lazy var textView = createTextView()
-    let accessoryViewSwitcher: AccessoryViewSwitcher
-    
     private var firstResponderSubscription: AnyCancellable?
+    var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
 
-    let options: CustomTextViewOptions
-    
-    init(
-        options: CustomTextViewOptions,
-        accessoryViewSwitcher: AccessoryViewSwitcher
-    ) {
-        self.options = options
-        self.accessoryViewSwitcher = accessoryViewSwitcher
+    init() {
         super.init(frame: .zero)
 
         setupView()
@@ -46,6 +37,10 @@ final class CustomTextView: UIView {
         addSubview(textView) {
             $0.pinToSuperview()
         }
+    }
+
+    func setCustomTextViewOptions(options: CustomTextViewOptions) {
+        self.options = options
     }
 }
 
@@ -75,7 +70,7 @@ extension CustomTextView: TextViewManagingFocus {
 
 // MARK: - Views
 
-extension CustomTextView {
+private extension CustomTextView {
     func createTextView() -> TextViewWithPlaceholder {
         let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { [weak self] change in
             self?.delegate?.changeFirstResponderState(change)
@@ -83,6 +78,29 @@ extension CustomTextView {
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
+        textView.linkTextAttributes = [:]
+        textView.removeInteractions { interaction in
+            return interaction is UIContextMenuInteraction ||
+            interaction is UIDragInteraction ||
+            interaction is UIDropInteraction
+        }
+        let linkSelection = TextViewAttributeSelectionInteraction(
+            textView: textView,
+            attributeKey: .link,
+            numberOfTapsRequired: 2,
+            tapHandler: LinkAttributeSelectionHandler()
+        )
+        let mentionSelectionHandler = MentionAttributeSelectionHandler { [weak self] pageId in
+            self?.delegate?.didReceiveAction(.showPage(pageId))
+        }
+        let mentionSelection = TextViewAttributeSelectionInteraction(
+            textView: textView,
+            attributeKey: .mention,
+            numberOfTapsRequired: 1,
+            tapHandler: mentionSelectionHandler
+        )
+        textView.addInteraction(linkSelection)
+        textView.addInteraction(mentionSelection)
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }

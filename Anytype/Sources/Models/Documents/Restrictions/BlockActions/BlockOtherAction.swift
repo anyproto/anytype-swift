@@ -1,3 +1,5 @@
+import BlocksModels
+
 
 enum BlockOtherAction: CaseIterable {
     case lineDivider
@@ -21,12 +23,12 @@ enum BlockOtherAction: CaseIterable {
         }
     }
     
-    var blockViewsType: BlockViewType {
+    var blockViewsType: BlockContentType {
         switch self {
         case .dotsDivider:
-            return .other(.dotsDivider)
+            return .divider(.dots)
         case .lineDivider:
-            return .other(.lineDivider)
+            return .divider(.line)
         }
     }
 }

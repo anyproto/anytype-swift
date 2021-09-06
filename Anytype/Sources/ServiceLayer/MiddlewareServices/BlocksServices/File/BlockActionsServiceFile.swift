@@ -13,10 +13,10 @@ private extension BlockActionsServiceFile {
 
 class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
-    func uploadDataAtFilePath(contextID: String, blockID: String, filePath: String) -> AnyPublisher<ServiceSuccess, Error>  {
+    func uploadDataAtFilePath(contextID: String, blockID: String, filePath: String) -> AnyPublisher<ResponseEvent, Error>  {
         Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "")
             .map(\.event)
-            .map(ServiceSuccess.init)
+            .map(ResponseEvent.init)
             .subscribe(on: DispatchQueue.global())
             .handleEvents(receiveSubscription: { _ in
                 // Analytics

@@ -1,7 +1,7 @@
+import BlocksModels
 
-import Foundation
 
 struct SelectionBucket {
     var count = 0
-    let turnIntoOptions: Set<BlockViewType>
+    let turnIntoOptions: Set<BlockContentType>
 }

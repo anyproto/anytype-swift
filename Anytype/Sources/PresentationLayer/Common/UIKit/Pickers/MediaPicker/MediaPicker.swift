@@ -1,4 +1,5 @@
 import PhotosUI
+import AnytypeCore
 
 final class MediaPicker: UIViewController {
     
@@ -90,7 +91,7 @@ extension MediaPicker: PHPickerViewControllerDelegate {
             forTypeIdentifier: identifier
         ) { [weak self] url, error in
             guard let self = self else { return }
-            assert(error == nil, "Fail load file: \(String(describing: error))")
+            anytypeAssert(error == nil, "Fail load file: \(String(describing: error))")
             
             DispatchQueue.main.async {
                 self.dismiss(animated: true)

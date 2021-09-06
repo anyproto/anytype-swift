@@ -13,11 +13,8 @@
 		0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537225D9C99E002F3F82 /* BlockContent.swift */; };
 		0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537425D9C99E002F3F82 /* BlockInformation.swift */; };
 		0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */; };
-		0A6D539B25D9C99F002F3F82 /* BlockActiveRecordProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537B25D9C99E002F3F82 /* BlockActiveRecordProtocol.swift */; };
 		0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */; };
 		0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537D25D9C99E002F3F82 /* Aliases.swift */; };
-		0A6D539E25D9C99F002F3F82 /* BlockActiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537E25D9C99E002F3F82 /* BlockActiveRecord.swift */; };
-		0A6D539F25D9C99F002F3F82 /* BlockHasDidChangePublisherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */; };
 		0A6D53A225D9C99F002F3F82 /* DetailsDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538225D9C99F002F3F82 /* DetailsDataProtocol.swift */; };
 		0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */; };
 		0A6D53A725D9C99F002F3F82 /* RootBlocksContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */; };
@@ -38,6 +35,9 @@
 		3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21B2687809900C78C28 /* BlockContentDivider.swift */; };
 		3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */; };
 		3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21F268781C300C78C28 /* BlockContentLayout.swift */; };
+		3D43FD8526B14E9E0094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */; };
+		3D53F03126B3009F001A6EEE /* DetailsEntryConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03026B3009F001A6EEE /* DetailsEntryConverter.swift */; };
+		3D53F03326B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */; };
 		3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */; };
 		3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B42697647600149864 /* MiddlewareColor.swift */; };
 		3DB7DCA42639DBE100635E4C /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA32639DBE100635E4C /* BlockModel.swift */; };
@@ -57,11 +57,8 @@
 		0A6D537225D9C99E002F3F82 /* BlockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockContent.swift; sourceTree = "<group>"; };
 		0A6D537425D9C99E002F3F82 /* BlockInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformation.swift; sourceTree = "<group>"; };
 		0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelProtocol.swift; sourceTree = "<group>"; };
-		0A6D537B25D9C99E002F3F82 /* BlockActiveRecordProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActiveRecordProtocol.swift; sourceTree = "<group>"; };
 		0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+CommonStructures.swift"; sourceTree = "<group>"; };
 		0A6D537D25D9C99E002F3F82 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
-		0A6D537E25D9C99E002F3F82 /* BlockActiveRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActiveRecord.swift; sourceTree = "<group>"; };
-		0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockHasDidChangePublisherProtocol.swift; sourceTree = "<group>"; };
 		0A6D538225D9C99F002F3F82 /* DetailsDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsDataProtocol.swift; sourceTree = "<group>"; };
 		0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeBlockBuilder.swift; sourceTree = "<group>"; };
 		0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootBlocksContainer.swift; sourceTree = "<group>"; };
@@ -83,6 +80,9 @@
 		3D22B21B2687809900C78C28 /* BlockContentDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentDivider.swift; sourceTree = "<group>"; };
 		3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentBookmark.swift; sourceTree = "<group>"; };
 		3D22B21F268781C300C78C28 /* BlockContentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentLayout.swift; sourceTree = "<group>"; };
+		3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D53F03026B3009F001A6EEE /* DetailsEntryConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsEntryConverter.swift; sourceTree = "<group>"; };
+		3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Google_Protobuf_Value+Entries.swift"; sourceTree = "<group>"; };
 		3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInformationConverter.swift; sourceTree = "<group>"; };
 		3DB692B42697647600149864 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		3DB7DCA32639DBE100635E4C /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
@@ -99,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D43FD8526B14E9E0094D4C0 /* AnytypeCore.framework in Frameworks */,
 				53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,18 +181,11 @@
 			path = DetailsProvider;
 			sourceTree = "<group>";
 		};
-		3D0BCAB7266638C1002F7A0D /* BlockActiveRecord */ = {
-			isa = PBXGroup;
-			children = (
-				0A6D537B25D9C99E002F3F82 /* BlockActiveRecordProtocol.swift */,
-				0A6D537E25D9C99E002F3F82 /* BlockActiveRecord.swift */,
-			);
-			path = BlockActiveRecord;
-			sourceTree = "<group>";
-		};
 		3D0BCABA26663A70002F7A0D /* BlockModel */ = {
 			isa = PBXGroup;
 			children = (
+				3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */,
+				3D53F03026B3009F001A6EEE /* DetailsEntryConverter.swift */,
 				3DB7DCA32639DBE100635E4C /* BlockModel.swift */,
 				0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */,
 			);
@@ -238,11 +232,9 @@
 				3D0BCADF26666BE9002F7A0D /* BlockContent */,
 				3D0BCABB26663A88002F7A0D /* BlockUserSession */,
 				3D0BCABA26663A70002F7A0D /* BlockModel */,
-				3D0BCAB7266638C1002F7A0D /* BlockActiveRecord */,
 				3DB7DCA22639DBCD00635E4C /* BlockContainer */,
 				0A6D536C25D9C99E002F3F82 /* BlockContainerBuilder.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
-				0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */,
 				0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */,
 				0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
@@ -293,6 +285,7 @@
 		53856BE0265BC19400CB1FAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */,
 				53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */,
 			);
 			name = Frameworks;
@@ -383,13 +376,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				12A259B6265808ED00B71DA1 /* DetailsContainer.swift in Sources */,
-				0A6D539E25D9C99F002F3F82 /* BlockActiveRecord.swift in Sources */,
-				0A6D539B25D9C99F002F3F82 /* BlockActiveRecordProtocol.swift in Sources */,
 				12A259B22658018800B71DA1 /* LegacyDetailsModel.swift in Sources */,
 				0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */,
 				12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */,
 				3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */,
 				12A259B42658030A00B71DA1 /* DetailsData.swift in Sources */,
+				3D53F03126B3009F001A6EEE /* DetailsEntryConverter.swift in Sources */,
 				3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
 				3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */,
@@ -407,12 +399,12 @@
 				3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */,
 				0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */,
 				129D788E2694965700DA6757 /* LayoutAlignment.swift in Sources */,
+				3D53F03326B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift in Sources */,
 				125E7C73265BDDA700CADD05 /* DetailsKind.swift in Sources */,
 				3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */,
 				0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */,
 				0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */,
 				EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */,
-				0A6D539F25D9C99F002F3F82 /* BlockHasDidChangePublisherProtocol.swift in Sources */,
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* BlockContainerBuilder.swift in Sources */,

@@ -18,12 +18,16 @@ private extension StyleViewController {
 
         private let identifier = UUID()
 
-        static let all: [Item] = [
-            Item(kind: .header, text: "Title".localized, font: .heading),
-            Item(kind: .header2, text: "Heading".localized, font: .subheading),
-            Item(kind: .header3, text: "Subheading".localized, font: .headlineSemibold),
-            Item(kind: .text, text: "Text".localized, font: UIFont.body)
-        ]
+        static func all(selectedStyle: BlockText.Style) -> [Item] {
+            let title: BlockText.Style = selectedStyle == .title ? .title : .header
+
+            return [
+                Item(kind: title, text: "Title".localized, font: .title),
+                Item(kind: .header2, text: "Heading".localized, font: .heading),
+                Item(kind: .header3, text: "Subheading".localized, font: .subheading),
+                Item(kind: .text, text: "Text".localized, font: UIFont.bodyRegular)
+            ]
+        }
     }
 
     struct ListItem {
@@ -112,8 +116,9 @@ final class StyleViewController: UIViewController {
     private var actionHandler: ActionHandler
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
-    private var askTextAttributes: () -> TextAttributesViewController.AttributesState
+    private var didTapMarkupButton: () -> Void
     private var style: BlockText.Style
+    private var restrictions: BlockRestrictions
     // deselect action will be performed on new selection
     private var currentDeselectAction: (() -> Void)?
 
@@ -126,17 +131,19 @@ final class StyleViewController: UIViewController {
     init(
         viewControllerForPresenting: UIViewController,
         style: BlockText.Style,
+        restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
-        askTextAttributes: @escaping () -> TextAttributesViewController.AttributesState,
+        didTapMarkupButton: @escaping () -> Void,
         actionHandler: @escaping ActionHandler
     ) {
         self.viewControllerForPresenting = viewControllerForPresenting
         self.style = style
         self.askColor = askColor
         self.askBackgroundColor = askBackgroundColor
-        self.askTextAttributes = askTextAttributes
+        self.didTapMarkupButton = didTapMarkupButton
         self.actionHandler = actionHandler
+        self.restrictions = restrictions
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -191,9 +198,15 @@ final class StyleViewController: UIViewController {
             let button = ButtonsFactory.roundedBorderуButton(image: item.icon)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.heightAnchor.constraint(equalToConstant: 48).isActive = true
+
+            if item.kind != self.style {
+                let isEnabled = restrictions.turnIntoStyles.contains(.text(item.kind))
+                button.isEnabled = isEnabled
+            }
             listStackView.addArrangedSubview(button)
 
             setupAction(for: button, with: item.kind)
+
         }
     }
 
@@ -203,13 +216,22 @@ final class StyleViewController: UIViewController {
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
         setupAction(for: calloutButton, with: .code)
 
+        if .quote != self.style {
+            highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
+        }
+        if .code != self.style {
+            calloutButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.code))
+        }
+
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
-        moreButton.addTarget(self, action: #selector(moreActionHandler), for: .touchUpInside)
+        moreButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.didTapMarkupButton()
+        }), for: .touchUpInside)
 
         let trailingStackView = UIStackView()
         let leadingDumbView = UIView()
@@ -276,6 +298,12 @@ final class StyleViewController: UIViewController {
             content.text = item.text
             content.font = item.font
 
+            if item.kind != self?.style {
+                let isDisabled = !(self?.restrictions.turnIntoStyles.contains(.text(item.kind)) ?? false)
+                cell.isUserInteractionEnabled = !isDisabled
+                content.isDisabled = isDisabled
+            }
+
             cell.contentConfiguration = content
         }
 
@@ -287,7 +315,7 @@ final class StyleViewController: UIViewController {
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(Item.all)
+        snapshot.appendItems(Item.all(selectedStyle: style))
         styleDataSource?.apply(snapshot, animatingDifferences: false)
     }
 
@@ -300,7 +328,7 @@ final class StyleViewController: UIViewController {
         currentDeselectAction?()
         currentDeselectAction = deselectAction
         if style == .code {
-            actionHandler(.toggleFontStyle(.keyboard))
+            actionHandler(.toggleWholeBlockMarkup(.keyboard))
         } else {
             actionHandler(.turnInto(style))
         }
@@ -309,7 +337,7 @@ final class StyleViewController: UIViewController {
     @objc private func colorActionHandler() {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
 
-        let fpc = FloatingPanelController()
+        let fpc = FloatingPanelController(delegate: self)
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 16.0
         // Define shadows
@@ -341,44 +369,6 @@ final class StyleViewController: UIViewController {
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }
-
-    @objc private func moreActionHandler() {
-        guard let viewControllerForPresenting = viewControllerForPresenting else { return }
-
-        let fpc = FloatingPanelController()
-        let appearance = SurfaceAppearance()
-        appearance.cornerRadius = 16.0
-        // Define shadows
-        let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.grayscale90
-        shadow.offset = CGSize(width: 0, height: 4)
-        shadow.radius = 40
-        shadow.opacity = 0.25
-        appearance.shadows = [shadow]
-
-        let sizeDifference = StylePanelLayout.Constant.panelHeight -  TextAttributesPanelLayout.Constant.panelHeight
-        fpc.layout = TextAttributesPanelLayout(additonalHeight: sizeDifference)
-
-        let bottomInset = viewControllerForPresenting.view.safeAreaInsets.bottom + 6 + sizeDifference
-        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: bottomInset, right: 10.0)
-        fpc.surfaceView.layer.cornerCurve = .continuous
-        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        fpc.surfaceView.grabberHandle.barColor = .grayscale30
-        fpc.surfaceView.appearance = appearance
-        fpc.isRemovalInteractionEnabled = true
-        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
-        fpc.backdropView.backgroundColor = .clear
-        fpc.contentMode = .static
-
-        let attributes = askTextAttributes()
-
-        let contentVC = TextAttributesViewController(
-            attributesState: attributes,
-            actionHandler: actionHandler
-        )
-        fpc.set(contentViewController: contentVC)
-        fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
-    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -392,5 +382,18 @@ extension StyleViewController: UICollectionViewDelegate {
         selectStyle(style.kind) {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
+    }
+}
+
+// MARK: - FloatingPanelControllerDelegate
+
+extension StyleViewController: FloatingPanelControllerDelegate {
+    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
+            return true
+        }
+        return false
     }
 }

@@ -14,12 +14,17 @@ final class URLInputViewController: UIViewController {
         urlInputView
     }
     
-    init(didCreateURL: @escaping (URL) -> Void) {
+    init(
+        url: URL? = nil,
+        didSetURL: @escaping (URL?) -> Void
+    ) {
         super.init(nibName: nil, bundle: nil)
-        urlInputView = URLInputView(didCreateURL: { [weak self] url in
-            didCreateURL(url)
+        urlInputView = URLInputView(
+            url: url
+        ) { [weak self] url in
+            didSetURL(url)
             self?.dismiss(animated: false)
-        })
+        }
         urlInputView?.translatesAutoresizingMaskIntoConstraints = false
     }
     

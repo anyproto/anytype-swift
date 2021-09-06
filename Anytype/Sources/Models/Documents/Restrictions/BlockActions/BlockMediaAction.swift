@@ -1,3 +1,4 @@
+import BlocksModels
 
 enum BlockMediaAction: CaseIterable {
     case file
@@ -51,18 +52,18 @@ enum BlockMediaAction: CaseIterable {
         }
     }
     
-    var blockViewsType: BlockViewType {
+    var blockViewsType: BlockContentType {
         switch self {
         case .file:
-            return .objects(.file)
+            return .file(.file)
         case .pictre:
-            return .objects(.picture)
+            return .file(.image)
         case .video:
-            return .objects(.video)
+            return .file(.video)
         case .bookmark:
-            return .objects(.bookmark)
+            return .bookmark(.page)
         case .codeSnippet:
-            return .other(.code)
+            return .text(.code)
         }
     }
 }

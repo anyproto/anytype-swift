@@ -2,25 +2,20 @@ import BlocksModels
 import UIKit
 
 struct VideoBlockViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            blockId,
-            fileData,
-            indentationLevel
+            indentationLevel,
+            information
         ] as [AnyHashable]
     }
     
+    let indentationLevel: Int
     let information: BlockInformation
     let fileData: BlockFile
-    let indentationLevel: Int
-    let contextualMenuHandler: DefaultContextualMenuHandler
     
+    let contextualMenuHandler: DefaultContextualMenuHandler
     let showVideoPicker: (BlockId) -> ()
     let downloadVideo: (FileId) -> ()
-    
-    func makeContentConfiguration() -> UIContentConfiguration {
-        VideoBlockConfiguration(fileData: fileData)
-    }
     
     func didSelectRowInTableView() {
         switch fileData.state {
@@ -44,5 +39,26 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         default:
             contextualMenuHandler.handle(action: action, info: information)
         }
+    }
+    
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+        switch fileData.state {
+        case .empty:
+            return emptyViewConfiguration(state: .default)
+        case .uploading:
+            return emptyViewConfiguration(state: .uploading)
+        case .error:
+            return emptyViewConfiguration(state: .error)
+        case .done:
+            return VideoBlockConfiguration(fileData: fileData)
+        }
+    }
+    
+    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+        BlocksFileEmptyViewConfiguration(
+            image: UIImage.blockFile.empty.video,
+            text: "Upload a video".localized,
+            state: state
+        )
     }
 }

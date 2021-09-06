@@ -3,39 +3,35 @@ import UIKit
 import BlocksModels
 
 struct CodeBlockViewModel: BlockViewModelProtocol {    
-    var diffable: AnyHashable {
+    var hashable: AnyHashable {
         [
-            textData,
-            indentationLevel,
-            blockId
+            information,
+            indentationLevel
         ] as [AnyHashable]
     }
     
-    let block: BlockActiveRecordProtocol
+    let block: BlockModelProtocol
     let textData: BlockText
-    var information: BlockInformation {
-        block.blockModel.information
-    }
-    var indentationLevel: Int {
-        block.indentationLevel
-    }
+    var information: BlockInformation { block.information }
+    var indentationLevel: Int { block.indentationLevel }
     private var codeLanguage: CodeLanguage {
-        CodeLanguage.create(middleware: information.fields[FieldName.codeLanguage]?.stringValue)
+        CodeLanguage.create(
+            middleware: information.fields[FieldName.codeLanguage]?.stringValue
+        )
     }
 
     let contextualMenuHandler: DefaultContextualMenuHandler
-    
     let becomeFirstResponder: (BlockModelProtocol) -> ()
-    let textDidChange: (BlockActiveRecordProtocol, UITextView) -> ()
-    let showCodeSelection: (BlockActiveRecordProtocol) -> ()
+    let textDidChange: (BlockModelProtocol, UITextView) -> ()
+    let showCodeSelection: (BlockModelProtocol) -> ()
 
-    func makeContentConfiguration() -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         return CodeBlockContentConfiguration(
             content: textData,
             backgroundColor: information.backgroundColor,
             codeLanguage: codeLanguage,
             becomeFirstResponder: {
-                self.becomeFirstResponder(self.block.blockModel)
+                self.becomeFirstResponder(self.block)
             },
             textDidChange: { textView in
                 self.textDidChange(self.block, textView)

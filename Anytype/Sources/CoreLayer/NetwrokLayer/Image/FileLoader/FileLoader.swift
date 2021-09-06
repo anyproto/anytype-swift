@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import AnytypeCore
 
 /// Entity to load file from remote URL
 final class FileLoader: NSObject {
@@ -29,7 +30,7 @@ final class FileLoader: NSObject {
                 progressSubject.send(.loaded(localURL))
                 progressSubject.send(completion: .finished)
             } catch {
-                assertionFailure(error.localizedDescription)
+                anytypeAssertionFailure(error.localizedDescription)
                 progressSubject.send(completion: .failure(error))
             }
         }

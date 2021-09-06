@@ -1,5 +1,6 @@
 import ProtobufMessages
 import BlocksModels
+import AnytypeCore
 
 enum BlocksModelsConverter {
     private static let contentObjectAsEmptyPage = ContentObjectAsEmptyPage()
@@ -24,7 +25,7 @@ enum BlocksModelsConverter {
         case .relation: return nil
             
         default:
-            assertionFailure("No converter for type: \(String(describing: middleware))")
+            anytypeAssertionFailure("No converter for type: \(String(describing: middleware))")
             return nil
         }
     }

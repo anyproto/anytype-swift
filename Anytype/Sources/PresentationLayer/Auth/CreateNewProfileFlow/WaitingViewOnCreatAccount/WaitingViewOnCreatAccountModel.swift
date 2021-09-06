@@ -12,10 +12,12 @@ final class SignUpData: ObservableObject {
     }
 }
 
-class WaitingViewOnCreatAccountModel: ObservableObject {
+class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
+    private let loginStateService = ServiceLocator.shared.loginStateService()
+    private let homeViewAssembly = HomeViewAssembly()
     
-    private var diskStorage = DiskStorage()
+    private let diskStorage = DiskStorage()
     
     private let signUpData: SignUpData
     
@@ -33,7 +35,10 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             
-            self.authService.createAccount(profile: self.buildRequest(), alphaInviteCode: self.signUpData.inviteCode) { result in
+            self.authService.createAccount(
+                profile: self.buildRequest(),
+                alphaInviteCode: self.signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
+            ) { result in
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     
@@ -43,7 +48,8 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                         self.showError = true
                     case .success:
                         windowHolder?.configureMiddlewareConfiguration()
-                        windowHolder?.startNewRootView(self.obtainCompletionView())
+                        self.loginStateService.setupStateAfterLoginOrAuth()
+                        windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
                     }
                 }
             }
@@ -52,16 +58,11 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     
     private func buildRequest() -> CreateAccountRequest {
         let imagePath = signUpData.image.flatMap {
-            diskStorage.saveImage(imageName: "avatar_\(signUpData.userName)_\(UUID())", image: $0)
+            diskStorage.saveImage(imageName: "avatar_\(signUpData.userName.trimmingCharacters(in: .whitespacesAndNewlines))_\(UUID())", image: $0)
         }
         
         let avatar = ProfileModel.Avatar.imagePath(imagePath ?? "")
                 
         return  CreateAccountRequest(name: signUpData.userName, avatar: avatar)
-    }
-    
-    private func obtainCompletionView() -> some View {
-        let completionView = CompletionAuthViewCoordinator()
-        return completionView.start()
     }
 }

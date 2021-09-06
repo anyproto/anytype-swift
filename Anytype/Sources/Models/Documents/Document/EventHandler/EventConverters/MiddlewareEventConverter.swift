@@ -1,15 +1,18 @@
 import ProtobufMessages
 import BlocksModels
+import AnytypeCore
 
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let container: RootBlockContainer
+    private let informationCreator: BlockInformationCreator
     
-    private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
-    
-    init(container: RootBlockContainer) {
+    init(
+        container: RootBlockContainer,
+        informationCreator: BlockInformationCreator) {
         self.updater = BlockUpdater(container)
         self.container = container
+        self.informationCreator = informationCreator
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate? {
@@ -19,7 +22,6 @@ final class MiddlewareEventConverter {
                 var block = block
 
                 block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
-                block.didChange()
             }
             return .update(blockIds: [fields.id])
         case let .blockAdd(value):
@@ -40,7 +42,7 @@ final class MiddlewareEventConverter {
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
-        
+    
         case let .blockSetChildrenIds(value):
             updater.set(children: value.childrenIds, parent: value.id)
             return .general
@@ -59,7 +61,7 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = alignment.asBlockModel else {
-                assertionFailure("We cannot parse alignment: \(value)")
+                anytypeAssertionFailure("We cannot parse alignment: \(value)")
                 return .general
             }
             
@@ -104,9 +106,19 @@ final class MiddlewareEventConverter {
             
             return .details(newDetails)
             
-        case .objectDetailsUnset:
-            assertionFailure("Not implemented")
-            return nil
+        case let .objectDetailsUnset(payload):
+            let details = container.detailsContainer.get(by: payload.id)
+            var newDetails: [DetailsKind: DetailsEntry<AnyHashable>] = details?.detailsData.details ?? [:]
+
+            // remove details with keys from payload
+            payload.keys.forEach { key in
+                guard let detailsKind = DetailsKind(rawValue: key) else { return }
+                newDetails.removeValue(forKey: detailsKind)
+            }
+            // save new details
+            let newDetailsData = DetailsData(details: newDetails, parentId: payload.id)
+            details?.detailsData = newDetailsData
+            return .details(newDetailsData)
             
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
@@ -270,68 +282,33 @@ final class MiddlewareEventConverter {
         /// After we open document, we would like to receive all blocks of opened page.
         /// For that, we send `blockShow` event to `eventHandler`.
         ///
-        case .objectShow: return .general
+        case .objectShow:
+            return .general
         default: return nil
         }
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
         guard var blockModel = container.blocksContainer.model(id: newData.id) else {
-            assertionFailure("Block model with id \(newData.id) not found in container")
+            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            assertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
             return .general
         }
-
         
-        let color = newData.hasColor ? newData.color.value : oldText.color?.rawValue
-        let text = newData.hasText ? newData.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
-        let checked = newData.hasChecked ? newData.checked.value : oldText.checked
-        let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
-        let marks = buildMarks(newData: newData, oldText: oldText)
-        
-        let middleContent = Anytype_Model_Block.Content.Text(
-            text: text,
-            style: style,
-            marks: marks,
-            checked: checked,
-            color: color ?? ""
-        )
-        
-        guard var textContent = ContentTextConverter().textContent(middleContent) else {
-            assertionFailure("We cannot block content from: \(middleContent)")
+        guard let newInformation = informationCreator.createBlockInformation(from: newData),
+              case let .text(textContent) = newInformation.content else {
             return .general
         }
-
-        if !newData.hasStyle {
-            textContent.contentType = oldText.contentType
-        }
-        textContent.number = oldText.number
+        blockModel.information = newInformation
         
-        blockModel.information.content = .text(textContent)
-        blockModel.information = blockValidator.validated(information: blockModel.information)
-        
-        return .update(blockIds: [newData.id])
-    }
-    
-    private func buildMarks(newData: Anytype_Event.Block.Set.Text, oldText: BlockText) -> Anytype_Model_Block.Content.Text.Marks {
-        typealias TextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
-        
-        let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : TextConverter.asMiddleware(attributedText: oldText.attributedText).marks
-        
-        // Workaroung: Some font could set bold style to attributed string
-        // So if header or title style has font that apply bold we remove it
-        // We need it if change style from subheading to text
-        let oldStyle = BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
-        if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
-            marks.marks.removeAll { mark in
-                mark.type == .bold
-            }
-        }
-        
-        return marks
+        // If toggle changed style to another style or vice versa
+        // we should rebuild all view to display/hide toggle's child blocks
+        let isOldStyleToggle = oldText.contentType == .toggle
+        let isNewStyleToggle = textContent.contentType == .toggle
+        let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
+        return toggleStyleChanged ? .general : .update(blockIds: [newData.id])
     }
 }

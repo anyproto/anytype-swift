@@ -29,7 +29,10 @@ platform :ios do
     )
 
     prefix = options[:release] ? "release" : "dev"
-    add_git_tag(tag: "#{prefix}/#{version}/#{build_number}")
+    add_git_tag(
+      tag: "#{prefix}/#{version}/#{build_number}",
+      force: true
+    )
 
     if !options[:release] 
       add_badge(
@@ -51,8 +54,6 @@ platform :ios do
     reset_git_repo(skip_clean: true)
 
     push_to_git_remote
-
-    upload_dsyms_to_crashlytics(release: options[:release])
   end
 
   private_lane :upload_build_to_testflight do 
@@ -70,15 +71,6 @@ platform :ios do
     )
   end
 
-  private_lane :upload_dsyms_to_crashlytics do |options| 
-    release_plist = "./Anytype/Resources/Plists/GoogleService-Info-Release.plist"
-    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
-
-    upload_symbols_to_crashlytics(
-      gsp_path: options[:release] ? release_plist : dev_plist
-    )
-  end
-
   # Test
 
   lane :test_build do
@@ -93,6 +85,22 @@ platform :ios do
       use_system_scm: true
     )
 
+  end
+
+  # bump_dev_version
+
+  lane :bump_dev_version do
+    ensure_git_status_clean
+
+    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+
+    commit_version_bump(
+      message: "Bump version #{version}(#{build_number})",
+      xcodeproj: "Anytype.xcodeproj"
+    )
+
+    add_git_tag(tag: "dev/#{version}/#{build_number}")
   end
 
   # Profiles

@@ -1,18 +1,11 @@
-//
-//  UrlResolver.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 21.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
+import AnytypeCore
 
 final class UrlResolver {
        
     static func resolvedUrl(_ urlType: UrlType) -> URL? {
         guard let gatewayUrl = MiddlewareConfigurationService.shared.configuration?.gatewayURL else {
-            assertionFailure("Configuration must be loaded")
+            anytypeAssertionFailure("Configuration must be loaded")
             return nil
         }
         

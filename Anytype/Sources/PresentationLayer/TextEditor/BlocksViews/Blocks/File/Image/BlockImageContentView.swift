@@ -2,16 +2,11 @@ import UIKit
 import Combine
 import BlocksModels
 import Kingfisher
+import AnytypeCore
 
 final class BlockImageContentView: UIView & UIContentView {
     
-    private var imageContentViewHeight: NSLayoutConstraint?
-    
     private let imageView = UIImageView()
-    private let emptyView = BlocksFileEmptyView(
-        image: UIImage.blockFile.empty.image,
-        text: Constants.emptyViewPlaceholderTitle
-    )
     
     private var currentConfiguration: BlockImageConfiguration
     var configuration: UIContentConfiguration {
@@ -38,23 +33,17 @@ final class BlockImageContentView: UIView & UIContentView {
         handleFile(currentConfiguration.fileData, nil)
     }
     
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func setupUIElements() {
-        imageView.contentMode = .scaleAspectFill
+        // TODO: Support alignments than looks beautiful
+        imageView.contentMode = .center
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
         
-        
-        emptyView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(emptyView)
-        addSubview(imageView)
+        addSubview(imageView) {
+            $0.pinToSuperview(insets: Layout.imageViewInsets)
+            $0.height.equal(to: Layout.imageContentViewDefaultHeight)
+        }
     }
     
     /// MARK: - EditorModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
@@ -63,106 +52,61 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
-
-        switch file.state {
-        case .empty:
-            addEmptyViewLayout()
-            emptyView.change(state: .empty)
-        case .uploading:
-            addEmptyViewLayout()
-            emptyView.change(state: .uploading)
-        case .error:
-            addEmptyViewLayout()
-            emptyView.change(state: .error)
-            
-        case .done:
-            addImageViewLayout()
-            setupImage(file, oldFile)
-        }
-        
+        anytypeAssert(file.state == .done, "Wrong state \(file.state) for block image")
+        setupImage(file, oldFile)
         invalidateIntrinsicContentSize()
-    }
-    
-    private func addImageViewLayout() {
-        emptyView.removeFromSuperview()
-        addSubview(imageView)
-    
-        imageContentViewHeight = imageView.heightAnchor.constraint(equalToConstant: Layout.imageContentViewDefaultHeight)
-        // We need priotity here cause cell self size constraint will conflict with ours
-        //                imageContentViewHeight?.priority = .init(750)
-        imageContentViewHeight?.isActive = true
-        imageView.pinAllEdges(to: self, insets: Layout.imageViewInsets)
-    }
-    
-    private func addEmptyViewLayout() {
-        imageView.removeFromSuperview()
-        addSubview(emptyView)
-        
-        let view = self.emptyView
-        if let superview = view.superview {
-            let heightAnchor = view.heightAnchor.constraint(equalToConstant: Layout.emptyViewHeight)
-            let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            // We need priotity here cause cell self size constraint will conflict with ours
-            bottomAnchor.priority = .init(750)
-            
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(
-                    equalTo: superview.leadingAnchor,
-                    constant: Layout.emptyViewInsets.left
-                ),
-                view.trailingAnchor.constraint(
-                    equalTo: superview.trailingAnchor,
-                    constant: -Layout.emptyViewInsets.right
-                ),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                bottomAnchor,
-                heightAnchor
-            ])
-        }
     }
     
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
         guard !file.metadata.hash.isEmpty else { return }
+        
+        // TODO: Support alignments that does not look ugly
+        imageView.contentMode = .center // currentConfiguration.alignment.asContentMode
+
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
         
         imageView.kf.cancelDownloadTask()
+        
+        let imageWidth = currentConfiguration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left
+        let imageSize = CGSize(
+            width: imageWidth,
+            height: Layout.imageContentViewDefaultHeight
+        )
+        
+        let placeholder = ImageBuilder(
+            ImageGuideline(size: imageSize)
+        ).build()
+        
         imageView.kf.setImage(
-            with: UrlResolver.resolvedUrl(.image(id: imageId, width: .default)),
-            placeholder: UIImage.blockFile.noImage
-        ) { [weak self] result in
-            guard
-                case let .success(success) = result,
-                let self = self
-            else { return }
-            
-            self.imageView.contentMode = self.isImageLong(image: success.image) ? .scaleAspectFit : .scaleAspectFill
-        }
+            with: ImageID(id: imageId, width: .default).resolvedUrl,
+            placeholder: placeholder,
+            options: [.processor(DownsamplingImageProcessor(size: imageSize))]
+        )
     }
     
-    private func isImageLong(image: UIImage) -> Bool {
-        if image.size.height / image.size.width > 3 {
-            return true
-        }
-        
-        if image.size.width / image.size.height > 3 {
-            return true
-        }
-        
-        return false
+    // MARK: - Unavailable
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
 private extension BlockImageContentView {
     enum Layout {
         static let imageContentViewDefaultHeight: CGFloat = 250
-        static let imageViewTop: CGFloat = 4
-        static let emptyViewHeight: CGFloat = 52
-        static let emptyViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
     }
+}
+
+private extension LayoutAlignment {
     
-    enum Constants {
-        static let emptyViewPlaceholderTitle = "Upload a picture".localizedLowercase
+    var asContentMode: UIView.ContentMode {
+        switch self {
+        case .left: return .left
+        case .center: return .center
+        case .right: return .right
+        }
     }
+    
 }

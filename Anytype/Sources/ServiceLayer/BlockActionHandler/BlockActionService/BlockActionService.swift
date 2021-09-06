@@ -3,6 +3,8 @@ import BlocksModels
 import os
 import UIKit
 import Amplitude
+import AnytypeCore
+import ProtobufMessages
 
 
 extension LoggerCategory {
@@ -61,8 +63,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func split(
         info: BlockInformation,
         oldText: String,
-        newBlockContentType: BlockText.Style,
-        shouldSetFocusOnUpdate: Bool
+        newBlockContentType: BlockText.Style
     ) {
         let blockId = info.id
         // We are using old text as a cursor position.
@@ -70,27 +71,35 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let content = info.content
         guard case let .text(type) = content else {
-            assertionFailure("We have unsupported content type: \(content)")
+            anytypeAssertionFailure("We have unsupported content type: \(content)")
             return
         }
 
         let range = NSRange(location: position, length: 0)
-
         let documentId = self.documentId
+        // if splitted block has child then new block should be child of splitted block
+        let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
-            return self?.textService.split(
-                contextID: documentId,
-                blockID: blockId,
-                range: range,
-                style: newBlockContentType) ?? .empty()
-        }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
-            var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
-            events = events.enrichedWith(
-                localEvents: [.setTextMerge(blockId: blockId)]
-            )
-            self?.didReceiveEvent(events)
-        }.store(in: &self.subscriptions)
+        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText)
+            .flatMap { [weak self] value -> AnyPublisher<SplitSuccess, Error> in
+                return self?.textService.split(
+                    contextID: documentId,
+                    blockID: blockId,
+                    range: range,
+                    style: newBlockContentType,
+                    mode: mode
+                ) ?? .empty()
+            }
+            .sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
+                let allEvents = PackOfEvents(
+                    middlewareEvents: serviceSuccess.responseEvent.messages,
+                   localEvents: [
+                       .setFocus(blockId: serviceSuccess.blockId, position: .beginning)
+                   ]
+               )
+                self?.didReceiveEvent(allEvents)
+            }
+            .store(in: &self.subscriptions)
     }
 
     func duplicate(blockId: BlockId) {
@@ -107,9 +116,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func createPage(position: BlockPosition = .bottom) {
+    func createPage(position: BlockPosition) {
         pageService.createPage(
-            contextID: self.documentId,
+            contextID: documentId,
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: position,
@@ -123,7 +132,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         }.store(in: &self.subscriptions)
     }
 
-    func turnInto(blockId: BlockId, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
+    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
         switch type {
         case .text: setTextStyle(blockId: blockId, type: type, shouldFocus: shouldSetFocusOnUpdate)
         case .smartblock: setPageStyle(blockId: blockId, type: type)
@@ -168,48 +177,26 @@ final class BlockActionService: BlockActionServiceProtocol {
 }
 
 private extension BlockActionService {
-    func split(block: BlockInformation, oldText: String, _ completion: @escaping Conversion) {
-        // TODO: You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`
 
-        // We are using old text as a cursor position.
-        let blockId = block.id
-        let position = oldText.count
-
-        let content = block.content
-        guard case let .text(type) = content else {
-            assertionFailure("We have unsupported content type: \(content)")
-            return
-        }
-
-        let range = NSRange(location: position, length: 0)
-
-        self.textService.split(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.split without payload") { [weak self] (value) in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
-            }.store(in: &self.subscriptions)
-    }
-
-    func setDividerStyle(blockId: BlockId, type: BlockContent) {
-        guard case let .divider(value) = type else {
-            assertionFailure("SetDividerStyle content is not divider: \(type)")
+    func setDividerStyle(blockId: BlockId, type: BlockContentType) {
+        guard case let .divider(style) = type else {
+            anytypeAssertionFailure("SetDividerStyle content is not divider: \(type)")
             return
         }
 
         let blocksIds = [blockId]
 
-        listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: value.style)
+        listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: style)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
     }
 
-    func setPageStyle(blockId: BlockId, type: BlockContent) {
+    func setPageStyle(blockId: BlockId, type: BlockContentType) {
         let objectType = ""
 
         guard case .smartblock = type else {
-            assertionFailure("Set Page style cannot convert type: \(type)")
+            anytypeAssertionFailure("Set Page style cannot convert type: \(type)")
             return
         }
 
@@ -220,13 +207,13 @@ private extension BlockActionService {
         .store(in: &self.subscriptions)
     }
 
-    func setTextStyle(blockId: BlockId, type: BlockContent, shouldFocus: Bool) {
-        guard case let .text(text) = type else {
-            assertionFailure("Set Text style content is not text style: \(type)")
+    func setTextStyle(blockId: BlockId, type: BlockContentType, shouldFocus: Bool) {
+        guard case let .text(style) = type else {
+            anytypeAssertionFailure("Set Text style content is not text style: \(type)")
             return
         }
 
-        self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
+        self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: style)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] serviceSuccess in
                 let events = shouldFocus ? serviceSuccess.turnIntoTextEvent : serviceSuccess.defaultEvent
