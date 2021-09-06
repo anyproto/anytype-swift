@@ -10,6 +10,7 @@ protocol Mentionable {
     func insert(
         _ mention: MentionObject,
         from: UITextPosition,
-        to: UITextPosition
+        to: UITextPosition,
+        font: AnytypeFont
     )
 }

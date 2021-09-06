@@ -37,7 +37,8 @@ extension UITextView: Mentionable {
     func insert(
         _ mention: MentionObject,
         from: UITextPosition,
-        to: UITextPosition
+        to: UITextPosition,
+        font: AnytypeFont
     ) {
         guard let name = mention.name else { return }
         let pageId = mention.id
@@ -53,7 +54,7 @@ extension UITextView: Mentionable {
         )
         let modifier = MarkStyleModifier(
             attributedText: NSMutableAttributedString(attributedString: attributedText),
-            defaultNonCodeFont: .bodyRegular
+            anytypeFont: font
         )
         modifier.apply(
             .mention(pageId),
