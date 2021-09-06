@@ -12,7 +12,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: SlashMenuViewController?
     private let slashMenuActionsHandler: SlashMenuActionsHandler
+    private let filterService: SlashMenuActionsFilterService
     private var filterStringMismatchLength = 0
+    private var cachedFilterText = ""
     
     init(
         frame: CGRect,
@@ -21,6 +23,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     ) {
         self.menuItems = menuItems
         self.slashMenuActionsHandler = slashMenuActionsHandler
+        self.filterService = SlashMenuActionsFilterService(initialMenuItems: menuItems)
 
         super.init(frame: frame)
     }
@@ -65,7 +68,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
         )
         let controller = SlashMenuViewController(
             coordinator: coordinator,
-            items: menuItems
+            cellData: menuItems.map { item in
+                return .menu(item: item.item, actions: item.children)
+            }
         )
         menuItemsViewController = controller
         let navigationController = UINavigationController(rootViewController: controller)
@@ -94,16 +99,15 @@ extension SlashMenuView: FilterableItemsView {
         if menuItemsController.navigationController?.topViewController != menuItemsController {
             menuItemsController.navigationController?.popToRootViewController(animated: false)
         }
-        guard menuItemsController.filterString != filterText else { return }
+        guard cachedFilterText != filterText else { return }
+        menuItemsController.cellData = filterService.menuItemsFiltered(by: filterText)
         
-        let oldFilterText = menuItemsController.filterString
-        menuItemsController.filterString = filterText
-        
-        if !menuItemsController.items.isEmpty {
+        if !menuItemsController.cellData.isEmpty {
             filterStringMismatchLength = 0
-            return
+        } else {
+            filterStringMismatchLength += filterText.count - cachedFilterText.count
         }
-        filterStringMismatchLength += filterText.count - oldFilterText.count
+        cachedFilterText = filterText
     }
     
     func shouldContinueToDisplayView() -> Bool {
