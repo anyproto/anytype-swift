@@ -19,7 +19,7 @@ extension SlashMenuViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        switch items[indexPath.row] {
+        switch cellData[indexPath.row] {
         case .sectionDivider:
             return false
         case .action, .menu:
@@ -28,12 +28,12 @@ extension SlashMenuViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator.didSelect(items[indexPath.row], in: self)
+        coordinator.didSelect(cellData[indexPath.row], in: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = self.items[indexPath.row]
+        let item = cellData[indexPath.row]
         switch item {
         case .action, .menu:
             return Self.cellHeight
@@ -45,14 +45,14 @@ extension SlashMenuViewController: UITableViewDelegate {
 
 extension SlashMenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        items.count
+        cellData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath)
         cell.accessoryType = .none
         
-        let item = self.items[indexPath.row]
+        let item = cellData[indexPath.row]
         switch item {
         case let .action(action):
             cell.separatorInset = SlashMenuConstants.separatorInsets

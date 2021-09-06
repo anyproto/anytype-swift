@@ -10,7 +10,7 @@ final class SlashMenuViewControllerCoordinatorImp: SlashMenuViewControllerCoordi
         self.dismissHandler = dismissHandler
     }
     
-    func didSelect(_ menuItem: BlockActionMenuItem, in controler: UIViewController) {
+    func didSelect(_ menuItem: SlashMenuCellData, in controler: UIViewController) {
         switch menuItem {
         case let .menu(type, children):
             guard !children.isEmpty else { return }
@@ -20,7 +20,7 @@ final class SlashMenuViewControllerCoordinatorImp: SlashMenuViewControllerCoordi
             )
             let childController = SlashMenuViewController(
                 coordinator: coordinator,
-                items: children
+                cellData: children.map { .action($0) }
             )
             childController.title = type.title
             controler.navigationController?.pushViewController(childController, animated: true)

@@ -1,33 +1,29 @@
 import UIKit
 
+enum SlashMenuCellData {
+    case menu(item: SlashMenuItemType, actions: [BlockActionType])
+    case action(BlockActionType)
+    case sectionDivider(title: String)
+}
 
 final class SlashMenuViewController: UIViewController {
     let coordinator: SlashMenuViewControllerCoordinator
-    let filterService: SlashMenuActionsFilterService
     let configurationFactory = ContentConfigurationFactory()
     
     let cellReuseId = NSStringFromClass(UITableViewCell.self)
     
-    var filterString = "" {
-        didSet {
-            items = filterService.menuItemsFiltered(by: filterString)
-            tableView.backgroundView?.isHidden = !items.isEmpty
-        }
-    }
-    
-    private(set) var items: [BlockActionMenuItem] {
+    var cellData: [SlashMenuCellData] = [] {
         didSet {
             tableView.reloadData()
+            tableView.backgroundView?.isHidden = !cellData.isEmpty
         }
     }
     
     private lazy var topBarHeightConstraint = customTopBar.heightAnchor.constraint(equalToConstant: Constants.topBarHeight)
     
-    init(coordinator: SlashMenuViewControllerCoordinator, items: [BlockActionMenuItem]) {
+    init(coordinator: SlashMenuViewControllerCoordinator, cellData: [SlashMenuCellData]) {
         self.coordinator = coordinator
-        self.items = items
-        self.filterService = SlashMenuActionsFilterService(initialMenuItems: items)
-        
+        self.cellData = cellData
         super.init(nibName: nil, bundle: nil)
         
         setup()
