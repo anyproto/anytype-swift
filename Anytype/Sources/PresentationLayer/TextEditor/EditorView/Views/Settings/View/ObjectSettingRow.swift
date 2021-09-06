@@ -30,13 +30,14 @@ struct ObjectSettingRow: View {
                         style: .uxTitle2Medium,
                         color: .textPrimary
                     )
-                        .padding(.vertical, 1)
+                    
+                    Spacer.fixedHeight(2)
+                    
                     AnytypeText(
                         setting.description,
                         style: .caption1Regular,
                         color: .textSecondary
                     )
-                        .padding(.vertical, 1)
                 }
                 
                 Spacer()
