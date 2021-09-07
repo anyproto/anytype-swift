@@ -10,6 +10,11 @@ extension HomeViewModel {
         let pageId: String
         var showingNewPage: Bool
     }
+    
+    struct SnackBarData {
+        let text: String
+        var showSnackBar: Bool
+    }
 }
 
 final class HomeViewModel: ObservableObject {
@@ -24,6 +29,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     @Published var showSearch = false
+    @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
