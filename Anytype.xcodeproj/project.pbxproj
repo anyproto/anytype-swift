@@ -355,13 +355,11 @@
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
 		3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */; };
-		3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
 		3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */; };
 		3DB6E249268B65BD00C303E5 /* DefaultContextualMenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */; };
-		3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */; };
 		3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */; };
 		3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */; };
 		3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */; };
@@ -410,6 +408,7 @@
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DEFD671268A32D70072EA27 /* EditorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD670268A32D70072EA27 /* EditorActionHandler.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
+		3DFD1B0426E75B5900F893FC /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */; };
 		3DFE7F2726E122290093EECB /* HomeSearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */; };
 		3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */; };
 		3DFE7F5426E63B760093EECB /* SlashMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */; };
@@ -996,13 +995,11 @@
 		3DA6263C2657AB8000942249 /* AnimationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
 		3DA626522657ADA700942249 /* PopupExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupExtension.swift; sourceTree = "<group>"; };
 		3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeText.swift; sourceTree = "<group>"; };
-		3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = Anytype/Sources/Models/Documents/Restrictions/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareColorConverter.swift; path = Anytype/Sources/Models/Documents/Parsers/MiddlewareColorConverter.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockViewModelProtocol.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/BlockViewModelProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultContextualMenuHandler.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/DefaultContextualMenuHandler.swift; sourceTree = SOURCE_ROOT; };
-		3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackgroundBlurView.swift; sourceTree = "<group>"; };
 		3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileViewButtonImage.swift; sourceTree = "<group>"; };
 		3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBoundsExtension.swift; sourceTree = "<group>"; };
 		3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOnGeometryChange.swift; sourceTree = "<group>"; };
@@ -1249,6 +1246,7 @@
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */,
 				53856BEB265BC48800CB1FAE /* ProtobufMessages.framework in Frameworks */,
+				3DFD1B0426E75B5900F893FC /* SwiftUIVisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2780,7 +2778,6 @@
 				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
 				3D829171265E50190007C152 /* RedactedText.swift */,
 				039DA2E52305843D0041F95C /* ErrorAlertView.swift */,
-				3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */,
 				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
 				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
 				12D950032678EFE800F794EB /* SearchBar.swift */,
@@ -2961,7 +2958,6 @@
 				3DB1E74B2639A9FB00F479BB /* Tabs */,
 				3D932D3A26317E3A00C7D1EA /* Collection */,
 				3D932D3D26317E3A00C7D1EA /* HomeBottomSheetView.swift */,
-				3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3839,6 +3835,7 @@
 				53856BC026593B3100CB1FAE /* Highlightr */,
 				538492DB269E63AD00B5E556 /* Amplitude */,
 				1215E8AD26A85E530089AF7E /* Kingfisher */,
+				3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -3896,6 +3893,7 @@
 				53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */,
 				538492DA269E63AD00B5E556 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 				1215E8AC26A85E520089AF7E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				3DFD1B0226E75B5900F893FC /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -4102,7 +4100,6 @@
 				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
-				3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingOnCreatAccountView.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
@@ -4266,7 +4263,6 @@
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
-				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */,
@@ -4976,6 +4972,14 @@
 				version = 6.3.0;
 			};
 		};
+		3DFD1B0226E75B5900F893FC /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lucasbrown/swiftui-visual-effects";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
 		5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
@@ -5012,6 +5016,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1215E8AC26A85E520089AF7E /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DFD1B0226E75B5900F893FC /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */;
+			productName = SwiftUIVisualEffects;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;

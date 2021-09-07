@@ -5,10 +5,11 @@ struct HomeTabsHeaderText: View {
     var isSelected: Bool
     
     var body: some View {
-        AnytypeText(text, style: .subheading, color: isSelected ? .textPrimary : .white)
+        AnytypeText(text, style: .subheading, color: isSelected ? .textPrimary : .black)
             .frame(alignment: .leading)
-            .blendMode(isSelected ? .normal : .softLight)
             .lineLimit(1)
+            .vibrancyEffect()
+            .vibrancyEffectStyle(isSelected ? .label : .separator)
     }
 }
 struct HomeTabsHeaderText_Previews: PreviewProvider {

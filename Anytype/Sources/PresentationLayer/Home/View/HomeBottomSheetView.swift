@@ -51,7 +51,6 @@ struct HomeBottomSheetView<Content: View>: View {
         GeometryReader { geometry in
             content
                 .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
-                .background(HomeBackgroundBlurView())
                 .cornerRadius(config.cornerRadius, corners: [.topLeft, .topRight])
                 .frame(height: geometry.size.height, alignment: .bottom)
                 .offset(y: offset)

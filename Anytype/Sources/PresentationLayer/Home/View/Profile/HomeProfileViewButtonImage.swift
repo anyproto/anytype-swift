@@ -1,11 +1,13 @@
 import SwiftUI
+import SwiftUIVisualEffects
 
 struct HomeProfileViewButtonImage<Image: View>: View {
     let image: Image
     
     var body: some View {
         image.frame(width: 52, height: 52)
-            .background(HomeBackgroundBlurView())
+            .background(BlurEffect())
+            .blurEffectStyle(.systemMaterial)
             .clipShape(Circle())
     }
 }
