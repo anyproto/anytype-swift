@@ -81,7 +81,7 @@ final class BlockImageContentView: UIView & UIContentView {
         imageView.kf.setImage(
             with: ImageID(id: imageId, width: imageSize.width.asImageWidth).resolvedUrl,
             placeholder: placeholder,
-            options: [.processor(DownsamplingImageProcessor(size: imageSize))]
+            options: [.processor(DownsamplingImageProcessor(size: imageSize)), .transition(.fade(0.2))]
         )
     }
     

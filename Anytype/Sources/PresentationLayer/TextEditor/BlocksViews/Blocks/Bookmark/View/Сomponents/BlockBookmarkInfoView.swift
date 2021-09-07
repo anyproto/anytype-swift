@@ -80,7 +80,7 @@ final class BlockBookmarkInfoView: UIView {
                 width: imageGuideline.size.width.asImageWidth
             ).resolvedUrl,
             placeholder: placeholder,
-            options: [.processor(processor)]
+            options: [.processor(processor), .transition(.fade(0.2))]
         )
     }
     
