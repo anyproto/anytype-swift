@@ -64,6 +64,10 @@ struct HomeView: View {
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }
+        .snackbar(
+            isShowing: $viewModel.snackBarData.showSnackBar,
+            text: AnytypeText(viewModel.snackBarData.text, style: .caption1Regular, color: .textPrimary)
+        )
         .navigationBarTitleDisplayMode(.inline)
     }
     

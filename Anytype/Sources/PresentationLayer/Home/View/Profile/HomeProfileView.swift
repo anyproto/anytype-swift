@@ -73,11 +73,13 @@ struct HomeProfileView: View {
             Button(action: model.startSearch) {
                 HomeProfileViewButtonImage(image: Image.main.search)
             }
-            Button(action: {}) {
+            Button(action: {
+                model.snackBarData = .init(text: "Store not available yet, use desktop version", showSnackBar: true)
+            }) {
                 HomeProfileViewButtonImage(
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
                 )
-            }.disabled(true)
+            }
             Button(action: model.createNewPage) {
                 HomeProfileViewButtonImage(image: Image.main.draft)
             }
