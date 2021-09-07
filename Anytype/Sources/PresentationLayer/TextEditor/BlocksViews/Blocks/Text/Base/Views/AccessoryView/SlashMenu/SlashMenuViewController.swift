@@ -3,7 +3,7 @@ import UIKit
 enum SlashMenuCellData {
     case menu(item: SlashMenuItemType, actions: [BlockActionType])
     case action(BlockActionType)
-    case sectionDivider(title: String)
+    case header(title: String)
 }
 
 final class SlashMenuViewController: UIViewController {

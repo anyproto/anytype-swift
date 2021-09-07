@@ -12,7 +12,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: SlashMenuViewController?
     private let slashMenuActionsHandler: SlashMenuActionsHandler
-    private let filterService: SlashMenuActionsFilterService
+    private let cellDataBuilder: SlashMenuCellDataBuilder
     private var filterStringMismatchLength = 0
     private var cachedFilterText = ""
     
@@ -23,7 +23,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     ) {
         self.menuItems = menuItems
         self.slashMenuActionsHandler = slashMenuActionsHandler
-        self.filterService = SlashMenuActionsFilterService(initialMenuItems: menuItems)
+        self.cellDataBuilder = SlashMenuCellDataBuilder(menuItems: menuItems)
 
         super.init(frame: frame)
     }
@@ -100,7 +100,7 @@ extension SlashMenuView: FilterableItemsView {
             menuItemsController.navigationController?.popToRootViewController(animated: false)
         }
         guard cachedFilterText != filterText else { return }
-        menuItemsController.cellData = filterService.menuItemsFiltered(by: filterText)
+        menuItemsController.cellData = cellDataBuilder.build(filter: filterText)
         
         if !menuItemsController.cellData.isEmpty {
             filterStringMismatchLength = 0
