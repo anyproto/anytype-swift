@@ -220,7 +220,8 @@ final class StyleViewController: UIViewController {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
         }
         if .code != self.style {
-            calloutButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.code))
+            // TODO: add restrictions when callout block will be introduced
+            calloutButton.isEnabled = false
         }
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
