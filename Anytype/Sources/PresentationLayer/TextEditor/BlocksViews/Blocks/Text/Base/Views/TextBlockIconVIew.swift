@@ -135,6 +135,7 @@ extension TextBlockIconView {
             ),
             for: .touchUpInside
         )
+
         addSubview(checkboxView) {
             $0.width.equal(to: viewSize.width)
             $0.height.equal(to: viewSize.height)
@@ -142,9 +143,6 @@ extension TextBlockIconView {
             $0.top.equal(to: topAnchor)
             $0.bottom.equal(to: bottomAnchor)
             $0.trailing.equal(to: trailingAnchor)
-        }
-        checkboxView.imageView?.layoutUsing.anchors {
-            $0.size(imageSize)
         }
         return checkboxView
     }
