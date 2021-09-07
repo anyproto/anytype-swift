@@ -176,14 +176,9 @@ extension MarkupsViewController: MarkupViewProtocol {
             self.setup(button: self.codeButton, with: state.codeStyle)
             self.urlButton.isEnabled = false
 
-            self.leftAlignButton.isSelected = state.alignment == .left
-            self.leftAlignButton.isEnabled = state.alignment != nil
-
-            self.centerAlignButton.isSelected = state.alignment == .center
-            self.centerAlignButton.isEnabled = state.alignment != nil
-
-            self.rightAlignButton.isSelected = state.alignment == .right
-            self.rightAlignButton.isEnabled = state.alignment != nil
+            self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])
+            self.setup(button: self.centerAlignButton, with: state.alignment[.center, default: .disabled])
+            self.setup(button: self.rightAlignButton, with: state.alignment[.right, default: .disabled])
         }
     }
     

@@ -1,6 +1,6 @@
 import AnytypeCore
 import UIKit
-
+import BlocksModels
 
 struct MarkupStateCalculator {
     private let attributedText: NSAttributedString
@@ -55,12 +55,21 @@ struct MarkupStateCalculator {
         return url.isNil ? .notApplied : .applied
     }
 
-    func alignmentState() -> NSTextAlignment? {
-        guard !restrictions.availableAlignments.isEmpty else {
-            return nil
-        }
+    func alignmentState() -> [LayoutAlignment: MarkupState] {
+        var alignmentState: [LayoutAlignment: MarkupState] = [:]
 
-        return alignment
+        LayoutAlignment.allCases.forEach { alignment in
+            guard restrictions.availableAlignments.contains(alignment) else {
+                alignmentState[alignment] = .disabled
+                return
+            }
+            alignmentState[alignment] = .notApplied
+
+            if alignment.asNSTextAlignment == self.alignment {
+                alignmentState[alignment] = .applied
+            }
+        }
+        return alignmentState
     }
     
     func state(for markup: BlockHandlerActionType.TextAttributesType) -> MarkupState {
