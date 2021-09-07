@@ -28,7 +28,22 @@ extension SlashMenuViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator.didSelect(cellData[indexPath.row], in: self)
+        switch cellData[indexPath.row] {
+        case let .menu(type, children):
+            guard !children.isEmpty else { return }
+            let childController = SlashMenuViewController(
+                cellData: children.map { .action($0) },
+                actionsHandler: actionsHandler,
+                dismissHandler: dismissHandler
+            )
+            childController.title = type.title
+            navigationController?.pushViewController(childController, animated: true)
+        case let .action(action):
+            actionsHandler.handle(action: action)
+            dismissHandler?()
+        case .header:
+            break
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
