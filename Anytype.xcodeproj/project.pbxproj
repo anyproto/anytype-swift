@@ -412,6 +412,7 @@
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		3DFE7F2726E122290093EECB /* HomeSearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */; };
 		3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */; };
+		3DFE7F5426E63B760093EECB /* SlashMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */; };
 		53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */; };
 		530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconView.swift */; };
 		530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A5429269FB8FF009016AE /* AmplitudeConstants.swift */; };
@@ -546,8 +547,6 @@
 		EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */; };
 		EA77E50C262DA103009F91D9 /* SlashMenuItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E50B262DA103009F91D9 /* SlashMenuItemType.swift */; };
 		EA77E525262DAAA6009F91D9 /* SlashMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E51F262DAAA5009F91D9 /* SlashMenuViewController.swift */; };
-		EA77E526262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E522262DAAA5009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift */; };
-		EA77E527262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E523262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift */; };
 		EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */; };
 		EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */; };
 		EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E544262DED67009F91D9 /* UIImageExtension.swift */; };
@@ -1054,6 +1053,7 @@
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellData.swift; sourceTree = "<group>"; };
 		3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellDataMock.swift; sourceTree = "<group>"; };
+		3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuAssembly.swift; sourceTree = "<group>"; };
 		53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAnytypeText.swift; sourceTree = "<group>"; };
 		530470F52682046900C9EE78 /* TextBlockIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconView.swift; sourceTree = "<group>"; };
 		530A5429269FB8FF009016AE /* AmplitudeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeConstants.swift; sourceTree = "<group>"; };
@@ -1185,8 +1185,6 @@
 		EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsBuilder.swift; sourceTree = "<group>"; };
 		EA77E50B262DA103009F91D9 /* SlashMenuItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItemType.swift; sourceTree = "<group>"; };
 		EA77E51F262DAAA5009F91D9 /* SlashMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuViewController.swift; sourceTree = "<group>"; };
-		EA77E522262DAAA5009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuItemsViewControllerCoordinatorImp.swift; sourceTree = "<group>"; };
-		EA77E523262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuItemsViewControllerCoordinator.swift; sourceTree = "<group>"; };
 		EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Convenience.swift"; sourceTree = "<group>"; };
 		EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		EA77E544262DED67009F91D9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -2591,15 +2589,6 @@
 			path = Handler;
 			sourceTree = "<group>";
 		};
-		3D29AFEE26A5C6DE0095BA18 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				EA77E523262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift */,
-				EA77E522262DAAA5009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -3631,13 +3620,13 @@
 		EA289B9F2629B25C00EA869F /* SlashMenu */ = {
 			isa = PBXGroup;
 			children = (
-				3D29AFEE26A5C6DE0095BA18 /* Coordinator */,
 				3D29AFEB26A5C5D30095BA18 /* Handler */,
 				EA7DE40226397D0A005AFEE2 /* Filtering */,
 				EAC6BB5626289201004C8C06 /* SlashMenuView.swift */,
 				3D16840226DD5930008B9DFF /* ContentConfigurationFactory.swift */,
 				EA77E51F262DAAA5009F91D9 /* SlashMenuViewController.swift */,
 				3D16840426DD5B54008B9DFF /* SlashMenuViewController+TableView.swift */,
+				3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */,
 			);
 			path = SlashMenu;
 			sourceTree = "<group>";
@@ -4109,7 +4098,6 @@
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				12BE8E5C26565D85000C95B9 /* DetailsDataExtensions.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
-				EA77E527262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinator.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
@@ -4203,6 +4191,7 @@
 				EAED581C26A730E500374A46 /* MarkStyleConverter.swift in Sources */,
 				3DC78638265D571500498993 /* LocalEventConverter.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
+				3DFE7F5426E63B760093EECB /* SlashMenuAssembly.swift in Sources */,
 				530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */,
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
@@ -4223,7 +4212,6 @@
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
-				EA77E526262DAAA6009F91D9 /* SlashMenuItemsViewControllerCoordinatorImp.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
