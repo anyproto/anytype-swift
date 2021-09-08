@@ -2699,7 +2699,9 @@
 		3D44983D26D5314B005A3E06 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				123FDADC26C17CBA00F6F44B /* ObjectCover.swift */,
 				120EB4E026E8EE2E003A0C2B /* NewObjectCoverView.swift */,
+				126C46D626BD966700D31DBF /* ObjectIcon.swift */,
 				120EB4E226E8F618003A0C2B /* NewObjectIconView.swift */,
 				120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */,
 				3D38CC9426D631AE00E4F7BF /* View */,
@@ -2714,8 +2716,6 @@
 			children = (
 				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
 				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
-				126C46D626BD966700D31DBF /* ObjectIcon.swift */,
-				123FDADC26C17CBA00F6F44B /* ObjectCover.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
