@@ -72,7 +72,7 @@ extension ObjectHeader {
         image: UIImage,
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader? {
-        let newCover = ObjectCover(state: .preview(image), onTap: onCoverTap)
+        let newCover = ObjectCover.preview(image)
         
         switch self {
         case .iconOnly(let objectIcon):
