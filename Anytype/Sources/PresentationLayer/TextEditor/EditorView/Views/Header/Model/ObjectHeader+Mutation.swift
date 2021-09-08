@@ -45,49 +45,25 @@ extension ObjectHeader {
         _ onCoverTap: @escaping () -> ()
     ) -> ObjectIcon {
         guard let objectIcon = objectIcon else {
-            return ObjectIcon(
-                state: .preview(.basic(image), .left),
-                onIconTap: onIconTap,
-                onCoverTap: onCoverTap
-            )
+            return .preview(.basic(image), .left)
         }
         
-        switch objectIcon.state {
+        switch objectIcon {
         case .icon(let documentIconType, let layoutAlignment):
             switch documentIconType {
             case .basic:
-                return ObjectIcon(
-                    state: .preview(.basic(image), layoutAlignment),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                return .preview(.basic(image), layoutAlignment)
             case .profile:
-                return ObjectIcon(
-                    state: .preview(.profile(image), layoutAlignment),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                return .preview(.profile(image), layoutAlignment)
             case .emoji:
-                return ObjectIcon(
-                    state: .preview(.basic(image), layoutAlignment),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                return .preview(.basic(image), layoutAlignment)
             }
         case .preview(let objectIconPreviewType, let layoutAlignment):
             switch objectIconPreviewType {
             case .basic:
-                return ObjectIcon(
-                    state: .preview(.basic(image), layoutAlignment),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                return .preview(.basic(image), layoutAlignment)
             case .profile:
-                return ObjectIcon(
-                    state: .preview(.profile(image), layoutAlignment),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                return .preview(.profile(image), layoutAlignment)
             }
         }
     }

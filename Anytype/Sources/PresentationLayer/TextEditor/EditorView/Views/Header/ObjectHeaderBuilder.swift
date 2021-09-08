@@ -43,11 +43,7 @@ final class ObjectHeaderBuilder {
         switch event {
         case .iconUploading(let uIImage):
             return ObjectHeader.iconOnly(
-                ObjectIcon(
-                    state: .preview(.basic(uIImage), .left),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                .preview(.basic(uIImage), .left)
             )
         case .coverUploading(let uIImage):
             return ObjectHeader.coverOnly(
@@ -61,11 +57,7 @@ final class ObjectHeaderBuilder {
         
         if let icon = details.icon, let cover = details.documentCover {
             return .iconAndCover(
-                icon: ObjectIcon(
-                    state: .icon(icon, layoutAlign),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                ),
+                icon: .icon(icon, layoutAlign),
                 cover: ObjectCover(
                     state:  .cover(cover),
                     onTap: onCoverTap
@@ -75,11 +67,7 @@ final class ObjectHeaderBuilder {
         
         if let icon = details.icon {
             return .iconOnly(
-                ObjectIcon(
-                    state: .icon(icon, layoutAlign),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                .icon(icon, layoutAlign)
             )
         }
         

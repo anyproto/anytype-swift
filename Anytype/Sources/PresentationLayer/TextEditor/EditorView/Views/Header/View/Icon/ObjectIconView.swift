@@ -15,9 +15,7 @@ final class ObjectIconView: UIView {
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
-    
-    private let tapGesture = BindableGestureRecognizer()
-    
+        
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -38,9 +36,8 @@ final class ObjectIconView: UIView {
 extension ObjectIconView: ConfigurableView {
 
     func configure(model: ObjectIcon) {
-        tapGesture.action = model.onIconTap
         
-        switch model.state {
+        switch model {
         case let .icon(icon, alignment):
             configureIconState(icon, alignment)
         case let .preview(preview, alignment):
@@ -156,9 +153,7 @@ private extension ObjectIconView {
         containerView.clipsToBounds = true
         
         containerView.backgroundColor = .grayscaleWhite
-        
-        containerView.addGestureRecognizer(tapGesture)
-        
+                
         setupLayout()
     }
     

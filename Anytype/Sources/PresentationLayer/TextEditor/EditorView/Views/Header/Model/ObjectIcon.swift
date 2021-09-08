@@ -1,21 +1,7 @@
 import UIKit.UIImage
 import BlocksModels
 
-struct ObjectIcon: Hashable {
-    let state: ObjectIconState
-    let onIconTap: () -> ()
-    let onCoverTap: () -> ()
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(state)
-    }
-    
-    static func == (lhs: ObjectIcon, rhs: ObjectIcon) -> Bool {
-        lhs.state == rhs.state
-    }
-}
-
-enum ObjectIconState: Hashable {
+enum ObjectIcon: Hashable {
     case icon(ObjectIconType, LayoutAlignment)
     case preview(ObjectIconPreviewType, LayoutAlignment)
 }
