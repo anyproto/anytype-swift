@@ -13,7 +13,7 @@ import UIKit
 struct KFProcessorBuilder {
     let scalingType: KFScalingType
     let targetSize: CGSize
-    let cornerRadius: RoundCornerImageProcessor.Radius
+    let cornerRadius: RoundCornerImageProcessor.Radius?
 }
 
 extension KFProcessorBuilder {
@@ -32,7 +32,11 @@ extension KFProcessorBuilder {
             }
         }()
         
-        return imageProcessor |> RoundCornerImageProcessor(radius: cornerRadius)
+        if let cornerRadius = cornerRadius {
+            return imageProcessor |> RoundCornerImageProcessor(radius: cornerRadius)
+        } else {
+            return imageProcessor
+        }
     }
     
 }

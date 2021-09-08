@@ -15,7 +15,10 @@ final class ObjectHeaderView: UIView {
     var onIconTap: (() -> Void)?
     
     private let iconView = UIView()
-    private let coverView = UIView()
+    private let coverView = NewObjectCoverView()
+    
+    private var heightConstraint: NSLayoutConstraint!
+    private var emptyStateHeightConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -41,11 +44,37 @@ extension ObjectHeaderView: ConfigurableView {
 private extension ObjectHeaderView {
     
     func setupView() {
+        backgroundColor = .systemBackground
         setupLayout()
     }
     
     func setupLayout() {
+        layoutUsing.anchors {
+            self.heightConstraint = $0.height.equal(
+                to: Constants.headerHeight,
+                activate: false
+            )
+            self.emptyStateHeightConstraint = $0.height.equal(
+                to: Constants.emptyHeaderHeight,
+                activate: false
+            )
+        }
         
+        addSubview(coverView) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: bottomAnchor, constant: Constants.coverBottomInset)
+        }
+    }
+    
+}
+
+private extension ObjectHeaderView {
+    
+    enum Constants {
+        static let emptyHeaderHeight: CGFloat = 184
+        static let headerHeight: CGFloat = 232
+        
+        static let coverBottomInset: CGFloat = 32
     }
     
 }
