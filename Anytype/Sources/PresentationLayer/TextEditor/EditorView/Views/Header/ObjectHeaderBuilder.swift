@@ -23,7 +23,9 @@ final class ObjectHeaderBuilder {
     }
     
     func objectHeader(details: DetailsDataProtocol?) -> ObjectHeader {
-        guard let details = details else { return .empty(ObjectHeaderEmptyData(onTap: onCoverTap)) }
+        guard let details = details else {
+            return .empty
+        }
         return buildObjectHeader(details: details)
     }
     
@@ -34,7 +36,7 @@ final class ObjectHeaderBuilder {
         
         let header = buildObjectHeader(details: details)
         
-        return header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
+        return header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty
     }
     
     private func fakeHeader(event: ObjectHeaderLocalEvent) -> ObjectHeader {
@@ -85,6 +87,6 @@ final class ObjectHeaderBuilder {
             return .coverOnly(ObjectCover(state: .cover(cover), onTap: onCoverTap))
         }
         
-        return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
+        return .empty
     }
 }

@@ -13,7 +13,6 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
     // MARK: - Private variables
 
     private var appliedConfiguration: ObjectHeaderEmptyConfiguration!
-    private let tapGesture: BindableGestureRecognizer
     
     // MARK: - Internal variables
     
@@ -26,7 +25,6 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
     
     init(configuration: ObjectHeaderEmptyConfiguration) {
         appliedConfiguration = configuration
-        tapGesture = BindableGestureRecognizer(action: configuration.data.onTap)
         super.init(frame: .zero)
         
         setupLayout()
@@ -46,7 +44,6 @@ private extension ObjectHeaderEmptyContentView  {
             $0.height.equal(to: Constants.height)
         }
         translatesAutoresizingMaskIntoConstraints = true
-        addGestureRecognizer(tapGesture)
     }
     
 }
