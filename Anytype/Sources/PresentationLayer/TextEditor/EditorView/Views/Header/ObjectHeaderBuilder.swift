@@ -36,7 +36,7 @@ final class ObjectHeaderBuilder {
         
         let header = buildObjectHeader(details: details)
         
-        return header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty
+        return header.modifiedByLocalEvent(event) ?? .empty
     }
     
     private func fakeHeader(event: ObjectHeaderLocalEvent) -> ObjectHeader {

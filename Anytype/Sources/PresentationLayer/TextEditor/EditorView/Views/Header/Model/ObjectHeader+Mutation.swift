@@ -2,48 +2,35 @@ import UIKit
 
 extension ObjectHeader {
     
-    func modifiedByLocalEvent(
-        _ event: ObjectHeaderLocalEvent,
-        onIconTap: @escaping () -> (),
-        onCoverTap: @escaping () -> ()
-    ) -> ObjectHeader? {
+    func modifiedByLocalEvent(_ event: ObjectHeaderLocalEvent) -> ObjectHeader? {
         switch event {
         case .iconUploading(let uIImage):
-            return modifiedByIconUploadingEventWith(image: uIImage, onIconTap: onIconTap, onCoverTap: onCoverTap)
+            return modifiedByIconUploadingEventWith(image: uIImage)
         case .coverUploading(let uIImage):
-            return modifiedByCoverUploadingEventWith(image: uIImage, onCoverTap: onCoverTap)
+            return modifiedByCoverUploadingEventWith(image: uIImage)
         }
     }
     
-    private func modifiedByIconUploadingEventWith(
-        image: UIImage,
-        onIconTap: @escaping () -> (),
-        onCoverTap: @escaping () -> ()
-    ) -> ObjectHeader? {
+    private func modifiedByIconUploadingEventWith(image: UIImage) -> ObjectHeader? {
         switch self {
         case .iconOnly(let objectIcon):
-            return .iconOnly(modifiedObjectIcon(objectIcon, image, onIconTap, onCoverTap))
+            return .iconOnly(modifiedObjectIcon(objectIcon, image))
         case .coverOnly(let objectCover):
             return .iconAndCover(
-                icon: modifiedObjectIcon(nil, image, onIconTap, onCoverTap),
+                icon: modifiedObjectIcon(nil, image),
                 cover: objectCover
             )
         case .iconAndCover(let objectIcon, let objectCover):
             return .iconAndCover(
-                icon: modifiedObjectIcon(objectIcon, image, onIconTap, onCoverTap),
+                icon: modifiedObjectIcon(objectIcon, image),
                 cover: objectCover
             )
         case .empty:
-            return .iconOnly(modifiedObjectIcon(nil, image, onIconTap, onCoverTap))
+            return .iconOnly(modifiedObjectIcon(nil, image))
         }
     }
     
-    private func modifiedObjectIcon(
-        _ objectIcon: ObjectIcon?,
-        _ image: UIImage,
-        _ onIconTap: @escaping () -> (),
-        _ onCoverTap: @escaping () -> ()
-    ) -> ObjectIcon {
+    private func modifiedObjectIcon(_ objectIcon: ObjectIcon?, _ image: UIImage) -> ObjectIcon {
         guard let objectIcon = objectIcon else {
             return .preview(.basic(image), .left)
         }
@@ -68,10 +55,7 @@ extension ObjectHeader {
         }
     }
     
-    private func modifiedByCoverUploadingEventWith(
-        image: UIImage,
-        onCoverTap: @escaping () -> ()
-    ) -> ObjectHeader? {
+    private func modifiedByCoverUploadingEventWith(image: UIImage) -> ObjectHeader? {
         let newCover = ObjectCover.preview(image)
         
         switch self {
