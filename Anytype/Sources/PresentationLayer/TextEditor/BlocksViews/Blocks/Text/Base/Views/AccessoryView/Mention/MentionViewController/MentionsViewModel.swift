@@ -55,6 +55,7 @@ final class MentionsViewModel {
             let mention = MentionObject(
                 id: response.pageID,
                 icon: MentionIcon(emoji: emoji),
+                objectIcon: .placeholder(name.first),
                 name: name,
                 description: nil,
                 type: nil

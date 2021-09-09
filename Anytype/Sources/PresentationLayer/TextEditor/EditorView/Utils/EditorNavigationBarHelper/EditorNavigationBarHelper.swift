@@ -93,7 +93,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         
         navigationBarTitleView.configure(
             model: EditorNavigationBarTitleView.Model(
-                icon: details?.iconImage,
+                icon: details?.objectIconImage,
                 title: title
             )
         )
