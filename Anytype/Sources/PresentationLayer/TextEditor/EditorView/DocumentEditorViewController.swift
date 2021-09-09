@@ -12,7 +12,7 @@ final class DocumentEditorViewController: UIViewController {
         
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.backgroundColor = .white
+        listConfiguration.backgroundColor = .clear
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         let collectionView = UICollectionView(
@@ -20,7 +20,7 @@ final class DocumentEditorViewController: UIViewController {
             collectionViewLayout: layout
         )
         collectionView.allowsMultipleSelection = true
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
 
         return collectionView
