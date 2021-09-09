@@ -39,10 +39,6 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
                 let focus = userSession?.focus ?? .end
                 blockViewModel.set(focus: focus)
             }
-
-        case .header:
-            // TODO: - implement
-            return
         }
     }
 

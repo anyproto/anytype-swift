@@ -105,8 +105,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.header, .main])
-        snapshot.appendItems([.header(header)], toSection: .header)
+        snapshot.appendSections([.main])
         
         snapshot.appendItems(
             blocks.map { DataSourceItem.block($0) },
@@ -126,8 +125,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
                 
                 cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = blockForUpdate.indentationLevel
-            case .header:
-                return
             }
         }
         
@@ -149,8 +146,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
-            case .header:
-                return false
             }
         }
         
@@ -251,7 +246,6 @@ private extension DocumentEditorViewController {
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
-        let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
         let codeCellRegistration = createCodeCellRegistration()
 
@@ -273,24 +267,10 @@ private extension DocumentEditorViewController {
                     for: indexPath,
                     item: block
                 )
-            case let .header(header):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: headerCellRegistration,
-                    for: indexPath,
-                    item: header
-                )
             }
         }
         
         return dataSource
-    }
-    
-    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
-        .init { cell, _, item in
-            cell.contentConfiguration = item.makeContentConfiguration(
-                maxWidth: cell.bounds.width
-            )
-        }
     }
     
     func createCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> {
