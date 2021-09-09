@@ -26,6 +26,12 @@ final class ObjectHeaderView: UIView {
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
     
+    private var scrollViewTopInset: CGFloat = 0 {
+        didSet {
+            scrollView?.contentInset.top = scrollViewTopInset
+        }
+    }
+    
     private weak var scrollView: UIScrollView?
     
     override init(frame: CGRect) {
@@ -40,6 +46,8 @@ final class ObjectHeaderView: UIView {
     }
     
     func setupInScrollView(_ scrollView: UIScrollView) {
+        scrollView.contentInset.top = scrollViewTopInset
+        
         self.scrollView = scrollView
     }
     
@@ -122,7 +130,7 @@ private extension ObjectHeaderView {
         
         coverView.isHidden = true
         
-        scrollView?.contentInset.top = Constants.emptyHeaderHeight
+        scrollViewTopInset = Constants.emptyHeaderHeight
     }
     
     func setupFilledState() {
@@ -131,7 +139,7 @@ private extension ObjectHeaderView {
         
         coverView.isHidden = false
         
-        scrollView?.contentInset.top = Constants.filledHeaderHeight
+        scrollViewTopInset = Constants.filledHeaderHeight
     }
     
 }
