@@ -11,19 +11,17 @@ import UIKit
 
 final class NewObjectIconView: UIView {
     
-    // MARK: - Views
+    // MARK: - Private variables
     
     private let activityIndicatorView = ActivityIndicatorView()
         
+    private var containerViewHeightConstraint: NSLayoutConstraint!
+    private var containerViewWidthConstraint: NSLayoutConstraint!
+    
     private let containerView = UIView()
     
     private let iconImageView = ObjectIconImageView()
-    private var iconImageViewHeightConstraint: NSLayoutConstraint!
-    private var iconImageViewWidthConstraint: NSLayoutConstraint!
-    
     private let previewImageView = UIImageView()
-    private var previewImageViewHeightConstraint: NSLayoutConstraint!
-    private var previewImageViewWidthConstraint: NSLayoutConstraint!
     
     // MARK: - Initializers
     
@@ -63,25 +61,14 @@ extension NewObjectIconView: ConfigurableView {
 private extension NewObjectIconView {
         
     func showIconImageModel(_ model: ObjectIconImageView.Model) {
-        guard let imageGuideline = model.imageGuideline else {
-            setIconImageSizeConstraintsActive(false)
-            setPreviewImageSizeConstraintsActive(false)
-            return
-        }
-        
-        iconImageViewHeightConstraint.constant = imageGuideline.size.height
-        iconImageViewWidthConstraint.constant = imageGuideline.size.width
-        
-        containerView.layer.cornerRadius = imageGuideline.cornersGuideline.radius
-        layer.cornerRadius = imageGuideline.cornersGuideline.radius + Constants.borderWidth
-        
-        setIconImageSizeConstraintsActive(true)
-        setPreviewImageSizeConstraintsActive(false)
+        applyImageGuideline(model.imageGuideline)
         
         iconImageView.configure(model: model)
         
         iconImageView.isHidden = false
         previewImageView.isHidden = true
+        
+        activityIndicatorView.hide()
     }
     
     func showPreviewImageType(_ type: ObjectIconPreviewType) {
@@ -97,36 +84,30 @@ private extension NewObjectIconView {
             image = uIImage
         }
         
-        guard let imageGuideline = imageGuideline else {
-            setIconImageSizeConstraintsActive(false)
-            setPreviewImageSizeConstraintsActive(false)
-            return
-        }
-        
-        previewImageViewHeightConstraint.constant = imageGuideline.size.height
-        previewImageViewWidthConstraint.constant = imageGuideline.size.width
-        
-        containerView.layer.cornerRadius = imageGuideline.cornersGuideline.radius
-        layer.cornerRadius = imageGuideline.cornersGuideline.radius + Constants.borderWidth
-        
-        setIconImageSizeConstraintsActive(false)
-        setPreviewImageSizeConstraintsActive(true)
+        applyImageGuideline(imageGuideline)
         
         previewImageView.image = image
         
         iconImageView.isHidden = true
         previewImageView.isHidden = false
+        
+        activityIndicatorView.show()
     }
     
-    func setIconImageSizeConstraintsActive(_ isActive: Bool) {
-        iconImageViewHeightConstraint.isActive = isActive
-        iconImageViewWidthConstraint.isActive = isActive
+    func applyImageGuideline(_ imageGuideline: ImageGuideline?) {
+        guard let imageGuideline = imageGuideline else {
+            containerViewHeightConstraint.constant = 0
+            containerViewWidthConstraint.constant = 0
+            return
+        }
+        
+        containerViewHeightConstraint.constant = imageGuideline.size.height
+        containerViewWidthConstraint.constant = imageGuideline.size.width
+        
+        containerView.layer.cornerRadius = imageGuideline.cornersGuideline.radius
+        layer.cornerRadius = imageGuideline.cornersGuideline.radius + Constants.borderWidth
     }
     
-    func setPreviewImageSizeConstraintsActive(_ isActive: Bool) {
-        previewImageViewHeightConstraint.isActive = isActive
-        previewImageViewWidthConstraint.isActive = isActive
-    }
 }
 
 // MARK: - Private extension
@@ -135,6 +116,11 @@ private extension NewObjectIconView {
     
     func setupView() {
         containerView.clipsToBounds = true
+        
+        iconImageView.isHidden = true
+        previewImageView.isHidden = true
+        activityIndicatorView.hide()
+        
         setupBackgroundColor()
         setupLayout()
     }
@@ -149,7 +135,7 @@ private extension NewObjectIconView {
     
     func setupLayout() {
         addSubview(containerView) {
-            $0.center(in: containerView)
+            $0.center(in: self)
             $0.leading.equal(
                 to: self.leadingAnchor,
                 constant: Constants.borderWidth
@@ -158,17 +144,16 @@ private extension NewObjectIconView {
                 to: self.topAnchor,
                 constant: Constants.borderWidth
             )
+            
+            containerViewHeightConstraint = $0.height.equal(to: 0)
+            containerViewWidthConstraint = $0.width.equal(to: 0)
         }
         
         containerView.addSubview(iconImageView) {
-            iconImageViewHeightConstraint = $0.height.equal(to: 0, activate: false)
-            iconImageViewWidthConstraint = $0.width.equal(to: 0, activate: false)
             $0.pinToSuperview()
         }
         
         containerView.addSubview(previewImageView) {
-            previewImageViewHeightConstraint = $0.height.equal(to: 0, activate: false)
-            previewImageViewWidthConstraint = $0.width.equal(to: 0, activate: false)
             $0.pinToSuperview()
         }
         
