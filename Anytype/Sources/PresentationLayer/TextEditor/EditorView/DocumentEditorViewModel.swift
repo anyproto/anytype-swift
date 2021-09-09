@@ -87,7 +87,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         )
         
         viewInput?.updateHeader(header, details: modelsHolder.details)
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        viewInput?.updateBlocks(modelsHolder.models)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -201,7 +201,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         let header = headerBuilder.objectHeader(details: details)
         
         viewInput?.updateHeader(header, details: details)
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        viewInput?.updateBlocks(modelsHolder.models)
     }
 }
 

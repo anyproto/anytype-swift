@@ -119,7 +119,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         )
     }
     
-    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
+    func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.main])
         

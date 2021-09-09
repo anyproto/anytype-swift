@@ -5,7 +5,7 @@ import BlocksModels
 protocol DocumentEditorViewInput: AnyObject {
     
     func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?)
-    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol])
+    func updateBlocks(_ blocks: [BlockViewModelProtocol])
     
     func selectBlock(blockId: BlockId)
 
