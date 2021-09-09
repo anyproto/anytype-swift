@@ -47,6 +47,8 @@ final class DocumentEditorViewController: UIViewController {
             self?.viewModel.showSettings()
         }
     )
+    
+    private let objectHeaderView = ObjectHeaderView()
 
     var viewModel: DocumentEditorViewModelProtocol!
 
@@ -63,11 +65,16 @@ final class DocumentEditorViewController: UIViewController {
 
     // MARK: - Overrided functions
     
+    override func loadView() {
+        super.loadView()
+        
+        setupView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewModel.viewLoaded()
-        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -181,17 +188,15 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 
 private extension DocumentEditorViewController {
     
-    func setupUI() {
+    func setupView() {
         setupCollectionView()
         setupInteractions()
         
+        setupLayout()
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
 
     func setupCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.pinAllEdges(to: view)
-        
         collectionView.delegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
@@ -208,7 +213,17 @@ private extension DocumentEditorViewController {
             self,
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
-        self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+        view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+    }
+    
+    func setupLayout() {
+        view.addSubview(objectHeaderView) {
+            $0.pinToSuperview(excluding: [.bottom])
+        }
+        
+        view.addSubview(collectionView) {
+            $0.pinToSuperview()
+        }
     }
     
     @objc
