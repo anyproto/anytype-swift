@@ -44,7 +44,7 @@ extension ObjectHeaderView: ConfigurableView {
 private extension ObjectHeaderView {
     
     func setupView() {
-        backgroundColor = .systemBackground
+        backgroundColor = .grayscaleWhite
         setupLayout()
     }
     

@@ -146,8 +146,8 @@ private extension NewObjectCoverView {
     }
     
     func setupBackgroundColor() {
-        backgroundColor = .systemBackground
-        imageView.backgroundColor = .systemBackground
+        backgroundColor = .grayscaleWhite
+        imageView.backgroundColor = .grayscaleWhite
     }
     
     func setupLayout() {

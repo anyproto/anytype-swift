@@ -139,6 +139,7 @@
 		120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E819626A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift */; };
 		120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */; };
 		120EB4E126E8EE2E003A0C2B /* NewObjectCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120EB4E026E8EE2E003A0C2B /* NewObjectCoverView.swift */; };
+		120EB4E326E8F618003A0C2B /* NewObjectIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120EB4E226E8F618003A0C2B /* NewObjectIconView.swift */; };
 		120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* ObjectCoverPicker.swift */; };
 		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
 		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
@@ -783,6 +784,7 @@
 		120E819626A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPickerViewModel.swift; sourceTree = "<group>"; };
 		120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderView.swift; sourceTree = "<group>"; };
 		120EB4E026E8EE2E003A0C2B /* NewObjectCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewObjectCoverView.swift; sourceTree = "<group>"; };
+		120EB4E226E8F618003A0C2B /* NewObjectIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewObjectIconView.swift; sourceTree = "<group>"; };
 		120F7D43267CD1AC00327734 /* ObjectCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCoverPicker.swift; sourceTree = "<group>"; };
 		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
 		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
@@ -2700,6 +2702,7 @@
 			isa = PBXGroup;
 			children = (
 				120EB4E026E8EE2E003A0C2B /* NewObjectCoverView.swift */,
+				120EB4E226E8F618003A0C2B /* NewObjectIconView.swift */,
 				120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */,
 				3D38CC9426D631AE00E4F7BF /* View */,
 				3D44983E26D53973005A3E06 /* Model */,
@@ -4231,6 +4234,7 @@
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
+				120EB4E326E8F618003A0C2B /* NewObjectIconView.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */,
 				12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */,

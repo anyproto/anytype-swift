@@ -144,9 +144,9 @@ private extension ObjectIconImageView {
     
 }
 
-// MARK: - Private `ObjectIconImageView.Model` extension
+// MARK: - `ObjectIconImageView.Model` extension
 
-private extension ObjectIconImageView.Model {
+extension ObjectIconImageView.Model {
     
     var imageGuideline: ImageGuideline? {
         self.usecase.objectIconImageGuidelineSet.imageGuideline(
