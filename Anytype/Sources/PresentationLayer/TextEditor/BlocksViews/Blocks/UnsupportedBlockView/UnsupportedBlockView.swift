@@ -64,8 +64,8 @@ class UnsupportedBlockView: UIView & UIContentView {
         let text = UIKitAnytypeText(text: currentConfiguration.text, style: fontStyle)
 
         addSubview(label) {
-            $0.top.equal(to: topAnchor, constant: Layout.labelTopBottomSpacing + text.topBottomTextSpacingForContainer)
-            $0.bottom.equal(to: bottomAnchor, constant: -(Layout.labelTopBottomSpacing + text.topBottomTextSpacingForContainer))
+            $0.top.equal(to: topAnchor, constant: Layout.labelTopBottomSpacing + text.verticalSpacing)
+            $0.bottom.equal(to: bottomAnchor, constant: -(Layout.labelTopBottomSpacing + text.verticalSpacing))
             $0.leading.equal(to: icon.trailingAnchor, constant: Layout.iconToTextPadding)
         }
     }

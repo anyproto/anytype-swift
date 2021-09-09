@@ -144,7 +144,7 @@
 "Enter your invitation code" = "Enter your invitation code";
 "Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
 "Sign up error" = "No internet connection / invalid invitation code";
-"Account recover error" = "Account recover error, probably no internet connection";
+"Account recover error" = "Account recover error, probably no internet connection or wrong passphrase";
 
 
 // Auth Errors

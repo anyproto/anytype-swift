@@ -10,12 +10,16 @@ import Foundation
 import UIKit
 
 //@see https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=123%3A981
-enum ObjectIconImageUsecase {
+enum ObjectIconImageUsecase: Equatable {
     case openedObject
     case openedObjectNavigationBar
+    
+    case editorSearch // slash menu + mention
+    
     case dashboardList
     case dashboardProfile
     case dashboardSearch
+    case mention(ObjectIconImageMentionType)
 }
 
 extension ObjectIconImageUsecase {
@@ -37,6 +41,14 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x18,
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil
+            )
+        case .editorSearch:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x40,
+                profileImageGuideline: ProfileIconImageGuideline.x40,
+                emojiImageGuideline: EmojiIconImageGuideline.x40,
+                todoImageGuideline: TodoIconImageGuideline.x24,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x40
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
@@ -62,6 +74,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x48
             )
+        case let .mention(type):
+            return mentionImageGuidelineSet(for: type)
         }
     }
     
@@ -94,6 +108,24 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 ),
                 placeholderImageFont: nil
+            )
+        case .editorSearch:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 24,
+                    weight: .regular
+                ),
+                placeholderImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                )
             )
         case .dashboardList:
             return ObjectIconImageFontSet(
@@ -128,7 +160,7 @@ extension ObjectIconImageUsecase {
                 ),
                 emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
-                    size: 30,
+                    size: 28,
                     weight: .regular
                 ),
                 placeholderImageFont: UIKitFontBuilder.uiKitFont(
@@ -137,7 +169,108 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 )
             )
+        case let .mention(type):
+            return mentionFontGuidelineSet(for: type)
         }
     }
     
+    private func mentionImageGuidelineSet(for type: ObjectIconImageMentionType) -> ObjectIconImageGuidelineSet {
+        switch type {
+        case .title:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x28,
+                profileImageGuideline: ProfileIconImageGuideline.x28,
+                emojiImageGuideline: EmojiIconImageGuideline.x28,
+                todoImageGuideline: TodoIconImageGuideline.x28,
+                placeholderImageGuideline: nil
+            )
+        case .heading:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x24,
+                profileImageGuideline: ProfileIconImageGuideline.x24,
+                emojiImageGuideline: EmojiIconImageGuideline.x24,
+                todoImageGuideline: TodoIconImageGuideline.x24,
+                placeholderImageGuideline: nil
+            )
+        case .subheading,
+             .body:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x20,
+                profileImageGuideline: ProfileIconImageGuideline.x20,
+                emojiImageGuideline: EmojiIconImageGuideline.x20,
+                todoImageGuideline: TodoIconImageGuideline.x20,
+                placeholderImageGuideline: nil
+            )
+        case .callout:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x18,
+                profileImageGuideline: ProfileIconImageGuideline.x18,
+                emojiImageGuideline: EmojiIconImageGuideline.x18,
+                todoImageGuideline: TodoIconImageGuideline.x18,
+                placeholderImageGuideline: nil
+            )
+        }
+    }
+    
+    private func mentionFontGuidelineSet(for type: ObjectIconImageMentionType) -> ObjectIconImageFontSet {
+        switch type {
+        case .title:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 19,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 28,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil
+            )
+        case .heading:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 16,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil
+            )
+        case .subheading,
+             .body:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 13,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 17,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil
+            )
+        case .callout:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 11,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 15,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil
+            )
+        }
+    }
 }
