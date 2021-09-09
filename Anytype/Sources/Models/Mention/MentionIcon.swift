@@ -1,11 +1,3 @@
-//
-//  MentionIcon.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 19.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 enum MentionIcon {
     case objectIcon(ObjectIconType)
     case checkmark(Bool)
