@@ -5,12 +5,8 @@ final class MentionsViewController: UITableViewController {
     
     private enum Constants {
         static let cellReuseId = NSStringFromClass(UITableViewCell.self)
-        static let imageCornerRadius: CGFloat = 8
-        static let imageSize = CGSize(width: 40, height: 40)
         static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
-        static let imagePadding: CGFloat = 12
         static let cellHeight: CGFloat = 56
-        static let textsVerticalPadding: CGFloat = 4
         static let createNewObjectImagePadding: CGFloat = 12
     }
     
@@ -64,69 +60,13 @@ final class MentionsViewController: UITableViewController {
     }
     
     private func confguration(for mention: MentionObject) -> UIContentConfiguration {
-        return EditorSearchCellConfiguration(
+        EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
                 title: mention.name,
                 subtitle: mention.type?.name ?? "Object".localized,
                 icon: mention.objectIcon
             )
         )
-        
-        switch mention.icon {
-        case let .objectIcon(objectIcon):
-            return configurationForObjectIcon(objectIcon, mention: mention)
-        case .checkmark:
-            return mentionWithImageConfiguration(mention: mention, isCircle: false)
-        case .none:
-            return ContentConfigurationWithEmoji(
-                emoji: "",
-                name: mention.name,
-                description: mention.description
-            )
-        }
-    }
-    
-    private func configurationForObjectIcon(_ objectIcon: ObjectIconType, mention: MentionObject) -> UIContentConfiguration {
-        switch objectIcon {
-        case let .profile(profile):
-            switch profile {
-            case .imageId:
-                return mentionWithImageConfiguration(mention: mention, isCircle: true)
-            case .character:
-                return mentionWithImageConfiguration(mention: mention, isCircle: true)
-            }
-        case .basic:
-            return mentionWithImageConfiguration(mention: mention, isCircle: false)
-        case let .emoji(emoji):
-            return ContentConfigurationWithEmoji(
-                emoji: emoji.value,
-                name: mention.name,
-                description: mention.description
-            )
-        }
-    }
-    
-    private func mentionWithImageConfiguration(mention: MentionObject, isCircle: Bool) -> UIContentConfiguration {
-        var configuration = UIListContentConfiguration.subtitleCell()
-        
-        let imageSize = Constants.imageSize
-        let imageCornerRadius = isCircle ? imageSize.width / 2 : Constants.imageCornerRadius
-        
-        configuration.imageProperties.cornerRadius = imageCornerRadius
-        configuration.imageProperties.maximumSize = imageSize
-        configuration.imageProperties.reservedLayoutSize = imageSize
-        configuration.imageToTextPadding = Constants.imagePadding
-        configuration.image = viewModel.image(for: mention, size: imageSize, radius: imageCornerRadius)
-        
-        configuration.text = mention.name
-        configuration.textProperties.font = .bodyRegular
-        configuration.textProperties.color = .textPrimary
-        configuration.textToSecondaryTextVerticalPadding = Constants.textsVerticalPadding
-        
-        configuration.secondaryText = mention.description
-        configuration.secondaryTextProperties.font = .relation2Regular
-        configuration.secondaryTextProperties.color = .textSecondary
-        return configuration
     }
     
     private func createNewObjectContentConfiguration() -> UIContentConfiguration {

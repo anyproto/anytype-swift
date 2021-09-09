@@ -34,10 +34,12 @@ final class MentionAttachment: NSTextAttachment {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func attachmentBounds(for textContainer: NSTextContainer?,
-                                   proposedLineFragment lineFrag: CGRect,
-                                   glyphPosition position: CGPoint,
-                                   characterIndex charIndex: Int) -> CGRect {
+    override func attachmentBounds(
+        for textContainer: NSTextContainer?,
+        proposedLineFragment lineFrag: CGRect,
+        glyphPosition position: CGPoint,
+        characterIndex charIndex: Int
+    ) -> CGRect {
         let desiredIconSize = CGSize(width: lineFrag.height, height: lineFrag.height)
         layoutManager = textContainer?.layoutManager
     

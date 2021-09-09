@@ -265,7 +265,7 @@
 		3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */; };
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
-		3D16840326DD5930008B9DFF /* ContentConfigurationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840226DD5930008B9DFF /* ContentConfigurationFactory.swift */; };
+		3D16840326DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840226DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift */; };
 		3D16840526DD5B54008B9DFF /* SlashMenuViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840426DD5B54008B9DFF /* SlashMenuViewController+TableView.swift */; };
 		3D16840926DD671D008B9DFF /* BlockInformationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840826DD671D008B9DFF /* BlockInformationConverter.swift */; };
 		3D16841126DD672E008B9DFF /* ContentBookmarkConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840A26DD672E008B9DFF /* ContentBookmarkConverter.swift */; };
@@ -909,7 +909,7 @@
 		3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
-		3D16840226DD5930008B9DFF /* ContentConfigurationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentConfigurationFactory.swift; sourceTree = "<group>"; };
+		3D16840226DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuContentConfigurationFactory.swift; sourceTree = "<group>"; };
 		3D16840426DD5B54008B9DFF /* SlashMenuViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlashMenuViewController+TableView.swift"; sourceTree = "<group>"; };
 		3D16840826DD671D008B9DFF /* BlockInformationConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationConverter.swift; sourceTree = "<group>"; };
 		3D16840A26DD672E008B9DFF /* ContentBookmarkConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentBookmarkConverter.swift; sourceTree = "<group>"; };
@@ -3652,7 +3652,7 @@
 				3D29AFEB26A5C5D30095BA18 /* Handler */,
 				EA7DE40226397D0A005AFEE2 /* Filtering */,
 				EAC6BB5626289201004C8C06 /* SlashMenuView.swift */,
-				3D16840226DD5930008B9DFF /* ContentConfigurationFactory.swift */,
+				3D16840226DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift */,
 				EA77E51F262DAAA5009F91D9 /* SlashMenuViewController.swift */,
 				3D16840426DD5B54008B9DFF /* SlashMenuViewController+TableView.swift */,
 				3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */,
@@ -4455,7 +4455,7 @@
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
 				EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
-				3D16840326DD5930008B9DFF /* ContentConfigurationFactory.swift in Sources */,
+				3D16840326DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				3D44985526D562BC005A3E06 /* ObjectHeaderEmptyData.swift in Sources */,
