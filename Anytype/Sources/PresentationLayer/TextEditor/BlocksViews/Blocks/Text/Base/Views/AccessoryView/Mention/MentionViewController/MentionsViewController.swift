@@ -7,9 +7,9 @@ final class MentionsViewController: UITableViewController {
         static let cellReuseId = NSStringFromClass(UITableViewCell.self)
         static let imageCornerRadius: CGFloat = 8
         static let imageSize = CGSize(width: 40, height: 40)
-        static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 24)
+        static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
         static let imagePadding: CGFloat = 12
-        static let cellHeight: CGFloat = 55
+        static let cellHeight: CGFloat = 56
         static let textsVerticalPadding: CGFloat = 4
         static let createNewObjectImagePadding: CGFloat = 12
     }
@@ -64,6 +64,14 @@ final class MentionsViewController: UITableViewController {
     }
     
     private func confguration(for mention: MentionObject) -> UIContentConfiguration {
+        return EditorSearchCellConfiguration(
+            cellData: EditorSearchCellData(
+                title: mention.name,
+                subtitle: mention.type?.name ?? "Object".localized,
+                icon: mention.objectIcon
+            )
+        )
+        
         switch mention.icon {
         case let .objectIcon(objectIcon):
             return configurationForObjectIcon(objectIcon, mention: mention)
