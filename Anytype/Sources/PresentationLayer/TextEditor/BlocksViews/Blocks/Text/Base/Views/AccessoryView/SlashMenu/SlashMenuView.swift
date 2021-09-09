@@ -10,17 +10,21 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     var menuItems: [BlockActionMenuItem]
     private weak var menuNavigationController: UINavigationController?
-    private weak var menuItemsViewController: SlashMenuViewController?
-    private let slashMenuActionsHandler: SlashMenuActionsHandler
+    private lazy var controller = SlashMenuAssembly(actionsHandler: actionsHandler)
+        .menuController(menuItems: menuItems, dismissHandler: dismissHandler)
+    private let actionsHandler: SlashMenuActionsHandler
+    private let cellDataBuilder: SlashMenuCellDataBuilder
     private var filterStringMismatchLength = 0
+    private var cachedFilterText = ""
     
     init(
         frame: CGRect,
         menuItems: [BlockActionMenuItem],
-        slashMenuActionsHandler: SlashMenuActionsHandler
+        actionsHandler: SlashMenuActionsHandler
     ) {
         self.menuItems = menuItems
-        self.slashMenuActionsHandler = slashMenuActionsHandler
+        self.actionsHandler = actionsHandler
+        self.cellDataBuilder = SlashMenuCellDataBuilder(menuItems: menuItems)
 
         super.init(frame: frame)
     }
@@ -39,40 +43,26 @@ final class SlashMenuView: DismissableInputAccessoryView {
     }
     
     private func setup(parentViewController: UIViewController) {
-        let menuViewController = makeMenuController()
-        menuNavigationController = menuViewController
-        menuViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        parentViewController.addChild(menuViewController)
-        addSubview(menuViewController.view) {
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.isNavigationBarHidden = true
+        navigationController.delegate = self
+        
+        menuNavigationController = navigationController
+        navigationController.view.translatesAutoresizingMaskIntoConstraints = false
+        parentViewController.addChild(navigationController)
+        addSubview(navigationController.view) {
             $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
-        menuViewController.didMove(toParent: parentViewController)
+        navigationController.didMove(toParent: parentViewController)
     }
     
     override func didShow(from textView: UITextView) {
         Amplitude.instance().logEvent(AmplitudeEventsName.popupSlashMenu)
         
-        slashMenuActionsHandler.didShowMenuView(from: textView)
+        actionsHandler.didShowMenuView(from: textView)
     }
     
-    // MARK: - Views
-    
-    private func makeMenuController() -> UINavigationController {
-        let coordinator = SlashMenuViewControllerCoordinatorImp(
-            actionsHandler: slashMenuActionsHandler,
-            dismissHandler: dismissHandler
-        )
-        let controller = SlashMenuViewController(
-            coordinator: coordinator,
-            items: menuItems
-        )
-        menuItemsViewController = controller
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.isNavigationBarHidden = true
-        navigationController.delegate = self
-        return navigationController
-    }
 }
 
 extension SlashMenuView: UINavigationControllerDelegate {
@@ -90,20 +80,18 @@ extension SlashMenuView: UINavigationControllerDelegate {
 extension SlashMenuView: FilterableItemsView {
     
     func setFilterText(filterText: String) {
-        guard let menuItemsController = menuItemsViewController else { return }
-        if menuItemsController.navigationController?.topViewController != menuItemsController {
-            menuItemsController.navigationController?.popToRootViewController(animated: false)
+        if controller.navigationController?.topViewController != controller {
+            controller.navigationController?.popToRootViewController(animated: false)
         }
-        guard menuItemsController.filterString != filterText else { return }
+        guard cachedFilterText != filterText else { return }
+        controller.cellData = cellDataBuilder.build(filter: filterText)
         
-        let oldFilterText = menuItemsController.filterString
-        menuItemsController.filterString = filterText
-        
-        if !menuItemsController.items.isEmpty {
+        if !controller.cellData.isEmpty {
             filterStringMismatchLength = 0
-            return
+        } else {
+            filterStringMismatchLength += filterText.count - cachedFilterText.count
         }
-        filterStringMismatchLength += filterText.count - oldFilterText.count
+        cachedFilterText = filterText
     }
     
     func shouldContinueToDisplayView() -> Bool {

@@ -43,7 +43,7 @@ final class BlockMarkupChanger {
             attributedText: NSMutableAttributedString(
                 attributedString: attrText
             ),
-            defaultNonCodeFont: content.contentType.uiFont.uiKitFont
+            anytypeFont: content.contentType.uiFont
         )
         modifier.apply(action, range: range)
         return NSAttributedString(attributedString: modifier.attributedString)

@@ -97,7 +97,7 @@ private extension ObjectCoverPickerViewModel {
             url: "",
             localPath: localPath,
             type: .image,
-            disableEncryption: false
+            disableEncryption: true
         )
         .sinkWithDefaultCompletion("Cover upload image") { [weak self] uploadedImageHash in
             self?.detailsService.update(

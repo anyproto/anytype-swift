@@ -22,31 +22,31 @@ struct BlockActionsBuilder {
     }
     
     private var styleMenuItem: BlockActionMenuItem? {
-        let children = BlockStyleAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, type in
+        let children = BlockStyleAction.allCases.reduce(into: [BlockActionType]()) { result, type in
             if let mappedType = type.blockViewsType {
                 guard restrictions.turnIntoStyles.contains(mappedType) else { return }
-                result.append(.action(.style(type)))
+                result.append(.style(type))
             } else {
                 if type == .bold, restrictions.canApplyBold {
-                    result.append(.action(.style(type)))
+                    result.append(.style(type))
                 }
                 if type == .italic, restrictions.canApplyItalic {
-                    result.append(.action(.style(type)))
+                    result.append(.style(type))
                 }
                 if (type == .code || type == .strikethrough), restrictions.canApplyOtherMarkup {
-                    result.append(.action(.style(type)))
+                    result.append(.style(type))
                 }
             }
         }
         if children.isEmpty {
             return nil
         }
-        return .menu(item: .style, children: children)
+        return BlockActionMenuItem(item: .style, children: children)
     }
     
     private var mediaMenuItem: BlockActionMenuItem? {
-        let children: [BlockActionMenuItem] = BlockMediaAction.allCases.map { .action(.media($0)) }
-        return .menu(item: .media, children: children)
+        let children: [BlockActionType] = BlockMediaAction.allCases.map { .media($0) }
+        return BlockActionMenuItem(item: .media, children: children)
     }
     
     private var objectsMenuItem: BlockActionMenuItem? {
@@ -55,7 +55,7 @@ struct BlockActionsBuilder {
         }
         
         let objects = [ draft ]
-        return .menu(item: .objects, children: objects.map { .action(.objects($0)) })
+        return BlockActionMenuItem(item: .objects, children: objects.map { .objects($0) })
     }
     
     private var relationMenuItem: BlockActionMenuItem? {
@@ -63,37 +63,37 @@ struct BlockActionsBuilder {
     }
     
     private var otherMenuItem: BlockActionMenuItem {
-        let children: [BlockActionMenuItem] = BlockOtherAction.allCases.map { .action(.other($0)) }
-        return .menu(item: .other, children: children)
+        let children: [BlockActionType] = BlockOtherAction.allCases.map { .other($0) }
+        return BlockActionMenuItem(item: .other, children: children)
     }
     
     private var actionsMenuItem: BlockActionMenuItem {
-        let children: [BlockActionMenuItem] = [BlockAction.delete, BlockAction.duplicate].map { .action(.actions($0)) }
-        return .menu(item: .actions, children: children)
+        let children: [BlockActionType] = [BlockAction.delete, BlockAction.duplicate].map { .actions($0) }
+        return BlockActionMenuItem(item: .actions, children: children)
     }
     
     private var alignmentMenuItem: BlockActionMenuItem? {
-        let children = BlockAlignmentAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, alignment in
+        let children = BlockAlignmentAction.allCases.reduce(into: [BlockActionType]()) { result, alignment in
             guard self.restrictions.availableAlignments.contains(alignment.blockAlignment) else { return }
-            result.append(.action(.alignment(alignment)))
+            result.append(.alignment(alignment))
         }
         if children.isEmpty {
             return nil
         }
-        return .menu(item: .alignment, children: children)
+        return BlockActionMenuItem(item: .alignment, children: children)
     }
     
     private var blockColorMenuItem: BlockActionMenuItem? {
         if !restrictions.canApplyBlockColor {
             return nil
         }
-        return .menu(item: .color, children: BlockColor.allCases.map { .action(.color($0)) })
+        return BlockActionMenuItem(item: .color, children: BlockColor.allCases.map { .color($0) })
     }
     
     private var backgroundColorMenuItem: BlockActionMenuItem? {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }
-        return .menu(item: .background, children: BlockBackgroundColor.allCases.map { .action(.background($0)) })
+        return BlockActionMenuItem(item: .background, children: BlockBackgroundColor.allCases.map { .background($0) })
     }
 }

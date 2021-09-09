@@ -30,6 +30,13 @@ final class EditorBarButtonItemView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let dX = max(Constants.minimumHitArea.width - bounds.width, 0) / 2
+        let dY = max(Constants.minimumHitArea.height - bounds.height, 0) / 2
+        
+        return bounds.insetBy(dx: -dX, dy: -dY).contains(point) ? self.button : nil
+    }
 }
 
 private extension EditorBarButtonItemView {
@@ -49,7 +56,6 @@ private extension EditorBarButtonItemView {
     
     func setupBackgroundView() {
         backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
-        backgroundView.clipsToBounds = true
         backgroundView.layer.cornerRadius = 7
     }
     
@@ -113,6 +119,8 @@ private extension EditorBarButtonItemView {
     enum Constants {
         static let animationDuration: TimeInterval = 0.1
         static let pressedScale: CGFloat = 0.8
+        
+        static let minimumHitArea = CGSize(width: 44, height: 44)
     }
     
 }

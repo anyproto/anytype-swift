@@ -18,25 +18,48 @@ struct ObjectSettingRow: View {
             onTap()
         }
         label: {
-            HStack(spacing: 12) {
-                setting.image.frame(width: 44, height: 44)
+            HStack(spacing: Constants.space) {
+                setting.image.frame(
+                    width: Constants.iconWidth,
+                    height: Constants.iconWidth
+                )
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    AnytypeText(setting.title, style: .uxTitle2Regular, color: .textPrimary)
-                        .padding(.vertical, 2)
-                    AnytypeText(setting.description, style: .caption1Regular, color: .textSecondary)
-                        .padding(.vertical, 2)
+                    AnytypeText(
+                        setting.title,
+                        style: .uxTitle2Medium,
+                        color: .textPrimary
+                    )
+                    
+                    Spacer.fixedHeight(2)
+                    
+                    AnytypeText(
+                        setting.description,
+                        style: .caption1Regular,
+                        color: .textSecondary
+                    )
                 }
                 
                 Spacer()
                 
-                Image.arrow.frame(width: 24, height: 24)
+                Image.arrow
                 
             }
-            .padding(.top, 10)
-            .modifier(DividerModifier(spacing: 10))
+            .padding(.top, Constants.verticalInset)
+            .modifier(
+                DividerModifier(
+                    spacing: Constants.verticalInset,
+                    leadingPadding: Constants.space + Constants.iconWidth
+                )
+            )
         }
         
+    }
+    
+    private enum Constants {
+        static let verticalInset: CGFloat = 10
+        static let iconWidth: CGFloat = 44
+        static let space: CGFloat = 12
     }
 }
 
@@ -74,7 +97,6 @@ private extension ObjectSetting {
             return Image.ObjectSettings.layout
         }
     }
-    
 }
 
 struct ObjectSettingRowView_Previews: PreviewProvider {

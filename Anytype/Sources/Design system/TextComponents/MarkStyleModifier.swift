@@ -4,14 +4,14 @@ import UIKit
 final class MarkStyleModifier {
     
     let attributedString: NSMutableAttributedString
-    private let defaultNonCodeFont: UIFont
+    private let anytypeFont: AnytypeFont
     
     init(
         attributedText: NSMutableAttributedString = .init(),
-        defaultNonCodeFont: UIFont
+        anytypeFont: AnytypeFont
     ) {
         attributedString = attributedText
-        self.defaultNonCodeFont = defaultNonCodeFont
+        self.anytypeFont = anytypeFont
     }
     
     private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
@@ -166,7 +166,7 @@ final class MarkStyleModifier {
         case (true, true):
             return AttributedStringChange(changeAttributes: [.font: font])
         case (true, false):
-            targetFont = defaultNonCodeFont
+            targetFont = anytypeFont.uiKitFont
         case (false, true):
             targetFont = UIFont.code(of: font.pointSize)
         case (false, false):

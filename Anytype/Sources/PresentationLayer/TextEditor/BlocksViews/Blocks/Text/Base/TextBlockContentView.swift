@@ -252,10 +252,12 @@ final class TextBlockContentView: UIView & UIContentView {
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
-        textView.textView.textContainerInset = .init(top: currentConfiguration.text.topBottomTextSpacingForContainer,
-                                                     left: 0,
-                                                     bottom: currentConfiguration.text.topBottomTextSpacingForContainer,
-                                                     right: 0)
+        textView.textView.textContainerInset = .init(
+            top: currentConfiguration.text.verticalSpacing,
+            left: 0,
+            bottom: currentConfiguration.text.verticalSpacing,
+            right: 0
+        )
 
         textView.textView.typingAttributes = currentConfiguration.text.typingAttributes
         textView.textView.defaultFontColor = .textPrimary
@@ -429,11 +431,10 @@ extension TextBlockContentView {
             for: currentConfiguration.information.content.type
         )
         let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
-        
-        let slashMenuView = SlashMenuView(
+        let assembly = SlashMenuAssembly(actionsHandler: actionsHandler)
+        let slashMenuView = assembly.menuView(
             frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
-            menuItems: items,
-            slashMenuActionsHandler: actionsHandler
+            menuItems: items
         )
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(
@@ -457,7 +458,12 @@ extension TextBlockContentView {
 extension TextBlockContentView: AccessoryViewSwitcherDelegate {
     func mentionSelected(_ mention: MentionObject, from: UITextPosition, to: UITextPosition) {
         // TODO: Accessory check if no need
-        textView.textView.insert(mention, from: from, to: to)
+        textView.textView.insert(
+            mention,
+            from: from,
+            to: to,
+            font: currentConfiguration.text.anytypeFont
+        )
 
         self.currentConfiguration.actionHandler.handleAction(
             .textView(

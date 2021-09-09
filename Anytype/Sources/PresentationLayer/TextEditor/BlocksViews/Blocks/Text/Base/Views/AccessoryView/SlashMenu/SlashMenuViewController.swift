@@ -1,33 +1,37 @@
 import UIKit
 
+enum SlashMenuCellData {
+    case menu(item: SlashMenuItemType, actions: [BlockActionType])
+    case action(BlockActionType)
+    case header(title: String)
+}
 
 final class SlashMenuViewController: UIViewController {
-    let coordinator: SlashMenuViewControllerCoordinator
-    let filterService: SlashMenuActionsFilterService
     let configurationFactory = ContentConfigurationFactory()
+    let actionsHandler: SlashMenuActionsHandler
+    let dismissHandler: (() -> Void)?
+    
     
     let cellReuseId = NSStringFromClass(UITableViewCell.self)
     
-    var filterString = "" {
-        didSet {
-            items = filterService.menuItemsFiltered(by: filterString)
-            tableView.backgroundView?.isHidden = !items.isEmpty
-        }
-    }
-    
-    private(set) var items: [BlockActionMenuItem] {
+    var cellData: [SlashMenuCellData] = [] {
         didSet {
             tableView.reloadData()
+            tableView.backgroundView?.isHidden = !cellData.isEmpty
         }
     }
     
     private lazy var topBarHeightConstraint = customTopBar.heightAnchor.constraint(equalToConstant: Constants.topBarHeight)
     
-    init(coordinator: SlashMenuViewControllerCoordinator, items: [BlockActionMenuItem]) {
-        self.coordinator = coordinator
-        self.items = items
-        self.filterService = SlashMenuActionsFilterService(initialMenuItems: items)
+    init(
+        cellData: [SlashMenuCellData],
+        actionsHandler: SlashMenuActionsHandler,
+        dismissHandler: (() -> Void)?
         
+    ) {
+        self.cellData = cellData
+        self.actionsHandler = actionsHandler
+        self.dismissHandler = dismissHandler
         super.init(nibName: nil, bundle: nil)
         
         setup()

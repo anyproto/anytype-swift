@@ -7,8 +7,8 @@ final class MarkupViewModel {
     var blockInformation: BlockInformation? {
         didSet {
             guard case let .text(textBlock) = blockInformation?.content else { return }
-            displayCurrentState()
             anytypeText = AttributedTextConverter.asModel(text: textBlock.text, marks: textBlock.marks, style: textBlock.contentType)
+            displayCurrentState()
         }
     }
     weak var view: MarkupViewProtocol?

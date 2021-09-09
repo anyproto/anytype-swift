@@ -13,6 +13,9 @@ import UIKit
 enum ObjectIconImageUsecase: Equatable {
     case openedObject
     case openedObjectNavigationBar
+    
+    case editorSearch // slash menu + mention
+    
     case dashboardList
     case dashboardProfile
     case dashboardSearch
@@ -38,6 +41,14 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x18,
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil
+            )
+        case .editorSearch:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x40,
+                profileImageGuideline: ProfileIconImageGuideline.x40,
+                emojiImageGuideline: EmojiIconImageGuideline.x40,
+                todoImageGuideline: TodoIconImageGuideline.x24,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x40
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
@@ -98,6 +109,24 @@ extension ObjectIconImageUsecase {
                 ),
                 placeholderImageFont: nil
             )
+        case .editorSearch:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 24,
+                    weight: .regular
+                ),
+                placeholderImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                )
+            )
         case .dashboardList:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
@@ -131,7 +160,7 @@ extension ObjectIconImageUsecase {
                 ),
                 emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
-                    size: 30,
+                    size: 28,
                     weight: .regular
                 ),
                 placeholderImageFont: UIKitFontBuilder.uiKitFont(

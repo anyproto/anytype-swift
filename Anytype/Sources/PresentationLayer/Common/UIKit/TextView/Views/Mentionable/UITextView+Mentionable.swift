@@ -37,9 +37,9 @@ extension UITextView: Mentionable {
     func insert(
         _ mention: MentionObject,
         from: UITextPosition,
-        to: UITextPosition
+        to: UITextPosition,
+        font: AnytypeFont
     ) {
-        guard let name = mention.name else { return }
         let pageId = mention.id
         let length = offset(from: from, to: to)
         let location = offset(from: beginningOfDocument, to: from)
@@ -48,21 +48,21 @@ extension UITextView: Mentionable {
         attributedString.deleteCharacters(in: replacementRange)
         attributedText = attributedString
         insertStringToAttributedString(
-            name,
+            mention.name,
             location: location
         )
         let modifier = MarkStyleModifier(
             attributedText: NSMutableAttributedString(attributedString: attributedText),
-            defaultNonCodeFont: .bodyRegular
+            anytypeFont: font
         )
         modifier.apply(
             .mention(pageId),
             range: NSRange(
                 location: location,
-                length: name.count
+                length: mention.name.count
             )
         )
         attributedText = NSAttributedString(attributedString: modifier.attributedString)
-        selectedRange = NSRange(location: location + name.count + Constants.attachmentLenght, length: 0)
+        selectedRange = NSRange(location: location + mention.name.count + Constants.attachmentLenght, length: 0)
     }
 }

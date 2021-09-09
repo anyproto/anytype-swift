@@ -60,7 +60,7 @@ extension ObjectIconImageView: ConfigurableView {
         }
     }
     
-    func handleObjectIconType(_ type: ObjectIconType, model: Model) {
+    private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model)
@@ -103,7 +103,7 @@ extension ObjectIconImageView: ConfigurableView {
         imageView.kf.setImage(
             with: ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl,
             placeholder: placeholder,
-            options: [.processor(processor), .transition(.fade(0.3))]
+            options: [.processor(processor), .transition(.fade(0.2))]
         )
     }
     
