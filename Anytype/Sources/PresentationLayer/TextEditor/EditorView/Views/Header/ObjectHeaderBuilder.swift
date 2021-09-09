@@ -23,7 +23,9 @@ final class ObjectHeaderBuilder {
     }
     
     func objectHeader(details: DetailsDataProtocol?) -> ObjectHeader {
-        guard let details = details else { return .empty(ObjectHeaderEmptyData(onTap: onCoverTap)) }
+        guard let details = details else {
+            return .empty
+        }
         return buildObjectHeader(details: details)
     }
     
@@ -34,22 +36,18 @@ final class ObjectHeaderBuilder {
         
         let header = buildObjectHeader(details: details)
         
-        return header.modifiedByLocalEvent(event, onIconTap: onIconTap, onCoverTap: onCoverTap) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
+        return header.modifiedByLocalEvent(event) ?? .empty
     }
     
     private func fakeHeader(event: ObjectHeaderLocalEvent) -> ObjectHeader {
         switch event {
         case .iconUploading(let uIImage):
             return ObjectHeader.iconOnly(
-                ObjectIcon(
-                    state: .preview(.basic(uIImage), .left),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                .preview(.basic(uIImage), .left)
             )
         case .coverUploading(let uIImage):
             return ObjectHeader.coverOnly(
-                ObjectCover(state: .preview(uIImage), onTap: onCoverTap)
+                .preview(uIImage)
             )
         }
     }
@@ -59,32 +57,21 @@ final class ObjectHeaderBuilder {
         
         if let icon = details.icon, let cover = details.documentCover {
             return .iconAndCover(
-                icon: ObjectIcon(
-                    state: .icon(icon, layoutAlign),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                ),
-                cover: ObjectCover(
-                    state:  .cover(cover),
-                    onTap: onCoverTap
-                )
+                icon: .icon(icon, layoutAlign),
+                cover: .cover(cover)
             )
         }
         
         if let icon = details.icon {
             return .iconOnly(
-                ObjectIcon(
-                    state: .icon(icon, layoutAlign),
-                    onIconTap: onIconTap,
-                    onCoverTap: onCoverTap
-                )
+                .icon(icon, layoutAlign)
             )
         }
         
         if let cover = details.documentCover {
-            return .coverOnly(ObjectCover(state: .cover(cover), onTap: onCoverTap))
+            return .coverOnly(.cover(cover))
         }
         
-        return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
+        return .empty
     }
 }

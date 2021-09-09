@@ -1,7 +1,6 @@
 import UIKit
 
 struct ObjectHeaderEmptyConfiguration: UIContentConfiguration, Hashable {
-    let data: ObjectHeaderEmptyData
     
     func makeContentView() -> UIView & UIContentView {
        ObjectHeaderEmptyContentView(configuration: self)

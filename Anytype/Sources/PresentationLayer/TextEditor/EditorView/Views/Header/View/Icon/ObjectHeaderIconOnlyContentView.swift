@@ -57,9 +57,8 @@ private extension ObjectHeaderIconOnlyContentView {
 
     func apply(configuration: ObjectHeaderIconOnlyConfiguration) {
         appliedConfiguration = configuration
-        tapGesture.action = configuration.icon.onCoverTap
         
-        switch configuration.icon.state {
+        switch configuration.icon {
         case let .icon(icon, alignment):
             configureIconState(icon, alignment)
         case let .preview(preview, alignment):

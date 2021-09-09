@@ -37,8 +37,7 @@ final class NewObjectCoverView: UIView {
 
 extension NewObjectCoverView: ConfigurableView {
     
-    // TODO: - Rename `ObjectCoverState`
-    func configure(model: ObjectCoverState) {
+    func configure(model: ObjectCover) {
         switch model {
         case let .cover(cover):
             configureCoverState(cover)
