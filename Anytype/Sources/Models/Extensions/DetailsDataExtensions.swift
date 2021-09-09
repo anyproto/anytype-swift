@@ -73,7 +73,7 @@ extension DetailsDataProtocol {
         }
     }
     
-    var objectIconImage: ObjectIconImage? {
+    var iconImage: ObjectIconImage? {
         if let icon = icon {
             return .icon(icon)
         }

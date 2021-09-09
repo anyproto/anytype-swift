@@ -14,11 +14,17 @@ final class ObjectHeaderView: UIView {
     var onCoverTap: (() -> Void)?
     var onIconTap: (() -> Void)?
     
-    private let iconView = UIView()
+    private let iconView = NewObjectIconView()
     private let coverView = NewObjectCoverView()
     
     private var heightConstraint: NSLayoutConstraint!
     private var emptyStateHeightConstraint: NSLayoutConstraint!
+    
+    // MARK: - Private variables
+    
+    private var leadingConstraint: NSLayoutConstraint!
+    private var centerConstraint: NSLayoutConstraint!
+    private var trailingConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -63,6 +69,25 @@ private extension ObjectHeaderView {
         addSubview(coverView) {
             $0.pinToSuperview(excluding: [.bottom])
             $0.bottom.equal(to: bottomAnchor, constant: Constants.coverBottomInset)
+        }
+        
+        addSubview(iconView) {
+            $0.top.equal(to: topAnchor)
+            $0.bottom.equal(to: bottomAnchor)
+            
+            leadingConstraint = $0.leading.equal(
+                to: leadingAnchor,
+                activate: false
+            )
+            
+            centerConstraint = $0.centerX.equal(
+                to: centerXAnchor,
+                activate: false
+            )
+            trailingConstraint =  $0.trailing.equal(
+                to: trailingAnchor,
+                activate: false
+            )
         }
     }
     

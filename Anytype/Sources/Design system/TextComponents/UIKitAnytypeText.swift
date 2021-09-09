@@ -53,7 +53,7 @@ final class UIKitAnytypeText: Hashable {
         return [.font: font, .paragraphStyle: paragraphStyle]
     }
 
-    var verticalSpacing: CGFloat {
+    var topBottomTextSpacingForContainer: CGFloat {
         anytypeFont.lineSpacing / 2
     }
 

@@ -60,7 +60,7 @@ extension ObjectIconImageView: ConfigurableView {
         }
     }
     
-    private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
+    func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model)

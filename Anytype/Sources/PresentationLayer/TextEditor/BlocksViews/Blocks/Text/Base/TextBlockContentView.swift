@@ -253,9 +253,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
         textView.textView.textContainerInset = .init(
-            top: currentConfiguration.text.verticalSpacing,
+            top: currentConfiguration.text.topBottomTextSpacingForContainer,
             left: 0,
-            bottom: currentConfiguration.text.verticalSpacing,
+            bottom: currentConfiguration.text.topBottomTextSpacingForContainer,
             right: 0
         )
 
