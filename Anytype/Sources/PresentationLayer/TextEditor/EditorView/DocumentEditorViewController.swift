@@ -110,6 +110,15 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
+    func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?) {
+        objectHeaderView.configure(model: header)
+        
+        navigationBarHelper.configureNavigationBar(
+            using: header,
+            details: details
+        )
+    }
+    
     func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.main])
@@ -139,13 +148,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             guard let self = self else { return }
             self.focusOnFocusedBlock()
         }
-    }
-    
-    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
-        navigationBarHelper.configureNavigationBar(
-            using: header,
-            details: details
-        )
     }
  
     func selectBlock(blockId: BlockId) {
@@ -190,6 +192,8 @@ private extension DocumentEditorViewController {
     
     func setupView() {
         setupCollectionView()
+        objectHeaderView.setupInScrollView(collectionView)
+        
         setupInteractions()
         
         setupLayout()
