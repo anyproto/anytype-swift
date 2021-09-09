@@ -1,11 +1,3 @@
-//
-//  ObjectIconImageView.swift
-//  ObjectIconImageView
-//
-//  Created by Konstantin Mordan on 26.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Kingfisher
@@ -13,7 +5,7 @@ import Kingfisher
 final class ObjectIconImageView: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
     
     init() {
         super.init(frame: .zero)

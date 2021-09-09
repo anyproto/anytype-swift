@@ -38,7 +38,9 @@ final class MentionsViewModel {
     func didSelectCreateNewMention() {
         let name = service.filterString.isEmpty ? Constants.defaultNewMentionName : service.filterString
         
-        guard let emoji = EmojiProvider.shared.randomEmoji()?.unicode else { return }
+        guard let emoji = EmojiProvider.shared.randomEmoji()?.unicode,
+              let iconEmoji = IconEmoji(emoji) else { return }
+        
         
         let service = Anytype_Rpc.Page.Create.Service.self
         let emojiValue = Google_Protobuf_Value(stringValue: emoji)
@@ -53,8 +55,7 @@ final class MentionsViewModel {
         case let .success(response):
             let mention = MentionObject(
                 id: response.pageID,
-                icon: MentionIcon(emoji: emoji),
-                objectIcon: .placeholder(name.first),
+                objectIcon: .icon(.emoji(iconEmoji)),
                 name: name,
                 description: nil,
                 type: nil
