@@ -7,7 +7,7 @@ enum SlashMenuCellData {
 }
 
 final class SlashMenuViewController: UIViewController {
-    let configurationFactory = SlashMenuContentConfigurationFactory()
+    let configurationFactory = ContentConfigurationFactory()
     let actionsHandler: SlashMenuActionsHandler
     let dismissHandler: (() -> Void)?
     

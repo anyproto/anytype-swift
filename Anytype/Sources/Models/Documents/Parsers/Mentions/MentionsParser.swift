@@ -10,19 +10,10 @@ struct MentionsParser {
         MentionObject(
             id: searchResult.id,
             icon: mentionIcon(from: searchResult),
-            objectIcon: objectIcon(result: searchResult),
             name: mentionName(from: searchResult),
             description: searchResult.description,
             type: searchResult.type
         )
-    }
-    
-    private func objectIcon(result: SearchResult) -> ObjectIconImage {
-        if let objectIcon = result.objectIconImage {
-            return objectIcon
-        }
-        
-        return .placeholder(mentionName(from: result).first)
     }
     
     private func mentionName(from result: SearchResult) -> String {

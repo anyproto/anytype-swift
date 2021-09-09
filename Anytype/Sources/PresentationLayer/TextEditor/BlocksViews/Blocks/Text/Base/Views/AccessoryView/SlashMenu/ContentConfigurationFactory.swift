@@ -1,6 +1,6 @@
 import UIKit
 
-final class SlashMenuContentConfigurationFactory {
+final class ContentConfigurationFactory {
     private let imageSize = CGSize(width: 24, height: 24)
     private let imageToTextPadding: CGFloat = 22
     
