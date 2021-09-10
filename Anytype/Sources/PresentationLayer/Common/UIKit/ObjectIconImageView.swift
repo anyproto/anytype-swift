@@ -37,10 +37,7 @@ extension ObjectIconImageView: ConfigurableView {
             handleObjectIconType(objectIconType, model: model)
         case .todo(let isChecked):
             imageView.image = model.imageGuideline.flatMap {
-                painter.todoImage(
-                    isChecked: isChecked,
-                    imageGuideline: $0
-                )
+                painter.todoImage(isChecked: isChecked, imageGuideline: $0)
             }
         case .placeholder(let character):
             imageView.image = stringIconImage(
@@ -49,6 +46,10 @@ extension ObjectIconImageView: ConfigurableView {
                 textColor: UIColor.textTertiary,
                 backgroundColor: UIColor.grayscale10
             )
+        case .staticImage(let name):
+            imageView.image = model.imageGuideline.flatMap {
+                painter.staticImage(name: name, imageGuideline: $0)
+            }
         }
     }
     

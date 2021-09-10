@@ -354,6 +354,7 @@
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
 		3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */; };
+		3DAD60EF26EB4C7A00EC0C43 /* ContentViewWithEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
@@ -411,6 +412,7 @@
 		3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */; };
 		3DFD1B1A26E8A42600F893FC /* EditorSearchCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */; };
 		3DFD1B1C26E8AAAB00F893FC /* EditorSearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1B26E8AAAB00F893FC /* EditorSearchCellData.swift */; };
+		3DFD1B4026EB1F8B00F893FC /* StaticImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B3F26EB1F8B00F893FC /* StaticImageGuideline.swift */; };
 		3DFE7F2726E122290093EECB /* HomeSearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */; };
 		3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */; };
 		3DFE7F5426E63B760093EECB /* SlashMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */; };
@@ -520,7 +522,6 @@
 		EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A5266E5D6D004A820B /* MentionView.swift */; };
 		EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A6266E5D6D004A820B /* MentionsViewController.swift */; };
 		EA5521AB266E5D6D004A820B /* ContentConfigurationWithEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A7266E5D6D004A820B /* ContentConfigurationWithEmoji.swift */; };
-		EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */; };
 		EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B0266E5E13004A820B /* MentionsViewModel.swift */; };
 		EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B3266E5EE7004A820B /* MentionsView.swift */; };
 		EA57F35226B5DEAA007D4292 /* IBMPlexMono-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA43DDA026B5C2D000E66878 /* IBMPlexMono-BoldItalic.ttf */; };
@@ -1053,6 +1054,7 @@
 		3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
 		3DFD1B1B26E8AAAB00F893FC /* EditorSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
+		3DFD1B3F26EB1F8B00F893FC /* StaticImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticImageGuideline.swift; sourceTree = "<group>"; };
 		3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellData.swift; sourceTree = "<group>"; };
 		3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellDataMock.swift; sourceTree = "<group>"; };
 		3DFE7F5326E63B760093EECB /* SlashMenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuAssembly.swift; sourceTree = "<group>"; };
@@ -2331,7 +2333,7 @@
 			path = ObjectIconImagePainter;
 			sourceTree = "<group>";
 		};
-		12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */ = {
+		12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelines */ = {
 			isa = PBXGroup;
 			children = (
 				12CAF34726D64231001E56B2 /* BasicIconImageGuideline.swift */,
@@ -2339,8 +2341,9 @@
 				12CAF34B26D643F7001E56B2 /* EmojiIconImageGuideline.swift */,
 				12CAF34D26D64440001E56B2 /* TodoIconImageGuideline.swift */,
 				12CAF35F26D69F31001E56B2 /* PlaceholderIconImageGuideline.swift */,
+				3DFD1B3F26EB1F8B00F893FC /* StaticImageGuideline.swift */,
 			);
-			path = ObjectIconImageGuidelineFactories;
+			path = ObjectIconImageGuidelines;
 			sourceTree = "<group>";
 		};
 		12CAF37326D6AAF8001E56B2 /* ImageStorage */ = {
@@ -2521,7 +2524,7 @@
 			children = (
 				12F6072C26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift */,
 				3D1683F526DCE515008B9DFF /* Models */,
-				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelineFactories */,
+				12CAF34626D6403F001E56B2 /* ObjectIconImageGuidelines */,
 			);
 			path = ObjectIcon;
 			sourceTree = "<group>";
@@ -4342,6 +4345,7 @@
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
 				3D16841226DD672E008B9DFF /* ContentDividerConverter.swift in Sources */,
+				3DFD1B4026EB1F8B00F893FC /* StaticImageGuideline.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* EditorBarButtonItemView.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
@@ -4453,7 +4457,6 @@
 				EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
-				EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				3D16840326DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
@@ -4533,6 +4536,7 @@
 				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
+				3DAD60EF26EB4C7A00EC0C43 /* ContentViewWithEmoji.swift in Sources */,
 				3D16841926DD6741008B9DFF /* EventDetailsAndSetDetailsConverter.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,

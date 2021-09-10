@@ -64,7 +64,7 @@ extension UIImage {
         static let alignCenter = createImage("TextAttributes/align_center")
     }
     
-    private static func createImage(_ name: String) -> UIImage {
+    static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
             anytypeAssertionFailure("No image named: \(name)")
             return UIImage()

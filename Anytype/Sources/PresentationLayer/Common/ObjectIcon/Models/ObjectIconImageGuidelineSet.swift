@@ -15,6 +15,7 @@ struct ObjectIconImageGuidelineSet {
     let emojiImageGuideline: ImageGuideline?
     let todoImageGuideline: ImageGuideline?
     let placeholderImageGuideline: ImageGuideline?
+    let staticImageGuideline: ImageGuideline?
     
     func imageGuideline(for iconImage: ObjectIconImage) -> ImageGuideline? {
         switch iconImage {
@@ -31,6 +32,8 @@ struct ObjectIconImageGuidelineSet {
             return todoImageGuideline
         case .placeholder:
             return placeholderImageGuideline
+        case .staticImage:
+            return staticImageGuideline
         }
     }
     
