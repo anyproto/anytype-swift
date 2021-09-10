@@ -1,11 +1,11 @@
 import Foundation
 
 struct SlashMenuItemDisplayData {
-    let iconData: SlashMenuItemIconData
+    let iconData: ObjectIconImage
     let title: String
     let subtitle: String?
     
-    init(iconData: SlashMenuItemIconData, title: String, subtitle: String? = nil) {
+    init(iconData: ObjectIconImage, title: String, subtitle: String? = nil) {
         self.iconData = iconData
         self.title = title
         self.subtitle = subtitle
