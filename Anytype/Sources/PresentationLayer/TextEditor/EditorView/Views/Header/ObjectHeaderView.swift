@@ -230,7 +230,7 @@ private extension ObjectHeaderView {
     
     enum Constants {
         static let emptyHeaderHeight: CGFloat = 184
-        static let filledHeaderHeight: CGFloat = 232
+        static let filledHeaderHeight: CGFloat = 264
         
         static let coverBottomInset: CGFloat = 32
         
