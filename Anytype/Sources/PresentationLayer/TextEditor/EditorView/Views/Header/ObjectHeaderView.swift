@@ -85,6 +85,18 @@ private extension ObjectHeaderView {
         backgroundColor = .grayscaleWhite
         setupLayout()
         
+        iconView.addGestureRecognizer(
+            TapGestureRecognizerWithClosure { [weak self] in
+                self?.onIconTap?()
+            }
+        )
+        
+        addGestureRecognizer(
+            TapGestureRecognizerWithClosure { [weak self] in
+                self?.onCoverTap?()
+            }
+        )
+        
         setupEmptyState()
     }
     

@@ -203,6 +203,26 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 private extension DocumentEditorViewController {
     
     func setupView() {
+        setupObjectHeaderView()
+        setupCollectionView()
+        
+        setupInteractions()
+        
+        setupLayout()
+        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
+    }
+    
+    func setupObjectHeaderView() {
+        objectHeaderView.onIconTap = { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.viewModel.showIconPicker()
+        }
+        
+        objectHeaderView.onCoverTap = { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.viewModel.showCoverPicker()
+        }
+        
         objectHeaderView.onBaseHeightUpdate = { [weak self] height in
             guard let self = self else { return }
             
@@ -210,13 +230,6 @@ private extension DocumentEditorViewController {
             self.collectionView.contentOffset = CGPoint(x: 0, y: -height)
             self.hnadleCollectionViewContentOffsetChange()
         }
-        
-        setupCollectionView()
-        
-        setupInteractions()
-        
-        setupLayout()
-        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
 
     func setupCollectionView() {
@@ -240,14 +253,20 @@ private extension DocumentEditorViewController {
     }
     
     func setupLayout() {
+        view.addSubview(collectionView) {
+            $0.pinToSuperview()
+        }
+        
+        // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
+        // otherwise they are cancels by `listViewTapGestureRecognizer`
         view.addSubview(objectHeaderView) {
             objectHeaderViewTopConstraint = $0.bottom.equal(to: view.topAnchor)
             $0.pinToSuperview(excluding: [.top, .bottom])
         }
         
-        view.addSubview(collectionView) {
-            $0.pinToSuperview()
-        }
+        // If we leave objectHeaderView above collectionView it's scrollIndicators will be covered
+        // to prevent this we change zPosition
+        objectHeaderView.layer.zPosition = collectionView.layer.zPosition - 1
     }
     
     @objc

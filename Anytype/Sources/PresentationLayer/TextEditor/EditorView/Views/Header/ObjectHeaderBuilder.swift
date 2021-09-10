@@ -2,25 +2,6 @@ import BlocksModels
 import UIKit
 
 final class ObjectHeaderBuilder {
-    private lazy var onIconTap = { [weak self] in
-        guard let self = self else { return }
-        UISelectionFeedbackGenerator().selectionChanged()
-        self.router.showIconPicker(viewModel: self.settingsViewModel.iconPickerViewModel)
-    }
-    
-    private lazy var onCoverTap = { [weak self] in
-        guard let self = self else { return }
-        
-        UISelectionFeedbackGenerator().selectionChanged()
-        self.router.showCoverPicker(viewModel: self.settingsViewModel.coverPickerViewModel)
-    }
-    private let router: EditorRouterProtocol
-    private let settingsViewModel: ObjectSettingsViewModel
-    
-    init(settingsViewModel: ObjectSettingsViewModel, router: EditorRouterProtocol) {
-        self.settingsViewModel = settingsViewModel
-        self.router = router
-    }
     
     func objectHeader(details: DetailsDataProtocol?) -> ObjectHeader {
         guard let details = details else {
