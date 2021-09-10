@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import BlocksModels
 
 final class ObjectHeaderView: UIView {
     
@@ -16,7 +17,7 @@ final class ObjectHeaderView: UIView {
     
     // MARK: - Private variables
 
-//    private let iconView = NewObjectIconView()
+    private let iconView = NewObjectIconView()
     private let coverView = NewObjectCoverView()
 
     private var emptyHeaderHeightConstraint: NSLayoutConstraint!
@@ -58,13 +59,25 @@ extension ObjectHeaderView: ConfigurableView {
     func configure(model: ObjectHeader) {
         switch model {
         case .iconOnly(let objectIcon):
-            break
+            setupFilledState(.icon)
+            
+            iconView.configure(model: objectIcon.asObjectIconViewModel)
+            
+            handleIconLayoutAlignment(objectIcon.layoutAlignment)
+            
         case .coverOnly(let objectCover):
-            setupFilledState()
+            setupFilledState(.cover)
+            
             coverView.configure(model: objectCover)
-        case .iconAndCover(let icon, let cover):
-            setupFilledState()
-            coverView.configure(model: cover)
+            
+        case .iconAndCover(let objectIcon, let objectCover):
+            setupFilledState(.iconAndCover)
+            
+            iconView.configure(model: objectIcon.asObjectIconViewModel)
+            coverView.configure(model: objectCover)
+            
+            handleIconLayoutAlignment(objectIcon.layoutAlignment)
+            
         case .empty:
             setupEmptyState()
         }
@@ -104,42 +117,111 @@ private extension ObjectHeaderView {
             )
         }
         
-//        addSubview(iconView) {
-//            $0.top.equal(to: topAnchor)
-//            $0.bottom.equal(to: bottomAnchor)
-//
-//            leadingConstraint = $0.leading.equal(
-//                to: leadingAnchor,
-//                activate: false
-//            )
-//
-//            centerConstraint = $0.centerX.equal(
-//                to: centerXAnchor,
-//                activate: false
-//            )
-//            trailingConstraint =  $0.trailing.equal(
-//                to: trailingAnchor,
-//                activate: false
-//            )
-//        }
+        addSubview(iconView) {
+            $0.bottom.equal(
+                to: bottomAnchor,
+                constant: -Constants.iconBottomInset
+            )
+
+            leadingConstraint = $0.leading.equal(
+                to: leadingAnchor,
+                constant: Constants.iconHorizontalInset,
+                activate: false
+            )
+
+            centerConstraint = $0.centerX.equal(
+                to: centerXAnchor,
+                activate: false
+            )
+            trailingConstraint =  $0.trailing.equal(
+                to: trailingAnchor,
+                constant: -Constants.iconHorizontalInset,
+                activate: false
+            )
+        }
     }
     
     func setupEmptyState() {
         emptyHeaderHeightConstraint.isActive = true
         filledHeaderHeightConstraint.isActive = false
         
-        coverView.isHidden = true
-        
         scrollViewTopInset = Constants.emptyHeaderHeight
+        
+        iconView.isHidden = true
+        coverView.isHidden = true
     }
     
-    func setupFilledState() {
+    func setupFilledState(_ filledState: FilledState) {
         emptyHeaderHeightConstraint.isActive = false
         filledHeaderHeightConstraint.isActive = true
         
-        coverView.isHidden = false
-        
         scrollViewTopInset = Constants.filledHeaderHeight
+        
+        switch filledState {
+        case .icon:
+            iconView.isHidden = false
+            coverView.isHidden = true
+        case .cover:
+            iconView.isHidden = true
+            coverView.isHidden = false
+        case .iconAndCover:
+            iconView.isHidden = false
+            coverView.isHidden = false
+        }
+    }
+    
+    func handleIconLayoutAlignment(_ layoutAlignment: LayoutAlignment) {
+        switch layoutAlignment {
+        case .left:
+            leadingConstraint.isActive = true
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = false
+        case .center:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = true
+            trailingConstraint.isActive = false
+        case .right:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = true
+        }
+    }
+    
+}
+
+private extension ObjectHeaderView {
+    
+    enum FilledState {
+        case icon
+        case cover
+        case iconAndCover
+    }
+    
+}
+
+private extension ObjectIcon {
+    
+    var layoutAlignment: LayoutAlignment {
+        switch self {
+        case let .icon(_, layoutAlignment):
+            return layoutAlignment
+        case let .preview(_, layoutAlignment):
+            return layoutAlignment
+        }
+    }
+    
+    var asObjectIconViewModel: NewObjectIconView.Model {
+        switch self {
+        case let .icon(objectIconType, _):
+            return NewObjectIconView.Model.iconImageModel(
+                .init(
+                    iconImage: .icon(objectIconType),
+                    usecase: .openedObject
+                )
+            )
+        case let .preview(objectIconPreviewType, _):
+            return NewObjectIconView.Model.preview(objectIconPreviewType)
+        }
     }
     
 }
@@ -151,6 +233,9 @@ private extension ObjectHeaderView {
         static let filledHeaderHeight: CGFloat = 232
         
         static let coverBottomInset: CGFloat = 32
+        
+        static let iconHorizontalInset: CGFloat = 20 - NewObjectIconView.Constants.borderWidth
+        static let iconBottomInset: CGFloat = 16 - NewObjectIconView.Constants.borderWidth
     }
     
 }
