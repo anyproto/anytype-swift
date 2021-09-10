@@ -48,8 +48,8 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
     
-    private(set) var objectHeaderViewTopConstraint: NSLayoutConstraint!
-    let objectHeaderView = ObjectHeaderView()
+    private var objectHeaderViewTopConstraint: NSLayoutConstraint!
+    private let objectHeaderView = ObjectHeaderView()
 
     var viewModel: DocumentEditorViewModelProtocol!
 
@@ -91,7 +91,7 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
         firstResponderHelper = nil
@@ -103,6 +103,18 @@ final class DocumentEditorViewController: UIViewController {
         }
 
         return self
+    }
+    
+    func hnadleCollectionViewContentOffsetChange() {
+        let contentOffsetY = collectionView.contentOffset.y
+        let contentInsetTop = collectionView.contentInset.top
+
+        let relativeYOffset = contentOffsetY + contentInsetTop - objectHeaderView.baseHeight
+
+        let relativeHeight = -relativeYOffset
+
+        objectHeaderViewTopConstraint.constant = -relativeYOffset
+        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.baseHeight)
     }
     
 }
@@ -186,14 +198,17 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 
 }
 
-
 // MARK: - Private extension
 
 private extension DocumentEditorViewController {
     
     func setupView() {
         objectHeaderView.onBaseHeightUpdate = { [weak self] height in
-            self?.collectionView.contentInset.top = height
+            guard let self = self else { return }
+            
+            self.collectionView.contentInset.top = height
+            self.collectionView.contentOffset = CGPoint(x: 0, y: -height)
+            self.hnadleCollectionViewContentOffsetChange()
         }
         
         setupCollectionView()
@@ -226,7 +241,7 @@ private extension DocumentEditorViewController {
     
     func setupLayout() {
         view.addSubview(objectHeaderView) {
-            objectHeaderViewTopConstraint = $0.top.equal(to: view.topAnchor)
+            objectHeaderViewTopConstraint = $0.bottom.equal(to: view.topAnchor)
             $0.pinToSuperview(excluding: [.top, .bottom])
         }
         

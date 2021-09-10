@@ -78,13 +78,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let relativeYOffset = -(scrollView.contentOffset.y + scrollView.contentInset.top)
-        
-        if relativeYOffset < 0 {
-            objectHeaderViewTopConstraint.constant = relativeYOffset
-        } else {
-            objectHeaderView.heightConstraint.constant = max(abs(scrollView.contentOffset.y), scrollView.contentInset.top)
-        }
+        hnadleCollectionViewContentOffsetChange()
     }
     
 }
