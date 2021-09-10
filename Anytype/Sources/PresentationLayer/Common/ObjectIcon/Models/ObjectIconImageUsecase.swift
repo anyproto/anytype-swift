@@ -32,7 +32,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x112,
                 emojiImageGuideline: EmojiIconImageGuideline.x80,
                 todoImageGuideline: TodoIconImageGuideline.x28,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .openedObjectNavigationBar:
             return ObjectIconImageGuidelineSet(
@@ -40,7 +41,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x18,
                 emojiImageGuideline: EmojiIconImageGuideline.x18,
                 todoImageGuideline: TodoIconImageGuideline.x18,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .editorSearch:
             return ObjectIconImageGuidelineSet(
@@ -48,7 +50,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x40,
                 emojiImageGuideline: EmojiIconImageGuideline.x40,
                 todoImageGuideline: TodoIconImageGuideline.x24,
-                placeholderImageGuideline: PlaceholderIconImageGuideline.x40
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
+                staticImageGuideline: StaticImageGuideline.x24
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
@@ -56,7 +59,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x48,
                 emojiImageGuideline: EmojiIconImageGuideline.x48,
                 todoImageGuideline: TodoIconImageGuideline.x18,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .dashboardProfile:
             return ObjectIconImageGuidelineSet(
@@ -64,7 +68,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x80,
                 emojiImageGuideline: nil,
                 todoImageGuideline: nil,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .dashboardSearch:
             return ObjectIconImageGuidelineSet(
@@ -72,7 +77,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x48,
                 emojiImageGuideline: EmojiIconImageGuideline.x48,
                 todoImageGuideline: TodoIconImageGuideline.x18,
-                placeholderImageGuideline: PlaceholderIconImageGuideline.x48
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
+                staticImageGuideline: nil
             )
         case let .mention(type):
             return mentionImageGuidelineSet(for: type)
@@ -182,7 +188,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x28,
                 emojiImageGuideline: EmojiIconImageGuideline.x28,
                 todoImageGuideline: TodoIconImageGuideline.x28,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .heading:
             return ObjectIconImageGuidelineSet(
@@ -190,7 +197,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x24,
                 emojiImageGuideline: EmojiIconImageGuideline.x24,
                 todoImageGuideline: TodoIconImageGuideline.x24,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .subheading,
              .body:
@@ -199,7 +207,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x20,
                 emojiImageGuideline: EmojiIconImageGuideline.x20,
                 todoImageGuideline: TodoIconImageGuideline.x20,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         case .callout:
             return ObjectIconImageGuidelineSet(
@@ -207,7 +216,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x18,
                 emojiImageGuideline: EmojiIconImageGuideline.x18,
                 todoImageGuideline: TodoIconImageGuideline.x18,
-                placeholderImageGuideline: nil
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
             )
         }
     }
