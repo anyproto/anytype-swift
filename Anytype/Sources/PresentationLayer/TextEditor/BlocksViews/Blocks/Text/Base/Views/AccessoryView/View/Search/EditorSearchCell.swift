@@ -27,6 +27,7 @@ final class EditorSearchCell: UIView, UIContentView {
         apply(configuration: configuration)
     }
     
+    private var titleTopConstraint: NSLayoutConstraint!
     private func setup() {        
         addSubview(container) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
@@ -42,7 +43,7 @@ final class EditorSearchCell: UIView, UIContentView {
 
         let titleText = UIKitAnytypeText(text: "", style: .uxTitle2Regular)
         container.addSubview(title) {
-            $0.top.equal(to: container.topAnchor,constant: 9 + titleText.verticalSpacing)
+            titleTopConstraint = $0.top.equal(to: container.topAnchor, constant: titleWithSubtitleTop)
             $0.leading.equal(to: icon.trailingAnchor, constant: 12)
             $0.trailing.equal(to: container.trailingAnchor)
         }
@@ -72,9 +73,20 @@ final class EditorSearchCell: UIView, UIContentView {
         )
 
         title.attributedText = UIKitAnytypeText(text: configuration.cellData.title, style: .uxTitle2Regular).attrString
-        subtitle.attributedText = UIKitAnytypeText(text: configuration.cellData.subtitle, style: .caption1Regular).attrString
+        
+        if configuration.cellData.subtitle.isNotEmpty {
+            subtitle.isHidden = false
+            titleTopConstraint.constant = titleWithSubtitleTop
+            subtitle.attributedText = UIKitAnytypeText(
+                text: configuration.cellData.subtitle, style: .caption1Regular
+            ).attrString
+        } else {
+            subtitle.isHidden = true
+            titleTopConstraint.constant = titleWithSubtitleTop
+        }
     }
     
+    // MARK: - Views
     private let container = UIView()
     private let icon = ObjectIconImageView()
     private let title: UILabel = {
@@ -89,6 +101,11 @@ final class EditorSearchCell: UIView, UIContentView {
         subtitle.numberOfLines = 1
         return subtitle
     }()
+    
+    // MARK: - Constants
+    private let titleWithSubtitleTop = UIKitAnytypeText(text: "", style: .uxTitle2Regular).verticalSpacing + 9
+    private let titleWithoutSubtitleTop = UIKitAnytypeText(text: "", style: .uxTitle2Regular).verticalSpacing + 18
+    
     
     // MARK: - Not implemented
     required init?(coder: NSCoder) {
