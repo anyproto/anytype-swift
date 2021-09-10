@@ -82,7 +82,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         if relativeYOffset < 0 {
             objectHeaderViewTopConstraint.constant = relativeYOffset
         } else {
-            objectHeaderView.headerHeightConstraint.constant = max(-scrollView.contentOffset.y, scrollView.contentInset.top)
+            objectHeaderView.activeHeightConstraint?.constant = max(-scrollView.contentOffset.y, scrollView.contentInset.top)
         }
     }
     
