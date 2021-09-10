@@ -15,27 +15,26 @@ final class ObjectHeaderView: UIView {
     var onCoverTap: (() -> Void)?
     var onIconTap: (() -> Void)?
     
+    var onBaseHeightUpdate: ((CGFloat) -> Void)?
+    
+    private(set) var baseHeight: CGFloat = 0 {
+        didSet {
+            onBaseHeightUpdate?(baseHeight)
+            heightConstraint.constant = baseHeight
+        }
+    }
+    
+    private(set) var heightConstraint: NSLayoutConstraint!
+
     // MARK: - Private variables
 
     private let iconView = NewObjectIconView()
     private let coverView = NewObjectCoverView()
         
-    private var emptyHeaderHeightConstraint: NSLayoutConstraint!
-    private var filledHeaderHeightConstraint: NSLayoutConstraint!
-    
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
-    
-    private(set) var scrollViewTopInset: CGFloat = 0 {
-        didSet {
-            scrollView?.contentInset.top = scrollViewTopInset
-        }
-    }
-    
-    private var contentOffsetObservation: NSKeyValueObservation?
-    private weak var scrollView: UIScrollView?
-    
+        
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
@@ -45,19 +44,6 @@ final class ObjectHeaderView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupInScrollView(_ scrollView: UIScrollView) {
-        scrollView.contentInset.top = scrollViewTopInset
-        
-        self.scrollView = scrollView
-        
-    }
-    
-    var activeHeightConstraint: NSLayoutConstraint? {
-        [emptyHeaderHeightConstraint, filledHeaderHeightConstraint].first {
-            $0.isActive
-        }
     }
     
 }
@@ -100,20 +86,11 @@ private extension ObjectHeaderView {
         setupLayout()
         
         setupEmptyState()
-        
-        fillSubviewsWithRandomColors()
     }
     
     func setupLayout() {
         layoutUsing.anchors {
-            self.emptyHeaderHeightConstraint = $0.height.equal(
-                to: Constants.emptyHeaderHeight,
-                activate: false
-            )
-            self.filledHeaderHeightConstraint = $0.height.equal(
-                to: Constants.filledHeaderHeight,
-                activate: false
-            )
+            self.heightConstraint = $0.height.equal(to: 0)
         }
         
         addSubview(coverView) {
@@ -152,21 +129,15 @@ private extension ObjectHeaderView {
     }
     
     func setupEmptyState() {
-        emptyHeaderHeightConstraint.isActive = true
-        filledHeaderHeightConstraint.isActive = false
-                
-        scrollViewTopInset = Constants.emptyHeaderHeight
+        baseHeight = Constants.emptyHeaderHeight
         
         iconView.isHidden = true
         coverView.isHidden = true
     }
     
     func setupFilledState(_ filledState: FilledState) {
-        emptyHeaderHeightConstraint.isActive = false
-        filledHeaderHeightConstraint.isActive = true
-        
-        scrollViewTopInset = Constants.filledHeaderHeight
-        
+        baseHeight = Constants.filledHeaderHeight
+
         switch filledState {
         case .icon:
             iconView.isHidden = false

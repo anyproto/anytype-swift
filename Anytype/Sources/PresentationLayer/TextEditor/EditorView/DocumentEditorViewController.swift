@@ -192,8 +192,11 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 private extension DocumentEditorViewController {
     
     func setupView() {
+        objectHeaderView.onBaseHeightUpdate = { [weak self] height in
+            self?.collectionView.contentInset.top = height
+        }
+        
         setupCollectionView()
-        objectHeaderView.setupInScrollView(collectionView)
         
         setupInteractions()
         

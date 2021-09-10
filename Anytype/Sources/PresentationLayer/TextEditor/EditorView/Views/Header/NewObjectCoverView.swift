@@ -86,6 +86,8 @@ private extension NewObjectCoverView {
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.2))]
         )
+        
+        imageView.contentMode = .scaleAspectFill
     }
     
     private func showColor(_ color: UIColor) {
