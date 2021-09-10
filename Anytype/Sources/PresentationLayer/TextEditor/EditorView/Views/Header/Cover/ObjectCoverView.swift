@@ -1,6 +1,6 @@
 //
-//  NewObjectCoverView.swift
-//  NewObjectCoverView
+//  ObjectCoverView.swift
+//  ObjectCoverView
 //
 //  Created by Konstantin Mordan on 08.09.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-final class NewObjectCoverView: UIView {
+final class ObjectCoverView: UIView {
     
     // MARK: - Views
     
@@ -35,7 +35,7 @@ final class NewObjectCoverView: UIView {
 
 // MARK: - ConfigurableView
 
-extension NewObjectCoverView: ConfigurableView {
+extension ObjectCoverView: ConfigurableView {
     
     func configure(model: ObjectCover) {
         switch model {
@@ -48,7 +48,7 @@ extension NewObjectCoverView: ConfigurableView {
     
 }
 
-private extension NewObjectCoverView {
+private extension ObjectCoverView {
     
     func configureCoverState(_ cover: DocumentCover) {
         activityIndicatorView.hide()
@@ -136,7 +136,7 @@ private extension NewObjectCoverView {
 
 // MARK: - Private extension
 
-private extension NewObjectCoverView {
+private extension ObjectCoverView {
     
     func setupView() {
         setupBackgroundColor()
