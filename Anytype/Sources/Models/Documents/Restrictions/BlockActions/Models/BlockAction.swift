@@ -30,19 +30,19 @@ enum BlockAction: CaseIterable {
     var iconName: String {
         switch self {
         case .delete:
-            return "TextEditor/Toolbar/Blocks/Delete"
+            return ImageName.slashMenu.actions.delete
         case .duplicate:
-            return "TextEditor/Toolbar/Blocks/Duplicate"
+            return ImageName.slashMenu.actions.duplicate
         case .copy:
-            return "TextEditor/Toolbar/Blocks/Copy"
+            return ImageName.slashMenu.actions.copy
         case .paste:
-            return "TextEditor/Toolbar/Blocks/Paste"
+            return ImageName.slashMenu.actions.paste
         case .move:
-            return "TextEditor/Toolbar/Blocks/Move"
+            return ImageName.slashMenu.actions.move
         case .moveTo:
-            return "TextEditor/Toolbar/Blocks/MoveTo"
+            return ImageName.slashMenu.actions.moveTo
         case .cleanStyle:
-            return "TextEditor/Toolbar/Blocks/Clear"
+            return ImageName.slashMenu.actions.clear
         }
     }
 }

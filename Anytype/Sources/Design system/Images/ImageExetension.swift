@@ -6,7 +6,7 @@ extension Image {
     static let splashLogo = createImage("splashLogo")
     static let arrow = createImage("arrowForward")
     
-    static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
+    static let checked = createImage("TextEditor/Text/checked")
     
     static let noImage = Image("no_image")
 }
@@ -27,9 +27,7 @@ extension Image {
     }
     
     enum auth {
-        static let qr = createImage("auth_qr_code")
         static let photo = createImage("auth_photo_icon")
-        static let congrats = createImage("auth_congrats")
     }
 }
 

@@ -53,33 +53,33 @@ enum BlockStyleAction: CaseIterable {
     var iconName: String {
         switch self {
         case .text:
-            return "TextEditor/Toolbar/Blocks/Text"
+            return ImageName.slashMenu.style.text
         case .title:
-            return "TextEditor/Toolbar/Blocks/Title"
+            return ImageName.slashMenu.style.title
         case .heading:
-            return "TextEditor/Toolbar/Blocks/Heading"
+            return ImageName.slashMenu.style.heading
         case .subheading:
-            return "TextEditor/Toolbar/Blocks/Subheading"
+            return ImageName.slashMenu.style.subheading
         case .highlighted:
-            return "TextEditor/Toolbar/Blocks/Highlighted"
+            return ImageName.slashMenu.style.highlighted
         case .checkbox:
-            return "TextEditor/Toolbar/Blocks/Checkbox"
+            return ImageName.slashMenu.style.checkbox
         case .bulleted:
-            return "TextEditor/Toolbar/Blocks/Bulleted"
+            return ImageName.slashMenu.style.bulleted
         case .numberedList:
-            return "TextEditor/Toolbar/Blocks/Numbered"
+            return ImageName.slashMenu.style.numbered
         case .toggle:
-            return "TextEditor/Toolbar/Blocks/Toggle"
+            return ImageName.slashMenu.style.toggle
         case .bold:
-            return "TextEditor/Toolbar/Blocks/Bold"
+            return ImageName.slashMenu.style.bold
         case .italic:
-            return "TextEditor/Toolbar/Blocks/Italic"
+            return ImageName.slashMenu.style.italic
         case .strikethrough:
-            return "TextEditor/Toolbar/Blocks/Strikethrough"
+            return ImageName.slashMenu.style.strikethrough
         case .code:
-            return "TextEditor/Toolbar/Blocks/Code"
+            return ImageName.slashMenu.style.code
         case .link:
-            return "TextEditor/Toolbar/Blocks/Link"
+            return ImageName.slashMenu.style.link
         }
     }
     

@@ -32,7 +32,6 @@
 		039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669823C7FD1D00DBE36A /* GeometryExtension.swift */; };
 		039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669B23C7FDC300DBE36A /* TimingTimer.swift */; };
 		039F6D78239580A10097560A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D77239580A10097560A /* LoginView.swift */; };
-		039F6D7C239594B90097560A /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D7B239594B90097560A /* PinCodeView.swift */; };
 		03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A24B8B231EC07700DA7369 /* ArrayExtension.swift */; };
 		03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03A46A42231417D6009AC10C /* InfoPlist.strings */; };
 		03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */; };
@@ -354,6 +353,7 @@
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
 		3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */; };
+		3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAD610E26EB58FD00EC0C43 /* ImageName.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
@@ -681,7 +681,6 @@
 		039F669B23C7FDC300DBE36A /* TimingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingTimer.swift; sourceTree = "<group>"; };
 		039F6D77239580A10097560A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		039F6D79239591C80097560A /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
-		039F6D7B239594B90097560A /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		03A24B8B231EC07700DA7369 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		03A46A41231417D6009AC10C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironments.swift; sourceTree = "<group>"; };
@@ -995,6 +994,7 @@
 		3DA6263C2657AB8000942249 /* AnimationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
 		3DA626522657ADA700942249 /* PopupExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupExtension.swift; sourceTree = "<group>"; };
 		3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeText.swift; sourceTree = "<group>"; };
+		3DAD610E26EB58FD00EC0C43 /* ImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
 		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = Anytype/Sources/Models/Documents/Restrictions/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareColorConverter.swift; path = Anytype/Sources/Models/Documents/Parsers/MiddlewareColorConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -1324,7 +1324,6 @@
 			isa = PBXGroup;
 			children = (
 				3DC9F26A2660214E00B115B9 /* CommonVIews */,
-				3DC9F2692660213D00B115B9 /* PinCode */,
 				03507433239E72D7001CF477 /* MainAuth */,
 				03507436239E72FC001CF477 /* CreateNewProfileFlow */,
 				038A81FE23A0162B00B71388 /* Login */,
@@ -3175,14 +3174,6 @@
 			path = AlphaInviteCode;
 			sourceTree = "<group>";
 		};
-		3DC9F2692660213D00B115B9 /* PinCode */ = {
-			isa = PBXGroup;
-			children = (
-				039F6D7B239594B90097560A /* PinCodeView.swift */,
-			);
-			path = PinCode;
-			sourceTree = "<group>";
-		};
 		3DC9F26A2660214E00B115B9 /* CommonVIews */ = {
 			isa = PBXGroup;
 			children = (
@@ -3516,6 +3507,7 @@
 			children = (
 				53A4633626287B970097C25E /* ImageExetension.swift */,
 				EA77E544262DED67009F91D9 /* UIImageExtension.swift */,
+				3DAD610E26EB58FD00EC0C43 /* ImageName.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -4038,6 +4030,7 @@
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
+				3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
 				EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
@@ -4375,7 +4368,6 @@
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				3D44984526D53D61005A3E06 /* DocumentEditorViewOutput.swift in Sources */,
 				12A7B6BE26C3E47200544037 /* IconEmoji.swift in Sources */,
-				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				3D16841726DD672E008B9DFF /* ContentFileConverter.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
