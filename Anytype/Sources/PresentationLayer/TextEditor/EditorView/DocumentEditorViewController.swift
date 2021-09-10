@@ -48,7 +48,8 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
     
-    private let objectHeaderView = ObjectHeaderView()
+    private(set) var objectHeaderViewTopConstraint: NSLayoutConstraint!
+    let objectHeaderView = ObjectHeaderView()
 
     var viewModel: DocumentEditorViewModelProtocol!
 
@@ -222,7 +223,8 @@ private extension DocumentEditorViewController {
     
     func setupLayout() {
         view.addSubview(objectHeaderView) {
-            $0.pinToSuperview(excluding: [.bottom])
+            objectHeaderViewTopConstraint = $0.top.equal(to: view.topAnchor)
+            $0.pinToSuperview(excluding: [.top, .bottom])
         }
         
         view.addSubview(collectionView) {

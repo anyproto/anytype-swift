@@ -19,7 +19,7 @@ final class ObjectHeaderView: UIView {
 
     private let iconView = NewObjectIconView()
     private let coverView = NewObjectCoverView()
-
+        
     private var emptyHeaderHeightConstraint: NSLayoutConstraint!
     private var filledHeaderHeightConstraint: NSLayoutConstraint!
     
@@ -27,12 +27,13 @@ final class ObjectHeaderView: UIView {
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
     
-    private var scrollViewTopInset: CGFloat = 0 {
+    private(set) var scrollViewTopInset: CGFloat = 0 {
         didSet {
             scrollView?.contentInset.top = scrollViewTopInset
         }
     }
     
+    private var contentOffsetObservation: NSKeyValueObservation?
     private weak var scrollView: UIScrollView?
     
     override init(frame: CGRect) {
@@ -50,6 +51,13 @@ final class ObjectHeaderView: UIView {
         scrollView.contentInset.top = scrollViewTopInset
         
         self.scrollView = scrollView
+        
+    }
+    
+    var activeHeightConstraint: NSLayoutConstraint? {
+        [emptyHeaderHeightConstraint, filledHeaderHeightConstraint].first {
+            $0.isActive
+        }
     }
     
 }
@@ -92,6 +100,8 @@ private extension ObjectHeaderView {
         setupLayout()
         
         setupEmptyState()
+        
+        fillSubviewsWithRandomColors()
     }
     
     func setupLayout() {
@@ -144,7 +154,7 @@ private extension ObjectHeaderView {
     func setupEmptyState() {
         emptyHeaderHeightConstraint.isActive = true
         filledHeaderHeightConstraint.isActive = false
-        
+                
         scrollViewTopInset = Constants.emptyHeaderHeight
         
         iconView.isHidden = true
