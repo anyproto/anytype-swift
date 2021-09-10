@@ -82,7 +82,7 @@ final class EditorSearchCell: UIView, UIContentView {
             ).attrString
         } else {
             subtitle.isHidden = true
-            titleTopConstraint.constant = titleWithSubtitleTop
+            titleTopConstraint.constant = titleWithoutSubtitleTop
         }
     }
     

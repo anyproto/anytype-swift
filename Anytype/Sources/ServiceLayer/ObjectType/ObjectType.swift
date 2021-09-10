@@ -3,7 +3,7 @@ import ProtobufMessages
 struct ObjectType: Equatable, Hashable {
     let url: String
     let name: String
-    let iconEmoji: String
+    let iconEmoji: IconEmoji
     let description: String
     
     let hidden: Bool
@@ -19,7 +19,7 @@ struct ObjectType: Equatable, Hashable {
     init(model: ProtobufMessages.Anytype_Model_ObjectType) {
         self.url = model.url
         self.name = model.name
-        self.iconEmoji = model.iconEmoji
+        self.iconEmoji = IconEmoji(model.iconEmoji) ?? IconEmoji.default
         self.description = model.description_p
         
         self.hidden = model.hidden

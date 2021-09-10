@@ -58,6 +58,6 @@ enum SlashMenuItemType {
     }
 
     var displayData: SlashMenuItemDisplayData {
-        SlashMenuItemDisplayData(iconData: .imageNamed(iconName), title: self.title)
+        SlashMenuItemDisplayData(iconData: .staticImage(iconName), title: self.title)
     }
 }
