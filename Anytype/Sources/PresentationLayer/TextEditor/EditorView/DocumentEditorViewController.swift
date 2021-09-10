@@ -12,7 +12,7 @@ final class DocumentEditorViewController: UIViewController {
         
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.backgroundColor = .white
+        listConfiguration.backgroundColor = .clear
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         let collectionView = UICollectionView(
@@ -20,7 +20,7 @@ final class DocumentEditorViewController: UIViewController {
             collectionViewLayout: layout
         )
         collectionView.allowsMultipleSelection = true
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
 
         return collectionView
@@ -110,7 +110,16 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
+    func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?) {
+        objectHeaderView.configure(model: header)
+        
+        navigationBarHelper.configureNavigationBar(
+            using: header,
+            details: details
+        )
+    }
+    
+    func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
         snapshot.appendSections([.main])
         
@@ -139,13 +148,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             guard let self = self else { return }
             self.focusOnFocusedBlock()
         }
-    }
-    
-    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
-        navigationBarHelper.configureNavigationBar(
-            using: header,
-            details: details
-        )
     }
  
     func selectBlock(blockId: BlockId) {
@@ -190,6 +192,8 @@ private extension DocumentEditorViewController {
     
     func setupView() {
         setupCollectionView()
+        objectHeaderView.setupInScrollView(collectionView)
+        
         setupInteractions()
         
         setupLayout()
