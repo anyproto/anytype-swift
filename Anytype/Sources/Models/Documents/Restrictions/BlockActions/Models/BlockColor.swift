@@ -72,27 +72,27 @@ enum BlockColor: CaseIterable {
     var iconName: String {
         switch self {
         case .lemon:
-            return "TextEditor/Toolbar/Blocks/ColorLemon"
+            return ImageName.slashMenu.color.lemon
         case .black:
-            return "TextEditor/Toolbar/Blocks/ColorBlack"
+            return ImageName.slashMenu.color.black
         case .amber:
-            return "TextEditor/Toolbar/Blocks/ColorAmber"
+            return ImageName.slashMenu.color.amber
         case .red:
-            return "TextEditor/Toolbar/Blocks/ColorRed"
+            return ImageName.slashMenu.color.red
         case .pink:
-            return "TextEditor/Toolbar/Blocks/ColorPink"
+            return ImageName.slashMenu.color.pink
         case .purple:
-            return "TextEditor/Toolbar/Blocks/ColorPurple"
+            return ImageName.slashMenu.color.purple
         case .ultramarine:
-            return "TextEditor/Toolbar/Blocks/ColorUltramarine"
+            return ImageName.slashMenu.color.ultramarine
         case .blue:
-            return "TextEditor/Toolbar/Blocks/ColorBlue"
+            return ImageName.slashMenu.color.blue
         case .teal:
-            return "TextEditor/Toolbar/Blocks/ColorTeal"
+            return ImageName.slashMenu.color.teal
         case .green:
-            return "TextEditor/Toolbar/Blocks/ColorGreen"
+            return ImageName.slashMenu.color.green
         case .coldgray:
-            return "TextEditor/Toolbar/Blocks/ColorColdgray"
+            return ImageName.slashMenu.color.coldgray
         }
     }
     

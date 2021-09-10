@@ -37,23 +37,23 @@ enum SlashMenuItemType {
     var iconName: String {
         switch self {
         case .style:
-            return "TextEditor/Toolbar/Blocks/Style"
+            return ImageName.slashMenu.groups.style
         case .media:
-            return "TextEditor/Toolbar/Blocks/Media"
+            return ImageName.slashMenu.groups.media
         case .objects:
-            return "TextEditor/Toolbar/Blocks/Objects"
+            return ImageName.slashMenu.groups.objects
         case .relations:
-            return "TextEditor/Toolbar/Blocks/Relation"
+            return ImageName.slashMenu.groups.relation
         case .other:
-            return "TextEditor/Toolbar/Blocks/Other"
+            return ImageName.slashMenu.groups.other
         case .actions:
-            return "TextEditor/Toolbar/Blocks/Actions"
+            return ImageName.slashMenu.groups.actions
         case .color:
-            return "TextEditor/Toolbar/Blocks/ColorBlack"
+            return ImageName.slashMenu.groups.color
         case .background:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorClear"
+            return ImageName.slashMenu.groups.background_color
         case .alignment:
-            return "TextEditor/Toolbar/Blocks/AlignmentLeft"
+            return ImageName.slashMenu.groups.alignment
         }
     }
 

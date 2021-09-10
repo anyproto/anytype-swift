@@ -2,7 +2,7 @@ import UIKit
 import AnytypeCore
 
 extension UIImage {
-    static let back = createImage("TextEditor/Toolbar/Blocks/Back")
+    static let back = createImage("slash_menu_back")
     static let backArrow = createImage("backArrow")
     
     static let more = createImage("TextEditor/More")
@@ -18,11 +18,15 @@ extension UIImage {
     }
     
     enum divider {
-        static let dots = createImage("TextEditor/Style/Other/Divider/Dots")
+        static let dots = createImage("TextEditor/Divider/Dots")
+    }
+    
+    enum blockLink {
+        static let empty = createImage("TextEditor/Link/empty")
     }
     
     enum blockFile {
-        static let noImage = createImage("TextEditor/no_image")
+        static let noImage = createImage("no_image")
         
         enum empty {
             static let image = createImage("TextEditor/BlockFile/Empty/Image")
@@ -50,7 +54,7 @@ extension UIImage {
     }
     
     enum codeBlock {
-        static let arrow = createImage("TextEditor/Toolbar/turn_into_arrow")
+        static let arrow = createImage("TextEditor/turn_into_arrow")
     }
     
     enum textAttributes {
