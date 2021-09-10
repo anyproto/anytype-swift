@@ -14,22 +14,22 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
         let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
-        return draw(hash: hash, image: image, imageGuideline: imageGuideline)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline, resize: true)
     }
     
     func staticImage(name: String, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "staticImage.\(name).\(imageGuideline.identifier)"
         let image = UIImage.createImage(name)
-        return draw(hash: hash, image: image, imageGuideline: imageGuideline)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline, resize: false)
     }
     
-    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline) -> UIImage {
+    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline, resize: Bool) -> UIImage {
         if let image = imageStorage.image(forKey: hash) {
             return image
         }
         
+        let image = resize ? image.scaled(to: imageGuideline.size) : image
         let modifiedImage = image
-            .scaled(to: imageGuideline.size)
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
                 backgroundColor: imageGuideline.cornersGuideline.backgroundColor?.cgColor
