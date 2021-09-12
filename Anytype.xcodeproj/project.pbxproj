@@ -425,7 +425,6 @@
 		5333421C262E249100238121 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5333421B262E249100238121 /* FloatingPanel */; };
 		533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */; };
 		5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338568626397EB9005A06A9 /* SegmentItemView.swift */; };
-		533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */; };
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
 		533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
@@ -1063,7 +1062,6 @@
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
 		533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentControl.swift; sourceTree = "<group>"; };
 		5338568626397EB9005A06A9 /* SegmentItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItemView.swift; sourceTree = "<group>"; };
-		533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorPanelLayout.swift; sourceTree = "<group>"; };
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
 		533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesPanelLayout.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -2756,6 +2754,7 @@
 				12DE403E264AE418007B5074 /* Layout */,
 				12DE4038264ACF83007B5074 /* View protocols */,
 				533856812638CB6F005A06A9 /* SegmentControls */,
+				530F4FF226EEBA0E00F76D03 /* SimplePullDownMenu */,
 				531629312632BD0A000D6780 /* BottomSheets */,
 				3D932D5026317EFB00C7D1EA /* Pickers */,
 				3D07ECE6261B733C00C007E2 /* Extensions */,
@@ -3307,6 +3306,13 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		530F4FF226EEBA0E00F76D03 /* SimplePullDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SimplePullDownMenu;
+			sourceTree = "<group>";
+		};
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -3528,7 +3534,6 @@
 			children = (
 				53EA4A762637634900968B8E /* ColorCell */,
 				53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */,
-				533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */,
 			);
 			path = ColorView;
 			sourceTree = "<group>";
@@ -4508,7 +4513,6 @@
 				EA57F3D126B83DDF007D4292 /* AllMarkupsState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,
-				533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,

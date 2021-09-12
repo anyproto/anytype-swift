@@ -10,7 +10,7 @@ final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
-        information: BlockInformation,
+        blockModel: BlockModelProtocol,
         actionHandler: EditorActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void,
         showMarkupMenu: @escaping () -> Void
@@ -40,17 +40,17 @@ final class BottomSheetsFactory {
         fpc.contentMode = .static
 
         // NOTE: This will be moved to coordinator in next pr
-        guard case let .text(textContentType) = information.content.type else { return }
+        guard case let .text(textContentType) = blockModel.information.content.type else { return }
 
         let askColor: () -> UIColor? = {
-            guard case let .text(textContent) = information.content else { return nil }
+            guard case let .text(textContent) = blockModel.information.content else { return nil }
             return textContent.color?.color(background: false)
         }
         let askBackgroundColor: () -> UIColor? = {
-            return information.backgroundColor?.color(background: true)
+            return blockModel.information.backgroundColor?.color(background: true)
         }
 
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: blockModel.information.content)
 
         let contentVC = StyleViewController(
             viewControllerForPresenting: parentViewController,
@@ -60,7 +60,7 @@ final class BottomSheetsFactory {
             askBackgroundColor: askBackgroundColor,
             didTapMarkupButton: showMarkupMenu
         ) { action in
-            actionHandler.handleAction(action, blockId: information.id)
+            actionHandler.handleAction(action, blockId: blockModel.information.id)
         }
         
         fpc.set(contentViewController: contentVC)
