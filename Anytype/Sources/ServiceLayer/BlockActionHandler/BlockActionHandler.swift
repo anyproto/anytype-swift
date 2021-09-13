@@ -79,7 +79,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .addBlock(type):
             addBlock(blockId: blockId, type: type)
         case let .turnIntoBlock(type):
-            turnIntoBlock(blockId: blockId, type: type)
+            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
         case let .fetch(url: url):
             service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
         case .toggle:
@@ -110,21 +110,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func upload(blockId: BlockId, filePath: String) {
         service.upload(blockId: blockId, filePath: filePath)
-    }
-    
-    private func turnIntoBlock(blockId: BlockId, type: BlockContentType) {
-        switch type {
-        case .file(.file):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .file(.image):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .file(.video):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .bookmark(.page):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        default:
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
-        }
     }
     
     private func addBlock(blockId: BlockId, type: BlockContentType) {

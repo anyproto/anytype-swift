@@ -14,12 +14,11 @@ struct CreatePageResponse {
 
 
 protocol ObjectActionsServiceProtocol {
-    /// NOTE: Action supports List context.
     func convertChildrenToPages(
         contextID: BlockId,
         blocksIds: [BlockId],
         objectType: String
-    ) -> AnyPublisher<Void, Error>
+    ) -> AnyPublisher<[BlockId], Error>
     
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
     func setDetails(
