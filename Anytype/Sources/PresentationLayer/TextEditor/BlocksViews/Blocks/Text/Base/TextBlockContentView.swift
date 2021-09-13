@@ -86,72 +86,29 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: - Apply configuration
     private func applyNewConfiguration() {
+        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: currentConfiguration.content.contentType)
+        
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: currentConfiguration)
-        TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration)
+        TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration, restrictions: restrictions)
 
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
 
-        // update text view delegate
         textView.delegate = self
-
-        // set text view options
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: currentConfiguration.information.content.type
-        )
-        accessoryViewSwitcher?.updateBlockType(with: currentConfiguration.information.content.type)
-        updatePartialTextSelectionMenuItems(restrictions: restrictions)
-
-        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
-        let options = CustomTextViewOptions(
-            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
-            autocorrect: autocorrect
-        )
-        textView.setCustomTextViewOptions(options: options)
-
-
-        // setup attr text
-        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
-
-        textView.textView.selectedColor = nil
-        if currentConfiguration.content.contentType == .checkbox {
-            textView.textView.selectedColor = currentConfiguration.content.checked ? UIColor.textSecondary : nil
-        }
         
-        createEmptyBlockButton.isHidden = true
-        if currentConfiguration.content.contentType == .toggle {
-            createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
-        }
+        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
+        
+        let displayPlaceholder = currentConfiguration.content.contentType == .toggle && currentConfiguration.shouldDisplayPlaceholder
+        createEmptyBlockButton.isHidden = !displayPlaceholder
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
         selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
+        accessoryViewSwitcher?.updateBlockType(with: currentConfiguration.information.content.type)
         
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }
     }
 
-    // MARK: - Private
-    
-    private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
-        let allOptions = TextViewContextMenuOption.allCases
-        let availableOptions = allOptions.filter { option -> Bool in
-            switch option {
-            case let .toggleMarkup(type):
-                switch type {
-                case .bold:
-                    return restrictions.canApplyBold
-                case .italic:
-                    return restrictions.canApplyItalic
-                case .strikethrough, .keyboard:
-                    return restrictions.canApplyOtherMarkup
-                }
-            case .setLink:
-                return restrictions.canApplyOtherMarkup
-            }
-        }
-        textView.textView.availableContextMenuOptions = availableOptions
-    }
-    
     // MARK: - Views
     private let backgroundColorView = UIView()
     private let selectionView = TextBlockSelectionView()

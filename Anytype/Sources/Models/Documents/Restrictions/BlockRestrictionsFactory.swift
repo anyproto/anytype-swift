@@ -10,7 +10,7 @@ struct BlockRestrictionsFactory {
     func makeRestrictions(for contentType: BlockContentType) -> BlockRestrictions {
         switch contentType {
         case let .text(text):
-            return self.makeTextRestrictions(for: text)
+            return makeTextRestrictions(for: text)
         case .divider:
             return DividerBlockRestrictions()
         case let .file(contentType):
