@@ -27,7 +27,6 @@ final class SlashMenuViewController: UIViewController {
         cellData: [SlashMenuCellData],
         actionsHandler: SlashMenuActionsHandler,
         dismissHandler: (() -> Void)?
-        
     ) {
         self.cellData = cellData
         self.actionsHandler = actionsHandler

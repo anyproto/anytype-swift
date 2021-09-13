@@ -143,11 +143,11 @@ private extension SlashMenuActionsHandlerImp {
         middwareEventsSubscription = NotificationCenter.Publisher(
             center: .default,
             name: .middlewareEvent
-            )
+        )
         .compactMap { $0.object as? Anytype_Event }
-        .sink(receiveValue: { [weak self] event in
+        .sink { [weak self] event in
             event.messages.forEach { self?.handleMiddlewareMessage($0) }
-        })
+        }
     }
     
     private func handleMiddlewareMessage(_ message: Anytype_Event.Message) {
