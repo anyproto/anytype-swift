@@ -10,12 +10,22 @@ protocol AccessoryViewSwitcherDelegate: AnyObject {
     func didEnterURL(_ url: URL?)
 }
 
-
-final class AccessoryViewSwitcher {
-    private enum Constants {
-        static let displayActionsViewDelay: TimeInterval = 0.3
-    }
+protocol AccessoryViewSwitcherProtocol: AnyObject {
+    var textToTriggerSlashViewDisplay: String { get }
+    var textToTriggerMentionViewDisplay: String { get }
     
+    func showSlashMenuView(textView: UITextView)
+    func showMentionsView(textView: UITextView)
+    
+    func updateBlockType(with type: BlockContentType)
+    func showURLInput(textView: UITextView, url: URL?)
+    
+    func didBeginEditing(textView: UITextView)
+    func textDidChange(textView: UITextView)
+    func textWillChange(textView: UITextView, replacementText: String, range: NSRange)
+}
+
+final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     let textToTriggerSlashViewDisplay = "/"
     let textToTriggerMentionViewDisplay = "@"
     
@@ -25,8 +35,8 @@ final class AccessoryViewSwitcher {
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     
     private let mentionsView: MentionView
-    let editingView: EditorAccessoryView
-    var slashMenuView: SlashMenuView
+    private let editingView: EditorAccessoryView
+    private var slashMenuView: SlashMenuView
     private weak var textView: UITextView?
     private weak var delegate: AccessoryViewSwitcherDelegate?
     private var latestTextViewTextChange: TextViewTextChangeType?
@@ -82,8 +92,6 @@ final class AccessoryViewSwitcher {
             handleSymbolsTyped(in: textView)
         }
     }
-
-    func selectionDidChange(textView: UITextView) {}
 
     func updateBlockType(with type: BlockContentType) {
         if type == .text(.title) {
@@ -194,7 +202,7 @@ final class AccessoryViewSwitcher {
             )
         })
         displayAcessoryViewTask = task
-        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: task)
     }
     
     private func isFilterableViewCurrentlyVisible() -> Bool {

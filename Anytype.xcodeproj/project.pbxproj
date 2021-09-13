@@ -407,6 +407,7 @@
 		3DEFD6492689FE180072EA27 /* FloaterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */; };
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
+		3DF80F3126EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */; };
 		3DFD1B0426E75B5900F893FC /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */; };
 		3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */; };
 		3DFD1B1A26E8A42600F893FC /* EditorSearchCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */; };
@@ -571,7 +572,6 @@
 		EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */; };
 		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
 		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
-		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
 		EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */; };
 		EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */; };
 		EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */; };
@@ -1047,6 +1047,7 @@
 		3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
+		3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockAccessoryViewBuilder.swift; sourceTree = "<group>"; };
 		3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
 		3DFD1B1B26E8AAAB00F893FC /* EditorSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
@@ -1204,7 +1205,6 @@
 		EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedStringExtension.swift; sourceTree = "<group>"; };
 		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
 		EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenNormalizer.swift; sourceTree = "<group>"; };
-		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
 		EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Convenience.swift"; sourceTree = "<group>"; };
 		EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+ApplicationWindowInsetsProvider.swift"; sourceTree = "<group>"; };
 		EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEventsListenerHelper.swift; sourceTree = "<group>"; };
@@ -1351,6 +1351,7 @@
 		031B35572346C5650066DDB8 /* BlocksViews */ = {
 			isa = PBXGroup;
 			children = (
+				534B7F1B26264E0100D712B2 /* AccessoryView */,
 				0A19E2B22444C9430078DFAB /* Base */,
 				0A10CC5A248EC2EE000FF498 /* Blocks */,
 				0ADE618B2448877300244E49 /* ContextualMenu */,
@@ -1865,7 +1866,6 @@
 			children = (
 				EA6EC91925ED3DBD00740B31 /* Base */,
 				53BC399F261B78F4004D7EB6 /* Code */,
-				EA6EC91D25ED3DE000740B31 /* Quote */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -3271,14 +3271,6 @@
 			path = ObjectType;
 			sourceTree = "<group>";
 		};
-		3DFD1B1126E7BEE300F893FC /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3DFD1B1626E8A3C200F893FC /* Search */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		3DFD1B1626E8A3C200F893FC /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -3302,7 +3294,6 @@
 		530470F42682044000C9EE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				534B7F1B26264E0100D712B2 /* AccessoryView */,
 				530470F52682046900C9EE78 /* TextBlockIconView.swift */,
 			);
 			path = Views;
@@ -3429,14 +3420,14 @@
 		534B7F1B26264E0100D712B2 /* AccessoryView */ = {
 			isa = PBXGroup;
 			children = (
-				3DFD1B1126E7BEE300F893FC /* View */,
-				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
-				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
-				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
+				3DFD1B1626E8A3C200F893FC /* Search */,
 				EAAD6DE626CBFC2E005CE1E7 /* URLInput */,
 				533AED7A26CB49760018E33C /* EditorAccessoryView */,
 				EA289B9F2629B25C00EA869F /* SlashMenu */,
 				EA5521AE266E5DA3004A820B /* Mention */,
+				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
+				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
+				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
@@ -3738,16 +3729,9 @@
 				EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */,
 				EAED57A5269F346D00374A46 /* TextBlockViewModel.swift */,
 				EAED57A9269F375B00374A46 /* TextBlockContentConfiguration.swift */,
+				3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		EA6EC91D25ED3DE000740B31 /* Quote */ = {
-			isa = PBXGroup;
-			children = (
-				EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */,
-			);
-			path = Quote;
 			sourceTree = "<group>";
 		};
 		EA77E53F262DEC31009F91D9 /* Buttons */ = {
@@ -4358,7 +4342,6 @@
 				3D16840526DD5B54008B9DFF /* SlashMenuViewController+TableView.swift in Sources */,
 				0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift in Sources */,
-				EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */,
 				120E817F26A026F5006FE84E /* ObjectSettingRow.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderBuilder.swift in Sources */,
 				EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */,
@@ -4441,6 +4424,7 @@
 				3D44985526D562BC005A3E06 /* ObjectHeaderEmptyData.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
+				3DF80F3126EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */,

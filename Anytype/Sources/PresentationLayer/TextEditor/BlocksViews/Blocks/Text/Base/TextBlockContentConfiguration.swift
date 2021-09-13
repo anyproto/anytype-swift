@@ -9,6 +9,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let shouldDisplayPlaceholder: Bool
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
+    let accessoryViewBuilder: TextBlockAccessoryViewBuilder
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
     let showStyleMenu: (BlockInformation) -> Void
@@ -42,6 +43,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
+        self.accessoryViewBuilder = TextBlockAccessoryViewBuilder(actionHandler: actionHandler)
         
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
