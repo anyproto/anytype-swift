@@ -7,6 +7,8 @@ protocol BlockActionHandlerProtocol {
     typealias Completion = (PackOfEvents) -> Void
     
     func upload(blockId: BlockId, filePath: String)
+    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ())
+    
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
 }
 
@@ -20,7 +22,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
     private let selectionHandler: EditorModuleSelectionHandlerProtocol
-    private let router: EditorRouterProtocol
     
     private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
     
@@ -29,7 +30,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         modelsHolder: ObjectContentViewModelsSharedHolder,
         selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
         markupChanger: BlockMarkupChangerProtocol
     ) {
         self.modelsHolder = modelsHolder
@@ -37,7 +37,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.service = BlockActionService(documentId: documentId)
         self.selectionHandler = selectionHandler
         self.document = document
-        self.router = router
         self.markupChanger = markupChanger
         
         self.textBlockActionHandler = TextBlockActionHandler(
@@ -48,6 +47,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Public methods
+    
+    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ()) {
+        service.turnIntoPage(blockId: blockId, completion: completion)
+    }
+    
+    func upload(blockId: BlockId, filePath: String) {
+        service.upload(blockId: blockId, filePath: filePath)
+    }
     
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?) {
         service.configured { events in
@@ -87,8 +94,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.receivelocalEvents([.setToggled(blockId: blockId)])
         case .checkbox(selected: let selected):
             service.checked(blockId: blockId, newValue: selected)
-        case let .showPage(pageId):
-            router.showPage(with: pageId)
         case .createEmptyBlock(let parentId):
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
         case let .textView(action: action, block: blockModel):
@@ -107,10 +112,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 textBlockActionHandler.handlingTextViewAction(blockModel, action, completion: completion)
             }
         }
-    }
-    
-    func upload(blockId: BlockId, filePath: String) {
-        service.upload(blockId: blockId, filePath: filePath)
     }
     
     private func addBlock(blockId: BlockId, type: BlockContentType) {

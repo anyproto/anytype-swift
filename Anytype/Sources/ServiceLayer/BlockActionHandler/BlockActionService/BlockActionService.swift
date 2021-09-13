@@ -137,11 +137,25 @@ final class BlockActionService: BlockActionServiceProtocol {
         switch type {
         case .text(let style):
             setTextStyle(blockId: blockId, style: style, shouldFocus: shouldSetFocusOnUpdate)
-        case .smartblock: setPageStyle(blockId: blockId)
+        case .smartblock:
+            anytypeAssertionFailure("Use turnIntoPage action instead")
+            turnIntoPage(blockId: blockId)
         case .divider(let style): setDividerStyle(blockId: blockId, style: style)
         case .bookmark, .file, .layout, .link:
             anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         }
+    }
+    
+    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> () = { _ in }) {
+        let objectType = ""
+
+        let blocksIds = [blockId]
+
+        pageService.convertChildrenToPages(contextID: documentId, blocksIds: blocksIds, objectType: objectType)
+            .sinkWithDefaultCompletion("blocksActions.convertChildrenToPages") { blockIds in
+                completion(blockIds.first)
+            }
+            .store(in: &self.subscriptions)
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
@@ -188,18 +202,6 @@ private extension BlockActionService {
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
-    }
-
-    func setPageStyle(blockId: BlockId) {
-        let objectType = ""
-
-        let blocksIds = [blockId]
-
-        pageService.convertChildrenToPages(contextID: documentId, blocksIds: blocksIds, objectType: objectType)
-            .sinkWithDefaultCompletion("blocksActions.convertChildrenToPages") { blockIds in
-                print(blockIds)
-            }
-            .store(in: &self.subscriptions)
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
