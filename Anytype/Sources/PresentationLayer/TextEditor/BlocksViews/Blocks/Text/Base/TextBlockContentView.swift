@@ -86,45 +86,8 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: - Apply configuration
     private func applyNewConfiguration() {
-        TextBlockLeftViewStyler.applyStyle(
-            contentStackView: contentStackView,
-            style: currentConfiguration.content.contentType,
-            isCheckable: currentConfiguration.isCheckable,
-            isToggled: currentConfiguration.block.isToggled,
-            content: currentConfiguration.content,
-            onTitleTap: { [weak self] in
-                guard let self = self else { return }
-
-                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-                self.currentConfiguration.actionHandler.handleAction(
-                    .checkbox(selected: !self.currentConfiguration.content.checked),
-                    blockId: self.currentConfiguration.information.id
-                )
-             },
-            onCheckboxTap: { [weak self] in
-                guard let self = self else { return }
-
-                UISelectionFeedbackGenerator().selectionChanged()
-                self.currentConfiguration.actionHandler.handleAction(
-                    .checkbox(selected: !self.currentConfiguration.content.checked),
-                    blockId: self.currentConfiguration.information.id
-                )
-            },
-            onToggleTap: { [weak self] in
-                guard let self = self else { return }
-                self.currentConfiguration.block.toggle()
-                self.currentConfiguration.actionHandler.handleAction(
-                    .toggle,
-                    blockId: self.currentConfiguration.information.id
-                )
-            }
-        )
-        
-        TextBlockTextViewStyler.applyStyle(
-            textView: textView,
-            style: currentConfiguration.content.contentType,
-            textStyle: currentConfiguration.text
-        )
+        TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: currentConfiguration)
+        TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration)
 
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
 
@@ -159,8 +122,6 @@ final class TextBlockContentView: UIView & UIContentView {
             createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
         }
 
-        textView.textView.tertiaryColor = currentConfiguration.content.color?.color(background: false)
-        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
         selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
         

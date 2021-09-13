@@ -4,29 +4,23 @@ import BlocksModels
 final class TextBlockLeftViewStyler {
     static func applyStyle(
         contentStackView view: UIStackView,
-        style: BlockText.Style,
-        isCheckable: Bool,
-        isToggled: Bool,
-        content: BlockText,
-        onTitleTap: @escaping () -> (),
-        onCheckboxTap: @escaping () -> (),
-        onToggleTap: @escaping () -> ()
+        configuration: TextBlockContentConfiguration
     ) {
-        updateIconSpacing(contentStackView: view, style: style, isCheckable: isCheckable)
+        updateIconSpacing(contentStackView: view, configuration: configuration)
         
         let leftView: UIView
         
-        switch style {
+        switch configuration.content.contentType {
         case .title:
-            leftView = leftTitleView(isCheckable: isCheckable, isChecked: content.checked, onTap: onTitleTap)
+            leftView = leftTitleView(configuration: configuration)
         case .toggle:
-            leftView = TextBlockIconView(viewType: .toggle(toggled: isToggled), action: onToggleTap)
+            leftView = leftTitleView(configuration: configuration)
         case .bulleted:
             leftView = TextBlockIconView(viewType: .bulleted)            
         case .checkbox:
-            leftView = TextBlockIconView(viewType: .checkbox(isSelected: content.checked), action: onCheckboxTap)
+            leftView = leftCheckboxView(configuration: configuration)
         case .numbered:
-            leftView = TextBlockIconView(viewType: .numbered(content.number))
+            leftView = TextBlockIconView(viewType: .numbered(configuration.content.number))
         case .quote:
             leftView = TextBlockIconView(viewType: .quote)
         case .header, .header2, .header3, .header4, .code, .description, .text:
@@ -37,19 +31,42 @@ final class TextBlockLeftViewStyler {
         view.insertArrangedSubview(leftView, at: 0)
     }
     
-    private static func updateIconSpacing(contentStackView: UIStackView, style: BlockText.Style, isCheckable: Bool) {
-        if style == .title, isCheckable {
+    private static func updateIconSpacing(contentStackView: UIStackView, configuration: TextBlockContentConfiguration) {
+        if configuration.content.contentType == .title, configuration.isCheckable {
             contentStackView.spacing = 8
         } else {
             contentStackView.spacing = 4
         }
     }
     
-    private static func leftTitleView(isCheckable: Bool, isChecked: Bool, onTap: @escaping () -> ()) -> UIView {
-        guard isCheckable else {
+    private static func leftTitleView(configuration: TextBlockContentConfiguration) -> UIView {
+        guard configuration.isCheckable else {
             return TextBlockIconView(viewType: .empty)
         }
 
-        return TextBlockIconView(viewType: .titleCheckbox(isSelected: isChecked), action: onTap)
+        return TextBlockIconView(viewType: .titleCheckbox(isSelected: configuration.content.checked)) {
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+            configuration.actionHandler.handleAction(
+                .checkbox(selected: !configuration.content.checked),
+                blockId: configuration.information.id
+            )
+         }
+    }
+    
+    private static func leftToggleView(configuration: TextBlockContentConfiguration) -> UIView {
+        TextBlockIconView(viewType: .toggle(toggled: configuration.block.isToggled)) {
+            configuration.block.toggle()
+            configuration.actionHandler.handleAction(.toggle, blockId: configuration.information.id)
+        }
+    }
+    
+    private static func leftCheckboxView(configuration: TextBlockContentConfiguration) -> UIView {
+        TextBlockIconView(viewType: .checkbox(isSelected: configuration.content.checked)) {
+            UISelectionFeedbackGenerator().selectionChanged()
+            configuration.actionHandler.handleAction(
+                .checkbox(selected: !configuration.content.checked),
+                blockId: configuration.information.id
+            )
+        }
     }
 }
