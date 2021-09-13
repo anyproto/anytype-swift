@@ -47,10 +47,10 @@ final class TextBlockContentView: UIView & UIContentView {
             $0.trailing.equal(to: trailingAnchor)
         }
         backgroundColorView.addSubview(contentView) {
-            $0.pinToSuperview(insets: LayoutConstants.contentInset)
+            $0.pinToSuperview(insets: TextBlockLayout.contentInset)
         }
         backgroundColorView.addSubview(selectionView) {
-            $0.pinToSuperview(insets: LayoutConstants.selectionViewInset)
+            $0.pinToSuperview(insets: TextBlockLayout.selectionViewInset)
         }
         
         mainStackView.addArrangedSubview(backgroundColorView)
@@ -70,14 +70,13 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func updateAllConstraint(blockTextStyle: BlockText.Style) {
-        var mainInset = LayoutConstants.mainInset(textBlockStyle: blockTextStyle)
-        let contentInset = LayoutConstants.contentInset(textBlockStyle: blockTextStyle)
+        var mainInset = TextBlockLayout.mainInset(textBlockStyle: blockTextStyle)
+        let contentInset = TextBlockLayout.contentInset(textBlockStyle: blockTextStyle)
 
         // Update top indentaion if current block not in the header and upper block is in the header block
         if currentConfiguration.block.parent?.information.content.type != .layout(.header),
            currentConfiguration.upperBlock?.parent?.information.content.type == .layout(.header) {
-            mainInset = LayoutConstants.mainInsetForBlockAfterHeader
-
+            mainInset = TextBlockLayout.mainInsetForBlockAfterHeader
         }
         topMainConstraint?.constant = mainInset.top
         bottomMainConstraint?.constant = mainInset.bottom
@@ -113,8 +112,6 @@ final class TextBlockContentView: UIView & UIContentView {
         )
         textView.setCustomTextViewOptions(options: options)
 
-        // In case of configurations is not equal we should check what exactly we should change
-        // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         createEmptyBlockButton.isHidden = true
         textView.textView.selectedColor = nil
 
@@ -123,22 +120,14 @@ final class TextBlockContentView: UIView & UIContentView {
 
         setup(style: currentConfiguration.content.contentType)
 
+        textView.textView.tertiaryColor = currentConfiguration.content.color?.color(background: false)
+        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
+        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
+        selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
+        
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }
-
-        // Config content background color
-        textView.textView.tertiaryColor = currentConfiguration.content.color?.color(background: false)
-        // Config content text alingment
-        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
-        // Config cursorPosition
-        let cursorPosition = textView.textView.selectedRange
-        textView.textView.selectedRange = cursorPosition
-        // Config background color
-        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
-
-        // Config selection view
-        selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
     }
 
     // MARK: - Setups for different type of text block
@@ -282,45 +271,6 @@ final class TextBlockContentView: UIView & UIContentView {
         }
         textView.textView.availableContextMenuOptions = availableOptions
     }
-
-    // MARK: - LayoutConstants
-    
-    private enum LayoutConstants {
-        static let contentInset: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: -20)
-        static let selectionViewInset: UIEdgeInsets = .init(top: 0, left: 8, bottom: 0, right: -8)
-
-        static func mainInset(textBlockStyle: BlockText.Style) -> NSDirectionalEdgeInsets {
-            switch textBlockStyle {
-            case .title:
-                return .zero
-            case .description:
-                return .init(top: 8, leading: 0, bottom: 0, trailing: 0)
-            case .header:
-                return .init(top: 24, leading: 0, bottom: -2, trailing: 0)
-            case .header2, .header3:
-                return .init(top: 16, leading: 0, bottom: -2, trailing: 0)
-            default:
-                return .init(top: 0, leading: 0, bottom: -2, trailing: 0)
-            }
-        }
-
-        static func contentInset(textBlockStyle: BlockText.Style) -> NSDirectionalEdgeInsets {
-            switch textBlockStyle {
-            case .title:
-                return .zero
-            case .description:
-                return .zero
-            case .header:
-                return .init(top: 5, leading: 0, bottom: -3, trailing: 0)
-            case .header2:
-                return .init(top: 5, leading: 0, bottom: -5, trailing: 0)
-            default:
-                return .init(top: 4, leading: 0, bottom: -4, trailing: 0)
-            }
-        }
-
-        static let mainInsetForBlockAfterHeader: NSDirectionalEdgeInsets = .init(top: 22, leading: 0, bottom: -2, trailing: 0)
-    }
     
     // MARK: - Views
     private let backgroundColorView = UIView()
@@ -354,35 +304,5 @@ final class TextBlockContentView: UIView & UIContentView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-// MARK: - TextBlockAccessoryViewSwitcherDeleagte
-
-extension TextBlockContentView: AccessoryViewSwitcherDelegate {
-    func mentionSelected(_ mention: MentionObject, from: UITextPosition, to: UITextPosition) {
-        // TODO: Accessory check if no need
-        textView.textView.insert(
-            mention,
-            from: from,
-            to: to,
-            font: currentConfiguration.text.anytypeFont
-        )
-
-        self.currentConfiguration.actionHandler.handleAction(
-            .textView(
-                action: .changeText(self.textView.textView.attributedText),
-                block: self.currentConfiguration.block
-            ),
-            blockId: self.currentConfiguration.information.id
-        )
-    }
-    
-    func didEnterURL(_ url: URL?) {
-        let range = textView.textView.selectedRange
-        currentConfiguration.actionHandler.handleAction(
-            .setLink(currentConfiguration.text.attrString, url, range),
-            blockId: currentConfiguration.information.id
-        )
     }
 }

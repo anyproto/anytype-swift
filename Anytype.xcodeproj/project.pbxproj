@@ -410,6 +410,8 @@
 		3DF80F3126EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DF80F3526EF8D14000492F3 /* TextBlockSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */; };
+		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
+		3DF80F3926EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3826EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift */; };
 		3DFD1B0426E75B5900F893FC /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */; };
 		3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */; };
 		3DFD1B1A26E8A42600F893FC /* EditorSearchCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */; };
@@ -1053,6 +1055,8 @@
 		3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockAccessoryViewBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockSelectionView.swift; sourceTree = "<group>"; };
+		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
+		3DF80F3826EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockContentView+AccessoryViewSwitcherDelegate.swift"; sourceTree = "<group>"; };
 		3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
 		3DFD1B1B26E8AAAB00F893FC /* EditorSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
@@ -3299,6 +3303,7 @@
 		530470F42682044000C9EE78 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */,
 				530470F52682046900C9EE78 /* TextBlockIconView.swift */,
 				3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */,
 				3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */,
@@ -3428,6 +3433,7 @@
 				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
 				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
 				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
+				3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
@@ -3726,11 +3732,11 @@
 			isa = PBXGroup;
 			children = (
 				530470F42682044000C9EE78 /* Views */,
-				EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */,
-				EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */,
 				EAED57A5269F346D00374A46 /* TextBlockViewModel.swift */,
 				EAED57A9269F375B00374A46 /* TextBlockContentConfiguration.swift */,
-				3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */,
+				EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */,
+				EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */,
+				3DF80F3826EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -4090,6 +4096,7 @@
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
 				3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */,
+				3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */,
 				120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */,
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
@@ -4177,6 +4184,7 @@
 				53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
+				3DF80F3926EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift in Sources */,
 				3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */,
 				1215E8A926A82DFD0089AF7E /* UrlResolver.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
