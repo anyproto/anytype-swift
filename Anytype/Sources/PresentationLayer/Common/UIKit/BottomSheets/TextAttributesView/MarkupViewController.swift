@@ -1,28 +1,28 @@
-import FloatingPanel
 import UIKit
 
 
 final class MarkupsViewController: UIViewController {
 
+    private let backdropView = UIView()
+    let containerView = UIView()
+
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
-        containerStackView.axis = .horizontal
-        containerStackView.distribution = .fillProportionally
-        containerStackView.spacing = 8.0
+        containerStackView.axis = .vertical
+        containerStackView.distribution = .fillEqually
 
         return containerStackView
     }()
 
-    private var leftTopStackView: UIStackView = {
+    private var topStackView: UIStackView = {
         let leftTopStackView = UIStackView()
         leftTopStackView.axis = .horizontal
         leftTopStackView.distribution = .fillEqually
-        leftTopStackView.spacing = 8.0
 
         return leftTopStackView
     }()
 
-    private var leftBottomStackView: UIStackView = {
+    private var middleStackView: UIStackView = {
         let leftBottomStackView = UIStackView()
         leftBottomStackView.axis = .horizontal
         leftBottomStackView.distribution = .fillEqually
@@ -30,40 +30,35 @@ final class MarkupsViewController: UIViewController {
         return leftBottomStackView
     }()
 
-    private var leftStackView: UIStackView = {
+    private var bottomStackView: UIStackView = {
         let leftStackView = UIStackView()
-        leftStackView.axis = .vertical
+        leftStackView.axis = .horizontal
         leftStackView.distribution = .fillEqually
-        leftStackView.spacing = 16.0
 
         return leftStackView
     }()
-
-    private var rightStackView: UIStackView = {
-        let rightStackView = UIStackView()
-        rightStackView.axis = .vertical
-        rightStackView.distribution = .fillEqually
-        rightStackView.spacing = 16.0
-
-        return rightStackView
-    }()
     
-    private lazy var boldButton = makeRoundedButton(image: .textAttributes.bold) { [weak self] in
+    private lazy var boldButton = makeButton(image: .textAttributes.bold) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
-    }
-    private lazy var italicButton = makeRoundedButton(image: .textAttributes.italic) { [weak self] in
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .stroke)
+
+    private lazy var italicButton = makeButton(image: .textAttributes.italic) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
-    }
-    private lazy var strikethroughButton = makeRoundedButton(image: .textAttributes.strikethrough) { [weak self] in
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .stroke)
+
+    private lazy var strikethroughButton = makeButton(image: .textAttributes.strikethrough) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
-    }
-    private lazy var codeButton = makeRoundedButton(image: .textAttributes.code) { [weak self] in
+    }.addBorders(edges: [.bottom], width: 1, color: .stroke)
+
+    private lazy var codeButton = makeButton(text: "Code".localized) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
-    }
-    private lazy var urlButton = makeRoundedButton(image: .textAttributes.url, action: {})
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .stroke)
+
+    private lazy var urlButton = makeButton(text: "Link".localized, action: {})
+        .addBorders(edges: [.bottom], width: 1, color: .stroke)
+
     private lazy var leftAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: .textAttributes.alignLeft)
-        button.addBorders(edges: .right, width: 1.0, color: .grayscale30)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.left))
         }), for: .touchUpInside)
@@ -71,7 +66,6 @@ final class MarkupsViewController: UIViewController {
     }()
     private lazy var centerAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: .textAttributes.alignCenter)
-        button.addBorders(edges: .right, width: 1.0, color: UIColor.grayscale30)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.center))
         }), for: .touchUpInside)
@@ -108,61 +102,69 @@ final class MarkupsViewController: UIViewController {
     // MARK: -  Setup views
 
     private func setupViews() {
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(containerStackView)
+        containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 12.0
+        containerView.layer.cornerCurve = .continuous
 
-        containerStackView.addArrangedSubview(leftStackView)
-        containerStackView.addArrangedSubview(rightStackView)
+        containerView.layer.shadowColor = UIColor.grayscale90.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        containerView.layer.shadowOpacity = 0.25
+        containerView.layer.shadowRadius = 40
 
-        containerStackView.edgesToSuperview(insets: UIEdgeInsets(top: 24.0, left: 16, bottom: 20, right: 16))
+        view.backgroundColor = .clear
+        backdropView.backgroundColor = .clear
+        let tapGeastureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backdropViewTapped))
+        backdropView.addGestureRecognizer(tapGeastureRecognizer)
 
-        setupLeftStackView()
-        setupRightStackView()
-    }
+        view.addSubview(backdropView)
+        view.addSubview(containerView)
 
-    private func setupLeftStackView() {
-        setupLeftTopStackView()
-        setupLeftBottomStackView()
-        leftStackView.addArrangedSubview(leftTopStackView)
-        leftStackView.addArrangedSubview(leftBottomStackView)
-    }
+        backdropView.pinAllEdges(to: view)
 
-    private func setupRightStackView() {
-        rightStackView.addArrangedSubview(codeButton)
-        rightStackView.addArrangedSubview(urlButton)
-    }
+        containerView.addSubview(containerStackView) {
+            $0.pinToSuperview()
+        }
 
-    private func setupLeftTopStackView() {
-        leftTopStackView.addArrangedSubview(boldButton)
-        leftTopStackView.addArrangedSubview(italicButton)
-        leftTopStackView.addArrangedSubview(strikethroughButton)
+        containerStackView.addArrangedSubview(topStackView)
+        containerStackView.addArrangedSubview(middleStackView)
+        containerStackView.addArrangedSubview(bottomStackView)
+
+        topStackView.addArrangedSubview(boldButton)
+        topStackView.addArrangedSubview(italicButton)
+        topStackView.addArrangedSubview(strikethroughButton)
+
+        middleStackView.addArrangedSubview(codeButton)
+        middleStackView.addArrangedSubview(urlButton)
+
+        bottomStackView.addArrangedSubview(leftAlignButton)
+        bottomStackView.addArrangedSubview(centerAlignButton)
+        bottomStackView.addArrangedSubview(rightAlignButton)
+
+        codeButton.label.font = .uxBodyRegular
+        codeButton.label.textColor = .textPrimary
+        urlButton.label.font = .uxBodyRegular
+        urlButton.label.textColor = .textPrimary
     }
     
-    private func makeRoundedButton(
-        image: UIImage?,
+    private func makeButton(
+        image: UIImage? = nil,
+        text: String? = nil,
         action: @escaping () -> Void
     ) -> ButtonWithImage {
-        let button = ButtonsFactory.roundedBorderуButton(image: image)
+        let button = ButtonsFactory.makeButton(image: image, text: text)
         button.addAction(UIAction(handler: { _ in
             action()
         }), for: .touchUpInside)
         return button
     }
-
-    private func setupLeftBottomStackView() {
-        leftBottomStackView.addArrangedSubview(leftAlignButton)
-        leftBottomStackView.addArrangedSubview(centerAlignButton)
-        leftBottomStackView.addArrangedSubview(rightAlignButton)
-
-        leftBottomStackView.layer.borderWidth = 1.0
-        leftBottomStackView.clipsToBounds = true
-        leftBottomStackView.layer.cornerRadius = 10
-        leftBottomStackView.layer.borderColor = UIColor.grayscale30.cgColor
-    }
     
     private func setup(button: ButtonWithImage, with state: MarkupState) {
         button.isEnabled = state != .disabled
         button.isSelected = state == .applied
+    }
+
+    @objc private func backdropViewTapped() {
+        removeFromParentEmbed()
     }
 }
 
@@ -186,18 +188,5 @@ extension MarkupsViewController: MarkupViewProtocol {
         DispatchQueue.main.async {
             self.dismiss(animated: true)
         }
-    }
-}
-
-extension MarkupsViewController: FloatingPanelControllerDelegate {
-    func floatingPanel(_ fpc: FloatingPanelController,
-                       shouldRemoveAt location: CGPoint,
-                       with velocity: CGVector) -> Bool {
-        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
-        // If panel moved more than a half of its hight than hide panel
-        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
-            return true
-        }
-        return false
     }
 }

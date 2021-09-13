@@ -116,7 +116,7 @@ final class StyleViewController: UIViewController {
     private var actionHandler: ActionHandler
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
-    private var didTapMarkupButton: () -> Void
+    private var didTapMarkupButton: (_ styleView: UIView) -> Void
     private var style: BlockText.Style
     private var restrictions: BlockRestrictions
     // deselect action will be performed on new selection
@@ -134,7 +134,7 @@ final class StyleViewController: UIViewController {
         restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
-        didTapMarkupButton: @escaping () -> Void,
+        didTapMarkupButton: @escaping (_ styleView: UIView) -> Void,
         actionHandler: @escaping ActionHandler
     ) {
         self.viewControllerForPresenting = viewControllerForPresenting
@@ -231,7 +231,8 @@ final class StyleViewController: UIViewController {
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
         moreButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.didTapMarkupButton()
+            guard let self = self else { return }
+            self.didTapMarkupButton(self.view)
         }), for: .touchUpInside)
 
         let trailingStackView = UIStackView()

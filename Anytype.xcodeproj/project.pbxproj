@@ -432,7 +432,6 @@
 		533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */; };
 		5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338568626397EB9005A06A9 /* SegmentItemView.swift */; };
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
-		533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
 		533AED7926CB494F0018E33C /* EditorAccessoryViewActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED7826CB494F0018E33C /* EditorAccessoryViewActionHandler.swift */; };
 		533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED8B26CC421F0018E33C /* SwiftUIFont.swift */; };
@@ -1072,7 +1071,6 @@
 		533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentControl.swift; sourceTree = "<group>"; };
 		5338568626397EB9005A06A9 /* SegmentItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItemView.swift; sourceTree = "<group>"; };
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
-		533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesPanelLayout.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		533AED7826CB494F0018E33C /* EditorAccessoryViewActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorAccessoryViewActionHandler.swift; sourceTree = "<group>"; };
 		533AED8B26CC421F0018E33C /* SwiftUIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIFont.swift; sourceTree = "<group>"; };
@@ -3383,7 +3381,6 @@
 			children = (
 				EA57F3DE26B84AD7007D4292 /* Markup */,
 				533856AF263B22B8005A06A9 /* MarkupViewController.swift */,
-				533856B1263C1565005A06A9 /* TextAttributesPanelLayout.swift */,
 				EA57F3D026B83DDF007D4292 /* AllMarkupsState.swift */,
 				EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */,
 				EA57F41926B99936007D4292 /* MarkupViewModel.swift */,
@@ -4497,7 +4494,6 @@
 				EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
 				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
-				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */,
 				0ACFCCF9249C17DC002E0477 /* MiddlewareResponse.swift in Sources */,

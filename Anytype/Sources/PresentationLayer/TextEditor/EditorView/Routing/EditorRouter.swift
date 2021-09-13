@@ -132,12 +132,13 @@ final class EditorRouter: EditorRouterProtocol {
             blockModel: blockModel,
             actionHandler: controller.viewModel.blockActionHandler,
             didShow: didShow,
-            showMarkupMenu: { [weak controller] in
+            showMarkupMenu: { [weak controller] styleView in
                 guard let controller = controller,
                       let parent = controller.parent else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: parent,
+                    styleView: styleView,
                     blockInformation: blockModel.information,
                     viewModel: controller.viewModel.wholeBlockMarkupViewModel
                 )
