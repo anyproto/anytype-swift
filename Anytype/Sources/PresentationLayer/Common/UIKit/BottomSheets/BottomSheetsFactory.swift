@@ -13,7 +13,7 @@ final class BottomSheetsFactory {
         blockModel: BlockModelProtocol,
         actionHandler: EditorActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void,
-        showMarkupMenu: @escaping (_ styleView: UIView) -> Void
+        showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
     ) {
         let fpc = FloatingPanelController()
         fpc.delegate = delegate
@@ -73,11 +73,12 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         styleView: UIView,
         blockInformation: BlockInformation,
-        viewModel: MarkupViewModel
+        viewModel: MarkupViewModel,
+        viewDidClose: @escaping () -> Void
     ) {
         viewModel.blockInformation = blockInformation
         viewModel.setRange(.whole)
-        let markupsViewController = MarkupsViewController(viewModel: viewModel)
+        let markupsViewController = MarkupsViewController(viewModel: viewModel, viewDidClose: viewDidClose)
         viewModel.view = markupsViewController
 
         parentViewController.embedChild(markupsViewController)
