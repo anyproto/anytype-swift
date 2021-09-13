@@ -86,12 +86,43 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: - Apply configuration
     private func applyNewConfiguration() {
+        TextBlockLeftViewStyler.applyStyle(
+            contentStackView: contentStackView,
+            style: currentConfiguration.content.contentType,
+            isCheckable: currentConfiguration.isCheckable,
+            isToggled: currentConfiguration.block.isToggled,
+            content: currentConfiguration.content,
+            onTitleTap: { [weak self] in
+                guard let self = self else { return }
+
+                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+                self.currentConfiguration.actionHandler.handleAction(
+                    .checkbox(selected: !self.currentConfiguration.content.checked),
+                    blockId: self.currentConfiguration.information.id
+                )
+             },
+            onCheckboxTap: { [weak self] in
+                guard let self = self else { return }
+
+                UISelectionFeedbackGenerator().selectionChanged()
+                self.currentConfiguration.actionHandler.handleAction(
+                    .checkbox(selected: !self.currentConfiguration.content.checked),
+                    blockId: self.currentConfiguration.information.id
+                )
+            },
+            onToggleTap: { [weak self] in
+                guard let self = self else { return }
+                self.currentConfiguration.block.toggle()
+                self.currentConfiguration.actionHandler.handleAction(
+                    .toggle,
+                    blockId: self.currentConfiguration.information.id
+                )
+            }
+        )
+        
         textView.textView.textContainerInset = .zero
 
-        // reset content cell to plain text
-        replaceCurrentLeftView(with: TextBlockIconView(viewType: .empty))
         setupText(placeholer: "")
-        contentStackView.spacing = 4
 
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
 
@@ -163,20 +194,6 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupTitle(_ blockText: BlockText) {
         setupText(placeholer: "Untitled".localized)
-
-        if currentConfiguration.isCheckable {
-            let leftView = TextBlockIconView(viewType: .titleCheckbox(isSelected: blockText.checked)) { [weak self] in
-                guard let self = self else { return }
-                
-                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-                self.currentConfiguration.actionHandler.handleAction(
-                    .checkbox(selected: !blockText.checked),
-                    blockId: self.currentConfiguration.information.id
-                )
-            }
-            replaceCurrentLeftView(with: leftView)
-            contentStackView.spacing = 8
-        }
     }
     
     private func setupText(placeholer: String) {
@@ -198,59 +215,29 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForCheckbox(checked: Bool) {
-        let leftView = TextBlockIconView(viewType: .checkbox(isSelected: checked)) { [weak self] in
-            guard let self = self else { return }
-            
-            UISelectionFeedbackGenerator().selectionChanged()
-            self.currentConfiguration.actionHandler.handleAction(
-                .checkbox(selected: !checked),
-                blockId: self.currentConfiguration.information.id
-            )
-        }
-        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Checkbox".localized)
         // selected color
         textView.textView.selectedColor = checked ? UIColor.textSecondary : nil
     }
     
     private func setupForBulleted() {
-        let leftView = TextBlockIconView(viewType: .bulleted)
-        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Bulleted placeholder".localized)
     }
     
     private func setupForNumbered(number: Int) {
-        let leftView = TextBlockIconView(viewType: .numbered(number))
-        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Numbered placeholder".localized)
     }
     
     private func setupForQuote() {
         setupText(placeholer: "Quote".localized)
-        replaceCurrentLeftView(with: TextBlockIconView(viewType: .quote))
     }
     
     private func setupForToggle() {
-        let leftView = TextBlockIconView(
-            viewType: .toggle(toggled: currentConfiguration.block.isToggled)) { [weak self] in
-            guard let self = self else { return }
-            self.currentConfiguration.block.toggle()
-            self.currentConfiguration.actionHandler.handleAction(
-                .toggle,
-                blockId: self.currentConfiguration.information.id
-            )
-        }
-        replaceCurrentLeftView(with: leftView)
         setupText(placeholer: "Toggle block".localized)
         createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
 
-    // MARK: -
-    
-    private func replaceCurrentLeftView(with leftView: UIView) {
-        contentStackView.arrangedSubviews.first?.removeFromSuperview()
-        contentStackView.insertArrangedSubview(leftView, at: 0)
-    }
+    // MARK: - Private
     
     private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
         let allOptions = TextViewContextMenuOption.allCases
