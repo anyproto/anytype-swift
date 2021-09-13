@@ -80,11 +80,6 @@ extension UITextView: TextViewManagingFocus {
         resignFirstResponder()
     }
 
-    func setFocus(_ focus: BlockFocusPosition?) {
-        guard let focus = focus else { return }
-        setFocus(focus)
-    }
-
     func obtainFocusPosition() -> BlockFocusPosition? {
         guard isFirstResponder else { return nil }
         return .at(selectedRange)

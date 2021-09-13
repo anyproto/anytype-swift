@@ -52,10 +52,8 @@ extension CustomTextView: TextViewManagingFocus {
         _ = textView.resignFirstResponder()
     }
 
-    func setFocus(_ focus: BlockFocusPosition?) {
-        guard let focus = focus else { return }
-        
-        textView.setFocus(focus)
+    func setFocus(_ position: BlockFocusPosition) {
+        textView.setFocus(position)
     }
 
     func obtainFocusPosition() -> BlockFocusPosition? {

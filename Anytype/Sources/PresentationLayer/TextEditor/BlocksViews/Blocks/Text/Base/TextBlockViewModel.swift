@@ -84,12 +84,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             blockDelegate: blockDelegate,
             text: text,
             block: block,
+            content: content,
             upperBlock: upperBlock,
             isCheckable: isCheckable,
             actionHandler: actionHandler,
             showPage: showPage,
             openURL: openURL,
             showStyleMenu: showStyleMenu,
-            focusPublisher: focusSubject.eraseToAnyPublisher())
+            focusPublisher: focusSubject.eraseToAnyPublisher()
+        )
     }
 }

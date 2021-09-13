@@ -35,7 +35,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     
     private let mentionsView: MentionView
-    private let editingView: EditorAccessoryView
+    private let accessoryView: EditorAccessoryView
     private var slashMenuView: SlashMenuView
     private weak var textView: UITextView?
     private weak var delegate: AccessoryViewSwitcherDelegate?
@@ -51,7 +51,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         self.textView = textView
         self.delegate = delegate
         self.slashMenuView = slashMenuView
-        self.editingView = accessoryView
+        self.accessoryView = accessoryView
         self.mentionsView = mentionsView
     }
 
@@ -71,7 +71,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         mentionsView.dismissHandler = dismissActionsMenu
         slashMenuView.dismissHandler = dismissActionsMenu
 
-        textView.inputAccessoryView = editingView
+        textView.inputAccessoryView = accessoryView
     }
 
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange) {
@@ -95,21 +95,15 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     func updateBlockType(with type: BlockContentType) {
         if type == .text(.title) {
-            editingView.updateMenuItems([.style, .mention])
+            accessoryView.updateMenuItems([.style])
         } else {
-            editingView.updateMenuItems([.slash, .style, .mention])
+            accessoryView.updateMenuItems([.slash, .style, .mention])
         }
 
         let restrictions = BlockRestrictionsFactory().makeRestrictions(for: type)
-
-        // don't show slash menu for title
-        if type != .text(.title) {
-            slashMenuView.isHidden = false
-            let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
-            slashMenuView.menuItems = items
-        } else {
-            slashMenuView.isHidden = true
-        }
+        slashMenuView.menuItems = BlockActionsBuilder(
+            restrictions: restrictions
+        ).makeBlockActionsMenuItems()
     }
     
     func showMentionsView(textView: UITextView) {
@@ -146,7 +140,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         switchInputs(
             animated: false,
             textView: textView,
-            accessoryView: editingView
+            accessoryView: accessoryView
         )
     }
     
