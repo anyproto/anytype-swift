@@ -11,7 +11,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private(set) lazy var textView: CustomTextView = .init()
     private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
-    private(set) var accessoryViewSwitcher: AccessoryViewSwitcher?
+    private(set) var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
     
     private let mainStackView: UIStackView = {
         let mainStackView = UIStackView()
@@ -56,7 +56,11 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
-        buildAccessoryViews()
+        self.accessoryViewSwitcher = configuration.accessoryViewBuilder.accessoryViewSwitcher(
+            textView: textView,
+            delegate: self,
+            contentType: configuration.information.content.type
+        )
         setupViews()
         applyNewConfiguration()
     }
@@ -407,49 +411,6 @@ final class TextBlockContentView: UIView & UIContentView {
         }
 
         static let mainInsetForBlockAfterHeader: NSDirectionalEdgeInsets = .init(top: 22, leading: 0, bottom: -2, trailing: 0)
-
-        static let menuActionsViewSize = CGSize(
-            width: UIScreen.main.bounds.width,
-            height: UIScreen.main.isFourInch ? 160 : 215
-        )
-    }
-}
-
-// MARK: - Accessory view
-
-extension TextBlockContentView {
-    private func buildAccessoryViews() {
-        let mentionsView = MentionView(frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize))
-        
-        let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: self)
-        let accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
-        
-        let actionsHandler = SlashMenuActionsHandlerImp(
-            blockActionHandler: currentConfiguration.actionHandler
-        )
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: currentConfiguration.information.content.type
-        )
-        let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
-        let assembly = SlashMenuAssembly(actionsHandler: actionsHandler)
-        let slashMenuView = assembly.menuView(
-            frame: CGRect(origin: .zero, size: LayoutConstants.menuActionsViewSize),
-            menuItems: items
-        )
-
-        let accessoryViewSwitcher = AccessoryViewSwitcher(
-            textView: textView.textView,
-            delegate: self,
-            mentionsView: mentionsView,
-            slashMenuView: slashMenuView,
-            accessoryView: accessoryView
-        )
-        
-        mentionsView.delegate = accessoryViewSwitcher
-        editorAccessoryhandler.customTextView = textView
-        editorAccessoryhandler.switcher = accessoryViewSwitcher
-        
-        self.accessoryViewSwitcher = accessoryViewSwitcher
     }
 }
 

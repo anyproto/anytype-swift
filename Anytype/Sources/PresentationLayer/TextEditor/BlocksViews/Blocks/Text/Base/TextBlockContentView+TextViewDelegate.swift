@@ -75,8 +75,6 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case .changeTextStyle, .changeCaretPosition:
-            accessoryViewSwitcher?.selectionDidChange(textView: textView.textView)
-
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,

@@ -8,10 +8,10 @@ final class SlashMenuActionsHandlerImp {
     private weak var textView: UITextView?
     private var middwareEventsSubscription: AnyCancellable?
     
-    private let blockActionHandler: EditorActionHandlerProtocol
+    private let actionHandler: EditorActionHandlerProtocol
     
-    init(blockActionHandler: EditorActionHandlerProtocol) {
-        self.blockActionHandler = blockActionHandler
+    init(actionHandler: EditorActionHandlerProtocol) {
+        self.actionHandler = actionHandler
     }
 }
 
@@ -28,21 +28,21 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         case let .style(style):
             handleStyle(style)
         case let .media(media):
-            blockActionHandler.handleActionForFirstResponder(.addBlock(media.blockViewsType))
+            actionHandler.handleActionForFirstResponder(.addBlock(media.blockViewsType))
         case .objects:
-            blockActionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in
+            actionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in
                 blockId.flatMap { self?.show(blockId: $0) }
             }
         case .relations:
             break
         case let .other(other):
-            blockActionHandler.handleActionForFirstResponder(.addBlock(other.blockViewsType))
+            actionHandler.handleActionForFirstResponder(.addBlock(other.blockViewsType))
         case let .color(color):
-            blockActionHandler.handleActionForFirstResponder(
+            actionHandler.handleActionForFirstResponder(
                 .setTextColor(color)
             )
         case let .background(color):
-            blockActionHandler.handleActionForFirstResponder(
+            actionHandler.handleActionForFirstResponder(
                 .setBackgroundColor(color)
             )
         }
@@ -60,15 +60,15 @@ private extension SlashMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
-            blockActionHandler.handleActionForFirstResponder(
+            actionHandler.handleActionForFirstResponder(
                 .setAlignment(.left)
             )
         case .right:
-            blockActionHandler.handleActionForFirstResponder(
+            actionHandler.handleActionForFirstResponder(
                 .setAlignment(.right)
             )
         case .center:
-            blockActionHandler.handleActionForFirstResponder(
+            actionHandler.handleActionForFirstResponder(
                 .setAlignment(.center)
             )
         }
@@ -77,31 +77,31 @@ private extension SlashMenuActionsHandlerImp {
     private func handleStyle(_ style: BlockStyleAction) {
         switch style {
         case .text:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
         case .title:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header)))
         case .heading:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header2)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header2)))
         case .subheading:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header3)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.header3)))
         case .highlighted:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.quote)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.quote)))
         case .checkbox:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.checkbox)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.checkbox)))
         case .bulleted:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.bulleted)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.bulleted)))
         case .numberedList:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.numbered)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.numbered)))
         case .toggle:
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.toggle)))
+            actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.toggle)))
         case .bold:
-            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.bold))
+            actionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.bold))
         case .italic:
-            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.italic))
+            actionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.italic))
         case .strikethrough:
-            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.strikethrough))
+            actionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.strikethrough))
         case .code:
-            blockActionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.keyboard))
+            actionHandler.handleActionForFirstResponder(.toggleWholeBlockMarkup(.keyboard))
         case .link:
             break
         }
@@ -110,9 +110,9 @@ private extension SlashMenuActionsHandlerImp {
     private func handleActions(_ action: BlockAction) {
         switch action {
         case .delete:
-            blockActionHandler.handleActionForFirstResponder(.delete)
+            actionHandler.handleActionForFirstResponder(.delete)
         case .duplicate:
-            blockActionHandler.handleActionForFirstResponder(.duplicate)
+            actionHandler.handleActionForFirstResponder(.duplicate)
             
         case .cleanStyle, .copy, .paste, .move, .moveTo:
             break
@@ -139,7 +139,7 @@ private extension SlashMenuActionsHandlerImp {
         // between selecting "Page" in slash menu
         // and transfering to newly created page
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            self?.blockActionHandler.showPage(blockId: .provided(blockId))
+            self?.actionHandler.showPage(blockId: .provided(blockId))
         }
     }
 }
