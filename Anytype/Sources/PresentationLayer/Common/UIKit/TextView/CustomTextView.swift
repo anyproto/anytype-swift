@@ -14,7 +14,7 @@ final class CustomTextView: UIView {
     var textSize: CGSize?
     private(set) lazy var textView = createTextView()
     private var firstResponderSubscription: AnyCancellable?
-    var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
+    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: false)
 
     init() {
         super.init(frame: .zero)
