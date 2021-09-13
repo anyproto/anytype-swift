@@ -188,7 +188,7 @@ final class StyleViewController: UIViewController {
 
             containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 16),
+            containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 24),
             containerStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
         ])
     }
@@ -211,7 +211,7 @@ final class StyleViewController: UIViewController {
     }
 
     private func setupOtherStyleStackView() {
-        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlighted"))
+        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlight"))
         setupAction(for: highlightedButton, with: .quote)
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
         setupAction(for: calloutButton, with: .code)
@@ -221,21 +221,35 @@ final class StyleViewController: UIViewController {
         }
         if .code != self.style {
             // TODO: add restrictions when callout block will be introduced
+            calloutButton.setImage(UIImage(named: "StyleBottomSheet/calloutInactive"))
             calloutButton.isEnabled = false
         }
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
+        colorButton.layer.cornerRadius = 16
+        colorButton.layoutUsing.anchors {
+            $0.width.equal(to: 32)
+            $0.height.equal(to: 32)
+        }
+        colorButton.setBackgroundColor(.selected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
+        moreButton.setBackgroundColor(.selected, state: .selected)
+        moreButton.layoutUsing.anchors {
+            $0.width.equal(to: 32)
+            $0.height.equal(to: 32)
+        }
+
         moreButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             self.didTapMarkupButton(self.view)
         }), for: .touchUpInside)
 
         let trailingStackView = UIStackView()
+        trailingStackView.alignment = .center
         let leadingDumbView = UIView()
         leadingDumbView.translatesAutoresizingMaskIntoConstraints = false
         leadingDumbView.widthAnchor.constraint(equalToConstant: 1).isActive = true
@@ -336,13 +350,17 @@ final class StyleViewController: UIViewController {
         }
     }
 
-    @objc private func colorActionHandler() {
+    @objc private func colorActionHandler(button: UIControl) {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
+
+        button.isSelected = true
 
         let color = askColor()
         let backgroundColor = askBackgroundColor()
 
-        let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler)
+        let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler) {
+            button.isSelected = false
+        }
         viewControllerForPresenting.embedChild(contentVC)
 
         contentVC.view.pinAllEdges(to: viewControllerForPresenting.view)
