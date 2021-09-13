@@ -244,8 +244,17 @@ extension DocumentEditorViewModel {
 }
 
 extension DocumentEditorViewModel {
+    
     func showSettings() {
         router.showSettings(viewModel: objectSettingsViewModel)
+    }
+    
+    func showIconPicker() {
+        router.showIconPicker(viewModel: objectSettingsViewModel.iconPickerViewModel)
+    }
+    
+    func showCoverPicker() {
+        router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
     }
 }
 

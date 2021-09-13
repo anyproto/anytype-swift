@@ -82,7 +82,7 @@ final class EditorAssembly {
         
         let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
         
-        let headerBuilder = ObjectHeaderBuilder(settingsViewModel: objectSettinsViewModel, router: router)
+        let headerBuilder = ObjectHeaderBuilder()
         
         return DocumentEditorViewModel(
             documentId: blockId,
