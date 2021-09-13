@@ -10,24 +10,29 @@ protocol EditorActionHandlerProtocol: AnyObject {
     func onEmptySpotTap()
     
     func upload(blockId: ActionHandlerBlockIdSource, filePath: String)
+    func turnIntoPage(blockId: ActionHandlerBlockIdSource, completion: @escaping (BlockId?) -> ())
+    func showPage(blockId: ActionHandlerBlockIdSource)
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
 }
 
 final class EditorActionHandler: EditorActionHandlerProtocol {
-    let document: BaseDocumentProtocol
-    let blockActionHandler: BlockActionHandlerProtocol
-    let eventProcessor: EventProcessor
+    private let document: BaseDocumentProtocol
+    private let blockActionHandler: BlockActionHandlerProtocol
+    private let eventProcessor: EventProcessor
+    private let router: EditorRouterProtocol
     
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: BlockActionHandlerProtocol,
-        eventProcessor: EventProcessor
+        eventProcessor: EventProcessor,
+        router: EditorRouterProtocol
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
         self.eventProcessor = eventProcessor
+        self.router = router
     }
     
     func onEmptySpotTap() {
@@ -46,6 +51,19 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         
         blockActionHandler.upload(blockId: blockId, filePath: filePath)
     }
+    
+    func turnIntoPage(blockId: ActionHandlerBlockIdSource, completion: @escaping (BlockId?) -> ()) {
+        guard let blockId = blockIdFromSource(blockId) else { return }
+        
+        blockActionHandler.turnIntoPage(blockId: blockId, completion: completion)
+    }
+    
+    func showPage(blockId: ActionHandlerBlockIdSource) {
+        guard let blockId = blockIdFromSource(blockId) else { return }
+        
+        router.showPage(with: blockId)
+    }
+    
     func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
         blockIdFromSource(.firstResponder).flatMap {
             handleAction(action, blockId: $0)

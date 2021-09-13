@@ -53,7 +53,6 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             selectionHandler: selectionHandler,
             document: document,
-            router: router,
             markupChanger: markupChanger
         )
         
@@ -61,7 +60,8 @@ final class EditorAssembly {
         let editorBlockActionHandler = EditorActionHandler(
             document: document,
             blockActionHandler: blockActionHandler,
-            eventProcessor: eventProcessor
+            eventProcessor: eventProcessor,
+            router: router
         )
         
         let blockDelegate = BlockDelegateImpl(

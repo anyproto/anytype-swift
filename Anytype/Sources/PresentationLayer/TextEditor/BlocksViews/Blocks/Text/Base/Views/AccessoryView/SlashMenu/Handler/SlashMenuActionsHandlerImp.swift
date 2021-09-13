@@ -4,11 +4,6 @@ import ProtobufMessages
 import UIKit
 
 final class SlashMenuActionsHandlerImp {
-    
-    private enum Constants {
-        static var showPageBlockTargetDelay: DispatchTime { .now() + 0.3 }
-    }
-    
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
     private var middwareEventsSubscription: AnyCancellable?
@@ -35,8 +30,9 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         case let .media(media):
             blockActionHandler.handleActionForFirstResponder(.addBlock(media.blockViewsType))
         case .objects:
-            addMiddwareEventsListener()
-            blockActionHandler.handleActionForFirstResponder(.turnIntoBlock(.smartblock(.page)))
+            blockActionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in
+                blockId.flatMap { self?.show(blockId: $0) }
+            }
         case .relations:
             break
         case let .other(other):
@@ -138,42 +134,12 @@ private extension SlashMenuActionsHandlerImp {
         textView.replace(textRange, withText: "")
     }
     
-    private func addMiddwareEventsListener() {
-        middwareEventsSubscription?.cancel()
-        middwareEventsSubscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent
-        )
-        .compactMap { $0.object as? Anytype_Event }
-        .sink { [weak self] event in
-            event.messages.forEach { self?.handleMiddlewareMessage($0) }
-        }
-    }
-    
-    private func handleMiddlewareMessage(_ message: Anytype_Event.Message) {
-        guard case let .blockAdd(blockAdd) =  message.value else { return }
-        
-        let addedBlocks = blockAdd.blocks
-            .compactMap(BlockInformationConverter.convert(block:))
-            .map(BlockModel.init)
-        addedBlocks.forEach { model in
-            if case let .link(link) = model.information.content {
-                show(targetBlock: link.targetBlockID, from: model)
-                middwareEventsSubscription?.cancel()
-                return
-            }
-        }
-    }
-    
-    private func show(targetBlock: BlockId, from model: BlockModel) {
+    private func show(blockId: BlockId) {
         // We add delay manualy to have some visual delay
         // between selecting "Page" in slash menu
         // and transfering to newly created page
-        DispatchQueue.main.asyncAfter(deadline: Constants.showPageBlockTargetDelay) {
-            self.blockActionHandler.handleAction(
-                .showPage(pageId: targetBlock),
-                blockId: model.information.id
-            )
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            self?.blockActionHandler.showPage(blockId: .provided(blockId))
         }
     }
 }
