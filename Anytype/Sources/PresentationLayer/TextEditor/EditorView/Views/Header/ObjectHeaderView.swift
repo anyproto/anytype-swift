@@ -28,8 +28,8 @@ final class ObjectHeaderView: UIView {
 
     // MARK: - Private variables
 
-    private let iconView = NewObjectIconView()
-    private let coverView = NewObjectCoverView()
+    private let iconView = ObjectIconView()
+    private let coverView = ObjectCoverView()
         
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
@@ -203,17 +203,17 @@ private extension ObjectIcon {
         }
     }
     
-    var asObjectIconViewModel: NewObjectIconView.Model {
+    var asObjectIconViewModel: ObjectIconView.Model {
         switch self {
         case let .icon(objectIconType, _):
-            return NewObjectIconView.Model.iconImageModel(
+            return ObjectIconView.Model.iconImageModel(
                 .init(
                     iconImage: .icon(objectIconType),
                     usecase: .openedObject
                 )
             )
         case let .preview(objectIconPreviewType, _):
-            return NewObjectIconView.Model.preview(objectIconPreviewType)
+            return ObjectIconView.Model.preview(objectIconPreviewType)
         }
     }
     
@@ -227,8 +227,8 @@ extension ObjectHeaderView {
         
         static let coverBottomInset: CGFloat = 32
         
-        static let iconHorizontalInset: CGFloat = 20 - NewObjectIconView.Constants.borderWidth
-        static let iconBottomInset: CGFloat = 16 - NewObjectIconView.Constants.borderWidth
+        static let iconHorizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
+        static let iconBottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
     }
     
 }

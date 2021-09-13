@@ -1,6 +1,6 @@
 //
-//  NewObjectIconView.swift
-//  NewObjectIconView
+//  ObjectIconView.swift
+//  ObjectIconView
 //
 //  Created by Konstantin Mordan on 08.09.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class NewObjectIconView: UIView {
+final class ObjectIconView: UIView {
     
     // MARK: - Private variables
     
@@ -40,7 +40,7 @@ final class NewObjectIconView: UIView {
 
 // MARK: - ConfigurableView
 
-extension NewObjectIconView: ConfigurableView {
+extension ObjectIconView: ConfigurableView {
 
     enum Model {
         case iconImageModel(ObjectIconImageView.Model)
@@ -58,7 +58,7 @@ extension NewObjectIconView: ConfigurableView {
     
 }
 
-private extension NewObjectIconView {
+private extension ObjectIconView {
         
     func showIconImageModel(_ model: ObjectIconImageView.Model) {
         applyImageGuideline(model.imageGuideline)
@@ -112,7 +112,7 @@ private extension NewObjectIconView {
 
 // MARK: - Private extension
 
-private extension NewObjectIconView {
+private extension ObjectIconView {
     
     func setupView() {
         containerView.clipsToBounds = true
@@ -164,7 +164,7 @@ private extension NewObjectIconView {
     
 }
 
-extension NewObjectIconView {
+extension ObjectIconView {
     
     enum Constants {
         static let borderWidth: CGFloat = 4
