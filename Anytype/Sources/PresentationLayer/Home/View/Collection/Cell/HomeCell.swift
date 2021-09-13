@@ -10,20 +10,18 @@ struct HomeCell: View {
     }
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                icon
-                iconSpacer
-                title
-                Spacer(minLength: 2)
-                type
-            }
-            Spacer()
+        VStack(alignment: .leading, spacing: 0) {
+            icon
+            iconSpacer
+            title
+            Spacer(minLength: 1)
+            type
         }
         .padding(padding)
+        .frame(height: 126)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.background)
         .redacted(reason: isRedacted ? .placeholder : [])
-        .frame(height: 126)
         .cornerRadius(16)
     }
     
@@ -39,7 +37,7 @@ struct HomeCell: View {
         Group {
             switch cellData.title {
             case let .default(title):
-                defaultTitle(with: title, lineLimit: cellData.icon.isNil ? nil : 1)
+                defaultTitle(with: title, lineLimit: cellData.icon.isNil ? 4 : 1)
             case let .todo(title, isChecked):
                 todoTitle(with: title, isChecked: isChecked)
             }
