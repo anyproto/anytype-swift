@@ -78,7 +78,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        hnadleCollectionViewContentOffsetChange()
+        handleCollectionViewContentOffsetChange()
     }
     
 }
