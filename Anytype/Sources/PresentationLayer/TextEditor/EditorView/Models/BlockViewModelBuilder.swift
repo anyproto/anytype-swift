@@ -190,7 +190,10 @@ final class BlockViewModelBuilder {
         let model = MediaPickerViewModel(type: type) { [weak self] resultInformation in
             guard let resultInformation = resultInformation else { return }
 
-            self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)
+            self?.blockActionHandler.upload(
+                blockId: .provided(blockId),
+                filePath: resultInformation.filePath
+            )
         }
         
         router.showImagePicker(model: model)
@@ -199,7 +202,10 @@ final class BlockViewModelBuilder {
     private func showFilePicker(blockId: BlockId) {
         let model = Picker.ViewModel()
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.blockActionHandler.upload(blockId: blockId, filePath: result.filePath)
+            self?.blockActionHandler.upload(
+                blockId: .provided(blockId),
+                filePath: result.filePath
+            )
         }.store(in: &subscriptions)
             
         router.showFilePicker(model: model)
