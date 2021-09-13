@@ -4,52 +4,20 @@ import BlocksModels
 
 
 final class TextBlockContentView: UIView & UIContentView {
-    // MARK: Views
-    private let backgroundColorView = UIView()
-    private let selectionView = UIView()
-    private let contentView = UIView()
-
-    private(set) lazy var textView: CustomTextView = .init()
-    private(set) lazy var createEmptyBlockButton = buildCreateEmptyBlockButton()
-    private(set) var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
-    
-    private let mainStackView: UIStackView = {
-        let mainStackView = UIStackView()
-        mainStackView.axis = .vertical
-        return mainStackView
-    }()
-    
-    private let contentStackView: UIStackView = {
-        let contentStackView = UIStackView()
-        contentStackView.axis = .horizontal
-        contentStackView.distribution = .fill
-        contentStackView.spacing = 4
-        contentStackView.alignment = .top
-        return contentStackView
-    }()
-
-    // MARK: Configuration
-
     private(set) var currentConfiguration: TextBlockContentConfiguration
-    
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
         set {
             guard let configuration = newValue as? TextBlockContentConfiguration else { return }
+            guard configuration != currentConfiguration else { return }
             
-            apply(configuration: configuration)
+            currentConfiguration = configuration
+            applyNewConfiguration()
         }
     }
 
-    // Combine Subscriptions
-    private var subscriptions = Set<AnyCancellable>()
-
-    // MARK: - Initialization
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var focusSubscription: AnyCancellable?
+    private(set) var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
 
     init(configuration: TextBlockContentConfiguration) {
         self.currentConfiguration = configuration
@@ -61,21 +29,11 @@ final class TextBlockContentView: UIView & UIContentView {
             delegate: self,
             contentType: configuration.information.content.type
         )
-        setupViews()
+        setupLayout()
         applyNewConfiguration()
     }
 
     // MARK: - Setup views
-
-    private func setupViews() {
-        selectionView.layer.cornerRadius = 6
-        selectionView.layer.cornerCurve = .continuous
-        selectionView.isUserInteractionEnabled = false
-        selectionView.clipsToBounds = true
-
-        setupLayout()
-    }
-
     var topMainConstraint: NSLayoutConstraint?
     var bottomMainConstraint: NSLayoutConstraint?
     var topContetnConstraint: NSLayoutConstraint?
@@ -128,14 +86,6 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     // MARK: - Apply configuration
-
-    private func apply(configuration: TextBlockContentConfiguration) {
-        guard currentConfiguration != configuration else { return }
-        
-        currentConfiguration = configuration
-        applyNewConfiguration()
-    }
-
     private func applyNewConfiguration() {
         guard case let .text(blockText) = self.currentConfiguration.block.information.content else { return }
 
@@ -148,8 +98,6 @@ final class TextBlockContentView: UIView & UIContentView {
 
         updateAllConstraint(blockTextStyle: blockText.contentType)
 
-        // reset subscriptions
-        subscriptions.removeAll()
         // update text view delegate
         textView.delegate = self
 
@@ -202,10 +150,9 @@ final class TextBlockContentView: UIView & UIContentView {
             break
         }
 
-        // Confing focus publisher
-        currentConfiguration.focusPublisher.sink { [weak self] focus in
+        focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
-        }.store(in: &subscriptions)
+        }
 
         // Config content background color
         textView.textView.tertiaryColor = blockText.color?.color(background: false)
@@ -322,38 +269,6 @@ final class TextBlockContentView: UIView & UIContentView {
         contentStackView.insertArrangedSubview(leftView, at: 0)
     }
     
-    private func buildCreateEmptyBlockButton() -> UIButton {
-        let button = UIButton(
-            primaryAction: .init(
-                handler: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.currentConfiguration.actionHandler.handleAction(
-                        .createEmptyBlock(
-                            parentId: self.currentConfiguration.information.id
-                        ),
-                        blockId: self.currentConfiguration.information.id
-                    )
-                }
-            )
-        )
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setAttributedTitle(
-            .init(
-                string: "Toggle empty Click and drop block inside".localized,
-                attributes: [
-                    .font: UIFont.bodyRegular,
-                    .foregroundColor: UIColor.textSecondary
-                ]
-            ),
-            for: .normal
-        )
-        button.contentHorizontalAlignment = .leading
-        button.isHidden = true
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
-        button.titleLabel?.lineBreakMode = .byWordWrapping
-        return button
-    }
-    
     private func updatePartialTextSelectionMenuItems(restrictions: BlockRestrictions) {
         let allOptions = TextViewContextMenuOption.allCases
         let availableOptions = allOptions.filter { option -> Bool in
@@ -411,6 +326,47 @@ final class TextBlockContentView: UIView & UIContentView {
         }
 
         static let mainInsetForBlockAfterHeader: NSDirectionalEdgeInsets = .init(top: 22, leading: 0, bottom: -2, trailing: 0)
+    }
+    
+    // MARK: - Views
+    private let backgroundColorView = UIView()
+    private let selectionView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 6
+        view.layer.cornerCurve = .continuous
+        view.isUserInteractionEnabled = false
+        view.clipsToBounds = true
+        return view
+    }()
+    private let contentView = UIView()
+    private(set) lazy var textView = CustomTextView()
+    private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
+        guard let self = self else { return }
+        let blockId = self.currentConfiguration.information.id
+        self.currentConfiguration.actionHandler.handleAction(
+            .createEmptyBlock(parentId: blockId), blockId: blockId
+        )
+    }
+    
+    private let mainStackView: UIStackView = {
+        let mainStackView = UIStackView()
+        mainStackView.axis = .vertical
+        return mainStackView
+    }()
+    
+    private let contentStackView: UIStackView = {
+        let contentStackView = UIStackView()
+        contentStackView.axis = .horizontal
+        contentStackView.distribution = .fill
+        contentStackView.spacing = 4
+        contentStackView.alignment = .top
+        return contentStackView
+    }()
+    
+    // MARK: - Unavailable
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

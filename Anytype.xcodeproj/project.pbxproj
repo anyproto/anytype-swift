@@ -408,6 +408,7 @@
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		3DF80F3126EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */; };
+		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DFD1B0426E75B5900F893FC /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */; };
 		3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */; };
 		3DFD1B1A26E8A42600F893FC /* EditorSearchCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */; };
@@ -1049,6 +1050,7 @@
 		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockAccessoryViewBuilder.swift; sourceTree = "<group>"; };
+		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
 		3DFD1B1B26E8AAAB00F893FC /* EditorSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
@@ -3296,6 +3298,7 @@
 			isa = PBXGroup;
 			children = (
 				530470F52682046900C9EE78 /* TextBlockIconView.swift */,
+				3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4412,6 +4415,7 @@
 				EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
+				3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				3D16840326DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,

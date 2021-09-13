@@ -90,6 +90,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             showPage: showPage,
             openURL: openURL,
             showStyleMenu: showStyleMenu,
-            focusPublisher: focusSubject.eraseToAnyPublisher())
+            focusPublisher: focusSubject.eraseToAnyPublisher()
+        )
     }
 }
