@@ -219,7 +219,7 @@ private extension ObjectIcon {
     
 }
 
-private extension ObjectHeaderView {
+extension ObjectHeaderView {
     
     enum Constants {
         static let emptyHeaderHeight: CGFloat = 184

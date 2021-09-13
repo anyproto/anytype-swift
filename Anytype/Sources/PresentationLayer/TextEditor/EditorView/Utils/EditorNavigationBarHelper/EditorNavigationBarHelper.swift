@@ -189,13 +189,13 @@ private extension ObjectHeader {
     var height: CGFloat {
         switch self {
         case .iconOnly:
-            return ObjectHeaderIconOnlyContentView.Constants.height
+            return ObjectHeaderView.Constants.filledHeaderHeight
         case .coverOnly:
-            return ObjectHeaderCoverOnlyContentView.Constants.height
+            return ObjectHeaderView.Constants.filledHeaderHeight
         case .iconAndCover:
-            return ObjectHeaderIconAndCoverContentView.Constants.height
+            return ObjectHeaderView.Constants.filledHeaderHeight
         case .empty:
-            return ObjectHeaderEmptyContentView.Constants.height
+            return ObjectHeaderView.Constants.emptyHeaderHeight
         }
     }
     

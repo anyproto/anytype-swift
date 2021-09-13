@@ -1,3 +1,11 @@
+//
+//  DocumentIconEmojiView.swift
+//  DocumentIconEmojiView
+//
+//  Created by Konstantin Mordan on 10.09.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
+
 import UIKit
 
 final class DocumentIconEmojiView: UIView {
