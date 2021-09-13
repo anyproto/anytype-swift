@@ -6,23 +6,24 @@ import AnytypeCore
 protocol BlockActionHandlerProtocol {
     typealias Completion = (PackOfEvents) -> Void
     
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
     func upload(blockId: BlockId, filePath: String)
+    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
 }
 
-/// Actions from block
 final class BlockActionHandler: BlockActionHandlerProtocol {
+    private let documentId: String
+    private let document: BaseDocumentProtocol
+    private var subscriptions: [AnyCancellable] = []
+    
     private let service: BlockActionServiceProtocol
     private let listService = BlockActionsServiceList()
-    private let documentId: String
-    private var subscriptions: [AnyCancellable] = []
-    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
-    private let selectionHandler: EditorModuleSelectionHandlerProtocol
-    private let document: BaseDocumentProtocol
-    private let router: EditorRouterProtocol
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
-
+    private let selectionHandler: EditorModuleSelectionHandlerProtocol
+    private let router: EditorRouterProtocol
+    
+    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
+    
     init(
         documentId: String,
         modelsHolder: ObjectContentViewModelsSharedHolder,
