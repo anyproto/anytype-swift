@@ -5,25 +5,34 @@ import UIKit
 struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let blockDelegate: BlockDelegate
+    
     let block: BlockModelProtocol
+    let information: BlockInformation
+    let content: BlockText
+    let text: UIKitAnytypeText
+    
+    let upperBlock: BlockModelProtocol?
+    
     let shouldDisplayPlaceholder: Bool
+    let isCheckable: Bool
+    
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
     let accessoryViewBuilder: TextBlockAccessoryViewBuilder
+    
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
     let showStyleMenu: (BlockInformation) -> Void
+    
     let pressingEnterTimeChecker = TimeChecker()
-    let information: BlockInformation
-    let isCheckable: Bool
-    let upperBlock: BlockModelProtocol?
-    let text: UIKitAnytypeText
+    
     private(set) var isSelected: Bool = false
     
     init(
         blockDelegate: BlockDelegate,
         text: UIKitAnytypeText,
         block: BlockModelProtocol,
+        content: BlockText,
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
@@ -35,6 +44,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.blockDelegate = blockDelegate
         self.text = text
         self.block = block
+        self.content = content
         self.upperBlock = upperBlock
         self.actionHandler = actionHandler
         self.showPage = showPage

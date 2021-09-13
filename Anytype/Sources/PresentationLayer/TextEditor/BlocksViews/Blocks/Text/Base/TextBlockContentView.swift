@@ -36,7 +36,7 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Setup views
     var topMainConstraint: NSLayoutConstraint?
     var bottomMainConstraint: NSLayoutConstraint?
-    var topContetnConstraint: NSLayoutConstraint?
+    var topContentConstraint: NSLayoutConstraint?
     var bottomContentnConstraint: NSLayoutConstraint?
 
     private func setupLayout() {
@@ -59,7 +59,7 @@ final class TextBlockContentView: UIView & UIContentView {
         createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
 
         contentView.addSubview(contentStackView) {
-            topContetnConstraint = $0.top.equal(to: contentView.topAnchor)
+            topContentConstraint = $0.top.equal(to: contentView.topAnchor)
             bottomContentnConstraint = $0.bottom.equal(to: contentView.bottomAnchor)
             $0.leading.equal(to: contentView.leadingAnchor)
             $0.trailing.equal(to: contentView.trailingAnchor)
@@ -81,14 +81,12 @@ final class TextBlockContentView: UIView & UIContentView {
         }
         topMainConstraint?.constant = mainInset.top
         bottomMainConstraint?.constant = mainInset.bottom
-        topContetnConstraint?.constant = contentInset.top
+        topContentConstraint?.constant = contentInset.top
         bottomContentnConstraint?.constant = contentInset.bottom
     }
 
     // MARK: - Apply configuration
     private func applyNewConfiguration() {
-        guard case let .text(blockText) = self.currentConfiguration.block.information.content else { return }
-
         textView.textView.textContainerInset = .zero
 
         // reset content cell to plain text
@@ -96,7 +94,7 @@ final class TextBlockContentView: UIView & UIContentView {
         setupText(placeholer: "")
         contentStackView.spacing = 4
 
-        updateAllConstraint(blockTextStyle: blockText.contentType)
+        updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
 
         // update text view delegate
         textView.delegate = self
@@ -123,9 +121,32 @@ final class TextBlockContentView: UIView & UIContentView {
         // setup attr text
         textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
 
-        switch blockText.contentType {
+        setup(style: currentConfiguration.content.contentType)
+
+        focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
+            self?.textView.setFocus(focus)
+        }
+
+        // Config content background color
+        textView.textView.tertiaryColor = currentConfiguration.content.color?.color(background: false)
+        // Config content text alingment
+        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
+        // Config cursorPosition
+        let cursorPosition = textView.textView.selectedRange
+        textView.textView.selectedRange = cursorPosition
+        // Config background color
+        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
+
+        // Config selection view
+        selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
+    }
+
+    // MARK: - Setups for different type of text block
+    
+    private func setup(style: BlockText.Style) {
+        switch style {
         case .title:
-            setupTitle(blockText)
+            setupTitle(currentConfiguration.content)
         case .description:
             setupText(placeholer: "Add a description".localized)
         case .text:
@@ -135,9 +156,9 @@ final class TextBlockContentView: UIView & UIContentView {
         case .bulleted:
             setupForBulleted()
         case .checkbox:
-            setupForCheckbox(checked: blockText.checked)
+            setupForCheckbox(checked: currentConfiguration.content.checked)
         case .numbered:
-            setupForNumbered(number: blockText.number)
+            setupForNumbered(number: currentConfiguration.content.number)
         case .quote:
             setupForQuote()
         case .header:
@@ -149,34 +170,7 @@ final class TextBlockContentView: UIView & UIContentView {
         case .header4, .code:
             break
         }
-
-        focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
-            self?.textView.setFocus(focus)
-        }
-
-        // Config content background color
-        textView.textView.tertiaryColor = blockText.color?.color(background: false)
-        // Config content text alingment
-        textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
-        // Config cursorPosition
-        let cursorPosition = textView.textView.selectedRange
-        textView.textView.selectedRange = cursorPosition
-        // Config background color
-        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
-
-        // Config selection view
-        selectionView.layer.borderWidth = 0.0
-        selectionView.layer.borderColor = nil
-        selectionView.backgroundColor = .clear
-
-        if currentConfiguration.isSelected {
-            selectionView.layer.borderWidth = 2.0
-            selectionView.layer.borderColor = UIColor.pureAmber.cgColor
-            selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
-        }
     }
-
-    // MARK: - Setups for different type of text block
     
     private func setupTitle(_ blockText: BlockText) {
         setupText(placeholer: "Untitled".localized)
@@ -330,14 +324,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     // MARK: - Views
     private let backgroundColorView = UIView()
-    private let selectionView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 6
-        view.layer.cornerCurve = .continuous
-        view.isUserInteractionEnabled = false
-        view.clipsToBounds = true
-        return view
-    }()
+    private let selectionView = TextBlockSelectionView()
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
