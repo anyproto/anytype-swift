@@ -413,6 +413,7 @@
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
 		3DF80F3926EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3826EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift */; };
 		3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */; };
+		3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */; };
 		3DFD1B0426E75B5900F893FC /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3DFD1B0326E75B5900F893FC /* SwiftUIVisualEffects */; };
 		3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */; };
 		3DFD1B1A26E8A42600F893FC /* EditorSearchCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */; };
@@ -1059,6 +1060,7 @@
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
 		3DF80F3826EF8FBC000492F3 /* TextBlockContentView+AccessoryViewSwitcherDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockContentView+AccessoryViewSwitcherDelegate.swift"; sourceTree = "<group>"; };
 		3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeftViewStyler.swift; sourceTree = "<group>"; };
+		3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockTextViewStyler.swift; sourceTree = "<group>"; };
 		3DFD1B1726E8A40A00F893FC /* EditorSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		3DFD1B1926E8A42600F893FC /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
 		3DFD1B1B26E8AAAB00F893FC /* EditorSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
@@ -3286,6 +3288,7 @@
 			isa = PBXGroup;
 			children = (
 				3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */,
+				3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */,
 			);
 			path = Stylers;
 			sourceTree = "<group>";
@@ -4069,6 +4072,7 @@
 				EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
 				3D67F947269E07F800883681 /* SearchHelper.swift in Sources */,
+				3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* DocumentEditorViewInput.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,

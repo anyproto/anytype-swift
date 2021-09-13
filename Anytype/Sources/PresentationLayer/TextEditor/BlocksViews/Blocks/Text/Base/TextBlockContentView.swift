@@ -120,9 +120,11 @@ final class TextBlockContentView: UIView & UIContentView {
             }
         )
         
-        textView.textView.textContainerInset = .zero
-
-        setupText(placeholer: "")
+        TextBlockTextViewStyler.applyStyle(
+            textView: textView,
+            style: currentConfiguration.content.contentType,
+            textStyle: currentConfiguration.text
+        )
 
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
 
@@ -143,13 +145,19 @@ final class TextBlockContentView: UIView & UIContentView {
         )
         textView.setCustomTextViewOptions(options: options)
 
-        createEmptyBlockButton.isHidden = true
-        textView.textView.selectedColor = nil
 
         // setup attr text
         textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
 
-        setup(style: currentConfiguration.content.contentType)
+        textView.textView.selectedColor = nil
+        if currentConfiguration.content.contentType == .checkbox {
+            textView.textView.selectedColor = currentConfiguration.content.checked ? UIColor.textSecondary : nil
+        }
+        
+        createEmptyBlockButton.isHidden = true
+        if currentConfiguration.content.contentType == .toggle {
+            createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
+        }
 
         textView.textView.tertiaryColor = currentConfiguration.content.color?.color(background: false)
         textView.textView.textAlignment = currentConfiguration.information.alignment.asNSTextAlignment
@@ -159,82 +167,6 @@ final class TextBlockContentView: UIView & UIContentView {
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }
-    }
-
-    // MARK: - Setups for different type of text block
-    
-    private func setup(style: BlockText.Style) {
-        switch style {
-        case .title:
-            setupTitle(currentConfiguration.content)
-        case .description:
-            setupText(placeholer: "Add a description".localized)
-        case .text:
-            setupText(placeholer: "")
-        case .toggle:
-            setupForToggle()
-        case .bulleted:
-            setupForBulleted()
-        case .checkbox:
-            setupForCheckbox(checked: currentConfiguration.content.checked)
-        case .numbered:
-            setupForNumbered(number: currentConfiguration.content.number)
-        case .quote:
-            setupForQuote()
-        case .header:
-            setupText(placeholer: "Title".localized)
-        case .header2:
-            setupText(placeholer: "Heading".localized)
-        case .header3:
-            setupText(placeholer: "Subheading".localized)
-        case .header4, .code:
-            break
-        }
-    }
-    
-    private func setupTitle(_ blockText: BlockText) {
-        setupText(placeholer: "Untitled".localized)
-    }
-    
-    private func setupText(placeholer: String) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: currentConfiguration.text.font,
-            .foregroundColor: UIColor.textSecondary,
-        ]
-
-        textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
-        textView.textView.textContainerInset = .init(
-            top: currentConfiguration.text.verticalSpacing,
-            left: 0,
-            bottom: currentConfiguration.text.verticalSpacing,
-            right: 0
-        )
-
-        textView.textView.typingAttributes = currentConfiguration.text.typingAttributes
-        textView.textView.defaultFontColor = .textPrimary
-    }
-    
-    private func setupForCheckbox(checked: Bool) {
-        setupText(placeholer: "Checkbox".localized)
-        // selected color
-        textView.textView.selectedColor = checked ? UIColor.textSecondary : nil
-    }
-    
-    private func setupForBulleted() {
-        setupText(placeholer: "Bulleted placeholder".localized)
-    }
-    
-    private func setupForNumbered(number: Int) {
-        setupText(placeholer: "Numbered placeholder".localized)
-    }
-    
-    private func setupForQuote() {
-        setupText(placeholer: "Quote".localized)
-    }
-    
-    private func setupForToggle() {
-        setupText(placeholer: "Toggle block".localized)
-        createEmptyBlockButton.isHidden = !currentConfiguration.shouldDisplayPlaceholder
     }
 
     // MARK: - Private
