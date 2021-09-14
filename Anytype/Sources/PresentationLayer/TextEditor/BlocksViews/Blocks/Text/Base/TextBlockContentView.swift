@@ -24,11 +24,8 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
-        self.accessoryViewSwitcher = configuration.accessoryViewBuilder.accessoryViewSwitcher(
-            textView: textView,
-            delegate: self,
-            contentType: configuration.information.content.type
-        )
+        self.accessoryViewSwitcher = configuration.accessoryViewBuilder
+            .accessoryViewSwitcher(delegate: self)
         setupLayout()
         applyNewConfiguration()
     }
@@ -102,7 +99,6 @@ final class TextBlockContentView: UIView & UIContentView {
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
         selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
-        accessoryViewSwitcher?.updateBlockType(with: currentConfiguration.information.content.type)
         
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)

@@ -3,7 +3,7 @@ import Amplitude
 
 
 class EditorAccessoryView: UIView {
-    private let actionHandler: EditorAccessoryViewActionHandler
+    let actionHandler: EditorAccessoryViewActionHandler
 
     // MARK: - Lifecycle
 

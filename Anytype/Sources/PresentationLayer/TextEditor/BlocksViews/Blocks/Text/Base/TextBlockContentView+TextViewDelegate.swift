@@ -16,11 +16,12 @@ extension TextBlockContentView: TextViewDelegate {
     }
     
     func willBeginEditing() {
-        accessoryViewSwitcher?.didBeginEditing(textView: textView.textView)
+        accessoryViewSwitcher?.didBeginEditing(textView: textView)
         currentConfiguration.blockDelegate.willBeginEditing()
     }
 
     func didBeginEditing() {
+        accessoryViewSwitcher?.updateBlockType(with: currentConfiguration.information.content.type)
         currentConfiguration.blockDelegate.didBeginEditing()
     }
 
@@ -76,9 +77,11 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            accessoryViewSwitcher?.textWillChange(textView: textView.textView,
-                                                  replacementText: replacementText,
-                                                  range: range)
+            accessoryViewSwitcher?.textWillChange(
+                textView: textView.textView,
+                replacementText: replacementText,
+                range: range
+            )
             let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
                 replacementRange: range,
                 replacementText: replacementText

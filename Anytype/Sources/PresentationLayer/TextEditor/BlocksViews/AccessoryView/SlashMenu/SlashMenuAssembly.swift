@@ -22,7 +22,7 @@ final class SlashMenuAssembly {
         return controller
     }
     
-    func menuView(frame: CGRect, menuItems: [BlockActionMenuItem]) -> SlashMenuView {
-        SlashMenuView(frame: frame, menuItems: menuItems, actionsHandler: actionsHandler)
+    static func menuView(size: CGSize, actionsHandler: SlashMenuActionsHandler) -> SlashMenuView {
+        SlashMenuView(frame: CGRect(origin: .zero, size: size), actionsHandler: actionsHandler)
     }
 }

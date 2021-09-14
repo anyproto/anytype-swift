@@ -7,7 +7,7 @@ struct BlockActionsBuilder {
         self.restrictions = restrictions
     }
     
-    func makeBlockActionsMenuItems() -> [BlockActionMenuItem] {
+    func slashMenuItems() -> [BlockActionMenuItem] {
         return [
             styleMenuItem,
             mediaMenuItem,
