@@ -1,11 +1,3 @@
-//
-//  DocumentEditorViewController+UICollectionViewDelegate.swift
-//  DocumentEditorViewController+UICollectionViewDelegate
-//
-//  Created by Konstantin Mordan on 09.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import Amplitude
 import BlocksModels
@@ -18,10 +10,6 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        viewModel.didSelectBlock(at: indexPath)
-        if viewModel.selectionHandler.selectionEnabled {
-            return
-        }
         collectionView.deselectItem(at: indexPath, animated: false)
     }
     
@@ -29,10 +17,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        if !viewModel.selectionHandler.selectionEnabled {
-            return
-        }
-        self.viewModel.didSelectBlock(at: indexPath)
+        return
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -48,16 +33,6 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     ) -> Bool {
         guard let item = dataSource.itemIdentifier(for: indexPath)
         else { return false }
-        
-        if viewModel.selectionHandler.selectionEnabled {
-            switch item {
-            case let .block(block):
-                guard case let .text(text) = block.content else { return true }
-                return text.contentType != .title
-            case .header:
-                return false
-            }
-        }
         
         switch item {
         case let .block(block):
