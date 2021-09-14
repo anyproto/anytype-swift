@@ -116,7 +116,7 @@ final class StyleViewController: UIViewController {
     private var actionHandler: ActionHandler
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
-    private var didTapMarkupButton: () -> Void
+    private var didTapMarkupButton: (_ styleView: UIView) -> Void
     private var style: BlockText.Style
     private var restrictions: BlockRestrictions
     // deselect action will be performed on new selection
@@ -134,7 +134,7 @@ final class StyleViewController: UIViewController {
         restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
-        didTapMarkupButton: @escaping () -> Void,
+        didTapMarkupButton: @escaping (_ styleView: UIView) -> Void,
         actionHandler: @escaping ActionHandler
     ) {
         self.viewControllerForPresenting = viewControllerForPresenting
@@ -231,7 +231,8 @@ final class StyleViewController: UIViewController {
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
         moreButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.didTapMarkupButton()
+            guard let self = self else { return }
+            self.didTapMarkupButton(self.view)
         }), for: .touchUpInside)
 
         let trailingStackView = UIStackView()
@@ -338,37 +339,19 @@ final class StyleViewController: UIViewController {
     @objc private func colorActionHandler() {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
 
-        let fpc = FloatingPanelController(delegate: self)
-        let appearance = SurfaceAppearance()
-        appearance.cornerRadius = 16.0
-        // Define shadows
-        let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.grayscale90
-        shadow.offset = CGSize(width: 0, height: 4)
-        shadow.radius = 40
-        shadow.opacity = 0.25
-        appearance.shadows = [shadow]
-
-        let sizeDifference = StylePanelLayout.Constant.panelHeight -  StyleColorPanelLayout.Constant.panelHeight
-        fpc.layout = StyleColorPanelLayout(additonalHeight: sizeDifference)
-
-        let bottomInset = viewControllerForPresenting.view.safeAreaInsets.bottom + 6 + sizeDifference
-        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: bottomInset, right: 10.0)
-        fpc.surfaceView.layer.cornerCurve = .continuous
-        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        fpc.surfaceView.grabberHandle.barColor = .grayscale30
-        fpc.surfaceView.appearance = appearance
-        fpc.isRemovalInteractionEnabled = true
-        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
-        fpc.backdropView.backgroundColor = .clear
-        fpc.contentMode = .static
-
         let color = askColor()
         let backgroundColor = askBackgroundColor()
 
         let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler)
-        fpc.set(contentViewController: contentVC)
-        fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
+        viewControllerForPresenting.embedChild(contentVC)
+
+        contentVC.view.pinAllEdges(to: viewControllerForPresenting.view)
+        contentVC.containerView.layoutUsing.anchors {
+            $0.width.equal(to: 260)
+            $0.height.equal(to: 176)
+            $0.trailing.equal(to: view.trailingAnchor, constant: -10)
+            $0.top.equal(to: view.topAnchor, constant: -8)
+        }
     }
 }
 

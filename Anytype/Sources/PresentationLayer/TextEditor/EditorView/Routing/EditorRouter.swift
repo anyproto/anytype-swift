@@ -109,7 +109,10 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let parentController = controller.parent else { return }
+              let parentController = controller.parent,
+              let container = document.rootActiveModel?.container,
+              let blockModel = container.model(id: information.id) else { return }
+
         controller.view.endEditing(true)
 
         let didShow: (FloatingPanelController) -> Void  = { fpc in
@@ -122,23 +125,21 @@ final class EditorRouter: EditorRouterProtocol {
             }
             controller.adjustContentOffset(fpc: fpc)
         }
-        
+
         BottomSheetsFactory.createStyleBottomSheet(
             parentViewController: parentController,
             delegate: controller,
-            information: information,
+            blockModel: blockModel,
             actionHandler: controller.viewModel.blockActionHandler,
             didShow: didShow,
-            showMarkupMenu: { [weak controller, weak self] in
+            showMarkupMenu: { [weak controller] styleView in
                 guard let controller = controller,
-                      let parent = controller.parent,
-                      let container = self?.document.rootActiveModel?.container,
-                      let actualInformation = container.model(id: information.id)?.information else {
-                    return
-                }
+                      let parent = controller.parent else { return }
+
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: parent,
-                    blockInformation: actualInformation,
+                    styleView: styleView,
+                    blockInformation: blockModel.information,
                     viewModel: controller.viewModel.wholeBlockMarkupViewModel
                 )
             }

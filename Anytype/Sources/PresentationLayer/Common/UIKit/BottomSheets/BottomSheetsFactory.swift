@@ -10,10 +10,10 @@ final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
-        information: BlockInformation,
+        blockModel: BlockModelProtocol,
         actionHandler: EditorActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void,
-        showMarkupMenu: @escaping () -> Void
+        showMarkupMenu: @escaping (_ styleView: UIView) -> Void
     ) {
         let fpc = FloatingPanelController()
         fpc.delegate = delegate
@@ -40,17 +40,17 @@ final class BottomSheetsFactory {
         fpc.contentMode = .static
 
         // NOTE: This will be moved to coordinator in next pr
-        guard case let .text(textContentType) = information.content.type else { return }
+        guard case let .text(textContentType) = blockModel.information.content.type else { return }
 
         let askColor: () -> UIColor? = {
-            guard case let .text(textContent) = information.content else { return nil }
+            guard case let .text(textContent) = blockModel.information.content else { return nil }
             return textContent.color?.color(background: false)
         }
         let askBackgroundColor: () -> UIColor? = {
-            return information.backgroundColor?.color(background: true)
+            return blockModel.information.backgroundColor?.color(background: true)
         }
 
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content)
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: blockModel.information.content)
 
         let contentVC = StyleViewController(
             viewControllerForPresenting: parentViewController,
@@ -60,7 +60,7 @@ final class BottomSheetsFactory {
             askBackgroundColor: askBackgroundColor,
             didTapMarkupButton: showMarkupMenu
         ) { action in
-            actionHandler.handleAction(action, blockId: information.id)
+            actionHandler.handleAction(action, blockId: blockModel.information.id)
         }
         
         fpc.set(contentViewController: contentVC)
@@ -71,6 +71,7 @@ final class BottomSheetsFactory {
     
     static func showMarkupBottomSheet(
         parentViewController: UIViewController,
+        styleView: UIView,
         blockInformation: BlockInformation,
         viewModel: MarkupViewModel
     ) {
@@ -78,32 +79,15 @@ final class BottomSheetsFactory {
         viewModel.setRange(.whole)
         let markupsViewController = MarkupsViewController(viewModel: viewModel)
         viewModel.view = markupsViewController
-        
-        let fpc = FloatingPanelController(delegate: markupsViewController)
-        let appearance = SurfaceAppearance()
-        appearance.cornerRadius = 16.0
-        // Define shadows
-        let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.grayscale90
-        shadow.offset = CGSize(width: 0, height: 4)
-        shadow.radius = 40
-        shadow.opacity = 0.25
-        appearance.shadows = [shadow]
 
-        let sizeDifference = StylePanelLayout.Constant.panelHeight -  TextAttributesPanelLayout.Constant.panelHeight
-        fpc.layout = TextAttributesPanelLayout(additonalHeight: sizeDifference)
+        parentViewController.embedChild(markupsViewController)
 
-        let bottomInset = parentViewController.view.safeAreaInsets.bottom + 6 + sizeDifference
-        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: bottomInset, right: 10.0)
-        fpc.surfaceView.layer.cornerCurve = .continuous
-        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        fpc.surfaceView.grabberHandle.barColor = .grayscale30
-        fpc.surfaceView.appearance = appearance
-        fpc.isRemovalInteractionEnabled = true
-        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
-        fpc.backdropView.backgroundColor = .clear
-        fpc.contentMode = .static
-        fpc.set(contentViewController: markupsViewController)
-        fpc.addPanel(toParent: parentViewController, animated: true)
+        markupsViewController.view.pinAllEdges(to: parentViewController.view)
+        markupsViewController.containerView.layoutUsing.anchors {
+            $0.width.equal(to: 260)
+            $0.height.equal(to: 176)
+            $0.trailing.equal(to: styleView.trailingAnchor, constant: -10)
+            $0.top.equal(to: styleView.topAnchor, constant: -8)
+        }
     }
 }
