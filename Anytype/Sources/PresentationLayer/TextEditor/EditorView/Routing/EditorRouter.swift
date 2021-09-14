@@ -132,7 +132,7 @@ final class EditorRouter: EditorRouterProtocol {
             blockModel: blockModel,
             actionHandler: controller.viewModel.blockActionHandler,
             didShow: didShow,
-            showMarkupMenu: { [weak controller] styleView in
+            showMarkupMenu: { [weak controller] styleView, viewDidClose in
                 guard let controller = controller,
                       let parent = controller.parent else { return }
 
@@ -140,7 +140,8 @@ final class EditorRouter: EditorRouterProtocol {
                     parentViewController: parent,
                     styleView: styleView,
                     blockInformation: blockModel.information,
-                    viewModel: controller.viewModel.wholeBlockMarkupViewModel
+                    viewModel: controller.viewModel.wholeBlockMarkupViewModel,
+                    viewDidClose: viewDidClose
                 )
             }
         )

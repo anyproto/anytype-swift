@@ -106,6 +106,7 @@ final class StyleColorViewController: UIViewController {
     private var color: UIColor?
     private var backgroundColor: UIColor?
     private var actionHandler: ActionHandler
+    private var viewDidCloseHandler: () -> Void
 
     // MARK: - Lifecycle
 
@@ -114,8 +115,10 @@ final class StyleColorViewController: UIViewController {
     /// - Parameter backgroundColor: Background color
     init(color: UIColor? = .grayscale90,
          backgroundColor: UIColor? = .grayscaleWhite,
-         actionHandler: @escaping ActionHandler) {
+         actionHandler: @escaping ActionHandler,
+         viewDidClose: @escaping () -> Void) {
         self.actionHandler = actionHandler
+        self.viewDidCloseHandler = viewDidClose
         self.color = color
         self.backgroundColor = backgroundColor
 
@@ -207,6 +210,7 @@ final class StyleColorViewController: UIViewController {
 
     @objc private func backdropViewTapped() {
         removeFromParentEmbed()
+        viewDidCloseHandler()
     }
 }
 

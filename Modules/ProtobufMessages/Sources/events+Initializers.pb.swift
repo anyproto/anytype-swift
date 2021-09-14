@@ -568,6 +568,19 @@ extension Anytype_Event.Block.Set.File.Width {
   }
 }
 
+extension Anytype_Event.Block.Set.Latex {
+  public init(id: String, text: Anytype_Event.Block.Set.Latex.Text) {
+    self.id = id
+    self.text = text
+  }
+}
+
+extension Anytype_Event.Block.Set.Latex.Text {
+  public init(value: String) {
+    self.value = value
+  }
+}
+
 extension Anytype_Event.Block.Set.Link {
   public init(id: String, targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId, style: Anytype_Event.Block.Set.Link.Style, fields: Anytype_Event.Block.Set.Link.Fields) {
     self.id = id
