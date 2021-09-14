@@ -8,12 +8,10 @@ final class AccessoryViewSwitcherBuilder {
         self.actionHandler = actionHandler
     }
     
-    func accessoryViewSwitcher(
-        delegate: TextViewDelegate & AccessoryViewSwitcherDelegate
-    ) -> AccessoryViewSwitcher {
+    func accessoryViewSwitcher() -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
-        let accessoryHandler = EditorAccessoryViewActionHandler(delegate: delegate)
+        let accessoryHandler = EditorAccessoryViewActionHandler()
         let accessoryView = EditorAccessoryView(actionHandler: accessoryHandler)
         
         let slashHandler = SlashMenuActionsHandlerImp(actionHandler: actionHandler)
@@ -23,7 +21,6 @@ final class AccessoryViewSwitcherBuilder {
         )
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(
-            delegate: delegate,
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
             accessoryView: accessoryView

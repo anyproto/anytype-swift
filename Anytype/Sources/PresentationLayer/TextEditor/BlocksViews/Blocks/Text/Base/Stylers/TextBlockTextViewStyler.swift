@@ -64,7 +64,7 @@ final class TextBlockTextViewStyler {
         case .numbered:
             setupText(in: textView, placeholer: "Numbered placeholder".localized, textStyle: configuration.text)
         case .quote:
-            setupText(in: textView, placeholer: "Quote".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Highlighted text".localized, textStyle: configuration.text)
         case .header:
             setupText(in: textView, placeholer: "Title".localized, textStyle: configuration.text)
         case .header2:

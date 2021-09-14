@@ -24,8 +24,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
-        self.accessoryViewSwitcher = configuration.accessoryViewBuilder
-            .accessoryViewSwitcher(delegate: self)
+        self.accessoryViewSwitcher = configuration
+            .accessoryViewBuilder
+            .accessoryViewSwitcher()
         setupLayout()
         applyNewConfiguration()
     }
