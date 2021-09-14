@@ -35,8 +35,8 @@ private extension StyleViewController {
         let icon: UIImage
 
         static let all: [ListItem] = [
-            (BlockText.Style.bulleted, "StyleBottomSheet/bullet"),
             (BlockText.Style.checkbox, "StyleBottomSheet/checkbox"),
+            (BlockText.Style.bulleted, "StyleBottomSheet/bullet"),
             (BlockText.Style.numbered, "StyleBottomSheet/numbered"),
             (BlockText.Style.toggle, "StyleBottomSheet/toggle")
         ]

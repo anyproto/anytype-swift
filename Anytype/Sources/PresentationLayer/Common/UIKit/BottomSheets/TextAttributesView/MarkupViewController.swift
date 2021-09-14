@@ -143,9 +143,12 @@ final class MarkupsViewController: UIViewController {
         bottomStackView.addArrangedSubview(rightAlignButton)
 
         codeButton.label.font = .uxBodyRegular
-        codeButton.label.textColor = .textPrimary
+        codeButton.setTextColor(.textPrimary, state: .normal)
+        codeButton.setTextColor(.textTertiary, state: .disabled)
+
         urlButton.label.font = .uxBodyRegular
-        urlButton.label.textColor = .textPrimary
+        urlButton.setTextColor(.textPrimary, state: .normal)
+        urlButton.setTextColor(.textTertiary, state: .disabled)
     }
     
     private func makeButton(
