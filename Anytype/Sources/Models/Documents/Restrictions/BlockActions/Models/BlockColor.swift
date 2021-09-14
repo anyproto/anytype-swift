@@ -3,16 +3,16 @@ import BlocksModels
 
 enum BlockColor: CaseIterable {
     case black
+    case coldgray
     case lemon
     case amber
     case red
     case pink
     case purple
-    case ultramarine
     case blue
+    case sky
     case teal
     case green
-    case coldgray
     
     var color: UIColor {
         switch self {
@@ -28,9 +28,9 @@ enum BlockColor: CaseIterable {
             return .purePink
         case .purple:
             return .purePurple
-        case .ultramarine:
-            return .pureUltramarine
         case .blue:
+            return .pureUltramarine
+        case .sky:
             return .pureBlue
         case .teal:
             return .pureTeal
@@ -56,10 +56,10 @@ enum BlockColor: CaseIterable {
             return "Pink".localized
         case .purple:
             return "Purple".localized
-        case .ultramarine:
-            return "Ultramarine".localized
         case .blue:
             return "Blue".localized
+        case .sky:
+            return "Sky".localized
         case .teal:
             return "Teal".localized
         case .green:
@@ -83,10 +83,10 @@ enum BlockColor: CaseIterable {
             return ImageName.slashMenu.color.pink
         case .purple:
             return ImageName.slashMenu.color.purple
-        case .ultramarine:
-            return ImageName.slashMenu.color.ultramarine
         case .blue:
             return ImageName.slashMenu.color.blue
+        case .sky:
+            return ImageName.slashMenu.color.sky
         case .teal:
             return ImageName.slashMenu.color.teal
         case .green:
@@ -110,9 +110,9 @@ enum BlockColor: CaseIterable {
             return .pink
         case .purple:
             return .purple
-        case .ultramarine:
-            return .blue
         case .blue:
+            return .blue
+        case .sky:
             return .ice
         case .teal:
             return .teal
