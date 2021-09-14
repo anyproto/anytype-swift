@@ -26,9 +26,10 @@ final class EditorSearchCell: UIView, UIContentView {
         setup()
         apply(configuration: configuration)
     }
-    
+
     private var titleTopConstraint: NSLayoutConstraint!
-    private func setup() {        
+
+    private func setup() {
         addSubview(container) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
             $0.height.equal(to: 56)
@@ -41,25 +42,16 @@ final class EditorSearchCell: UIView, UIContentView {
             $0.width.equal(to: 40)
         }
 
-        let titleText = UIKitAnytypeText(text: "", style: .uxTitle2Regular)
         container.addSubview(title) {
             titleTopConstraint = $0.top.equal(to: container.topAnchor, constant: titleWithSubtitleTop)
             $0.leading.equal(to: icon.trailingAnchor, constant: 12)
             $0.trailing.equal(to: container.trailingAnchor)
         }
-        
-        let subtitleText = UIKitAnytypeText(text: "", style: .caption1Regular)
+
         container.addSubview(subtitle) {
-            $0.top.equal(
-                to: title.bottomAnchor,
-                constant: titleText.verticalSpacing + subtitleText.verticalSpacing
-            )
+            $0.top.equal(to: title.bottomAnchor)
             $0.leading.equal(to: icon.trailingAnchor, constant: 12)
-            $0.bottom.equal(
-                to: container.bottomAnchor,
-                constant: -9 - subtitleText.verticalSpacing,
-                priority: .defaultLow
-            )
+            $0.bottom.equal(to: container.bottomAnchor, priority: .defaultLow)
             $0.trailing.equal(to: container.trailingAnchor)
         }
     }
@@ -72,14 +64,12 @@ final class EditorSearchCell: UIView, UIContentView {
             )
         )
 
-        title.attributedText = UIKitAnytypeText(text: configuration.cellData.title, style: .uxTitle2Regular).attrString
+        title.setText(configuration.cellData.title, style: .uxTitle2Regular)
         
         if configuration.cellData.subtitle.isNotEmpty {
             subtitle.isHidden = false
             titleTopConstraint.constant = titleWithSubtitleTop
-            subtitle.attributedText = UIKitAnytypeText(
-                text: configuration.cellData.subtitle, style: .caption1Regular
-            ).attrString
+            subtitle.setText(configuration.cellData.subtitle, style: .caption1Regular)
         } else {
             subtitle.isHidden = true
             titleTopConstraint.constant = titleWithoutSubtitleTop
@@ -89,22 +79,22 @@ final class EditorSearchCell: UIView, UIContentView {
     // MARK: - Views
     private let container = UIView()
     private let icon = ObjectIconImageView()
-    private let title: UILabel = {
-        let title = UILabel()
+    private let title: AnytypeLabel = {
+        let title = AnytypeLabel()
         title.textColor = .textPrimary
         title.numberOfLines = 1
         return title
     }()
-    private let subtitle: UILabel = {
-        let subtitle = UILabel()
+    private let subtitle: AnytypeLabel = {
+        let subtitle = AnytypeLabel()
         subtitle.textColor = .textSecondary
         subtitle.numberOfLines = 1
         return subtitle
     }()
     
     // MARK: - Constants
-    private let titleWithSubtitleTop = UIKitAnytypeText(text: "", style: .uxTitle2Regular).verticalSpacing + 9
-    private let titleWithoutSubtitleTop = UIKitAnytypeText(text: "", style: .uxTitle2Regular).verticalSpacing + 18
+    private let titleWithSubtitleTop: CGFloat = 9
+    private let titleWithoutSubtitleTop: CGFloat = 18
     
     
     // MARK: - Not implemented

@@ -34,6 +34,15 @@ class AnytypeLabel: UIView {
         }
     }
 
+    var numberOfLines: Int {
+        set {
+            label.numberOfLines = newValue
+        }
+        get {
+            label.numberOfLines
+        }
+    }
+
     // MARK: - Life cycle
 
     override init(frame: CGRect) {
@@ -58,14 +67,14 @@ class AnytypeLabel: UIView {
             $0.leading.equal(to: leadingAnchor)
             $0.trailing.equal(to: trailingAnchor)
             topLabelConstraint = $0.top.equal(to: topAnchor, constant: anytypeText.verticalSpacing)
-            bottomLabelConstraint = $0.bottom.equal(to: bottomAnchor, constant: anytypeText.verticalSpacing)
+            bottomLabelConstraint = $0.bottom.equal(to: bottomAnchor, constant: -anytypeText.verticalSpacing)
         }
     }
 
     private func updateLabel() {
         label.attributedText = anytypeText.attrString
         topLabelConstraint?.constant = anytypeText.verticalSpacing
-        bottomLabelConstraint?.constant = anytypeText.verticalSpacing
+        bottomLabelConstraint?.constant = -anytypeText.verticalSpacing
     }
 
     // MARK: - Public methods
