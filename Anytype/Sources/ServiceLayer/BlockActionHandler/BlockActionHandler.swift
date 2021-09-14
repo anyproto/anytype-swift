@@ -98,8 +98,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
         case let .textView(action: action, block: blockModel):
             switch action {
-            case .showMultiActionMenuAction:
-                selectionHandler.selectionEnabled = true
             case let .changeCaretPosition(selectedRange):
                 document.userSession?.focus = .at(selectedRange)
             case let .changeTextStyle(string, styleAction, range):

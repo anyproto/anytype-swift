@@ -3,8 +3,6 @@ import UIKit
 enum EditorAccessoryViewAction {
     /// Slash button pressed
     case slashMenu
-    /// Multiselect button pressed
-    case multiActionMenu
     /// Done button pressed
     case keyboardDismiss
     /// Show bottom sheet style menu
@@ -34,11 +32,6 @@ final class EditorAccessoryViewActionHandler {
                 switcher.textToTriggerSlashViewDisplay
             )
             switcher.showSlashMenuView(textView: customTextView.textView)
-        case .multiActionMenu:
-            delegate?.didReceiveAction(
-                .showMultiActionMenuAction
-            )
-
         case .showStyleMenu:
             delegate?.didReceiveAction(.showStyleMenu)
 

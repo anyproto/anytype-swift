@@ -205,8 +205,10 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
 
 extension DocumentEditorViewModel {
     func viewLoaded() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.documentPage,
-                                      withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId])
+        Amplitude.instance().logEvent(
+            AmplitudeEventsName.documentPage,
+            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId]
+        )
     }
 }
 
