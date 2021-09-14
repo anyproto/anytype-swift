@@ -4,8 +4,8 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var window: MainWindow?
-    private(set) var windowHolder: MainWindowHolder?
+    var window: UIWindow?
+    private(set) var windowHolder: WindowHolder?
 
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        let window = MainWindow(windowScene: windowScene)
+        let window = UIWindow(windowScene: windowScene)
         self.window = window
         
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
