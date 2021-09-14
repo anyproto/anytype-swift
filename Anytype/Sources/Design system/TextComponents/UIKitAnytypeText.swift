@@ -1,11 +1,3 @@
-//
-//  UIKitAnytypeText.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 26.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import AnytypeCore
 
