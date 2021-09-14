@@ -14,7 +14,7 @@ final class TextBlockLeftViewStyler {
         case .title:
             leftView = leftTitleView(configuration: configuration)
         case .toggle:
-            leftView = leftTitleView(configuration: configuration)
+            leftView = leftToggleView(configuration: configuration)
         case .bulleted:
             leftView = TextBlockIconView(viewType: .bulleted)            
         case .checkbox:
