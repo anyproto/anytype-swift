@@ -2613,10 +2613,10 @@
 		3D36B0A526A71B4A0046C90F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				125FD2F926CE522000D21F5A /* EditorNavigationBarHelper */,
 				3D36B0A126A71B280046C90F /* DetailsLoader.swift */,
 				123FDB0126C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift */,
 				123FDB0626C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift */,
-				125FD2F926CE522000D21F5A /* EditorNavigationBarHelper */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

@@ -20,7 +20,7 @@ protocol AccessoryViewSwitcherProtocol: AnyObject {
     func updateBlockType(with type: BlockContentType)
     func showURLInput(textView: UITextView, url: URL?)
     
-    func didBeginEditing(textView: UITextView)
+    func didBeginEditing(textView: CustomTextView)
     func textDidChange(textView: UITextView)
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange)
 }
@@ -42,13 +42,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private var latestTextViewTextChange: TextViewTextChangeType?
     
     init(
-        textView: UITextView,
         delegate: AccessoryViewSwitcherDelegate,
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         accessoryView: EditorAccessoryView
     ) {
-        self.textView = textView
         self.delegate = delegate
         self.slashMenuView = slashMenuView
         self.accessoryView = accessoryView
@@ -57,8 +55,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     // MARK: - Public methods
 
-    func didBeginEditing(textView: UITextView) {
-        self.textView = textView
+    func didBeginEditing(textView: CustomTextView) {
+        self.textView = textView.textView
 
         let dismissActionsMenu = { [weak self] in
             self?.cleanupDisplayedView()
@@ -71,7 +69,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         mentionsView.dismissHandler = dismissActionsMenu
         slashMenuView.dismissHandler = dismissActionsMenu
 
-        textView.inputAccessoryView = accessoryView
+        accessoryView.actionHandler.customTextView = textView
+        textView.textView.inputAccessoryView = accessoryView
     }
 
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange) {
@@ -103,7 +102,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         let restrictions = BlockRestrictionsFactory().makeRestrictions(for: type)
         slashMenuView.menuItems = BlockActionsBuilder(
             restrictions: restrictions
-        ).makeBlockActionsMenuItems()
+        ).slashMenuItems()
     }
     
     func showMentionsView(textView: UITextView) {

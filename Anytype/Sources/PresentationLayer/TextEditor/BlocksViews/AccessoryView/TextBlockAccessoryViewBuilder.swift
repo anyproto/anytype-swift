@@ -9,26 +9,20 @@ final class TextBlockAccessoryViewBuilder {
     }
     
     func accessoryViewSwitcher(
-        textView: CustomTextView,
-        delegate: TextViewDelegate & AccessoryViewSwitcherDelegate,
-        contentType: BlockContentType
+        delegate: TextViewDelegate & AccessoryViewSwitcherDelegate
     ) -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
-        let editorAccessoryhandler = EditorAccessoryViewActionHandler(delegate: delegate)
-        let accessoryView = EditorAccessoryView(actionHandler: editorAccessoryhandler)
+        let accessoryHandler = EditorAccessoryViewActionHandler(delegate: delegate)
+        let accessoryView = EditorAccessoryView(actionHandler: accessoryHandler)
         
-        let actionsHandler = SlashMenuActionsHandlerImp(actionHandler: actionHandler)
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: contentType)
-        let items = BlockActionsBuilder(restrictions: restrictions).makeBlockActionsMenuItems()
-        let assembly = SlashMenuAssembly(actionsHandler: actionsHandler)
-        let slashMenuView = assembly.menuView(
-            frame: CGRect(origin: .zero, size: menuActionsViewSize),
-            menuItems: items
+        let slashHandler = SlashMenuActionsHandlerImp(actionHandler: actionHandler)
+        let slashMenuView = SlashMenuAssembly.menuView(
+            size: menuActionsViewSize,
+            actionsHandler: slashHandler
         )
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(
-            textView: textView.textView,
             delegate: delegate,
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
@@ -36,8 +30,7 @@ final class TextBlockAccessoryViewBuilder {
         )
         
         mentionsView.delegate = accessoryViewSwitcher
-        editorAccessoryhandler.customTextView = textView
-        editorAccessoryhandler.switcher = accessoryViewSwitcher
+        accessoryHandler.switcher = accessoryViewSwitcher
         
         return accessoryViewSwitcher
     }
