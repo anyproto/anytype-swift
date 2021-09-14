@@ -13,7 +13,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     private lazy var controller = SlashMenuAssembly(actionsHandler: actionsHandler)
         .menuController(menuItems: menuItems, dismissHandler: dismissHandler)
     private let actionsHandler: SlashMenuActionsHandler
-    private let cellDataBuilder: SlashMenuCellDataBuilder
+    private let cellDataBuilder = SlashMenuCellDataBuilder()
     private var filterStringMismatchLength = 0
     private var cachedFilterText = ""
     
@@ -22,7 +22,6 @@ final class SlashMenuView: DismissableInputAccessoryView {
         actionsHandler: SlashMenuActionsHandler
     ) {
         self.actionsHandler = actionsHandler
-        self.cellDataBuilder = SlashMenuCellDataBuilder(menuItems: menuItems)
 
         super.init(frame: frame)
     }
@@ -38,6 +37,10 @@ final class SlashMenuView: DismissableInputAccessoryView {
         
         guard let windowRootViewController = window?.rootViewController?.children.last else { return }
         setup(parentViewController: windowRootViewController)
+    }
+    
+    func restoreDefaultState() {
+        setFilterText(filterText: "")
     }
     
     private func setup(parentViewController: UIViewController) {
@@ -82,7 +85,7 @@ extension SlashMenuView: FilterableItemsView {
             controller.navigationController?.popToRootViewController(animated: false)
         }
         guard cachedFilterText != filterText else { return }
-        controller.cellData = cellDataBuilder.build(filter: filterText)
+        controller.cellData = cellDataBuilder.build(filter: filterText, menuItems: menuItems)
         
         if !controller.cellData.isEmpty {
             filterStringMismatchLength = 0

@@ -1,14 +1,7 @@
 import Foundation
 
 final class SlashMenuCellDataBuilder {
-    
-    private let menuItems: [SlashMenuItem]
-    
-    init(menuItems: [SlashMenuItem]) {
-        self.menuItems = menuItems
-    }
-    
-    func build(filter: String) -> [SlashMenuCellData] {
+    func build(filter: String, menuItems: [SlashMenuItem]) -> [SlashMenuCellData] {
         guard !filter.isEmpty else {
             return menuItems.map { .menu(item: $0.item, actions: $0.children) }
         }
