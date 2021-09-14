@@ -7,7 +7,7 @@ func getDocumentsDirectory() -> URL {
     return documentsDirectory
 }
 
-var windowHolder: MainWindowHolder? {
+var windowHolder: WindowHolder? {
     let sceneDeleage = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
     
     return sceneDeleage?.windowHolder
