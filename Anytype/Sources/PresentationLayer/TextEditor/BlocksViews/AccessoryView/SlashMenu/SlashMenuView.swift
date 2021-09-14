@@ -8,7 +8,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
         static let maxMistatchFilteringCount = 3
     }
     
-    var menuItems = [BlockActionMenuItem]()
+    var menuItems = [SlashMenuItem]()
     private weak var menuNavigationController: UINavigationController?
     private lazy var controller = SlashMenuAssembly(actionsHandler: actionsHandler)
         .menuController(menuItems: menuItems, dismissHandler: dismissHandler)

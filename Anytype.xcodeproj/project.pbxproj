@@ -401,7 +401,7 @@
 		3DEFD6492689FE180072EA27 /* FloaterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */; };
 		3DEFD6682689FEA30072EA27 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
-		3DF80F3126EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */; };
+		3DF80F3126EF7FF1000492F3 /* AccessoryViewSwitcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3026EF7FF1000492F3 /* AccessoryViewSwitcherBuilder.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DF80F3526EF8D14000492F3 /* TextBlockSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */; };
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
@@ -488,9 +488,9 @@
 		EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */; };
 		EA2640CA26C3DDF6006071BD /* RangeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640C926C3DDF6006071BD /* RangeConverter.swift */; };
 		EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */; };
-		EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289B8A2629A7DD00EA869F /* BlockActionMenuItem.swift */; };
+		EA289B8B2629A7DD00EA869F /* SlashMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289B8A2629A7DD00EA869F /* SlashMenuItem.swift */; };
 		EA289B932629A89400EA869F /* SlashMenuItemDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289B922629A89400EA869F /* SlashMenuItemDisplayData.swift */; };
-		EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BD5262AE36F00EA869F /* BlockActionType.swift */; };
+		EA289BD6262AE36F00EA869F /* SlashAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BD5262AE36F00EA869F /* SlashAction.swift */; };
 		EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BD8262AE56D00EA869F /* BlockStyleAction.swift */; };
 		EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BDB262AE59200EA869F /* BlockMediaAction.swift */; };
 		EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */; };
@@ -498,7 +498,7 @@
 		EA289BE8262AE62E00EA869F /* BlockColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE7262AE62E00EA869F /* BlockColor.swift */; };
 		EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BEB262AE66000EA869F /* BlockBackgroundColor.swift */; };
 		EA2F0D60264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D5F264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift */; };
-		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
+		EA2F0D65264EB4900039C1CB /* SlashActionFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* SlashActionFilterMatch.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
 		EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */; };
@@ -1040,7 +1040,7 @@
 		3DEFD6482689FE180072EA27 /* FloaterWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
 		3DEFD6662689FEA30072EA27 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/TextBlockActionHandler/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
-		3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockAccessoryViewBuilder.swift; sourceTree = "<group>"; };
+		3DF80F3026EF7FF1000492F3 /* AccessoryViewSwitcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcherBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockSelectionView.swift; sourceTree = "<group>"; };
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
@@ -1122,9 +1122,9 @@
 		EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifierTests.swift; sourceTree = "<group>"; };
 		EA2640C926C3DDF6006071BD /* RangeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeConverter.swift; sourceTree = "<group>"; };
 		EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringConverterTests.swift; sourceTree = "<group>"; };
-		EA289B8A2629A7DD00EA869F /* BlockActionMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionMenuItem.swift; sourceTree = "<group>"; };
+		EA289B8A2629A7DD00EA869F /* SlashMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItem.swift; sourceTree = "<group>"; };
 		EA289B922629A89400EA869F /* SlashMenuItemDisplayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItemDisplayData.swift; sourceTree = "<group>"; };
-		EA289BD5262AE36F00EA869F /* BlockActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionType.swift; sourceTree = "<group>"; };
+		EA289BD5262AE36F00EA869F /* SlashAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAction.swift; sourceTree = "<group>"; };
 		EA289BD8262AE56D00EA869F /* BlockStyleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockStyleAction.swift; sourceTree = "<group>"; };
 		EA289BDB262AE59200EA869F /* BlockMediaAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMediaAction.swift; sourceTree = "<group>"; };
 		EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockOtherAction.swift; sourceTree = "<group>"; };
@@ -1132,7 +1132,7 @@
 		EA289BE7262AE62E00EA869F /* BlockColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockColor.swift; sourceTree = "<group>"; };
 		EA289BEB262AE66000EA869F /* BlockBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColor.swift; sourceTree = "<group>"; };
 		EA2F0D5F264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItemFilterMatch.swift; sourceTree = "<group>"; };
-		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
+		EA2F0D64264EB4900039C1CB /* SlashActionFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashActionFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
 		EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChangerProtocol.swift; sourceTree = "<group>"; };
@@ -2531,9 +2531,6 @@
 			isa = PBXGroup;
 			children = (
 				EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */,
-				EA2F0D5F264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift */,
-				EA289B8A2629A7DD00EA869F /* BlockActionMenuItem.swift */,
-				EA289BD5262AE36F00EA869F /* BlockActionType.swift */,
 				EA289BD8262AE56D00EA869F /* BlockStyleAction.swift */,
 				EA289BDB262AE59200EA869F /* BlockMediaAction.swift */,
 				EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */,
@@ -2547,7 +2544,11 @@
 		3D16840726DD6657008B9DFF /* SlashMenu */ = {
 			isa = PBXGroup;
 			children = (
-				EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */,
+				EA289B922629A89400EA869F /* SlashMenuItemDisplayData.swift */,
+				EA289BD5262AE36F00EA869F /* SlashAction.swift */,
+				EA2F0D5F264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift */,
+				EA289B8A2629A7DD00EA869F /* SlashMenuItem.swift */,
+				EA2F0D64264EB4900039C1CB /* SlashActionFilterMatch.swift */,
 				EA77E50B262DA103009F91D9 /* SlashMenuItemType.swift */,
 			);
 			path = SlashMenu;
@@ -3407,7 +3408,7 @@
 				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
 				EA5521A0266E5CB5004A820B /* FilterableItemsView.swift */,
 				EAC6BB53262888B0004C8C06 /* AccessoryViewSwitcher.swift */,
-				3DF80F3026EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift */,
+				3DF80F3026EF7FF1000492F3 /* AccessoryViewSwitcherBuilder.swift */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
@@ -3596,7 +3597,6 @@
 				3D16840626DD6407008B9DFF /* Models */,
 				3D16840726DD6657008B9DFF /* SlashMenu */,
 				EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */,
-				EA289B922629A89400EA869F /* SlashMenuItemDisplayData.swift */,
 				EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */,
 			);
 			path = BlockActions;
@@ -3977,14 +3977,14 @@
 				3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
-				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
+				EA289BD6262AE36F00EA869F /* SlashAction.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
 				12A8CCEE26BD5F3B00090468 /* DataSourceItem.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
-				EA289B8B2629A7DD00EA869F /* BlockActionMenuItem.swift in Sources */,
+				EA289B8B2629A7DD00EA869F /* SlashMenuItem.swift in Sources */,
 				12426A2A26DCFA1300693B1F /* KFScalingType.swift in Sources */,
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
 				0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */,
@@ -3992,7 +3992,7 @@
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
-				EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */,
+				EA2F0D65264EB4900039C1CB /* SlashActionFilterMatch.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */,
 				12A7B6C026C3E47200544037 /* DocumentIconImageView.swift in Sources */,
@@ -4397,7 +4397,7 @@
 				3D44985526D562BC005A3E06 /* ObjectHeaderEmptyData.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
-				3DF80F3126EF7FF1000492F3 /* TextBlockAccessoryViewBuilder.swift in Sources */,
+				3DF80F3126EF7FF1000492F3 /* AccessoryViewSwitcherBuilder.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				3DFD1B1826E8A40A00F893FC /* EditorSearchCell.swift in Sources */,

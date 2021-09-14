@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-final class TextBlockAccessoryViewBuilder {
+final class AccessoryViewSwitcherBuilder {
     private let actionHandler: EditorActionHandlerProtocol
     
     init(actionHandler: EditorActionHandlerProtocol) {
