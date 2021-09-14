@@ -233,6 +233,22 @@ public struct Anytype_Event {
       set {value = .blockSetDiv(newValue)}
     }
 
+    public var blockSetRelation: Anytype_Event.Block.Set.Relation {
+      get {
+        if case .blockSetRelation(let v)? = value {return v}
+        return Anytype_Event.Block.Set.Relation()
+      }
+      set {value = .blockSetRelation(newValue)}
+    }
+
+    public var blockSetLatex: Anytype_Event.Block.Set.Latex {
+      get {
+        if case .blockSetLatex(let v)? = value {return v}
+        return Anytype_Event.Block.Set.Latex()
+      }
+      set {value = .blockSetLatex(newValue)}
+    }
+
     public var blockDataviewRecordsSet: Anytype_Event.Block.Dataview.RecordsSet {
       get {
         if case .blockDataviewRecordsSet(let v)? = value {return v}
@@ -303,14 +319,6 @@ public struct Anytype_Event {
         return Anytype_Event.Block.Dataview.RelationSet()
       }
       set {value = .blockDataviewRelationSet(newValue)}
-    }
-
-    public var blockSetRelation: Anytype_Event.Block.Set.Relation {
-      get {
-        if case .blockSetRelation(let v)? = value {return v}
-        return Anytype_Event.Block.Set.Relation()
-      }
-      set {value = .blockSetRelation(newValue)}
     }
 
     public var userBlockJoin: Anytype_Event.User.Block.Join {
@@ -411,6 +419,8 @@ public struct Anytype_Event {
       case blockSetBookmark(Anytype_Event.Block.Set.Bookmark)
       case blockSetAlign(Anytype_Event.Block.Set.Align)
       case blockSetDiv(Anytype_Event.Block.Set.Div)
+      case blockSetRelation(Anytype_Event.Block.Set.Relation)
+      case blockSetLatex(Anytype_Event.Block.Set.Latex)
       case blockDataviewRecordsSet(Anytype_Event.Block.Dataview.RecordsSet)
       case blockDataviewRecordsUpdate(Anytype_Event.Block.Dataview.RecordsUpdate)
       case blockDataviewRecordsInsert(Anytype_Event.Block.Dataview.RecordsInsert)
@@ -420,7 +430,6 @@ public struct Anytype_Event {
       case blockDataviewViewDelete(Anytype_Event.Block.Dataview.ViewDelete)
       case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
       case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
-      case blockSetRelation(Anytype_Event.Block.Set.Relation)
       case userBlockJoin(Anytype_Event.User.Block.Join)
       case userBlockLeft(Anytype_Event.User.Block.Left)
       case userBlockSelectRange(Anytype_Event.User.Block.SelectRange)
@@ -529,6 +538,14 @@ public struct Anytype_Event {
           guard case .blockSetDiv(let l) = lhs, case .blockSetDiv(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
+        case (.blockSetRelation, .blockSetRelation): return {
+          guard case .blockSetRelation(let l) = lhs, case .blockSetRelation(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetLatex, .blockSetLatex): return {
+          guard case .blockSetLatex(let l) = lhs, case .blockSetLatex(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
         case (.blockDataviewRecordsSet, .blockDataviewRecordsSet): return {
           guard case .blockDataviewRecordsSet(let l) = lhs, case .blockDataviewRecordsSet(let r) = rhs else { preconditionFailure() }
           return l == r
@@ -563,10 +580,6 @@ public struct Anytype_Event {
         }()
         case (.blockDataviewRelationSet, .blockDataviewRelationSet): return {
           guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockSetRelation, .blockSetRelation): return {
-          guard case .blockSetRelation(let l) = lhs, case .blockSetRelation(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.userBlockJoin, .userBlockJoin): return {
@@ -1282,6 +1295,41 @@ public struct Anytype_Event {
         fileprivate var _marks: Anytype_Event.Block.Set.Text.Marks? = nil
         fileprivate var _checked: Anytype_Event.Block.Set.Text.Checked? = nil
         fileprivate var _color: Anytype_Event.Block.Set.Text.Color? = nil
+      }
+
+      public struct Latex {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var text: Anytype_Event.Block.Set.Latex.Text {
+          get {return _text ?? Anytype_Event.Block.Set.Latex.Text()}
+          set {_text = newValue}
+        }
+        /// Returns true if `text` has been explicitly set.
+        public var hasText: Bool {return self._text != nil}
+        /// Clears the value of `text`. Subsequent reads from it will return its default value.
+        public mutating func clearText() {self._text = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Text {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _text: Anytype_Event.Block.Set.Latex.Text? = nil
       }
 
       public struct Div {
@@ -3092,6 +3140,7 @@ public struct Anytype_Model {
       case `import` // = 1
       case export // = 2
       case saveFile // = 3
+      case recoverAccount // = 4
       case UNRECOGNIZED(Int)
 
       public init() {
@@ -3104,6 +3153,7 @@ public struct Anytype_Model {
         case 1: self = .import
         case 2: self = .export
         case 3: self = .saveFile
+        case 4: self = .recoverAccount
         default: self = .UNRECOGNIZED(rawValue)
         }
       }
@@ -3114,6 +3164,7 @@ public struct Anytype_Model {
         case .import: return 1
         case .export: return 2
         case .saveFile: return 3
+        case .recoverAccount: return 4
         case .UNRECOGNIZED(let i): return i
         }
       }
@@ -3190,6 +3241,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
     .import,
     .export,
     .saveFile,
+    .recoverAccount,
   ]
 }
 
@@ -3280,6 +3332,8 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     14: .same(proto: "blockSetBookmark"),
     15: .same(proto: "blockSetAlign"),
     17: .same(proto: "blockSetDiv"),
+    21: .same(proto: "blockSetRelation"),
+    25: .same(proto: "blockSetLatex"),
     18: .same(proto: "blockDataviewRecordsSet"),
     26: .same(proto: "blockDataviewRecordsUpdate"),
     27: .same(proto: "blockDataviewRecordsInsert"),
@@ -3289,7 +3343,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     20: .same(proto: "blockDataviewViewDelete"),
     24: .same(proto: "blockDataviewRelationDelete"),
     23: .same(proto: "blockDataviewRelationSet"),
-    21: .same(proto: "blockSetRelation"),
     31: .same(proto: "userBlockJoin"),
     32: .same(proto: "userBlockLeft"),
     33: .same(proto: "userBlockSelectRange"),
@@ -3604,6 +3657,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
           self.value = .blockDataviewRelationDelete(v)
+        }
+      }()
+      case 25: try {
+        var v: Anytype_Event.Block.Set.Latex?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockSetLatex(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockSetLatex(v)
         }
       }()
       case 26: try {
@@ -3954,6 +4020,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockDataviewRelationDelete?: try {
       guard case .blockDataviewRelationDelete(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
+    }()
+    case .blockSetLatex?: try {
+      guard case .blockSetLatex(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
     }()
     case .blockDataviewRecordsUpdate?: try {
       guard case .blockDataviewRecordsUpdate(let v)? = self.value else { preconditionFailure() }
@@ -5352,6 +5422,76 @@ extension Anytype_Event.Block.Set.Text.Color: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Color, rhs: Anytype_Event.Block.Set.Text.Color) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Latex: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Latex"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "text"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._text) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if let v = self._text {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Latex, rhs: Anytype_Event.Block.Set.Latex) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._text != rhs._text {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Latex.Text: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Latex.protoMessageName + ".Text"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Latex.Text, rhs: Anytype_Event.Block.Set.Latex.Text) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -8625,6 +8765,7 @@ extension Anytype_Model.Process.TypeEnum: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "Import"),
     2: .same(proto: "Export"),
     3: .same(proto: "SaveFile"),
+    4: .same(proto: "RecoverAccount"),
   ]
 }
 

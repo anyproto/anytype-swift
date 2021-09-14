@@ -4,9 +4,10 @@ import SwiftProtobuf
 
 class BlockInformationConverter {
     static func convert(block: Anytype_Model_Block) -> BlockInformation? {
-        guard let content = block.content, let blockType = BlocksModelsConverter.convert(middleware: content) else {
+        guard let content = block.content else {
             return nil
         }
+        let blockType = BlocksModelsConverter.convert(middleware: content) ?? .unsupported
         
         let alignment = block.align.asBlockModel ?? .left
         let info =  BlockInformation(
