@@ -16,13 +16,13 @@ extension TextBlockContentView: TextViewDelegate {
     }
     
     func willBeginEditing() {
-        accessoryViewSwitcher?.updateDelegate(delegate: self)
-        accessoryViewSwitcher?.didBeginEditing(textView: textView)
+        currentConfiguration.accessorySwitcher.updateDelegate(delegate: self)
+        currentConfiguration.accessorySwitcher.didBeginEditing(textView: textView)
         currentConfiguration.blockDelegate.willBeginEditing()
     }
 
     func didBeginEditing() {
-        accessoryViewSwitcher?.updateBlockType(with: currentConfiguration.information.content.type)
+        currentConfiguration.accessorySwitcher.updateBlockType(with: currentConfiguration.information.content.type)
         currentConfiguration.blockDelegate.didBeginEditing()
     }
 
@@ -31,7 +31,7 @@ extension TextBlockContentView: TextViewDelegate {
         case .showStyleMenu:
             currentConfiguration.showStyleMenu(currentConfiguration.information)
         case .changeText:
-            accessoryViewSwitcher?.textDidChange(textView: textView.textView)
+            currentConfiguration.accessorySwitcher.textDidChange(textView: textView.textView)
 
             currentConfiguration.actionHandler.handleAction(
                 .textView(
@@ -78,7 +78,7 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            accessoryViewSwitcher?.textWillChange(
+            currentConfiguration.accessorySwitcher.textWillChange(
                 textView: textView.textView,
                 replacementText: replacementText,
                 range: range
@@ -99,7 +99,7 @@ extension TextBlockContentView: TextViewDelegate {
             return shouldChangeText
         case let .changeLink(attrText, range):
             let link: URL? = attrText.value(for: .link, range: range)
-            accessoryViewSwitcher?.showURLInput(textView: textView.textView, url: link)
+            currentConfiguration.accessorySwitcher.showURLInput(textView: textView.textView, url: link)
         case let .showPage(pageId):
             currentConfiguration.showPage(pageId)
         case let .openURL(url):

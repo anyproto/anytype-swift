@@ -10,6 +10,7 @@ protocol DocumentEditorViewModelProtocol {
     var blockActionHandler: EditorActionHandlerProtocol { get }
     
     func viewLoaded()
+    func didSelectBlock(at index: IndexPath)
     
     func showSettings()
 }

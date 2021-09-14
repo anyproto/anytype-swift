@@ -18,7 +18,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
-    let accessoryViewBuilder: AccessoryViewSwitcherBuilder
+    let accessorySwitcher: AccessoryViewSwitcherProtocol
     
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
@@ -36,6 +36,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
+        accessorySwitcher: AccessoryViewSwitcherProtocol,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         showStyleMenu: @escaping (BlockInformation) -> Void,
@@ -47,13 +48,13 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.content = content
         self.upperBlock = upperBlock
         self.actionHandler = actionHandler
+        self.accessorySwitcher = accessorySwitcher
         self.showPage = showPage
         self.openURL = openURL
         self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
-        self.accessoryViewBuilder = AccessoryViewSwitcherBuilder(actionHandler: actionHandler)
         
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }

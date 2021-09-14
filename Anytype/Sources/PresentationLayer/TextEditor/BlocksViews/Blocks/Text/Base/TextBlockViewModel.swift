@@ -17,10 +17,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
+    
     private let showPage: (String) -> Void
     private let openURL: (URL) -> Void
     private let showStyleMenu: (BlockInformation) -> Void
+    
     private let actionHandler: EditorActionHandlerProtocol
+    private let accessorySwitcher: AccessoryViewSwitcherProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     
     var hashable: AnyHashable {
@@ -41,6 +44,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         contextualMenuHandler: DefaultContextualMenuHandler,
         blockDelegate: BlockDelegate,
         actionHandler: EditorActionHandlerProtocol,
+        accessorySwitcher: AccessoryViewSwitcherProtocol,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         showStyleMenu:  @escaping (BlockInformation) -> Void)
@@ -53,6 +57,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
+        self.accessorySwitcher = accessorySwitcher
         self.showPage = showPage
         self.openURL = openURL
         self.showStyleMenu = showStyleMenu
@@ -88,6 +93,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             upperBlock: upperBlock,
             isCheckable: isCheckable,
             actionHandler: actionHandler,
+            accessorySwitcher: accessorySwitcher,
             showPage: showPage,
             openURL: openURL,
             showStyleMenu: showStyleMenu,
