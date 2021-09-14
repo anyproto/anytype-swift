@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-protocol MainWindowHolder {
+protocol WindowHolder {
     
     var rootNavigationController: UINavigationController { get }
     
@@ -12,7 +12,7 @@ protocol MainWindowHolder {
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
 }
 
-extension MainWindowHolder {
+extension WindowHolder {
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool) {
         self.presentOnTop(viewControllerToPresent, animated: flag, completion: nil)
     }

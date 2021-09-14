@@ -5,7 +5,7 @@ import AnytypeCore
 
 final class ApplicationCoordinator {
     
-    private let window: MainWindow
+    private let window: UIWindow
     
     private let authService: AuthServiceProtocol
     
@@ -16,7 +16,7 @@ final class ApplicationCoordinator {
     // MARK: - Initializers
     
     init(
-        window: MainWindow,
+        window: UIWindow,
         authService: AuthServiceProtocol,
         authAssembly: AuthAssembly
     ) {
@@ -92,7 +92,7 @@ private extension ApplicationCoordinator {
 
 // MARK: - MainWindowHolde
 
-extension ApplicationCoordinator: MainWindowHolder {
+extension ApplicationCoordinator: WindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
         let rootNavigationController = createNavigationController()

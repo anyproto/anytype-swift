@@ -105,7 +105,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
 
         let restrictions = BlockRestrictionsFactory().makeRestrictions(for: type)
-        slashMenuView.menuItems = BlockActionsBuilder(
+        slashMenuView.menuItems = SlashMenuItemsBuilder(
             restrictions: restrictions
         ).slashMenuItems()
     }

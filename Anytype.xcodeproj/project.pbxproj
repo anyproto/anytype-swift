@@ -97,7 +97,6 @@
 		0A78328624BDEB5900A1B6F6 /* MarkStyleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328524BDEB5900A1B6F6 /* MarkStyleAction.swift */; };
 		0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081025D562AC0067EEC9 /* ObjectActionsService.swift */; };
 		0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */; };
-		0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBA23EDD102000FDC9C /* MainWindow.swift */; };
 		0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BD023F0342A000FDC9C /* PlistReader.swift */; };
 		0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4324CB02D400870C18 /* DividerBlockContentConfiguration.swift */; };
 		0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */; };
@@ -238,7 +237,7 @@
 		12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4054264AE455007B5074 /* LayoutAnchorType.swift */; };
 		12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4055264AE455007B5074 /* LayoutDimension.swift */; };
 		12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */; };
-		12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */; };
+		12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* WindowHolder.swift */; };
 		12EEC36B26A0903F00C3C4B1 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36726A0903F00C3C4B1 /* Emoji.swift */; };
 		12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */; };
 		12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */; };
@@ -419,6 +418,7 @@
 		53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */; };
 		530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530470F52682046900C9EE78 /* TextBlockIconView.swift */; };
 		530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530A5429269FB8FF009016AE /* AmplitudeConstants.swift */; };
+		530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F501F26F0981700F76D03 /* AnytypeLabel.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
 		531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629342632BD0A000D6780 /* StylePanelLayout.swift */; };
 		531629382632BD0B000D6780 /* StyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629352632BD0A000D6780 /* StyleViewController.swift */; };
@@ -736,7 +736,6 @@
 		0A78328524BDEB5900A1B6F6 /* MarkStyleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleAction.swift; sourceTree = "<group>"; };
 		0A83081025D562AC0067EEC9 /* ObjectActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsService.swift; sourceTree = "<group>"; };
 		0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingle.swift; sourceTree = "<group>"; };
-		0A996BBA23EDD102000FDC9C /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		0A996BD023F0342A000FDC9C /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		0AA00C4324CB02D400870C18 /* DividerBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserOtherDividerStyleConverter.swift; sourceTree = "<group>"; };
@@ -876,7 +875,7 @@
 		12DE4054264AE455007B5074 /* LayoutAnchorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAnchorType.swift; sourceTree = "<group>"; };
 		12DE4055264AE455007B5074 /* LayoutDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
 		12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
-		12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowHolder.swift; sourceTree = "<group>"; };
+		12E014D3266FCA7A008036B0 /* WindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowHolder.swift; sourceTree = "<group>"; };
 		12EEC36726A0903F00C3C4B1 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
 		12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGroup.swift; sourceTree = "<group>"; };
@@ -1055,6 +1054,7 @@
 		53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAnytypeText.swift; sourceTree = "<group>"; };
 		530470F52682046900C9EE78 /* TextBlockIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockIconView.swift; sourceTree = "<group>"; };
 		530A5429269FB8FF009016AE /* AmplitudeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeConstants.swift; sourceTree = "<group>"; };
+		530F501F26F0981700F76D03 /* AnytypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeLabel.swift; sourceTree = "<group>"; };
 		531197DF26430A9800FFC71E /* BlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandler.swift; sourceTree = "<group>"; };
 		531629342632BD0A000D6780 /* StylePanelLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylePanelLayout.swift; sourceTree = "<group>"; };
 		531629352632BD0A000D6780 /* StyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
@@ -1549,8 +1549,7 @@
 				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
-				0A996BBA23EDD102000FDC9C /* MainWindow.swift */,
-				12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */,
+				12E014D3266FCA7A008036B0 /* WindowHolder.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -3280,6 +3279,7 @@
 				3D4125F926A014E1007A6880 /* TextContent+Font.swift */,
 				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
 				53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */,
+				530F501F26F0981700F76D03 /* AnytypeLabel.swift */,
 			);
 			path = TextComponents;
 			sourceTree = "<group>";
@@ -4178,7 +4178,7 @@
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift in Sources */,
-				12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */,
+				12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
@@ -4221,7 +4221,6 @@
 				EAE8C66C2690EE2800324B46 /* FirstResponderHelper.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */,
-				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
@@ -4425,6 +4424,7 @@
 				123FDAF726C2959600F6F44B /* ObjectHeaderIconAndCoverContentView.swift in Sources */,
 				EAAD6DC726CBBFBF005CE1E7 /* URLInputAccessoryView.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
+				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
 				3D36B09D26A6DE250046C90F /* ContextualMenu+Image.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,

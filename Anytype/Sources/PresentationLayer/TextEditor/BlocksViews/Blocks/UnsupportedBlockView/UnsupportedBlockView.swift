@@ -19,8 +19,8 @@ class UnsupportedBlockView: UIView & UIContentView {
         }
     }
 
-    private let label: UILabel = {
-        let label = UILabel()
+    private let label: AnytypeLabel = {
+        let label = AnytypeLabel()
         label.textColor = .textTertiary
         return label
     }()
@@ -53,24 +53,24 @@ class UnsupportedBlockView: UIView & UIContentView {
             $0.centerY.equal(to: centerYAnchor)
         }
 
-        let text = UIKitAnytypeText(text: currentConfiguration.text, style: fontStyle)
-
         addSubview(label) {
-            $0.top.equal(to: topAnchor, constant: Layout.labelTopBottomSpacing + text.verticalSpacing)
-            $0.bottom.equal(to: bottomAnchor, constant: -(Layout.labelTopBottomSpacing + text.verticalSpacing))
+            $0.top.equal(to: topAnchor, constant: Layout.labelTopBottomSpacing)
+            $0.bottom.equal(to: bottomAnchor, constant: -Layout.labelTopBottomSpacing)
             $0.leading.equal(to: icon.trailingAnchor, constant: Layout.iconToTextPadding)
+            $0.trailing.equal(to: trailingAnchor, constant: -Layout.labelTrailingSpacing)
         }
     }
 
     // MARK: - New configuration
     func apply(configuration: UnsupportedBlockContentConfiguration) {
-        label.attributedText =  UIKitAnytypeText(text: configuration.text, style: fontStyle).attrString
+        label.setText(configuration.text, style: fontStyle)
     }
 }
 
 
 extension UnsupportedBlockView {
     private enum Layout {
+        static let labelTrailingSpacing: CGFloat = 20
         static let labelTopBottomSpacing: CGFloat = 5
         static let iconToTextPadding: CGFloat = 9
         static let iconSize: CGFloat =  18
