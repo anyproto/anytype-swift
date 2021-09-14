@@ -35,8 +35,8 @@ private extension StyleViewController {
         let icon: UIImage
 
         static let all: [ListItem] = [
-            (BlockText.Style.bulleted, "StyleBottomSheet/bullet"),
             (BlockText.Style.checkbox, "StyleBottomSheet/checkbox"),
+            (BlockText.Style.bulleted, "StyleBottomSheet/bullet"),
             (BlockText.Style.numbered, "StyleBottomSheet/numbered"),
             (BlockText.Style.toggle, "StyleBottomSheet/toggle")
         ]
@@ -84,18 +84,20 @@ final class StyleViewController: UIViewController {
 
     private var listStackView: UIStackView = {
         let listStackView = UIStackView()
-        listStackView.distribution = .fillEqually
+        listStackView.distribution = .equalCentering
         listStackView.axis = .horizontal
-        listStackView.spacing = 8
+        listStackView.spacing = 7
+        listStackView.translatesAutoresizingMaskIntoConstraints = false
 
         return listStackView
     }()
 
     private var otherStyleStackView: UIStackView = {
         let otherStyleStackView = UIStackView()
-        otherStyleStackView.distribution = .fillEqually
+        otherStyleStackView.distribution = .equalCentering
         otherStyleStackView.axis = .horizontal
-        otherStyleStackView.spacing = 8
+        otherStyleStackView.spacing = 7
+        otherStyleStackView.translatesAutoresizingMaskIntoConstraints = false
 
         return otherStyleStackView
     }()
@@ -103,7 +105,6 @@ final class StyleViewController: UIViewController {
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.distribution = .fillProportionally
         containerStackView.axis = .vertical
         containerStackView.spacing = 16
 
@@ -116,7 +117,7 @@ final class StyleViewController: UIViewController {
     private var actionHandler: ActionHandler
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
-    private var didTapMarkupButton: (_ styleView: UIView) -> Void
+    private var didTapMarkupButton: (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
     private var style: BlockText.Style
     private var restrictions: BlockRestrictions
     // deselect action will be performed on new selection
@@ -134,7 +135,7 @@ final class StyleViewController: UIViewController {
         restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
-        didTapMarkupButton: @escaping (_ styleView: UIView) -> Void,
+        didTapMarkupButton: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
         actionHandler: @escaping ActionHandler
     ) {
         self.viewControllerForPresenting = viewControllerForPresenting
@@ -188,31 +189,38 @@ final class StyleViewController: UIViewController {
 
             containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 16),
+            containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 24),
             containerStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
         ])
     }
 
     private func setupListStackView() {
+        let buttonSize = CGSize(width: 75, height: 52)
+
         ListItem.all.forEach { item in
             let button = ButtonsFactory.roundedBorderуButton(image: item.icon)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.heightAnchor.constraint(equalToConstant: 48).isActive = true
+
+            button.layoutUsing.anchors {
+                $0.size(buttonSize)
+            }
 
             if item.kind != self.style {
                 let isEnabled = restrictions.turnIntoStyles.contains(.text(item.kind))
                 button.isEnabled = isEnabled
             }
             listStackView.addArrangedSubview(button)
-
             setupAction(for: button, with: item.kind)
-
         }
+        listStackView.arrangedSubviews.last?.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
 
     private func setupOtherStyleStackView() {
-        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlighted"))
+        let buttonSize = CGSize(width: 103, height: 52)
+        let smallButtonSize = CGSize(width: 32, height: 32)
+
+        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlight"))
         setupAction(for: highlightedButton, with: .quote)
+
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
         setupAction(for: calloutButton, with: .code)
 
@@ -221,42 +229,69 @@ final class StyleViewController: UIViewController {
         }
         if .code != self.style {
             // TODO: add restrictions when callout block will be introduced
+            calloutButton.setImage(UIImage(named: "StyleBottomSheet/calloutInactive"))
             calloutButton.isEnabled = false
         }
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
+        colorButton.layer.cornerRadius = smallButtonSize.height / 2
+        colorButton.setBackgroundColor(.selected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
+        moreButton.layer.cornerRadius = smallButtonSize.height / 2
+        moreButton.setBackgroundColor(.selected, state: .selected)
+        
         moreButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
-            self.didTapMarkupButton(self.view)
+            moreButton.isSelected = true
+
+            // show markup view
+            self.didTapMarkupButton(self.view) {
+                // unselect button on closing markup view
+                moreButton.isSelected = false
+            }
         }), for: .touchUpInside)
 
-        let trailingStackView = UIStackView()
-        let leadingDumbView = UIView()
-        leadingDumbView.translatesAutoresizingMaskIntoConstraints = false
-        leadingDumbView.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        let trailingDumbView = UIView()
-        trailingDumbView.translatesAutoresizingMaskIntoConstraints = false
-        trailingDumbView.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        let containerForColorAndMoreView = UIView()
 
-        trailingStackView.distribution = .equalSpacing
-        trailingStackView.addArrangedSubview(leadingDumbView)
-        trailingStackView.addArrangedSubview(colorButton)
-        trailingStackView.addArrangedSubview(moreButton)
-        trailingStackView.addArrangedSubview(trailingDumbView)
+        // setup constraints
+
+        highlightedButton.layoutUsing.anchors {
+            $0.size(buttonSize)
+        }
+
+        calloutButton.layoutUsing.anchors {
+            $0.size(buttonSize)
+        }
+
+        containerForColorAndMoreView.layoutUsing.stack {
+            $0.layoutUsing.anchors {
+                $0.center(in: containerForColorAndMoreView)
+            }
+        } builder: {
+            colorButton.layoutUsing.anchors {
+                $0.size(smallButtonSize)
+            }
+            moreButton.layoutUsing.anchors {
+                $0.size(smallButtonSize)
+            }
+
+            return $0.hStack(
+                colorButton,
+                $0.hGap(fixed: 14),
+                moreButton
+            )
+        }
+        containerForColorAndMoreView.layoutUsing.anchors {
+            $0.size(buttonSize)
+        }
 
         otherStyleStackView.addArrangedSubview(highlightedButton)
         otherStyleStackView.addArrangedSubview(calloutButton)
-        otherStyleStackView.addArrangedSubview(trailingStackView)
-
-        otherStyleStackView.arrangedSubviews.forEach { view in
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        }
+        otherStyleStackView.addArrangedSubview(containerForColorAndMoreView)
     }
 
     private func setupAction(for button: UIControl, with style: BlockText.Style) {
@@ -336,13 +371,17 @@ final class StyleViewController: UIViewController {
         }
     }
 
-    @objc private func colorActionHandler() {
+    @objc private func colorActionHandler(button: UIControl) {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
+
+        button.isSelected = true
 
         let color = askColor()
         let backgroundColor = askBackgroundColor()
 
-        let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler)
+        let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler) {
+            button.isSelected = false
+        }
         viewControllerForPresenting.embedChild(contentVC)
 
         contentVC.view.pinAllEdges(to: viewControllerForPresenting.view)

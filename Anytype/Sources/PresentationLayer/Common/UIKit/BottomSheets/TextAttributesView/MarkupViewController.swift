@@ -80,10 +80,12 @@ final class MarkupsViewController: UIViewController {
     }()
 
     private let viewModel: MarkupViewModelProtocol
+    private let viewDidCloseHandler: () -> Void
 
     // MARK: - Lifecycle
-    init(viewModel: MarkupViewModelProtocol) {
+    init(viewModel: MarkupViewModelProtocol, viewDidClose: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.viewDidCloseHandler = viewDidClose
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -141,9 +143,12 @@ final class MarkupsViewController: UIViewController {
         bottomStackView.addArrangedSubview(rightAlignButton)
 
         codeButton.label.font = .uxBodyRegular
-        codeButton.label.textColor = .textPrimary
+        codeButton.setTextColor(.textPrimary, state: .normal)
+        codeButton.setTextColor(.textTertiary, state: .disabled)
+
         urlButton.label.font = .uxBodyRegular
-        urlButton.label.textColor = .textPrimary
+        urlButton.setTextColor(.textPrimary, state: .normal)
+        urlButton.setTextColor(.textTertiary, state: .disabled)
     }
     
     private func makeButton(
@@ -164,7 +169,7 @@ final class MarkupsViewController: UIViewController {
     }
 
     @objc private func backdropViewTapped() {
-        removeFromParentEmbed()
+       dismiss()
     }
 }
 
@@ -185,8 +190,7 @@ extension MarkupsViewController: MarkupViewProtocol {
     }
     
     func dismiss() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: true)
-        }
+        removeFromParentEmbed()
+        viewDidCloseHandler()
     }
 }

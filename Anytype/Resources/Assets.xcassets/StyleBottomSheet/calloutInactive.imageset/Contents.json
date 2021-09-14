@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "toogle.pdf",
+      "filename" : "calloutInactive.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "template"
   }
 }

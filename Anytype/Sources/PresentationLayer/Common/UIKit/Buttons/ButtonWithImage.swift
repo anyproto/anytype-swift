@@ -10,6 +10,7 @@ final class ButtonWithImage: UIControl {
     private(set) var imageView: UIImageView = .init()
     private var backgroundColorsMap = [UInt: UIColor]()
     private var imageTintColorsMap = [UInt: UIColor]()
+    private var textColorsMap = [UInt: UIColor]()
 
     init() {
         super.init(frame: .zero)
@@ -39,6 +40,11 @@ final class ButtonWithImage: UIControl {
         updateColors()
     }
 
+    func setTextColor(_ textColor: UIColor?, state: UIControl.State) {
+        textColorsMap[state.rawValue] = textColor
+        updateColors()
+    }
+
     override var isSelected: Bool {
         didSet {
             updateColors()
@@ -58,8 +64,14 @@ final class ButtonWithImage: UIControl {
     }
     
     private func updateColors() {
+        updateTextColor()
         updateBackgroundColor()
         updateImageTintColor()
+    }
+
+    private func updateTextColor() {
+        guard let color = textColorsMap[state.rawValue] else { return }
+        label.textColor = color
     }
     
     private func updateBackgroundColor() {
