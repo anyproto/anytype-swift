@@ -10,6 +10,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
+        viewModel.didSelectBlock(at: indexPath)
         collectionView.deselectItem(at: indexPath, animated: false)
     }
     
@@ -31,13 +32,12 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         shouldSelectItemAt indexPath: IndexPath
     ) -> Bool {
-        guard let item = dataSource.itemIdentifier(for: indexPath)
-        else { return false }
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         
         switch item {
         case let .block(block):
-            guard case .text = block.content else { return true }
-            return false
+            if case .text = block.content { return false }
+            return true
         case .header:
             return false
         }

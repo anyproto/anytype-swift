@@ -9,13 +9,15 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let detailsLoader: DetailsLoader
+    private let accessorySwitcher: AccessoryViewSwitcherProtocol
 
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        detailsLoader: DetailsLoader
+        detailsLoader: DetailsLoader,
+        accessorySwitcher: AccessoryViewSwitcherProtocol
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
@@ -26,6 +28,7 @@ final class BlockViewModelBuilder {
             router: router
         )
         self.detailsLoader = detailsLoader
+        self.accessorySwitcher = accessorySwitcher
     }
 
     func build(_ blocks: [BlockModelProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
@@ -85,6 +88,7 @@ final class BlockViewModelBuilder {
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
                     actionHandler: blockActionHandler,
+                    accessorySwitcher: accessorySwitcher,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
                     },

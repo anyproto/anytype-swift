@@ -17,16 +17,11 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private var focusSubscription: AnyCancellable?
-    private(set) var accessoryViewSwitcher: AccessoryViewSwitcherProtocol?
 
     init(configuration: TextBlockContentConfiguration) {
         self.currentConfiguration = configuration
 
         super.init(frame: .zero)
-
-        self.accessoryViewSwitcher = configuration
-            .accessoryViewBuilder
-            .accessoryViewSwitcher()
         setupLayout()
         applyNewConfiguration()
     }
