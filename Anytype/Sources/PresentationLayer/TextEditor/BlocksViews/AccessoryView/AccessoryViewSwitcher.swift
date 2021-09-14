@@ -142,7 +142,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private func showEditingBars(textView: UITextView) {
         switchInputs(
-            animated: false,
+            animated: true,
             textView: textView,
             accessoryView: accessoryView
         )
