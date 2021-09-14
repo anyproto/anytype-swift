@@ -28,13 +28,6 @@ extension TextBlockContentView: TextViewDelegate {
         switch action {
         case .showStyleMenu:
             currentConfiguration.showStyleMenu(currentConfiguration.information)
-        case .showMultiActionMenuAction:
-            textView.shouldResignFirstResponder()
-            let block = currentConfiguration.block
-            currentConfiguration.actionHandler.handleAction(
-                .textView(action: action, block: block),
-                blockId: currentConfiguration.information.id
-            )
         case .changeText:
             accessoryViewSwitcher?.textDidChange(textView: textView.textView)
 

@@ -41,7 +41,6 @@ extension CustomTextView {
         case changeLink(NSAttributedString, NSRange)
 
         case keyboardAction(KeyboardAction)
-        case showMultiActionMenuAction
         case changeCaretPosition(NSRange)
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
         case showPage(String)
