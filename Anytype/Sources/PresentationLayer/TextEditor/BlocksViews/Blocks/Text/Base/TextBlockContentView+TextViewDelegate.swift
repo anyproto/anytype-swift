@@ -16,6 +16,7 @@ extension TextBlockContentView: TextViewDelegate {
     }
     
     func willBeginEditing() {
+        accessoryViewSwitcher?.updateDelegate(delegate: self)
         accessoryViewSwitcher?.didBeginEditing(textView: textView)
         currentConfiguration.blockDelegate.willBeginEditing()
     }

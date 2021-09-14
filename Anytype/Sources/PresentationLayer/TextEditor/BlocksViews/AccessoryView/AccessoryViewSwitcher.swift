@@ -14,6 +14,8 @@ protocol AccessoryViewSwitcherProtocol: AnyObject {
     var textToTriggerSlashViewDisplay: String { get }
     var textToTriggerMentionViewDisplay: String { get }
     
+    func updateDelegate(delegate: AccessoryViewSwitcherDelegate & TextViewDelegate)
+    
     func showSlashMenuView(textView: UITextView)
     func showMentionsView(textView: UITextView)
     
@@ -42,18 +44,21 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private var latestTextViewTextChange: TextViewTextChangeType?
     
     init(
-        delegate: AccessoryViewSwitcherDelegate,
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         accessoryView: EditorAccessoryView
     ) {
-        self.delegate = delegate
         self.slashMenuView = slashMenuView
         self.accessoryView = accessoryView
         self.mentionsView = mentionsView
     }
 
     // MARK: - Public methods
+    
+    func updateDelegate(delegate: AccessoryViewSwitcherDelegate & TextViewDelegate) {
+        self.delegate = delegate
+        accessoryView.actionHandler.delegate = delegate
+    }
 
     func didBeginEditing(textView: CustomTextView) {
         self.textView = textView.textView

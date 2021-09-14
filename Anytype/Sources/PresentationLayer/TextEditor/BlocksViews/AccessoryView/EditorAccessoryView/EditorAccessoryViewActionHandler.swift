@@ -13,13 +13,11 @@ enum EditorAccessoryViewAction {
 
 
 final class EditorAccessoryViewActionHandler {
-    private weak var delegate: TextViewDelegate?
+    weak var delegate: TextViewDelegate?
     weak var switcher: AccessoryViewSwitcherProtocol?
     weak var customTextView: CustomTextView?
     
-    init(delegate: TextViewDelegate) {
-        self.delegate = delegate
-    }
+    init() { }
     
     func handle(_ action: EditorAccessoryViewAction) {
         guard let customTextView = customTextView, let switcher = switcher else {
