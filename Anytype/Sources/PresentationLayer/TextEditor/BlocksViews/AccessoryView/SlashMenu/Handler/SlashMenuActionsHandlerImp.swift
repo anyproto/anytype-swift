@@ -17,7 +17,7 @@ final class SlashMenuActionsHandlerImp {
 
 extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
     
-    func handle(action: BlockActionType) {
+    func handle(action: SlashAction) {
         removeSlashMenuText()
         
         switch action {

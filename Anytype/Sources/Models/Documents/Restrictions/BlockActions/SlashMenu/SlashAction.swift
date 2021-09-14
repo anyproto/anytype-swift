@@ -1,5 +1,4 @@
-
-enum BlockActionType {
+enum SlashAction {
     case style(BlockStyleAction)
     case media(BlockMediaAction)
     case objects(ObjectType)

@@ -8,7 +8,7 @@ final class SlashMenuAssembly {
     }
     
     func menuController(
-        menuItems: [BlockActionMenuItem],
+        menuItems: [SlashMenuItem],
         dismissHandler: (() -> Void)?
     ) -> SlashMenuViewController {
         let controller = SlashMenuViewController(
