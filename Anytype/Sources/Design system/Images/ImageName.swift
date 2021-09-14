@@ -61,7 +61,7 @@ final class ImageName {
         
         enum color {
             static let amber = "slash_menu_color_amber"
-            static let ultramarine = "slash_menu_color_ultramarine"
+            static let blue = "slash_menu_color_ultramarine"
             static let teal = "slash_menu_color_teal"
             static let red = "slash_menu_color_red"
             static let purple = "slash_menu_color_purple"
@@ -70,7 +70,7 @@ final class ImageName {
             static let green = "slash_menu_color_green"
             static let coldgray = "slash_menu_color_coldgray"
             static let black = "slash_menu_color_black"
-            static let blue = "slash_menu_color_blue"
+            static let sky = "slash_menu_color_sky"
         }
         
         enum media {

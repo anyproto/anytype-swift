@@ -1,5 +1,4 @@
-
-struct BlockActionsBuilder {
+struct SlashMenuItemsBuilder {
     
     private let restrictions: BlockRestrictions
     
