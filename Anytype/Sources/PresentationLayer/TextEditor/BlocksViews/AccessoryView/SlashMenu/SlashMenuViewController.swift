@@ -11,7 +11,6 @@ final class SlashMenuViewController: UIViewController {
     let actionsHandler: SlashMenuActionsHandler
     let dismissHandler: (() -> Void)?
     
-    
     let cellReuseId = NSStringFromClass(UITableViewCell.self)
     
     var cellData: [SlashMenuCellData] = [] {

@@ -79,6 +79,8 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: - Apply configuration
     private func applyNewConfiguration() {
+        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
+        
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: currentConfiguration.content.contentType)
         
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: currentConfiguration)
@@ -87,8 +89,6 @@ final class TextBlockContentView: UIView & UIContentView {
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
 
         textView.delegate = self
-        
-        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
         
         let displayPlaceholder = currentConfiguration.content.contentType == .toggle && currentConfiguration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder

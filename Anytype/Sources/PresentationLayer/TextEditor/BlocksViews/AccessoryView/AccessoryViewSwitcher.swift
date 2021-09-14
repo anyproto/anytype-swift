@@ -54,7 +54,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
 
     // MARK: - Public methods
-    
+    // Text block sets itself as a delegate when focused
     func updateDelegate(delegate: AccessoryViewSwitcherDelegate & TextViewDelegate) {
         self.delegate = delegate
         accessoryView.actionHandler.delegate = delegate
@@ -142,13 +142,15 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private func showEditingBars(textView: UITextView) {
         switchInputs(
-            animated: false,
+            animated: true,
             textView: textView,
             accessoryView: accessoryView
         )
     }
     
     private func cleanupDisplayedView() {
+        slashMenuView.restoreDefaultState()
+        
         displayedView = nil
         accessoryViewTriggerSymbolPosition = nil
     }
