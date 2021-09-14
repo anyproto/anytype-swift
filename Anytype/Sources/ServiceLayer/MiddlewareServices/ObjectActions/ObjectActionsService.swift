@@ -45,9 +45,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: Anytype_Model_Block.Position,
         templateID: String
     ) -> AnyPublisher<CreatePageResponse, Error> {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(
-            contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
-        )
+        Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID,
+                                                    details: details,
+                                                    templateID: templateID,
+                                                    targetID: targetID,
+                                                    position: position,
+                                                    fields: .init())
         .map { CreatePageResponse($0) }
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
