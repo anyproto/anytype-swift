@@ -47,7 +47,7 @@ extension UITextView: Mentionable {
         let attributedString = NSMutableAttributedString(attributedString: attributedText)
         attributedString.deleteCharacters(in: replacementRange)
         attributedText = attributedString
-        insertStringToAttributedString(
+        insertString(
             mention.name,
             location: location
         )

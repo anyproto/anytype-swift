@@ -39,7 +39,6 @@ final class EditorAssembly {
             )
         )
                 
-        let selectionHandler = EditorSelectionHandler()
         let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
         let markupChanger = BlockMarkupChanger(
@@ -51,7 +50,6 @@ final class EditorAssembly {
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
             modelsHolder: modelsHolder,
-            selectionHandler: selectionHandler,
             document: document,
             markupChanger: markupChanger
         )
@@ -90,7 +88,6 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,

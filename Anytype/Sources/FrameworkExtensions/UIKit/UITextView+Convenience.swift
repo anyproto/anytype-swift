@@ -10,14 +10,11 @@ extension UITextView {
     ///
     /// - Parameters:
     ///   - string: String to insert
-    func insertStringToAttributedStringAfterCaret(_ string: String) {
-        insertStringToAttributedString(
-            string,
-            location: selectedRange.location
-        )
+    func insertStringAfterCaret(_ string: String) {
+        insertString(string, location: selectedRange.location)
     }
     
-    func insertStringToAttributedString(_ string: String, location: Int) {
+    func insertString(_ string: String, location: Int) {
         guard !string.isEmpty, location <= attributedText.length else { return }
         if attributedText.length == 0 {
             attributedText = NSAttributedString(string: string, attributes: typingAttributes)

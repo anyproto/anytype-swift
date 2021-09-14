@@ -21,21 +21,18 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let listService = BlockActionsServiceList()
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
-    private let selectionHandler: EditorModuleSelectionHandlerProtocol
     
     private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
     
     init(
         documentId: String,
         modelsHolder: ObjectContentViewModelsSharedHolder,
-        selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol
     ) {
         self.modelsHolder = modelsHolder
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
-        self.selectionHandler = selectionHandler
         self.document = document
         self.markupChanger = markupChanger
         
