@@ -36,7 +36,7 @@ final class StyleColorViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
-            let items = sectionIndex == 0 ? ColorItem.text : ColorItem.background
+            let items = SectionKind(rawValue: sectionIndex) == .textColor ? ColorItem.text : ColorItem.background
 
             var groups: [NSCollectionLayoutItem] = []
             let itemDimension: CGSize = .init(width: 36.0, height: 34.0)
@@ -80,7 +80,7 @@ final class StyleColorViewController: UIViewController {
 
             let section = NSCollectionLayoutSection(group: mainGroup)
 
-            if sectionIndex == 0 {
+            if SectionKind(rawValue: sectionIndex) == .textColor {
                 section.contentInsets = .init(top: 0, leading: 0, bottom: 7, trailing: 0)
             }
 
@@ -107,14 +107,15 @@ final class StyleColorViewController: UIViewController {
     private var backgroundColor: UIColor?
     private var actionHandler: ActionHandler
     private var viewDidCloseHandler: () -> Void
+//    private let feedbackGenerator = UISelectionFeedbackGenerator()
 
     // MARK: - Lifecycle
 
     /// Init style view controller
     /// - Parameter color: Foreground color
     /// - Parameter backgroundColor: Background color
-    init(color: UIColor? = .grayscale90,
-         backgroundColor: UIColor? = .grayscaleWhite,
+    init(color: UIColor = .textPrimary,
+         backgroundColor: UIColor = .backgroundPrimary,
          actionHandler: @escaping ActionHandler,
          viewDidClose: @escaping () -> Void) {
         self.actionHandler = actionHandler
@@ -179,10 +180,7 @@ final class StyleColorViewController: UIViewController {
         styleDataSource = UICollectionViewDiffableDataSource<SectionKind, ColorItem>(collectionView: styleCollectionView) {
             [weak self] (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
 
-            var color = self?.color
-            if indexPath.section != 0 {
-                color = self?.backgroundColor
-            }
+            let color = SectionKind(rawValue: indexPath.section) == .textColor ? self?.color : self?.backgroundColor
 
             if identifier.color == color {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
@@ -219,6 +217,8 @@ final class StyleColorViewController: UIViewController {
 extension StyleColorViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        UISelectionFeedbackGenerator().selectionChanged()
+
         guard !(collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false) else { return false }
         guard let colorItem = styleDataSource?.itemIdentifier(for: indexPath) else {
             return false
@@ -234,7 +234,13 @@ extension StyleColorViewController: UICollectionViewDelegate {
             self.backgroundColor = color.color
             actionHandler(.setBackgroundColor(color))
         }
-        
+
+        return true
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        guard !(collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false) else { return false }
+
         return true
     }
 }

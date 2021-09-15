@@ -120,8 +120,8 @@ extension ApplicationCoordinator: WindowHolder {
         vc.navigationBar.compactAppearance = appearance
         vc.navigationBar.standardAppearance = appearance
         vc.navigationBar.scrollEdgeAppearance = appearance
-        vc.navigationBar.barTintColor = UIColor.grayscaleWhite
-        vc.navigationBar.tintColor = UIColor.grayscaleWhite
+        vc.navigationBar.barTintColor = UIColor.backgroundPrimary
+        vc.navigationBar.tintColor = UIColor.backgroundPrimary
     }
     
 }

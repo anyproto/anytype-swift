@@ -48,7 +48,7 @@ final class SegmentItemView: UIView {
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.uxCalloutMedium
-        label.tintColor = UIColor.grayscale90
+        label.tintColor = UIColor.textPrimary
 
         addSubview(label)
         label.edgesToSuperview(insets: Constants.labelEdgeInsets)

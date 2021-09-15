@@ -147,8 +147,8 @@ private extension ObjectCoverView {
     }
     
     func setupBackgroundColor() {
-        backgroundColor = .grayscaleWhite
-        imageView.backgroundColor = .grayscaleWhite
+        backgroundColor = .backgroundPrimary
+        imageView.backgroundColor = .backgroundPrimary
     }
     
     func setupLayout() {

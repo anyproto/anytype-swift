@@ -19,7 +19,7 @@ enum BlockColor: CaseIterable {
         case .amber:
             return .pureAmber
         case .black:
-            return .grayscale90
+            return .textPrimary
         case .lemon:
             return .pureLemon
         case .red:

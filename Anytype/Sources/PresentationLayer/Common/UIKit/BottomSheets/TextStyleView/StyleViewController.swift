@@ -253,6 +253,7 @@ final class StyleViewController: UIViewController {
                 // unselect button on closing markup view
                 moreButton.isSelected = false
             }
+            UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
 
         let containerForColorAndMoreView = UIView()
@@ -311,6 +312,7 @@ final class StyleViewController: UIViewController {
                 self?.selectStyle(style) {
                     button.isSelected = false
                 }
+                UISelectionFeedbackGenerator().selectionChanged()
             }
         )
 
@@ -376,8 +378,8 @@ final class StyleViewController: UIViewController {
 
         button.isSelected = true
 
-        let color = askColor()
-        let backgroundColor = askBackgroundColor()
+        let color = askColor() ?? .textPrimary
+        let backgroundColor = askBackgroundColor() ?? .backgroundPrimary
 
         let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler) {
             button.isSelected = false
@@ -391,6 +393,7 @@ final class StyleViewController: UIViewController {
             $0.trailing.equal(to: view.trailingAnchor, constant: -10)
             $0.top.equal(to: view.topAnchor, constant: -8)
         }
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }
 
@@ -398,6 +401,7 @@ final class StyleViewController: UIViewController {
 
 extension StyleViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UISelectionFeedbackGenerator().selectionChanged()
         guard let style = styleDataSource?.itemIdentifier(for: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return

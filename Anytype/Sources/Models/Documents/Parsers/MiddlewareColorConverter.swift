@@ -4,7 +4,7 @@ import BlocksModels
 extension MiddlewareColor {
     func color(background: Bool) -> UIColor {
         switch self {
-        case .default: return background ? .grayscaleWhite : .grayscale90
+        case .default: return background ? .backgroundPrimary : .textPrimary
         case .grey: return background ? .lightColdGray : .darkColdGray
         case .yellow: return background ? .lightLemon : .pureLemon
         case .orange: return background ? .lightAmber : .pureAmber

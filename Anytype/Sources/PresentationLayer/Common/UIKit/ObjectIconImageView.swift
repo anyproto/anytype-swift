@@ -65,7 +65,7 @@ extension ObjectIconImageView: ConfigurableView {
                 imageView.image = stringIconImage(
                     model: model,
                     string: String(character),
-                    textColor: UIColor.grayscaleWhite,
+                    textColor: UIColor.backgroundPrimary,
                     backgroundColor: UIColor.dividerSecondary
                 )
             }
@@ -73,7 +73,7 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.image = stringIconImage(
                 model: model,
                 string: iconEmoji.value,
-                textColor: UIColor.grayscaleWhite,
+                textColor: UIColor.backgroundPrimary,
                 backgroundColor: model.usecase == .openedObjectNavigationBar ? .clear : UIColor.grayscale10
             )
         }

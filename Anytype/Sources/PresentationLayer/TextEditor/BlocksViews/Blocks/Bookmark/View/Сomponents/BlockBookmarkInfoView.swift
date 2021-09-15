@@ -63,7 +63,7 @@ final class BlockBookmarkInfoView: UIView {
         let imageGuideline = ImageGuideline(
             size: Layout.iconSize,
             cornerRadius: 2,
-            backgroundColor: UIColor.grayscaleWhite
+            backgroundColor: UIColor.backgroundPrimary
         )
         
         let placeholder = ImageBuilder(imageGuideline).build()
