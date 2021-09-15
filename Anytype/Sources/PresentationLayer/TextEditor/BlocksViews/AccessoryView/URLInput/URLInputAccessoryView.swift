@@ -4,10 +4,7 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
     
     let urlInputView: URLInputView
     
-    init(
-        url: URL? = nil,
-        didSetURL: @escaping (URL?) -> Void
-    ) {
+    init(url: URL? = nil, didSetURL: @escaping (URL?) -> Void) {
         self.urlInputView = URLInputView(
             url: url,
             didSetURL: didSetURL
@@ -23,6 +20,10 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
         super.didMoveToWindow()
         addSubview(urlInputView)
         urlInputView.pinAllEdges(to: self)
+    }
+    
+    func updateUrl(_ url: URL?) {
+        urlInputView.updateUrl(url)
     }
 }
 
