@@ -34,7 +34,7 @@ extension TextBlockContentView: TextViewDelegate {
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
         case .changeText:
-            currentConfiguration.accessorySwitcher.textDidChange(textView: textView.textView)
+            currentConfiguration.accessorySwitcher.textDidChange()
 
             currentConfiguration.actionHandler.handleAction(
                 .textView(
@@ -82,7 +82,6 @@ extension TextBlockContentView: TextViewDelegate {
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
             currentConfiguration.accessorySwitcher.textWillChange(
-                textView: textView.textView,
                 replacementText: replacementText,
                 range: range
             )
@@ -102,7 +101,7 @@ extension TextBlockContentView: TextViewDelegate {
             return shouldChangeText
         case let .changeLink(attrText, range):
             let link: URL? = attrText.value(for: .link, range: range)
-            currentConfiguration.accessorySwitcher.showURLInput(textView: textView.textView, url: link)
+            currentConfiguration.accessorySwitcher.showURLInput(url: link)
         case let .showPage(pageId):
             currentConfiguration.showPage(pageId)
         case let .openURL(url):
