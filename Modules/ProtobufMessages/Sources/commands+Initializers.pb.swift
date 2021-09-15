@@ -1402,6 +1402,28 @@ extension Anytype_Rpc.Block.Unlink.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.UpdateContent.Request {
+  public init(contextID: String, blockID: String, block: Anytype_Model_Block) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.block = block
+  }
+}
+
+extension Anytype_Rpc.Block.UpdateContent.Response {
+  public init(error: Anytype_Rpc.Block.UpdateContent.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.UpdateContent.Response.Error {
+  public init(code: Anytype_Rpc.Block.UpdateContent.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Upload.Request {
   public init(contextID: String, blockID: String, filePath: String, url: String) {
     self.contextID = contextID
@@ -1650,6 +1672,27 @@ extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response {
 
 extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error {
   public init(code: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Request {
+  public init(contextID: String, blockIds: [String], isFavorite: Bool) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.isFavorite = isFavorite
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response {
+  public init(error: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error {
+  public init(code: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2553,6 +2596,48 @@ extension Anytype_Rpc.Object.Search.Response {
 
 extension Anytype_Rpc.Object.Search.Response.Error {
   public init(code: Anytype_Rpc.Object.Search.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsArchived.Request {
+  public init(contextID: String, isArchived: Bool) {
+    self.contextID = contextID
+    self.isArchived = isArchived
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsArchived.Response {
+  public init(error: Anytype_Rpc.Object.SetIsArchived.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error {
+  public init(code: Anytype_Rpc.Object.SetIsArchived.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsFavorite.Request {
+  public init(contextID: String, isFavorite: Bool) {
+    self.contextID = contextID
+    self.isFavorite = isFavorite
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsFavorite.Response {
+  public init(error: Anytype_Rpc.Object.SetIsFavorite.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsFavorite.Response.Error {
+  public init(code: Anytype_Rpc.Object.SetIsFavorite.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

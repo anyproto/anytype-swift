@@ -105,7 +105,7 @@ final class DocumentEditorViewController: UIViewController {
         return self
     }
     
-    func hnadleCollectionViewContentOffsetChange() {
+    func handleCollectionViewContentOffsetChange() {
         let contentOffsetY = collectionView.contentOffset.y
         let contentInsetTop = collectionView.contentInset.top
 
@@ -228,7 +228,7 @@ private extension DocumentEditorViewController {
             
             self.collectionView.contentInset.top = height
             self.collectionView.setContentOffset(CGPoint(x: 0, y: -height), animated: true)
-            self.hnadleCollectionViewContentOffsetChange()
+            self.handleCollectionViewContentOffsetChange()
         }
     }
 
