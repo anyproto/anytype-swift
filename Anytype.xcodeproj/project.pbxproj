@@ -550,8 +550,7 @@
 		EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */; };
 		EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */; };
 		EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E544262DED67009F91D9 /* UIImageExtension.swift */; };
-		EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E547262DF30B009F91D9 /* SlashMenuActionsHandler.swift */; };
-		EA77E54B262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E54A262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift */; };
+		EA77E54B262DF398009F91D9 /* SlashMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E54A262DF398009F91D9 /* SlashMenuViewModel.swift */; };
 		EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */; };
 		EA7DE3FE26397C08005AFEE2 /* SlashMenuCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE3FD26397C08005AFEE2 /* SlashMenuCellDataBuilder.swift */; };
 		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
@@ -1184,8 +1183,7 @@
 		EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Convenience.swift"; sourceTree = "<group>"; };
 		EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		EA77E544262DED67009F91D9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		EA77E547262DF30B009F91D9 /* SlashMenuActionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsHandler.swift; sourceTree = "<group>"; };
-		EA77E54A262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuActionsHandlerImp.swift; sourceTree = "<group>"; };
+		EA77E54A262DF398009F91D9 /* SlashMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuViewModel.swift; sourceTree = "<group>"; };
 		EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAlignmentAction.swift; sourceTree = "<group>"; };
 		EA7DE3FD26397C08005AFEE2 /* SlashMenuCellDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuCellDataBuilder.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
@@ -2572,15 +2570,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		3D29AFEB26A5C5D30095BA18 /* Handler */ = {
-			isa = PBXGroup;
-			children = (
-				EA77E547262DF30B009F91D9 /* SlashMenuActionsHandler.swift */,
-				EA77E54A262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift */,
-			);
-			path = Handler;
-			sourceTree = "<group>";
-		};
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -3619,9 +3608,9 @@
 		EA289B9F2629B25C00EA869F /* SlashMenu */ = {
 			isa = PBXGroup;
 			children = (
-				3D29AFEB26A5C5D30095BA18 /* Handler */,
 				EA7DE40226397D0A005AFEE2 /* Filtering */,
 				EAC6BB5626289201004C8C06 /* SlashMenuView.swift */,
+				EA77E54A262DF398009F91D9 /* SlashMenuViewModel.swift */,
 				3D16840226DD5930008B9DFF /* SlashMenuContentConfigurationFactory.swift */,
 				EA77E51F262DAAA5009F91D9 /* SlashMenuViewController.swift */,
 				3D16840426DD5B54008B9DFF /* SlashMenuViewController+TableView.swift */,
@@ -4063,7 +4052,7 @@
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
 				123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
-				EA77E54B262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift in Sources */,
+				EA77E54B262DF398009F91D9 /* SlashMenuViewModel.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
 				EA074A2F26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
@@ -4248,7 +4237,6 @@
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
 				3DFD1B1C26E8AAAB00F893FC /* EditorSearchCellData.swift in Sources */,
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
-				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,

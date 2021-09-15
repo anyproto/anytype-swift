@@ -11,10 +11,10 @@ struct AccessoryViewSwitcherBuilder {
         let accessoryViewModel = EditorAccessoryViewModel(router: router)
         let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
         
-        let slashHandler = SlashMenuActionsHandlerImp(actionHandler: actionHandler)
+        let slashMenuViewModel = SlashMenuViewModel(actionHandler: actionHandler)
         let slashMenuView = SlashMenuAssembly.menuView(
             size: menuActionsViewSize,
-            actionsHandler: slashHandler
+            viewModel: slashMenuViewModel
         )
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(

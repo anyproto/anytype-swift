@@ -8,7 +8,7 @@ enum SlashMenuCellData {
 
 final class SlashMenuViewController: UIViewController {
     let configurationFactory = SlashMenuContentConfigurationFactory()
-    let actionsHandler: SlashMenuActionsHandler
+    let actionsHandler: SlashMenuViewModel
     let dismissHandler: (() -> Void)?
     
     let cellReuseId = NSStringFromClass(UITableViewCell.self)
@@ -24,7 +24,7 @@ final class SlashMenuViewController: UIViewController {
     
     init(
         cellData: [SlashMenuCellData],
-        actionsHandler: SlashMenuActionsHandler,
+        actionsHandler: SlashMenuViewModel,
         dismissHandler: (() -> Void)?
     ) {
         self.cellData = cellData
