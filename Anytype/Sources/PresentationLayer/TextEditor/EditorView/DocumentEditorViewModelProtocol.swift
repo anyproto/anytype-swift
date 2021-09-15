@@ -7,7 +7,6 @@ protocol DocumentEditorViewModelProtocol {
     
     var modelsHolder: ObjectContentViewModelsSharedHolder { get }
     
-    var selectionHandler: EditorModuleSelectionHandlerProtocol { get }
     var blockActionHandler: EditorActionHandlerProtocol { get }
     
     func viewLoaded()

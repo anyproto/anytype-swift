@@ -237,14 +237,7 @@ private extension DocumentEditorViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
-    func setupInteractions() {
-        selectionSubscription = viewModel
-            .selectionHandler
-            .selectionEventPublisher()
-            .sink { [weak self] value in
-                self?.handleSelection(event: value)
-            }
-        
+    func setupInteractions() {        
         listViewTapGestureRecognizer.addTarget(
             self,
             action: #selector(tapOnListViewGestureRecognizerHandler)
@@ -271,36 +264,11 @@ private extension DocumentEditorViewController {
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
-        if viewModel.selectionHandler.selectionEnabled == true { return }
-        
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
 
         viewModel.blockActionHandler.onEmptySpotTap()
-    }
-    
-    func handleSelection(event: EditorSelectionIncomingEvent) {
-        switch event {
-        case .selectionDisabled:
-            deselectAllBlocks()
-        case let .selectionEnabled(event):
-            switch event {
-            case .isEmpty:
-                deselectAllBlocks()
-            case let .nonEmpty(count, _):
-                // We always count with this "1" because of top title block, which is not selectable
-                if count == collectionView.numberOfItems(inSection: 0) - 1 {
-                    collectionView.selectAllItems(startingFrom: 1)
-                }
-            }
-            collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
-        }
-    }
-        
-    func deselectAllBlocks() {
-        self.collectionView.deselectAllSelectedItems()
-        self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
@@ -347,7 +315,7 @@ private extension DocumentEditorViewController {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel
-        cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
+        cell.contentView.isUserInteractionEnabled = true
 
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         if FeatureFlags.rainbowCells {

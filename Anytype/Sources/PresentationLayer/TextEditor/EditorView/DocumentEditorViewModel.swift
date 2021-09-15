@@ -17,7 +17,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     
     let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     
@@ -35,7 +34,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         viewInput: DocumentEditorViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
-        selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
         modelsHolder: ObjectContentViewModelsSharedHolder,
         blockBuilder: BlockViewModelBuilder,
@@ -44,7 +42,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         headerBuilder: ObjectHeaderBuilder
     ) {
         self.documentId = documentId
-        self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
         self.document = document
@@ -209,8 +206,10 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
 
 extension DocumentEditorViewModel {
     func viewLoaded() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.documentPage,
-                                      withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId])
+        Amplitude.instance().logEvent(
+            AmplitudeEventsName.documentPage,
+            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId]
+        )
     }
 }
 
@@ -218,10 +217,6 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func didSelectBlock(at index: IndexPath) {
-        if selectionHandler.selectionEnabled {
-            didSelect(atIndex: index)
-            return
-        }
         element(at: index)?.didSelectRowInTableView()
     }
 
@@ -231,15 +226,6 @@ extension DocumentEditorViewModel {
             return nil
         }
         return modelsHolder.models[at.row]
-    }
-
-    private func didSelect(atIndex: IndexPath) {
-        guard let item = element(at: atIndex) else { return }
-        selectionHandler.set(
-            selected: !selectionHandler.selected(id: item.blockId),
-            id: item.blockId,
-            type: item.content.type
-        )
     }
 }
 

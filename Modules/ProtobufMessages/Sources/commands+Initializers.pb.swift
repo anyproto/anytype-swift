@@ -230,12 +230,15 @@ extension Anytype_Rpc.Block.Create.Response.Error {
 }
 
 extension Anytype_Rpc.Block.CreatePage.Request {
-  public init(contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, templateID: String) {
+  public init(
+    contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct
+  ) {
     self.contextID = contextID
-    self.targetID = targetID
     self.details = details
-    self.position = position
     self.templateID = templateID
+    self.targetID = targetID
+    self.position = position
+    self.fields = fields
   }
 }
 

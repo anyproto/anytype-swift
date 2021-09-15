@@ -37,6 +37,8 @@ struct ObjectIconImageFontSet {
             return nil
         case .placeholder:
             return placeholderImageFont
+        case .staticImage:
+            return nil
         }
     }
     

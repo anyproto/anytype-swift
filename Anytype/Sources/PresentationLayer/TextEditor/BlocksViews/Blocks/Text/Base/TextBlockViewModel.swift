@@ -17,10 +17,12 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
+    
     private let showPage: (String) -> Void
     private let openURL: (URL) -> Void
-    private let showStyleMenu: (BlockInformation) -> Void
+    
     private let actionHandler: EditorActionHandlerProtocol
+    private let accessorySwitcher: AccessoryViewSwitcherProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     
     var hashable: AnyHashable {
@@ -41,10 +43,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         contextualMenuHandler: DefaultContextualMenuHandler,
         blockDelegate: BlockDelegate,
         actionHandler: EditorActionHandlerProtocol,
+        accessorySwitcher: AccessoryViewSwitcherProtocol,
         showPage: @escaping (String) -> Void,
-        openURL: @escaping (URL) -> Void,
-        showStyleMenu:  @escaping (BlockInformation) -> Void)
-    {
+        openURL: @escaping (URL) -> Void
+    ) {
         self.block = block
         self.text = text
         self.upperBlock = upperBlock
@@ -53,9 +55,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
+        self.accessorySwitcher = accessorySwitcher
         self.showPage = showPage
         self.openURL = openURL
-        self.showStyleMenu = showStyleMenu
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
@@ -84,12 +86,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             blockDelegate: blockDelegate,
             text: text,
             block: block,
+            content: content,
             upperBlock: upperBlock,
             isCheckable: isCheckable,
             actionHandler: actionHandler,
+            accessorySwitcher: accessorySwitcher,
             showPage: showPage,
             openURL: openURL,
-            showStyleMenu: showStyleMenu,
-            focusPublisher: focusSubject.eraseToAnyPublisher())
+            focusPublisher: focusSubject.eraseToAnyPublisher()
+        )
     }
 }

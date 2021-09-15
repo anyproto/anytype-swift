@@ -3503,13 +3503,15 @@ extension Anytype_Rpc.Block.CreatePage {
       parameters
     }
     public static func invoke(
-      contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, templateID: String, queue: DispatchQueue? = nil
+      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct,
+      queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID), on: queue)
+      self.invoke(parameters: .init(contextID: contextID, details: details, templateID: templateID, targetID: targetID, position: position, fields: fields), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, templateID: String) -> Result<Response, Error>
-    {
-      self.result(.init(contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID))
+    public static func invoke(
+      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct
+    ) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, details: details, templateID: templateID, targetID: targetID, position: position, fields: fields))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in

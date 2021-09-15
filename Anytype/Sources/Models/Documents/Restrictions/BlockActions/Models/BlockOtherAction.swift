@@ -17,9 +17,9 @@ enum BlockOtherAction: CaseIterable {
     var iconName: String {
         switch self {
         case .dotsDivider:
-            return "TextEditor/Toolbar/Blocks/DotsDivider"
+            return ImageName.slashMenu.other.dots_divider
         case .lineDivider:
-            return "TextEditor/Toolbar/Blocks/LineDivider"
+            return ImageName.slashMenu.other.line_divider
         }
     }
     

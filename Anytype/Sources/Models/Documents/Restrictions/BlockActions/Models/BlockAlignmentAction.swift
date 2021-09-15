@@ -31,11 +31,11 @@ enum BlockAlignmentAction: CaseIterable {
     var iconName: String {
         switch self {
         case .left:
-            return "TextEditor/Toolbar/Blocks/AlignmentLeft"
+            return ImageName.slashMenu.alignment.left
         case .center:
-            return "TextEditor/Toolbar/Blocks/AlignmentCenter"
+            return ImageName.slashMenu.alignment.center
         case .right:
-            return "TextEditor/Toolbar/Blocks/AlignmentRight"
+            return ImageName.slashMenu.alignment.right
         }
     }
 }

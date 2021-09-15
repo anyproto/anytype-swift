@@ -23,9 +23,7 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         else { return }
         
         collectionView.deselectAllSelectedItems()
-
         let userSession = viewModel.document.userSession
-        let blockModel = userSession?.firstResponder
 
         guard
             let item = dataSource.itemIdentifier(for: selectedIndexPath)
@@ -33,8 +31,6 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         
         switch item {
         case let .block(block):
-            guard block.information.id == blockModel?.information.id else { return }
-            
             if let blockViewModel = block as? TextBlockViewModel {
                 let focus = userSession?.focus ?? .end
                 blockViewModel.set(focus: focus)

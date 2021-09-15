@@ -14,13 +14,14 @@ final class MentionAttachment: NSTextAttachment {
         searchService: ServiceLocator.shared.searchService()
     )
     
-    private var icon: MentionIcon?
+    private var icon: ObjectIconImage?
     private var iconSize: CGSize?
     private var fontPointSize: CGFloat?
+    private let imageView = ObjectIconImageView()
     
     private var isLoadingMention = false
     
-    init(name: String, pageId: String, icon: MentionIcon? = nil) {
+    init(name: String, pageId: String, icon: ObjectIconImage?) {
         self.pageId = pageId
         self.name = name
         self.icon = icon
@@ -50,8 +51,10 @@ final class MentionAttachment: NSTextAttachment {
                                                 effectiveRange: nil) as? UIFont {
             fontPointSize = font.pointSize
         }
-        displayNewImageIfNeeded(desiredIconSize: desiredIconSize,
-                                fontPointSize: fontPointSize)
+        displayNewImageIfNeeded(
+            desiredIconSize: desiredIconSize,
+            fontPointSize: fontPointSize
+        )
         if let image = self.image {
             return bounds(for: image)
         }
@@ -90,108 +93,36 @@ final class MentionAttachment: NSTextAttachment {
         mentionService.loadMentions { [weak self] mentions in
             guard
                 let mention = mentions.first(where: { $0.id == self?.pageId }),
-                let icon = mention.icon,
                 let self = self
             else {
                 self?.isLoadingMention = false
                 return
             }
             self.isLoadingMention = false
-            self.icon = icon
-            self.displayIcon(icon)
+            self.icon = mention.objectIcon
+            self.displayIcon(mention.objectIcon)
         }
     }
     
-    private func displayIcon(_ icon: MentionIcon) {
-        switch icon {
-        case let .objectIcon(objectIcon):
-            switch objectIcon {
-            case let .basic(id):
-                loadImage(imageId: id, isBasicLayout: true)
-            case let .profile(profile):
-                displayProfileIcon(profile)
-            case let .emoji(emoji):
-                guard
-                    let fontSize = fontPointSize,
-                    let image = emoji.value.image(fontPointSize: fontSize)
-                else { return }
-                
-                let newSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-                let resizedImage = image.imageDrawn(on: newSize, offset: .zero)
-                
-                display(resizedImage)
-            }
-        case let .checkmark(isChecked):
-            displayCheckmarkIcon(isChecked: isChecked)
-        }
-    }
-    
-    private func displayProfileIcon(_ profileIcon: ObjectIconType.Profile) {
-        switch profileIcon {
-        case let .imageId(id):
-            loadImage(imageId: id, isBasicLayout: false)
-        case let .character(placeholder):
-            loadPlaceholderImage(placehodler: placeholder)
-        }
-    }
-    
-    private func displayCheckmarkIcon(isChecked: Bool) {
-        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
-        
-        let size = iconSize ?? Constants.defaultIconSize
-        
-        addLeadingSpaceAndDisplay(image.scaled(to: size))
-    }
-    
-    private func loadPlaceholderImage(placehodler: Character) {
-        let size = iconSize ?? Constants.defaultIconSize
-        let imageGuideline = ImageGuideline(
-            size: size,
-            cornerRadius: min(
-                size.width,
-                size.height
-            ) / 2
+    private func displayIcon(_ iconImage: ObjectIconImage) {
+        imageView.configure(
+            model: .init(
+                iconImage: iconImage,
+                usecase: .mention(.body)
+            )
         )
         
-        var imageBuilder = ImageBuilder(imageGuideline)
-            .setImageColor(.grayscale30)
-            .setText(String(placehodler))
-        if let fontPointSize = fontPointSize {
-            imageBuilder = imageBuilder.setFont(UIFont.systemFont(ofSize: fontPointSize))
-        }
-        addLeadingSpaceAndDisplay(imageBuilder.build())
-    }
-    
-    private func loadImage(imageId: String, isBasicLayout: Bool) {
-        let imageSize = self.iconSize ?? Constants.defaultIconSize
-
-        guard let url = ImageID(id: imageId, width: imageSize.width.asImageWidth).resolvedUrl else { return }
-        let cornerRadius = isBasicLayout ? 1 : min(imageSize.height, imageSize.width) / 2
-        let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: imageSize,
-            cornerRadius: .point(cornerRadius)
-        ).processor
-        
-        KingfisherManager.shared.retrieveImage(
-            with: url,
-            options: [.processor(processor)]
-        ) { [weak self] result in
-            guard case let .success(result) = result else { return }
-            
-            self?.addLeadingSpaceAndDisplay(result.image)
+        imageView.imageView.image.flatMap {
+            addLeadingSpaceAndDisplay($0)
         }
     }
     
     private func addLeadingSpaceAndDisplay(_ image: UIImage) {
         let imageWithSpaceSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
         let imageWithSpace = image.imageDrawn(on: imageWithSpaceSize, offset: .zero)
-        display(imageWithSpace)
-    }
-    
-    private func display(_ image: UIImage) {
-        self.image = image
-        bounds = bounds(for: image)
+        
+        self.image = imageWithSpace
+        bounds = bounds(for: imageWithSpace)
         
         updateAttachmentLayout()
     }

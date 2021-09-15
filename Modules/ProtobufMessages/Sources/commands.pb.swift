@@ -8044,10 +8044,7 @@ public struct Anytype_Rpc {
         /// id of the context block
         public var contextID: String = String()
 
-        /// id of the closest block
-        public var targetID: String = String()
-
-        /// page details
+        /// new page details
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
           get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
           set {_details = newValue}
@@ -8057,16 +8054,30 @@ public struct Anytype_Rpc {
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
         public mutating func clearDetails() {self._details = nil}
 
-        public var position: Anytype_Model_Block.Position = .none
-
         /// optional template id for creating from template
         public var templateID: String = String()
+
+        /// link block params
+        public var targetID: String = String()
+
+        public var position: Anytype_Model_Block.Position = .none
+
+        /// link block fields
+        public var fields: SwiftProtobuf.Google_Protobuf_Struct {
+          get {return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_fields = newValue}
+        }
+        /// Returns true if `fields` has been explicitly set.
+        public var hasFields: Bool {return self._fields != nil}
+        /// Clears the value of `fields`. Subsequent reads from it will return its default value.
+        public mutating func clearFields() {self._fields = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+        fileprivate var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
       public struct Response {
@@ -27530,10 +27541,11 @@ extension Anytype_Rpc.Block.CreatePage.Request: SwiftProtobuf.Message, SwiftProt
   public static let protoMessageName: String = Anytype_Rpc.Block.CreatePage.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
-    2: .same(proto: "targetId"),
     3: .same(proto: "details"),
-    4: .same(proto: "position"),
     5: .same(proto: "templateId"),
+    2: .same(proto: "targetId"),
+    4: .same(proto: "position"),
+    6: .same(proto: "fields"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -27547,6 +27559,7 @@ extension Anytype_Rpc.Block.CreatePage.Request: SwiftProtobuf.Message, SwiftProt
       case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.position) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
       default: break
       }
     }
@@ -27568,15 +27581,19 @@ extension Anytype_Rpc.Block.CreatePage.Request: SwiftProtobuf.Message, SwiftProt
     if !self.templateID.isEmpty {
       try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 5)
     }
+    if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.CreatePage.Request, rhs: Anytype_Rpc.Block.CreatePage.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
-    if lhs.targetID != rhs.targetID {return false}
     if lhs._details != rhs._details {return false}
-    if lhs.position != rhs.position {return false}
     if lhs.templateID != rhs.templateID {return false}
+    if lhs.targetID != rhs.targetID {return false}
+    if lhs.position != rhs.position {return false}
+    if lhs._fields != rhs._fields {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

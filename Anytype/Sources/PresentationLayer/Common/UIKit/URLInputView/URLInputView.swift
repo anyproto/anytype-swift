@@ -70,6 +70,10 @@ final class URLInputView: UIView {
         textField.text = url?.absoluteString
     }
     
+    func updateUrl(_ url: URL?) {
+        textField.text = url?.absoluteString
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

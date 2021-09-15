@@ -1,11 +1,3 @@
-//
-//  EditorNavigationBarHelper.swift
-//  EditorNavigationBarHelper
-//
-//  Created by Konstantin Mordan on 18.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import BlocksModels
@@ -93,7 +85,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         
         navigationBarTitleView.configure(
             model: EditorNavigationBarTitleView.Model(
-                icon: details?.iconImage,
+                icon: details?.objectIconImage,
                 title: title
             )
         )

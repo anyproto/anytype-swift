@@ -39,7 +39,6 @@ final class EditorAssembly {
             )
         )
                 
-        let selectionHandler = EditorSelectionHandler()
         let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
         let markupChanger = BlockMarkupChanger(
@@ -51,9 +50,7 @@ final class EditorAssembly {
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
             modelsHolder: modelsHolder,
-            selectionHandler: selectionHandler,
             document: document,
-            router: router,
             markupChanger: markupChanger
         )
         
@@ -61,7 +58,8 @@ final class EditorAssembly {
         let editorBlockActionHandler = EditorActionHandler(
             document: document,
             blockActionHandler: blockActionHandler,
-            eventProcessor: eventProcessor
+            eventProcessor: eventProcessor,
+            router: router
         )
         
         let blockDelegate = BlockDelegateImpl(
@@ -69,6 +67,8 @@ final class EditorAssembly {
             document: document
         )
         
+        let accessorySwitcher = AccessoryViewSwitcherBuilder()
+            .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             blockActionHandler: editorBlockActionHandler,
@@ -77,7 +77,8 @@ final class EditorAssembly {
             detailsLoader: DetailsLoader(
                 document: document,
                 eventProcessor: eventProcessor
-            )
+            ),
+            accessorySwitcher: accessorySwitcher
         )
         
         let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
@@ -90,7 +91,6 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,

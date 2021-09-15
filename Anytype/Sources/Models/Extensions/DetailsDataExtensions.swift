@@ -73,7 +73,7 @@ extension DetailsDataProtocol {
         }
     }
     
-    var iconImage: ObjectIconImage? {
+    var objectIconImage: ObjectIconImage? {
         if let icon = icon {
             return .icon(icon)
         }
@@ -84,6 +84,7 @@ extension DetailsDataProtocol {
         
         return nil
     }
+    
 }
 
 private enum Constants {

@@ -10,6 +10,7 @@ final class ButtonWithImage: UIControl {
     private(set) var imageView: UIImageView = .init()
     private var backgroundColorsMap = [UInt: UIColor]()
     private var imageTintColorsMap = [UInt: UIColor]()
+    private var textColorsMap = [UInt: UIColor]()
 
     init() {
         super.init(frame: .zero)
@@ -39,6 +40,11 @@ final class ButtonWithImage: UIControl {
         updateColors()
     }
 
+    func setTextColor(_ textColor: UIColor?, state: UIControl.State) {
+        textColorsMap[state.rawValue] = textColor
+        updateColors()
+    }
+
     override var isSelected: Bool {
         didSet {
             updateColors()
@@ -58,8 +64,14 @@ final class ButtonWithImage: UIControl {
     }
     
     private func updateColors() {
+        updateTextColor()
         updateBackgroundColor()
         updateImageTintColor()
+    }
+
+    private func updateTextColor() {
+        guard let color = textColorsMap[state.rawValue] else { return }
+        label.textColor = color
     }
     
     private func updateBackgroundColor() {
@@ -91,15 +103,17 @@ final class ButtonWithImage: UIControl {
         label.isHidden = true
         label.textColor = MiddlewareColor.grey.color(background: false)
         label.isUserInteractionEnabled = false
+        label.textAlignment = .center
 
         addSubview(container)
         container.edgesToSuperview()
     }
 
-    func addBorders(edges: UIRectEdge, width: CGFloat, color: UIColor) {
+    @discardableResult func addBorders(edges: UIRectEdge, width: CGFloat, color: UIColor) -> Self {
         borderEdges = edges
         borderWidth = width
         borderColor = color
+        return self
     }
 
     func setText(_ text: String) {
@@ -120,23 +134,23 @@ final class ButtonWithImage: UIControl {
             layer.addSublayer(border)
         }
 
-        if edges == .bottom || edges == .all {
-            let origin = CGPoint(x: bounds.minX, y: bounds.maxY)
+        if edges.contains(.bottom) || edges == .all {
+            let origin = CGPoint(x: bounds.minX, y: bounds.maxY - width)
             let size = CGSize(width: bounds.width, height: width)
             addBorder(origin: origin, size: size)
         }
-        if edges == .left || edges == .all {
-            let origin = CGPoint(x: bounds.minX, y: bounds.minY)
+        if edges.contains(.left) || edges == .all {
+            let origin = CGPoint(x: bounds.minX + width, y: bounds.minY)
             let size = CGSize(width: width, height: bounds.height)
             addBorder(origin: origin, size: size)
         }
-        if edges == .right || edges == .all {
-            let origin = CGPoint(x: bounds.maxX, y: bounds.minY)
+        if edges.contains(.right) || edges == .all {
+            let origin = CGPoint(x: bounds.maxX - width, y: bounds.minY)
             let size = CGSize(width: width, height: bounds.height)
             addBorder(origin: origin, size: size)
         }
-        if edges == .top || edges == .all {
-            let origin = CGPoint(x: bounds.minX, y: bounds.minY)
+        if edges.contains(.top) || edges == .all {
+            let origin = CGPoint(x: bounds.minX, y: bounds.minY + width )
             let size = CGSize(width: bounds.width, height: width)
             addBorder(origin: origin, size: size)
         }

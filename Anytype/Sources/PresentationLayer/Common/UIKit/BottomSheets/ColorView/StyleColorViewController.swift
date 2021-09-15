@@ -2,40 +2,26 @@ import UIKit
 
 
 private enum SectionKind: Int, CaseIterable {
-    case main
-    case last
-
-    var columnCount: Int  {
-        switch self {
-        case .main:
-            return 6
-        case .last:
-            return ColorItem.text.count % 6
-        }
-    }
-}
-
-private enum ColorItem: Hashable {
-    case text(BlockColor)
-    case background(BlockBackgroundColor)
-    
-    var color: UIColor {
-        switch self {
-        case .background(let color):
-            return color.color
-        case .text(let color):
-            return color.color
-        }
-    }
-
-    static let text = BlockColor.allCases.map { ColorItem.text($0) }
-    static let background = BlockBackgroundColor.allCases.map { ColorItem.background($0) }
+    case textColor
+    case backgroundColor
 }
 
 extension StyleColorViewController {
-    enum SelectedColorTab: Int {
-        case color
-        case backgroundColor
+    enum ColorItem: Hashable {
+        case text(BlockColor)
+        case background(BlockBackgroundColor)
+
+        var color: UIColor {
+            switch self {
+            case .background(let color):
+                return color.color
+            case .text(let color):
+                return color.color
+            }
+        }
+
+        static let text = BlockColor.allCases.map { ColorItem.text($0) }
+        static let background = BlockBackgroundColor.allCases.map { ColorItem.background($0) }
     }
 }
 
@@ -50,23 +36,52 @@ final class StyleColorViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
-            guard let sectionKind = SectionKind(rawValue: sectionIndex) else { return nil }
-            let columns = sectionKind.columnCount
-            let itemDimension: CGSize = .init(width: 52.0, height: 52.0)
+            let items = sectionIndex == 0 ? ColorItem.text : ColorItem.background
 
+            var groups: [NSCollectionLayoutItem] = []
+            let itemDimension: CGSize = .init(width: 36.0, height: 34.0)
 
+            // max count items in row
+            let maxItemsInRow = Int(layoutEnvironment.container.contentSize.width / itemDimension.width)
+
+            // calc last row items count
+            let lastRowItemsCount = items.count % maxItemsInRow
+
+            // add group for all items except last if lastRowItemsCount != 0
             let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(itemDimension.width), heightDimension: .absolute(itemDimension.height))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(52.0))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            group.interItemSpacing = .fixed(0)
 
-            let section = NSCollectionLayoutSection(group: group)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(itemDimension.height))
+            let itemsGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            // remain space in row after placing possible max count items
+            let remainSpaceInRow: CGFloat = layoutEnvironment.container.contentSize.width - (CGFloat(maxItemsInRow) * itemDimension.width)
+            // space for leading and trailing edge
+            let edgeSpacing: CGFloat = remainSpaceInRow / 2
+            itemsGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: edgeSpacing, bottom: 0, trailing: edgeSpacing)
 
-            if sectionKind == .last {
+            groups.append(itemsGroup)
+
+            // add group for last row where items need to be centered
+            if lastRowItemsCount != 0 {
+                let lastRowGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(itemDimension.height))
+                let lastRowItemsGroup = NSCollectionLayoutGroup.horizontal(layoutSize: lastRowGroupSize, subitems: [item])
+                // left space in row
+                let leftSpaceInRow: CGFloat = layoutEnvironment.container.contentSize.width - (CGFloat(lastRowItemsCount) * itemDimension.width)
                 // space for leading and trailing edge
-                let edgeSpacing: CGFloat = CGFloat((SectionKind.main.columnCount - columns) * (Int(itemDimension.width) / 2))
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: edgeSpacing, bottom: 0, trailing: edgeSpacing)
+                let lastRowEdgeSpacing: CGFloat = leftSpaceInRow / 2
+                lastRowItemsGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: lastRowEdgeSpacing, bottom: 0, trailing: lastRowEdgeSpacing)
+
+                groups.append(lastRowItemsGroup)
+            }
+
+            // main group - include itemsGroup and lastRowItemsGroup
+            let mainGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0))
+            let mainGroup = NSCollectionLayoutGroup.vertical(layoutSize: mainGroupSize, subitems: groups)
+
+            let section = NSCollectionLayoutSection(group: mainGroup)
+
+            if sectionIndex == 0 {
+                section.contentInsets = .init(top: 0, leading: 0, bottom: 7, trailing: 0)
             }
 
             return section
@@ -75,13 +90,15 @@ final class StyleColorViewController: UIViewController {
 
         let styleCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         styleCollectionView.backgroundColor = .white
-        styleCollectionView.alwaysBounceVertical = false
+        styleCollectionView.isScrollEnabled = false
         styleCollectionView.delegate = self
+        styleCollectionView.allowsMultipleSelection = true
 
         return styleCollectionView
     }()
 
-    private var colorKindSegmentControl: SimpleSegmentControl<SelectedColorTab> = .init(currentSelectedIndex: .color)
+    private let backdropView = UIView()
+    let containerView = UIView()
 
     // MARK: - Properties
 
@@ -89,24 +106,19 @@ final class StyleColorViewController: UIViewController {
     private var color: UIColor?
     private var backgroundColor: UIColor?
     private var actionHandler: ActionHandler
-
-    private var currentColor: UIColor? {
-        switch colorKindSegmentControl.selectedItemIndex {
-        case .color:
-            return color
-        case .backgroundColor:
-            return backgroundColor
-        }
-    }
-
+    private var viewDidCloseHandler: () -> Void
 
     // MARK: - Lifecycle
 
     /// Init style view controller
     /// - Parameter color: Foreground color
     /// - Parameter backgroundColor: Background color
-    init(color: UIColor? = .grayscale90, backgroundColor: UIColor? = .grayscaleWhite, actionHandler: @escaping ActionHandler) {
+    init(color: UIColor? = .grayscale90,
+         backgroundColor: UIColor? = .grayscaleWhite,
+         actionHandler: @escaping ActionHandler,
+         viewDidClose: @escaping () -> Void) {
         self.actionHandler = actionHandler
+        self.viewDidCloseHandler = viewDidClose
         self.color = color
         self.backgroundColor = backgroundColor
 
@@ -126,79 +138,79 @@ final class StyleColorViewController: UIViewController {
     }
 
     private func setupViews() {
-        colorKindSegmentControl.addTarget(self, action: #selector(segmentActionHandler), for: .valueChanged)
+        containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 12.0
+        containerView.layer.cornerCurve = .continuous
 
-        view.backgroundColor = .white
+        containerView.layer.shadowColor = UIColor.grayscale90.cgColor
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        containerView.layer.shadowOpacity = 0.25
+        containerView.layer.shadowRadius = 40
 
-        colorKindSegmentControl.addSegment(title: "Color".localized)
-        colorKindSegmentControl.addSegment(title: "Background".localized)
+        view.backgroundColor = .clear
+        backdropView.backgroundColor = .clear
+        let tapGeastureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backdropViewTapped))
+        backdropView.addGestureRecognizer(tapGeastureRecognizer)
 
-        view.addSubview(colorKindSegmentControl)
-        view.addSubview(styleCollectionView)
+        view.addSubview(backdropView)
+        view.addSubview(containerView)
+        containerView.addSubview(styleCollectionView)
 
         setupLayout()
     }
 
     private func setupLayout() {
-        styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        colorKindSegmentControl.translatesAutoresizingMaskIntoConstraints = false
+        backdropView.pinAllEdges(to: view)
 
-        NSLayoutConstraint.activate([
-            colorKindSegmentControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
-            colorKindSegmentControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            colorKindSegmentControl.heightAnchor.constraint(equalToConstant: 28),
-            
-            styleCollectionView.topAnchor.constraint(equalTo: colorKindSegmentControl.bottomAnchor, constant: 12),
-            styleCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 6),
-            styleCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -6),
-            styleCollectionView.heightAnchor.constraint(equalToConstant: 104).usingPriority(.defaultHigh - 1),
-            styleCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-        ])
+        styleCollectionView.layoutUsing.anchors {
+            $0.top.equal(to: containerView.topAnchor, constant: 15)
+            $0.leading.equal(to: containerView.leadingAnchor, constant: 9)
+            $0.trailing.equal(to: containerView.trailingAnchor, constant: -9)
+            $0.bottom.equal(to: containerView.bottomAnchor)
+        }
     }
 
     private func configureStyleDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<StyleColorCellView, ColorItem> { (cell, indexPath, item) in
-            var content = StyleColorCellContentConfiguration()
-            content.color = item.color
+            let content = StyleColorCellContentConfiguration(colorItem: item)
             cell.contentConfiguration = content
         }
 
         styleDataSource = UICollectionViewDiffableDataSource<SectionKind, ColorItem>(collectionView: styleCollectionView) {
             [weak self] (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
 
-            if identifier.color == self?.currentColor {
+            var color = self?.color
+            if indexPath.section != 0 {
+                color = self?.backgroundColor
+            }
+
+            if identifier.color == color {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
             }
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
 
         // initial data
-        updateSnapshot(with: ColorItem.text)
-    }
-
-    @objc private func segmentActionHandler() {
-        switch colorKindSegmentControl.selectedItemIndex {
-        case .color:
-            updateSnapshot(with: ColorItem.text)
-        case .backgroundColor:
-            updateSnapshot(with: ColorItem.background)
-        }
+        updateSnapshot()
     }
 
     private func updateSnapshot(with colorItems: [ColorItem]) {
         var snapshot = NSDiffableDataSourceSnapshot<SectionKind, ColorItem>()
-
-        let itemsInLastSection = colorItems.count % SectionKind.main.columnCount
-
-        snapshot.appendSections([.main])
-        snapshot.appendItems(colorItems.dropLast(itemsInLastSection))
-
-        if itemsInLastSection != 0 {
-            snapshot.appendSections([.last])
-            snapshot.appendItems(colorItems.suffix(itemsInLastSection))
-        }
-
+        snapshot.appendSections([.textColor, .backgroundColor])
         styleDataSource?.apply(snapshot, animatingDifferences: false)
+    }
+
+    private func updateSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, ColorItem>()
+        snapshot.appendSections([.textColor, .backgroundColor])
+        snapshot.appendItems(ColorItem.text, toSection: .textColor)
+        snapshot.appendItems(ColorItem.background, toSection: .backgroundColor)
+        styleDataSource?.apply(snapshot, animatingDifferences: false)
+    }
+
+    @objc private func backdropViewTapped() {
+        removeFromParentEmbed()
+        viewDidCloseHandler()
     }
 }
 
@@ -207,11 +219,12 @@ final class StyleColorViewController: UIViewController {
 extension StyleColorViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard collectionView.indexPathsForSelectedItems?.first != indexPath else { return false }
+        guard !(collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false) else { return false }
         guard let colorItem = styleDataSource?.itemIdentifier(for: indexPath) else {
             return false
         }
-        collectionView.deselectAllSelectedItems()
+        let indexPathToDeselect = collectionView.indexPathsForSelectedItems?.filter { $0.section == indexPath.section }
+        indexPathToDeselect?.forEach { collectionView.deselectItem(at: $0, animated: false) }
         
         switch colorItem {
         case .text(let color):

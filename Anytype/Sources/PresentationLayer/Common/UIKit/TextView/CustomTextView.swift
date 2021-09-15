@@ -14,7 +14,7 @@ final class CustomTextView: UIView {
     var textSize: CGSize?
     private(set) lazy var textView = createTextView()
     private var firstResponderSubscription: AnyCancellable?
-    var options: CustomTextViewOptions = .init(createNewBlockOnEnter: false, autocorrect: false)
+    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: false)
 
     init() {
         super.init(frame: .zero)
@@ -52,10 +52,8 @@ extension CustomTextView: TextViewManagingFocus {
         _ = textView.resignFirstResponder()
     }
 
-    func setFocus(_ focus: BlockFocusPosition?) {
-        guard let focus = focus else { return }
-        
-        textView.setFocus(focus)
+    func setFocus(_ position: BlockFocusPosition) {
+        textView.setFocus(position)
     }
 
     func obtainFocusPosition() -> BlockFocusPosition? {

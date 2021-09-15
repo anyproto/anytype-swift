@@ -74,7 +74,7 @@ struct BlockLinkIconMaker {
         return imageView
     }
     
-    private func makeIconImageView(_ image: UIImage? = UIImage(named: "TextEditor/Style/Page/empty") ) -> UIView {
+    private func makeIconImageView(_ image: UIImage? = UIImage.blockLink.empty ) -> UIView {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {

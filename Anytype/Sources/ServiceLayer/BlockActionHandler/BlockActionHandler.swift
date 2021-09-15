@@ -6,37 +6,34 @@ import AnytypeCore
 protocol BlockActionHandlerProtocol {
     typealias Completion = (PackOfEvents) -> Void
     
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
     func upload(blockId: BlockId, filePath: String)
+    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ())
+    
+    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
 }
 
-/// Actions from block
 final class BlockActionHandler: BlockActionHandlerProtocol {
+    private let documentId: String
+    private let document: BaseDocumentProtocol
+    private var subscriptions: [AnyCancellable] = []
+    
     private let service: BlockActionServiceProtocol
     private let listService = BlockActionsServiceList()
-    private let documentId: String
-    private var subscriptions: [AnyCancellable] = []
-    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
-    private let selectionHandler: EditorModuleSelectionHandlerProtocol
-    private let document: BaseDocumentProtocol
-    private let router: EditorRouterProtocol
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
-
+    
+    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
+    
     init(
         documentId: String,
         modelsHolder: ObjectContentViewModelsSharedHolder,
-        selectionHandler: EditorModuleSelectionHandlerProtocol,
         document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
         markupChanger: BlockMarkupChangerProtocol
     ) {
         self.modelsHolder = modelsHolder
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
-        self.selectionHandler = selectionHandler
         self.document = document
-        self.router = router
         self.markupChanger = markupChanger
         
         self.textBlockActionHandler = TextBlockActionHandler(
@@ -47,6 +44,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Public methods
+    
+    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ()) {
+        service.turnIntoPage(blockId: blockId, completion: completion)
+    }
+    
+    func upload(blockId: BlockId, filePath: String) {
+        service.upload(blockId: blockId, filePath: filePath)
+    }
     
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?) {
         service.configured { events in
@@ -79,21 +84,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .addBlock(type):
             addBlock(blockId: blockId, type: type)
         case let .turnIntoBlock(type):
-            turnIntoBlock(blockId: blockId, type: type)
+            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
         case let .fetch(url: url):
             service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
         case .toggle:
             service.receivelocalEvents([.setToggled(blockId: blockId)])
         case .checkbox(selected: let selected):
             service.checked(blockId: blockId, newValue: selected)
-        case let .showPage(pageId):
-            router.showPage(with: pageId)
         case .createEmptyBlock(let parentId):
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
         case let .textView(action: action, block: blockModel):
             switch action {
-            case .showMultiActionMenuAction:
-                selectionHandler.selectionEnabled = true
             case let .changeCaretPosition(selectedRange):
                 document.userSession?.focus = .at(selectedRange)
             case let .changeTextStyle(string, styleAction, range):
@@ -105,25 +106,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             default:
                 textBlockActionHandler.handlingTextViewAction(blockModel, action, completion: completion)
             }
-        }
-    }
-    
-    func upload(blockId: BlockId, filePath: String) {
-        service.upload(blockId: blockId, filePath: filePath)
-    }
-    
-    private func turnIntoBlock(blockId: BlockId, type: BlockContentType) {
-        switch type {
-        case .file(.file):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .file(.image):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .file(.video):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        case .bookmark(.page):
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        default:
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
         }
     }
     

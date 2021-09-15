@@ -45,9 +45,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: Anytype_Model_Block.Position,
         templateID: String
     ) -> AnyPublisher<CreatePageResponse, Error> {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(
-            contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
-        )
+        Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID,
+                                                    details: details,
+                                                    templateID: templateID,
+                                                    targetID: targetID,
+                                                    position: position,
+                                                    fields: .init())
         .map { CreatePageResponse($0) }
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
@@ -63,17 +66,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.Block.Set.Details.Service
+            .invoke(contextID: contextID, details: details, queue: .global())
+            .map(\.event)
+            .map(ResponseEvent.init(_:))
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
     }
 
-    /// Children to page
-    /// - Parameters:
-    ///   - contextID: document id
-    ///   - blocksIds: blocks that will be converted to pages
-    ///   - objectType: object type
-    /// - Returns: AnyPublisher
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<Void, Error> {
-        Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType).successToVoid().subscribe(on: DispatchQueue.global())
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<[BlockId], Error> {
+        Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
+            .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
+            .map { $0.linkIds }
+            .subscribe(on: DispatchQueue.global())
             .handleEvents(receiveRequest:  {_ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)

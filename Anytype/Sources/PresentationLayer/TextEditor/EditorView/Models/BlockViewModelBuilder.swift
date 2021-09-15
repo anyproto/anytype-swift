@@ -9,13 +9,15 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let detailsLoader: DetailsLoader
+    private let accessorySwitcher: AccessoryViewSwitcherProtocol
 
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        detailsLoader: DetailsLoader
+        detailsLoader: DetailsLoader,
+        accessorySwitcher: AccessoryViewSwitcherProtocol
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
@@ -26,6 +28,7 @@ final class BlockViewModelBuilder {
             router: router
         )
         self.detailsLoader = detailsLoader
+        self.accessorySwitcher = accessorySwitcher
     }
 
     func build(_ blocks: [BlockModelProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
@@ -40,9 +43,11 @@ final class BlockViewModelBuilder {
     func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
-            let anytypeText = AttributedTextConverter.asModel(text: content.text,
-                                                              marks: content.marks,
-                                                              style: content.contentType)
+            let anytypeText = AttributedTextConverter.asModel(
+                text: content.text,
+                marks: content.marks,
+                style: content.contentType
+            )
             switch content.contentType {
             case .code:
                 return CodeBlockViewModel(
@@ -83,15 +88,14 @@ final class BlockViewModelBuilder {
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
                     actionHandler: blockActionHandler,
+                    accessorySwitcher: accessorySwitcher,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
-                    },
-                    showStyleMenu: { [weak self] information in
-                        self?.router.showStyleMenu(information: information)
-                    })
+                    }
+                )
             }
         case let .file(content):
             switch content.contentType {
@@ -188,7 +192,10 @@ final class BlockViewModelBuilder {
         let model = MediaPickerViewModel(type: type) { [weak self] resultInformation in
             guard let resultInformation = resultInformation else { return }
 
-            self?.blockActionHandler.upload(blockId: blockId, filePath: resultInformation.filePath)
+            self?.blockActionHandler.upload(
+                blockId: .provided(blockId),
+                filePath: resultInformation.filePath
+            )
         }
         
         router.showImagePicker(model: model)
@@ -197,7 +204,10 @@ final class BlockViewModelBuilder {
     private func showFilePicker(blockId: BlockId) {
         let model = Picker.ViewModel()
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.blockActionHandler.upload(blockId: blockId, filePath: result.filePath)
+            self?.blockActionHandler.upload(
+                blockId: .provided(blockId),
+                filePath: result.filePath
+            )
         }.store(in: &subscriptions)
             
         router.showFilePicker(model: model)

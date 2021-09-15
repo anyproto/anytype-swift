@@ -211,18 +211,16 @@ private extension TextBlockIconView {
         enum Bulleted {
             static let size: CGFloat = 6
             static let dotTopOffset: CGFloat = 11
-            static let dotImageName: String = "TextEditor/Style/Text/Bulleted/Bullet"
+            static let dotImageName: String = "TextEditor/Text/Bullet"
         }
 
         enum TitleCheckbox {
-            static let checkedImageName = "todo_checkmark"
-            static let uncheckedImageName = "todo_checkbox"
             static let imageSize = CGSize(width: 28, height: 28)
             static let viewSize = CGSize(width: 28, height: 32) // height is equel to height of 1 line in text view
         }
         enum Checkbox {
-            static let checkedImageName = "TextEditor/Style/Text/Checkbox/checked"
-            static let uncheckedImageName = "TextEditor/Style/Text/Checkbox/unchecked"
+            static let checkedImageName = "TextEditor/Text/checked"
+            static let uncheckedImageName = "TextEditor/Text/unchecked"
             static let imageSize = CGSize(width: 18, height: 18)
         }
 
@@ -231,8 +229,8 @@ private extension TextBlockIconView {
         }
 
         enum Toggle {
-            static let foldedImageName = "TextEditor/Style/Text/Toggle/folded"
-            static let unfoldedImageName = "TextEditor/Style/Text/Toggle/unfolded"
+            static let foldedImageName = "TextEditor/Text/folded"
+            static let unfoldedImageName = "TextEditor/Text/unfolded"
         }
     }
 }

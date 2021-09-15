@@ -26,9 +26,10 @@ enum ButtonsFactory {
         return backButton
     }
     
-    static func makeButton(image: UIImage?) -> ButtonWithImage {
+    static func makeButton(image: UIImage? = nil, text: String? = nil) -> ButtonWithImage {
         let button = ButtonWithImage()
         button.setImage(image)
+        button.setText(text ?? "")
         button.setBackgroundColor(.clear, state: .normal)
         button.setBackgroundColor(.clear, state: .disabled)
         button.setBackgroundColor(.selected, state: .selected)

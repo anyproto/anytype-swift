@@ -34,14 +34,11 @@ protocol TextViewDelegate: AnyObject {
 extension CustomTextView {
 
     public enum UserAction {
-        case showStyleMenu
-
         case changeText(NSAttributedString)
         case changeTextStyle(NSAttributedString, BlockHandlerActionType.TextAttributesType, NSRange)
         case changeLink(NSAttributedString, NSRange)
 
         case keyboardAction(KeyboardAction)
-        case showMultiActionMenuAction
         case changeCaretPosition(NSRange)
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
         case showPage(String)

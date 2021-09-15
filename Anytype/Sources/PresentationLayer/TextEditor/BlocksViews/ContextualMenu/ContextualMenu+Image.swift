@@ -8,13 +8,13 @@ extension ContextualMenu {
     
     private var imagePath: String {
         switch self {
-        case .addBlockBelow: return "TextEditor/ContextMenu/General/addBlockBelow"
-        case .delete: return "TextEditor/ContextMenu/General/delete"
-        case .duplicate: return "TextEditor/ContextMenu/General/duplicate"
-        case .turnIntoPage: return "TextEditor/ContextMenu/Specific/turnInto"
-        case .style: return "TextEditor/ContextMenu/Specific/style"
-        case .download: return "TextEditor/ContextMenu/Specific/download"
-        case .replace: return "TextEditor/ContextMenu/Specific/replace"
+        case .addBlockBelow: return "TextEditor/ContextMenu/addBlockBelow"
+        case .delete: return "TextEditor/ContextMenu/delete"
+        case .duplicate: return "TextEditor/ContextMenu/duplicate"
+        case .turnIntoPage: return "TextEditor/ContextMenu/turnInto"
+        case .style: return "TextEditor/ContextMenu/style"
+        case .download: return "TextEditor/ContextMenu/download"
+        case .replace: return "TextEditor/ContextMenu/replace"
         }
     }
 }

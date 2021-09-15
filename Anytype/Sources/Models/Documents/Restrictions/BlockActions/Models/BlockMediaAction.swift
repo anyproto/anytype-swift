@@ -25,15 +25,15 @@ enum BlockMediaAction: CaseIterable {
     var iconName: String {
         switch self {
         case .file:
-            return "TextEditor/Toolbar/Blocks/File"
+            return ImageName.slashMenu.media.file
         case .pictre:
-            return "TextEditor/Toolbar/Blocks/Media"
+            return ImageName.slashMenu.media.picture
         case .video:
-            return "TextEditor/Toolbar/Blocks/Video"
+            return ImageName.slashMenu.media.video
         case .bookmark:
-            return "TextEditor/Toolbar/Blocks/Bookmark"
+            return ImageName.slashMenu.media.bookmark
         case .codeSnippet:
-            return "TextEditor/Toolbar/Blocks/CodeSnippet"
+            return ImageName.slashMenu.media.code
         }
     }
     

@@ -4,16 +4,16 @@ import BlocksModels
 
 enum BlockBackgroundColor: CaseIterable {
     case `default`
+    case coldGray
     case lemon
     case amber
     case red
     case pink
     case purple
-    case ultramarine
     case blue
+    case sky
     case teal
     case green
-    case coldGray
     
     var color : UIColor {
         switch self {
@@ -29,10 +29,10 @@ enum BlockBackgroundColor: CaseIterable {
             return .lightPink
         case .purple:
             return .lightPurple
-        case .ultramarine:
-            return .lightUltramarine
-        case .blue:
+        case .sky:
             return .lightBlue
+        case .blue:
+            return .lightUltramarine
         case .teal:
             return .lightTeal
         case .green:
@@ -56,8 +56,8 @@ enum BlockBackgroundColor: CaseIterable {
             return "Pink background".localized
         case .purple:
             return "Purple background".localized
-        case .ultramarine:
-            return "Ultramarine background".localized
+        case .sky:
+            return "Sky background".localized
         case .blue:
             return "Blue background".localized
         case .teal:
@@ -72,27 +72,27 @@ enum BlockBackgroundColor: CaseIterable {
     var iconName: String {
         switch self {
         case .lemon:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorLemon"
+            return ImageName.slashMenu.background_color.lemon
         case .default:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorClear"
+            return ImageName.slashMenu.background_color.clear
         case .amber:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorAmber"
+            return ImageName.slashMenu.background_color.amber
         case .red:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorRed"
+            return ImageName.slashMenu.background_color.red
         case .pink:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorPink"
+            return ImageName.slashMenu.background_color.pink
         case .purple:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorPurple"
-        case .ultramarine:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorUltramarine"
+            return ImageName.slashMenu.background_color.purple
+        case .sky:
+            return ImageName.slashMenu.background_color.ultramarine
         case .blue:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorBlue"
+            return ImageName.slashMenu.background_color.blue
         case .teal:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorTeal"
+            return ImageName.slashMenu.background_color.teal
         case .green:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorGreen"
+            return ImageName.slashMenu.background_color.green
         case .coldGray:
-            return "TextEditor/Toolbar/Blocks/BackgroundColorColdgray"
+            return ImageName.slashMenu.background_color.coldgray
         }
     }
 
@@ -110,10 +110,10 @@ enum BlockBackgroundColor: CaseIterable {
             return .pink
         case .purple:
             return .purple
-        case .ultramarine:
-            return .blue
-        case .blue:
+        case .sky:
             return .ice
+        case .blue:
+            return .blue
         case .teal:
             return .teal
         case .green:

@@ -1,11 +1,3 @@
-//
-//  ObjectIconImageView.swift
-//  ObjectIconImageView
-//
-//  Created by Konstantin Mordan on 26.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Kingfisher
@@ -13,7 +5,7 @@ import Kingfisher
 final class ObjectIconImageView: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
     
     init() {
         super.init(frame: .zero)
@@ -45,10 +37,7 @@ extension ObjectIconImageView: ConfigurableView {
             handleObjectIconType(objectIconType, model: model)
         case .todo(let isChecked):
             imageView.image = model.imageGuideline.flatMap {
-                painter.todoImage(
-                    isChecked: isChecked,
-                    imageGuideline: $0
-                )
+                painter.todoImage(isChecked: isChecked, imageGuideline: $0)
             }
         case .placeholder(let character):
             imageView.image = stringIconImage(
@@ -57,6 +46,10 @@ extension ObjectIconImageView: ConfigurableView {
                 textColor: UIColor.textTertiary,
                 backgroundColor: UIColor.grayscale10
             )
+        case .staticImage(let name):
+            imageView.image = model.imageGuideline.flatMap {
+                painter.staticImage(name: name, imageGuideline: $0)
+            }
         }
     }
     
