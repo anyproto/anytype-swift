@@ -16,13 +16,15 @@ extension TextBlockContentView: TextViewDelegate {
     }
     
     func willBeginEditing() {
-        currentConfiguration.accessorySwitcher.updateDelegate(delegate: self)
-        currentConfiguration.accessorySwitcher.didBeginEditing(textView: textView)
+        currentConfiguration.accessorySwitcher.didBeginEditing(
+            textView: textView,
+            delegate: self,
+            blockType: currentConfiguration.information.content.type
+        )
         currentConfiguration.blockDelegate.willBeginEditing()
     }
 
     func didBeginEditing() {
-        currentConfiguration.accessorySwitcher.updateBlockType(with: currentConfiguration.information.content.type)
         currentConfiguration.blockDelegate.didBeginEditing()
     }
 
