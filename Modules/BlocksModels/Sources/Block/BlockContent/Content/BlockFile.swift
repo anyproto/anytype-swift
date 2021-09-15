@@ -8,6 +8,7 @@ public enum FileContentType: Hashable {
     case file
     case image
     case video
+    case audio
 }
 
 

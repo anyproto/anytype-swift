@@ -137,6 +137,19 @@ final class BlockViewModelBuilder {
                         self?.saveFile(fileId: fileId)
                     }
                 )
+            case .audio:
+                return AudioBlockViewModel(
+                    indentationLevel: block.indentationLevel,
+                    information: block.information,
+                    fileData: content,
+                    contextualMenuHandler: contextualMenuHandler,
+                    showAudioPicker: { [weak self] blockId in
+                        self?.showMediaPicker(type: .audio, blockId: blockId)
+                    },
+                    downloadAudio: { [weak self] fileId in
+                        self?.saveFile(fileId: fileId)
+                    }
+                )
             }
         case .divider(let content):
             return DividerBlockViewModel(

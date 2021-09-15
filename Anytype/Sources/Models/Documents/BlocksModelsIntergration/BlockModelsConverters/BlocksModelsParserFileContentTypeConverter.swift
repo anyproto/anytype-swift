@@ -11,7 +11,7 @@ final class BlockContentFileContentTypeConverter {
         case .file: return .file
         case .image: return .image
         case .video: return .video
-        case .audio: return nil
+        case .audio: return .audio
         case .UNRECOGNIZED: return nil
         case .audio: return nil
         }
@@ -23,6 +23,7 @@ final class BlockContentFileContentTypeConverter {
         case .file: return .file
         case .image: return .image
         case .video: return .video
+        case .audio: return .audio
         }
     }
 }
