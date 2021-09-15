@@ -2,7 +2,7 @@
 //  ObjectCoverView.swift
 //  ObjectCoverView
 //
-//  Created by Konstantin Mordan on 11.08.2021.
+//  Created by Konstantin Mordan on 08.09.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
@@ -14,10 +14,8 @@ final class ObjectCoverView: UIView {
     
     // MARK: - Views
     
-    private let imageView = UIImageView()
-    
     private let activityIndicatorView = ActivityIndicatorView()
-    private let tapGesture = BindableGestureRecognizer()
+    private let imageView = UIImageView()
     
     // MARK: - Initializers
     
@@ -34,70 +32,69 @@ final class ObjectCoverView: UIView {
     
 }
 
+
 // MARK: - ConfigurableView
 
 extension ObjectCoverView: ConfigurableView {
-
-    struct Model {
-        let cover: ObjectCover
-        let maxWidth: CGFloat
-    }
     
-    func configure(model: Model) {
-        tapGesture.action = model.cover.onTap
-        
-        switch model.cover.state {
+    func configure(model: ObjectCover) {
+        switch model {
         case let .cover(cover):
-            configureCoverState(
-                cover: cover,
-                maxWidth: model.maxWidth
-            )
+            configureCoverState(cover)
         case let .preview(image):
             configurePreviewState(image)
         }
     }
     
-    private func configureCoverState(cover: DocumentCover, maxWidth: CGFloat) {
+}
+
+private extension ObjectCoverView {
+    
+    func configureCoverState(_ cover: DocumentCover) {
         activityIndicatorView.hide()
         
         switch cover {
         case let .imageId(imageId):
-            showImageWithId(imageId, maxWidth: maxWidth)
+            showImageWithId(imageId)
         case let .color(color):
-            showImageBasedOnColor(color, maxWidth: maxWidth)
+            showColor(color)
         case let .gradient(startColor, endColor):
-            showImageBaseOnGradient(startColor, endColor, maxWidth: maxWidth)
+            showGradient(
+                GradientColor(start: startColor, end: endColor)
+            )
         }
     }
     
-    private func showImageWithId(_ imageId: String, maxWidth: CGFloat) {
+    private func showImageWithId(_ imageId: String) {
         let imageGuideline = ImageGuideline(
             size: CGSize(
-                width: maxWidth,
-                height: Constants.coverHeight
+                width: bounds.width,
+                height: bounds.height
             )
         )
         
         let placeholder = ImageBuilder(imageGuideline).build()
+        let processor = KFProcessorBuilder(
+            scalingType: .resizing(.aspectFill),
+            targetSize: imageGuideline.size,
+            cornerRadius: nil
+        ).processor
         
-        let processor = ResizingImageProcessor(
-            referenceSize: imageGuideline.size,
-            mode: .aspectFill
-        )
-        |> CroppingImageProcessor(size: imageGuideline.size)
-        
+        imageView.kf.cancelDownloadTask()
         imageView.kf.setImage(
             with: ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.2))]
         )
+        
+        imageView.contentMode = .scaleAspectFill
     }
     
-    private func showImageBasedOnColor(_ color: UIColor, maxWidth: CGFloat) {
+    private func showColor(_ color: UIColor) {
         let imageGuideline = ImageGuideline(
             size: CGSize(
-                width: maxWidth,
-                height: Constants.coverHeight
+                width: bounds.width,
+                height: bounds.height
             )
         )
         
@@ -108,16 +105,13 @@ extension ObjectCoverView: ConfigurableView {
         imageView.contentMode = .scaleAspectFill
     }
     
-    private func showImageBaseOnGradient(_ startColor: UIColor, _ endColor: UIColor, maxWidth: CGFloat) {
+    private func showGradient(_ gradient: GradientColor) {
         imageView.image = GradientImageBuilder().image(
             size: CGSize(
-                width: maxWidth,
-                height: Constants.coverHeight
+                width: bounds.width,
+                height: bounds.height
             ),
-            color: GradientColor(
-                start: startColor,
-                end: endColor
-            ),
+            color: gradient,
             point: GradientPoint(
                 start: CGPoint(x: 0.5, y: 0),
                 end: CGPoint(x: 0.5, y: 1)
@@ -145,30 +139,26 @@ extension ObjectCoverView: ConfigurableView {
 private extension ObjectCoverView {
     
     func setupView() {
+        setupBackgroundColor()
+        
         imageView.clipsToBounds = true
-        addGestureRecognizer(tapGesture)
         
         setupLayout()
     }
     
-    func setupLayout() {
-        addSubview(imageView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: Constants.coverHeight)
-            $0.bottom.equal(to: bottomAnchor, constant: -Constants.bottomInset)
-        }
-        imageView.addSubview(activityIndicatorView) {
-            $0.pinToSuperview()
-        }
+    func setupBackgroundColor() {
+        backgroundColor = .grayscaleWhite
+        imageView.backgroundColor = .grayscaleWhite
     }
     
-}
-
-extension ObjectCoverView {
-    
-    enum Constants {
-        static let coverHeight: CGFloat = 232
-        static let bottomInset: CGFloat = 32
+    func setupLayout() {
+        addSubview(imageView) {
+            $0.pinToSuperview()
+        }
+        
+        addSubview(activityIndicatorView) {
+            $0.pinToSuperview()
+        }
     }
     
 }

@@ -1,7 +1,6 @@
 import UIKit
 import AnytypeCore
 
-
 final class UIKitAnytypeText: Hashable {
     private let paragraphStyle: NSParagraphStyle
     private let textModifier: MarkStyleModifier

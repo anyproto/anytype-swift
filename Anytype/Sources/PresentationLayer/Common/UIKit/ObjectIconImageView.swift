@@ -53,7 +53,7 @@ extension ObjectIconImageView: ConfigurableView {
         }
     }
     
-    private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
+    func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model)
@@ -137,9 +137,9 @@ private extension ObjectIconImageView {
     
 }
 
-// MARK: - Private `ObjectIconImageView.Model` extension
+// MARK: - `ObjectIconImageView.Model` extension
 
-private extension ObjectIconImageView.Model {
+extension ObjectIconImageView.Model {
     
     var imageGuideline: ImageGuideline? {
         self.usecase.objectIconImageGuidelineSet.imageGuideline(

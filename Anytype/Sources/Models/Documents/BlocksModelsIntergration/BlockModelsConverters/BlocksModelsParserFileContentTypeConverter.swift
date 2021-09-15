@@ -13,6 +13,7 @@ final class BlockContentFileContentTypeConverter {
         case .video: return .video
         case .audio: return nil
         case .UNRECOGNIZED: return nil
+        case .audio: return nil
         }
     }
     

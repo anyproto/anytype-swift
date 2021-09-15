@@ -2,9 +2,7 @@ import UIKit
 
 final class ActivityIndicatorView: UIView {
     
-    // `UIActivityIndicatorView` stop animating because we update collection view in `UIView.performWithoutAnimation` block. So we show only dimmed background for now
-//    private let activityIndicatorView = UIActivityIndicatorView()
-    private let activityIndicatorView = UIView()
+    private let activityIndicatorView = UIActivityIndicatorView()
     
     // MARK: - Initializers
     
@@ -27,12 +25,12 @@ final class ActivityIndicatorView: UIView {
 extension ActivityIndicatorView {
     
     func show() {
-//        activityIndicatorView.startAnimating()
+        activityIndicatorView.startAnimating()
         isHidden = false
     }
     
     func hide() {
-//        activityIndicatorView.stopAnimating()
+        activityIndicatorView.stopAnimating()
         isHidden = true
     }
     
@@ -49,7 +47,7 @@ private extension ActivityIndicatorView {
     }
     
     func setupActivityIndicatorView() {
-//        activityIndicatorView.color = .grayscale10
+        activityIndicatorView.color = .grayscale10
         activityIndicatorView.backgroundColor = UIColor(white: 0.0, alpha: 0.32)
     }
     
