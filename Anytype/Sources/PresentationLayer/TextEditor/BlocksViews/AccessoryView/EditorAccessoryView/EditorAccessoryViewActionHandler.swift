@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 enum EditorAccessoryViewAction {
     /// Slash button pressed
@@ -12,34 +13,36 @@ enum EditorAccessoryViewAction {
 }
 
 
-final class EditorAccessoryViewActionHandler {
-    weak var delegate: TextViewDelegate?
-    weak var switcher: AccessoryViewSwitcherProtocol?
-    weak var customTextView: CustomTextView?
+final class EditorAccessoryViewModel {
+    var information: BlockInformation?
     
-    init() { }
+    weak var customTextView: CustomTextView?
+    weak var delegate: EditorAccessoryViewDelegate?
+    
+    private let router: EditorRouter
+    
+    init(router: EditorRouter) {
+        self.router = router
+    }
     
     func handle(_ action: EditorAccessoryViewAction) {
-        guard let customTextView = customTextView, let switcher = switcher else {
+        guard let customTextView = customTextView, let delegate = delegate else {
             return
         }
 
         switch action {
         case .slashMenu:
-            customTextView.textView.insertStringAfterCaret(
-                switcher.textToTriggerSlashViewDisplay
-            )
-            switcher.showSlashMenuView(textView: customTextView.textView)
+            customTextView.textView.insertStringAfterCaret("/")
+            delegate.showSlashMenuView(textView: customTextView.textView)
         case .showStyleMenu:
-            delegate?.didReceiveAction(.showStyleMenu)
-
+            information.flatMap {
+                router.showStyleMenu(information: $0)
+            }
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
-            customTextView.textView.insertStringAfterCaret(
-                switcher.textToTriggerMentionViewDisplay
-            )
-            switcher.showMentionsView(textView: customTextView.textView)
+            customTextView.textView.insertStringAfterCaret("@")
+            delegate.showMentionsView(textView: customTextView.textView)
         }
     }
 }

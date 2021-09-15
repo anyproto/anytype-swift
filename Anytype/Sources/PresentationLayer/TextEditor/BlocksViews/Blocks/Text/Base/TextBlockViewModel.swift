@@ -20,7 +20,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let showPage: (String) -> Void
     private let openURL: (URL) -> Void
-    private let showStyleMenu: (BlockInformation) -> Void
     
     private let actionHandler: EditorActionHandlerProtocol
     private let accessorySwitcher: AccessoryViewSwitcherProtocol
@@ -46,9 +45,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         actionHandler: EditorActionHandlerProtocol,
         accessorySwitcher: AccessoryViewSwitcherProtocol,
         showPage: @escaping (String) -> Void,
-        openURL: @escaping (URL) -> Void,
-        showStyleMenu:  @escaping (BlockInformation) -> Void)
-    {
+        openURL: @escaping (URL) -> Void
+    ) {
         self.block = block
         self.text = text
         self.upperBlock = upperBlock
@@ -60,7 +58,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.accessorySwitcher = accessorySwitcher
         self.showPage = showPage
         self.openURL = openURL
-        self.showStyleMenu = showStyleMenu
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
@@ -96,7 +93,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             accessorySwitcher: accessorySwitcher,
             showPage: showPage,
             openURL: openURL,
-            showStyleMenu: showStyleMenu,
             focusPublisher: focusSubject.eraseToAnyPublisher()
         )
     }

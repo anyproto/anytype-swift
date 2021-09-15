@@ -1,18 +1,15 @@
 import UIKit
 import BlocksModels
 
-final class AccessoryViewSwitcherBuilder {
-    private let actionHandler: EditorActionHandlerProtocol
-    
-    init(actionHandler: EditorActionHandlerProtocol) {
-        self.actionHandler = actionHandler
-    }
-    
-    func accessoryViewSwitcher() -> AccessoryViewSwitcher {
+struct AccessoryViewSwitcherBuilder {
+    func accessoryViewSwitcher(
+        actionHandler: EditorActionHandlerProtocol,
+        router: EditorRouter
+    ) -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
-        let accessoryHandler = EditorAccessoryViewActionHandler()
-        let accessoryView = EditorAccessoryView(actionHandler: accessoryHandler)
+        let accessoryViewModel = EditorAccessoryViewModel(router: router)
+        let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
         
         let slashHandler = SlashMenuActionsHandlerImp(actionHandler: actionHandler)
         let slashMenuView = SlashMenuAssembly.menuView(
@@ -27,7 +24,7 @@ final class AccessoryViewSwitcherBuilder {
         )
         
         mentionsView.delegate = accessoryViewSwitcher
-        accessoryHandler.switcher = accessoryViewSwitcher
+        accessoryViewModel.delegate = accessoryViewSwitcher
         
         return accessoryViewSwitcher
     }

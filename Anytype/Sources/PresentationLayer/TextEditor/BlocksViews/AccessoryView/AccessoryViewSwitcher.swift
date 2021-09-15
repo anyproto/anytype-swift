@@ -10,30 +10,20 @@ protocol AccessoryViewSwitcherDelegate: AnyObject {
     func didEnterURL(_ url: URL?)
 }
 
-protocol AccessoryViewSwitcherProtocol: AnyObject {
-    var textToTriggerSlashViewDisplay: String { get }
-    var textToTriggerMentionViewDisplay: String { get }
-    
-    func showSlashMenuView(textView: UITextView)
-    func showMentionsView(textView: UITextView)
-    
+protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
     func showURLInput(textView: UITextView, url: URL?)
     
     func didBeginEditing(
         textView: CustomTextView,
         delegate: AccessoryViewSwitcherDelegate & TextViewDelegate,
-        blockType: BlockContentType
+        information: BlockInformation
     )
-    
     
     func textDidChange(textView: UITextView)
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange)
 }
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
-    let textToTriggerSlashViewDisplay = "/"
-    let textToTriggerMentionViewDisplay = "@"
-    
     private var displayAcessoryViewTask: DispatchWorkItem?
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     
@@ -59,46 +49,28 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         setupDismissHandlers()
     }
-    
-    private func setupDismissHandlers() {
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.cleanupDisplayedView()
-
-            self.textView.flatMap { self.changeAccessoryView(self.accessoryView, in: $0) }
-        }
-
-        mentionsView.dismissHandler = dismissActionsMenu
-        slashMenuView.dismissHandler = dismissActionsMenu
-    }
 
     // MARK: - Public methods
+    func showMentionsView(textView: UITextView) {
+        showAccessoryView(accessoryView: mentionsView, textView: textView)
+    }
+    
+    func showSlashMenuView(textView: UITextView) {
+        showAccessoryView(accessoryView: slashMenuView, textView: textView)
+    }
+    
     func didBeginEditing(
         textView: CustomTextView,
         delegate: AccessoryViewSwitcherDelegate & TextViewDelegate,
-        blockType: BlockContentType
+        information: BlockInformation
     ) {
         self.delegate = delegate
-        accessoryView.actionHandler.delegate = delegate
-
         self.textView = textView.textView
-        accessoryView.actionHandler.customTextView = textView
         
-        textView.textView.inputAccessoryView = accessoryView
+        accessoryView.update(information: information, textView: textView)
+        changeAccessoryView(accessoryView, in: textView.textView)
         
-        updateBlockType(with: blockType)
-    }
-    
-    private func updateBlockType(with type: BlockContentType) {
-        if type == .text(.title) {
-            accessoryView.updateMenuItems([.style])
-        } else {
-            accessoryView.updateMenuItems([.slash, .style, .mention])
-        }
-
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: type)
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content.type)
         slashMenuView.menuItems = SlashMenuItemsBuilder(restrictions: restrictions)
             .slashMenuItems()
     }
@@ -120,14 +92,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         case .typingSymbols:
             handleSymbolsTyped(in: textView)
         }
-    }
-    
-    func showMentionsView(textView: UITextView) {
-        showAccessoryView(accessoryView: mentionsView, textView: textView)
-    }
-    
-    func showSlashMenuView(textView: UITextView) {
-        showAccessoryView(accessoryView: slashMenuView, textView: textView)
     }
     
     func showURLInput(textView: UITextView, url: URL?) {
@@ -162,7 +126,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         textView.inputAccessoryView = accessoryView
         
-        accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.frame.size.height)
+        accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.bounds.size.height)
         UIView.animate(withDuration: CATransaction.animationDuration()) {
             accessoryView.transform = .identity
             textView.reloadInputViews()
@@ -224,12 +188,12 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private func displayFilterableViewIfNeeded(textView: UITextView) {
         guard let textBeforeCaret = textView.textBeforeCaret() else { return }
-        if textBeforeCaret.hasSuffix(textToTriggerSlashViewDisplay) {
+        if textBeforeCaret.hasSuffix("/") {
             createDelayedAcessoryViewTask(
                 accessoryView: slashMenuView,
                 textView: textView
             )
-        } else if textBeforeCaret.hasSuffix(textToTriggerMentionViewDisplay) {
+        } else if textBeforeCaret.hasSuffix("@") {
             createDelayedAcessoryViewTask(
                 accessoryView: mentionsView,
                 textView: textView
@@ -248,6 +212,20 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private func handleSymbolsDeleted(in textView: UITextView) {
         guard isFilterableViewCurrentlyVisible() else { return }
         setFilterTextToView(in: textView)
+    }
+    
+    private func setupDismissHandlers() {
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.cleanupDisplayedView()
+
+            self.textView.flatMap { self.changeAccessoryView(self.accessoryView, in: $0) }
+        }
+
+        mentionsView.dismissHandler = dismissActionsMenu
+        slashMenuView.dismissHandler = dismissActionsMenu
     }
     
     // MARK: - Views
