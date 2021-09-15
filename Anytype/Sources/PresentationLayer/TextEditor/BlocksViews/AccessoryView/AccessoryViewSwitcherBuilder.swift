@@ -20,7 +20,8 @@ struct AccessoryViewSwitcherBuilder {
         let accessoryViewSwitcher = AccessoryViewSwitcher(
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
-            accessoryView: accessoryView
+            accessoryView: accessoryView,
+            handler: actionHandler
         )
         
         mentionsView.delegate = accessoryViewSwitcher

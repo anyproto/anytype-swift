@@ -1,24 +1,11 @@
 import UIKit
 import BlocksModels
 
-
-protocol AccessoryViewSwitcherDelegate: AnyObject {
-    // mention events
-    func mentionSelected( _ mention: MentionObject, from: UITextPosition, to: UITextPosition)
-    
-    /// Delegate method called after url was entered from accessory view
-    func didEnterURL(_ url: URL?)
-}
-
 protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
     func showURLInput(textView: UITextView, url: URL?)
     
-    func didBeginEditing(
-        textView: CustomTextView,
-        delegate: AccessoryViewSwitcherDelegate & TextViewDelegate,
-        information: BlockInformation
-    )
-    
+    func didBeginEditing(data: AccessoryViewSwitcherData)
+        
     func textDidChange(textView: UITextView)
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange)
 }
@@ -29,8 +16,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
     
-    private weak var textView: UITextView?
-    private weak var delegate: AccessoryViewSwitcherDelegate?
     private var latestTextViewTextChange: TextViewTextChangeType?
     
     private let accessoryView: EditorAccessoryView
@@ -38,14 +23,20 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let slashMenuView: SlashMenuView
     private lazy var urlInputView = buildURLInputView()
     
+    private let handler: EditorActionHandlerProtocol
+    
+    private var data: AccessoryViewSwitcherData?
+    
     init(
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
-        accessoryView: EditorAccessoryView
+        accessoryView: EditorAccessoryView,
+        handler: EditorActionHandlerProtocol
     ) {
         self.slashMenuView = slashMenuView
         self.accessoryView = accessoryView
         self.mentionsView = mentionsView
+        self.handler = handler
         
         setupDismissHandlers()
     }
@@ -59,18 +50,13 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         showAccessoryView(accessoryView: slashMenuView, textView: textView)
     }
     
-    func didBeginEditing(
-        textView: CustomTextView,
-        delegate: AccessoryViewSwitcherDelegate & TextViewDelegate,
-        information: BlockInformation
-    ) {
-        self.delegate = delegate
-        self.textView = textView.textView
+    func didBeginEditing(data: AccessoryViewSwitcherData) {
+        self.data = data
         
-        accessoryView.update(information: information, textView: textView)
-        changeAccessoryView(accessoryView, in: textView.textView)
+        accessoryView.update(information: data.information, textView: data.textView)
+        changeAccessoryView(accessoryView, in: data.textView.textView)
         
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: information.content.type)
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: data.information.content.type)
         slashMenuView.menuItems = SlashMenuItemsBuilder(restrictions: restrictions)
             .slashMenuItems()
     }
@@ -221,7 +207,10 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
             }
             self.cleanupDisplayedView()
 
-            self.textView.flatMap { self.changeAccessoryView(self.accessoryView, in: $0) }
+            
+            if let textView = self.data?.textView.textView {
+                self.changeAccessoryView(self.accessoryView, in: textView)
+            }
         }
 
         mentionsView.dismissHandler = dismissActionsMenu
@@ -231,12 +220,18 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     // MARK: - Views
     func buildURLInputView() -> URLInputAccessoryView {
         let dismissHandler = { [weak self] in
-            guard let self = self, let textView = self.textView else { return }
+            guard let self = self, let textView = self.data?.textView.textView else { return }
             textView.becomeFirstResponder()
             self.changeAccessoryView(self.accessoryView, in: textView)
         }
-        let urlInputView = URLInputAccessoryView() { [weak self] enteredURL in
-            self?.delegate?.didEnterURL(enteredURL)
+        let urlInputView = URLInputAccessoryView() { [weak self] url in
+            guard let self = self, let data = self.data else { return }
+            
+            let range = data.textView.textView.selectedRange
+            self.handler.handleAction(
+                .setLink(data.text.attrString, url, range),
+                blockId: data.information.id
+            )
             dismissHandler()
         }
         urlInputView.dismissHandler = dismissHandler
@@ -248,13 +243,30 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
 extension AccessoryViewSwitcher: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
-        guard
-            let mentionSymbolPosition = accessoryViewTriggerSymbolPosition,
-            let previousToMentionSymbol = textView?.position(from: mentionSymbolPosition,
-                                                                      offset: -1),
-            let caretPosition = textView?.caretPosition() else { return }
+        guard let data = data else { return }
+        
+        guard let mentionSymbolPosition = accessoryViewTriggerSymbolPosition,
+              let previousToMentionSymbol = data.textView.textView.position(
+                from: mentionSymbolPosition,
+                offset: -1
+            ),
+              let caretPosition = data.textView.textView.caretPosition() else {
+            return
+        }
+        
+        data.textView.textView.insert(
+            mention,
+            from: previousToMentionSymbol,
+            to: caretPosition,
+            font: data.text.anytypeFont
+        )
 
-        self.delegate?.mentionSelected(mention, from: previousToMentionSymbol, to: caretPosition)
+        handler.handleAction(
+            .textView(
+                action: .changeText(data.textView.textView.attributedText),
+                block: data.block
+            ),
+            blockId: data.information.id
+        )
     }
-
 }

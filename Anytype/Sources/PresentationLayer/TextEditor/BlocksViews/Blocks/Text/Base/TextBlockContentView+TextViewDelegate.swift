@@ -17,9 +17,12 @@ extension TextBlockContentView: TextViewDelegate {
     
     func willBeginEditing() {
         currentConfiguration.accessorySwitcher.didBeginEditing(
-            textView: textView,
-            delegate: self,
-            information: currentConfiguration.information
+            data: AccessoryViewSwitcherData(
+                textView: textView,
+                block: currentConfiguration.block,
+                information: currentConfiguration.information,
+                text: currentConfiguration.text
+            )
         )
         currentConfiguration.blockDelegate.willBeginEditing()
     }
