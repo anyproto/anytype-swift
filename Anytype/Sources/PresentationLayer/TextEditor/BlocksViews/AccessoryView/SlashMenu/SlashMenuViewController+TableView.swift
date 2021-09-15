@@ -31,8 +31,11 @@ extension SlashMenuViewController: UITableViewDelegate {
         switch cellData[indexPath.row] {
         case let .menu(type, children):
             guard !children.isEmpty else { return }
+            var cellData: [SlashMenuCellData] = [.header(title: type.title)]
+            cellData.append(contentsOf: children.map { .action($0) })
+            
             let childController = SlashMenuViewController(
-                cellData: children.map { .action($0) },
+                cellData: cellData,
                 actionsHandler: actionsHandler,
                 dismissHandler: dismissHandler
             )

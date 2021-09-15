@@ -1,9 +1,9 @@
 import UIKit
 
 final class SlashMenuAssembly {
-    let actionsHandler: SlashMenuActionsHandler
+    let actionsHandler: SlashMenuViewModel
     
-    init(actionsHandler: SlashMenuActionsHandler) {
+    init(actionsHandler: SlashMenuViewModel) {
         self.actionsHandler = actionsHandler
     }
     
@@ -22,7 +22,7 @@ final class SlashMenuAssembly {
         return controller
     }
     
-    static func menuView(size: CGSize, actionsHandler: SlashMenuActionsHandler) -> SlashMenuView {
-        SlashMenuView(frame: CGRect(origin: .zero, size: size), actionsHandler: actionsHandler)
+    static func menuView(size: CGSize, viewModel: SlashMenuViewModel) -> SlashMenuView {
+        SlashMenuView(frame: CGRect(origin: .zero, size: size), viewModel: viewModel)
     }
 }

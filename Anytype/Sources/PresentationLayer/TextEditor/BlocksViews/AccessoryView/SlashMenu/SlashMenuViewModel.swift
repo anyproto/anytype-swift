@@ -3,7 +3,9 @@ import Combine
 import ProtobufMessages
 import UIKit
 
-final class SlashMenuActionsHandlerImp {
+final class SlashMenuViewModel {
+    var block: BlockModelProtocol?
+    
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
     private var middwareEventsSubscription: AnyCancellable?
@@ -13,9 +15,6 @@ final class SlashMenuActionsHandlerImp {
     init(actionHandler: EditorActionHandlerProtocol) {
         self.actionHandler = actionHandler
     }
-}
-
-extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
     
     func handle(action: SlashAction) {
         removeSlashMenuText()
@@ -54,9 +53,7 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         // -1 because in text "Hello, everyone/" we want to store position before slash, not after
         initialCaretPosition = textView.position(from: caretPosition, offset: -1)
     }
-}
 
-private extension SlashMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
@@ -128,10 +125,19 @@ private extension SlashMenuActionsHandlerImp {
         guard let initialCaretPosition = initialCaretPosition,
               let textView = textView,
               let currentPosition = textView.caretPosition(),
-              let textRange = textView.textRange(from: initialCaretPosition, to: currentPosition) else {
+              let textRange = textView.textRange(from: initialCaretPosition, to: currentPosition),
+              let block = block else {
             return
         }
         textView.replace(textRange, withText: "")
+        
+        guard let text = textView.attributedText else { return }
+        actionHandler.handleAction(
+            .textView(
+                action: .changeText(text),
+                block: block
+            ), blockId: block.information.id
+        )
     }
     
     private func show(blockId: BlockId) {

@@ -1,6 +1,6 @@
 import UIKit
 import Amplitude
-
+import BlocksModels
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
@@ -8,20 +8,17 @@ final class SlashMenuView: DismissableInputAccessoryView {
         static let maxMistatchFilteringCount = 3
     }
     
-    var menuItems = [SlashMenuItem]()
+    private var menuItems = [SlashMenuItem]()
     private weak var menuNavigationController: UINavigationController?
-    private lazy var controller = SlashMenuAssembly(actionsHandler: actionsHandler)
+    private lazy var controller = SlashMenuAssembly(actionsHandler: viewModel)
         .menuController(menuItems: menuItems, dismissHandler: dismissHandler)
-    private let actionsHandler: SlashMenuActionsHandler
+    private let viewModel: SlashMenuViewModel
     private let cellDataBuilder = SlashMenuCellDataBuilder()
     private var filterStringMismatchLength = 0
     private var cachedFilterText = ""
     
-    init(
-        frame: CGRect,
-        actionsHandler: SlashMenuActionsHandler
-    ) {
-        self.actionsHandler = actionsHandler
+    init(frame: CGRect, viewModel: SlashMenuViewModel) {
+        self.viewModel = viewModel
 
         super.init(frame: frame)
     }
@@ -37,6 +34,15 @@ final class SlashMenuView: DismissableInputAccessoryView {
         
         guard let windowRootViewController = window?.rootViewController?.children.last else { return }
         setup(parentViewController: windowRootViewController)
+    }
+    
+    func update(block: BlockModelProtocol) {
+        self.viewModel.block = block
+        
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(
+            for: block.information.content.type
+        )
+        menuItems = SlashMenuItemsBuilder(restrictions: restrictions).slashMenuItems()
     }
     
     func restoreDefaultState() {
@@ -61,7 +67,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     override func didShow(from textView: UITextView) {
         Amplitude.instance().logEvent(AmplitudeEventsName.popupSlashMenu)
         
-        actionsHandler.didShowMenuView(from: textView)
+        viewModel.didShowMenuView(from: textView)
     }
     
 }

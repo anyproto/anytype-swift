@@ -11,7 +11,7 @@ protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
 }
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
-    private var displayAcessoryViewTask: DispatchWorkItem?
+    private var displayAcessoryViewTask = DispatchWorkItem {}
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsView)?
@@ -56,9 +56,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         accessoryView.update(information: data.information, textView: data.textView)
         changeAccessoryView(accessoryView, in: data.textView.textView)
         
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: data.information.content.type)
-        slashMenuView.menuItems = SlashMenuItemsBuilder(restrictions: restrictions)
-            .slashMenuItems()
+        slashMenuView.update(block: data.block)
     }
 
     func textWillChange(textView: UITextView, replacementText: String, range: NSRange) {
@@ -69,7 +67,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
 
     func textDidChange(textView: UITextView) {
-        displayAcessoryViewTask?.cancel()
+        displayAcessoryViewTask.cancel()
         switch latestTextViewTextChange {
         case .none:
             return
@@ -120,23 +118,21 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
     }
     
-    private func createDelayedAcessoryViewTask(
-        accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
-        textView: UITextView
+    private func showAccessoryViewWithDelay(
+        _ accessoryView: (DismissableInputAccessoryView & FilterableItemsView)?,
+        in textView: UITextView
     ) {
-        let task = DispatchWorkItem(block: { [weak self] in
+        displayAcessoryViewTask = DispatchWorkItem { [weak self] in
             self?.showAccessoryView(
                 accessoryView: accessoryView,
                 textView: textView
             )
-        })
-        displayAcessoryViewTask = task
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: task)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: displayAcessoryViewTask)
     }
     
     private func isFilterableViewCurrentlyVisible() -> Bool {
-        guard let accessoryView = displayedView,
-              accessoryView.window.isNotNil else {
+        guard let accessoryView = displayedView, accessoryView.window.isNotNil else {
             return false
         }
         return true
@@ -172,26 +168,22 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         dismissDisplayedViewIfNeeded(textView: textView)
     }
     
-    private func displayFilterableViewIfNeeded(textView: UITextView) {
-        guard let textBeforeCaret = textView.textBeforeCaret() else { return }
-        if textBeforeCaret.hasSuffix("/") {
-            createDelayedAcessoryViewTask(
-                accessoryView: slashMenuView,
-                textView: textView
-            )
-        } else if textBeforeCaret.hasSuffix("@") {
-            createDelayedAcessoryViewTask(
-                accessoryView: mentionsView,
-                textView: textView
-            )
-        }
-    }
-    
     private func handleSymbolsTyped(in textView: UITextView) {
         if isFilterableViewCurrentlyVisible() {
             setFilterTextToView(in: textView)
         } else {
-            displayFilterableViewIfNeeded(textView: textView)
+            displaySlashOrMentionIfNeeded(textView: textView)
+        }
+    }
+    
+    private func displaySlashOrMentionIfNeeded(textView: UITextView) {
+        guard let data = data, data.information.content.type != .text(.title) else { return }
+        guard let textBeforeCaret = textView.textBeforeCaret() else { return }
+        
+        if textBeforeCaret.hasSuffix("/") {
+            showAccessoryViewWithDelay(slashMenuView, in: textView)
+        } else if textBeforeCaret.hasSuffix("@") {
+            showAccessoryViewWithDelay(mentionsView, in: textView)
         }
     }
     
