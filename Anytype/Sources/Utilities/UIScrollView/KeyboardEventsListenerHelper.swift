@@ -11,12 +11,14 @@ class KeyboardEventsListnerHelper {
         observerTokens?.forEach { NotificationCenter.default.removeObserver($0) }
     }
     
-    init?(willShowAction: Action? = nil,
-         didShowAction: Action? = nil,
-         willChangeFrame: Action? = nil,
-         didChangeFrame: Action? = nil,
-         willHideAction: Action? = nil,
-         didHideAction: Action? = nil) {
+    init?(
+        willShowAction: Action? = nil,
+        didShowAction: Action? = nil,
+        willChangeFrame: Action? = nil,
+        didChangeFrame: Action? = nil,
+        willHideAction: Action? = nil,
+        didHideAction: Action? = nil
+    ) {
 
         guard ![didHideAction, willChangeFrame, didChangeFrame, willHideAction, didHideAction].compactMap({ $0 }).isEmpty else {
             anytypeAssertionFailure("No arguments passed")
