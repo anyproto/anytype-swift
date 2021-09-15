@@ -1,35 +1,44 @@
 import UIKit
 import Amplitude
-
+import BlocksModels
 
 class EditorAccessoryView: UIView {
-    let actionHandler: EditorAccessoryViewActionHandler
+    private let viewModel: EditorAccessoryViewModel
 
     // MARK: - Lifecycle
 
-    init(
-        items: [Item] = [.slash, .style, .mention],
-        actionHandler: EditorAccessoryViewActionHandler
-    ) {
-        self.actionHandler = actionHandler
+    init(viewModel: EditorAccessoryViewModel) {
+        self.viewModel = viewModel
 
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
 
-        setupViews(items)
+        setupViews()
     }
 
-    private func setupViews(_ items: [Item]) {
+    private func setupViews() {
         autoresizingMask = .flexibleHeight
         backgroundColor = .backgroundPrimary
         addSubview(stackView)
         stackView.edgesToSuperview()
-
-        updateMenuItems(items)
     }
     
     // MARK: - Public methods
+    func update(information: BlockInformation, textView: CustomTextView) {
+        viewModel.customTextView = textView
+        viewModel.information = information
+        
+        updateMenuItems(information: information)
+    }
 
-    func updateMenuItems(_ items: [Item]) {
+    // MARK: - Private methods
+    private func updateMenuItems(information: BlockInformation) {
+        let items: [Item]
+        if information.content.type == .text(.title) {
+            items = [.style]
+        } else {
+            items = [.slash, .style, .mention]
+        }
+        
         stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
             view.removeFromSuperview()
@@ -40,7 +49,7 @@ class EditorAccessoryView: UIView {
                 // Analytics
                 Amplitude.instance().logEvent(item.analyticsEvent)
 
-                self?.actionHandler.handle(item.action)
+                self?.viewModel.handle(item.action)
             }
         }
 
@@ -48,11 +57,9 @@ class EditorAccessoryView: UIView {
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.buttonHideKeyboard)
 
-            self?.actionHandler.handle(.keyboardDismiss)
+            self?.viewModel.handle(.keyboardDismiss)
         }
     }
-
-    // MARK: - Private methods
 
     /// Add bar item with title and image.
     /// - Parameters:

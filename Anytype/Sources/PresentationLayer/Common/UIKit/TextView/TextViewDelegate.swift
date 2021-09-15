@@ -34,8 +34,6 @@ protocol TextViewDelegate: AnyObject {
 extension CustomTextView {
 
     public enum UserAction {
-        case showStyleMenu
-
         case changeText(NSAttributedString)
         case changeTextStyle(NSAttributedString, BlockHandlerActionType.TextAttributesType, NSRange)
         case changeLink(NSAttributedString, NSRange)

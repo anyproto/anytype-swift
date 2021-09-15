@@ -67,9 +67,8 @@ final class EditorAssembly {
             document: document
         )
         
-        let accessorySwitcher = AccessoryViewSwitcherBuilder(actionHandler: editorBlockActionHandler)
-            .accessoryViewSwitcher()
-        
+        let accessorySwitcher = AccessoryViewSwitcherBuilder()
+            .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             blockActionHandler: editorBlockActionHandler,

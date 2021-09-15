@@ -19,7 +19,7 @@ extension TextBlockContentView: TextViewDelegate {
         currentConfiguration.accessorySwitcher.didBeginEditing(
             textView: textView,
             delegate: self,
-            blockType: currentConfiguration.information.content.type
+            information: currentConfiguration.information
         )
         currentConfiguration.blockDelegate.willBeginEditing()
     }
@@ -30,8 +30,6 @@ extension TextBlockContentView: TextViewDelegate {
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
-        case .showStyleMenu:
-            currentConfiguration.showStyleMenu(currentConfiguration.information)
         case .changeText:
             currentConfiguration.accessorySwitcher.textDidChange(textView: textView.textView)
 

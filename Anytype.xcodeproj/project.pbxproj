@@ -328,6 +328,7 @@
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
 		3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9226456C89005805A8 /* HomeCoordinator.swift */; };
 		3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9E26458CC2005805A8 /* DragIndicator.swift */; };
+		3D88214D26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D88214C26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift */; };
 		3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A82D72656EDF400C4A9CD /* Popup.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
@@ -964,6 +965,7 @@
 		3D82917A265E53BB0007C152 /* LocalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		3D850B9E26458CC2005805A8 /* DragIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicator.swift; sourceTree = "<group>"; };
+		3D88214C26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAccessoryViewDelegate.swift; sourceTree = "<group>"; };
 		3D8A82D72656EDF400C4A9CD /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
@@ -3384,6 +3386,7 @@
 				533AED7826CB494F0018E33C /* EditorAccessoryViewActionHandler.swift */,
 				534B7F1F26264E8B00D712B2 /* EditorAccessoryView.swift */,
 				3D65593D26F057F600F150AE /* EditorAccessoryViewItem.swift */,
+				3D88214C26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift */,
 			);
 			path = EditorAccessoryView;
 			sourceTree = "<group>";
@@ -4289,6 +4292,7 @@
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				3D65593E26F057F600F150AE /* EditorAccessoryViewItem.swift in Sources */,
+				3D88214D26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift in Sources */,
 				3D29AFFD26A606360095BA18 /* URLInputViewController.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,

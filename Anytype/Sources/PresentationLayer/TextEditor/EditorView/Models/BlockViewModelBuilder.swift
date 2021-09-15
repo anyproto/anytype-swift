@@ -94,10 +94,8 @@ final class BlockViewModelBuilder {
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
-                    },
-                    showStyleMenu: { [weak self] information in
-                        self?.router.showStyleMenu(information: information)
-                    })
+                    }
+                )
             }
         case let .file(content):
             switch content.contentType {

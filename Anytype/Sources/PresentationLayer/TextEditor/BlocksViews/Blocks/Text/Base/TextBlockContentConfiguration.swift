@@ -22,7 +22,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
-    let showStyleMenu: (BlockInformation) -> Void
     
     let pressingEnterTimeChecker = TimeChecker()
     
@@ -39,7 +38,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         accessorySwitcher: AccessoryViewSwitcherProtocol,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
-        showStyleMenu: @escaping (BlockInformation) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
         self.blockDelegate = blockDelegate
@@ -51,7 +49,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.accessorySwitcher = accessorySwitcher
         self.showPage = showPage
         self.openURL = openURL
-        self.showStyleMenu = showStyleMenu
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
