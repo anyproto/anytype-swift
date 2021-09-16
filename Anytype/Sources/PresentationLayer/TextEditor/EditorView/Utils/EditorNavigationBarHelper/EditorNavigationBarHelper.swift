@@ -26,7 +26,7 @@ final class EditorNavigationBarHelper {
             action: onSettingsBarButtonItemTap
         )
         
-        self.fakeNavigationBarBackgroundView.backgroundColor = .grayscaleWhite
+        self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)

@@ -78,7 +78,9 @@ final class StyleColorContentView: UIView, UIContentView {
 
         switch configuration.colorItem {
         case .background:
-            colorView.setTitle("", for: .normal)
+            let title = configuration.colorItem.color == .backgroundPrimary ? "⁄" : ""
+            colorView.setTitle(title, for: .normal)
+            colorView.setTitleColor(.textTertiary, for: .normal)
             colorView.backgroundColor = configuration.colorItem.color
         case .text:
             colorView.setTitle("A".localized, for: .normal)

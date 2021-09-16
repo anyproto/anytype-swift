@@ -19,8 +19,6 @@ extension UIColor {
     static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
     
-    static let backgroundPrimary: UIColor = .white
-    
     // MARK: - Color palette
     
     static let grayscale90 = color(name: ColorName.grayscale90)
@@ -44,7 +42,7 @@ extension UIColor {
 
     // MARK: - Color for background
 
-    static let grayscaleWhite = color(name: ColorName.grayscaleWhite)
+    static let backgroundPrimary = color(name: ColorName.grayscaleWhite)
 
     static var lightLemon: UIColor {
         .init(hexString: "#FEF9CC")

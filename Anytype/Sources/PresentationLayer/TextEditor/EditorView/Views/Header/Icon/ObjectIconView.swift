@@ -126,11 +126,11 @@ private extension ObjectIconView {
     }
     
     func setupBackgroundColor() {
-        backgroundColor = .grayscaleWhite
+        backgroundColor = .backgroundPrimary
         
-        containerView.backgroundColor = .grayscaleWhite
-        iconImageView.backgroundColor = .grayscaleWhite
-        previewImageView.backgroundColor = .grayscaleWhite
+        containerView.backgroundColor = .backgroundPrimary
+        iconImageView.backgroundColor = .backgroundPrimary
+        previewImageView.backgroundColor = .backgroundPrimary
     }
     
     func setupLayout() {

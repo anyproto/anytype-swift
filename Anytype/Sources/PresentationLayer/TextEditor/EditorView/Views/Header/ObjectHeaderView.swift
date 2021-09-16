@@ -82,7 +82,7 @@ extension ObjectHeaderView: ConfigurableView {
 private extension ObjectHeaderView {
     
     func setupView() {
-        backgroundColor = .grayscaleWhite
+        backgroundColor = .backgroundPrimary
         setupLayout()
         
         iconView.addGestureRecognizer(
