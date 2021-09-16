@@ -43,16 +43,11 @@ final class BlockViewModelBuilder {
     func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
-            let anytypeText = AttributedTextConverter.asModel(
-                text: content.text,
-                marks: content.marks,
-                style: content.contentType
-            )
             switch content.contentType {
             case .code:
                 return CodeBlockViewModel(
                     block: block,
-                    textData: anytypeText,
+                    content: content,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(for: model)
@@ -81,7 +76,6 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? details?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
-                    text: anytypeText,
                     upperBlock: previousBlock,
                     content: content,
                     isCheckable: isCheckable,

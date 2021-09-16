@@ -31,7 +31,7 @@ enum MarkStyleActionConverter {
             }
             return .backgroundColor(color)
         case .mention:
-            return .mention(tuple.value)
+            return .mention(blockId: tuple.value)
         case .UNRECOGNIZED(let value):
             anytypeAssertionFailure("Unrecognized markup \(value)")
             return nil

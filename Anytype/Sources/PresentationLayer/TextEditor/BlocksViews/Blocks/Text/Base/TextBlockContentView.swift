@@ -81,7 +81,9 @@ final class TextBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
         
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: currentConfiguration.content.contentType)
+        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
+            for: currentConfiguration.content.contentType
+        )
         
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: currentConfiguration)
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration, restrictions: restrictions)

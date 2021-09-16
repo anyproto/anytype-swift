@@ -13,45 +13,15 @@ final class MarkStyleModifier {
         attributedString = attributedText
         self.anytypeFont = anytypeFont
     }
-    
-    private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
-        switch (attributedString.string.isEmpty, range) {
-        // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
-        case (true, NSRange(location: 0, length: 0)): return [:]
-            
-        // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
-        case (true, _): return [:]
         
-        // At the end.
-        case let (_, value) where value.location == attributedString.length && value.length == 0: return [:]
-            
-        // Otherwise, return string attributes.
-        default: break
-        }
-        guard attributedString.length >= range.location + range.length else { return [:] }
-        return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
-    }
-    
-    private func mergeAttributes(origin: [NSAttributedString.Key : Any], changes: [NSAttributedString.Key : Any]) -> [NSAttributedString.Key : Any] {
-        var result = origin
-        result.merge(changes) { (source, target) in target }
-        return result
-    }
-    
     func apply(_ action: MarkStyleAction, range: NSRange) {
         guard attributedString.isRangeValid(range) else {
             anytypeAssertionFailure("Range out of bounds in \(#function)")
             return
         }
+        
         switch action {
-        case .bold,
-             .italic,
-             .keyboard,
-             .backgroundColor,
-             .textColor,
-             .link,
-             .underscored,
-             .strikethrough:
+        case .bold, .italic, .keyboard, .backgroundColor, .textColor, .link, .underscored, .strikethrough:
             apply(action, toAllSubrangesIn: range)
         case .mention:
             apply(action, toWhole: range)
@@ -75,6 +45,30 @@ final class MarkStyleModifier {
         if case let .mention(id) = action, let pageId = id {
             applyMention(pageId: pageId, range: range)
         }
+    }
+    
+    private func mergeAttributes(origin: [NSAttributedString.Key : Any], changes: [NSAttributedString.Key : Any]) -> [NSAttributedString.Key : Any] {
+        var result = origin
+        result.merge(changes) { (source, target) in target }
+        return result
+    }
+    
+    private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
+        switch (attributedString.string.isEmpty, range) {
+        // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
+        case (true, NSRange(location: 0, length: 0)): return [:]
+            
+        // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
+        case (true, _): return [:]
+        
+        // At the end.
+        case let (_, value) where value.location == attributedString.length && value.length == 0: return [:]
+            
+        // Otherwise, return string attributes.
+        default: break
+        }
+        guard attributedString.length >= range.location + range.length else { return [:] }
+        return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
     }
     
     private func apply(_ action: MarkStyleAction, toAllSubrangesIn range: NSRange) {
