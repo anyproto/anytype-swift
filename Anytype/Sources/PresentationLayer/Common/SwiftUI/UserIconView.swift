@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import Kingfisher
+import SwiftUIVisualEffects
 
 extension UserIconView {
     
@@ -52,21 +53,22 @@ struct UserIconView: View {
         }
     }
     
-    private func placeholderIcon(_ character: Character?) -> some View {        
-        HomeBackgroundBlurView()
-            .clipShape(Circle())
-            .overlay(
-                AnytypeText(
-                    character.flatMap { String($0) } ?? "",
-                    name: .inter,
-                    size: 45,
-                    weight: .regular
-                )
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .foregroundColor(.black)
-                .blendMode(.overlay)
-                .padding(.top, 2)
-            )
+    private func placeholderIcon(_ character: Character?) -> some View {
+        AnytypeText(
+            character.flatMap { String($0) } ?? "",
+            name: .inter,
+            size: 45,
+            weight: .regular
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .foregroundColor(.textPrimary)
+        .padding(.top, 2)
+        .vibrancyEffect()
+        .vibrancyEffectStyle(.separator)
+        .background(BlurEffect())
+        .blurEffectStyle(.systemMaterial)
+        .clipShape(Circle())
+            
     }
     
 }

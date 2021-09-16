@@ -64,7 +64,7 @@ struct BlockLinkIconMaker {
         imageView.kf.setImage(
             with: url,
             placeholder: image,
-            options: [.processor(processor)]
+            options: [.processor(processor), .transition(.fade(0.2))]
         )
         
         imageView.layoutUsing.anchors {

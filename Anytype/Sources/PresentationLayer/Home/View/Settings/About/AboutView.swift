@@ -3,6 +3,7 @@ import Combine
 import SwiftUI
 import Amplitude
 import AnytypeCore
+import AudioToolbox
 
 struct AboutView: View {
     var body: some View {
@@ -57,6 +58,7 @@ struct AboutView: View {
                 titleTapCount += 1
                 if titleTapCount == 10 {
                     titleTapCount = 0
+                    AudioServicesPlaySystemSound(1109)
                     showDebugMenu = true
                 }
             }

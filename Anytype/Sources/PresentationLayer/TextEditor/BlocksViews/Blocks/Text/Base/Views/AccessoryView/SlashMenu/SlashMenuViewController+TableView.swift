@@ -20,7 +20,7 @@ extension SlashMenuViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch cellData[indexPath.row] {
-        case .sectionDivider:
+        case .header:
             return false
         case .action, .menu:
             return true
@@ -28,7 +28,22 @@ extension SlashMenuViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator.didSelect(cellData[indexPath.row], in: self)
+        switch cellData[indexPath.row] {
+        case let .menu(type, children):
+            guard !children.isEmpty else { return }
+            let childController = SlashMenuViewController(
+                cellData: children.map { .action($0) },
+                actionsHandler: actionsHandler,
+                dismissHandler: dismissHandler
+            )
+            childController.title = type.title
+            navigationController?.pushViewController(childController, animated: true)
+        case let .action(action):
+            actionsHandler.handle(action: action)
+            dismissHandler?()
+        case .header:
+            break
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -37,7 +52,7 @@ extension SlashMenuViewController: UITableViewDelegate {
         switch item {
         case .action, .menu:
             return Self.cellHeight
-        case .sectionDivider:
+        case .header:
             return Self.dividerCellhHeight
         }
     }
@@ -61,9 +76,9 @@ extension SlashMenuViewController: UITableViewDataSource {
             cell.accessoryType = children.isEmpty ? .none : .disclosureIndicator
             cell.separatorInset = SlashMenuConstants.separatorInsets
             cell.contentConfiguration = configurationFactory.configuration(displayData: itemType.displayData)
-        case let .sectionDivider(divider):
+        case let .header(title):
             cell.separatorInset = SlashMenuConstants.dividerSeparatorInsets
-            cell.contentConfiguration = configurationFactory.dividerConfiguration(title: divider)
+            cell.contentConfiguration = configurationFactory.dividerConfiguration(title: title)
         }
 
         return cell

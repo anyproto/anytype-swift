@@ -3,12 +3,14 @@ import UIKit
 enum SlashMenuCellData {
     case menu(item: SlashMenuItemType, actions: [BlockActionType])
     case action(BlockActionType)
-    case sectionDivider(title: String)
+    case header(title: String)
 }
 
 final class SlashMenuViewController: UIViewController {
-    let coordinator: SlashMenuViewControllerCoordinator
     let configurationFactory = ContentConfigurationFactory()
+    let actionsHandler: SlashMenuActionsHandler
+    let dismissHandler: (() -> Void)?
+    
     
     let cellReuseId = NSStringFromClass(UITableViewCell.self)
     
@@ -21,9 +23,15 @@ final class SlashMenuViewController: UIViewController {
     
     private lazy var topBarHeightConstraint = customTopBar.heightAnchor.constraint(equalToConstant: Constants.topBarHeight)
     
-    init(coordinator: SlashMenuViewControllerCoordinator, cellData: [SlashMenuCellData]) {
-        self.coordinator = coordinator
+    init(
+        cellData: [SlashMenuCellData],
+        actionsHandler: SlashMenuActionsHandler,
+        dismissHandler: (() -> Void)?
+        
+    ) {
         self.cellData = cellData
+        self.actionsHandler = actionsHandler
+        self.dismissHandler = dismissHandler
         super.init(nibName: nil, bundle: nil)
         
         setup()

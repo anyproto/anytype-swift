@@ -117,6 +117,15 @@
           "revision": "e1904bf5a5f79cb7e0ff68a427a53a93b652fcd1",
           "version": "1.15.0"
         }
+      },
+      {
+        "package": "SwiftUIVisualEffects",
+        "repositoryURL": "https://github.com/lucasbrown/swiftui-visual-effects",
+        "state": {
+          "branch": null,
+          "revision": "b26f8cebd55ff60ed8953768aa818dfb005b5838",
+          "version": "1.0.3"
+        }
       }
     ]
   },
