@@ -12,11 +12,11 @@
       },
       {
         "package": "Amplitude",
-        "repositoryURL": "https://github.com/amplitude/Amplitude-iOS",
+        "repositoryURL": "git@github.com:amplitude/Amplitude-iOS.git",
         "state": {
           "branch": null,
-          "revision": "68eea8100a84d26c3d81997851965ec3efbe61fc",
-          "version": "8.3.0"
+          "revision": "e23443447b2f7748fe9ef1d7d7a7ebc56d6be7a7",
+          "version": "8.3.1"
         }
       },
       {
@@ -66,7 +66,7 @@
       },
       {
         "package": "Highlightr",
-        "repositoryURL": "https://github.com/raspu/Highlightr.git",
+        "repositoryURL": "git@github.com:raspu/Highlightr.git",
         "state": {
           "branch": null,
           "revision": "93199b9e434f04bda956a613af8f571933f9f037",
@@ -75,7 +75,7 @@
       },
       {
         "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher",
+        "repositoryURL": "git@github.com:onevcat/Kingfisher.git",
         "state": {
           "branch": null,
           "revision": "1897586f01041d6ddc025714be156aee2d79509d",
@@ -120,7 +120,7 @@
       },
       {
         "package": "SwiftUIVisualEffects",
-        "repositoryURL": "https://github.com/lucasbrown/swiftui-visual-effects",
+        "repositoryURL": "git@github.com:lucasbrown/swiftui-visual-effects.git",
         "state": {
           "branch": null,
           "revision": "b26f8cebd55ff60ed8953768aa818dfb005b5838",
