@@ -21,7 +21,7 @@ extension TextBlockContentView: TextViewDelegate {
                 textView: textView,
                 block: currentConfiguration.block,
                 information: currentConfiguration.information,
-                text: currentConfiguration.text
+                text: currentConfiguration.content.anytypeText
             )
         )
         currentConfiguration.blockDelegate.willBeginEditing()

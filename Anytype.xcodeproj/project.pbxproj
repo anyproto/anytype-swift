@@ -330,6 +330,7 @@
 		3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9E26458CC2005805A8 /* DragIndicator.swift */; };
 		3D88214D26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D88214C26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift */; };
 		3D88215326F1F3C400A41E75 /* AccessoryViewSwitcherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D88215226F1F3C400A41E75 /* AccessoryViewSwitcherData.swift */; };
+		3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */; };
 		3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A82D72656EDF400C4A9CD /* Popup.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
@@ -966,6 +967,7 @@
 		3D850B9E26458CC2005805A8 /* DragIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicator.swift; sourceTree = "<group>"; };
 		3D88214C26F1CC6A00A41E75 /* EditorAccessoryViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAccessoryViewDelegate.swift; sourceTree = "<group>"; };
 		3D88215226F1F3C400A41E75 /* AccessoryViewSwitcherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcherData.swift; sourceTree = "<group>"; };
+		3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockText+AnytypeText.swift"; sourceTree = "<group>"; };
 		3D8A82D72656EDF400C4A9CD /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
@@ -3280,6 +3282,7 @@
 				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
 				53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */,
 				530F501F26F0981700F76D03 /* AnytypeLabel.swift */,
+				3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */,
 			);
 			path = TextComponents;
 			sourceTree = "<group>";
@@ -4009,6 +4012,7 @@
 				3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* UITextView+Mentionable.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
+				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,

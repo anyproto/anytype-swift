@@ -29,7 +29,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     init(
         blockDelegate: BlockDelegate,
-        text: UIKitAnytypeText,
         block: BlockModelProtocol,
         content: BlockText,
         upperBlock: BlockModelProtocol?,
@@ -41,7 +40,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
         self.blockDelegate = blockDelegate
-        self.text = text
         self.block = block
         self.content = content
         self.upperBlock = upperBlock
@@ -53,6 +51,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.information = block.information
         self.isCheckable = isCheckable
         
+        self.text = content.anytypeText
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     

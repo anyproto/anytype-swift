@@ -5,9 +5,11 @@ import ProtobufMessages
 
 enum AttributedTextConverter {
     
-    static func asModel(text: String,
-                        marks: Anytype_Model_Block.Content.Text.Marks,
-                        style: BlockText.Style) -> UIKitAnytypeText {
+    static func asModel(
+        text: String,
+        marks: Anytype_Model_Block.Content.Text.Marks,
+        style: BlockText.Style
+    ) -> UIKitAnytypeText {
         // Map attributes to our internal format.
         var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markAction: MarkStyleAction)? in
             let middlewareTuple = MiddlewareTuple(
