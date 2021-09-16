@@ -4877,7 +4877,7 @@
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
 				kind = exactVersion;
-				version = 6.3.0;
+				version = "7.0.0-beta.4";
 			};
 		};
 		3DFD1B0226E75B5900F893FC /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */ = {
