@@ -107,7 +107,6 @@ final class StyleColorViewController: UIViewController {
     private var backgroundColor: UIColor?
     private var actionHandler: ActionHandler
     private var viewDidCloseHandler: () -> Void
-//    private let feedbackGenerator = UISelectionFeedbackGenerator()
 
     // MARK: - Lifecycle
 
