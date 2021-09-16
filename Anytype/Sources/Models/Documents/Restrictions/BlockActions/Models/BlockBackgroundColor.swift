@@ -18,7 +18,7 @@ enum BlockBackgroundColor: CaseIterable {
     var color : UIColor {
         switch self {
         case .default:
-            return .grayscaleWhite
+            return .backgroundPrimary
         case .lemon:
             return .lightLemon
         case .amber:

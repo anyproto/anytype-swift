@@ -26,7 +26,7 @@ final class EditorNavigationBarHelper {
             action: onSettingsBarButtonItemTap
         )
         
-        self.fakeNavigationBarBackgroundView.backgroundColor = .grayscaleWhite
+        self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
@@ -58,7 +58,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             \.contentOffset,
             options: .new
         ) { [weak self] scrollView, _ in
-            self?.handleScrollViewOffsetChange(scrollView.contentOffset.y)
+            self?.handleScrollViewOffsetChange(scrollView.contentOffset.y + scrollView.contentInset.top)
         }
     }
     
@@ -181,13 +181,13 @@ private extension ObjectHeader {
     var height: CGFloat {
         switch self {
         case .iconOnly:
-            return ObjectHeaderIconOnlyContentView.Constants.height
+            return ObjectHeaderView.Constants.filledHeaderHeight
         case .coverOnly:
-            return ObjectHeaderCoverOnlyContentView.Constants.height
+            return ObjectHeaderView.Constants.filledHeaderHeight
         case .iconAndCover:
-            return ObjectHeaderIconAndCoverContentView.Constants.height
+            return ObjectHeaderView.Constants.filledHeaderHeight
         case .empty:
-            return ObjectHeaderEmptyContentView.Constants.height
+            return ObjectHeaderView.Constants.emptyHeaderHeight
         }
     }
     

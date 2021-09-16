@@ -1,4 +1,5 @@
 
+
 struct MentionObject {
     let id: String
     let objectIcon: ObjectIconImage

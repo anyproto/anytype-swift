@@ -1,3 +1,11 @@
+//
+//  ImageBuilder.swift
+//  ImageBuilder
+//
+//  Created by Konstantin Mordan on 30.08.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
+
 import Foundation
 import UIKit
 
@@ -10,7 +18,7 @@ final class ImageBuilder {
     
     private var text: String?
     private var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    private var textColor = UIColor.grayscaleWhite
+    private var textColor = UIColor.backgroundPrimary
     
     init(_ imageGuideline: ImageGuideline) {
         self.imageGuideline = imageGuideline

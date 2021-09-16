@@ -84,6 +84,7 @@ extension DetailsDataProtocol {
         
         return nil
     }
+    
 }
 
 private enum Constants {

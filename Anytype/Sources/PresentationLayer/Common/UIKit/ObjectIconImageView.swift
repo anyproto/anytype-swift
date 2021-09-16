@@ -53,7 +53,7 @@ extension ObjectIconImageView: ConfigurableView {
         }
     }
     
-    private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
+    func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model)
@@ -65,7 +65,7 @@ extension ObjectIconImageView: ConfigurableView {
                 imageView.image = stringIconImage(
                     model: model,
                     string: String(character),
-                    textColor: UIColor.grayscaleWhite,
+                    textColor: UIColor.backgroundPrimary,
                     backgroundColor: UIColor.dividerSecondary
                 )
             }
@@ -73,7 +73,7 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.image = stringIconImage(
                 model: model,
                 string: iconEmoji.value,
-                textColor: UIColor.grayscaleWhite,
+                textColor: UIColor.backgroundPrimary,
                 backgroundColor: model.usecase == .openedObjectNavigationBar ? .clear : UIColor.grayscale10
             )
         }
@@ -137,9 +137,9 @@ private extension ObjectIconImageView {
     
 }
 
-// MARK: - Private `ObjectIconImageView.Model` extension
+// MARK: - `ObjectIconImageView.Model` extension
 
-private extension ObjectIconImageView.Model {
+extension ObjectIconImageView.Model {
     
     var imageGuideline: ImageGuideline? {
         self.usecase.objectIconImageGuidelineSet.imageGuideline(

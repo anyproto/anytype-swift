@@ -91,12 +91,12 @@ extension ObjectIconImageUsecase {
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
-                    size: 48,
-                    weight: .regular
+                    size: 72,
+                    weight: .semibold
                 ),
                 emojiImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
-                    size: 72,
+                    size: 48,
                     weight: .regular
                 ),
                 placeholderImageFont: nil

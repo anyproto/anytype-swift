@@ -77,6 +77,9 @@ final class BlockMarkupChanger {
         attributedText: NSAttributedString,
         range: NSRange
     ) {
+        // Ignore changing markup in empty string 
+        guard range.length != 0 else { return }
+
         let result = apply(
             action,
             attrText: attributedText,

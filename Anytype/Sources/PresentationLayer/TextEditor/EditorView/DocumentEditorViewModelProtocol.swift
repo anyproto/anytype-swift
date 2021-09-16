@@ -13,4 +13,7 @@ protocol DocumentEditorViewModelProtocol {
     func didSelectBlock(at index: IndexPath)
     
     func showSettings()
+    
+    func showIconPicker()
+    func showCoverPicker()
 }

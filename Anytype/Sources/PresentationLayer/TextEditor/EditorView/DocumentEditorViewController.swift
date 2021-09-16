@@ -12,7 +12,7 @@ final class DocumentEditorViewController: UIViewController {
         
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.backgroundColor = .white
+        listConfiguration.backgroundColor = .clear
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         let collectionView = UICollectionView(
@@ -20,7 +20,7 @@ final class DocumentEditorViewController: UIViewController {
             collectionViewLayout: layout
         )
         collectionView.allowsMultipleSelection = true
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
 
         return collectionView
@@ -47,6 +47,9 @@ final class DocumentEditorViewController: UIViewController {
             self?.viewModel.showSettings()
         }
     )
+    
+    private var objectHeaderViewTopConstraint: NSLayoutConstraint!
+    private let objectHeaderView = ObjectHeaderView()
 
     var viewModel: DocumentEditorViewModelProtocol!
 
@@ -63,11 +66,16 @@ final class DocumentEditorViewController: UIViewController {
 
     // MARK: - Overrided functions
     
+    override func loadView() {
+        super.loadView()
+        
+        setupView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewModel.viewLoaded()
-        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +91,7 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
         firstResponderHelper = nil
@@ -97,16 +105,36 @@ final class DocumentEditorViewController: UIViewController {
         return self
     }
     
+    func handleCollectionViewContentOffsetChange() {
+        let contentOffsetY = collectionView.contentOffset.y
+        let contentInsetTop = collectionView.contentInset.top
+
+        let relativeYOffset = contentOffsetY + contentInsetTop - objectHeaderView.baseHeight
+
+        let relativeHeight = -relativeYOffset
+
+        objectHeaderViewTopConstraint.constant = -relativeYOffset
+        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.baseHeight)
+    }
+    
 }
 
 // MARK: - DocumentEditorViewInput
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
+    func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?) {
+        objectHeaderView.configure(model: header)
+        
+        navigationBarHelper.configureNavigationBar(
+            using: header,
+            details: details
+        )
+    }
+    
+    func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.header, .main])
-        snapshot.appendItems([.header(header)], toSection: .header)
+        snapshot.appendSections([.main])
         
         snapshot.appendItems(
             blocks.map { DataSourceItem.block($0) },
@@ -126,8 +154,6 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
                 
                 cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = blockForUpdate.indentationLevel
-            case .header:
-                return
             }
         }
         
@@ -136,21 +162,12 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             self.focusOnFocusedBlock()
         }
     }
-    
-    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
-        navigationBarHelper.configureNavigationBar(
-            using: header,
-            details: details
-        )
-    }
  
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
-            case .header:
-                return false
             }
         }
         
@@ -181,22 +198,41 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 
 }
 
-
 // MARK: - Private extension
 
 private extension DocumentEditorViewController {
     
-    func setupUI() {
+    func setupView() {
+        setupObjectHeaderView()
         setupCollectionView()
+        
         setupInteractions()
         
+        setupLayout()
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
+    }
+    
+    func setupObjectHeaderView() {
+        objectHeaderView.onIconTap = { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.viewModel.showIconPicker()
+        }
+        
+        objectHeaderView.onCoverTap = { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.viewModel.showCoverPicker()
+        }
+        
+        objectHeaderView.onBaseHeightUpdate = { [weak self] height in
+            guard let self = self else { return }
+            
+            self.collectionView.contentInset.top = height
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: -height), animated: true)
+            self.handleCollectionViewContentOffsetChange()
+        }
     }
 
     func setupCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.pinAllEdges(to: view)
-        
         collectionView.delegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
@@ -209,6 +245,23 @@ private extension DocumentEditorViewController {
         view.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
+    func setupLayout() {
+        view.addSubview(collectionView) {
+            $0.pinToSuperview()
+        }
+        
+        // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
+        // otherwise they are cancels by `listViewTapGestureRecognizer`
+        view.addSubview(objectHeaderView) {
+            objectHeaderViewTopConstraint = $0.bottom.equal(to: view.topAnchor)
+            $0.pinToSuperview(excluding: [.top, .bottom])
+        }
+        
+        // If we leave objectHeaderView above collectionView it's scrollIndicators will be covered
+        // to prevent this we change zPosition
+        objectHeaderView.layer.zPosition = collectionView.layer.zPosition - 1
+    }
+    
     @objc
     func tapOnListViewGestureRecognizerHandler() {
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
@@ -219,7 +272,6 @@ private extension DocumentEditorViewController {
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
-        let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
         let codeCellRegistration = createCodeCellRegistration()
 
@@ -241,24 +293,10 @@ private extension DocumentEditorViewController {
                     for: indexPath,
                     item: block
                 )
-            case let .header(header):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: headerCellRegistration,
-                    for: indexPath,
-                    item: header
-                )
             }
         }
         
         return dataSource
-    }
-    
-    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
-        .init { cell, _, item in
-            cell.contentConfiguration = item.makeContentConfiguration(
-                maxWidth: cell.bounds.width
-            )
-        }
     }
     
     func createCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> {

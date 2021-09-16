@@ -61,6 +61,7 @@ final class MarkupsViewController: UIViewController {
         let button = ButtonsFactory.makeButton(image: .textAttributes.alignLeft)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.left))
+            UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
         return button
     }()
@@ -68,6 +69,7 @@ final class MarkupsViewController: UIViewController {
         let button = ButtonsFactory.makeButton(image: .textAttributes.alignCenter)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.center))
+            UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
         return button
     }()
@@ -75,6 +77,7 @@ final class MarkupsViewController: UIViewController {
         let button = ButtonsFactory.makeButton(image: .textAttributes.alignRight)
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.right))
+            UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
         return button
     }()
@@ -159,6 +162,7 @@ final class MarkupsViewController: UIViewController {
         let button = ButtonsFactory.makeButton(image: image, text: text)
         button.addAction(UIAction(handler: { _ in
             action()
+            UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
         return button
     }
