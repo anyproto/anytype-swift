@@ -39,7 +39,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private var displayAcessoryViewTask = DispatchWorkItem {}
     private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     
-    private var displayedView = ViewType.none
+    private var activeView = ViewType.none
     
     private var latestTextViewTextChange: TextViewTextChangeType?
     
@@ -95,8 +95,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     func textDidChange() {
         displayAcessoryViewTask.cancel()
-        if isFilterableViewCurrentlyVisible() {
-            setFilterTextToView()
+        if isSlashOrMentionCurrentlyVisible() {
+            setTextToSlashOrMention()
             return
         }
         
@@ -119,14 +119,14 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private func cleanupDisplayedView() {
         slashMenuView.restoreDefaultState()
         
-        displayedView = .none
+        activeView = .none
         accessoryViewTriggerSymbolPosition = nil
     }
     
     private func showAccessoryView(_ view: ViewType) {
         guard let textView = data?.textView.textView else { return }
         
-        displayedView = view
+        activeView = view
         accessoryViewTriggerSymbolPosition = textView.caretPosition()
         
         changeAccessoryView(view.view)
@@ -162,21 +162,34 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: displayAcessoryViewTask)
     }
     
-    private func isFilterableViewCurrentlyVisible() -> Bool {
-        if case .default = displayedView, accessoryView.window.isNotNil {
+    private func isSlashOrMentionCurrentlyVisible() -> Bool {
+        switch activeView {
+        case .mention, .slashMenu:
+            return true
+        default:
             return false
         }
-        return true
     }
     
-    private func setFilterTextToView() {
-        guard let filterText = filterText() else { return }
-        guard let textView = data?.textView.textView else { return }
-        guard let displayedView = displayedView.view as? FilterableItemsView else { return }
+    private func setTextToSlashOrMention() {
+        guard let filterText = searchText() else { return }
         
-        displayedView.setFilterText(filterText: filterText)
+        switch activeView {
+        case .mention(let view):
+            setTextToFilterableView(filterText, view: view)
+        case .slashMenu(let view):
+            setTextToFilterableView(filterText, view: view)
+        default:
+            break
+        }
+    }
+    
+    private func setTextToFilterableView(_ text: String, view: FilterableItemsView) {
+        guard let textView = data?.textView.textView else { return }
+        
+        view.setFilterText(filterText: text)
 
-        if displayedView.shouldContinueToDisplayView() == false {
+        if view.shouldContinueToDisplayView() == false {
             cleanupDisplayedView()
             showAccessoryView(.default(accessoryView))
             return
@@ -190,7 +203,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         showAccessoryView(.default(accessoryView))
     }
     
-    private func filterText() -> String? {
+    private func searchText() -> String? {
         guard let textView = data?.textView.textView else { return nil }
         
         guard let caretPosition = textView.caretPosition(),
