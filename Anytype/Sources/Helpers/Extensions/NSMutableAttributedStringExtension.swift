@@ -4,8 +4,10 @@ extension NSMutableAttributedString {
     
     func removeAllMentionAttachmets() {
         var attachmentRanges = [NSRange]()
-        enumerateAttribute(.attachment,
-                           in: NSRange(location: 0, length: length)) { attachment, range, _ in
+        enumerateAttribute(
+            .attachment,
+            in: NSRange(location: 0, length: length)
+        ) { attachment, range, _ in
             guard attachment is MentionAttachment else { return }
             attachmentRanges.append(range)
         }
