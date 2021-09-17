@@ -255,7 +255,7 @@ private extension DocumentEditorViewController {
         // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
         // otherwise they are cancels by `listViewTapGestureRecognizer`
         view.addSubview(objectHeaderView) {
-            objectHeaderViewTopConstraint = $0.top.equal(to: view.topAnchor)
+            objectHeaderViewTopConstraint = $0.bottom.equal(to: view.topAnchor)
             $0.pinToSuperview(excluding: [.top, .bottom])
         }
         

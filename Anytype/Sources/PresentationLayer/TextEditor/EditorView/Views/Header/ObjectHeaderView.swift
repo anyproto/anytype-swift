@@ -62,13 +62,29 @@ extension ObjectHeaderView: ConfigurableView {
         case .coverOnly(let objectCover):
             setupFilledState(.cover)
             
-            coverView.configure(model: objectCover)
+            coverView.configure(
+                model: ObjectCoverView.Model(
+                    objectCover: objectCover,
+                    size: CGSize(
+                        width: bounds.width,
+                        height: height
+                    )
+                )
+            )
             
         case .iconAndCover(let objectIcon, let objectCover):
             setupFilledState(.iconAndCover)
             
             iconView.configure(model: objectIcon.asObjectIconViewModel)
-            coverView.configure(model: objectCover)
+            coverView.configure(
+                model: ObjectCoverView.Model(
+                    objectCover: objectCover,
+                    size: CGSize(
+                        width: bounds.width,
+                        height: height
+                    )
+                )
+            )
             
             handleIconLayoutAlignment(objectIcon.layoutAlignment)
             

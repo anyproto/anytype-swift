@@ -37,10 +37,14 @@ final class ObjectCoverView: UIView {
 
 extension ObjectCoverView: ConfigurableView {
     
-    func configure(model: ObjectCover) {
-        switch model {
+    struct Model {
+        let objectCover: ObjectCover
+        let size: CGSize
+    }
+    func configure(model: Model) {
+        switch model.objectCover {
         case let .cover(cover):
-            configureCoverState(cover)
+            configureCoverState(cover, model.size)
         case let .preview(image):
             configurePreviewState(image)
         }
@@ -50,28 +54,24 @@ extension ObjectCoverView: ConfigurableView {
 
 private extension ObjectCoverView {
     
-    func configureCoverState(_ cover: DocumentCover) {
+    func configureCoverState(_ cover: DocumentCover, _ size: CGSize) {
         activityIndicatorView.hide()
         
         switch cover {
         case let .imageId(imageId):
-            showImageWithId(imageId)
+            showImageWithId(imageId, size)
         case let .color(color):
-            showColor(color)
+            showColor(color, size)
         case let .gradient(startColor, endColor):
             showGradient(
-                GradientColor(start: startColor, end: endColor)
+                GradientColor(start: startColor, end: endColor),
+                size
             )
         }
     }
     
-    private func showImageWithId(_ imageId: String) {
-        let imageGuideline = ImageGuideline(
-            size: CGSize(
-                width: bounds.width,
-                height: bounds.height
-            )
-        )
+    private func showImageWithId(_ imageId: String, _ size: CGSize) {
+        let imageGuideline = ImageGuideline(size: size)
         
         let placeholder = ImageBuilder(imageGuideline).build()
         let processor = KFProcessorBuilder(
@@ -90,13 +90,8 @@ private extension ObjectCoverView {
         imageView.contentMode = .scaleAspectFill
     }
     
-    private func showColor(_ color: UIColor) {
-        let imageGuideline = ImageGuideline(
-            size: CGSize(
-                width: bounds.width,
-                height: bounds.height
-            )
-        )
+    private func showColor(_ color: UIColor, _ size: CGSize) {
+        let imageGuideline = ImageGuideline(size: size)
         
         imageView.image = ImageBuilder(imageGuideline)
             .setImageColor(color)
@@ -105,12 +100,9 @@ private extension ObjectCoverView {
         imageView.contentMode = .scaleAspectFill
     }
     
-    private func showGradient(_ gradient: GradientColor) {
+    private func showGradient(_ gradient: GradientColor, _ size: CGSize) {
         imageView.image = GradientImageBuilder().image(
-            size: CGSize(
-                width: bounds.width,
-                height: bounds.height
-            ),
+            size: size,
             color: gradient,
             point: GradientPoint(
                 start: CGPoint(x: 0.5, y: 0),
