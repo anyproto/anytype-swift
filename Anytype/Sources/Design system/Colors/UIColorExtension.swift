@@ -37,8 +37,8 @@ extension UIColor {
     static let pureTeal = color(name: ColorName.pureTeal)
     static let pureGreen = color(name: ColorName.pureGreen)
     
-    static let darkColdGray = color(name: ColorName.darkColdGray)
-    static let lightColdGray = color(name: ColorName.lightColdGray)
+    static let darkGray = color(name: ColorName.darkColdGray)
+    static let lightGray = color(name: ColorName.lightColdGray)
 
     // MARK: - Color for background
 

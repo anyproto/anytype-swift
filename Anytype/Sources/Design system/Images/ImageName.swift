@@ -54,7 +54,7 @@ final class ImageName {
             static let pink = "slash_menu_background_color_pink"
             static let lemon = "slash_menu_background_color_lemon"
             static let green = "slash_menu_background_color_green"
-            static let coldgray = "slash_menu_background_color_coldgray"
+            static let gray = "slash_menu_background_color_coldgray"
             static let clear = "slash_menu_background_color_clear"
             static let blue = "slash_menu_background_color_blue"
         }
@@ -68,7 +68,7 @@ final class ImageName {
             static let pink = "slash_menu_color_pink"
             static let lemon = "slash_menu_color_lemon"
             static let green = "slash_menu_color_green"
-            static let coldgray = "slash_menu_color_coldgray"
+            static let gray = "slash_menu_color_coldgray"
             static let black = "slash_menu_color_black"
             static let sky = "slash_menu_color_sky"
         }

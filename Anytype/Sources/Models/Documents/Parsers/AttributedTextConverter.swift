@@ -120,10 +120,7 @@ enum AttributedTextConverter {
     private static func middlewareTuples(from attributes: [NSAttributedString.Key: Any]) -> [MiddlewareTuple] {
         let allMarks = Anytype_Model_Block.Content.Text.Mark.TypeEnum.allCases
         return allMarks.compactMap { mark -> MiddlewareTuple? in
-            guard let markValue = middlewareValue(
-                for: mark,
-                from: attributes
-            ) else {
+            guard let markValue = middlewareValue(for: mark, from: attributes) else {
                 return nil
             }
             return MiddlewareTuple(attribute: mark, value: markValue)

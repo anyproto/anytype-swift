@@ -58,7 +58,7 @@ final class CodeBlockView: UIView & UIContentView {
             textStorage.setAttributedString($0)
         }
         
-        let backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? UIColor.lightColdGray
+        let backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? UIColor.lightGray
         contentView.backgroundColor = backgroundColor
         textView.backgroundColor = backgroundColor
     }
@@ -93,7 +93,7 @@ final class CodeBlockView: UIView & UIContentView {
     private lazy var codeSelectButton: ButtonWithImage = {
         let button = ButtonWithImage()
         button.label.font = .uxBodyRegular
-        button.label.textColor = .darkColdGray
+        button.label.textColor = .darkGray
         let image = UIImage.codeBlock.arrow
         button.setImage(image)
         

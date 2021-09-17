@@ -6,11 +6,4 @@ protocol Mentionable {
         replacementRange: NSRange,
         replacementText: String
     ) -> Bool
-    
-    func insert(
-        _ mention: MentionObject,
-        from: UITextPosition,
-        to: UITextPosition,
-        font: AnytypeFont
-    )
 }
