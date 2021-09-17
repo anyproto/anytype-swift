@@ -93,10 +93,7 @@ final class MiddlewareEventConverter {
                 currentDetails[key] = value
             }
         
-            let newDetails = DetailsData(
-                details: currentDetails,
-                parentId: currentDetailsData.parentId
-            )
+            let newDetails = DetailsData(details: currentDetails, blockId: currentDetailsData.blockId)
             // will trigger Publisher
             detailsModel.detailsData = newDetails
             
@@ -116,7 +113,7 @@ final class MiddlewareEventConverter {
                 newDetails.removeValue(forKey: detailsKind)
             }
             // save new details
-            let newDetailsData = DetailsData(details: newDetails, parentId: payload.id)
+            let newDetailsData = DetailsData(details: newDetails, blockId: payload.id)
             details?.detailsData = newDetailsData
             return .details(newDetailsData)
             
@@ -139,21 +136,14 @@ final class MiddlewareEventConverter {
             
             if let detailsModel = container.detailsContainer.get(by: detailsId) {
                 let model = detailsModel
-                let resultDetails = DetailsData(
-                    details: details,
-                    parentId: detailsId
-                )
+                let resultDetails = DetailsData(details: details, blockId: detailsId)
                 
                 model.detailsData = resultDetails
                 
                 return .details(resultDetails)
             }
             else {
-                let detailsData = DetailsData(
-                    details: details,
-                    parentId: detailsId
-                )
-                
+                let detailsData = DetailsData(details: details, blockId: detailsId)
                 let newDetailsModel = LegacyDetailsModel(detailsData: detailsData)
 
                 container.detailsContainer.add(

@@ -120,7 +120,7 @@ final class BaseDocument: BaseDocumentProtocol {
         parsedDetails.forEach {
             detailsStorage.add(
                 model: $0,
-                by: $0.detailsData.parentId
+                by: $0.detailsData.blockId
             )
         }
         
