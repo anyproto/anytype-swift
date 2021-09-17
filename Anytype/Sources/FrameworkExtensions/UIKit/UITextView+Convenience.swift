@@ -3,6 +3,21 @@ import BlocksModels
 import UIKit
 
 extension UITextView {
+    var isCarretInTheBeginingOfDocument: Bool {
+        guard let caretPosition = caretPosition else {
+            return false
+        }
+        
+        return offsetFromBegining(caretPosition) == 0
+    }
+    
+    var caretPosition: UITextPosition? {
+        if !isFirstResponder {
+            return nil
+        }
+        let offset = selectedRange.location + selectedRange.length
+        return position(from: beginningOfDocument, offset: offset)
+    }
     
     /// Append plain string to attributed string after caret.
     /// If attributedText is empty, `typingAttributes` will be set to default.
@@ -14,7 +29,7 @@ extension UITextView {
         insertString(string, location: selectedRange.location)
     }
     
-    func insertString(_ string: String, location: Int) {
+    private func insertString(_ string: String, location: Int) {
         guard !string.isEmpty, location <= attributedText.length else { return }
         if attributedText.length == 0 {
             attributedText = NSAttributedString(string: string, attributes: typingAttributes)
@@ -26,14 +41,6 @@ extension UITextView {
             )
             selectedRange.location = location + string.count
         }
-    }
-    
-    func caretPosition() -> UITextPosition? {
-        if !isFirstResponder {
-            return nil
-        }
-        let offset = selectedRange.location + selectedRange.length
-        return position(from: beginningOfDocument, offset: offset)
     }
     
     func setFocus(_ position: BlockFocusPosition) {
@@ -60,15 +67,16 @@ extension UITextView {
     }
     
     func textBeforeCaret() -> String? {
-        guard let caretPosition = caretPosition(),
-              let range = textRange(
-                from: beginningOfDocument,
-                to: caretPosition
-              )
+        guard let caretPosition = caretPosition,
+              let range = textRange(from: beginningOfDocument, to: caretPosition)
         else {
             return nil
         }
         return text(in: range)
+    }
+    
+    func offsetFromBegining(_ position: UITextPosition) -> Int {
+        return offset(from: self.beginningOfDocument, to: position)
     }
 }
 

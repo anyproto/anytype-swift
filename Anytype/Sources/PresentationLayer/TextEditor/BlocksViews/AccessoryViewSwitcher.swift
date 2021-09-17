@@ -127,7 +127,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         guard let textView = data?.textView.textView else { return }
         
         activeView = view
-        triggerSymbolPosition = textView.caretPosition()
+        triggerSymbolPosition = textView.caretPosition
         
         changeAccessoryView(view.view)
         
@@ -195,7 +195,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
             return
         }
         guard let triggerSymbolPosition = triggerSymbolPosition,
-              let caretPosition = textView.caretPosition(),
+              let caretPosition = textView.caretPosition,
               textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending else {
             return
         }
@@ -206,7 +206,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private func searchText() -> String? {
         guard let textView = data?.textView.textView else { return nil }
         
-        guard let caretPosition = textView.caretPosition(),
+        guard let caretPosition = textView.caretPosition,
               let triggerSymbolPosition = triggerSymbolPosition,
               let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) else {
             return nil
@@ -219,9 +219,9 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         guard let data = data, data.information.content.type != .text(.title) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret() else { return }
         
-        if textBeforeCaret.hasSuffix("/") {
+        if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu(textView: textView)) {
             showAccessoryViewWithDelay(.slashMenu(slashMenuView))
-        } else if textBeforeCaret.hasSuffix("@") {
+        } else if textBeforeCaret.hasSuffix(TextTriggerSymbols.mention(textView: textView)) {
             showAccessoryViewWithDelay(.mention(mentionsView))
         }
     }
@@ -266,13 +266,13 @@ extension AccessoryViewSwitcher: MentionViewDelegate {
         guard let textView = data?.textView.textView, let block = data?.block else { return }
         guard let mentionSymbolPosition = triggerSymbolPosition,
               let newMentionPosition = textView.position(from: mentionSymbolPosition, offset: -1) else { return }
-        guard let caretPosition = textView.caretPosition() else { return }
+        guard let caretPosition = textView.caretPosition else { return }
         guard let oldText = textView.attributedText else { return }
         
         let mentionString = NSMutableAttributedString(string: mention.name)
         mentionString.addAttribute(.mention, value: mention.id, range: NSMakeRange(0, mentionString.length))
         
-        let newMentionOffset = textView.offset(from: textView.beginningOfDocument, to: newMentionPosition)
+        let newMentionOffset = textView.offsetFromBegining(newMentionPosition)
         let mentionSearchTextLength = textView.offset(from: newMentionPosition, to: caretPosition)
         let mentionSearchTextRange = NSMakeRange(newMentionOffset, mentionSearchTextLength)
         
