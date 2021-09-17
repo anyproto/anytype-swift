@@ -4,7 +4,7 @@ import BlocksModels
 
 enum BlockBackgroundColor: CaseIterable {
     case `default`
-    case coldGray
+    case gray
     case lemon
     case amber
     case red
@@ -37,8 +37,8 @@ enum BlockBackgroundColor: CaseIterable {
             return .lightTeal
         case .green:
             return .lightGreen
-        case .coldGray:
-            return .lightColdGray
+        case .gray:
+            return .lightGray
         }
     }
     
@@ -64,8 +64,8 @@ enum BlockBackgroundColor: CaseIterable {
             return "Teal background".localized
         case .green:
             return "Green background".localized
-        case .coldGray:
-            return "Coldgray background".localized
+        case .gray:
+            return "Grey background".localized
         }
     }
     
@@ -91,8 +91,8 @@ enum BlockBackgroundColor: CaseIterable {
             return ImageName.slashMenu.background_color.teal
         case .green:
             return ImageName.slashMenu.background_color.green
-        case .coldGray:
-            return ImageName.slashMenu.background_color.coldgray
+        case .gray:
+            return ImageName.slashMenu.background_color.gray
         }
     }
 
@@ -118,7 +118,7 @@ enum BlockBackgroundColor: CaseIterable {
             return .teal
         case .green:
             return .lime
-        case .coldGray:
+        case .gray:
             return .grey
         }
     }
