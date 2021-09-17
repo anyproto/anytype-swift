@@ -203,6 +203,8 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 private extension DocumentEditorViewController {
     
     func setupView() {
+        view.backgroundColor = .systemBackground
+        
         setupObjectHeaderView()
         setupCollectionView()
         
