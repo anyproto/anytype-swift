@@ -49,7 +49,7 @@ final class SlashMenuViewModel {
     
     func didShowMenuView(from textView: UITextView) {
         self.textView = textView
-        guard let caretPosition = textView.caretPosition() else { return }
+        guard let caretPosition = textView.caretPosition else { return }
         // -1 because in text "Hello, everyone/" we want to store position before slash, not after
         initialCaretPosition = textView.position(from: caretPosition, offset: -1)
     }
@@ -124,7 +124,7 @@ final class SlashMenuViewModel {
         // this range with empty string
         guard let initialCaretPosition = initialCaretPosition,
               let textView = textView,
-              let currentPosition = textView.caretPosition(),
+              let currentPosition = textView.caretPosition,
               let textRange = textView.textRange(from: initialCaretPosition, to: currentPosition),
               let block = block else {
             return

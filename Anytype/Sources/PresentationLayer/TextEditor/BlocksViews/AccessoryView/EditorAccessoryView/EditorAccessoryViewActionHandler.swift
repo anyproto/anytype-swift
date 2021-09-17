@@ -26,14 +26,16 @@ final class EditorAccessoryViewModel {
     }
     
     func handle(_ action: EditorAccessoryViewAction) {
-        guard let customTextView = customTextView, let delegate = delegate else {
+        guard let textView = customTextView?.textView, let delegate = delegate else {
             return
         }
 
         switch action {
         case .slashMenu:
-            customTextView.textView.insertStringAfterCaret("/")
-            delegate.showSlashMenuView(textView: customTextView.textView)
+            textView.insertStringAfterCaret(
+                TextTriggerSymbols.slashMenu(textView: textView)
+            )
+            delegate.showSlashMenuView(textView: textView)
         case .showStyleMenu:
             information.flatMap {
                 router.showStyleMenu(information: $0)
@@ -41,8 +43,10 @@ final class EditorAccessoryViewModel {
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
-            customTextView.textView.insertStringAfterCaret("@")
-            delegate.showMentionsView(textView: customTextView.textView)
+            textView.insertStringAfterCaret(
+                TextTriggerSymbols.mention(textView: textView)
+            )
+            delegate.showMentionsView(textView: textView)
         }
     }
 }
