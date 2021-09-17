@@ -98,7 +98,7 @@ final class AudioBlockContentView: UIView, UIContentView {
 
 
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .lightColdGray
+        backgroundView.backgroundColor = .lightGray
 
         let contentContainer = UIView()
         addSubview(backgroundView) {
