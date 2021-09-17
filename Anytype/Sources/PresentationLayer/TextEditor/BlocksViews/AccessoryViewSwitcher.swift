@@ -37,7 +37,7 @@ extension AccessoryViewSwitcher {
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private var displayAcessoryViewTask = DispatchWorkItem {}
-    private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
+    private(set) var triggerSymbolPosition: UITextPosition?
     
     private var activeView = ViewType.none
     
@@ -120,14 +120,14 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         slashMenuView.restoreDefaultState()
         
         activeView = .none
-        accessoryViewTriggerSymbolPosition = nil
+        triggerSymbolPosition = nil
     }
     
     private func showAccessoryView(_ view: ViewType) {
         guard let textView = data?.textView.textView else { return }
         
         activeView = view
-        accessoryViewTriggerSymbolPosition = textView.caretPosition()
+        triggerSymbolPosition = textView.caretPosition()
         
         changeAccessoryView(view.view)
         
@@ -194,7 +194,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
             showAccessoryView(.default(accessoryView))
             return
         }
-        guard let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
+        guard let triggerSymbolPosition = triggerSymbolPosition,
               let caretPosition = textView.caretPosition(),
               textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending else {
             return
@@ -207,7 +207,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         guard let textView = data?.textView.textView else { return nil }
         
         guard let caretPosition = textView.caretPosition(),
-              let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
+              let triggerSymbolPosition = triggerSymbolPosition,
               let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) else {
             return nil
         }
@@ -263,30 +263,29 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
 extension AccessoryViewSwitcher: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
-        guard let data = data else { return }
+        guard let textView = data?.textView.textView, let block = data?.block else { return }
+        guard let mentionSymbolPosition = triggerSymbolPosition,
+              let newMentionPosition = textView.position(from: mentionSymbolPosition, offset: -1) else { return }
+        guard let caretPosition = textView.caretPosition() else { return }
+        guard let oldText = textView.attributedText else { return }
         
-        guard let mentionSymbolPosition = accessoryViewTriggerSymbolPosition,
-              let previousToMentionSymbol = data.textView.textView.position(
-                from: mentionSymbolPosition,
-                offset: -1
-            ),
-              let caretPosition = data.textView.textView.caretPosition() else {
-            return
-        }
+        let mentionString = NSMutableAttributedString(string: mention.name)
+        mentionString.addAttribute(.mention, value: mention.id, range: NSMakeRange(0, mentionString.length))
         
-        data.textView.textView.insert(
-            mention,
-            from: previousToMentionSymbol,
-            to: caretPosition,
-            font: data.text.anytypeFont
-        )
-
-        handler.handleAction(
-            .textView(
-                action: .changeText(data.textView.textView.attributedText),
-                block: data.block
-            ),
-            blockId: data.information.id
+        let newMentionOffset = textView.offset(from: textView.beginningOfDocument, to: newMentionPosition)
+        let mentionSearchTextLength = textView.offset(from: newMentionPosition, to: caretPosition)
+        let mentionSearchTextRange = NSMakeRange(newMentionOffset, mentionSearchTextLength)
+        
+        let newText = NSMutableAttributedString(attributedString: oldText)
+        newText.replaceCharacters(in: mentionSearchTextRange, with: mentionString)
+        let newCaretPosition = NSMakeRange(newMentionOffset + mentionString.length + 1, 0)
+        
+        handler.handleActions(
+            [
+                .textView(action: .changeText(newText), block: block),
+                .textView(action: .changeCaretPosition(newCaretPosition), block: block)
+            ],
+            blockId: block.information.id
         )
     }
 }

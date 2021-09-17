@@ -14,6 +14,7 @@ protocol EditorActionHandlerProtocol: AnyObject {
     func showPage(blockId: ActionHandlerBlockIdSource)
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
+    func handleActions(_ actions: [BlockHandlerActionType], blockId: BlockId)
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
 }
 
@@ -70,6 +71,9 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         }
     }
 
+    func handleActions(_ actions: [BlockHandlerActionType], blockId: BlockId) {
+        actions.forEach { handleAction($0, blockId: blockId) }
+    }
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         blockActionHandler.handleBlockAction(action, blockId: blockId) { [weak self] events in
