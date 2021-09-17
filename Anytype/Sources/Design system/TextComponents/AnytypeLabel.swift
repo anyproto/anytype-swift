@@ -61,8 +61,6 @@ class AnytypeLabel: UIView {
     // MARK: - Setup view
 
     private func setupView() {
-        label.numberOfLines = 0
-
         addSubview(label) {
             $0.leading.equal(to: leadingAnchor)
             $0.trailing.equal(to: trailingAnchor)
