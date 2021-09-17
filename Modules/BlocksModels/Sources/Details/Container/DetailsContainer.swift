@@ -11,7 +11,6 @@ public final class DetailsContainer: DetailsContainerProtocol {
     }
     
     public func add(model: LegacyDetailsModel, by id: ParentId) {
-        
         guard details[id] == nil else { return }
         // It is ok if details already exists
         // For example, if we add new page block, we will receive .objectDetailsSet event

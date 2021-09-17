@@ -179,9 +179,12 @@ private extension BlockActionHandler {
             location: 0,
             length: textContentType.text.count
         )
-        let anytypeText = AttributedTextConverter.asModel(text: textContentType.text,
-                                                          marks: textContentType.marks,
-                                                          style: textContentType.contentType)
+        let anytypeText = AttributedTextConverter.asModel(
+            text: textContentType.text,
+            marks: textContentType.marks,
+            style: textContentType.contentType
+        )
+        
         markupChanger.toggleMarkup(
             markup,
             attributedText: anytypeText.attrString,

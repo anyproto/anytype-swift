@@ -42,8 +42,8 @@ final class MarkStyleModifier {
         }
 
         attributedString.addAttributes(newAttributes, range: range)
-        if case let .mention(id) = action, let pageId = id {
-            applyMention(pageId: pageId, range: range)
+        if case let .mention(image, _) = action {
+            applyMention(image: image, range: range)
         }
     }
     
@@ -77,23 +77,15 @@ final class MarkStyleModifier {
         }
     }
     
-    private func applyMention(pageId: String, range: NSRange) {
-        // This attachment is for displaying icon in front of mention: 🦊Fox
+    private func applyMention(image: ObjectIconImage?, range: NSRange) {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
-        let mentionAttachment = MentionAttachment(
-            name: mentionAttributedString.string,
-            pageId: pageId,
-            icon: nil
-        )
+        let mentionAttachment = MentionAttachment(icon: image)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         var currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         currentAttributes.removeValue(forKey: .localUnderline)
         mentionAttachmentString.addAttributes(
             currentAttributes,
-            range: NSRange(
-                location: 0,
-                length: mentionAttachmentString.length
-            )
+            range: NSRange(location: 0, length: mentionAttachmentString.length)
         )
         attributedString.insert(mentionAttachmentString, at: range.location)
     }
@@ -142,9 +134,9 @@ final class MarkStyleModifier {
                 changeAttributes: [.link : url as Any],
                 deletedKeys: url.isNil ? [.link] : []
             )
-        case let .mention(pageId):
+        case let .mention(_, blockId):
             return AttributedStringChange(changeAttributes: [
-                .mention: pageId as Any,
+                .mention: blockId as Any,
                 .localUnderline: true
             ])
         }

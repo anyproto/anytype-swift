@@ -31,7 +31,11 @@ enum MarkStyleActionConverter {
             }
             return .backgroundColor(color)
         case .mention:
-            return .mention(blockId: tuple.value)
+            guard let details = DetailsContainer.shared.get(by: tuple.value) else {
+                return .mention(image: nil, blockId: tuple.value)
+            }
+            
+            return .mention(image: details.detailsData.objectIconImage, blockId: tuple.value)
         case .UNRECOGNIZED(let value):
             anytypeAssertionFailure("Unrecognized markup \(value)")
             return nil

@@ -3,14 +3,14 @@ import BlocksModels
 
 enum MarkStyleAction: Equatable {
     
-    case bold(Bool = true)
-    case italic(Bool = true)
-    case keyboard(Bool = true)
-    case strikethrough(Bool = true)
-    case underscored(Bool = true)
-    case textColor(UIColor?)
-    case backgroundColor(UIColor?)
+    case bold(Bool)
+    case italic(Bool)
+    case keyboard(Bool)
+    case strikethrough(Bool)
+    case underscored(Bool)
+    case textColor(UIColor)
+    case backgroundColor(UIColor)
     case link(URL?)
-    case mention(blockId: BlockId?)
+    case mention(image: ObjectIconImage?, blockId: BlockId)
     
 }

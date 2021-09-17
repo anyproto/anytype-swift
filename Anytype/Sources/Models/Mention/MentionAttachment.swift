@@ -4,41 +4,31 @@ import AnytypeCore
 import BlocksModels
 
 final class MentionAttachment: NSTextAttachment {
-    
-    let pageId: BlockId
-    let name: String
-    
     private weak var layoutManager: NSLayoutManager?
     
-    private let mentionService = MentionObjectsService(
-        searchService: ServiceLocator.shared.searchService()
-    )
-    
-    private var icon: ObjectIconImage?
+    private let icon: ObjectIconImage?
     private var iconSize: CGSize?
     private var fontPointSize: CGFloat?
     private let imageView = ObjectIconImageView()
     
     private var isLoadingMention = false
     
-    init(name: String, pageId: String, icon: ObjectIconImage?) {
-        self.pageId = pageId
-        self.name = name
+    init(icon: ObjectIconImage?) {
         self.icon = icon
         
         super.init(data: nil, ofType: nil)
-        
-        mentionService.filterString = name
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func attachmentBounds(for textContainer: NSTextContainer?,
-                                   proposedLineFragment lineFrag: CGRect,
-                                   glyphPosition position: CGPoint,
-                                   characterIndex charIndex: Int) -> CGRect {
+    override func attachmentBounds(
+        for textContainer: NSTextContainer?,
+        proposedLineFragment lineFrag: CGRect,
+        glyphPosition position: CGPoint,
+        characterIndex charIndex: Int
+    ) -> CGRect {
         let desiredIconSize = CGSize(width: lineFrag.height, height: lineFrag.height)
         layoutManager = textContainer?.layoutManager
     
@@ -46,9 +36,7 @@ final class MentionAttachment: NSTextAttachment {
         var fontPointSize: CGFloat?
         if let textLength = attributedText?.length,
            textLength > charIndex + 1,
-           let font = attributedText?.attribute(.font,
-                                                at: charIndex + 1,
-                                                effectiveRange: nil) as? UIFont {
+           let font = attributedText?.attribute(.font, at: charIndex + 1, effectiveRange: nil) as? UIFont {
             fontPointSize = font.pointSize
         }
         displayNewImageIfNeeded(
@@ -83,24 +71,6 @@ final class MentionAttachment: NSTextAttachment {
         }
         if let icon = icon {
             displayIcon(icon)
-        } else if !isLoadingMention {
-            loadMention()
-        }
-    }
-    
-    private func loadMention() {
-        isLoadingMention = true
-        mentionService.loadMentions { [weak self] mentions in
-            guard
-                let mention = mentions.first(where: { $0.id == self?.pageId }),
-                let self = self
-            else {
-                self?.isLoadingMention = false
-                return
-            }
-            self.isLoadingMention = false
-            self.icon = mention.objectIcon
-            self.displayIcon(mention.objectIcon)
         }
     }
     
