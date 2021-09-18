@@ -9,7 +9,7 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buldCellData(_ searchResults: [SearchResult]) -> [HomeCellData] {
+    func buldCellData(_ searchResults: [DetailsDataProtocol]) -> [HomeCellData] {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
@@ -55,7 +55,7 @@ final class HomeCellDataBuilder {
         )
     }
     
-    func updatedCellData(newDetails: DetailsData, oldData: HomeCellData) -> HomeCellData {
+    func updatedCellData(newDetails: DetailsDataProtocol, oldData: HomeCellData) -> HomeCellData {
         return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,

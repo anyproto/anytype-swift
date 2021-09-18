@@ -45,7 +45,7 @@ final class PageEventConverter {
         let parsedDetails = details.map { event -> DetailsData in
             let rawDetails = BlocksModelsDetailsConverter.asModel(event: event)
             
-            return DetailsData(details: rawDetails, blockId: event.id)
+            return DetailsData(rawDetails: rawDetails, blockId: event.id)
         }
         
         guard let rootId = root?.id else {

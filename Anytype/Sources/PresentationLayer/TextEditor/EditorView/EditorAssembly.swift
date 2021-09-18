@@ -74,10 +74,6 @@ final class EditorAssembly {
             blockActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            detailsLoader: DetailsLoader(
-                document: document,
-                eventProcessor: eventProcessor
-            ),
             accessorySwitcher: accessorySwitcher
         )
         

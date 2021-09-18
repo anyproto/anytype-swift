@@ -5,12 +5,12 @@ import BlocksModels
 
 class DetailsActiveModel {
     
-    @Published private(set) var currentDetails: DetailsData?
-    private(set) var wholeDetailsPublisher: AnyPublisher<DetailsData, Never> = .empty()
+    @Published private(set) var currentDetails: DetailsDataProtocol?
+    private(set) var wholeDetailsPublisher: AnyPublisher<DetailsDataProtocol, Never> = .empty()
 
     private var currentDetailsSubscription: AnyCancellable?
     
-    func configured(publisher: AnyPublisher<DetailsData, Never>) {
+    func configured(publisher: AnyPublisher<DetailsDataProtocol, Never>) {
         wholeDetailsPublisher = publisher
         currentDetailsSubscription = publisher.sink { [weak self] (value) in
             self?.currentDetails = value

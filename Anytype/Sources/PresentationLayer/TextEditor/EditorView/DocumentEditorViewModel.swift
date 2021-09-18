@@ -136,9 +136,11 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
 
             let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
             
-            guard let newModel = blockBuilder.build(newRecord,
-                                                    details: document.defaultDetailsActiveModel.currentDetails,
-                                                    previousBlock: upperBlock)
+            guard let newModel = blockBuilder.build(
+                    newRecord,
+                    details: document.defaultDetailsActiveModel.currentDetails,
+                    previousBlock: upperBlock
+            )
             else {
                 anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return
@@ -182,7 +184,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func handleGeneralUpdate(with details: DetailsData?, models: [BlockViewModelProtocol]) {
+    private func handleGeneralUpdate(with details: DetailsDataProtocol?, models: [BlockViewModelProtocol]) {
         modelsHolder.apply(newModels: models)
         modelsHolder.apply(newDetails: details)
         

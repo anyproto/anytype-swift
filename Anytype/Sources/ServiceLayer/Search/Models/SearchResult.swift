@@ -4,7 +4,7 @@ import ProtobufMessages
 import AnytypeCore
 
 struct SearchResult: DetailsDataProtocol {
-    let id: BlockId
+    let blockId: BlockId
     let name: String?
     let description: String?
     
@@ -33,12 +33,14 @@ struct SearchResult: DetailsDataProtocol {
     let lastModifiedDate: Double?
     let createdDate: Double?
     
+    var rawDetails: RawDetailsData = [:]
+    
     init?(fields: Dictionary<String, Google_Protobuf_Value>) {
-        guard let id = fields[DetailsKind.id.rawValue]?.stringValue else {
+        guard let blockId = fields[DetailsKind.id.rawValue]?.stringValue else {
             return nil
         }
         
-        self.id = id
+        self.blockId = blockId
         name = fields[DetailsKind.name.rawValue]?.stringValue
         description = fields[DetailsKind.description.rawValue]?.stringValue
         

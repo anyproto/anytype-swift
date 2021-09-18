@@ -1,4 +1,5 @@
 import SwiftUI
+import BlocksModels
 
 struct HomeSearchCellData: Identifiable {
     let id: String
@@ -7,7 +8,7 @@ struct HomeSearchCellData: Identifiable {
     let type: String
     let icon: ObjectIconImage
     
-    init(searchResult: SearchResult) {
+    init(searchResult: DetailsDataProtocol) {
         let title: String = {
             if let title = searchResult.name, !title.isEmpty {
                 return title
@@ -33,7 +34,7 @@ struct HomeSearchCellData: Identifiable {
         }()
         
         self.init(
-            id: searchResult.id,
+            id: searchResult.blockId,
             title: title,
             description: searchResult.description,
             type: type,

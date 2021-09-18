@@ -78,7 +78,7 @@ final class BaseDocument: BaseDocumentProtocol {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
-                let details: DetailsData? = {
+                let details: DetailsDataProtocol? = {
                     guard let id = self.documentId else { return nil }
                     
                     return self.rootModel?.detailsContainer.get(by: id)?.detailsData
@@ -212,7 +212,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never> {
+    func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never> {
         defaultDetailsActiveModel.$currentDetails.eraseToAnyPublisher()
     }
 

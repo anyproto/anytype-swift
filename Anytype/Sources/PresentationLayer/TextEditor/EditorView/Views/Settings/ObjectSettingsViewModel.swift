@@ -4,7 +4,7 @@ import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
     
-    @Published private(set) var details = DetailsData.empty
+    @Published private(set) var details: DetailsDataProtocol = DetailsData.empty
     var settings: [ObjectSetting] {
         if details.typeUrl == ObjectTypeProvider.myProfileURL {
             return ObjectSetting.allCases.filter { $0 != .layout }
@@ -46,7 +46,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         )
     }
     
-    func update(with details: DetailsData) {
+    func update(with details: DetailsDataProtocol) {
         self.details = details
         iconPickerViewModel.details = details
         layoutPickerViewModel.details = details

@@ -3,17 +3,17 @@ import Combine
 import BlocksModels
 
 protocol SearchServiceProtocol {
-    func search(text: String, completion: @escaping ([SearchResult]) -> ())
-    func searchArchivedPages(completion: @escaping ([SearchResult]) -> ())
-    func searchRecentPages(completion: @escaping ([SearchResult]) -> ())
-    func searchInboxPages(completion: @escaping ([SearchResult]) -> ())
-    func searchSets(completion: @escaping ([SearchResult]) -> ())
+    func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ())
+    func searchArchivedPages(completion: @escaping ([DetailsDataProtocol]) -> ())
+    func searchRecentPages(completion: @escaping ([DetailsDataProtocol]) -> ())
+    func searchInboxPages(completion: @escaping ([DetailsDataProtocol]) -> ())
+    func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ())
 }
 
 final class SearchService: SearchServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
-    func search(text: String, completion: @escaping ([SearchResult]) -> ()) {
+    func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ()) {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
@@ -37,7 +37,7 @@ final class SearchService: SearchServiceProtocol {
         )
     }
     
-    func searchArchivedPages(completion: @escaping ([SearchResult]) -> ()) {
+    func searchArchivedPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastModifiedDate,
             type: .desc
@@ -61,7 +61,7 @@ final class SearchService: SearchServiceProtocol {
         )
     }
     
-    func searchRecentPages(completion: @escaping ([SearchResult]) -> ()) {
+    func searchRecentPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
@@ -83,7 +83,7 @@ final class SearchService: SearchServiceProtocol {
         )
     }
     
-    func searchInboxPages(completion: @escaping ([SearchResult]) -> ()) {
+    func searchInboxPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastModifiedDate,
             type: .desc
@@ -106,7 +106,7 @@ final class SearchService: SearchServiceProtocol {
         )
     }
     
-    func searchSets(completion: @escaping ([SearchResult]) -> ()) {
+    func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ()) {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
@@ -137,7 +137,7 @@ final class SearchService: SearchServiceProtocol {
         limit: Int32,
         objectTypeFilter: [String],
         keys: [String],
-        completion: @escaping ([SearchResult]) -> ()
+        completion: @escaping ([DetailsDataProtocol]) -> ()
     ) {
         Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
