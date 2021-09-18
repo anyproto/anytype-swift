@@ -1,4 +1,5 @@
 import Foundation
+import AnytypeCore
 
 public typealias RawDetailsData = [DetailsKind: DetailsEntry<AnyHashable>]
 
@@ -10,6 +11,14 @@ public struct DetailsData {
     public init(rawDetails: RawDetailsData, blockId: String) {
         self.rawDetails = rawDetails
         self.blockId = blockId
+    }
+    
+    public init(rawDetails: RawDetailsData) {
+        self.rawDetails = rawDetails
+        
+        let blockId = rawDetails[.id]?.value as? String
+        anytypeAssert(blockId != nil, "Nil block id for detais: \(rawDetails)")
+        self.blockId = blockId ?? ""
     }
     
     public static var empty: DetailsData {

@@ -152,7 +152,10 @@ final class SearchService: SearchServiceProtocol {
         .receiveOnMain()
         .sinkWithDefaultCompletion("Search") { response in
             completion(
-                response.records.compactMap { SearchResult(fields: $0.fields) }
+                response.records.compactMap {
+                    let rawDetails = DetailsEntryConverter.convert(details: $0.fields)
+                    return DetailsData(rawDetails: rawDetails)
+                }
             )
         }
         .store(in: &subscriptions)

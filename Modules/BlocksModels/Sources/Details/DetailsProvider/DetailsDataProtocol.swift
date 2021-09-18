@@ -1,5 +1,7 @@
 import Foundation
 
+
+// Update DetailsEntryConverter when adding new property
 public protocol DetailsDataProtocol {
     
     var blockId: BlockId { get }
