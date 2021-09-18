@@ -98,7 +98,7 @@ final class HomeViewModel: ObservableObject {
         case .update(let blockIds):
             blockIds.forEach { updateCellWithTargetId($0) }
         case .details(let details):
-            updateCellWithTargetId(details.parentId)
+            updateCellWithTargetId(details.blockId)
         }
     }
     

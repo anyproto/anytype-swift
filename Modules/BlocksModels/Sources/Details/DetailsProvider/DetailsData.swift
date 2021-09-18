@@ -3,15 +3,15 @@ import Foundation
 public struct DetailsData {
     
     public let details: [DetailsKind: DetailsEntry<AnyHashable>]
-    public let parentId: String
+    public let blockId: BlockId
     
-    public init(details: [DetailsKind: DetailsEntry<AnyHashable>], parentId: String) {
+    public init(details: [DetailsKind: DetailsEntry<AnyHashable>], blockId: String) {
         self.details = details
-        self.parentId = parentId
+        self.blockId = blockId
     }
     
     public static var empty: DetailsData {
-        DetailsData(details: [:], parentId: "")
+        DetailsData(details: [:], blockId: "")
     }
     
 }

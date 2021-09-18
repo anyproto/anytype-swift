@@ -29,20 +29,4 @@ extension NSLayoutManager {
         }
         return resultRect
     }
-    
-    func mentionRect(for mention: MentionAttachment) -> CGRect? {
-        guard let attachmentRange = rangeForAttachment(attachment: mention),
-              let textContainer = textContainers.first else { return nil }
-        var resultRect: CGRect?
-        let mentionRange = NSRange(location: attachmentRange.location + 1,
-                                   length: mention.name.count)
-        enumerateEnclosingRects(forGlyphRange: mentionRange,
-                                withinSelectedGlyphRange: NSRange(location: NSNotFound,
-                                                                  length: 0),
-                                in: textContainer) { rect, shouldStop in
-            resultRect = rect
-            shouldStop[0] = true
-        }
-        return resultRect
-    }
 }

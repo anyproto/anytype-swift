@@ -37,7 +37,7 @@ extension ObjectContentViewModelsSharedHolder {
             return
         }
         
-        guard newDetails.parentId == objectId else { return }
+        guard newDetails.blockId == objectId else { return }
         
         details = newDetails
     }
