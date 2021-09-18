@@ -24,16 +24,13 @@ final class ObjectDetailsService {
         self.objectId = objectId
     }
     
-    func update(details: [DetailsKind: DetailsEntry<AnyHashable>]) {
-        service.setDetails(
-            contextID: objectId,
-            details: details
-        )
-        .sinkWithDefaultCompletion("setDetails combletion") { [weak self] success in
-            self?.eventHandler.handle(
-                events: PackOfEvents(middlewareEvents: success.messages)
-            )
-        }
-        .store(in: &subscriptions)
+    func update(details: RawDetailsData) {
+        service.setDetails(contextID: objectId, details: details)
+            .sinkWithDefaultCompletion("setDetails completion") { [weak self] success in
+                self?.eventHandler.handle(
+                    events: PackOfEvents(middlewareEvents: success.messages)
+                )
+            }
+            .store(in: &subscriptions)
     }
 }

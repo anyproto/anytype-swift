@@ -17,7 +17,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: [DetailsKind: DetailsEntry<AnyHashable>],
+        details: RawDetailsData,
         position: BlockPosition,
         templateID: String
     ) -> AnyPublisher<CreatePageResponse, Error> {
@@ -57,7 +57,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ResponseEvent, Error> {
+    func setDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {
         let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
         return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
             // Analytics

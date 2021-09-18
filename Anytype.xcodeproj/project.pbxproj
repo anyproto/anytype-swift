@@ -289,7 +289,6 @@
 		3D16841526DD672E008B9DFF /* ContentTextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840E26DD672E008B9DFF /* ContentTextConverter.swift */; };
 		3D16841626DD672E008B9DFF /* ContentLayoutConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16840F26DD672E008B9DFF /* ContentLayoutConverter.swift */; };
 		3D16841726DD672E008B9DFF /* ContentFileConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16841026DD672E008B9DFF /* ContentFileConverter.swift */; };
-		3D16841926DD6741008B9DFF /* EventDetailsAndSetDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16841826DD6741008B9DFF /* EventDetailsAndSetDetailsConverter.swift */; };
 		3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16843526DE8BDF008B9DFF /* Application+FirstResponder.swift */; };
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
@@ -917,7 +916,6 @@
 		3D16840E26DD672E008B9DFF /* ContentTextConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTextConverter.swift; sourceTree = "<group>"; };
 		3D16840F26DD672E008B9DFF /* ContentLayoutConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentLayoutConverter.swift; sourceTree = "<group>"; };
 		3D16841026DD672E008B9DFF /* ContentFileConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentFileConverter.swift; sourceTree = "<group>"; };
-		3D16841826DD6741008B9DFF /* EventDetailsAndSetDetailsConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsAndSetDetailsConverter.swift; sourceTree = "<group>"; };
 		3D16843526DE8BDF008B9DFF /* Application+FirstResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Application+FirstResponder.swift"; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
@@ -2519,7 +2517,6 @@
 		3D07ED3D261DD95F00C007E2 /* BlockModelsConverters */ = {
 			isa = PBXGroup;
 			children = (
-				3D16841826DD6741008B9DFF /* EventDetailsAndSetDetailsConverter.swift */,
 				53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */,
 				0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */,
 				0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */,
@@ -3333,13 +3330,6 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
-		530F4FF226EEBA0E00F76D03 /* SimplePullDownMenu */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SimplePullDownMenu;
-			sourceTree = "<group>";
-		};
 		530F502D26F0EC9200F76D03 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -4052,7 +4042,7 @@
 				125B6ED726F2386900BCD7D6 /* ObjectIconImageMentionType.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
-                530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
+				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* MarkupStateCalculator.swift in Sources */,
 				123FDAD026C1505700F6F44B /* DocumentEditorViewController+UICollectionViewDelegate.swift in Sources */,
 				125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */,
@@ -4145,7 +4135,7 @@
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
-                530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
+				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
@@ -4416,7 +4406,6 @@
 				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
-				3D16841926DD6741008B9DFF /* EventDetailsAndSetDetailsConverter.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,
 				530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */,

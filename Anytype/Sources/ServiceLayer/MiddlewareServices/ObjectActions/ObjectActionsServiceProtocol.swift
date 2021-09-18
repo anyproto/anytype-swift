@@ -22,15 +22,14 @@ protocol ObjectActionsServiceProtocol {
     
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
     func setDetails(
-        contextID: BlockId,
-        details: [DetailsKind: DetailsEntry<AnyHashable>]
+        contextID: BlockId, details: RawDetailsData
     ) -> AnyPublisher<ResponseEvent, Error>
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: [DetailsKind: DetailsEntry<AnyHashable>],
+        details: RawDetailsData,
         position: BlockPosition,
         templateID: String
     ) -> AnyPublisher<CreatePageResponse, Error>
