@@ -8,6 +8,7 @@ final class ButtonWithImage: UIControl {
 
     private(set) var label: UILabel = .init()
     private(set) var imageView: UIImageView = .init()
+    private let containerView = UIStackView()
     private var backgroundColorsMap = [UInt: UIColor]()
     private var imageTintColorsMap = [UInt: UIColor]()
     private var textColorsMap = [UInt: UIColor]()
@@ -28,6 +29,13 @@ final class ButtonWithImage: UIControl {
         if let borderEdges = borderEdges {
             privateAddBorders(edges: borderEdges, width: borderWidth, color: borderColor)
         }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        let labelSize = label.intrinsicContentSize
+        let imageViewSize = imageView.intrinsicContentSize
+        let spacing: CGFloat = containerView.spacing
+        return .init(width: labelSize.width + imageViewSize.width + spacing, height: labelSize.height + imageViewSize.height)
     }
     
     func setBackgroundColor(_ backgroundColor: UIColor?, state: UIControl.State) {
@@ -85,15 +93,14 @@ final class ButtonWithImage: UIControl {
     }
 
     private func setupViews() {
-        let container = UIStackView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.distribution = .fillProportionally
-        container.axis = .horizontal
-        container.spacing = 4.0
-        container.alignment = .center
-        container.addArrangedSubview(label)
-        container.addArrangedSubview(imageView)
-        container.isUserInteractionEnabled = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.distribution = .fillProportionally
+        containerView.axis = .horizontal
+        containerView.spacing = 4.0
+        containerView.alignment = .center
+        containerView.addArrangedSubview(label)
+        containerView.addArrangedSubview(imageView)
+        containerView.isUserInteractionEnabled = false
 
         imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
@@ -105,8 +112,8 @@ final class ButtonWithImage: UIControl {
         label.isUserInteractionEnabled = false
         label.textAlignment = .center
 
-        addSubview(container)
-        container.edgesToSuperview()
+        addSubview(containerView)
+        containerView.edgesToSuperview()
     }
 
     @discardableResult func addBorders(edges: UIRectEdge, width: CGFloat, color: UIColor) -> Self {

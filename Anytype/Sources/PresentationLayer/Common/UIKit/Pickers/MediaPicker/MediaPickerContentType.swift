@@ -7,6 +7,7 @@ import PhotosUI
 enum MediaPickerContentType {
     case images
     case videos
+    case audio
     
     /// Filter for system picker
     var filter: PHPickerFilter {
@@ -14,6 +15,8 @@ enum MediaPickerContentType {
         case .images:
             return .images
         case .videos:
+            return .videos
+        case .audio:
             return .videos
         }
     }
@@ -45,6 +48,8 @@ enum MediaPickerContentType {
                 UTType.appleProtectedMPEG4Video,
                 UTType.avi
             ].map { $0.identifier }
+        case .audio:
+            return [UTType.audio].map(\.identifier)
         }
     }
     
