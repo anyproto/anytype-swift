@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout branch
-        uses: ./.github/actions/checkout_branch
+        uses: ./.github/actions/checkout_branch.yaml
         with:
           branch: ${{ github.event.inputs.branch }}
 
