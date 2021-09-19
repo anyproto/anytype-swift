@@ -2,6 +2,54 @@ default_platform(:ios)
 
 platform :ios do
 
+  # Test build
+
+  lane :test_build do
+    setup_ci
+    match(readonly: true)
+
+    build_app(
+      derived_data_path: "~/DerivedData/Anytype/",
+      scheme: "Anytype", 
+      configuration: "Dev-Release",
+      include_symbols: true,
+      use_system_scm: true
+    )
+
+  end
+
+  # Bump dev build number
+
+  lane :bump_dev_build_number do
+    ensure_git_status_clean
+
+    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
+    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
+
+    commit_version_bump(
+      message: "Bump version #{version}(#{build_number})",
+      xcodeproj: "Anytype.xcodeproj"
+    )
+
+    add_git_tag(tag: "dev/#{version}/#{build_number}")
+  end
+
+  # Profiles
+
+  lane :install_dev_profiles do
+    match(readonly: true)
+  end
+
+  lane :install_appstore_profiles do
+    match(readonly: true)
+  end
+
+  lane :generate_dev_profiles do
+    match(force_for_new_devices: true)
+  end
+
+  # CI
+
   lane :dev do
     deploy(
       release: false
@@ -13,6 +61,8 @@ platform :ios do
       release: true
     )
   end
+
+  # Private lanes
 
   private_lane :deploy do |options| 
     setup_ci
@@ -69,52 +119,6 @@ platform :ios do
       api_key: api_key, 
       skip_waiting_for_build_processing: true
     )
-  end
-
-  # Test
-
-  lane :test_build do
-    setup_ci
-    match(readonly: true)
-
-    build_app(
-      derived_data_path: "~/DerivedData/Anytype/",
-      scheme: "Anytype", 
-      configuration: "Dev-Release",
-      include_symbols: true,
-      use_system_scm: true
-    )
-
-  end
-
-  # bump_dev_version
-
-  lane :bump_dev_version do
-    ensure_git_status_clean
-
-    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    version = get_version_number(xcodeproj: "Anytype.xcodeproj")
-
-    commit_version_bump(
-      message: "Bump version #{version}(#{build_number})",
-      xcodeproj: "Anytype.xcodeproj"
-    )
-
-    add_git_tag(tag: "dev/#{version}/#{build_number}")
-  end
-
-  # Profiles
-
-  lane :install_dev_profiles do
-    match(readonly: true)
-  end
-
-  lane :install_appstore_profiles do
-    match(readonly: true)
-  end
-
-  lane :generate_dev_profiles do
-    match(force_for_new_devices: true)
   end
 
 end
