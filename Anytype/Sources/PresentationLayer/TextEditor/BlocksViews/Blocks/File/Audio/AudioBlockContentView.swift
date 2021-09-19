@@ -49,8 +49,8 @@ final class AudioBlockContentView: UIView, UIContentView {
     private let progressSlider: UISlider = {
         let progressSlider = UISlider()
         let circleImage = UIImage(systemName: "circle.fill")?.scaled(to: .init(width: 12, height: 12))
-            .withTintColor(.textSecondary, renderingMode: .alwaysOriginal)
-        progressSlider.minimumTrackTintColor = .textSecondary
+            .withTintColor(.textPrimary, renderingMode: .alwaysOriginal)
+        progressSlider.minimumTrackTintColor = .black
         progressSlider.setThumbImage(circleImage, for: .normal)
         progressSlider.setThumbImage(circleImage, for: .highlighted)
         progressSlider.addTarget(self, action: #selector(progressSliderAction), for: .valueChanged)
@@ -69,9 +69,42 @@ final class AudioBlockContentView: UIView, UIContentView {
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: nil)
 
+        setupNotifications()
         setup()
         apply(configuration: configuration)
     }
+
+    func setupNotifications() {
+        // Get the default notification center instance.
+        let nc = NotificationCenter.default
+        nc.addObserver(self,
+                       selector: #selector(handleInterruption),
+                       name: AVAudioSession.interruptionNotification,
+                       object: nil)
+    }
+
+    @objc func handleInterruption(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+        }
+
+        // Switch over the interruption type.
+        switch type {
+        case .began:
+            pause()
+        case .ended:
+            // An interruption ended. Resume playback, if appropriate.
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+            if options.contains(.shouldResume) {
+                play()
+            }
+        default: ()
+        }
+    }
+
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -84,7 +117,7 @@ final class AudioBlockContentView: UIView, UIContentView {
     private func setup() {
         backgroundColor = .clear
         playButton.setImage(UIImage(systemName: "play.fill"))
-        playButton.imageView.tintColor = .textSecondary
+        playButton.imageView.tintColor = .black
         
         playButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
@@ -98,9 +131,13 @@ final class AudioBlockContentView: UIView, UIContentView {
 
 
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .lightGray
 
         let contentContainer = UIView()
+        contentContainer.layer.cornerRadius = 16
+        contentContainer.layer.cornerCurve = .continuous
+        contentContainer.layer.borderWidth = 0.5
+        contentContainer.layer.borderColor = UIColor.grayscale30.cgColor
+
         addSubview(backgroundView) {
             $0.leading.equal(to: leadingAnchor)
             $0.top.equal(to: topAnchor)
@@ -110,27 +147,27 @@ final class AudioBlockContentView: UIView, UIContentView {
 
         addSubview(contentContainer) {
             $0.leading.equal(to: leadingAnchor, constant: 20)
-            $0.top.equal(to: topAnchor, constant: 0)
+            $0.top.equal(to: topAnchor, constant: 10)
             $0.trailing.equal(to: trailingAnchor, constant: -20)
-            $0.bottom.equal(to: bottomAnchor, constant: -2)
+            $0.bottom.equal(to: bottomAnchor, constant: -10)
         }
 
         contentContainer.addSubview(trackNameLabel) {
-            $0.top.equal(to: contentContainer.topAnchor, constant: 5)
-            $0.leading.equal(to: contentContainer.leadingAnchor)
-            $0.trailing.equal(to: contentContainer.trailingAnchor)
+            $0.top.equal(to: contentContainer.topAnchor, constant: 14)
+            $0.leading.equal(to: contentContainer.leadingAnchor, constant: 16)
+            $0.trailing.equal(to: contentContainer.trailingAnchor, constant: -16)
         }
         contentContainer.addSubview(playButton) {
-            $0.leading.equal(to: contentContainer.leadingAnchor)
-            $0.top.equal(to: trackNameLabel.bottomAnchor, constant: 4)
-            $0.width.equal(to: 20)
-            $0.height.equal(to: 20)
+            $0.leading.equal(to: trackNameLabel.leadingAnchor)
+            $0.top.equal(to: trackNameLabel.bottomAnchor, constant: 9)
+            $0.width.equal(to: 16)
+            $0.height.equal(to: 18)
+            $0.bottom.equal(to: contentContainer.bottomAnchor, constant: -15)
         }
         contentContainer.addSubview(progressSlider) {
-            $0.leading.equal(to: playButton.trailingAnchor, constant: 10)
+            $0.leading.equal(to: playButton.trailingAnchor, constant: 8)
             $0.centerY.equal(to: playButton.centerYAnchor)
-            $0.height.equal(to: 12)
-            $0.bottom.equal(to: contentContainer.bottomAnchor, constant: -10)
+            $0.height.equal(to: 16)
         }
 //        contentContainer.addSubview(volumeSlider) {
 //            $0.top.equal(to: progressSlider.bottomAnchor, constant: 5)
@@ -145,16 +182,16 @@ final class AudioBlockContentView: UIView, UIContentView {
                 guard let self = self else { return }
                 $0.leading.equal(to: self.progressSlider.trailingAnchor, constant: 5)
                 $0.centerY.equal(to: self.playButton.centerYAnchor)
-                $0.trailing.equal(to: contentContainer.trailingAnchor)
+                $0.trailing.equal(to: contentContainer.trailingAnchor, constant: -16)
             }
         } builder: {
             let slashView = AnytypeLabel()
-            slashView.setText("/", style: .uxCalloutRegular)
-            currentTimeLabel.setText("0:00", style: .uxCalloutRegular)
-            durationLabel.setText("0:00", style: .uxCalloutRegular)
-            durationLabel.textColor = .textSecondary
-            currentTimeLabel.textColor = .textSecondary
-            slashView.textColor = .textSecondary
+            slashView.setText("/", style: .caption2Medium)
+            currentTimeLabel.setText("0:00", style: .caption2Medium)
+            durationLabel.setText("0:00", style: .caption2Medium)
+            durationLabel.textColor = .textPrimary
+            currentTimeLabel.textColor = .textPrimary
+            slashView.textColor = .textPrimary
 
             return $0.hStack(
                 currentTimeLabel,
@@ -172,8 +209,8 @@ final class AudioBlockContentView: UIView, UIContentView {
         guard let url = UrlResolver.resolvedUrl(.file(id: currentConfiguration.file.metadata.hash)) else {
             return
         }
-        trackNameLabel.setText(configuration.file.metadata.name, style: .uxBodyRegular)
-        trackNameLabel.textColor = .textSecondary
+        trackNameLabel.setText(configuration.file.metadata.name, style: .previewTitle2Medium)
+        trackNameLabel.textColor = .textPrimary
 
         setupAudioPlayer(url: url)
     }

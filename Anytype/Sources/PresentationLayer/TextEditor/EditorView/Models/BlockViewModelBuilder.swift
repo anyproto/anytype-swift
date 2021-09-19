@@ -1,6 +1,8 @@
 import Foundation
 import BlocksModels
 import Combine
+import UniformTypeIdentifiers
+
 
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
@@ -135,7 +137,7 @@ final class BlockViewModelBuilder {
                     fileData: content,
                     contextualMenuHandler: contextualMenuHandler,
                     showAudioPicker: { [weak self] blockId in
-                        self?.showMediaPicker(type: .audio, blockId: blockId)
+                        self?.showFilePicker(blockId: blockId, types: [.audio])
                     },
                     downloadAudio: { [weak self] fileId in
                         self?.saveFile(fileId: fileId)
@@ -202,8 +204,8 @@ final class BlockViewModelBuilder {
         router.showImagePicker(model: model)
     }
     
-    private func showFilePicker(blockId: BlockId) {
-        let model = Picker.ViewModel()
+    private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
+        let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.blockActionHandler.upload(
                 blockId: .provided(blockId),
