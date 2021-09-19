@@ -21,11 +21,10 @@ jobs:
           - Anytype
 
     steps:
-      using: "composite"
       - name: Checkout branch
-      - uses: ./.github/actions/checkout_branch
+      - uses: actions/checkout@v2.3.4
         with:
-          branch: ${{ github.event.inputs.branch }}
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Install SSH key for access to repository.
         uses: webfactory/ssh-agent@v0.5.3
