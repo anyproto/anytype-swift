@@ -21,6 +21,7 @@ jobs:
           - Anytype
 
     steps:
+      using: "composite"
       - name: Checkout branch
       - uses: ./.github/actions/checkout_branch
         with:
