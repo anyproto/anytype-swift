@@ -413,6 +413,7 @@
 		3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFD226F8593D003A606A /* SlashAction.swift */; };
 		3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */; };
 		3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFE026F860EF003A606A /* StringExtension.swift */; };
+		3DE0D01426F8BABD003A606A /* AnytypeText+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0D01326F8BABD003A606A /* AnytypeText+Mention.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
 		3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */; };
@@ -1039,6 +1040,7 @@
 		3DE0CFD226F8593D003A606A /* SlashAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashAction.swift; sourceTree = "<group>"; };
 		3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuItemFilterMatch.swift; sourceTree = "<group>"; };
 		3DE0CFE026F860EF003A606A /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		3DE0D01326F8BABD003A606A /* AnytypeText+Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnytypeText+Mention.swift"; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
 		3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
@@ -3644,6 +3646,7 @@
 			children = (
 				EA5FB424266A970E00DCD56C /* MentionObject.swift */,
 				EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */,
+				3DE0D01326F8BABD003A606A /* AnytypeText+Mention.swift */,
 			);
 			path = Mention;
 			sourceTree = "<group>";
@@ -4196,6 +4199,7 @@
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MarkStyleAction.swift in Sources */,
 				12A7B6C326C3E47200544037 /* CoverConstants.swift in Sources */,
+				3DE0D01426F8BABD003A606A /* AnytypeText+Mention.swift in Sources */,
 				5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,

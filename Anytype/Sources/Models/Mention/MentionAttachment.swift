@@ -7,14 +7,16 @@ final class MentionAttachment: NSTextAttachment {
     private weak var layoutManager: NSLayoutManager?
     
     private let icon: ObjectIconImage?
+    private let size: ObjectIconImageMentionType
     private var iconSize: CGSize?
     private var fontPointSize: CGFloat?
     private let imageView = ObjectIconImageView()
     
     private var isLoadingMention = false
     
-    init(icon: ObjectIconImage?) {
+    init(icon: ObjectIconImage?, size: ObjectIconImageMentionType) {
         self.icon = icon
+        self.size = size
         
         super.init(data: nil, ofType: nil)
     }
@@ -44,7 +46,7 @@ final class MentionAttachment: NSTextAttachment {
             fontPointSize: fontPointSize
         )
         if let image = self.image {
-            return bounds(for: image)
+            return CGRect(origin: .zero, size: image.size)
         }
         return .zero
     }
@@ -76,10 +78,7 @@ final class MentionAttachment: NSTextAttachment {
     
     private func displayIcon(_ iconImage: ObjectIconImage) {
         imageView.configure(
-            model: .init(
-                iconImage: iconImage,
-                usecase: .mention(.body)
-            )
+            model: .init(iconImage: iconImage, usecase: .mention(size))
         )
         
         imageView.imageView.image.flatMap {
@@ -88,17 +87,25 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func addLeadingSpaceAndDisplay(_ image: UIImage) {
-        let imageWithSpaceSize = image.size + CGSize(width: Constants.iconLeadingSpace, height: 0)
+        let imageWithSpaceSize = image.size + CGSize(width: iconSpacing, height: 0)
         let imageWithSpace = image.imageDrawn(on: imageWithSpaceSize, offset: .zero)
         
         self.image = imageWithSpace
-        bounds = bounds(for: imageWithSpace)
         
         updateAttachmentLayout()
     }
     
-    private func bounds(for image: UIImage) -> CGRect {
-        CGRect(origin: CGPoint(x: 0, y: -Constants.iconTopOffset), size: image.size)
+    private var iconSpacing: CGFloat {
+        switch size {
+        case .title:
+            return 8
+        case .heading:
+            return 6
+        case .subheading, .body:
+            return 5
+        case .callout:
+            return 4
+        }
     }
     
     private func updateAttachmentLayout() {
@@ -108,14 +115,4 @@ final class MentionAttachment: NSTextAttachment {
             self.layoutManager?.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
         }
     }
-}
-
-private extension MentionAttachment {
-    
-    enum Constants {
-        static let defaultIconSize = CGSize(width: 20, height: 20)
-        static let iconLeadingSpace: CGFloat = 3
-        static let iconTopOffset: CGFloat = 3
-    }
-    
 }
