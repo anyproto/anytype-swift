@@ -61,7 +61,7 @@ enum AttributedTextConverter {
         // We remove mention attachments to save correct markup ranges
         mutableAttributedText.removeAllMentionAttachmets()
         let wholeText = mutableAttributedText.string
-        let wholeStringRange = NSRange(location: 0, length: mutableAttributedText.length)
+        let wholeStringRange = mutableAttributedText.wholeRange
         mutableAttributedText.enumerateAttributes(in: wholeStringRange) { attributes, range, _ in
             
             // 2. Take all attributes in specific range and convert them to
