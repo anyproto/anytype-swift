@@ -26,12 +26,12 @@ struct ImageGuideline {
         self.size = size
         self.cornersGuideline = {
             guard let cornerRadius = cornerRadius else {
-                return .init(radius: 0, backgroundColor: nil)
+                return .init(radius: 0, borderColor: nil)
             }
             
             return .init(
                 radius: cornerRadius,
-                backgroundColor: backgroundColor
+                borderColor: backgroundColor
             )
         }()
     }
