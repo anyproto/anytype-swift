@@ -115,6 +115,15 @@ final class DocumentEditorViewController: UIViewController {
 
         objectHeaderViewTopConstraint.constant = -relativeYOffset
         objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
+        
+        // Animate constraints update if view updates with animation
+        // ex: system hides keyboard with inplicit animation
+        let inheritedAnimationDuration = UIView.inheritedAnimationDuration
+        guard !inheritedAnimationDuration.isZero else { return }
+        UIView.animate(withDuration: inheritedAnimationDuration) {
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
     }
     
 }
