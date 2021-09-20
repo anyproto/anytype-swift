@@ -8,7 +8,7 @@ private extension LoggerCategory {
 
 
 public class DetailsEntryConverter {
-    public static func convert(details: [String: Google_Protobuf_Value]) -> [DetailsKind: DetailsEntry<AnyHashable>] {
+    public static func convert(details: [String: Google_Protobuf_Value]) -> RawDetailsData {
         Dictionary(
             uniqueKeysWithValues: details.compactMap { key, value -> (DetailsKind, DetailsEntry<AnyHashable>)? in
                 guard let kind = DetailsKind(rawValue: key) else {

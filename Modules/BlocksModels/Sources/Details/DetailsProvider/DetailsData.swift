@@ -1,11 +1,13 @@
 import Foundation
 
+public typealias RawDetailsData = [DetailsKind: DetailsEntry<AnyHashable>]
+
 public struct DetailsData {
     
-    public let details: [DetailsKind: DetailsEntry<AnyHashable>]
+    public let details: RawDetailsData
     public let blockId: BlockId
     
-    public init(details: [DetailsKind: DetailsEntry<AnyHashable>], blockId: String) {
+    public init(details: RawDetailsData, blockId: String) {
         self.details = details
         self.blockId = blockId
     }

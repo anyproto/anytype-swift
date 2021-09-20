@@ -12,7 +12,7 @@ private extension LoggerCategory {
 
 /// Top converter which convert all details to and from protobuf.
 enum BlocksModelsDetailsConverter {
-    static func asMiddleware(models: [DetailsKind: DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+    static func asMiddleware(models: RawDetailsData) -> [Anytype_Rpc.Block.Set.Details.Detail] {
         models.compactMap { row in
             Anytype_Rpc.Block.Set.Details.Detail.converted(
                 kind: row.key,
@@ -21,12 +21,17 @@ enum BlocksModelsDetailsConverter {
         }
     }
     
-    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsKind:  DetailsEntry<AnyHashable>] {
+    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> RawDetailsData {
         details.asModel()
     }
     
-    static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsKind: DetailsEntry<AnyHashable>] {
+    static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> RawDetailsData {
         details.asModel()
+    }
+    
+    static func asModel(event: Anytype_Event.Object.Details.Set) -> RawDetailsData {
+        event.details.fields.map(Anytype_Rpc.Block.Set.Details.Detail.init(key:value:))
+            .asModel()
     }
 }
 
@@ -66,7 +71,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
 
 private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
     
-    func asModel() -> [DetailsKind: DetailsEntry<AnyHashable>] {
+    func asModel() -> RawDetailsData {
         let details = self.reduce(into: [String: Google_Protobuf_Value]()) { result, detail in
             result[detail.key] = detail.value
         }
@@ -78,7 +83,7 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
 
 private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
     
-    func asModel() -> [DetailsKind: DetailsEntry<AnyHashable>] {
+    func asModel() -> RawDetailsData {
         let details = self.reduce(into: [String: Google_Protobuf_Value]()) { result, detail in
             result[detail.key] = detail.value
         }

@@ -105,7 +105,7 @@ final class MiddlewareEventConverter {
             
         case let .objectDetailsUnset(payload):
             let details = container.detailsContainer.get(by: payload.id)
-            var newDetails: [DetailsKind: DetailsEntry<AnyHashable>] = details?.detailsData.details ?? [:]
+            var newDetails: RawDetailsData = details?.detailsData.details ?? [:]
 
             // remove details with keys from payload
             payload.keys.forEach { key in
@@ -123,15 +123,8 @@ final class MiddlewareEventConverter {
             }
             let detailsId = value.id
             
-            let eventsDetails = EventDetailsAndSetDetailsConverter.convert(
-                event: Anytype_Event.Object.Details.Set(
-                    id: detailsId,
-                    details: value.details
-                )
-            )
-            
             let details = BlocksModelsDetailsConverter.asModel(
-                details: eventsDetails
+                event: Anytype_Event.Object.Details.Set(id: detailsId, details: value.details)
             )
             
             if let detailsModel = container.detailsContainer.get(by: detailsId) {
