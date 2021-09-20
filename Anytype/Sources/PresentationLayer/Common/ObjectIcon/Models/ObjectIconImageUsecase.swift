@@ -1,11 +1,3 @@
-//
-//  ObjectIconImageUsecase.swift
-//  ObjectIconImageUsecase
-//
-//  Created by Konstantin Mordan on 19.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -23,6 +15,14 @@ enum ObjectIconImageUsecase: Equatable {
 }
 
 extension ObjectIconImageUsecase {
+    var backgroundColor: UIColor {
+        switch self {
+        case .openedObjectNavigationBar, .mention:
+            return .clear
+        default:
+            return UIColor.grayscale10
+        }
+    }
     
     var objectIconImageGuidelineSet: ObjectIconImageGuidelineSet {
         switch self {

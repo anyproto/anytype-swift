@@ -88,7 +88,7 @@ extension ImageBuilder: ImageBuilderProtocol {
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
                 opaque: isOpaque,
-                backgroundColor: imageGuideline.cornersGuideline.backgroundColor?.cgColor
+                backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
         )
 
         imageStorage.saveImage(image, forKey: key)
