@@ -48,7 +48,6 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
     
-    private var objectHeaderViewTopConstraint: NSLayoutConstraint!
     private let objectHeaderView = ObjectHeaderView()
 
     var viewModel: DocumentEditorViewModelProtocol!
@@ -113,17 +112,8 @@ final class DocumentEditorViewController: UIViewController {
 
         let relativeHeight = -relativeYOffset
 
-        objectHeaderViewTopConstraint.constant = -relativeYOffset
+        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -relativeYOffset)
         objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
-        
-        // Animate constraints update if view updates with animation
-        // ex: system hides keyboard with inplicit animation
-        let inheritedAnimationDuration = UIView.inheritedAnimationDuration
-        guard !inheritedAnimationDuration.isZero else { return }
-        UIView.animate(withDuration: inheritedAnimationDuration) {
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        }
     }
     
 }
@@ -264,7 +254,7 @@ private extension DocumentEditorViewController {
         // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
         // otherwise they are cancels by `listViewTapGestureRecognizer`
         view.addSubview(objectHeaderView) {
-            objectHeaderViewTopConstraint = $0.bottom.equal(to: view.topAnchor)
+            $0.bottom.equal(to: view.topAnchor)
             $0.pinToSuperview(excluding: [.top, .bottom])
         }
         
