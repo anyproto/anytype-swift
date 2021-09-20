@@ -95,7 +95,7 @@ final class MarkStyleModifier {
         currentAttributes.removeValue(forKey: .localUnderline)
         mentionAttachmentString.addAttributes(
             currentAttributes,
-            range: NSRange(location: 0, length: mentionAttachmentString.length)
+            range: mentionAttachmentString.wholeRange
         )
         attributedString.insert(mentionAttachmentString, at: range.location)
     }

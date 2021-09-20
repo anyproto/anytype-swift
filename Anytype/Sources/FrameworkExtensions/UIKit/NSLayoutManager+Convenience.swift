@@ -4,7 +4,7 @@ extension NSLayoutManager {
     func rangeForAttachment(attachment: NSTextAttachment) -> NSRange? {
         guard let attributedString = textStorage, attributedString.length > 0 else { return nil }
         
-        let range = NSRange(location: 0, length: attributedString.length)
+        let range = attributedString.wholeRange
         var resultRange: NSRange?
         
         attributedString.enumerateAttribute(.attachment, in: range) { value, subrange, shouldStop in

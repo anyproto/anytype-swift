@@ -7,7 +7,7 @@ enum MarkupRange {
     func range(for attributedString: NSAttributedString) -> NSRange {
         switch self {
         case .whole:
-            return NSRange(location: 0, length: attributedString.length)
+            return attributedString.wholeRange
         case let .range(range):
             return range
         }

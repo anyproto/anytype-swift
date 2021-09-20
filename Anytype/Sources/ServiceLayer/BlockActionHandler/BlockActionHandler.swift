@@ -175,10 +175,7 @@ private extension BlockActionHandler {
     ) {
         guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
               case let .text(textContentType) = info.content else { return }
-        let range = NSRange(
-            location: 0,
-            length: textContentType.text.count
-        )
+        let range = textContentType.text.wholeRange
         let anytypeText = AttributedTextConverter.asModel(
             text: textContentType.text,
             marks: textContentType.marks,
