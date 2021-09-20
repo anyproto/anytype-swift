@@ -15,12 +15,12 @@ final class ObjectHeaderView: UIView {
     var onCoverTap: (() -> Void)?
     var onIconTap: (() -> Void)?
     
-    var onBaseHeightUpdate: ((CGFloat) -> Void)?
+    var onHeightUpdate: ((CGFloat) -> Void)?
     
-    private(set) var baseHeight: CGFloat = 0 {
+    private(set) var height: CGFloat = 0 {
         didSet {
-            onBaseHeightUpdate?(baseHeight)
-            heightConstraint.constant = baseHeight
+            onHeightUpdate?(height)
+            heightConstraint.constant = height
         }
     }
     
@@ -62,13 +62,29 @@ extension ObjectHeaderView: ConfigurableView {
         case .coverOnly(let objectCover):
             setupFilledState(.cover)
             
-            coverView.configure(model: objectCover)
+            coverView.configure(
+                model: ObjectCoverView.Model(
+                    objectCover: objectCover,
+                    size: CGSize(
+                        width: bounds.width,
+                        height: height
+                    )
+                )
+            )
             
         case .iconAndCover(let objectIcon, let objectCover):
             setupFilledState(.iconAndCover)
             
             iconView.configure(model: objectIcon.asObjectIconViewModel)
-            coverView.configure(model: objectCover)
+            coverView.configure(
+                model: ObjectCoverView.Model(
+                    objectCover: objectCover,
+                    size: CGSize(
+                        width: bounds.width,
+                        height: height
+                    )
+                )
+            )
             
             handleIconLayoutAlignment(objectIcon.layoutAlignment)
             
@@ -83,8 +99,14 @@ private extension ObjectHeaderView {
     
     func setupView() {
         backgroundColor = .backgroundPrimary
+        setupGestureRecognizers()
+        
         setupLayout()
         
+        setupEmptyState()
+    }
+    
+    func setupGestureRecognizers() {
         iconView.addGestureRecognizer(
             TapGestureRecognizerWithClosure { [weak self] in
                 self?.onIconTap?()
@@ -96,8 +118,6 @@ private extension ObjectHeaderView {
                 self?.onCoverTap?()
             }
         )
-        
-        setupEmptyState()
     }
     
     func setupLayout() {
@@ -141,14 +161,14 @@ private extension ObjectHeaderView {
     }
     
     func setupEmptyState() {
-        baseHeight = Constants.emptyHeaderHeight
+        height = Constants.emptyHeaderHeight
         
         iconView.isHidden = true
         coverView.isHidden = true
     }
     
     func setupFilledState(_ filledState: FilledState) {
-        baseHeight = Constants.filledHeaderHeight
+        height = Constants.filledHeaderHeight
 
         switch filledState {
         case .icon:
