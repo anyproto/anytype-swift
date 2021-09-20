@@ -18,7 +18,7 @@ final class UIKitAnytypeText: Hashable {
         self.font = UIKitFontBuilder.uiKitFont(font: style)
 
         let newAttrString = NSMutableAttributedString(attributedString: attributedString)
-        textModifier = MarkStyleModifier(attributedText: newAttrString, anytypeFont: style)
+        textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
 
         // setup line height
         let paragraphStyle = NSMutableParagraphStyle()

@@ -43,8 +43,7 @@ final class EditorAssembly {
         
         let markupChanger = BlockMarkupChanger(
             document: document,
-            documentId: blockId,
-            textService: BlockActionsServiceText()
+            documentId: blockId
         )
         
         let blockActionHandler = BlockActionHandler(
@@ -61,6 +60,8 @@ final class EditorAssembly {
             eventProcessor: eventProcessor,
             router: router
         )
+        
+        markupChanger.handler = editorBlockActionHandler
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,

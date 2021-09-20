@@ -14,3 +14,18 @@ enum MarkStyleAction: Equatable {
     case mention(image: ObjectIconImage?, blockId: BlockId)
     
 }
+
+extension BlockHandlerActionType.TextAttributesType {
+    func marksStyleAction(shouldApplyMarkup: Bool) -> MarkStyleAction {
+        switch self {
+        case .bold:
+            return .bold(shouldApplyMarkup)
+        case .italic:
+            return .italic(shouldApplyMarkup)
+        case .keyboard:
+            return .keyboard(shouldApplyMarkup)
+        case .strikethrough:
+            return .strikethrough(shouldApplyMarkup)
+        }
+    }
+}
