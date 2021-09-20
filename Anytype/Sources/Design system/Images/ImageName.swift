@@ -78,7 +78,7 @@ final class ImageName {
             static let code = "slash_menu_media_code"
             static let file = "slash_menu_media_file"
             static let video = "slash_menu_media_video"
-            static let picture = "slash_menu_group_media"
+            static let picture = "slash_menu_media_picture"
         }
         
         enum other {
