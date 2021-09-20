@@ -13,7 +13,8 @@ final class AppConfigurator {
     private let configurators: [AppConfiguratorProtocol] = [
         FirebaseConfigurator(),
         AnalyticsConfigurator(),
-        KingfisherConfigurator()
+        KingfisherConfigurator(),
+        AudioPlaybackConfigurator()
     ]
 
     func configure() {

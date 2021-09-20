@@ -8,9 +8,13 @@
 
 import BlocksModels
 import UIKit
+import AVFoundation
 
 
-struct AudioBlockViewModel: BlockViewModelProtocol {
+final class AudioBlockViewModel: BlockViewModelProtocol {
+    private(set) var playerItem: AVPlayerItem?
+    private(set) var duration: Double?
+
     var upperBlock: BlockModelProtocol?
 
     var hashable: AnyHashable {
@@ -27,6 +31,27 @@ struct AudioBlockViewModel: BlockViewModelProtocol {
     let contextualMenuHandler: DefaultContextualMenuHandler
     let showAudioPicker: (BlockId) -> ()
     let downloadAudio: (FileId) -> ()
+
+    init(
+        indentationLevel: Int,
+        information: BlockInformation,
+        fileData: BlockFile,
+        contextualMenuHandler: DefaultContextualMenuHandler,
+        showAudioPicker: @escaping (BlockId) -> (),
+        downloadAudio: @escaping (FileId) -> ()
+    ) {
+        self.indentationLevel = indentationLevel
+        self.information = information
+        self.fileData = fileData
+        self.contextualMenuHandler = contextualMenuHandler
+        self.showAudioPicker = showAudioPicker
+        self.downloadAudio = downloadAudio
+
+        if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
+            self.playerItem = AVPlayerItem(url: url)
+            self.duration = playerItem?.asset.duration.seconds
+        }
+    }
 
     func didSelectRowInTableView() {
         switch fileData.state {
@@ -61,7 +86,10 @@ struct AudioBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            return AudioBlockContentConfiguration(fileData: fileData)
+            guard let playerItem = playerItem else {
+                return emptyViewConfiguration(state: .error)
+            }
+            return AudioBlockContentConfiguration(file: fileData, playerItem: playerItem, duration: duration ?? 0)
         }
     }
 
