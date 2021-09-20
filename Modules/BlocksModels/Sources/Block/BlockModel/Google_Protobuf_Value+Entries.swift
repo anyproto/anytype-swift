@@ -11,7 +11,10 @@ extension Google_Protobuf_Value {
             return nil
         }
         
-        return DetailsEntry(value: string)
+        let trimmed = string.trimmed
+        guard !trimmed.isEmpty else { return nil }
+        
+        return DetailsEntry(value: trimmed)
     }
     
     func asBoolEntry() -> DetailsEntry<AnyHashable>? {

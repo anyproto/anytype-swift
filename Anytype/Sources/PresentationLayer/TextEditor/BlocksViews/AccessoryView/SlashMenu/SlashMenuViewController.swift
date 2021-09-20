@@ -1,11 +1,5 @@
 import UIKit
 
-enum SlashMenuCellData {
-    case menu(item: SlashMenuItemType, actions: [SlashAction])
-    case action(SlashAction)
-    case header(title: String)
-}
-
 final class SlashMenuViewController: UIViewController {
     let configurationFactory = SlashMenuContentConfigurationFactory()
     let actionsHandler: SlashMenuViewModel
