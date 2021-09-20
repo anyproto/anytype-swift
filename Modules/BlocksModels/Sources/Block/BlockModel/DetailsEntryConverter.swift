@@ -42,31 +42,31 @@ public class DetailsEntryConverter {
         return {
             switch kind {
             case .name:
-                return value.asNameEntry()
+                return value.asStringEntry()
             case .iconEmoji:
-                return value.asIconEmojiEntry()
+                return value.asStringEntry()
             case .iconImage:
-                return value.asIconImageEntry()
+                return value.asStringEntry()
             case .coverId:
-                return value.asCoverIdEntry()
+                return value.asStringEntry()
             case .coverType:
                 return value.asCoverTypeEntry()
             case .isArchived:
-                return value.asIsArchiveEntry()
+                return value.asBoolEntry()
             case .description:
-                return value.asDescriptionEntry()
+                return value.asStringEntry()
             case .layout:
                 return value.asLayoutEntry()
             case .layoutAlign:
                 return value.asAlignmentEntry()
             case .done:
-                return value.asDoneEntry()
+                return value.asBoolEntry()
             case .type:
-                return value.asTypeEntry()
+                return value.asStringEntry()
             case .id:
-                return nil
+                return value.asStringEntry()
             case .isHidden:
-                return nil
+                return value.asBoolEntry()
             case .lastOpenedDate:
                 return nil
             case .lastModifiedDate:

@@ -53,7 +53,7 @@ public class BlockUpdater {
             let blockId = link.targetBlockID
             
             let details = DetailsData(
-                details: [:],
+                rawDetails: [:],
                 blockId: blockId
             )
             

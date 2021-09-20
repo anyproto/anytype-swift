@@ -1,19 +1,28 @@
 import Foundation
+import AnytypeCore
 
 public typealias RawDetailsData = [DetailsKind: DetailsEntry<AnyHashable>]
 
 public struct DetailsData {
     
-    public let details: RawDetailsData
+    public let rawDetails: RawDetailsData
     public let blockId: BlockId
     
-    public init(details: RawDetailsData, blockId: String) {
-        self.details = details
+    public init(rawDetails: RawDetailsData, blockId: String) {
+        self.rawDetails = rawDetails
         self.blockId = blockId
     }
     
+    public init(rawDetails: RawDetailsData) {
+        self.rawDetails = rawDetails
+        
+        let blockId = rawDetails[.id]?.value as? String
+        anytypeAssert(blockId != nil, "Nil block id for detais: \(rawDetails)")
+        self.blockId = blockId ?? ""
+    }
+    
     public static var empty: DetailsData {
-        DetailsData(details: [:], blockId: "")
+        DetailsData(rawDetails: [:], blockId: "")
     }
     
 }
@@ -71,7 +80,7 @@ extension DetailsData: DetailsDataProtocol {
     }
     
     private func value<V>(for kind: DetailsKind) -> V? {
-        guard let entry = details[kind] else {
+        guard let entry = rawDetails[kind] else {
             return nil
         }
         

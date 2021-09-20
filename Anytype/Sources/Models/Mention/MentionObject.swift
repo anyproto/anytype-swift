@@ -1,4 +1,5 @@
-
+import BlocksModels
+import AnytypeCore
 
 struct MentionObject {
     let id: String
@@ -21,9 +22,9 @@ struct MentionObject {
         self.type = type
     }
     
-    init(searchResult: SearchResult) {
+    init(searchResult: DetailsDataProtocol) {
         self.init(
-            id: searchResult.id,
+            id: searchResult.blockId,
             objectIcon: searchResult.objectIcon,
             name: searchResult.mentionName,
             description: searchResult.description,
@@ -44,7 +45,7 @@ extension MentionObject: Hashable {
     
 }
 
-extension SearchResult {
+extension DetailsDataProtocol {
     var objectIcon: ObjectIconImage {
         if let objectIcon = objectIconImage {
             return objectIcon
@@ -56,5 +57,11 @@ extension SearchResult {
     var mentionName: String {
         let name = name ?? ""
         return name.isEmpty ? "Untitled".localized : name
+    }
+    
+    var type: ObjectType? {
+        let type = ObjectTypeProvider.objectType(url: typeUrl)
+        anytypeAssert(type != nil, "Cannot parse type :\(String(describing: typeUrl)))")
+        return type
     }
 }

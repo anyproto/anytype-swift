@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let detailsLoader: DetailsLoader
     private let accessorySwitcher: AccessoryViewSwitcherProtocol
 
     init(
@@ -16,7 +15,6 @@ final class BlockViewModelBuilder {
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        detailsLoader: DetailsLoader,
         accessorySwitcher: AccessoryViewSwitcherProtocol
     ) {
         self.document = document
@@ -27,11 +25,10 @@ final class BlockViewModelBuilder {
             handler: blockActionHandler,
             router: router
         )
-        self.detailsLoader = detailsLoader
         self.accessorySwitcher = accessorySwitcher
     }
 
-    func build(_ blocks: [BlockModelProtocol], details: DetailsData?) -> [BlockViewModelProtocol] {
+    func build(_ blocks: [BlockModelProtocol], details: DetailsDataProtocol?) -> [BlockViewModelProtocol] {
         var previousBlock: BlockModelProtocol?
         return blocks.compactMap { block -> BlockViewModelProtocol? in
             let blockViewModel = build(block, details: details, previousBlock: previousBlock)
@@ -40,7 +37,7 @@ final class BlockViewModelBuilder {
         }
     }
 
-    func build(_ block: BlockModelProtocol, details: DetailsData?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
+    func build(_ block: BlockModelProtocol, details: DetailsDataProtocol?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
@@ -168,10 +165,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = detailsLoader.loadDetailsForBlockLink(
-                blockId: block.information.id,
-                targetBlockId: content.targetBlockID
-            )
+            let details = document.getDetails(by: content.targetBlockID)?.currentDetails
             return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,

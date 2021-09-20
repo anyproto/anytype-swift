@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 import Combine
-
+import BlocksModels
 
 struct HomeCellData: Identifiable {
     let id: String
@@ -12,10 +12,10 @@ struct HomeCellData: Identifiable {
     let isLoading: Bool
     let isArchived: Bool
     
-    static func create(searchResult: SearchResult) -> HomeCellData {
+    static func create(searchResult: DetailsDataProtocol) -> HomeCellData {
         HomeCellData(
-            id: searchResult.id,
-            destinationId: searchResult.id,
+            id: searchResult.blockId,
+            destinationId: searchResult.blockId,
             icon: searchResult.icon,
             title: searchResult.pageCellTitle,
             type: searchResult.type?.name ?? "Page".localized,
