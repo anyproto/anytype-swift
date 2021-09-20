@@ -7,7 +7,7 @@ struct IconEmoji: Hashable {
     // MARK: - Initializer
     
     init?(_ value: String?) {
-        guard let value = value, value.isNotEmpty else {
+        guard let value = value?.trimmed, value.isNotEmpty else {
             return nil
         }
         

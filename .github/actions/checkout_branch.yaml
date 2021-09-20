@@ -1,0 +1,11 @@
+name: Checkout branch
+inputs:
+  branch:
+    description: 'Branch to checkout'
+    required: true
+
+runs:
+  steps:
+    - uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ inputs.branch }}

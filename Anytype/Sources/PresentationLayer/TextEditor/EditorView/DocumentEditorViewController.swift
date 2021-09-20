@@ -109,12 +109,12 @@ final class DocumentEditorViewController: UIViewController {
         let contentOffsetY = collectionView.contentOffset.y
         let contentInsetTop = collectionView.contentInset.top
 
-        let relativeYOffset = contentOffsetY + contentInsetTop - objectHeaderView.baseHeight
+        let relativeYOffset = contentOffsetY + contentInsetTop - objectHeaderView.height
 
         let relativeHeight = -relativeYOffset
 
         objectHeaderViewTopConstraint.constant = -relativeYOffset
-        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.baseHeight)
+        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
     }
     
 }
@@ -225,7 +225,7 @@ private extension DocumentEditorViewController {
             self?.viewModel.showCoverPicker()
         }
         
-        objectHeaderView.onBaseHeightUpdate = { [weak self] height in
+        objectHeaderView.onHeightUpdate = { [weak self] height in
             guard let self = self else { return }
             
             self.collectionView.contentInset.top = height
