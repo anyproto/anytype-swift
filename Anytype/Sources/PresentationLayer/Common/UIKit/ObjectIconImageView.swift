@@ -74,7 +74,7 @@ extension ObjectIconImageView: ConfigurableView {
                 model: model,
                 string: iconEmoji.value,
                 textColor: UIColor.backgroundPrimary,
-                backgroundColor: model.usecase == .openedObjectNavigationBar ? .clear : UIColor.grayscale10
+                backgroundColor: model.usecase.backgroundColor
             )
         }
     }
