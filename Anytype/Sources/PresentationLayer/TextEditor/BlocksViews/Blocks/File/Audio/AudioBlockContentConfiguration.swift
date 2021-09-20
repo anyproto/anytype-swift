@@ -8,13 +8,20 @@
 
 import BlocksModels
 import UIKit
+import AVFoundation
+
 
 struct AudioBlockContentConfiguration: Hashable {
-
     let file: BlockFile
+    let playerItem: AVPlayerItem
+    let duration: Double
 
-    init(fileData: BlockFile) {
-        self.file = fileData
+    static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
+        lhs.file == rhs.file
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(file)
     }
 }
 
