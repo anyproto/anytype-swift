@@ -22,6 +22,21 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     func toggleMarkup(
         _ markup: BlockHandlerActionType.TextAttributesType,
+        for blockId: BlockId
+    ) {
+        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
+              case let .text(blockText) = info.content else { return }
+        
+        toggleMarkup(
+            markup,
+            attributedText: blockText.anytypeText.attrString,
+            for: blockId,
+            in: blockText.anytypeText.attrString.wholeRange
+        )
+    }
+    
+    func toggleMarkup(
+        _ markup: BlockHandlerActionType.TextAttributesType,
         attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange

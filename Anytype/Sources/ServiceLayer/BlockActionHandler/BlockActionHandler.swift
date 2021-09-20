@@ -68,7 +68,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .setBackgroundColor(color):
             service.setBackgroundColor(blockId: blockId, color: color)
         case let .toggleWholeBlockMarkup(markup):
-            handleWholeBlockMarkupToggle(blockId: blockId, markup: markup)
+            markupChanger.toggleMarkup(markup, for: blockId)
         case let .toggleFontStyle(attrText, fontAttributes, range):
             markupChanger.toggleMarkup(fontAttributes, attributedText: attrText, for: blockId, in: range)
         case let .setAlignment(alignment):
@@ -167,26 +167,5 @@ private extension BlockActionHandler {
                 completion?(value)
             }
             .store(in: &self.subscriptions)
-    }
-    
-    func handleWholeBlockMarkupToggle(
-        blockId: BlockId,
-        markup: BlockHandlerActionType.TextAttributesType
-    ) {
-        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
-              case let .text(textContentType) = info.content else { return }
-        let range = textContentType.text.wholeRange
-        let anytypeText = AttributedTextConverter.asModel(
-            text: textContentType.text,
-            marks: textContentType.marks,
-            style: textContentType.contentType
-        )
-        
-        markupChanger.toggleMarkup(
-            markup,
-            attributedText: anytypeText.attrString,
-            for: blockId,
-            in: range
-        )
     }
 }
