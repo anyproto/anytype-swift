@@ -111,7 +111,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
             
-            updateView()
+            viewInput?.updateBlocks(modelsHolder.models)
         }
     }
     
@@ -202,6 +202,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         viewInput?.updateHeader(header, details: details)
         viewInput?.updateBlocks(modelsHolder.models)
     }
+    
 }
 
 // MARK: - View output
