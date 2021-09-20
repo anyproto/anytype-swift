@@ -41,40 +41,13 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         guard markupState != .disabled else { return }
         
         let shouldApplyMarkup = markupState == .notApplied
-        switch markup {
-        case .bold:
-            applyAndStore(
-                .bold(shouldApplyMarkup),
-                block: model,
-                content: content,
-                attributedText: attributedText,
-                range: range
-            )
-        case .italic:
-            applyAndStore(
-                .italic(shouldApplyMarkup),
-                block: model,
-                content: content,
-                attributedText: attributedText,
-                range: range
-            )
-        case .strikethrough:
-            applyAndStore(
-                .strikethrough(shouldApplyMarkup),
-                block: model,
-                content: content,
-                attributedText: attributedText,
-                range: range
-            )
-        case .keyboard:
-            applyAndStore(
-                .keyboard(shouldApplyMarkup),
-                block: model,
-                content: content,
-                attributedText: attributedText,
-                range: range
-            )
-        }
+        applyAndStore(
+            markup.marksStyleAction(shouldApplyMarkup: shouldApplyMarkup),
+            block: model,
+            content: content,
+            attributedText: attributedText,
+            range: range
+        )
     }
 
     func setLink(
@@ -99,6 +72,30 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
     }
     
+    private func applyAndStore(
+        _ action: MarkStyleAction,
+        block: BlockModelProtocol,
+        content: BlockText,
+        attributedText: NSAttributedString,
+        range: NSRange
+    ) {
+        // Ignore changing markup in empty string 
+        guard range.length != 0 else { return }
+        
+        let modifier = MarkStyleModifier(
+            attributedString: attributedText,
+            anytypeFont: content.contentType.uiFont
+        )
+        
+        modifier.apply(action, range: range)
+        let result = NSAttributedString(attributedString: modifier.attributedString)
+        
+        handler.handleAction(
+            .textView(action: .changeText(result), block: block),
+            blockId: block.information.id
+        )
+    }
+    
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
         guard let model = document.rootModel?.blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Can't find block with id: \(blockId)")
@@ -109,49 +106,5 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
             return nil
         }
         return (model, content)
-    }
-    
-    private func applyAndStore(
-        _ action: MarkStyleAction,
-        block: BlockModelProtocol,
-        content: BlockText,
-        attributedText: NSAttributedString,
-        range: NSRange
-    ) {
-        // Ignore changing markup in empty string 
-        guard range.length != 0 else { return }
-
-        let result = apply(action, attrText: attributedText, content: content, range: range)
-        store(attributedString: result, block: block, content: content)
-    }
-    
-    private func apply(
-        _ action: MarkStyleAction,
-        attrText: NSAttributedString,
-        content: BlockText,
-        range: NSRange
-    ) -> NSAttributedString {
-        let modifier = MarkStyleModifier(
-            attributedText: NSMutableAttributedString(
-                attributedString: attrText
-            ),
-            anytypeFont: content.contentType.uiFont
-        )
-        modifier.apply(action, range: range)
-        return NSAttributedString(attributedString: modifier.attributedString)
-    }
-    
-    private func store(
-        attributedString: NSAttributedString,
-        block: BlockModelProtocol,
-        content: BlockText
-    ) {
-        handler.handleAction(
-            .textView(
-                action: .changeText(attributedString),
-                block: block
-            ),
-            blockId: block.information.id
-        )
     }
 }

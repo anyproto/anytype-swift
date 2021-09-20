@@ -7,11 +7,21 @@ final class MarkStyleModifier {
     private let anytypeFont: AnytypeFont
     
     init(
-        attributedText: NSMutableAttributedString = .init(),
+        attributedString: NSMutableAttributedString,
         anytypeFont: AnytypeFont
     ) {
-        attributedString = attributedText
+        self.attributedString = attributedString
         self.anytypeFont = anytypeFont
+    }
+    
+    convenience init(
+        attributedString: NSAttributedString,
+        anytypeFont: AnytypeFont
+    ) {
+        self.init(
+            attributedString: NSMutableAttributedString(attributedString: attributedString),
+            anytypeFont: anytypeFont
+        )
     }
         
     func apply(_ action: MarkStyleAction, range: NSRange) {
