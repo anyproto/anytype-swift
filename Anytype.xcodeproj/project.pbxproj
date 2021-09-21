@@ -431,6 +431,8 @@
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
 		3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */; };
 		3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */; };
+		3DFD1B3926EA5AE600F893FC /* ObjectIconImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B3826EA5AE600F893FC /* ObjectIconImageModel.swift */; };
+		3DFD1B3B26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B3A26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift */; };
 		3DFD1B4026EB1F8B00F893FC /* StaticImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD1B3F26EB1F8B00F893FC /* StaticImageGuideline.swift */; };
 		3DFE7F2726E122290093EECB /* HomeSearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */; };
 		3DFE7F4326E26A510093EECB /* HomeSearchCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */; };
@@ -1064,6 +1066,8 @@
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
 		3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeftViewStyler.swift; sourceTree = "<group>"; };
 		3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockTextViewStyler.swift; sourceTree = "<group>"; };
+		3DFD1B3826EA5AE600F893FC /* ObjectIconImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageModel.swift; sourceTree = "<group>"; };
+		3DFD1B3A26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconAttachementLoader.swift; sourceTree = "<group>"; };
 		3DFD1B3F26EB1F8B00F893FC /* StaticImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticImageGuideline.swift; sourceTree = "<group>"; };
 		3DFE7F2626E122290093EECB /* HomeSearchCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellData.swift; sourceTree = "<group>"; };
 		3DFE7F4226E26A510093EECB /* HomeSearchCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchCellDataMock.swift; sourceTree = "<group>"; };
@@ -2757,7 +2761,7 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				12F6072726D7DF0D00876C92 /* ObjectIconImageView.swift */,
+				3DFD1B3426EA5ACE00F893FC /* ObjectIcon */,
 				12A52E2526CAA156000F0333 /* ViewAnimator */,
 				03E2AD4323A93C8C00C701CE /* TextView */,
 				EAE8C6A12693011C00324B46 /* URLInputView */,
@@ -3305,6 +3309,16 @@
 				3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */,
 			);
 			path = Stylers;
+			sourceTree = "<group>";
+		};
+		3DFD1B3426EA5ACE00F893FC /* ObjectIcon */ = {
+			isa = PBXGroup;
+			children = (
+				12F6072726D7DF0D00876C92 /* ObjectIconImageView.swift */,
+				3DFD1B3826EA5AE600F893FC /* ObjectIconImageModel.swift */,
+				3DFD1B3A26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift */,
+			);
+			path = ObjectIcon;
 			sourceTree = "<group>";
 		};
 		53040A4C26D838EF0023AC73 /* TextComponents */ = {
@@ -4154,6 +4168,7 @@
 				3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
+				3DFD1B3B26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
@@ -4410,6 +4425,7 @@
 				123FDADD26C17CBA00F6F44B /* ObjectCover.swift in Sources */,
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				3D471E1F26C3B60200457DE5 /* BlockLinkIconMaker.swift in Sources */,
+				3DFD1B3926EA5AE600F893FC /* ObjectIconImageModel.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
