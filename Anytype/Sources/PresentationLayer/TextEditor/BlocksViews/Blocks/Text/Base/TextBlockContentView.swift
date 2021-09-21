@@ -24,10 +24,12 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private var topMainConstraint: NSLayoutConstraint?
     private var bottomMainConstraint: NSLayoutConstraint?
+    
     private var topContentConstraint: NSLayoutConstraint?
     private var bottomContentnConstraint: NSLayoutConstraint?
     
     private(set) var currentConfiguration: TextBlockContentConfiguration
+    
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
         set {
@@ -60,24 +62,9 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Setup views
     
     private func setupLayout() {
-        addSubview(mainStackView) {
-            topMainConstraint = $0.top.equal(to: topAnchor)
-            bottomMainConstraint = $0.bottom.equal(to: bottomAnchor)
-            $0.leading.equal(to: leadingAnchor)
-            $0.trailing.equal(to: trailingAnchor)
-        }
-        backgroundColorView.addSubview(contentView) {
-            $0.pinToSuperview(insets: TextBlockLayout.contentInset)
-        }
-        backgroundColorView.addSubview(selectionView) {
-            $0.pinToSuperview(insets: TextBlockLayout.selectionViewInset)
-        }
+        contentStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
+        contentStackView.addArrangedSubview(textView)
         
-        mainStackView.addArrangedSubview(backgroundColorView)
-        mainStackView.addArrangedSubview(createEmptyBlockButton)
-
-        createEmptyBlockButton.heightAnchor.constraint(equalToConstant: 26).isActive = true
-
         contentView.addSubview(contentStackView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)
             bottomContentnConstraint = $0.bottom.equal(to: contentView.bottomAnchor)
@@ -85,8 +72,26 @@ final class TextBlockContentView: UIView & UIContentView {
             $0.trailing.equal(to: contentView.trailingAnchor)
         }
 
-        contentStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
-        contentStackView.addArrangedSubview(textView)
+        backgroundColorView.addSubview(contentView) {
+            $0.pinToSuperview(insets: TextBlockLayout.contentInset)
+        }
+        backgroundColorView.addSubview(selectionView) {
+            $0.pinToSuperview(insets: TextBlockLayout.selectionViewInset)
+        }
+        
+        createEmptyBlockButton.layoutUsing.anchors {
+            $0.height.equal(to: 26)
+        }
+        
+        mainStackView.addArrangedSubview(backgroundColorView)
+        mainStackView.addArrangedSubview(createEmptyBlockButton)
+        
+        addSubview(mainStackView) {
+            topMainConstraint = $0.top.equal(to: topAnchor)
+            bottomMainConstraint = $0.bottom.equal(to: bottomAnchor)
+            $0.leading.equal(to: leadingAnchor)
+            $0.trailing.equal(to: trailingAnchor)
+        }
     }
 
     // MARK: - Apply configuration
@@ -125,8 +130,10 @@ final class TextBlockContentView: UIView & UIContentView {
            currentConfiguration.upperBlock?.parent?.information.content.type == .layout(.header) {
             mainInset = TextBlockLayout.mainInsetForBlockAfterHeader
         }
+        
         topMainConstraint?.constant = mainInset.top
         bottomMainConstraint?.constant = mainInset.bottom
+        
         topContentConstraint?.constant = contentInset.top
         bottomContentnConstraint?.constant = contentInset.bottom
     }
