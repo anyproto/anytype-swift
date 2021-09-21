@@ -84,7 +84,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
             anytypeAssertionFailure("blockInformation must not be nil")
             return
         }
-        guard case let .text(content) = blockInformation.content else {
+        guard case .text = blockInformation.content else {
             anytypeAssertionFailure("Expected text content type but got: \(blockInformation.content)")
             return
         }

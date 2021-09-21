@@ -11,7 +11,7 @@ extension AnytypeFont {
             return .subheading
         case .bodyRegular, .bodyBold:
             return .body
-        case .calloutRegular:
+        case .callout:
             return .callout
         default:
             anytypeAssertionFailure("Not supported mention for forn \(self)")

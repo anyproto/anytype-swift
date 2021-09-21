@@ -4,7 +4,7 @@ import UIKit
 import AnytypeCore
 
 class UnsupportedBlockView: UIView & UIContentView {
-    private let fontStyle: AnytypeFont = .calloutRegular
+    private let fontStyle: AnytypeFont = .callout
     private var currentConfiguration: UnsupportedBlockContentConfiguration
 
     var configuration: UIContentConfiguration {
