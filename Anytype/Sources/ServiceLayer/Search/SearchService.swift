@@ -5,7 +5,7 @@ import BlocksModels
 protocol SearchServiceProtocol {
     func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ())
     func searchArchivedPages(completion: @escaping ([DetailsDataProtocol]) -> ())
-    func searchRecentPages(completion: @escaping ([DetailsDataProtocol]) -> ())
+    func searchHistoryPages(completion: @escaping ([DetailsDataProtocol]) -> ())
     func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ())
 }
 
@@ -60,13 +60,14 @@ final class SearchService: SearchServiceProtocol {
         )
     }
     
-    func searchRecentPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
+    func searchHistoryPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
         )
         let filters = [
             SearchHelper.notHiddenFilter(),
+            SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
