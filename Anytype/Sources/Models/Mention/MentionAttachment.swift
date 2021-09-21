@@ -23,7 +23,7 @@ final class MentionAttachment: NSTextAttachment {
     private func displayIcon(_ iconImage: ObjectIconImage) {
         loader.attachement = self
         loader.configure(
-            model: .init(iconImage: iconImage, usecase: .mention(size)),
+            model: ObjectIconImageModel(iconImage: iconImage, usecase: .mention(size)),
             processor: MentionImageProcessor(rightPadding: iconSpacing)
         )
     }
