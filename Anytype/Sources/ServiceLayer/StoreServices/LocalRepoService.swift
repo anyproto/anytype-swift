@@ -6,9 +6,6 @@ protocol LocalRepoServiceProtocol {
     /// Returns local path to middleware files
     var middlewareRepoPath: String { get }
     
-    /// Returns path to dir with cashed images (for example user avatar)
-    var imagePath: String { get }
-    
     /// Check if file exists on path
     /// - Parameter path: path where file should be
     func fileExists(on path: String) -> Bool
@@ -18,14 +15,42 @@ protocol LocalRepoServiceProtocol {
 class LocalRepoService: LocalRepoServiceProtocol {
     
     var middlewareRepoPath: String {
-        return getDocumentsDirectory().appendingPathComponent("middleware-go").path
-    }
-    
-    var imagePath: String {
-        return getDocumentsDirectory().appendingPathComponent("images").path
+        return applicationDirectory.appendingPathComponent(LocalRepoService.middlewareRepoName).path
     }
     
     func fileExists(on path: String) -> Bool {
        return FileManager.default.fileExists(atPath: path)
     }
+}
+
+private extension LocalRepoService {
+    func setExcludeFromiCloudBackup(_ fileOrDirectoryURL: inout URL, isExcluded: Bool) throws {
+       var values = URLResourceValues()
+       values.isExcludedFromBackup = isExcluded
+       try fileOrDirectoryURL.setResourceValues(values)
+    }
+
+    func getExcludeFromiCloudBackup(_ fileOrDirectoryURL: URL) throws -> Bool {
+       let keySet: Set<URLResourceKey> = [.isExcludedFromBackupKey]
+
+       return try
+          fileOrDirectoryURL.resourceValues(forKeys: keySet).isExcludedFromBackup ?? false
+    }
+
+    var applicationDirectory: URL {
+        let applicationDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        var anytypeDirectory = applicationDirectory.appendingPathComponent(LocalRepoService.anytypeRepoName)
+
+        try? FileManager.default.createDirectory(at: anytypeDirectory, withIntermediateDirectories: true, attributes: nil)
+
+        let isExclude = try? getExcludeFromiCloudBackup(anytypeDirectory)
+
+        if isExclude == false {
+            try? setExcludeFromiCloudBackup(&anytypeDirectory, isExcluded: true)
+        }
+        return anytypeDirectory
+    }
+
+    static let middlewareRepoName = "middleware-go"
+    static let anytypeRepoName = "Anytype"
 }
