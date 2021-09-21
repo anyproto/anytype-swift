@@ -200,8 +200,7 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil
             )
-        case .subheading,
-             .body:
+        case .subheading, .body:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x20,
                 profileImageGuideline: ProfileIconImageGuideline.x20,
