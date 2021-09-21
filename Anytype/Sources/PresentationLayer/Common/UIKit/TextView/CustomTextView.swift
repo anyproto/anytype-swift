@@ -4,7 +4,7 @@ import BlocksModels
 
 final class CustomTextView: UIView {
     
-    weak var delegate: TextViewDelegate? {
+    weak var delegate: CustomTextViewDelegate? {
         didSet {
             textView.customTextViewDelegate = delegate
         }

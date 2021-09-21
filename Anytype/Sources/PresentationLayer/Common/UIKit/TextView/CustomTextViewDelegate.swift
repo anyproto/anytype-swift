@@ -1,7 +1,7 @@
 import UIKit
 
 /// First responder change type.
-enum TextViewFirstResponderChange {
+enum CustomTextViewFirstResponderChange {
     /// Become first responder.
     case become
     /// Resign first responder.
@@ -9,12 +9,12 @@ enum TextViewFirstResponderChange {
 }
 
 /// Text view delegate.
-protocol TextViewDelegate: AnyObject {
+protocol CustomTextViewDelegate: AnyObject {
     /// Text view size changed.
     func sizeChanged()
 
     /// Text view become first responder.
-    func changeFirstResponderState(_ change: TextViewFirstResponderChange)
+    func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange)
 
     /// Text will begin editing
     func willBeginEditing()
@@ -26,7 +26,8 @@ protocol TextViewDelegate: AnyObject {
     /// - Parameters:
     ///   - action: Action
     /// - Returns: should change text
-    @discardableResult func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool
+    @discardableResult
+    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool
 }
 
 // MARK: - UserActions
