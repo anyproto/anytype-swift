@@ -53,7 +53,7 @@ final class MarkStyleModifier {
 
         attributedString.addAttributes(newAttributes, range: range)
         if case let .mention(image, _) = action {
-            applyMention(image: image, range: range)
+            applyMention(image: image, range: range, font: anytypeFont)
         }
     }
     
@@ -87,9 +87,9 @@ final class MarkStyleModifier {
         }
     }
     
-    private func applyMention(image: ObjectIconImage?, range: NSRange) {
+    private func applyMention(image: ObjectIconImage?, range: NSRange, font: AnytypeFont) {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
-        let mentionAttachment = MentionAttachment(icon: image)
+        let mentionAttachment = MentionAttachment(icon: image, size: font.mentionType)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         var currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         currentAttributes.removeValue(forKey: .localUnderline)
@@ -145,10 +145,12 @@ final class MarkStyleModifier {
                 deletedKeys: url.isNil ? [.link] : []
             )
         case let .mention(_, blockId):
-            return AttributedStringChange(changeAttributes: [
-                .mention: blockId as Any,
-                .localUnderline: true
-            ])
+            return AttributedStringChange(
+                changeAttributes: [
+                    .mention: blockId as Any,
+                    .localUnderline: true
+                ]
+            )
         }
     }
     
