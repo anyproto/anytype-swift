@@ -9,7 +9,7 @@ final class MentionAttachment: NSTextAttachment {
     private let icon: ObjectIconImage?
     private let size: ObjectIconImageMentionType
     
-    private let imageView = ObjectIconImageView()
+    private let loader = ObjectIconAttachementLoader()
     
     init(icon: ObjectIconImage?, size: ObjectIconImageMentionType) {
         self.icon = icon
@@ -21,15 +21,16 @@ final class MentionAttachment: NSTextAttachment {
     }
     
     private func displayIcon(_ iconImage: ObjectIconImage) {
-        imageView.configure(
+        loader.attachement = self
+        loader.configure(
             model: .init(iconImage: iconImage, usecase: .mention(size))
         )
         
-        imageView.imageView.image.flatMap {
-            let imageWithPaddingSize = $0.size + CGSize(width: iconSpacing, height: 0)
-            let imageWithPadding = $0.imageDrawn(on: imageWithPaddingSize, offset: .zero)
-            self.image = imageWithPadding
-        }
+//        imageView.imageView.image.flatMap {
+//            let imageWithPaddingSize = $0.size + CGSize(width: iconSpacing, height: 0)
+//            let imageWithPadding = $0.imageDrawn(on: imageWithPaddingSize, offset: .zero)
+//            self.image = imageWithPadding
+//        }
     }
     
     override func attachmentBounds(

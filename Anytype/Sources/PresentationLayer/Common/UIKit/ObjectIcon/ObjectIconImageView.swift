@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 import Kingfisher
 
+// KEEP IN SYNC WITH ObjectIconAttachementLoader
+
 final class ObjectIconImageView: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
@@ -22,14 +24,8 @@ final class ObjectIconImageView: UIView {
 
 // MARK: - ConfigurableView
 
-extension ObjectIconImageView: ConfigurableView {
-    
-    struct Model {
-        let iconImage: ObjectIconImage
-        let usecase: ObjectIconImageUsecase
-    }
-    
-    func configure(model: Model) {
+extension ObjectIconImageView: ConfigurableView {    
+    func configure(model: ObjectIconImageModel) {
         imageView.kf.cancelDownloadTask()
         
         switch model.iconImage {
@@ -133,24 +129,6 @@ private extension ObjectIconImageView {
         addSubview(imageView) {
             $0.pinToSuperview()
         }
-    }
-    
-}
-
-// MARK: - `ObjectIconImageView.Model` extension
-
-extension ObjectIconImageView.Model {
-    
-    var imageGuideline: ImageGuideline? {
-        self.usecase.objectIconImageGuidelineSet.imageGuideline(
-            for: self.iconImage
-        )
-    }
-    
-    var font: UIFont? {
-        self.usecase.objectIconImageFontSet.imageFont(
-            for: self.iconImage
-        )
     }
     
 }
