@@ -6,7 +6,6 @@ protocol SearchServiceProtocol {
     func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ())
     func searchArchivedPages(completion: @escaping ([DetailsDataProtocol]) -> ())
     func searchRecentPages(completion: @escaping ([DetailsDataProtocol]) -> ())
-    func searchInboxPages(completion: @escaping ([DetailsDataProtocol]) -> ())
     func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ())
 }
 
@@ -77,29 +76,6 @@ final class SearchService: SearchServiceProtocol {
             fullText: "",
             offset: 0,
             limit: 30,
-            objectTypeFilter: [],
-            keys: [],
-            completion: completion
-        )
-    }
-    
-    func searchInboxPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
-        let sort = SearchHelper.sort(
-            relation: DetailsKind.lastModifiedDate,
-            type: .desc
-        )
-        let filters = [
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.typeFilter(typeUrls: [ObjectTypeProvider.pageObjectURL])
-        ]
-        
-        makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: "",
-            offset: 0,
-            limit: 50,
             objectTypeFilter: [],
             keys: [],
             completion: completion
