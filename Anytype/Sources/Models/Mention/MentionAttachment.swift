@@ -23,14 +23,9 @@ final class MentionAttachment: NSTextAttachment {
     private func displayIcon(_ iconImage: ObjectIconImage) {
         loader.attachement = self
         loader.configure(
-            model: .init(iconImage: iconImage, usecase: .mention(size))
+            model: .init(iconImage: iconImage, usecase: .mention(size)),
+            processor: MentionImageProcessor(rightPadding: iconSpacing)
         )
-        
-//        imageView.imageView.image.flatMap {
-//            let imageWithPaddingSize = $0.size + CGSize(width: iconSpacing, height: 0)
-//            let imageWithPadding = $0.imageDrawn(on: imageWithPaddingSize, offset: .zero)
-//            self.image = imageWithPadding
-//        }
     }
     
     override func attachmentBounds(
