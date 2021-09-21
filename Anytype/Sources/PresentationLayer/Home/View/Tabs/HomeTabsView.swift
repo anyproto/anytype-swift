@@ -4,16 +4,15 @@ import SwiftUIVisualEffects
 
 extension HomeTabsView {
     enum Tab {
-        case inbox
-        case recent
         case favourites
+        case recent
         case archive
     }
 }
 
 struct HomeTabsView: View {
     @EnvironmentObject var model: HomeViewModel
-    @State private var tabSelection = Tab.inbox
+    @State private var tabSelection = Tab.favourites
     
     let offsetChanged: (CGPoint) -> Void
     private let blurStyle = UIBlurEffect.Style.systemMaterial
@@ -27,12 +26,10 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.inboxCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.inbox)
-            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.recent)
             HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
             .tag(Tab.favourites)
+            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.recent)
             HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.archive)
         }
@@ -51,11 +48,6 @@ struct HomeTabsView: View {
                 Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
 
                 model.updateRecentTab()
-            case .inbox:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.inboxTabSelected)
-
-                model.updateInboxTab()
             case .archive:
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
@@ -70,9 +62,8 @@ struct HomeTabsView: View {
         // Scroll view hack, vibrancy effect do not work without it
         ScrollView([]) {
             HStack(spacing: 20) {
-                tabButton(text: "Inbox", tab: .inbox)
-                tabButton(text: "Recent", tab: .recent)
                 tabButton(text: "Favorites", tab: .favourites)
+                tabButton(text: "Recent", tab: .recent)
                 tabButton(text: "Archive", tab: .archive)
                 Spacer()
             }
