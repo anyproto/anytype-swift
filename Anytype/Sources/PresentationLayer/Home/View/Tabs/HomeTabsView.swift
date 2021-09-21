@@ -5,7 +5,7 @@ import SwiftUIVisualEffects
 extension HomeTabsView {
     enum Tab {
         case favourites
-        case recent
+        case history
         case archive
     }
 }
@@ -28,8 +28,8 @@ struct HomeTabsView: View {
         TabView(selection: $tabSelection) {
             HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
             .tag(Tab.favourites)
-            HomeCollectionView(cellData: model.recentCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.recent)
+            HomeCollectionView(cellData: model.historyCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.history)
             HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.archive)
         }
@@ -43,11 +43,11 @@ struct HomeTabsView: View {
                 Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
                 
                 break // updates via subscriptions
-            case .recent:
+            case .history:
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
 
-                model.updateRecentTab()
+                model.updateHistoryTab()
             case .archive:
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
@@ -63,7 +63,7 @@ struct HomeTabsView: View {
         ScrollView([]) {
             HStack(spacing: 20) {
                 tabButton(text: "Favorites", tab: .favourites)
-                tabButton(text: "Recent", tab: .recent)
+                tabButton(text: "History", tab: .history)
                 tabButton(text: "Archive", tab: .archive)
                 Spacer()
             }

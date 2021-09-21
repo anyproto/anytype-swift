@@ -24,7 +24,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     @Published var archiveCellData: [HomeCellData] = []
-    @Published var recentCellData: [HomeCellData] = []
+    @Published var historyCellData: [HomeCellData] = []
     
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     @Published var showSearch = false
@@ -51,7 +51,7 @@ final class HomeViewModel: ObservableObject {
 
     func viewLoaded() {
         updateArchiveTab()
-        updateRecentTab()
+        updateHistoryTab()
     }
 
     // MARK: - Private methods
@@ -62,10 +62,10 @@ final class HomeViewModel: ObservableObject {
             self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)
         }
     }
-    func updateRecentTab() {
-        searchService.searchRecentPages { [weak self] searchResults in
+    func updateHistoryTab() {
+        searchService.searchHistoryPages { [weak self] searchResults in
             guard let self = self else { return }
-            self.recentCellData = self.cellDataBuilder.buldCellData(searchResults)
+            self.historyCellData = self.cellDataBuilder.buldCellData(searchResults)
         }
     }
     
