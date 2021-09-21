@@ -1,12 +1,12 @@
 import AnytypeCore
 import UIKit
 
-extension TextBlockContentView: TextViewDelegate {
+extension TextBlockContentView: CustomTextViewDelegate {
     func sizeChanged() {
         currentConfiguration.blockDelegate.blockSizeChanged()
     }
     
-    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
+    func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
             currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block)

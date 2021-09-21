@@ -2,20 +2,25 @@ import Combine
 import UIKit
 import BlocksModels
 
-
 final class CustomTextView: UIView {
     
-    weak var delegate: TextViewDelegate? {
+    weak var delegate: CustomTextViewDelegate? {
         didSet {
             textView.customTextViewDelegate = delegate
         }
     }
 
     var textSize: CGSize?
+    
+    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: false)
+    
+    // MARK: - Private variables
+    
     private(set) lazy var textView = createTextView()
     private var firstResponderSubscription: AnyCancellable?
-    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: false)
-
+    
+    // MARK: - Initializers
+    
     init() {
         super.init(frame: .zero)
 
@@ -27,21 +32,28 @@ final class CustomTextView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Overrides
+    
     override var intrinsicContentSize: CGSize {
         .zero
     }
     
-    func setupView() {
+    // MARK: - Internal functions
+    
+    func setCustomTextViewOptions(options: CustomTextViewOptions) {
+        self.options = options
+    }
+    
+    // MARK: - Private functions
+    
+    private func setupView() {
         textView.delegate = self
 
         addSubview(textView) {
             $0.pinToSuperview()
         }
     }
-
-    func setCustomTextViewOptions(options: CustomTextViewOptions) {
-        self.options = options
-    }
+    
 }
 
 // MARK: - BlockTextViewInput
@@ -58,6 +70,7 @@ extension CustomTextView: TextViewManagingFocus {
 
     func obtainFocusPosition() -> BlockFocusPosition? {
         guard textView.isFirstResponder else { return nil }
+        
         let caretLocation = textView.selectedRange.location
         if caretLocation == 0 {
             return .beginning
@@ -69,10 +82,15 @@ extension CustomTextView: TextViewManagingFocus {
 // MARK: - Views
 
 private extension CustomTextView {
+    
     func createTextView() -> TextViewWithPlaceholder {
-        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { [weak self] change in
+        let textView = TextViewWithPlaceholder(
+            frame: .zero,
+            textContainer: nil
+        ) { [weak self] change in
             self?.delegate?.changeFirstResponderState(change)
         }
+        
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
@@ -97,9 +115,11 @@ private extension CustomTextView {
             numberOfTapsRequired: 1,
             tapHandler: mentionSelectionHandler
         )
+        
         textView.addInteraction(linkSelection)
         textView.addInteraction(mentionSelection)
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }
+    
 }
