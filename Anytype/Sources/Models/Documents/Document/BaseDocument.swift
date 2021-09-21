@@ -120,7 +120,7 @@ final class BaseDocument: BaseDocumentProtocol {
         parsedDetails.forEach {
             detailsStorage.add(
                 model: $0,
-                by: $0.detailsData.blockId
+                id: $0.detailsData.blockId
             )
         }
         
@@ -200,7 +200,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: details active model.
     ///
-    func getDetails(by id: ParentId) -> DetailsActiveModel? {
+    func getDetails(id: BlockId) -> DetailsActiveModel? {
         guard let value = self.rootModel?.detailsContainer.get(by: id) else {
             Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil

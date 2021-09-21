@@ -21,5 +21,5 @@ protocol BaseDocumentProtocol: AnyObject {
     /// Return publisher that received event on blocks update
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }
     
-    func getDetails(by id: ParentId) -> DetailsActiveModel?
+    func getDetails(id: BlockId) -> DetailsActiveModel?
 }

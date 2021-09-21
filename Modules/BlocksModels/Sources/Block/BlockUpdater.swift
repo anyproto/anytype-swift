@@ -59,7 +59,7 @@ public class BlockUpdater {
             
             self.container.detailsContainer.add(
                 model: LegacyDetailsModel(detailsData: details),
-                by: blockId
+                id: blockId
             )
         }
     }

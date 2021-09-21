@@ -141,7 +141,7 @@ final class MiddlewareEventConverter {
 
                 container.detailsContainer.add(
                     model: newDetailsModel,
-                    by: detailsId
+                    id: detailsId
                 )
                 
                 return .details(detailsData)

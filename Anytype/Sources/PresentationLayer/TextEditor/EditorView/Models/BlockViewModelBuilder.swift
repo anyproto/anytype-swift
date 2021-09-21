@@ -167,7 +167,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = document.getDetails(by: content.targetBlockID)?.currentDetails
+            let details = document.getDetails(id: content.targetBlockID)?.currentDetails
             return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
