@@ -26,8 +26,8 @@ final class FirstResponderHelper {
         }
         let distance = textViewFrame.maxY - keyboardFrame.minY
         guard distance > -Constants.minSpacingAboveKeyboard else { return }
-        UIView.animate(withDuration: CATransaction.animationDuration()) {
-            self.scrollView?.contentOffset.y += distance + Constants.minSpacingAboveKeyboard
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
+            self?.scrollView?.contentOffset.y += distance + Constants.minSpacingAboveKeyboard
         }
     }
     

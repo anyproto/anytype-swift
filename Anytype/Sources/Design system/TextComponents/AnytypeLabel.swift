@@ -13,8 +13,9 @@ class AnytypeLabel: UIView {
     private var topLabelConstraint: NSLayoutConstraint?
     private var bottomLabelConstraint: NSLayoutConstraint?
 
-    private var anytypeText: UIKitAnytypeText = .init(text: "", style: .bodyRegular)
+    private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style)
     private let label: UILabel = .init()
+    private var style: AnytypeFont = .bodyRegular
 
     var textAlignment: NSTextAlignment {
         set {
@@ -47,11 +48,18 @@ class AnytypeLabel: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    init(style: AnytypeFont) {
+        self.style = style
+
+        super.init(frame: .zero)
+
+        setupView()
     }
 
     override var intrinsicContentSize: CGSize {
@@ -78,13 +86,23 @@ class AnytypeLabel: UIView {
     // MARK: - Public methods
 
     func setText(_ text: String, style: AnytypeFont) {
+        self.style = style
         anytypeText = UIKitAnytypeText(text: text, style: style)
         updateLabel()
     }
 
     func setText(_ text: NSAttributedString, style: AnytypeFont) {
+        self.style = style
         anytypeText = UIKitAnytypeText(attributedString: text, style: style)
         updateLabel()
+    }
+
+    func setText(_ text: NSAttributedString) {
+        setText(text, style: style)
+    }
+
+    func setText(_ text: String) {
+        setText(text, style: style)
     }
 
     func setText(_ text: UIKitAnytypeText) {

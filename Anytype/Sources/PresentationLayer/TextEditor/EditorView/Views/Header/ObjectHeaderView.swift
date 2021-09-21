@@ -19,6 +19,8 @@ final class ObjectHeaderView: UIView {
     
     private(set) var height: CGFloat = 0 {
         didSet {
+            guard !oldValue.isEqual(to: height) else { return }
+            
             onHeightUpdate?(height)
             heightConstraint.constant = height
         }
