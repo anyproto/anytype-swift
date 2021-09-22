@@ -61,7 +61,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
             let topInset = scrollView.contentInset.top
             
-            self?.handleScrollViewOffsetChange(offset + topInset)
+            self?.updateNavigationBarAppearanceBasedOnContentOffset(offset + topInset)
         }
     }
     
@@ -120,7 +120,7 @@ private extension EditorNavigationBarHelper {
         }
     }
     
-    func handleScrollViewOffsetChange(_ newOffset: CGFloat) {
+    func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
         let startAppearingOffset = objectHeaderHeight - 50
         let endAppearingOffset = objectHeaderHeight
 
