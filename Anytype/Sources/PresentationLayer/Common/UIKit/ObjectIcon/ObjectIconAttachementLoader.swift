@@ -117,14 +117,14 @@ extension ObjectIconAttachementLoader {
             return
         }
         
-        let view = UIView()
-        attachement.kf.setImage(
+        KingfisherManager.shared.retrieveImage(
             with: url,
-            attributedView: view,
-            placeholder: ImageBuilder(imageGuideline).build(),
-            options: [.processor(processor), .transition(.fade(0.2))]
-        )
+            options: [.processor(processor)]
+        ) { [weak self] result in
+            guard case let .success(result) = result else { return }
 
+            self?.attachement?.image = result.image
+        }
     }
     
     private func stringIconImage(
