@@ -21,8 +21,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.contentInsetAdjustmentBehavior = .never
-
+        
         return collectionView
     }()
     
@@ -106,13 +105,9 @@ final class DocumentEditorViewController: UIViewController {
     
     func handleCollectionViewContentOffsetChange() {
         let contentOffsetY = collectionView.contentOffset.y
-        let contentInsetTop = collectionView.contentInset.top
+        let relativeHeight = -contentOffsetY
 
-        let relativeYOffset = contentOffsetY + contentInsetTop - objectHeaderView.height
-
-        let relativeHeight = -relativeYOffset
-
-        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -relativeYOffset)
+        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -contentOffsetY)
         objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
     }
     
@@ -227,9 +222,9 @@ private extension DocumentEditorViewController {
         objectHeaderView.onHeightUpdate = { [weak self] height in
             guard let self = self else { return }
             
-            self.collectionView.contentInset.top = height
-            self.collectionView.setContentOffset(CGPoint(x: 0, y: -height), animated: false)
-            self.handleCollectionViewContentOffsetChange()
+            let navBarHeight = self.controllerForNavigationItems?.navigationController?.navigationBar.frame.height ?? 0
+            let systemTopInset = navBarHeight + UIApplication.shared.statusBarFrame.height
+            self.additionalSafeAreaInsets.top = height - systemTopInset
         }
     }
 
