@@ -21,7 +21,8 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-
+        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
+        
         return collectionView
     }()
     
@@ -90,6 +91,7 @@ final class DocumentEditorViewController: UIViewController {
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         
+        collectionView.verticalScrollIndicatorInsets.top = navigationBarHeight
         navigationBarHelper.heightConstraint?.constant = navigationBarHeight
     }
     
