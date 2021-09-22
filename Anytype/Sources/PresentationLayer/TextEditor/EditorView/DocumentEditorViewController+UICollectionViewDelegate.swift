@@ -55,7 +55,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        handleCollectionViewContentOffsetChange()
+        updateObjectHeaderPositionAndHeight()
     }
     
 }

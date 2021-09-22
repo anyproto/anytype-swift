@@ -103,7 +103,8 @@ final class DocumentEditorViewController: UIViewController {
         firstResponderHelper = nil
     }
     
-    func handleCollectionViewContentOffsetChange() {
+    /// Stretched header
+    func updateObjectHeaderPositionAndHeight() {
         let contentOffsetY = collectionView.contentOffset.y
         let relativeHeight = -contentOffsetY
 
@@ -237,7 +238,8 @@ private extension DocumentEditorViewController {
         
         objectHeaderView.onHeightUpdate = { [weak self] height in
             guard let self = self else { return }
-
+            
+            // Updating additionalSafeAreaInsets will cause updating contentOffset/contentAdjustedInset in collectionView
             self.additionalSafeAreaInsets.top = height - self.navigationBarHeight
         }
     }
@@ -263,6 +265,7 @@ private extension DocumentEditorViewController {
         // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
         // otherwise they are cancels by `listViewTapGestureRecognizer`
         view.addSubview(objectHeaderView) {
+            // bottom to top constraint used for stretched header implementation
             $0.bottom.equal(to: view.topAnchor)
             $0.pinToSuperview(excluding: [.top, .bottom])
         }
