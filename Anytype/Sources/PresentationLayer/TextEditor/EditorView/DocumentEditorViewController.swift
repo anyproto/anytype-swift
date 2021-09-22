@@ -21,7 +21,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        
+
         return collectionView
     }()
     
@@ -32,7 +32,7 @@ final class DocumentEditorViewController: UIViewController {
     private var selectionSubscription: AnyCancellable?
     // Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
-        let recognizer: UITapGestureRecognizer = .init()
+        let recognizer = UITapGestureRecognizer()
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
@@ -80,11 +80,17 @@ final class DocumentEditorViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
-                
+        
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
         )
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        navigationBarHelper.heightConstraint?.constant = navigationBarHeight
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,6 +101,14 @@ final class DocumentEditorViewController: UIViewController {
         firstResponderHelper = nil
     }
     
+    func handleCollectionViewContentOffsetChange() {
+        let contentOffsetY = collectionView.contentOffset.y
+        let relativeHeight = -contentOffsetY
+
+        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -contentOffsetY)
+        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
+    }
+    
     private var controllerForNavigationItems: UIViewController? {
         guard parent is UINavigationController else {
             return parent
@@ -103,12 +117,12 @@ final class DocumentEditorViewController: UIViewController {
         return self
     }
     
-    func handleCollectionViewContentOffsetChange() {
-        let contentOffsetY = collectionView.contentOffset.y
-        let relativeHeight = -contentOffsetY
+    private var navigationBarHeight: CGFloat {
+        let navigationBarHeight = controllerForNavigationItems?.navigationController?.navigationBar.frame.height ?? 0
 
-        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -contentOffsetY)
-        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
+        let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        
+        return navigationBarHeight + statusBarHeight
     }
     
 }
@@ -197,7 +211,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 private extension DocumentEditorViewController {
     
     func setupView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .backgroundPrimary
         
         setupObjectHeaderView()
         setupCollectionView()
@@ -221,10 +235,8 @@ private extension DocumentEditorViewController {
         
         objectHeaderView.onHeightUpdate = { [weak self] height in
             guard let self = self else { return }
-            
-            let navBarHeight = self.controllerForNavigationItems?.navigationController?.navigationBar.frame.height ?? 0
-            let systemTopInset = navBarHeight + UIApplication.shared.statusBarFrame.height
-            self.additionalSafeAreaInsets.top = height - systemTopInset
+
+            self.additionalSafeAreaInsets.top = height - self.navigationBarHeight
         }
     }
 
