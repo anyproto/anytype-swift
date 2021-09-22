@@ -1,25 +1,23 @@
-
 import UIKit
 
+protocol MentionsView: AnyObject {
+    func display(_ list: [MentionDisplayData])
+    func update( mention: MentionDisplayData)
+    func dismiss()
+}
+
 final class MentionsViewController: UITableViewController {
-    
-    private enum Constants {
-        static let cellReuseId = NSStringFromClass(UITableViewCell.self)
-        static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
-        static let cellHeight: CGFloat = 56
-        static let createNewObjectImagePadding: CGFloat = 12
-    }
-    
     let viewModel: MentionsViewModel
     private lazy var dataSource = makeDataSource()
     private let dismissAction: (() -> Void)?
     
-    init(style: UITableView.Style,
-         viewModel: MentionsViewModel,
-         dismissAction: (() -> Void)?) {
+    init(
+        viewModel: MentionsViewModel,
+        dismissAction: (() -> Void)?
+    ) {
         self.viewModel = viewModel
         self.dismissAction = dismissAction
-        super.init(style: style)
+        super.init(style: .plain)
     }
     
     required init?(coder: NSCoder) {
@@ -80,6 +78,14 @@ final class MentionsViewController: UITableViewController {
         configuration.imageProperties.maximumSize = CGSize(width: 40, height: 40)
         configuration.imageToTextPadding = Constants.createNewObjectImagePadding
         return configuration
+    }
+    
+    // MARK: - Constants
+    private enum Constants {
+        static let cellReuseId = NSStringFromClass(UITableViewCell.self)
+        static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
+        static let cellHeight: CGFloat = 56
+        static let createNewObjectImagePadding: CGFloat = 12
     }
 }
 

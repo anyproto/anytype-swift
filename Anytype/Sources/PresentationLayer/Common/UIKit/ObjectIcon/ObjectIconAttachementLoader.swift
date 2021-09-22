@@ -21,11 +21,7 @@ final class ObjectIconAttachementLoader {
 // MARK: - ConfigurableView
 
 extension ObjectIconAttachementLoader {
-    func configure(model: ObjectIconImageModel, processor: ImageProcessor) {
-        guard let attachement = attachement else {
-            return
-        }
-        
+    func configure(model: ObjectIconImageModel, processor: ImageProcessor) {        
         switch model.iconImage {
         case .icon(let objectIconType):
             handleObjectIconType(objectIconType, model: model, customProcessor: processor)

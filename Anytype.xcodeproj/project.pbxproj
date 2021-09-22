@@ -186,7 +186,6 @@
 		125B6EC326F235F400BCD7D6 /* EditorAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA026F235F400BCD7D6 /* EditorAccessoryView.swift */; };
 		125B6EC426F235F400BCD7D6 /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA326F235F400BCD7D6 /* MentionSection.swift */; };
 		125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA426F235F400BCD7D6 /* MentionsViewController.swift */; };
-		125B6EC626F235F400BCD7D6 /* MentionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA526F235F400BCD7D6 /* MentionsView.swift */; };
 		125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA626F235F400BCD7D6 /* MentionDisplayData.swift */; };
 		125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA726F235F400BCD7D6 /* MentionsViewModel.swift */; };
 		125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA826F235F400BCD7D6 /* MentionView.swift */; };
@@ -362,6 +361,7 @@
 		3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9384F726F9F421001C137F /* MentionImageProcessor.swift */; };
 		3D93850F26FAED20001C137F /* ObjectIconImageUsecase+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93850E26FAED20001C137F /* ObjectIconImageUsecase+Image.swift */; };
 		3D93851426FAED69001C137F /* ObjectIconImageUsecase+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851326FAED69001C137F /* ObjectIconImageUsecase+Font.swift */; };
+		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
 		3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* HomeCellDataMock.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -825,7 +825,6 @@
 		125B6EA026F235F400BCD7D6 /* EditorAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorAccessoryView.swift; sourceTree = "<group>"; };
 		125B6EA326F235F400BCD7D6 /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		125B6EA426F235F400BCD7D6 /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
-		125B6EA526F235F400BCD7D6 /* MentionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsView.swift; sourceTree = "<group>"; };
 		125B6EA626F235F400BCD7D6 /* MentionDisplayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionDisplayData.swift; sourceTree = "<group>"; };
 		125B6EA726F235F400BCD7D6 /* MentionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewModel.swift; sourceTree = "<group>"; };
 		125B6EA826F235F400BCD7D6 /* MentionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
@@ -1000,6 +999,7 @@
 		3D9384F726F9F421001C137F /* MentionImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionImageProcessor.swift; sourceTree = "<group>"; };
 		3D93850E26FAED20001C137F /* ObjectIconImageUsecase+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectIconImageUsecase+Image.swift"; sourceTree = "<group>"; };
 		3D93851326FAED69001C137F /* ObjectIconImageUsecase+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectIconImageUsecase+Font.swift"; sourceTree = "<group>"; };
+		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* HomeCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellDataMock.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
@@ -2256,6 +2256,7 @@
 			children = (
 				125B6EA226F235F400BCD7D6 /* MentionViewController */,
 				125B6EA826F235F400BCD7D6 /* MentionView.swift */,
+				3D93851626FAF46E001C137F /* MentionAssembly.swift */,
 			);
 			path = Mention;
 			sourceTree = "<group>";
@@ -2263,10 +2264,8 @@
 		125B6EA226F235F400BCD7D6 /* MentionViewController */ = {
 			isa = PBXGroup;
 			children = (
-				125B6EA326F235F400BCD7D6 /* MentionSection.swift */,
+				3D93851526FAF34A001C137F /* Models */,
 				125B6EA426F235F400BCD7D6 /* MentionsViewController.swift */,
-				125B6EA526F235F400BCD7D6 /* MentionsView.swift */,
-				125B6EA626F235F400BCD7D6 /* MentionDisplayData.swift */,
 				125B6EA726F235F400BCD7D6 /* MentionsViewModel.swift */,
 			);
 			path = MentionViewController;
@@ -3023,6 +3022,15 @@
 				3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */,
 			);
 			path = FilePicker;
+			sourceTree = "<group>";
+		};
+		3D93851526FAF34A001C137F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				125B6EA626F235F400BCD7D6 /* MentionDisplayData.swift */,
+				125B6EA326F235F400BCD7D6 /* MentionSection.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3D9D401B2616036B00B817FD /* Single */ = {
@@ -4143,6 +4151,7 @@
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
+				3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
@@ -4230,7 +4239,6 @@
 				3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */,
-				125B6EC626F235F400BCD7D6 /* MentionsView.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,

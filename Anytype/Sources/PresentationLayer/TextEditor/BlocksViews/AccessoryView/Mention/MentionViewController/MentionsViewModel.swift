@@ -5,12 +5,7 @@ import UIKit
 import Kingfisher
 import AnytypeCore
 
-final class MentionsViewModel {
-    
-    private enum Constants {
-        static let defaultNewMentionName = "Untitled".localized
-    }
-    
+final class MentionsViewModel {    
     private let service: MentionObjectsService
     private weak var view: MentionsView?
     private let selectionHandler: (MentionObject) -> Void
@@ -36,7 +31,7 @@ final class MentionsViewModel {
     }
     
     func didSelectCreateNewMention() {
-        let name = service.filterString.isEmpty ? Constants.defaultNewMentionName : service.filterString
+        let name = service.filterString.isEmpty ? "Untitled".localized : service.filterString
         
         guard let emoji = EmojiProvider.shared.randomEmoji()?.unicode,
               let iconEmoji = IconEmoji(emoji) else { return }

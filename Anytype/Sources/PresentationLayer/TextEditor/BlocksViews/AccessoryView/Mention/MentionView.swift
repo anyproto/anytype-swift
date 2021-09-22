@@ -28,19 +28,13 @@ final class MentionView: DismissableInputAccessoryView {
     }
     
     private func addMentionsController(to controller: UIViewController) {
-        let service = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
-        let viewModel = MentionsViewModel(
-            service: service,
-            selectionHandler: { [weak self] mentionObject in
+        let mentionsController = MentionAssembly().controller(
+            onMentionSelect: { [weak self] mentionObject in
                 self?.delegate?.selectMention(mentionObject)
-            }
+            },
+            onDismiss: dismissHandler
         )
-        let mentionsController = MentionsViewController(
-            style: .plain,
-            viewModel: viewModel,
-            dismissAction: dismissHandler
-        )
-        mentionsController.view.translatesAutoresizingMaskIntoConstraints = false
+        
         controller.addChild(mentionsController)
         addSubview(mentionsController.view) {
             $0.pinToSuperview(excluding: [.top])
