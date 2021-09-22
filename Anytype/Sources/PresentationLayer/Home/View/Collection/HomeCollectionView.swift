@@ -25,6 +25,12 @@ struct HomeCollectionView: View {
                         ),
                         label: {
                             HomeCell(cellData: data)
+                            
+                            // Hack to prevent navigation link from pop
+                            // https://developer.apple.com/forums/thread/677333
+                            NavigationLink(destination: EmptyView()) {
+                                EmptyView()
+                            }
                         }
                     )
                     .disabled(data.isLoading)
