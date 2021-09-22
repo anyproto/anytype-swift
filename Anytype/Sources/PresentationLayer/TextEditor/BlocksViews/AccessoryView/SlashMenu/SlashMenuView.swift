@@ -100,8 +100,10 @@ extension SlashMenuView: FilterableItemsView {
         }
         cachedFilterText = filterText
     }
-    
-    func shouldContinueToDisplayView() -> Bool {
-        filterStringMismatchLength <= Constants.maxMistatchFilteringCount
+}
+
+extension SlashMenuView: DismissStatusProvider {
+    var shouldDismiss: Bool {
+        filterStringMismatchLength > Constants.maxMistatchFilteringCount
     }
 }

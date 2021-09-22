@@ -10,6 +10,12 @@ struct CreatePageResponse {
         self.newBlockId = response.targetID
         self.messages = response.event.messages
     }
+    
+    init(_ response: ProtobufMessages.Anytype_Rpc.Page.Create.Response) {
+        self.newBlockId = response.pageID
+        self.messages = response.event.messages
+    }
+    
 }
 
 
@@ -32,7 +38,7 @@ protocol ObjectActionsServiceProtocol {
         details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error>
+    ) -> CreatePageResult
     
     @discardableResult
     func move(

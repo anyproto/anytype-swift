@@ -51,8 +51,4 @@ extension MentionView: FilterableItemsView {
     func setFilterText(filterText: String) {
         mentionsController?.viewModel.setFilterString(filterText)
     }
-    
-    func shouldContinueToDisplayView() -> Bool {
-        return true
-    }
 }
