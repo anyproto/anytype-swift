@@ -228,7 +228,7 @@ private extension DocumentEditorViewController {
             guard let self = self else { return }
             
             self.collectionView.contentInset.top = height
-            self.collectionView.setContentOffset(CGPoint(x: 0, y: -height), animated: true)
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: -height), animated: false)
             self.handleCollectionViewContentOffsetChange()
         }
     }
