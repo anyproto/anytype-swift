@@ -111,24 +111,21 @@ final class HomeViewModel: ObservableObject {
 // MARK: - New page
 extension HomeViewModel {
     func createNewPage() {
-        newPageSubscription = dashboardService.createNewPage()
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("Create page") { [weak self] response in
-                guard let self = self else {
-                    return
-                }
-
-                self.document.handle(
-                    events: PackOfEvents(middlewareEvents: response.messages)
-                )
-
-                guard !response.newBlockId.isEmpty else {
-                    anytypeAssertionFailure("No new block id in create new page response")
-                    return
-                }
-                
-                self.showPage(pageId: response.newBlockId)
+        let result = dashboardService.createNewPage()
+        guard case let .response(response) = result else {
+            return
         }
+
+        document.handle(
+            events: PackOfEvents(middlewareEvents: response.messages)
+        )
+
+        guard !response.newBlockId.isEmpty else {
+            anytypeAssertionFailure("No new block id in create new page response")
+            return
+        }
+        
+        showPage(pageId: response.newBlockId)
     }
     
     func startSearch() {

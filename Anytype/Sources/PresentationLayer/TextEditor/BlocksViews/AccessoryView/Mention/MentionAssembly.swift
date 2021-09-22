@@ -3,14 +3,19 @@ final class MentionAssembly {
         onMentionSelect: @escaping (MentionObject) -> Void,
         onDismiss: (() -> Void)?
     ) -> MentionsViewController {
-        let service = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
-        let viewModel = MentionsViewModel(
-            service: service,
-            selectionHandler: onMentionSelect
-        )
-        let mentionsController = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)
-        mentionsController.view.translatesAutoresizingMaskIntoConstraints = false
+        let mentionService = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
+        let pageService = PageService()
         
-        return mentionsController
+        let viewModel = MentionsViewModel(
+            mentionService: mentionService,
+            pageService: pageService,
+            onSelect: onMentionSelect
+        )
+        let controller = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        viewModel.view = controller
+        
+        return controller
     }
 }

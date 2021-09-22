@@ -5,8 +5,12 @@ import BlocksModels
 import ProtobufMessages
 import Amplitude
 
+enum CreatePageResult {
+    case response(CreatePageResponse)
+    case error(Error)
+}
 
-enum ObjectActionsServicePossibleError: Error {
+enum ObjectActionsServiceError: Error {
     case createPageActionPositionConversionHasFailed
 }
 
@@ -20,11 +24,9 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error> {
+    ) -> CreatePageResult {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return Fail(
-                error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed
-            ).eraseToAnyPublisher()
+            return .error(ObjectActionsServiceError.createPageActionPositionConversionHasFailed)
         }
         
         let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
@@ -44,16 +46,18 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: Google_Protobuf_Struct,
         position: Anytype_Model_Block.Position,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error> {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID,
-                                                    details: details,
-                                                    templateID: templateID,
-                                                    targetID: targetID,
-                                                    position: position,
-                                                    fields: .init())
-        .map { CreatePageResponse($0) }
-        .subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+    ) -> CreatePageResult {
+        let result = Anytype_Rpc.Block.CreatePage.Service.invoke(
+            contextID: contextID, details: details, templateID: templateID,
+            targetID: targetID, position: position, fields: .init()
+        )
+        
+        switch result {
+        case let .failure(error):
+            return .error(error)
+        case let .success(response):
+            return .response(CreatePageResponse(response))
+        }
     }
 
     // MARK: - ObjectActionsService / SetDetails

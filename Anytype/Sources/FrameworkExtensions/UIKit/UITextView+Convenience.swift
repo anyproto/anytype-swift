@@ -31,14 +31,17 @@ extension UITextView {
     
     private func insertString(_ string: String, location: Int) {
         guard !string.isEmpty, location <= attributedText.length else { return }
+        
+        var attributes = typingAttributes
+        attributes.removeValue(forKey: .mention)
+        
         if attributedText.length == 0 {
-            attributedText = NSAttributedString(string: string, attributes: typingAttributes)
+            attributedText = NSAttributedString(string: string, attributes: attributes)
         } else {
-            attributedText = attributedText?.attributedStringByInserting(
-                string,
-                at: location,
-                attachmentAttributes: typingAttributes
-            )
+            let insertedString = NSAttributedString(string: string, attributes: attributes)
+            let newString = NSMutableAttributedString(attributedString: attributedText)
+            newString.insert(insertedString, at: location)
+            attributedText = newString
             selectedRange.location = location + string.count
         }
     }

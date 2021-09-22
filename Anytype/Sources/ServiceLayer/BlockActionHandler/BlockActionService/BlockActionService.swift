@@ -118,19 +118,20 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(position: BlockPosition) {
-        pageService.createPage(
+        let result = pageService.createPage(
             contextID: documentId,
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: position,
             templateID: ""
         )
-        .receiveOnMain()
-        .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-            self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
-        }.store(in: &self.subscriptions)
+        
+        guard case let .response(response) = result else {
+            return
+        }
+        
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
+        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
