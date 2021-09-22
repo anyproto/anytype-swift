@@ -241,7 +241,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func buildURLInputView() -> URLInputAccessoryView {
         let dismissHandler = { [weak self] in
             guard let self = self, let textView = self.data?.textView.textView else { return }
-            textView.becomeFirstResponder()
+            _ = textView.becomeFirstResponder()
             self.showAccessoryView(.default(self.accessoryView))
         }
         let urlInputView = URLInputAccessoryView() { [weak self] url in
