@@ -32,7 +32,7 @@ protocol ObjectActionsServiceProtocol {
         details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error>
+    ) -> CreatePageResult
     
     @discardableResult
     func move(

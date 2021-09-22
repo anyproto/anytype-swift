@@ -26,19 +26,15 @@ class DashboardService: DashboardServiceProtocol {
         }
     }
     
-    func createNewPage() -> AnyPublisher<CreatePageResponse, Error> {
-        objectsService.createPage(
+    func createNewPage() -> CreatePageResult {
+        Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
+        return objectsService.createPage(
             contextID: "",
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: .bottom,
             templateID: ""
         )
-        .handleEvents(receiveSubscription: { _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
-        })
-        .eraseToAnyPublisher()
     }
     
     private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {
