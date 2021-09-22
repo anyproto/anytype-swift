@@ -67,18 +67,18 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
 
     // MARK: - Public methods
-    func showMentionsView(textView: UITextView) {
+    func showMentionsView() {
         showAccessoryView(.mention(mentionsView))
     }
     
-    func showSlashMenuView(textView: UITextView) {
+    func showSlashMenuView() {
         showAccessoryView(.slashMenu(slashMenuView))
     }
     
     func didBeginEditing(data: AccessoryViewSwitcherData) {
         self.data = data
         
-        accessoryView.update(information: data.information, textView: data.textView)
+        accessoryView.update(block: data.block, textView: data.textView)
         changeAccessoryView(accessoryView)
         
         slashMenuView.update(block: data.block)
