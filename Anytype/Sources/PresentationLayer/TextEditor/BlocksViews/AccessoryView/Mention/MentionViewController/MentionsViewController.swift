@@ -18,20 +18,22 @@ final class MentionsViewController: UITableViewController {
         self.viewModel = viewModel
         self.dismissAction = dismissAction
         super.init(style: .plain)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        setup()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.obtainMentions()
+    }
+    
+    private func setup() {
         tableView.separatorInset = Constants.separatorInsets
         tableView.rowHeight = Constants.cellHeight
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
         tableView.tableFooterView = UIView(frame: .zero)
-        viewModel.setup(with: self)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,6 +88,12 @@ final class MentionsViewController: UITableViewController {
         static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
         static let cellHeight: CGFloat = 56
         static let createNewObjectImagePadding: CGFloat = 12
+    }
+    
+    // MARK: - Unavailable
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

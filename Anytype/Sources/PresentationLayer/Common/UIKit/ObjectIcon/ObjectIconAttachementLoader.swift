@@ -56,10 +56,6 @@ extension ObjectIconAttachementLoader {
         model: ObjectIconImageModel,
         customProcessor: ImageProcessor
     ) {
-        guard let attachement = attachement else {
-            return
-        }
-        
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model, customProcessor: customProcessor)

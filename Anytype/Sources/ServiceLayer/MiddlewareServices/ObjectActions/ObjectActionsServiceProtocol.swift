@@ -10,6 +10,12 @@ struct CreatePageResponse {
         self.newBlockId = response.targetID
         self.messages = response.event.messages
     }
+    
+    init(_ response: ProtobufMessages.Anytype_Rpc.Page.Create.Response) {
+        self.newBlockId = response.pageID
+        self.messages = response.event.messages
+    }
+    
 }
 
 

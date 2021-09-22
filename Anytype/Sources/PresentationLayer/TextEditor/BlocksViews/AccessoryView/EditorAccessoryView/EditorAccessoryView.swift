@@ -23,11 +23,11 @@ class EditorAccessoryView: UIView {
     }
     
     // MARK: - Public methods
-    func update(information: BlockInformation, textView: CustomTextView) {
+    func update(block: BlockModelProtocol, textView: CustomTextView) {
         viewModel.customTextView = textView
-        viewModel.information = information
+        viewModel.block = block
         
-        updateMenuItems(information: information)
+        updateMenuItems(information: block.information)
     }
 
     // MARK: - Private methods

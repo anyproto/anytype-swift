@@ -5,65 +5,55 @@ import UIKit
 import Kingfisher
 import AnytypeCore
 
-final class MentionsViewModel {    
-    private let service: MentionObjectsService
-    private weak var view: MentionsView?
-    private let selectionHandler: (MentionObject) -> Void
+final class MentionsViewModel {
+    weak var view: MentionsView!
     
-    init(service: MentionObjectsService, selectionHandler: @escaping (MentionObject) -> Void) {
-        self.service = service
-        self.selectionHandler = selectionHandler
+    private let mentionService: MentionObjectsService
+    private let pageService: PageService
+    private let onSelect: (MentionObject) -> Void
+    
+    init(
+        mentionService: MentionObjectsService,
+        pageService: PageService,
+        onSelect: @escaping (MentionObject) -> Void
+    ) {
+        self.mentionService = mentionService
+        self.pageService = pageService
+        self.onSelect = onSelect
+    }
+    
+    func obtainMentions() {
+        mentionService.loadMentions { [weak self] mentions in
+            self?.view?.display(mentions.map { .mention($0) })
+        }
     }
     
     func setFilterString(_ string: String) {
-        service.filterString = string
-        obtainMentions()
-    }
-    
-    func setup(with view: MentionsView) {
-        self.view = view
+        mentionService.filterString = string
         obtainMentions()
     }
     
     func didSelectMention(_ mention: MentionObject) {
-        selectionHandler(mention)
+        onSelect(mention)
         view?.dismiss()
     }
     
     func didSelectCreateNewMention() {
-        let name = service.filterString.isEmpty ? "Untitled".localized : service.filterString
+        let name = mentionService.filterString.isEmpty ? "Untitled".localized : mentionService.filterString
+        let result = pageService.createPage(name: name)
         
-        guard let emoji = EmojiProvider.shared.randomEmoji()?.unicode,
-              let iconEmoji = IconEmoji(emoji) else { return }
-        
-        
-        let service = Anytype_Rpc.Page.Create.Service.self
-        let emojiValue = Google_Protobuf_Value(stringValue: emoji)
-        let nameValue = Google_Protobuf_Value(stringValue: name)
-        let details = Google_Protobuf_Struct(
-            fields: [
-                DetailsKind.name.rawValue: nameValue,
-                DetailsKind.iconEmoji.rawValue: emojiValue
-            ]
-        )
-        switch service.invoke(details: details) {
-        case let .success(response):
+        switch result {
+        case .error(let error):
+            anytypeAssertionFailure(error.localizedDescription)
+        case .response(let response):
             let mention = MentionObject(
-                id: response.pageID,
-                objectIcon: .icon(.emoji(iconEmoji)),
+                id: response.newBlockId,
+                objectIcon: .placeholder(name.first),
                 name: name,
                 description: nil,
                 type: nil
             )
             didSelectMention(mention)
-        case let .failure(error):
-            anytypeAssertionFailure(error.localizedDescription)
-        }
-    }
-    
-    private func obtainMentions() {
-        service.loadMentions { [weak self] mentions in
-            self?.view?.display(mentions.map { .mention($0) })
         }
     }
 }

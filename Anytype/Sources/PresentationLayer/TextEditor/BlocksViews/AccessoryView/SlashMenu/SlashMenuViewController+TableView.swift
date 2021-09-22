@@ -1,7 +1,8 @@
 import UIKit
 
 private enum SlashMenuConstants {
-    static let cellHeight: CGFloat = 55
+    static let cellReuseId = NSStringFromClass(UITableViewCell.self)
+    static let cellHeight: CGFloat = 56
     static let dividerCellhHeight: CGFloat = 35
     static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 16)
     static let dividerSeparatorInsets = UIEdgeInsets(
@@ -13,11 +14,6 @@ private enum SlashMenuConstants {
 }
 
 extension SlashMenuViewController: UITableViewDelegate {
-    static let cellReuseId = NSStringFromClass(UITableViewCell.self)
-    static let cellHeight: CGFloat = 55
-    static let dividerCellhHeight: CGFloat = 35
-    
-    
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch cellData[indexPath.row] {
         case .header:
@@ -54,9 +50,9 @@ extension SlashMenuViewController: UITableViewDelegate {
         let item = cellData[indexPath.row]
         switch item {
         case .action, .menu:
-            return Self.cellHeight
+            return SlashMenuConstants.cellHeight
         case .header:
-            return Self.dividerCellhHeight
+            return SlashMenuConstants.dividerCellhHeight
         }
     }
 }
