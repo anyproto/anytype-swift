@@ -14,15 +14,17 @@ enum EditorAccessoryViewAction {
 
 
 final class EditorAccessoryViewModel {
-    var information: BlockInformation?
+    var block: BlockModelProtocol!
     
     weak var customTextView: CustomTextView?
     weak var delegate: EditorAccessoryViewDelegate?
     
+    private let handler: EditorActionHandlerProtocol
     private let router: EditorRouter
     
-    init(router: EditorRouter) {
+    init(router: EditorRouter, handler: EditorActionHandlerProtocol) {
         self.router = router
+        self.handler = handler
     }
     
     func handle(_ action: EditorAccessoryViewAction) {
@@ -35,18 +37,32 @@ final class EditorAccessoryViewModel {
             textView.insertStringAfterCaret(
                 TextTriggerSymbols.slashMenu(textView: textView)
             )
-            delegate.showSlashMenuView(textView: textView)
+            
+            handler.handleActionForFirstResponder(
+                .textView(
+                    action: .changeText(textView.attributedText),
+                    block: block
+                )
+            )
+            
+            delegate.showSlashMenuView()
         case .showStyleMenu:
-            information.flatMap {
-                router.showStyleMenu(information: $0)
-            }
+            router.showStyleMenu(information: block.information)
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
             textView.insertStringAfterCaret(
                 TextTriggerSymbols.mention(textView: textView)
             )
-            delegate.showMentionsView(textView: textView)
+            
+            handler.handleActionForFirstResponder(
+                .textView(
+                    action: .changeText(textView.attributedText),
+                    block: block
+                )
+            )
+            
+            delegate.showMentionsView()
         }
     }
 }

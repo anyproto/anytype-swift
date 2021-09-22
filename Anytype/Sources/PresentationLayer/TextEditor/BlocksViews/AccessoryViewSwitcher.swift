@@ -67,18 +67,18 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
 
     // MARK: - Public methods
-    func showMentionsView(textView: UITextView) {
+    func showMentionsView() {
         showAccessoryView(.mention(mentionsView))
     }
     
-    func showSlashMenuView(textView: UITextView) {
+    func showSlashMenuView() {
         showAccessoryView(.slashMenu(slashMenuView))
     }
     
     func didBeginEditing(data: AccessoryViewSwitcherData) {
         self.data = data
         
-        accessoryView.update(information: data.information, textView: data.textView)
+        accessoryView.update(block: data.block, textView: data.textView)
         changeAccessoryView(accessoryView)
         
         slashMenuView.update(block: data.block)
@@ -241,7 +241,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func buildURLInputView() -> URLInputAccessoryView {
         let dismissHandler = { [weak self] in
             guard let self = self, let textView = self.data?.textView.textView else { return }
-            textView.becomeFirstResponder()
+            _ = textView.becomeFirstResponder()
             self.showAccessoryView(.default(self.accessoryView))
         }
         let urlInputView = URLInputAccessoryView() { [weak self] url in
