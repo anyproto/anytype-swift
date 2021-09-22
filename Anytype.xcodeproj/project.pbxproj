@@ -496,6 +496,7 @@
 		53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C4D26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift */; };
 		53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C4F26F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift */; };
 		53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C5126F7E49900A5A592 /* AudioPlayerView.swift */; };
+		53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
 		EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */; };
@@ -1132,6 +1133,7 @@
 		53FF7C4D26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypeSharedAudioplayer.swift; sourceTree = "<group>"; };
 		53FF7C4F26F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypeAudioPlayerProtocol.swift; sourceTree = "<group>"; };
 		53FF7C5126F7E49900A5A592 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudBackupConfigurator.swift; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
 		EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictions.swift; sourceTree = "<group>"; };
@@ -2179,6 +2181,7 @@
 				1215E8B526A8610C0089AF7E /* KingfisherConfigurator.swift */,
 				1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */,
 				538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */,
+				53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */,
 			);
 			path = Configurators;
 			sourceTree = "<group>";
@@ -4190,6 +4193,7 @@
 				3DFD1B3B26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
+				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
@@ -4692,7 +4696,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -4723,7 +4727,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -4856,7 +4860,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;

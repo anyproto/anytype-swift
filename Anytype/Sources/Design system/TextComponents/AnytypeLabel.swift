@@ -48,6 +48,8 @@ class AnytypeLabel: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        setupView()
     }
 
     required init?(coder: NSCoder) {
@@ -58,8 +60,6 @@ class AnytypeLabel: UIView {
         self.style = style
 
         super.init(frame: .zero)
-
-        setupView()
     }
 
     override var intrinsicContentSize: CGSize {
