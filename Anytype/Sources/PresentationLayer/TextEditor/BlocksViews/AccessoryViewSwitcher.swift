@@ -278,7 +278,10 @@ extension AccessoryViewSwitcher: MentionViewDelegate {
         
         let newText = NSMutableAttributedString(attributedString: oldText)
         newText.replaceCharacters(in: mentionSearchTextRange, with: mentionString)
-        let newCaretPosition = NSMakeRange(newMentionOffset + mentionString.length + 1, 0)
+       
+        let lastMentionCharacterPosition = newMentionOffset + mentionString.length
+        newText.insert(NSAttributedString(string: " "), at: lastMentionCharacterPosition)
+        let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
         
         handler.handleActions(
             [
