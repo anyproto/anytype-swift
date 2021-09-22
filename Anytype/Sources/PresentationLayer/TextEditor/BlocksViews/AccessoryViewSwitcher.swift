@@ -176,31 +176,31 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         switch activeView {
         case .mention(let view):
-            setTextToFilterableView(filterText, view: view)
+            view.setFilterText(filterText: filterText)
+            dismissViewIfNeeded()
         case .slashMenu(let view):
-            setTextToFilterableView(filterText, view: view)
+            view.setFilterText(filterText: filterText)
+            dismissViewIfNeeded(forceDismiss: view.shouldDismiss)
         default:
             break
         }
     }
     
-    private func setTextToFilterableView(_ text: String, view: FilterableItemsView) {
-        guard let textView = data?.textView.textView else { return }
-        
-        view.setFilterText(filterText: text)
-
-        if view.shouldContinueToDisplayView() == false {
+    private func dismissViewIfNeeded(forceDismiss: Bool = false) {
+        if forceDismiss || isTriggerSymbolDeleted {
             cleanupDisplayedView()
             showAccessoryView(.default(accessoryView))
-            return
         }
+    }
+    
+    private var isTriggerSymbolDeleted: Bool {
         guard let triggerSymbolPosition = triggerSymbolPosition,
-              let caretPosition = textView.caretPosition,
-              textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending else {
-            return
+              let textView = data?.textView.textView,
+              let caretPosition = textView.caretPosition else {
+            return false
         }
-        cleanupDisplayedView()
-        showAccessoryView(.default(accessoryView))
+        
+        return textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending
     }
     
     private func searchText() -> String? {
