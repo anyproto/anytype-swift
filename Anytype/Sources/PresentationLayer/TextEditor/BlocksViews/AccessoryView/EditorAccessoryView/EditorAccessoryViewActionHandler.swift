@@ -33,26 +33,14 @@ final class EditorAccessoryViewModel {
         }
 
         switch action {
-        case .slashMenu:
-            textView.insertStringAfterCaret(
-                TextTriggerSymbols.slashMenu(textView: textView)
-            )
-            
-            handler.handleActionForFirstResponder(
-                .textView(
-                    action: .changeText(textView.attributedText),
-                    block: block
-                )
-            )
-            
-            delegate.showSlashMenuView()
         case .showStyleMenu:
             router.showStyleMenu(information: block.information)
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
+            let prependSpace = !textView.isCarretInTheBeginingOfDocument
             textView.insertStringAfterCaret(
-                TextTriggerSymbols.mention(textView: textView)
+                TextTriggerSymbols.mention(prependSpace: prependSpace)
             )
             
             handler.handleActionForFirstResponder(
@@ -63,6 +51,20 @@ final class EditorAccessoryViewModel {
             )
             
             delegate.showMentionsView()
+        case .slashMenu:
+            let prependSpace = !textView.isCarretInTheBeginingOfDocument
+            textView.insertStringAfterCaret(
+                TextTriggerSymbols.slashMenu(prependSpace: prependSpace)
+            )
+            
+            handler.handleActionForFirstResponder(
+                .textView(
+                    action: .changeText(textView.attributedText),
+                    block: block
+                )
+            )
+            
+            delegate.showSlashMenuView()
         }
     }
 }
