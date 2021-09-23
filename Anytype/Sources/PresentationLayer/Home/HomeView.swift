@@ -1,6 +1,6 @@
 import SwiftUI
 import Amplitude
-
+import AnytypeCore
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
@@ -23,6 +23,8 @@ struct HomeView: View {
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
                 viewModel.viewLoaded()
+                
+                UserDefaultsConfig.lastOpenedPageId = nil
             }
     }
     
@@ -75,9 +77,9 @@ struct HomeView: View {
         Group {
             NavigationLink(
                 destination: viewModel.coordinator.documentView(
-                    selectedDocumentId: viewModel.newPageData.pageId
+                    selectedDocumentId: viewModel.openedPageData.pageId
                 ),
-                isActive: $viewModel.newPageData.showingNewPage,
+                isActive: $viewModel.openedPageData.showingNewPage,
                 label: { EmptyView() }
             )
             NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099

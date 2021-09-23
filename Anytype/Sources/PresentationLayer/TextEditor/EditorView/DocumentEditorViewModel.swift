@@ -9,6 +9,8 @@ import AnytypeCore
 final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     weak private(set) var viewInput: DocumentEditorViewInput?
     
+    let documentId: BlockId
+    
     var document: BaseDocumentProtocol
     let modelsHolder: ObjectContentViewModelsSharedHolder
     let blockDelegate: BlockDelegate
@@ -25,7 +27,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     private let headerBuilder: ObjectHeaderBuilder
     
     private var subscriptions = Set<AnyCancellable>()
-    private let documentId: BlockId
 
     // MARK: - Initialization
     init(
