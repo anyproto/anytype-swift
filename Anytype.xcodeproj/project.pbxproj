@@ -2431,10 +2431,21 @@
 		12C8440526FCEA0100D64B8D /* Filled */ = {
 			isa = PBXGroup;
 			children = (
+				12C8440A26FCF52A00D64B8D /* Subviews */,
 				12C8440626FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift */,
 				12C8440826FCECA300D64B8D /* ObjectHeaderFilledContentView.swift */,
 			);
 			path = Filled;
+			sourceTree = "<group>";
+		};
+		12C8440A26FCF52A00D64B8D /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				120EB53126EBA6D6003A0C2B /* Cover */,
+				120EB53426EBA751003A0C2B /* Icon */,
+				120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		12CAF32126D5386F001E56B2 /* ObjectIconImagePainter */ = {
@@ -2754,24 +2765,13 @@
 		3D44983D26D5314B005A3E06 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				12C8440526FCEA0100D64B8D /* Filled */,
-				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
-				12C843FD26FCE90800D64B8D /* Empty */,
-				3D44983E26D53973005A3E06 /* Model */,
-				120EB53126EBA6D6003A0C2B /* Cover */,
-				120EB53426EBA751003A0C2B /* Icon */,
-				120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */,
 				3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */,
+				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
+				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
+				12C8440526FCEA0100D64B8D /* Filled */,
+				12C843FD26FCE90800D64B8D /* Empty */,
 			);
 			path = Header;
-			sourceTree = "<group>";
-		};
-		3D44983E26D53973005A3E06 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3D471E1D26C3B5D000457DE5 /* Support */ = {
