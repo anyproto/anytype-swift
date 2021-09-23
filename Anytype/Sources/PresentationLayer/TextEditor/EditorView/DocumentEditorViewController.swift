@@ -118,7 +118,9 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.main])
+        snapshot.appendSections([.header, .main])
+        
+        snapshot.appendItems([.header("FUCK YOU")], toSection: .header)
         
         snapshot.appendItems(
             blocks.map { DataSourceItem.block($0) },
@@ -266,9 +268,7 @@ private extension DocumentEditorViewController {
     
     func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, String> {
         .init { cell, _, item in
-            //                cell.contentConfiguration = item.makeContentConfiguration(
-            //                    maxWidth: cell.bounds.width
-            //                )
+            cell.contentConfiguration = ObjectHeaderEmptyConfiguration(id: item)
         }
     }
     
@@ -340,6 +340,68 @@ private extension DocumentEditorViewController {
     
     enum Constants {
         static let cellIndentationWidth: CGFloat = 24
+    }
+    
+}
+
+struct ObjectHeaderEmptyConfiguration: UIContentConfiguration, Hashable {
+    
+    let id: String
+    
+    func makeContentView() -> UIView & UIContentView {
+        ObjectHeaderEmptyContentView(configuration: self)
+    }
+    
+    func updated(for state: UIConfigurationState) -> Self {
+        return self
+    }
+}
+
+final class ObjectHeaderEmptyContentView: UIView, UIContentView {
+        
+    // MARK: - Private variables
+
+    private var appliedConfiguration: ObjectHeaderEmptyConfiguration!
+    
+    // MARK: - Internal variables
+    
+    var configuration: UIContentConfiguration {
+        get { self.appliedConfiguration }
+        set { return }
+    }
+    
+    // MARK: - Initializers
+    
+    init(configuration: ObjectHeaderEmptyConfiguration) {
+        appliedConfiguration = configuration
+        super.init(frame: .zero)
+        
+        setupLayout()
+        backgroundColor = .systemMint
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+private extension ObjectHeaderEmptyContentView  {
+    
+    func setupLayout() {
+        layoutUsing.anchors {
+            $0.height.equal(to: Constants.height)
+        }
+        translatesAutoresizingMaskIntoConstraints = true
+    }
+    
+}
+
+extension ObjectHeaderEmptyContentView {
+    
+    enum Constants {
+        static let height: CGFloat = 184
     }
     
 }
