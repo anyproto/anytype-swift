@@ -117,13 +117,13 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     }
     
     func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
-        var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
+        var snapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
         snapshot.appendSections([.header, .main])
         
-        snapshot.appendItems([.header("FUCK YOU")], toSection: .header)
+//        snapshot.appendItems([.header("FUCK YOU")], toSection: .header)
         
         snapshot.appendItems(
-            blocks.map { DataSourceItem.block($0) },
+            blocks.map { EditorItem.block($0) },
             toSection: .main
         )
         
@@ -231,12 +231,12 @@ private extension DocumentEditorViewController {
         viewModel.blockActionHandler.onEmptySpotTap()
     }
     
-    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {
         let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
         let codeCellRegistration = createCodeCellRegistration()
         
-        let dataSource = UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem>(
+        let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
         ) { (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
             switch dataSourceItem {
@@ -266,7 +266,7 @@ private extension DocumentEditorViewController {
         return dataSource
     }
     
-    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, String> {
+    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
         .init { cell, _, item in
             cell.contentConfiguration = ObjectHeaderEmptyConfiguration()
         }
@@ -303,7 +303,7 @@ private extension DocumentEditorViewController {
 extension DocumentEditorViewController {
     
     private func apply(
-        _ snapshot: NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>,
+        _ snapshot: NSDiffableDataSourceSnapshot<EditorSection, EditorItem>,
         animatingDifferences: Bool = true,
         completion: (() -> Void)? = nil
     ) {

@@ -1,5 +1,7 @@
 import AnytypeCore
 
+// TODO: - Move to AnytypeCore
+// TODO: - Rename to `Emoji` or `Emojik` :)
 struct IconEmoji: Hashable {
     
     let value: String

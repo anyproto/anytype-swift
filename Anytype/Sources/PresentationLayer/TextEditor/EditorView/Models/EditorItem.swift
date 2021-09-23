@@ -1,15 +1,15 @@
 
-enum DataSourceItem: Hashable {
+enum EditorItem: Hashable {
     
-    case header(String)
+    case header(ObjectHeader)
     case block(BlockViewModelProtocol)
     
-    static func == (lhs: DataSourceItem, rhs: DataSourceItem) -> Bool {
+    static func == (lhs: EditorItem, rhs: EditorItem) -> Bool {
         switch (lhs, rhs) {
         case let (.block(lhsBlock), .block(rhsBlock)):
             return lhsBlock.information.id == rhsBlock.information.id
-        case (.header, .header):
-            return true
+        case let (.header(lhsHeader), .header(rhsHeader)):
+            return lhsHeader == rhsHeader
         default:
             return false
         }
@@ -19,8 +19,8 @@ enum DataSourceItem: Hashable {
         switch self {
         case let .block(block):
             hasher.combine(block.information.id)
-        case let .header(string):
-            hasher.combine(string)
+        case let .header(header):
+            hasher.combine(header)
         }
     }
 }

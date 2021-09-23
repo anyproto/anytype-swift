@@ -1,4 +1,4 @@
-enum ObjectSection {
+enum EditorSection {
     case header
     case main
 }

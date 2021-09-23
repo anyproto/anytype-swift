@@ -15,23 +15,14 @@ extension ObjectHeader: ContentConfigurationProvider {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {
         case let .iconOnly(objectIcon):
-            return UIListContentConfiguration.cell()
-//            return ObjectHeaderIconOnlyConfiguration(icon: objectIcon)
+            return ObjectHeaderFilledConfiguration(header: self)
 
         case let .coverOnly(objectCover):
-            return UIListContentConfiguration.cell()
-//            return ObjectHeaderCoverOnlyConfiguration(
-//                cover: objectCover,
-//                maxWidth: maxWidth
-//            )
+            return ObjectHeaderFilledConfiguration(header: self)
 
         case let .iconAndCover(objectIcon, objectCover):
-            return UIListContentConfiguration.cell()
-//            return ObjectHeaderIconAndCoverConfiguration(
-//                icon: objectIcon,
-//                cover: objectCover,
-//                maxWidth: maxWidth
-//            )
+            return ObjectHeaderFilledConfiguration(header: self)
+            
         case .empty:
             return ObjectHeaderEmptyConfiguration()
         }
