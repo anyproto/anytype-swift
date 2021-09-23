@@ -23,6 +23,10 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases.filter { $0 != .icon }
         }
     }
+
+    var bottomSettings: [ActionObjectSetting] {
+        ActionObjectSetting.allCases
+    }
     
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
@@ -50,6 +54,21 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.details = details
         iconPickerViewModel.details = details
         layoutPickerViewModel.details = details
+    }
+
+    func archiveObject() {
+    }
+
+    func favoriteObject() {
+    }
+
+    func moveTo() {
+    }
+
+    func template() {
+    }
+
+    func search() {
     }
     
 }

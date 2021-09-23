@@ -33,31 +33,50 @@ struct ObjectSettingsView: View {
     
     private var settings: some View {
         VStack(spacing: 0) {
-            ForEach(viewModel.settings, id: \.self) { setting in
-                ObjectSettingRow(setting: setting) {
-                    switch setting {
-                    case .icon:
-                        // Analytics
-                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonIconInObjectSettings)
+            VStack(spacing: 0) {
+                ForEach(viewModel.settings.indices, id: \.self) { index in
+                    ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
+                        switch viewModel.settings[index] {
+                        case .icon:
+                            // Analytics
+                            Amplitude.instance().logEvent(AmplitudeEventsName.buttonIconInObjectSettings)
 
-                        isIconPickerPresented = true
-                    case .cover:
-                        // Analytics
-                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonCoverInObjectSettings)
-                        
-                        isCoverPickerPresented = true
-                    case .layout:
-                        // Analytics
-                        Amplitude.instance().logEvent(AmplitudeEventsName.buttonLayoutInObjectSettings)
+                            isIconPickerPresented = true
+                        case .cover:
+                            // Analytics
+                            Amplitude.instance().logEvent(AmplitudeEventsName.buttonCoverInObjectSettings)
 
-                        withAnimation() {
-                            isLayoutPickerPresented = true
+                            isCoverPickerPresented = true
+                        case .layout:
+                            // Analytics
+                            Amplitude.instance().logEvent(AmplitudeEventsName.buttonLayoutInObjectSettings)
+
+                            withAnimation() {
+                                isLayoutPickerPresented = true
+                            }
                         }
                     }
                 }
             }
+            .padding([.leading, .trailing], Constants.edgeInset)
+            .modifier(
+                DividerModifier(
+                    spacing:  Constants.dividerSpacing
+                )
+            )
+
+            ActionsObjectsView()
+                .environmentObject(viewModel)
+                .padding(.top, Constants.topActionObjectsViewInset)
+                .padding([.leading, .trailing], Constants.edgeInset)
         }
-        .padding([.leading, .trailing, .bottom], 16)
+        .padding([.bottom], Constants.edgeInset)
+    }
+
+    private enum Constants {
+        static let edgeInset: CGFloat = 16
+        static let topActionObjectsViewInset: CGFloat = 20
+        static let dividerSpacing: CGFloat = 24.5
     }
 }
 

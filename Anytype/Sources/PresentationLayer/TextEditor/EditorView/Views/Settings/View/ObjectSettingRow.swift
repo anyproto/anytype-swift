@@ -11,9 +11,24 @@ import SwiftUI
 struct ObjectSettingRow: View {
     
     let setting: ObjectSetting
+    let isLast: Bool
     let onTap: () -> Void
     
     var body: some View {
+        if isLast {
+            settingButton
+        } else {
+            settingButton
+                .modifier(
+                    DividerModifier(
+                        spacing:  Constants.verticalInset,
+                        leadingPadding: Constants.space + Constants.iconWidth
+                    )
+                )
+        }
+    }
+
+    private var settingButton: some View {
         Button {
             onTap()
         }
@@ -23,37 +38,30 @@ struct ObjectSettingRow: View {
                     width: Constants.iconWidth,
                     height: Constants.iconWidth
                 )
-                
+
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(
                         setting.title,
                         style: .uxTitle2Medium,
                         color: .textPrimary
                     )
-                    
+
                     Spacer.fixedHeight(2)
-                    
+
                     AnytypeText(
                         setting.description,
                         style: .caption1Regular,
                         color: .textSecondary
                     )
                 }
-                
+
                 Spacer()
-                
+
                 Image.arrow
-                
+
             }
             .padding(.top, Constants.verticalInset)
-            .modifier(
-                DividerModifier(
-                    spacing: Constants.verticalInset,
-                    leadingPadding: Constants.space + Constants.iconWidth
-                )
-            )
         }
-        
     }
     
     private enum Constants {
@@ -101,6 +109,6 @@ private extension ObjectSetting {
 
 struct ObjectSettingRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectSettingRow(setting: .layout) {}
+        ObjectSettingRow(setting: .layout, isLast: false) {}
     }
 }
