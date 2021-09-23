@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		1263D6EC26B7E59C001D4C8A /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */; };
 		3D43FD7E26B057250094D4C0 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7926B056330094D4C0 /* FeatureFlags.swift */; };
-		3D43FD8026B0573A0094D4C0 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7F26B0573A0094D4C0 /* UserDefault.swift */; };
+		3D43FD8026B0573A0094D4C0 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */; };
 		3D43FDAE26B188F80094D4C0 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */; };
 		3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */; };
 		3D53F03626B30116001A6EEE /* GoogleProtobufValueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03526B30116001A6EEE /* GoogleProtobufValueExtensions.swift */; };
 		3D53F03826B30356001A6EEE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03726B30356001A6EEE /* Logger.swift */; };
 		3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D69EFE526B009DD002C54C4 /* AssertionLogger.swift */; };
+		3D93854626FC3AFB001C137F /* UserDefaultsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854526FC3AFB001C137F /* UserDefaultsConfig.swift */; };
 		3DA4B0C426AF3D2B0000F243 /* AnytypeCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4B0F126AF41940000F243 /* Asserts.swift */; };
 		3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */; };
@@ -24,12 +25,13 @@
 /* Begin PBXFileReference section */
 		1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D43FD7926B056330094D4C0 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
-		3D43FD7F26B0573A0094D4C0 /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
 		3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopPresentationController.swift"; sourceTree = "<group>"; };
 		3D53F03526B30116001A6EEE /* GoogleProtobufValueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleProtobufValueExtensions.swift; sourceTree = "<group>"; };
 		3D53F03726B30356001A6EEE /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3D69EFE526B009DD002C54C4 /* AssertionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionLogger.swift; sourceTree = "<group>"; };
+		3D93854526FC3AFB001C137F /* UserDefaultsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfig.swift; sourceTree = "<group>"; };
 		3DA4B0BF26AF3D2B0000F243 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnytypeCore.h; sourceTree = "<group>"; };
 		3DA4B0C326AF3D2B0000F243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,7 +63,6 @@
 		3D43FD7A26B056330094D4C0 /* FeatureFlags */ = {
 			isa = PBXGroup;
 			children = (
-				3D43FD7F26B0573A0094D4C0 /* UserDefault.swift */,
 				3D43FD7926B056330094D4C0 /* FeatureFlags.swift */,
 			);
 			path = FeatureFlags;
@@ -79,6 +80,8 @@
 		3D43FDAC26B188E70094D4C0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3D93854426FC3AE2001C137F /* UserDefaults */,
+				3D43FD7A26B056330094D4C0 /* FeatureFlags */,
 				3D53F03426B30116001A6EEE /* SwiftProtobuf */,
 				3D53F03726B30356001A6EEE /* Logger.swift */,
 				3DA4B0F126AF41940000F243 /* Asserts.swift */,
@@ -104,6 +107,15 @@
 			path = Logging;
 			sourceTree = "<group>";
 		};
+		3D93854426FC3AE2001C137F /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */,
+				3D93854526FC3AFB001C137F /* UserDefaultsConfig.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		3DA4B0B526AF3D2B0000F243 = {
 			isa = PBXGroup;
 			children = (
@@ -127,7 +139,6 @@
 				3DFE7F3A26E229230093EECB /* Extensions */,
 				3D43FDAC26B188E70094D4C0 /* Utils */,
 				3D43FDAB26B188D50094D4C0 /* SupportFiles */,
-				3D43FD7A26B056330094D4C0 /* FeatureFlags */,
 				3D69EFE426B009C3002C54C4 /* Logging */,
 			);
 			path = AnytypeCore;
@@ -221,12 +232,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D43FD8026B0573A0094D4C0 /* UserDefault.swift in Sources */,
+				3D43FD8026B0573A0094D4C0 /* UserDefaultWrapper.swift in Sources */,
 				3D43FD7E26B057250094D4C0 /* FeatureFlags.swift in Sources */,
 				3DFE7F4126E22B530093EECB /* StringExtension.swift in Sources */,
 				3D53F03626B30116001A6EEE /* GoogleProtobufValueExtensions.swift in Sources */,
 				3D43FDAE26B188F80094D4C0 /* MetadataProvider.swift in Sources */,
 				3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */,
+				3D93854626FC3AFB001C137F /* UserDefaultsConfig.swift in Sources */,
 				3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */,
 				3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */,
 				3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */,

@@ -1,9 +1,10 @@
 import SwiftUI
 import Amplitude
 import SwiftUIVisualEffects
+import AnytypeCore
 
 extension HomeTabsView {
-    enum Tab {
+    enum Tab: String {
         case favourites
         case history
         case archive
@@ -12,7 +13,7 @@ extension HomeTabsView {
 
 struct HomeTabsView: View {
     @EnvironmentObject var model: HomeViewModel
-    @State private var tabSelection = Tab.favourites
+    @State private var tabSelection = UserDefaultsConfig.selectedTab
     
     let offsetChanged: (CGPoint) -> Void
     private let blurStyle = UIBlurEffect.Style.systemMaterial
@@ -37,6 +38,8 @@ struct HomeTabsView: View {
         .blurEffectStyle(blurStyle)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .onChange(of: tabSelection) { tab in
+            UserDefaultsConfig.selectedTab = tab
+            
             switch tab {
             case .favourites:
                 // Analytics
