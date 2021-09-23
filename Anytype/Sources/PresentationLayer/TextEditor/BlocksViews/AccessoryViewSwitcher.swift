@@ -218,10 +218,18 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         guard let textView = data?.textView.textView else { return }
         guard let data = data, data.information.content.type != .text(.title) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret() else { return }
+        guard let caretPosition = textView.caretPosition else { return }
         
-        if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu(textView: textView)) {
+        let carretOffset = textView.offsetFromBegining(caretPosition)
+        let prependSpace = carretOffset > 1 // We need whitespace before / or @ if it is not 1st symbol
+        
+        if textBeforeCaret.hasSuffix(
+            TextTriggerSymbols.slashMenu(prependSpace: prependSpace)
+        ) {
             showAccessoryViewWithDelay(.slashMenu(slashMenuView))
-        } else if textBeforeCaret.hasSuffix(TextTriggerSymbols.mention(textView: textView)) {
+        } else if textBeforeCaret.hasSuffix(
+            TextTriggerSymbols.mention(prependSpace: prependSpace)
+        ) {
             showAccessoryViewWithDelay(.mention(mentionsView))
         }
     }

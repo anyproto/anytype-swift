@@ -1,19 +1,19 @@
 import UIKit
 
 enum TextTriggerSymbols {
-    static func slashMenu(textView: UITextView) -> String {
-        return prependSpaceSymbolIfNeeded("/", textView: textView)
+    static func slashMenu(prependSpace: Bool) -> String {
+        return prependSpaceSymbolIfNeeded("/", prepend: prependSpace)
     }
     
-    static func mention(textView: UITextView) -> String {
-        return prependSpaceSymbolIfNeeded("@", textView: textView)
+    static func mention(prependSpace: Bool) -> String {
+        return prependSpaceSymbolIfNeeded("@", prepend: prependSpace)
     }
     
-    private static func prependSpaceSymbolIfNeeded(_ symbol: String, textView: UITextView) -> String {
-        if textView.isCarretInTheBeginingOfDocument {
-            return symbol
-        } else {
+    private static func prependSpaceSymbolIfNeeded(_ symbol: String, prepend: Bool) -> String {
+        if prepend {
             return " \(symbol)"
+        } else {
+            return symbol
         }
     }
 }
