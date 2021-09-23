@@ -22,6 +22,9 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
+                    return false
+                }
         return true
     }
     
@@ -35,6 +38,8 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         case let .block(block):
             if case .text = block.content { return false }
             return true
+        case .header:
+                        return false
         }
     }
 
@@ -51,6 +56,8 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
             
             return block.contextMenuConfiguration()
+        case .header:
+                    return nil
         }
     }
     
