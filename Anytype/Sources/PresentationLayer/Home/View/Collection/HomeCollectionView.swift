@@ -16,6 +16,17 @@ struct HomeCollectionView: View {
     @State private var dropData = DropData()
     
     var body: some View {
+        VStack(spacing: 0) {
+            content
+            
+            // Hack to prevent navigation link from pop
+            // https://developer.apple.com/forums/thread/677333
+            // https://app.clickup.com/t/1je3crk
+            NavigationLink(destination: EmptyView()) { EmptyView() }
+        }
+    }
+    
+    private var content: some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns) {
                 ForEach(cellData) { data in
@@ -23,15 +34,7 @@ struct HomeCollectionView: View {
                         destination: coordinator.documentView(
                             selectedDocumentId: data.destinationId
                         ),
-                        label: {
-                            HomeCell(cellData: data)
-                            
-                            // Hack to prevent navigation link from pop
-                            // https://developer.apple.com/forums/thread/677333
-                            NavigationLink(destination: EmptyView()) {
-                                EmptyView()
-                            }
-                        }
+                        label: { HomeCell(cellData: data) }
                     )
                     .disabled(data.isLoading)
                     
