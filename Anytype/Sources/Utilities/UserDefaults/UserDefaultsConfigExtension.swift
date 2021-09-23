@@ -1,6 +1,11 @@
 import AnytypeCore
+import BlocksModels
 
 extension UserDefaultsConfig {
+    @UserDefault("UserData.LastOpenedPageId", defaultValue: nil)
+    static var lastOpenedPageId: String?
+    
+    // MARK: - Selected Tab
     @UserDefault("UserData.SelectedTab", defaultValue: nil)
     private static var _selectedTab: String?
     

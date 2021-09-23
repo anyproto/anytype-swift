@@ -1,6 +1,8 @@
 import Foundation
+import BlocksModels
 
 protocol DocumentEditorViewModelProtocol {
+    var documentId: BlockId { get }
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }

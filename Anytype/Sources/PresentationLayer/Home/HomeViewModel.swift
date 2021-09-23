@@ -6,7 +6,7 @@ import ProtobufMessages
 import AnytypeCore
 
 extension HomeViewModel {
-    struct NewPageData {
+    struct OpenedPageData {
         let pageId: String
         var showingNewPage: Bool
     }
@@ -26,7 +26,10 @@ final class HomeViewModel: ObservableObject {
     @Published var archiveCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
     
-    @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
+    @Published var openedPageData = OpenedPageData(
+        pageId: UserDefaultsConfig.lastOpenedPageId ?? "",
+        showingNewPage: UserDefaultsConfig.lastOpenedPageId != nil
+    )
     @Published var showSearch = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
@@ -133,7 +136,7 @@ extension HomeViewModel {
     }
     
     func showPage(pageId: BlockId) {
-        newPageData = NewPageData(
+        openedPageData = OpenedPageData(
             pageId: pageId,
             showingNewPage: true
         )
