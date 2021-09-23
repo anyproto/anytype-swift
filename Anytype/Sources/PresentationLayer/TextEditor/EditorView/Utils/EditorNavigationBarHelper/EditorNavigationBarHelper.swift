@@ -14,9 +14,7 @@ final class EditorNavigationBarHelper {
     
     private var isObjectHeaderWithCover = false
     private var objectHeaderHeight: CGFloat = 0.0
-    
-    private(set) var heightConstraint: NSLayoutConstraint?
-    
+        
     init(onBackBarButtonItemTap: @escaping () -> Void,
          onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.backBarButtonItemView = EditorBarButtonItemView(
@@ -45,7 +43,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             $0.top.equal(to: view.topAnchor)
             $0.leading.equal(to: view.leadingAnchor)
             $0.trailing.equal(to: view.trailingAnchor)
-            heightConstraint = $0.height.equal(to: 0)
+            $0.bottom.equal(to: view.layoutMarginsGuide.topAnchor)
         }
     }
     
@@ -58,10 +56,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             \.contentOffset,
             options: .new
         ) { [weak self] scrollView, _ in
-            let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
-            let topInset = scrollView.contentInset.top
-            
-            self?.updateNavigationBarAppearanceBasedOnContentOffset(offset + topInset)
+            self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
         }
     }
     

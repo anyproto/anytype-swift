@@ -53,9 +53,5 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             return block.contextMenuConfiguration()
         }
     }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateObjectHeaderPositionAndHeight()
-    }
     
 }

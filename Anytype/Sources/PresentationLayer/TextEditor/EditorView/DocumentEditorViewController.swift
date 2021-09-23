@@ -21,7 +21,6 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         
         return collectionView
     }()
@@ -48,8 +47,6 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
     
-    private let objectHeaderView = ObjectHeaderView()
-
     var viewModel: DocumentEditorViewModelProtocol!
 
     // MARK: - Initializers
@@ -90,28 +87,12 @@ final class DocumentEditorViewController: UIViewController {
         )
     }
     
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        
-        collectionView.verticalScrollIndicatorInsets.top = navigationBarHeight
-        navigationBarHelper.heightConstraint?.constant = navigationBarHeight
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
         firstResponderHelper = nil
-    }
-    
-    /// Stretched header
-    func updateObjectHeaderPositionAndHeight() {
-        let contentOffsetY = collectionView.contentOffset.y
-        let relativeHeight = -contentOffsetY
-
-        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -contentOffsetY)
-        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -122,14 +103,6 @@ final class DocumentEditorViewController: UIViewController {
         return self
     }
     
-    private var navigationBarHeight: CGFloat {
-        let navigationBarHeight = controllerForNavigationItems?.navigationController?.navigationBar.frame.height ?? 0
-
-        let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        
-        return navigationBarHeight + statusBarHeight
-    }
-    
 }
 
 // MARK: - DocumentEditorViewInput
@@ -137,8 +110,6 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?) {
-        objectHeaderView.configure(model: header)
-        
         navigationBarHelper.configureNavigationBar(
             using: header,
             details: details
@@ -218,32 +189,12 @@ private extension DocumentEditorViewController {
     func setupView() {
         view.backgroundColor = .backgroundPrimary
         
-        setupObjectHeaderView()
         setupCollectionView()
         
         setupInteractions()
         
         setupLayout()
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
-    }
-    
-    func setupObjectHeaderView() {
-        objectHeaderView.onIconTap = { [weak self] in
-            UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.showIconPicker()
-        }
-        
-        objectHeaderView.onCoverTap = { [weak self] in
-            UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.showCoverPicker()
-        }
-        
-        objectHeaderView.onHeightUpdate = { [weak self] height in
-            guard let self = self else { return }
-            
-            // Updating additionalSafeAreaInsets will cause updating contentOffset/contentAdjustedInset in collectionView
-            self.additionalSafeAreaInsets.top = height - self.navigationBarHeight
-        }
     }
 
     func setupCollectionView() {
@@ -263,18 +214,6 @@ private extension DocumentEditorViewController {
         view.addSubview(collectionView) {
             $0.pinToSuperview()
         }
-        
-        // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
-        // otherwise they are cancels by `listViewTapGestureRecognizer`
-        view.addSubview(objectHeaderView) {
-            // bottom to top constraint used for stretched header implementation
-            $0.bottom.equal(to: view.topAnchor)
-            $0.pinToSuperview(excluding: [.top, .bottom])
-        }
-        
-        // If we leave objectHeaderView above collectionView it's scrollIndicators will be covered
-        // to prevent this we change zPosition
-        objectHeaderView.layer.zPosition = collectionView.layer.zPosition - 1
     }
     
     @objc
