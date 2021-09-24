@@ -90,7 +90,7 @@ private extension ObjectHeaderFilledContentView  {
         }
         
         let coverHeight = ObjectHeaderView.Constants.coverHeight
-        let scaleY = (abs(offset)  + coverHeight) / coverHeight
+        let scaleY = (abs(offset) + coverHeight) / coverHeight
         let scaledCoverHeight = coverHeight * scaleY
 
         var t = CGAffineTransform.identity
