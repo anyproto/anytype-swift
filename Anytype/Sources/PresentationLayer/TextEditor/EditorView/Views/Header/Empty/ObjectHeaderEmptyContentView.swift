@@ -13,6 +13,7 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
     // MARK: - Private variables
 
     private var appliedConfiguration: ObjectHeaderEmptyConfiguration!
+    
     private let tapGesture: BindableGestureRecognizer
     
     // MARK: - Internal variables
@@ -30,7 +31,7 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
         
         super.init(frame: .zero)
         
-        setupLayout()
+        setupView()
     }
     
     @available(*, unavailable)
@@ -49,7 +50,6 @@ private extension ObjectHeaderEmptyContentView  {
     
     func setupLayout() {
         layoutUsing.anchors {
-            $0.pinToSuperview()
             $0.height.equal(to: Constants.height)
         }
         translatesAutoresizingMaskIntoConstraints = true
