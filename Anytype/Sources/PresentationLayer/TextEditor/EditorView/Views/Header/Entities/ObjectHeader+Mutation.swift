@@ -14,7 +14,10 @@ extension ObjectHeader {
                 onIconTap: onIconTap
             )
         case .coverUploading(let uIImage):
-            return modifiedByCoverUploadingEventWith(image: uIImage)
+            return modifiedByCoverUploadingEventWith(
+                image: uIImage,
+                onCoverTap: onCoverTap
+            )
         }
     }
     
@@ -52,16 +55,22 @@ extension ObjectHeader {
         }
     }
     
-    private func modifiedByCoverUploadingEventWith(image: UIImage) -> ObjectHeader? {
-        let newCover = ObjectHeaderCover.preview(image)
+    private func modifiedByCoverUploadingEventWith(
+        image: UIImage,
+        onCoverTap: @escaping () -> ()
+    ) -> ObjectHeader? {
+        let newCover = ObjectHeaderCover(
+            coverType: .preview(image),
+            onTap: onCoverTap
+        )
         
         switch self {
-        case .iconOnly(let objectIcon):
-            return .iconAndCover(icon: objectIcon, cover: newCover)
+        case .iconOnly(let objectHeaderIcon):
+            return .iconAndCover(icon: objectHeaderIcon, cover: newCover)
         case .coverOnly:
             return .coverOnly(newCover)
-        case .iconAndCover(let objectIcon, _):
-            return .iconAndCover(icon: objectIcon, cover: newCover)
+        case .iconAndCover(let objectHeaderIcon, _):
+            return .iconAndCover(icon: objectHeaderIcon, cover: newCover)
         case .empty:
             return .coverOnly(newCover)
         }

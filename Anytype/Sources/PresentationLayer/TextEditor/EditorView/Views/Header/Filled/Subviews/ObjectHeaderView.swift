@@ -57,32 +57,16 @@ extension ObjectHeaderView: ConfigurableView {
             switchState(.icon)
             applyObjectHeaderIcon(objectHeaderIcon)
             
-        case .coverOnly(let objectCover):
+        case .coverOnly(let objectHeaderCover):
             switchState(.cover)
             
-            coverView.configure(
-                model: ObjectHeaderCoverView.Model(
-                    objectCover: objectCover,
-                    size: CGSize(
-                        width: model.width,
-                        height: Constants.coverHeight
-                    )
-                )
-            )
+            applyObjectHeaderCover(objectHeaderCover, maxWidth: model.width)
             
-        case .iconAndCover(let objectHeaderIcon, let objectCover):
+        case .iconAndCover(let objectHeaderIcon, let objectHeaderCover):
             switchState(.iconAndCover)
             
             applyObjectHeaderIcon(objectHeaderIcon)
-            coverView.configure(
-                model: ObjectHeaderCoverView.Model(
-                    objectCover: objectCover,
-                    size: CGSize(
-                        width: model.width,
-                        height: Constants.coverHeight
-                    )
-                )
-            )
+            applyObjectHeaderCover(objectHeaderCover, maxWidth: model.width)
             
         case .empty:
             // TODO: remove
@@ -126,6 +110,19 @@ extension ObjectHeaderView: ConfigurableView {
             centerConstraint.isActive = false
             trailingConstraint.isActive = true
         }
+    }
+    
+    private func applyObjectHeaderCover(_ objectHeaderCover: ObjectHeaderCover, maxWidth: CGFloat) {
+        coverView.configure(
+            model: ObjectHeaderCoverView.Model(
+                objectCover: objectHeaderCover.coverType,
+                size: CGSize(
+                    width: maxWidth,
+                    height: Constants.coverHeight
+                )
+            )
+        )
+        onCoverTap = objectHeaderCover.onTap
     }
     
 }
