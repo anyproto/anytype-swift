@@ -499,8 +499,10 @@
 		53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C4F26F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift */; };
 		53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C5126F7E49900A5A592 /* AudioPlayerView.swift */; };
 		53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */; };
-		53FF7CB526FCCDE800A5A592 /* ActionObjectSettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB426FCCDE800A5A592 /* ActionObjectSettingRow.swift */; };
-		53FF7CB826FCDB4B00A5A592 /* ActionsObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ActionsObjectsView.swift */; };
+		53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB426FCCDE800A5A592 /* ObjectActionRow.swift */; };
+		53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */; };
+		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
+		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
 		EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */; };
@@ -1140,8 +1142,10 @@
 		53FF7C4F26F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypeAudioPlayerProtocol.swift; sourceTree = "<group>"; };
 		53FF7C5126F7E49900A5A592 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		53FF7C6C26F8F8E400A5A592 /* iCloudBackupConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudBackupConfigurator.swift; sourceTree = "<group>"; };
-		53FF7CB426FCCDE800A5A592 /* ActionObjectSettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionObjectSettingRow.swift; sourceTree = "<group>"; };
-		53FF7CB726FCDB4B00A5A592 /* ActionsObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsObjectsView.swift; sourceTree = "<group>"; };
+		53FF7CB426FCCDE800A5A592 /* ObjectActionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionRow.swift; sourceTree = "<group>"; };
+		53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsView.swift; sourceTree = "<group>"; };
+		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
+		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
 		EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictions.swift; sourceTree = "<group>"; };
@@ -2096,7 +2100,8 @@
 		120E816B269F26BE006FE84E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				3D38CC8E26D625F200E4F7BF /* View */,
+				53FF7CBA26FDD33400A5A592 /* ObjectActions */,
+				3D38CC8E26D625F200E4F7BF /* Views */,
 				120E819326A06CE7006FE84E /* Layout */,
 				120E818A26A05937006FE84E /* Icon */,
 				120E818526A05458006FE84E /* Cover */,
@@ -2710,15 +2715,14 @@
 			path = "Сomponents";
 			sourceTree = "<group>";
 		};
-		3D38CC8E26D625F200E4F7BF /* View */ = {
+		3D38CC8E26D625F200E4F7BF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				53FF7CB626FCDB1600A5A592 /* ActionObjectViews */,
 				120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */,
 				120E817E26A026F5006FE84E /* ObjectSettingRow.swift */,
 				120E8170269F31A8006FE84E /* ObjectSettingsView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
@@ -3616,13 +3620,23 @@
 			path = Audioplayer;
 			sourceTree = "<group>";
 		};
-		53FF7CB626FCDB1600A5A592 /* ActionObjectViews */ = {
+		53FF7CB626FCDB1600A5A592 /* ObjectActionsViews */ = {
 			isa = PBXGroup;
 			children = (
-				53FF7CB426FCCDE800A5A592 /* ActionObjectSettingRow.swift */,
-				53FF7CB726FCDB4B00A5A592 /* ActionsObjectsView.swift */,
+				53FF7CB426FCCDE800A5A592 /* ObjectActionRow.swift */,
+				53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */,
 			);
-			path = ActionObjectViews;
+			path = ObjectActionsViews;
+			sourceTree = "<group>";
+		};
+		53FF7CBA26FDD33400A5A592 /* ObjectActions */ = {
+			isa = PBXGroup;
+			children = (
+				53FF7CB626FCDB1600A5A592 /* ObjectActionsViews */,
+				53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */,
+				53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */,
+			);
+			path = ObjectActions;
 			sourceTree = "<group>";
 		};
 		EA02611A2625B1DB00AE6D86 /* Restrictions */ = {
@@ -4291,7 +4305,7 @@
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
-				53FF7CB826FCDB4B00A5A592 /* ActionsObjectsView.swift in Sources */,
+				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
@@ -4501,6 +4515,7 @@
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
+				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
@@ -4516,6 +4531,7 @@
 				3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */,
 				0ACFCCF9249C17DC002E0477 /* MiddlewareResponse.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
+				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
 				3D69EFE026B009A6002C54C4 /* FirebaseNonFatalLogger.swift in Sources */,
 				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
@@ -4542,7 +4558,7 @@
 				3DE0CFD726F8593D003A606A /* SlashMenuItemType.swift in Sources */,
 				3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
-				53FF7CB526FCCDE800A5A592 /* ActionObjectSettingRow.swift in Sources */,
+				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
 				3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */,
 				125B6EBD26F235F400BCD7D6 /* EditorSearchCellData.swift in Sources */,

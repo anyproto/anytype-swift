@@ -65,7 +65,7 @@ struct ObjectSettingsView: View {
                 )
             )
 
-            ActionsObjectsView()
+            ObjectActionsView()
                 .environmentObject(viewModel)
                 .padding(.top, Constants.topActionObjectsViewInset)
                 .padding([.leading, .trailing], Constants.edgeInset)
@@ -76,7 +76,7 @@ struct ObjectSettingsView: View {
     private enum Constants {
         static let edgeInset: CGFloat = 16
         static let topActionObjectsViewInset: CGFloat = 20
-        static let dividerSpacing: CGFloat = 24.5
+        static let dividerSpacing: CGFloat = 24
     }
 }
 
