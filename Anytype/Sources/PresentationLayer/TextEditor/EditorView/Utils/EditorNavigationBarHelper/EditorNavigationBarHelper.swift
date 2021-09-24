@@ -166,14 +166,7 @@ private extension ObjectHeader {
     var isWithCover: Bool {
         switch self {
         case .filled(let filledState):
-            switch filledState {
-            case .iconOnly:
-                return false
-            case .coverOnly:
-                return true
-            case .iconAndCover:
-                return true
-            }
+            return filledState.isWithCover
         case .empty:
             return false
         }
