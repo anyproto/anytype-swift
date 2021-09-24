@@ -1,6 +1,7 @@
 import UIKit
 import BlocksModels
 
+
 final class ButtonWithImage: UIControl {
     private var borderEdges: UIRectEdge?
     private var borderWidth: CGFloat = 0.0
@@ -13,6 +14,10 @@ final class ButtonWithImage: UIControl {
     private var imageTintColorsMap = [UInt: UIColor]()
     private var textColorsMap = [UInt: UIColor]()
 
+    private var minHitTestArea: CGSize = .zero
+
+    // MARK: - Lifecycle
+
     init() {
         super.init(frame: .zero)
         setupViews()
@@ -21,6 +26,15 @@ final class ButtonWithImage: UIControl {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Overriden methods
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let dX = max(minHitTestArea.width - bounds.width, bounds.width) / 2
+        let dY = max(minHitTestArea.height - bounds.height, bounds.height) / 2
+
+        return bounds.insetBy(dx: -dX, dy: -dY).contains(point) ? self : nil
     }
 
     override func layoutSublayers(of layer: CALayer) {
@@ -36,21 +50,6 @@ final class ButtonWithImage: UIControl {
         let imageViewSize = imageView.intrinsicContentSize
         let spacing: CGFloat = containerView.spacing
         return .init(width: labelSize.width + imageViewSize.width + spacing, height: labelSize.height + imageViewSize.height)
-    }
-    
-    func setBackgroundColor(_ backgroundColor: UIColor?, state: UIControl.State) {
-        backgroundColorsMap[state.rawValue] = backgroundColor
-        updateColors()
-    }
-    
-    func setImageTintColor(_ color: UIColor?, state: UIControl.State) {
-        imageTintColorsMap[state.rawValue] = color
-        updateColors()
-    }
-
-    func setTextColor(_ textColor: UIColor?, state: UIControl.State) {
-        textColorsMap[state.rawValue] = textColor
-        updateColors()
     }
 
     override var isSelected: Bool {
@@ -70,6 +69,8 @@ final class ButtonWithImage: UIControl {
             updateColors()
         }
     }
+
+    // MARK: - Private methods
     
     private func updateColors() {
         updateTextColor()
@@ -116,23 +117,6 @@ final class ButtonWithImage: UIControl {
         containerView.edgesToSuperview()
     }
 
-    @discardableResult func addBorders(edges: UIRectEdge, width: CGFloat, color: UIColor) -> Self {
-        borderEdges = edges
-        borderWidth = width
-        borderColor = color
-        return self
-    }
-
-    func setText(_ text: String) {
-        label.isHidden = text.isEmpty
-        label.text = text
-    }
-
-    func setImage(_ image: UIImage?) {
-        imageView.isHidden = image.isNil
-        imageView.image = image
-    }
-
     private func privateAddBorders(edges: UIRectEdge, width: CGFloat, color: UIColor) {
         func addBorder(origin: CGPoint, size: CGSize) {
             let border = CALayer()
@@ -163,4 +147,41 @@ final class ButtonWithImage: UIControl {
         }
     }
 
+    // MARK: - Public methods
+
+    func setBackgroundColor(_ backgroundColor: UIColor?, state: UIControl.State) {
+        backgroundColorsMap[state.rawValue] = backgroundColor
+        updateColors()
+    }
+
+    func setImageTintColor(_ color: UIColor?, state: UIControl.State) {
+        imageTintColorsMap[state.rawValue] = color
+        updateColors()
+    }
+
+    func setTextColor(_ textColor: UIColor?, state: UIControl.State) {
+        textColorsMap[state.rawValue] = textColor
+        updateColors()
+    }
+
+    @discardableResult func addBorders(edges: UIRectEdge, width: CGFloat, color: UIColor) -> Self {
+        borderEdges = edges
+        borderWidth = width
+        borderColor = color
+        return self
+    }
+
+    func setText(_ text: String) {
+        label.isHidden = text.isEmpty
+        label.text = text
+    }
+
+    func setImage(_ image: UIImage?) {
+        imageView.isHidden = image.isNil
+        imageView.image = image
+    }
+
+    func setMinHitTestArea(_ size: CGSize) {
+        minHitTestArea = size
+    }
 }

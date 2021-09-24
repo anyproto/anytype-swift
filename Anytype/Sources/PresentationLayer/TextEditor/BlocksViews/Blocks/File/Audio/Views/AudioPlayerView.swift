@@ -49,6 +49,7 @@ final class AudioPlayerView: UIView {
     private func setupViews() {
         playButton.setImage(UIImage(systemName: "play.fill"))
         playButton.imageView.tintColor = .black
+        playButton.setMinHitTestArea(.init(width: 35, height: 35))
 
         playButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
