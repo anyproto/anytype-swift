@@ -24,7 +24,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         }
     }
 
-    var objectActionsViewModel = ObjectActionsViewModel()
+    let objectActionsViewModel: ObjectActionsViewModel
 
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
@@ -32,8 +32,9 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     private let objectDetailsService: ObjectDetailsService
     
-    init(objectDetailsService: ObjectDetailsService) {
+    init(objectId: String, objectDetailsService: ObjectDetailsService) {
         self.objectDetailsService = objectDetailsService
+
         self.iconPickerViewModel = ObjectIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
@@ -46,9 +47,12 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.layoutPickerViewModel = ObjectLayoutPickerViewModel(
             detailsService: objectDetailsService
         )
+
+        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId)
     }
     
     func update(with details: DetailsDataProtocol) {
+        objectActionsViewModel.details = details
         self.details = details
         iconPickerViewModel.details = details
         layoutPickerViewModel.details = details

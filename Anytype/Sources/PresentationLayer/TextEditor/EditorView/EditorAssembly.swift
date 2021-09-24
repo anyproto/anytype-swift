@@ -33,6 +33,7 @@ final class EditorAssembly {
     ) -> DocumentEditorViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
+            objectId: blockId,
             objectDetailsService: ObjectDetailsService(
                 eventHandler: document.eventHandler,
                 objectId: blockId

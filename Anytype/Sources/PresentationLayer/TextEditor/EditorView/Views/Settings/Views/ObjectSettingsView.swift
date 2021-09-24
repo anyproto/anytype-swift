@@ -66,7 +66,7 @@ struct ObjectSettingsView: View {
             )
 
             ObjectActionsView()
-                .environmentObject(viewModel)
+                .environmentObject(viewModel.objectActionsViewModel)
                 .padding(.top, Constants.topActionObjectsViewInset)
                 .padding([.leading, .trailing], Constants.edgeInset)
         }
@@ -91,6 +91,7 @@ struct ObjectSettingsView_Previews: PreviewProvider {
             isIconPickerPresented: $isIconPickerPresented,
             isLayoutPickerPresented: $isLayoutPickerPresented
         )
-        .environmentObject(ObjectSettingsViewModel(objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")))
+        .environmentObject(ObjectSettingsViewModel(objectId: "dummyPageId",
+                                                   objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")))
     }
 }
