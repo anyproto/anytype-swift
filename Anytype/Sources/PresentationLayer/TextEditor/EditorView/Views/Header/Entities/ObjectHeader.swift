@@ -3,26 +3,27 @@ import UIKit
 
 enum ObjectHeader: Hashable {
     
-    case iconOnly(ObjectHeaderIcon)
-    case coverOnly(ObjectHeaderCover)
-    case iconAndCover(icon: ObjectHeaderIcon, cover: ObjectHeaderCover)
+    case filled(FilledState)
     case empty
     
+}
+
+extension ObjectHeader {
+    
+    enum FilledState: Hashable {
+        case iconOnly(ObjectHeaderIcon)
+        case coverOnly(ObjectHeaderCover)
+        case iconAndCover(icon: ObjectHeaderIcon, cover: ObjectHeaderCover)
+    }
+
 }
 
 extension ObjectHeader: ContentConfigurationProvider {
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {
-        case let .iconOnly(objectIcon):
-            return ObjectHeaderFilledConfiguration(header: self, width: maxWidth)
-
-        case let .coverOnly(objectCover):
-            return ObjectHeaderFilledConfiguration(header: self, width: maxWidth)
-
-        case let .iconAndCover(objectIcon, objectCover):
-            return ObjectHeaderFilledConfiguration(header: self, width: maxWidth)
-            
+        case .filled(let filledState):
+            return ObjectHeaderFilledConfiguration(state: filledState, width: maxWidth)
         case .empty:
             return ObjectHeaderEmptyConfiguration()
         }

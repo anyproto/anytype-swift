@@ -77,7 +77,7 @@ private extension ObjectHeaderFilledContentView  {
         appliedConfiguration = configuration
         headerView.configure(
             model: ObjectHeaderView.Model(
-                header: configuration.header,
+                state: configuration.state,
                 width: configuration.width
             )
         )
