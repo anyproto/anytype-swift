@@ -2153,23 +2153,6 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		120EB53126EBA6D6003A0C2B /* Cover */ = {
-			isa = PBXGroup;
-			children = (
-				12A7B6BA26C3E47200544037 /* Entities */,
-				120EB4E026E8EE2E003A0C2B /* ObjectCoverView.swift */,
-			);
-			path = Cover;
-			sourceTree = "<group>";
-		};
-		120EB53426EBA751003A0C2B /* Icon */ = {
-			isa = PBXGroup;
-			children = (
-				120EB4E226E8F618003A0C2B /* ObjectIconView.swift */,
-			);
-			path = Icon;
-			sourceTree = "<group>";
-		};
 		1211D6582667CEC100541D9C /* ActivityIndicatorView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2390,13 +2373,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		12A7B6BA26C3E47200544037 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		12BE8E5826565D6D000C95B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2426,8 +2402,8 @@
 		12C8440526FCEA0100D64B8D /* Filled */ = {
 			isa = PBXGroup;
 			children = (
-				12C8440826FCECA300D64B8D /* ObjectHeaderFilledContentView.swift */,
 				12C8440626FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift */,
+				12C8440826FCECA300D64B8D /* ObjectHeaderFilledContentView.swift */,
 				12C8440A26FCF52A00D64B8D /* Subviews */,
 			);
 			path = Filled;
@@ -2436,9 +2412,9 @@
 		12C8440A26FCF52A00D64B8D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				120EB53126EBA6D6003A0C2B /* Cover */,
-				120EB53426EBA751003A0C2B /* Icon */,
 				120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */,
+				120EB4E226E8F618003A0C2B /* ObjectIconView.swift */,
+				120EB4E026E8EE2E003A0C2B /* ObjectCoverView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -2446,6 +2422,9 @@
 		12C8441126FE017000D64B8D /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
+				3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */,
+				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
 				126C46D626BD966700D31DBF /* ObjectIcon.swift */,
 				123FDADC26C17CBA00F6F44B /* ObjectCover.swift */,
 			);
@@ -2781,9 +2760,6 @@
 			isa = PBXGroup;
 			children = (
 				12C8441126FE017000D64B8D /* Entities */,
-				3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */,
-				123FDACD26C1361B00F6F44B /* ObjectHeader.swift */,
-				3D44983F26D53A89005A3E06 /* ObjectHeader+Mutation.swift */,
 				12C8440526FCEA0100D64B8D /* Filled */,
 				12C843FD26FCE90800D64B8D /* Empty */,
 			);
