@@ -2,58 +2,54 @@ import UIKit
 
 extension ObjectHeader {
     
-    func modifiedByLocalEvent(_ event: ObjectHeaderLocalEvent) -> ObjectHeader? {
+    func modifiedByLocalEvent(
+        _ event: ObjectHeaderLocalEvent,
+        onIconTap: @escaping () -> (),
+        onCoverTap: @escaping () -> ()
+    ) -> ObjectHeader? {
         switch event {
         case .iconUploading(let uIImage):
-            return modifiedByIconUploadingEventWith(image: uIImage)
+            return modifiedByIconUploadingEventWith(
+                image: uIImage,
+                onIconTap: onIconTap
+            )
         case .coverUploading(let uIImage):
             return modifiedByCoverUploadingEventWith(image: uIImage)
         }
     }
     
-    private func modifiedByIconUploadingEventWith(image: UIImage) -> ObjectHeader? {
+    private func modifiedByIconUploadingEventWith(
+        image: UIImage,
+        onIconTap: @escaping () -> ()
+    ) -> ObjectHeader? {
         switch self {
-        case .iconOnly(let objectIcon):
-            return .iconOnly(modifiedObjectIcon(objectIcon, image))
+        case .iconOnly(let objectHeaderIcon):
+            return .iconOnly(
+                objectHeaderIcon.modifiedBy(previewImage: image)
+            )
         case .coverOnly(let objectCover):
             return .iconAndCover(
-                icon: modifiedObjectIcon(nil, image),
+                icon: ObjectHeaderIcon(
+                    icon: .basicPreview(image),
+                    layoutAlignment: .left,
+                    onTap: onIconTap
+                ),
                 cover: objectCover
             )
-        case .iconAndCover(let objectIcon, let objectCover):
+        case .iconAndCover(let objectHeaderIcon, let objectCover):
             return .iconAndCover(
-                icon: modifiedObjectIcon(objectIcon, image),
+                icon: objectHeaderIcon.modifiedBy(previewImage: image),
                 cover: objectCover
             )
         case .empty:
-            return .iconOnly(modifiedObjectIcon(nil, image))
+            return .iconOnly(
+                ObjectHeaderIcon(
+                    icon: .basicPreview(image),
+                    layoutAlignment: .left,
+                    onTap: onIconTap
+                )
+            )
         }
-    }
-    
-    private func modifiedObjectIcon(_ objectIcon: ObjectHeaderIcon?, _ image: UIImage) -> ObjectHeaderIcon {
-        return ObjectHeaderIcon(icon: .basicPreview(image), layoutAlignment: .left)
-//        guard let objectIcon = objectIcon else {
-//            return ObjectHeaderIcon(icon: .basicPreview(image), layoutAlignment: .left)
-//        }
-        
-//        switch objectIcon {
-//        case .icon(let documentIconType, let layoutAlignment):
-//            switch documentIconType {
-//            case .basic:
-//                return .preview(.basic(image), layoutAlignment)
-//            case .profile:
-//                return .preview(.profile(image), layoutAlignment)
-//            case .emoji:
-//                return .preview(.basic(image), layoutAlignment)
-//            }
-//        case .preview(let objectIconPreviewType, let layoutAlignment):
-//            switch objectIconPreviewType {
-//            case .basic:
-//                return .preview(.basic(image), layoutAlignment)
-//            case .profile:
-//                return .preview(.profile(image), layoutAlignment)
-//            }
-//        }
     }
     
     private func modifiedByCoverUploadingEventWith(image: UIImage) -> ObjectHeader? {
@@ -68,6 +64,48 @@ extension ObjectHeader {
             return .iconAndCover(icon: objectIcon, cover: newCover)
         case .empty:
             return .coverOnly(newCover)
+        }
+    }
+    
+}
+
+private extension ObjectHeaderIcon {
+    
+    func modifiedBy(previewImage image: UIImage) -> ObjectHeaderIcon {
+        switch self.icon {
+        case .icon(let objectIconType):
+            switch objectIconType {
+            case .basic:
+                return ObjectHeaderIcon(
+                    icon: .basicPreview(image),
+                    layoutAlignment: self.layoutAlignment,
+                    onTap: self.onTap
+                )
+            case .profile:
+                return ObjectHeaderIcon(
+                    icon: .profilePreview(image),
+                    layoutAlignment: self.layoutAlignment,
+                    onTap: self.onTap
+                )
+            case .emoji:
+                return ObjectHeaderIcon(
+                    icon: .basicPreview(image),
+                    layoutAlignment: self.layoutAlignment,
+                    onTap: self.onTap
+                )
+            }
+        case .basicPreview:
+            return ObjectHeaderIcon(
+                icon: .basicPreview(image),
+                layoutAlignment: self.layoutAlignment,
+                onTap: self.onTap
+            )
+        case .profilePreview:
+            return ObjectHeaderIcon(
+                icon: .profilePreview(image),
+                layoutAlignment: self.layoutAlignment,
+                onTap: self.onTap
+            )
         }
     }
     

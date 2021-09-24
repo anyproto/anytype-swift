@@ -13,13 +13,13 @@ import AnytypeCore
 
 final class ObjectHeaderView: UIView {
     
-    var onCoverTap: (() -> Void)?
-    var onIconTap: (() -> Void)?
-    
     // MARK: - Private variables
 
     private let iconView = ObjectHeaderIconView()
     private let coverView = ObjectHeaderCoverView()
+    
+    private var onIconTap: (() -> Void)?
+    private var onCoverTap: (() -> Void)?
     
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
@@ -53,47 +53,78 @@ extension ObjectHeaderView: ConfigurableView {
     
     func configure(model: Model) {
         switch model.header {
-        case .iconOnly(let objectIcon):
-            setupState(.icon)
-            
-            iconView.configure(
-                model: objectIcon.icon
-            )
-            
-            handleIconLayoutAlignment(objectIcon.layoutAlignment)
+        case .iconOnly(let objectHeaderIcon):
+            switchState(.icon)
+            applyObjectHeaderIcon(objectHeaderIcon)
             
         case .coverOnly(let objectCover):
-            setupState(.cover)
+            switchState(.cover)
             
             coverView.configure(
                 model: ObjectHeaderCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
                         width: model.width,
-                        height: Constants.height
+                        height: Constants.coverHeight
                     )
                 )
             )
             
-        case .iconAndCover(let objectIcon, let objectCover):
-            setupState(.iconAndCover)
+        case .iconAndCover(let objectHeaderIcon, let objectCover):
+            switchState(.iconAndCover)
             
-            iconView.configure(model: objectIcon.icon)
+            applyObjectHeaderIcon(objectHeaderIcon)
             coverView.configure(
                 model: ObjectHeaderCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
                         width: model.width,
-                        height: Constants.height
+                        height: Constants.coverHeight
                     )
                 )
             )
-            
-            handleIconLayoutAlignment(objectIcon.layoutAlignment)
             
         case .empty:
+            // TODO: remove
             anytypeAssertionFailure("Not supported")
             break
+        }
+    }
+    
+    private func switchState(_ state: State) {
+        switch state {
+        case .icon:
+            iconView.isHidden = false
+            coverView.isHidden = true
+        case .cover:
+            iconView.isHidden = true
+            coverView.isHidden = false
+        case .iconAndCover:
+            iconView.isHidden = false
+            coverView.isHidden = false
+        }
+    }
+    
+    private func applyObjectHeaderIcon(_ objectHeaderIcon: ObjectHeaderIcon) {
+        iconView.configure(model: objectHeaderIcon.icon)
+        applyLayoutAlignment(objectHeaderIcon.layoutAlignment)
+        onIconTap = objectHeaderIcon.onTap
+    }
+    
+    private func applyLayoutAlignment(_ layoutAlignment: LayoutAlignment) {
+        switch layoutAlignment {
+        case .left:
+            leadingConstraint.isActive = true
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = false
+        case .center:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = true
+            trailingConstraint.isActive = false
+        case .right:
+            leadingConstraint.isActive = false
+            centerConstraint.isActive = false
+            trailingConstraint.isActive = true
         }
     }
     
@@ -157,37 +188,6 @@ private extension ObjectHeaderView {
                 constant: -Constants.iconHorizontalInset,
                 activate: false
             )
-        }
-    }
-    
-    func setupState(_ state: State) {
-        switch state {
-        case .icon:
-            iconView.isHidden = false
-            coverView.isHidden = true
-        case .cover:
-            iconView.isHidden = true
-            coverView.isHidden = false
-        case .iconAndCover:
-            iconView.isHidden = false
-            coverView.isHidden = false
-        }
-    }
-    
-    func handleIconLayoutAlignment(_ layoutAlignment: LayoutAlignment) {
-        switch layoutAlignment {
-        case .left:
-            leadingConstraint.isActive = true
-            centerConstraint.isActive = false
-            trailingConstraint.isActive = false
-        case .center:
-            leadingConstraint.isActive = false
-            centerConstraint.isActive = true
-            trailingConstraint.isActive = false
-        case .right:
-            leadingConstraint.isActive = false
-            centerConstraint.isActive = false
-            trailingConstraint.isActive = true
         }
     }
     
