@@ -20,7 +20,7 @@ final class ObjectHeaderView: UIView {
 
     private let iconView = ObjectIconView()
     private let coverView = ObjectCoverView()
-        
+    
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
@@ -34,6 +34,12 @@ final class ObjectHeaderView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Internal functions
+    
+    func applyCoverTransform(_ transform: CGAffineTransform) {
+        coverView.transform = transform
     }
     
 }
@@ -123,14 +129,8 @@ private extension ObjectHeaderView {
         }
         
         addSubview(coverView) {
-            $0.pinToSuperview(
-                insets: UIEdgeInsets(
-                    top: 0,
-                    left: 0,
-                    bottom: -Constants.coverBottomInset,
-                    right: 0
-                )
-            )
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.height.equal(to: Constants.coverHeight)
         }
         
         addSubview(iconView) {
@@ -232,7 +232,7 @@ extension ObjectHeaderView {
     
     enum Constants {
         static let height: CGFloat = 264
-        
+        static let coverHeight = Constants.height - Constants.coverBottomInset
         static let coverBottomInset: CGFloat = 32
         
         static let iconHorizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth

@@ -61,4 +61,11 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        NotificationCenter.default.post(
+            name: .editorCollectionContentOffsetChangeNotification,
+            object: scrollView.contentOffset.y
+        )
+    }
+    
 }

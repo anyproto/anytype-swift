@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 final class ObjectHeaderFilledContentView: UIView, UIContentView {
         
@@ -15,7 +16,8 @@ final class ObjectHeaderFilledContentView: UIView, UIContentView {
     private let headerView = ObjectHeaderView()
     
     // MARK: - Private variables
-
+    
+    private var subscription: AnyCancellable?
     private var appliedConfiguration: ObjectHeaderFilledConfiguration!
     
     // MARK: - Internal variables
@@ -41,8 +43,21 @@ final class ObjectHeaderFilledContentView: UIView, UIContentView {
         
         setupLayout()
         apply(configuration)
+        
+        subscription = NotificationCenter.Publisher(
+            center: .default,
+            name: .editorCollectionContentOffsetChangeNotification,
+            object: nil
+        )
+            .compactMap { $0.object as? CGFloat }
+            .receiveOnMain()
+            .sink { self.updateCoverTransform($0) }
     }
     
+    deinit {
+        subscription = nil
+    }
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -66,6 +81,28 @@ private extension ObjectHeaderFilledContentView  {
                 width: configuration.width
             )
         )
+    }
+    
+    func updateCoverTransform(_ offset: CGFloat) {
+        guard offset.isLess(than: CGFloat.zero) else {
+            headerView.applyCoverTransform(.identity)
+            return
+        }
+        
+        let coverHeight = ObjectHeaderView.Constants.coverHeight
+        let scaleY = (abs(offset)  + coverHeight) / coverHeight
+        let scaledCoverHeight = coverHeight * scaleY
+
+        var t = CGAffineTransform.identity
+                
+        t = t.translatedBy(
+            x: 0,
+            y: -((scaledCoverHeight - coverHeight) * 0.5)
+        )
+        
+        t = t.scaledBy(x: scaleY, y: scaleY)
+        
+        headerView.applyCoverTransform(t)
     }
     
 }

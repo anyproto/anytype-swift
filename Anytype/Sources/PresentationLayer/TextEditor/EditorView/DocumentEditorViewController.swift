@@ -22,6 +22,7 @@ final class DocumentEditorViewController: UIViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
+        
         return collectionView
     }()
     
