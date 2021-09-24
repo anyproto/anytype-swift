@@ -11,6 +11,17 @@ extension Google_Protobuf_Value {
             return nil
         }
         
+        return DetailsEntry(value: string)
+    }
+    
+    func asTrimmedStringEntry() -> DetailsEntry<AnyHashable>? {
+        guard case let .stringValue(string) = kind else {
+            anytypeAssertionFailure(
+                "Unknown value \(self) for type String."
+            )
+            return nil
+        }
+        
         let trimmed = string.trimmed
         guard !trimmed.isEmpty else { return nil }
         
