@@ -24,7 +24,10 @@ final class ObjectHeaderBuilder {
         switch event {
         case .iconUploading(let uIImage):
             return ObjectHeader.iconOnly(
-                .preview(.basic(uIImage), .left)
+                ObjectHeaderIcon(
+                    icon: .basicPreview(uIImage),
+                    layoutAlignment: .left
+                )
             )
         case .coverUploading(let uIImage):
             return ObjectHeader.coverOnly(
@@ -38,14 +41,20 @@ final class ObjectHeaderBuilder {
         
         if let icon = details.icon, let cover = details.documentCover {
             return .iconAndCover(
-                icon: .icon(icon, layoutAlign),
+                icon: ObjectHeaderIcon(
+                    icon: .icon(icon),
+                    layoutAlignment: layoutAlign
+                ),
                 cover: .cover(cover)
             )
         }
         
         if let icon = details.icon {
             return .iconOnly(
-                .icon(icon, layoutAlign)
+                ObjectHeaderIcon(
+                    icon: .icon(icon),
+                    layoutAlignment: layoutAlign
+                )
             )
         }
         
