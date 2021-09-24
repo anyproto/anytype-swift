@@ -43,15 +43,6 @@ final class ObjectHeaderFilledContentView: UIView, UIContentView {
         
         setupLayout()
         apply(configuration)
-        
-        subscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .editorCollectionContentOffsetChangeNotification,
-            object: nil
-        )
-            .compactMap { $0.object as? CGFloat }
-            .receiveOnMain()
-            .sink { self.updateCoverTransform($0) }
     }
     
     deinit {
@@ -81,6 +72,20 @@ private extension ObjectHeaderFilledContentView  {
                 width: configuration.width
             )
         )
+        
+        guard configuration.state.isWithCover else {
+            subscription = nil
+            return
+        }
+        
+        subscription = NotificationCenter.Publisher(
+            center: .default,
+            name: .editorCollectionContentOffsetChangeNotification,
+            object: nil
+        )
+            .compactMap { $0.object as? CGFloat }
+            .receiveOnMain()
+            .sink { self.updateCoverTransform($0) }
     }
     
     func updateCoverTransform(_ offset: CGFloat) {

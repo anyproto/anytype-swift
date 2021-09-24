@@ -31,7 +31,7 @@ final class ObjectHeaderBuilder {
     
     func objectHeader(details: DetailsDataProtocol?) -> ObjectHeader {
         guard let details = details else {
-            return .empty
+            return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
         }
         return buildObjectHeader(details: details)
     }
@@ -47,7 +47,7 @@ final class ObjectHeaderBuilder {
             event,
             onIconTap: onIconTap,
             onCoverTap: onCoverTap
-        ) ?? .empty
+        ) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
     }
     
     private func fakeHeader(event: ObjectHeaderLocalEvent) -> ObjectHeader {
@@ -116,6 +116,6 @@ final class ObjectHeaderBuilder {
             )
         }
         
-        return .empty
+        return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
     }
 }
