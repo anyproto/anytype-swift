@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct GradientColor {
+struct GradientColor: Hashable {
     let start: UIColor
     let end: UIColor
 }

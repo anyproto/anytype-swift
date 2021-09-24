@@ -62,11 +62,8 @@ private extension ObjectCoverView {
             showImageWithId(imageId, size)
         case let .color(color):
             showColor(color, size)
-        case let .gradient(startColor, endColor):
-            showGradient(
-                GradientColor(start: startColor, end: endColor),
-                size
-            )
+        case let .gradient(gradientColor):
+            showGradient(gradientColor, size)
         }
     }
     
