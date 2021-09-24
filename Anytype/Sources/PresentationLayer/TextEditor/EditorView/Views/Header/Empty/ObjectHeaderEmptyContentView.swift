@@ -41,6 +41,7 @@ private extension ObjectHeaderEmptyContentView  {
     
     func setupLayout() {
         layoutUsing.anchors {
+            $0.pinToSuperview()
             $0.height.equal(to: Constants.height)
         }
         translatesAutoresizingMaskIntoConstraints = true
