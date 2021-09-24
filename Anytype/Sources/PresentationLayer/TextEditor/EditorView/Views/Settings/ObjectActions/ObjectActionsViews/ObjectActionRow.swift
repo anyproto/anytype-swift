@@ -41,8 +41,8 @@ private extension ObjectAction {
 
     var title: String {
         switch self {
-        case .archive:
-            return "Archive"
+        case let .archive(isArchived: isArchived):
+            return isArchived ? "Restore" : "Archive"
 //        case .favorite:
 //            return "Favorite"
 //        case .moveTo:
@@ -72,7 +72,7 @@ private extension ObjectAction {
 
 struct ActionObjectSettingRow_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectActionRow(setting: .archive) {}
+        ObjectActionRow(setting: .archive(isArchived: false)) {}
     }
 }
 

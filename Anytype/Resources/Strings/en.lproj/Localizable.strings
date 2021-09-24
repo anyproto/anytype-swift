@@ -115,6 +115,10 @@
 "Anytype info" = "Anytype info";
 "Library version" = "Library version";
 
+// Action
+"Archive" = "Archive";
+"Restore" = "Restore";
+
 "Have you backed up your keychain phrase?" = "Have you backed up your keychain phrase?";
 "Backup keychain phrase" = "Backup keychain phrase";
 

@@ -6,16 +6,28 @@
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
+import Foundation
 import Combine
+import BlocksModels
 
 
 final class ObjectActionsViewModel: ObservableObject {
+    private let archiveService: ArchiveService
 
-    var objectActions: [ObjectAction] {
-        ObjectAction.allCases
+    @Published var details: DetailsDataProtocol = DetailsData.empty {
+        didSet {
+            objectActions = details.rawDetails.isEmpty ? [] : ObjectAction.allCasesWith(details: details)
+        }
+    }
+    @Published var objectActions: [ObjectAction] = []
+
+    init(objectId: String) {
+        self.archiveService = ArchiveService(objectId: objectId)
     }
 
     func archiveObject() {
+        guard let isArchived = details.isArchived else { return }
+        archiveService.setArchive(!isArchived)
     }
 
     func favoriteObject() {

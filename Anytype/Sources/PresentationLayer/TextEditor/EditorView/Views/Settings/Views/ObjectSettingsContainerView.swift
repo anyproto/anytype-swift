@@ -106,6 +106,7 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectSettingsContainerView(
             viewModel: ObjectSettingsViewModel(
+                objectId: "dummyPageId",
                 objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")
             )
         )
