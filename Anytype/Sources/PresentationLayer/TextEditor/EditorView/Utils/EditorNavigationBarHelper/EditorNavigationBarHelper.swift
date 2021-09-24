@@ -165,12 +165,15 @@ private extension ObjectHeader {
     
     var isWithCover: Bool {
         switch self {
-        case .iconOnly:
-            return false
-        case .coverOnly:
-            return true
-        case .iconAndCover:
-            return true
+        case .filled(let filledState):
+            switch filledState {
+            case .iconOnly:
+                return false
+            case .coverOnly:
+                return true
+            case .iconAndCover:
+                return true
+            }
         case .empty:
             return false
         }
@@ -178,12 +181,9 @@ private extension ObjectHeader {
     
     var height: CGFloat {
         switch self {
-        case .iconOnly:
+        case .filled:
             return ObjectHeaderView.Constants.height
-        case .coverOnly:
-            return ObjectHeaderView.Constants.height
-        case .iconAndCover:
-            return ObjectHeaderView.Constants.height
+            
         case .empty:
             return ObjectHeaderEmptyContentView.Constants.height
         }

@@ -26,30 +26,22 @@ extension ObjectHeader {
         onIconTap: @escaping () -> ()
     ) -> ObjectHeader? {
         switch self {
-        case .iconOnly(let objectHeaderIcon):
-            return .iconOnly(
-                objectHeaderIcon.modifiedBy(previewImage: image)
+        case .filled(let filledState):
+            return .filled(
+                filledState.modifiedByIconUploadingEventWith(
+                    image: image,
+                    onIconTap: onIconTap
+                )
             )
-        case .coverOnly(let objectCover):
-            return .iconAndCover(
-                icon: ObjectHeaderIcon(
-                    icon: .basicPreview(image),
-                    layoutAlignment: .left,
-                    onTap: onIconTap
-                ),
-                cover: objectCover
-            )
-        case .iconAndCover(let objectHeaderIcon, let objectCover):
-            return .iconAndCover(
-                icon: objectHeaderIcon.modifiedBy(previewImage: image),
-                cover: objectCover
-            )
+            
         case .empty:
-            return .iconOnly(
-                ObjectHeaderIcon(
-                    icon: .basicPreview(image),
-                    layoutAlignment: .left,
-                    onTap: onIconTap
+            return .filled(
+                .iconOnly(
+                    ObjectHeaderIcon(
+                        icon: .basicPreview(image),
+                        layoutAlignment: .left,
+                        onTap: onIconTap
+                    )
                 )
             )
         }
@@ -65,14 +57,50 @@ extension ObjectHeader {
         )
         
         switch self {
-        case .iconOnly(let objectHeaderIcon):
-            return .iconAndCover(icon: objectHeaderIcon, cover: newCover)
-        case .coverOnly:
-            return .coverOnly(newCover)
-        case .iconAndCover(let objectHeaderIcon, _):
-            return .iconAndCover(icon: objectHeaderIcon, cover: newCover)
+        case .filled(let filledState):
+            switch filledState {
+            case .iconOnly(let objectHeaderIcon):
+                return .filled(.iconAndCover(icon: objectHeaderIcon, cover: newCover))
+            case .coverOnly:
+                return .filled(.coverOnly(newCover))
+            case .iconAndCover(let objectHeaderIcon, _):
+                return .filled(.iconAndCover(icon: objectHeaderIcon, cover: newCover))
+            }
+            
         case .empty:
-            return .coverOnly(newCover)
+            return .filled(.coverOnly(newCover))
+        }
+    }
+    
+}
+
+private extension ObjectHeader.FilledState {
+    
+    func modifiedByIconUploadingEventWith(
+        image: UIImage,
+        onIconTap: @escaping () -> ()
+    ) -> ObjectHeader.FilledState {
+        switch self {
+        case .iconOnly(let objectHeaderIcon):
+            return .iconOnly(
+                objectHeaderIcon.modifiedBy(previewImage: image)
+            )
+            
+        case .coverOnly(let objectCover):
+            return .iconAndCover(
+                icon: ObjectHeaderIcon(
+                    icon: .basicPreview(image),
+                    layoutAlignment: .left,
+                    onTap: onIconTap
+                ),
+                cover: objectCover
+            )
+            
+        case .iconAndCover(let objectHeaderIcon, let objectCover):
+            return .iconAndCover(
+                icon: objectHeaderIcon.modifiedBy(previewImage: image),
+                cover: objectCover
+            )
         }
     }
     

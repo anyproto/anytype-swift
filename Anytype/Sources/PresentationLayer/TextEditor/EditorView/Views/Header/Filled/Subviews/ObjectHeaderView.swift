@@ -47,12 +47,12 @@ final class ObjectHeaderView: UIView {
 extension ObjectHeaderView: ConfigurableView {
     
     struct Model {
-        let header: ObjectHeader
+        let state: ObjectHeader.FilledState
         let width: CGFloat
     }
     
     func configure(model: Model) {
-        switch model.header {
+        switch model.state {
         case .iconOnly(let objectHeaderIcon):
             switchState(.icon)
             applyObjectHeaderIcon(objectHeaderIcon)
@@ -67,11 +67,6 @@ extension ObjectHeaderView: ConfigurableView {
             
             applyObjectHeaderIcon(objectHeaderIcon)
             applyObjectHeaderCover(objectHeaderCover, maxWidth: model.width)
-            
-        case .empty:
-            // TODO: remove
-            anytypeAssertionFailure("Not supported")
-            break
         }
     }
     
