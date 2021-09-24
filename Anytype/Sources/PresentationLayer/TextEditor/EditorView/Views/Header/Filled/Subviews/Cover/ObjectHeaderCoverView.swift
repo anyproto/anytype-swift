@@ -1,6 +1,6 @@
 //
-//  ObjectCoverView.swift
-//  ObjectCoverView
+//  ObjectHeaderCoverView.swift
+//  ObjectHeaderCoverView
 //
 //  Created by Konstantin Mordan on 08.09.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-final class ObjectCoverView: UIView {
+final class ObjectHeaderCoverView: UIView {
     
     // MARK: - Views
     
@@ -35,12 +35,13 @@ final class ObjectCoverView: UIView {
 
 // MARK: - ConfigurableView
 
-extension ObjectCoverView: ConfigurableView {
+extension ObjectHeaderCoverView: ConfigurableView {
     
     struct Model {
-        let objectCover: ObjectCover
+        let objectCover: ObjectHeaderCover
         let size: CGSize
     }
+    
     func configure(model: Model) {
         switch model.objectCover {
         case let .cover(cover):
@@ -52,7 +53,7 @@ extension ObjectCoverView: ConfigurableView {
     
 }
 
-private extension ObjectCoverView {
+private extension ObjectHeaderCoverView {
     
     func configureCoverState(_ cover: DocumentCover, _ size: CGSize) {
         activityIndicatorView.hide()
@@ -125,7 +126,7 @@ private extension ObjectCoverView {
 
 // MARK: - Private extension
 
-private extension ObjectCoverView {
+private extension ObjectHeaderCoverView {
     
     func setupView() {
         setupBackgroundColor()

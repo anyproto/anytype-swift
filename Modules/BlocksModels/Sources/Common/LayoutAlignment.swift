@@ -3,4 +3,3 @@ public enum LayoutAlignment: Int, CaseIterable, Hashable {
     case center
     case right
 }
-

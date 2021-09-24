@@ -18,8 +18,8 @@ final class ObjectHeaderView: UIView {
     
     // MARK: - Private variables
 
-    private let iconView = ObjectIconView()
-    private let coverView = ObjectCoverView()
+    private let iconView = ObjectHeaderIconView()
+    private let coverView = ObjectHeaderCoverView()
     
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
@@ -56,7 +56,9 @@ extension ObjectHeaderView: ConfigurableView {
         case .iconOnly(let objectIcon):
             setupState(.icon)
             
-            iconView.configure(model: objectIcon.asObjectIconViewModel)
+            iconView.configure(
+                model: objectIcon.icon
+            )
             
             handleIconLayoutAlignment(objectIcon.layoutAlignment)
             
@@ -64,7 +66,7 @@ extension ObjectHeaderView: ConfigurableView {
             setupState(.cover)
             
             coverView.configure(
-                model: ObjectCoverView.Model(
+                model: ObjectHeaderCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
                         width: model.width,
@@ -76,9 +78,9 @@ extension ObjectHeaderView: ConfigurableView {
         case .iconAndCover(let objectIcon, let objectCover):
             setupState(.iconAndCover)
             
-            iconView.configure(model: objectIcon.asObjectIconViewModel)
+            iconView.configure(model: objectIcon.icon)
             coverView.configure(
-                model: ObjectCoverView.Model(
+                model: ObjectHeaderCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
                         width: model.width,
@@ -201,33 +203,6 @@ private extension ObjectHeaderView {
     
 }
 
-private extension ObjectIcon {
-    
-    var layoutAlignment: LayoutAlignment {
-        switch self {
-        case let .icon(_, layoutAlignment):
-            return layoutAlignment
-        case let .preview(_, layoutAlignment):
-            return layoutAlignment
-        }
-    }
-    
-    var asObjectIconViewModel: ObjectIconView.Model {
-        switch self {
-        case let .icon(objectIconType, _):
-            return ObjectIconView.Model.iconImageModel(
-                .init(
-                    iconImage: .icon(objectIconType),
-                    usecase: .openedObject
-                )
-            )
-        case let .preview(objectIconPreviewType, _):
-            return ObjectIconView.Model.preview(objectIconPreviewType)
-        }
-    }
-    
-}
-
 extension ObjectHeaderView {
     
     enum Constants {
@@ -235,8 +210,8 @@ extension ObjectHeaderView {
         static let coverHeight = Constants.height - Constants.coverBottomInset
         static let coverBottomInset: CGFloat = 32
         
-        static let iconHorizontalInset: CGFloat = 20 - ObjectIconView.Constants.borderWidth
-        static let iconBottomInset: CGFloat = 16 - ObjectIconView.Constants.borderWidth
+        static let iconHorizontalInset: CGFloat = 20 - ObjectHeaderIconView.Constants.borderWidth
+        static let iconBottomInset: CGFloat = 16 - ObjectHeaderIconView.Constants.borderWidth
     }
     
 }

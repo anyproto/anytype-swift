@@ -30,33 +30,34 @@ extension ObjectHeader {
         }
     }
     
-    private func modifiedObjectIcon(_ objectIcon: ObjectIcon?, _ image: UIImage) -> ObjectIcon {
-        guard let objectIcon = objectIcon else {
-            return .preview(.basic(image), .left)
-        }
+    private func modifiedObjectIcon(_ objectIcon: ObjectHeaderIcon?, _ image: UIImage) -> ObjectHeaderIcon {
+        return ObjectHeaderIcon(icon: .basicPreview(image), layoutAlignment: .left)
+//        guard let objectIcon = objectIcon else {
+//            return ObjectHeaderIcon(icon: .basicPreview(image), layoutAlignment: .left)
+//        }
         
-        switch objectIcon {
-        case .icon(let documentIconType, let layoutAlignment):
-            switch documentIconType {
-            case .basic:
-                return .preview(.basic(image), layoutAlignment)
-            case .profile:
-                return .preview(.profile(image), layoutAlignment)
-            case .emoji:
-                return .preview(.basic(image), layoutAlignment)
-            }
-        case .preview(let objectIconPreviewType, let layoutAlignment):
-            switch objectIconPreviewType {
-            case .basic:
-                return .preview(.basic(image), layoutAlignment)
-            case .profile:
-                return .preview(.profile(image), layoutAlignment)
-            }
-        }
+//        switch objectIcon {
+//        case .icon(let documentIconType, let layoutAlignment):
+//            switch documentIconType {
+//            case .basic:
+//                return .preview(.basic(image), layoutAlignment)
+//            case .profile:
+//                return .preview(.profile(image), layoutAlignment)
+//            case .emoji:
+//                return .preview(.basic(image), layoutAlignment)
+//            }
+//        case .preview(let objectIconPreviewType, let layoutAlignment):
+//            switch objectIconPreviewType {
+//            case .basic:
+//                return .preview(.basic(image), layoutAlignment)
+//            case .profile:
+//                return .preview(.profile(image), layoutAlignment)
+//            }
+//        }
     }
     
     private func modifiedByCoverUploadingEventWith(image: UIImage) -> ObjectHeader? {
-        let newCover = ObjectCover.preview(image)
+        let newCover = ObjectHeaderCover.preview(image)
         
         switch self {
         case .iconOnly(let objectIcon):

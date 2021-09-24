@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class ObjectIconView: UIView {
+final class ObjectHeaderIconView: UIView {
     
     // MARK: - Private variables
     
@@ -40,27 +40,43 @@ final class ObjectIconView: UIView {
 
 // MARK: - ConfigurableView
 
-extension ObjectIconView: ConfigurableView {
+extension ObjectHeaderIconView: ConfigurableView {
 
-    enum Model {
-        case iconImageModel(ObjectIconImageView.Model)
-        case preview(ObjectIconPreviewType)
+    enum Model: Hashable {
+        case icon(ObjectIconType)
+        case basicPreview(UIImage)
+        case profilePreview(UIImage)
     }
-    
+
     func configure(model: Model) {
         switch model {
-        case .iconImageModel(let model):
-            showIconImageModel(model)
-        case .preview(let preview):
-            showPreviewImageType(preview)
+        case .icon(let objectIconType):
+            showObjectIconType(objectIconType)
+            
+        case .basicPreview(let uIImage):
+            showImagePreview(
+                image: uIImage,
+                imageGuideline: ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.basicImageGuideline
+            )
+            
+        case .profilePreview(let uIImage):
+            showImagePreview(
+                image: uIImage,
+                imageGuideline: ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.profileImageGuideline
+            )
         }
     }
     
 }
 
-private extension ObjectIconView {
+private extension ObjectHeaderIconView {
         
-    func showIconImageModel(_ model: ObjectIconImageView.Model) {
+    func showObjectIconType(_ objectIconType: ObjectIconType) {
+        let model = ObjectIconImageModel(
+            iconImage: ObjectIconImage.icon(objectIconType),
+            usecase: .openedObject
+        )
+        
         applyImageGuideline(model.imageGuideline)
         
         iconImageView.configure(model: model)
@@ -71,26 +87,14 @@ private extension ObjectIconView {
         activityIndicatorView.hide()
     }
     
-    func showPreviewImageType(_ type: ObjectIconPreviewType) {
-        var imageGuideline: ImageGuideline?
-        var image: UIImage?
-        
-        switch type {
-        case .basic(let uIImage):
-            imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.basicImageGuideline
-            image = uIImage
-        case .profile(let uIImage):
-            imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.profileImageGuideline
-            image = uIImage
-        }
-        
+    func showImagePreview(image: UIImage, imageGuideline: ImageGuideline?) {
         applyImageGuideline(imageGuideline)
-        
+
         previewImageView.image = image
-        
+
         iconImageView.isHidden = true
         previewImageView.isHidden = false
-        
+
         activityIndicatorView.show()
     }
     
@@ -112,7 +116,7 @@ private extension ObjectIconView {
 
 // MARK: - Private extension
 
-private extension ObjectIconView {
+private extension ObjectHeaderIconView {
     
     func setupView() {
         containerView.clipsToBounds = true
@@ -137,11 +141,11 @@ private extension ObjectIconView {
         addSubview(containerView) {
             $0.center(in: self)
             $0.leading.equal(
-                to: self.leadingAnchor,
+                to: leadingAnchor,
                 constant: Constants.borderWidth
             )
             $0.top.equal(
-                to: self.topAnchor,
+                to: topAnchor,
                 constant: Constants.borderWidth
             )
             
@@ -164,7 +168,7 @@ private extension ObjectIconView {
     
 }
 
-extension ObjectIconView {
+extension ObjectHeaderIconView {
     
     enum Constants {
         static let borderWidth: CGFloat = 4

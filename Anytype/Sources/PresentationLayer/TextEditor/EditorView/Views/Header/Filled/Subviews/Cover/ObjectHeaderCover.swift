@@ -1,6 +1,6 @@
 import UIKit.UIColor
 
-enum ObjectCover: Hashable {
+enum ObjectHeaderCover: Hashable {
     case cover(DocumentCover)
     case preview(UIImage)
 }
