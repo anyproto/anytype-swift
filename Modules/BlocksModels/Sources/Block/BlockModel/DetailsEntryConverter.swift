@@ -18,9 +18,12 @@ public class DetailsEntryConverter {
                     return nil
                 }
                 
-                
-                
-                guard let entry = DetailsEntryConverter.convert(value: unwrapListValue(value), kind: kind) else {
+                guard
+                    let entry = DetailsEntryConverter.convert(
+                        value: unwrapListValue(value),
+                        kind: kind
+                    )
+                else {
                     return nil
                 }
                 
@@ -44,7 +47,7 @@ public class DetailsEntryConverter {
             case .name:
                 return value.asStringEntry()
             case .iconEmoji:
-                return value.asStringEntry()
+                return value.asTrimmedStringEntry()
             case .iconImage:
                 return value.asStringEntry()
             case .coverId:
