@@ -23,7 +23,9 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases.filter { $0 != .icon }
         }
     }
-    
+
+    var objectActionsViewModel = ObjectActionsViewModel()
+
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
@@ -51,5 +53,4 @@ final class ObjectSettingsViewModel: ObservableObject {
         iconPickerViewModel.details = details
         layoutPickerViewModel.details = details
     }
-    
 }

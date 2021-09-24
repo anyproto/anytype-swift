@@ -43,6 +43,14 @@ extension Image {
         static let cover = createImage("object_settings_cover")
         static let layout = createImage("object_settings_layout")
     }
+
+    enum ObjectAction {
+        static let archive = createImage("delete")
+        static let favorite = createImage("addToFavorites")
+        static let moveTo = createImage("moveTo")
+        static let template = createImage("addNew")
+        static let search = createImage("search")
+    }
     
     enum LayoutSettings {
         static let basic = createImage("layout_settings_basic")
