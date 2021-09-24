@@ -4,8 +4,8 @@ import BlocksModels
 /// Input data for document view
 protocol DocumentEditorViewInput: AnyObject {
     
-    func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?)
-    func updateBlocks(_ blocks: [BlockViewModelProtocol])
+    func updateNavigationBar(_ header: ObjectHeader, details: DetailsDataProtocol?)
+    func update(header: ObjectHeader, blocks: [BlockViewModelProtocol])
     
     func selectBlock(blockId: BlockId)
 

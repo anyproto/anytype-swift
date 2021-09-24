@@ -9,7 +9,7 @@ import Amplitude
 final class DocumentEditorViewController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-        
+    
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
@@ -21,8 +21,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
-        
+        collectionView.contentInsetAdjustmentBehavior = .never
         return collectionView
     }()
     
@@ -37,7 +36,7 @@ final class DocumentEditorViewController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
-
+    
     private lazy var navigationBarHelper = EditorNavigationBarHelper(
         onBackBarButtonItemTap: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
@@ -48,21 +47,19 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
     
-    private let objectHeaderView = ObjectHeaderView()
-
     var viewModel: DocumentEditorViewModelProtocol!
-
+    
     // MARK: - Initializers
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Overrided functions
     
     override func loadView() {
@@ -73,7 +70,7 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewModel.viewLoaded()
     }
     
@@ -90,44 +87,20 @@ final class DocumentEditorViewController: UIViewController {
         )
     }
     
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        
-        collectionView.verticalScrollIndicatorInsets.top = navigationBarHeight
-        navigationBarHelper.heightConstraint?.constant = navigationBarHeight
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
         firstResponderHelper = nil
-    }
-    
-    /// Stretched header
-    func updateObjectHeaderPositionAndHeight() {
-        let contentOffsetY = collectionView.contentOffset.y
-        let relativeHeight = -contentOffsetY
-
-        objectHeaderView.transform = CGAffineTransform(translationX: 0.0, y: -contentOffsetY)
-        objectHeaderView.heightConstraint.constant = max(relativeHeight, objectHeaderView.height)
     }
     
     private var controllerForNavigationItems: UIViewController? {
         guard parent is UINavigationController else {
             return parent
         }
-
-        return self
-    }
-    
-    private var navigationBarHeight: CGFloat {
-        let navigationBarHeight = controllerForNavigationItems?.navigationController?.navigationBar.frame.height ?? 0
-
-        let statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         
-        return navigationBarHeight + statusBarHeight
+        return self
     }
     
 }
@@ -136,8 +109,7 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?) {
-        objectHeaderView.configure(model: header)
+    func updateNavigationBar(_ header: ObjectHeader, details: DetailsDataProtocol?) {
         
         navigationBarHelper.configureNavigationBar(
             using: header,
@@ -145,12 +117,14 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         )
     }
     
-    func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
-        var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.main])
+    func update(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
+        var snapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
+        snapshot.appendSections([.header, .main])
+        
+        snapshot.appendItems([.header(header)], toSection: .header)
         
         snapshot.appendItems(
-            blocks.map { DataSourceItem.block($0) },
+            blocks.map { EditorItem.block($0) },
             toSection: .main
         )
         
@@ -160,13 +134,15 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             switch item {
             case let .block(block):
                 let blockForUpdate = blocks.first { $0.blockId == block.blockId }
-
+                
                 guard let blockForUpdate = blockForUpdate else { return }
                 guard let indexPath = self.dataSource.indexPath(for: item) else { return }
                 guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
                 
                 cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = blockForUpdate.indentationLevel
+            case .header:
+                return
             }
         }
         
@@ -175,12 +151,14 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             self.focusOnFocusedBlock()
         }
     }
- 
+    
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
+            case .header:
+                return false
             }
         }
         
@@ -190,11 +168,11 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         }
         updateView()
     }
-
+    
     func needsUpdateLayout() {
         updateView()
     }
-
+    
     func textBlockWillBeginEditing() {
         contentOffset = collectionView.contentOffset
     }
@@ -208,7 +186,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             dataSource.refresh(animatingDifferences: true)
         }
     }
-
+    
 }
 
 // MARK: - Private extension
@@ -218,7 +196,6 @@ private extension DocumentEditorViewController {
     func setupView() {
         view.backgroundColor = .backgroundPrimary
         
-        setupObjectHeaderView()
         setupCollectionView()
         
         setupInteractions()
@@ -227,31 +204,12 @@ private extension DocumentEditorViewController {
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
     
-    func setupObjectHeaderView() {
-        objectHeaderView.onIconTap = { [weak self] in
-            UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.showIconPicker()
-        }
-        
-        objectHeaderView.onCoverTap = { [weak self] in
-            UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.showCoverPicker()
-        }
-        
-        objectHeaderView.onHeightUpdate = { [weak self] height in
-            guard let self = self else { return }
-            
-            // Updating additionalSafeAreaInsets will cause updating contentOffset/contentAdjustedInset in collectionView
-            self.additionalSafeAreaInsets.top = height - self.navigationBarHeight
-        }
-    }
-
     func setupCollectionView() {
         collectionView.delegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
-    func setupInteractions() {        
+    func setupInteractions() {
         listViewTapGestureRecognizer.addTarget(
             self,
             action: #selector(tapOnListViewGestureRecognizerHandler)
@@ -263,18 +221,6 @@ private extension DocumentEditorViewController {
         view.addSubview(collectionView) {
             $0.pinToSuperview()
         }
-        
-        // We add `objectHeaderView` above `collectionView` to make objectHeaderView`s gestures work
-        // otherwise they are cancels by `listViewTapGestureRecognizer`
-        view.addSubview(objectHeaderView) {
-            // bottom to top constraint used for stretched header implementation
-            $0.bottom.equal(to: view.topAnchor)
-            $0.pinToSuperview(excluding: [.top, .bottom])
-        }
-        
-        // If we leave objectHeaderView above collectionView it's scrollIndicators will be covered
-        // to prevent this we change zPosition
-        objectHeaderView.layer.zPosition = collectionView.layer.zPosition - 1
     }
     
     @objc
@@ -282,15 +228,16 @@ private extension DocumentEditorViewController {
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
-
+        
         viewModel.blockActionHandler.onEmptySpotTap()
     }
     
-    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {
+        let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
         let codeCellRegistration = createCodeCellRegistration()
-
-        let dataSource = UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem>(
+        
+        let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
         ) { (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
             switch dataSourceItem {
@@ -308,10 +255,22 @@ private extension DocumentEditorViewController {
                     for: indexPath,
                     item: block
                 )
+            case let .header(header):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: headerCellRegistration,
+                    for: indexPath,
+                    item: header
+                )
             }
         }
         
         return dataSource
+    }
+    
+    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
+        .init { cell, _, item in
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+        }
     }
     
     func createCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> {
@@ -325,46 +284,46 @@ private extension DocumentEditorViewController {
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
     }
-
+    
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel
         cell.contentView.isUserInteractionEnabled = true
-
+        
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         if FeatureFlags.rainbowCells {
             cell.fillSubviewsWithRandomColors(recursively: false)
         }
     }
-
+    
 }
 
 // MARK: - Initial Update data
 
 extension DocumentEditorViewController {
-        
+    
     private func apply(
-        _ snapshot: NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>,
+        _ snapshot: NSDiffableDataSourceSnapshot<EditorSection, EditorItem>,
         animatingDifferences: Bool = true,
         completion: (() -> Void)? = nil
     ) {
         let selectedCells = collectionView.indexPathsForSelectedItems
-
+        
         UIView.performWithoutAnimation {
             self.dataSource.apply(
                 snapshot,
                 animatingDifferences: animatingDifferences
             ) { [weak self] in
                 completion?()
-
+                
                 selectedCells?.forEach {
                     self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
                 }
             }
         }
     }
-
+    
     private func focusOnFocusedBlock() {
         let userSession = viewModel.document.userSession
         // TODO: we should move this logic to TextBlockViewModel

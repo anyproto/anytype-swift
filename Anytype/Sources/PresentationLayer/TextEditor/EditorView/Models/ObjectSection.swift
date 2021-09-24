@@ -1,3 +1,0 @@
-enum ObjectSection {
-    case main
-}

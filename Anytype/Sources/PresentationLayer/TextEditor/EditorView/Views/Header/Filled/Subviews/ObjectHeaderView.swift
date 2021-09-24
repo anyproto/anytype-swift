@@ -9,23 +9,13 @@
 import Foundation
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 final class ObjectHeaderView: UIView {
     
     var onCoverTap: (() -> Void)?
     var onIconTap: (() -> Void)?
     
-    var onHeightUpdate: ((CGFloat) -> Void)?
-    
-    private(set) var height: CGFloat = 0 {
-        didSet {
-            onHeightUpdate?(height)
-            heightConstraint.constant = height
-        }
-    }
-    
-    private(set) var heightConstraint: NSLayoutConstraint!
-
     // MARK: - Private variables
 
     private let iconView = ObjectIconView()
@@ -50,38 +40,43 @@ final class ObjectHeaderView: UIView {
 
 extension ObjectHeaderView: ConfigurableView {
     
-    func configure(model: ObjectHeader) {
-        switch model {
+    struct Model {
+        let header: ObjectHeader
+        let width: CGFloat
+    }
+    
+    func configure(model: Model) {
+        switch model.header {
         case .iconOnly(let objectIcon):
-            setupFilledState(.icon)
+            setupState(.icon)
             
             iconView.configure(model: objectIcon.asObjectIconViewModel)
             
             handleIconLayoutAlignment(objectIcon.layoutAlignment)
             
         case .coverOnly(let objectCover):
-            setupFilledState(.cover)
+            setupState(.cover)
             
             coverView.configure(
                 model: ObjectCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
-                        width: bounds.width,
-                        height: height
+                        width: model.width,
+                        height: Constants.height
                     )
                 )
             )
             
         case .iconAndCover(let objectIcon, let objectCover):
-            setupFilledState(.iconAndCover)
+            setupState(.iconAndCover)
             
             iconView.configure(model: objectIcon.asObjectIconViewModel)
             coverView.configure(
                 model: ObjectCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
-                        width: bounds.width,
-                        height: height
+                        width: model.width,
+                        height: Constants.height
                     )
                 )
             )
@@ -89,7 +84,8 @@ extension ObjectHeaderView: ConfigurableView {
             handleIconLayoutAlignment(objectIcon.layoutAlignment)
             
         case .empty:
-            setupEmptyState()
+            anytypeAssertionFailure("Not supported")
+            break
         }
     }
     
@@ -103,7 +99,8 @@ private extension ObjectHeaderView {
         
         setupLayout()
         
-        setupEmptyState()
+        iconView.isHidden = true
+        coverView.isHidden = true
     }
     
     func setupGestureRecognizers() {
@@ -122,7 +119,7 @@ private extension ObjectHeaderView {
     
     func setupLayout() {
         layoutUsing.anchors {
-            self.heightConstraint = $0.height.equal(to: 0)
+            $0.height.equal(to: Constants.height)
         }
         
         addSubview(coverView) {
@@ -152,6 +149,7 @@ private extension ObjectHeaderView {
                 to: centerXAnchor,
                 activate: false
             )
+            
             trailingConstraint =  $0.trailing.equal(
                 to: trailingAnchor,
                 constant: -Constants.iconHorizontalInset,
@@ -160,17 +158,8 @@ private extension ObjectHeaderView {
         }
     }
     
-    func setupEmptyState() {
-        height = Constants.emptyHeaderHeight
-        
-        iconView.isHidden = true
-        coverView.isHidden = true
-    }
-    
-    func setupFilledState(_ filledState: FilledState) {
-        height = Constants.filledHeaderHeight
-
-        switch filledState {
+    func setupState(_ state: State) {
+        switch state {
         case .icon:
             iconView.isHidden = false
             coverView.isHidden = true
@@ -204,7 +193,7 @@ private extension ObjectHeaderView {
 
 private extension ObjectHeaderView {
     
-    enum FilledState {
+    enum State {
         case icon
         case cover
         case iconAndCover
@@ -242,8 +231,7 @@ private extension ObjectIcon {
 extension ObjectHeaderView {
     
     enum Constants {
-        static let emptyHeaderHeight: CGFloat = 184
-        static let filledHeaderHeight: CGFloat = 264
+        static let height: CGFloat = 264
         
         static let coverBottomInset: CGFloat = 32
         

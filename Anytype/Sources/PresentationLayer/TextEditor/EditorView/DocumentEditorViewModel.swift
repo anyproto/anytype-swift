@@ -84,8 +84,8 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             event: event
         )
         
-        viewInput?.updateHeader(header, details: modelsHolder.details)
-        viewInput?.updateBlocks(modelsHolder.models)
+        viewInput?.updateNavigationBar(header, details: modelsHolder.details)
+        viewInput?.update(header: header, blocks: modelsHolder.models)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -112,7 +112,8 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
             
-            viewInput?.updateBlocks(modelsHolder.models)
+            // FIXME: - update just blocks
+            updateView()
         }
     }
     
@@ -200,8 +201,8 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         let details = modelsHolder.details
         let header = headerBuilder.objectHeader(details: details)
         
-        viewInput?.updateHeader(header, details: details)
-        viewInput?.updateBlocks(modelsHolder.models)
+        viewInput?.updateNavigationBar(header, details: details)
+        viewInput?.update(header: header, blocks: modelsHolder.models)
     }
     
 }
