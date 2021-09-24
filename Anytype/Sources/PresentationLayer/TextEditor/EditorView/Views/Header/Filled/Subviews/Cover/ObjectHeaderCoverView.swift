@@ -38,7 +38,7 @@ final class ObjectHeaderCoverView: UIView {
 extension ObjectHeaderCoverView: ConfigurableView {
     
     struct Model {
-        let objectCover: ObjectHeaderCover
+        let objectCover: ObjectHeaderCoverType
         let size: CGSize
     }
     

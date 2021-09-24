@@ -62,7 +62,10 @@ final class ObjectHeaderBuilder {
             )
         case .coverUploading(let uIImage):
             return ObjectHeader.coverOnly(
-                .preview(uIImage)
+                ObjectHeaderCover(
+                    coverType: .preview(uIImage),
+                    onTap: onCoverTap
+                )
             )
         }
     }
@@ -77,7 +80,10 @@ final class ObjectHeaderBuilder {
                     layoutAlignment: layoutAlign,
                     onTap: onIconTap
                 ),
-                cover: .cover(cover)
+                cover: ObjectHeaderCover(
+                    coverType: .cover(cover),
+                    onTap: onCoverTap
+                )
             )
         }
         
@@ -92,7 +98,12 @@ final class ObjectHeaderBuilder {
         }
         
         if let cover = details.documentCover {
-            return .coverOnly(.cover(cover))
+            return .coverOnly(
+                ObjectHeaderCover(
+                    coverType: .cover(cover),
+                    onTap: onCoverTap
+                )
+            )
         }
         
         return .empty
