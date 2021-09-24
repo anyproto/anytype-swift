@@ -56,24 +56,16 @@ private extension ObjectHeaderFilledContentView  {
         addSubview(headerView) {
             $0.pinToSuperview()
         }
-        
-        layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
-        }
-        translatesAutoresizingMaskIntoConstraints = true
     }
     
     func apply(_ configuration: ObjectHeaderFilledConfiguration) {
         appliedConfiguration = configuration
-        headerView.configure(model: configuration.header)
-    }
-    
-}
-
-extension ObjectHeaderFilledContentView {
-    
-    enum Constants {
-        static let height: CGFloat = 184
+        headerView.configure(
+            model: ObjectHeaderView.Model(
+                header: configuration.header,
+                width: configuration.width
+            )
+        )
     }
     
 }

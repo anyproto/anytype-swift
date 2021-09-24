@@ -40,8 +40,13 @@ final class ObjectHeaderView: UIView {
 
 extension ObjectHeaderView: ConfigurableView {
     
-    func configure(model: ObjectHeader) {
-        switch model {
+    struct Model {
+        let header: ObjectHeader
+        let width: CGFloat
+    }
+    
+    func configure(model: Model) {
+        switch model.header {
         case .iconOnly(let objectIcon):
             setupState(.icon)
             
@@ -56,7 +61,7 @@ extension ObjectHeaderView: ConfigurableView {
                 model: ObjectCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
-                        width: bounds.width,
+                        width: model.width,
                         height: Constants.height
                     )
                 )
@@ -70,7 +75,7 @@ extension ObjectHeaderView: ConfigurableView {
                 model: ObjectCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
-                        width: bounds.width,
+                        width: model.width,
                         height: Constants.height
                     )
                 )

@@ -21,7 +21,7 @@ final class DocumentEditorViewController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        
+        collectionView.contentInsetAdjustmentBehavior = .never
         return collectionView
     }()
     
@@ -109,18 +109,19 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateHeader(_ header: ObjectHeader, details: DetailsDataProtocol?) {
+    func updateNavigationBar(_ header: ObjectHeader, details: DetailsDataProtocol?) {
+        
         navigationBarHelper.configureNavigationBar(
             using: header,
             details: details
         )
     }
     
-    func updateBlocks(_ blocks: [BlockViewModelProtocol]) {
+    func update(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
         var snapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
         snapshot.appendSections([.header, .main])
         
-//        snapshot.appendItems([.header("FUCK YOU")], toSection: .header)
+        snapshot.appendItems([.header(header)], toSection: .header)
         
         snapshot.appendItems(
             blocks.map { EditorItem.block($0) },
@@ -268,7 +269,7 @@ private extension DocumentEditorViewController {
     
     func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
         .init { cell, _, item in
-            cell.contentConfiguration = ObjectHeaderEmptyConfiguration()
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         }
     }
     

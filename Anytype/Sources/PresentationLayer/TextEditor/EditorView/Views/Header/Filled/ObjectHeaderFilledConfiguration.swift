@@ -11,6 +11,7 @@ import UIKit
 struct ObjectHeaderFilledConfiguration: UIContentConfiguration, Hashable {
         
     let header: ObjectHeader
+    let width: CGFloat
     
     func makeContentView() -> UIView & UIContentView {
         ObjectHeaderFilledContentView(configuration: self)
