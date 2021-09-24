@@ -4,8 +4,8 @@ import UIKit
 enum ObjectHeader: Hashable {
     
     case iconOnly(ObjectHeaderIcon)
-    case coverOnly(ObjectCover)
-    case iconAndCover(icon: ObjectHeaderIcon, cover: ObjectCover)
+    case coverOnly(ObjectHeaderCover)
+    case iconAndCover(icon: ObjectHeaderIcon, cover: ObjectHeaderCover)
     case empty
     
 }

@@ -57,7 +57,7 @@ extension ObjectHeader {
     }
     
     private func modifiedByCoverUploadingEventWith(image: UIImage) -> ObjectHeader? {
-        let newCover = ObjectCover.preview(image)
+        let newCover = ObjectHeaderCover.preview(image)
         
         switch self {
         case .iconOnly(let objectIcon):

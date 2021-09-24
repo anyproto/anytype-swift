@@ -19,7 +19,7 @@ final class ObjectHeaderView: UIView {
     // MARK: - Private variables
 
     private let iconView = ObjectHeaderIconView()
-    private let coverView = ObjectCoverView()
+    private let coverView = ObjectHeaderCoverView()
     
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
@@ -66,7 +66,7 @@ extension ObjectHeaderView: ConfigurableView {
             setupState(.cover)
             
             coverView.configure(
-                model: ObjectCoverView.Model(
+                model: ObjectHeaderCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
                         width: model.width,
@@ -80,7 +80,7 @@ extension ObjectHeaderView: ConfigurableView {
             
             iconView.configure(model: objectIcon.icon)
             coverView.configure(
-                model: ObjectCoverView.Model(
+                model: ObjectHeaderCoverView.Model(
                     objectCover: objectCover,
                     size: CGSize(
                         width: model.width,
