@@ -1,4 +1,4 @@
-enum EditorSection {
+enum EditorSection: CaseIterable {
     case header
     case main
 }
