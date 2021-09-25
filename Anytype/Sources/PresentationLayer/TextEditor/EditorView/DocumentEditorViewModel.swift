@@ -84,8 +84,9 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             event: event
         )
         
-        viewInput?.updateNavigationBar(header, details: modelsHolder.details)
-        viewInput?.update(header: header, blocks: modelsHolder.models)
+        viewInput?.update(header: header, details: modelsHolder.details)
+        // TODO: remove?
+        viewInput?.update(blocks: modelsHolder.models)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -201,8 +202,8 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         let details = modelsHolder.details
         let header = headerBuilder.objectHeader(details: details)
         
-        viewInput?.updateNavigationBar(header, details: details)
-        viewInput?.update(header: header, blocks: modelsHolder.models)
+        viewInput?.update(header: header, details: details)
+        viewInput?.update(blocks: modelsHolder.models)
     }
     
 }

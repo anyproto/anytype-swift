@@ -110,14 +110,18 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateNavigationBar(_ header: ObjectHeader, details: DetailsDataProtocol?) {
+    func update(header: ObjectHeader, details: DetailsDataProtocol?) {
+        var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        headerSnapshot.append([.header(header)])
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
+        
         navigationBarHelper.configureNavigationBar(
             using: header,
             details: details
         )
     }
     
-    func update(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
+    func update(blocks: [BlockViewModelProtocol]) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         
