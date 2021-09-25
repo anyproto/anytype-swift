@@ -36,7 +36,7 @@ final class ObjectHeaderBuilder {
         return buildObjectHeader(details: details)
     }
     
-    func objectHeaderForLocalEvent(details: DetailsDataProtocol?, event: ObjectHeaderLocalEvent) -> ObjectHeader {
+    func objectHeaderForLocalEvent(_ event: ObjectHeaderLocalEvent, details: DetailsDataProtocol?) -> ObjectHeader {
         guard let details = details else {
             return fakeHeader(event: event)
         }

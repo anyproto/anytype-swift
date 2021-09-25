@@ -17,7 +17,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     
     let router: EditorRouterProtocol
     
-    let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
+    private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
     let blockActionHandler: EditorActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
@@ -80,13 +80,11 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
         let header = headerBuilder.objectHeaderForLocalEvent(
-            details: modelsHolder.details,
-            event: event
+            event,
+            details: modelsHolder.details
         )
         
         viewInput?.update(header: header, details: modelsHolder.details)
-        // TODO: remove?
-        viewInput?.update(blocks: modelsHolder.models)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -113,8 +111,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
             
-            // FIXME: - update just blocks
-            updateView()
+            viewInput?.update(blocks: modelsHolder.models)
         }
     }
     
@@ -191,19 +188,15 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         modelsHolder.apply(newModels: models)
         modelsHolder.apply(newDetails: details)
         
-        updateView()
-        
-        if let details = modelsHolder.details {
-            objectSettingsViewModel.update(with: details)
-        }
-    }
-    
-    func updateView() {
         let details = modelsHolder.details
         let header = headerBuilder.objectHeader(details: details)
         
         viewInput?.update(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
+        
+        if let details = details {
+            objectSettingsViewModel.update(with: details)
+        }
     }
     
 }
