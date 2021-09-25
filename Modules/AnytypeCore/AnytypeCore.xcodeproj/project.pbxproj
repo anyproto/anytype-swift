@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1255DF7026FF63DA00870B95 /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF6F26FF63DA00870B95 /* SynchronizedDictionary.swift */; };
 		1263D6EC26B7E59C001D4C8A /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */; };
 		3D43FD7E26B057250094D4C0 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7926B056330094D4C0 /* FeatureFlags.swift */; };
 		3D43FD8026B0573A0094D4C0 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1255DF6F26FF63DA00870B95 /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
 		1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D43FD7926B056330094D4C0 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1255DF6E26FF63CF00870B95 /* Synchronized colections */ = {
+			isa = PBXGroup;
+			children = (
+				1255DF6F26FF63DA00870B95 /* SynchronizedDictionary.swift */,
+			);
+			path = "Synchronized colections";
+			sourceTree = "<group>";
+		};
 		1263D6EA26B7E59C001D4C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +90,7 @@
 		3D43FDAC26B188E70094D4C0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1255DF6E26FF63CF00870B95 /* Synchronized colections */,
 				3D93854426FC3AE2001C137F /* UserDefaults */,
 				3D43FD7A26B056330094D4C0 /* FeatureFlags */,
 				3D53F03426B30116001A6EEE /* SwiftProtobuf */,
@@ -237,6 +248,7 @@
 				3DFE7F4126E22B530093EECB /* StringExtension.swift in Sources */,
 				3D53F03626B30116001A6EEE /* GoogleProtobufValueExtensions.swift in Sources */,
 				3D43FDAE26B188F80094D4C0 /* MetadataProvider.swift in Sources */,
+				1255DF7026FF63DA00870B95 /* SynchronizedDictionary.swift in Sources */,
 				3D69EFE626B009DD002C54C4 /* AssertionLogger.swift in Sources */,
 				3D93854626FC3AFB001C137F /* UserDefaultsConfig.swift in Sources */,
 				3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */,
