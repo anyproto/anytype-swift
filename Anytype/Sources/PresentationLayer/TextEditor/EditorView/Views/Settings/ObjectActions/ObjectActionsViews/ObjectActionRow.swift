@@ -16,6 +16,7 @@ struct ObjectActionRow: View {
     var body: some View {
         Button {
             onTap()
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
         label: {
             VStack(spacing: Constants.space) {
