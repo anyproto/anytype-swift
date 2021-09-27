@@ -6,61 +6,36 @@
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
-import Foundation
 import AnytypeCore
 import Combine
 import BlocksModels
 
-final class ImageUploadingOperation: AsyncOperation {
-    
-    private(set) var uploadedImageHash: BlockActionsServiceFile.FileHash?
+final class ImageUploadingOperation: Operation {
     
     // MARK: - Private variables
     
-    private let fileService = BlockActionsServiceFile()
+    private let contentType: MediaPickerContentType
+    private let itemProvider: NSItemProvider
     
-    private var subscription: AnyCancellable?
+    // MARK: - Initializers
     
-    private let imageUrl: URL
-    
-    init(imageUrl: URL) {
-        self.imageUrl = imageUrl
-        
+    init(contentType: MediaPickerContentType, itemProvider: NSItemProvider) {
+        self.contentType = contentType
+        self.itemProvider = itemProvider
         super.init()
     }
     
-    // MARK: - Override functions
-    
-    override func start() {
-        guard !isCancelled else { return }
+    override func main() {
+        let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
+            contentType.supportedTypeIdentifiers.contains($0)
+        }
         
-        let localPath = imageUrl.relativePath
+        guard let identifier = typeIdentifier else { return }
         
-        subscription = fileService.uploadFile(
-            url: "",
-            localPath: localPath,
-            type: .image,
-            disableEncryption: true
-        ).sink(
-            receiveCompletion: { [weak self]  completion in
-                switch completion {
-                case .finished:
-                    // Operation finish in receiveValue closure? 
-                    return
-                case let .failure(error):
-                    anytypeAssertionFailure("ImageUploadingOperation error: \(error)")
-                    self?.state = .finished
-                }
-            },
-            receiveValue: { [weak self] uploadedImageHash in
-                guard let self = self else { return }
-                
-                self.uploadedImageHash = uploadedImageHash
-                self.state = .finished
-            }
-        )
-        
-        state = .executing
+        itemProvider.loadFileRepresentation(
+            forTypeIdentifier: identifier
+        ) { [weak self] url, error in
+            
+        }
     }
-    
 }
