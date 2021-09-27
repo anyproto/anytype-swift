@@ -14,10 +14,10 @@ protocol CustomizableHitTestAreaView: UIView {
 }
 
 extension CustomizableHitTestAreaView {
-    func customHitTestArea(_ point: CGPoint) -> UIView? {
-        let dX = max(minHitTestArea.width - bounds.width, bounds.width) / 2
-        let dY = max(minHitTestArea.height - bounds.height, bounds.height) / 2
+    func containsCustomHitTestArea(_ point: CGPoint) -> Bool {
+        let dX = max(minHitTestArea.width - bounds.width, 0) / 2
+        let dY = max(minHitTestArea.height - bounds.height, 0) / 2
 
-        return bounds.insetBy(dx: -dX, dy: -dY).contains(point) ? self : nil
+        return bounds.insetBy(dx: -dX, dy: -dY).contains(point)
     }
 }
