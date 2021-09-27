@@ -26,7 +26,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func archiveObject() {
-        guard let isArchived = details.isArchived else { return }
+        let isArchived = details.isArchived ?? false
         archiveService.setArchive(!isArchived)
     }
 
