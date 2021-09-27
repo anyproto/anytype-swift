@@ -111,7 +111,6 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
     func updateNavigationBar(_ header: ObjectHeader, details: DetailsDataProtocol?) {
-        
         navigationBarHelper.configureNavigationBar(
             using: header,
             details: details
@@ -119,15 +118,8 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     }
     
     func update(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        var snapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
-        snapshot.appendSections([.header, .main])
-        
-        snapshot.appendItems([.header(header)], toSection: .header)
-        
-        snapshot.appendItems(
-            blocks.map { EditorItem.block($0) },
-            toSection: .main
-        )
+        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
         
@@ -147,10 +139,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             }
         }
         
-        apply(snapshot) { [weak self] in
-            guard let self = self else { return }
-            self.focusOnFocusedBlock()
-        }
+        applyBlocksSectionSnapshot(blocksSnapshot)
     }
     
     func selectBlock(blockId: BlockId) {
@@ -265,6 +254,12 @@ private extension DocumentEditorViewController {
             }
         }
         
+        
+        var initialSnapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
+        initialSnapshot.appendSections(EditorSection.allCases)
+        
+        dataSource.apply(initialSnapshot, animatingDifferences: false)
+        
         return dataSource
     }
     
@@ -302,25 +297,18 @@ private extension DocumentEditorViewController {
 
 // MARK: - Initial Update data
 
-extension DocumentEditorViewController {
+private extension DocumentEditorViewController {
     
-    private func apply(
-        _ snapshot: NSDiffableDataSourceSnapshot<EditorSection, EditorItem>,
-        animatingDifferences: Bool = true,
-        completion: (() -> Void)? = nil
-    ) {
+    func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
         
-        UIView.performWithoutAnimation {
-            self.dataSource.apply(
-                snapshot,
-                animatingDifferences: animatingDifferences
-            ) { [weak self] in
-                completion?()
-                
-                selectedCells?.forEach {
-                    self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
-                }
+        UIView.performWithoutAnimation { [weak self] in
+            guard let self = self else { return }
+            
+            self.dataSource.apply(snapshot, to: .main, animatingDifferences: true)
+            self.focusOnFocusedBlock()
+            selectedCells?.forEach {
+                self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
             }
         }
     }
