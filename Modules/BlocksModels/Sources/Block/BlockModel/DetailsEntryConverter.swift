@@ -47,7 +47,7 @@ public class DetailsEntryConverter {
             case .name:
                 return value.asStringEntry()
             case .iconEmoji:
-                return value.asTrimmedStringEntry()
+                return value.asStringEntry()
             case .iconImage:
                 return value.asStringEntry()
             case .coverId:
