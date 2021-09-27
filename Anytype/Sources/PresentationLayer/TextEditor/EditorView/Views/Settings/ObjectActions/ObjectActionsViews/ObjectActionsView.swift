@@ -20,7 +20,7 @@ struct ObjectActionsView: View {
                     ObjectActionRow(setting: setting) {
                         switch setting {
                         case .archive:
-                            viewModel.archiveObject()
+                            viewModel.changeArchiveState()
 //                        case .favorite:
 //                            viewModel.favoriteObject()
 //                        case .moveTo:
