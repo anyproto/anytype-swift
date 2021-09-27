@@ -2,7 +2,7 @@ import UIKit
 import BlocksModels
 
 
-final class ButtonWithImage: UIControl {
+final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
     private var borderEdges: UIRectEdge?
     private var borderWidth: CGFloat = 0.0
     private var borderColor: UIColor = .clear
@@ -14,12 +14,13 @@ final class ButtonWithImage: UIControl {
     private var imageTintColorsMap = [UInt: UIColor]()
     private var textColorsMap = [UInt: UIColor]()
 
-    private var minHitTestArea: CGSize = .zero
+    var minHitTestArea: CGSize = .zero
 
     // MARK: - Lifecycle
 
     init() {
         super.init(frame: .zero)
+
         setupViews()
     }
 
@@ -31,10 +32,7 @@ final class ButtonWithImage: UIControl {
     // MARK: - Overriden methods
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let dX = max(minHitTestArea.width - bounds.width, bounds.width) / 2
-        let dY = max(minHitTestArea.height - bounds.height, bounds.height) / 2
-
-        return bounds.insetBy(dx: -dX, dy: -dY).contains(point) ? self : nil
+        return customHitTestArea(point)
     }
 
     override func layoutSublayers(of layer: CALayer) {
