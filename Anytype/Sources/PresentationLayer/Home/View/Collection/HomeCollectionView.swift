@@ -53,7 +53,6 @@ struct HomeCollectionView: View {
             }
             .padding()
         }
-        .animation(.spring())
         .padding([.top], -22)
     }
 }
