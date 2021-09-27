@@ -305,7 +305,7 @@ private extension DocumentEditorViewController {
         UIView.performWithoutAnimation { [weak self] in
             guard let self = self else { return }
             
-            self.dataSource.apply(snapshot, to: .main, animatingDifferences: false)
+            self.dataSource.apply(snapshot, to: .main, animatingDifferences: true)
             self.focusOnFocusedBlock()
             selectedCells?.forEach {
                 self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
