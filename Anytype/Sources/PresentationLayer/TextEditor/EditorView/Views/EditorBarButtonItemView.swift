@@ -33,7 +33,7 @@ final class EditorBarButtonItemView: UIView, CustomizableHitTestAreaView {
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return customHitTestArea(point)
+        return containsCustomHitTestArea(point) ? self.button : nil
     }
 }
 

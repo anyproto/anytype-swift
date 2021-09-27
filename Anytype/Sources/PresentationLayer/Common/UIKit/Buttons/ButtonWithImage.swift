@@ -32,7 +32,7 @@ final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
     // MARK: - Overriden methods
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return customHitTestArea(point)
+        return containsCustomHitTestArea(point) ? self : nil
     }
 
     override func layoutSublayers(of layer: CALayer) {
