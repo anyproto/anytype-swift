@@ -1,5 +1,6 @@
 import Foundation
 import AnytypeCore
+import SwiftUI
 
 // MARK: - CellDataManager
 protocol DragAndDropDelegate {
@@ -21,10 +22,12 @@ extension HomeViewModel: DragAndDropDelegate {
         
         let dropAfter = toIndex > fromIndex
         
-        favoritesCellData.move(
-            fromOffsets: IndexSet(integer: fromIndex),
-            toOffset: dropAfter ? toIndex + 1 : toIndex
-        )
+        withAnimation(.spring()) {
+            favoritesCellData.move(
+                fromOffsets: IndexSet(integer: fromIndex),
+                toOffset: dropAfter ? toIndex + 1 : toIndex
+            )
+        }
         
         return dropAfter ? .after : .before
     }
