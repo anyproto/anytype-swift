@@ -45,8 +45,8 @@ final class FileUploadingOperation: AsyncOperation {
             receiveCompletion: { [weak self]  completion in
                 switch completion {
                 case .finished:
-                    // Operation finish in receiveValue closure?
-                    return
+                    self?.state = .finished
+                    
                 case let .failure(error):
                     anytypeAssertionFailure("FileUploadingOperation error: \(error)")
                     self?.state = .finished
