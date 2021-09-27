@@ -13,12 +13,13 @@ struct Snackbar: View {
         actionText != nil && action != nil
     }
 
-    init<Presenting>(isShowing: Binding<Bool>,
-         presenting: Presenting,
-         text: AnytypeText,
-         actionText: Text? = nil,
-         action: (() -> Void)? = nil) where Presenting: View {
-
+    init<Presenting>(
+        isShowing: Binding<Bool>,
+        presenting: Presenting,
+        text: AnytypeText,
+        actionText: Text? = nil,
+        action: (() -> Void)? = nil
+    ) where Presenting: View {
         _isShowing = isShowing
         self.presenting = presenting.eraseToAnyView()
         self.text = text
@@ -33,47 +34,42 @@ struct Snackbar: View {
                 self.presenting
                 VStack {
                     Spacer()
-                    if self.isShowing {
-                        HStack {
-                            Image.checked
-                            self.text
-                                .foregroundColor(Color.textPrimary)
-                            Spacer()
-                            if (self.actionText != nil && self.action != nil) {
-                                self.actionText!
-                                    .bold()
-                                    .foregroundColor(Color.textPrimary)
-                                    .onTapGesture {
-                                        self.action?()
-                                        withAnimation {
-                                            self.isShowing = false
-                                        }
-                                    }
-                            }
-                        }
-                        .padding()
-                        .frame(width: geometry.size.width * 0.9, height: 64)
-                        .background(Color.background)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .shadow(radius: 7)
-                        .offset(x: 0, y: -20)
-                        .transition(
-                            .asymmetric(
-                                insertion: .move(edge: .bottom),
-                                removal: .opacity
-                            )
-                        )
-                        .animation(Animation.spring())
-                        .onAppear {
-                            guard !self.isBeingDismissedByAction else { return }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                withAnimation {
-                                    self.isShowing = false
-                                }
-                            }
-                        }
+                    if isShowing {
+                        snackbar(containerWidth: geometry.size.width)
+                            .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
                     }
                 }
+                .animation(.spring(), value: isShowing)
+            }
+        }
+    }
+    
+    private func snackbar(containerWidth: CGFloat) -> some View {
+        HStack {
+            Image.checked
+            self.text
+                .foregroundColor(Color.textPrimary)
+            Spacer()
+            if (self.actionText != nil && self.action != nil) {
+                self.actionText!
+                    .bold()
+                    .foregroundColor(Color.textPrimary)
+                    .onTapGesture {
+                        self.action?()
+                        self.isShowing = false
+                    }
+            }
+        }
+        .padding()
+        .frame(width: containerWidth * 0.9, height: 64)
+        .background(Color.background)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .shadow(radius: 7)
+        .offset(x: 0, y: -20)
+        .onAppear {
+            guard !self.isBeingDismissedByAction else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.isShowing = false
             }
         }
     }

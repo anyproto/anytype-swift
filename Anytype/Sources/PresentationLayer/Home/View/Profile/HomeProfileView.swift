@@ -93,7 +93,7 @@ struct HomeProfileView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)
                 .fixedSize(horizontal: false, vertical: true)
-            Spacer.fixedHeight(containerHeight / 6)
+            Spacer.fixedHeight(containerHeight / 5)
         }
     }
 }

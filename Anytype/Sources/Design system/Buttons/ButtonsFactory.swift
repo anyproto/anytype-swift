@@ -4,10 +4,6 @@ import UIKit
 
 enum ButtonsFactory {
     typealias ActionHandler = (_ action: UIAction) -> Void
-
-    private enum Constants {
-        static let backButtonImageToTitlePadding: CGFloat = 10
-    }
     
     static func makeBackButton(actionHandler: @escaping ActionHandler) -> UIButton {
         let backButton = UIButton(type: .system, primaryAction: UIAction { action in
@@ -21,8 +17,12 @@ enum ButtonsFactory {
             for: .normal
         )
         backButton.setImage(.back, for: .normal)
-        backButton.setImageAndTitleSpacing(Constants.backButtonImageToTitlePadding)
         backButton.tintColor = .textSecondary
+        
+        var configuration = UIButton.Configuration.borderless()
+        configuration.imagePadding = 10
+        backButton.configuration = configuration
+        
         return backButton
     }
     
