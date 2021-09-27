@@ -19,9 +19,18 @@ enum ButtonsFactory {
         backButton.setImage(.back, for: .normal)
         backButton.tintColor = .textSecondary
         
-        var configuration = UIButton.Configuration.borderless()
-        configuration.imagePadding = 10
-        backButton.configuration = configuration
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.borderless()
+            configuration.imagePadding = 10
+            backButton.configuration = configuration
+        } else {
+            backButton.imageEdgeInsets = UIEdgeInsets(
+                top: backButton.imageEdgeInsets.top,
+                left: backButton.imageEdgeInsets.left,
+                bottom: backButton.imageEdgeInsets.bottom,
+                right: 10
+            )
+        }
         
         return backButton
     }
