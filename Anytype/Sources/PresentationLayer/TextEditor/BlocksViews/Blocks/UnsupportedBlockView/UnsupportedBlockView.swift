@@ -4,7 +4,6 @@ import UIKit
 import AnytypeCore
 
 class UnsupportedBlockView: UIView & UIContentView {
-    private let fontStyle: AnytypeFont = .callout
     private var currentConfiguration: UnsupportedBlockContentConfiguration
 
     var configuration: UIContentConfiguration {
@@ -20,7 +19,7 @@ class UnsupportedBlockView: UIView & UIContentView {
     }
 
     private let label: AnytypeLabel = {
-        let label = AnytypeLabel()
+        let label = AnytypeLabel(style: .callout)
         label.textColor = .textTertiary
         return label
     }()
@@ -63,7 +62,7 @@ class UnsupportedBlockView: UIView & UIContentView {
 
     // MARK: - New configuration
     func apply(configuration: UnsupportedBlockContentConfiguration) {
-        label.setText(configuration.text, style: fontStyle)
+        label.setText(configuration.text)
     }
 }
 

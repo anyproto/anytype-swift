@@ -46,12 +46,7 @@ class AnytypeLabel: UIView {
 
     // MARK: - Life cycle
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setupView()
-    }
-
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,6 +55,8 @@ class AnytypeLabel: UIView {
         self.style = style
 
         super.init(frame: .zero)
+
+        setupView()
     }
 
     override var intrinsicContentSize: CGSize {

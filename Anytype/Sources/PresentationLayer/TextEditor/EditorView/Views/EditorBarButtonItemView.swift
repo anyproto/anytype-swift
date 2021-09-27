@@ -8,8 +8,9 @@
 
 import UIKit
 
-final class EditorBarButtonItemView: UIView {
-    
+final class EditorBarButtonItemView: UIView, CustomizableHitTestAreaView {
+    var minHitTestArea: CGSize = Constants.minimumHitArea
+
     var backgroundAlpha: CGFloat = 0.0 {
         didSet {
             handleAlphaUpdate(backgroundAlpha)
@@ -32,10 +33,7 @@ final class EditorBarButtonItemView: UIView {
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let dX = max(Constants.minimumHitArea.width - bounds.width, 0) / 2
-        let dY = max(Constants.minimumHitArea.height - bounds.height, 0) / 2
-        
-        return bounds.insetBy(dx: -dX, dy: -dY).contains(point) ? self.button : nil
+        return customHitTestArea(point)
     }
 }
 
