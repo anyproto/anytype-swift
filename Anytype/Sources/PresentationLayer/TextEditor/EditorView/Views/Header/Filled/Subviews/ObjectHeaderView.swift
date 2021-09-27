@@ -39,7 +39,13 @@ final class ObjectHeaderView: UIView {
     // MARK: - Internal functions
     
     func applyCoverTransform(_ transform: CGAffineTransform) {
+        // Disable CALayer implicit animations
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+
         coverView.transform = transform
+
+        CATransaction.commit()
     }
     
 }
