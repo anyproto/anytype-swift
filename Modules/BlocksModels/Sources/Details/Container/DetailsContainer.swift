@@ -1,8 +1,10 @@
+import AnytypeCore
+
 public final class DetailsContainer: DetailsContainerProtocol {
     // TODO: Remove after migration to single document for whole app
     public static let shared: DetailsContainerProtocol = DetailsContainer()
     
-    private var details: [String: LegacyDetailsModel] = [:]
+    private var details = SynchronizedDictionary<String, LegacyDetailsModel>()
     
     public init() {}
     
