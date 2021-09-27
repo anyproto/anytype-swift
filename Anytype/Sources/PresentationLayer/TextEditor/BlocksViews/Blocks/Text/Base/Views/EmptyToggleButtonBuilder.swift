@@ -23,8 +23,11 @@ final class EmptyToggleButtonBuilder {
         )
         button.contentHorizontalAlignment = .leading
         button.isHidden = true
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         button.titleLabel?.lineBreakMode = .byWordWrapping
+        
+        var configuration = UIButton.Configuration.plain()
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 28, bottom: 0, trailing: 0)
+        button.configuration = configuration
         
         return button
     }
