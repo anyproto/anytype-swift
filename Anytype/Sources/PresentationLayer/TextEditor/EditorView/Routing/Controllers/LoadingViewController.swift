@@ -104,9 +104,13 @@ final class LoadingViewController: UIViewController {
             for: .normal
         )
         
-        var configuration = UIButton.Configuration.plain()
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        cancelButton.configuration = configuration
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.plain()
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            cancelButton.configuration = configuration
+        } else {
+            cancelButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        }
         
         cancelButton.backgroundColor = .orange
         
