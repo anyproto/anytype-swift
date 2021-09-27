@@ -48,19 +48,23 @@ final class FileUploadingOperation: AsyncOperation {
                     // Operation finish in receiveValue closure?
                     return
                 case let .failure(error):
-                    anytypeAssertionFailure("ImageUploadingOperation error: \(error)")
+                    anytypeAssertionFailure("FileUploadingOperation error: \(error)")
                     self?.state = .finished
                 }
             },
             receiveValue: { [weak self] uploadedFileHash in
-                guard let self = self else { return }
-                
-                self.uploadedFileHash = uploadedFileHash
-                self.state = .finished
+                self?.handleReceiveValue(uploadedFileHash)
             }
         )
         
         state = .executing
+    }
+    
+    private func handleReceiveValue(_ hash: String) {
+        guard !isCancelled else { return }
+        
+        uploadedFileHash = hash
+        state = .finished
     }
     
 }
