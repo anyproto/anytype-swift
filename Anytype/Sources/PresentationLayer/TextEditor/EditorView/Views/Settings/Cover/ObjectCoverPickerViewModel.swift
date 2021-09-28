@@ -53,15 +53,11 @@ extension ObjectCoverPickerViewModel {
     
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        // yes, we capture detailsService in order to perform update details if user leave current screen
-        imageUploadingDemon.uploadImageFrom(item: itemProvider) { [detailsService] uploadedImageHash in
-            detailsService.update(
-                details: [
-                    .coverType: DetailsEntry(value: CoverType.uploadedImage),
-                    .coverId: DetailsEntry(value: uploadedImageHash)
-                ]
-            )
-        }
+        let operation = ImageUploadingOperation(itemProvider)
+        operation.stateHandler = CoverImageUploadingStateHandler(
+            detailsService: detailsService
+        )
+        imageUploadingDemon.addOperation(operation)
     }
     
     func removeCover() {

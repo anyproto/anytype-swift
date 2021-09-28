@@ -24,10 +24,14 @@ final class ObjectHeaderLocalEventsListener {
             name: .documentCoverImageUploadingEvent,
             object: nil
         )
-        .compactMap { $0.object as? String }
-        .compactMap { UIImage(contentsOfFile: $0) }
+        .map {
+            guard let string = $0.object as? String else { return nil }
+            return UIImage(contentsOfFile: string)
+        }
         .receiveOnMain()
-        .sink { onReceive(.coverUploading($0)) }
+        .sink {
+            onReceive(.coverUploading($0))
+        }
         .store(in: &subscriptions)
         
         NotificationCenter.Publisher(

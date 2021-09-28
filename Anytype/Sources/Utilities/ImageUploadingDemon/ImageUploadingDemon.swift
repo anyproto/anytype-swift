@@ -12,7 +12,7 @@ final class ImageUploadingDemon {
     
     // MARK: - Internal variables
     
-    let queue: OperationQueue = {
+    private let queue: OperationQueue = {
         let queue = OperationQueue()
         queue.qualityOfService = .utility
         return queue
@@ -24,10 +24,7 @@ final class ImageUploadingDemon {
 
     // MARK: - Internal func
     
-    func uploadImageFrom(item: NSItemProvider, onUpload: ((String) -> Void)?) {
-        let operation = ImageUploadingOperation(item)
-        operation.onImageUpload = onUpload
-        
+    func addOperation(_ operation: ImageUploadingOperation) {
         queue.addOperation(operation)
     }
     

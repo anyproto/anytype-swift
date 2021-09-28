@@ -48,7 +48,7 @@ extension ObjectHeader {
     }
     
     private func modifiedByCoverUploadingEventWith(
-        image: UIImage,
+        image: UIImage?,
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader? {
         let newCover = ObjectHeaderCover(
