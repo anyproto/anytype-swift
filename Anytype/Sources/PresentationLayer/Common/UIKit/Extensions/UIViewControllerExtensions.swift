@@ -1,11 +1,3 @@
-//
-//  UIViewControllerExtensions.swift
-//  UIViewControllerExtensions
-//
-//  Created by Konstantin Mordan on 16.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 extension UIViewController {

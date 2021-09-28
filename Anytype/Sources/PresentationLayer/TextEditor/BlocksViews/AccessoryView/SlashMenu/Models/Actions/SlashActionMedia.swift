@@ -1,6 +1,6 @@
 import BlocksModels
 
-enum BlockMediaAction: CaseIterable {
+enum SlashActionMedia: CaseIterable {
     case file
     case pictre
     case video

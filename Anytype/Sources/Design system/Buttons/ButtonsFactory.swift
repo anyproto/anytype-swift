@@ -16,7 +16,7 @@ enum ButtonsFactory {
             ),
             for: .normal
         )
-        backButton.setImage(.back, for: .normal)
+        backButton.setImage(.backArrow, for: .normal)
         backButton.tintColor = .textSecondary
         
         if #available(iOS 15.0, *) {

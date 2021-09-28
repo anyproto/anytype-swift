@@ -2,7 +2,6 @@ import UIKit
 import AnytypeCore
 
 extension UIImage {
-    static let back = createImage("slash_menu_back")
     static let backArrow = createImage("backArrow")
     
     static let more = createImage("TextEditor/More")
@@ -55,6 +54,10 @@ extension UIImage {
     
     enum codeBlock {
         static let arrow = createImage("TextEditor/turn_into_arrow")
+    }
+    
+    enum slashMenu {
+        static let legacyBack = createImage("slash_menu_back")
     }
     
     enum textAttributes {
