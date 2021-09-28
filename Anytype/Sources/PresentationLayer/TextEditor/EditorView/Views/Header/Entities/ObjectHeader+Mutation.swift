@@ -22,7 +22,7 @@ extension ObjectHeader {
     }
     
     private func modifiedByIconUploadingEventWith(
-        image: UIImage,
+        image: UIImage?,
         onIconTap: @escaping () -> ()
     ) -> ObjectHeader? {
         switch self {
@@ -77,7 +77,7 @@ extension ObjectHeader {
 private extension ObjectHeader.FilledState {
     
     func modifiedByIconUploadingEventWith(
-        image: UIImage,
+        image: UIImage?,
         onIconTap: @escaping () -> ()
     ) -> ObjectHeader.FilledState {
         switch self {
@@ -108,7 +108,7 @@ private extension ObjectHeader.FilledState {
 
 private extension ObjectHeaderIcon {
     
-    func modifiedBy(previewImage image: UIImage) -> ObjectHeaderIcon {
+    func modifiedBy(previewImage image: UIImage?) -> ObjectHeaderIcon {
         switch self.icon {
         case .icon(let objectIconType):
             switch objectIconType {
