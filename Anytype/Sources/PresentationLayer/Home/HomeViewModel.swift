@@ -5,18 +5,6 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-extension HomeViewModel {
-    struct OpenedPageData {
-        let pageId: String
-        var showingNewPage: Bool
-    }
-    
-    struct SnackBarData {
-        let text: String
-        var showSnackBar: Bool
-    }
-}
-
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
     var nonArchivedFavoritesCellData: [HomeCellData] {
@@ -26,10 +14,7 @@ final class HomeViewModel: ObservableObject {
     @Published var archiveCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
     
-    @Published var openedPageData = OpenedPageData(
-        pageId: UserDefaultsConfig.lastOpenedPageId ?? "",
-        showingNewPage: UserDefaultsConfig.lastOpenedPageId != nil
-    )
+    @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
@@ -136,9 +121,7 @@ extension HomeViewModel {
     }
     
     func showPage(pageId: BlockId) {
-        openedPageData = OpenedPageData(
-            pageId: pageId,
-            showingNewPage: true
-        )
+        openedPageData.pageId = pageId
+        openedPageData.showingNewPage = true
     }
 }
