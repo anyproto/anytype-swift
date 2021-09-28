@@ -8,10 +8,6 @@ final class SlashMenuView: DismissableInputAccessoryView {
     private var filterStringMismatchLength = 0
     private var cachedFilterText = ""
     
-    private lazy var navigationController = UINavigationController(rootViewController: controller)
-    private lazy var controller = SlashMenuAssembly
-        .menuController(viewModel: viewModel, dismissHandler: dismissHandler)
-    
     private let viewModel: SlashMenuViewModel
     private let cellDataBuilder = SlashMenuCellDataBuilder()
     
@@ -23,7 +19,6 @@ final class SlashMenuView: DismissableInputAccessoryView {
     }
     
     private func setup() {
-        navigationController.setNavigationBarHidden(true, animated: false)
         addSubview(navigationController.view) {
             $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
@@ -50,6 +45,28 @@ final class SlashMenuView: DismissableInputAccessoryView {
         viewModel.didShowMenuView(from: textView)
     }
     
+    // MARK: - Controllers
+    private lazy var navigationController: UINavigationController = {
+        let navigationController = UINavigationController(rootViewController: controller)
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.shadowColor = .backgroundPrimary
+        navBarAppearance.backgroundColor = .backgroundPrimary
+        navBarAppearance.setBackIndicatorImage(UIImage.backArrow, transitionMaskImage: UIImage.backArrow)
+        navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController.navigationBar.standardAppearance = navBarAppearance
+        navigationController.navigationBar.compactAppearance = navBarAppearance
+        if #available(iOS 15.0, *) {
+            navigationController.navigationBar.compactScrollEdgeAppearance = navBarAppearance
+        }
+        navigationController.navigationBar.tintColor = .textSecondary
+        
+        return navigationController
+    }()
+    
+    private lazy var controller = SlashMenuAssembly
+        .menuController(viewModel: viewModel, dismissHandler: dismissHandler)
 }
 
 extension SlashMenuView: FilterableItemsView {

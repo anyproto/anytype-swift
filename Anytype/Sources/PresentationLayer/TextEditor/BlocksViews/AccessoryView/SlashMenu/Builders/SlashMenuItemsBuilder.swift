@@ -23,7 +23,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var styleMenuItem: SlashMenuItem? {
-        let children = BlockStyleAction.allCases.reduce(into: [SlashAction]()) { result, type in
+        let children = SlashActionStyle.allCases.reduce(into: [SlashAction]()) { result, type in
             if let mappedType = type.blockViewsType {
                 guard restrictions.turnIntoStyles.contains(mappedType) else { return }
                 result.append(.style(type))
@@ -46,7 +46,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var mediaMenuItem: SlashMenuItem? {
-        let children: [SlashAction] = BlockMediaAction.allCases.map { .media($0) }
+        let children: [SlashAction] = SlashActionMedia.allCases.map { .media($0) }
         return SlashMenuItem(item: .media, children: children)
     }
     
@@ -64,7 +64,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var otherMenuItem: SlashMenuItem {
-        let children: [SlashAction] = BlockOtherAction.allCases.map { .other($0) }
+        let children: [SlashAction] = SlashActionOther.allCases.map { .other($0) }
         return SlashMenuItem(item: .other, children: children)
     }
     
@@ -74,7 +74,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var alignmentMenuItem: SlashMenuItem? {
-        let children = BlockAlignmentAction.allCases.reduce(into: [SlashAction]()) { result, alignment in
+        let children = SlashActionAlignment.allCases.reduce(into: [SlashAction]()) { result, alignment in
             guard self.restrictions.availableAlignments.contains(alignment.blockAlignment) else { return }
             result.append(.alignment(alignment))
         }
