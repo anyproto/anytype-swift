@@ -9,10 +9,11 @@
 import AnytypeCore
 import Combine
 import BlocksModels
+import UIKit
 
 final class ImageUploadingOperation: AsyncOperation {
     
-    var onImageUpload: ((String) -> Void)?
+    var stateHandler: ImageUploadingStateHandlerProtocol?
     
     // MARK: - Private variables
     
@@ -33,21 +34,28 @@ final class ImageUploadingOperation: AsyncOperation {
     }
     
     override func start() {
-        guard !isCancelled else { return }
+        guard !isCancelled else {
+            stateHandler?.handleImageUploadingState(.cancelled)
+            return
+        }
         
         let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
             MediaPickerContentType.images.supportedTypeIdentifiers.contains($0)
         }
         
         guard let identifier = typeIdentifier else {
+            stateHandler?.handleImageUploadingState(.finished(hash: nil))
             state = .finished
             return
         }
+        
+        stateHandler?.handleImageUploadingState(.preparing)
         
         itemProvider.loadFileRepresentation(
             forTypeIdentifier: identifier
         ) { [weak self] temporaryUrl, error in
             guard let temporaryUrl = temporaryUrl else {
+                self?.stateHandler?.handleImageUploadingState(.finished(hash: nil))
                 self?.state = .finished
                 return
             }
@@ -64,7 +72,14 @@ final class ImageUploadingOperation: AsyncOperation {
     }
     
     private func uploadFile(with temporaryUrl: URL) {
-        guard !isCancelled else { return }
+        guard !isCancelled else {
+            stateHandler?.handleImageUploadingState(.cancelled)
+            return
+        }
+        
+        stateHandler?.handleImageUploadingState(
+            .uploading(localPath: temporaryUrl.relativePath)
+        )
         
         let fileUploadingOperation = FileUploadingOperation(
             url: temporaryUrl,
@@ -73,14 +88,14 @@ final class ImageUploadingOperation: AsyncOperation {
         queue.addOperation(fileUploadingOperation)
         queue.waitUntilAllOperationsAreFinished()
         
-        guard !isCancelled else { return }
-        
-        guard let hash = fileUploadingOperation.uploadedFileHash else {
-            state = .finished
+        guard !isCancelled else {
+            stateHandler?.handleImageUploadingState(.cancelled)
             return
         }
         
-        onImageUpload?(hash)
+        stateHandler?.handleImageUploadingState(
+            .finished(hash: fileUploadingOperation.uploadedFileHash)
+        )
         state = .finished
     }
 }
