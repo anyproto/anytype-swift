@@ -82,7 +82,7 @@ private extension ObjectHeaderCoverView {
         imageView.kf.setImage(
             with: ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl,
             placeholder: placeholder,
-            options: [.processor(processor), .transition(.fade(0.2))]
+            options: [.processor(processor)]
         )
         
         imageView.contentMode = .scaleAspectFill
@@ -111,16 +111,8 @@ private extension ObjectHeaderCoverView {
     }
     
     private func configurePreviewState(_ image: UIImage?) {
-        if let image = image {
-            imageView.image = image
-        }
-        
+        imageView.image = image
         imageView.contentMode = .scaleAspectFill
-        
-        let animation = CATransition()
-        animation.type = .fade;
-        animation.duration = 0.3;
-        activityIndicatorView.layer.add(animation, forKey: nil)
         
         activityIndicatorView.show()
     }
