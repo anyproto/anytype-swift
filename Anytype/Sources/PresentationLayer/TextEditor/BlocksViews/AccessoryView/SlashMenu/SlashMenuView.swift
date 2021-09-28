@@ -35,6 +35,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     func restoreDefaultState() {
         filterStringMismatchLength = 0
         cachedFilterText = ""
+        popTooRoot()
         
         controller.cellData = cellDataBuilder.build(menuItems: menuItems)
     }
@@ -43,6 +44,12 @@ final class SlashMenuView: DismissableInputAccessoryView {
         Amplitude.instance().logEvent(AmplitudeEventsName.popupSlashMenu)
         
         viewModel.didShowMenuView(from: textView)
+    }
+    
+    private func popTooRoot() {
+        if controller.navigationController?.topViewController != controller {
+            controller.navigationController?.popToRootViewController(animated: false)
+        }
     }
     
     // MARK: - Controllers
@@ -72,9 +79,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
 extension SlashMenuView: FilterableItemsView {
     
     func setFilterText(filterText: String) {
-        if controller.navigationController?.topViewController != controller {
-            controller.navigationController?.popToRootViewController(animated: false)
-        }
+        popTooRoot()
         guard cachedFilterText != filterText else { return }
         
         controller.cellData = cellDataBuilder.build(filter: filterText, menuItems: menuItems)
