@@ -1,13 +1,13 @@
 enum SlashAction {
-    case style(BlockStyleAction)
-    case media(BlockMediaAction)
+    case style(SlashActionStyle)
+    case media(SlashActionMedia)
     case objects(ObjectType)
     case relations
-    case other(BlockOtherAction)
+    case other(SlashActionOther)
     case actions(BlockAction)
     case color(BlockColor)
     case background(BlockBackgroundColor)
-    case alignment(BlockAlignmentAction)
+    case alignment(SlashActionAlignment)
     
     var displayData: SlashMenuItemDisplayData {
         switch self {

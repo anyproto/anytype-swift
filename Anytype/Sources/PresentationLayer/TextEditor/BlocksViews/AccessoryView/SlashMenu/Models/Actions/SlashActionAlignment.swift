@@ -1,7 +1,7 @@
 
 import BlocksModels
 
-enum BlockAlignmentAction: CaseIterable {
+enum SlashActionAlignment: CaseIterable {
     case right
     case center
     case left
