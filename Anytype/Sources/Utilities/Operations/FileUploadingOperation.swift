@@ -12,7 +12,7 @@ import BlocksModels
 
 final class FileUploadingOperation: AsyncOperation {
     
-    private(set) var uploadedFileHash: BlockActionsServiceFile.FileHash?
+    private(set) var uploadedFileHash: Hash?
     
     // MARK: - Private variables
     
@@ -63,7 +63,7 @@ final class FileUploadingOperation: AsyncOperation {
     private func handleReceiveValue(_ hash: String) {
         guard !isCancelled else { return }
         
-        uploadedFileHash = hash
+        uploadedFileHash = Hash(hash)
         state = .finished
     }
     
