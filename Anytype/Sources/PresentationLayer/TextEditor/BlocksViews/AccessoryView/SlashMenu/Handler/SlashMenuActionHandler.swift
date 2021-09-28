@@ -45,7 +45,7 @@ final class SlashMenuActionHandler {
         )
     }
     
-    private func handleAlignment(_ alignment: BlockAlignmentAction) {
+    private func handleAlignment(_ alignment: SlashActionAlignment) {
         switch alignment {
         case .left :
             actionHandler.handleActionForFirstResponder(
@@ -62,7 +62,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleStyle(_ style: BlockStyleAction) {
+    private func handleStyle(_ style: SlashActionStyle) {
         switch style {
         case .text:
             actionHandler.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
@@ -101,9 +101,8 @@ final class SlashMenuActionHandler {
             actionHandler.handleActionForFirstResponder(.delete)
         case .duplicate:
             actionHandler.handleActionForFirstResponder(.duplicate)
-            
-        case .cleanStyle, .copy, .paste, .move, .moveTo:
-            break
+//        case .copy, .paste, .move, .moveTo:
+//            break
         }
     }
     

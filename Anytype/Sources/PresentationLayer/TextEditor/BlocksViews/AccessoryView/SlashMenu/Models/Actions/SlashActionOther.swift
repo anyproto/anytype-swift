@@ -1,7 +1,6 @@
 import BlocksModels
 
-
-enum BlockOtherAction: CaseIterable {
+enum SlashActionOther: CaseIterable {
     case lineDivider
     case dotsDivider
     

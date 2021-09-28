@@ -1,7 +1,7 @@
 import BlocksModels
 
 
-enum BlockStyleAction: CaseIterable {
+enum SlashActionStyle: CaseIterable {
     case text
     case title
     case heading
