@@ -21,6 +21,7 @@ final class ImageUploadingOperation: AsyncOperation {
     private let queue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .utility
         return queue
     }()
     
