@@ -1,12 +1,14 @@
+import BlocksModels
+
 struct SlashMenuItemsBuilder {
     
     private let restrictions: BlockRestrictions
     
-    init(restrictions: BlockRestrictions) {
-        self.restrictions = restrictions
+    init(blockType: BlockContentType) {
+        restrictions = BlockRestrictionsFactory().makeRestrictions(for: blockType)
     }
     
-    func slashMenuItems() -> [SlashMenuItem] {
+    var slashMenuItems: [SlashMenuItem] {
         return [
             styleMenuItem,
             mediaMenuItem,

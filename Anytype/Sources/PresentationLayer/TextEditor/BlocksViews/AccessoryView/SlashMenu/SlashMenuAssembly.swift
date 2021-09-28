@@ -1,25 +1,18 @@
 import UIKit
 
 final class SlashMenuAssembly {
-    let actionsHandler: SlashMenuViewModel
-    
-    init(actionsHandler: SlashMenuViewModel) {
-        self.actionsHandler = actionsHandler
-    }
-    
-    func menuController(
-        menuItems: [SlashMenuItem],
+    static func menuController(
+        cellData: [SlashMenuCellData] = [],
+        topBarTitle: String? = nil,
+        viewModel: SlashMenuViewModel,
         dismissHandler: (() -> Void)?
     ) -> SlashMenuViewController {
-        let controller = SlashMenuViewController(
-            cellData: menuItems.map { item in
-                return .menu(item: item.item, actions: item.children)
-            },
-            actionsHandler: actionsHandler,
+        return SlashMenuViewController(
+            cellData: cellData,
+            topBarTitle: topBarTitle,
+            actionsHandler: viewModel,
             dismissHandler: dismissHandler
         )
-        
-        return controller
     }
     
     static func menuView(size: CGSize, viewModel: SlashMenuViewModel) -> SlashMenuView {
