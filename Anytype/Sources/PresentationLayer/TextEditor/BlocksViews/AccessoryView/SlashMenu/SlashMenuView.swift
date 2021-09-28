@@ -4,64 +4,44 @@ import BlocksModels
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
-    private enum Constants {
-        static let maxMistatchFilteringCount = 3
-    }
-    
     private var menuItems = [SlashMenuItem]()
-    private weak var menuNavigationController: UINavigationController?
-    private lazy var controller = SlashMenuAssembly(actionsHandler: viewModel)
-        .menuController(menuItems: menuItems, dismissHandler: dismissHandler)
-    private let viewModel: SlashMenuViewModel
-    private let cellDataBuilder = SlashMenuCellDataBuilder()
     private var filterStringMismatchLength = 0
     private var cachedFilterText = ""
     
+    private lazy var navigationController = UINavigationController(rootViewController: controller)
+    private lazy var controller = SlashMenuAssembly
+        .menuController(viewModel: viewModel, dismissHandler: dismissHandler)
+    
+    private let viewModel: SlashMenuViewModel
+    private let cellDataBuilder = SlashMenuCellDataBuilder()
+    
     init(frame: CGRect, viewModel: SlashMenuViewModel) {
         self.viewModel = viewModel
-
         super.init(frame: frame)
+        
+        setup()
     }
     
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        
-        menuNavigationController?.willMove(toParent: nil)
-        menuNavigationController?.view.removeFromSuperview()
-        menuNavigationController?.removeFromParent()
-        
-        filterStringMismatchLength = 0
-        
-        guard let windowRootViewController = window?.rootViewController?.children.last else { return }
-        setup(parentViewController: windowRootViewController)
-    }
-    
-    func update(block: BlockModelProtocol) {
-        self.viewModel.block = block
-        
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(
-            for: block.information.content.type
-        )
-        menuItems = SlashMenuItemsBuilder(restrictions: restrictions).slashMenuItems()
-    }
-    
-    func restoreDefaultState() {
-        setFilterText(filterText: "")
-    }
-    
-    private func setup(parentViewController: UIViewController) {
-        let navigationController = UINavigationController(rootViewController: controller)
-        navigationController.isNavigationBarHidden = true
-        navigationController.delegate = self
-        
-        menuNavigationController = navigationController
-        navigationController.view.translatesAutoresizingMaskIntoConstraints = false
-        parentViewController.addChild(navigationController)
+    private func setup() {
+        navigationController.setNavigationBarHidden(true, animated: false)
         addSubview(navigationController.view) {
             $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
-        navigationController.didMove(toParent: parentViewController)
+    }
+    
+    func update(block: BlockModelProtocol) {
+        viewModel.block = block
+        menuItems = SlashMenuItemsBuilder(blockType: block.information.content.type).slashMenuItems
+        
+        restoreDefaultState()
+    }
+    
+    func restoreDefaultState() {
+        filterStringMismatchLength = 0
+        cachedFilterText = ""
+        
+        controller.cellData = cellDataBuilder.build(menuItems: menuItems)
     }
     
     override func didShow(from textView: UITextView) {
@@ -72,18 +52,6 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
 }
 
-extension SlashMenuView: UINavigationControllerDelegate {
-    func navigationController(
-        _ navigationController: UINavigationController,
-        willShow viewController: UIViewController,
-        animated: Bool
-    ) {
-        let baseBlockMenuItemsController = viewController as? SlashMenuViewController
-        let isPresentingFirstController = viewController == navigationController.viewControllers.first
-        baseBlockMenuItemsController?.setTopBarHidden(isPresentingFirstController)
-    }
-}
-
 extension SlashMenuView: FilterableItemsView {
     
     func setFilterText(filterText: String) {
@@ -91,6 +59,7 @@ extension SlashMenuView: FilterableItemsView {
             controller.navigationController?.popToRootViewController(animated: false)
         }
         guard cachedFilterText != filterText else { return }
+        
         controller.cellData = cellDataBuilder.build(filter: filterText, menuItems: menuItems)
         
         if !controller.cellData.isEmpty {
@@ -104,6 +73,6 @@ extension SlashMenuView: FilterableItemsView {
 
 extension SlashMenuView: DismissStatusProvider {
     var shouldDismiss: Bool {
-        filterStringMismatchLength > Constants.maxMistatchFilteringCount
+        filterStringMismatchLength > 3
     }
 }

@@ -2,7 +2,7 @@ import UIKit
 
 final class SlashMenuViewController: UIViewController {
     let configurationFactory = SlashMenuContentConfigurationFactory()
-    let actionsHandler: SlashMenuViewModel
+    let viewModel: SlashMenuViewModel
     let dismissHandler: (() -> Void)?
     
     let cellReuseId = NSStringFromClass(UITableViewCell.self)
@@ -14,15 +14,17 @@ final class SlashMenuViewController: UIViewController {
         }
     }
     
-    private lazy var topBarHeightConstraint = customTopBar.heightAnchor.constraint(equalToConstant: Constants.topBarHeight)
+    private let topBarTitle: String?
     
     init(
         cellData: [SlashMenuCellData],
+        topBarTitle: String?,
         actionsHandler: SlashMenuViewModel,
         dismissHandler: (() -> Void)?
     ) {
         self.cellData = cellData
-        self.actionsHandler = actionsHandler
+        self.topBarTitle = topBarTitle
+        self.viewModel = actionsHandler
         self.dismissHandler = dismissHandler
         super.init(nibName: nil, bundle: nil)
         
@@ -30,9 +32,6 @@ final class SlashMenuViewController: UIViewController {
     }
     
     private func setup() {
-        view = UIView()
-        view.backgroundColor = .systemBackground
-        
         customTopBar.addSubview(backButton) {
             $0.trailing.equal(to: customTopBar.trailingAnchor, constant: -Constants.backButtonTrailingPadding)
             $0.centerY.equal(to: customTopBar.centerYAnchor)
@@ -41,20 +40,18 @@ final class SlashMenuViewController: UIViewController {
             $0.leading.equal(to: customTopBar.leadingAnchor, constant: Constants.labelLeadingPadding)
             $0.centerY.equal(to: customTopBar.centerYAnchor)
         }
+        
         view.addSubview(customTopBar) {
             $0.pinToSuperview(excluding: [.bottom])
+            $0.height.equal(to: topBarTitle.isNotNil ? Constants.topBarHeight : 0)
         }
-        topBarHeightConstraint.isActive = true
-        
-        titleLabel.text = self.title
         view.addSubview(tableView) {
-            $0.pinToSuperview(excluding: [.top])
             $0.top.equal(to: customTopBar.bottomAnchor)
+            $0.pinToSuperview(excluding: [.top])
         }
-    }
-    
-    func setTopBarHidden(_ hidden: Bool) {
-        topBarHeightConstraint.constant = hidden ? 0 : Constants.topBarHeight
+        
+        view.backgroundColor = .backgroundPrimary
+        titleLabel.text = topBarTitle
     }
     
     // MARK: - Views
@@ -94,8 +91,9 @@ final class SlashMenuViewController: UIViewController {
     private let customTopBar = UIView()
     
     private lazy var titleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .caption1Medium
+        label.textColor = .textPrimary
         return label
     }()
     

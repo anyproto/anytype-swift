@@ -1,7 +1,8 @@
 import Foundation
+import AnytypeCore
 
 final class SlashMenuCellDataBuilder {
-    func build(filter: String, menuItems: [SlashMenuItem]) -> [SlashMenuCellData] {
+    func build(filter: String = "", menuItems: [SlashMenuItem]) -> [SlashMenuCellData] {
         guard !filter.isEmpty else {
             return menuItems.map { .menu(item: $0.item, actions: $0.children) }
         }
