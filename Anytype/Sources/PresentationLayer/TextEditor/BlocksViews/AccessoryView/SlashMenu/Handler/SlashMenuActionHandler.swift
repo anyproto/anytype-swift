@@ -101,9 +101,8 @@ final class SlashMenuActionHandler {
             actionHandler.handleActionForFirstResponder(.delete)
         case .duplicate:
             actionHandler.handleActionForFirstResponder(.duplicate)
-            
-        case .cleanStyle, .copy, .paste, .move, .moveTo:
-            break
+//        case .copy, .paste, .move, .moveTo:
+//            break
         }
     }
     
