@@ -31,27 +31,20 @@ final class SlashMenuViewController: UIViewController {
         setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(topBarTitle.isNil, animated: true)
+    }
+    
     private func setup() {
-        customTopBar.addSubview(backButton) {
-            $0.trailing.equal(to: customTopBar.trailingAnchor, constant: -Constants.backButtonTrailingPadding)
-            $0.centerY.equal(to: customTopBar.centerYAnchor)
-        }
-        customTopBar.addSubview(titleLabel) {
-            $0.leading.equal(to: customTopBar.leadingAnchor, constant: Constants.labelLeadingPadding)
-            $0.centerY.equal(to: customTopBar.centerYAnchor)
-        }
-        
-        view.addSubview(customTopBar) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: topBarTitle.isNotNil ? Constants.topBarHeight : 0)
-        }
-        view.addSubview(tableView) {
-            $0.top.equal(to: customTopBar.bottomAnchor)
-            $0.pinToSuperview(excluding: [.top])
-        }
-        
+        self.title = topBarTitle
         view.backgroundColor = .backgroundPrimary
-        titleLabel.text = topBarTitle
+        
+        view.addSubview(tableView) {
+            $0.pinToSuperview()
+        }
+        
     }
     
     // MARK: - Views
@@ -88,24 +81,10 @@ final class SlashMenuViewController: UIViewController {
         return label
     }()
     
-    private let customTopBar = UIView()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .caption1Medium
-        label.textColor = .textPrimary
-        return label
-    }()
-    
-    private lazy var backButton = ButtonsFactory.makeBackButton { [weak self] _ in
-        self?.navigationController?.popViewController(animated: true)
-    }
-    
     // MARK: - Constants
     
     private enum Constants {
         static let topBarHeight: CGFloat = 30
-        static let backButtonTrailingPadding: CGFloat = 20
         static let labelLeadingPadding: CGFloat = 20
     }
     
