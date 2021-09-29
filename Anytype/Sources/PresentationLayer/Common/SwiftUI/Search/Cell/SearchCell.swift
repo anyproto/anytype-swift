@@ -1,8 +1,8 @@
 import SwiftUI
 import AnytypeCore
 
-struct HomeSearchCell: View {
-    let data: HomeSearchCellData
+struct SearchCell: View {
+    let data: SearchCellData
     
     private var haveDescription: Bool {
         guard let description = data.description else {
@@ -62,11 +62,11 @@ struct HomeSearchCell: View {
 }
 
 import BlocksModels
-struct HomeSearchCell_Previews: PreviewProvider {
+struct SearchCell_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
-            ForEach(HomeSearchCellDataMock.data) { data in
-                HomeSearchCell(data: data)
+            ForEach(SearchCellDataMock.data) { data in
+                SearchCell(data: data)
             }
         }
         .background(Color.background)

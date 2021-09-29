@@ -4,10 +4,10 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let title: String?
-    let onSelect: (HomeSearchCellData) -> ()
+    let onSelect: (SearchCellData) -> ()
     
     @State private var searchText = ""
-    @State private var data = [HomeSearchCellData]()
+    @State private var data = [SearchCellData]()
 
     @StateObject private var service = SearchService()
     
@@ -54,7 +54,7 @@ struct SearchView: View {
                             onSelect(data)
                         }
                     ) {
-                        HomeSearchCell(data: data)
+                        SearchCell(data: data)
                     }
                     .frame(maxWidth: .infinity)
                     .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
@@ -84,7 +84,7 @@ struct SearchView: View {
     
     private func search(text: String) {
         service.search(text: text) { results in
-            data = results.map { HomeSearchCellData(searchResult: $0) }
+            data = results.map { SearchCellData(searchResult: $0) }
         }
     }
 }
