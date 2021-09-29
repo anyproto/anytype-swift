@@ -2,15 +2,20 @@ import Foundation
 import BlocksModels
 final class SlashMenuActionHandler {
     private let actionHandler: EditorActionHandlerProtocol
+    private let router: EditorRouterProtocol
     
-    init(actionHandler: EditorActionHandlerProtocol) {
+    init(
+        actionHandler: EditorActionHandlerProtocol,
+        router: EditorRouterProtocol
+    ) {
         self.actionHandler = actionHandler
+        self.router = router
     }
     
-    func handle(_ action: SlashAction) {
+    func handle(_ action: SlashAction, blockId: BlockId) {
         switch action {
         case let .actions(action):
-            handleActions(action)
+            handleActions(action, blockId: blockId)
         case let .alignment(alignmnet):
             handleAlignment(alignmnet)
         case let .style(style):
@@ -95,12 +100,18 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction) {
+    private func handleActions(_ action: BlockAction, blockId: BlockId) {
         switch action {
         case .delete:
             actionHandler.handleActionForFirstResponder(.delete)
         case .duplicate:
             actionHandler.handleActionForFirstResponder(.duplicate)
+        case .moveTo:
+            router.showMoveTo(blockId: blockId) { [weak self] targetId in
+                self?.actionHandler.handleAction(
+                    .moveTo(targetId: targetId), blockId: blockId
+                )
+            }
 //        case .copy, .paste, .move, .moveTo:
 //            break
         }
