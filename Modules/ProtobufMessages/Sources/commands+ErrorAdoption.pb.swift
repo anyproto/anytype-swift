@@ -36,6 +36,7 @@ extension Anytype_Rpc.Block.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Details.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Restrictions.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Latex.Text.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Text.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Style.Response.Error: Swift.Error {}
