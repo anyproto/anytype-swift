@@ -64,7 +64,7 @@ struct LoginView: View {
                     .padding(.top, 17)
             }
             
-            TextEditor(text: $viewModel.seed).lineLimit(3)
+            AutofocusedTextEditor(text: $viewModel.seed).lineLimit(3)
                 .font(AnytypeFontBuilder.font(anytypeFont: .codeBlock))
                 .lineSpacing(AnytypeFont.codeBlock.lineSpacing)
                 .foregroundColor(.textPrimary)

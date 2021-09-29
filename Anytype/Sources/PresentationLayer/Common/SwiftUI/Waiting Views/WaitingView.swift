@@ -37,6 +37,7 @@ struct WaitingView: View {
                     .padding(.top, 24)
                 Spacer.fixedHeight(15)
                 AnytypeText(showError ? errorText : text, style: .heading, color: .textPrimary)
+                    .padding(.horizontal)
                 Spacer.fixedHeight(19)
                 if showError {
                     StandardButton(disabled: false, text: "Dismiss", style: .secondary) {

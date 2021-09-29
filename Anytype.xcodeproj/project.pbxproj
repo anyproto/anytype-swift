@@ -355,6 +355,8 @@
 		3D5A417F2704543300F1F6A1 /* SearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A417C2704543300F1F6A1 /* SearchCellData.swift */; };
 		3D5A41802704543300F1F6A1 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A417D2704543300F1F6A1 /* SearchCell.swift */; };
 		3D5A41812704543300F1F6A1 /* SearchCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A417E2704543300F1F6A1 /* SearchCellDataMock.swift */; };
+		3D5A418B2704697300F1F6A1 /* AutofocusedTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A418A2704697300F1F6A1 /* AutofocusedTextEditor.swift */; };
+		3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A418D27046EE400F1F6A1 /* AutofocusedTextField.swift */; };
 		3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */; };
 		3D67F947269E07F800883681 /* SearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F946269E07F800883681 /* SearchHelper.swift */; };
 		3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */; };
@@ -1019,6 +1021,8 @@
 		3D5A417C2704543300F1F6A1 /* SearchCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCellData.swift; sourceTree = "<group>"; };
 		3D5A417D2704543300F1F6A1 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		3D5A417E2704543300F1F6A1 /* SearchCellDataMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCellDataMock.swift; sourceTree = "<group>"; };
+		3D5A418A2704697300F1F6A1 /* AutofocusedTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutofocusedTextEditor.swift; sourceTree = "<group>"; };
+		3D5A418D27046EE400F1F6A1 /* AutofocusedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutofocusedTextField.swift; sourceTree = "<group>"; };
 		3D67F944269DF79B00883681 /* DragAndDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DragAndDropDelegate.swift; path = Anytype/Sources/PresentationLayer/Home/View/DragAndDrop/DragAndDropDelegate.swift; sourceTree = SOURCE_ROOT; };
 		3D67F946269E07F800883681 /* SearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchHelper.swift; path = Anytype/Sources/ServiceLayer/ObjectActionsServices/Search/SearchHelper.swift; sourceTree = SOURCE_ROOT; };
 		3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spacer+FixedSize.swift"; sourceTree = "<group>"; };
@@ -2888,6 +2892,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				3D5A418C27046E9F00F1F6A1 /* iOS15Wrappers */,
 				3D5A41762704541900F1F6A1 /* Search */,
 				1206DB8C267A3017000A48A7 /* MediaPicker */,
 				3D155276264D977600B0E976 /* Popups */,
@@ -3033,6 +3038,15 @@
 				3D5A417E2704543300F1F6A1 /* SearchCellDataMock.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		3D5A418C27046E9F00F1F6A1 /* iOS15Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				3D5A418A2704697300F1F6A1 /* AutofocusedTextEditor.swift */,
+				3D5A418D27046EE400F1F6A1 /* AutofocusedTextField.swift */,
+			);
+			path = iOS15Wrappers;
 			sourceTree = "<group>";
 		};
 		3D67F943269DF6B000883681 /* DragAndDrop */ = {
@@ -4639,6 +4653,7 @@
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
+				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
 				53FF7CD126FDDE7100A5A592 /* ArchiveService.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
@@ -4675,6 +4690,7 @@
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */,
+				3D5A418B2704697300F1F6A1 /* AutofocusedTextEditor.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationService.swift in Sources */,
 				0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
