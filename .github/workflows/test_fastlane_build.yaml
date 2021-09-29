@@ -6,7 +6,7 @@ on:
       branch:
         description: 'Branch'     
         required: false
-        default: 'develop'
+        default: 'Batvos-patch-1-1'
 
 jobs:
   main:
