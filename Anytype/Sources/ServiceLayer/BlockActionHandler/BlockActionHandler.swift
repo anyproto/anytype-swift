@@ -93,6 +93,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.checked(blockId: blockId, newValue: selected)
         case .createEmptyBlock(let parentId):
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
+        case .moveTo(targetId: let targetId):
+            let response = listService.moveTo(contextId: documentId, blockId: blockId, targetId: targetId)
+            response.flatMap { completion?(PackOfEvents(middlewareEvents: $0.messages)) }
         case let .textView(action: action, block: blockModel):
             switch action {
             case let .changeCaretPosition(selectedRange):

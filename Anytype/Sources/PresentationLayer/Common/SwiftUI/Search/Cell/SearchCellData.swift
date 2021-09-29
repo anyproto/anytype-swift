@@ -1,7 +1,7 @@
 import SwiftUI
 import BlocksModels
 
-struct HomeSearchCellData: Identifiable {
+struct SearchCellData: Identifiable {
     let id: String
     let title: String
     let description: String?

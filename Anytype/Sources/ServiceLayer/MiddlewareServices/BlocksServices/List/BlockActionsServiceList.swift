@@ -89,4 +89,16 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     func delete(blockIds: [String]) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.BlockList.Delete.Page.Service.invoke(blockIds: blockIds).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
+    
+    func moveTo(contextId: BlockId, blockId: BlockId, targetId: BlockId) -> ResponseEvent? {
+        let result = Anytype_Rpc.BlockList.Move.Service.invoke(
+            contextID: contextId,
+            blockIds: [blockId],
+            targetContextID: targetId,
+            dropTargetID: "",
+            position: .bottom
+        )
+        
+        return (try? result.get()).flatMap { ResponseEvent($0.event) }
+    }
 }

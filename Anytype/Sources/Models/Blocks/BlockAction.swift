@@ -5,7 +5,7 @@ enum BlockAction: CaseIterable {
 //    case copy
 //    case paste
 //    case move
-//    case moveTo
+    case moveTo
     
     var title: String {
         switch self {
@@ -19,8 +19,8 @@ enum BlockAction: CaseIterable {
 //            return "Paste".localized
 //        case .move:
 //            return "Move".localized
-//        case .moveTo:
-//            return "Move to".localized
+        case .moveTo:
+            return "Move to".localized
         }
     }
     
@@ -36,8 +36,8 @@ enum BlockAction: CaseIterable {
 //            return ImageName.slashMenu.actions.paste
 //        case .move:
 //            return ImageName.slashMenu.actions.move
-//        case .moveTo:
-//            return ImageName.slashMenu.actions.moveTo
+        case .moveTo:
+            return ImageName.slashMenu.actions.moveTo
         }
     }
 }
