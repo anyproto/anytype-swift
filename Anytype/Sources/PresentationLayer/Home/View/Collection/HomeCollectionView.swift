@@ -14,6 +14,7 @@ struct HomeCollectionView: View {
     let offsetChanged: (CGPoint) -> Void
     
     @State private var dropData = DropData()
+    @EnvironmentObject private var viewModel: HomeViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -30,10 +31,8 @@ struct HomeCollectionView: View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns) {
                 ForEach(cellData) { data in
-                    NavigationLink(
-                        destination: coordinator.documentView(
-                            selectedDocumentId: data.destinationId
-                        ),
+                    Button(
+                        action: { viewModel.showPage(pageId: data.destinationId) },
                         label: { HomeCell(cellData: data) }
                     )
                     .disabled(data.isLoading)
