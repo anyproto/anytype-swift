@@ -1093,6 +1093,28 @@ extension Anytype_Rpc.Block.Set.Image.Width.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Set.Latex.Text.Request {
+  public init(contextID: String, blockID: String, text: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.text = text
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Latex.Text.Response {
+  public init(error: Anytype_Rpc.Block.Set.Latex.Text.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Latex.Text.Response.Error {
+  public init(code: Anytype_Rpc.Block.Set.Latex.Text.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Request {
   public init(contextID: String, blockID: String, targetBlockID: String) {
     self.contextID = contextID
