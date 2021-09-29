@@ -217,7 +217,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private func displaySlashOrMentionIfNeeded() {
         guard let textView = data?.textView.textView else { return }
         guard let data = data, data.information.content.type != .text(.title) else { return }
-        guard let textBeforeCaret = textView.textBeforeCaret() else { return }
+        guard let textBeforeCaret = textView.textBeforeCaret else { return }
         guard let caretPosition = textView.caretPosition else { return }
         
         let carretOffset = textView.offsetFromBegining(caretPosition)

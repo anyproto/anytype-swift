@@ -38,9 +38,8 @@ final class EditorAccessoryViewModel {
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
-            let prependSpace = !textView.isCarretInTheBeginingOfDocument
             textView.insertStringAfterCaret(
-                TextTriggerSymbols.mention(prependSpace: prependSpace)
+                TextTriggerSymbols.mention(prependSpace: shouldPrependSpace(textView: textView))
             )
             
             handler.handleActionForFirstResponder(
@@ -52,9 +51,8 @@ final class EditorAccessoryViewModel {
             
             delegate.showMentionsView()
         case .slashMenu:
-            let prependSpace = !textView.isCarretInTheBeginingOfDocument
             textView.insertStringAfterCaret(
-                TextTriggerSymbols.slashMenu(prependSpace: prependSpace)
+                TextTriggerSymbols.slashMenu(prependSpace: shouldPrependSpace(textView: textView))
             )
             
             handler.handleActionForFirstResponder(
@@ -66,5 +64,12 @@ final class EditorAccessoryViewModel {
             
             delegate.showSlashMenuView()
         }
+    }
+    
+    private func shouldPrependSpace(textView: UITextView) -> Bool {
+        let carretInTheBeginingOfDocument = textView.isCarretInTheBeginingOfDocument
+        let haveSpaceBeforeCarret = textView.textBeforeCaret?.last == " "
+        
+        return !(carretInTheBeginingOfDocument || haveSpaceBeforeCarret)
     }
 }
