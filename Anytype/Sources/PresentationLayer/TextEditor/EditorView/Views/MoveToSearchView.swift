@@ -1,11 +1,12 @@
 import SwiftUI
+import BlocksModels
 
-struct MoveToSearchView: View {
+struct MoveToSearchView: View {    
+    let onSelect: (BlockId) -> ()
     
     var body: some View {
         SearchView(title: "Move to") { data in
-            print(data)
-            // TODO
+            onSelect(data.id)
         }
     }
 }

@@ -17,4 +17,6 @@ protocol BlockActionsServiceListProtocol {
     func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: TextStyle) -> AnyPublisher<ResponseEvent, Error>
     func setFields(contextID: BlockId, blockFields: [BlockFields]) -> AnyPublisher<ResponseEvent, Error>
     func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ResponseEvent, Error>
+    
+    func moveTo(contextId: BlockId, blockId: BlockId, targetId: BlockId) -> ResponseEvent?
 }

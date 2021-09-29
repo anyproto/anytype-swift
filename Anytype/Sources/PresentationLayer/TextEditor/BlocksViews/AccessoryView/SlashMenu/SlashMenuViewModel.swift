@@ -17,8 +17,10 @@ final class SlashMenuViewModel {
     }
     
     func handle(_ action: SlashAction) {
+        guard let block = block else { return }
+        
         removeSlashMenuText()
-        handler.handle(action)
+        handler.handle(action, blockId: block.information.id)
     }
     
     func didShowMenuView(from textView: UITextView) {

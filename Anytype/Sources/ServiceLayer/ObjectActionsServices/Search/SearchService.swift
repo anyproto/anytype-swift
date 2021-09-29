@@ -9,7 +9,7 @@ protocol SearchServiceProtocol {
     func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ())
 }
 
-final class SearchService: SearchServiceProtocol {
+final class SearchService: ObservableObject, SearchServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
     func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ()) {

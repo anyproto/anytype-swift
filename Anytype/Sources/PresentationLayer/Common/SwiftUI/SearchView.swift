@@ -8,8 +8,8 @@ struct SearchView: View {
     
     @State private var searchText = ""
     @State private var data = [HomeSearchCellData]()
-    
-    private let service = SearchService()
+
+    @StateObject private var service = SearchService()
     
     var body: some View {
         VStack() {

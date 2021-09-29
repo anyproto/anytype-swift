@@ -24,6 +24,8 @@ protocol EditorRouterProtocol: AnyObject {
     func showSettings(viewModel: ObjectSettingsViewModel)
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
     func showIconPicker(viewModel: ObjectIconPickerViewModel)
+    
+    func showMoveTo(blockId: BlockId, onSelect: @escaping (BlockId) -> ())
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -179,6 +181,18 @@ final class EditorRouter: EditorRouterProtocol {
     func showIconPicker(viewModel: ObjectIconPickerViewModel) {
         guard let viewController = viewController else { return }
         let controller = settingAssembly.iconPicker(viewModel: viewModel)
+        viewController.present(controller, animated: true)
+    }
+    
+    func showMoveTo(blockId: BlockId, onSelect: @escaping (BlockId) -> ()) {
+        guard let viewController = viewController else {
+            return
+        }
+        
+        let controller = UIHostingController(
+            rootView: MoveToSearchView(onSelect: onSelect)
+        )
+        
         viewController.present(controller, animated: true)
     }
     
