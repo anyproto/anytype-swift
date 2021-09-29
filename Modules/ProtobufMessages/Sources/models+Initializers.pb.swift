@@ -94,7 +94,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort {
 extension Anytype_Model_Block.Content.Dataview.View {
   public init(
     id: String, type: Anytype_Model_Block.Content.Dataview.View.TypeEnum, name: String, sorts: [Anytype_Model_Block.Content.Dataview.Sort], filters: [Anytype_Model_Block.Content.Dataview.Filter],
-    relations: [Anytype_Model_Block.Content.Dataview.Relation], coverRelationKey: String
+    relations: [Anytype_Model_Block.Content.Dataview.Relation], coverRelationKey: String, hideIcon: Bool, cardSize: Anytype_Model_Block.Content.Dataview.View.Size, coverFit: Bool
   ) {
     self.id = id
     self.type = type
@@ -103,6 +103,9 @@ extension Anytype_Model_Block.Content.Dataview.View {
     self.filters = filters
     self.relations = relations
     self.coverRelationKey = coverRelationKey
+    self.hideIcon = hideIcon
+    self.cardSize = cardSize
+    self.coverFit = coverFit
   }
 }
 

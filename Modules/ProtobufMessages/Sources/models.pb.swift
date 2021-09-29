@@ -1145,6 +1145,15 @@ public struct Anytype_Model_Block {
         /// Relation used for cover in gallery
         public var coverRelationKey: String = String()
 
+        /// Hide icon near name
+        public var hideIcon: Bool = false
+
+        /// Gallery card size
+        public var cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small
+
+        /// Image fits container
+        public var coverFit: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum {
@@ -1175,6 +1184,37 @@ public struct Anytype_Model_Block {
             case .list: return 1
             case .gallery: return 2
             case .kanban: return 3
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
+        public enum Size: SwiftProtobuf.Enum {
+          public typealias RawValue = Int
+          case small // = 0
+          case medium // = 1
+          case large // = 2
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .small
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .small
+            case 1: self = .medium
+            case 2: self = .large
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .small: return 0
+            case .medium: return 1
+            case .large: return 2
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -1598,6 +1638,15 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
     .list,
     .gallery,
     .kanban,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.View.Size: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.View.Size] = [
+    .small,
+    .medium,
+    .large,
   ]
 }
 
@@ -3525,6 +3574,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     5: .same(proto: "filters"),
     6: .same(proto: "relations"),
     7: .same(proto: "coverRelationKey"),
+    8: .same(proto: "hideIcon"),
+    9: .same(proto: "cardSize"),
+    10: .same(proto: "coverFit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3540,6 +3592,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.coverRelationKey) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
       default: break
       }
     }
@@ -3567,6 +3622,15 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if !self.coverRelationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.coverRelationKey, fieldNumber: 7)
     }
+    if self.hideIcon != false {
+      try visitor.visitSingularBoolField(value: self.hideIcon, fieldNumber: 8)
+    }
+    if self.cardSize != .small {
+      try visitor.visitSingularEnumField(value: self.cardSize, fieldNumber: 9)
+    }
+    if self.coverFit != false {
+      try visitor.visitSingularBoolField(value: self.coverFit, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3578,6 +3642,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.filters != rhs.filters {return false}
     if lhs.relations != rhs.relations {return false}
     if lhs.coverRelationKey != rhs.coverRelationKey {return false}
+    if lhs.hideIcon != rhs.hideIcon {return false}
+    if lhs.cardSize != rhs.cardSize {return false}
+    if lhs.coverFit != rhs.coverFit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3589,6 +3656,14 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: SwiftProtobuf._Pro
     1: .same(proto: "List"),
     2: .same(proto: "Gallery"),
     3: .same(proto: "Kanban"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.View.Size: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Small"),
+    1: .same(proto: "Medium"),
+    2: .same(proto: "Large"),
   ]
 }
 
