@@ -15,6 +15,9 @@ struct LoginView: View {
         .ifLet(viewModel.error) { view, error in
             view.errorToast(isShowing: $viewModel.showError, errorText: error)
         }
+        .alert(isPresented: $viewModel.openSettingsURL) {
+            AlertsFactory.goToSettingsAlert(title: "Auth.CameraPermissionTitle".localized)
+        }
         .sheet(isPresented: $viewModel.showQrCodeView) {
             QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
         }
@@ -73,6 +76,7 @@ struct LoginView: View {
                 .opacity(viewModel.seed.isEmpty ? 0.25 : 1)
                 .autocapitalization(.none)
                 .frame(height: 124)
+                .textContentType(.password)
         }
     }
     
@@ -80,7 +84,7 @@ struct LoginView: View {
         Button(
             action: {
                 UIApplication.shared.hideKeyboard()
-                viewModel.showQrCodeView = true
+                viewModel.onShowQRCodeTap()
             }
         ) {
             HStack {
