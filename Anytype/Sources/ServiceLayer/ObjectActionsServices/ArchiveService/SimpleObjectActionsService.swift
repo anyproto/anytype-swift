@@ -10,11 +10,12 @@ import ProtobufMessages
 import Combine
 import BlocksModels
 
-protocol ArchiveServiceProtocol {
+protocol SimpleObjectActionsServiceProtocol {
     func setArchive(_ isArchive: Bool)
+    func setFavorite(_ isFavorite: Bool)
 }
 
-final class ArchiveService: ArchiveServiceProtocol {
+final class SimpleObjectActionsService: SimpleObjectActionsServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     private var objectId: String
 
@@ -24,6 +25,14 @@ final class ArchiveService: ArchiveServiceProtocol {
 
     func setArchive(_ isArchive: Bool) {
         Anytype_Rpc.Object.SetIsArchived.Service.invoke(contextID: objectId, isArchived: isArchive, queue: .global())
+            .receiveOnMain()
+            .sinkWithDefaultCompletion("SetIsArchived") { response in
+            }
+            .store(in: &subscriptions)
+    }
+
+    func setFavorite(_ isFavorite: Bool) {
+        Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite, queue: .global())
             .receiveOnMain()
             .sinkWithDefaultCompletion("SetIsArchived") { response in
             }

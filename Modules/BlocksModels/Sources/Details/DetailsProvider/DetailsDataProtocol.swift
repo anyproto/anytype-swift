@@ -12,6 +12,7 @@ public protocol DetailsDataProtocol {
     var coverId: String? { get }
     var coverType: CoverType? { get }
     var isArchived: Bool? { get }
+    var isFavorite: Bool? { get }
     var layout: DetailsLayout? { get }
     var layoutAlign: LayoutAlignment? { get }
     var done: Bool? { get }

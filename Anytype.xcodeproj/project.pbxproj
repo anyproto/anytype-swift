@@ -532,7 +532,7 @@
 		53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */; };
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
-		53FF7CD126FDDE7100A5A592 /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CD026FDDE7100A5A592 /* ArchiveService.swift */; };
+		53FF7CD126FDDE7100A5A592 /* SimpleObjectActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CD026FDDE7100A5A592 /* SimpleObjectActionsService.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
 		EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */; };
@@ -1196,7 +1196,7 @@
 		53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsView.swift; sourceTree = "<group>"; };
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
-		53FF7CD026FDDE7100A5A592 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
+		53FF7CD026FDDE7100A5A592 /* SimpleObjectActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleObjectActionsService.swift; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
 		EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictions.swift; sourceTree = "<group>"; };
@@ -3819,7 +3819,7 @@
 		53FF7CC926FDDD9A00A5A592 /* ArchiveService */ = {
 			isa = PBXGroup;
 			children = (
-				53FF7CD026FDDE7100A5A592 /* ArchiveService.swift */,
+				53FF7CD026FDDE7100A5A592 /* SimpleObjectActionsService.swift */,
 			);
 			path = ArchiveService;
 			sourceTree = "<group>";
@@ -4655,7 +4655,7 @@
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
-				53FF7CD126FDDE7100A5A592 /* ArchiveService.swift in Sources */,
+				53FF7CD126FDDE7100A5A592 /* SimpleObjectActionsService.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,

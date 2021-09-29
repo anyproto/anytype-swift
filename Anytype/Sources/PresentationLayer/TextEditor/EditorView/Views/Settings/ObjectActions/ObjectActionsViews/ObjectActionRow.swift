@@ -44,8 +44,8 @@ private extension ObjectAction {
         switch self {
         case let .archive(isArchived: isArchived):
             return isArchived ? "Restore" : "Archive"
-//        case .favorite:
-//            return "Favorite"
+        case let .favorite(isFavorite: isFavorite):
+            return isFavorite ? "Unfavorite" : "Favorite"
 //        case .moveTo:
 //            return "Move to"
 //        case .template:
@@ -59,8 +59,8 @@ private extension ObjectAction {
         switch self {
         case .archive:
             return Image.ObjectAction.archive
-//        case .favorite:
-//            return Image.ObjectAction.favorite
+        case let .favorite(isFavorite: isFavorite):
+            return isFavorite ? Image.ObjectAction.unfavorite : Image.ObjectAction.favorite
 //        case .moveTo:
 //            return Image.ObjectAction.moveTo
 //        case .template:
