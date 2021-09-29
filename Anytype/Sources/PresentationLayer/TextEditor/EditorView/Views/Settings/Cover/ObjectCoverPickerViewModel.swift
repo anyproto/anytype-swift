@@ -16,6 +16,7 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
+    private let imageUploadingDemon = ImageUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
     private let detailsService: ObjectDetailsService
     
@@ -50,25 +51,16 @@ extension ObjectCoverPickerViewModel {
         )
     }
     
+    
     func uploadImage(from itemProvider: NSItemProvider) {
-        let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
-            mediaPickerContentType.supportedTypeIdentifiers.contains($0)
-        }
-        
-        guard let identifier = typeIdentifier else { return }
-        
-        NotificationCenter.default.post(
-            name: .documentCoverImageUploadingEvent,
-            object: ""
-        )
-        
-        itemProvider.loadFileRepresentation(
-            forTypeIdentifier: identifier
-        ) { [weak self] url, error in
-            // TODO: handle errr?
-            url.flatMap {
-                self?.uploadImage(at: $0)
-            }
+        // yes, we capture detailsService in order to perform update details if user leave current screen
+        imageUploadingDemon.uploadImageFrom(item: itemProvider) { [detailsService] uploadedImageHash in
+            detailsService.update(
+                details: [
+                    .coverType: DetailsEntry(value: CoverType.uploadedImage),
+                    .coverId: DetailsEntry(value: uploadedImageHash)
+                ]
+            )
         }
     }
     
@@ -81,31 +73,4 @@ extension ObjectCoverPickerViewModel {
         )
     }
     
-}
-
-private extension ObjectCoverPickerViewModel {
-    
-    func uploadImage(at url: URL) {
-        let localPath = url.relativePath
-        
-        NotificationCenter.default.post(
-            name: .documentCoverImageUploadingEvent,
-            object: localPath
-        )
-        
-        uploadImageSubscription = fileService.uploadFile(
-            url: "",
-            localPath: localPath,
-            type: .image,
-            disableEncryption: true
-        )
-        .sinkWithDefaultCompletion("Cover upload image") { [weak self] uploadedImageHash in
-            self?.detailsService.update(
-                details: [
-                    .coverType: DetailsEntry(value: CoverType.uploadedImage),
-                    .coverId: DetailsEntry(value: uploadedImageHash)
-                ]
-            )
-        }
-    }
 }

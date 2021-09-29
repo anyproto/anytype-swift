@@ -119,6 +119,7 @@ private extension ObjectHeaderIconView {
 private extension ObjectHeaderIconView {
     
     func setupView() {
+        previewImageView.contentMode = .scaleAspectFill
         containerView.clipsToBounds = true
         
         iconImageView.isHidden = true
