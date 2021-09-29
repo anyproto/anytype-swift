@@ -113,7 +113,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
     func update(header: ObjectHeader, details: DetailsDataProtocol?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
         
         navigationBarHelper.configureNavigationBar(
             using: header,

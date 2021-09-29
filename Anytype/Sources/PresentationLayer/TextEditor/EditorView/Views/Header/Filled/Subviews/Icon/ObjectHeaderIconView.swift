@@ -44,8 +44,8 @@ extension ObjectHeaderIconView: ConfigurableView {
 
     enum Model: Hashable {
         case icon(ObjectIconType)
-        case basicPreview(UIImage)
-        case profilePreview(UIImage)
+        case basicPreview(UIImage?)
+        case profilePreview(UIImage?)
     }
 
     func configure(model: Model) {
@@ -87,7 +87,7 @@ private extension ObjectHeaderIconView {
         activityIndicatorView.hide()
     }
     
-    func showImagePreview(image: UIImage, imageGuideline: ImageGuideline?) {
+    func showImagePreview(image: UIImage?, imageGuideline: ImageGuideline?) {
         applyImageGuideline(imageGuideline)
 
         previewImageView.image = image

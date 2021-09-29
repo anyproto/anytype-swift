@@ -11,7 +11,7 @@ import UIKit
 
 enum ObjectHeaderLocalEvent {
     
-    case iconUploading(UIImage)
-    case coverUploading(UIImage)
+    case iconUploading(UIImage?)
+    case coverUploading(UIImage?)
     
 }
