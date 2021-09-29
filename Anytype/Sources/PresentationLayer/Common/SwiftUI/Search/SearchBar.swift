@@ -5,7 +5,7 @@ struct SearchBar: View {
     @Binding var text: String
         
     var body: some View {
-        TextField("Search", text: $text)
+        AutofocusedTextField(title: "Search", text: $text)
             .padding(8)
             .padding(.horizontal, 25)
             .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
