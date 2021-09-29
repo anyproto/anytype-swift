@@ -239,6 +239,7 @@
 		12C7E56927033006000DCA7F /* ImageUploadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E56827033006000DCA7F /* ImageUploadingState.swift */; };
 		12C7E56E2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E56D2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift */; };
 		12C7E571270333AF000DCA7F /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E570270333AF000DCA7F /* Hash.swift */; };
+		12C7E5732703356E000DCA7F /* CoverImageUploadingStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E5722703356E000DCA7F /* CoverImageUploadingStateHandler.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
 		12C8440726FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440626FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift */; };
@@ -900,6 +901,7 @@
 		12C7E56827033006000DCA7F /* ImageUploadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadingState.swift; sourceTree = "<group>"; };
 		12C7E56D2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadingStateHandlerProtocol.swift; sourceTree = "<group>"; };
 		12C7E570270333AF000DCA7F /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
+		12C7E5722703356E000DCA7F /* CoverImageUploadingStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageUploadingStateHandler.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
 		12C8440626FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderFilledConfiguration.swift; sourceTree = "<group>"; };
@@ -2160,6 +2162,7 @@
 				120E818626A0546F006FE84E /* ObjectCoverPickerViewModel.swift */,
 				120F7D43267CD1AC00327734 /* ObjectCoverPicker.swift */,
 				120F7D47267CFB0100327734 /* CoverColorsGridView.swift */,
+				12C7E5722703356E000DCA7F /* CoverImageUploadingStateHandler.swift */,
 			);
 			path = Cover;
 			sourceTree = "<group>";
@@ -4251,6 +4254,7 @@
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
 				12426A1626DCE1B900693B1F /* ImageBuilderProtocol.swift in Sources */,
+				12C7E5732703356E000DCA7F /* CoverImageUploadingStateHandler.swift in Sources */,
 				EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */,
 				3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,

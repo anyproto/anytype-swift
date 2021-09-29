@@ -111,7 +111,10 @@ private extension ObjectHeaderCoverView {
     }
     
     private func configurePreviewState(_ image: UIImage?) {
-        imageView.image = image
+        if let image = image {
+            imageView.image = image
+        }
+        
         imageView.contentMode = .scaleAspectFill
         
         let animation = CATransition()
