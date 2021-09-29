@@ -39,7 +39,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             if case .text = block.content { return false }
             return true
         case .header:
-                        return false
+            return false
         }
     }
 

@@ -35,6 +35,7 @@ final class SlashMenuViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(topBarTitle.isNil, animated: true)
+        navigationController?.navigationBar.backItem?.title = ""
     }
     
     private func setup() {

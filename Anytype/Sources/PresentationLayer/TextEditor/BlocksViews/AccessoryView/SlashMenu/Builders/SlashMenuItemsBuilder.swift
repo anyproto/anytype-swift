@@ -69,7 +69,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var actionsMenuItem: SlashMenuItem {
-        let children: [SlashAction] = [BlockAction.delete, BlockAction.duplicate].map { .actions($0) }
+        let children: [SlashAction] = BlockAction.allCases.map { .actions($0) }
         return SlashMenuItem(item: .actions, children: children)
     }
     
