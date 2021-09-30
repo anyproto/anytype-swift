@@ -19,7 +19,7 @@ final class KingfisherConfigurator: AppConfiguratorProtocol {
             .backgroundDecode,
             .diskCacheExpiration(.days(1)),
             .retryStrategy(
-                DelayRetryStrategy(maxRetryCount: 3, retryInterval: .seconds(2))
+                DelayRetryStrategy(maxRetryCount: 5, retryInterval: .seconds(2))
             ),
             .keepCurrentImageWhileLoading
         ]
