@@ -17,7 +17,11 @@ final class KingfisherConfigurator: AppConfiguratorProtocol {
             .cacheOriginalImage,
             .originalCache(Kingfisher.ImageCache.originalImagesCache),
             .backgroundDecode,
-            .diskCacheExpiration(.days(3))
+            .diskCacheExpiration(.days(1)),
+            .retryStrategy(
+                DelayRetryStrategy(maxRetryCount: 5, retryInterval: .seconds(2))
+            ),
+            .keepCurrentImageWhileLoading
         ]
     }
     
