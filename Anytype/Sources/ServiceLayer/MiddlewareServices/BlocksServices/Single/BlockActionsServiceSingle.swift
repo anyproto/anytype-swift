@@ -32,24 +32,22 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> AnyPublisher<ResponseEvent, Error> {
+    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> Result<ResponseEvent, Error> {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
-            return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
+            return .failure(PossibleError.addActionBlockIsNotParsed)
         }
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return Fail(error: PossibleError.addActionPositionConversionHasFailed).eraseToAnyPublisher()
+            return .failure(PossibleError.addActionPositionConversionHasFailed)
         }
-        return self.action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
+        return action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
     }
 
-    private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
-            .map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
-            .handleEvents(receiveSubscription: { _ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
-            })
-            .eraseToAnyPublisher()
+    private func action(
+        contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position
+    ) -> Result<ResponseEvent, Error> {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
+        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
+            .map { ResponseEvent($0.event) }
     }
     
     // TODO: Remove it or implement it. Unused.

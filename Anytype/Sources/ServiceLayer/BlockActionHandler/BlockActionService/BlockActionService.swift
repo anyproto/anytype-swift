@@ -52,12 +52,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
-        singleService.add(contextID: self.documentId, targetID: targetBlockId, info: info, position: position)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
-                let value = shouldSetFocusOnUpdate ? value.addEvent : value.defaultEvent
-                self?.didReceiveEvent(value)
-            }.store(in: &self.subscriptions)
+        let result = singleService.add(contextID: documentId, targetID: targetBlockId, info: info, position: position)
+        guard let response = try? result.get() else { return }
+        
+        let event = shouldSetFocusOnUpdate ? response.addEvent : response.defaultEvent
+        didReceiveEvent(event)
     }
 
     func split(

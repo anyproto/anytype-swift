@@ -83,6 +83,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             delete(blockId: blockId)
         case let .addBlock(type):
             addBlock(blockId: blockId, type: type)
+        case let .addLink(targetBlockId):
+            service.add(
+                info: BlockBuilder.createNewLink(targetBlockId: targetBlockId),
+                targetBlockId: blockId,
+                position: .bottom,
+                shouldSetFocusOnUpdate: false
+            )
         case let .turnIntoBlock(type):
             service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
         case let .fetch(url: url):
