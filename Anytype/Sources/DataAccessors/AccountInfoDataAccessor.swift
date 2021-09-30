@@ -6,7 +6,7 @@ import AnytypeCore
 
 final class AccountInfoDataAccessor: ObservableObject {
     
-    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration?.profileBlockId
+    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration()?.profileBlockId
     @Published private(set) var name: String?
     @Published private(set) var avatarId: String?
     

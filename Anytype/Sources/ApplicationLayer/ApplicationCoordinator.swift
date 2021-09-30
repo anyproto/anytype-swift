@@ -69,7 +69,6 @@ private extension ApplicationCoordinator {
             case .success:
                 guard let self = self else { return }
                 
-                self.configureMiddlewareConfiguration()
                 self.showHomeScreen()
             case .failure:
                 self?.showAuthScreen()
@@ -105,10 +104,6 @@ extension ApplicationCoordinator: WindowHolder {
         
         window.rootViewController = rootNavigationController
         window.makeKeyAndVisible()
-    }
-    
-    func configureMiddlewareConfiguration() {
-        MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
     }
     
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
