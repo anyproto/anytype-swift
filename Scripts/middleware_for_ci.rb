@@ -328,7 +328,7 @@ class Pipeline
       MiddlewareUpdater::RemoveDirectoryWorker.new(temporaryDirectory).work
 
       say "Moving protobuf files from Dependencies to our project directory"
-      MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
+      # MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
 
       say "Generate services from protobuf files"
       # MiddlewareUpdater::RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
