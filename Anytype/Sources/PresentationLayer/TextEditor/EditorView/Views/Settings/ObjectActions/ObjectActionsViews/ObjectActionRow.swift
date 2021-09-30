@@ -43,9 +43,9 @@ private extension ObjectAction {
     var title: String {
         switch self {
         case let .archive(isArchived: isArchived):
-            return isArchived ? "Restore" : "Archive"
+            return isArchived ? "Restore".localized : "Archive".localized
         case let .favorite(isFavorite: isFavorite):
-            return isFavorite ? "Unfavorite" : "Favorite"
+            return isFavorite ? "Unfavorite".localized : "Favorite".localized
 //        case .moveTo:
 //            return "Move to"
 //        case .template:
