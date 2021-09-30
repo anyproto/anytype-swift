@@ -147,6 +147,7 @@
 "no peers" = "no peers";
 "Add profile" = "Add profile";
 "Scan QR code" = "Scan QR code";
+"Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
 
 "Enter your invitation code" = "Enter your invitation code";
 "Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
@@ -214,3 +215,7 @@
 // MARK: - Main search
 "There is no object named" = "There is no object named";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
+
+// MARK: - Alerts
+"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
