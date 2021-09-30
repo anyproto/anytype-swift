@@ -41,7 +41,10 @@ jobs:
           xcode-version: '13.0'
           
       - name: Toolchain
-        run: swift --version
+        run: |
+            swift --version
+            xcrun --find swift
+        
 
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
