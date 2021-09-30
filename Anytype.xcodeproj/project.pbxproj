@@ -349,7 +349,6 @@
 		3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41662703170300F1F6A1 /* BlockColor.swift */; };
 		3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41672703170300F1F6A1 /* BlockAction.swift */; };
 		3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41682703170300F1F6A1 /* BlockBackgroundColor.swift */; };
-		3D5A4175270430C500F1F6A1 /* MoveToSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A4174270430C500F1F6A1 /* MoveToSearchView.swift */; };
 		3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41772704541900F1F6A1 /* SearchView.swift */; };
 		3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41782704541900F1F6A1 /* SearchBar.swift */; };
 		3D5A417F2704543300F1F6A1 /* SearchCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A417C2704543300F1F6A1 /* SearchCellData.swift */; };
@@ -370,6 +369,7 @@
 		3D829172265E50190007C152 /* RedactedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D829171265E50190007C152 /* RedactedText.swift */; };
 		3D82917B265E53BB0007C152 /* LocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82917A265E53BB0007C152 /* LocalEvent.swift */; };
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
+		3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8311062705899000CA6308 /* SlashActionObject.swift */; };
 		3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9226456C89005805A8 /* HomeCoordinator.swift */; };
 		3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9E26458CC2005805A8 /* DragIndicator.swift */; };
 		3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */; };
@@ -1015,7 +1015,6 @@
 		3D5A41662703170300F1F6A1 /* BlockColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockColor.swift; sourceTree = "<group>"; };
 		3D5A41672703170300F1F6A1 /* BlockAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockAction.swift; sourceTree = "<group>"; };
 		3D5A41682703170300F1F6A1 /* BlockBackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColor.swift; sourceTree = "<group>"; };
-		3D5A4174270430C500F1F6A1 /* MoveToSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToSearchView.swift; sourceTree = "<group>"; };
 		3D5A41772704541900F1F6A1 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		3D5A41782704541900F1F6A1 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		3D5A417C2704543300F1F6A1 /* SearchCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCellData.swift; sourceTree = "<group>"; };
@@ -1035,6 +1034,7 @@
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D829171265E50190007C152 /* RedactedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedText.swift; sourceTree = "<group>"; };
 		3D82917A265E53BB0007C152 /* LocalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEvent.swift; sourceTree = "<group>"; };
+		3D8311062705899000CA6308 /* SlashActionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashActionObject.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		3D850B9E26458CC2005805A8 /* DragIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicator.swift; sourceTree = "<group>"; };
 		3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockText+AnytypeText.swift"; sourceTree = "<group>"; };
@@ -2416,7 +2416,6 @@
 				12A52E1A26CA88CD000F0333 /* EditorBarButtonItemView.swift */,
 				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
-				3D5A4174270430C500F1F6A1 /* MoveToSearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3006,6 +3005,7 @@
 				3D5A41572703132800F1F6A1 /* SlashActionStyle.swift */,
 				3D5A41582703132800F1F6A1 /* SlashActionAlignment.swift */,
 				3D5A415A2703132800F1F6A1 /* SlashActionMedia.swift */,
+				3D8311062705899000CA6308 /* SlashActionObject.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -4372,6 +4372,7 @@
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				3DC0F7D126EF4CDD00CFCB3D /* EditorActionHandler.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
+				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */,
@@ -4769,7 +4770,6 @@
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
-				3D5A4175270430C500F1F6A1 /* MoveToSearchView.swift in Sources */,
 				3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */,

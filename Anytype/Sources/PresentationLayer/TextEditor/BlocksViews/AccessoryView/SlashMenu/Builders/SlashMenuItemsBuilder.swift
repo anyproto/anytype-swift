@@ -55,8 +55,13 @@ struct SlashMenuItemsBuilder {
             return nil
         }
         
-        let objects = [ draft ]
-        return SlashMenuItem(item: .objects, children: objects.map { .objects($0) })
+        return SlashMenuItem(
+            item: .objects,
+            children: [
+                .objects(.linkTo),
+                .objects(.objectType(draft))
+            ]
+        )
     }
     
     private var relationMenuItem: SlashMenuItem? {

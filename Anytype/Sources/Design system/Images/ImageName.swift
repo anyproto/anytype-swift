@@ -1,5 +1,7 @@
 final class ImageName {
     enum slashMenu {
+        static let link_to = "slash_menu_link_to"
+        
         enum groups {
             static let actions = "slash_menu_group_actions"
             static let media = "slash_menu_group_media"
