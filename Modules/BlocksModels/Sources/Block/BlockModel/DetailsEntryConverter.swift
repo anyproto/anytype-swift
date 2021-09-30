@@ -56,6 +56,8 @@ public class DetailsEntryConverter {
                 return value.asCoverTypeEntry()
             case .isArchived:
                 return value.asBoolEntry()
+            case .isFavorite:
+                return value.asBoolEntry()
             case .description:
                 return value.asStringEntry()
             case .layout:

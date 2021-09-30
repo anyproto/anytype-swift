@@ -13,7 +13,7 @@ enum ObjectAction: Hashable {
 
     // NOTE: When adding new case here, it case MUST be added in allCasesWith method
     case archive(isArchived: Bool)
-//    case favorite
+    case favorite(isFavorite: Bool)
 //    case moveTo
 //    case template
 //    case search
@@ -23,7 +23,7 @@ enum ObjectAction: Hashable {
         var allCases: [ObjectAction] = []
 
         allCases.append(.archive(isArchived: details.isArchived ?? false))
-//        allCases.append(.favorite)
+        allCases.append(.favorite(isFavorite: details.isFavorite ?? false))
 //        allCases.append(.moveTo)
 //        allCases.append(.template)
 //        allCases.append(.search)

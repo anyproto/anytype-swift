@@ -49,13 +49,13 @@ final class HomeViewModel: ObservableObject {
     func updateArchiveTab() {
         searchService.searchArchivedPages { [weak self] searchResults in
             guard let self = self else { return }
-            self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)
+            self.archiveCellData = self.cellDataBuilder.buildCellData(searchResults)
         }
     }
     func updateHistoryTab() {
         searchService.searchHistoryPages { [weak self] searchResults in
             guard let self = self else { return }
-            self.historyCellData = self.cellDataBuilder.buldCellData(searchResults)
+            self.historyCellData = self.cellDataBuilder.buildCellData(searchResults)
         }
     }
     
@@ -76,7 +76,7 @@ final class HomeViewModel: ObservableObject {
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
-            favoritesCellData = cellDataBuilder.buldFavoritesData(updateResult)
+            favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
         case .update(let blockIds):
             blockIds.forEach { updateCellWithTargetId($0) }
         case .details(let details):

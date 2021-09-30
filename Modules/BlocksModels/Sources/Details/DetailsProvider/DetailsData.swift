@@ -58,6 +58,10 @@ extension DetailsData: DetailsDataProtocol {
     public var isArchived: Bool? {
         value(for: .isArchived)
     }
+
+    public var isFavorite: Bool? {
+        value(for: .isFavorite)
+    }
     
     public var description: String? {
         value(for: .description)
