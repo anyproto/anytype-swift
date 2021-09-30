@@ -5,16 +5,14 @@ import AnytypeCore
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     @StateObject private var accountData = AccountInfoDataAccessor()
-
-    @State private var showSettings = false
     
-    @State private var scrollOffset: CGFloat = 0
-    @State private var isSheetOpen = false
+    @State var bottomSheetState = HomeBottomSheetViewState.closed
+    @State private var showSettings = false
     
     private let bottomSheetHeightRatio: CGFloat = 0.89
 
     var body: some View {
-        contentView
+        navigationView
             .environment(\.font, .defaultAnytype)
             .environmentObject(viewModel)
             .environmentObject(accountData)
@@ -28,22 +26,11 @@ struct HomeView: View {
             }
     }
     
-    private var contentView: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Group {
-                    Gradients.mainBackground()
-                    newPageNavigation
-                    HomeProfileView()
-                    
-                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio, scrollOffset: $scrollOffset, isOpen: $isSheetOpen) {
-                        HomeTabsView(offsetChanged: offsetChanged)
-                    }
-                }.frame(width: geometry.size.width, height: geometry.size.height)
-            }
-        }
+    private var navigationView: some View {
+        contentView
         .edgesIgnoringSafeArea(.all)
-        
+        .coordinateSpace(name: viewModel.bottomSheetCoordinateSpaceName)
+
         .toolbar {
             ToolbarItem {
                 Button(action: {
@@ -73,6 +60,22 @@ struct HomeView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
+    private var contentView: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Group {
+                    Gradients.mainBackground()
+                    newPageNavigation
+                    HomeProfileView()
+                    
+                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio, state: $bottomSheetState) {
+                        HomeTabsView(offsetChanged: offsetChanged, onDrag: onDrag, onDragEnd: onDragEnd)
+                    }
+                }.frame(width: geometry.size.width, height: geometry.size.height)
+            }
+        }
+    }
+    
     private var newPageNavigation: some View {
         Group {
             NavigationLink(
@@ -84,30 +87,6 @@ struct HomeView: View {
             )
             NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099
         }
-    }
-
-    private let sheetOpenOffset: CGFloat = -5
-    private let sheetCloseOffset: CGFloat = 40
-    
-    private func offsetChanged(_ offset: CGPoint) {
-        if offset.y < sheetOpenOffset {
-            withAnimation(.spring()) {
-                if isSheetOpen == false {
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                }
-                isSheetOpen = true
-            }
-        }
-        if offset.y > sheetCloseOffset {
-            withAnimation(.spring()) {
-                if isSheetOpen == true {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                }
-                isSheetOpen = false
-            }
-        }
-
-        scrollOffset = offset.y
     }
 }
 
