@@ -32,12 +32,6 @@ platform :ios do
       xcodeproj: "Anytype.xcodeproj"
     )
 
-    prefix = options[:release] ? "release" : "dev"
-    add_git_tag(
-      tag: "#{prefix}/#{version}/#{build_number}",
-      force: true
-    )
-
     if !options[:release] 
       add_badge(
         shield: "#{version}-#{build_number}-blue",
@@ -53,6 +47,12 @@ platform :ios do
     )
 
     upload_build_to_testflight
+
+    prefix = options[:release] ? "release" : "dev"
+    add_git_tag(
+      tag: "#{prefix}/#{version}/#{build_number}",
+      force: true
+    )
 
     # Reset icon changes
     reset_git_repo(skip_clean: true)
