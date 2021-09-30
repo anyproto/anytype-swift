@@ -31,6 +31,8 @@ final class HomeViewModel: ObservableObject {
     let document: BaseDocumentProtocol = BaseDocument()
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
+    let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
+    
     init() {
         fetchDashboardData()
     }
