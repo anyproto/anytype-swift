@@ -5,7 +5,7 @@ import UIKit
 final class UrlResolver {
        
     static func resolvedUrl(_ urlType: UrlType) -> URL? {
-        guard let gatewayUrl = MiddlewareConfigurationService.shared.configuration?.gatewayURL else {
+        guard let gatewayUrl = MiddlewareConfigurationService.shared.configuration()?.gatewayURL else {
             anytypeAssertionFailure("Configuration must be loaded")
             return nil
         }

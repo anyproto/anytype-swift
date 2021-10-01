@@ -6,9 +6,7 @@ protocol WindowHolder {
     var rootNavigationController: UINavigationController { get }
     
     func startNewRootView<ViewType: View>(_ view: ViewType)
-        
-    func configureMiddlewareConfiguration()
-    
+            
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
 }
 

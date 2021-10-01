@@ -8,66 +8,38 @@ final class MiddlewareConfigurationService {
     // MARK: - Initializer
     static let shared = MiddlewareConfigurationService()
     
-    // MARK: - Internal veriables
-    private(set) var configuration: MiddlewareConfiguration?
+    // MARK: - Private variables
+    private var cachedConfiguration: MiddlewareConfiguration?
 }
 
 extension MiddlewareConfigurationService {
     
-    func obtainAndCacheConfiguration() {
-        getConfiguration { [weak self] config in
-            self?.configuration = config
+    func configuration() -> MiddlewareConfiguration? {
+        if let configuration = cachedConfiguration {
+            return configuration
         }
+        
+        guard let result = try? Anytype_Rpc.Config.Get.Service.invoke().get() else {
+            return nil
+        }
+        
+        cachedConfiguration = MiddlewareConfiguration(
+            homeBlockID: result.homeBlockID,
+            archiveBlockID: result.archiveBlockID,
+            profileBlockId: result.profileBlockID,
+            gatewayURL: result.gatewayURL
+        )
+        
+        return cachedConfiguration
     }
     
+    
     func removeCacheConfiguration() {
-        configuration = nil
+        cachedConfiguration = nil
     }
     
     func libraryVersion() -> String? {
         return try? Anytype_Rpc.Version.Get.Service.invoke().get().version
-    }
-    
-    func getConfiguration(onCompletion: @escaping (MiddlewareConfiguration) -> Void) {
-        let _ = Anytype_Rpc.Config.Get.Service.invoke()
-            .map {
-                MiddlewareConfiguration(
-                    homeBlockID: $0.homeBlockID,
-                    archiveBlockID: $0.archiveBlockID,
-                    profileBlockId: $0.profileBlockID,
-                    gatewayURL: $0.gatewayURL
-                )
-            }
-            .sinkWithDefaultCompletion("ObtainConfiguration") { config in
-                onCompletion(config)
-            }
-    }
-    
-}
-
-extension MiddlewareConfigurationService {
-    
-    @available(*, deprecated)
-    func obtainConfiguration(completion: @escaping (MiddlewareConfiguration) -> ()) {
-        if let configuration = MiddlewareConfiguration.shared {
-            completion(configuration)
-        }
-
-        let _ = Anytype_Rpc.Config.Get.Service.invoke()
-            .subscribe(on: DispatchQueue.global(qos: .userInitiated))
-            .map {
-                MiddlewareConfiguration(
-                    homeBlockID: $0.homeBlockID,
-                    archiveBlockID: $0.archiveBlockID,
-                    profileBlockId: $0.profileBlockID,
-                    gatewayURL: $0.gatewayURL
-                )
-            }
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("ObtainConfiguration") { config in
-                MiddlewareConfiguration.shared = config
-                completion(config)
-            }
     }
     
 }
