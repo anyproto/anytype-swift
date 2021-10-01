@@ -337,6 +337,7 @@
 		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
+		3D56F2122706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F2112706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift */; };
 		3D5A413B2702CB9A00F1F6A1 /* OpenedPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */; };
 		3D5A413D2702CBBE00F1F6A1 /* SnackBarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413C2702CBBE00F1F6A1 /* SnackBarData.swift */; };
 		3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */; };
@@ -552,7 +553,6 @@
 		EA2640CA26C3DDF6006071BD /* RangeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640C926C3DDF6006071BD /* RangeConverter.swift */; };
 		EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
-		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
 		EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */; };
 		EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */; };
 		EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E4E26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift */; };
@@ -1003,6 +1003,7 @@
 		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = Anytype/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
+		3D56F2112706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
 		3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedPageData.swift; sourceTree = "<group>"; };
 		3D5A413C2702CBBE00F1F6A1 /* SnackBarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBarData.swift; sourceTree = "<group>"; };
 		3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuCellDataBuilder.swift; sourceTree = "<group>"; };
@@ -1216,7 +1217,6 @@
 		EA2640C926C3DDF6006071BD /* RangeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeConverter.swift; sourceTree = "<group>"; };
 		EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringConverterTests.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
-		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
 		EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChangerProtocol.swift; sourceTree = "<group>"; };
 		EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareString.swift; sourceTree = "<group>"; };
 		EA3D1E4E26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewAttributeSelectionInteraction.swift; sourceTree = "<group>"; };
@@ -2963,6 +2963,16 @@
 			path = Internals;
 			sourceTree = "<group>";
 		};
+		3D56F20D2706E092007BC15E /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				3D56F2112706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift */,
+				3DE0CFCF26F8593D003A606A /* SlashActionFilterMatch.swift */,
+				3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 		3D5A41362702CB8F00F1F6A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -3473,12 +3483,11 @@
 		3DE0CFCB26F85913003A606A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D56F20D2706E092007BC15E /* Filter */,
 				3D5A41532703132800F1F6A1 /* Actions */,
 				3DE0CFD226F8593D003A606A /* SlashAction.swift */,
-				3DE0CFCF26F8593D003A606A /* SlashActionFilterMatch.swift */,
 				3DE0CFCE26F8593D003A606A /* SlashMenuItem.swift */,
 				3DE0CFD026F8593D003A606A /* SlashMenuItemDisplayData.swift */,
-				3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */,
 				3DE0CFD126F8593D003A606A /* SlashMenuItemType.swift */,
 				3DE0CFCC26F8591E003A606A /* SlashMenuCellData.swift */,
 			);
@@ -3828,7 +3837,6 @@
 			isa = PBXGroup;
 			children = (
 				3DB692A326970DDC00149864 /* Restrictions */,
-				EA289B872629A7C000EA869F /* BlockActions */,
 				EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */,
 				EA0261352625D12000AE6D86 /* BlockRestrictionsFactory.swift */,
 			);
@@ -3880,14 +3888,6 @@
 				EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */,
 			);
 			path = AttributedStringParser;
-			sourceTree = "<group>";
-		};
-		EA289B872629A7C000EA869F /* BlockActions */ = {
-			isa = PBXGroup;
-			children = (
-				EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */,
-			);
-			path = BlockActions;
 			sourceTree = "<group>";
 		};
 		EA54128926C5803A00C9B6F3 /* Interactions */ = {
@@ -4712,7 +4712,6 @@
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				12426A2C26DD006500693B1F /* ImageID.swift in Sources */,
-				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,
 				EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
@@ -4756,6 +4755,7 @@
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				3D5A413D2702CBBE00F1F6A1 /* SnackBarData.swift in Sources */,
+				3D56F2122706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */,
 				3DE0CFD726F8593D003A606A /* SlashMenuItemType.swift in Sources */,

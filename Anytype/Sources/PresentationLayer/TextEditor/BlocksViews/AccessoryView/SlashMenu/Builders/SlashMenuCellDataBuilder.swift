@@ -3,20 +3,30 @@ import AnytypeCore
 
 final class SlashMenuCellDataBuilder {
     func build(filter: String = "", menuItems: [SlashMenuItem]) -> [SlashMenuCellData] {
-        guard !filter.isEmpty else {
-            return menuItems.map { .menu(item: $0.item, actions: $0.children) }
+        if filter.isEmpty {
+            return menuItems.map { SlashMenuCellData.menu(item: $0) }
         }
 
-        return menuItems.flatMap { entry in
-            searchCellData(from: entry, filter: filter)
+        return searchCellData(items: menuItems, filter: filter)
+    }
+    
+    private func searchCellData(items: [SlashMenuItem], filter: String) -> [SlashMenuCellData] {
+        items.map { item -> [SlashMenuCellData] in
+            let actions = actions(item: item, filter: filter)
+            return searchCellData(title: item.type.title, actions: actions)
+        }.flatMap { $0 }
+    }
+    
+    private func actions(item: SlashMenuItem, filter: String) -> [SlashAction] {
+        if item.type.title.localizedCaseInsensitiveContains(filter) {
+            return item.children
+        } else {
+            let filterMatch = filterMatch(item: item, filter: filter)
+            return filterMatch.map(\.action)
         }
     }
     
-    private func searchCellData(from item: SlashMenuItem, filter: String) -> [SlashMenuCellData] {
-        guard !item.item.title.localizedCaseInsensitiveContains(filter) else {
-            return searchCellData(title: item.item.title, actions: item.children)
-        }
-        
+    private func filterMatch(item: SlashMenuItem, filter: String) -> [SlashActionFilterMatch] {
         var filteredActions: [SlashActionFilterMatch] = item.children.compactMap {
             guard let filterMatch = $0.displayData.matchBy(string: filter) else { return nil }
             return SlashActionFilterMatch(action: $0, filterMatch: filterMatch)
@@ -24,7 +34,7 @@ final class SlashMenuCellDataBuilder {
         
         filteredActions.sort { $0.filterMatch < $1.filterMatch }
         
-        return searchCellData(title: item.item.title, actions: filteredActions.map(\.action))
+        return filteredActions
     }
     
     private func searchCellData(title: String, actions: [SlashAction]) -> [SlashMenuCellData] {
