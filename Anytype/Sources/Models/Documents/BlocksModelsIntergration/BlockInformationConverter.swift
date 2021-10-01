@@ -34,6 +34,15 @@ class BlockInformationConverter {
         let backgroundColor = information.backgroundColor?.rawValue ?? ""
         let alignment = information.alignment.asMiddleware
         
-        return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)
+        
+        return Anytype_Model_Block(
+            id: id,
+            fields: fields,
+            restrictions: restrictions,
+            childrenIds: childrenIds,
+            backgroundColor: backgroundColor,
+            align: alignment,
+            content: content
+        )
     }
 }

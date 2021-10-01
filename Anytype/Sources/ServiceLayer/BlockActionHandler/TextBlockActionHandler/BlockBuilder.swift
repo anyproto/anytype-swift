@@ -12,17 +12,26 @@ struct BlockBuilder {
         default: return nil
         }
     }
+    
+    static func createNewLink(targetBlockId: BlockId) -> BlockInformation {
+        BlockInformation.createNew(
+            content: .link(
+                BlockLink(
+                    targetBlockID: targetBlockId,
+                    style: .page,
+                    fields: [:]
+                )
+            )
+        )
+    }
 
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContentType(blockType: type).flatMap { content in
             var block = BlockInformation.createNew(content: content)
             
-            guard
-                case .file(let blockFile) = content,
-                case .image = blockFile.contentType
-            else { return block }
-            
-            block.alignment = .center
+            if case .file(let blockFile) = content, case .image = blockFile.contentType {
+                block.alignment = .center
+            }
 
             return block
         }
