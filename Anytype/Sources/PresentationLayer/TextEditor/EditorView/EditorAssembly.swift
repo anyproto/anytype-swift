@@ -71,12 +71,15 @@ final class EditorAssembly {
         
         let accessorySwitcher = AccessoryViewSwitcherBuilder()
             .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
+        let detailsLoader = DetailsLoader(document: document, eventProcessor: eventProcessor)
+        
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             blockActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            accessorySwitcher: accessorySwitcher
+            accessorySwitcher: accessorySwitcher,
+            detailsLoader: detailsLoader
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
