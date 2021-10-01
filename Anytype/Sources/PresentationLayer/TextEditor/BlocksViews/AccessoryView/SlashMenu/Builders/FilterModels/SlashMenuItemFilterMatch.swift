@@ -1,6 +1,7 @@
 import Foundation
 
 enum SlashMenuItemFilterMatch: Comparable {
+    case groupName
     case fullTitle
     case titleSubstring
     case fullSubtitle

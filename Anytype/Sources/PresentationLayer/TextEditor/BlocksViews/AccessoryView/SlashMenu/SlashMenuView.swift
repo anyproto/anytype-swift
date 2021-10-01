@@ -79,8 +79,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
 extension SlashMenuView: FilterableItemsView {
     
     func setFilterText(filterText: String) {
-        popTooRoot()
         guard cachedFilterText != filterText else { return }
+        
+        popTooRoot()
         
         controller.cellData = cellDataBuilder.build(filter: filterText, menuItems: menuItems)
         
@@ -89,6 +90,7 @@ extension SlashMenuView: FilterableItemsView {
         } else {
             filterStringMismatchLength += filterText.count - cachedFilterText.count
         }
+        
         cachedFilterText = filterText
     }
 }

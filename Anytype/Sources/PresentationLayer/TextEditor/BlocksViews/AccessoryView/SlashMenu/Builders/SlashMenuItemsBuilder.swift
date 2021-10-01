@@ -42,12 +42,12 @@ struct SlashMenuItemsBuilder {
         if children.isEmpty {
             return nil
         }
-        return SlashMenuItem(item: .style, children: children)
+        return SlashMenuItem(type: .style, children: children)
     }
     
     private var mediaMenuItem: SlashMenuItem? {
         let children: [SlashAction] = SlashActionMedia.allCases.map { .media($0) }
-        return SlashMenuItem(item: .media, children: children)
+        return SlashMenuItem(type: .media, children: children)
     }
     
     private var objectsMenuItem: SlashMenuItem? {
@@ -56,7 +56,7 @@ struct SlashMenuItemsBuilder {
         }
         
         return SlashMenuItem(
-            item: .objects,
+            type: .objects,
             children: [
                 .objects(.linkTo),
                 .objects(.objectType(draft))
@@ -70,12 +70,12 @@ struct SlashMenuItemsBuilder {
     
     private var otherMenuItem: SlashMenuItem {
         let children: [SlashAction] = SlashActionOther.allCases.map { .other($0) }
-        return SlashMenuItem(item: .other, children: children)
+        return SlashMenuItem(type: .other, children: children)
     }
     
     private var actionsMenuItem: SlashMenuItem {
         let children: [SlashAction] = BlockAction.allCases.map { .actions($0) }
-        return SlashMenuItem(item: .actions, children: children)
+        return SlashMenuItem(type: .actions, children: children)
     }
     
     private var alignmentMenuItem: SlashMenuItem? {
@@ -86,20 +86,20 @@ struct SlashMenuItemsBuilder {
         if children.isEmpty {
             return nil
         }
-        return SlashMenuItem(item: .alignment, children: children)
+        return SlashMenuItem(type: .alignment, children: children)
     }
     
     private var blockColorMenuItem: SlashMenuItem? {
         if !restrictions.canApplyBlockColor {
             return nil
         }
-        return SlashMenuItem(item: .color, children: BlockColor.allCases.map { .color($0) })
+        return SlashMenuItem(type: .color, children: BlockColor.allCases.map { .color($0) })
     }
     
     private var backgroundColorMenuItem: SlashMenuItem? {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }
-        return SlashMenuItem(item: .background, children: BlockBackgroundColor.allCases.map { .background($0) })
+        return SlashMenuItem(type: .background, children: BlockBackgroundColor.allCases.map { .background($0) })
     }
 }
