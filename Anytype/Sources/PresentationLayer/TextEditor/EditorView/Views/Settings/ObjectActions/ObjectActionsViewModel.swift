@@ -12,7 +12,7 @@ import BlocksModels
 
 
 final class ObjectActionsViewModel: ObservableObject {
-    private let archiveService: ArchiveService
+    private let archiveService: OtherObjectActionsService
 
     @Published var details: DetailsDataProtocol = DetailsData.empty {
         didSet {
@@ -22,7 +22,7 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectActions: [ObjectAction] = []
 
     init(objectId: String) {
-        self.archiveService = ArchiveService(objectId: objectId)
+        self.archiveService = OtherObjectActionsService(objectId: objectId)
     }
 
     func changeArchiveState() {
@@ -30,7 +30,9 @@ final class ObjectActionsViewModel: ObservableObject {
         archiveService.setArchive(!isArchived)
     }
 
-    func favoriteObject() {
+    func changeFavoriteSate() {
+        let isFavorite = details.isFavorite ?? false
+        archiveService.setFavorite(!isFavorite)
     }
 
     func moveTo() {

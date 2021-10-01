@@ -21,8 +21,8 @@ struct ObjectActionsView: View {
                         switch setting {
                         case .archive:
                             viewModel.changeArchiveState()
-//                        case .favorite:
-//                            viewModel.favoriteObject()
+                        case .favorite:
+                            viewModel.changeFavoriteSate()
 //                        case .moveTo:
 //                            viewModel.moveTo()
 //                        case .template:

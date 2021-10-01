@@ -1,10 +1,13 @@
 import SwiftUI
+import Combine
 
 class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
+    private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
 
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
+    @Published var openSettingsURL = false
     @Published var error: String? {
         didSet {
             showError = false
@@ -21,8 +24,9 @@ class LoginViewModel: ObservableObject {
             onEntropySet()
         }
     }
-    
     @Published var showSelectProfile = false
+
+    private var subscriptions = [AnyCancellable]()
     
     func onEntropySet() {
         authService.mnemonicByEntropy(entropy) { [weak self] result in
@@ -46,5 +50,18 @@ class LoginViewModel: ObservableObject {
                 self?.showSelectProfile = true
             }
         }
+    }
+
+    func onShowQRCodeTap() {
+        cameraPermissionVerifier.cameraPermission
+            .receiveOnMain()
+            .sink { [unowned self] isGranted in
+                if isGranted {
+                    showQrCodeView = true
+                } else {
+                    openSettingsURL = true
+                }
+            }
+            .store(in: &subscriptions)
     }
 }

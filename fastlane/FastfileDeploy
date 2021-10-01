@@ -20,7 +20,9 @@ platform :ios do
     setup_ci
     match(readonly: true)
     
-    ensure_git_status_clean
+    ensure_git_status_clean(
+      show_uncommitted_changes: true
+    )
 
     build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
     version = get_version_number(xcodeproj: "Anytype.xcodeproj")

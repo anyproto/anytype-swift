@@ -16,11 +16,23 @@ struct HomeTabsView: View {
     @State private var tabSelection = UserDefaultsConfig.selectedTab
     
     let offsetChanged: (CGPoint) -> Void
+    let onDrag: (CGSize) -> Void
+    let onDragEnd: (CGSize) -> Void
+        
     private let blurStyle = UIBlurEffect.Style.systemMaterial
     
     var body: some View {
         VStack(spacing: 0) {
             tabHeaders
+                .gesture(
+                    DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
+                        .onChanged { gesture in
+                            onDrag(gesture.translation)
+                        }
+                        .onEnded{ gesture in
+                            onDragEnd(gesture.translation)
+                        }
+                )
             tabs
         }
     }
@@ -100,7 +112,7 @@ struct HomeTabsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            HomeTabsView(offsetChanged: { _ in })
+            HomeTabsView(offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
                 .environmentObject(model)
         }
     }

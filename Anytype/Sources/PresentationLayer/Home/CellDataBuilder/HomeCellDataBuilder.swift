@@ -9,11 +9,11 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buldCellData(_ searchResults: [DetailsDataProtocol]) -> [HomeCellData] {
+    func buildCellData(_ searchResults: [DetailsDataProtocol]) -> [HomeCellData] {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
+    func buildFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
         let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
