@@ -11,30 +11,47 @@ final class SlashMenuCellDataBuilder {
     }
     
     private func searchCellData(items: [SlashMenuItem], filter: String) -> [SlashMenuCellData] {
-        items.map { item -> [SlashMenuCellData] in
-            let actions = actions(item: item, filter: filter)
-            return searchCellData(title: item.type.title, actions: actions)
-        }.flatMap { $0 }
+        items.compactMap { item in
+            return filterItem(item: item, filter: filter)
+        }
+        .sorted(by: { lhs, rhs in
+            lhs.topMatch < rhs.topMatch
+        })
+        .map { filteredItem -> [SlashMenuCellData] in
+            searchCellData(title: filteredItem.title, actions: filteredItem.actions)
+        }
+        .flatMap { $0 }
     }
     
-    private func actions(item: SlashMenuItem, filter: String) -> [SlashAction] {
+    private func filterItem(item: SlashMenuItem, filter: String) -> SlashMenuFilteredItem? {
         if item.type.title.localizedCaseInsensitiveContains(filter) {
-            return item.children
+            return SlashMenuFilteredItem(title: item.type.title, topMatch: .groupName, actions: item.children)
         } else {
-            let filterMatch = filterMatch(item: item, filter: filter)
-            return filterMatch.map(\.action)
+            return filterItemContent(item: item, filter: filter)
         }
     }
     
-    private func filterMatch(item: SlashMenuItem, filter: String) -> [SlashActionFilterMatch] {
-        var filteredActions: [SlashActionFilterMatch] = item.children.compactMap {
-            guard let filterMatch = $0.displayData.matchBy(string: filter) else { return nil }
-            return SlashActionFilterMatch(action: $0, filterMatch: filterMatch)
-        }
-        
+    private func filterItemContent(item: SlashMenuItem, filter: String) -> SlashMenuFilteredItem? {
+        var filteredActions = filterActions(item: item, filter: filter)
+        guard !filteredActions.isEmpty else { return nil }
+
         filteredActions.sort { $0.filterMatch < $1.filterMatch }
         
-        return filteredActions
+        return SlashMenuFilteredItem(
+            title: item.type.title,
+            topMatch: filteredActions.first!.filterMatch,
+            actions: filteredActions.map { $0.action }
+        )
+    }
+    
+    private func filterActions(item: SlashMenuItem, filter: String) -> [SlashActionFilterMatch] {
+        return item.children.compactMap {
+            guard let match = SlashMenuComparator.match(data: $0.displayData, string: filter) else {
+                return nil
+            }
+                    
+            return SlashActionFilterMatch(action: $0, filterMatch: match)
+        }
     }
     
     private func searchCellData(title: String, actions: [SlashAction]) -> [SlashMenuCellData] {

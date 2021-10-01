@@ -337,7 +337,7 @@
 		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
-		3D56F2122706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F2112706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift */; };
+		3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */; };
 		3D5A413B2702CB9A00F1F6A1 /* OpenedPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */; };
 		3D5A413D2702CBBE00F1F6A1 /* SnackBarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413C2702CBBE00F1F6A1 /* SnackBarData.swift */; };
 		3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */; };
@@ -1006,7 +1006,7 @@
 		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = Anytype/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
-		3D56F2112706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
+		3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuComparator.swift; sourceTree = "<group>"; };
 		3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedPageData.swift; sourceTree = "<group>"; };
 		3D5A413C2702CBBE00F1F6A1 /* SnackBarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBarData.swift; sourceTree = "<group>"; };
 		3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuCellDataBuilder.swift; sourceTree = "<group>"; };
@@ -2971,14 +2971,14 @@
 			path = Internals;
 			sourceTree = "<group>";
 		};
-		3D56F20D2706E092007BC15E /* Filter */ = {
+		3D56F20D2706E092007BC15E /* FilterModels */ = {
 			isa = PBXGroup;
 			children = (
-				3D56F2112706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift */,
+				3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */,
 				3DE0CFCF26F8593D003A606A /* SlashActionFilterMatch.swift */,
 				3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */,
 			);
-			path = Filter;
+			path = FilterModels;
 			sourceTree = "<group>";
 		};
 		3D5A41362702CB8F00F1F6A1 /* Models */ = {
@@ -3002,6 +3002,7 @@
 		3D5A41452702E4E400F1F6A1 /* Builders */ = {
 			isa = PBXGroup;
 			children = (
+				3D56F20D2706E092007BC15E /* FilterModels */,
 				3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */,
 				3D5A41472702E4E400F1F6A1 /* SlashMenuItemsBuilder.swift */,
 			);
@@ -3491,7 +3492,6 @@
 		3DE0CFCB26F85913003A606A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D56F20D2706E092007BC15E /* Filter */,
 				3D5A41532703132800F1F6A1 /* Actions */,
 				3DE0CFD226F8593D003A606A /* SlashAction.swift */,
 				3DE0CFCE26F8593D003A606A /* SlashMenuItem.swift */,
@@ -4791,7 +4791,7 @@
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				3D5A413D2702CBBE00F1F6A1 /* SnackBarData.swift in Sources */,
-				3D56F2122706E1BA007BC15E /* BlockActionDisplayDataFilterComparator.swift in Sources */,
+				3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */,
 				3DE0CFD726F8593D003A606A /* SlashMenuItemType.swift in Sources */,
