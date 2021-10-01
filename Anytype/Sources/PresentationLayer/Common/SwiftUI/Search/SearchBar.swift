@@ -3,17 +3,24 @@ import SwiftUI
 struct SearchBar: View {
     
     @Binding var text: String
+    let focused: Bool
         
     var body: some View {
-        AutofocusedTextField(title: "Search", text: $text)
-            .padding(8)
-            .padding(.horizontal, 25)
-            .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-            .background(Color.grayscale10)
-            .cornerRadius(10)
-            .overlay(overlay)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 6)
+        Group {
+            if focused {
+                AutofocusedTextField(title: "Search", text: $text)
+            } else {
+                TextField("Search", text: $text)
+            }
+        }
+        .padding(8)
+        .padding(.horizontal, 25)
+        .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
+        .background(Color.grayscale10)
+        .cornerRadius(10)
+        .overlay(overlay)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 6)
     }
     
     private var overlay: some View {
@@ -42,6 +49,6 @@ struct SearchBar: View {
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar(text: .constant(""))
+        SearchBar(text: .constant(""), focused: true)
     }
 }
