@@ -24,7 +24,7 @@ struct HomeTabsView: View {
     var body: some View {
         VStack(spacing: 0) {
             tabHeaders
-                .gesture(
+                .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
                         .onChanged { gesture in
                             onDrag(gesture.translation)
