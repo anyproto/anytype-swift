@@ -11,13 +11,14 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let accessorySwitcher: AccessoryViewSwitcherProtocol
-
+    private let detailsLoader: DetailsLoader
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        accessorySwitcher: AccessoryViewSwitcherProtocol
+        accessorySwitcher: AccessoryViewSwitcherProtocol,
+        detailsLoader: DetailsLoader
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
@@ -28,6 +29,7 @@ final class BlockViewModelBuilder {
             router: router
         )
         self.accessorySwitcher = accessorySwitcher
+        self.detailsLoader = detailsLoader
     }
 
     func build(_ blocks: [BlockModelProtocol], details: DetailsDataProtocol?) -> [BlockViewModelProtocol] {
@@ -167,7 +169,10 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = document.getDetails(id: content.targetBlockID)?.currentDetails
+            let details = detailsLoader.loadDetailsForBlockLink(
+                blockId: block.information.id,
+                targetBlockId: content.targetBlockID
+            )
             return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,

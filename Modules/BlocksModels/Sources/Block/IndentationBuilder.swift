@@ -1,18 +1,8 @@
 import Foundation
 import os
 
-public enum BlockContainerBuilder {
-    public static func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol {
-        let container = BlockContainer()
-        list.forEach(container.add(_:))
-        return container
-    }
-    
-    public static func emptyContainer() -> BlockContainerModelProtocol {
-        build(list: [])
-    }
-    
-    public static func buildTree(container: BlockContainerModelProtocol, id: BlockId) {
+public enum IndentationBuilder {
+    public static func build(container: BlockContainerModelProtocol, id: BlockId) {
         if let parentBlock = container.model(id: id) {
             parentBlock.information.childrenIds.forEach { childrenId in
                 guard var childBlock = container.model(id: childrenId) else { return }
@@ -25,7 +15,7 @@ public enum BlockContainerBuilder {
                     childBlock.indentationLevel = parentBlock.indentationLevel + 1
                 }
 
-                self.buildTree(container: container, id: childrenId)
+                build(container: container, id: childrenId)
             }
         }
     }

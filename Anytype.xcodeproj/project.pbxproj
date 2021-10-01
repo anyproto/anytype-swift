@@ -338,6 +338,7 @@
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
 		3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */; };
+		3D56F22627072376007BC15E /* DetailsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F22527072376007BC15E /* DetailsLoader.swift */; };
 		3D5A413B2702CB9A00F1F6A1 /* OpenedPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */; };
 		3D5A413D2702CBBE00F1F6A1 /* SnackBarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413C2702CBBE00F1F6A1 /* SnackBarData.swift */; };
 		3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */; };
@@ -1007,6 +1008,7 @@
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
 		3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuComparator.swift; sourceTree = "<group>"; };
+		3D56F22527072376007BC15E /* DetailsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsLoader.swift; sourceTree = "<group>"; };
 		3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedPageData.swift; sourceTree = "<group>"; };
 		3D5A413C2702CBBE00F1F6A1 /* SnackBarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBarData.swift; sourceTree = "<group>"; };
 		3D5A41462702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuCellDataBuilder.swift; sourceTree = "<group>"; };
@@ -2810,6 +2812,7 @@
 				125FD2F926CE522000D21F5A /* EditorNavigationBarHelper */,
 				123FDB0126C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift */,
 				123FDB0626C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift */,
+				3D56F22527072376007BC15E /* DetailsLoader.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4709,6 +4712,7 @@
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
+				3D56F22627072376007BC15E /* DetailsLoader.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
 				3D5A414B2702E80700F1F6A1 /* SlashMenuActionHandler.swift in Sources */,

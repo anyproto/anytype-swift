@@ -18,7 +18,7 @@ struct EmojiGridView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            SearchBar(text: $searchText)
+            SearchBar(text: $searchText, focused: false)
             contentView
         }
     }
