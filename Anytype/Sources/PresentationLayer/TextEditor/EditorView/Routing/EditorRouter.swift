@@ -25,7 +25,8 @@ protocol EditorRouterProtocol: AnyObject {
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
     func showIconPicker(viewModel: ObjectIconPickerViewModel)
     
-    func showMoveTo(blockId: BlockId, onSelect: @escaping (BlockId) -> ())
+    func showMoveTo(onSelect: @escaping (BlockId) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId) -> ())
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -184,15 +185,26 @@ final class EditorRouter: EditorRouterProtocol {
         viewController.present(controller, animated: true)
     }
     
-    func showMoveTo(blockId: BlockId, onSelect: @escaping (BlockId) -> ()) {
-        guard let viewController = viewController else {
-            return
+    func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
+        let moveToView = SearchView(title: "Move to") { data in
+            onSelect(data.id)
         }
         
-        let controller = UIHostingController(
-            rootView: MoveToSearchView(onSelect: onSelect)
-        )
+        presentSwuftUIView(view: moveToView)
+    }
+    
+    func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
+        let linkToView = SearchView(title: "Link to") { data in
+            onSelect(data.id)
+        }
         
+        presentSwuftUIView(view: linkToView)
+    }
+    
+    private func presentSwuftUIView<Content: View>(view: Content) {
+        guard let viewController = viewController else { return }
+        
+        let controller = UIHostingController(rootView: view)
         viewController.present(controller, animated: true)
     }
     

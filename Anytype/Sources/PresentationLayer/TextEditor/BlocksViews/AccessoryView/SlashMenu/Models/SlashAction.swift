@@ -1,7 +1,7 @@
 enum SlashAction {
     case style(SlashActionStyle)
     case media(SlashActionMedia)
-    case objects(ObjectType)
+    case objects(SlashActionObject)
     case relations
     case other(SlashActionOther)
     case actions(BlockAction)
@@ -26,11 +26,20 @@ enum SlashAction {
         case let .other(other):
             return SlashMenuItemDisplayData(iconData: .staticImage(other.iconName), title: other.title)
         case let .objects(object):
-            return SlashMenuItemDisplayData(
-                iconData: .icon(.emoji(object.iconEmoji)),
-                title: object.name,
-                subtitle: object.description
-            )
+            switch object {
+            case .linkTo:
+                return SlashMenuItemDisplayData(
+                    iconData: .staticImage(ImageName.slashMenu.link_to),
+                    title: "Link to object".localized,
+                    subtitle: "Link to existing object".localized
+                )
+            case .objectType(let objectType):
+                return SlashMenuItemDisplayData(
+                    iconData: .icon(.emoji(objectType.iconEmoji)),
+                    title: objectType.name,
+                    subtitle: objectType.description
+                )
+            }
         case .relations:
             return SlashMenuItemDisplayData(iconData: .staticImage(""), title: "")
         }

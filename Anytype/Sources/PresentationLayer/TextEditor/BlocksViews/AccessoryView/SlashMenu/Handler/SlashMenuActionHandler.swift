@@ -22,9 +22,16 @@ final class SlashMenuActionHandler {
             handleStyle(style)
         case let .media(media):
             actionHandler.handleActionForFirstResponder(.addBlock(media.blockViewsType))
-        case .objects:
-            actionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in
-                blockId.flatMap { self?.show(blockId: $0) }
+        case .objects(let action):
+            switch action {
+            case .linkTo:
+                router.showLinkTo { [weak self] targetBlockId in
+                    self?.actionHandler.handleAction(.addLink(targetBlockId), blockId: blockId)
+                }
+            case .objectType:
+                actionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in
+                    blockId.flatMap { self?.show(blockId: $0) }
+                }
             }
         case .relations:
             break
@@ -107,7 +114,7 @@ final class SlashMenuActionHandler {
         case .duplicate:
             actionHandler.handleActionForFirstResponder(.duplicate)
         case .moveTo:
-            router.showMoveTo(blockId: blockId) { [weak self] targetId in
+            router.showMoveTo { [weak self] targetId in
                 self?.actionHandler.handleAction(
                     .moveTo(targetId: targetId), blockId: blockId
                 )
