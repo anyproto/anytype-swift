@@ -15,7 +15,7 @@ struct SearchView: View {
         VStack() {
             DragIndicator(bottomPadding: 0)
             titleView
-            SearchBar(text: $searchText)
+            SearchBar(text: $searchText, focused: true)
             content
         }
         .onChange(of: searchText) { search(text: $0) }
