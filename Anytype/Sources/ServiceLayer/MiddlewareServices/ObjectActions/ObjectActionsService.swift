@@ -4,6 +4,7 @@ import SwiftProtobuf
 import BlocksModels
 import ProtobufMessages
 import Amplitude
+import AnytypeCore
 
 enum CreatePageResult {
     case response(CreatePageResponse)
@@ -61,8 +62,30 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func setDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {
+    
+    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?  {
         let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
+            contextID: contextID,
+            details: middlewareDetails
+        )
+        
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
+        
+        switch result {
+        case .success(let response):
+            return ResponseEvent(response.event)
+            
+        case .failure(let error):
+            anytypeAssertionFailure(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func asyncSetDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {
+        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        
         return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
