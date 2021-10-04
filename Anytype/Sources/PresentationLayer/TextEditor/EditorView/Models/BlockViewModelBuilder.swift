@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
-    private let blockActionHandler: EditorActionHandlerProtocol
+    private let editorActionHandler: EditorActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
@@ -14,18 +14,18 @@ final class BlockViewModelBuilder {
     private let detailsLoader: DetailsLoader
     init(
         document: BaseDocumentProtocol,
-        blockActionHandler: EditorActionHandlerProtocol,
+        editorActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         accessorySwitcher: AccessoryViewSwitcherProtocol,
         detailsLoader: DetailsLoader
     ) {
         self.document = document
-        self.blockActionHandler = blockActionHandler
+        self.editorActionHandler = editorActionHandler
         self.router = router
         self.delegate = delegate
         self.contextualMenuHandler = DefaultContextualMenuHandler(
-            handler: blockActionHandler,
+            handler: editorActionHandler,
             router: router
         )
         self.accessorySwitcher = accessorySwitcher
@@ -54,7 +54,7 @@ final class BlockViewModelBuilder {
                         self?.delegate.becomeFirstResponder(for: model)
                     },
                     textDidChange: { block, textView in
-                        self.blockActionHandler.handleAction(
+                        self.editorActionHandler.handleAction(
                             .textView(action: .changeText(textView.attributedText), block: block),
                             blockId: block.information.id
                         )
@@ -66,7 +66,7 @@ final class BlockViewModelBuilder {
                                 blockId: block.information.id,
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
-                            self?.blockActionHandler.handleAction(
+                            self?.editorActionHandler.handleAction(
                                 .setFields(contextID: contextId, fields: [fields]),
                                 blockId: block.information.id
                             )
@@ -82,7 +82,7 @@ final class BlockViewModelBuilder {
                     isCheckable: isCheckable,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    actionHandler: blockActionHandler,
+                    actionHandler: editorActionHandler,
                     accessorySwitcher: accessorySwitcher,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
@@ -197,13 +197,13 @@ final class BlockViewModelBuilder {
     private var subscriptions = [AnyCancellable]()
     
     private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
-        let model = MediaPickerViewModel(type: type) { [weak self] resultInformation in
-            guard let resultInformation = resultInformation else { return }
+        let model = MediaPickerViewModel(type: type) { [weak self] itemProvider in
+            guard let itemProvider = itemProvider else { return }
 
-            self?.blockActionHandler.upload(
-                blockId: .provided(blockId),
-                filePath: resultInformation.filePath
-            )
+//            self?.blockActionHandler.upload(
+//                blockId: .provided(blockId),
+//                filePath: resultInformation.filePath
+//            )
         }
         
         router.showImagePicker(model: model)
@@ -212,7 +212,7 @@ final class BlockViewModelBuilder {
     private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
         let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.blockActionHandler.upload(
+            self?.editorActionHandler.upload(
                 blockId: .provided(blockId),
                 filePath: result.filePath
             )
@@ -231,7 +231,7 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
             
-            self.blockActionHandler.handleAction(
+            self.editorActionHandler.handleAction(
                 .fetch(url: url),
                 blockId: info.id
             )

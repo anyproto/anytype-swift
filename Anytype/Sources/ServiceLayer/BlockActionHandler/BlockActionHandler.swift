@@ -3,15 +3,6 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
-protocol BlockActionHandlerProtocol {
-    typealias Completion = (PackOfEvents) -> Void
-    
-    func upload(blockId: BlockId, filePath: String)
-    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ())
-    
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId, completion:  Completion?)
-}
-
 final class BlockActionHandler: BlockActionHandlerProtocol {
     private let documentId: String
     private let document: BaseDocumentProtocol

@@ -75,7 +75,7 @@ final class EditorAssembly {
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
-            blockActionHandler: editorBlockActionHandler,
+            editorActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
             accessorySwitcher: accessorySwitcher,

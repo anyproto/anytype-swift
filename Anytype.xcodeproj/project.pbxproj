@@ -270,6 +270,9 @@
 		12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* WindowHolder.swift */; };
 		12E15B81270B26310055EA01 /* FileUploaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B80270B26310055EA01 /* FileUploaderProtocol.swift */; };
 		12E15B83270B27070055EA01 /* ObjectHeaderImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B82270B27070055EA01 /* ObjectHeaderImageUploader.swift */; };
+		12E15B85270B2EE40055EA01 /* BlockImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B84270B2EE40055EA01 /* BlockImageUploader.swift */; };
+		12E15B87270B2F820055EA01 /* EditorActionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B86270B2F820055EA01 /* EditorActionHandlerProtocol.swift */; };
+		12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */; };
 		12EEC36B26A0903F00C3C4B1 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36726A0903F00C3C4B1 /* Emoji.swift */; };
 		12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */; };
 		12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */; };
@@ -945,6 +948,9 @@
 		12E014D3266FCA7A008036B0 /* WindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowHolder.swift; sourceTree = "<group>"; };
 		12E15B80270B26310055EA01 /* FileUploaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderProtocol.swift; sourceTree = "<group>"; };
 		12E15B82270B27070055EA01 /* ObjectHeaderImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderImageUploader.swift; sourceTree = "<group>"; };
+		12E15B84270B2EE40055EA01 /* BlockImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockImageUploader.swift; sourceTree = "<group>"; };
+		12E15B86270B2F820055EA01 /* EditorActionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionHandlerProtocol.swift; sourceTree = "<group>"; };
+		12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandlerProtocol.swift; sourceTree = "<group>"; };
 		12EEC36726A0903F00C3C4B1 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
 		12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGroup.swift; sourceTree = "<group>"; };
@@ -2480,6 +2486,7 @@
 				1255DF832702098300870B95 /* FileUploadingOperation.swift */,
 				12E15B80270B26310055EA01 /* FileUploaderProtocol.swift */,
 				12E15B82270B27070055EA01 /* ObjectHeaderImageUploader.swift */,
+				12E15B84270B2EE40055EA01 /* BlockImageUploader.swift */,
 			);
 			path = ImageUploading;
 			sourceTree = "<group>";
@@ -3639,7 +3646,9 @@
 				3DE5120C2672201200153962 /* Extensions */,
 				3DE511FE26712FBE00153962 /* Models */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
+				12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */,
 				3DC0F7CD26EF4CDD00CFCB3D /* EditorActionHandler.swift */,
+				12E15B86270B2F820055EA01 /* EditorActionHandlerProtocol.swift */,
 				3DC0F7D226EF4F5400CFCB3D /* EventProcessor.swift */,
 			);
 			path = BlockActionHandler;
@@ -4329,6 +4338,7 @@
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
+				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
@@ -4336,6 +4346,7 @@
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DCC549026D3B4B9002517AC /* BlockBookmarkInfoView.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
+				12E15B85270B2EE40055EA01 /* BlockImageUploader.swift in Sources */,
 				12C7E571270333AF000DCA7F /* Hash.swift in Sources */,
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
 				3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */,
@@ -4552,6 +4563,7 @@
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
+				12E15B87270B2F820055EA01 /* EditorActionHandlerProtocol.swift in Sources */,
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
