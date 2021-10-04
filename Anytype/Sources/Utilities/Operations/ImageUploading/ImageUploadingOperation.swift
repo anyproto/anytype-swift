@@ -17,14 +17,9 @@ final class ImageUploadingOperation: AsyncOperation {
     
     // MARK: - Private variables
     
-    private let itemProvider: NSItemProvider
+    private let fileService = BlockActionsServiceFile()
     
-    private let queue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = .utility
-        return queue
-    }()
+    private let itemProvider: NSItemProvider
     
     // MARK: - Initializers
     
@@ -81,11 +76,7 @@ final class ImageUploadingOperation: AsyncOperation {
             .uploading(localPath: temporaryUrl.relativePath)
         )
         
-        let fileUploadingOperation = FileUploadingOperation(
-            url: temporaryUrl
-        )
-        queue.addOperation(fileUploadingOperation)
-        queue.waitUntilAllOperationsAreFinished()
+        let hash = fileService.syncUploadImageAt(localPath: temporaryUrl.relativePath)
         
         guard !isCancelled else {
             stateHandler?.handleImageUploadingState(.cancelled)
@@ -93,7 +84,7 @@ final class ImageUploadingOperation: AsyncOperation {
         }
         
         stateHandler?.handleImageUploadingState(
-            .finished(hash: fileUploadingOperation.uploadedFileHash)
+            .finished(hash: hash)
         )
         state = .finished
     }
