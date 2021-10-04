@@ -12,17 +12,7 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorNavigationViewController {
-        let navigationController = UINavigationController(
-            rootViewController: EditorAssembly.buildEditor(blockId: documentId)
-        )
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        navigationController.modifyBarAppearance(navBarAppearance)
-        
-        return EditorNavigationViewController(
-            child: navigationController
-        )
+        EditorAssembly.buildRootEditor(blockId: documentId)
     }
     
     func updateUIViewController(

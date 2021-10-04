@@ -27,6 +27,7 @@ protocol EditorRouterProtocol: AnyObject {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
+    func showSearch(onSelect: @escaping (BlockId) -> ())
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -199,6 +200,14 @@ final class EditorRouter: EditorRouterProtocol {
         }
         
         presentSwuftUIView(view: linkToView)
+    }
+    
+    func showSearch(onSelect: @escaping (BlockId) -> ()) {
+        let searchView = SearchView(title: nil) { data in
+            onSelect(data.id)
+        }
+        
+        presentSwuftUIView(view: searchView)
     }
     
     private func presentSwuftUIView<Content: View>(view: Content) {

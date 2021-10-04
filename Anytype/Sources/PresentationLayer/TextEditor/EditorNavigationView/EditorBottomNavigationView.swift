@@ -3,6 +3,7 @@ import UIKit
 final class EditorBottomNavigationView: UIView {
     private let onBackTap: () -> ()
     private let onHomeTap: () -> ()
+    private let onSearchTap: () -> ()
     
     private lazy var backButton = createBackButton()
     private lazy var homeButton = createHomeButton()
@@ -10,10 +11,12 @@ final class EditorBottomNavigationView: UIView {
     
     init(
         onBackTap: @escaping () -> (),
-        onHomeTap: @escaping () -> ()
+        onHomeTap: @escaping () -> (),
+        onSearchTap: @escaping () -> ()
     ) {
         self.onBackTap = onBackTap
         self.onHomeTap = onHomeTap
+        self.onSearchTap = onSearchTap
         
         super.init(frame: .zero)
         
@@ -85,7 +88,7 @@ final class EditorBottomNavigationView: UIView {
         let view = UIButton(
             type: .system,
             primaryAction: UIAction { [weak self] _ in
-                // TODO
+                self?.onSearchTap()
             }
         )
         
