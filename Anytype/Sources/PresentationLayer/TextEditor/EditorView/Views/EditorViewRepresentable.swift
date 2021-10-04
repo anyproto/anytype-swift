@@ -5,14 +5,14 @@ import os
 
 struct EditorViewRepresentable: UIViewControllerRepresentable {
     
-    let documentId: String
+    let blockId: String
     
     // MARK: - UIViewControllerRepresentable
     
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorNavigationViewController {
-        EditorAssembly.buildRootEditor(blockId: documentId)
+        EditorAssembly().buildRootEditor(blockId: blockId)
     }
     
     func updateUIViewController(

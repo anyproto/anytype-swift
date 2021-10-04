@@ -5,10 +5,11 @@ import Combine
 final class EditorAssembly {
     
     func documentView(blockId: BlockId) -> some View {
-        EditorViewRepresentable(documentId: blockId).eraseToAnyView()
+        EditorViewRepresentable(blockId: blockId)
+            .eraseToAnyView()
     }
     
-    static func buildRootEditor(blockId: BlockId) -> EditorNavigationViewController {
+    func buildRootEditor(blockId: BlockId) -> EditorNavigationViewController {
         let editorController = buildEditor(blockId: blockId)
         
         let navigationController = UINavigationController(
@@ -19,13 +20,28 @@ final class EditorAssembly {
         navBarAppearance.configureWithTransparentBackground()
         navigationController.modifyBarAppearance(navBarAppearance)
         
-        return EditorNavigationViewController(
+        let router = editorController.viewModel.router
+        
+        let controller =  EditorNavigationViewController(
             child: navigationController,
-            router: editorController.viewModel.router
+            router: router
         )
+        
+        router.rootController = controller
+        
+        return controller
     }
     
-    static func buildEditor(blockId: BlockId) -> DocumentEditorViewController {
+    func buildEditor(
+        blockId: BlockId,
+        rootController: EditorNavigationViewController
+    ) -> DocumentEditorViewController {
+        let controller = buildEditor(blockId: blockId)
+        controller.viewModel.router.rootController = rootController
+        return controller
+    }
+    
+    private func buildEditor(blockId: BlockId) -> DocumentEditorViewController {
         let controller = DocumentEditorViewController()
         let document = BaseDocument()
         let router = EditorRouter(viewController: controller, document: document)
@@ -42,7 +58,7 @@ final class EditorAssembly {
         return controller
     }
     
-    private static func buildViewModel(
+    private func buildViewModel(
         blockId: BlockId,
         viewInput: DocumentEditorViewInput,
         document: BaseDocumentProtocol,

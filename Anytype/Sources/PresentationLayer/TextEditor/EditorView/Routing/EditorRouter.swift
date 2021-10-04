@@ -28,13 +28,18 @@ protocol EditorRouterProtocol: AnyObject {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
+    
+    var rootController: EditorNavigationViewController! { get set }
 }
 
 final class EditorRouter: EditorRouterProtocol {
+    var rootController: EditorNavigationViewController!
+    
     private weak var viewController: DocumentEditorViewController?
     private let fileRouter: FileRouter
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
+    private let editorAssembly = EditorAssembly()
 
     init(
         viewController: DocumentEditorViewController,
@@ -60,7 +65,7 @@ final class EditorRouter: EditorRouterProtocol {
             }
         }
         
-        let newEditorViewController = EditorAssembly.buildEditor(blockId: id)
+        let newEditorViewController = editorAssembly.buildEditor(blockId: id, rootController: rootController)
         
         viewController?.navigationController?.pushViewController(
             newEditorViewController,
@@ -113,7 +118,6 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let parentController = controller.parent,
               let container = document.rootActiveModel?.container,
               let blockModel = container.model(id: information.id) else { return }
 
@@ -131,17 +135,17 @@ final class EditorRouter: EditorRouterProtocol {
         }
 
         BottomSheetsFactory.createStyleBottomSheet(
-            parentViewController: parentController,
+            parentViewController: rootController,
             delegate: controller,
             blockModel: blockModel,
             actionHandler: controller.viewModel.blockActionHandler,
             didShow: didShow,
-            showMarkupMenu: { [weak controller] styleView, viewDidClose in
-                guard let controller = controller,
-                      let parent = controller.parent else { return }
+            showMarkupMenu: { [weak controller, weak rootController] styleView, viewDidClose in
+                guard let controller = controller else { return }
+                guard let rootController = rootController else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
-                    parentViewController: parent,
+                    parentViewController: rootController,
                     styleView: styleView,
                     blockInformation: blockModel.information,
                     viewModel: controller.viewModel.wholeBlockMarkupViewModel,
@@ -153,7 +157,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        guard let viewController = viewController else {
+        guard let viewController = rootController else {
             return
         }
         
