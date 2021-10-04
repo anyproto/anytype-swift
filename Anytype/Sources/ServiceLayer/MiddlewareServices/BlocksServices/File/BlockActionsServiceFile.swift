@@ -11,7 +11,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
         filePath: String,
         contextID: BlockId,
         blockID: BlockId
-    ) -> ResponseEvent? {
+    ) {
         let result = Anytype_Rpc.Block.Upload.Service.invoke(
             contextID: contextID,
             blockID: blockID,
@@ -23,12 +23,11 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
         
         switch result {
-        case .success(let response):
-            return ResponseEvent(response.event)
+        case .success:
+            return
 
         case .failure(let error):
             anytypeAssertionFailure(error.localizedDescription)
-            return nil
         }
     }
     

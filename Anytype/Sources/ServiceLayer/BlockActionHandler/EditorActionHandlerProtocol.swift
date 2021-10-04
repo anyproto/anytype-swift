@@ -12,8 +12,13 @@ import BlocksModels
 protocol EditorActionHandlerProtocol: AnyObject {
     func onEmptySpotTap()
     
-    func upload(blockId: ActionHandlerBlockIdSource, filePath: String)
-    
+    func uploadMediaFile(
+        itemProvider: NSItemProvider,
+        type: MediaPickerContentType,
+        blockId: ActionHandlerBlockIdSource
+    )
+    func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource)
+        
     func turnIntoPage(
         blockId: ActionHandlerBlockIdSource,
         completion: @escaping (BlockId?) -> ()
