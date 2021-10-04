@@ -18,7 +18,6 @@ final class ImageUploadingOperation: AsyncOperation {
     // MARK: - Private variables
     
     private let itemProvider: NSItemProvider
-    private let disableEncryption: Bool
     
     private let queue: OperationQueue = {
         let queue = OperationQueue()
@@ -29,9 +28,8 @@ final class ImageUploadingOperation: AsyncOperation {
     
     // MARK: - Initializers
     
-    init(itemProvider: NSItemProvider, disableEncryption: Bool) {
+    init(itemProvider: NSItemProvider) {
         self.itemProvider = itemProvider
-        self.disableEncryption = disableEncryption
         super.init()
     }
     
@@ -84,9 +82,7 @@ final class ImageUploadingOperation: AsyncOperation {
         )
         
         let fileUploadingOperation = FileUploadingOperation(
-            url: temporaryUrl,
-            contentType: .image,
-            disableEncryption: disableEncryption
+            url: temporaryUrl
         )
         queue.addOperation(fileUploadingOperation)
         queue.waitUntilAllOperationsAreFinished()

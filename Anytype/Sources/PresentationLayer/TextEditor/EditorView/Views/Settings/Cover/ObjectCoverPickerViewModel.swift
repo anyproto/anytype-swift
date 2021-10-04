@@ -54,8 +54,7 @@ extension ObjectCoverPickerViewModel {
     
     func uploadImage(from itemProvider: NSItemProvider) {
         let operation = ImageUploadingOperation(
-            itemProvider: itemProvider,
-            disableEncryption: true
+            itemProvider: itemProvider
         )
         operation.stateHandler = CoverImageUploadingStateHandler(
             detailsService: detailsService

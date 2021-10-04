@@ -20,15 +20,11 @@ final class FileUploadingOperation: AsyncOperation {
     private var subscription: AnyCancellable?
     
     private let url: URL
-    private let contentType: FileContentType
-    private let disableEncryption: Bool
     
     // MARK: - Initializers
     
-    init(url: URL, contentType: FileContentType, disableEncryption: Bool) {
+    init(url: URL) {
         self.url = url
-        self.contentType = contentType
-        self.disableEncryption = disableEncryption
         
         super.init()
     }
@@ -38,26 +34,22 @@ final class FileUploadingOperation: AsyncOperation {
     override func start() {
         guard !isCancelled else { return }
         
-        subscription = fileService.uploadFile(
-            url: "",
-            localPath: url.relativePath,
-            type: contentType,
-            disableEncryption: false
-        ).sink(
-            receiveCompletion: { [weak self]  completion in
-                switch completion {
-                case .finished:
-                    self?.state = .finished
-                    
-                case let .failure(error):
-                    anytypeAssertionFailure("FileUploadingOperation error: \(error)")
-                    self?.state = .finished
+        subscription = fileService.uploadImageAt(localPath: url.relativePath)
+            .sink(
+                receiveCompletion: { [weak self]  completion in
+                    switch completion {
+                    case .finished:
+                        self?.state = .finished
+                        
+                    case let .failure(error):
+                        anytypeAssertionFailure("FileUploadingOperation error: \(error)")
+                        self?.state = .finished
+                    }
+                },
+                receiveValue: { [weak self] uploadedFileHash in
+                    self?.handleReceiveValue(uploadedFileHash)
                 }
-            },
-            receiveValue: { [weak self] uploadedFileHash in
-                self?.handleReceiveValue(uploadedFileHash)
-            }
-        )
+            )
         
         state = .executing
     }
