@@ -1,6 +1,5 @@
 import SwiftProtobuf
 import AnytypeCore
-import os
 
 private extension LoggerCategory {
     static let detailsEntryConverter: Self = "DetailsEntryConverter"
@@ -14,7 +13,7 @@ public class DetailsEntryConverter {
                 guard let kind = DetailsKind(rawValue: key) else {
                     // TODO: Add anytypeAssertionFailure for debug when all converters will be added
                     // TASK: https://app.clickup.com/t/h137nr
-                    os.Logger.create(.detailsEntryConverter).error("Add converters for this type: \(key)")
+                    AnytypeLogger.create(.detailsEntryConverter).error("Add converters for this type: \(key)")
                     return nil
                 }
                 

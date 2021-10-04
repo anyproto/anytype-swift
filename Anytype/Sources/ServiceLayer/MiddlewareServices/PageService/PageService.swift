@@ -11,7 +11,6 @@ final class PageService {
             ]
         )
         let result = Anytype_Rpc.Page.Create.Service.invoke(details: details)
-        
         switch result {
         case .success(let response):
             return .response(CreatePageResponse(response))

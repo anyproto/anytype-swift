@@ -1,5 +1,4 @@
 import Foundation
-import os
 import AnytypeCore
 
 public class BlockUpdater {

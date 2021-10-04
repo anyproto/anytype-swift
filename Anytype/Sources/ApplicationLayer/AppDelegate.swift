@@ -1,12 +1,11 @@
 import UIKit
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     /// receive events from middleware and broadcast throught notification center
     private let eventListener = MiddlewareListener()
     private let configurator = AppConfigurator()
-    
+
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {

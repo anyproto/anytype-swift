@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import Combine
-import os
 import AnytypeCore
 
 private extension LoggerCategory {
@@ -152,7 +151,7 @@ final class BaseDocument: BaseDocumentProtocol {
               let rootId = container.rootId,
               let ourModel = container.detailsContainer.get(by: rootId)
         else {
-            Logger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
+            AnytypeLogger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
             return
         }
         let publisher = ourModel.changeInformationPublisher
@@ -172,7 +171,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Returns: A list of active models.
     private func getModels() -> [BlockModelProtocol] {
         guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.model(id: rootId) else {
-            Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
+            AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
         return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
@@ -202,7 +201,7 @@ final class BaseDocument: BaseDocumentProtocol {
     ///
     func getDetails(id: BlockId) -> DetailsActiveModel? {
         guard let value = self.rootModel?.detailsContainer.get(by: id) else {
-            Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
+            AnytypeLogger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
         let result = DetailsActiveModel()

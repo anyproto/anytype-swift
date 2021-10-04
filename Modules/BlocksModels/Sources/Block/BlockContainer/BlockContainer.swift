@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import os
 import AnytypeCore
 
 final class BlockContainer: BlockContainerModelProtocol {
