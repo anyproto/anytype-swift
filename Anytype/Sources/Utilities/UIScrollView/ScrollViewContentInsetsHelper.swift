@@ -2,10 +2,11 @@ import UIKit
 
 final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
     private struct EditorScrollViewConstants {
-        static let bottomEditorInsets: CGFloat = 70
+        static let bottomEditorInsets: CGFloat = 150
     }
     
     init?(scrollView: UIScrollView) {
+        scrollView.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
         let showAction: Action = { [weak scrollView] notification in
             guard let keyboardRect = notification.keyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey) else { return }
             scrollView?.handleBottomInsetChange(keyboardRect.height)
