@@ -34,7 +34,7 @@ final class FileUploadingOperation: AsyncOperation {
     override func start() {
         guard !isCancelled else { return }
         
-        subscription = fileService.uploadImageAt(localPath: url.relativePath)
+        subscription = fileService.asyncUploadImageAt(localPath: url.relativePath)
             .sink(
                 receiveCompletion: { [weak self]  completion in
                     switch completion {

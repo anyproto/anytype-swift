@@ -3,6 +3,7 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
+import AnytypeCore
 
 final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     
@@ -30,7 +31,30 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             .eraseToAnyPublisher()
     }
     
-    func uploadImageAt(localPath: String) -> AnyPublisher<Hash, Error> {
+    func syncUploadImageAt(localPath: String) -> Hash? {
+        guard
+            let contentType = BlockContentFileContentTypeConverter.asMiddleware(.image)
+        else {
+            return nil
+        }
+        
+        let result = Anytype_Rpc.UploadFile.Service.invoke(
+            url: "",
+            localPath: localPath,
+            type: contentType,
+            disableEncryption: false // Deprecated
+        )
+        
+        switch result {
+        case .success(let response):
+            return Hash(response.hash)
+        case .failure(let error):
+            anytypeAssertionFailure(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error> {
         guard
             let contentType = BlockContentFileContentTypeConverter.asMiddleware(.image)
         else {
