@@ -91,7 +91,8 @@ private extension EditorNavigationBarHelper {
     
     func configureNavigationItem(in vc: UIViewController) {
         vc.navigationItem.titleView = navigationBarTitleView
-        vc.setupBackBarButtonItem(nil)
+        vc.navigationItem.backBarButtonItem = nil
+        vc.navigationItem.hidesBackButton = true
         
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
             customView: settingsBarButtonItemView
