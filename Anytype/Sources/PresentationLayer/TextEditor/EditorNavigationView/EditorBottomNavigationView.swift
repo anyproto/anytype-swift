@@ -1,9 +1,12 @@
 import UIKit
 
 final class EditorBottomNavigationView: UIView {
-    private var height: NSLayoutConstraint!
     private let onBackTap: () -> ()
     private let onHomeTap: () -> ()
+    
+    private lazy var backButton = createBackButton()
+    private lazy var homeButton = createHomeButton()
+    private lazy var searchButton = createSearchButton()
     
     init(
         onBackTap: @escaping () -> (),
@@ -19,46 +22,34 @@ final class EditorBottomNavigationView: UIView {
     
     private func setup() {
         layoutUsing.anchors {
-            height = $0.height.equal(to: 48)
+            $0.height.equal(to: 48)
         }
         
         layoutUsing.stack(
             layout: { stackView in
                 stackView.layoutUsing.anchors {
                     $0.pinToSuperview(
-                        excluding: [.bottom],
                         insets: UIEdgeInsets(top: 0, left: 60, bottom: 0, right: -60)
                     )
-                    $0.height.equal(to: 48)
                 }
             }
         ) {
-                $0.hStack(
-                    distributedTo: .equalSpacing,
-                    [
-                        backButton,
-                        homeButton,
-                        searchButton
-                    ]
-                )
-            }
-
-    }
-    
-    override func willMove(toWindow newWindow: UIWindow?) {
-        super.willMove(toWindow: newWindow)
-        
-        guard let newWindow = newWindow else { return }
-        
-        let safeAreaBottom = newWindow.safeAreaInsets.bottom
-        height.constant = 48 + safeAreaBottom
+            $0.hStack(
+                distributedTo: .equalSpacing,
+                [
+                    backButton,
+                    homeButton,
+                    searchButton
+                ]
+            )
+        }
     }
     
     // MARK: - Views
-    private lazy var backButton: UIView = {
+    private func createBackButton() -> UIView {
         let view = UIButton(
             type: .system,
-            primaryAction: UIAction { [weak self] action in
+            primaryAction: UIAction { [weak self] _ in
                 self?.onBackTap()
             }
         )
@@ -71,12 +62,12 @@ final class EditorBottomNavigationView: UIView {
             $0.width.equal(to: 24)
         }
         return view
-    }()
+    }
     
-    private lazy var homeButton: UIView = {
+    private func createHomeButton() -> UIView {
         let view = UIButton(
             type: .system,
-            primaryAction: UIAction { [weak self] action in
+            primaryAction: UIAction { [weak self] _ in
                 self?.onHomeTap()
             }
         )
@@ -88,10 +79,16 @@ final class EditorBottomNavigationView: UIView {
             $0.width.equal(to: 24)
         }
         return view
-    }()
+    }
     
-    private let searchButton: UIView = {
-        let view = UIButton()
+    private func createSearchButton() -> UIView {
+        let view = UIButton(
+            type: .system,
+            primaryAction: UIAction { [weak self] _ in
+                // TODO
+            }
+        )
+        
         view.setImage(UIImage.editorNavigation.search, for: .normal)
         view.tintColor = .textSecondary
         
@@ -99,8 +96,9 @@ final class EditorBottomNavigationView: UIView {
             $0.height.equal(to: 24)
             $0.width.equal(to: 24)
         }
+        
         return view
-    }()
+    }
     
     // MARK: - Unavailable
     @available(*, unavailable)
