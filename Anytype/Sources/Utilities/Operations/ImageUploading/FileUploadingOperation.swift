@@ -17,14 +17,15 @@ final class FileUploadingOperation: AsyncOperation {
     
     // MARK: - Private variables
     
-    private let fileService = BlockActionsServiceFile()
-    
     private let itemProvider: NSItemProvider
+    private let uploader: FileUploaderProtocol
     
     // MARK: - Initializers
     
-    init(itemProvider: NSItemProvider) {
+    init(itemProvider: NSItemProvider, uploader: FileUploaderProtocol) {
         self.itemProvider = itemProvider
+        self.uploader = uploader
+        
         super.init()
     }
     
@@ -35,7 +36,7 @@ final class FileUploadingOperation: AsyncOperation {
         }
         
         let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
-            MediaPickerContentType.images.supportedTypeIdentifiers.contains($0)
+            uploader.contentType.supportedTypeIdentifiers.contains($0)
         }
         
         guard let identifier = typeIdentifier else {
@@ -76,7 +77,7 @@ final class FileUploadingOperation: AsyncOperation {
             .uploading(localPath: temporaryUrl.relativePath)
         )
         
-        let hash = fileService.syncUploadImageAt(localPath: temporaryUrl.relativePath)
+        let hash = uploader.uploadFileAt(localPath: temporaryUrl.relativePath)
         
         guard !isCancelled else {
             stateHandler?.handleImageUploadingState(.cancelled)

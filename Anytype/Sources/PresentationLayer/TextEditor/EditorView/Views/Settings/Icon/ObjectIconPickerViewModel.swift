@@ -56,7 +56,8 @@ extension ObjectIconPickerViewModel {
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonUploadPhoto)
 
         let operation = FileUploadingOperation(
-            itemProvider: itemProvider
+            itemProvider: itemProvider,
+            uploader: ObjectHeaderImageUploader()
         )
         operation.stateHandler = IconImageUploadingStateHandler(
             detailsService: detailsService
