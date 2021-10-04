@@ -1,5 +1,5 @@
 //
-//  ImageUploadingState.swift
+//  FileUploadingState.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 28.09.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ImageUploadingState {
+enum FileUploadingState {
     case preparing
     case uploading(localPath: String)
     case finished(hash: Hash?)

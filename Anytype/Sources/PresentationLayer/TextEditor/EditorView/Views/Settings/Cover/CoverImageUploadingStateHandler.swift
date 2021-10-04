@@ -9,7 +9,7 @@
 import Foundation
 import BlocksModels
 
-final class CoverImageUploadingStateHandler: ImageUploadingStateHandlerProtocol {
+final class CoverImageUploadingStateHandler: FileUploadingStateHandlerProtocol {
     
     // MARK: - Private variables
     
@@ -21,9 +21,9 @@ final class CoverImageUploadingStateHandler: ImageUploadingStateHandlerProtocol 
         self.detailsService = detailsService
     }
     
-    // MARK: - ImageUploadingStateHandlerProtocol
+    // MARK: - FileUploadingStateHandlerProtocol
     
-    func handleImageUploadingState(_ state: ImageUploadingState) {
+    func handleImageUploadingState(_ state: FileUploadingState) {
         switch state {
         case .preparing:
             NotificationCenter.default.post(

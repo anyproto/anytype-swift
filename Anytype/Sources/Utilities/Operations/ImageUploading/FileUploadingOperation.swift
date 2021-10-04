@@ -1,5 +1,5 @@
 //
-//  ImageUploadingOperation.swift
+//  FileUploadOperation.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 27.09.2021.
@@ -11,9 +11,9 @@ import Combine
 import BlocksModels
 import UIKit
 
-final class ImageUploadingOperation: AsyncOperation {
+final class FileUploadingOperation: AsyncOperation {
     
-    var stateHandler: ImageUploadingStateHandlerProtocol?
+    var stateHandler: FileUploadingStateHandlerProtocol?
     
     // MARK: - Private variables
     

@@ -1,5 +1,5 @@
 //
-//  ImageUploadingDemon.swift
+//  FileUploadingDemon.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 27.09.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class ImageUploadingDemon {
+final class FileUploadingDemon {
     
     // MARK: - Internal variables
     
@@ -20,11 +20,11 @@ final class ImageUploadingDemon {
     
     // MARK: - Initializer
     
-    static let shared = ImageUploadingDemon()
+    static let shared = FileUploadingDemon()
 
     // MARK: - Internal func
     
-    func addOperation(_ operation: ImageUploadingOperation) {
+    func addOperation(_ operation: FileUploadingOperation) {
         queue.addOperation(operation)
     }
     

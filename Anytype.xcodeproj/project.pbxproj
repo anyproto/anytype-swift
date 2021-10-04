@@ -170,8 +170,8 @@
 		124AF82C26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */; };
 		1251592C26B8582E00D53ED6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1251592A26B8582E00D53ED6 /* GoogleService-Info.plist */; };
 		1251592D26B8582E00D53ED6 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1251592B26B8582E00D53ED6 /* GoogleService-Info-Dev.plist */; };
-		1255DF842702098300870B95 /* ImageUploadingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF832702098300870B95 /* ImageUploadingOperation.swift */; };
-		1255DF89270220E900870B95 /* ImageUploadingDemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF88270220E900870B95 /* ImageUploadingDemon.swift */; };
+		1255DF842702098300870B95 /* FileUploadingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF832702098300870B95 /* FileUploadingOperation.swift */; };
+		1255DF89270220E900870B95 /* FileUploadingDemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF88270220E900870B95 /* FileUploadingDemon.swift */; };
 		1259300526F3A5C500B115CD /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300426F3A5C500B115CD /* Highlightr */; };
 		1259300826F3A60B00B115CD /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300726F3A60B00B115CD /* Amplitude */; };
 		1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300D26F3A6AE00B115CD /* Kingfisher */; };
@@ -235,8 +235,8 @@
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12BE8E5C26565D85000C95B9 /* DetailsDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE8E5B26565D85000C95B9 /* DetailsDataExtensions.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
-		12C7E56927033006000DCA7F /* ImageUploadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E56827033006000DCA7F /* ImageUploadingState.swift */; };
-		12C7E56E2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E56D2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift */; };
+		12C7E56927033006000DCA7F /* FileUploadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E56827033006000DCA7F /* FileUploadingState.swift */; };
+		12C7E56E2703311B000DCA7F /* FileUploadingStateHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E56D2703311B000DCA7F /* FileUploadingStateHandlerProtocol.swift */; };
 		12C7E571270333AF000DCA7F /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E570270333AF000DCA7F /* Hash.swift */; };
 		12C7E5732703356E000DCA7F /* CoverImageUploadingStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E5722703356E000DCA7F /* CoverImageUploadingStateHandler.swift */; };
 		12C7E59327034457000DCA7F /* IconImageUploadingStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C7E59227034457000DCA7F /* IconImageUploadingStateHandler.swift */; };
@@ -847,8 +847,8 @@
 		124AF82B26A6DA63004911E9 /* DetailsDataProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsDataProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
 		1251592A26B8582E00D53ED6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1251592B26B8582E00D53ED6 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
-		1255DF832702098300870B95 /* ImageUploadingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadingOperation.swift; sourceTree = "<group>"; };
-		1255DF88270220E900870B95 /* ImageUploadingDemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadingDemon.swift; sourceTree = "<group>"; };
+		1255DF832702098300870B95 /* FileUploadingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadingOperation.swift; sourceTree = "<group>"; };
+		1255DF88270220E900870B95 /* FileUploadingDemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadingDemon.swift; sourceTree = "<group>"; };
 		125B6E9526F235F400BCD7D6 /* URLInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputAccessoryView.swift; sourceTree = "<group>"; };
 		125B6E9626F235F400BCD7D6 /* AccessoryViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcher.swift; sourceTree = "<group>"; };
 		125B6E9826F235F400BCD7D6 /* EditorSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
@@ -908,8 +908,8 @@
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12BE8E5B26565D85000C95B9 /* DetailsDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsDataExtensions.swift; path = Anytype/Sources/Models/Extensions/DetailsDataExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
-		12C7E56827033006000DCA7F /* ImageUploadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadingState.swift; sourceTree = "<group>"; };
-		12C7E56D2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadingStateHandlerProtocol.swift; sourceTree = "<group>"; };
+		12C7E56827033006000DCA7F /* FileUploadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadingState.swift; sourceTree = "<group>"; };
+		12C7E56D2703311B000DCA7F /* FileUploadingStateHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadingStateHandlerProtocol.swift; sourceTree = "<group>"; };
 		12C7E570270333AF000DCA7F /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		12C7E5722703356E000DCA7F /* CoverImageUploadingStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageUploadingStateHandler.swift; sourceTree = "<group>"; };
 		12C7E59227034457000DCA7F /* IconImageUploadingStateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageUploadingStateHandler.swift; sourceTree = "<group>"; };
@@ -2280,7 +2280,7 @@
 		1255DF87270220CF00870B95 /* ImageUploadingDemon */ = {
 			isa = PBXGroup;
 			children = (
-				1255DF88270220E900870B95 /* ImageUploadingDemon.swift */,
+				1255DF88270220E900870B95 /* FileUploadingDemon.swift */,
 			);
 			path = ImageUploadingDemon;
 			sourceTree = "<group>";
@@ -2471,9 +2471,9 @@
 		12C7E56F27033144000DCA7F /* ImageUploading */ = {
 			isa = PBXGroup;
 			children = (
-				12C7E56827033006000DCA7F /* ImageUploadingState.swift */,
-				12C7E56D2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift */,
-				1255DF832702098300870B95 /* ImageUploadingOperation.swift */,
+				12C7E56827033006000DCA7F /* FileUploadingState.swift */,
+				12C7E56D2703311B000DCA7F /* FileUploadingStateHandlerProtocol.swift */,
+				1255DF832702098300870B95 /* FileUploadingOperation.swift */,
 			);
 			path = ImageUploading;
 			sourceTree = "<group>";
@@ -4306,7 +4306,7 @@
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
 				3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */,
-				1255DF89270220E900870B95 /* ImageUploadingDemon.swift in Sources */,
+				1255DF89270220E900870B95 /* FileUploadingDemon.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				3DEA98122704A10C004AB80B /* HomeView+BottomSheet.swift in Sources */,
@@ -4438,7 +4438,7 @@
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
-				12C7E56E2703311B000DCA7F /* ImageUploadingStateHandlerProtocol.swift in Sources */,
+				12C7E56E2703311B000DCA7F /* FileUploadingStateHandlerProtocol.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */,
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
@@ -4594,7 +4594,7 @@
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				3D29AFFD26A606360095BA18 /* URLInputViewController.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
-				1255DF842702098300870B95 /* ImageUploadingOperation.swift in Sources */,
+				1255DF842702098300870B95 /* FileUploadingOperation.swift in Sources */,
 				3D5A417F2704543300F1F6A1 /* SearchCellData.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageService.swift in Sources */,
@@ -4753,7 +4753,7 @@
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
 				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
-				12C7E56927033006000DCA7F /* ImageUploadingState.swift in Sources */,
+				12C7E56927033006000DCA7F /* FileUploadingState.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				125B6EBA26F235F400BCD7D6 /* URLInputAccessoryView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
