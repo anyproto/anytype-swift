@@ -21,12 +21,14 @@ final class FileUploadingOperation: AsyncOperation {
     
     private let url: URL
     private let contentType: FileContentType
+    private let disableEncryption: Bool
     
     // MARK: - Initializers
     
-    init(url: URL, contentType: FileContentType) {
+    init(url: URL, contentType: FileContentType, disableEncryption: Bool) {
         self.url = url
         self.contentType = contentType
+        self.disableEncryption = disableEncryption
         
         super.init()
     }
@@ -40,7 +42,7 @@ final class FileUploadingOperation: AsyncOperation {
             url: "",
             localPath: url.relativePath,
             type: contentType,
-            disableEncryption: true
+            disableEncryption: false
         ).sink(
             receiveCompletion: { [weak self]  completion in
                 switch completion {
