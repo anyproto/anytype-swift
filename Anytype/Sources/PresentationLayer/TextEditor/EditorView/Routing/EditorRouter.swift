@@ -47,19 +47,19 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        guard let details = document.rootModel?.detailsContainer.get(by: id) else {
-            anytypeAssertionFailure("Unable to get details to show page by \(id)")
-            return
+        if let details = DetailsContainer.shared.get(by: id) {
+            let typeUrl = details.detailsData.typeUrl
+            guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
+                let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
+                
+                AlertHelper.showToast(
+                    title: "Not supported type \"\(typeName)\"",
+                    message: "You can open it via desktop"
+                )
+                return
+            }
         }
-        let typeUrl = details.detailsData.typeUrl
-        let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? ""
-        guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
-            AlertHelper.showToast(
-                title: "Not supported type \"\(typeName)\"",
-                message: "You can open it via desktop"
-            )
-            return
-        }
+        
         let newEditorViewController = EditorAssembly.buildEditor(blockId: id)
         
         viewController?.navigationController?.pushViewController(
