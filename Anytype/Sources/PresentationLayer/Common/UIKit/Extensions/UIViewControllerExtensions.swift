@@ -2,7 +2,7 @@ import UIKit
 
 extension UIViewController {
     
-    func setupBackBarButtonItem(_ item: UIBarButtonItem) {
+    func setupBackBarButtonItem(_ item: UIBarButtonItem?) {
         navigationItem.hidesBackButton = true
         
         navigationItem.leftBarButtonItem = item

@@ -2,9 +2,14 @@ import UIKit
 
 final class EditorBottomNavigationView: UIView {
     private var height: NSLayoutConstraint!
+    private let onBackTap: () -> ()
     private let onHomeTap: () -> ()
     
-    init(onHomeTap: @escaping () -> ()) {
+    init(
+        onBackTap: @escaping () -> (),
+        onHomeTap: @escaping () -> ()
+    ) {
+        self.onBackTap = onBackTap
         self.onHomeTap = onHomeTap
         
         super.init(frame: .zero)
@@ -50,8 +55,13 @@ final class EditorBottomNavigationView: UIView {
     }
     
     // MARK: - Views
-    private let backButton: UIView = {
-        let view = UIButton()
+    private lazy var backButton: UIView = {
+        let view = UIButton(
+            type: .system,
+            primaryAction: UIAction { [weak self] action in
+                self?.onBackTap()
+            }
+        )
         
         view.setImage(UIImage.backArrow, for: .normal)
         view.tintColor = .textSecondary
