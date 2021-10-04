@@ -7,6 +7,31 @@ import AnytypeCore
 
 final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     
+    func syncUploadDataAt(
+        filePath: String,
+        contextID: BlockId,
+        blockID: BlockId
+    ) -> ResponseEvent? {
+        let result = Anytype_Rpc.Block.Upload.Service.invoke(
+            contextID: contextID,
+            blockID: blockID,
+            filePath: filePath,
+            url: ""
+        )
+        
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
+        
+        switch result {
+        case .success(let response):
+            return ResponseEvent(response.event)
+
+        case .failure(let error):
+            anytypeAssertionFailure(error.localizedDescription)
+            return nil
+        }
+    }
+    
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
     func asyncUploadDataAt(
         filePath: String,

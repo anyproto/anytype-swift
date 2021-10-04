@@ -5,6 +5,12 @@ import ProtobufMessages
 
 protocol BlockActionsServiceFileProtocol {
     
+    func syncUploadDataAt(
+        filePath: String,
+        contextID: BlockId,
+        blockID: BlockId
+    ) -> ResponseEvent?
+    
     func asyncUploadDataAt(
         filePath: String,
         contextID: BlockId,
