@@ -1,18 +1,9 @@
-//
-//  UnsupportedBlockView.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 06.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Combine
 import BlocksModels
 import UIKit
 import AnytypeCore
 
 class UnsupportedBlockView: UIView & UIContentView {
-    private let fontStyle: AnytypeFont = .calloutRegular
     private var currentConfiguration: UnsupportedBlockContentConfiguration
 
     var configuration: UIContentConfiguration {
@@ -27,8 +18,8 @@ class UnsupportedBlockView: UIView & UIContentView {
         }
     }
 
-    private let label: UILabel = {
-        let label = UILabel()
+    private let label: AnytypeLabel = {
+        let label = AnytypeLabel(style: .callout)
         label.textColor = .textTertiary
         return label
     }()
@@ -61,24 +52,24 @@ class UnsupportedBlockView: UIView & UIContentView {
             $0.centerY.equal(to: centerYAnchor)
         }
 
-        let text = UIKitAnytypeText(text: currentConfiguration.text, style: fontStyle)
-
         addSubview(label) {
-            $0.top.equal(to: topAnchor, constant: Layout.labelTopBottomSpacing + text.topBottomTextSpacingForContainer)
-            $0.bottom.equal(to: bottomAnchor, constant: -(Layout.labelTopBottomSpacing + text.topBottomTextSpacingForContainer))
+            $0.top.equal(to: topAnchor, constant: Layout.labelTopBottomSpacing)
+            $0.bottom.equal(to: bottomAnchor, constant: -Layout.labelTopBottomSpacing)
             $0.leading.equal(to: icon.trailingAnchor, constant: Layout.iconToTextPadding)
+            $0.trailing.equal(to: trailingAnchor, constant: -Layout.labelTrailingSpacing)
         }
     }
 
     // MARK: - New configuration
     func apply(configuration: UnsupportedBlockContentConfiguration) {
-        label.attributedText =  UIKitAnytypeText(text: configuration.text, style: fontStyle).attrString
+        label.setText(configuration.text)
     }
 }
 
 
 extension UnsupportedBlockView {
     private enum Layout {
+        static let labelTrailingSpacing: CGFloat = 20
         static let labelTopBottomSpacing: CGFloat = 5
         static let iconToTextPadding: CGFloat = 9
         static let iconSize: CGFloat =  18

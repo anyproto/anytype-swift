@@ -33,27 +33,24 @@ final class EditorAssembly {
     ) -> DocumentEditorViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
+            objectId: blockId,
             objectDetailsService: ObjectDetailsService(
                 eventHandler: document.eventHandler,
                 objectId: blockId
             )
         )
                 
-        let selectionHandler = EditorSelectionHandler()
         let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
         let markupChanger = BlockMarkupChanger(
             document: document,
-            documentId: blockId,
-            textService: BlockActionsServiceText()
+            documentId: blockId
         )
         
         let blockActionHandler = BlockActionHandler(
             documentId: blockId,
             modelsHolder: modelsHolder,
-            selectionHandler: selectionHandler,
             document: document,
-            router: router,
             markupChanger: markupChanger
         )
         
@@ -61,28 +58,36 @@ final class EditorAssembly {
         let editorBlockActionHandler = EditorActionHandler(
             document: document,
             blockActionHandler: blockActionHandler,
-            eventProcessor: eventProcessor
+            eventProcessor: eventProcessor,
+            router: router
         )
+        
+        markupChanger.handler = editorBlockActionHandler
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
             document: document
         )
         
+        let accessorySwitcher = AccessoryViewSwitcherBuilder()
+            .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
+        let detailsLoader = DetailsLoader(document: document, eventProcessor: eventProcessor)
+        
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             blockActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            detailsLoader: DetailsLoader(
-                document: document,
-                eventProcessor: eventProcessor
-            )
+            accessorySwitcher: accessorySwitcher,
+            detailsLoader: detailsLoader
         )
-        
+         
         let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
         
-        let headerBuilder = ObjectHeaderBuilder(settingsViewModel: objectSettinsViewModel, router: router)
+        let headerBuilder = ObjectHeaderBuilder(
+            settingsViewModel: objectSettinsViewModel,
+            router: router
+        )
         
         return DocumentEditorViewModel(
             documentId: blockId,
@@ -90,7 +95,6 @@ final class EditorAssembly {
             viewInput: viewInput,
             blockDelegate: blockDelegate,
             objectSettinsViewModel: objectSettinsViewModel,
-            selectionHandler: selectionHandler,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,

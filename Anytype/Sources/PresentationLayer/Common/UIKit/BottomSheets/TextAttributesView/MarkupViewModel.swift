@@ -47,16 +47,9 @@ final class MarkupViewModel {
     }
     
     private func setMarkup(
-        markup: BlockHandlerActionType.TextAttributesType,
-        content: BlockText,
-        blockId: BlockId
+        markup: BlockHandlerActionType.TextAttributesType, blockId: BlockId
     ) {
-        guard let anytypeText = anytypeText,
-            let range = selectedRange?.range(for: anytypeText.attrString) else { return }
-        actionHandler.handleAction(
-            .toggleFontStyle(anytypeText.attrString, markup, range),
-            blockId: blockId
-        )
+        actionHandler.handleAction(.toggleWholeBlockMarkup(markup), blockId: blockId)
     }
     
     private func textAttributes(
@@ -91,7 +84,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
             anytypeAssertionFailure("blockInformation must not be nil")
             return
         }
-        guard case let .text(content) = blockInformation.content else {
+        guard case .text = blockInformation.content else {
             anytypeAssertionFailure("Expected text content type but got: \(blockInformation.content)")
             return
         }
@@ -102,11 +95,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
                 blockId: blockInformation.id
             )
         case let .toggleMarkup(markup):
-            setMarkup(
-                markup: markup,
-                content: content,
-                blockId: blockInformation.id
-            )
+            setMarkup(markup: markup, blockId: blockInformation.id)
         }
     }
     

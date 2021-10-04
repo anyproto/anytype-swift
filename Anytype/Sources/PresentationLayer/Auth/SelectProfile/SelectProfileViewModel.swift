@@ -27,8 +27,6 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
 
 
 class SelectProfileViewModel: ObservableObject {
-    let isMultipleAccountsEnabled = false // Not supported yet
-    
     private let authService  = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
     
@@ -95,17 +93,7 @@ class SelectProfileViewModel: ObservableObject {
                     return
                 }
                 
-                
-                if self.isMultipleAccountsEnabled {
-                    for event in events {
-                        let account = event.accountShow.account
-                        
-                        let profileViewModel = self.profileViewModelFromAccount(account)
-                        self.profilesViewModels.append(profileViewModel)
-                    }
-                } else {
-                    self.selectProfile(id: events[0].accountShow.account.id)
-                }
+                self.selectProfile(id: events[0].accountShow.account.id)
             }
     }
     
@@ -149,7 +137,6 @@ class SelectProfileViewModel: ObservableObject {
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
-        windowHolder?.configureMiddlewareConfiguration()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
 }

@@ -14,18 +14,26 @@ struct HomeCollectionView: View {
     let offsetChanged: (CGPoint) -> Void
     
     @State private var dropData = DropData()
+    @EnvironmentObject private var viewModel: HomeViewModel
     
     var body: some View {
+        VStack(spacing: 0) {
+            content
+            
+            // Hack to prevent navigation link from pop
+            // https://developer.apple.com/forums/thread/677333
+            // https://app.clickup.com/t/1je3crk
+            NavigationLink(destination: EmptyView()) { EmptyView() }
+        }
+    }
+    
+    private var content: some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns) {
                 ForEach(cellData) { data in
-                    NavigationLink(
-                        destination: coordinator.documentView(
-                            selectedDocumentId: data.destinationId
-                        ),
-                        label: {
-                            HomeCell(cellData: data)
-                        }
+                    Button(
+                        action: { viewModel.showPage(pageId: data.destinationId) },
+                        label: { HomeCell(cellData: data) }
                     )
                     .disabled(data.isLoading)
                     
@@ -44,7 +52,6 @@ struct HomeCollectionView: View {
             }
             .padding()
         }
-        .animation(.spring())
         .padding([.top], -22)
     }
 }

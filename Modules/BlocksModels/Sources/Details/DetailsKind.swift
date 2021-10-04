@@ -6,6 +6,7 @@ public enum DetailsKind: String {
     case coverId = "coverId"
     case coverType = "coverType"
     case isArchived = "isArchived"
+    case isFavorite = "isFavorite"
     case description = "description"
     case layout = "layout"
     case layoutAlign = "layoutAlign"

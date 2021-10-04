@@ -1,11 +1,3 @@
-//
-//  ObjectIconImagePainter.swift
-//  ObjectIconImagePainter
-//
-//  Created by Konstantin Mordan on 24.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -21,18 +13,26 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
-        
+        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline, resize: true)
+    }
+    
+    func staticImage(name: String, imageGuideline: ImageGuideline) -> UIImage {
+        let hash = "staticImage.\(name).\(imageGuideline.identifier)"
+        let image = UIImage.createImage(name)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline, resize: false)
+    }
+    
+    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline, resize: Bool) -> UIImage {
         if let image = imageStorage.image(forKey: hash) {
             return image
         }
         
-        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
-        
+        let image = resize ? image.scaled(to: imageGuideline.size) : image
         let modifiedImage = image
-            .scaled(to: imageGuideline.size)
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
-                backgroundColor: imageGuideline.cornersGuideline.backgroundColor?.cgColor
+                backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
             )
         
         imageStorage.saveImage(modifiedImage, forKey: hash)

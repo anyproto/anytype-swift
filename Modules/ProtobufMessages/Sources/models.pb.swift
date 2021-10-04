@@ -44,6 +44,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case indexedRelation // = 513
   case bundledObjectType // = 514
   case anytypeProfile // = 515
+  case date // = 516
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -70,6 +71,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 513: self = .indexedRelation
     case 514: self = .bundledObjectType
     case 515: self = .anytypeProfile
+    case 516: self = .date
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -94,6 +96,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .indexedRelation: return 513
     case .bundledObjectType: return 514
     case .anytypeProfile: return 515
+    case .date: return 516
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -123,6 +126,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .indexedRelation,
     .bundledObjectType,
     .anytypeProfile,
+    .date,
   ]
 }
 
@@ -418,6 +422,14 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .featuredRelations(newValue)}
   }
 
+  public var latex: Anytype_Model_Block.Content.Latex {
+    get {
+      if case .latex(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Latex()
+    }
+    set {_uniqueStorage()._content = .latex(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable {
@@ -432,6 +444,7 @@ public struct Anytype_Model_Block {
     case dataview(Anytype_Model_Block.Content.Dataview)
     case relation(Anytype_Model_Block.Content.Relation)
     case featuredRelations(Anytype_Model_Block.Content.FeaturedRelations)
+    case latex(Anytype_Model_Block.Content.Latex)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
@@ -481,6 +494,10 @@ public struct Anytype_Model_Block {
       }()
       case (.featuredRelations, .featuredRelations): return {
         guard case .featuredRelations(let l) = lhs, case .featuredRelations(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.latex, .latex): return {
+        guard case .latex(let l) = lhs, case .latex(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -1004,6 +1021,7 @@ public struct Anytype_Model_Block {
         case file // = 1
         case image // = 2
         case video // = 3
+        case audio // = 4
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -1016,6 +1034,7 @@ public struct Anytype_Model_Block {
           case 1: self = .file
           case 2: self = .image
           case 3: self = .video
+          case 4: self = .audio
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -1026,6 +1045,7 @@ public struct Anytype_Model_Block {
           case .file: return 1
           case .image: return 2
           case .video: return 3
+          case .audio: return 4
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -1122,6 +1142,18 @@ public struct Anytype_Model_Block {
         /// relations fields/columns options, also used to provide the order
         public var relations: [Anytype_Model_Block.Content.Dataview.Relation] = []
 
+        /// Relation used for cover in gallery
+        public var coverRelationKey: String = String()
+
+        /// Hide icon near name
+        public var hideIcon: Bool = false
+
+        /// Gallery card size
+        public var cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small
+
+        /// Image fits container
+        public var coverFit: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum {
@@ -1152,6 +1184,37 @@ public struct Anytype_Model_Block {
             case .list: return 1
             case .gallery: return 2
             case .kanban: return 3
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
+        public enum Size: SwiftProtobuf.Enum {
+          public typealias RawValue = Int
+          case small // = 0
+          case medium // = 1
+          case large // = 2
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .small
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .small
+            case 1: self = .medium
+            case 2: self = .large
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .small: return 0
+            case .medium: return 1
+            case .large: return 2
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -1441,6 +1504,18 @@ public struct Anytype_Model_Block {
       public init() {}
     }
 
+    public struct Latex {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var text: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -1542,6 +1617,7 @@ extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
     .file,
     .image,
     .video,
+    .audio,
   ]
 }
 
@@ -1562,6 +1638,15 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
     .list,
     .gallery,
     .kanban,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.View.Size: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.View.Size] = [
+    .small,
+    .medium,
+    .large,
   ]
 }
 
@@ -2410,6 +2495,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     513: .same(proto: "IndexedRelation"),
     514: .same(proto: "BundledObjectType"),
     515: .same(proto: "AnytypeProfile"),
+    516: .same(proto: "Date"),
   ]
 }
 
@@ -2508,6 +2594,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     21: .same(proto: "dataview"),
     22: .same(proto: "relation"),
     23: .same(proto: "featuredRelations"),
+    24: .same(proto: "latex"),
   ]
 
   fileprivate class _StorageClass {
@@ -2698,6 +2785,19 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
             _storage._content = .featuredRelations(v)
           }
         }()
+        case 24: try {
+          var v: Anytype_Model_Block.Content.Latex?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .latex(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .latex(v)
+          }
+        }()
         default: break
         }
       }
@@ -2771,6 +2871,10 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       case .featuredRelations?: try {
         guard case .featuredRelations(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 23)
+      }()
+      case .latex?: try {
+        guard case .latex(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
       }()
       case nil: break
       }
@@ -3378,6 +3482,7 @@ extension Anytype_Model_Block.Content.File.TypeEnum: SwiftProtobuf._ProtoNamePro
     1: .same(proto: "File"),
     2: .same(proto: "Image"),
     3: .same(proto: "Video"),
+    4: .same(proto: "Audio"),
   ]
 }
 
@@ -3468,6 +3573,10 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     4: .same(proto: "sorts"),
     5: .same(proto: "filters"),
     6: .same(proto: "relations"),
+    7: .same(proto: "coverRelationKey"),
+    8: .same(proto: "hideIcon"),
+    9: .same(proto: "cardSize"),
+    10: .same(proto: "coverFit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3482,6 +3591,10 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.sorts) }()
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.coverRelationKey) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
       default: break
       }
     }
@@ -3506,6 +3619,18 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if !self.relations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 6)
     }
+    if !self.coverRelationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.coverRelationKey, fieldNumber: 7)
+    }
+    if self.hideIcon != false {
+      try visitor.visitSingularBoolField(value: self.hideIcon, fieldNumber: 8)
+    }
+    if self.cardSize != .small {
+      try visitor.visitSingularEnumField(value: self.cardSize, fieldNumber: 9)
+    }
+    if self.coverFit != false {
+      try visitor.visitSingularBoolField(value: self.coverFit, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3516,6 +3641,10 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.sorts != rhs.sorts {return false}
     if lhs.filters != rhs.filters {return false}
     if lhs.relations != rhs.relations {return false}
+    if lhs.coverRelationKey != rhs.coverRelationKey {return false}
+    if lhs.hideIcon != rhs.hideIcon {return false}
+    if lhs.cardSize != rhs.cardSize {return false}
+    if lhs.coverFit != rhs.coverFit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3527,6 +3656,14 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: SwiftProtobuf._Pro
     1: .same(proto: "List"),
     2: .same(proto: "Gallery"),
     3: .same(proto: "Kanban"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.View.Size: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Small"),
+    1: .same(proto: "Medium"),
+    2: .same(proto: "Large"),
   ]
 }
 
@@ -3764,6 +3901,38 @@ extension Anytype_Model_Block.Content.Relation: SwiftProtobuf.Message, SwiftProt
 
   public static func ==(lhs: Anytype_Model_Block.Content.Relation, rhs: Anytype_Model_Block.Content.Relation) -> Bool {
     if lhs.key != rhs.key {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Latex: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Latex"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "text"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.text.isEmpty {
+      try visitor.visitSingularStringField(value: self.text, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Latex, rhs: Anytype_Model_Block.Content.Latex) -> Bool {
+    if lhs.text != rhs.text {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

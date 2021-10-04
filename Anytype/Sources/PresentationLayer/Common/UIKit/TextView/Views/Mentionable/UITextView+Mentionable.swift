@@ -1,5 +1,9 @@
 import UIKit
 
+protocol Mentionable {
+    @discardableResult func removeMentionIfNeeded(replacementRange: NSRange, replacementText: String) -> Bool
+}
+
 extension UITextView: Mentionable {
     
     private enum Constants {
@@ -32,38 +36,5 @@ extension UITextView: Mentionable {
             shouldStop[0] = true
         }
         return result
-    }
-    
-    func insert(
-        _ mention: MentionObject,
-        from: UITextPosition,
-        to: UITextPosition,
-        font: AnytypeFont
-    ) {
-        guard let name = mention.name else { return }
-        let pageId = mention.id
-        let length = offset(from: from, to: to)
-        let location = offset(from: beginningOfDocument, to: from)
-        let replacementRange = NSRange(location: location, length: length)
-        let attributedString = NSMutableAttributedString(attributedString: attributedText)
-        attributedString.deleteCharacters(in: replacementRange)
-        attributedText = attributedString
-        insertStringToAttributedString(
-            name,
-            location: location
-        )
-        let modifier = MarkStyleModifier(
-            attributedText: NSMutableAttributedString(attributedString: attributedText),
-            anytypeFont: font
-        )
-        modifier.apply(
-            .mention(pageId),
-            range: NSRange(
-                location: location,
-                length: name.count
-            )
-        )
-        attributedText = NSAttributedString(attributedString: modifier.attributedString)
-        selectedRange = NSRange(location: location + name.count + Constants.attachmentLenght, length: 0)
     }
 }

@@ -1,11 +1,3 @@
-//
-//  DocumentEditorViewController+UICollectionViewDelegate.swift
-//  DocumentEditorViewController+UICollectionViewDelegate
-//
-//  Created by Konstantin Mordan on 09.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import Amplitude
 import BlocksModels
@@ -19,9 +11,6 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         didSelectItemAt indexPath: IndexPath
     ) {
         viewModel.didSelectBlock(at: indexPath)
-        if viewModel.selectionHandler.selectionEnabled {
-            return
-        }
         collectionView.deselectItem(at: indexPath, animated: false)
     }
     
@@ -29,16 +18,13 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        if !viewModel.selectionHandler.selectionEnabled {
-            return
-        }
-        self.viewModel.didSelectBlock(at: indexPath)
+        return
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
-            return false
-        }
+                    return false
+                }
         return true
     }
     
@@ -46,23 +32,12 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         shouldSelectItemAt indexPath: IndexPath
     ) -> Bool {
-        guard let item = dataSource.itemIdentifier(for: indexPath)
-        else { return false }
-        
-        if viewModel.selectionHandler.selectionEnabled {
-            switch item {
-            case let .block(block):
-                guard case let .text(text) = block.content else { return true }
-                return text.contentType != .title
-            case .header:
-                return false
-            }
-        }
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         
         switch item {
         case let .block(block):
-            guard case .text = block.content else { return true }
-            return false
+            if case .text = block.content { return false }
+            return true
         case .header:
             return false
         }
@@ -82,8 +57,15 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             
             return block.contextMenuConfiguration()
         case .header:
-            return nil
+                    return nil
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        NotificationCenter.default.post(
+            name: .editorCollectionContentOffsetChangeNotification,
+            object: scrollView.contentOffset.y
+        )
     }
     
 }

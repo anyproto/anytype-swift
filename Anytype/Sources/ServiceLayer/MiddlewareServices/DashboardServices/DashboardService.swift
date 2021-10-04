@@ -6,7 +6,7 @@ import Amplitude
 
 
 class DashboardService: DashboardServiceProtocol {
-    private let configurationService = MiddlewareConfigurationService()
+    private let configurationService = MiddlewareConfigurationService.shared
     private let actionsService = BlockActionsServiceSingle()
     private let objectsService = ObjectActionsService()
     
@@ -15,30 +15,26 @@ class DashboardService: DashboardServiceProtocol {
     private var subscriptions = [AnyCancellable]()
         
     func openDashboard(completion: @escaping (ResponseEvent) -> ()) {
-        configurationService.obtainConfiguration { [weak self] config in
-            guard let self = self else { return }
-            
-            self.actionsService.open(contextID: config.homeBlockID, blockID: config.homeBlockID)
-                .sinkWithDefaultCompletion("Open dashboard") { success in
-                    completion(success)
-                }
-                .store(in: &self.subscriptions)
-        }
+        guard
+            let homeBlockID = configurationService.configuration()?.homeBlockID
+        else { return }
+        
+        actionsService.open(contextID: homeBlockID, blockID: homeBlockID)
+            .sinkWithDefaultCompletion("Open dashboard") { success in
+                completion(success)
+            }
+            .store(in: &self.subscriptions)
     }
     
-    func createNewPage() -> AnyPublisher<CreatePageResponse, Error> {
-        objectsService.createPage(
+    func createNewPage() -> CreatePageResult {
+        Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
+        return objectsService.createPage(
             contextID: "",
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: .bottom,
             templateID: ""
         )
-        .handleEvents(receiveSubscription: { _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
-        })
-        .eraseToAnyPublisher()
     }
     
     private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {

@@ -24,6 +24,9 @@ protocol EditorRouterProtocol: AnyObject {
     func showSettings(viewModel: ObjectSettingsViewModel)
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
     func showIconPicker(viewModel: ObjectIconPickerViewModel)
+    
+    func showMoveTo(onSelect: @escaping (BlockId) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId) -> ())
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -109,7 +112,10 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let parentController = controller.parent else { return }
+              let parentController = controller.parent,
+              let container = document.rootActiveModel?.container,
+              let blockModel = container.model(id: information.id) else { return }
+
         controller.view.endEditing(true)
 
         let didShow: (FloatingPanelController) -> Void  = { fpc in
@@ -122,24 +128,23 @@ final class EditorRouter: EditorRouterProtocol {
             }
             controller.adjustContentOffset(fpc: fpc)
         }
-        
+
         BottomSheetsFactory.createStyleBottomSheet(
             parentViewController: parentController,
             delegate: controller,
-            information: information,
+            blockModel: blockModel,
             actionHandler: controller.viewModel.blockActionHandler,
             didShow: didShow,
-            showMarkupMenu: { [weak controller, weak self] in
+            showMarkupMenu: { [weak controller] styleView, viewDidClose in
                 guard let controller = controller,
-                      let parent = controller.parent,
-                      let container = self?.document.rootActiveModel?.container,
-                      let actualInformation = container.model(id: information.id)?.information else {
-                    return
-                }
+                      let parent = controller.parent else { return }
+
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: parent,
-                    blockInformation: actualInformation,
-                    viewModel: controller.viewModel.wholeBlockMarkupViewModel
+                    styleView: styleView,
+                    blockInformation: blockModel.information,
+                    viewModel: controller.viewModel.wholeBlockMarkupViewModel,
+                    viewDidClose: viewDidClose
                 )
             }
         )
@@ -177,6 +182,29 @@ final class EditorRouter: EditorRouterProtocol {
     func showIconPicker(viewModel: ObjectIconPickerViewModel) {
         guard let viewController = viewController else { return }
         let controller = settingAssembly.iconPicker(viewModel: viewModel)
+        viewController.present(controller, animated: true)
+    }
+    
+    func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
+        let moveToView = SearchView(title: "Move to") { data in
+            onSelect(data.id)
+        }
+        
+        presentSwuftUIView(view: moveToView)
+    }
+    
+    func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
+        let linkToView = SearchView(title: "Link to") { data in
+            onSelect(data.id)
+        }
+        
+        presentSwuftUIView(view: linkToView)
+    }
+    
+    private func presentSwuftUIView<Content: View>(view: Content) {
+        guard let viewController = viewController else { return }
+        
+        let controller = UIHostingController(rootView: view)
         viewController.present(controller, animated: true)
     }
     

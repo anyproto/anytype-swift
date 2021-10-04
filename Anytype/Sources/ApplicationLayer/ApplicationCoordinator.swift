@@ -5,7 +5,7 @@ import AnytypeCore
 
 final class ApplicationCoordinator {
     
-    private let window: MainWindow
+    private let window: UIWindow
     
     private let authService: AuthServiceProtocol
     
@@ -16,7 +16,7 @@ final class ApplicationCoordinator {
     // MARK: - Initializers
     
     init(
-        window: MainWindow,
+        window: UIWindow,
         authService: AuthServiceProtocol,
         authAssembly: AuthAssembly
     ) {
@@ -69,7 +69,6 @@ private extension ApplicationCoordinator {
             case .success:
                 guard let self = self else { return }
                 
-                self.configureMiddlewareConfiguration()
                 self.showHomeScreen()
             case .failure:
                 self?.showAuthScreen()
@@ -92,7 +91,7 @@ private extension ApplicationCoordinator {
 
 // MARK: - MainWindowHolde
 
-extension ApplicationCoordinator: MainWindowHolder {
+extension ApplicationCoordinator: WindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
         let rootNavigationController = createNavigationController()
@@ -107,10 +106,6 @@ extension ApplicationCoordinator: MainWindowHolder {
         window.makeKeyAndVisible()
     }
     
-    func configureMiddlewareConfiguration() {
-        MiddlewareConfigurationService.shared.obtainAndCacheConfiguration()
-    }
-    
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
         rootNavigationController.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
     }
@@ -120,8 +115,8 @@ extension ApplicationCoordinator: MainWindowHolder {
         vc.navigationBar.compactAppearance = appearance
         vc.navigationBar.standardAppearance = appearance
         vc.navigationBar.scrollEdgeAppearance = appearance
-        vc.navigationBar.barTintColor = UIColor.grayscaleWhite
-        vc.navigationBar.tintColor = UIColor.grayscaleWhite
+        vc.navigationBar.barTintColor = UIColor.backgroundPrimary
+        vc.navigationBar.tintColor = UIColor.backgroundPrimary
     }
     
 }

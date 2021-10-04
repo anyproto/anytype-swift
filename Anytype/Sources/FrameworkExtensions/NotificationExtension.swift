@@ -11,4 +11,8 @@ extension Notification.Name {
         "DocumentCoverImageUploadingEvent"
     )
     
+    static let editorCollectionContentOffsetChangeNotification = Notification.Name(
+        "EditorCollectionContentOffsetChangeNotification"
+    )
+    
 }

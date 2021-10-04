@@ -5,18 +5,6 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-extension HomeViewModel {
-    struct NewPageData {
-        let pageId: String
-        var showingNewPage: Bool
-    }
-    
-    struct SnackBarData {
-        let text: String
-        var showSnackBar: Bool
-    }
-}
-
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
     var nonArchivedFavoritesCellData: [HomeCellData] {
@@ -24,10 +12,9 @@ final class HomeViewModel: ObservableObject {
     }
     
     @Published var archiveCellData: [HomeCellData] = []
-    @Published var recentCellData: [HomeCellData] = []
-    @Published var inboxCellData: [HomeCellData] = []
+    @Published var historyCellData: [HomeCellData] = []
     
-    @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
+    @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
@@ -44,6 +31,8 @@ final class HomeViewModel: ObservableObject {
     let document: BaseDocumentProtocol = BaseDocument()
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
+    let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
+    
     init() {
         fetchDashboardData()
     }
@@ -52,8 +41,7 @@ final class HomeViewModel: ObservableObject {
 
     func viewLoaded() {
         updateArchiveTab()
-        updateRecentTab()
-        updateInboxTab()
+        updateHistoryTab()
     }
 
     // MARK: - Private methods
@@ -61,19 +49,13 @@ final class HomeViewModel: ObservableObject {
     func updateArchiveTab() {
         searchService.searchArchivedPages { [weak self] searchResults in
             guard let self = self else { return }
-            self.archiveCellData = self.cellDataBuilder.buldCellData(searchResults)
+            self.archiveCellData = self.cellDataBuilder.buildCellData(searchResults)
         }
     }
-    func updateRecentTab() {
-        searchService.searchRecentPages { [weak self] searchResults in
+    func updateHistoryTab() {
+        searchService.searchHistoryPages { [weak self] searchResults in
             guard let self = self else { return }
-            self.recentCellData = self.cellDataBuilder.buldCellData(searchResults)
-        }
-    }
-    func updateInboxTab() {
-        searchService.searchInboxPages { [weak self] searchResults in
-            guard let self = self else { return }
-            self.inboxCellData = self.cellDataBuilder.buldCellData(searchResults)
+            self.historyCellData = self.cellDataBuilder.buildCellData(searchResults)
         }
     }
     
@@ -94,16 +76,16 @@ final class HomeViewModel: ObservableObject {
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
         switch updateResult.updates {
         case .general:
-            favoritesCellData = cellDataBuilder.buldFavoritesData(updateResult)
+            favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
         case .update(let blockIds):
             blockIds.forEach { updateCellWithTargetId($0) }
         case .details(let details):
-            updateCellWithTargetId(details.parentId)
+            updateCellWithTargetId(details.blockId)
         }
     }
     
     private func updateCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.getDetails(by: blockId)?.currentDetails else {
+        guard let newDetails = document.getDetails(id: blockId)?.currentDetails else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
@@ -119,24 +101,21 @@ final class HomeViewModel: ObservableObject {
 // MARK: - New page
 extension HomeViewModel {
     func createNewPage() {
-        newPageSubscription = dashboardService.createNewPage()
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("Create page") { [weak self] response in
-                guard let self = self else {
-                    return
-                }
-
-                self.document.handle(
-                    events: PackOfEvents(middlewareEvents: response.messages)
-                )
-
-                guard !response.newBlockId.isEmpty else {
-                    anytypeAssertionFailure("No new block id in create new page response")
-                    return
-                }
-                
-                self.showPage(pageId: response.newBlockId)
+        let result = dashboardService.createNewPage()
+        guard case let .response(response) = result else {
+            return
         }
+
+        document.handle(
+            events: PackOfEvents(middlewareEvents: response.messages)
+        )
+
+        guard !response.newBlockId.isEmpty else {
+            anytypeAssertionFailure("No new block id in create new page response")
+            return
+        }
+        
+        showPage(pageId: response.newBlockId)
     }
     
     func startSearch() {
@@ -144,9 +123,7 @@ extension HomeViewModel {
     }
     
     func showPage(pageId: BlockId) {
-        newPageData = NewPageData(
-            pageId: pageId,
-            showingNewPage: true
-        )
+        openedPageData.pageId = pageId
+        openedPageData.showingNewPage = true
     }
 }

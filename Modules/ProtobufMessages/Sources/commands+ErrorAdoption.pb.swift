@@ -11,6 +11,7 @@ extension Anytype_Rpc.BlockList.Move.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error: Swift.Error {}
@@ -21,6 +22,7 @@ extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Delete.Page.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.TurnInto.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.UpdateContent.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Split.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Merge.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Copy.Response.Error: Swift.Error {}
@@ -34,6 +36,7 @@ extension Anytype_Rpc.Block.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Details.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Restrictions.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Latex.Text.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Text.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Style.Response.Error: Swift.Error {}
@@ -119,6 +122,8 @@ extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: Swift.Error {
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}

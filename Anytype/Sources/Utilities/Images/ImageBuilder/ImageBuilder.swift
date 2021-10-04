@@ -18,7 +18,7 @@ final class ImageBuilder {
     
     private var text: String?
     private var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    private var textColor = UIColor.grayscaleWhite
+    private var textColor = UIColor.backgroundPrimary
     
     init(_ imageGuideline: ImageGuideline) {
         self.imageGuideline = imageGuideline
@@ -88,7 +88,7 @@ extension ImageBuilder: ImageBuilderProtocol {
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
                 opaque: isOpaque,
-                backgroundColor: imageGuideline.cornersGuideline.backgroundColor?.cgColor
+                backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
         )
 
         imageStorage.saveImage(image, forKey: key)

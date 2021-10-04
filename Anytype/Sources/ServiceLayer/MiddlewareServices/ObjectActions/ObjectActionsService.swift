@@ -4,9 +4,14 @@ import SwiftProtobuf
 import BlocksModels
 import ProtobufMessages
 import Amplitude
+import AnytypeCore
 
+enum CreatePageResult {
+    case response(CreatePageResponse)
+    case error(Error)
+}
 
-enum ObjectActionsServicePossibleError: Error {
+enum ObjectActionsServiceError: Error {
     case createPageActionPositionConversionHasFailed
 }
 
@@ -17,14 +22,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: [DetailsKind: DetailsEntry<AnyHashable>],
+        details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error> {
+    ) -> CreatePageResult {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return Fail(
-                error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed
-            ).eraseToAnyPublisher()
+            return .error(ObjectActionsServiceError.createPageActionPositionConversionHasFailed)
         }
         
         let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
@@ -44,18 +47,45 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: Google_Protobuf_Struct,
         position: Anytype_Model_Block.Position,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error> {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(
-            contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID
+    ) -> CreatePageResult {
+        let result = Anytype_Rpc.Block.CreatePage.Service.invoke(
+            contextID: contextID, details: details, templateID: templateID,
+            targetID: targetID, position: position, fields: .init()
         )
-        .map { CreatePageResponse($0) }
-        .subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+        
+        switch result {
+        case let .failure(error):
+            return .error(error)
+        case let .success(response):
+            return .response(CreatePageResponse(response))
+        }
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ResponseEvent, Error> {
+    
+    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?  {
         let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
+            contextID: contextID,
+            details: middlewareDetails
+        )
+        
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
+        
+        switch result {
+        case .success(let response):
+            return ResponseEvent(response.event)
+            
+        case .failure(let error):
+            anytypeAssertionFailure(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func asyncSetDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {
+        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        
         return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
@@ -63,17 +93,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.Block.Set.Details.Service
+            .invoke(contextID: contextID, details: details, queue: .global())
+            .map(\.event)
+            .map(ResponseEvent.init(_:))
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
     }
 
-    /// Children to page
-    /// - Parameters:
-    ///   - contextID: document id
-    ///   - blocksIds: blocks that will be converted to pages
-    ///   - objectType: object type
-    /// - Returns: AnyPublisher
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<Void, Error> {
-        Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType).successToVoid().subscribe(on: DispatchQueue.global())
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<[BlockId], Error> {
+        Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
+            .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
+            .map { $0.linkIds }
+            .subscribe(on: DispatchQueue.global())
             .handleEvents(receiveRequest:  {_ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)

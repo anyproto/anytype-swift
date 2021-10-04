@@ -9,10 +9,10 @@ import Amplitude
 final class DocumentEditorViewController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
-        
+    
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.backgroundColor = .white
+        listConfiguration.backgroundColor = .clear
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         let collectionView = UICollectionView(
@@ -20,9 +20,9 @@ final class DocumentEditorViewController: UIViewController {
             collectionViewLayout: layout
         )
         collectionView.allowsMultipleSelection = true
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
-
+        
         return collectionView
     }()
     
@@ -33,11 +33,11 @@ final class DocumentEditorViewController: UIViewController {
     private var selectionSubscription: AnyCancellable?
     // Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
-        let recognizer: UITapGestureRecognizer = .init()
+        let recognizer = UITapGestureRecognizer()
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
-
+    
     private lazy var navigationBarHelper = EditorNavigationBarHelper(
         onBackBarButtonItemTap: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
@@ -47,34 +47,41 @@ final class DocumentEditorViewController: UIViewController {
             self?.viewModel.showSettings()
         }
     )
-
+    
     var viewModel: DocumentEditorViewModelProtocol!
-
+    
     // MARK: - Initializers
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Overrided functions
+    
+    override func loadView() {
+        super.loadView()
+        
+        setupView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewModel.viewLoaded()
-        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        UserDefaultsConfig.lastOpenedPageId = viewModel.documentId
+        
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
-                
+        
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView
@@ -93,7 +100,7 @@ final class DocumentEditorViewController: UIViewController {
         guard parent is UINavigationController else {
             return parent
         }
-
+        
         return self
     }
     
@@ -103,15 +110,20 @@ final class DocumentEditorViewController: UIViewController {
 
 extension DocumentEditorViewController: DocumentEditorViewInput {
     
-    func updateData(header: ObjectHeader, blocks: [BlockViewModelProtocol]) {
-        var snapshot = NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>()
-        snapshot.appendSections([.header, .main])
-        snapshot.appendItems([.header(header)], toSection: .header)
+    func update(header: ObjectHeader, details: DetailsDataProtocol?) {
+        var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        headerSnapshot.append([.header(header)])
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
         
-        snapshot.appendItems(
-            blocks.map { DataSourceItem.block($0) },
-            toSection: .main
+        navigationBarHelper.configureNavigationBar(
+            using: header,
+            details: details
         )
+    }
+    
+    func update(blocks: [BlockViewModelProtocol]) {
+        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
         
@@ -119,7 +131,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             switch item {
             case let .block(block):
                 let blockForUpdate = blocks.first { $0.blockId == block.blockId }
-
+                
                 guard let blockForUpdate = blockForUpdate else { return }
                 guard let indexPath = self.dataSource.indexPath(for: item) else { return }
                 guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
@@ -131,19 +143,9 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             }
         }
         
-        apply(snapshot) { [weak self] in
-            guard let self = self else { return }
-            self.focusOnFocusedBlock()
-        }
+        applyBlocksSectionSnapshot(blocksSnapshot)
     }
     
-    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
-        navigationBarHelper.configureNavigationBar(
-            using: header,
-            details: details
-        )
-    }
- 
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
@@ -160,11 +162,11 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
         }
         updateView()
     }
-
+    
     func needsUpdateLayout() {
         updateView()
     }
-
+    
     func textBlockWillBeginEditing() {
         contentOffset = collectionView.contentOffset
     }
@@ -178,84 +180,58 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
             dataSource.refresh(animatingDifferences: true)
         }
     }
-
+    
 }
-
 
 // MARK: - Private extension
 
 private extension DocumentEditorViewController {
     
-    func setupUI() {
+    func setupView() {
+        view.backgroundColor = .backgroundPrimary
+        
         setupCollectionView()
+        
         setupInteractions()
         
+        setupLayout()
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
-
+    
     func setupCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.pinAllEdges(to: view)
-        
         collectionView.delegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
     func setupInteractions() {
-        selectionSubscription = viewModel
-            .selectionHandler
-            .selectionEventPublisher()
-            .sink { [weak self] value in
-                self?.handleSelection(event: value)
-            }
-        
         listViewTapGestureRecognizer.addTarget(
             self,
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
-        self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+        view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+    }
+    
+    func setupLayout() {
+        view.addSubview(collectionView) {
+            $0.pinToSuperview()
+        }
     }
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
-        if viewModel.selectionHandler.selectionEnabled == true { return }
-        
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
-
+        
         viewModel.blockActionHandler.onEmptySpotTap()
     }
     
-    func handleSelection(event: EditorSelectionIncomingEvent) {
-        switch event {
-        case .selectionDisabled:
-            deselectAllBlocks()
-        case let .selectionEnabled(event):
-            switch event {
-            case .isEmpty:
-                deselectAllBlocks()
-            case let .nonEmpty(count, _):
-                // We always count with this "1" because of top title block, which is not selectable
-                if count == collectionView.numberOfItems(inSection: 0) - 1 {
-                    collectionView.selectAllItems(startingFrom: 1)
-                }
-            }
-            collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
-        }
-    }
-        
-    func deselectAllBlocks() {
-        self.collectionView.deselectAllSelectedItems()
-        self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
-    }
-    
-    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {
         let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
         let codeCellRegistration = createCodeCellRegistration()
-
-        let dataSource = UICollectionViewDiffableDataSource<ObjectSection, DataSourceItem>(
+        
+        let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
         ) { (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
             switch dataSourceItem {
@@ -282,14 +258,18 @@ private extension DocumentEditorViewController {
             }
         }
         
+        
+        var initialSnapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
+        initialSnapshot.appendSections(EditorSection.allCases)
+        
+        dataSource.apply(initialSnapshot, animatingDifferences: false)
+        
         return dataSource
     }
     
     func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
         .init { cell, _, item in
-            cell.contentConfiguration = item.makeContentConfiguration(
-                maxWidth: cell.bounds.width
-            )
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         }
     }
     
@@ -304,46 +284,39 @@ private extension DocumentEditorViewController {
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
     }
-
+    
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel
-        cell.contentView.isUserInteractionEnabled = !viewModel.selectionHandler.selectionEnabled
-
+        cell.contentView.isUserInteractionEnabled = true
+        
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         if FeatureFlags.rainbowCells {
             cell.fillSubviewsWithRandomColors(recursively: false)
         }
     }
-
+    
 }
 
 // MARK: - Initial Update data
 
-extension DocumentEditorViewController {
-        
-    private func apply(
-        _ snapshot: NSDiffableDataSourceSnapshot<ObjectSection, DataSourceItem>,
-        animatingDifferences: Bool = true,
-        completion: (() -> Void)? = nil
-    ) {
+private extension DocumentEditorViewController {
+    
+    func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
-
-        UIView.performWithoutAnimation {
-            self.dataSource.apply(
-                snapshot,
-                animatingDifferences: animatingDifferences
-            ) { [weak self] in
-                completion?()
-
-                selectedCells?.forEach {
-                    self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
-                }
+        
+        UIView.performWithoutAnimation { [weak self] in
+            guard let self = self else { return }
+            
+            self.dataSource.apply(snapshot, to: .main, animatingDifferences: true)
+            self.focusOnFocusedBlock()
+            selectedCells?.forEach {
+                self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
             }
         }
     }
-
+    
     private func focusOnFocusedBlock() {
         let userSession = viewModel.document.userSession
         // TODO: we should move this logic to TextBlockViewModel
@@ -363,16 +336,4 @@ private extension DocumentEditorViewController {
         static let cellIndentationWidth: CGFloat = 24
     }
     
-}
-
-struct DocumentEditorViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
-}
-
-struct DocumentEditorViewController_Previews_2: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
 }

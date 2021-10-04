@@ -6,7 +6,7 @@ extension Image {
     static let splashLogo = createImage("splashLogo")
     static let arrow = createImage("arrowForward")
     
-    static let checked = createImage("TextEditor/Style/Text/Checkbox/checked")
+    static let checked = createImage("TextEditor/Text/checked")
     
     static let noImage = Image("no_image")
 }
@@ -27,9 +27,7 @@ extension Image {
     }
     
     enum auth {
-        static let qr = createImage("auth_qr_code")
         static let photo = createImage("auth_photo_icon")
-        static let congrats = createImage("auth_congrats")
     }
 }
 
@@ -44,6 +42,15 @@ extension Image {
         static let icon = createImage("object_settings_icon")
         static let cover = createImage("object_settings_cover")
         static let layout = createImage("object_settings_layout")
+    }
+
+    enum ObjectAction {
+        static let archive = createImage("delete")
+        static let favorite = createImage("addToFavorites")
+        static let unfavorite = createImage("unfavorite")
+        static let moveTo = createImage("moveTo")
+        static let template = createImage("addNew")
+        static let search = createImage("search")
     }
     
     enum LayoutSettings {

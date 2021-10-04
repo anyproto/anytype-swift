@@ -1,11 +1,3 @@
-//
-//  EditorNavigationBarHelper.swift
-//  EditorNavigationBarHelper
-//
-//  Created by Konstantin Mordan on 18.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import BlocksModels
@@ -22,7 +14,7 @@ final class EditorNavigationBarHelper {
     
     private var isObjectHeaderWithCover = false
     private var objectHeaderHeight: CGFloat = 0.0
-    
+        
     init(onBackBarButtonItemTap: @escaping () -> Void,
          onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.backBarButtonItemView = EditorBarButtonItemView(
@@ -34,7 +26,7 @@ final class EditorNavigationBarHelper {
             action: onSettingsBarButtonItemTap
         )
         
-        self.fakeNavigationBarBackgroundView.backgroundColor = .grayscaleWhite
+        self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
@@ -56,9 +48,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func handleViewWillAppear(_ vc: UIViewController?, _ scrollView: UIScrollView) {
-        guard let vc = vc else {
-            return
-        }
+        guard let vc = vc else { return }
         
         configureNavigationItem(in: vc)
         
@@ -66,7 +56,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             \.contentOffset,
             options: .new
         ) { [weak self] scrollView, _ in
-            self?.handleScrollViewOffsetChange(scrollView.contentOffset.y)
+            self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
         }
     }
     
@@ -93,7 +83,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         
         navigationBarTitleView.configure(
             model: EditorNavigationBarTitleView.Model(
-                icon: details?.iconImage,
+                icon: details?.objectIconImage,
                 title: title
             )
         )
@@ -125,7 +115,7 @@ private extension EditorNavigationBarHelper {
         }
     }
     
-    func handleScrollViewOffsetChange(_ newOffset: CGFloat) {
+    func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
         let startAppearingOffset = objectHeaderHeight - 50
         let endAppearingOffset = objectHeaderHeight
 
@@ -175,12 +165,8 @@ private extension ObjectHeader {
     
     var isWithCover: Bool {
         switch self {
-        case .iconOnly:
-            return false
-        case .coverOnly:
-            return true
-        case .iconAndCover:
-            return true
+        case .filled(let filledState):
+            return filledState.isWithCover
         case .empty:
             return false
         }
@@ -188,12 +174,9 @@ private extension ObjectHeader {
     
     var height: CGFloat {
         switch self {
-        case .iconOnly:
-            return ObjectHeaderIconOnlyContentView.Constants.height
-        case .coverOnly:
-            return ObjectHeaderCoverOnlyContentView.Constants.height
-        case .iconAndCover:
-            return ObjectHeaderIconAndCoverContentView.Constants.height
+        case .filled:
+            return ObjectHeaderView.Constants.height
+            
         case .empty:
             return ObjectHeaderEmptyContentView.Constants.height
         }

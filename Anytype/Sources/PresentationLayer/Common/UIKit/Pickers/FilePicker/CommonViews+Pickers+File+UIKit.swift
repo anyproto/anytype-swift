@@ -103,6 +103,10 @@ extension Picker {
         private(set) var types: [UTType] = [
             .item
         ]
+
+        init(types: [UTType] = [.item]) {
+            self.types = types
+        }
     }
 }
 

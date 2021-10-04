@@ -120,8 +120,10 @@ final class AuthService: AuthServiceProtocol {
             }) { [weak self] response in
                 // Analytics
                 Amplitude.instance().setUserId(response.account.id)
-                Amplitude.instance().logEvent(AmplitudeEventsName.accountSelect,
-                                              withEventProperties: [AmplitudeEventsPropertiesKey.accountId : response.account.id])
+                Amplitude.instance().logEvent(
+                    AmplitudeEventsName.accountSelect,
+                    withEventProperties: [AmplitudeEventsPropertiesKey.accountId : response.account.id]
+                )
 
                 UserDefaultsConfig.usersIdKey = response.account.id
                 self?.loginStateService.setupStateAfterLoginOrAuth()

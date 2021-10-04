@@ -28,7 +28,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         indentationLevel: Int,
         information: BlockInformation,
         content: BlockLink,
-        details: DetailsData?,
+        details: DetailsDataProtocol?,
         contextualMenuHandler: DefaultContextualMenuHandler,
         openLink: @escaping (BlockId) -> ()
     ) {

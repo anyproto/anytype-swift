@@ -3,6 +3,21 @@ import BlocksModels
 import UIKit
 
 extension UITextView {
+    var isCarretInTheBeginingOfDocument: Bool {
+        guard let caretPosition = caretPosition else {
+            return false
+        }
+        
+        return offsetFromBegining(caretPosition) == 0
+    }
+    
+    var caretPosition: UITextPosition? {
+        if !isFirstResponder {
+            return nil
+        }
+        let offset = selectedRange.location + selectedRange.length
+        return position(from: beginningOfDocument, offset: offset)
+    }
     
     /// Append plain string to attributed string after caret.
     /// If attributedText is empty, `typingAttributes` will be set to default.
@@ -10,33 +25,25 @@ extension UITextView {
     ///
     /// - Parameters:
     ///   - string: String to insert
-    func insertStringToAttributedStringAfterCaret(_ string: String) {
-        insertStringToAttributedString(
-            string,
-            location: selectedRange.location
-        )
+    func insertStringAfterCaret(_ string: String) {
+        insertString(string, location: selectedRange.location)
     }
     
-    func insertStringToAttributedString(_ string: String, location: Int) {
+    private func insertString(_ string: String, location: Int) {
         guard !string.isEmpty, location <= attributedText.length else { return }
+        
+        var attributes = typingAttributes
+        attributes.removeValue(forKey: .mention)
+        
         if attributedText.length == 0 {
-            attributedText = NSAttributedString(string: string, attributes: typingAttributes)
+            attributedText = NSAttributedString(string: string, attributes: attributes)
         } else {
-            attributedText = attributedText?.attributedStringByInserting(
-                string,
-                at: location,
-                attachmentAttributes: typingAttributes
-            )
+            let insertedString = NSAttributedString(string: string, attributes: attributes)
+            let newString = NSMutableAttributedString(attributedString: attributedText)
+            newString.insert(insertedString, at: location)
+            attributedText = newString
             selectedRange.location = location + string.count
         }
-    }
-    
-    func caretPosition() -> UITextPosition? {
-        if !isFirstResponder {
-            return nil
-        }
-        let offset = selectedRange.location + selectedRange.length
-        return position(from: beginningOfDocument, offset: offset)
     }
     
     func setFocus(_ position: BlockFocusPosition) {
@@ -62,27 +69,23 @@ extension UITextView {
         return .typingSymbols
     }
     
-    func textBeforeCaret() -> String? {
-        guard let caretPosition = caretPosition(),
-              let range = textRange(
-                from: beginningOfDocument,
-                to: caretPosition
-              )
+    var textBeforeCaret: String? {
+        guard let caretPosition = caretPosition,
+              let range = textRange(from: beginningOfDocument, to: caretPosition)
         else {
             return nil
         }
         return text(in: range)
+    }
+    
+    func offsetFromBegining(_ position: UITextPosition) -> Int {
+        return offset(from: self.beginningOfDocument, to: position)
     }
 }
 
 extension UITextView: TextViewManagingFocus {
     func shouldResignFirstResponder() {
         resignFirstResponder()
-    }
-
-    func setFocus(_ focus: BlockFocusPosition?) {
-        guard let focus = focus else { return }
-        setFocus(focus)
     }
 
     func obtainFocusPosition() -> BlockFocusPosition? {

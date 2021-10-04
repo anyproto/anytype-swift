@@ -5,9 +5,11 @@ import ProtobufMessages
 
 enum AttributedTextConverter {
     
-    static func asModel(text: String,
-                        marks: Anytype_Model_Block.Content.Text.Marks,
-                        style: BlockText.Style) -> UIKitAnytypeText {
+    static func asModel(
+        text: String,
+        marks: Anytype_Model_Block.Content.Text.Marks,
+        style: BlockText.Style
+    ) -> UIKitAnytypeText {
         // Map attributes to our internal format.
         var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markAction: MarkStyleAction)? in
             let middlewareTuple = MiddlewareTuple(
@@ -59,7 +61,7 @@ enum AttributedTextConverter {
         // We remove mention attachments to save correct markup ranges
         mutableAttributedText.removeAllMentionAttachmets()
         let wholeText = mutableAttributedText.string
-        let wholeStringRange = NSRange(location: 0, length: mutableAttributedText.length)
+        let wholeStringRange = mutableAttributedText.wholeRange
         mutableAttributedText.enumerateAttributes(in: wholeStringRange) { attributes, range, _ in
             
             // 2. Take all attributes in specific range and convert them to
@@ -118,10 +120,7 @@ enum AttributedTextConverter {
     private static func middlewareTuples(from attributes: [NSAttributedString.Key: Any]) -> [MiddlewareTuple] {
         let allMarks = Anytype_Model_Block.Content.Text.Mark.TypeEnum.allCases
         return allMarks.compactMap { mark -> MiddlewareTuple? in
-            guard let markValue = middlewareValue(
-                for: mark,
-                from: attributes
-            ) else {
+            guard let markValue = middlewareValue(for: mark, from: attributes) else {
                 return nil
             }
             return MiddlewareTuple(attribute: mark, value: markValue)

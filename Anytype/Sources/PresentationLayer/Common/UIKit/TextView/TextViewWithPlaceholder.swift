@@ -22,11 +22,11 @@ final class TextViewWithPlaceholder: UITextView {
 
     private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
     private let blockLayoutManager = TextBlockLayoutManager()
-    private let onFirstResponderChange: (TextViewFirstResponderChange) -> ()
+    private let onFirstResponderChange: (CustomTextViewFirstResponderChange) -> ()
 
     // MARK: - Internal variables
     
-    weak var customTextViewDelegate: TextViewDelegate?
+    weak var customTextViewDelegate: CustomTextViewDelegate?
 
     /// Custom color that applyed after `primaryColor`and `foregroundColor`
     var tertiaryColor: UIColor? {
@@ -104,7 +104,7 @@ final class TextViewWithPlaceholder: UITextView {
     init(
         frame: CGRect,
         textContainer: NSTextContainer?,
-        onFirstResponderChange: @escaping (TextViewFirstResponderChange) -> ()
+        onFirstResponderChange: @escaping (CustomTextViewFirstResponderChange) -> ()
     ) {
         self.onFirstResponderChange = onFirstResponderChange
         

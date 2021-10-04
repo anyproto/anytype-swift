@@ -22,13 +22,13 @@ struct AboutView: View {
             Spacer.fixedHeight(27)
             
             VStack(alignment: .leading, spacing: 0) {
-                if let version = MetadataProvider.appVersion {
+                if let version = MetadataProvider.appVersion, version.isNotEmpty {
                     aboutRow(label: "App version", value: version)
                 }
-                if let buildNumber = MetadataProvider.buildNumber {
+                if let buildNumber = MetadataProvider.buildNumber, buildNumber.isNotEmpty {
                     aboutRow(label: "Build number", value: buildNumber)
                 }
-                if let libraryVersion = MiddlewareConfigurationService.shared.libraryVersion() {
+                if let libraryVersion = MiddlewareConfigurationService.shared.libraryVersion(), libraryVersion.isNotEmpty {
                     aboutRow(label: "Library", value: libraryVersion)
                 }
             }

@@ -29,7 +29,7 @@ final class TextBlockActionHandler {
             handleChangeText(block, text: attributedText, completion: completion)
         case .changeTextStyle, .changeLink:
             anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
-        case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition, .showPage, .openURL:
+        case .changeCaretPosition, .showPage, .openURL:
             break
         case let .shouldChangeText(range, replacementText, mentionsHolder):
             mentionsHolder.removeMentionIfNeeded(

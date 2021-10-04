@@ -7,51 +7,31 @@ final class MarkStyleModifier {
     private let anytypeFont: AnytypeFont
     
     init(
-        attributedText: NSMutableAttributedString = .init(),
+        attributedString: NSMutableAttributedString,
         anytypeFont: AnytypeFont
     ) {
-        attributedString = attributedText
+        self.attributedString = attributedString
         self.anytypeFont = anytypeFont
     }
     
-    private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
-        switch (attributedString.string.isEmpty, range) {
-        // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
-        case (true, NSRange(location: 0, length: 0)): return [:]
-            
-        // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
-        case (true, _): return [:]
+    convenience init(
+        attributedString: NSAttributedString,
+        anytypeFont: AnytypeFont
+    ) {
+        self.init(
+            attributedString: NSMutableAttributedString(attributedString: attributedString),
+            anytypeFont: anytypeFont
+        )
+    }
         
-        // At the end.
-        case let (_, value) where value.location == attributedString.length && value.length == 0: return [:]
-            
-        // Otherwise, return string attributes.
-        default: break
-        }
-        guard attributedString.length >= range.location + range.length else { return [:] }
-        return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
-    }
-    
-    private func mergeAttributes(origin: [NSAttributedString.Key : Any], changes: [NSAttributedString.Key : Any]) -> [NSAttributedString.Key : Any] {
-        var result = origin
-        result.merge(changes) { (source, target) in target }
-        return result
-    }
-    
     func apply(_ action: MarkStyleAction, range: NSRange) {
         guard attributedString.isRangeValid(range) else {
             anytypeAssertionFailure("Range out of bounds in \(#function)")
             return
         }
+        
         switch action {
-        case .bold,
-             .italic,
-             .keyboard,
-             .backgroundColor,
-             .textColor,
-             .link,
-             .underscored,
-             .strikethrough:
+        case .bold, .italic, .keyboard, .backgroundColor, .textColor, .link, .underscored, .strikethrough:
             apply(action, toAllSubrangesIn: range)
         case .mention:
             apply(action, toWhole: range)
@@ -72,9 +52,33 @@ final class MarkStyleModifier {
         }
 
         attributedString.addAttributes(newAttributes, range: range)
-        if case let .mention(id) = action, let pageId = id {
-            applyMention(pageId: pageId, range: range)
+        if case let .mention(image, _) = action {
+            applyMention(image: image, range: range, font: anytypeFont)
         }
+    }
+    
+    private func mergeAttributes(origin: [NSAttributedString.Key : Any], changes: [NSAttributedString.Key : Any]) -> [NSAttributedString.Key : Any] {
+        var result = origin
+        result.merge(changes) { (source, target) in target }
+        return result
+    }
+    
+    private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
+        switch (attributedString.string.isEmpty, range) {
+        // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
+        case (true, NSRange(location: 0, length: 0)): return [:]
+            
+        // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
+        case (true, _): return [:]
+        
+        // At the end.
+        case let (_, value) where value.location == attributedString.length && value.length == 0: return [:]
+            
+        // Otherwise, return string attributes.
+        default: break
+        }
+        guard attributedString.length >= range.location + range.length else { return [:] }
+        return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
     }
     
     private func apply(_ action: MarkStyleAction, toAllSubrangesIn range: NSRange) {
@@ -83,22 +87,15 @@ final class MarkStyleModifier {
         }
     }
     
-    private func applyMention(pageId: String, range: NSRange) {
-        // This attachment is for displaying icon in front of mention: 🦊Fox
+    private func applyMention(image: ObjectIconImage?, range: NSRange, font: AnytypeFont) {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
-        let mentionAttachment = MentionAttachment(
-            name: mentionAttributedString.string,
-            pageId: pageId
-        )
+        let mentionAttachment = MentionAttachment(icon: image, size: font.mentionType)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         var currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         currentAttributes.removeValue(forKey: .localUnderline)
         mentionAttachmentString.addAttributes(
             currentAttributes,
-            range: NSRange(
-                location: 0,
-                length: mentionAttachmentString.length
-            )
+            range: mentionAttachmentString.wholeRange
         )
         attributedString.insert(mentionAttachmentString, at: range.location)
     }
@@ -147,11 +144,13 @@ final class MarkStyleModifier {
                 changeAttributes: [.link : url as Any],
                 deletedKeys: url.isNil ? [.link] : []
             )
-        case let .mention(pageId):
-            return AttributedStringChange(changeAttributes: [
-                .mention: pageId as Any,
-                .localUnderline: true
-            ])
+        case let .mention(_, blockId):
+            return AttributedStringChange(
+                changeAttributes: [
+                    .mention: blockId as Any,
+                    .localUnderline: true
+                ]
+            )
         }
     }
     

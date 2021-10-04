@@ -62,7 +62,7 @@ final class EventHandler: EventHandlerProtocol {
         
         updates.merged.forEach { update in
             if update.hasUpdate {
-                BlockContainerBuilder.buildTree(
+                IndentationBuilder.build(
                     container: container.blocksContainer, id: rootId
                 )
             }

@@ -9,15 +9,16 @@ import AnytypeCore
 final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     weak private(set) var viewInput: DocumentEditorViewInput?
     
+    let documentId: BlockId
+    
     var document: BaseDocumentProtocol
     let modelsHolder: ObjectContentViewModelsSharedHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
     
-    let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
+    private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let selectionHandler: EditorModuleSelectionHandlerProtocol
     let blockActionHandler: EditorActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     
@@ -26,7 +27,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     private let headerBuilder: ObjectHeaderBuilder
     
     private var subscriptions = Set<AnyCancellable>()
-    private let documentId: BlockId
 
     // MARK: - Initialization
     init(
@@ -35,7 +35,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         viewInput: DocumentEditorViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
-        selectionHandler: EditorModuleSelectionHandlerProtocol,
         router: EditorRouterProtocol,
         modelsHolder: ObjectContentViewModelsSharedHolder,
         blockBuilder: BlockViewModelBuilder,
@@ -44,7 +43,6 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         headerBuilder: ObjectHeaderBuilder
     ) {
         self.documentId = documentId
-        self.selectionHandler = selectionHandler
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
         self.document = document
@@ -81,10 +79,12 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
-        let header = headerBuilder.objectHeaderForLocalEvent(details: modelsHolder.details, event: event)
+        let header = headerBuilder.objectHeaderForLocalEvent(
+            event,
+            details: modelsHolder.details
+        )
         
-        viewInput?.configureNavigationBar(using: header, details: modelsHolder.details)
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
+        viewInput?.update(header: header, details: modelsHolder.details)
     }
     
     private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
@@ -111,7 +111,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
             updateViewModelsWithStructs(updatedIds)
             updateMarkupViewModel(updatedIds)
             
-            updateView()
+            viewInput?.update(blocks: modelsHolder.models)
         }
     }
     
@@ -136,9 +136,11 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
 
             let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
             
-            guard let newModel = blockBuilder.build(newRecord,
-                                                    details: document.defaultDetailsActiveModel.currentDetails,
-                                                    previousBlock: upperBlock)
+            guard let newModel = blockBuilder.build(
+                    newRecord,
+                    details: document.defaultDetailsActiveModel.currentDetails,
+                    previousBlock: upperBlock
+            )
             else {
                 anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return
@@ -182,31 +184,31 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func handleGeneralUpdate(with details: DetailsData?, models: [BlockViewModelProtocol]) {
+    private func handleGeneralUpdate(with details: DetailsDataProtocol?, models: [BlockViewModelProtocol]) {
         modelsHolder.apply(newModels: models)
         modelsHolder.apply(newDetails: details)
         
-        updateView()
+        let details = modelsHolder.details
+        let header = headerBuilder.objectHeader(details: details)
         
-        if let details = modelsHolder.details {
+        viewInput?.update(header: header, details: details)
+        viewInput?.update(blocks: modelsHolder.models)
+        
+        if let details = details {
             objectSettingsViewModel.update(with: details)
         }
     }
     
-    func updateView() {
-        let details = modelsHolder.details
-        let header = headerBuilder.objectHeader(details: details)
-        viewInput?.configureNavigationBar(using: header, details: details)
-        viewInput?.updateData(header: header, blocks: modelsHolder.models)
-    }
 }
 
 // MARK: - View output
 
 extension DocumentEditorViewModel {
     func viewLoaded() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.documentPage,
-                                      withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId])
+        Amplitude.instance().logEvent(
+            AmplitudeEventsName.documentPage,
+            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId]
+        )
     }
 }
 
@@ -214,10 +216,6 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func didSelectBlock(at index: IndexPath) {
-        if selectionHandler.selectionEnabled {
-            didSelect(atIndex: index)
-            return
-        }
         element(at: index)?.didSelectRowInTableView()
     }
 
@@ -228,20 +226,20 @@ extension DocumentEditorViewModel {
         }
         return modelsHolder.models[at.row]
     }
-
-    private func didSelect(atIndex: IndexPath) {
-        guard let item = element(at: atIndex) else { return }
-        selectionHandler.set(
-            selected: !selectionHandler.selected(id: item.blockId),
-            id: item.blockId,
-            type: item.content.type
-        )
-    }
 }
 
 extension DocumentEditorViewModel {
+    
     func showSettings() {
         router.showSettings(viewModel: objectSettingsViewModel)
+    }
+    
+    func showIconPicker() {
+        router.showIconPicker(viewModel: objectSettingsViewModel.iconPickerViewModel)
+    }
+    
+    func showCoverPicker() {
+        router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
     }
 }
 

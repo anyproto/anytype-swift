@@ -9,11 +9,11 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buldCellData(_ searchResults: [SearchResult]) -> [HomeCellData] {
+    func buildCellData(_ searchResults: [DetailsDataProtocol]) -> [HomeCellData] {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buldFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
+    func buildFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
         let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
         
         return links
@@ -31,7 +31,7 @@ final class HomeCellDataBuilder {
     private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
         guard case .link(let link) = blockModel.information.content else { return nil }
 
-        let details = document.getDetails(by: link.targetBlockID)?.currentDetails
+        let details = document.getDetails(id: link.targetBlockID)?.currentDetails
         return HomePageLink(
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
@@ -55,7 +55,7 @@ final class HomeCellDataBuilder {
         )
     }
     
-    func updatedCellData(newDetails: DetailsData, oldData: HomeCellData) -> HomeCellData {
+    func updatedCellData(newDetails: DetailsDataProtocol, oldData: HomeCellData) -> HomeCellData {
         return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,

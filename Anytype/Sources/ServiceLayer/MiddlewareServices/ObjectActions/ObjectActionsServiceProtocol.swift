@@ -10,31 +10,36 @@ struct CreatePageResponse {
         self.newBlockId = response.targetID
         self.messages = response.event.messages
     }
+    
+    init(_ response: ProtobufMessages.Anytype_Rpc.Page.Create.Response) {
+        self.newBlockId = response.pageID
+        self.messages = response.event.messages
+    }
+    
 }
 
 
 protocol ObjectActionsServiceProtocol {
-    /// NOTE: Action supports List context.
     func convertChildrenToPages(
         contextID: BlockId,
         blocksIds: [BlockId],
         objectType: String
-    ) -> AnyPublisher<Void, Error>
+    ) -> AnyPublisher<[BlockId], Error>
     
+    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-    func setDetails(
-        contextID: BlockId,
-        details: [DetailsKind: DetailsEntry<AnyHashable>]
+    func asyncSetDetails(
+        contextID: BlockId, details: RawDetailsData
     ) -> AnyPublisher<ResponseEvent, Error>
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: [DetailsKind: DetailsEntry<AnyHashable>],
+        details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> AnyPublisher<CreatePageResponse, Error>
+    ) -> CreatePageResult
     
     @discardableResult
     func move(

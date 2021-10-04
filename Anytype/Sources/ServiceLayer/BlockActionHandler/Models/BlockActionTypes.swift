@@ -10,6 +10,7 @@ enum BlockHandlerActionType {
     }
 
     case turnInto(BlockText.Style)
+    case moveTo(targetId: BlockId)
     case setTextColor(BlockColor)
     case setBackgroundColor(BlockBackgroundColor)
     case toggleWholeBlockMarkup(TextAttributesType)
@@ -20,6 +21,7 @@ enum BlockHandlerActionType {
     
     case duplicate
     case delete
+    case addLink(BlockId)
     case addBlock(BlockContentType)
     case turnIntoBlock(BlockContentType)
     case createEmptyBlock(parentId: BlockId)
@@ -28,8 +30,6 @@ enum BlockHandlerActionType {
     
     case toggle
     case checkbox(selected: Bool)
-    
-    case showPage(pageId: String)
     
     typealias TextViewAction = CustomTextView.UserAction
     case textView(action: TextViewAction, block: BlockModelProtocol)

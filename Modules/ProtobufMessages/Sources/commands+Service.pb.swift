@@ -870,6 +870,56 @@ extension Anytype_Rpc.Block.Replace {
   }
 }
 
+extension Anytype_Rpc.Block.UpdateContent {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockUpdateContent(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, block: block), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, block: block))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.Split {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSplit(data) }
@@ -1486,9 +1536,9 @@ extension Anytype_Rpc.Block.Set.Restrictions {
   }
 }
 
-extension Anytype_Rpc.Block.Set.Page.IsArchived {
+extension Anytype_Rpc.Block.Set.Latex.Text {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetPageIsArchived(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetLatexText(data) }
   }
 
   public enum Service {
@@ -1496,11 +1546,11 @@ extension Anytype_Rpc.Block.Set.Page.IsArchived {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(contextID: String, blockID: String, isArchived: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, isArchived: isArchived), on: queue)
+    public static func invoke(contextID: String, blockID: String, text: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, text: text), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, isArchived: Bool) -> Result<Response, Error> {
-      self.result(.init(contextID: contextID, blockID: blockID, isArchived: isArchived))
+    public static func invoke(contextID: String, blockID: String, text: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, text: text))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3503,13 +3553,15 @@ extension Anytype_Rpc.Block.CreatePage {
       parameters
     }
     public static func invoke(
-      contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, templateID: String, queue: DispatchQueue? = nil
+      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct,
+      queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID), on: queue)
+      self.invoke(parameters: .init(contextID: contextID, details: details, templateID: templateID, targetID: targetID, position: position, fields: fields), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, templateID: String) -> Result<Response, Error>
-    {
-      self.result(.init(contextID: contextID, targetID: targetID, details: details, position: position, templateID: templateID))
+    public static func invoke(
+      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct
+    ) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, details: details, templateID: templateID, targetID: targetID, position: position, fields: fields))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -5670,6 +5722,106 @@ extension Anytype_Rpc.Object.SetLayout {
     }
     public static func invoke(contextID: String, layout: Anytype_Model_ObjectType.Layout) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, layout: layout))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsFavorite {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectSetIsFavorite(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, isFavorite: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, isFavorite: isFavorite), on: queue)
+    }
+    public static func invoke(contextID: String, isFavorite: Bool) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, isFavorite: isFavorite))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.SetIsArchived {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectSetIsArchived(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, isArchived: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, isArchived: isArchived), on: queue)
+    }
+    public static func invoke(contextID: String, isArchived: Bool) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, isArchived: isArchived))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in

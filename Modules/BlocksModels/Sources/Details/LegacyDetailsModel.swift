@@ -3,7 +3,7 @@ import Combine
 
 public final class LegacyDetailsModel {
     
-    @Published public var detailsData: DetailsData
+    @Published public var detailsData: DetailsDataProtocol
     
     public required init(detailsData: DetailsData) {
         self.detailsData = detailsData
@@ -15,7 +15,7 @@ public final class LegacyDetailsModel {
 
 public extension LegacyDetailsModel {
     
-    var changeInformationPublisher: AnyPublisher<DetailsData, Never> {
+    var changeInformationPublisher: AnyPublisher<DetailsDataProtocol, Never> {
         $detailsData.eraseToAnyPublisher()
     }
     

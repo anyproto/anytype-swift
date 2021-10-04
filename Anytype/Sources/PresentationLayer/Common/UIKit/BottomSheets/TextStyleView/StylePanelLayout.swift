@@ -12,7 +12,7 @@ import CoreGraphics
 
 final class StylePanelLayout: FloatingPanelLayout {
     enum Constant {
-        static let panelHeight: CGFloat = 226
+        static let panelHeight: CGFloat = 238
     }
 
     var position: FloatingPanelPosition = .bottom

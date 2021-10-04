@@ -47,7 +47,6 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                         self.error = "Sign up error"
                         self.showError = true
                     case .success:
-                        windowHolder?.configureMiddlewareConfiguration()
                         self.loginStateService.setupStateAfterLoginOrAuth()
                         windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
                     }

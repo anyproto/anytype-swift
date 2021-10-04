@@ -1,10 +1,13 @@
+// style menu
+"A" = "A";
+
 "Create pin code" = "Create pin code";
 "Verify pin code" = "Verify pin code";
 "Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";
 "Recovery pharse is nil" = "Recovery pharse is nil";
 "node failed to start" = "node failed to start";
-"Toggle empty Click and drop block inside" = "Toggle empty. Click and drop block inside";
-"Quote" = "Quote";
+"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
+"Highlighted text" = "Highlighted text";
 "Toggle block" = "Toggle block";
 "Checkbox" = "Checkbox";
 "Bulleted placeholder" = "Bulleted list item";
@@ -112,6 +115,10 @@
 "Anytype info" = "Anytype info";
 "Library version" = "Library version";
 
+// Action
+"Archive" = "Archive";
+"Restore" = "Restore";
+
 "Have you backed up your keychain phrase?" = "Have you backed up your keychain phrase?";
 "Backup keychain phrase" = "Backup keychain phrase";
 
@@ -140,6 +147,7 @@
 "no peers" = "no peers";
 "Add profile" = "Add profile";
 "Scan QR code" = "Scan QR code";
+"Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
 
 "Enter your invitation code" = "Enter your invitation code";
 "Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
@@ -207,3 +215,7 @@
 // MARK: - Main search
 "There is no object named" = "There is no object named";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
+
+// MARK: - Alerts
+"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.GoToSettings" = "Go to Settings?";

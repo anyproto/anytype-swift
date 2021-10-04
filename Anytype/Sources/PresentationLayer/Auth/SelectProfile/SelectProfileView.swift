@@ -10,14 +10,9 @@ struct SelectProfileView: View {
     
     var body: some View {
         HStack {
-            ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
+            ZStack(alignment: .center) {
                 Gradients.mainBackground()
-                
-                if self.viewModel.isMultipleAccountsEnabled {
-                    multipleAccountsPicket
-                } else {
-                    ProgressView()
-                }
+                ProgressView()
             }
         }
         .errorToast(isShowing: $viewModel.showError, errorText: viewModel.error ?? "") {
@@ -34,43 +29,6 @@ struct SelectProfileView: View {
             self.contentHeight = proxy.size.height
         }
         return Color.clear
-    }
-    
-    private var multipleAccountsPicket: some View {
-        VStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    AnytypeText("Choose profile", style: .title, color: .textPrimary)
-                        .animation(nil)
-                    
-                    ForEach(self.viewModel.profilesViewModels) { profile in
-                        Button(action: {
-                            self.viewModel.selectProfile(id: profile.id)
-                        }) {
-                            ProfileNameView(viewModel: profile)
-                        }
-                        .transition(.opacity)
-                    }
-                    .animation(nil)
-//                    NavigationLink(destination: self.viewModel.showCreateProfileView()) {
-//                        AddProfileView()
-//                    }
-                    .animation(nil)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .overlay(
-                    GeometryReader { proxy in
-                        self.contentHeight(proxy: proxy)
-                })
-                    .animation(.easeInOut(duration: 0.6))
-            }
-            .frame(maxWidth: .infinity, maxHeight: contentHeight)
-            .padding()
-            .background(Color.background)
-            .cornerRadius(12)
-            .animation(.easeInOut(duration: 0.5))
-        }
-        .padding()
     }
 }
 

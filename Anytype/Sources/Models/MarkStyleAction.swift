@@ -1,15 +1,31 @@
 import UIKit
+import BlocksModels
 
 enum MarkStyleAction: Equatable {
     
-    case bold(Bool = true)
-    case italic(Bool = true)
-    case keyboard(Bool = true)
-    case strikethrough(Bool = true)
-    case underscored(Bool = true)
-    case textColor(UIColor?)
-    case backgroundColor(UIColor?)
+    case bold(Bool)
+    case italic(Bool)
+    case keyboard(Bool)
+    case strikethrough(Bool)
+    case underscored(Bool)
+    case textColor(UIColor)
+    case backgroundColor(UIColor)
     case link(URL?)
-    case mention(String?)
+    case mention(image: ObjectIconImage?, blockId: BlockId)
     
+}
+
+extension BlockHandlerActionType.TextAttributesType {
+    func marksStyleAction(shouldApplyMarkup: Bool) -> MarkStyleAction {
+        switch self {
+        case .bold:
+            return .bold(shouldApplyMarkup)
+        case .italic:
+            return .italic(shouldApplyMarkup)
+        case .keyboard:
+            return .keyboard(shouldApplyMarkup)
+        case .strikethrough:
+            return .strikethrough(shouldApplyMarkup)
+        }
+    }
 }

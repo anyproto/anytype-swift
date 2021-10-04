@@ -16,19 +16,21 @@ class DetailsLoader {
         self.eventProcessor = eventProcessor
     }
     
-    func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> DetailsData? {
-        guard let detailsModel = document.getDetails(by: targetBlockId) else {
+    func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> DetailsDataProtocol? {
+        guard let detailsModel = document.getDetails(id: targetBlockId) else {
             anytypeAssertionFailure("No block data id: \(targetBlockId) for block link")
             return nil
         }
         
         let details = detailsModel.currentDetails
         subscriptions[blockId] = detailsModel.wholeDetailsPublisher.sink { [weak self] newDetails in
-            if newDetails != details {
-                self?.eventProcessor.process(events: PackOfEvents(localEvent: .reload(blockId: blockId)))
+            if details?.rawDetails != newDetails.rawDetails {
+                self?.eventProcessor.process(
+                    events: PackOfEvents(localEvent: .reload(blockId: blockId))
+                )
             }
         }
         
         return details
-    }    
+    }
 }

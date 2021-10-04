@@ -12,6 +12,7 @@ import UIKit
 final class StyleColorContentView: UIView, UIContentView {
     init(configuration: StyleColorCellContentConfiguration) {
         super.init(frame: .zero)
+
         setupInternalViews()
         apply(configuration: configuration)
     }
@@ -23,11 +24,11 @@ final class StyleColorContentView: UIView, UIContentView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        colorView.layer.cornerRadius = colorView.bounds.width / 2
-        colorView.layer.cornerCurve = .circular
+        colorView.layer.cornerRadius = 6
+        colorView.layer.cornerCurve = .continuous
 
-        backgroundView.layer.cornerRadius =  backgroundView.bounds.width / 2
-        backgroundView.layer.cornerCurve = .circular
+        backgroundView.layer.cornerRadius =  9
+        backgroundView.layer.cornerCurve = .continuous
     }
 
     var configuration: UIContentConfiguration {
@@ -45,8 +46,11 @@ final class StyleColorContentView: UIView, UIContentView {
         colorView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
-        backgroundView.layer.borderColor = UIColor.grayscale30.cgColor
-        backgroundView.layer.borderWidth = 1.5
+        colorView.layer.borderColor = UIColor.textTertiary.cgColor
+        colorView.layer.borderWidth = 1
+
+        backgroundView.layer.borderColor = UIColor.dividerSecondary.cgColor
+        backgroundView.layer.borderWidth = 3
 
         addSubview(backgroundView)
         addSubview(colorView)
@@ -56,29 +60,34 @@ final class StyleColorContentView: UIView, UIContentView {
         NSLayoutConstraint.activate([
             colorView.centerYAnchor.constraint(equalTo: centerYAnchor),
             colorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            colorView.widthAnchor.constraint(equalToConstant: 44),
+            colorView.widthAnchor.constraint(equalToConstant: 26),
             colorView.heightAnchor.constraint(equalTo: colorView.widthAnchor),
 
-            backgroundView.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: -4),
-            backgroundView.topAnchor.constraint(equalTo: colorView.topAnchor, constant: -4),
-            backgroundView.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 4),
-            backgroundView.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: 4),
+            backgroundView.leadingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: -3),
+            backgroundView.topAnchor.constraint(equalTo: colorView.topAnchor, constant: -3),
+            backgroundView.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 3),
+            backgroundView.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: 3),
         ])
     }
 
-    private var appliedConfiguration: StyleColorCellContentConfiguration = .init()
+    private var appliedConfiguration: StyleColorCellContentConfiguration!
 
     private func apply(configuration: StyleColorCellContentConfiguration) {
         guard appliedConfiguration != configuration else { return }
         appliedConfiguration = configuration
 
-        colorView.backgroundColor = configuration.color
-        colorView.layer.borderWidth = 0.0
-        backgroundView.isHidden = !configuration.isSelected
-
-        if colorView.backgroundColor == UIColor.grayscaleWhite {
-            colorView.layer.borderWidth = 1.0
-            colorView.layer.borderColor = UIColor.grayscale30.cgColor
+        switch configuration.colorItem {
+        case .background:
+            let title = configuration.colorItem.color == .backgroundPrimary ? "⁄" : ""
+            colorView.setTitle(title, for: .normal)
+            colorView.setTitleColor(.textTertiary, for: .normal)
+            colorView.backgroundColor = configuration.colorItem.color
+        case .text:
+            colorView.setTitle("A".localized, for: .normal)
+            colorView.titleLabel?.font = .bodyRegular
+            colorView.setTitleColor(configuration.colorItem.color, for: .normal)
+            colorView.backgroundColor = .clear
         }
+        backgroundView.isHidden = !configuration.isSelected
     }
 }

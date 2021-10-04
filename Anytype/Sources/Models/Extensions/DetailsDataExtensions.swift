@@ -62,8 +62,10 @@ extension DetailsDataProtocol {
         case .gradient:
             return CoverConstants.gradients.first { $0.name == coverId }.flatMap {
                 DocumentCover.gradient(
-                    UIColor(hexString: $0.startHex),
-                    UIColor(hexString: $0.endHex)
+                    GradientColor(
+                        start: UIColor(hexString: $0.startHex),
+                        end: UIColor(hexString: $0.endHex)
+                    )
                 )
             }
         case .bundledImage:
@@ -73,7 +75,7 @@ extension DetailsDataProtocol {
         }
     }
     
-    var iconImage: ObjectIconImage? {
+    var objectIconImage: ObjectIconImage? {
         if let icon = icon {
             return .icon(icon)
         }
@@ -84,6 +86,7 @@ extension DetailsDataProtocol {
         
         return nil
     }
+    
 }
 
 private enum Constants {

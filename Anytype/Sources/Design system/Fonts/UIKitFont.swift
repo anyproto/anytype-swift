@@ -9,7 +9,7 @@ extension UIFont {
     
     static let bodyRegular = UIKitFontBuilder.uiKitFont(font: .bodyRegular)
     static let bodyBold = UIKitFontBuilder.uiKitFont(font: .bodyBold)
-    static let calloutRegular = UIKitFontBuilder.uiKitFont(font: .calloutRegular)
+    static let calloutRegular = UIKitFontBuilder.uiKitFont(font: .callout)
 
     static let relation2Regular = UIKitFontBuilder.uiKitFont(font: .relation2Regular)
     static let relation3Regular = UIKitFontBuilder.uiKitFont(font: .relation3Regular)

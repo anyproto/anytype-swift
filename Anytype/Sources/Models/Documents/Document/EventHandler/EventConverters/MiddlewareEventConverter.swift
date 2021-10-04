@@ -88,15 +88,12 @@ final class MiddlewareEventConverter {
             
             let currentDetailsData = detailsModel.detailsData
             
-            var currentDetails = currentDetailsData.details
+            var currentDetails = currentDetailsData.rawDetails
             updatedDetails.forEach { (key, value) in
                 currentDetails[key] = value
             }
         
-            let newDetails = DetailsData(
-                details: currentDetails,
-                parentId: currentDetailsData.parentId
-            )
+            let newDetails = DetailsData(rawDetails: currentDetails, blockId: currentDetailsData.blockId)
             // will trigger Publisher
             detailsModel.detailsData = newDetails
             
@@ -108,7 +105,7 @@ final class MiddlewareEventConverter {
             
         case let .objectDetailsUnset(payload):
             let details = container.detailsContainer.get(by: payload.id)
-            var newDetails: [DetailsKind: DetailsEntry<AnyHashable>] = details?.detailsData.details ?? [:]
+            var newDetails: RawDetailsData = details?.detailsData.rawDetails ?? [:]
 
             // remove details with keys from payload
             payload.keys.forEach { key in
@@ -116,7 +113,7 @@ final class MiddlewareEventConverter {
                 newDetails.removeValue(forKey: detailsKind)
             }
             // save new details
-            let newDetailsData = DetailsData(details: newDetails, parentId: payload.id)
+            let newDetailsData = DetailsData(rawDetails: newDetails, blockId: payload.id)
             details?.detailsData = newDetailsData
             return .details(newDetailsData)
             
@@ -126,39 +123,25 @@ final class MiddlewareEventConverter {
             }
             let detailsId = value.id
             
-            let eventsDetails = EventDetailsAndSetDetailsConverter.convert(
-                event: Anytype_Event.Object.Details.Set(
-                    id: detailsId,
-                    details: value.details
-                )
-            )
-            
             let details = BlocksModelsDetailsConverter.asModel(
-                details: eventsDetails
+                event: Anytype_Event.Object.Details.Set(id: detailsId, details: value.details)
             )
             
             if let detailsModel = container.detailsContainer.get(by: detailsId) {
                 let model = detailsModel
-                let resultDetails = DetailsData(
-                    details: details,
-                    parentId: detailsId
-                )
+                let resultDetails = DetailsData(rawDetails: details, blockId: detailsId)
                 
                 model.detailsData = resultDetails
                 
                 return .details(resultDetails)
             }
             else {
-                let detailsData = DetailsData(
-                    details: details,
-                    parentId: detailsId
-                )
-                
+                let detailsData = DetailsData(rawDetails: details, blockId: detailsId)
                 let newDetailsModel = LegacyDetailsModel(detailsData: detailsData)
 
                 container.detailsContainer.add(
                     model: newDetailsModel,
-                    by: detailsId
+                    id: detailsId
                 )
                 
                 return .details(detailsData)

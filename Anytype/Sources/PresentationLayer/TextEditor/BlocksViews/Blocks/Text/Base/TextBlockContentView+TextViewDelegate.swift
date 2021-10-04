@@ -1,12 +1,12 @@
 import AnytypeCore
 import UIKit
 
-extension TextBlockContentView: TextViewDelegate {
+extension TextBlockContentView: CustomTextViewDelegate {
     func sizeChanged() {
         currentConfiguration.blockDelegate.blockSizeChanged()
     }
     
-    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
+    func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
             currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block)
@@ -16,7 +16,14 @@ extension TextBlockContentView: TextViewDelegate {
     }
     
     func willBeginEditing() {
-        accessoryViewSwitcher?.didBeginEditing(textView: textView.textView)
+        currentConfiguration.accessorySwitcher.didBeginEditing(
+            data: AccessoryViewSwitcherData(
+                textView: textView,
+                block: currentConfiguration.block,
+                information: currentConfiguration.information,
+                text: currentConfiguration.content.anytypeText
+            )
+        )
         currentConfiguration.blockDelegate.willBeginEditing()
     }
 
@@ -26,17 +33,8 @@ extension TextBlockContentView: TextViewDelegate {
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
-        case .showStyleMenu:
-            currentConfiguration.showStyleMenu(currentConfiguration.information)
-        case .showMultiActionMenuAction:
-            textView.shouldResignFirstResponder()
-            let block = currentConfiguration.block
-            currentConfiguration.actionHandler.handleAction(
-                .textView(action: action, block: block),
-                blockId: currentConfiguration.information.id
-            )
         case .changeText:
-            accessoryViewSwitcher?.textDidChange(textView: textView.textView)
+            currentConfiguration.accessorySwitcher.textDidChange()
 
             currentConfiguration.actionHandler.handleAction(
                 .textView(
@@ -75,8 +73,6 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case .changeTextStyle, .changeCaretPosition:
-            accessoryViewSwitcher?.selectionDidChange(textView: textView.textView)
-
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
@@ -85,9 +81,10 @@ extension TextBlockContentView: TextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            accessoryViewSwitcher?.textWillChange(textView: textView.textView,
-                                                  replacementText: replacementText,
-                                                  range: range)
+            currentConfiguration.accessorySwitcher.textWillChange(
+                replacementText: replacementText,
+                range: range
+            )
             let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
                 replacementRange: range,
                 replacementText: replacementText
@@ -104,7 +101,7 @@ extension TextBlockContentView: TextViewDelegate {
             return shouldChangeText
         case let .changeLink(attrText, range):
             let link: URL? = attrText.value(for: .link, range: range)
-            accessoryViewSwitcher?.showURLInput(textView: textView.textView, url: link)
+            currentConfiguration.accessorySwitcher.showURLInput(url: link)
         case let .showPage(pageId):
             currentConfiguration.showPage(pageId)
         case let .openURL(url):

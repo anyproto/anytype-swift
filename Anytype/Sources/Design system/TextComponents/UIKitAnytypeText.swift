@@ -1,14 +1,5 @@
-//
-//  UIKitAnytypeText.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 26.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import AnytypeCore
-
 
 final class UIKitAnytypeText: Hashable {
     private let paragraphStyle: NSParagraphStyle
@@ -27,10 +18,7 @@ final class UIKitAnytypeText: Hashable {
         self.font = UIKitFontBuilder.uiKitFont(font: style)
 
         let newAttrString = NSMutableAttributedString(attributedString: attributedString)
-        textModifier = MarkStyleModifier(
-            attributedText: newAttrString,
-            anytypeFont: style
-        )
+        textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
 
         // setup line height
         let paragraphStyle = NSMutableParagraphStyle()
@@ -53,7 +41,7 @@ final class UIKitAnytypeText: Hashable {
         return [.font: font, .paragraphStyle: paragraphStyle]
     }
 
-    var topBottomTextSpacingForContainer: CGFloat {
+    var verticalSpacing: CGFloat {
         anytypeFont.lineSpacing / 2
     }
 

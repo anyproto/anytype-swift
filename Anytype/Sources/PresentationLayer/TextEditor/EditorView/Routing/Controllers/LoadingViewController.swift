@@ -10,7 +10,6 @@ final class LoadingViewController: UIViewController {
         static let contentInsets: UIEdgeInsets = .init(top: 15, left: 20, bottom: 15, right: 20)
         static let itemSpacing: CGFloat = 20
         static let maxNumberOfLinesInInformationLabel = 3
-        static let buttonTitleContentInsets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
     }
     
     private lazy var progressView: UIProgressView = {
@@ -104,7 +103,15 @@ final class LoadingViewController: UIViewController {
             ),
             for: .normal
         )
-        cancelButton.contentEdgeInsets = Constants.buttonTitleContentInsets
+        
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.plain()
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            cancelButton.configuration = configuration
+        } else {
+            cancelButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        }
+        
         cancelButton.backgroundColor = .orange
         
         let stack = UIStackView(arrangedSubviews: [label, self.progressView, cancelButton])

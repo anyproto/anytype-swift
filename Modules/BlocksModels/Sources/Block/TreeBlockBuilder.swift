@@ -33,16 +33,19 @@ public enum TreeBlockBuilder {
         fromList(information.compactMap(BlockModel.init), isRoot: isRoot)
     }
 
-    private static func fromList(_ models: [BlockModelProtocol], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
+    private static func fromList(
+        _ models: [BlockModelProtocol], isRoot: (BlockModelProtocol) -> Bool
+    ) -> BlockContainerModelProtocol {
         // 1. create dictionary: ID -> Model
-        let container = BlockContainerBuilder.build(list: models)
+        let container = BlockContainer()
+        models.forEach { container.add($0) }
 
         // 2. check if we have only one root
         let roots = models.filter(isRoot)
 
         guard roots.count != 0 else {
             anytypeAssertionFailure("Unknown situation. We can't have zero roots.")
-            return BlockContainerBuilder.emptyContainer()
+            return BlockContainer()
         }
 
         // 3. If we have several roots, so, notify about it.
@@ -57,7 +60,7 @@ public enum TreeBlockBuilder {
         container.rootId = rootId
 
         // 5. Build tree.
-        BlockContainerBuilder.buildTree(container: container, id: rootId)
+        IndentationBuilder.build(container: container, id: rootId)
 
         return container
     }
