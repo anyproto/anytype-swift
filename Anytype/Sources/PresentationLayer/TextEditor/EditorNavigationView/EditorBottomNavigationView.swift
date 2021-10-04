@@ -50,16 +50,11 @@ final class EditorBottomNavigationView: UIView {
     
     // MARK: - Views
     private func createBackButton() -> UIView {
-        let view = UIButton(
-            type: .system,
-            primaryAction: UIAction { [weak self] _ in
-                self?.onBackTap()
-            }
-        )
-        
-        view.setImage(UIImage.backArrow, for: .normal)
-        view.tintColor = .textSecondary
-        
+        let view = EditorBarButtonItemView(image: .backArrow) { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.onBackTap()
+        }
+                
         view.layoutUsing.anchors {
             $0.height.equal(to: 24)
             $0.width.equal(to: 24)
@@ -68,14 +63,10 @@ final class EditorBottomNavigationView: UIView {
     }
     
     private func createHomeButton() -> UIView {
-        let view = UIButton(
-            type: .system,
-            primaryAction: UIAction { [weak self] _ in
-                self?.onHomeTap()
-            }
-        )
-        view.setImage(UIImage.editorNavigation.home, for: .normal)
-        view.tintColor = .textSecondary
+        let view = EditorBarButtonItemView(image: .editorNavigation.home) { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.onHomeTap()
+        }
         
         view.layoutUsing.anchors {
             $0.height.equal(to: 24)
@@ -85,15 +76,10 @@ final class EditorBottomNavigationView: UIView {
     }
     
     private func createSearchButton() -> UIView {
-        let view = UIButton(
-            type: .system,
-            primaryAction: UIAction { [weak self] _ in
-                self?.onSearchTap()
-            }
-        )
-        
-        view.setImage(UIImage.editorNavigation.search, for: .normal)
-        view.tintColor = .textSecondary
+        let view = EditorBarButtonItemView(image: .editorNavigation.search) { [weak self] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.onSearchTap()
+        }
         
         view.layoutUsing.anchors {
             $0.height.equal(to: 24)
