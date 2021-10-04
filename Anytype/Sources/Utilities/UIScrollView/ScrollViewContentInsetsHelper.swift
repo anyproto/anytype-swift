@@ -1,7 +1,9 @@
 import UIKit
 
-
 final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
+    private struct EditorScrollViewConstants {
+        static let bottomEditorInsets: CGFloat = 70
+    }
     
     init?(scrollView: UIScrollView) {
         let showAction: Action = { [weak scrollView] notification in
@@ -9,7 +11,7 @@ final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
             scrollView?.handleBottomInsetChange(keyboardRect.height)
         }
         let willHideAction: Action = { [weak scrollView] _ in
-            scrollView?.handleBottomInsetChange(0)
+            scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
         }
         super.init(willShowAction: showAction,
                    willChangeFrame: showAction,
