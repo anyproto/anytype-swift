@@ -7,7 +7,6 @@ final class EditorNavigationBarHelper {
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
-    private let backBarButtonItemView: EditorBarButtonItemView
     private let settingsBarButtonItemView: EditorBarButtonItemView
     
     private var contentOffsetObservation: NSKeyValueObservation?
@@ -15,12 +14,7 @@ final class EditorNavigationBarHelper {
     private var isObjectHeaderWithCover = false
     private var objectHeaderHeight: CGFloat = 0.0
         
-    init(onBackBarButtonItemTap: @escaping () -> Void,
-         onSettingsBarButtonItemTap: @escaping () -> Void) {
-        self.backBarButtonItemView = EditorBarButtonItemView(
-            image: .backArrow,
-            action: onBackBarButtonItemTap
-        )
+    init(onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.settingsBarButtonItemView = EditorBarButtonItemView(
             image: .editorNavigation.more,
             action: onSettingsBarButtonItemTap
@@ -97,10 +91,7 @@ private extension EditorNavigationBarHelper {
     
     func configureNavigationItem(in vc: UIViewController) {
         vc.navigationItem.titleView = navigationBarTitleView
-        
-        vc.setupBackBarButtonItem(
-            UIBarButtonItem(customView: backBarButtonItemView)
-        )
+        vc.setupBackBarButtonItem(nil)
         
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
             customView: settingsBarButtonItemView
@@ -108,7 +99,7 @@ private extension EditorNavigationBarHelper {
     }
     
     func updateBarButtonItemsBackground(alpha: CGFloat) {
-        [backBarButtonItemView, settingsBarButtonItemView].forEach {
+        [settingsBarButtonItemView].forEach {
             guard !$0.backgroundAlpha.isEqual(to: alpha) else { return }
             
             $0.backgroundAlpha = alpha

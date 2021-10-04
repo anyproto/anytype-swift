@@ -2,22 +2,22 @@ import UIKit
 
 final class EditorNavigationViewController: UIViewController {
     
-    private let child: UIViewController
-    init(child: UIViewController) {
-        self.child = child
+    private let childNavigation: UINavigationController
+    init(child: UINavigationController) {
+        self.childNavigation = child
         super.init(nibName: nil, bundle: nil)
         
-        setup(child: child)
+        setup()
     }
     
-    private func setup(child: UIViewController) {
-        embedChild(child, into: view)
-        
+    private func setup() {
         view.addSubview(bottomNavigationView) {
-            $0.pinToSuperview(excluding: [.top])
+            $0.pinToSuperview(excluding: [.top, .bottom])
+            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
         }
         
-        child.view.layoutUsing.anchors {
+        embedChild(childNavigation, into: view)
+        childNavigation.view.layoutUsing.anchors {
             $0.pinToSuperview(excluding: [.bottom])
             $0.bottom.equal(to: bottomNavigationView.topAnchor)
         }
@@ -31,6 +31,15 @@ final class EditorNavigationViewController: UIViewController {
     
     // MARK: - Views
     private lazy var bottomNavigationView = EditorBottomNavigationView(
+        onBackTap: { [weak self] in
+            guard let self = self else { return }
+            
+            if self.childNavigation.children.count > 1 {
+                self.childNavigation.popViewController(animated: true)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        },
         onHomeTap: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
