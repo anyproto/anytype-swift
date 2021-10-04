@@ -39,9 +39,6 @@ final class DocumentEditorViewController: UIViewController {
     }()
     
     private lazy var navigationBarHelper = EditorNavigationBarHelper(
-        onBackBarButtonItemTap: { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        },
         onSettingsBarButtonItemTap: { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.viewModel.showSettings()

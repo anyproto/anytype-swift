@@ -61,12 +61,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
         navBarAppearance.shadowColor = .backgroundPrimary
         navBarAppearance.backgroundColor = .backgroundPrimary
         navBarAppearance.setBackIndicatorImage(UIImage.backArrow, transitionMaskImage: UIImage.backArrow)
-        navigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationController.navigationBar.standardAppearance = navBarAppearance
-        navigationController.navigationBar.compactAppearance = navBarAppearance
-        if #available(iOS 15.0, *) {
-            navigationController.navigationBar.compactScrollEdgeAppearance = navBarAppearance
-        }
+        navigationController.modifyBarAppearance(navBarAppearance)
         navigationController.navigationBar.tintColor = .textSecondary
         
         return navigationController
