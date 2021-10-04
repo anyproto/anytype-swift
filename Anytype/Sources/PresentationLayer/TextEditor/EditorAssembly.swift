@@ -8,6 +8,23 @@ final class EditorAssembly {
         EditorViewRepresentable(documentId: blockId).eraseToAnyView()
     }
     
+    static func buildRootEditor(blockId: BlockId) -> EditorNavigationViewController {
+        let editorController = buildEditor(blockId: blockId)
+        
+        let navigationController = UINavigationController(
+            rootViewController: editorController
+        )
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navigationController.modifyBarAppearance(navBarAppearance)
+        
+        return EditorNavigationViewController(
+            child: navigationController,
+            router: editorController.viewModel.router
+        )
+    }
+    
     static func buildEditor(blockId: BlockId) -> DocumentEditorViewController {
         let controller = DocumentEditorViewController()
         let document = BaseDocument()

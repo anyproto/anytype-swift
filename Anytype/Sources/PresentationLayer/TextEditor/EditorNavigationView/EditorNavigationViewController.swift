@@ -3,8 +3,14 @@ import UIKit
 final class EditorNavigationViewController: UIViewController {
     
     private let childNavigation: UINavigationController
-    init(child: UINavigationController) {
+    private let router: EditorRouterProtocol
+    
+    init(
+        child: UINavigationController,
+        router: EditorRouterProtocol
+    ) {
         self.childNavigation = child
+        self.router = router
         super.init(nibName: nil, bundle: nil)
         
         setup()
@@ -42,6 +48,11 @@ final class EditorNavigationViewController: UIViewController {
         },
         onHomeTap: { [weak self] in
             self?.navigationController?.popViewController(animated: true)
+        },
+        onSearchTap: { [weak self] in
+            self?.router.showSearch { blockId in
+                self?.router.showPage(with: blockId)
+            }
         }
     )
     

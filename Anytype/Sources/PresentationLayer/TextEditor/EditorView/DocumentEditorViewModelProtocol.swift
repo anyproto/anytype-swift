@@ -18,4 +18,6 @@ protocol DocumentEditorViewModelProtocol {
     
     func showIconPicker()
     func showCoverPicker()
+    
+    var router: EditorRouterProtocol { get }
 }
