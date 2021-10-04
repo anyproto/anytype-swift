@@ -16,21 +16,19 @@ final class ObjectDetailsService {
     private let eventHandler: EventHandler
 
     private let objectId: String
-    
-    private var subscriptions: [AnyCancellable] = []
-    
+        
     init(eventHandler: EventHandler, objectId: String) {
         self.eventHandler = eventHandler
         self.objectId = objectId
     }
     
     func update(details: RawDetailsData) {
-        service.setDetails(contextID: objectId, details: details)
-            .sinkWithDefaultCompletion("setDetails completion") { [weak self] success in
-                self?.eventHandler.handle(
-                    events: PackOfEvents(middlewareEvents: success.messages)
-                )
-            }
-            .store(in: &subscriptions)
+        let result = service.syncSetDetails(contextID: objectId, details: details)
+        
+        guard let result = result else { return }
+
+        eventHandler.handle(
+            events: PackOfEvents(middlewareEvents: result.messages)
+        )
     }
 }

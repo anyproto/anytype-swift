@@ -62,10 +62,10 @@ final class FileUploadingOperation: AsyncOperation {
         state = .executing
     }
     
-    private func handleReceiveValue(_ hash: String) {
+    private func handleReceiveValue(_ hash: Hash) {
         guard !isCancelled else { return }
         
-        uploadedFileHash = Hash(hash)
+        uploadedFileHash = hash
         state = .finished
     }
     

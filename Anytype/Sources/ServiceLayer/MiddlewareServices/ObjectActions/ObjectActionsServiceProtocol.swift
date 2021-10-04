@@ -26,8 +26,9 @@ protocol ObjectActionsServiceProtocol {
         objectType: String
     ) -> AnyPublisher<[BlockId], Error>
     
+    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-    func setDetails(
+    func asyncSetDetails(
         contextID: BlockId, details: RawDetailsData
     ) -> AnyPublisher<ResponseEvent, Error>
     
