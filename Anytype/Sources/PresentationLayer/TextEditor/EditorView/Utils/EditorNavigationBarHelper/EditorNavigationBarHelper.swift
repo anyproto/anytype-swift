@@ -22,7 +22,7 @@ final class EditorNavigationBarHelper {
             action: onBackBarButtonItemTap
         )
         self.settingsBarButtonItemView = EditorBarButtonItemView(
-            image: .more,
+            image: .editorNavigation.more,
             action: onSettingsBarButtonItemTap
         )
         

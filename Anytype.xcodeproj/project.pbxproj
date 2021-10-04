@@ -396,6 +396,9 @@
 		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
 		3D93852026FB0B74001C137F /* PageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* PageService.swift */; };
 		3D93854C26FC3BB3001C137F /* UserDefaultsConfigExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854B26FC3BB3001C137F /* UserDefaultsConfigExtension.swift */; };
+		3D93D55D270AFE1400614E29 /* EditorNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D55C270AFE1400614E29 /* EditorNavigationViewController.swift */; };
+		3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D55E270B1F8800614E29 /* EditorBottomNavigationView.swift */; };
+		3D93D561270B3FC500614E29 /* UINavigationController+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D560270B3FC500614E29 /* UINavigationController+Appearance.swift */; };
 		3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* HomeCellDataMock.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1066,6 +1069,9 @@
 		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
 		3D93851F26FB0B74001C137F /* PageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageService.swift; sourceTree = "<group>"; };
 		3D93854B26FC3BB3001C137F /* UserDefaultsConfigExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfigExtension.swift; sourceTree = "<group>"; };
+		3D93D55C270AFE1400614E29 /* EditorNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationViewController.swift; sourceTree = "<group>"; };
+		3D93D55E270B1F8800614E29 /* EditorBottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationView.swift; sourceTree = "<group>"; };
+		3D93D560270B3FC500614E29 /* UINavigationController+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Appearance.swift"; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* HomeCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellDataMock.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
@@ -1726,6 +1732,8 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
+				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
+				3D93D55B270AFDFE00614E29 /* EditorNavigationView */,
 				0A0965BE25BEF5B000C004BD /* EditorView */,
 				031B35572346C5650066DDB8 /* BlocksViews */,
 			);
@@ -1899,7 +1907,6 @@
 				123FDAD126C150F500F6F44B /* DocumentEditorViewController+FloatingPanelControllerDelegate.swift */,
 				3D44984426D53D61005A3E06 /* DocumentEditorViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
-				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
 				3D402BEF268A5195002E938C /* ObjectContentViewModelsSharedHolder.swift */,
 				537F49712677EB6700C81BA0 /* BlockDelegate.swift */,
 			);
@@ -2959,6 +2966,7 @@
 				531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */,
 				EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */,
 				EA57F37926B740D5007D4292 /* UIFontExtension.swift */,
+				3D93D560270B3FC500614E29 /* UINavigationController+Appearance.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -3253,6 +3261,15 @@
 				3D93854B26FC3BB3001C137F /* UserDefaultsConfigExtension.swift */,
 			);
 			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		3D93D55B270AFDFE00614E29 /* EditorNavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				3D93D55C270AFE1400614E29 /* EditorNavigationViewController.swift */,
+				3D93D55E270B1F8800614E29 /* EditorBottomNavigationView.swift */,
+			);
+			path = EditorNavigationView;
 			sourceTree = "<group>";
 		};
 		3D9D401B2616036B00B817FD /* Single */ = {
@@ -4317,6 +4334,7 @@
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				12C7E571270333AF000DCA7F /* Hash.swift in Sources */,
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
+				3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
@@ -4380,6 +4398,7 @@
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* MarkupStateCalculator.swift in Sources */,
+				3D93D55D270AFE1400614E29 /* EditorNavigationViewController.swift in Sources */,
 				123FDAD026C1505700F6F44B /* DocumentEditorViewController+UICollectionViewDelegate.swift in Sources */,
 				3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */,
 				125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */,
@@ -4483,6 +4502,7 @@
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
+				3D93D561270B3FC500614E29 /* UINavigationController+Appearance.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
 				EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */,
