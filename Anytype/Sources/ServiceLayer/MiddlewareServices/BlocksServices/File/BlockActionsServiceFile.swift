@@ -8,10 +8,10 @@ import AnytypeCore
 final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
-    func uploadDataAtFilePath(
-        contextID: String,
-        blockID: String,
-        filePath: String
+    func asyncUploadDataAt(
+        filePath: String,
+        contextID: BlockId,
+        blockID: BlockId
     ) -> AnyPublisher<ResponseEvent, Error>  {
         Anytype_Rpc.Block.Upload.Service.invoke(
             contextID: contextID,

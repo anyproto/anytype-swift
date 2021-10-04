@@ -5,10 +5,10 @@ import ProtobufMessages
 
 protocol BlockActionsServiceFileProtocol {
     
-    func uploadDataAtFilePath(
+    func asyncUploadDataAt(
+        filePath: String,
         contextID: BlockId,
-        blockID: BlockId,
-        filePath: String
+        blockID: BlockId
     ) -> AnyPublisher<ResponseEvent, Error>
     
     func syncUploadImageAt(localPath: String) -> Hash?

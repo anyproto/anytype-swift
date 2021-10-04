@@ -264,7 +264,11 @@ extension BlockActionService {
 
 extension BlockActionService {
     func upload(blockId: BlockId, filePath: String) {
-        fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
+        fileService.asyncUploadDataAt(
+            filePath: filePath,
+            contextID: self.documentId,
+            blockID: blockId
+        )
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
