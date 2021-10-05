@@ -26,7 +26,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let imageUploadingDemon = FileUploadingDemon.shared
+    private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
     private let detailsService: ObjectDetailsService
     
@@ -55,7 +55,7 @@ extension ObjectIconPickerViewModel {
         // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonUploadPhoto)
 
-        let operation = FileUploadingOperation(
+        let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
                 detailsService: detailsService,

@@ -1,5 +1,5 @@
 //
-//  FileUploadingWorkerProtocol.swift
+//  MediaFileUploadingWorkerProtocol.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 05.10.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol FileUploadingWorkerProtocol {
+protocol MediaFileUploadingWorkerProtocol {
     
     var contentType: MediaPickerContentType { get }
     

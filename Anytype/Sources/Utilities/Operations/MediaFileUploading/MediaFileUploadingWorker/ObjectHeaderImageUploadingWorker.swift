@@ -24,7 +24,7 @@ final class ObjectHeaderImageUploadingWorker {
     
 }
 
-extension ObjectHeaderImageUploadingWorker: FileUploadingWorkerProtocol {
+extension ObjectHeaderImageUploadingWorker: MediaFileUploadingWorkerProtocol {
     
     var contentType: MediaPickerContentType {
         .images
