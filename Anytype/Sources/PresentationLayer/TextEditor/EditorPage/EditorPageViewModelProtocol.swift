@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-protocol DocumentEditorViewModelProtocol {
+protocol EditorPageViewModelProtocol {
     var documentId: BlockId { get }
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
