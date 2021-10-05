@@ -3,8 +3,7 @@ import SwiftUI
 
 struct MainAuthView: View {
     @ObservedObject var viewModel: MainAuthViewModel
-    @State private var showLoginView: Bool = false
-    
+
     var body: some View {
         ZStack {
             navigation

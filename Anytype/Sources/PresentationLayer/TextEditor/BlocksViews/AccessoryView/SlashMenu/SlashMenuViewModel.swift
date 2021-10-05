@@ -8,7 +8,6 @@ final class SlashMenuViewModel {
     
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
-    private var middwareEventsSubscription: AnyCancellable?
     
     private let handler: SlashMenuActionHandler
     
