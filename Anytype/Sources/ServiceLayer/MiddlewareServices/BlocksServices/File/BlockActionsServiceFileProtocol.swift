@@ -9,7 +9,7 @@ protocol BlockActionsServiceFileProtocol {
         filePath: String,
         contextID: BlockId,
         blockID: BlockId
-    ) -> ResponseEvent?
+    )
     
     func asyncUploadDataAt(
         filePath: String,

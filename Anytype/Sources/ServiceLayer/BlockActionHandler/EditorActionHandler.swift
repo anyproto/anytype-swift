@@ -7,6 +7,7 @@ enum ActionHandlerBlockIdSource {
 }
 
 final class EditorActionHandler: EditorActionHandlerProtocol {
+    private let fileUploadingDemon = FileUploadingDemon.shared
     private let document: BaseDocumentProtocol
     private let blockActionHandler: BlockActionHandlerProtocol
     private let eventProcessor: EventProcessor
@@ -31,14 +32,38 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         handleAction(.createEmptyBlock(parentId: parentId), blockId: block.information.id)
     }
     
-    func upload(blockId: ActionHandlerBlockIdSource, filePath: String) {
+    func uploadMediaFile(
+        itemProvider: NSItemProvider,
+        type: MediaPickerContentType,
+        blockId: ActionHandlerBlockIdSource
+    ) {
+        guard let objectId = document.documentId else { return }
         guard let blockId = blockIdFromSource(blockId) else { return }
         
         eventProcessor.process(
             events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
         )
         
-        blockActionHandler.upload(blockId: blockId, filePath: filePath)
+        let operation = FileUploadingOperation(
+            itemProvider: itemProvider,
+            uploader: BlockMediaFileUploader(
+                objectId: objectId,
+                blockId: blockId,
+                contentType: type
+            )
+        )
+        
+        fileUploadingDemon.addOperation(operation)
+    }
+    
+    func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
+        guard let blockId = blockIdFromSource(blockId) else { return }
+        
+        eventProcessor.process(
+            events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
+        )
+        
+        blockActionHandler.upload(blockId: blockId, filePath: localPath)
     }
     
     func turnIntoPage(blockId: ActionHandlerBlockIdSource, completion: @escaping (BlockId?) -> ()) {
