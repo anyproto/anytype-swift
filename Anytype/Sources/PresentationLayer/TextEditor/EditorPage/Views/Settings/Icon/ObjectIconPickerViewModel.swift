@@ -29,9 +29,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
     private let detailsService: ObjectDetailsService
-    
-    private var uploadImageSubscription: AnyCancellable?
-    
+        
     // MARK: - Initializer
     
     init(fileService: BlockActionsServiceFile, detailsService: ObjectDetailsService) {

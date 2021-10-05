@@ -82,13 +82,6 @@ final class SlashMenuViewController: UIViewController {
         return label
     }()
     
-    // MARK: - Constants
-    
-    private enum Constants {
-        static let topBarHeight: CGFloat = 30
-        static let labelLeadingPadding: CGFloat = 20
-    }
-    
     // MARK: - Unavailable
     @available(*, unavailable)
     required init?(coder: NSCoder) {

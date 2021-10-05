@@ -6,7 +6,6 @@ import Amplitude
 final class FileRouter {
     
     private let fileLoader: FileLoader
-    private var subscription: AnyCancellable?
     private weak var viewController: UIViewController?
     
     init(fileLoader: FileLoader, viewController: UIViewController?) {

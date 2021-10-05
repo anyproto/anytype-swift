@@ -46,11 +46,6 @@ final class BlockImageContentView: UIView & UIContentView {
         }
     }
     
-    /// MARK: - EditorModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
-    private func refreshImage() {
-        handleFile(currentConfiguration.fileData, .none)
-    }
-    
     private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
         anytypeAssert(file.state == .done, "Wrong state \(file.state) for block image")
         setupImage(file, oldFile)

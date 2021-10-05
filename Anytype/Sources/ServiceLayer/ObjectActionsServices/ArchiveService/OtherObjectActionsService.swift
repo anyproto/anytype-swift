@@ -16,7 +16,6 @@ protocol OtherObjectActionsServiceProtocol {
 }
 
 final class OtherObjectActionsService: OtherObjectActionsServiceProtocol {
-    private var subscriptions = [AnyCancellable]()
     private var objectId: String
 
     init(objectId: String) {

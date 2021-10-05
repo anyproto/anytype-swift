@@ -16,11 +16,7 @@ private struct HomeBottomSheetViewConfiguration {
     var minHeight: CGFloat {
         maxHeight * minHeightRatio
     }
-    
-    var snapDistance: CGFloat {
-        maxHeight * snapRatio
-    }
-    
+
     var sheetOffset: CGFloat {
         maxHeight - minHeight
     }

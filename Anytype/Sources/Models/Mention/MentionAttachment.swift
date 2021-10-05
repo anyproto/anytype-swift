@@ -3,9 +3,7 @@ import Kingfisher
 import AnytypeCore
 import BlocksModels
 
-final class MentionAttachment: NSTextAttachment {
-    private weak var layoutManager: NSLayoutManager?
-    
+final class MentionAttachment: NSTextAttachment {    
     private let icon: ObjectIconImage?
     private let size: ObjectIconImageMentionType
     

@@ -5,11 +5,7 @@ protocol Mentionable {
 }
 
 extension UITextView: Mentionable {
-    
-    private enum Constants {
-        static let attachmentLenght = 1
-    }
-    
+
     func removeMentionIfNeeded(replacementRange: NSRange, replacementText: String) -> Bool {
         guard replacementText == "" else { return false }
         let mentionSearchRange = NSRange(location: 0, length: selectedRange.location)
