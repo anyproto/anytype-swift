@@ -4,9 +4,8 @@ import Combine
 
 final class EditorAssembly {
     
-    func documentView(blockId: BlockId) -> some View {
-        EditorViewRepresentable(blockId: blockId)
-            .eraseToAnyView()
+    func editor(blockId: BlockId) -> some View {
+        EditorViewRepresentable(blockId: blockId).eraseToAnyView()
     }
     
     func buildRootEditor(blockId: BlockId) -> EditorBrowserController {

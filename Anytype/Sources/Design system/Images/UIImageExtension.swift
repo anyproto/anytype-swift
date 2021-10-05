@@ -12,6 +12,8 @@ extension UIImage {
         static let more = createImage("TextEditor/More")
         static let home = createImage("TextEditor/home")
         static let search = createImage("TextEditor/search")
+        static let backArrow = createImage("TextEditor/backArrow")
+        static let forwardArrow = createImage("TextEditor/forwardArrow")
     }
     
     enum edititngToolbar {

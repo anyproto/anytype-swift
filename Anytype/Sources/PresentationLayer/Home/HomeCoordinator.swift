@@ -24,11 +24,9 @@ final class HomeCoordinator {
     }
     
     func documentView(selectedDocumentId: String) -> some View {
-        editorAssembly.documentView(
-            blockId: selectedDocumentId
-        )
-        .eraseToAnyView()
-        .edgesIgnoringSafeArea(.all)
+        editorAssembly.editor(blockId: selectedDocumentId)
+            .eraseToAnyView()
+            .edgesIgnoringSafeArea(.all)
     }
     
 }
