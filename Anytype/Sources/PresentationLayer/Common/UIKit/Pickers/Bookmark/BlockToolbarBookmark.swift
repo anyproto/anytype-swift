@@ -3,23 +3,8 @@ import SwiftUI
 import Combine
 import os
 
-
-enum BlockToolbarBookmark {}
-
-// MARK: InputViewBuilder
-extension BlockToolbarBookmark {
-    enum InputViewBuilder {
-        static func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
-            let controller = UIHostingController(rootView: InputView.init(model: viewModel.wrappedValue))
-            let view = controller.view
-            view?.backgroundColor = .grayscale10
-            return view
-        }
-    }
-}
-
 // MARK: Style
-extension BlockToolbarBookmark {
+enum BlockToolbarBookmark {
     enum Style {
         func fontSize() -> CGFloat {
             switch self {

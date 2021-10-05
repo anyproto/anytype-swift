@@ -31,17 +31,6 @@ struct SelectProfileView: View {
     }
 }
 
-
-struct AddProfileView: View {
-    var body: some View {
-        HStack {
-            Image("plus")
-                .frame(width: 48, height: 48)
-            AnytypeText("Add profile", style: .uxBodyRegular, color: .textSecondary)
-        }
-    }
-}
-
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel =  SelectProfileViewModel()
