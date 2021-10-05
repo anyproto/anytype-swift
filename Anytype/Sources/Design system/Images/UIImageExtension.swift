@@ -9,7 +9,7 @@ extension UIImage {
 
 extension UIImage {
     enum editorNavigation {
-        static let more = createImage("TextEditor/more")
+        static let more = createImage("TextEditor/More")
         static let home = createImage("TextEditor/home")
         static let search = createImage("TextEditor/search")
     }
