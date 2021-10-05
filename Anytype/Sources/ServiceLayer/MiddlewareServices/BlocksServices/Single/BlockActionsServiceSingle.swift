@@ -1,7 +1,6 @@
 import Foundation
 import Combine
 import BlocksModels
-import os
 import ProtobufMessages
 import Amplitude
 import AnytypeCore

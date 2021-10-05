@@ -26,12 +26,10 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let imageUploadingDemon = FileUploadingDemon.shared
+    private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
     private let detailsService: ObjectDetailsService
-    
-    private var uploadImageSubscription: AnyCancellable?
-    
+        
     // MARK: - Initializer
     
     init(fileService: BlockActionsServiceFile, detailsService: ObjectDetailsService) {
@@ -55,12 +53,12 @@ extension ObjectIconPickerViewModel {
         // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonUploadPhoto)
 
-        let operation = FileUploadingOperation(
+        let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
-            uploader: ObjectHeaderImageUploader()
-        )
-        operation.stateHandler = IconImageUploadingStateHandler(
-            detailsService: detailsService
+            worker: ObjectHeaderImageUploadingWorker(
+                detailsService: detailsService,
+                usecase: .icon
+            )
         )
         imageUploadingDemon.addOperation(operation)
     }

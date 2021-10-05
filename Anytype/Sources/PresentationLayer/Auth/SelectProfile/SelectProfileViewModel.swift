@@ -97,24 +97,6 @@ class SelectProfileViewModel: ObservableObject {
             }
     }
     
-    private func profileViewModelFromAccount(_ account: Anytype_Model_Account) -> ProfileNameViewModel {
-        let profileViewModel = ProfileNameViewModel(id: account.id)
-        profileViewModel.name = account.name
-        
-        switch account.avatar.avatar {
-        case .color(let hexColor):
-            profileViewModel.color = UIColor(hexString: hexColor)
-        case .image(let file):
-            let defaultWidth: CGFloat = 500
-            let imageSize = Int32(defaultWidth * UIScreen.main.scale) // we also need device aspect ratio and etc.
-            // so, it is better here to subscribe or take event from UIWindow and get its data.
-            self.downloadAvatarImage(imageSize: imageSize, hash: file.hash, profileViewModel: profileViewModel)
-        default: break
-        }
-        
-        return profileViewModel
-    }
-    
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
         _ = self.fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize).receiveOnMain()
             .sink(receiveCompletion: { [weak self] result in

@@ -122,12 +122,6 @@ struct ObjectBasicIconPicker: View {
 // MARK: - Private extension
 
 private extension ObjectBasicIconPicker {
-    
-    enum BottomTabViewItem: Hashable {
-        case tab(Tab)
-        case randomEmojiButton
-    }
-    
     enum Tab {
         case emoji
         case upload

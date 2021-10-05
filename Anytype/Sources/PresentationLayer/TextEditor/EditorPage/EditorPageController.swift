@@ -30,7 +30,6 @@ final class EditorPageController: UIViewController {
     private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     
-    private var selectionSubscription: AnyCancellable?
     // Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer()

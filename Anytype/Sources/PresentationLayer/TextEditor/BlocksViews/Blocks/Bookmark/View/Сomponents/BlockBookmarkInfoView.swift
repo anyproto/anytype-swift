@@ -85,7 +85,6 @@ final class BlockBookmarkInfoView: UIView {
     }
     
     // MARK: - Views
-    private var stackView = UIView()
     private var urlStackView: UIView = {
         let view = UIView()
         view.layoutUsing.anchors {

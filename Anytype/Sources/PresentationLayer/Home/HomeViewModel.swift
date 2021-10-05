@@ -21,13 +21,11 @@ final class HomeViewModel: ObservableObject {
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
-    private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     
     private var subscriptions = [AnyCancellable]()
-    private var newPageSubscription: AnyCancellable?
-            
+
     let document: BaseDocumentProtocol = BaseDocument()
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     

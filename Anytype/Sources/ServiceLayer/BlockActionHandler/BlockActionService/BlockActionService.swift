@@ -1,6 +1,5 @@
 import Combine
 import BlocksModels
-import os
 import UIKit
 import Amplitude
 import AnytypeCore
@@ -175,7 +174,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                 case .finished: return
                 case let .failure(error):
                     // It occurs if you press delete at the beginning of title block
-                    Logger.create(.blockActionService).debug(
+                    AnytypeLogger.create(.blockActionService).debug(
                         "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
                     )
                 }

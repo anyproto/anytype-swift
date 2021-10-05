@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+#warning("Not used. Do we need it?")
 final class SimpleSegmentControl<ItemIndex: RawRepresentable>: UIControl where ItemIndex.RawValue == Int {
     private(set) var selectedItemIndex: ItemIndex
 

@@ -36,9 +36,4 @@ class DashboardService: DashboardServiceProtocol {
             templateID: ""
         )
     }
-    
-    private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {
-        self.dashboardId = configuration.homeBlockID
-        return configuration
-    }
 }

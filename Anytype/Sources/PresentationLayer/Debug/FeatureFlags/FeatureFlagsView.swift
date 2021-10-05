@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct FeatureFlagsView: View {
     @State var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
-    
+    @State var showLogs = false
     var body: some View {
         VStack {
             DragIndicator()
@@ -22,7 +22,11 @@ struct FeatureFlagsView: View {
             StandardButton(text: "Assert", style: .secondary) {
                 anytypeAssertionFailure("Test assert")
             }.padding()
+            StandardButton(text: "Logs", style: .secondary) {
+                showLogs.toggle()
+            }.padding()
         }
+        .sheet(isPresented: $showLogs) { EventsLogView(viewModel: .init()) }
     }
     
     var toggles: some View {

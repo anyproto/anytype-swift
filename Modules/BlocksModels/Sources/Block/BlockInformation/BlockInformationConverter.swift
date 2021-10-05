@@ -3,9 +3,6 @@ public struct DetailsAsBlockConverter {
     public struct IdentifierBuilder {
         
         static var separator: Character = "/"
-        public static func asBlockId(_ blockId: BlockId, _ id: BlockId) -> BlockId {
-            blockId + "\(self.separator)" + id
-        }
         public static func asDetails(_ id: BlockId) -> (BlockId, BlockId) {
             guard let index = id.lastIndex(of: self.separator) else { return (id, "") }
             let substring = id[index...].dropFirst()
