@@ -28,25 +28,26 @@ protocol EditorRouterProtocol: AnyObject {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
-    
-    var rootController: EditorBrowserController! { get set }
 }
 
 final class EditorRouter: EditorRouterProtocol {
-    var rootController: EditorBrowserController!
-    
+    private weak var rootController: EditorBrowserController?
     private weak var viewController: EditorPageController?
     private let fileRouter: FileRouter
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
-    private let editorAssembly = EditorAssembly()
+    private let pageAssembly: EditorPageAssembly
 
     init(
+        rootController: EditorBrowserController,
         viewController: EditorPageController,
-        document: BaseDocumentProtocol
+        document: BaseDocumentProtocol,
+        assembly: EditorPageAssembly
     ) {
+        self.rootController = rootController
         self.viewController = viewController
         self.document = document
+        self.pageAssembly = assembly
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
@@ -65,7 +66,7 @@ final class EditorRouter: EditorRouterProtocol {
             }
         }
         
-        let newEditorViewController = editorAssembly.buildEditor(blockId: id, rootController: rootController)
+        let newEditorViewController = pageAssembly.buildEditorPage(pageId: id)
         
         viewController?.navigationController?.pushViewController(
             newEditorViewController,
@@ -119,6 +120,7 @@ final class EditorRouter: EditorRouterProtocol {
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
               let container = document.rootActiveModel?.container,
+              let rootController = rootController,
               let blockModel = container.model(id: information.id) else { return }
 
         controller.view.endEditing(true)

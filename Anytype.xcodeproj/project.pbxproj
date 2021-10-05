@@ -404,6 +404,7 @@
 		3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56A270C9E3400614E29 /* LoadingViewController.swift */; };
 		3D93D56F270C9E4E00614E29 /* ObjectContentViewModelsSharedHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56D270C9E4D00614E29 /* ObjectContentViewModelsSharedHolder.swift */; };
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
+		3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */; };
 		3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* HomeCellDataMock.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1081,6 +1082,7 @@
 		3D93D56A270C9E3400614E29 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		3D93D56D270C9E4D00614E29 /* ObjectContentViewModelsSharedHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectContentViewModelsSharedHolder.swift; sourceTree = "<group>"; };
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
+		3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageAssembly.swift; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* HomeCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellDataMock.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
@@ -1740,6 +1742,7 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
+				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
 				3D93D55B270AFDFE00614E29 /* EditorBrowser */,
 				0A0965BE25BEF5B000C004BD /* EditorPage */,
@@ -4472,6 +4475,7 @@
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */,
 				1215E8A926A82DFD0089AF7E /* UrlResolver.swift in Sources */,
+				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
 				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
 				3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */,

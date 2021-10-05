@@ -2,21 +2,15 @@ import UIKit
 
 final class EditorBrowserController: UIViewController {
     
-    private let childNavigation: UINavigationController
-    private let router: EditorRouterProtocol
+    var childNavigation: UINavigationController!
+    var router: EditorRouterProtocol!
     
-    init(
-        child: UINavigationController,
-        router: EditorRouterProtocol
-    ) {
-        self.childNavigation = child
-        self.router = router
+    init() {
         super.init(nibName: nil, bundle: nil)
-        
-        setup()
     }
+
     
-    private func setup() {
+    func setup() {
         view.addSubview(bottomNavigationView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
             $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
