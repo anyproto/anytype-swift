@@ -46,7 +46,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         
         let operation = FileUploadingOperation(
             itemProvider: itemProvider,
-            uploader: BlockMediaFileUploader(
+            worker: BlockMediaUploadingWorker(
                 objectId: objectId,
                 blockId: blockId,
                 contentType: type

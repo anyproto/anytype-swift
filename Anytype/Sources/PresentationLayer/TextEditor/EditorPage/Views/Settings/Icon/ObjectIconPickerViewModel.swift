@@ -57,10 +57,10 @@ extension ObjectIconPickerViewModel {
 
         let operation = FileUploadingOperation(
             itemProvider: itemProvider,
-            uploader: ObjectHeaderImageUploader()
-        )
-        operation.stateHandler = IconImageUploadingStateHandler(
-            detailsService: detailsService
+            worker: ObjectHeaderImageUploadingWorker(
+                detailsService: detailsService,
+                usecase: .icon
+            )
         )
         imageUploadingDemon.addOperation(operation)
     }

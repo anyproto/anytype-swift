@@ -1,15 +1,15 @@
 //
-//  BlockMediaFileUploader.swift
+//  BlockMediaUploadingWorker.swift
 //  Anytype
 //
-//  Created by Konstantin Mordan on 04.10.2021.
+//  Created by Konstantin Mordan on 05.10.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
 import Foundation
 
-final class BlockMediaFileUploader: FileUploaderProtocol {
-    
+final class BlockMediaUploadingWorker {
+
     let contentType: MediaPickerContentType
     
     private let fileService = BlockActionsServiceFile()
@@ -23,14 +23,28 @@ final class BlockMediaFileUploader: FileUploaderProtocol {
         self.contentType = contentType
     }
     
-    func uploadFileAt(localPath: String) -> Hash? {
+}
+
+extension BlockMediaUploadingWorker: FileUploadingWorkerProtocol {
+    
+    func cancel() {
+        // do nothing
+    }
+    
+    func prepare() {
+        // do nothing
+    }
+    
+    func upload(_ localPath: String) {
         fileService.syncUploadDataAt(
             filePath: localPath,
             contextID: objectId,
             blockID: blockId
         )
-        
-        return nil
     }
-
+    
+    func finish() {
+        // do nothing
+    }
+    
 }
