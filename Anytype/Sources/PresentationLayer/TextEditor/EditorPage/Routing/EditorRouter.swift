@@ -29,20 +29,20 @@ protocol EditorRouterProtocol: AnyObject {
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
     
-    var rootController: EditorNavigationViewController! { get set }
+    var rootController: EditorBrowserController! { get set }
 }
 
 final class EditorRouter: EditorRouterProtocol {
-    var rootController: EditorNavigationViewController!
+    var rootController: EditorBrowserController!
     
-    private weak var viewController: DocumentEditorViewController?
+    private weak var viewController: EditorPageController?
     private let fileRouter: FileRouter
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly = EditorAssembly()
 
     init(
-        viewController: DocumentEditorViewController,
+        viewController: EditorPageController,
         document: BaseDocumentProtocol
     ) {
         self.viewController = viewController

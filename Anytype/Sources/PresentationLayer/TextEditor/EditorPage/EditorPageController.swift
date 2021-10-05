@@ -6,7 +6,7 @@ import AnytypeCore
 import SwiftUI
 import Amplitude
 
-final class DocumentEditorViewController: UIViewController {
+final class EditorPageController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
@@ -45,7 +45,7 @@ final class DocumentEditorViewController: UIViewController {
         }
     )
     
-    var viewModel: DocumentEditorViewModelProtocol!
+    var viewModel: EditorPageViewModelProtocol!
     
     // MARK: - Initializers
     
@@ -103,9 +103,9 @@ final class DocumentEditorViewController: UIViewController {
     
 }
 
-// MARK: - DocumentEditorViewInput
+// MARK: - EditorPageViewInput
 
-extension DocumentEditorViewController: DocumentEditorViewInput {
+extension EditorPageController: EditorPageViewInput {
     
     func update(header: ObjectHeader, details: DetailsDataProtocol?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
@@ -182,7 +182,7 @@ extension DocumentEditorViewController: DocumentEditorViewInput {
 
 // MARK: - Private extension
 
-private extension DocumentEditorViewController {
+private extension EditorPageController {
     
     func setupView() {
         view.backgroundColor = .backgroundPrimary
@@ -298,7 +298,7 @@ private extension DocumentEditorViewController {
 
 // MARK: - Initial Update data
 
-private extension DocumentEditorViewController {
+private extension EditorPageController {
     
     func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
@@ -327,7 +327,7 @@ private extension DocumentEditorViewController {
 
 // MARK: - Constants
 
-private extension DocumentEditorViewController {
+private extension EditorPageController {
     
     enum Constants {
         static let cellIndentationWidth: CGFloat = 24

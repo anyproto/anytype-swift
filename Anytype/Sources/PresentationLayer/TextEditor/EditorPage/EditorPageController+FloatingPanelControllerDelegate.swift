@@ -1,6 +1,6 @@
 //
-//  DocumentEditorViewController+FloatingPanelControllerDelegate.swift
-//  DocumentEditorViewController+FloatingPanelControllerDelegate
+//  EditorPageController+FloatingPanelControllerDelegate.swift
+//  EditorPageController+FloatingPanelControllerDelegate
 //
 //  Created by Konstantin Mordan on 09.08.2021.
 //  Copyright © 2021 Anytype. All rights reserved.
@@ -11,7 +11,7 @@ import FloatingPanel
 
 // MARK: - FloatingPanelControllerDelegate
 
-extension DocumentEditorViewController: FloatingPanelControllerDelegate {
+extension EditorPageController: FloatingPanelControllerDelegate {
     
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
         UIView.animate(withDuration: CATransaction.animationDuration()) {

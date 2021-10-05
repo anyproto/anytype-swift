@@ -2,7 +2,7 @@ import BlocksModels
 
 
 /// Input data for document view
-protocol DocumentEditorViewInput: AnyObject {
+protocol EditorPageViewInput: AnyObject {
     
     func update(header: ObjectHeader, details: DetailsDataProtocol?)
     func update(blocks: [BlockViewModelProtocol])
