@@ -1,6 +1,6 @@
 import UIKit
 
-final class EditorNavigationViewController: UIViewController {
+final class EditorBrowserController: UIViewController {
     
     private let childNavigation: UINavigationController
     private let router: EditorRouterProtocol

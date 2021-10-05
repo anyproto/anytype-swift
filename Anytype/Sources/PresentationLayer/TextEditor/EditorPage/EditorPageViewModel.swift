@@ -6,8 +6,8 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
-    weak private(set) var viewInput: DocumentEditorViewInput?
+final class EditorPageViewModel: EditorPageViewModelProtocol {
+    weak private(set) var viewInput: EditorPageViewInput?
     
     let documentId: BlockId
     
@@ -32,7 +32,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
     init(
         documentId: BlockId,
         document: BaseDocumentProtocol,
-        viewInput: DocumentEditorViewInput,
+        viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
@@ -203,7 +203,7 @@ final class DocumentEditorViewModel: DocumentEditorViewModelProtocol {
 
 // MARK: - View output
 
-extension DocumentEditorViewModel {
+extension EditorPageViewModel {
     func viewLoaded() {
         Amplitude.instance().logEvent(
             AmplitudeEventsName.documentPage,
@@ -214,7 +214,7 @@ extension DocumentEditorViewModel {
 
 // MARK: - Selection Handling
 
-extension DocumentEditorViewModel {
+extension EditorPageViewModel {
     func didSelectBlock(at index: IndexPath) {
         element(at: index)?.didSelectRowInTableView()
     }
@@ -228,7 +228,7 @@ extension DocumentEditorViewModel {
     }
 }
 
-extension DocumentEditorViewModel {
+extension EditorPageViewModel {
     
     func showSettings() {
         router.showSettings(viewModel: objectSettingsViewModel)
@@ -245,7 +245,7 @@ extension DocumentEditorViewModel {
 
 // MARK: - Debug
 
-extension DocumentEditorViewModel: CustomDebugStringConvertible {
+extension EditorPageViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         "\(String(reflecting: Self.self)) -> \(String(describing: document.documentId))"
     }

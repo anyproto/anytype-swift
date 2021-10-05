@@ -9,7 +9,7 @@ final class EditorAssembly {
             .eraseToAnyView()
     }
     
-    func buildRootEditor(blockId: BlockId) -> EditorNavigationViewController {
+    func buildRootEditor(blockId: BlockId) -> EditorBrowserController {
         let editorController = buildEditor(blockId: blockId)
         
         let navigationController = UINavigationController(
@@ -22,7 +22,7 @@ final class EditorAssembly {
         
         let router = editorController.viewModel.router
         
-        let controller =  EditorNavigationViewController(
+        let controller =  EditorBrowserController(
             child: navigationController,
             router: router
         )
@@ -34,15 +34,15 @@ final class EditorAssembly {
     
     func buildEditor(
         blockId: BlockId,
-        rootController: EditorNavigationViewController
-    ) -> DocumentEditorViewController {
+        rootController: EditorBrowserController
+    ) -> EditorPageController {
         let controller = buildEditor(blockId: blockId)
         controller.viewModel.router.rootController = rootController
         return controller
     }
     
-    private func buildEditor(blockId: BlockId) -> DocumentEditorViewController {
-        let controller = DocumentEditorViewController()
+    private func buildEditor(blockId: BlockId) -> EditorPageController {
+        let controller = EditorPageController()
         let document = BaseDocument()
         let router = EditorRouter(viewController: controller, document: document)
         
@@ -60,10 +60,10 @@ final class EditorAssembly {
     
     private func buildViewModel(
         blockId: BlockId,
-        viewInput: DocumentEditorViewInput,
+        viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter
-    ) -> DocumentEditorViewModel {
+    ) -> EditorPageViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectId: blockId,
@@ -122,7 +122,7 @@ final class EditorAssembly {
             router: router
         )
         
-        return DocumentEditorViewModel(
+        return EditorPageViewModel(
             documentId: blockId,
             document: document,
             viewInput: viewInput,
