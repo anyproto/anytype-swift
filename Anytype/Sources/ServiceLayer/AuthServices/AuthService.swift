@@ -1,7 +1,6 @@
 import Foundation
 import Combine
 import SwiftUI
-import os
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
@@ -44,8 +43,8 @@ final class AuthService: AuthServiceProtocol {
         }) { [weak self] (value) in
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
+            AnytypeLogger.create(.servicesAuthService).debugPrivate("seed:", arg: value.mnemonic)
 
-            Logger.create(.servicesAuthService).debug("seed: \(value.mnemonic, privacy: .private)")
             try? self?.seedService.saveSeed(value.mnemonic)
         
             onCompletion(.success(()))
