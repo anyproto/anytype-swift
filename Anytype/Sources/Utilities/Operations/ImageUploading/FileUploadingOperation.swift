@@ -12,55 +12,48 @@ import BlocksModels
 import UIKit
 
 final class FileUploadingOperation: AsyncOperation {
-    
-    var stateHandler: FileUploadingStateHandlerProtocol?
-    
+        
     // MARK: - Private variables
     
     private let itemProvider: NSItemProvider
-    private let uploader: FileUploaderProtocol
+    private let worker: FileUploadingWorkerProtocol
     
     // MARK: - Initializers
     
-    init(itemProvider: NSItemProvider, uploader: FileUploaderProtocol) {
+    init(itemProvider: NSItemProvider, worker: FileUploadingWorkerProtocol) {
         self.itemProvider = itemProvider
-        self.uploader = uploader
+        self.worker = worker
         
         super.init()
     }
     
     override func start() {
         guard !isCancelled else {
-            stateHandler?.handleImageUploadingState(.cancelled)
+            worker.cancel()
             return
         }
         
         let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
-            uploader.contentType.supportedTypeIdentifiers.contains($0)
+            worker.contentType.supportedTypeIdentifiers.contains($0)
         }
         
         guard let identifier = typeIdentifier else {
-            stateHandler?.handleImageUploadingState(.finished(hash: nil))
+            worker.finish()
             state = .finished
             return
         }
         
-        stateHandler?.handleImageUploadingState(.preparing)
+        worker.prepare()
         
         itemProvider.loadFileRepresentation(
             forTypeIdentifier: identifier
         ) { [weak self] temporaryUrl, error in
             guard let temporaryUrl = temporaryUrl else {
-                self?.stateHandler?.handleImageUploadingState(.finished(hash: nil))
+                self?.worker.finish()
                 self?.state = .finished
                 return
             }
-            // From doc to `loadFileRepresentation(forTypeIdentifier:completionHandler:)` func:
-            // This method writes a copy of the file’s data to a temporary file,
-            // which the system deletes when the completion handler returns.
-            //
-            // In order to complete all operations with temporaryUrl before it will be deleted
-            // we use `waitUntilAllOperationsAreFinished` inside `uploadFile(with:)`
+
             self?.uploadFile(with: temporaryUrl)
         }
         
@@ -69,24 +62,18 @@ final class FileUploadingOperation: AsyncOperation {
     
     private func uploadFile(with temporaryUrl: URL) {
         guard !isCancelled else {
-            stateHandler?.handleImageUploadingState(.cancelled)
+            worker.cancel()
             return
         }
         
-        stateHandler?.handleImageUploadingState(
-            .uploading(localPath: temporaryUrl.relativePath)
-        )
-        
-        let hash = uploader.uploadFileAt(localPath: temporaryUrl.relativePath)
+        worker.upload(temporaryUrl.relativePath)
         
         guard !isCancelled else {
-            stateHandler?.handleImageUploadingState(.cancelled)
+            worker.cancel()
             return
         }
         
-        stateHandler?.handleImageUploadingState(
-            .finished(hash: hash)
-        )
+        worker.finish()
         state = .finished
     }
 }
