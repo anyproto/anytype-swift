@@ -11,12 +11,12 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
-    ) -> EditorNavigationViewController {
+    ) -> EditorBrowserController {
         EditorAssembly().buildRootEditor(blockId: blockId)
     }
     
     func updateUIViewController(
-        _ uiViewController: EditorNavigationViewController,
+        _ uiViewController: EditorBrowserController,
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) { }
 }

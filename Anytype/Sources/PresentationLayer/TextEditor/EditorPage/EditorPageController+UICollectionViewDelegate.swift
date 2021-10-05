@@ -4,7 +4,7 @@ import BlocksModels
 
 // MARK: - UICollectionViewDelegate
 
-extension DocumentEditorViewController: UICollectionViewDelegate {
+extension EditorPageController: UICollectionViewDelegate {
     
     func collectionView(
         _ collectionView: UICollectionView,
