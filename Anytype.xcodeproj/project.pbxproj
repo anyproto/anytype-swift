@@ -401,6 +401,9 @@
 		3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56A270C9E3400614E29 /* LoadingViewController.swift */; };
 		3D93D56F270C9E4E00614E29 /* ObjectContentViewModelsSharedHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56D270C9E4D00614E29 /* ObjectContentViewModelsSharedHolder.swift */; };
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
+		3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */; };
+		3D93D57A270CBF7100614E29 /* BrowserStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D579270CBF7100614E29 /* BrowserStateManager.swift */; };
+		3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D57B270CC88300614E29 /* EditorBrowserButton.swift */; };
 		3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* HomeCellDataMock.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1079,6 +1082,9 @@
 		3D93D56A270C9E3400614E29 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		3D93D56D270C9E4D00614E29 /* ObjectContentViewModelsSharedHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectContentViewModelsSharedHolder.swift; sourceTree = "<group>"; };
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
+		3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageAssembly.swift; sourceTree = "<group>"; };
+		3D93D579270CBF7100614E29 /* BrowserStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserStateManager.swift; sourceTree = "<group>"; };
+		3D93D57B270CC88300614E29 /* EditorBrowserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserButton.swift; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* HomeCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellDataMock.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
@@ -1742,7 +1748,9 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
+				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
+				0A0965BF25BEF5B000C004BD /* Routing */,
 				3D93D55B270AFDFE00614E29 /* EditorBrowser */,
 				0A0965BE25BEF5B000C004BD /* EditorPage */,
 				031B35572346C5650066DDB8 /* BlocksViews */,
@@ -1908,7 +1916,6 @@
 			isa = PBXGroup;
 			children = (
 				3D36B0A526A71B4A0046C90F /* Utils */,
-				0A0965BF25BEF5B000C004BD /* Routing */,
 				3D180220264E9C0000224815 /* Models */,
 				12858E79264ABA9900A7FE0F /* Views */,
 				0A0965D825BEF5B000C004BD /* EditorPageController.swift */,
@@ -3276,6 +3283,8 @@
 			children = (
 				3D93D55C270AFE1400614E29 /* EditorBrowserController.swift */,
 				3D93D55E270B1F8800614E29 /* EditorBottomNavigationView.swift */,
+				3D93D579270CBF7100614E29 /* BrowserStateManager.swift */,
+				3D93D57B270CC88300614E29 /* EditorBrowserButton.swift */,
 			);
 			path = EditorBrowser;
 			sourceTree = "<group>";
@@ -4426,6 +4435,7 @@
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift in Sources */,
 				12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */,
+				3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */,
 				3D24F439269C930100FA0F5F /* SearchService.swift in Sources */,
 				3D16841426DD672E008B9DFF /* ContentObjectAsEmptyPage.swift in Sources */,
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
@@ -4497,6 +4507,7 @@
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */,
 				1215E8A926A82DFD0089AF7E /* UrlResolver.swift in Sources */,
+				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
 				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
 				3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */,
@@ -4791,6 +4802,7 @@
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
+				3D93D57A270CBF7100614E29 /* BrowserStateManager.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */,
 				3D5A418B2704697300F1F6A1 /* AutofocusedTextEditor.swift in Sources */,

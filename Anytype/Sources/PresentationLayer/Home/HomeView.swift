@@ -21,8 +21,6 @@ struct HomeView: View {
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
                 viewModel.viewLoaded()
-                
-                UserDefaultsConfig.lastOpenedPageId = nil
             }
     }
     

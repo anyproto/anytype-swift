@@ -74,8 +74,6 @@ final class EditorPageController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UserDefaultsConfig.lastOpenedPageId = viewModel.documentId
-        
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
         
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
