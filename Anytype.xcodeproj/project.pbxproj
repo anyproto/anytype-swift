@@ -2276,7 +2276,7 @@
 		1255DF7D270207AD00870B95 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				12C7E56F27033144000DCA7F /* ImageUploading */,
+				12C7E56F27033144000DCA7F /* MediaFileUploading */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -2472,7 +2472,7 @@
 			path = GestureRecognizer;
 			sourceTree = "<group>";
 		};
-		12C7E56F27033144000DCA7F /* ImageUploading */ = {
+		12C7E56F27033144000DCA7F /* MediaFileUploading */ = {
 			isa = PBXGroup;
 			children = (
 				1255DF832702098300870B95 /* FileUploadingOperation.swift */,
@@ -2482,7 +2482,7 @@
 				12F3E762270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift */,
 				12F3E764270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift */,
 			);
-			path = ImageUploading;
+			path = MediaFileUploading;
 			sourceTree = "<group>";
 		};
 		12C843FD26FCE90800D64B8D /* Empty */ = {
