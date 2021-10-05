@@ -7,7 +7,7 @@ enum ActionHandlerBlockIdSource {
 }
 
 final class EditorActionHandler: EditorActionHandlerProtocol {
-    private let fileUploadingDemon = FileUploadingDemon.shared
+    private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
     private let blockActionHandler: BlockActionHandlerProtocol
     private let eventProcessor: EventProcessor
@@ -44,7 +44,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
             events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
         )
         
-        let operation = FileUploadingOperation(
+        let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: BlockMediaUploadingWorker(
                 objectId: objectId,

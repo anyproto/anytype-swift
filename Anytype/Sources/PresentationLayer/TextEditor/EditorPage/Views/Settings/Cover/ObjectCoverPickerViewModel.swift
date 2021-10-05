@@ -16,7 +16,7 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let imageUploadingDemon = FileUploadingDemon.shared
+    private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
     private let detailsService: ObjectDetailsService
     
@@ -53,7 +53,7 @@ extension ObjectCoverPickerViewModel {
     
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        let operation = FileUploadingOperation(
+        let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
                 detailsService: detailsService,

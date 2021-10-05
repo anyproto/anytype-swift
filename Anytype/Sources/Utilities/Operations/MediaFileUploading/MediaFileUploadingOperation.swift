@@ -11,16 +11,16 @@ import Combine
 import BlocksModels
 import UIKit
 
-final class FileUploadingOperation: AsyncOperation {
+final class MediaFileUploadingOperation: AsyncOperation {
         
     // MARK: - Private variables
     
     private let itemProvider: NSItemProvider
-    private let worker: FileUploadingWorkerProtocol
+    private let worker: MediaFileUploadingWorkerProtocol
     
     // MARK: - Initializers
     
-    init(itemProvider: NSItemProvider, worker: FileUploadingWorkerProtocol) {
+    init(itemProvider: NSItemProvider, worker: MediaFileUploadingWorkerProtocol) {
         self.itemProvider = itemProvider
         self.worker = worker
         

@@ -25,7 +25,7 @@ final class BlockMediaUploadingWorker {
     
 }
 
-extension BlockMediaUploadingWorker: FileUploadingWorkerProtocol {
+extension BlockMediaUploadingWorker: MediaFileUploadingWorkerProtocol {
     
     func cancel() {
         // do nothing
