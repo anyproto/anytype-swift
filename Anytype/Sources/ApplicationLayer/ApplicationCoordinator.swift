@@ -64,15 +64,12 @@ private extension ApplicationCoordinator {
             return
         }
         
-        self.authService.selectAccount(id: userId) { [weak self] result in
-            switch result {
-            case .success:
-                guard let self = self else { return }
-                
-                self.showHomeScreen()
-            case .failure:
-                self?.showAuthScreen()
-            }
+        let result = authService.selectAccount(id: userId)
+        switch result {
+        case .success:
+            showHomeScreen()
+        case .failure:
+            showAuthScreen()
         }
     }
     

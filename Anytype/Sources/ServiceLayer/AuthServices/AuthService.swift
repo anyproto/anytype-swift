@@ -4,6 +4,7 @@ import SwiftUI
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
+import BlocksModels
 
 private extension LoggerCategory {
     static let servicesAuthService: Self = "Services.AuthService"
@@ -109,24 +110,24 @@ final class AuthService: AuthServiceProtocol {
         }
     }
 
-    func selectAccount(id: String, onCompletion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: break
-                case .failure(_): onCompletion(.failure(.selectAccountError()))
-                }
-            }) { [weak self] response in
-                // Analytics
-                Amplitude.instance().setUserId(response.account.id)
-                Amplitude.instance().logEvent(
-                    AmplitudeEventsName.accountSelect,
-                    withEventProperties: [AmplitudeEventsPropertiesKey.accountId : response.account.id]
-                )
+    func selectAccount(id: String) -> Result<BlockId, AuthServiceError> {
+        let result = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
+                
+        switch result {
+        case .success(let response):
+            let accountId = response.account.id
+            
+            Amplitude.instance().setUserId(accountId)
+            Amplitude.instance().logEvent(
+                AmplitudeEventsName.accountSelect,
+                withEventProperties: [AmplitudeEventsPropertiesKey.accountId : accountId]
+            )
 
-                UserDefaultsConfig.usersIdKey = response.account.id
-                self?.loginStateService.setupStateAfterLoginOrAuth()
-                onCompletion(.success(response.account.id))
+            UserDefaultsConfig.usersIdKey = accountId
+            loginStateService.setupStateAfterLoginOrAuth()
+            return .success(accountId)
+        case .failure:
+            return .failure(.selectAccountError())
         }
     }
     

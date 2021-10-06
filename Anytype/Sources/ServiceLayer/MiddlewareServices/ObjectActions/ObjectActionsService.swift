@@ -6,15 +6,6 @@ import ProtobufMessages
 import Amplitude
 import AnytypeCore
 
-enum CreatePageResult {
-    case response(CreatePageResponse)
-    case error(Error)
-}
-
-enum ObjectActionsServiceError: Error {
-    case createPageActionPositionConversionHasFailed
-}
-
 /// Concrete service that adopts Object actions service.
 /// NOTE: Use it as default service IF you want to use desired functionality.
 final class ObjectActionsService: ObjectActionsServiceProtocol {
@@ -25,11 +16,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> CreatePageResult {
-        guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return .error(ObjectActionsServiceError.createPageActionPositionConversionHasFailed)
-        }
-        
+    ) -> CreatePageResponse? {
+        let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position)
         let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
         let protobufDetails = convertedDetails.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
@@ -47,18 +35,13 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: Google_Protobuf_Struct,
         position: Anytype_Model_Block.Position,
         templateID: String
-    ) -> CreatePageResult {
-        let result = Anytype_Rpc.Block.CreatePage.Service.invoke(
+    ) -> CreatePageResponse? {
+        Anytype_Rpc.Block.CreatePage.Service.invoke(
             contextID: contextID, details: details, templateID: templateID,
             targetID: targetID, position: position, fields: .init()
         )
-        
-        switch result {
-        case let .failure(error):
-            return .error(error)
-        case let .success(response):
-            return .response(CreatePageResponse(response))
-        }
+            .map { CreatePageResponse($0) }
+            .getValue()
     }
 
     // MARK: - ObjectActionsService / SetDetails

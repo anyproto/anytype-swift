@@ -1,12 +1,6 @@
-//
-//  AuthServiceProtocol.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 22.07.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
+import BlocksModels
 
-typealias OnCompletion = (_ result: Result<String, AuthServiceError>) -> Void
+typealias OnCompletion = (_ result: Result<BlockId, AuthServiceError>) -> Void
 typealias OnCompletionWithEmptyResult = (_ result: Result<Void, AuthServiceError>) -> Void
 
 /// Error that AuthService can throw
@@ -39,11 +33,7 @@ protocol AuthServiceProtocol {
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult)
     
-    /// Select account from wallet
-    /// - Parameters:
-    ///   - id: acount hash id
-    ///   - onCompletion: Called on completion.
-    func selectAccount(id: String, onCompletion: @escaping OnCompletion)
+    func selectAccount(id: String) -> Result<BlockId, AuthServiceError>
     
     /// Get mnemonic (keychain phrase) by entropy from qr code
     func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion)

@@ -17,12 +17,6 @@ class BlockActionsServiceBookmark: BlockActionsServiceBookmarkProtocol {
     var fetchBookmark: FetchBookmark = .init()
 }
 
-private extension BlockActionsServiceBookmark {
-    enum PossibleError: Error {
-        case createAndFetchBookmarkActionPositionConversionHasFailed
-    }
-}
-
 // MARK: - BookmarkActionsService / Actions
 extension BlockActionsServiceBookmark {
     /// Structure that adopts `FetchBookmark` action protocol
@@ -38,10 +32,8 @@ extension BlockActionsServiceBookmark {
     struct CreateAndFetchBookmark: BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
         typealias Success = ResponseEvent
         func action(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) -> AnyPublisher<ResponseEvent, Error> {
-            guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-                return Fail.init(error: PossibleError.createAndFetchBookmarkActionPositionConversionHasFailed).eraseToAnyPublisher()
-            }
-            return self.action(contextID: contextID, targetID: targetID, position: position, url: url)
+            let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position)
+            return action(contextID: contextID, targetID: targetID, position: position, url: url)
         }
         private func action(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Bookmark.CreateAndFetch.Service.invoke(contextID: contextID, targetID: targetID, position: position, url: url).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())

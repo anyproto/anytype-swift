@@ -56,15 +56,13 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     func selectProfile(id: String) {
-        self.authService.selectAccount(id: id) { result in
-            DispatchQueue.main.async { [weak self] in
-                switch result {
-                case .success:
-                    self?.showHomeView()
-                case .failure(let error):
-                    self?.error = error.localizedDescription
-                }
-            }
+        let result = authService.selectAccount(id: id)
+        
+        switch result {
+        case .success:
+            showHomeView()
+        case .failure(let error):
+            self.error = error.localizedDescription
         }
     }
     
