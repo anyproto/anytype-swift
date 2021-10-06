@@ -22,7 +22,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     func close(contextId: BlockId, blockId: BlockId) {
         _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: blockId)
-            .getValue()
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )

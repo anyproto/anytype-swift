@@ -16,18 +16,8 @@ enum AuthServiceError: Error {
 
 // Wallet may contain many accounts
 protocol AuthServiceProtocol {
-    /// Create new wallet
     func createWallet(onCompletion: @escaping OnCompletionWithEmptyResult)
-    
-    /// Create new account for current wallet
-    /// - Parameter profile: User profile
-    /// - Parameter OnCompletion: Called on completion with account id or AuthServiceError.
-    func createAccount(profile: CreateAccountRequest, alphaInviteCode: String, onCompletion: @escaping OnCompletion)
-    
-    /// Recover wallet with mnemonic phrase
-    /// - Parameters:
-    ///   - mnemonic: String mnemonic phrase
-    ///   - onCompletion: Called on completion
+    func createAccount(profile: CreateAccountRequest, alphaInviteCode: String) -> Result<BlockId, AuthServiceError>
     func walletRecovery(mnemonic: String, onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
@@ -36,7 +26,7 @@ protocol AuthServiceProtocol {
     func selectAccount(id: String) -> Result<BlockId, AuthServiceError>
     
     /// Get mnemonic (keychain phrase) by entropy from qr code
-    func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion)
+    func mnemonicByEntropy(_ entropy: String) -> Result<String, Error>
 
     /// Logout from the current account.  Accounts seed will be removed from keychain.
     func logout(completion: @escaping () -> Void)

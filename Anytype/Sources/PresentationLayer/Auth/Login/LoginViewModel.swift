@@ -29,14 +29,13 @@ class LoginViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     
     func onEntropySet() {
-        authService.mnemonicByEntropy(entropy) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.error = error.localizedDescription
-            case .success(let seed):
-                self?.seed = seed
-                self?.recoverWallet()
-            }
+        let result = authService.mnemonicByEntropy(entropy)
+        switch result {
+        case .failure(let error):
+            self.error = error.localizedDescription
+        case .success(let seed):
+            self.seed = seed
+            recoverWallet()
         }
     }
     

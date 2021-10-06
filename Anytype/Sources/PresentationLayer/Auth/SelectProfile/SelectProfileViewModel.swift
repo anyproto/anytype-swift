@@ -96,24 +96,14 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        _ = self.fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize).receiveOnMain()
-            .sink(receiveCompletion: { [weak self] result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.error = error.localizedDescription
-                }
-            }) { blob in
-                profileViewModel.image = UIImage(data: blob)
+        let result = fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize)
+        switch result {
+        case .success(let data):
+            profileViewModel.image = UIImage(data: data)
+        case .failure(let error):
+            self.error = error.localizedDescription
         }
     }
-    
-    // MARK: - Coordinator
-    
-//    func showCreateProfileView() -> some View {
-//        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
-//    }
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
