@@ -8,8 +8,6 @@ struct HomeView: View {
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
     @State private var showSettings = false
-    
-    private let bottomSheetHeightRatio: CGFloat = 0.89
 
     var body: some View {
         navigationView
@@ -17,10 +15,14 @@ struct HomeView: View {
             .environmentObject(viewModel)
             .environmentObject(accountData)
             .onAppear {
-                // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
                 viewModel.viewLoaded()
+                
+                // Hack https://app.clickup.com/t/1gbf9kw
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    UserDefaultsConfig.lastOpenedPageId = nil
+                }
             }
     }
     
@@ -66,7 +68,7 @@ struct HomeView: View {
                     newPageNavigation
                     HomeProfileView()
                     
-                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio, state: $bottomSheetState) {
+                    HomeBottomSheetView(containerHeight: geometry.size.height, state: $bottomSheetState) {
                         HomeTabsView(offsetChanged: offsetChanged, onDrag: onDrag, onDragEnd: onDragEnd)
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height)

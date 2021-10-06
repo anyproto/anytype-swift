@@ -48,7 +48,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 if self.childNavigation.children.count > 1 {
                     self.childNavigation.popViewController(animated: true)
                 } else {
-                    UserDefaultsConfig.lastOpenedPageId = nil
                     self.navigationController?.popViewController(animated: true)
                 }
             },
