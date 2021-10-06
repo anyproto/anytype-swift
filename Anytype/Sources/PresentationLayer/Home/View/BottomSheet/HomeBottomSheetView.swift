@@ -1,27 +1,5 @@
 import SwiftUI
 
-enum HomeBottomSheetViewState: Equatable {
-    case open
-    case closed
-    case drag(offset: CGFloat)
-    case finishDrag(offset: CGFloat)
-}
-
-private struct HomeBottomSheetViewConfiguration {
-    let cornerRadius: CGFloat = 16
-    let snapRatio: CGFloat = 0.05
-    let minHeightRatio: CGFloat = 0.55
-    let maxHeight: CGFloat
-    
-    var minHeight: CGFloat {
-        maxHeight * minHeightRatio
-    }
-
-    var sheetOffset: CGFloat {
-        maxHeight - minHeight
-    }
-}
-
 struct HomeBottomSheetView<Content: View>: View {
     @Binding var state: HomeBottomSheetViewState
     
@@ -29,26 +7,25 @@ struct HomeBottomSheetView<Content: View>: View {
     @State private var wasOpen = false
     
     private let content: Content
-    private let config: HomeBottomSheetViewConfiguration
+    private let config: Configuration
     
     init(
-        maxHeight: CGFloat,
+        containerHeight: CGFloat,
         state: Binding<HomeBottomSheetViewState>,
         @ViewBuilder content: () -> Content
     ) {
         self.content = content()
         self._state = state
         self._wasOpen = State(initialValue: state.wrappedValue == .open)
-        let config = HomeBottomSheetViewConfiguration(maxHeight: maxHeight)
+        let config = Configuration(containerHeight: containerHeight)
         self.config = config
     }
 
     var body: some View {
         GeometryReader { geometry in
             content
-                .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
                 .cornerRadius(config.cornerRadius, corners: [.topLeft, .topRight])
-                .frame(height: geometry.size.height, alignment: .bottom)
+                .frame(width: geometry.size.width, height: config.maxHeight)
                 .offset(y: offset)
         }
         .onChange(of: state) { state in
@@ -56,25 +33,12 @@ struct HomeBottomSheetView<Content: View>: View {
             updateState(state)
         }
         .onAppear {
-            self.offset = countOffset(state)
+            offset = countOffset(state)
         }
     }
     
     private func updateOffset(_ state: HomeBottomSheetViewState) {
-        let animation: Animation
-        
-        switch state {
-        case .open:
-            animation = .spring()
-        case .closed:
-            animation = .spring()
-        case .drag:
-            animation = .smoothScroll
-        case .finishDrag:
-            animation = .smoothScroll
-        }
-        
-        withAnimation(animation) {
+        withAnimation(offsetAnimation(state: state)) {
             self.offset = countOffset(state)
         }
     }
@@ -86,7 +50,7 @@ struct HomeBottomSheetView<Content: View>: View {
         case .closed:
             wasOpen = false
         case .finishDrag:
-            if offset >= config.sheetOffset {
+            if offset >= config.snapOffset {
                 self.state = .closed
             } else {
                 self.state = wasOpen ? .closed : .open
@@ -99,21 +63,22 @@ struct HomeBottomSheetView<Content: View>: View {
     private func countOffset(_ state: HomeBottomSheetViewState) -> CGFloat {
         switch state {
         case .open:
-            return defaultOffset(isOpen: true)
+            return config.openOffset
         case .closed:
-            return defaultOffset(isOpen: false)
-        case .drag(offset: let offset):
-            return max(defaultOffset(isOpen: wasOpen) + offset, 0)
+            return config.closedOffset
+        case .drag(offset: let offset):            
+            return config.validatedOffset(offset, isOpen: wasOpen)
         case .finishDrag(offset: let offset):
-            return max(defaultOffset(isOpen: wasOpen) + offset, 0)
+            return config.validatedOffset(offset, isOpen: wasOpen)
         }
     }
     
-    private func defaultOffset(isOpen: Bool) -> CGFloat {
-        if isOpen {
-            return 0
-        } else {
-            return config.sheetOffset
+    private func offsetAnimation(state: HomeBottomSheetViewState) -> Animation{
+        switch state {
+        case .open, .closed:
+            return .spring()
+        case .drag, .finishDrag:
+            return .smoothScroll
         }
     }
 }
@@ -122,7 +87,7 @@ struct BottomSheetView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader() { geometry in
             HomeBottomSheetView(
-                maxHeight: geometry.size.height * 0.8,
+                containerHeight: geometry.size.height,
                 state: .constant(.open)
             ) {
                 Color.green
