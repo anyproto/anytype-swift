@@ -6,7 +6,11 @@ struct HomePageLink {
     let details: DetailsDataProtocol?
     
     var isLoading: Bool {
-        details.isNil
+        guard let details = details else {
+            return true
+        }
+ 
+        return details.rawDetails.isEmpty
     }
     
     var isArchived: Bool {
