@@ -66,10 +66,12 @@ extension CustomTextView: UITextViewDelegate {
         delegate?.sizeChanged()
     }
     
-    func textView(_ textView: UITextView,
-                  shouldInteractWith URL: URL,
-                  in characterRange: NSRange,
-                  interaction: UITextItemInteraction) -> Bool {
+    func textView(
+        _ textView: UITextView,
+        shouldInteractWith URL: URL,
+        in characterRange: NSRange,
+        interaction: UITextItemInteraction
+    ) -> Bool {
         if !textView.isFirstResponder && interaction == .invokeDefaultAction {
             delegate?.didReceiveAction(.openURL(URL))
         }
