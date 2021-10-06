@@ -10,14 +10,26 @@ import UIKit
 import AVFoundation
 
 
-final class AudioPlayerView: UIView {
-    private let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
-    var playerItem: AVPlayerItem?
-    let audioId: String
+protocol AudioPlayerViewDelegate: AnyObject {
+    var audioPlayerView: AudioPlayerViewInput? { get set }
+    var currentTime: Double { get }
+    /// Track duration in seconds
+    var duration: Double { get }
+    var isPlaying: Bool { get }
+    func playButtonDidPress(sliderValue: Double)
+    func progressSliederChanged(value: Double, completion: @escaping () -> Void)
+}
 
-    private var isPlaying = false
+protocol AudioPlayerViewInput: AnyObject {
+    func trackTimeChanged(_ timeInSeconds: Double)
+    func play()
+    func pause()
+}
+
+final class AudioPlayerView: UIView {
     private var isSeekInProgress = false
-    private var isReadyToPlay = false
+
+    private weak var delegate: AudioPlayerViewDelegate?
 
     // MARK: - Views
 
@@ -34,9 +46,7 @@ final class AudioPlayerView: UIView {
 
     // MARK: - Lifecycle
 
-    init(audioId: String) {
-        self.audioId = audioId
-
+    init() {
         super.init(frame: .zero)
 
         setupViews()
@@ -57,11 +67,7 @@ final class AudioPlayerView: UIView {
         playButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
 
-            if self.isPlaying {
-                self.pause()
-            } else {
-                self.play()
-            }
+            self.delegate?.playButtonDidPress(sliderValue: Double(self.progressSlider.value))
         }), for: .touchUpInside)
 
         slashView.setText(Constants.timingSeparator, style: .caption2Medium)
@@ -71,6 +77,8 @@ final class AudioPlayerView: UIView {
         durationLabel.textColor = .textPrimary
         currentTimeLabel.textColor = .textPrimary
         slashView.textColor = .textPrimary
+
+        trackNameLabel.textColor = .textPrimary
 
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
@@ -119,53 +127,41 @@ final class AudioPlayerView: UIView {
 
     @objc private func progressSliderAction(slider: UISlider, event: UIEvent) {
         if let touchEvent = event.allTouches?.first {
-                switch touchEvent.phase {
-                case .began:
-                    isSeekInProgress = true
-                case .moved:
-                    setTimingText(currentTime: slider.value)
-                case .ended:
-                    audioPlayer.setTrackTime(audioId: audioId, value: Double(slider.value)) { [weak self] in
-                        self?.isSeekInProgress = false
-                    }
-                default:
-                    break
+            switch touchEvent.phase {
+            case .began:
+                isSeekInProgress = true
+            case .moved:
+                setTimingText(currentTime: slider.value)
+            case .ended:
+                delegate?.progressSliederChanged(value: Double(slider.value)) { [weak self] in
+                    self?.isSeekInProgress = false
                 }
+            default:
+                break
             }
-    }
-
-    private func play() {
-        isPlaying = true
-        playButton.setImage(UIImage(systemName: "pause.fill"))
-
-        guard let playerItem = playerItem else {
-            return
         }
-        let seekTime = Double(progressSlider.value)
-        audioPlayer.play(audioId: audioId, playerItem: playerItem, seekTime: seekTime, delegate: self)
-    }
-
-    private func pause() {
-        isPlaying = false
-        playButton.setImage(UIImage(systemName: "play.fill"))
-        audioPlayer.pause(audioId: audioId)
     }
 
     // MARK: - Public methods
 
-    func updateAudioInformation() {
-        let duration = Float(playerItem?.asset.duration.seconds ?? 0)
-        progressSlider.minimumValue = 0
-        progressSlider.maximumValue = duration
+    func updateAudioInformation(delegate: AudioPlayerViewDelegate?) {
+        guard let delegate = delegate else {
+            return
+        }
+        self.delegate?.audioPlayerView = nil
+        self.delegate = delegate
+        delegate.audioPlayerView = self
 
-        let durationTimeText = formattedTimeText(time: duration)
+        progressSlider.minimumValue = 0
+        progressSlider.maximumValue = Float(delegate.duration)
+
+        let durationTimeText = formattedTimeText(time: Float(delegate.duration))
         durationLabel.setText(durationTimeText)
 
-        if audioPlayer.currentAudioId == audioId {
-            progressSlider.value = Float(audioPlayer.currentTime)
-            audioPlayer.updateDelegate(audioId: audioId, delegate: self)
-        }
-//        setTimingText(currentTime: <#T##Float#>)
+        progressSlider.value = Float(delegate.currentTime)
+        setTimingText(currentTime: Float(delegate.currentTime))
+
+        delegate.isPlaying ? play() : pause()
     }
 
     // MARK: - Helper methods
@@ -189,45 +185,27 @@ final class AudioPlayerView: UIView {
     }
 }
 
-extension AudioPlayerView: AnytypeAudioPlayerDelegate {
+// MARK: - AudioBlockViewModelOutput
 
-    func stopPlaying() {
-        isReadyToPlay = false
-        isPlaying = false
-        playButton.setImage(UIImage(systemName: "play.fill"))
-    }
+extension AudioPlayerView: AudioPlayerViewInput {
 
-    func playerReadyToResumeAfterInterruption() {
-        play()
-    }
-
-    func playerInterrupted() {
-        isPlaying = false
+    func play() -> Void {
         playButton.setImage(UIImage(systemName: "pause.fill"))
     }
 
-    func trackTimeDidChange(timeInSeconds: Double) {
-        if !self.isSeekInProgress, isReadyToPlay {
+    func pause() -> Void {
+        playButton.setImage(UIImage(systemName: "play.fill"))
+    }
+
+    func trackTimeChanged(_ timeInSeconds: Double) {
+        if !self.isSeekInProgress {
             self.progressSlider.value = Float(timeInSeconds)
             self.setTimingText(currentTime: Float(timeInSeconds))
         }
     }
-
-    func playerItemDidPlayToEndTime() {
-        progressSlider.value = 0
-        playButton.setImage(UIImage(systemName: "play.fill"))
-    }
-
-    func playerReadyToPlay(duration: Double) {
-        let currentTimeText = formattedTimeText(time: Float(duration))
-        let durationTimeText = formattedTimeText(time: Float(duration))
-
-        self.currentTimeLabel.setText(currentTimeText)
-        self.durationLabel.setText(durationTimeText)
-
-        isReadyToPlay = true
-    }
 }
+
+// MARK: - Constants
 
 private extension AudioPlayerView {
     enum Constants {

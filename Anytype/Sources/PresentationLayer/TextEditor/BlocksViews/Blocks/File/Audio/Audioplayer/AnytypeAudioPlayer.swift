@@ -81,7 +81,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
 
     // MARK: - Public methos
 
-    func setAudio(playerItem: AVPlayerItem, delegate: AnytypeAudioPlayerDelegate) {
+    func setAudio(playerItem: AVPlayerItem?, delegate: AnytypeAudioPlayerDelegate) {
         // tell current delegate that it stops playing
         self.delegate?.stopPlaying()
         // assing new delegate

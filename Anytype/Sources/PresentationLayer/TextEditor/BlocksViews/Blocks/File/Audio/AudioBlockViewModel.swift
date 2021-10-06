@@ -32,8 +32,9 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let downloadAudio: (FileId) -> ()
 
     // Player properties
-    var isPlaying: Bool = false
+    let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
     var currentTimeInSeconds: Double = 0.0
+    weak var audioPlayerView: AudioPlayerViewInput?
 
     init(
         indentationLevel: Int,
@@ -53,6 +54,8 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
             self.playerItem = AVPlayerItem(url: url)
         }
+
+        audioPlayer.updateDelegate(audioId: information.id, delegate: self)
     }
 
     func didSelectRowInTableView() {
@@ -88,12 +91,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            guard let playerItem = playerItem else {
+            guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
-            return AudioBlockContentConfiguration(file: fileData,
-                                                  playerItem: playerItem,
-                                                  audioId: information.id)
+            return AudioBlockContentConfiguration(file: fileData, trackId: information.id, audioPlayerViewDelegate: self)
         }
     }
 
@@ -105,5 +106,3 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         )
     }
 }
-
-//extension

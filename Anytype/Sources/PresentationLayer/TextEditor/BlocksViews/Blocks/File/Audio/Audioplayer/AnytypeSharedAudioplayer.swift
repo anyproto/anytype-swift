@@ -15,18 +15,6 @@ final class AnytypeSharedAudioplayer {
     private let anytypeAudioplayer: AnytypeAudioPlayer
     private(set) var currentAudioId: String = ""
 
-    var isPlaying: Bool {
-        anytypeAudioplayer.isPlaying
-    }
-
-    var duration: Double? {
-        anytypeAudioplayer.duration
-    }
-
-    var currentTime: Double {
-        anytypeAudioplayer.currentTime
-    }
-
     // MARK: - Lifecycle
 
     private init() {
@@ -34,6 +22,10 @@ final class AnytypeSharedAudioplayer {
     }
 
     // MARK: - Public methods
+
+    func isPlaying(audioId: String) -> Bool {
+        currentAudioId == audioId && anytypeAudioplayer.isPlaying
+    }
 
     func pause(audioId: String) {
         guard currentAudioId == audioId else {
@@ -50,7 +42,7 @@ final class AnytypeSharedAudioplayer {
         anytypeAudioplayer.setTrackTime(value: value, completion: completion)
     }
 
-    func play(audioId: String, playerItem: AVPlayerItem, seekTime: Double, delegate: AnytypeAudioPlayerDelegate) {
+    func play(audioId: String, playerItem: AVPlayerItem?, seekTime: Double, delegate: AnytypeAudioPlayerDelegate) {
         if currentAudioId != audioId {
             // pause current audio item
             anytypeAudioplayer.pause()
@@ -59,13 +51,13 @@ final class AnytypeSharedAudioplayer {
             anytypeAudioplayer.setAudio(playerItem: playerItem, delegate: delegate)
             currentAudioId = audioId
         }
-        anytypeAudioplayer.setTrackTime(value: seekTime, completion: {})
-        anytypeAudioplayer.play()
+        anytypeAudioplayer.setTrackTime(value: seekTime, completion: { [weak self] in
+            self?.anytypeAudioplayer.play()
+        })
     }
 
     func updateDelegate(audioId: String, delegate: AnytypeAudioPlayerDelegate) {
         guard currentAudioId == audioId else { return }
-
         anytypeAudioplayer.delegate = delegate
     }
 }
