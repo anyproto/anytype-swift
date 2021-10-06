@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 protocol DashboardServiceProtocol {
-    func openDashboard(completion: @escaping (ResponseEvent) -> ())
+    func openDashboard() -> ResponseEvent?
     
     func createNewPage() -> CreatePageResult
 }

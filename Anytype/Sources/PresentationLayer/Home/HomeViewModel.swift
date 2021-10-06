@@ -58,17 +58,13 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func fetchDashboardData() {        
-        dashboardService.openDashboard() { [weak self] serviceSuccess in
-            self?.onOpenDashboard(serviceSuccess)
-        }
-    }
-    
-    private func onOpenDashboard(_ serviceSuccess: ResponseEvent) {
+        guard let response = dashboardService.openDashboard() else { return }
+        
         document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
             self?.onDashboardChange(updateResult: updateResult)
         }.store(in: &self.subscriptions)
         
-        document.open(serviceSuccess)
+        document.open(response)
     }
     
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {

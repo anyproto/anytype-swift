@@ -11,19 +11,13 @@ class DashboardService: DashboardServiceProtocol {
     private let objectsService = ObjectActionsService()
     
     private var dashboardId: String = ""
-    
-    private var subscriptions = [AnyCancellable]()
         
-    func openDashboard(completion: @escaping (ResponseEvent) -> ()) {
-        guard
-            let homeBlockID = configurationService.configuration()?.homeBlockID
-        else { return }
-        
-        actionsService.open(contextID: homeBlockID, blockID: homeBlockID)
-            .sinkWithDefaultCompletion("Open dashboard") { success in
-                completion(success)
-            }
-            .store(in: &self.subscriptions)
+    func openDashboard() -> ResponseEvent? {
+        guard let homeBlockId = configurationService.configuration()?.homeBlockID else {
+            return nil
+        }
+
+        return actionsService.open(contextId: homeBlockId, blockId: homeBlockId)
     }
     
     func createNewPage() -> CreatePageResult {

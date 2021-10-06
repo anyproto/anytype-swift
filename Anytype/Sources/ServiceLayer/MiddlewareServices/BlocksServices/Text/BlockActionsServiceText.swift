@@ -17,7 +17,7 @@ private extension BlockActionsServiceText {
 final class BlockActionsServiceText: BlockActionsServiceTextProtocol {    
 
     @discardableResult
-    func setText(contextID: String, blockID: String, middlewareString: MiddlewareString) -> AnyPublisher<Void, Error> {
+    func setText(contextID: String, blockID: String, middlewareString: MiddlewareString) -> AnyPublisher<Void, Error> {        
         return Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextID, blockID: blockID, text: middlewareString.text, marks: middlewareString.marks, queue: .global())
             .successToVoid()

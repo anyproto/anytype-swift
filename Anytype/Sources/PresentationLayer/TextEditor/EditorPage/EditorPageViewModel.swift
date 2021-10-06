@@ -59,11 +59,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func obtainDocument(documentId: String) {
-        blockActionsService.open(contextID: documentId, blockID: documentId)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("Open document with id: \(documentId)") { [weak self] value in
-                self?.document.open(value)
-            }.store(in: &self.subscriptions)
+        guard let result = blockActionsService.open(contextId: documentId, blockId: documentId) else {
+            return
+        }
+        
+        document.open(result)
     }
 
     private func setupSubscriptions() {
