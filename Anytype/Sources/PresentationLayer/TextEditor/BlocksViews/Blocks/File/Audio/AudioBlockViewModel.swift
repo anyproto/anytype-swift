@@ -13,7 +13,6 @@ import AVFoundation
 
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
-    private(set) var duration: Double?
 
     var upperBlock: BlockModelProtocol?
 
@@ -32,6 +31,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let showAudioPicker: (BlockId) -> ()
     let downloadAudio: (FileId) -> ()
 
+    // Player properties
+    var isPlaying: Bool = false
+    var currentTimeInSeconds: Double = 0.0
+
     init(
         indentationLevel: Int,
         information: BlockInformation,
@@ -49,7 +52,6 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
 
         if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
             self.playerItem = AVPlayerItem(url: url)
-            self.duration = playerItem?.asset.duration.seconds
         }
     }
 
@@ -89,7 +91,9 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             guard let playerItem = playerItem else {
                 return emptyViewConfiguration(state: .error)
             }
-            return AudioBlockContentConfiguration(file: fileData, playerItem: playerItem, duration: duration ?? 0)
+            return AudioBlockContentConfiguration(file: fileData,
+                                                  playerItem: playerItem,
+                                                  audioId: information.id)
         }
     }
 
@@ -101,3 +105,5 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         )
     }
 }
+
+//extension

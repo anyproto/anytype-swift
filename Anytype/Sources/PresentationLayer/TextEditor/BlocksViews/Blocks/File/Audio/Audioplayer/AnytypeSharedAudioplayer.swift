@@ -12,8 +12,20 @@ import AVFoundation
 final class AnytypeSharedAudioplayer {
     static let sharedInstance = AnytypeSharedAudioplayer()
 
-    private var currentAudioItem: AVPlayerItem?
     private let anytypeAudioplayer: AnytypeAudioPlayer
+    private(set) var currentAudioId: String = ""
+
+    var isPlaying: Bool {
+        anytypeAudioplayer.isPlaying
+    }
+
+    var duration: Double? {
+        anytypeAudioplayer.duration
+    }
+
+    var currentTime: Double {
+        anytypeAudioplayer.currentTime
+    }
 
     // MARK: - Lifecycle
 
@@ -21,33 +33,39 @@ final class AnytypeSharedAudioplayer {
         self.anytypeAudioplayer = AnytypeAudioPlayer()
     }
 
-    // MARK: - AnytypeAudioPlayerProtocol
+    // MARK: - Public methods
 
-    func pause(playerItem: AVPlayerItem) {
-        guard currentAudioItem == playerItem else {
+    func pause(audioId: String) {
+        guard currentAudioId == audioId else {
             return
         }
         anytypeAudioplayer.pause()
     }
 
-    func setTrackTime(playerItem: AVPlayerItem, value: Double, completion: @escaping () -> Void) {
-        guard currentAudioItem == playerItem else {
+    func setTrackTime(audioId: String, value: Double, completion: @escaping () -> Void) {
+        guard currentAudioId == audioId else {
             completion()
             return
         }
         anytypeAudioplayer.setTrackTime(value: value, completion: completion)
     }
 
-    func play(playerItem: AVPlayerItem, seekTime: Double, delegate: AnytypeAudioPlayerDelegate) {
-        if currentAudioItem != playerItem {
+    func play(audioId: String, playerItem: AVPlayerItem, seekTime: Double, delegate: AnytypeAudioPlayerDelegate) {
+        if currentAudioId != audioId {
             // pause current audio item
             anytypeAudioplayer.pause()
 
             // set new audio item
             anytypeAudioplayer.setAudio(playerItem: playerItem, delegate: delegate)
-            currentAudioItem = anytypeAudioplayer.audioPlayer.currentItem
+            currentAudioId = audioId
         }
         anytypeAudioplayer.setTrackTime(value: seekTime, completion: {})
         anytypeAudioplayer.play()
+    }
+
+    func updateDelegate(audioId: String, delegate: AnytypeAudioPlayerDelegate) {
+        guard currentAudioId == audioId else { return }
+
+        anytypeAudioplayer.delegate = delegate
     }
 }

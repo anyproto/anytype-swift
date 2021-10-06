@@ -14,7 +14,7 @@ import AVFoundation
 struct AudioBlockContentConfiguration: Hashable {
     let file: BlockFile
     let playerItem: AVPlayerItem
-    let duration: Double
+    let audioId: String
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
         lhs.file == rhs.file

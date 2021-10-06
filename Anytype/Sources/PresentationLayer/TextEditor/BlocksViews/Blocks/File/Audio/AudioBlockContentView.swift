@@ -28,13 +28,14 @@ final class AudioBlockContentView: UIView, UIContentView {
     }
 
     // MARK: - Views
-    let audioPlayerView = AudioPlayerView()
+    let audioPlayerView: AudioPlayerView
     let backgroundView = UIView()
 
     // MARK: - Lifecycle
 
     init(configuration: AudioBlockContentConfiguration) {
         self.currentConfiguration = configuration
+        self.audioPlayerView = AudioPlayerView(audioId: configuration.audioId)
 
         super.init(frame: .zero)
 
@@ -65,7 +66,7 @@ final class AudioBlockContentView: UIView, UIContentView {
         audioPlayerView.playerItem = configuration.playerItem
         audioPlayerView.trackNameLabel.setText(configuration.file.metadata.name)
         audioPlayerView.trackNameLabel.textColor = .textPrimary
-        audioPlayerView.setDurationText(for: configuration.duration)
+        audioPlayerView.updateAudioInformation()
     }
 }
 
