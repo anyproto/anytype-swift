@@ -75,11 +75,19 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
+        
+        
         // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        self.textService.setText(contextID: documentId, blockID: blockId,
-                                 middlewareString: MiddlewareString(text: type.text, marks: type.marks))
+        
+        
+        
+        textService.setText(
+            contextID: documentId,
+            blockID: blockId,
+            middlewareString: MiddlewareString(text: type.text, marks: type.marks)
+        )
             .flatMap { [weak self] value -> AnyPublisher<SplitSuccess, Error> in
                 return self?.textService.split(
                     contextID: documentId,
@@ -92,9 +100,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             .sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
                 let allEvents = PackOfEvents(
                     middlewareEvents: serviceSuccess.responseEvent.messages,
-                   localEvents: [
-                       .setFocus(blockId: serviceSuccess.blockId, position: .beginning)
-                   ]
+                    localEvents: [
+                        .setFocus(blockId: serviceSuccess.blockId, position: .beginning)
+                    ]
                )
                 self?.didReceiveEvent(allEvents)
             }

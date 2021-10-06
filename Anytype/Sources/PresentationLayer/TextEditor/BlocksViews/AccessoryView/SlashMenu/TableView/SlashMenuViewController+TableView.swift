@@ -36,7 +36,6 @@ extension SlashMenuViewController: UITableViewDelegate {
                 viewModel: viewModel,
                 dismissHandler: dismissHandler
             )
-            childController.title = type.title
             navigationController?.pushViewController(childController, animated: true)
         case let .action(action):
             viewModel.handle(action)

@@ -15,17 +15,18 @@ struct FeatureFlagsView: View {
     
     var buttons: some View {
         HStack() {
-            StandardButton(text: "Crash", style: .primary) {
+            StandardButton(text: "Crash 🔥", style: .primary) {
                 let crash: [Int] = []
                 _ = crash[1]
-            }.padding()
-            StandardButton(text: "Assert", style: .secondary) {
+            }
+            StandardButton(text: "Assert 🥲", style: .secondary) {
                 anytypeAssertionFailure("Test assert")
-            }.padding()
-            StandardButton(text: "Logs", style: .secondary) {
+            }
+            StandardButton(text: "Logs 🧻", style: .secondary) {
                 showLogs.toggle()
-            }.padding()
+            }
         }
+        .padding()
         .sheet(isPresented: $showLogs) { EventsLogView(viewModel: .init()) }
     }
     
