@@ -45,6 +45,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case bundledObjectType // = 514
   case anytypeProfile // = 515
   case date // = 516
+  case workspace // = 517
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -72,6 +73,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 514: self = .bundledObjectType
     case 515: self = .anytypeProfile
     case 516: self = .date
+    case 517: self = .workspace
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -97,6 +99,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .bundledObjectType: return 514
     case .anytypeProfile: return 515
     case .date: return 516
+    case .workspace: return 517
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -127,6 +130,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .bundledObjectType,
     .anytypeProfile,
     .date,
+    .workspace,
   ]
 }
 
@@ -1112,7 +1116,7 @@ public struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      public var source: String = String()
+      public var source: [String] = []
 
       public var views: [Anytype_Model_Block.Content.Dataview.View] = []
 
@@ -2051,6 +2055,34 @@ extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public struct Anytype_Model_ThreadDeeplinkPayload {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var key: String = String()
+
+  public var addrs: [String] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_Model_ThreadCreateQueueEntry {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var collectionThread: String = String()
+
+  public var threadID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Anytype_Model_ObjectType {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -2496,6 +2528,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     514: .same(proto: "BundledObjectType"),
     515: .same(proto: "AnytypeProfile"),
     516: .same(proto: "Date"),
+    517: .same(proto: "Workspace"),
   ]
 }
 
@@ -2545,15 +2578,19 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.blocks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 1)
     }
-    if let v = self._details {
+    try { if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
-    if let v = self._fileKeys {
+    } }()
+    try { if let v = self._fileKeys {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     if !self.extraRelations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.extraRelations, fieldNumber: 4)
     }
@@ -2806,15 +2843,19 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
       if !_storage._id.isEmpty {
         try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
       }
-      if let v = _storage._fields {
+      try { if let v = _storage._fields {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._restrictions {
+      } }()
+      try { if let v = _storage._restrictions {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
+      } }()
       if !_storage._childrenIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._childrenIds, fieldNumber: 4)
       }
@@ -2824,9 +2865,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       if _storage._align != .left {
         try visitor.visitSingularEnumField(value: _storage._align, fieldNumber: 6)
       }
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch _storage._content {
       case .smartblock?: try {
         guard case .smartblock(let v)? = _storage._content else { preconditionFailure() }
@@ -3062,15 +3100,19 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.targetBlockID.isEmpty {
       try visitor.visitSingularStringField(value: self.targetBlockID, fieldNumber: 1)
     }
     if self.style != .page {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 2)
     }
-    if let v = self._fields {
+    try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3271,15 +3313,19 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.text.isEmpty {
       try visitor.visitSingularStringField(value: self.text, fieldNumber: 1)
     }
     if self.style != .paragraph {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 2)
     }
-    if let v = self._marks {
+    try { if let v = self._marks {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     if self.checked != false {
       try visitor.visitSingularBoolField(value: self.checked, fieldNumber: 4)
     }
@@ -3373,9 +3419,13 @@ extension Anytype_Model_Block.Content.Text.Mark: SwiftProtobuf.Message, SwiftPro
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._range {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._range {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.type != .strikethrough {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
     }
@@ -3529,7 +3579,7 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.source) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.views) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.activeView) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
@@ -3540,7 +3590,7 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.source.isEmpty {
-      try visitor.visitSingularStringField(value: self.source, fieldNumber: 1)
+      try visitor.visitRepeatedStringField(value: self.source, fieldNumber: 1)
     }
     if !self.views.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.views, fieldNumber: 2)
@@ -3818,6 +3868,10 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.`operator` != .and {
       try visitor.visitSingularEnumField(value: self.`operator`, fieldNumber: 1)
     }
@@ -3827,9 +3881,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if self.condition != .none {
       try visitor.visitSingularEnumField(value: self.condition, fieldNumber: 3)
     }
-    if let v = self._value {
+    try { if let v = self._value {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }
+    } }()
     if !self.relationProperty.isEmpty {
       try visitor.visitSingularStringField(value: self.relationProperty, fieldNumber: 5)
     }
@@ -3959,12 +4013,16 @@ extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    if let v = self._fields {
+    try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4037,15 +4095,19 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
     }
-    if let v = self._avatar {
+    try { if let v = self._avatar {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4099,8 +4161,9 @@ extension Anytype_Model_Account.Avatar: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every case branch when no optimizations are
-    // enabled. https://github.com/apple/swift-protobuf/issues/1034
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     switch self.avatar {
     case .image?: try {
       guard case .image(let v)? = self.avatar else { preconditionFailure() }
@@ -4291,6 +4354,82 @@ extension Anytype_Model_Restrictions.DataviewRestrictions: SwiftProtobuf.Message
   }
 }
 
+extension Anytype_Model_ThreadDeeplinkPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ThreadDeeplinkPayload"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "key"),
+    2: .same(proto: "addrs"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.addrs) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
+    }
+    if !self.addrs.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.addrs, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ThreadDeeplinkPayload, rhs: Anytype_Model_ThreadDeeplinkPayload) -> Bool {
+    if lhs.key != rhs.key {return false}
+    if lhs.addrs != rhs.addrs {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ThreadCreateQueueEntry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ThreadCreateQueueEntry"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "collectionThread"),
+    2: .same(proto: "threadId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.collectionThread) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.threadID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.collectionThread.isEmpty {
+      try visitor.visitSingularStringField(value: self.collectionThread, fieldNumber: 1)
+    }
+    if !self.threadID.isEmpty {
+      try visitor.visitSingularStringField(value: self.threadID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ThreadCreateQueueEntry, rhs: Anytype_Model_ThreadCreateQueueEntry) -> Bool {
+    if lhs.collectionThread != rhs.collectionThread {return false}
+    if lhs.threadID != rhs.threadID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ObjectType"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -4457,12 +4596,16 @@ extension Anytype_Model_RelationWithValue: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._relation {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._relation {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._value {
+    } }()
+    try { if let v = self._value {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4521,6 +4664,10 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
@@ -4530,9 +4677,9 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 3)
     }
-    if let v = self._defaultValue {
+    try { if let v = self._defaultValue {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }
+    } }()
     if self.dataSource != .details {
       try visitor.visitSingularEnumField(value: self.dataSource, fieldNumber: 5)
     }

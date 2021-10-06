@@ -80,6 +80,8 @@ extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.CreateSet.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Close.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Workspace.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Workspace.Select.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Convert.Response.Error: Swift.Error {}
@@ -112,6 +114,8 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectType.Relation.Update.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectType.Relation.List.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.ShareByLink.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.AddWithShareLink.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationAdd.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationUpdate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationDelete.Response.Error: Swift.Error {}
@@ -126,6 +130,7 @@ extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.ToSet.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExportTemplates.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}

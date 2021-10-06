@@ -124,6 +124,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             limit: limit,
             objectTypeFilter: objectTypeFilter,
             keys: keys,
+            ignoreWorkspace: false,
             queue: .global()
         )
         .receiveOnMain()
