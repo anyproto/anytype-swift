@@ -16,24 +16,14 @@ private extension BlockActionsServiceSingle {
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
     func open(contextId: BlockId, blockId: BlockId) -> ResponseEvent? {
-        let result = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId)
+        Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId)
             .map { ResponseEvent($0.event) }
-        
-        switch result {
-        case .success(let response):
-            return response
-        case .failure(let error):
-            anytypeAssertionFailure(error.localizedDescription)
-            return nil
-        }
-        
+            .getValue()
     }
     
-    func close(contextID: BlockId, blockID: BlockId) -> AnyPublisher<Void, Error> {
-        Anytype_Rpc.Block.Close.Service.invoke(contextID: contextID, blockID: blockID).successToVoid().subscribe(
-            on: DispatchQueue.global()
-        )
-        .eraseToAnyPublisher()
+    func close(contextId: BlockId, blockId: BlockId) {
+        _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: blockId)
+            .getValue()
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )

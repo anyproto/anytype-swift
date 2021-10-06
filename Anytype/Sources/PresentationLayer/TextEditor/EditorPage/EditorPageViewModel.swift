@@ -59,10 +59,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func obtainDocument(documentId: String) {
-        guard let result = blockActionsService.open(contextId: documentId, blockId: documentId) else {
-            return
-        }
-        
+        guard let result = blockActionsService.open(contextId: documentId, blockId: documentId) else { return }
         document.open(result)
     }
 
