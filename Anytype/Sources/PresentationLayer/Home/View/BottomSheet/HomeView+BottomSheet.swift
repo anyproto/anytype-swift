@@ -6,21 +6,17 @@ extension HomeView {
         let sheetCloseOffset: CGFloat = 40
         
         if offset.y < sheetOpenOffset {
-            withAnimation(.spring()) {
                 if case .closed = bottomSheetState {
                     UIImpactFeedbackGenerator(style: .light).impactOccurred()
                 }
                 bottomSheetState = .open
-            }
         }
         if offset.y > sheetCloseOffset {
-            withAnimation(.spring()) {
                 if case .open = bottomSheetState {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 }
                 bottomSheetState = .closed
             }
-        }
     }
     
     func onDrag(_ translation: CGSize) {
