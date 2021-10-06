@@ -17,7 +17,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateID: String
     ) -> CreatePageResponse? {
-        let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position)
         let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
         let protobufDetails = convertedDetails.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
@@ -26,7 +25,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
-        return createPage(contextID: contextID, targetID: targetID, details: protobufStruct, position: position, templateID: templateID)
+        return createPage(contextID: contextID, targetID: targetID, details: protobufStruct, position: position.asMiddleware, templateID: templateID)
     }
     
     private func createPage(
