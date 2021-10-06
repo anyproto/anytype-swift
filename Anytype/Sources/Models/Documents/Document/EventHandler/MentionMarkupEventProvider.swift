@@ -41,10 +41,7 @@ final class MentionMarkupEventProvider {
                     continue
                 }
                 
-                guard let mentionRange = mentionRange(
-                        in: string,
-                        range: mark.range
-                ) else { return }
+                guard let mentionRange = mentionRange(in: string, range: mark.range) else { return }
                 let mentionFrom = mark.range.from
                 let mentionTo = mark.range.to
                 let mentionName = string[mentionRange]
