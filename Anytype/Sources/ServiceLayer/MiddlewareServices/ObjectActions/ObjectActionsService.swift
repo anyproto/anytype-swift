@@ -50,19 +50,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
             details: middlewareDetails
-        )
+        ).map { ResponseEvent($0.event) }
         
-        // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
         
-        switch result {
-        case .success(let response):
-            return ResponseEvent(response.event)
-            
-        case .failure(let error):
-            anytypeAssertionFailure(error.localizedDescription)
-            return nil
-        }
+        return result.getValue()
     }
     
     func asyncSetDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {

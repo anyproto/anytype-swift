@@ -22,13 +22,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
         // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
         
-        switch result {
-        case .success:
-            return
-
-        case .failure(let error):
-            anytypeAssertionFailure(error.localizedDescription)
-        }
+        _ = result.getValue()
     }
     
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
@@ -56,16 +50,10 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     }
     
     func syncUploadImageAt(localPath: String) -> Hash? {
-        guard
-            let contentType = BlockContentFileContentTypeConverter.asMiddleware(.image)
-        else {
-            return nil
-        }
-        
         let result = Anytype_Rpc.UploadFile.Service.invoke(
             url: "",
             localPath: localPath,
-            type: contentType,
+            type: FileContentType.image.asMiddleware,
             disableEncryption: false // Deprecated
         )
         
@@ -79,18 +67,10 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     }
     
     func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error> {
-        guard
-            let contentType = BlockContentFileContentTypeConverter.asMiddleware(.image)
-        else {
-            return Fail(
-                error: PossibleError.uploadFileActionContentTypeConversionHasFailed
-            ).eraseToAnyPublisher()
-        }
-        
         return Anytype_Rpc.UploadFile.Service.invoke(
             url: "",
             localPath: localPath,
-            type: contentType,
+            type: FileContentType.image.asMiddleware,
             disableEncryption: false // Deprecated
         )
             .compactMap { Hash($0.hash) }
@@ -106,11 +86,5 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
         )
             .map(\.blob)
             .subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-    }
-}
-
-private extension BlockActionsServiceFile {
-    enum PossibleError: Error {
-        case uploadFileActionContentTypeConversionHasFailed
     }
 }
