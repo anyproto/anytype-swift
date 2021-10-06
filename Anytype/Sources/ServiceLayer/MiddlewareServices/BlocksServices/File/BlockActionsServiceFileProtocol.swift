@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
-
+import AnytypeCore 
 protocol BlockActionsServiceFileProtocol {
     
     func syncUploadDataAt(

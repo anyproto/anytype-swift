@@ -8,6 +8,7 @@
 
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 final class ObjectHeaderImageUploadingWorker {
     

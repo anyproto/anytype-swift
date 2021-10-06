@@ -1,18 +1,17 @@
 //
 //  Hash.swift
-//  Anytype
+//  AnytypeCore
 //
-//  Created by Konstantin Mordan on 28.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
+//  Created by Konstantin Mordan on 06.10.2021.
 //
 
-struct Hash {
+public struct Hash {
     
-    let value: String
+    public let value: String
     
     // MARK: - Initializer
     
-    init?(_ value: String?) {
+    public init?(_ value: String?) {
         guard let value = value?.trimmed, value.isNotEmpty else {
             return nil
         }
