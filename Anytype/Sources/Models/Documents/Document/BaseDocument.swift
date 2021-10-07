@@ -28,24 +28,13 @@ final class BaseDocument: BaseDocumentProtocol {
     /// RootModel
     private(set) var rootModel: RootBlockContainer? {
         didSet {
-            self.handleNewRootModel(self.rootModel)
+            rootModel.flatMap {
+                eventHandler.configured($0)
+            }
         }
     }
     
     let eventHandler = EventHandler()
-    
-    /// This event subject is a subject for events from default details active model.
-    ///
-    /// When we set details, we need to listen for returned value ( success result ).
-    /// This success result should be handled by our event processor.
-    ///
-    private var detailsEventSubject: PassthroughSubject<PackOfEvents, Never> = .init()
-    
-    /// It is simple event subject subscription.
-    ///
-    /// We use it to subscribe on event subject.
-    ///
-    private var detailsEventSubjectSubscription: AnyCancellable?
     
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
@@ -121,41 +110,6 @@ final class BaseDocument: BaseDocumentProtocol {
             blocksContainer: blocksContainer,
             detailsContainer: detailsStorage
         )
-    }
-
-    // MARK: - Configure Details
-
-    // Configure a subscription on events stream from details.
-    // We need it for set details success result to process it in our event processor.
-    private func listenDefaultDetails() {
-        self.detailsEventSubjectSubscription = self.detailsEventSubject.sink(receiveValue: { [weak self] (value) in
-            self?.handle(events: value)
-        })
-    }
-    
-    /// Configure default details for a container.
-    ///
-    /// It is the first place where you can configure default details with various handlers and other stuff.
-    ///
-    /// - Parameter container: A container in which this details is default.
-    private func configureDetails(for container: RootBlockContainer?) {
-        guard let container = container,
-              let rootId = container.rootId,
-              let ourModel = container.detailsContainer.get(by: rootId)
-        else {
-            AnytypeLogger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
-            return
-        }
-        let publisher = ourModel.changeInformationPublisher
-        listenDefaultDetails()
-    }
-
-    // MARK: - Handle new root model
-    private func handleNewRootModel(_ container: RootBlockContainer?) {
-        if let container = container {
-            eventHandler.configured(container)
-        }
-        configureDetails(for: container)
     }
     
     /// Returns a flatten list of active models of document.
