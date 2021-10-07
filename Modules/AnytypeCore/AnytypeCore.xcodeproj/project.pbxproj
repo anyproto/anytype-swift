@@ -16,6 +16,7 @@
 		3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */; };
 		3D53F03626B30116001A6EEE /* GoogleProtobufValueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03526B30116001A6EEE /* GoogleProtobufValueExtensions.swift */; };
 		3D53F03826B30356001A6EEE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03726B30356001A6EEE /* Logger.swift */; };
+		3D6E9A40270F1B8C001B0A07 /* ContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */; };
 		3D93854626FC3AFB001C137F /* UserDefaultsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854526FC3AFB001C137F /* UserDefaultsConfig.swift */; };
 		3DA4B0C426AF3D2B0000F243 /* AnytypeCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4B0F126AF41940000F243 /* Asserts.swift */; };
@@ -36,6 +37,7 @@
 		3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopPresentationController.swift"; sourceTree = "<group>"; };
 		3D53F03526B30116001A6EEE /* GoogleProtobufValueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleProtobufValueExtensions.swift; sourceTree = "<group>"; };
 		3D53F03726B30356001A6EEE /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerExtension.swift; sourceTree = "<group>"; };
 		3D93854526FC3AFB001C137F /* UserDefaultsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfig.swift; sourceTree = "<group>"; };
 		3DA4B0BF26AF3D2B0000F243 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnytypeCore.h; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */,
 				3DFE7F4026E22B530093EECB /* StringExtension.swift */,
+				3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D6E9A40270F1B8C001B0A07 /* ContainerExtension.swift in Sources */,
 				C91AFEEF270B4FAA005F9386 /* AnytypeLogger.swift in Sources */,
 				3D43FD8026B0573A0094D4C0 /* UserDefaultWrapper.swift in Sources */,
 				1255DF7C270201EA00870B95 /* AsyncOperation.swift in Sources */,
