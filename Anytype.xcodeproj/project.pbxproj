@@ -102,7 +102,6 @@
 		0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */; };
 		0AA00C5224CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C5124CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift */; };
 		0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* MediaPicker.swift */; };
-		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB73A82549975800F32C6F /* FirebaseConfigurator.swift */; };
 		0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781B23E5C9A300442690 /* ColorExtension.swift */; };
@@ -279,7 +278,6 @@
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */; };
 		3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */; };
-		3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED47261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift */; };
 		3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockView.swift */; };
 		3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */; };
@@ -364,6 +362,7 @@
 		3D6E9A2E270D98B2001B0A07 /* HomeBottomSheetViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A2D270D98B2001B0A07 /* HomeBottomSheetViewState.swift */; };
 		3D6E9A34270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A33270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift */; };
 		3D6E9A36270DD016001B0A07 /* CustomTextViewUserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A35270DD016001B0A07 /* CustomTextViewUserActions.swift */; };
+		3D6E9A39270E0937001B0A07 /* ResultExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A38270E0937001B0A07 /* ResultExtension.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08262684E21500E2168D /* FileSizeConverter.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
@@ -791,7 +790,6 @@
 		0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserOtherDividerStyleConverter.swift; sourceTree = "<group>"; };
 		0AA00C5124CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserBookmarkTypeEnumConverter.swift; sourceTree = "<group>"; };
 		0AA168DC254060E40097CB23 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
-		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0ABB73A82549975800F32C6F /* FirebaseConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfigurator.swift; sourceTree = "<group>"; };
 		0ACA781B23E5C9A300442690 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -964,7 +962,6 @@
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsConverter.swift; sourceTree = "<group>"; };
 		3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileStateConverter.swift; sourceTree = "<group>"; };
-		3D07ED47261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserCommonPositionConverter.swift; sourceTree = "<group>"; };
 		3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockViewModel.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockView.swift; sourceTree = "<group>"; };
 		3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentView.swift; sourceTree = "<group>"; };
@@ -1048,6 +1045,7 @@
 		3D6E9A2D270D98B2001B0A07 /* HomeBottomSheetViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomSheetViewState.swift; sourceTree = "<group>"; };
 		3D6E9A33270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomSheetViewConfiguration.swift; sourceTree = "<group>"; };
 		3D6E9A35270DD016001B0A07 /* CustomTextViewUserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewUserActions.swift; sourceTree = "<group>"; };
+		3D6E9A38270E0937001B0A07 /* ResultExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultExtension.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7C08262684E21500E2168D /* FileSizeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileSizeConverter.swift; path = Anytype/Sources/CoreLayer/Helpers/FileSizeConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -1717,6 +1715,7 @@
 				EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */,
 				3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */,
 				3DE0CFE026F860EF003A606A /* StringExtension.swift */,
+				3D6E9A38270E0937001B0A07 /* ResultExtension.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -2711,14 +2710,12 @@
 			children = (
 				53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */,
 				0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */,
-				0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */,
 				0A78327024B8D2B400A1B6F6 /* BlockTextConverter.swift */,
 				0AA00C4724CDB65E00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift */,
 				0AA00C5124CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift */,
 				0A31FDF624CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift */,
 				0A6F90052554546200B94AED /* BlocksModelsParserLayoutStyleConverter.swift */,
 				3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */,
-				3D07ED47261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift */,
 			);
 			path = BlockModelsConverters;
 			sourceTree = "<group>";
@@ -4332,6 +4329,7 @@
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
 				12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
+				3D6E9A39270E0937001B0A07 /* ResultExtension.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
@@ -4775,7 +4773,6 @@
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
-				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
@@ -4897,7 +4894,6 @@
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
-				3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */,
 			);

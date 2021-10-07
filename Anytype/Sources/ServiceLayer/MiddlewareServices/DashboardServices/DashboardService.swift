@@ -20,7 +20,7 @@ class DashboardService: DashboardServiceProtocol {
         return actionsService.open(contextId: homeBlockId, blockId: homeBlockId)
     }
     
-    func createNewPage() -> CreatePageResult {
+    func createNewPage() -> CreatePageResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
         return objectsService.createPage(
             contextID: "",
