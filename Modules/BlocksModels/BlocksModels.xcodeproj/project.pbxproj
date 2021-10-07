@@ -27,6 +27,11 @@
 		12A259B826580B4B00B71DA1 /* DetailsContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A259B726580B4B00B71DA1 /* DetailsContainerProtocol.swift */; };
 		12A259BA26580C3400B71DA1 /* DetailsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A259B926580C3400B71DA1 /* DetailsEntry.swift */; };
 		12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C8C265D10F600D047E3 /* CoverType.swift */; };
+		12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */; };
+		12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF0270E015900C92B28 /* ObjectDetails.swift */; };
+		12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */; };
+		12F91CF8270E082500C92B28 /* ObjectRawDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF7270E082500C92B28 /* ObjectRawDetailsConverter.swift */; };
+		12F91CFA270E0C2800C92B28 /* ObjectDetailsItemKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF9270E0C2800C92B28 /* ObjectDetailsItemKey.swift */; };
 		3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */; };
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
 		3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21426877D9300C78C28 /* BlockFileState.swift */; };
@@ -72,6 +77,11 @@
 		12A259B726580B4B00B71DA1 /* DetailsContainerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsContainerProtocol.swift; sourceTree = "<group>"; };
 		12A259B926580C3400B71DA1 /* DetailsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsEntry.swift; sourceTree = "<group>"; };
 		12B69C8C265D10F600D047E3 /* CoverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverType.swift; sourceTree = "<group>"; };
+		12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsItem.swift; sourceTree = "<group>"; };
+		12F91CF0270E015900C92B28 /* ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetails.swift; sourceTree = "<group>"; };
+		12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRawDetails.swift; sourceTree = "<group>"; };
+		12F91CF7270E082500C92B28 /* ObjectRawDetailsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRawDetailsConverter.swift; sourceTree = "<group>"; };
+		12F91CF9270E0C2800C92B28 /* ObjectDetailsItemKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsItemKey.swift; sourceTree = "<group>"; };
 		3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerModelProtocol.swift; sourceTree = "<group>"; };
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
 		3D22B21426877D9300C78C28 /* BlockFileState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFileState.swift; sourceTree = "<group>"; };
@@ -119,6 +129,7 @@
 		0A6D536A25D9C99E002F3F82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				12F91CE7270DFDE000C92B28 /* BrandNewDetails */,
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
 				0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */,
 				129D788C2694964800DA6757 /* Common */,
@@ -170,6 +181,18 @@
 				12A259B726580B4B00B71DA1 /* DetailsContainerProtocol.swift */,
 			);
 			path = Container;
+			sourceTree = "<group>";
+		};
+		12F91CE7270DFDE000C92B28 /* BrandNewDetails */ = {
+			isa = PBXGroup;
+			children = (
+				12F91CF9270E0C2800C92B28 /* ObjectDetailsItemKey.swift */,
+				12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */,
+				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
+				12F91CF7270E082500C92B28 /* ObjectRawDetailsConverter.swift */,
+				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
+			);
+			path = BrandNewDetails;
 			sourceTree = "<group>";
 		};
 		12FD4E3826582D5400559612 /* DetailsProvider */ = {
@@ -375,12 +398,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */,
 				12A259B6265808ED00B71DA1 /* DetailsContainer.swift in Sources */,
 				12A259B22658018800B71DA1 /* LegacyDetailsModel.swift in Sources */,
 				0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */,
 				12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */,
 				3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */,
+				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				12A259B42658030A00B71DA1 /* DetailsData.swift in Sources */,
+				12F91CFA270E0C2800C92B28 /* ObjectDetailsItemKey.swift in Sources */,
+				12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */,
 				3D53F03126B3009F001A6EEE /* DetailsEntryConverter.swift in Sources */,
 				3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
@@ -396,6 +423,7 @@
 				3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */,
 				3D22B2192687804000C78C28 /* BlockFile.swift in Sources */,
 				0A6D538F25D9C99F002F3F82 /* BlockUpdater.swift in Sources */,
+				12F91CF8270E082500C92B28 /* ObjectRawDetailsConverter.swift in Sources */,
 				3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */,
 				0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */,
 				129D788E2694965700DA6757 /* LayoutAlignment.swift in Sources */,
