@@ -3,15 +3,6 @@ public typealias FileId = String
 public typealias ImageMetadata = FileMetadata
 public typealias VideoMetadata = FileMetadata
 
-public enum FileContentType: Hashable {
-    case none
-    case file
-    case image
-    case video
-    case audio
-}
-
-
 public struct FileMetadata: Hashable {
     public var name: String
     public var size: Int64
