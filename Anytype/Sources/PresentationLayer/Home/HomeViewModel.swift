@@ -95,11 +95,8 @@ final class HomeViewModel: ObservableObject {
 // MARK: - New page
 extension HomeViewModel {
     func createNewPage() {
-        let result = dashboardService.createNewPage()
-        guard case let .response(response) = result else {
-            return
-        }
-
+        guard let response = dashboardService.createNewPage() else { return }
+        
         document.handle(
             events: PackOfEvents(middlewareEvents: response.messages)
         )

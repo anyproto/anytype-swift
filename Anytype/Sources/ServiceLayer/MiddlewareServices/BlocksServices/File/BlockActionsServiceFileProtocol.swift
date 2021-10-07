@@ -20,5 +20,5 @@ protocol BlockActionsServiceFileProtocol {
     func syncUploadImageAt(localPath: String) -> Hash?
     func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error>
     
-    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> AnyPublisher<Data, Error>
+    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> Result<Data, Error>
 }
