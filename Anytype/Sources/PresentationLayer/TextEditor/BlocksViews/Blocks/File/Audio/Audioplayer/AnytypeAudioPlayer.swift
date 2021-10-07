@@ -11,7 +11,7 @@ import AVKit
 
 final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     @objc let audioPlayer: AVPlayer
-    private weak var delegate: AnytypeAudioPlayerDelegate?
+    weak var delegate: AnytypeAudioPlayerDelegate?
     // Key-value observing context
     var playerItemContext = 0
     private var timeObserverToken: Any? = nil
@@ -19,6 +19,14 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
 
     var isPlaying: Bool {
         return audioPlayer.rate != 0 && audioPlayer.error == nil
+    }
+
+    var duration: Double? {
+        return audioPlayer.currentItem?.asset.duration.seconds
+    }
+
+    var currentTime: Double {
+        return audioPlayer.currentTime().seconds
     }
 
     // MARK: - Lifecycle
@@ -73,7 +81,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
 
     // MARK: - Public methos
 
-    func setAudio(playerItem: AVPlayerItem, delegate: AnytypeAudioPlayerDelegate) {
+    func setAudio(playerItem: AVPlayerItem?, delegate: AnytypeAudioPlayerDelegate) {
         // tell current delegate that it stops playing
         self.delegate?.stopPlaying()
         // assing new delegate

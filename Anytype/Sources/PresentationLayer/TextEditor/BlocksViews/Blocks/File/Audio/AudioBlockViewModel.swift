@@ -13,7 +13,6 @@ import AVFoundation
 
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
-    private(set) var duration: Double?
 
     var upperBlock: BlockModelProtocol?
 
@@ -32,6 +31,11 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let showAudioPicker: (BlockId) -> ()
     let downloadAudio: (FileId) -> ()
 
+    // Player properties
+    let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
+    var currentTimeInSeconds: Double = 0.0
+    weak var audioPlayerView: AudioPlayerViewInput?
+
     init(
         indentationLevel: Int,
         information: BlockInformation,
@@ -49,8 +53,9 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
 
         if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
             self.playerItem = AVPlayerItem(url: url)
-            self.duration = playerItem?.asset.duration.seconds
         }
+
+        audioPlayer.updateDelegate(audioId: information.id, delegate: self)
     }
 
     func didSelectRowInTableView() {
@@ -86,10 +91,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            guard let playerItem = playerItem else {
+            guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
-            return AudioBlockContentConfiguration(file: fileData, playerItem: playerItem, duration: duration ?? 0)
+            return AudioBlockContentConfiguration(file: fileData, trackId: information.id, audioPlayerViewDelegate: self)
         }
     }
 
