@@ -35,21 +35,18 @@ final class AuthService: AuthServiceProtocol {
         completion()
     }
 
-    func createWallet(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: rootPath).sink(receiveCompletion: { result in
-            switch result {
-            case .finished: break
-            case .failure(_): onCompletion(.failure(.createWalletError()))
-            }
-        }) { [weak self] (value) in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
-            AnytypeLogger.create(.servicesAuthService).debugPrivate("seed:", arg: value.mnemonic)
-
-            try? self?.seedService.saveSeed(value.mnemonic)
+    func createWallet() -> Result<String, AuthServiceError> {
+        let result = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: rootPath)
+            .mapError { _ in AuthServiceError.createWalletError }
+            .map { $0.mnemonic }
         
-            onCompletion(.success(()))
+        if let mnemonic = result.getValue() {
+            Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
+            AnytypeLogger.create(.servicesAuthService).debugPrivate("seed:", arg: mnemonic)
+            try? seedService.saveSeed(mnemonic)
         }
+        
+        return result
     }
 
     func createAccount(profile: CreateAccountRequest, alphaInviteCode: String) -> Result<BlockId, AuthServiceError> {
@@ -63,7 +60,7 @@ final class AuthService: AuthServiceProtocol {
         let avatar = transform(profile.avatar)
 
         let result = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode)
-            .mapError { _ in AuthServiceError.createAccountError() }
+            .mapError { _ in AuthServiceError.createAccountError }
             .map { $0.account.id }
         
         if let accountId = result.getValue() {
@@ -78,35 +75,26 @@ final class AuthService: AuthServiceProtocol {
         return result
     }
 
-    func walletRecovery(mnemonic: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
+    func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError> {
         try? seedService.saveSeed(mnemonic)
-        _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic).sink(receiveCompletion: { result in
-            switch result {
-            case .finished: break
-            case .failure(_): onCompletion(.failure(.recoverWalletError()))
-            }
-        }) { _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.walletRecover)
+        
+        let result = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic)
+            .mapError { _ in AuthServiceError.recoverWalletError }
+            .map { _ in Void() }
 
-            onCompletion(.success(()))
-        }
+        Amplitude.instance().logEvent(AmplitudeEventsName.walletRecover)
+
+        return result
     }
 
-    func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Account.Recover.Service.invoke()
-            .subscribe(on: DispatchQueue.global())
-            .receiveOnMain()
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: break
-                case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))
-                }
-            }) { _ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.accountRecover)
-                
-                onCompletion(.success(()))
+    func accountRecover() -> AuthServiceError? {
+        let result = Anytype_Rpc.Account.Recover.Service.invoke()
+        switch result {
+        case .success:
+            Amplitude.instance().logEvent(AmplitudeEventsName.accountRecover)
+            return nil
+        case .failure:
+            return AuthServiceError.recoverAccountError
         }
     }
 
@@ -127,13 +115,13 @@ final class AuthService: AuthServiceProtocol {
             loginStateService.setupStateAfterLoginOrAuth()
             return .success(accountId)
         case .failure:
-            return .failure(.selectAccountError())
+            return .failure(.selectAccountError)
         }
     }
     
     func mnemonicByEntropy(_ entropy: String) -> Result<String, Error> {
         Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy)
             .map { $0.mnemonic }
-            .mapError { _ in AuthServiceError.selectAccountError() }
+            .mapError { _ in AuthServiceError.selectAccountError }
     }
 }

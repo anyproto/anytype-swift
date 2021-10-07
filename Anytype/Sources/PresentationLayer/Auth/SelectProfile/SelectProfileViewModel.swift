@@ -47,10 +47,8 @@ class SelectProfileViewModel: ObservableObject {
     func accountRecover() {
         DispatchQueue.global().async { [weak self] in
             self?.handleAccountShowEvent()
-            self?.authService.accountRecover { result in
-                if case .failure = result {
-                    self?.error = "Account recover error"
-                }
+            if let error = self?.authService.accountRecover() {
+                self?.error = error.localizedDescription
             }
         }
     }

@@ -40,12 +40,12 @@ class LoginViewModel: ObservableObject {
     }
     
     func recoverWallet() {
-        authService.walletRecovery(mnemonic: seed.trimmingCharacters(in: .whitespacesAndNewlines)) { result in
-            DispatchQueue.main.async { [weak self] in
-                if case .failure(let .recoverWalletError(error)) = result {
-                    self?.error = error
-                    return
-                }
+        let result = authService.walletRecovery(mnemonic: seed.trimmingCharacters(in: .whitespacesAndNewlines))
+        DispatchQueue.main.async { [weak self] in
+            switch result {
+            case .failure(let error):
+                self?.error = error.localizedDescription
+            case .success:
                 self?.showSelectProfile = true
             }
         }

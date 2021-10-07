@@ -1,27 +1,35 @@
 import BlocksModels
 
-typealias OnCompletion = (_ result: Result<BlockId, AuthServiceError>) -> Void
-typealias OnCompletionWithEmptyResult = (_ result: Result<Void, AuthServiceError>) -> Void
-
-/// Error that AuthService can throw
-enum AuthServiceError: Error {
-    case logoutError(message: String? = "Logout error")
-    case loginError(message: String? = "Login error")
-    case createWalletError(message: String? = "Error creating wallet")
-    case createAccountError(message: String? = "Error creating account")
-    case recoverWalletError(message: String? = "Error wallet recover account")
-    case recoverAccountError(message: String? = "Error account recover")
-    case selectAccountError(message: String? = "Error select account")
+enum AuthServiceError: Error, LocalizedError {
+    case logoutError
+    case loginError
+    case createWalletError
+    case createAccountError
+    case recoverWalletError
+    case recoverAccountError
+    case selectAccountError
+    
+    var errorDescription: String? {
+        switch self {
+        case .logoutError: return "Logout error"
+        case .loginError: return "Login error"
+        case .createWalletError: return "Error creating wallet"
+        case .createAccountError: return "Error creating account"
+        case .recoverWalletError: return "Error wallet recover account"
+        case .recoverAccountError: return "Account recover error"
+        case .selectAccountError: return "Error select account"
+        }
+    }
 }
 
 // Wallet may contain many accounts
 protocol AuthServiceProtocol {
-    func createWallet(onCompletion: @escaping OnCompletionWithEmptyResult)
+    func createWallet() -> Result<String, AuthServiceError>
     func createAccount(profile: CreateAccountRequest, alphaInviteCode: String) -> Result<BlockId, AuthServiceError>
-    func walletRecovery(mnemonic: String, onCompletion: @escaping OnCompletionWithEmptyResult)
+    func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError>
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
-    func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult)
+    func accountRecover() -> AuthServiceError?
     
     func selectAccount(id: String) -> Result<BlockId, AuthServiceError>
     
