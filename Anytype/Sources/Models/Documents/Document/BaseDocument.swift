@@ -60,7 +60,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         documentId.flatMap { rootId in
-            _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
+            smartblockService.close(contextId: rootId, blockId: rootId)
         }
     }
 

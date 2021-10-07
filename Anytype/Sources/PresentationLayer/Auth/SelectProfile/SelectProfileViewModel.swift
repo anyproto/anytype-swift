@@ -47,24 +47,20 @@ class SelectProfileViewModel: ObservableObject {
     func accountRecover() {
         DispatchQueue.global().async { [weak self] in
             self?.handleAccountShowEvent()
-            self?.authService.accountRecover { result in
-                if case .failure = result {
-                    self?.error = "Account recover error"
-                }
+            if let error = self?.authService.accountRecover() {
+                self?.error = error.localizedDescription
             }
         }
     }
     
     func selectProfile(id: String) {
-        self.authService.selectAccount(id: id) { result in
-            DispatchQueue.main.async { [weak self] in
-                switch result {
-                case .success:
-                    self?.showHomeView()
-                case .failure(let error):
-                    self?.error = error.localizedDescription
-                }
-            }
+        let result = authService.selectAccount(id: id)
+        
+        switch result {
+        case .success:
+            showHomeView()
+        case .failure(let error):
+            self.error = error.localizedDescription
         }
     }
     
@@ -98,24 +94,14 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        _ = self.fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize).receiveOnMain()
-            .sink(receiveCompletion: { [weak self] result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.error = error.localizedDescription
-                }
-            }) { blob in
-                profileViewModel.image = UIImage(data: blob)
+        let result = fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize)
+        switch result {
+        case .success(let data):
+            profileViewModel.image = UIImage(data: data)
+        case .failure(let error):
+            self.error = error.localizedDescription
         }
     }
-    
-    // MARK: - Coordinator
-    
-//    func showCreateProfileView() -> some View {
-//        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
-//    }
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()

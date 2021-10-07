@@ -4,30 +4,24 @@ import BlocksModels
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
+import BlocksModels
 
 private extension BlockActionsServiceSingle {
     enum PossibleError: Error {
         case addActionBlockIsNotParsed
-        case addActionPositionConversionHasFailed
-        case duplicateActionPositionConversionHasFailed
     }
 }
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
-    func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Open.Service.invoke(
-            contextID: contextID, blockID: blockID
-        ).map(\.event).map(ResponseEvent.init(_:))
-        .subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+    func open(contextId: BlockId, blockId: BlockId) -> ResponseEvent? {
+        Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
     
-    func close(contextID: BlockId, blockID: BlockId) -> AnyPublisher<Void, Error> {
-        Anytype_Rpc.Block.Close.Service.invoke(contextID: contextID, blockID: blockID).successToVoid().subscribe(
-            on: DispatchQueue.global()
-        )
-        .eraseToAnyPublisher()
+    func close(contextId: BlockId, blockId: BlockId) {
+        _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: blockId)
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
@@ -35,10 +29,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
             return .failure(PossibleError.addActionBlockIsNotParsed)
         }
-        guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return .failure(PossibleError.addActionPositionConversionHasFailed)
-        }
-        return action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
+
+        return action(contextID: contextID, targetID: targetID, block: blockInformation, position: position.asMiddleware)
     }
 
     private func action(
@@ -73,10 +65,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     /// Duplicate block
     func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ResponseEvent, Error> {
-        guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
-            return Fail(error: PossibleError.duplicateActionPositionConversionHasFailed).eraseToAnyPublisher()
-        }
-        return self.action(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position)
+        action(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position.asMiddleware)
     }
     
     private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<ResponseEvent, Error> {

@@ -17,14 +17,12 @@ class MainAuthViewModel: ObservableObject {
     @Published var showSignUpFlow: Bool = false
     
     func singUp() {
-        authService.createWallet() { [weak self] result in
-            switch result {
-            case .failure(let error):
-                // TODO: handel error
-                self?.error = error.localizedDescription
-            case .success:
-                self?.showSignUpFlow = true
-            }
+        let result = authService.createWallet()
+        switch result {
+        case .failure(let error):
+            self.error = error.localizedDescription
+        case .success:
+            showSignUpFlow = true
         }
     }
     
