@@ -34,14 +34,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     let eventHandler = EventHandler()
     
-    /// Details Active Models
-    /// But we have a lot of them, so, we should keep a list of them.
-    /// Or we could create them on the fly.
-    ///
-    /// This one is active model of default ( or main ) document id (smartblock id).
-    ///
-    let defaultDetailsActiveModel = DetailsActiveModel()
-    
     /// This event subject is a subject for events from default details active model.
     ///
     /// When we set details, we need to listen for returned value ( success result ).
@@ -155,7 +147,6 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let publisher = ourModel.changeInformationPublisher
-        defaultDetailsActiveModel.configured(publisher: publisher)
         listenDefaultDetails()
     }
 
@@ -199,20 +190,20 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: details active model.
     ///
-    func getDetails(id: BlockId) -> DetailsActiveModel? {
-        guard let value = self.rootModel?.detailsContainer.get(by: id) else {
-            AnytypeLogger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
-            return nil
+    func getDetails(id: BlockId) -> DetailsDataProtocol? {
+        let value = self.rootModel?.detailsContainer.get(by: id)
+        if value.isNil {
+            AnytypeLogger.create(.baseDocument)
+                .debug("getDetails(by:). Our document is not ready yet")
         }
-        let result = DetailsActiveModel()
-        result.configured(publisher: value.changeInformationPublisher)
-        return result
+        return value?.detailsData
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never> {
-        defaultDetailsActiveModel.$currentDetails.eraseToAnyPublisher()
+        // TODO: - details. implement
+        .empty()
     }
 
     // MARK: - Events

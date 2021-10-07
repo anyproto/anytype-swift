@@ -31,7 +31,7 @@ final class HomeCellDataBuilder {
     private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
         guard case .link(let link) = blockModel.information.content else { return nil }
 
-        let details = document.getDetails(id: link.targetBlockID)?.currentDetails
+        let details = document.getDetails(id: link.targetBlockID)
         return HomePageLink(
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
