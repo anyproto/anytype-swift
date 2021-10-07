@@ -160,7 +160,7 @@ final class MiddlewareEventConverter {
                     var fileData = fileData
                     
                     if newData.hasType {
-                        if let contentType = BlockContentFileContentTypeConverter.asModel(newData.type.value) {
+                        if let contentType = FileContentType(newData.type.value) {
                             fileData.contentType = contentType
                         }
                     }

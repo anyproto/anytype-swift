@@ -49,7 +49,7 @@ extension Anytype_Model_Block.Content.Bookmark {
 }
 
 extension Anytype_Model_Block.Content.Dataview {
-  public init(source: String, views: [Anytype_Model_Block.Content.Dataview.View], relations: [Anytype_Model_Relation], activeView: String) {
+  public init(source: [String], views: [Anytype_Model_Block.Content.Dataview.View], relations: [Anytype_Model_Relation], activeView: String) {
     self.source = source
     self.views = views
     self.relations = relations
@@ -319,5 +319,19 @@ extension Anytype_Model_SmartBlockSnapshotBase {
     self.fileKeys = fileKeys
     self.extraRelations = extraRelations
     self.objectTypes = objectTypes
+  }
+}
+
+extension Anytype_Model_ThreadCreateQueueEntry {
+  public init(collectionThread: String, threadID: String) {
+    self.collectionThread = collectionThread
+    self.threadID = threadID
+  }
+}
+
+extension Anytype_Model_ThreadDeeplinkPayload {
+  public init(key: String, addrs: [String]) {
+    self.key = key
+    self.addrs = addrs
   }
 }

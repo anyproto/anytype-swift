@@ -62,10 +62,8 @@ final class AudioBlockContentView: UIView, UIContentView {
     }
 
     private func apply(configuration: AudioBlockContentConfiguration) {
-        audioPlayerView.playerItem = configuration.playerItem
+        audioPlayerView.updateAudioInformation(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.trackNameLabel.setText(configuration.file.metadata.name)
-        audioPlayerView.trackNameLabel.textColor = .textPrimary
-        audioPlayerView.setDurationText(for: configuration.duration)
     }
 }
 

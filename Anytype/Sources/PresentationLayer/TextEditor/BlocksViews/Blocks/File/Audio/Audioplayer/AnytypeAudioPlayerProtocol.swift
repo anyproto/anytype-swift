@@ -20,7 +20,7 @@ protocol AnytypeAudioPlayerDelegate: AnyObject {
 }
 
 protocol AnytypeAudioPlayerProtocol {
-    func setAudio(playerItem: AVPlayerItem, delegate: AnytypeAudioPlayerDelegate)
+    func setAudio(playerItem: AVPlayerItem?, delegate: AnytypeAudioPlayerDelegate)
     func play()
     func pause()
     func setTrackTime(value: Double, completion: @escaping () -> Void)

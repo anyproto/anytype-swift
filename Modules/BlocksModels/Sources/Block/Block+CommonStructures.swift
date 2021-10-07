@@ -6,14 +6,6 @@ public enum BlockKind {
     case block
 }
 
-public enum BlockPosition {
-    case none
-    case top, bottom
-    case left, right
-    case inner
-    case replace
-}
-
 public enum BlockFocusPosition {
     case beginning
     case end

@@ -3607,15 +3607,13 @@ extension Anytype_Rpc.Block.CreateSet {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(
-      contextID: String, targetID: String, objectTypeURL: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, objectTypeURL: objectTypeURL, details: details, position: position), on: queue)
+    public static func invoke(contextID: String, targetID: String, source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, source: source, details: details, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, objectTypeURL: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> Result<
-      Response, Error
-    > {
-      self.result(.init(contextID: contextID, targetID: targetID, objectTypeURL: objectTypeURL, details: details, position: position))
+    public static func invoke(contextID: String, targetID: String, source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, source: source, details: details, position: position))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3716,6 +3714,106 @@ extension Anytype_Rpc.Block.Close {
     }
     public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Workspace.Create {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceWorkspaceCreate(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(), on: queue)
+    }
+    public static func invoke() -> Result<Response, Error> {
+      self.result(.init())
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Workspace.Select {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceWorkspaceSelect(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(workspaceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(workspaceID: workspaceID), on: queue)
+    }
+    public static func invoke(workspaceID: String) -> Result<Response, Error> {
+      self.result(.init(workspaceID: workspaceID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -4911,11 +5009,11 @@ extension Anytype_Rpc.Set.Create {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(objectTypeURL: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectTypeURL: objectTypeURL, details: details, templateID: templateID), on: queue)
+    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(source: source, details: details, templateID: templateID), on: queue)
     }
-    public static func invoke(objectTypeURL: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) -> Result<Response, Error> {
-      self.result(.init(objectTypeURL: objectTypeURL, details: details, templateID: templateID))
+    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) -> Result<Response, Error> {
+      self.result(.init(source: source, details: details, templateID: templateID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -5216,6 +5314,106 @@ extension Anytype_Rpc.ObjectType.Relation.List {
     }
     public static func invoke(objectTypeURL: String, appendRelationsFromOtherTypes: Bool) -> Result<Response, Error> {
       self.result(.init(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.ShareByLink {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectShareByLink(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(objectID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(objectID: objectID), on: queue)
+    }
+    public static func invoke(objectID: String) -> Result<Response, Error> {
+      self.result(.init(objectID: objectID))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.AddWithShareLink {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectAddWithShareLink(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(link: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(link: link), on: queue)
+    }
+    public static func invoke(link: String) -> Result<Response, Error> {
+      self.result(.init(link: link))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -5613,15 +5811,17 @@ extension Anytype_Rpc.Object.Search {
     }
     public static func invoke(
       filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, offset: Int32, limit: Int32, objectTypeFilter: [String],
-      keys: [String], queue: DispatchQueue? = nil
+      keys: [String], ignoreWorkspace: Bool, queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
+      self.invoke(
+        parameters: .init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys, ignoreWorkspace: ignoreWorkspace), on: queue
+      )
     }
     public static func invoke(
       filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, offset: Int32, limit: Int32, objectTypeFilter: [String],
-      keys: [String]
+      keys: [String], ignoreWorkspace: Bool
     ) -> Result<Response, Error> {
-      self.result(.init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys))
+      self.result(.init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys, ignoreWorkspace: ignoreWorkspace))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -5922,6 +6122,56 @@ extension Anytype_Rpc.Object.FeaturedRelation.Remove {
     }
     public static func invoke(contextID: String, relations: [String]) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relations: relations))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.ToSet {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectToSet(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, source: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, source: source), on: queue)
+    }
+    public static func invoke(contextID: String, source: [String]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, source: source))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
