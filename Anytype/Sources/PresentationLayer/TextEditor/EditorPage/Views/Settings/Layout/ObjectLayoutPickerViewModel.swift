@@ -20,11 +20,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        detailsService.update(
-            details: [
-                .layout: DetailsEntry(value: layout)
-            ]
-        )
+        detailsService.update(details: [.layout(layout)])
     }
     
 }

@@ -45,8 +45,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?  {
-        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+    func syncSetDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?  {
+        let middlewareDetails = ObjectRawDetailsConverter.convertObjectRawDetails(details) 
         let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
             details: middlewareDetails
