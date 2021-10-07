@@ -614,6 +614,10 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.previousIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.previousIds, fieldNumber: 1)
     }
@@ -623,9 +627,9 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if !self.content.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.content, fieldNumber: 3)
     }
-    if let v = self._snapshot {
+    try { if let v = self._snapshot {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }
+    } }()
     if !self.previousMetaIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.previousMetaIds, fieldNumber: 5)
     }
@@ -674,12 +678,16 @@ extension Anytype_Change.Snapshot: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.logHeads.isEmpty {
       try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.logHeads, fieldNumber: 1)
     }
-    if let v = self._data {
+    try { if let v = self._data {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     if !self.fileKeys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.fileKeys, fieldNumber: 3)
     }
@@ -919,8 +927,9 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every case branch when no optimizations are
-    // enabled. https://github.com/apple/swift-protobuf/issues/1034
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     switch self.value {
     case .blockCreate?: try {
       guard case .blockCreate(let v)? = self.value else { preconditionFailure() }
@@ -1199,12 +1208,16 @@ extension Anytype_Change.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
-    if let v = self._value {
+    try { if let v = self._value {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1267,9 +1280,13 @@ extension Anytype_Change.RelationAdd: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._relation {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._relation {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1368,12 +1385,13 @@ extension Anytype_Change.RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every case branch when no optimizations are
-    // enabled. https://github.com/apple/swift-protobuf/issues/1034
     switch self.value {
     case .format?: try {
       guard case .format(let v)? = self.value else { preconditionFailure() }

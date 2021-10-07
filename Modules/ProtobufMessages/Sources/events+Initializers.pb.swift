@@ -136,7 +136,7 @@ extension Anytype_Event.Block.Dataview.RelationSet {
 }
 
 extension Anytype_Event.Block.Dataview.SourceSet {
-  public init(id: String, source: String) {
+  public init(id: String, source: [String]) {
     self.id = id
     self.source = source
   }
@@ -739,6 +739,12 @@ extension Anytype_Event.Object.Relations.Set {
   public init(id: String, relations: [Anytype_Model_Relation]) {
     self.id = id
     self.relations = relations
+  }
+}
+
+extension Anytype_Event.Object.Remove {
+  public init(ids: [String]) {
+    self.ids = ids
   }
 }
 

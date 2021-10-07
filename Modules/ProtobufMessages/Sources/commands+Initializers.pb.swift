@@ -259,10 +259,10 @@ extension Anytype_Rpc.Block.CreatePage.Response.Error {
 }
 
 extension Anytype_Rpc.Block.CreateSet.Request {
-  public init(contextID: String, targetID: String, objectTypeURL: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) {
+  public init(contextID: String, targetID: String, source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) {
     self.contextID = contextID
     self.targetID = targetID
-    self.objectTypeURL = objectTypeURL
+    self.source = source
     self.details = details
     self.position = position
   }
@@ -2354,6 +2354,25 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Object.AddWithShareLink.Request {
+  public init(link: String) {
+    self.link = link
+  }
+}
+
+extension Anytype_Rpc.Object.AddWithShareLink.Response {
+  public init(error: Anytype_Rpc.Object.AddWithShareLink.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Object.AddWithShareLink.Response.Error {
+  public init(code: Anytype_Rpc.Object.AddWithShareLink.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Object.FeaturedRelation.Add.Request {
   public init(contextID: String, relations: [String]) {
     self.contextID = contextID
@@ -2600,7 +2619,7 @@ extension Anytype_Rpc.Object.RelationUpdate.Response.Error {
 extension Anytype_Rpc.Object.Search.Request {
   public init(
     filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, offset: Int32, limit: Int32, objectTypeFilter: [String],
-    keys: [String]
+    keys: [String], ignoreWorkspace: Bool
   ) {
     self.filters = filters
     self.sorts = sorts
@@ -2609,6 +2628,7 @@ extension Anytype_Rpc.Object.Search.Request {
     self.limit = limit
     self.objectTypeFilter = objectTypeFilter
     self.keys = keys
+    self.ignoreWorkspace = ignoreWorkspace
   }
 }
 
@@ -2684,6 +2704,47 @@ extension Anytype_Rpc.Object.SetLayout.Response {
 
 extension Anytype_Rpc.Object.SetLayout.Response.Error {
   public init(code: Anytype_Rpc.Object.SetLayout.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.ShareByLink.Request {
+  public init(objectID: String) {
+    self.objectID = objectID
+  }
+}
+
+extension Anytype_Rpc.Object.ShareByLink.Response {
+  public init(link: String, error: Anytype_Rpc.Object.ShareByLink.Response.Error) {
+    self.link = link
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Object.ShareByLink.Response.Error {
+  public init(code: Anytype_Rpc.Object.ShareByLink.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.ToSet.Request {
+  public init(contextID: String, source: [String]) {
+    self.contextID = contextID
+    self.source = source
+  }
+}
+
+extension Anytype_Rpc.Object.ToSet.Response {
+  public init(error: Anytype_Rpc.Object.ToSet.Response.Error, setID: String) {
+    self.error = error
+    self.setID = setID
+  }
+}
+
+extension Anytype_Rpc.Object.ToSet.Response.Error {
+  public init(code: Anytype_Rpc.Object.ToSet.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2867,8 +2928,8 @@ extension Anytype_Rpc.Process.Cancel.Response.Error {
 }
 
 extension Anytype_Rpc.Set.Create.Request {
-  public init(objectTypeURL: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) {
-    self.objectTypeURL = objectTypeURL
+  public init(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) {
+    self.source = source
     self.details = details
     self.templateID = templateID
   }
@@ -2997,6 +3058,39 @@ extension Anytype_Rpc.Wallet.Recover.Response {
 
 extension Anytype_Rpc.Wallet.Recover.Response.Error {
   public init(code: Anytype_Rpc.Wallet.Recover.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Workspace.Create.Response {
+  public init(error: Anytype_Rpc.Workspace.Create.Response.Error, workspaceID: String) {
+    self.error = error
+    self.workspaceID = workspaceID
+  }
+}
+
+extension Anytype_Rpc.Workspace.Create.Response.Error {
+  public init(code: Anytype_Rpc.Workspace.Create.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Workspace.Select.Request {
+  public init(workspaceID: String) {
+    self.workspaceID = workspaceID
+  }
+}
+
+extension Anytype_Rpc.Workspace.Select.Response {
+  public init(error: Anytype_Rpc.Workspace.Select.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Workspace.Select.Response.Error {
+  public init(code: Anytype_Rpc.Workspace.Select.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
