@@ -29,7 +29,7 @@ struct BlockInformationCreator {
         let color = newData.hasColor ? newData.color.value : oldText.color?.rawValue
         let text = newData.hasText ? newData.text.value : oldText.text
         let checked = newData.hasChecked ? newData.checked.value : oldText.checked
-        let style = newData.hasStyle ? newData.style.value : BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
+        let style = newData.hasStyle ? newData.style.value : oldText.contentType.asMiddleware
         let marks = buildMarks(newData: newData, oldText: oldText)
         
         let middleContent = Anytype_Model_Block.Content.Text(
@@ -75,7 +75,7 @@ struct BlockInformationCreator {
         // Workaroung: Some font could set bold style to attributed string
         // So if header or title style has font that apply bold we remove it
         // We need it if change style from subheading to text
-        let oldStyle = BlockTextContentTypeConverter.asMiddleware(oldText.contentType)
+        let oldStyle = oldText.contentType.asMiddleware
         if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
             marks.marks.removeAll { mark in
                 mark.type == .bold

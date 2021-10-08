@@ -33,11 +33,12 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: TextStyle) -> AnyPublisher<ResponseEvent, Error> {
-        let style = BlockTextContentTypeConverter.asMiddleware(style)
-        return setTextStyle(contextID: contextID, blockIds: blockIds, style: style)
-    }
-    private func setTextStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.Text.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        Anytype_Rpc.BlockList.Set.Text.Style.Service
+            .invoke(contextID: contextID, blockIds: blockIds, style: style.asMiddleware)
+            .map(\.event)
+            .map(ResponseEvent.init(_:))
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
     }
 
     func setBackgroundColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ResponseEvent, Error> {

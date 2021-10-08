@@ -29,17 +29,18 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: SetStyle
     func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ResponseEvent, Error> {
-        let style = BlockTextContentTypeConverter.asMiddleware(style)
-        return setStyle(contextID: contextID, blockID: blockID, style: style)
-    }
-
-    private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
+        Anytype_Rpc.Block.Set.Text.Style.Service
+            .invoke(contextID: contextID, blockID: blockID, style: style.asMiddleware)
+            .map(\.event)
+            .map(ResponseEvent.init(_:))
+            .subscribe(on: DispatchQueue.global())
             .receiveOnMain()
             .handleEvents(receiveSubscription: { _ in
                 // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextStyle,
-                                              withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)])
+                Amplitude.instance().logEvent(
+                    AmplitudeEventsName.blockSetTextStyle,
+                    withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)]
+                )
             })
             .eraseToAnyPublisher()
     }
@@ -59,11 +60,10 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         style: Style,
         mode: Anytype_Rpc.Block.Split.Request.Mode
     ) -> SplitSuccess? {
-        let style = BlockTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = RangeConverter.asMiddleware(range)
 
         let success = Anytype_Rpc.Block.Split.Service.invoke(
-            contextID: contextId, blockID: blockId, range: middlewareRange, style: style, mode: mode)
+            contextID: contextId, blockID: blockId, range: middlewareRange, style: style.asMiddleware, mode: mode)
             .map { SplitSuccess($0) }
             .getValue()
         
