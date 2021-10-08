@@ -68,7 +68,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         let position = oldText.count
 
         let content = info.content
-        guard case let .text(type) = content else {
+        guard case let .text(blockText) = content else {
             anytypeAssertionFailure("We have unsupported content type: \(content)")
             return
         }
@@ -76,37 +76,30 @@ final class BlockActionService: BlockActionServiceProtocol {
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
         
-        
         // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        
-        
-        
-        textService.setText(
-            contextID: documentId,
-            blockID: blockId,
-            middlewareString: MiddlewareString(text: type.text, marks: type.marks)
-        )
-            .flatMap { [weak self] value -> AnyPublisher<SplitSuccess, Error> in
-                return self?.textService.split(
-                    contextID: documentId,
-                    blockID: blockId,
-                    range: range,
-                    style: newBlockContentType,
-                    mode: mode
-                ) ?? .empty()
-            }
-            .sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
-                let allEvents = PackOfEvents(
-                    middlewareEvents: serviceSuccess.responseEvent.messages,
-                    localEvents: [
-                        .setFocus(blockId: serviceSuccess.blockId, position: .beginning)
-                    ]
-               )
-                self?.didReceiveEvent(allEvents)
-            }
-            .store(in: &self.subscriptions)
+        guard textService.setText(
+            contextId: documentId,
+            blockId: blockId,
+            middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
+        ).isNotNil else { return }
+            
+        guard let splitSuccess = textService.split(
+            contextId: documentId,
+            blockId: blockId,
+            range: range,
+            style: newBlockContentType,
+            mode: mode
+        ) else { return }
+            
+        let allEvents = PackOfEvents(
+            middlewareEvents: splitSuccess.responseEvent.messages,
+            localEvents: [
+                .setFocus(blockId: splitSuccess.blockId, position: .beginning)
+            ]
+       )
+        didReceiveEvent(allEvents)
     }
 
     func duplicate(blockId: BlockId) {

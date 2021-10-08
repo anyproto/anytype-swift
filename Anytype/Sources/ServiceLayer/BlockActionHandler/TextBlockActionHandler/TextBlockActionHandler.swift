@@ -6,8 +6,9 @@ final class TextBlockActionHandler {
     typealias Completion = (PackOfEvents) -> Void
 
     private let service: BlockActionServiceProtocol
-    private var textService: BlockActionsServiceText = .init()
+    private let textService = BlockActionsServiceText()
     private let contextId: String
+    
     private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
 
     init(
@@ -49,7 +50,7 @@ final class TextBlockActionHandler {
         let blockId = blockModel.information.id
         blockModel.information.content = .text(textContentType)
 
-        textService.setText(contextID: contextId, blockID: blockId, middlewareString: middlewareString)
+        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
 
         completion?(
             PackOfEvents(localEvent:
