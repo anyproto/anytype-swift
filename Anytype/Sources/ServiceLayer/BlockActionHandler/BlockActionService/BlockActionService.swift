@@ -18,7 +18,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let pageService = ObjectActionsService()
     private let textService = TextService()
     private let listService = BlockListService()
-    private let bookmarkService = BlockActionsServiceBookmark()
+    private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
 
     private var didReceiveEvent: (PackOfEvents) -> () = { _  in }
@@ -142,11 +142,11 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let blocksIds = [blockId]
 
-        pageService.convertChildrenToPages(contextID: documentId, blocksIds: blocksIds, objectType: objectType)
-            .sinkWithDefaultCompletion("blocksActions.convertChildrenToPages") { blockIds in
-                completion(blockIds.first)
-            }
-            .store(in: &self.subscriptions)
+        guard let pageIds = pageService.convertChildrenToPages(contextID: documentId, blocksIds: blocksIds, objectType: objectType) else {
+            return
+        }
+        
+        completion(pageIds.first)
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
@@ -209,13 +209,11 @@ extension BlockActionService {
 
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
-        self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
-            .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] serviceSuccess in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
-
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
-        }.store(in: &self.subscriptions)
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
+        guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
+            return
+        }
+        didReceiveEvent(response.defaultEvent)
     }
 }
 
@@ -227,13 +225,10 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        let blockIds = [blockId]
-
-        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color)
-            .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] serviceSuccess in
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
-            }
-            .store(in: &self.subscriptions)
+        guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
+            return
+        }
+        didReceiveEvent(response.defaultEvent)
     }
 }
 
