@@ -2,8 +2,6 @@ import AnytypeCore
 import BlocksModels
 
 extension UserDefaultsConfig {
-    @UserDefault("UserData.LastOpenedPageId", defaultValue: nil)
-    static var lastOpenedPageId: String?
     
     // MARK: - Selected Tab
     @UserDefault("UserData.SelectedTab", defaultValue: nil)
@@ -16,5 +14,27 @@ extension UserDefaultsConfig {
         set {
             _selectedTab = newValue.rawValue
         }
+    }
+    
+    // MARK: - Opened Page id
+    @UserDefault("UserData.LastOpenedPageId", defaultValue: nil)
+    private static var _lastOpenedPageId: String?
+    
+    private static var pageIdFromLastSessionInitialized = false
+    private static var _pageIdFromLastSession: String?
+    static var pageIdFromLastSession: BlockId? {
+        initializePageIdFromLastSession()
+        return _pageIdFromLastSession
+    }
+    
+    static func storeOpenedPageId(_ pageId: BlockId?) {
+        initializePageIdFromLastSession()
+        _lastOpenedPageId = pageId
+    }
+    
+    private static func initializePageIdFromLastSession() {
+        guard !pageIdFromLastSessionInitialized else { return }
+        _pageIdFromLastSession = _lastOpenedPageId
+        pageIdFromLastSessionInitialized = true
     }
 }

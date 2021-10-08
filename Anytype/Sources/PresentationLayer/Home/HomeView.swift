@@ -19,10 +19,7 @@ struct HomeView: View {
 
                 viewModel.viewLoaded()
                 
-                // Hack https://app.clickup.com/t/1gbf9kw
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    UserDefaultsConfig.lastOpenedPageId = nil
-                }
+                UserDefaultsConfig.storeOpenedPageId(nil)
             }
     }
     

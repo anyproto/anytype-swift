@@ -105,7 +105,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.lastOpenedPageId = viewController.viewModel.documentId
+        UserDefaultsConfig.storeOpenedPageId(viewController.viewModel.documentId)
         
         let title = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.name
         let subtitle = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.description
