@@ -250,7 +250,7 @@ final class MiddlewareEventConverter {
                 case let .divider(value):
                     var value = value
                                         
-                    if let style = BlocksModelsParserOtherDividerStyleConverter.asModel(newUpdate.style.value) {
+                    if let style = BlockDivider.Style(newUpdate.style.value) {
                         value.style = style
                     }
                     
