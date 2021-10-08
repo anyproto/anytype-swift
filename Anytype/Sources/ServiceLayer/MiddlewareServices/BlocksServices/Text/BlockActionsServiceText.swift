@@ -17,17 +17,14 @@ private extension BlockActionsServiceText {
 final class BlockActionsServiceText: BlockActionsServiceTextProtocol {    
 
     @discardableResult
-    func setText(contextID: String, blockID: String, middlewareString: MiddlewareString) -> AnyPublisher<Void, Error> {        
-        return Anytype_Rpc.Block.Set.Text.Text.Service
-            .invoke(contextID: contextID, blockID: blockID, text: middlewareString.text, marks: middlewareString.marks, queue: .global())
-            .successToVoid()
-            .handleEvents(receiveSubscription: { _ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
-            })
-            .subscribe(on: DispatchQueue.global())
-            .receiveOnMain()
-            .eraseToAnyPublisher()
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) -> ResponseEvent? {
+        let result = Anytype_Rpc.Block.Set.Text.Text.Service
+            .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
+            .map { ResponseEvent($0.event) }
+            .getValue()
+        
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
+        return result
     }
     
     // MARK: SetStyle
@@ -56,30 +53,22 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             .eraseToAnyPublisher()
     }
     
-    // MARK: Split
-    func split(contextID: BlockId,
-               blockID: BlockId, range: NSRange,
-               style: Style,
-               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error> {
+    func split(
+        contextId: BlockId,
+        blockId: BlockId, range: NSRange,
+        style: Style,
+        mode: Anytype_Rpc.Block.Split.Request.Mode
+    ) -> SplitSuccess? {
         let style = BlockTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = RangeConverter.asMiddleware(range)
 
-        return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: mode)
-            .handleEvents(receiveSubscription: { _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
-        }).eraseToAnyPublisher()
-    }
-
-    private func split(contextID: String, blockID: String,
-                       range: Anytype_Model_Range,
-                       style: Anytype_Model_Block.Content.Text.Style,
-                       mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error> {
-        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode, queue: .global())
-            .map(SplitSuccess.init(_:))
-            .subscribe(on: DispatchQueue.global())
-            .receiveOnMain()
-            .eraseToAnyPublisher()
+        let success = Anytype_Rpc.Block.Split.Service.invoke(
+            contextID: contextId, blockID: blockId, range: middlewareRange, style: style, mode: mode)
+            .map { SplitSuccess($0) }
+            .getValue()
+        
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
+        return success
     }
 
     // MARK: Merge
