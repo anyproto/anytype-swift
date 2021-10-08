@@ -83,9 +83,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     @discardableResult
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> AnyPublisher<Void, Error> {
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> ResponseEvent? {
         Anytype_Rpc.BlockList.Move.Service.invoke(
-            contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId, dropTargetID: dropPositionblockId, position: position
-        ).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+            contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
+            dropTargetID: dropPositionblockId, position: position
+        )
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
 }

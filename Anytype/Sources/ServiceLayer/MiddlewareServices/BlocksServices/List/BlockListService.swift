@@ -39,15 +39,12 @@ class BlockListService: BlockListServiceProtocol {
             .getValue()
     }
 
-    func setAlign(contextId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
-            .map(\.event).map(ResponseEvent.init(_:))
-            .subscribe(on: DispatchQueue.global())
-            .handleEvents(receiveRequest:  {_ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
-            })
-            .eraseToAnyPublisher()
+    func setAlign(contextId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) -> ResponseEvent? {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
+        return Anytype_Rpc.BlockList.Set.Align.Service
+            .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
 
     func setDivStyle(contextId: BlockId, blockIds: [BlockId], style: BlockDivider.Style) -> ResponseEvent? {
@@ -58,26 +55,21 @@ class BlockListService: BlockListServiceProtocol {
             .getValue()
     }
     
-    func setPageIsArchived(contextId: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ResponseEvent, Error> {
-        anytypeAssertionFailure("Not implemented: setPageIsArchived")
-        // TODO: Implement it correctly.
-        return .empty()
-        //            Anytype_Rpc.BlockList.Set.Page.IsArchived.Service.invoke(contextID: contextID, blockIds: blockIds, isArchived: isArchived).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-    }
-    
-    func delete(blockIds: [String]) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Delete.Page.Service.invoke(blockIds: blockIds).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+    func delete(blockIds: [String]) -> ResponseEvent? {
+        Anytype_Rpc.BlockList.Delete.Page.Service.invoke(blockIds: blockIds)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
     
     func moveTo(contextId: BlockId, blockId: BlockId, targetId: BlockId) -> ResponseEvent? {
-        let result = Anytype_Rpc.BlockList.Move.Service.invoke(
+        Anytype_Rpc.BlockList.Move.Service.invoke(
             contextID: contextId,
             blockIds: [blockId],
             targetContextID: targetId,
             dropTargetID: "",
             position: .bottom
         )
-        
-        return (try? result.get()).flatMap { ResponseEvent($0.event) }
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
 }
