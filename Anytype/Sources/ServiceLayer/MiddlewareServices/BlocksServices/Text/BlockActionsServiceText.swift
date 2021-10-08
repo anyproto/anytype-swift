@@ -60,15 +60,11 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         style: Style,
         mode: Anytype_Rpc.Block.Split.Request.Mode
     ) -> SplitSuccess? {
-        let middlewareRange = RangeConverter.asMiddleware(range)
-
-        let success = Anytype_Rpc.Block.Split.Service.invoke(
-            contextID: contextId, blockID: blockId, range: middlewareRange, style: style.asMiddleware, mode: mode)
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
+        return Anytype_Rpc.Block.Split.Service.invoke(
+            contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
             .map { SplitSuccess($0) }
             .getValue()
-        
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
-        return success
     }
 
     // MARK: Merge
