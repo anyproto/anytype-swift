@@ -548,6 +548,10 @@
 		C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */; };
 		C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF0E270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift */; };
 		C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */; };
+		C948A8FF270DD8850073F029 /* AttachmentRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948A8FE270DD8850073F029 /* AttachmentRouter.swift */; };
+		C948A904270E04AF0073F029 /* ImageViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948A903270E04AF0073F029 /* ImageViewerView.swift */; };
+		C948A918271033110073F029 /* ImageViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948A917271033110073F029 /* ImageViewerViewModel.swift */; };
+		C948A91A271033640073F029 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948A919271033640073F029 /* ZoomableScrollView.swift */; };
 		C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */; };
 		C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A8427049D0200D86463 /* AlertsFactory.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
@@ -1227,6 +1231,10 @@
 		C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogViewModel.swift; sourceTree = "<group>"; };
 		C91AFF0E270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerEventsMarkupHelper.swift; sourceTree = "<group>"; };
 		C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		C948A8FE270DD8850073F029 /* AttachmentRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentRouter.swift; sourceTree = "<group>"; };
+		C948A903270E04AF0073F029 /* ImageViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerView.swift; sourceTree = "<group>"; };
+		C948A917271033110073F029 /* ImageViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewModel.swift; sourceTree = "<group>"; };
+		C948A919271033640073F029 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionVerifier.swift; sourceTree = "<group>"; };
 		C9C49A8427049D0200D86463 /* AlertsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsFactory.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
@@ -1928,9 +1936,11 @@
 		0A0965BF25BEF5B000C004BD /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				C948A913271032BE0073F029 /* ImageViewer */,
 				3D93D568270C9E3400614E29 /* Controllers */,
 				53D6EE43265E4D9700C47263 /* EditorRouter.swift */,
 				0A0965C125BEF5B000C004BD /* FileRouter.swift */,
+				C948A8FE270DD8850073F029 /* AttachmentRouter.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -3908,6 +3918,16 @@
 			path = EventLog;
 			sourceTree = "<group>";
 		};
+		C948A913271032BE0073F029 /* ImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				C948A903270E04AF0073F029 /* ImageViewerView.swift */,
+				C948A919271033640073F029 /* ZoomableScrollView.swift */,
+				C948A917271033110073F029 /* ImageViewerViewModel.swift */,
+			);
+			path = ImageViewer;
+			sourceTree = "<group>";
+		};
 		C9C49A802704991100D86463 /* Permissions */ = {
 			isa = PBXGroup;
 			children = (
@@ -4376,6 +4396,7 @@
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
 				3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
+				C948A8FF270DD8850073F029 /* AttachmentRouter.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
@@ -4395,6 +4416,7 @@
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				EA43DD6626B1A28500E66878 /* MarkupState.swift in Sources */,
 				12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */,
+				C948A904270E04AF0073F029 /* ImageViewerView.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
 				3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */,
@@ -4486,6 +4508,7 @@
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */,
+				C948A918271033110073F029 /* ImageViewerViewModel.swift in Sources */,
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
@@ -4512,6 +4535,7 @@
 				125B6ED226F235F400BCD7D6 /* SlashMenuViewModel.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
 				3D5A41812704543300F1F6A1 /* SearchCellDataMock.swift in Sources */,
+				C948A91A271033640073F029 /* ZoomableScrollView.swift in Sources */,
 				530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */,
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
 				C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */,

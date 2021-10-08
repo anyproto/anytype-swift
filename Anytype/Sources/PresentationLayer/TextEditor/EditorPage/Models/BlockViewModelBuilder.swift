@@ -8,6 +8,7 @@ final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let editorActionHandler: EditorActionHandlerProtocol
     private let router: EditorRouterProtocol
+    private let attachmentRouter: AttachmentRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let accessorySwitcher: AccessoryViewSwitcherProtocol
@@ -16,6 +17,7 @@ final class BlockViewModelBuilder {
         document: BaseDocumentProtocol,
         editorActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
+        attachmentRouter: AttachmentRouterProtocol,
         delegate: BlockDelegate,
         accessorySwitcher: AccessoryViewSwitcherProtocol,
         detailsLoader: DetailsLoader
@@ -23,6 +25,7 @@ final class BlockViewModelBuilder {
         self.document = document
         self.editorActionHandler = editorActionHandler
         self.router = router
+        self.attachmentRouter = attachmentRouter
         self.delegate = delegate
         self.contextualMenuHandler = DefaultContextualMenuHandler(
             handler: editorActionHandler,
@@ -110,7 +113,7 @@ final class BlockViewModelBuilder {
             case .none:
                 return UnknownLabelViewModel(information: block.information)
             case .image:
-                return BlockImageViewModel(
+                let viewModel = BlockImageViewModel(
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
@@ -119,6 +122,10 @@ final class BlockViewModelBuilder {
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     }
                 )
+
+                viewModel?.onImageSelection = attachmentRouter.openImage
+
+                return viewModel
             case .video:
                 return VideoBlockViewModel(
                     indentationLevel: block.indentationLevel,
