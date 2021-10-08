@@ -495,8 +495,6 @@
 		53178879260A29FC004F9F68 /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53178878260A29FC004F9F68 /* Inter.ttf */; };
 		5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */; };
 		5333421C262E249100238121 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5333421B262E249100238121 /* FloatingPanel */; };
-		533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */; };
-		5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338568626397EB9005A06A9 /* SegmentItemView.swift */; };
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
 		533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED8B26CC421F0018E33C /* SwiftUIFont.swift */; };
@@ -1177,8 +1175,6 @@
 		531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewDiffableDataSourceExtension.swift; sourceTree = "<group>"; };
 		53178878260A29FC004F9F68 /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
-		533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentControl.swift; sourceTree = "<group>"; };
-		5338568626397EB9005A06A9 /* SegmentItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItemView.swift; sourceTree = "<group>"; };
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		533AED8B26CC421F0018E33C /* SwiftUIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIFont.swift; sourceTree = "<group>"; };
@@ -2907,7 +2903,6 @@
 				1280E205265C17CC00E5AEEE /* Utils */,
 				12DE403E264AE418007B5074 /* Layout */,
 				12DE4038264ACF83007B5074 /* View protocols */,
-				533856812638CB6F005A06A9 /* SegmentControls */,
 				531629312632BD0A000D6780 /* BottomSheets */,
 				3D932D5026317EFB00C7D1EA /* Pickers */,
 				3D07ECE6261B733C00C007E2 /* Extensions */,
@@ -3712,15 +3707,6 @@
 			path = TextStyleView;
 			sourceTree = "<group>";
 		};
-		533856812638CB6F005A06A9 /* SegmentControls */ = {
-			isa = PBXGroup;
-			children = (
-				533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */,
-				5338568626397EB9005A06A9 /* SegmentItemView.swift */,
-			);
-			path = SegmentControls;
-			sourceTree = "<group>";
-		};
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4490,7 +4476,6 @@
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */,
-				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
@@ -4787,7 +4772,6 @@
 				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
 				3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */,
-				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				125B6EBB26F235F400BCD7D6 /* AccessoryViewSwitcher.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
