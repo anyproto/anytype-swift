@@ -45,16 +45,12 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Private methods
 
     func updateArchiveTab() {
-        searchService.searchArchivedPages { [weak self] searchResults in
-            guard let self = self else { return }
-            self.archiveCellData = self.cellDataBuilder.buildCellData(searchResults)
-        }
+        guard let searchResults = searchService.searchArchivedPages() else { return }
+        archiveCellData = cellDataBuilder.buildCellData(searchResults)
     }
     func updateHistoryTab() {
-        searchService.searchHistoryPages { [weak self] searchResults in
-            guard let self = self else { return }
-            self.historyCellData = self.cellDataBuilder.buildCellData(searchResults)
-        }
+        guard let searchResults = searchService.searchHistoryPages() else { return }
+        historyCellData = cellDataBuilder.buildCellData(searchResults)
     }
     
     private func fetchDashboardData() {        

@@ -3,16 +3,16 @@ import Combine
 import BlocksModels
 
 protocol SearchServiceProtocol {
-    func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ())
-    func searchArchivedPages(completion: @escaping ([DetailsDataProtocol]) -> ())
-    func searchHistoryPages(completion: @escaping ([DetailsDataProtocol]) -> ())
-    func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ())
+    func search(text: String) -> [DetailsDataProtocol]?
+    func searchArchivedPages() -> [DetailsDataProtocol]?
+    func searchHistoryPages() -> [DetailsDataProtocol]?
+    func searchSets() -> [DetailsDataProtocol]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
-    func search(text: String, completion: @escaping ([DetailsDataProtocol]) -> ()) {
+    func search(text: String) -> [DetailsDataProtocol]? {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
@@ -24,19 +24,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
-        makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: text,
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: [],
-            completion: completion
+        return makeRequest(
+            filters: filters, sorts: [sort], fullText: text,
+            offset: 0, limit: 100, objectTypeFilter: [], keys: []
         )
     }
     
-    func searchArchivedPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
+    func searchArchivedPages() -> [DetailsDataProtocol]? {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastModifiedDate,
             type: .desc
@@ -48,19 +42,18 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
-        makeRequest(
+        return makeRequest(
             filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 100,
             objectTypeFilter: [],
-            keys: [],
-            completion: completion
+            keys: []
         )
     }
     
-    func searchHistoryPages(completion: @escaping ([DetailsDataProtocol]) -> ()) {
+    func searchHistoryPages() -> [DetailsDataProtocol]? {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
@@ -71,19 +64,18 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
-        makeRequest(
+        return makeRequest(
             filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 30,
             objectTypeFilter: [],
-            keys: [],
-            completion: completion
+            keys: []
         )
     }
     
-    func searchSets(completion: @escaping ([DetailsDataProtocol]) -> ()) {
+    func searchSets() -> [DetailsDataProtocol]? {
         let sort = SearchHelper.sort(
             relation: DetailsKind.lastOpenedDate,
             type: .desc
@@ -94,15 +86,14 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
         ]
         
-        makeRequest(
+        return makeRequest(
             filters: filters,
             sorts: [sort],
             fullText: "",
             offset: 0,
             limit: 100,
             objectTypeFilter: [],
-            keys: [],
-            completion: completion
+            keys: []
         )
     }
     
@@ -113,10 +104,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         offset: Int32,
         limit: Int32,
         objectTypeFilter: [String],
-        keys: [String],
-        completion: @escaping ([DetailsDataProtocol]) -> ()
-    ) {
-        Anytype_Rpc.Object.Search.Service.invoke(
+        keys: [String]
+    ) -> [DetailsDataProtocol]? {
+        guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
             fullText: fullText,
@@ -124,26 +114,21 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             limit: limit,
             objectTypeFilter: objectTypeFilter,
             keys: keys,
-            ignoreWorkspace: false,
-            queue: .global()
-        )
-        .receiveOnMain()
-        .sinkWithDefaultCompletion("Search") { response in
+            ignoreWorkspace: false
+        ).getValue() else { return nil }
             
-            let details: [DetailsData] = response.records.compactMap {
-                let rawDetails = DetailsEntryConverter.convert(details: $0.fields)
-                return DetailsData(rawDetails: rawDetails)
-            }
-            
-            details.forEach { detail in
-                DetailsContainer.shared.add(
-                    model: LegacyDetailsModel(detailsData: detail),
-                    id: detail.blockId
-                )
-            }
-            
-            completion(details)
+        let details: [DetailsData] = response.records.compactMap {
+            let rawDetails = DetailsEntryConverter.convert(details: $0.fields)
+            return DetailsData(rawDetails: rawDetails)
         }
-        .store(in: &subscriptions)
+        
+        details.forEach { detail in
+            DetailsContainer.shared.add(
+                model: LegacyDetailsModel(detailsData: detail),
+                id: detail.blockId
+            )
+        }
+            
+        return details
     }
 }
