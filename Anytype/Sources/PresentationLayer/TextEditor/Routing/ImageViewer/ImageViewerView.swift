@@ -30,56 +30,74 @@ struct ImageViewerView: View {
                 TabView(selection: $viewModel.selectedImageId) {
                     ForEach(viewModel.images, id: \.self) { imageDescriptor in
                         ZoomableScrollView {
-                            Image(uiImage: imageDescriptor.image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .tag(imageDescriptor.id)
+                            imagePreviewView(imageDescriptor)
                         }
                         .offset(y: imageViewOffset)
-                        .gesture(
-                            dragGesture.onChanged({ value in
-                                imageViewOffset = value.translation.height
-
-                                let halfScreen = UIScreen.main.bounds.height / 2
-                                let progress = abs(imageViewOffset) / halfScreen
-                                opacity = willDismiss ? 0 : Double(1 - progress)
-                            }).onEnded({ value in
-                                withAnimation(.easeInOut) {
-                                    if abs(value.translation.height) > 250 {
-                                        willDismiss = true
-                                        dismiss()
-                                    } else {
-                                        opacity = 1
-                                        imageViewOffset = .zero
-                                    }
-                                }
-                            })
-                        )
+                        .gesture(imageDismissingGesture)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .automatic))
-
-                ShareButtonView(isSharePresented: $isSharePresented, opacity: $opacity)
+                shareButtonView
             }
         }
-        .sheet(
-            isPresented: $isSharePresented
-        ) {
+        .sheet(isPresented: $isSharePresented) {
             ActivityViewController(activityItems: [viewModel.selectedImage])
         }
+        .overlay(closeButton ,alignment: .topTrailing)
     }
-}
 
-private struct ShareButtonView: View {
-    @Binding var isSharePresented: Bool
-    @Binding var opacity: Double
 
-    var body: some View {
-        Divider()
-        Spacer()
-        Button(action: {
-            isSharePresented.toggle()
-        }) { Image(systemName: "square.and.arrow.up")}
-        .opacity(opacity)
+    private func imagePreviewView(_ image: ImageViewerViewModel.ImageDescriptor) -> some View {
+        Image(uiImage: image.image)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .tag(image.id)
+    }
+
+    private var closeButton: some View {
+        Button(action: { dismiss() }) {
+            Image(systemName: "xmark")
+                .foregroundColor(Color.white)
+                .padding()
+                .background(Color.buttonPrimary.opacity(0.6))
+                .clipShape(Circle())
+                .opacity(opacity)
+        }
+        .frame(width: 15, height: 15)
+        .padding(25)
+    }
+
+    private var shareButtonView: some View {
+        VStack {
+            Divider()
+            Button(action: {
+                isSharePresented.toggle()
+            }) {
+                Image(systemName: "square.and.arrow.up")
+                    .foregroundColor(Color.buttonPrimary)
+            }
+            .opacity(opacity)
+            .padding()
+        }
+    }
+
+    private var imageDismissingGesture: some Gesture {
+        dragGesture.onChanged({ value in
+            imageViewOffset = value.translation.height
+
+            let halfScreen = UIScreen.main.bounds.height / 2
+            let progress = abs(imageViewOffset) / halfScreen
+            opacity = willDismiss ? 0 : Double(1 - progress)
+        }).onEnded({ value in
+            withAnimation(.easeInOut) {
+                if abs(value.translation.height) > 250 {
+                    willDismiss = true
+                    dismiss()
+                } else {
+                    opacity = 1
+                    imageViewOffset = .zero
+                }
+            }
+        })
     }
 }
