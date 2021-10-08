@@ -6,12 +6,6 @@ import Amplitude
 import AnytypeCore
 import BlocksModels
 
-private extension BlockActionsServiceSingle {
-    enum PossibleError: Error {
-        case addActionBlockIsNotParsed
-    }
-}
-
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
     func open(contextId: BlockId, blockId: BlockId) -> ResponseEvent? {
@@ -25,55 +19,43 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> Result<ResponseEvent, Error> {
+    func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> ResponseEvent? {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
-            return .failure(PossibleError.addActionBlockIsNotParsed)
+            anytypeAssertionFailure("addActionBlockIsNotParsed")
+            return nil
         }
 
-        return action(contextID: contextID, targetID: targetID, block: blockInformation, position: position.asMiddleware)
-    }
-
-    private func action(
-        contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position
-    ) -> Result<ResponseEvent, Error> {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
-        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
+        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
             .map { ResponseEvent($0.event) }
-    }
-    
-    // TODO: Remove it or implement it. Unused.
-    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ResponseEvent, Error> {
-        anytypeAssertionFailure("method is not implemented")
-        return .empty()
-    }
-    
-    private func replace(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Replace.Service.invoke(contextID: contextID, blockID: blockID, block: block).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-    }
-    
-    func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds)
-            .map(\.event)
-            .map(ResponseEvent.init(_:))
-            .subscribe(on: DispatchQueue.global())
-            .handleEvents(receiveSubscription: { _ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
-            }).eraseToAnyPublisher()
+            .getValue()
     }
 
-    /// Duplicate block
-    func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ResponseEvent, Error> {
-        action(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position.asMiddleware)
+    func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> ResponseEvent? {
+        guard let block = BlockInformationConverter.convert(information: info) else {
+            anytypeAssertionFailure("replace action parsing error")
+            return nil
+        }
+        
+        return Anytype_Rpc.Block.Replace.Service
+            .invoke(contextID: contextId, blockID: blockId, block: block)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
     
-    private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
-            .handleEvents(receiveSubscription: { _ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
-            })
-            .eraseToAnyPublisher()
+    func delete(contextId: BlockId, blockIds: [BlockId]) -> ResponseEvent? {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
+        return Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
+            .map { ResponseEvent($0.event) }
+            .getValue()
+    }
+
+    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> ResponseEvent? {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
+        
+        return Anytype_Rpc.BlockList.Duplicate.Service
+            .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
 }

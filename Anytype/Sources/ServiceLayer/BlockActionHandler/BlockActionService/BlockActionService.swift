@@ -51,8 +51,8 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
-        let result = singleService.add(contextID: documentId, targetID: targetBlockId, info: info, position: position)
-        guard let response = try? result.get() else { return }
+        guard let response = singleService
+                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
         
         let event = shouldSetFocusOnUpdate ? response.addEvent : response.defaultEvent
         didReceiveEvent(event)
@@ -102,18 +102,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         didReceiveEvent(allEvents)
     }
 
-    func duplicate(blockId: BlockId) {
-        let blockIds: [String] = [blockId]
-        let position: BlockPosition = .bottom
+    func duplicate(blockId: BlockId) {        
+        guard let response = singleService
+                .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom) else {
+                    return
+                }
         
-        singleService.duplicate(
-            contextID: documentId,
-            targetID: blockId,
-            blockIds: blockIds,
-            position: position
-        ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
-            self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
-        }.store(in: &self.subscriptions)
+        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
     }
 
     func createPage(position: BlockPosition) {
@@ -163,22 +158,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockId: BlockId, completion: @escaping Conversion) {
-        let blockIds = [blockId]
-        singleService.delete(contextID: self.documentId, blockIds: blockIds)
-            .receiveOnMain()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: return
-                case let .failure(error):
-                    // It occurs if you press delete at the beginning of title block
-                    AnytypeLogger.create(.blockActionService).debug(
-                        "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
-                    )
-                }
-            }) { [weak self] value in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
-            }.store(in: &self.subscriptions)
+        guard let response = singleService.delete(contextId: documentId, blockIds: [blockId]) else {
+            return
+        }
+
+        didReceiveEvent(completion(response))
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
