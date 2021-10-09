@@ -7,37 +7,29 @@ import SwiftProtobuf
 import Amplitude
 import AnytypeCore
 
-extension BlockActionsServiceList {
-    enum PossibleError: Error {
-        case setTextStyleActionStyleConversionHasFailed
-        case setDividerStyleActionStyleConversionHasFailed
+class BlockListService: BlockListServiceProtocol {
+    func setBlockColor(contextId: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> ResponseEvent? {
+        Anytype_Rpc.BlockList.Set.Text.Color.Service
+            .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
-}
+    
+    func setFields(contextId: BlockId, fields: [BlockFields]) -> ResponseEvent? {
+        let middleFields = fields .map { $0.convertToMiddle() }
+        return Anytype_Rpc.BlockList.Set.Fields.Service
+            .invoke(contextID: contextId, blockFields: middleFields)
+            .map { ResponseEvent($0.event) }
+            .getValue()
+    }
 
-class BlockActionsServiceList: BlockActionsServiceListProtocol {
-    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ResponseEvent, Error> {
-        return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.rawValue)
+    func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: BlockText.Style) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.BlockList.Set.Text.Style.Service
+            .invoke(contextID: contextID, blockIds: blockIds, style: style.asMiddleware)
             .map(\.event)
             .map(ResponseEvent.init(_:))
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
-    }
-    
-    func setFields(contextID: BlockId, blockFields: [BlockFields]) -> AnyPublisher<ResponseEvent, Error> {
-        let middleFields = blockFields.map { $0.convertToMiddle() }
-        return setFields(contextID: contextID, blockFields: middleFields)
-    }
-
-    private func setFields(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.Fields.Service.invoke(contextID: contextID, blockFields: blockFields).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-    }
-
-    func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: TextStyle) -> AnyPublisher<ResponseEvent, Error> {
-        let style = BlockTextContentTypeConverter.asMiddleware(style)
-        return setTextStyle(contextID: contextID, blockIds: blockIds, style: style)
-    }
-    private func setTextStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.Text.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
 
     func setBackgroundColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ResponseEvent, Error> {
@@ -52,7 +44,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
             .eraseToAnyPublisher()
     }
 
-    func setAlign(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<ResponseEvent, Error> {
+    func setAlign(contextID: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) -> AnyPublisher<ResponseEvent, Error> {
         return setAlign(contextID: contextID, blockIds: blockIds, align: alignment.asMiddleware)
     }
 
@@ -65,18 +57,13 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
             .eraseToAnyPublisher()
     }
 
-    func setDivStyle(contextID: BlockId, blockIds: [BlockId], style: DividerStyle) -> AnyPublisher<ResponseEvent, Error> {
+    func setDivStyle(contextId: BlockId, blockIds: [BlockId], style: BlockDivider.Style) -> ResponseEvent? {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetDivStyle)
         let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(style)
-        return setDivStyle(contextID: contextID, blockIds: blockIds, style: style)
-    }
-
-    private func setDivStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.Div.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
-            .handleEvents(receiveRequest:  {_ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetDivStyle)
-            })
-            .eraseToAnyPublisher()
+        return Anytype_Rpc.BlockList.Set.Div.Style.Service
+            .invoke(contextID: contextId, blockIds: blockIds, style: style)
+            .map { ResponseEvent($0.event) }
+            .getValue()
     }
     
     func setPageIsArchived(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ResponseEvent, Error> {
