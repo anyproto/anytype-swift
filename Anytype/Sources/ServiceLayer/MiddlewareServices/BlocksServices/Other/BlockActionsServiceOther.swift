@@ -19,12 +19,6 @@ class BlockActionsServiceOther: BlockActionsServiceOtherProtocol {
     var setDividerStyle: SetDividerStyle = .init()
 }
 
-private extension BlockActionsServiceOther {
-    enum PossibleError: Error {
-        case setDividerStyleActionStyleConversionHasFailed
-    }
-}
-
 // MARK: - OtherBlockActionsService / Actions
 extension BlockActionsServiceOther {
     typealias Success = ResponseEvent

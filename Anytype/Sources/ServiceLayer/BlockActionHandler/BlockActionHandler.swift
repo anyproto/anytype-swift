@@ -9,7 +9,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private var subscriptions: [AnyCancellable] = []
     
     private let service: BlockActionServiceProtocol
-    private let listService = BlockActionsServiceList()
+    private let listService = BlockListService()
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
     
@@ -147,12 +147,11 @@ private extension BlockActionHandler {
     func setBlockColor(blockId: BlockId, color: BlockColor, completion: Completion?) {
         let blockIds = [blockId]
         
-        listService.setBlockColor(contextID: documentId, blockIds: blockIds, color: color.middleware)
-            .sinkWithDefaultCompletion("setBlockColor") { value in
-                let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
-                completion?(value)
-            }
-            .store(in: &self.subscriptions)
+        guard let response = listService.setBlockColor(contextId: documentId, blockIds: blockIds, color: color.middleware) else {
+            return
+        }
+        
+        completion?(PackOfEvents(middlewareEvents: response.messages, localEvents: []))
     }
     
     func setAlignment(
