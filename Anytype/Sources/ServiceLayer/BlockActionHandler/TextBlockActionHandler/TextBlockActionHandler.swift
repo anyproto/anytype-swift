@@ -6,7 +6,7 @@ final class TextBlockActionHandler {
     typealias Completion = (PackOfEvents) -> Void
 
     private let service: BlockActionServiceProtocol
-    private let textService = BlockActionsServiceText()
+    private let textService = TextService()
     private let contextId: String
     
     private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
