@@ -12,11 +12,13 @@ protocol BlockActionsServiceTextProtocol {
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ResponseEvent, Error>
     func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ResponseEvent, Error>
 
-    func split(contextID: BlockId,
-               blockID: BlockId,
-               range: NSRange,
-               style: Style,
-               mode: Anytype_Rpc.Block.Split.Request.Mode) -> AnyPublisher<SplitSuccess, Error>
+    func split(
+        contextId: BlockId,
+        blockId: BlockId,
+        range: NSRange,
+        style: Style,
+        mode: Anytype_Rpc.Block.Split.Request.Mode
+    ) -> SplitSuccess?
     
     /// Protocol for `SetTextColor` for text block.
     /// It is renamed intentionally.
@@ -41,14 +43,6 @@ protocol BlockActionsServiceTextProtocol {
     /// you will use this method.
     func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ResponseEvent, Error>
     
-    // MARK: - Actions Protocols
-    /// Protocol for `Set Text and Marks` for text block.
-    /// NOTE: It has two methods. One of them accept high-level storage `NSAttributedString`
-    /// It is necessary for us to have third part of communication between middleware.
-    /// We consume middleware marks and convert them to NSAttributedString.
-    /// Later, TextView update NSAttributedString and send updates back.
-    ///
     @discardableResult
-    func setText(contextID: BlockId, blockID: BlockId, middlewareString: MiddlewareString) -> AnyPublisher<Void, Error>
-    
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> ResponseEvent?    
 }

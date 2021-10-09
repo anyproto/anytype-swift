@@ -14,7 +14,7 @@ final class LoginStateService {
     
     func cleanStateAfterLogout() {
         try? seedService.removeSeed()
-        UserDefaultsConfig.usersIdKey = ""
+        UserDefaultsConfig.cleanStateAfterLogout()
         MiddlewareConfigurationService.shared.removeCacheConfiguration()
     }
 }

@@ -2,6 +2,11 @@ import AnytypeCore
 import BlocksModels
 
 extension UserDefaultsConfig {
+    static func cleanStateAfterLogout() {
+        usersIdKey = ""
+        _lastOpenedPageId = nil
+        _selectedTab = nil
+    }
     
     // MARK: - Selected Tab
     @UserDefault("UserData.SelectedTab", defaultValue: nil)
