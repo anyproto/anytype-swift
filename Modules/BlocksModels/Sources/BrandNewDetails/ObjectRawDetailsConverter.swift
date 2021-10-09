@@ -11,9 +11,9 @@ import SwiftProtobuf
 import AnytypeCore
 import ProtobufMessages
 
-enum ObjectRawDetailsConverter {
+public enum ObjectRawDetailsConverter {
     
-    func convertMiddlewareDetails(_ details: [String: Google_Protobuf_Value]) -> ObjectRawDetails {
+    public static func convertMiddlewareDetails(_ details: [String: Google_Protobuf_Value]) -> ObjectRawDetails {
         details.compactMap { key, value -> ObjectDetailsItem? in
             guard let itemKey = ObjectDetailsItemKey(rawValue: key) else {
                 return nil
@@ -81,7 +81,7 @@ enum ObjectRawDetailsConverter {
         }
     }
     
-    func convertObjectRawDetails(_ details: ObjectRawDetails) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+    public static func convertObjectRawDetails(_ details: ObjectRawDetails) -> [Anytype_Rpc.Block.Set.Details.Detail] {
         details.map {
             switch $0 {
             case .name(let string):
@@ -99,7 +99,7 @@ enum ObjectRawDetailsConverter {
             case .iconImageHash(let hash):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: ObjectDetailsItemKey.iconImageHash.rawValue,
-                    value: Google_Protobuf_Value(stringValue: hash.value)
+                    value: Google_Protobuf_Value(stringValue: hash?.value ?? "")
                 )
                 
             case .coverId(let string):

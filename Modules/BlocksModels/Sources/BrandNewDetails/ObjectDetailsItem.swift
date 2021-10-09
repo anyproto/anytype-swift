@@ -12,7 +12,7 @@ import AnytypeCore
 public enum ObjectDetailsItem {
     case name(String)
     case iconEmoji(String)
-    case iconImageHash(Hash)
+    case iconImageHash(Hash?)
     case coverId(String)
     case coverType(CoverType)
     case isArchived(Bool)

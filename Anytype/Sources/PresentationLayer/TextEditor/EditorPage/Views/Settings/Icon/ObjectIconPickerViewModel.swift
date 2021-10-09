@@ -43,8 +43,7 @@ extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
         detailsService.update(
             details: [
-                .iconEmoji: DetailsEntry(value: emojiUnicode),
-                .iconImage: DetailsEntry(value: "")
+                .iconEmoji(emojiUnicode), .iconImageHash(nil)
             ]
         )
     }
@@ -68,10 +67,7 @@ extension ObjectIconPickerViewModel {
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonRemoveEmoji)
         
         detailsService.update(
-            details: [
-                .iconEmoji: DetailsEntry(value: ""),
-                .iconImage: DetailsEntry(value: "")
-            ]
+            details: [.iconEmoji(""), .iconImageHash(nil)]
         )
     }
     
