@@ -23,7 +23,7 @@ final class ObjectDetailsService {
     }
     
     func update(details: ObjectRawDetails) {
-        let result = service.syncSetDetails(contextID: objectId, details: details)
+        let result = service.setDetails(contextID: objectId, details: details)
         
         guard let result = result else { return }
 

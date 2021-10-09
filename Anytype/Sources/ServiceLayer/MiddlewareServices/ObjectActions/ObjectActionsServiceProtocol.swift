@@ -26,11 +26,7 @@ protocol ObjectActionsServiceProtocol {
         objectType: String
     ) -> AnyPublisher<[BlockId], Error>
     
-    func syncSetDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?
-    /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-    func asyncSetDetails(
-        contextID: BlockId, details: RawDetailsData
-    ) -> AnyPublisher<ResponseEvent, Error>
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(

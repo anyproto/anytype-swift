@@ -45,7 +45,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func syncSetDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?  {
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?  {
         let middlewareDetails = ObjectRawDetailsConverter.convertObjectRawDetails(details) 
         let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
@@ -55,15 +55,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
         
         return result.getValue()
-    }
-    
-    func asyncSetDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {
-        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
-        
-        return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
-        }).eraseToAnyPublisher()
     }
     
     private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ResponseEvent, Error> {
