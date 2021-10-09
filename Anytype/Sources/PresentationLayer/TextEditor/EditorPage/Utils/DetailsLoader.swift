@@ -22,15 +22,16 @@ class DetailsLoader {
             return nil
         }
         
-        let details = detailsModel.currentDetails
-        subscriptions[blockId] = detailsModel.wholeDetailsPublisher.sink { [weak self] newDetails in
-            if details?.rawDetails != newDetails.rawDetails {
-                self?.eventProcessor.process(
-                    events: PackOfEvents(localEvent: .reload(blockId: blockId))
-                )
-            }
-        }
+        // TODO: - details. fix
+//        let details = detailsModel.
+//        subscriptions[blockId] = detailsModel.wholeDetailsPublisher.sink { [weak self] newDetails in
+//            if details?.rawDetails != newDetails.rawDetails {
+//                self?.eventProcessor.process(
+//                    events: PackOfEvents(localEvent: .reload(blockId: blockId))
+//                )
+//            }
+//        }
         
-        return details
+        return detailsModel
     }
 }

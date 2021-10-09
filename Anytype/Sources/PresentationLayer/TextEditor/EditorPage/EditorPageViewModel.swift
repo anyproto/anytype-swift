@@ -135,7 +135,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             guard let newModel = blockBuilder.build(
                     newRecord,
-                    details: document.defaultDetailsActiveModel.currentDetails,
+                    details: document.getDetails(id: blockId),
                     previousBlock: upperBlock
             )
             else {

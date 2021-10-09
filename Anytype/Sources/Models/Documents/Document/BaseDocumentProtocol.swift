@@ -9,7 +9,6 @@ struct BaseDocumentUpdateResult {
 
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
-    var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: UserSession? { get set }
     var rootActiveModel: BlockModelProtocol? { get }
     var rootModel: RootBlockContainer? { get }
@@ -21,5 +20,5 @@ protocol BaseDocumentProtocol: AnyObject {
     /// Return publisher that received event on blocks update
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }
     
-    func getDetails(id: BlockId) -> DetailsActiveModel?
+    func getDetails(id: BlockId) -> DetailsDataProtocol?
 }
