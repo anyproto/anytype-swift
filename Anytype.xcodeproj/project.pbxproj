@@ -74,7 +74,7 @@
 		0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* PackOfEvents.swift */; };
 		0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */; };
 		0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */; };
-		0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */; };
+		0A2ADCEA2497CFDC00FA135D /* TextServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE92497CFDC00FA135D /* TextServiceProtocol.swift */; };
 		0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */; };
 		0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D52247144F4008ADD86 /* CustomTextView.swift */; };
 		0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CEDF024A8DB5700D1DCBC /* NotificationEventListener.swift */; };
@@ -109,14 +109,14 @@
 		0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */; };
 		0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */; };
 		0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */; };
-		0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */; };
+		0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockListService Protocol.swift */; };
 		0ACFCCF9249C17DC002E0477 /* MiddlewareResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* MiddlewareResponse.swift */; };
 		0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */; };
 		0AD6B24A24CF5DC00097A841 /* BlockBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24924CF5DC00097A841 /* BlockBookmarkViewModel.swift */; };
 		0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */; };
 		0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */; };
-		0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */; };
-		0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694F25D5854700669F8C /* BlockActionsServiceList.swift */; };
+		0AD7694C25D57F2D00669F8C /* TextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694B25D57F2D00669F8C /* TextService.swift */; };
+		0AD7695025D5854700669F8C /* BlockListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694F25D5854700669F8C /* BlockListService.swift */; };
 		0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */; };
 		0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695525D58F1700669F8C /* BlockActionsServiceOther.swift */; };
 		0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */; };
@@ -566,7 +566,7 @@
 		EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */; };
 		EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE022613703B00DBA9FE /* MediaPickerContentType.swift */; };
 		EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */; };
-		EA2640CA26C3DDF6006071BD /* RangeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640C926C3DDF6006071BD /* RangeConverter.swift */; };
+		EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640C926C3DDF6006071BD /* NSRange+Middleware.swift */; };
 		EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */; };
@@ -766,7 +766,7 @@
 		0A2ADCDF2496921500FA135D /* PackOfEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackOfEvents.swift; sourceTree = "<group>"; };
 		0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingleProtocol.swift; sourceTree = "<group>"; };
 		0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsServiceProtocol.swift; sourceTree = "<group>"; };
-		0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceTextProtocol.swift; sourceTree = "<group>"; };
+		0A2ADCE92497CFDC00FA135D /* TextServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextServiceProtocol.swift; sourceTree = "<group>"; };
 		0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		0A2C0D52247144F4008ADD86 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		0A2CEDF024A8DB5700D1DCBC /* NotificationEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventListener.swift; sourceTree = "<group>"; };
@@ -796,14 +796,14 @@
 		0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksFileEmptyView.swift; sourceTree = "<group>"; };
 		0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOtherProtocol.swift; sourceTree = "<group>"; };
 		0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFileProtocol.swift; sourceTree = "<group>"; };
-		0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceListProtocol.swift; sourceTree = "<group>"; };
+		0ACFCCF6249C17B5002E0477 /* BlockListService Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockListService Protocol.swift"; sourceTree = "<group>"; };
 		0ACFCCF8249C17DC002E0477 /* MiddlewareResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareResponse.swift; sourceTree = "<group>"; };
 		0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmarkProtocol.swift; sourceTree = "<group>"; };
 		0AD6B24924CF5DC00097A841 /* BlockBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkViewModel.swift; sourceTree = "<group>"; };
 		0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmark.swift; sourceTree = "<group>"; };
 		0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmarkViewModel.swift; sourceTree = "<group>"; };
-		0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceText.swift; sourceTree = "<group>"; };
-		0AD7694F25D5854700669F8C /* BlockActionsServiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceList.swift; sourceTree = "<group>"; };
+		0AD7694B25D57F2D00669F8C /* TextService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextService.swift; sourceTree = "<group>"; };
+		0AD7694F25D5854700669F8C /* BlockListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListService.swift; sourceTree = "<group>"; };
 		0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmark.swift; sourceTree = "<group>"; };
 		0AD7695525D58F1700669F8C /* BlockActionsServiceOther.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOther.swift; sourceTree = "<group>"; };
 		0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFile.swift; sourceTree = "<group>"; };
@@ -1246,7 +1246,7 @@
 		EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentViewConfiguration.swift; sourceTree = "<group>"; };
 		EA20CE022613703B00DBA9FE /* MediaPickerContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifierTests.swift; sourceTree = "<group>"; };
-		EA2640C926C3DDF6006071BD /* RangeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeConverter.swift; sourceTree = "<group>"; };
+		EA2640C926C3DDF6006071BD /* NSRange+Middleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+Middleware.swift"; sourceTree = "<group>"; };
 		EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringConverterTests.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChangerProtocol.swift; sourceTree = "<group>"; };
@@ -2084,7 +2084,7 @@
 				3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */,
 				EAED581B26A730E500374A46 /* MarkStyleConverter.swift */,
 				EAED581D26A7321600374A46 /* MiddlewareTuple.swift */,
-				EA2640C926C3DDF6006071BD /* RangeConverter.swift */,
+				EA2640C926C3DDF6006071BD /* NSRange+Middleware.swift */,
 				EA54129B26C6856B00C9B6F3 /* AttributedStringChange.swift */,
 				EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */,
 			);
@@ -2657,8 +2657,8 @@
 		3D07ECCF261B4FF700C007E2 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				0AD7694F25D5854700669F8C /* BlockActionsServiceList.swift */,
-				0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */,
+				0AD7694F25D5854700669F8C /* BlockListService.swift */,
+				0ACFCCF6249C17B5002E0477 /* BlockListService Protocol.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -3326,8 +3326,8 @@
 		3D9D401E26161DC000B817FD /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */,
-				0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */,
+				0AD7694B25D57F2D00669F8C /* TextService.swift */,
+				0A2ADCE92497CFDC00FA135D /* TextServiceProtocol.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -4405,7 +4405,7 @@
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				EA43DD6626B1A28500E66878 /* MarkupState.swift in Sources */,
 				12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */,
-				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
+				0A2ADCEA2497CFDC00FA135D /* TextServiceProtocol.swift in Sources */,
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
 				3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */,
 				3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */,
@@ -4531,7 +4531,7 @@
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
-				EA2640CA26C3DDF6006071BD /* RangeConverter.swift in Sources */,
+				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
@@ -4552,7 +4552,7 @@
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
-				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
+				0AD7695025D5854700669F8C /* BlockListService.swift in Sources */,
 				3D6E9A34270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift in Sources */,
 				3D93D56F270C9E4E00614E29 /* ObjectContentViewModelsSharedHolder.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
@@ -4764,7 +4764,7 @@
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
-				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
+				0AD7694C25D57F2D00669F8C /* TextService.swift in Sources */,
 				3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */,
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
@@ -4839,7 +4839,7 @@
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
-				0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */,
+				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
 				3DC0F7D326EF4F5400CFCB3D /* EventProcessor.swift in Sources */,
 				3DC78636265D443F00498993 /* MiddlewareEventConverter.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
