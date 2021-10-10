@@ -59,7 +59,7 @@ final class LocalEventConverter {
         
         let middleContent = Anytype_Model_Block.Content.Text(
             text: text,
-            style: BlockTextContentTypeConverter.asMiddleware(oldText.contentType),
+            style: oldText.contentType.asMiddleware,
             marks: oldText.marks,
             checked: oldText.checked,
             color: oldText.color?.rawValue ?? ""

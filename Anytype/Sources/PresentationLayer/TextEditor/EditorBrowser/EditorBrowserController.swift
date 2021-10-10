@@ -9,13 +9,15 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     
-    private let stateManager = BrowserStateManager()
+    private let stateManager = BrowserNavigationManager()
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
 
     func setup() {
+        childNavigation.delegate = self
+        
         view.addSubview(navigationView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
             $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
@@ -34,30 +36,40 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        childNavigation.delegate = self
-    }
-    
     // MARK: - Views
     private func createNavigationView() -> EditorBottomNavigationView {
         EditorBottomNavigationView(
             onBackTap: { [weak self] in
+                self?.pop()
+            },
+            onBackPageTap: { [weak self] page in
                 guard let self = self else { return }
-                
-                if self.childNavigation.children.count > 1 {
-                    self.childNavigation.popViewController(animated: true)
-                } else {
+                guard let controller = page.controller else { return }
+                do {
+                    try self.stateManager.moveBack(page: page)
+                } catch let error {
+                    anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
                 }
+                self.childNavigation.popToViewController(controller, animated: true)
             },
             onForwardTap: { [weak self] in
                 guard let self = self else { return }
-                guard let pageId = self.stateManager.lastClosedPage else { return }
-                if self.stateManager.nextIsForward { return }
+                guard let page = self.stateManager.closedPages.last else { return }
+                guard self.stateManager.moveForwardOnce() else { return }
                 
-                self.stateManager.nextIsForward = true
-                self.router.showPage(with: pageId)
+                self.router.showPage(with: page.blockId)
+            },
+            onForwardPageTap: { [weak self] page in
+                guard let self = self else { return }
+                do {
+                    try self.stateManager.moveForward(page: page)
+                } catch let error {
+                    anytypeAssertionFailure(error.localizedDescription)
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+                self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
@@ -69,6 +81,15 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             }
         )
     }
+    
+    // MARK: - Private
+    private func pop() {
+        if childNavigation.children.count > 1 {
+            childNavigation.popViewController(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }    
     
     // MARK: - Unavailable
     @available(*, unavailable)
@@ -84,13 +105,28 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.lastOpenedPageId = viewController.viewModel.documentId
+        UserDefaultsConfig.storeOpenedPageId(viewController.viewModel.documentId)
         
-        stateManager.didShow(
-            blockId: viewController.viewModel.documentId,
-            childernCount: childNavigation.children.count
+        let title = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.name
+        let subtitle = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.description
+        do {
+            try stateManager.didShow(
+                page: BrowserPage(
+                    blockId: viewController.viewModel.documentId,
+                    title: title,
+                    subtitle: subtitle,
+                    controller: viewController
+                ),
+                childernCount: childNavigation.children.count
+            )
+        } catch let error {
+            anytypeAssertionFailure(error.localizedDescription)
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        navigationView.update(
+            openedPages: stateManager.openedPages,
+            closedPages: stateManager.closedPages
         )
-        
-        navigationView.setForwardButtonEnabled(stateManager.lastClosedPage != nil)
     }
 }
