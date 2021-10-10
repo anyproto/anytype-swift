@@ -9,7 +9,7 @@ extension AnytypeFont {
             return .heading
         case .subheading:
             return .subheading
-        case .bodyRegular, .bodyBold:
+        case .body:
             return .body
         case .callout:
             return .callout

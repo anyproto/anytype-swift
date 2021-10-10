@@ -103,47 +103,46 @@ final class MarkStyleModifier {
     private func apply(_ action: MarkStyleAction, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
         switch action {
         case let .bold(shouldApplyMarkup):
-            if let font = old[.font] as? UIFont {
-                let oldTraits = font.fontDescriptor.symbolicTraits
-                let traits = shouldApplyMarkup ? oldTraits.union(.traitBold) : oldTraits.symmetricDifference(.traitBold)
-                if let newDescriptor = font.fontDescriptor.withSymbolicTraits(traits) {
-                    let newFont = UIFont(descriptor: newDescriptor, size: font.pointSize)
-                    return AttributedStringChange(changeAttributes: [.font : newFont])
-                }
-            }
-            return nil
+            guard let oldFont = old[.font] as? UIFont else { return nil }
+
+            let newFont = shouldApplyMarkup ? oldFont.bold : oldFont.regular
+            return AttributedStringChange(changeAttributes: [.font : newFont])
+
+
         case let .italic(shouldApplyMarkup):
-            if let font = old[.font] as? UIFont {
-                let oldTraits = font.fontDescriptor.symbolicTraits
-                let traits = shouldApplyMarkup ? oldTraits.union(.traitItalic) : oldTraits.symmetricDifference(.traitItalic)
-                if let newDescriptor = font.fontDescriptor.withSymbolicTraits(traits) {
-                    let newFont = UIFont(descriptor: newDescriptor, size: font.pointSize)
-                    return AttributedStringChange(changeAttributes:[.font : newFont])
-                }
-            }
-            return nil
+            guard let oldFont = old[.font] as? UIFont else { return nil }
+
+            let newFont = shouldApplyMarkup ? oldFont.italic : oldFont.nonItalic
+            return AttributedStringChange(changeAttributes: [.font : newFont])
+
         case let .keyboard(hasStyle):
             return keyboardUpdate(
                 with: old,
                 shouldHaveStyle: hasStyle
             )
+
         case let .strikethrough(shouldApplyMarkup):
             return AttributedStringChange(
                 changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
             )
+
         case let .underscored(shouldApplyMarkup):
             return AttributedStringChange(
                 changeAttributes: [.underlineStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
             )
+
         case let .textColor(color):
             return AttributedStringChange(changeAttributes: [.foregroundColor : color as Any])
+
         case let .backgroundColor(color):
             return AttributedStringChange(changeAttributes: [.backgroundColor : color as Any])
+
         case let .link(url):
             return AttributedStringChange(
                 changeAttributes: [.link : url as Any],
                 deletedKeys: url.isNil ? [.link] : []
             )
+
         case let .mention(_, blockId):
             return AttributedStringChange(
                 changeAttributes: [
@@ -172,16 +171,9 @@ final class MarkStyleModifier {
             return AttributedStringChange(changeAttributes: [.font: font])
         }
         
-        var traitsToApply = targetFont.fontDescriptor.symbolicTraits
-        if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
-            traitsToApply.insert(.traitBold)
-        }
-        if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
-            traitsToApply.insert(.traitItalic)
-        }
-        if let newFontDescriptor = targetFont.fontDescriptor.withSymbolicTraits(traitsToApply) {
-            return AttributedStringChange(changeAttributes: [.font: UIFont(descriptor: newFontDescriptor, size: font.pointSize)])
-        }
-        return AttributedStringChange(changeAttributes: [.font: targetFont])
+        var newFontDescriptor = targetFont.fontDescriptor
+        newFontDescriptor = newFontDescriptor.withSymbolicTraits(font.fontDescriptor.symbolicTraits) ?? newFontDescriptor
+
+        return AttributedStringChange(changeAttributes: [.font: UIFont(descriptor: newFontDescriptor, size: font.pointSize)])
     }
 }
