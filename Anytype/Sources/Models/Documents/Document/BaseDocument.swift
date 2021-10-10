@@ -8,6 +8,9 @@ private extension LoggerCategory {
 }
 
 final class BaseDocument: BaseDocumentProtocol {
+    
+    private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    
     var rootActiveModel: BlockModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
         return rootModel?.blocksContainer.model(id: rootId)
@@ -66,7 +69,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 
                 return BaseDocumentUpdateResult(
                     updates: updates,
-                    details: details,
+                    details: nil,//details,
                     models: self.models(from: updates)
                 )
             }.eraseToAnyPublisher()

@@ -24,6 +24,16 @@ public enum MiddlewareDetailsConverter {
             event.details.asDetailsDictionary
         )
     }
+    
+    public static func convertUnsetEvent(_ event: Anytype_Event.Object.Details.Unset) -> ObjectRawDetails {
+        event.keys.compactMap {
+            guard let key = ObjectDetailsItemKey(rawValue: $0) else {
+                return nil
+            }
+            
+            return ObjectDetailsItem.defaultValueItem(by: key)
+        }
+    }
  
 }
 
@@ -109,6 +119,28 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
             into: [String: Google_Protobuf_Value]()
         ) { result, detail in
             result[detail.key] = detail.value
+        }
+    }
+    
+}
+
+private extension ObjectDetailsItem {
+    
+    static func defaultValueItem(by key: ObjectDetailsItemKey) -> ObjectDetailsItem {
+        switch key {
+        case .id: return .id(ObjectDetailDefaultValue.string)
+        case .name: return .name(ObjectDetailDefaultValue.string)
+        case .iconEmoji: return .iconEmoji(ObjectDetailDefaultValue.string)
+        case .iconImageHash: return .iconImageHash(ObjectDetailDefaultValue.hash)
+        case .coverId: return .coverId(ObjectDetailDefaultValue.string)
+        case .coverType: return .coverType(ObjectDetailDefaultValue.coverType)
+        case .isArchived: return .isArchived(ObjectDetailDefaultValue.bool)
+        case .isFavorite: return .isFavorite(ObjectDetailDefaultValue.bool)
+        case .description: return .description(ObjectDetailDefaultValue.string)
+        case .layout: return .layout(ObjectDetailDefaultValue.layout)
+        case .layoutAlign: return .layoutAlign(ObjectDetailDefaultValue.layoutAlignment)
+        case .isDone: return .isDone(ObjectDetailDefaultValue.bool)
+        case .type: return .type(ObjectDetailDefaultValue.string)
         }
     }
     
