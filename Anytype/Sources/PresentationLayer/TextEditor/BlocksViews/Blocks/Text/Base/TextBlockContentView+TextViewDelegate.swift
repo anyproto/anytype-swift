@@ -47,7 +47,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
             switch keyAction {
             case .enterInsideContent,
                  .enterAtTheEndOfContent,
-                 .enterOnEmptyContent:
+                 .enterAtTheBeginingOfContent:
                 // In the case of frequent pressing of enter
                 // we can send multiple split requests to middle
                 // from the same block, it will leads to wrong order of blocks in array,

@@ -10,7 +10,7 @@ extension CustomTextView: UITextViewDelegate {
     ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
 
-        let keyAction = CustomTextView.UserAction.KeyboardAction.convert(
+        let keyAction = CustomTextView.KeyboardAction.convert(
             textView,
             shouldChangeTextIn: range,
             replacementText: text

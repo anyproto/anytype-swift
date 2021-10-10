@@ -59,10 +59,10 @@ final class TextBlockActionHandler {
         )
     }
 
-    private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {
+    private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.KeyboardAction) {
         if DetailsKind(rawValue: block.information.id) == .name {
             switch action {
-            case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
+            case .enterAtTheEndOfContent, .enterInsideContent, .enterAtTheBeginingOfContent:
                 let id = block.information.id
                 let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
                 let block = block.container?.model(id: blockId)
@@ -106,7 +106,7 @@ final class TextBlockActionHandler {
                 }
             }
 
-        case let .enterOnEmptyContent(payload): // we should assure ourselves about type of block.
+        case let .enterAtTheBeginingOfContent(payload): // we should assure ourselves about type of block.
             /// TODO: Fix it in TextView API.
             /// If payload is empty, so, handle it as .enter ( or .enter at the end )
             if payload?.isEmpty == true {
@@ -176,11 +176,11 @@ final class TextBlockActionHandler {
                 }
             }
 
-        case .deleteWithPayload(_):
+        case .delete:
             guard block.information.content.type != .text(.description) else { return }
             guard let previousModel = modelsHolder?.findModel(beforeBlockId: block.information.id) else {
                 anytypeAssertionFailure("""
-                    We can't find previous block to focus on at command .deleteWithPayload
+                    We can't find previous block to focus on at command .delete
                     Block: \(block.information.id)
                     Moving to .delete command.
                     """
