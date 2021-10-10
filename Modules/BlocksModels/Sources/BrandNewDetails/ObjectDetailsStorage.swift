@@ -13,6 +13,8 @@ public final class ObjectDetailsStorage {
     
     private var detailsStorage = SynchronizedDictionary<BlockId, ObjectDetails>()
     
+    public init() {}
+    
 }
 
 extension ObjectDetailsStorage: ObjectDetailsStorageProtocol {
