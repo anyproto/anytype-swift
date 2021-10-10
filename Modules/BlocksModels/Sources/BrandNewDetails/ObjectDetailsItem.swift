@@ -10,6 +10,7 @@ import Foundation
 import AnytypeCore
 
 public enum ObjectDetailsItem {
+    case id(String)
     case name(String)
     case iconEmoji(String)
     case iconImageHash(Hash?)

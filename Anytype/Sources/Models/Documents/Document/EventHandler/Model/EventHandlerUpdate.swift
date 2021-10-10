@@ -3,7 +3,7 @@ import BlocksModels
 enum EventHandlerUpdate: Hashable {
     case general
     case update(blockIds: Set<BlockId>)
-    case details(DetailsData)
+    case details(ObjectDetails)
 
     var hasUpdate: Bool {
         switch self {

@@ -19,11 +19,11 @@ enum ObjectAction: Hashable {
 //    case search
 
     // When adding to case
-    static func allCasesWith(details: DetailsDataProtocol) -> [Self] {
+    static func allCasesWith(details: ObjectDetails) -> [Self] {
         var allCases: [ObjectAction] = []
 
-        allCases.append(.archive(isArchived: details.isArchived ?? false))
-        allCases.append(.favorite(isFavorite: details.isFavorite ?? false))
+        allCases.append(.archive(isArchived: details.isArchived))
+        allCases.append(.favorite(isFavorite: details.isFavorite))
 //        allCases.append(.moveTo)
 //        allCases.append(.template)
 //        allCases.append(.search)

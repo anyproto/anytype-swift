@@ -32,7 +32,7 @@ final class BlockViewModelBuilder {
         self.detailsLoader = detailsLoader
     }
 
-    func build(_ blocks: [BlockModelProtocol], details: DetailsDataProtocol?) -> [BlockViewModelProtocol] {
+    func build(_ blocks: [BlockModelProtocol], details: ObjectDetails?) -> [BlockViewModelProtocol] {
         var previousBlock: BlockModelProtocol?
         return blocks.compactMap { block -> BlockViewModelProtocol? in
             let blockViewModel = build(block, details: details, previousBlock: previousBlock)
@@ -41,7 +41,7 @@ final class BlockViewModelBuilder {
         }
     }
 
-    func build(_ block: BlockModelProtocol, details: DetailsDataProtocol?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
+    func build(_ block: BlockModelProtocol, details: ObjectDetails?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {

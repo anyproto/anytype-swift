@@ -9,6 +9,7 @@
 import Foundation
 
 enum ObjectDetailsItemKey: String {
+    case id = "id"
     case name = "name"
     case iconEmoji = "iconEmoji"
     case iconImageHash = "iconImage"

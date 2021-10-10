@@ -29,14 +29,14 @@ final class ObjectHeaderBuilder {
     
     // MARK: - Internal functions
     
-    func objectHeader(details: DetailsDataProtocol?) -> ObjectHeader {
+    func objectHeader(details: ObjectDetails?) -> ObjectHeader {
         guard let details = details else {
             return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
         }
         return buildObjectHeader(details: details)
     }
     
-    func objectHeaderForLocalEvent(_ event: ObjectHeaderLocalEvent, details: DetailsDataProtocol?) -> ObjectHeader {
+    func objectHeaderForLocalEvent(_ event: ObjectHeaderLocalEvent, details: ObjectDetails?) -> ObjectHeader {
         guard let details = details else {
             return fakeHeader(event: event)
         }
@@ -74,8 +74,8 @@ final class ObjectHeaderBuilder {
         }
     }
     
-    private func buildObjectHeader(details: DetailsDataProtocol) -> ObjectHeader {
-        let layoutAlign = details.layoutAlign ?? .left
+    private func buildObjectHeader(details: ObjectDetails) -> ObjectHeader {
+        let layoutAlign = details.layoutAlign
         
         if let icon = details.icon, let cover = details.documentCover {
             return .filled(

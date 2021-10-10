@@ -8,7 +8,7 @@ extension Array where Element == EventHandlerUpdate {
         }
         
         var updateIds = Set<BlockId>()
-        var details: DetailsData? = nil
+        var details: ObjectDetails? = nil
         
         for update in self {
             switch update {

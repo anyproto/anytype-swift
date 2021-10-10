@@ -101,7 +101,8 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .details(newDetails)
+            return .general
+//            return .details(newDetails)
             
         case let .objectDetailsUnset(payload):
             let details = container.detailsContainer.get(by: payload.id)
@@ -115,12 +116,21 @@ final class MiddlewareEventConverter {
             // save new details
             let newDetailsData = DetailsData(rawDetails: newDetails, blockId: payload.id)
             details?.detailsData = newDetailsData
-            return .details(newDetailsData)
+            return .general//return .details(newDetailsData)
             
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
                 return .general
             }
+            let rawDetails = MiddlewareDetailsConverter.convertSetEvent(value)
+            
+            container.detailsStorage.add(
+                details: ObjectDetails(rawDetails),
+                id: value.id
+            )
+
+            
+            
             let detailsId = value.id
             
             let details = BlocksModelsDetailsConverter.asModel(
@@ -133,7 +143,7 @@ final class MiddlewareEventConverter {
                 
                 model.detailsData = resultDetails
                 
-                return .details(resultDetails)
+                return .general//return .details(resultDetails)
             }
             else {
                 let detailsData = DetailsData(rawDetails: details, blockId: detailsId)
@@ -144,7 +154,7 @@ final class MiddlewareEventConverter {
                     id: detailsId
                 )
                 
-                return .details(detailsData)
+                return .general//return .details(detailsData)
             }
 
         case let .blockSetFile(newData):
