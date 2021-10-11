@@ -23,33 +23,26 @@ class BlockListService: BlockListServiceProtocol {
             .getValue()
     }
 
-    func setTextStyle(contextID: BlockId, blockIds: [BlockId], style: BlockText.Style) -> AnyPublisher<ResponseEvent, Error> {
+    func setTextStyle(contextId: BlockId, blockIds: [BlockId], style: BlockText.Style) -> AnyPublisher<ResponseEvent, Error> {
         Anytype_Rpc.BlockList.Set.Text.Style.Service
-            .invoke(contextID: contextID, blockIds: blockIds, style: style.asMiddleware)
+            .invoke(contextID: contextId, blockIds: blockIds, style: style.asMiddleware)
             .map(\.event)
             .map(ResponseEvent.init(_:))
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
 
-    func setBackgroundColor(contextID: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color.rawValue)
-            .map(\.event)
-            .map(ResponseEvent.init(_:))
+    func setBackgroundColor(contextId: BlockId, blockIds: [BlockId], color: MiddlewareColor) -> ResponseEvent? {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
+        return Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
+            .map { ResponseEvent($0.event) }
+            .getValue()
+    }
+
+    func setAlign(contextId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) -> AnyPublisher<ResponseEvent, Error> {
+        Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
+            .map(\.event).map(ResponseEvent.init(_:))
             .subscribe(on: DispatchQueue.global())
-            .handleEvents(receiveRequest:  {_ in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
-            })
-            .eraseToAnyPublisher()
-    }
-
-    func setAlign(contextID: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) -> AnyPublisher<ResponseEvent, Error> {
-        return setAlign(contextID: contextID, blockIds: blockIds, align: alignment.asMiddleware)
-    }
-
-    private func setAlign(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<ResponseEvent, Error> {
-        Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).map(\.event).map(ResponseEvent.init(_:)).subscribe(on: DispatchQueue.global())
             .handleEvents(receiveRequest:  {_ in
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
@@ -65,7 +58,7 @@ class BlockListService: BlockListServiceProtocol {
             .getValue()
     }
     
-    func setPageIsArchived(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ResponseEvent, Error> {
+    func setPageIsArchived(contextId: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<ResponseEvent, Error> {
         anytypeAssertionFailure("Not implemented: setPageIsArchived")
         // TODO: Implement it correctly.
         return .empty()

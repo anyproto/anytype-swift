@@ -161,7 +161,7 @@ private extension BlockActionHandler {
     ) {
         let blockIds = [blockId]
         
-        listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
+        listService.setAlign(contextId: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
                 let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
                 completion?(value)
