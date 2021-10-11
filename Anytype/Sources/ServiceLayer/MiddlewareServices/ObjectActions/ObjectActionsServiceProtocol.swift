@@ -20,11 +20,7 @@ struct CreatePageResponse {
 
 
 protocol ObjectActionsServiceProtocol {
-    func convertChildrenToPages(
-        contextID: BlockId,
-        blocksIds: [BlockId],
-        objectType: String
-    ) -> AnyPublisher<[BlockId], Error>
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
     
     func setDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?
     
@@ -43,5 +39,5 @@ protocol ObjectActionsServiceProtocol {
         blockId: BlockId,
         dropPositionblockId: BlockId,
         position: Anytype_Model_Block.Position
-    ) -> AnyPublisher<Void, Error>
+    ) -> ResponseEvent?
 }
