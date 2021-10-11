@@ -41,7 +41,7 @@ struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             AnytypeText("Foo", style: .title, color: .textPrimary)
-            AnytypeText("Foo", style: .bodyRegular, color: .textPrimary)
+            AnytypeText("Foo", style: .body, color: .textPrimary)
             AnytypeText("Foo", style: .relation3Regular, color: .textPrimary)
             AnytypeText("collapse", style: .codeBlock, color: .textPrimary)
         }

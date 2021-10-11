@@ -5,7 +5,6 @@ final class UIKitAnytypeText: Hashable {
     private let paragraphStyle: NSParagraphStyle
     private let textModifier: MarkStyleModifier
 
-    let font: UIFont
     let anytypeFont: AnytypeFont
     let attrString: NSAttributedString
 
@@ -15,7 +14,7 @@ final class UIKitAnytypeText: Hashable {
 
     init(attributedString: NSAttributedString, style: AnytypeFont) {
         self.anytypeFont = style
-        self.font = UIKitFontBuilder.uiKitFont(font: style)
+        let font = UIKitFontBuilder.uiKitFont(font: style)
 
         let newAttrString = NSMutableAttributedString(attributedString: attributedString)
         textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
@@ -31,13 +30,13 @@ final class UIKitAnytypeText: Hashable {
         if let kern = style.kern {
             newAttrString.addAttribute(.kern, value: kern, range: range)
         }
-        newAttrString.addAttribute(.font, value: self.font, range: range)
+        newAttrString.addAttribute(.font, value: font, range: range)
 
         attrString = newAttrString
         self.paragraphStyle = paragraphStyle
     }
 
-    var typingAttributes: [NSAttributedString.Key : Any] {
+    func modifiedTypingAttributes(font: UIFont) -> [NSAttributedString.Key : Any] {
         return [.font: font, .paragraphStyle: paragraphStyle]
     }
 
