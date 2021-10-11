@@ -85,7 +85,10 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                favoritesCellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+                favoritesCellData[offset] = cellDataBuilder.updatedCellData(
+                    newDetails: newDetails,
+                    oldData: data
+                )
             }
     }
 }

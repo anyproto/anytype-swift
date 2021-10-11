@@ -16,7 +16,7 @@ class DetailsLoader {
         self.eventProcessor = eventProcessor
     }
     
-    func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> DetailsDataProtocol? {
+    func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> ObjectDetails? {
         guard let detailsModel = document.getDetails(id: targetBlockId) else {
             anytypeAssertionFailure("No block data id: \(targetBlockId) for block link")
             return nil

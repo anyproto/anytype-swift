@@ -4,17 +4,16 @@ public final class RootBlockContainer {
     
     public let rootId: BlockId
     public let blocksContainer: BlockContainerModelProtocol
-    public let detailsContainer: DetailsContainerProtocol
     
-    public var detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    public let detailsStorage: ObjectDetailsStorageProtocol
     
     public init(
         rootId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        detailsContainer: DetailsContainerProtocol
+        detailsStorage: ObjectDetailsStorageProtocol
     ) {
         self.rootId = rootId
         self.blocksContainer = blocksContainer
-        self.detailsContainer = detailsContainer
+        self.detailsStorage = detailsStorage
     }
 }

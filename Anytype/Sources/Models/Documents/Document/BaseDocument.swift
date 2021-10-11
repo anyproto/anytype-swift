@@ -10,8 +10,6 @@ private extension LoggerCategory {
 final class BaseDocument: BaseDocumentProtocol {
         
     let objectId: BlockId
-
-    private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     var rootActiveModel: BlockModelProtocol? {
@@ -78,11 +76,11 @@ final class BaseDocument: BaseDocumentProtocol {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
-                let details = self.rootModel?.detailsContainer.get(by: self.objectId)?.detailsData
+                let details = self.rootModel?.detailsStorage.get(id: self.objectId)
                 
                 return BaseDocumentUpdateResult(
                     updates: updates,
-                    details: nil,//details,
+                    details: details,
                     models: self.models(from: updates)
                 )
             }.eraseToAnyPublisher()
@@ -105,6 +103,7 @@ final class BaseDocument: BaseDocumentProtocol {
             LegacyDetailsModel(detailsData: $0)
         }
         
+        
         let detailsStorage = DetailsContainer()
         parsedDetails.forEach {
             detailsStorage.add(
@@ -117,7 +116,7 @@ final class BaseDocument: BaseDocumentProtocol {
         rootModel = RootBlockContainer(
             rootId: rootId,
             blocksContainer: blocksContainer,
-            detailsContainer: detailsStorage
+            detailsStorage: ObjectDetailsStorage()
         )
     }
     
@@ -156,13 +155,13 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: details active model.
     ///
-    func getDetails(id: BlockId) -> DetailsDataProtocol? {
-        let value = self.rootModel?.detailsContainer.get(by: id)
+    func getDetails(id: BlockId) -> ObjectDetails? {
+        let value = self.rootModel?.detailsStorage.get(id: id)
         if value.isNil {
             AnytypeLogger.create(.baseDocument)
                 .debug("getDetails(by:). Our document is not ready yet")
         }
-        return value?.detailsData
+        return value
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.

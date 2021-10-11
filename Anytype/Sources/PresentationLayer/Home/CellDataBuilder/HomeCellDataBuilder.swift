@@ -22,7 +22,7 @@ final class HomeCellDataBuilder {
                     return true
                 }
                 
-                return ObjectTypeProvider.isSupported(typeUrl: details.typeUrl)
+                return ObjectTypeProvider.isSupported(typeUrl: details.type)
 
             }
             .map { buildHomeCellData(pageLink: $0) }
@@ -40,9 +40,7 @@ final class HomeCellDataBuilder {
     }
     
     private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
-        let type = pageLink.details?.typeUrl.flatMap {
-            ObjectTypeProvider.objectType(url: $0)?.name
-        } ?? "Object".localized
+        let type = ObjectTypeProvider.objectType(url: pageLink.details?.type)?.name ?? "Object".localized
         
         return HomeCellData(
             id: pageLink.blockId,
@@ -55,7 +53,7 @@ final class HomeCellDataBuilder {
         )
     }
     
-    func updatedCellData(newDetails: DetailsDataProtocol, oldData: HomeCellData) -> HomeCellData {
+    func updatedCellData(newDetails: ObjectDetails, oldData: HomeCellData) -> HomeCellData {
         return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
@@ -63,7 +61,7 @@ final class HomeCellDataBuilder {
             title: newDetails.pageCellTitle,
             type: oldData.type,
             isLoading: false,
-            isArchived: newDetails.isArchived ?? false
+            isArchived: newDetails.isArchived
         )
     }
 }
