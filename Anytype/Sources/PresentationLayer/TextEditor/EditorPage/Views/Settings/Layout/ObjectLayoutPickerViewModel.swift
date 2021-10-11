@@ -4,9 +4,9 @@ import Combine
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
         
-    @Published var details: DetailsDataProtocol = DetailsData.empty
+    @Published var details: ObjectDetails = ObjectDetails([])
     var selectedLayout: DetailsLayout {
-        details.layout ?? .basic
+        details.layout
     }
     
     // MARK: - Private variables

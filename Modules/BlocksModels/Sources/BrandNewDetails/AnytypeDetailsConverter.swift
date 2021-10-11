@@ -16,6 +16,11 @@ public enum AnytypeDetailsConverter {
     public static func convertObjectRawDetails(_ details: ObjectRawDetails) -> [Anytype_Rpc.Block.Set.Details.Detail] {
         details.map {
             switch $0 {
+            case .id(let string):
+                return Anytype_Rpc.Block.Set.Details.Detail(
+                    key: ObjectDetailsItemKey.id.rawValue,
+                    value: Google_Protobuf_Value(stringValue: string)
+                )
             case .name(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: ObjectDetailsItemKey.name.rawValue,

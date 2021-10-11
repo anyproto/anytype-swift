@@ -104,7 +104,7 @@ final class EditorPageController: UIViewController {
 
 extension EditorPageController: EditorPageViewInput {
     
-    func update(header: ObjectHeader, details: DetailsDataProtocol?) {
+    func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
         dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)

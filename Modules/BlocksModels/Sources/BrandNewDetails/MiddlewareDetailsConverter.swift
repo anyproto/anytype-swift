@@ -13,13 +13,13 @@ import ProtobufMessages
 
 public enum MiddlewareDetailsConverter {
     
-    static func convertSetEvent(_ event: Anytype_Event.Object.Details.Set) -> ObjectRawDetails {
+    public static func convertSetEvent(_ event: Anytype_Event.Object.Details.Set) -> ObjectRawDetails {
         convertMiddlewareDetailsDictionary(
             event.details.fields
         )
     }
     
-    static func convertAmendEvent(_ event: Anytype_Event.Object.Details.Amend) -> ObjectRawDetails {
+    public static func convertAmendEvent(_ event: Anytype_Event.Object.Details.Amend) -> ObjectRawDetails {
         convertMiddlewareDetailsDictionary(
             event.details.asDetailsDictionary
         )
@@ -38,6 +38,9 @@ private extension MiddlewareDetailsConverter {
             let unwrapedListValue = value.unwrapedListValue
             
             switch itemKey {
+            case .id:
+                return ObjectDetailsItem.id(unwrapedListValue.stringValue)
+                
             case .name:
                 return ObjectDetailsItem.name(unwrapedListValue.stringValue)
                 

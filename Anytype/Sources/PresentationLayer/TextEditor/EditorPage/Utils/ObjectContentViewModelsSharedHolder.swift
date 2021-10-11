@@ -7,7 +7,7 @@ final class ObjectContentViewModelsSharedHolder {
     
     let objectId: String
     
-    var details: DetailsDataProtocol? = nil
+    var details: ObjectDetails? = nil
     var models: [BlockViewModelProtocol] = []
 
     init(objectId: String) {
@@ -31,13 +31,13 @@ final class ObjectContentViewModelsSharedHolder {
 
 extension ObjectContentViewModelsSharedHolder {
     
-    func apply(newDetails: DetailsDataProtocol?) {
+    func apply(newDetails: ObjectDetails?) {
         guard let newDetails = newDetails else {
             details = nil
             return
         }
         
-        guard newDetails.blockId == objectId else { return }
+        guard newDetails.id == objectId else { return }
         
         details = newDetails
     }

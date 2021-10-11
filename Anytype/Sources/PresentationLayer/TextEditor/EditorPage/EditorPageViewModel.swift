@@ -135,7 +135,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             guard let newModel = blockBuilder.build(
                     newRecord,
-                    details: document.getDetails(id: blockId),
+                    details: nil,//document.getDetails(id: blockId),
                     previousBlock: upperBlock
             )
             else {
@@ -181,7 +181,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func handleGeneralUpdate(with details: DetailsDataProtocol?, models: [BlockViewModelProtocol]) {
+    private func handleGeneralUpdate(with details: ObjectDetails?, models: [BlockViewModelProtocol]) {
         modelsHolder.apply(newModels: models)
         modelsHolder.apply(newDetails: details)
         
