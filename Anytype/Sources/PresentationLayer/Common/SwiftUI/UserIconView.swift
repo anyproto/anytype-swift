@@ -31,7 +31,7 @@ struct UserIconView: View {
     private func imageIcon(_ imageSource: ImageSource) -> some View {
         Group {
             switch imageSource {
-            case let .local(image: image):
+            case let .image(image: image):
                 Image(uiImage: image)
                     .renderingMode(.original)
                     .resizable()

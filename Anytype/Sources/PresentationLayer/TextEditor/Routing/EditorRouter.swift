@@ -6,7 +6,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-protocol EditorRouterProtocol: AnyObject {
+protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showPage(with id: BlockId)
     func openUrl(_ url: URL)
@@ -28,6 +28,10 @@ protocol EditorRouterProtocol: AnyObject {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
+}
+
+protocol AttachmentRouterProtocol {
+    func openImage(_ imageSource: ImageSource)
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -231,4 +235,20 @@ final class EditorRouter: EditorRouterProtocol {
         controller.modalPresentationStyle = .overCurrentContext
         viewController?.present(controller, animated: false)
     }
+}
+
+extension EditorRouter: AttachmentRouterProtocol {
+    func openImage(_ imageSource: ImageSource) {
+        guard let viewModel = ImageViewerViewModel(imageSource: imageSource) else { return }
+
+        let view = ImageViewerView(viewModel: viewModel) { [weak self] in
+            self?.viewController?.dismiss(animated: true, completion: nil)
+        }
+
+        let hostingViewController = UIHostingController(rootView: view)
+        hostingViewController.view.backgroundColor = .clear
+        hostingViewController.modalPresentationStyle = .overFullScreen
+        viewController?.present(hostingViewController, animated: true, completion: nil)
+    }
+
 }
