@@ -110,7 +110,7 @@ final class BlockViewModelBuilder {
             case .none:
                 return UnknownLabelViewModel(information: block.information)
             case .image:
-                return BlockImageViewModel(
+                let viewModel = BlockImageViewModel(
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
@@ -119,6 +119,10 @@ final class BlockViewModelBuilder {
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     }
                 )
+
+                viewModel?.onImageOpen = router.openImage
+
+                return viewModel
             case .video:
                 return VideoBlockViewModel(
                     indentationLevel: block.indentationLevel,

@@ -2,6 +2,6 @@ import UIKit
 import Kingfisher
 
 enum ImageSource {
-    case local(UIImage)
+    case image(UIImage)
     case middleware(ImageID)
 }

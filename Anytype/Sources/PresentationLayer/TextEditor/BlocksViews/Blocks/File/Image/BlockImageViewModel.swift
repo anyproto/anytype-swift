@@ -4,7 +4,9 @@ import Combine
 import Kingfisher
 import AnytypeCore
 
-struct BlockImageViewModel: BlockViewModelProtocol {
+final class BlockImageViewModel: BlockViewModelProtocol {
+    typealias Action<T> = (_ arg: T) -> Void
+
     var upperBlock: BlockModelProtocol?
     
     var hashable: AnyHashable {
@@ -19,7 +21,9 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     let contextualMenuHandler: DefaultContextualMenuHandler
     let indentationLevel: Int
-    let showIconPicker: (BlockId) -> ()
+    let showIconPicker: Action<BlockId>
+
+    var onImageOpen: Action<ImageSource>?
     
     init?(
         information: BlockInformation,
@@ -83,26 +87,25 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {
         switch fileData.state {
         case .done:
-            downloadImage()
+            openImage()
         case .empty, .error:
             showIconPicker(blockId)
         case .uploading:
             return
         }
-
     }
-    
+
     private func downloadImage() {
         guard
             let url = ImageID(id: fileData.metadata.hash, width: .original).resolvedUrl
         else {
             return
         }
-        
+
         let saveAction = UIAlertAction(title: "Yes", style: .default) { _ in
             KingfisherManager.shared.retrieveImage(with: url) { result in
                 guard case let .success(success) = result else { return }
-                
+
                 UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
             }
         }
@@ -111,5 +114,11 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         alert.addAction(saveAction)
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         windowHolder?.presentOnTop(alert, animated: true)
+    }
+    
+    private func openImage() {
+        let imageId = ImageID(id: fileData.metadata.hash, width: .original)
+
+        onImageOpen?(.middleware(imageId))
     }
 }

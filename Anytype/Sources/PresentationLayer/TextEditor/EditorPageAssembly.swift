@@ -20,7 +20,7 @@ final class EditorPageAssembly {
             document: document,
             assembly: self
         )
-        
+
         let viewModel = buildViewModel(
             blockId: pageId,
             viewInput: controller,
@@ -80,6 +80,7 @@ final class EditorPageAssembly {
         let accessorySwitcher = AccessoryViewSwitcherBuilder()
             .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
         let detailsLoader = DetailsLoader(document: document, eventProcessor: eventProcessor)
+
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
