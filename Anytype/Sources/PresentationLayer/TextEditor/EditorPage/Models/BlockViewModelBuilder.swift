@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let editorActionHandler: EditorActionHandlerProtocol
     private let router: EditorRouterProtocol
-    private let attachmentRouter: AttachmentRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let accessorySwitcher: AccessoryViewSwitcherProtocol
@@ -17,7 +16,6 @@ final class BlockViewModelBuilder {
         document: BaseDocumentProtocol,
         editorActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
-        attachmentRouter: AttachmentRouterProtocol,
         delegate: BlockDelegate,
         accessorySwitcher: AccessoryViewSwitcherProtocol,
         detailsLoader: DetailsLoader
@@ -25,7 +23,6 @@ final class BlockViewModelBuilder {
         self.document = document
         self.editorActionHandler = editorActionHandler
         self.router = router
-        self.attachmentRouter = attachmentRouter
         self.delegate = delegate
         self.contextualMenuHandler = DefaultContextualMenuHandler(
             handler: editorActionHandler,
@@ -123,7 +120,7 @@ final class BlockViewModelBuilder {
                     }
                 )
 
-                viewModel?.onImageSelection = attachmentRouter.openImage
+                viewModel?.onImageOpen = router.openImage
 
                 return viewModel
             case .video:

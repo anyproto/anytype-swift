@@ -20,14 +20,12 @@ final class EditorPageAssembly {
             document: document,
             assembly: self
         )
-        let attachmentRouter = AttachmentRouter(rootViewController: controller)
 
         let viewModel = buildViewModel(
             blockId: pageId,
             viewInput: controller,
             document: document,
-            router: router,
-            attachmentRouter: attachmentRouter
+            router: router
         )
         
         controller.viewModel = viewModel
@@ -39,8 +37,7 @@ final class EditorPageAssembly {
         blockId: BlockId,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
-        router: EditorRouter,
-        attachmentRouter: AttachmentRouterProtocol
+        router: EditorRouter
     ) -> EditorPageViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
@@ -89,7 +86,6 @@ final class EditorPageAssembly {
             document: document,
             editorActionHandler: editorBlockActionHandler,
             router: router,
-            attachmentRouter: attachmentRouter,
             delegate: blockDelegate,
             accessorySwitcher: accessorySwitcher,
             detailsLoader: detailsLoader

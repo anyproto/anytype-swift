@@ -23,7 +23,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     let indentationLevel: Int
     let showIconPicker: Action<BlockId>
 
-    var onImageSelection: Action<ImageSource>?
+    var onImageOpen: Action<ImageSource>?
     
     init?(
         information: BlockInformation,
@@ -53,7 +53,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         case .replace:
             showIconPicker(blockId)
         case .download:
-            openImage()
+            downloadImage()
         default:
             contextualMenuHandler.handle(action: action, info: information)
         }
@@ -94,10 +94,31 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return
         }
     }
+
+    private func downloadImage() {
+        guard
+            let url = ImageID(id: fileData.metadata.hash, width: .original).resolvedUrl
+        else {
+            return
+        }
+
+        let saveAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            KingfisherManager.shared.retrieveImage(with: url) { result in
+                guard case let .success(success) = result else { return }
+
+                UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
+            }
+        }
+
+        let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
+        alert.addAction(saveAction)
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        windowHolder?.presentOnTop(alert, animated: true)
+    }
     
     private func openImage() {
         let imageId = ImageID(id: fileData.metadata.hash, width: .original)
 
-        onImageSelection?(.middleware(imageId))
+        onImageOpen?(.middleware(imageId))
     }
 }
