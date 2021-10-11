@@ -8,7 +8,7 @@ private extension LoggerCategory {
 }
 
 final class BaseDocument: BaseDocumentProtocol {
-    
+        
     let objectId: BlockId
 
     private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
@@ -60,7 +60,10 @@ final class BaseDocument: BaseDocumentProtocol {
             )
         else { return }
         
-        open(result)
+        handleOpen(result)
+        eventHandler.handle(
+            events: PackOfEvents(middlewareEvents: result.messages)
+        )
     }
     
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
@@ -85,13 +88,6 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - Handle Open
-    
-    func open(_ sucess: ResponseEvent) {
-        handleOpen(sucess)
-        eventHandler.handle(
-            events: PackOfEvents(middlewareEvents: sucess.messages)
-        )
-    }
     
     private func handleOpen(_ serviceSuccess: ResponseEvent) {
         let blocks = eventHandler.handleBlockShow(
