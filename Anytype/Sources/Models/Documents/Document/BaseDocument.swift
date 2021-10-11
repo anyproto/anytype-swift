@@ -9,6 +9,8 @@ private extension LoggerCategory {
 
 final class BaseDocument: BaseDocumentProtocol {
     
+    let objectId: BlockId
+
     private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
     
     var rootActiveModel: BlockModelProtocol? {
@@ -40,14 +42,12 @@ final class BaseDocument: BaseDocumentProtocol {
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
     
-    let documentId: BlockId
-    
     init(objectId: BlockId) {
-        self.documentId = objectId
+        self.objectId = objectId
     }
     
     deinit {
-        smartblockService.close(contextId: documentId, blockId: documentId)
+        smartblockService.close(contextId: objectId, blockId: objectId)
     }
 
     // MARK: - BaseDocumentProtocol
@@ -59,11 +59,11 @@ final class BaseDocument: BaseDocumentProtocol {
         
                 if
                    let container = self.rootModel,
-                   let rootModel = container.blocksContainer.model(id: self.documentId) {
+                   let rootModel = container.blocksContainer.model(id: self.objectId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
-                let details = self.rootModel?.detailsContainer.get(by: self.documentId)?.detailsData
+                let details = self.rootModel?.detailsContainer.get(by: self.objectId)?.detailsData
                 
                 return BaseDocumentUpdateResult(
                     updates: updates,

@@ -29,7 +29,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         guard let block = document.rootActiveModel else {
             return
         }
-        handleAction(.createEmptyBlock(parentId: document.documentId), blockId: block.information.id)
+        handleAction(.createEmptyBlock(parentId: document.objectId), blockId: block.information.id)
     }
     
     func uploadMediaFile(
@@ -46,7 +46,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: BlockMediaUploadingWorker(
-                objectId: document.documentId,
+                objectId: document.objectId,
                 blockId: blockId,
                 contentType: type
             )

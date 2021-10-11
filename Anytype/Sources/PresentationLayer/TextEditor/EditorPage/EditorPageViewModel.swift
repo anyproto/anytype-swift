@@ -250,6 +250,6 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        "\(String(reflecting: Self.self)) -> \(String(describing: document.documentId))"
+        "\(String(reflecting: Self.self)) -> \(String(describing: document.objectId))"
     }
 }

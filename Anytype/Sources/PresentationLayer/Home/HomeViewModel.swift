@@ -60,7 +60,7 @@ final class HomeViewModel: ObservableObject {
     private func fetchDashboardData() {
         guard
             let response = dashboardService.openDashboard(
-                homeBlockId: document.documentId
+                homeBlockId: document.objectId
             )
         else { return }
 
