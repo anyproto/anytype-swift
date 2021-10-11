@@ -33,7 +33,7 @@ struct AnytypeText: View {
     static func buildText(_ text: String, style: AnytypeFont) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
         
-        return Text(LocalizedStringKey(text)).font(font)
+        return Text(text).font(font)
     }
 }
 
