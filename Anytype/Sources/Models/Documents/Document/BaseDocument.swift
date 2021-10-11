@@ -98,25 +98,20 @@ final class BaseDocument: BaseDocumentProtocol {
         // And then, sync builders
         let rootId = serviceSuccess.contextID
         
-        let blocksContainer = TreeBlockBuilder.buildBlocksTree(from: event.blocks, with: rootId)
-        let parsedDetails = event.details.map {
-            LegacyDetailsModel(detailsData: $0)
-        }
-        
-        
-        let detailsStorage = DetailsContainer()
-        parsedDetails.forEach {
-            detailsStorage.add(
-                model: $0,
-                id: $0.detailsData.blockId
-            )
+        let blocksContainer = TreeBlockBuilder.buildBlocksTree(
+            from: event.blocks,
+            with: rootId
+        )
+        let detailsStorage = ObjectDetailsStorage()
+        event.details.forEach {
+            detailsStorage.add(details: $0, id: $0.id)
         }
         
         // Add details models to process.
         rootModel = RootBlockContainer(
             rootId: rootId,
             blocksContainer: blocksContainer,
-            detailsStorage: ObjectDetailsStorage()
+            detailsStorage: detailsStorage
         )
     }
     

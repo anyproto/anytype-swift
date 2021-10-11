@@ -6,7 +6,7 @@ import ProtobufMessages
 struct PageEvent {
     let rootId: String
     let blocks: [BlockInformation]
-    let details: [DetailsData]
+    let details: [ObjectDetails]
     
     static func empty() -> Self {
         PageEvent(rootId: "", blocks: [], details: [])
@@ -40,11 +40,9 @@ final class PageEventConverter {
         })
                 
         let parsedBlocks = blocks.compactMap(BlockInformationConverter.convert(block:))
-        
-        let parsedDetails = details.map { event -> DetailsData in
-            let rawDetails = BlocksModelsDetailsConverter.asModel(event: event)
-            
-            return DetailsData(rawDetails: rawDetails, blockId: event.id)
+       
+        let parsedDetails = details.map {
+            ObjectDetails(MiddlewareDetailsConverter.convertSetEvent($0))
         }
         
         guard let rootId = root?.id else {
