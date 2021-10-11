@@ -26,24 +26,28 @@ struct ImageViewerView: View {
             Color.white
                 .opacity(opacity)
                 .ignoresSafeArea()
-            VStack(alignment: .center, spacing: 0) {
-                TabView(selection: $viewModel.selectedImageId) {
-                    ForEach(viewModel.images, id: \.self) { imageDescriptor in
-                        ZoomableScrollView {
-                            imagePreviewView(imageDescriptor)
-                        }
-                        .offset(y: imageViewOffset)
-                        .gesture(imageDismissingGesture)
-                    }
-                }
-                .tabViewStyle(.page(indexDisplayMode: .automatic))
+            VStack {
+                tabView
                 shareButtonView
             }
         }
         .sheet(isPresented: $isSharePresented) {
-            ActivityViewController(activityItems: [viewModel.selectedImage])
+            ActivityViewController(activityItems: viewModel.activityItems)
         }
         .overlay(closeButton ,alignment: .topTrailing)
+    }
+
+    private var tabView: some View {
+        TabView(selection: $viewModel.selectedImageId) {
+            ForEach(viewModel.images, id: \.self) { imageDescriptor in
+                ZoomableScrollView {
+                    imagePreviewView(imageDescriptor)
+                }
+                .offset(y: imageViewOffset)
+                .gesture(imageDismissingGesture)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .automatic))
     }
 
 
@@ -55,8 +59,8 @@ struct ImageViewerView: View {
     }
 
     private var closeButton: some View {
-        Button(action: { dismiss() }) {
-            Image(systemName: "xmark")
+        Button(action: dismiss) {
+            Image.System.xmark
                 .foregroundColor(Color.white)
                 .padding()
                 .background(Color.buttonPrimary.opacity(0.6))
@@ -73,7 +77,7 @@ struct ImageViewerView: View {
             Button(action: {
                 isSharePresented.toggle()
             }) {
-                Image(systemName: "square.and.arrow.up")
+                Image.System.share
                     .foregroundColor(Color.buttonPrimary)
             }
             .opacity(opacity)
@@ -90,7 +94,7 @@ struct ImageViewerView: View {
             opacity = willDismiss ? 0 : Double(1 - progress)
         }).onEnded({ value in
             withAnimation(.easeInOut) {
-                if abs(value.translation.height) > 250 {
+                if abs(value.translation.height) > 200 {
                     willDismiss = true
                     dismiss()
                 } else {

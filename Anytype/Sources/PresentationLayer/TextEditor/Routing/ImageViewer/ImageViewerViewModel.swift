@@ -13,8 +13,9 @@ final class ImageViewerViewModel: ObservableObject {
         let id: String
         let image: UIImage
     }
-    var selectedImage: UIImage {
-        images.first!.image
+
+    var activityItems: [UIImage] {
+        [images.first?.image].compactMap { $0 }
     }
 
     @Published var selectedImageId: String
