@@ -6,7 +6,7 @@ import AnytypeCore
 
 final class AccountInfoDataAccessor: ObservableObject {
     
-    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration()?.profileBlockId
+    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
     @Published private(set) var name: String?
     @Published private(set) var avatarId: String?
     
@@ -50,12 +50,12 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func obtainAccountInfo() {
-        guard let profileBlockId = profileBlockId else {
-            anytypeAssertionFailure("profileBlockId can`t be nil")
-            return
-        }
-        
-        guard let response = blocksActionsService.open(contextId: profileBlockId, blockId: profileBlockId) else {
+        guard
+            let response = blocksActionsService.open(
+                contextId: profileBlockId,
+                blockId: profileBlockId
+            )
+        else {
             return
         }
         
