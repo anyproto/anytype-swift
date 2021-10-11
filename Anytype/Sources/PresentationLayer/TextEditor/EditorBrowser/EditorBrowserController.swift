@@ -105,10 +105,12 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedPageId(viewController.viewModel.documentId)
+        let documentId = viewController.viewModel.documentId
+        UserDefaultsConfig.storeOpenedPageId(documentId)
         
-        let title = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.name
-        let subtitle = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.description
+        let details = viewController.viewModel.document.getDetails(id: documentId)
+        let title = details?.name
+        let subtitle = details?.description
         do {
             try stateManager.didShow(
                 page: BrowserPage(
