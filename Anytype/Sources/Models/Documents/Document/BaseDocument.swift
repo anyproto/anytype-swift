@@ -9,8 +9,6 @@ private extension LoggerCategory {
 
 final class BaseDocument: BaseDocumentProtocol {
         
-    let objectId: BlockId
-    
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
@@ -28,9 +26,9 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
+    let objectId: BlockId
     let rootModel: RootBlockContainer
-    
-    let eventHandler: EventHandler
+    let eventHandler: EventsListener
     
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
@@ -42,9 +40,11 @@ final class BaseDocument: BaseDocumentProtocol {
             detailsStorage: ObjectDetailsStorage()
         )
         
-        self.eventHandler = EventHandler(objectId: objectId)
+        self.eventHandler = EventsListener(
+            objectId: objectId,
+            container: self.rootModel
+        )
         
-        eventHandler.configured(self.rootModel)
         setup()
     }
     
@@ -72,6 +72,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 )
             }
         }
+        eventHandler.startListening()
     }
     
     deinit {

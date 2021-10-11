@@ -13,11 +13,11 @@ import Combine
 final class ObjectDetailsService {
     
     private let service = ObjectActionsService()
-    private let eventHandler: EventHandler
+    private let eventHandler: EventsListener
 
     private let objectId: String
         
-    init(eventHandler: EventHandler, objectId: String) {
+    init(eventHandler: EventsListener, objectId: String) {
         self.eventHandler = eventHandler
         self.objectId = objectId
     }

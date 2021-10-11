@@ -3,17 +3,13 @@ import SwiftProtobuf
 import BlocksModels
 import ProtobufMessages
 
-struct PageEvent {
+struct PageData {
     let rootId: String
     let blocks: [BlockInformation]
     let details: [ObjectDetails]
-    
-    static func empty() -> Self {
-        PageEvent(rootId: "", blocks: [], details: [])
-    }
 }
 
-final class PageEventConverter {
+enum PageEventConverter {
     /// New cool parsing that takes into account details and smartblock type.
     ///
     /// Discussion.
@@ -26,29 +22,35 @@ final class PageEventConverter {
     /// * This block could contain `details`. It is a structure ( or a dictionary ) with predefined fields.
     /// * This block also has type `smartblockType`. It is a `.case` from enumeration.
     ///
-    func convert(
+    static func convert(
         blocks: [Anytype_Model_Block],
         details: [Anytype_Event.Object.Details.Set],
         smartblockType: Anytype_Model_SmartBlockType
-    ) -> PageEvent {
-        
-        let root = blocks.first(where: {
-            switch $0.content {
-            case .smartblock: return true
-            default: return false
+    ) -> PageData? {
+        let root = blocks.first {
+            guard case .smartblock = $0.content else {
+                return false
             }
-        })
+            return true
+        }
                 
-        let parsedBlocks = blocks.compactMap(BlockInformationConverter.convert(block:))
+        let parsedBlocks = blocks.compactMap {
+            BlockInformationConverter.convert(block: $0)
+        }
        
         let parsedDetails = details.map {
-            ObjectDetails(MiddlewareDetailsConverter.convertSetEvent($0))
+            ObjectDetails(
+                MiddlewareDetailsConverter.convertSetEvent($0)
+            )
         }
         
-        guard let rootId = root?.id else {
-            return .empty()
-        }
+        guard let rootId = root?.id else { return nil }
         
-        return .init(rootId: rootId, blocks: parsedBlocks, details: parsedDetails)
+        return PageData(
+            rootId: rootId,
+            blocks: parsedBlocks,
+            details: parsedDetails
+        )
     }
+    
 }
