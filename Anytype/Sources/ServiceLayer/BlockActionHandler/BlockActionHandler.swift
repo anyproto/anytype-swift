@@ -115,7 +115,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.createPage(position: .bottom)
         default:
             guard let newBlock = BlockBuilder.createNewBlock(type: type),
-                  let info = document.rootModel?.blocksContainer.model(id: blockId)?.information else {
+                  let info = document.rootModel.blocksContainer.model(id: blockId)?.information else {
                 return
             }
             

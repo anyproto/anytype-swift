@@ -11,7 +11,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var objectId: BlockId { get }
     var userSession: UserSession? { get set }
     var rootActiveModel: BlockModelProtocol? { get }
-    var rootModel: RootBlockContainer? { get }
+    var rootModel: RootBlockContainer { get }
     var eventHandler: EventHandler { get }
     
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)? { get set }

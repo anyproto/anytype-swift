@@ -20,7 +20,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         _ markup: BlockHandlerActionType.TextAttributesType,
         for blockId: BlockId
     ) {
-        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
+        guard let info = document.rootModel.blocksContainer.model(id: blockId)?.information,
               case let .text(blockText) = info.content else { return }
         
         toggleMarkup(
@@ -108,7 +108,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
-        guard let model = document.rootModel?.blocksContainer.model(id: blockId) else {
+        guard let model = document.rootModel.blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Can't find block with id: \(blockId)")
             return nil
         }

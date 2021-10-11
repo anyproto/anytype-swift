@@ -2,12 +2,15 @@ import Foundation
 import Combine
 import AnytypeCore
 
-final class BlockContainer: BlockContainerModelProtocol {
-    var rootId: BlockId?
-    var userSession = UserSession()
+public final class BlockContainer: BlockContainerModelProtocol {
     private var models = [BlockId: BlockModelProtocol]()
+
+    public var rootId: BlockId?
+    public var userSession = UserSession()
     
-    func children(of id: BlockId) -> [BlockId] {
+    public init() {}
+    
+    public func children(of id: BlockId) -> [BlockId] {
         guard let value = models[id] else {
             return []
         }
@@ -15,11 +18,11 @@ final class BlockContainer: BlockContainerModelProtocol {
         return value.information.childrenIds
     }
 
-    func model(id: BlockId) -> BlockModelProtocol? {
+    public func model(id: BlockId) -> BlockModelProtocol? {
         models[id]
     }
 
-    func remove(_ id: BlockId) {
+    public func remove(_ id: BlockId) {
         // go to parent and remove this block from a parent.
         if let parentId = model(id: id)?.parent,
            var parent = models[parentId.information.id] {
@@ -34,7 +37,7 @@ final class BlockContainer: BlockContainerModelProtocol {
         }
     }
 
-    func add(_ block: BlockModelProtocol) {
+    public func add(_ block: BlockModelProtocol) {
         var block = block
         block.container = self
         
@@ -64,7 +67,7 @@ final class BlockContainer: BlockContainerModelProtocol {
         childModel.parent = parentModel
     }
 
-    func add(child: BlockId, beforeChild: BlockId) {
+    public func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
         guard let parent = model(id: beforeChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: beforeChild) else {
             anytypeAssertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
@@ -75,7 +78,7 @@ final class BlockContainer: BlockContainerModelProtocol {
         self.insert(childId: child, parentId: parentId, at: index)
     }
 
-    func add(child: BlockId, afterChild: BlockId) {
+    public func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
         guard let parent = model(id: afterChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: afterChild) else {
             anytypeAssertionFailure("I can't find either parent or block itself with id: \(afterChild)")
@@ -102,7 +105,7 @@ final class BlockContainer: BlockContainerModelProtocol {
     ///   - childrenIds: Associated keys to children entries which parent we would like to change.
     ///   - parentId: An associated key to a parent entry in which we would like to change children.
     ///   - shouldSkipGuardAgainstMissingIds: A flag that notes if we should skip condition about existing entries.
-    func replace(
+    public func replace(
         childrenIds: [BlockId],
         parentId: BlockId,
         shouldSkipGuardAgainstMissingIds: Bool = false
