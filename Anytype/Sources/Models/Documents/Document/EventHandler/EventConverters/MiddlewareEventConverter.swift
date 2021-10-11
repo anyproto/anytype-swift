@@ -72,90 +72,62 @@ final class MiddlewareEventConverter {
             return .update(blockIds: [blockId])
         
         case let .objectDetailsAmend(amend):
-            let updatedDetails = BlocksModelsDetailsConverter.asModel(
-                details: amend.details
-            )
-            
-            guard !updatedDetails.isEmpty else {
-                return nil
-            }
+            let rawDetails = MiddlewareDetailsConverter.convertAmendEvent(amend)
+            guard rawDetails.isNotEmpty else { return nil }
             
             let id = amend.id
             
-            guard let detailsModel = container.detailsContainer.get(by: id) else {
+            guard let currentDetails = container.detailsStorage.get(id: id) else {
                 return nil
             }
             
-            let currentDetailsData = detailsModel.detailsData
+            let updatedDetails = currentDetails.updated(by: rawDetails)
+            container.detailsStorage.add(details: updatedDetails, id: id)
             
-            var currentDetails = currentDetailsData.rawDetails
-            updatedDetails.forEach { (key, value) in
-                currentDetails[key] = value
-            }
-        
-            let newDetails = DetailsData(rawDetails: currentDetails, blockId: currentDetailsData.blockId)
-            // will trigger Publisher
-            detailsModel.detailsData = newDetails
-            
-            guard currentDetailsData.layout == newDetails.layout else {
+            // change layout from `todo` to `basic` should trigger update title
+            // in order to remove chackmark
+            guard currentDetails.layout == updatedDetails.layout else {
                 return .general
             }
             
-            return .general
-//            return .details(newDetails)
+            return .details(updatedDetails)
             
         case let .objectDetailsUnset(payload):
-            let details = container.detailsContainer.get(by: payload.id)
-            var newDetails: RawDetailsData = details?.detailsData.rawDetails ?? [:]
-
-            // remove details with keys from payload
-            payload.keys.forEach { key in
-                guard let detailsKind = DetailsKind(rawValue: key) else { return }
-                newDetails.removeValue(forKey: detailsKind)
+            let id = payload.id
+            
+            guard let currentDetails = container.detailsStorage.get(id: id) else {
+                return nil
             }
-            // save new details
-            let newDetailsData = DetailsData(rawDetails: newDetails, blockId: payload.id)
-            details?.detailsData = newDetailsData
-            return .general//return .details(newDetailsData)
+            
+            let unsettedRawDetails = MiddlewareDetailsConverter.convertUnsetEvent(payload)
+            
+            guard unsettedRawDetails.isNotEmpty else { return nil }
+            
+            let updatedDetails = currentDetails.updated(by: unsettedRawDetails)
+            container.detailsStorage.add(details: updatedDetails, id: id)
+            
+            // change layout from `todo` to `basic` should trigger update title
+            // in order to remove chackmark
+            guard currentDetails.layout == updatedDetails.layout else {
+                return .general
+            }
+            
+            return .details(updatedDetails)
             
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
                 return .general
             }
+            
             let rawDetails = MiddlewareDetailsConverter.convertSetEvent(value)
+            let details = ObjectDetails(rawDetails)
             
             container.detailsStorage.add(
-                details: ObjectDetails(rawDetails),
+                details: details,
                 id: value.id
             )
-
             
-            
-            let detailsId = value.id
-            
-            let details = BlocksModelsDetailsConverter.asModel(
-                event: Anytype_Event.Object.Details.Set(id: detailsId, details: value.details)
-            )
-            
-            if let detailsModel = container.detailsContainer.get(by: detailsId) {
-                let model = detailsModel
-                let resultDetails = DetailsData(rawDetails: details, blockId: detailsId)
-                
-                model.detailsData = resultDetails
-                
-                return .general//return .details(resultDetails)
-            }
-            else {
-                let detailsData = DetailsData(rawDetails: details, blockId: detailsId)
-                let newDetailsModel = LegacyDetailsModel(detailsData: detailsData)
-
-                container.detailsContainer.add(
-                    model: newDetailsModel,
-                    id: detailsId
-                )
-                
-                return .general//return .details(detailsData)
-            }
+            return .details(details)
 
         case let .blockSetFile(newData):
             guard newData.hasState else {

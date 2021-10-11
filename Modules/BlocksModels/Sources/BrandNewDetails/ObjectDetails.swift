@@ -10,19 +10,20 @@ import Foundation
 import AnytypeCore
 
 public struct ObjectDetails: Hashable {
-    public private(set) var id: String = ""
-    public private(set) var name: String = ""
-    public private(set) var iconEmoji: String = ""
-    public private(set) var iconImageHash: Hash? = nil
-    public private(set) var coverId: String = ""
-    public private(set) var coverType: CoverType = .none
-    public private(set) var isArchived: Bool = false
-    public private(set) var isFavorite: Bool = false
-    public private(set) var description: String = ""
-    public private(set) var layout: DetailsLayout = .basic
-    public private(set) var layoutAlign: LayoutAlignment = .left
-    public private(set) var isDone: Bool = false
-    public private(set) var type: String = ""
+    // TODO: remove id
+    public private(set) var id: String = ObjectDetailDefaultValue.string
+    public private(set) var name: String = ObjectDetailDefaultValue.string
+    public private(set) var iconEmoji: String = ObjectDetailDefaultValue.string
+    public private(set) var iconImageHash: Hash? = ObjectDetailDefaultValue.hash
+    public private(set) var coverId: String = ObjectDetailDefaultValue.string
+    public private(set) var coverType: CoverType = ObjectDetailDefaultValue.coverType
+    public private(set) var isArchived: Bool = ObjectDetailDefaultValue.bool
+    public private(set) var isFavorite: Bool = ObjectDetailDefaultValue.bool
+    public private(set) var description: String = ObjectDetailDefaultValue.string
+    public private(set) var layout: DetailsLayout = ObjectDetailDefaultValue.layout
+    public private(set) var layoutAlign: LayoutAlignment = ObjectDetailDefaultValue.layoutAlignment
+    public private(set) var isDone: Bool = ObjectDetailDefaultValue.bool
+    public private(set) var type: String = ObjectDetailDefaultValue.string
     
     public init(_ rawDetails: ObjectRawDetails) {
         rawDetails.forEach {
@@ -42,6 +43,32 @@ public struct ObjectDetails: Hashable {
             case .type(let value): type = value
             }
         }
+    }
+    
+    public func updated(by rawDetails: ObjectRawDetails) -> ObjectDetails {
+        guard rawDetails.isNotEmpty else { return self }
+        
+        var currentDetails = self
+        
+        rawDetails.forEach {
+            switch $0 {
+            case .id(let value): currentDetails.id = value
+            case .name(let value): currentDetails.name = value
+            case .iconEmoji(let value): currentDetails.iconEmoji = value
+            case .iconImageHash(let value): currentDetails.iconImageHash = value
+            case .coverId(let value): currentDetails.coverId = value
+            case .coverType(let value): currentDetails.coverType = value
+            case .isArchived(let value): currentDetails.isArchived = value
+            case .isFavorite(let value): currentDetails.isFavorite = value
+            case .description(let value): currentDetails.description = value
+            case .layout(let value): currentDetails.layout = value
+            case .layoutAlign(let value): currentDetails.layoutAlign = value
+            case .isDone(let value): currentDetails.isDone = value
+            case .type(let value): currentDetails.type = value
+            }
+        }
+        
+        return currentDetails
     }
     
 }
