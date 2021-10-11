@@ -13,7 +13,7 @@ final class EditorPageAssembly {
     
     func buildEditorModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
         let controller = EditorPageController()
-        let document = BaseDocument()
+        let document = BaseDocument(objectId: pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,

@@ -6,15 +6,11 @@ import Amplitude
 
 
 class DashboardService: DashboardServiceProtocol {
-    private let configurationService = MiddlewareConfigurationService.shared
     private let actionsService = BlockActionsServiceSingle()
     private let objectsService = ObjectActionsService()
-    
-    private var dashboardId: String = ""
-        
-    func openDashboard() -> ResponseEvent? {
-        let homeBlockId = configurationService.configuration().homeBlockID
-        return actionsService.open(contextId: homeBlockId, blockId: homeBlockId)
+            
+    func openDashboard(homeBlockId: String) -> ResponseEvent? {
+        actionsService.open(contextId: homeBlockId, blockId: homeBlockId)
     }
     
     func createNewPage() -> CreatePageResponse? {

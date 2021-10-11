@@ -25,8 +25,6 @@ final class BaseDocument: BaseDocumentProtocol {
             rootModel?.blocksContainer.userSession = newValue
         }
     }
-
-    var documentId: BlockId? { rootModel?.rootId }
     
     /// RootModel
     private(set) var rootModel: RootBlockContainer? {
@@ -42,10 +40,14 @@ final class BaseDocument: BaseDocumentProtocol {
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
     
+    let documentId: BlockId
+    
+    init(objectId: BlockId) {
+        self.documentId = objectId
+    }
+    
     deinit {
-        documentId.flatMap { rootId in
-            smartblockService.close(contextId: rootId, blockId: rootId)
-        }
+        smartblockService.close(contextId: documentId, blockId: documentId)
     }
 
     // MARK: - BaseDocumentProtocol
@@ -55,17 +57,13 @@ final class BaseDocument: BaseDocumentProtocol {
             .compactMap { [weak self] updates in
                 guard let self = self else { return nil }
         
-                if let rootId = self.documentId,
+                if
                    let container = self.rootModel,
-                   let rootModel = container.blocksContainer.model(id: rootId) {
+                   let rootModel = container.blocksContainer.model(id: self.documentId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
                 
-                let details: DetailsDataProtocol? = {
-                    guard let id = self.documentId else { return nil }
-                    
-                    return self.rootModel?.detailsContainer.get(by: id)?.detailsData
-                }()
+                let details = self.rootModel?.detailsContainer.get(by: self.documentId)?.detailsData
                 
                 return BaseDocumentUpdateResult(
                     updates: updates,

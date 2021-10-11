@@ -6,16 +6,20 @@ import AnytypeCore
 
 final class AccountInfoDataAccessor: ObservableObject {
     
-    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
+    @Published private(set) var profileBlockId: BlockId
     @Published private(set) var name: String?
     @Published private(set) var avatarId: String?
     
-    private let document: BaseDocumentProtocol = BaseDocument()
+    private let document: BaseDocumentProtocol
     private var subscriptions: [AnyCancellable] = []
     
     private let blocksActionsService = BlockActionsServiceSingle()
     
-    init() {        
+    init() {
+        let blockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
+        profileBlockId = blockId
+        document = BaseDocument(objectId: blockId)
+        
         setUpSubscriptions()
         obtainAccountInfo()
     }

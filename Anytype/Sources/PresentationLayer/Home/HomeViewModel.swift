@@ -19,19 +19,23 @@ final class HomeViewModel: ObservableObject {
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-
+    
+    private let configurationService = MiddlewareConfigurationService.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     
     private var subscriptions = [AnyCancellable]()
 
-    let document: BaseDocumentProtocol = BaseDocument()
+    let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
     
     init() {
+        let homeBlockId = configurationService.configuration().homeBlockID
+        document = BaseDocument(objectId: homeBlockId)
+        
         fetchDashboardData()
     }
 
@@ -53,9 +57,13 @@ final class HomeViewModel: ObservableObject {
         historyCellData = cellDataBuilder.buildCellData(searchResults)
     }
     
-    private func fetchDashboardData() {        
-        guard let response = dashboardService.openDashboard() else { return }
-        
+    private func fetchDashboardData() {
+        guard
+            let response = dashboardService.openDashboard(
+                homeBlockId: document.documentId
+            )
+        else { return }
+
         document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
             self?.onDashboardChange(updateResult: updateResult)
         }.store(in: &self.subscriptions)
