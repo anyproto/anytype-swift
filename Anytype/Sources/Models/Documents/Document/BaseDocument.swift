@@ -12,6 +12,7 @@ final class BaseDocument: BaseDocumentProtocol {
     let objectId: BlockId
 
     private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     var rootActiveModel: BlockModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
@@ -123,7 +124,10 @@ final class BaseDocument: BaseDocumentProtocol {
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
     private func getModels() -> [BlockModelProtocol] {
-        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.model(id: rootId) else {
+        guard
+            let container = rootModel,
+            let activeModel = container.blocksContainer.model(id: container.rootId)
+        else {
             AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }

@@ -23,15 +23,11 @@ final class EventHandler: EventHandlerProtocol {
     private let pageEventConverter = PageEventConverter()
 
     func configured(_ container: RootBlockContainer) {
-        guard let rootId = container.rootId else {
-            anytypeAssertionFailure("We can't start listening rootId of container: \(container)")
-            return
-        }
-
         self.container = container
+        
         setupMiddlewareConverter(with: container)
         localConverter = LocalEventConverter(container: container)
-        eventPublisher.startListening(contextId: rootId)
+        eventPublisher.startListening(contextId: container.rootId)
         mentionMarkupEventProvider = MentionMarkupEventProvider(container: container)
     }
     
@@ -54,7 +50,7 @@ final class EventHandler: EventHandlerProtocol {
         let markupUpdates = [mentionMarkupEventProvider?.updateMentionsEvent()].compactMap { $0 }
         let updates = middlewareUpdates + localUpdates + markupUpdates
         
-        guard let container = self.container, let rootId = container.rootId else {
+        guard let container = self.container else {
             anytypeAssertionFailure("Container or rootId is nil in event handler. Something went wrong.")
             return
         }
@@ -62,7 +58,7 @@ final class EventHandler: EventHandlerProtocol {
         updates.merged.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
-                    container: container.blocksContainer, id: rootId
+                    container: container.blocksContainer, id: container.rootId
                 )
             }
 
