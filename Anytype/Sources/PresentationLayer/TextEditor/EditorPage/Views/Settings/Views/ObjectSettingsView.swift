@@ -91,7 +91,14 @@ struct ObjectSettingsView_Previews: PreviewProvider {
             isIconPickerPresented: $isIconPickerPresented,
             isLayoutPickerPresented: $isLayoutPickerPresented
         )
-        .environmentObject(ObjectSettingsViewModel(objectId: "dummyPageId",
-                                                   objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")))
+            .environmentObject(
+                ObjectSettingsViewModel(
+                    objectId: "dummyPageId",
+                    objectDetailsService: ObjectDetailsService(
+                        eventHandler: EventHandler(objectId: ""),
+                        objectId: ""
+                    )
+                )
+            )
     }
 }

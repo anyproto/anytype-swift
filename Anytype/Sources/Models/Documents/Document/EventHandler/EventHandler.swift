@@ -22,13 +22,22 @@ final class EventHandler: EventHandlerProtocol {
     
     private let pageEventConverter = PageEventConverter()
 
+    private let objectId: BlockId
+    
+    init(objectId: BlockId) {
+        self.objectId = objectId
+    }
+    
     func configured(_ container: RootBlockContainer) {
         self.container = container
         
         setupMiddlewareConverter(with: container)
         localConverter = LocalEventConverter(container: container)
-        eventPublisher.startListening(contextId: container.rootId)
-        mentionMarkupEventProvider = MentionMarkupEventProvider(container: container)
+        eventPublisher.startListening(contextId: objectId)
+        mentionMarkupEventProvider = MentionMarkupEventProvider(
+            container: container,
+            objectId: objectId
+        )
     }
     
     func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
@@ -58,7 +67,8 @@ final class EventHandler: EventHandlerProtocol {
         updates.merged.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
-                    container: container.blocksContainer, id: container.rootId
+                    container: container.blocksContainer,
+                    id: objectId
                 )
             }
             
