@@ -11,6 +11,8 @@ final class BaseDocument: BaseDocumentProtocol {
         
     let objectId: BlockId
     
+    var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
+    
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     var rootActiveModel: BlockModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
@@ -43,6 +45,31 @@ final class BaseDocument: BaseDocumentProtocol {
     
     init(objectId: BlockId) {
         self.objectId = objectId
+        
+        setup()
+    }
+    
+    func setup() {
+        eventHandler.onUpdateReceive = { [weak self] update in
+            guard update.hasUpdate else { return }
+            guard let self = self else { return }
+    
+            if
+               let container = self.rootModel,
+               let rootModel = container.blocksContainer.model(id: self.objectId) {
+                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
+            }
+            
+            let details = self.rootModel?.detailsStorage.get(id: self.objectId)
+            
+            self.onUpdateReceive?(
+                BaseDocumentUpdateResult(
+                    updates: update,
+                    details: details,
+                    models: self.models(from: update)
+                )
+            )
+        }
     }
     
     deinit {
@@ -63,27 +90,6 @@ final class BaseDocument: BaseDocumentProtocol {
         eventHandler.handle(
             events: PackOfEvents(middlewareEvents: result.messages)
         )
-    }
-    
-    var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
-        eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
-            .compactMap { [weak self] updates in
-                guard let self = self else { return nil }
-        
-                if
-                   let container = self.rootModel,
-                   let rootModel = container.blocksContainer.model(id: self.objectId) {
-                    BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
-                }
-                
-                let details = self.rootModel?.detailsStorage.get(id: self.objectId)
-                
-                return BaseDocumentUpdateResult(
-                    updates: updates,
-                    details: details,
-                    models: self.models(from: updates)
-                )
-            }.eraseToAnyPublisher()
     }
 
     // MARK: - Handle Open
