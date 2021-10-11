@@ -23,9 +23,8 @@ final class MentionsViewModel {
     }
     
     func obtainMentions() {
-        mentionService.loadMentions { [weak self] mentions in
-            self?.view?.display(mentions.map { .mention($0) })
-        }
+        guard let mentions = mentionService.loadMentions() else { return }
+        view?.display(mentions.map { .mention($0) })
     }
     
     func setFilterString(_ string: String) {
