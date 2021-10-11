@@ -1,13 +1,6 @@
-//
-//  EditorPageController+FloatingPanelControllerDelegate.swift
-//  EditorPageController+FloatingPanelControllerDelegate
-//
-//  Created by Konstantin Mordan on 09.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import FloatingPanel
+import BlocksModels
 
 // MARK: - FloatingPanelControllerDelegate
 
@@ -18,26 +11,21 @@ extension EditorPageController: FloatingPanelControllerDelegate {
             self.collectionView.contentInset.bottom = 0
         }
 
-        guard
-            let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first
-        else { return }
+        guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first else { return }
         
         collectionView.deselectAllSelectedItems()
-        let userSession = viewModel.document.userSession
 
-        guard
-            let item = dataSource.itemIdentifier(for: selectedIndexPath)
-        else { return }
+        guard let item = dataSource.itemIdentifier(for: selectedIndexPath) else { return }
         
         switch item {
         case let .block(block):
             if let blockViewModel = block as? TextBlockViewModel {
-                let focus = userSession?.focus ?? .end
+                let focus = UserSession.shared.focus ?? .end
                 blockViewModel.set(focus: focus)
             }
         case .header:
-                    // TODO: - implement
-                    return
+            // TODO: - implement
+            return
         }
     }
 

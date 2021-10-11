@@ -94,12 +94,12 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     private func blockIdFromSource(_ blockIdSource: ActionHandlerBlockIdSource) -> BlockId? {
         switch blockIdSource {
         case .firstResponder:
-            guard let firstResponder = document.userSession?.firstResponder else {
+            guard let firstResponder = UserSession.shared.firstResponderId else {
                 anytypeAssertionFailure("No first responder found")
                 return nil
             }
             
-            return firstResponder.information.id
+            return firstResponder
         case .provided(let blockId):
             return blockId
         }

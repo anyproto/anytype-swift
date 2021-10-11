@@ -10,7 +10,6 @@ struct BaseDocumentUpdateResult {
 protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
-    var userSession: UserSession? { get set }
     var rootActiveModel: BlockModelProtocol? { get }
     var rootModel: RootBlockContainer? { get }
     var eventHandler: EventHandler { get }

@@ -96,7 +96,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .textView(action: action, block: blockModel):
             switch action {
             case let .changeCaretPosition(selectedRange):
-                document.userSession?.focus = .at(selectedRange)
+                UserSession.shared.focus = .at(selectedRange)
             case let .changeTextStyle(string, styleAction, range):
                 handleBlockAction(
                     .toggleFontStyle(string, styleAction, range),

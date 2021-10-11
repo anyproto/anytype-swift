@@ -51,7 +51,7 @@ final class BlockViewModelBuilder {
                     content: content,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
-                        self?.delegate.becomeFirstResponder(for: model)
+                        self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
                     textDidChange: { block, textView in
                         self.editorActionHandler.handleAction(

@@ -14,7 +14,7 @@ final class LocalEventConverter {
         switch event {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
-            return nil
+            return .update(blockIds: [blockId])
         case let .setTextMerge(blockId):
             guard (container?.blocksContainer.model(id: blockId)) != nil else {
                 anytypeAssertionFailure("setTextMerge. We can't find model by id \(blockId)")
