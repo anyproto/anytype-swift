@@ -103,12 +103,9 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func duplicate(blockId: BlockId) {        
-        guard let response = singleService
-                .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom) else {
-                    return
-                }
-        
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        singleService
+            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
+            .flatMap { didReceiveEvent(PackOfEvents(middlewareEvents: $0.messages)) }
     }
 
     func createPage(position: BlockPosition) {
@@ -138,15 +135,8 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> () = { _ in }) {
-        let objectType = ""
-
-        let blocksIds = [blockId]
-
-        guard let pageIds = pageService.convertChildrenToPages(contextID: documentId, blocksIds: blocksIds, objectType: objectType) else {
-            return
-        }
-        
-        completion(pageIds.first)
+        pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")
+            .flatMap { completion($0.first) }
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
