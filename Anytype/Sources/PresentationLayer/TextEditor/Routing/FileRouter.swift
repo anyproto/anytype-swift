@@ -18,7 +18,7 @@ final class FileRouter {
         
         let loadingVC = LoadingViewController(
             loadData: loadData,
-            informationText: NSLocalizedString("Loading, please wait", comment: ""),
+            informationText: "Loading, please wait".localized,
             loadingCompletion: { [weak self] url in
                 let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
                 self?.viewController?.present(controller, animated: true, completion: nil)

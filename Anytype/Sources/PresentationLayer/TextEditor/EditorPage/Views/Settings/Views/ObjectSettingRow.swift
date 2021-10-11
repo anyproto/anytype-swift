@@ -76,22 +76,22 @@ private extension ObjectSetting {
     var title: String {
         switch self {
         case .icon:
-            return "Icon"
+            return "Icon".localized
         case .cover:
-            return "Cover"
+            return "Cover".localized
         case .layout:
-            return "Layout"
+            return "Layout".localized
         }
     }
     
     var description: String {
         switch self {
         case .icon:
-            return "Emoji or image for object"
+            return "Emoji or image for object".localized
         case .cover:
-            return "Background picture"
+            return "Background picture".localized
         case .layout:
-            return "Arrangement of objects on a canvas"
+            return "Arrangement of objects on a canvas".localized
         }
     }
     

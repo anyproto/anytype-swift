@@ -8,7 +8,7 @@ struct SeedPhraseView: View {
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .center) {
-                AnytypeText(phrase ?? RedactedText.seedPhrase, style: .codeBlock, color: .darkBlue)
+                AnytypeText(phrase ?? RedactedText.seedPhrase.localized, style: .codeBlock, color: .darkBlue)
                     .redacted(reason: phrase.isNil ? .placeholder : [])
                     .padding()
             }

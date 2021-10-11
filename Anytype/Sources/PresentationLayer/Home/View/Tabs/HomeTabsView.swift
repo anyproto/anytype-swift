@@ -77,9 +77,9 @@ struct HomeTabsView: View {
         // Scroll view hack, vibrancy effect do not work without it
         ScrollView([]) {
             HStack(spacing: 20) {
-                tabButton(text: "Favorites", tab: .favourites)
-                tabButton(text: "History", tab: .history)
-                tabButton(text: "Archive", tab: .archive)
+                tabButton(text: "Favorites".localized, tab: .favourites)
+                tabButton(text: "History".localized, tab: .history)
+                tabButton(text: "Archive".localized, tab: .archive)
                 Spacer()
             }
             .padding(.leading, 20)

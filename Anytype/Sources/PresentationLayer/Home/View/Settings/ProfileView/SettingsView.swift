@@ -29,10 +29,10 @@ struct SettingsView: View {
     
     private var alert: Alert {
         Alert(
-            title: AnytypeText.buildText("Log out", style: .title),
-            message: AnytypeText.buildText("Have you backed up your keychain phrase?", style: .subheading),
+            title: AnytypeText.buildText("Log out".localized, style: .title),
+            message: AnytypeText.buildText("Have you backed up your keychain phrase?".localized, style: .subheading),
             primaryButton: Alert.Button.default(
-                AnytypeText.buildText("Backup keychain phrase", style: .bodyRegular)
+                AnytypeText.buildText("Backup keychain phrase".localized, style: .bodyRegular)
             ) {
                 settingsSectionModel.keychain = true
             },

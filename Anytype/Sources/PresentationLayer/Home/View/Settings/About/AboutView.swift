@@ -53,7 +53,7 @@ struct AboutView: View {
     @State private var titleTapCount = 0
     @State private var showDebugMenu = false
     var title: some View {
-        AnytypeText("About", style: .title, color: .textPrimary)
+        AnytypeText("About".localized, style: .title, color: .textPrimary)
             .onTapGesture {
                 titleTapCount += 1
                 if titleTapCount == 10 {

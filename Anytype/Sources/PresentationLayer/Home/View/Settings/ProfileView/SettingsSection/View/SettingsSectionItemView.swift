@@ -18,7 +18,7 @@ struct SettingsSectionItemView: View {
                 AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 if comingSoon {
-                    AnytypeText("Soon", style: .uxCalloutRegular, color: .textTertiary)
+                    AnytypeText("Soon".localized, style: .uxCalloutRegular, color: .textTertiary)
                 } else {
                     Image.arrow
                 }
