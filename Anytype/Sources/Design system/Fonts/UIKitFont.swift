@@ -66,7 +66,7 @@ extension UIFont {
     private func setItalic(enabled: Bool, _ weight: UIFont.Weight) -> UIFont {
         var traits: [UIFontDescriptor.TraitKey : Any] = [:]
 
-        // we need add weight along with traitItalic to create proper font otherwise it create
+        // we need add weight along with traitItalic to create proper font
         traits[UIFontDescriptor.TraitKey.weight] = weight
 
         if enabled {
