@@ -14,8 +14,9 @@ protocol BaseDocumentProtocol: AnyObject {
     var rootModel: RootBlockContainer? { get }
     var eventHandler: EventHandler { get }
     
+    func open()
+    
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
-    func open(_ value: ResponseEvent)
     func handle(events: PackOfEvents)
     /// Return publisher that received event on blocks update
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }

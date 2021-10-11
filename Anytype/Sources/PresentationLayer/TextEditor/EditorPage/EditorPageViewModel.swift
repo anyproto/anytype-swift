@@ -23,7 +23,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
-    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private let headerBuilder: ObjectHeaderBuilder
     
     private var subscriptions = Set<AnyCancellable>()
@@ -55,18 +54,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.headerBuilder = headerBuilder
         
         setupSubscriptions()
-        obtainDocument(documentId: documentId)
-    }
-
-    private func obtainDocument(documentId: String) {
-        guard
-            let result = blockActionsService.open(
-                contextId: documentId,
-                blockId: documentId
-            )
-        else { return }
-        
-        document.open(result)
+        document.open()
     }
 
     private func setupSubscriptions() {

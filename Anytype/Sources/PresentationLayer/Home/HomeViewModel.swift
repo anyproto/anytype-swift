@@ -36,7 +36,15 @@ final class HomeViewModel: ObservableObject {
         let homeBlockId = configurationService.configuration().homeBlockID
         document = BaseDocument(objectId: homeBlockId)
         
-        fetchDashboardData()
+        document
+            .updateBlockModelPublisher
+            .receiveOnMain()
+            .sink { [weak self] updateResult in
+                self?.onDashboardChange(updateResult: updateResult)
+            }
+            .store(in: &self.subscriptions)
+        
+        document.open()
     }
 
     // MARK: - View output
@@ -55,20 +63,6 @@ final class HomeViewModel: ObservableObject {
     func updateHistoryTab() {
         guard let searchResults = searchService.searchHistoryPages() else { return }
         historyCellData = cellDataBuilder.buildCellData(searchResults)
-    }
-    
-    private func fetchDashboardData() {
-        guard
-            let response = dashboardService.openDashboard(
-                homeBlockId: document.objectId
-            )
-        else { return }
-
-        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
-            self?.onDashboardChange(updateResult: updateResult)
-        }.store(in: &self.subscriptions)
-        
-        document.open(response)
     }
     
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
