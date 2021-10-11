@@ -1,5 +1,3 @@
-
-
 class EventProcessor {
     let document: BaseDocumentProtocol
     weak var modelsHolder: ObjectContentViewModelsSharedHolder?

@@ -156,7 +156,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
     }
     
-    func delete(blockId: BlockId, completion: @escaping Conversion) {
+    func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents)) {
         guard let response = singleService.delete(contextId: documentId, blockIds: [blockId]) else {
             return
         }

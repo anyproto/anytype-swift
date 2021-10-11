@@ -2,8 +2,6 @@ import BlocksModels
 import UIKit
 
 protocol BlockActionServiceProtocol {
-    typealias Conversion = (ResponseEvent) -> (PackOfEvents)
-    
     func configured(documentId: String) -> Self
     func configured(didReceiveEvent: @escaping (PackOfEvents) -> ())
     
@@ -17,7 +15,7 @@ protocol BlockActionServiceProtocol {
     
     func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent])
     
-    func delete(blockId: BlockId, completion: @escaping Conversion)
+    func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents))
     
     func createPage(position: BlockPosition)
     
