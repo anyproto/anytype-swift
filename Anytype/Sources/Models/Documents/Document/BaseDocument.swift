@@ -28,15 +28,6 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    /// RootModel
-//    private(set) var rootModel: RootBlockContainer? {
-//        didSet {
-//            rootModel.flatMap {
-//                eventHandler.configured($0)
-//            }
-//        }
-//    }
-    
     let rootModel: RootBlockContainer
     
     let eventHandler = EventHandler()
@@ -110,21 +101,15 @@ final class BaseDocument: BaseDocumentProtocol {
         // And then, sync builders
         let rootId = serviceSuccess.contextID
         
-        let blocksContainer = TreeBlockBuilder.buildBlocksTree(
+        TreeBlockBuilder.buildBlocksTree(
             from: event.blocks,
-            with: rootId
+            with: rootId,
+            in: rootModel.blocksContainer
         )
-        let detailsStorage = ObjectDetailsStorage()
-        event.details.forEach {
-            detailsStorage.add(details: $0, id: $0.id)
-        }
         
-        // Add details models to process.
-//        rootModel = RootBlockContainer(
-//            rootId: rootId,
-//            blocksContainer: blocksContainer,
-//            detailsStorage: detailsStorage
-//        )
+        event.details.forEach {
+            rootModel.detailsStorage.add(details: $0, id: $0.id)
+        }
     }
     
     /// Returns a flatten list of active models of document.
