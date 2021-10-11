@@ -3,10 +3,10 @@ import Combine
 import BlocksModels
 
 protocol BlockActionsServiceSingleProtocol {
-    func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ResponseEvent, Error>
-    func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ResponseEvent, Error>
-    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ResponseEvent, Error>
-    func add(contextID: BlockId, targetID: BlockId, info: BlockInformation, position: BlockPosition) -> Result<ResponseEvent, Error>
+    func delete(contextId: BlockId, blockIds: [BlockId]) -> ResponseEvent?
+    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> ResponseEvent?
+    func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> ResponseEvent?
+    func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> ResponseEvent?
     func close(contextId: BlockId, blockId: BlockId)
     func open(contextId: BlockId, blockId: BlockId) -> ResponseEvent?
 }

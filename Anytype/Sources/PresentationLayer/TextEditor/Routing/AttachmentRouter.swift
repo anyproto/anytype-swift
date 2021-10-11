@@ -1,12 +1,3 @@
-//
-//  AttachmentRouter.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 06.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
-import Foundation
 import UIKit
 import AnytypeCore
 import SwiftUI
