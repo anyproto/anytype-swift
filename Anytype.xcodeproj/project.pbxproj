@@ -2438,10 +2438,9 @@
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3D170236271598790079B65B /* Navigation */,
 				120E816B269F26BE006FE84E /* Settings */,
 				3D44983D26D5314B005A3E06 /* Header */,
-				12A52E1A26CA88CD000F0333 /* EditorBarButtonItemView.swift */,
-				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 			);
 			path = Views;
@@ -2773,6 +2772,15 @@
 				3D93851326FAED69001C137F /* ObjectIconImageUsecase+Font.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3D170236271598790079B65B /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
+				12A52E1A26CA88CD000F0333 /* EditorBarButtonItemView.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		3D180220264E9C0000224815 /* Models */ = {
@@ -4507,7 +4515,6 @@
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */,
-				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,

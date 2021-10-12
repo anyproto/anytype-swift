@@ -7,7 +7,8 @@ final class EditorNavigationBarHelper {
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
-    private let settingsBarButtonItemView: EditorBarButtonItemView
+    private let settingsItem: EditorBarButtonItemView
+    private let syncStatusItem: EditorBarButtonItemView
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -15,9 +16,19 @@ final class EditorNavigationBarHelper {
     private var objectHeaderHeight: CGFloat = 0.0
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
-        self.settingsBarButtonItemView = EditorBarButtonItemView(
-            image: .editorNavigation.more,
-            action: onSettingsBarButtonItemTap
+        self.settingsItem = EditorBarButtonItemView(
+            style: .settings(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
+        )
+        
+        let greenCircle = ImageBuilder(
+            .init(
+                size: CGSize(width: 10, height: 10),
+                cornersGuideline: .init(radius: 5, borderColor: nil)
+            )
+        )
+            .setImageColor(.pureGreen).build()
+        self.syncStatusItem = EditorBarButtonItemView(
+            style: .syncStatus(image: greenCircle, title: "Synced", description: "Backed up on one node at least")
         )
         
         self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
@@ -95,12 +106,15 @@ private extension EditorNavigationBarHelper {
         vc.navigationItem.hidesBackButton = true
         
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            customView: settingsBarButtonItemView
+            customView: settingsItem
+        )
+        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            customView: syncStatusItem
         )
     }
     
     func updateBarButtonItemsBackground(alpha: CGFloat) {
-        [settingsBarButtonItemView].forEach {
+        [settingsItem, syncStatusItem].forEach {
             guard !$0.backgroundAlpha.isEqual(to: alpha) else { return }
             
             $0.backgroundAlpha = alpha
