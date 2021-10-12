@@ -203,25 +203,9 @@ final class TextBlockActionHandler {
             service.merge(firstBlockId: previousModel.blockId, secondBlockId: block.information.id, localEvents: localEvents)
 
         case .deleteOnEmptyContent:
-            service.delete(blockId: block.information.id) { [weak self, contextId] value in
-                guard let previousModel = self?.modelsHolder?.findModel(beforeBlockId: block.information.id) else {
-                    anytypeAssertionFailure(
-                        "We can't find previous block to focus on at command .delete for block \(block.information.id)"
-                    )
-                    return PackOfEvents(
-                        objectId: contextId,
-                        middlewareEvents: value.messages
-                    )
-                }
-                let previousBlockId = previousModel.blockId
-                return PackOfEvents(
-                    objectId: contextId,
-                    middlewareEvents: value.messages,
-                    localEvents: [
-                        .setFocus(blockId: previousBlockId, position: .end)
-                    ]
-                )
-            }
+            let blockId = block.information.id
+            let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
+            service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
         }
     }
 }

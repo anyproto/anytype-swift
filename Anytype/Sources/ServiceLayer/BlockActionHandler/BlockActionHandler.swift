@@ -174,26 +174,8 @@ private extension BlockActionHandler {
     }
     
     func delete(blockId: BlockId) {
-        // TODO: - details. ?????????
-        service.delete(blockId: blockId) { [weak self, document] value in
-            guard
-                let self = self,
-                let previousModel = self.modelsHolder?.findModel(beforeBlockId: blockId)
-            else {
-                return PackOfEvents(
-                    objectId: document.objectId,
-                    middlewareEvents: value.messages
-                )
-            }
-            let previousBlockId = previousModel.blockId
-            return PackOfEvents(
-                objectId: document.objectId,
-                middlewareEvents: value.messages,
-                localEvents: [
-                    .setFocus(blockId: previousBlockId, position: .end)
-                ]
-            )
-        }
+        let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
+        service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
     }
     
     func addBlock(blockId: BlockId, type: BlockContentType) {
