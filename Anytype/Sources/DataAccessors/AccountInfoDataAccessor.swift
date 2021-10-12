@@ -12,16 +12,14 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private let document: BaseDocumentProtocol
     private var subscriptions: [AnyCancellable] = []
-    
-    private let blocksActionsService = BlockActionsServiceSingle()
-    
+        
     init() {
         let blockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
         profileBlockId = blockId
         document = BaseDocument(objectId: blockId)
+        document.open()
         
         setUpSubscriptions()
-        obtainAccountInfo()
     }
     
     private func setUpSubscriptions() {
@@ -53,18 +51,6 @@ final class AccountInfoDataAccessor: ObservableObject {
             .store(in: &self.subscriptions)
     }
     
-    private func obtainAccountInfo() {
-        guard
-            let response = blocksActionsService.open(
-                contextId: profileBlockId,
-                blockId: profileBlockId
-            )
-        else {
-            return
-        }
-        
-        document.open(response)
-    }
 }
 
 private extension AccountInfoDataAccessor {

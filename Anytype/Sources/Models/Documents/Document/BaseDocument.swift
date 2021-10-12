@@ -12,7 +12,7 @@ final class BaseDocument: BaseDocumentProtocol {
     let objectId: BlockId
 
     private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
-    
+    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     var rootActiveModel: BlockModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
         return rootModel?.blocksContainer.model(id: rootId)
@@ -52,6 +52,17 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
 
+    func open() {
+        guard
+            let result = blockActionsService.open(
+                contextId: objectId,
+                blockId: objectId
+            )
+        else { return }
+        
+        open(result)
+    }
+    
     var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
         eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
             .compactMap { [weak self] updates in
