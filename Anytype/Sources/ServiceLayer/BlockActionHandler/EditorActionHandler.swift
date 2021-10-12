@@ -36,7 +36,12 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     ) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        document.handle(events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId)))
+        document.handle(
+            events: PackOfEvents(
+                objectId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            )
+        )
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
@@ -54,7 +59,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
         document.handle(
-            events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
+            events: PackOfEvents(
+                objectId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            )
         )
         
         blockActionHandler.upload(blockId: blockId, filePath: localPath)

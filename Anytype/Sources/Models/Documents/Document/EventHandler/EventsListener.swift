@@ -53,9 +53,9 @@ final class EventsListener: EventHandlerProtocol {
             .compactMap { $0.object as? Anytype_Event }
             .filter {$0.contextID == self.objectId}
             .sink { [weak self] event in
-                self?.handle(
-                    events: PackOfEvents(middlewareEvents: event.messages)
-                )
+//                self?.handle(
+//                    events: PackOfEvents(middlewareEvents: event.messages)
+//                )
             }
     }
     

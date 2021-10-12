@@ -28,7 +28,7 @@ final class ObjectDetailsService {
         guard let result = result else { return }
 
         eventHandler.handle(
-            events: PackOfEvents(middlewareEvents: result.messages)
+            events: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
         )
     }
 }

@@ -91,7 +91,10 @@ extension HomeViewModel {
         guard let response = dashboardService.createNewPage() else { return }
         
         document.handle(
-            events: PackOfEvents(middlewareEvents: response.messages)
+            events: PackOfEvents(
+                objectId: document.objectId,
+                middlewareEvents: response.messages
+            )
         )
 
         guard !response.newBlockId.isEmpty else {

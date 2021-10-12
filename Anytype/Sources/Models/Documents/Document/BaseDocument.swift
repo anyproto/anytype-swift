@@ -82,7 +82,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         handleOpen(result)
         eventHandler.handle(
-            events: PackOfEvents(middlewareEvents: result.messages)
+            events: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
         )
     }
 
@@ -90,7 +90,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private func handleOpen(_ serviceSuccess: ResponseEvent) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(middlewareEvents: serviceSuccess.messages)
+            events: .init(objectId: objectId, middlewareEvents: serviceSuccess.messages)
         )
         guard let event = blocks.first else { return }
         

@@ -92,7 +92,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             service.addChild(info: BlockBuilder.createDefaultInformation(), parentBlockId: parentId)
         case .moveTo(targetId: let targetId):
             let response = listService.moveTo(contextId: documentId, blockId: blockId, targetId: targetId)
-            response.flatMap { completion?(PackOfEvents(middlewareEvents: $0.messages)) }
+            response.flatMap {
+                completion?(
+                    PackOfEvents(
+                        objectId: documentId,
+                        middlewareEvents: $0.messages
+                    )
+                )
+            }
         case let .textView(action: action, block: blockModel):
             switch action {
             case let .changeCaretPosition(selectedRange):
@@ -128,30 +135,60 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     
     private func delete(blockId: BlockId) {
-        service.delete(blockId: blockId) { [weak self] value in
-            guard let previousModel = self?.modelsHolder?.findModel(beforeBlockId: blockId) else {
-                return .init(middlewareEvents: value.messages, localEvents: [])
+        service.delete(blockId: blockId) { [weak self, documentId] value in
+            guard
+                let self = self,
+                let previousModel = self.modelsHolder?.findModel(beforeBlockId: blockId)
+            else {
+                return PackOfEvents(
+                    objectId: documentId,
+                    middlewareEvents: value.messages
+                )
             }
             let previousBlockId = previousModel.blockId
-            return .init(middlewareEvents: value.messages, localEvents: [
-                .setFocus(blockId: previousBlockId, position: .end)
-            ])
+            return PackOfEvents(
+                objectId: documentId,
+                middlewareEvents: value.messages,
+                localEvents: [
+                    .setFocus(blockId: previousBlockId, position: .end)
+                ]
+            )
         }
     }
 }
 
 private extension BlockActionHandler {
     func setBlockColor(blockId: BlockId, color: BlockColor, completion: Completion?) {
-        listService.setBlockColor(contextId: documentId, blockIds: [blockId], color: color.middleware)
+        listService.setBlockColor(
+            contextId: documentId,
+            blockIds: [blockId],
+            color: color.middleware
+        )
             .flatMap {
-                completion?(PackOfEvents(middlewareEvents: $0.messages, localEvents: []))
+                completion?(
+                    PackOfEvents(
+                        objectId: documentId,
+                        middlewareEvents: $0.messages,
+                        localEvents: []
+                    )
+                )
             }
     }
     
     func setAlignment(blockId: BlockId, alignment: LayoutAlignment, completion: Completion?) {
-        listService.setAlign(contextId: self.documentId, blockIds: [blockId], alignment: alignment)
+        listService.setAlign(
+            contextId: documentId,
+            blockIds: [blockId],
+            alignment: alignment
+        )
             .flatMap {
-                completion?(PackOfEvents(middlewareEvents: $0.messages, localEvents: []))
+                completion?(
+                    PackOfEvents(
+                        objectId: documentId, 
+                        middlewareEvents: $0.messages,
+                        localEvents: []
+                    )
+                )
             }
     }
 }

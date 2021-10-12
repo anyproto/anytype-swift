@@ -32,7 +32,9 @@ final class BlockActionService: BlockActionServiceProtocol {
     /// - Parameters:
     ///   - events: Event to handle
     func receivelocalEvents(_ events: [LocalEvent]) {
-        didReceiveEvent(PackOfEvents(localEvents: events))
+        didReceiveEvent(
+            PackOfEvents(objectId: documentId, localEvents: events)
+        )
     }
 
     func configured(documentId: String) -> Self {
@@ -94,6 +96,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         ) else { return }
             
         let allEvents = PackOfEvents(
+            objectId: documentId,
             middlewareEvents: splitSuccess.responseEvent.messages,
             localEvents: [
                 .setFocus(blockId: splitSuccess.blockId, position: .beginning)
@@ -104,8 +107,17 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
-            .flatMap { didReceiveEvent(PackOfEvents(middlewareEvents: $0.messages)) }
+            .duplicate(
+                contextId: documentId,
+                targetId: blockId,
+                blockIds: [blockId],
+                position: .bottom
+            )
+            .flatMap {
+                didReceiveEvent(
+                    PackOfEvents(objectId: documentId, middlewareEvents: $0.messages)
+                )
+            }
     }
 
     func createPage(position: BlockPosition) {
@@ -118,7 +130,9 @@ final class BlockActionService: BlockActionServiceProtocol {
        ) else { return }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        didReceiveEvent(
+            PackOfEvents(objectId: documentId, middlewareEvents: response.messages)
+        )
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
@@ -143,14 +157,21 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard let response = textService.checked(contextId: documentId, blockId: blockId, newValue: newValue) else {
             return
         }
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        didReceiveEvent(
+            PackOfEvents(objectId: documentId, middlewareEvents: response.messages)
+        )
     }
     
     func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents)) {
-        guard let response = singleService.delete(contextId: documentId, blockIds: [blockId]) else {
+        guard
+            let response = singleService.delete(
+                contextId: documentId,
+                blockIds: [blockId]
+            )
+        else {
             return
         }
-
+        
         didReceiveEvent(completion(response))
     }
     
