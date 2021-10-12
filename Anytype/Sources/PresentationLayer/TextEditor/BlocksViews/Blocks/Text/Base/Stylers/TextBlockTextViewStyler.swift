@@ -78,7 +78,7 @@ final class TextBlockTextViewStyler {
     
     private static func setupText(in textView: CustomTextView, placeholer: String, textStyle: UIKitAnytypeText) {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: textStyle.font,
+            .font: textStyle.anytypeFont.uiKitFont,
             .foregroundColor: UIColor.textSecondary,
         ]
 
@@ -90,7 +90,8 @@ final class TextBlockTextViewStyler {
             right: 0
         )
 
-        textView.textView.typingAttributes = textStyle.typingAttributes
+        let font = textView.textView.typingAttributes[.font] as? UIFont
+        textView.textView.typingAttributes = textStyle.modifiedTypingAttributes(font: font ?? textStyle.anytypeFont.uiKitFont)
         textView.textView.defaultFontColor = .textPrimary
     }
 }

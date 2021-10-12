@@ -50,13 +50,13 @@ final class TextBlockActionHandler {
         let blockId = blockModel.information.id
         blockModel.information.content = .text(textContentType)
 
-        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
-
         completion?(
             PackOfEvents(localEvent:
                 .setText(blockId: blockId, text: middlewareString.text)
             )
         )
+        
+        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.KeyboardAction) {
@@ -196,7 +196,6 @@ final class TextBlockActionHandler {
             if case let .text(text) = previousModel.information.content {
                 let range = NSRange(location: text.text.count, length: 0)
                 localEvents.append(contentsOf: [
-                    .setTextMerge(blockId: previousBlockId),
                     .setFocus(blockId: previousBlockId, position: .at(range))
                 ])
             }

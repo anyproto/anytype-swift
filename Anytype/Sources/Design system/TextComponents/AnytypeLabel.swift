@@ -15,7 +15,7 @@ class AnytypeLabel: UIView {
 
     private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style)
     private let label: UILabel = .init()
-    private var style: AnytypeFont = .bodyRegular
+    private var style: AnytypeFont = .body
 
     var textAlignment: NSTextAlignment {
         set {

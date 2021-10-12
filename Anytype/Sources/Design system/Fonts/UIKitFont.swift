@@ -3,12 +3,92 @@ import BlocksModels
 
 
 extension UIFont {
+
+    var bold: UIFont {
+        guard !fontDescriptor.symbolicTraits.contains(.traitBold) else { return self }
+
+        switch self {
+        case .bodyRegular, .bodyRegular.italic:
+            return applyWeight(.semibold)
+        default:
+            return applyWeight(.bold)
+        }
+    }
+
+    var regular: UIFont {
+        return applyWeight(.regular)
+    }
+
+    var italic: UIFont {
+        guard !fontDescriptor.symbolicTraits.contains(.traitItalic) else { return self }
+
+        switch self {
+        case .bodyRegular.bold:
+            return setItalic(enabled: true, .semibold)
+        case self.bold:
+            return setItalic(enabled: true, .bold)
+        default:
+            return setItalic(enabled: true, .regular)
+        }
+    }
+
+    var nonItalic: UIFont {
+        guard fontDescriptor.symbolicTraits.contains(.traitItalic) else { return self }
+
+        switch self {
+        case .bodyRegular.bold.italic:
+            return setItalic(enabled: false, .semibold)
+        case self.bold.italic:
+            return setItalic(enabled: false, .bold)
+        default:
+            return setItalic(enabled: false, .regular)
+        }
+    }
+
+    private func applyWeight(_ weight: UIFont.Weight) -> UIFont {
+        let oldTraits = fontDescriptor.symbolicTraits
+        var traits: [UIFontDescriptor.TraitKey : Any] = [:]
+
+        if oldTraits.contains(.traitItalic) {
+            traits[UIFontDescriptor.TraitKey.symbolic] = UIFontDescriptor.SymbolicTraits.traitItalic.rawValue
+
+        }
+        traits[UIFontDescriptor.TraitKey.weight] = weight
+
+        let newDescriptor = UIFontDescriptor(fontAttributes: [
+            .traits: traits,
+            .family: familyName
+        ])
+
+        return UIFont(descriptor: newDescriptor, size: pointSize)
+    }
+
+    private func setItalic(enabled: Bool, _ weight: UIFont.Weight) -> UIFont {
+        var traits: [UIFontDescriptor.TraitKey : Any] = [:]
+
+        // we need add weight along with traitItalic to create proper font
+        traits[UIFontDescriptor.TraitKey.weight] = weight
+
+        if enabled {
+            traits[UIFontDescriptor.TraitKey.symbolic] = UIFontDescriptor.SymbolicTraits.traitItalic.rawValue
+        }
+
+        let newDescriptor = UIFontDescriptor(fontAttributes: [
+            .traits: traits,
+            .family: familyName
+        ])
+
+        return UIFont(descriptor: newDescriptor, size: pointSize)
+    }
+}
+
+
+extension UIFont {
     static let title = UIKitFontBuilder.uiKitFont(font: .title)
     static let heading = UIKitFontBuilder.uiKitFont(font: .heading)
     static let subheading = UIKitFontBuilder.uiKitFont(font: .subheading)
     
-    static let bodyRegular = UIKitFontBuilder.uiKitFont(font: .bodyRegular)
-    static let bodyBold = UIKitFontBuilder.uiKitFont(font: .bodyBold)
+    static let bodyRegular = UIKitFontBuilder.uiKitFont(font: .body)
     static let calloutRegular = UIKitFontBuilder.uiKitFont(font: .callout)
 
     static let relation2Regular = UIKitFontBuilder.uiKitFont(font: .relation2Regular)
@@ -42,10 +122,10 @@ extension AnytypeFont {
 struct UIKitFontBuilder {
 
     static func uiKitFont(font: AnytypeFont) -> UIFont {
-        return uiKitFont(name: font.fontName, size: font.size, weight: uiKitWeight(font))
+        return uiKitFont(name: font.fontName, size: font.size, weight: font.weight)
     }
 
-    static func uiKitFont(name: AnytypeFont.FontName, size: CGFloat, weight: UIFont.Weight) -> UIFont {
+    static func uiKitFont(name: AnytypeFont.FontName, size: CGFloat, weight: AnytypeFont.Weight) -> UIFont {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         var descriptor = UIFontDescriptor(fontAttributes: [
             attributeKey(name: name): name.rawValue,
@@ -54,7 +134,7 @@ struct UIKitFontBuilder {
 
         descriptor = descriptor.addingAttributes(
             [
-                .traits: [ UIFontDescriptor.TraitKey.weight: weight ]
+                .traits: [UIFontDescriptor.TraitKey.weight: uiKitWeight(weight)]
             ]
         )
 
@@ -70,8 +150,8 @@ struct UIKitFontBuilder {
         }
     }
 
-    private static func uiKitWeight(_ font: AnytypeFont) -> UIFont.Weight {
-        switch font.weight {
+    static func uiKitWeight(_ weight: AnytypeFont.Weight) -> UIFont.Weight {
+        switch weight {
         case .regular:
             return .regular
         case .medium:

@@ -51,7 +51,7 @@ final class BlockViewModelBuilder {
                     content: content,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
-                        self?.delegate.becomeFirstResponder(for: model)
+                        self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
                     textDidChange: { block, textView in
                         self.editorActionHandler.handleAction(
@@ -110,7 +110,7 @@ final class BlockViewModelBuilder {
             case .none:
                 return UnknownLabelViewModel(information: block.information)
             case .image:
-                return BlockImageViewModel(
+                let viewModel = BlockImageViewModel(
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
@@ -119,6 +119,10 @@ final class BlockViewModelBuilder {
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     }
                 )
+
+                viewModel?.onImageOpen = router.openImage
+
+                return viewModel
             case .video:
                 return VideoBlockViewModel(
                     indentationLevel: block.indentationLevel,
