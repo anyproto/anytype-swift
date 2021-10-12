@@ -81,8 +81,9 @@ final class BaseDocument: BaseDocumentProtocol {
         else { return }
         
         handleOpen(result)
-        eventHandler.handle(
-            events: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
         )
     }
 
@@ -159,13 +160,4 @@ final class BaseDocument: BaseDocumentProtocol {
         .empty()
     }
 
-    // MARK: - Events
-    
-    /// Handle events initiated by user.
-    ///
-    /// - Parameter events: A pack of events.
-    ///
-    func handle(events: PackOfEvents) {
-        eventHandler.handle(events: events)
-    }
 }

@@ -108,13 +108,6 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
                 objectDetailsService: ObjectDetailsService(
-                    eventHandler: EventsListener(
-                        objectId: "",
-                        container: RootBlockContainer(
-                            blocksContainer: BlockContainer(),
-                            detailsStorage: ObjectDetailsStorage()
-                        )
-                    ),
                     objectId: ""
                 )
             )

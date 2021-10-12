@@ -13,12 +13,10 @@ import Combine
 final class ObjectDetailsService {
     
     private let service = ObjectActionsService()
-    private let eventHandler: EventsListener
 
     private let objectId: String
         
-    init(eventHandler: EventsListener, objectId: String) {
-        self.eventHandler = eventHandler
+    init(objectId: String) {
         self.objectId = objectId
     }
     
@@ -27,8 +25,9 @@ final class ObjectDetailsService {
         
         guard let result = result else { return }
 
-        eventHandler.handle(
-            events: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
         )
     }
 }

@@ -3,8 +3,7 @@ import Combine
 import AnytypeCore
 
 final class TextBlockActionHandler {
-    typealias Completion = (PackOfEvents) -> Void
-
+    
     private let service: BlockActionServiceProtocol
     private let textService = TextService()
     private let contextId: String
@@ -21,12 +20,12 @@ final class TextBlockActionHandler {
         self.modelsHolder = modelsHolder
     }
 
-    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction, completion: Completion?) {
+    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction) {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
         case let .changeText(attributedText):
-            handleChangeText(block, text: attributedText, completion: completion)
+            handleChangeText(block, text: attributedText)
         case .changeTextStyle, .changeLink:
             anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         case .changeCaretPosition, .showPage, .openURL:
@@ -39,7 +38,7 @@ final class TextBlockActionHandler {
         }
     }
     
-    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString, completion: Completion?) {
+    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString) {
         guard case var .text(textContentType) = block.information.content else { return }
         var blockModel = block
 
@@ -50,8 +49,9 @@ final class TextBlockActionHandler {
         let blockId = blockModel.information.id
         blockModel.information.content = .text(textContentType)
 
-        completion?(
-            PackOfEvents(
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(
                 objectId: contextId,
                 localEvents: [.setText(blockId: blockId, text: middlewareString.text)]
             )

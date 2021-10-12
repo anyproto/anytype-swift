@@ -6,7 +6,6 @@ import AnytypeCore
 
 protocol EventHandlerProtocol: AnyObject {
     var onUpdateReceive: ((EventHandlerUpdate) -> Void)? { get set }
-    func handle(events: PackOfEvents)
 }
 
 final class EventsListener: EventHandlerProtocol {
@@ -71,7 +70,7 @@ final class EventsListener: EventHandlerProtocol {
             }
     }
     
-    func handle(events: PackOfEvents) {
+    private func handle(events: PackOfEvents) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) ?? nil
         }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) ?? nil }

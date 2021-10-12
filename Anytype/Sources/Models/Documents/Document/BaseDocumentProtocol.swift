@@ -18,7 +18,6 @@ protocol BaseDocumentProtocol: AnyObject {
     func open()
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
-    func handle(events: PackOfEvents)
     
     func getDetails(id: BlockId) -> ObjectDetails?
 }
