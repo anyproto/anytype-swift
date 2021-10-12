@@ -2,12 +2,14 @@ import Foundation
 
 public final class RootBlockContainer {
     
-    public let rootId: BlockId?
+    public let rootId: BlockId
     public let blocksContainer: BlockContainerModelProtocol
     public let detailsContainer: DetailsContainerProtocol
     
+    public var detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    
     public init(
-        rootId: BlockId?,
+        rootId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
         detailsContainer: DetailsContainerProtocol
     ) {
