@@ -4,7 +4,6 @@ import AnytypeCore
 
 final class BlockContainer: BlockContainerModelProtocol {
     var rootId: BlockId?
-    var userSession = UserSession()
     private var models = [BlockId: BlockModelProtocol]()
     
     func children(of id: BlockId) -> [BlockId] {

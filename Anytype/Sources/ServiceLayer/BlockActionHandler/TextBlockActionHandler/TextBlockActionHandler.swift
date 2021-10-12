@@ -196,7 +196,6 @@ final class TextBlockActionHandler {
             if case let .text(text) = previousModel.information.content {
                 let range = NSRange(location: text.text.count, length: 0)
                 localEvents.append(contentsOf: [
-                    .setTextMerge(blockId: previousBlockId),
                     .setFocus(blockId: previousBlockId, position: .at(range))
                 ])
             }

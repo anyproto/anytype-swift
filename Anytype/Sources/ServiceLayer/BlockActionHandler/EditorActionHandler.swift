@@ -10,18 +10,15 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
     private let blockActionHandler: BlockActionHandlerProtocol
-    private let eventProcessor: EventProcessor
     private let router: EditorRouterProtocol
     
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: BlockActionHandlerProtocol,
-        eventProcessor: EventProcessor,
         router: EditorRouterProtocol
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
-        self.eventProcessor = eventProcessor
         self.router = router
     }
     
@@ -40,9 +37,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         guard let objectId = document.documentId else { return }
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        eventProcessor.process(
-            events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
-        )
+        document.handle(events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId)))
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
@@ -59,7 +54,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        eventProcessor.process(
+        document.handle(
             events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
         )
         
@@ -90,7 +85,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         blockActionHandler.handleBlockAction(action, blockId: blockId) { [weak self] events in
-            self?.eventProcessor.process(events: events)
+            self?.document.handle(events: events)
         }
     }
     
@@ -99,12 +94,12 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     private func blockIdFromSource(_ blockIdSource: ActionHandlerBlockIdSource) -> BlockId? {
         switch blockIdSource {
         case .firstResponder:
-            guard let firstResponder = document.userSession?.firstResponder else {
+            guard let firstResponder = UserSession.shared.firstResponderId else {
                 anytypeAssertionFailure("No first responder found")
                 return nil
             }
             
-            return firstResponder.information.id
+            return firstResponder
         case .provided(let blockId):
             return blockId
         }
