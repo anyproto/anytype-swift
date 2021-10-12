@@ -8,7 +8,7 @@ struct BaseDocumentUpdateResult {
 }
 
 protocol BaseDocumentProtocol: AnyObject {
-    var documentId: BlockId? { get }
+    var objectId: BlockId { get }
     var userSession: UserSession? { get set }
     var rootActiveModel: BlockModelProtocol? { get }
     var rootModel: RootBlockContainer? { get }

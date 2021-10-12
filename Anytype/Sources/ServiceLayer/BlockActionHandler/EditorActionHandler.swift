@@ -26,10 +26,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func onEmptySpotTap() {
-        guard let block = document.rootActiveModel, let parentId = document.documentId else {
+        guard let block = document.rootActiveModel else {
             return
         }
-        handleAction(.createEmptyBlock(parentId: parentId), blockId: block.information.id)
+        handleAction(.createEmptyBlock(parentId: document.objectId), blockId: block.information.id)
     }
     
     func uploadMediaFile(
@@ -37,7 +37,6 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         type: MediaPickerContentType,
         blockId: ActionHandlerBlockIdSource
     ) {
-        guard let objectId = document.documentId else { return }
         guard let blockId = blockIdFromSource(blockId) else { return }
         
         eventProcessor.process(
@@ -47,7 +46,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: BlockMediaUploadingWorker(
-                objectId: objectId,
+                objectId: document.objectId,
                 blockId: blockId,
                 contentType: type
             )
