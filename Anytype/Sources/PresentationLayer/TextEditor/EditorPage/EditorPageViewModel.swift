@@ -52,7 +52,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.headerBuilder = headerBuilder
         
         setupSubscriptions()
-        document.open()
     }
 
     private func setupSubscriptions() {
@@ -197,6 +196,7 @@ extension EditorPageViewModel {
             AmplitudeEventsName.documentPage,
             withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId]
         )
+        document.open()
     }
 }
 

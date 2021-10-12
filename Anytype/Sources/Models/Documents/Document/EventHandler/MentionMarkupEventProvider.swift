@@ -9,16 +9,19 @@ final class MentionMarkupEventProvider {
     }
     
     private weak var container: RootBlockContainer?
+    private let objectId: BlockId
     private let timeChecker = TimeChecker(threshold: Constants.threshold)
     
-    init(container: RootBlockContainer) {
+    init(container: RootBlockContainer, objectId: BlockId) {
         self.container = container
+        self.objectId = objectId
     }
     
     func updateMentionsEvent() -> EventHandlerUpdate {
-        guard let rootId = container?.rootId,
+        guard
               timeChecker.exceedsTimeInterval(),
-              let allBlockIds = container?.blocksContainer.children(of: rootId)else {
+              let allBlockIds = container?.blocksContainer.children(of: objectId)
+        else {
             return .update(blockIds: [])
         }
         

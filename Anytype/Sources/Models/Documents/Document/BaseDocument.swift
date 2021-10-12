@@ -30,7 +30,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     let rootModel: RootBlockContainer
     
-    let eventHandler = EventHandler()
+    let eventHandler: EventHandler
     
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
@@ -38,10 +38,11 @@ final class BaseDocument: BaseDocumentProtocol {
     init(objectId: BlockId) {
         self.objectId = objectId
         self.rootModel = RootBlockContainer(
-            rootId: objectId,
             blocksContainer: BlockContainer(),
             detailsStorage: ObjectDetailsStorage()
         )
+        
+        self.eventHandler = EventHandler(objectId: objectId)
         
         eventHandler.configured(self.rootModel)
         setup()
@@ -59,13 +60,17 @@ final class BaseDocument: BaseDocumentProtocol {
             
             let details = self.rootModel.detailsStorage.get(id: self.objectId)
             
-            self.onUpdateReceive?(
-                BaseDocumentUpdateResult(
-                    updates: update,
-                    details: details,
-                    models: self.models(from: update)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                self.onUpdateReceive?(
+                    BaseDocumentUpdateResult(
+                        updates: update,
+                        details: details,
+                        models: self.models(from: update)
+                    )
                 )
-            )
+            }
         }
     }
     
@@ -116,7 +121,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Returns: A list of active models.
     private func getModels() -> [BlockModelProtocol] {
         guard
-            let activeModel = rootModel.blocksContainer.model(id: rootModel.rootId)
+            let activeModel = rootModel.blocksContainer.model(id: objectId)
         else {
             AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []

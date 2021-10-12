@@ -107,7 +107,10 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
         ObjectSettingsContainerView(
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
-                objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")
+                objectDetailsService: ObjectDetailsService(
+                    eventHandler: EventHandler(objectId: ""),
+                    objectId: ""
+                )
             )
         )
     }
