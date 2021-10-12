@@ -6,6 +6,9 @@ import AnytypeCore
 import AudioToolbox
 
 struct AboutView: View {
+    @EnvironmentObject var viewModel: SettingSectionViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         contentView
             .onAppear {
@@ -35,9 +38,6 @@ struct AboutView: View {
             .padding(.horizontal, 20)
             Spacer()
         }
-        .sheet(isPresented: $showDebugMenu) {
-            FeatureFlagsView()
-        }
     }
     
     func aboutRow(label: String, value: String) -> some View {
@@ -51,7 +51,6 @@ struct AboutView: View {
     }
     
     @State private var titleTapCount = 0
-    @State private var showDebugMenu = false
     var title: some View {
         AnytypeText("About", style: .title, color: .textPrimary)
             .onTapGesture {
@@ -59,7 +58,8 @@ struct AboutView: View {
                 if titleTapCount == 10 {
                     titleTapCount = 0
                     AudioServicesPlaySystemSound(1109)
-                    showDebugMenu = true
+                    presentationMode.wrappedValue.dismiss()
+                    viewModel.debugMenu = true
                 }
             }
     }
