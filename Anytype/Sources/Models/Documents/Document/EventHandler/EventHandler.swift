@@ -5,14 +5,14 @@ import ProtobufMessages
 import AnytypeCore
 
 protocol EventHandlerProtocol: AnyObject {
+    var onUpdateReceive: ((EventHandlerUpdate) -> Void)? { get set }
     func handle(events: PackOfEvents)
 }
 
 final class EventHandler: EventHandlerProtocol {
-    lazy var didProcessEventsPublisher = didProcessEventsSubject.eraseToAnyPublisher()
-    
+    var onUpdateReceive: ((EventHandlerUpdate) -> Void)?
+        
     private lazy var eventPublisher = NotificationEventListener(handler: self)
-    private let didProcessEventsSubject = PassthroughSubject<EventHandlerUpdate, Never>()
     
     private weak var container: RootBlockContainer?
     
@@ -61,8 +61,8 @@ final class EventHandler: EventHandlerProtocol {
                     container: container.blocksContainer, id: container.rootId
                 )
             }
-
-            didProcessEventsSubject.send(update)
+            
+            onUpdateReceive?(update)
         }
     }
     

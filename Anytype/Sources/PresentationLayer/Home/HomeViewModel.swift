@@ -25,8 +25,6 @@ final class HomeViewModel: ObservableObject {
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     
-    private var subscriptions = [AnyCancellable]()
-
     let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
@@ -35,15 +33,9 @@ final class HomeViewModel: ObservableObject {
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
         document = BaseDocument(objectId: homeBlockId)
-        
-        document
-            .updateBlockModelPublisher
-            .receiveOnMain()
-            .sink { [weak self] updateResult in
-                self?.onDashboardChange(updateResult: updateResult)
-            }
-            .store(in: &self.subscriptions)
-        
+        document.onUpdateReceive = { [weak self] updateResult in
+            self?.onDashboardChange(updateResult: updateResult)
+        }
         document.open()
     }
 
@@ -85,7 +77,10 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                favoritesCellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+                favoritesCellData[offset] = cellDataBuilder.updatedCellData(
+                    newDetails: newDetails,
+                    oldData: data
+                )
             }
     }
 }

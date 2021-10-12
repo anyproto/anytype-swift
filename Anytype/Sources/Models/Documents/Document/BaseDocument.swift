@@ -10,8 +10,8 @@ private extension LoggerCategory {
 final class BaseDocument: BaseDocumentProtocol {
         
     let objectId: BlockId
-
-    private let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    
+    var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     var rootActiveModel: BlockModelProtocol? {
@@ -45,6 +45,31 @@ final class BaseDocument: BaseDocumentProtocol {
     
     init(objectId: BlockId) {
         self.objectId = objectId
+        
+        setup()
+    }
+    
+    func setup() {
+        eventHandler.onUpdateReceive = { [weak self] update in
+            guard update.hasUpdate else { return }
+            guard let self = self else { return }
+    
+            if
+               let container = self.rootModel,
+               let rootModel = container.blocksContainer.model(id: self.objectId) {
+                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
+            }
+            
+            let details = self.rootModel?.detailsStorage.get(id: self.objectId)
+            
+            self.onUpdateReceive?(
+                BaseDocumentUpdateResult(
+                    updates: update,
+                    details: details,
+                    models: self.models(from: update)
+                )
+            )
+        }
     }
     
     deinit {
@@ -66,27 +91,6 @@ final class BaseDocument: BaseDocumentProtocol {
             events: PackOfEvents(middlewareEvents: result.messages)
         )
     }
-    
-    var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
-        eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
-            .compactMap { [weak self] updates in
-                guard let self = self else { return nil }
-        
-                if
-                   let container = self.rootModel,
-                   let rootModel = container.blocksContainer.model(id: self.objectId) {
-                    BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
-                }
-                
-                let details = self.rootModel?.detailsContainer.get(by: self.objectId)?.detailsData
-                
-                return BaseDocumentUpdateResult(
-                    updates: updates,
-                    details: nil,//details,
-                    models: self.models(from: updates)
-                )
-            }.eraseToAnyPublisher()
-    }
 
     // MARK: - Handle Open
     
@@ -100,24 +104,20 @@ final class BaseDocument: BaseDocumentProtocol {
         // And then, sync builders
         let rootId = serviceSuccess.contextID
         
-        let blocksContainer = TreeBlockBuilder.buildBlocksTree(from: event.blocks, with: rootId)
-        let parsedDetails = event.details.map {
-            LegacyDetailsModel(detailsData: $0)
-        }
-        
-        let detailsStorage = DetailsContainer()
-        parsedDetails.forEach {
-            detailsStorage.add(
-                model: $0,
-                id: $0.detailsData.blockId
-            )
+        let blocksContainer = TreeBlockBuilder.buildBlocksTree(
+            from: event.blocks,
+            with: rootId
+        )
+        let detailsStorage = ObjectDetailsStorage()
+        event.details.forEach {
+            detailsStorage.add(details: $0, id: $0.id)
         }
         
         // Add details models to process.
         rootModel = RootBlockContainer(
             rootId: rootId,
             blocksContainer: blocksContainer,
-            detailsContainer: detailsStorage
+            detailsStorage: detailsStorage
         )
     }
     
@@ -156,13 +156,13 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: details active model.
     ///
-    func getDetails(id: BlockId) -> DetailsDataProtocol? {
-        let value = self.rootModel?.detailsContainer.get(by: id)
+    func getDetails(id: BlockId) -> ObjectDetails? {
+        let value = self.rootModel?.detailsStorage.get(id: id)
         if value.isNil {
             AnytypeLogger.create(.baseDocument)
                 .debug("getDetails(by:). Our document is not ready yet")
         }
-        return value?.detailsData
+        return value
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.

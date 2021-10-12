@@ -48,19 +48,19 @@ public class BlockUpdater {
         /// When we store new page link block, we also need to add details information with identifier from this page link block
         /// Then we can update our page link block view, when details will be updated with .blockSetDetails event
         /// We receive this two events (blockAdd and blockSetDetails) in different messages
-        if case let .link(link) = block.information.content {
-            let blockId = link.targetBlockID
-            
-            let details = DetailsData(
-                rawDetails: [:],
-                blockId: blockId
-            )
-            
-            self.container.detailsContainer.add(
-                model: LegacyDetailsModel(detailsData: details),
-                id: blockId
-            )
-        }
+//        if case let .link(link) = block.information.content {
+//            let blockId = link.targetBlockID
+//            
+//            let details = DetailsData(
+//                rawDetails: [:],
+//                blockId: blockId
+//            )
+//            
+//            self.container.detailsContainer.add(
+//                model: LegacyDetailsModel(detailsData: details),
+//                id: blockId
+//            )
+//        }
     }
 
     /// Set new children to parent.

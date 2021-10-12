@@ -24,8 +24,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
-    
-    private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - Initialization
     init(
@@ -62,11 +60,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             self?.handleObjectHeaderLocalEvent(event)
         }
         
-        document.updateBlockModelPublisher
-            .receiveOnMain()
-            .sink { [weak self] updateResult in
-                self?.handleUpdate(updateResult: updateResult)
-            }.store(in: &self.subscriptions)
+        document.onUpdateReceive = { [weak self] updateResult in
+            self?.handleUpdate(updateResult: updateResult)
+            
+        }
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {

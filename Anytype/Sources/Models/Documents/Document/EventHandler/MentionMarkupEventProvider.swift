@@ -46,8 +46,8 @@ final class MentionMarkupEventProvider {
                 let mentionTo = mark.range.to
                 let mentionName = string[mentionRange]
                 
-                let details = container?.detailsContainer.get(by: mark.param)
-                guard let mentionNameInDetails = details?.detailsData.name else { return }
+                let details = container?.detailsStorage.get(id: mark.param)
+                guard let mentionNameInDetails = details?.name else { return }
                 
                 if mentionName != mentionNameInDetails {
                     blockIdsForUpdate.insert(model.information.id)
