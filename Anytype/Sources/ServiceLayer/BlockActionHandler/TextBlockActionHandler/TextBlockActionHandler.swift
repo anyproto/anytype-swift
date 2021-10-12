@@ -50,13 +50,13 @@ final class TextBlockActionHandler {
         let blockId = blockModel.information.id
         blockModel.information.content = .text(textContentType)
 
-        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
-
         completion?(
             PackOfEvents(localEvent:
                 .setText(blockId: blockId, text: middlewareString.text)
             )
         )
+        
+        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {
