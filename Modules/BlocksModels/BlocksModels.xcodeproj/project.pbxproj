@@ -29,6 +29,7 @@
 		12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C8C265D10F600D047E3 /* CoverType.swift */; };
 		3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */; };
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
+		3D17023D2715C1FB0079B65B /* SyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17023C2715C1FB0079B65B /* SyncStatus.swift */; };
 		3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21426877D9300C78C28 /* BlockFileState.swift */; };
 		3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2162687802800C78C28 /* BlockContentSmartblock.swift */; };
 		3D22B2192687804000C78C28 /* BlockFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B2182687804000C78C28 /* BlockFile.swift */; };
@@ -77,6 +78,7 @@
 		12B69C8C265D10F600D047E3 /* CoverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverType.swift; sourceTree = "<group>"; };
 		3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerModelProtocol.swift; sourceTree = "<group>"; };
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
+		3D17023C2715C1FB0079B65B /* SyncStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatus.swift; sourceTree = "<group>"; };
 		3D22B21426877D9300C78C28 /* BlockFileState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFileState.swift; sourceTree = "<group>"; };
 		3D22B2162687802800C78C28 /* BlockContentSmartblock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentSmartblock.swift; sourceTree = "<group>"; };
 		3D22B2182687804000C78C28 /* BlockFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFile.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				12A259B12658018800B71DA1 /* LegacyDetailsModel.swift */,
 				12A259B926580C3400B71DA1 /* DetailsEntry.swift */,
 				125E7C72265BDDA700CADD05 /* DetailsKind.swift */,
+				3D17023C2715C1FB0079B65B /* SyncStatus.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */,
 				3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */,
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
+				3D17023D2715C1FB0079B65B /* SyncStatus.swift in Sources */,
 				3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* IndentationBuilder.swift in Sources */,
 				0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */,
