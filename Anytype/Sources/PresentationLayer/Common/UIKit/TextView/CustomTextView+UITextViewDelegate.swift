@@ -1,6 +1,5 @@
 import UIKit
 
-
 extension CustomTextView: UITextViewDelegate {
 
     func textView(
@@ -10,11 +9,7 @@ extension CustomTextView: UITextViewDelegate {
     ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
 
-        let keyAction = CustomTextView.UserAction.KeyboardAction.convert(
-            textView,
-            shouldChangeTextIn: range,
-            replacementText: text
-        )
+        let keyAction = CustomTextView.KeyboardAction.build(textView: textView, range: range, replacement: text)
 
         if let keyAction = keyAction {
             if case let .enterInsideContent(currentText, _) = keyAction {
@@ -25,15 +20,13 @@ extension CustomTextView: UITextViewDelegate {
             ) ?? true else { return false }
         }
 
-        guard delegate?.didReceiveAction(
+        return delegate?.didReceiveAction(
             .shouldChangeText(
                 range: range,
                 replacementText: text,
                 mentionsHolder: textView
             )
-        ) ?? true else { return false }
-
-        return true
+        ) ?? true
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {

@@ -4,16 +4,11 @@ import AnytypeCore
 
 class DetailsLoader {
     let document: BaseDocumentProtocol
-    let eventProcessor: EventProcessor
     
     private var subscriptions = [BlockId: AnyCancellable]()
     
-    init(
-        document: BaseDocumentProtocol,
-        eventProcessor: EventProcessor
-    ) {
+    init(document: BaseDocumentProtocol) {
         self.document = document
-        self.eventProcessor = eventProcessor
     }
     
     func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> ObjectDetails? {

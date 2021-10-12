@@ -1,17 +1,11 @@
 import BlocksModels
 
 
-/// Delegate for base block
 protocol BlockDelegate: AnyObject {
-    /// Called when block size changed
     func blockSizeChanged()
-    /// Block become first responder
-    func becomeFirstResponder(for block: BlockModelProtocol)
-    /// First responder resigned
-    func resignFirstResponder()
-    /// Tells the delegate when editing of the block begins
+    func becomeFirstResponder(blockId: BlockId)
+    func resignFirstResponder(blockId: BlockId)
     func didBeginEditing()
-    /// Tells the delegate when editing of the block will begin
     func willBeginEditing()
 }
 
@@ -31,12 +25,14 @@ final class BlockDelegateImpl: BlockDelegate {
         viewInput?.needsUpdateLayout()
     }
 
-    func becomeFirstResponder(for block: BlockModelProtocol) {
-        document.userSession?.firstResponder = block
+    func becomeFirstResponder(blockId: BlockId) {
+        UserSession.shared.firstResponderId = blockId
     }
     
-    func resignFirstResponder() {
-        document.userSession?.firstResponder = nil
+    func resignFirstResponder(blockId: BlockId) {
+        if UserSession.shared.firstResponderId == blockId {
+            UserSession.shared.firstResponderId = nil
+        }
     }
 
     func didBeginEditing() {
