@@ -60,20 +60,6 @@ final class EventsListener: EventsListenerProtocol {
             }
     }
     
-    func handleBlockShow(events: PackOfEvents) -> [PageData] {
-        events.middlewareEvents
-            .compactMap(\.value)
-            .compactMap { event in
-                guard case .objectShow(let value) = event else { return nil }
-                
-                return PageEventConverter.convert(
-                    blocks: value.blocks,
-                    details: value.details,
-                    smartblockType: value.type
-                )
-            }
-    }
-    
     private func handle(events: PackOfEvents) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) ?? nil
         }
