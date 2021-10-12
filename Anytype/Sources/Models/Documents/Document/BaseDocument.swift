@@ -85,10 +85,7 @@ final class BaseDocument: BaseDocumentProtocol {
             event: result
         )
 
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(objectId: objectId, middlewareEvents: result.messages)
-        )
+        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
     
     /// Returns a flatten list of active models of document.

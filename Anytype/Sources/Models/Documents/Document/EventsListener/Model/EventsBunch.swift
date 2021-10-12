@@ -7,11 +7,10 @@ struct EventsBunch {
     let middlewareEvents: [Anytype_Event.Message]
     let localEvents: [LocalEvent]
     
-    func enrichedWith(localEvents: [LocalEvent]) -> EventsBunch {
-        EventsBunch(
-            objectId: self.objectId,
-            middlewareEvents: self.middlewareEvents,
-            localEvents: self.localEvents + localEvents
+    func send() {
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: self
         )
     }
     
@@ -30,4 +29,16 @@ extension EventsBunch {
         self.middlewareEvents = []
         self.localEvents = localEvents
     }
+}
+
+extension EventsBunch {
+    
+    func enrichedWith(localEvents: [LocalEvent]) -> EventsBunch {
+        EventsBunch(
+            objectId: self.objectId,
+            middlewareEvents: self.middlewareEvents,
+            localEvents: self.localEvents + localEvents
+        )
+    }
+    
 }

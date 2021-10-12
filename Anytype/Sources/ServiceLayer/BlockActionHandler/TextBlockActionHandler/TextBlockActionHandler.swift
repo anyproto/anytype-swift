@@ -49,14 +49,11 @@ final class TextBlockActionHandler {
         let blockId = blockModel.information.id
         blockModel.information.content = .text(textContentType)
 
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: contextId,
-                localEvents: [.setText(blockId: blockId, text: middlewareString.text)]
-            )
-        )
-        
+        EventsBunch(
+            objectId: contextId,
+            localEvents: [.setText(blockId: blockId, text: middlewareString.text)]
+        ).send()
+
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 

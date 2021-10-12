@@ -90,13 +90,10 @@ extension HomeViewModel {
     func createNewPage() {
         guard let response = dashboardService.createNewPage() else { return }
         
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: document.objectId,
-                middlewareEvents: response.messages
-            )
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            middlewareEvents: response.messages
+        ).send()
 
         guard !response.newBlockId.isEmpty else {
             anytypeAssertionFailure("No new block id in create new page response")

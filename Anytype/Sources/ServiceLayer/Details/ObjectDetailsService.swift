@@ -25,9 +25,6 @@ final class ObjectDetailsService {
         
         guard let result = result else { return }
 
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(objectId: objectId, middlewareEvents: result.messages)
-        )
+        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
 }

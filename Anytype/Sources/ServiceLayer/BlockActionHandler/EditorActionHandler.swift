@@ -39,13 +39,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     ) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: document.objectId,
-                localEvents: [.setLoadingState(blockId: blockId)]
-            )
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
@@ -61,13 +58,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: document.objectId,
-                localEvents: [.setLoadingState(blockId: blockId)]
-            )
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
         
         blockActionHandler.upload(blockId: blockId, filePath: localPath)
     }

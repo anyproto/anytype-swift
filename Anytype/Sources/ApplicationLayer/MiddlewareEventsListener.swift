@@ -30,11 +30,10 @@ extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
         let filteredEvents = event.messages.filter(isNotNoise)
         AnytypeLogger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
         
-        let events = EventsBunch(
+        EventsBunch(
             objectId: event.contextID,
             middlewareEvents: event.messages
-        )
-        NotificationCenter.default.post(name: .middlewareEvent, object: events)
+        ).send()
     }
     
     

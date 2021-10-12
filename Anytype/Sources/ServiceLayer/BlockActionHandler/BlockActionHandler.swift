@@ -145,13 +145,10 @@ private extension BlockActionHandler {
             )
         else { return }
         
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: document.objectId,
-                middlewareEvents: response.messages
-            )
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            middlewareEvents: response.messages
+        ).send()
     }
     
     func setAlignment(blockId: BlockId, alignment: LayoutAlignment) {
@@ -163,14 +160,11 @@ private extension BlockActionHandler {
             )
         else { return }
         
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: document.objectId,
-                middlewareEvents: response.messages,
-                localEvents: []
-            )
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            middlewareEvents: response.messages,
+            localEvents: []
+        ).send()
     }
     
     func delete(blockId: BlockId) {
@@ -214,12 +208,9 @@ private extension BlockActionHandler {
             )
         else { return }
         
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: EventsBunch(
-                objectId: document.objectId,
-                middlewareEvents: response.messages
-            )
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            middlewareEvents: response.messages
+        ).send()
     }
 }
