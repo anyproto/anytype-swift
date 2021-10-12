@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 /// Response that contains events , see https://github.com/anytypeio/go-anytype-middleware/blob/master/docs/proto.md#anytype.ResponseEvent
-struct ResponseEvent {
+struct MiddlewareResponse {
     let contextId: String
     let messages: [Anytype_Event.Message]
 

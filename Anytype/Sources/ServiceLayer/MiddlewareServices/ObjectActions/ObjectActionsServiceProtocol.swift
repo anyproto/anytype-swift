@@ -22,7 +22,7 @@ struct CreatePageResponse {
 protocol ObjectActionsServiceProtocol {
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
     
-    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> MiddlewareResponse?
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
@@ -39,5 +39,5 @@ protocol ObjectActionsServiceProtocol {
         blockId: BlockId,
         dropPositionblockId: BlockId,
         position: Anytype_Model_Block.Position
-    ) -> ResponseEvent?
+    ) -> MiddlewareResponse?
 }

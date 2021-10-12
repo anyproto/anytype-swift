@@ -1,7 +1,7 @@
 import ProtobufMessages
 import AnytypeCore
 
-extension ResponseEvent {
+extension MiddlewareResponse {
     
     var asEventsBunch: EventsBunch {
         EventsBunch(
@@ -12,7 +12,7 @@ extension ResponseEvent {
     
 }
 
-extension ResponseEvent {
+extension MiddlewareResponse {
     
     var turnIntoTextEvent: EventsBunch {
         let textMessage = messages.first { $0.value == .blockSetText($0.blockSetText) }

@@ -8,29 +8,29 @@ import Amplitude
 final class TextService: TextServiceProtocol {    
 
     @discardableResult
-    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) -> ResponseEvent? {
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) -> MiddlewareResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
         return Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
     
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> ResponseEvent? {
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> MiddlewareResponse? {
         Amplitude.instance().logEvent(
             AmplitudeEventsName.blockSetTextStyle,
             withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)]
         )
         return Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
     
     @discardableResult
-    func setForegroundColor(contextId: String, blockId: String, color: String) -> ResponseEvent? {
+    func setForegroundColor(contextId: String, blockId: String, color: String) -> MiddlewareResponse? {
         Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextId, blockID: blockId, color: color)
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
     
@@ -47,23 +47,23 @@ final class TextService: TextServiceProtocol {
             .getValue()
     }
 
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> ResponseEvent? {
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> MiddlewareResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
         return Anytype_Rpc.Block.Merge.Service.invoke(
             contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId
         )
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
     
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> ResponseEvent? {
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> MiddlewareResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextChecked)
         return Anytype_Rpc.Block.Set.Text.Checked.Service.invoke(
             contextID: contextId,
             blockID: blockId,
             checked: newValue
         )
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
     

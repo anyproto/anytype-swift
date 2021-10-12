@@ -44,23 +44,23 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> ResponseEvent?  {
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> MiddlewareResponse?  {
         let middlewareDetails = AnytypeDetailsConverter.convertObjectRawDetails(details) 
         let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
             details: middlewareDetails
-        ).map { ResponseEvent($0.event) }
+        ).map { MiddlewareResponse($0.event) }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
         
         return result.getValue()
     }
     
-    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ResponseEvent, Error> {
+    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<MiddlewareResponse, Error> {
         Anytype_Rpc.Block.Set.Details.Service
             .invoke(contextID: contextID, details: details, queue: .global())
             .map(\.event)
-            .map(ResponseEvent.init(_:))
+            .map(MiddlewareResponse.init(_:))
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
@@ -74,12 +74,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     @discardableResult
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> ResponseEvent? {
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> MiddlewareResponse? {
         Anytype_Rpc.BlockList.Move.Service.invoke(
             contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
             dropTargetID: dropPositionblockId, position: position
         )
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
 }
