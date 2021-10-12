@@ -3,7 +3,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     /// receive events from middleware and broadcast throught notification center
-    private let eventListener = MiddlewareListener()
+    private let eventListener = MiddlewareEventsListener()
     private let configurator = AppConfigurator()
 
     func application(

@@ -7,20 +7,28 @@ private extension LoggerCategory {
 }
 
 /// receive events from middleware and broadcast throught notification center
-class MiddlewareListener: NSObject {
+final class MiddlewareEventsListener: NSObject {
+    
     private let wrapper = ServiceMessageHandlerAdapter()
+    
     override init() {
         super.init()
+        
         _ = self.wrapper.with(value: self)
     }
 }
 
-extension MiddlewareListener: ServiceEventsHandlerProtocol {
+extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
+    
     func handle(_ data: Data?) {
-        guard let rawEvent = data,
-            let event = try? Anytype_Event(serializedData: rawEvent) else { return }
+        guard
+            let rawEvent = data,
+            let event = try? Anytype_Event(serializedData: rawEvent)
+        else { return }
+        
         let filteredEvents = event.messages.filter(isNotNoise)
         AnytypeLogger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
+        
         NotificationCenter.default.post(name: .middlewareEvent, object: event)
     }
     
