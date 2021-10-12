@@ -15,28 +15,20 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     var rootActiveModel: BlockModelProtocol? {
-        guard let rootId = rootModel?.rootId else { return nil }
-        return rootModel?.blocksContainer.model(id: rootId)
+        rootModel.blocksContainer.model(id: objectId)
     }
     
     var userSession: UserSession? {
         get {
-            rootModel?.blocksContainer.userSession
+            rootModel.blocksContainer.userSession
         }
         set {
             guard let newValue = newValue else { return }
-            rootModel?.blocksContainer.userSession = newValue
+            rootModel.blocksContainer.userSession = newValue
         }
     }
     
-    /// RootModel
-    private(set) var rootModel: RootBlockContainer? {
-        didSet {
-            rootModel.flatMap {
-                eventHandler.configured($0)
-            }
-        }
-    }
+    let rootModel: RootBlockContainer
     
     let eventHandler = EventHandler()
     
@@ -45,7 +37,13 @@ final class BaseDocument: BaseDocumentProtocol {
     
     init(objectId: BlockId) {
         self.objectId = objectId
+        self.rootModel = RootBlockContainer(
+            rootId: objectId,
+            blocksContainer: BlockContainer(),
+            detailsStorage: ObjectDetailsStorage()
+        )
         
+        eventHandler.configured(self.rootModel)
         setup()
     }
     
@@ -55,12 +53,11 @@ final class BaseDocument: BaseDocumentProtocol {
             guard let self = self else { return }
     
             if
-               let container = self.rootModel,
-               let rootModel = container.blocksContainer.model(id: self.objectId) {
-                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
+                let rootModel = self.rootModel.blocksContainer.model(id: self.objectId) {
+                BlockFlattener.flattenIds(root: rootModel, in: self.rootModel, options: .default)
             }
             
-            let details = self.rootModel?.detailsStorage.get(id: self.objectId)
+            let details = self.rootModel.detailsStorage.get(id: self.objectId)
             
             self.onUpdateReceive?(
                 BaseDocumentUpdateResult(
@@ -104,34 +101,27 @@ final class BaseDocument: BaseDocumentProtocol {
         // And then, sync builders
         let rootId = serviceSuccess.contextID
         
-        let blocksContainer = TreeBlockBuilder.buildBlocksTree(
+        TreeBlockBuilder.buildBlocksTree(
             from: event.blocks,
-            with: rootId
+            with: rootId,
+            in: rootModel.blocksContainer
         )
-        let detailsStorage = ObjectDetailsStorage()
-        event.details.forEach {
-            detailsStorage.add(details: $0, id: $0.id)
-        }
         
-        // Add details models to process.
-        rootModel = RootBlockContainer(
-            rootId: rootId,
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage
-        )
+        event.details.forEach {
+            rootModel.detailsStorage.add(details: $0, id: $0.id)
+        }
     }
     
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
     private func getModels() -> [BlockModelProtocol] {
         guard
-            let container = rootModel,
-            let activeModel = container.blocksContainer.model(id: container.rootId)
+            let activeModel = rootModel.blocksContainer.model(id: rootModel.rootId)
         else {
             AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
-        return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
+        return BlockFlattener.flatten(root: activeModel, in: rootModel, options: .default)
     }
     
     private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
@@ -157,7 +147,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Returns: details active model.
     ///
     func getDetails(id: BlockId) -> ObjectDetails? {
-        let value = self.rootModel?.detailsStorage.get(id: id)
+        let value = rootModel.detailsStorage.get(id: id)
         if value.isNil {
             AnytypeLogger.create(.baseDocument)
                 .debug("getDetails(by:). Our document is not ready yet")
