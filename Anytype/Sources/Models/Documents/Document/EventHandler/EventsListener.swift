@@ -50,12 +50,10 @@ final class EventsListener: EventHandlerProtocol {
             name: .middlewareEvent,
             object: nil
         )
-            .compactMap { $0.object as? Anytype_Event }
-            .filter {$0.contextID == self.objectId}
-            .sink { [weak self] event in
-//                self?.handle(
-//                    events: PackOfEvents(middlewareEvents: event.messages)
-//                )
+            .compactMap { $0.object as? PackOfEvents }
+            .filter { $0.objectId == self.objectId }
+            .sink { [weak self] events in
+                self?.handle(events: events)
             }
     }
     
