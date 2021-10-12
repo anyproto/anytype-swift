@@ -14,23 +14,31 @@ final class MiddlewareConfigurationService {
 
 extension MiddlewareConfigurationService {
     
-    func configuration() -> MiddlewareConfiguration? {
+    func configuration() -> MiddlewareConfiguration {
         if let configuration = cachedConfiguration {
             return configuration
         }
         
         guard let result = try? Anytype_Rpc.Config.Get.Service.invoke().get() else {
-            return nil
+            // Error will be returned if we try to get MiddlewareConfiguration without authorization
+            return MiddlewareConfiguration(
+                homeBlockID: "",
+                archiveBlockID: "",
+                profileBlockId: "",
+                gatewayURL: ""
+            )
         }
         
-        cachedConfiguration = MiddlewareConfiguration(
+        let config = MiddlewareConfiguration(
             homeBlockID: result.homeBlockID,
             archiveBlockID: result.archiveBlockID,
             profileBlockId: result.profileBlockID,
             gatewayURL: result.gatewayURL
         )
         
-        return cachedConfiguration
+        cachedConfiguration = config
+        
+        return config
     }
     
     

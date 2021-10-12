@@ -13,10 +13,7 @@ class DashboardService: DashboardServiceProtocol {
     private var dashboardId: String = ""
         
     func openDashboard() -> ResponseEvent? {
-        guard let homeBlockId = configurationService.configuration()?.homeBlockID else {
-            return nil
-        }
-
+        let homeBlockId = configurationService.configuration().homeBlockID
         return actionsService.open(contextId: homeBlockId, blockId: homeBlockId)
     }
     
