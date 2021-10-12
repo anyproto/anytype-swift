@@ -32,7 +32,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func receivelocalEvents(_ events: [LocalEvent]) {
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(objectId: documentId, localEvents: events)
+            object: EventsBunch(objectId: documentId, localEvents: events)
         )
     }
 
@@ -88,7 +88,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             mode: mode
         ) else { return }
             
-        let allEvents = PackOfEvents(
+        let allEvents = EventsBunch(
             objectId: documentId,
             middlewareEvents: splitSuccess.responseEvent.messages,
             localEvents: [
@@ -112,7 +112,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             .flatMap {
                 NotificationCenter.default.post(
                     name: .middlewareEvent,
-                    object: PackOfEvents(objectId: documentId, middlewareEvents: $0.messages)
+                    object: EventsBunch(objectId: documentId, middlewareEvents: $0.messages)
                 )
             }
     }
@@ -129,7 +129,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object:  PackOfEvents(objectId: documentId, middlewareEvents: response.messages)
+            object:  EventsBunch(objectId: documentId, middlewareEvents: response.messages)
         )
     }
 
@@ -157,7 +157,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(objectId: documentId, middlewareEvents: response.messages)
+            object: EventsBunch(objectId: documentId, middlewareEvents: response.messages)
         )
     }
     
@@ -177,7 +177,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: documentId,
                 middlewareEvents: response.messages,
                 localEvents: localEvents

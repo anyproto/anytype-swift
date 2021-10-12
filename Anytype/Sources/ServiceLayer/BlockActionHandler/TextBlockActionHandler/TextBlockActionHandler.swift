@@ -51,7 +51,7 @@ final class TextBlockActionHandler {
 
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: contextId,
                 localEvents: [.setText(blockId: blockId, text: middlewareString.text)]
             )

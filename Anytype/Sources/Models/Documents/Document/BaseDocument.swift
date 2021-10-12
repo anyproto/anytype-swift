@@ -87,7 +87,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
+            object: EventsBunch(objectId: objectId, middlewareEvents: result.messages)
         )
     }
     
