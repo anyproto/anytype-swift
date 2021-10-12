@@ -41,7 +41,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: document.objectId,
                 localEvents: [.setLoadingState(blockId: blockId)]
             )
@@ -63,7 +63,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: document.objectId,
                 localEvents: [.setLoadingState(blockId: blockId)]
             )

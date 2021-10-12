@@ -53,14 +53,14 @@ final class EventsListener: EventsListenerProtocol {
             name: .middlewareEvent,
             object: nil
         )
-            .compactMap { $0.object as? PackOfEvents }
+            .compactMap { $0.object as? EventsBunch }
             .filter { $0.objectId == self.objectId }
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
     }
     
-    private func handle(events: PackOfEvents) {
+    private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) ?? nil
         }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) ?? nil }

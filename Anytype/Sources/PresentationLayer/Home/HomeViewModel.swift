@@ -92,7 +92,7 @@ extension HomeViewModel {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: document.objectId,
                 middlewareEvents: response.messages
             )

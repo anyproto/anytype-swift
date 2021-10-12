@@ -27,7 +27,7 @@ final class ObjectDetailsService {
 
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
+            object: EventsBunch(objectId: objectId, middlewareEvents: result.messages)
         )
     }
 }

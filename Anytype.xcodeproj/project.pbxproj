@@ -70,7 +70,7 @@
 		0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */; };
 		0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockLinkViewModel.swift */; };
 		0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F0D9224DDCE0100A8B488 /* AboutView.swift */; };
-		0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* PackOfEvents.swift */; };
+		0A2ADCE02496921500FA135D /* EventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* EventsBunch.swift */; };
 		0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */; };
 		0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */; };
 		0A2ADCEA2497CFDC00FA135D /* TextServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE92497CFDC00FA135D /* TextServiceProtocol.swift */; };
@@ -762,7 +762,7 @@
 		0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+IndexDictionary.swift"; sourceTree = "<group>"; };
 		0A10CC7B248ECF2D000FF498 /* BlockLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkViewModel.swift; sourceTree = "<group>"; };
 		0A1F0D9224DDCE0100A8B488 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		0A2ADCDF2496921500FA135D /* PackOfEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackOfEvents.swift; sourceTree = "<group>"; };
+		0A2ADCDF2496921500FA135D /* EventsBunch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsBunch.swift; sourceTree = "<group>"; };
 		0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingleProtocol.swift; sourceTree = "<group>"; };
 		0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsServiceProtocol.swift; sourceTree = "<group>"; };
 		0A2ADCE92497CFDC00FA135D /* TextServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextServiceProtocol.swift; sourceTree = "<group>"; };
@@ -1577,14 +1577,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		037F2D33239D59C0008C16BF /* EventListener */ = {
-			isa = PBXGroup;
-			children = (
-				3D829177265E53A50007C152 /* Model */,
-			);
-			path = EventListener;
-			sourceTree = "<group>";
-		};
 		0388BF7822F10D3D00B73E39 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1662,7 +1654,6 @@
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
 				0ACA781023E5C99A00442690 /* ServiceLocator */,
 				0ABB73A72549974300F32C6F /* Firebase */,
-				037F2D33239D59C0008C16BF /* EventListener */,
 				0327B0B4232BBA52007DB8A7 /* MiddlewareServices */,
 				03CB3F00230C104F003D5DFD /* AuthServices */,
 				03AA488A22FA55E800D756AA /* StoreServices */,
@@ -2725,6 +2716,8 @@
 		3D100A3226A19549005173EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0A2ADCDF2496921500FA135D /* EventsBunch.swift */,
+				3D82917A265E53BB0007C152 /* LocalEvent.swift */,
 				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
 			);
 			path = Model;
@@ -3156,15 +3149,6 @@
 				120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		3D829177265E53A50007C152 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0A2ADCDF2496921500FA135D /* PackOfEvents.swift */,
-				3D82917A265E53BB0007C152 /* LocalEvent.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3D89224C2680E0850023E705 /* Emoji */ = {
@@ -4861,7 +4845,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
 				3DC78636265D443F00498993 /* MiddlewareEventConverter.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
-				0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */,
+				0A2ADCE02496921500FA135D /* EventsBunch.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
 				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
 				12F3E75E270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift in Sources */,

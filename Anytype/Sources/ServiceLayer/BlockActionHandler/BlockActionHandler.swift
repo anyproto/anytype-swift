@@ -147,7 +147,7 @@ private extension BlockActionHandler {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: document.objectId,
                 middlewareEvents: response.messages
             )
@@ -165,7 +165,7 @@ private extension BlockActionHandler {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: document.objectId,
                 middlewareEvents: response.messages,
                 localEvents: []
@@ -216,7 +216,7 @@ private extension BlockActionHandler {
         
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: PackOfEvents(
+            object: EventsBunch(
                 objectId: document.objectId,
                 middlewareEvents: response.messages
             )

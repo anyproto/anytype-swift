@@ -30,7 +30,7 @@ extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
         let filteredEvents = event.messages.filter(isNotNoise)
         AnytypeLogger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
         
-        let events = PackOfEvents(
+        let events = EventsBunch(
             objectId: event.contextID,
             middlewareEvents: event.messages
         )
