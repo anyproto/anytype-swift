@@ -1,22 +1,13 @@
 import ProtobufMessages
 import SwiftProtobuf
 
-
-/// Middleware configuration
-/// TODO: Move to BlockModels module.
-struct MiddlewareConfiguration: Hashable {    
-    let homeBlockID: String
-    let archiveBlockID: String
-    let profileBlockId: String
-    let gatewayURL: String
-}
-
 struct BlockFields {
     let blockId: String
     let fields: [String: String]
 }
 
 extension BlockFields {
+    
     func convertToMiddle() -> Anytype_Rpc.BlockList.Set.Fields.Request.BlockField {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
 
@@ -30,4 +21,5 @@ extension BlockFields {
 
         return .init(blockID: blockId, fields: protobufStruct)
     }
+    
 }

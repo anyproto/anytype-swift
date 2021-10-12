@@ -43,7 +43,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard let response = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
         
-        let event = shouldSetFocusOnUpdate ? response.addEvent : response.defaultEvent
+        let event = shouldSetFocusOnUpdate ? response.addEvent : response.asEventsBunch
         event.send()
     }
 
@@ -167,7 +167,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard let response = listService.setFields(contextId: contextID, fields: blockFields) else {
             return
         }
-        response.defaultEvent.send()
+        response.asEventsBunch.send()
     }
 }
 
@@ -177,7 +177,7 @@ private extension BlockActionService {
         guard let response = listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style) else {
             return
         }
-        response.defaultEvent.send()
+        response.asEventsBunch.send()
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
@@ -185,7 +185,7 @@ private extension BlockActionService {
             return
         }
         
-        let events = shouldFocus ? response.turnIntoTextEvent : response.defaultEvent
+        let events = shouldFocus ? response.turnIntoTextEvent : response.asEventsBunch
         events.send()
     }
 }
@@ -199,7 +199,7 @@ extension BlockActionService {
                     return
                 }
             
-        let events = response.defaultEvent.enrichedWith(localEvents: localEvents)
+        let events = response.asEventsBunch.enrichedWith(localEvents: localEvents)
         events.send()
     }
 }
@@ -212,7 +212,7 @@ extension BlockActionService {
         guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
             return
         }
-        response.defaultEvent.send()
+        response.asEventsBunch.send()
     }
 }
 
@@ -227,7 +227,7 @@ extension BlockActionService {
         guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
             return
         }
-        response.defaultEvent.send()
+        response.asEventsBunch.send()
     }
 }
 
@@ -241,7 +241,7 @@ extension BlockActionService {
             blockID: blockId
         )
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { serviceSuccess in
-                serviceSuccess.defaultEvent.send()
+                serviceSuccess.asEventsBunch.send()
         }.store(in: &self.subscriptions)
     }
 }
