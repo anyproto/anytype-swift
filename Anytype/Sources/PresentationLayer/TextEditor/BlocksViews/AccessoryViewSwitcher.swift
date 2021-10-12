@@ -291,12 +291,12 @@ extension AccessoryViewSwitcher: MentionViewDelegate {
         newText.insert(NSAttributedString(string: " "), at: lastMentionCharacterPosition)
         let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
         
-        handler.handleActions(
-            [
-                .textView(action: .changeText(newText), block: block),
-                .textView(action: .changeCaretPosition(newCaretPosition), block: block)
-            ],
-            blockId: block.information.id
-        )
+        let actions: [BlockHandlerActionType] = [
+            .textView(action: .changeText(newText), block: block),
+            .textView(action: .changeCaretPosition(newCaretPosition), block: block)
+        ]
+        actions.forEach {
+            handler.handleAction($0, blockId: block.information.id)
+        }
     }
 }
