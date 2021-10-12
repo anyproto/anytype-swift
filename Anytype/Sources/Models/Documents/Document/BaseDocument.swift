@@ -12,6 +12,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+    
     var rootActiveModel: BlockModelProtocol? {
         rootModel.blocksContainer.model(id: objectId)
     }
@@ -20,10 +21,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
     let rootModel: RootBlockContainer
     let eventHandler: EventsListener
-    
-    /// Services
-    private var smartblockService: BlockActionsServiceSingle = .init()
-    
+        
     init(objectId: BlockId) {
         self.objectId = objectId
         self.rootModel = RootBlockContainer(
@@ -67,7 +65,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        smartblockService.close(contextId: objectId, blockId: objectId)
+        blockActionsService.close(contextId: objectId, blockId: objectId)
     }
 
     // MARK: - BaseDocumentProtocol
