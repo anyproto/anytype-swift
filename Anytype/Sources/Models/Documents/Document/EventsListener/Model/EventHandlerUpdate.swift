@@ -1,7 +1,26 @@
 import BlocksModels
 import AnytypeCore
 
+enum EventHandlerUpdate: Hashable {
+    case general
+    case update(blockIds: Set<BlockId>)
+    case details(ObjectDetails)
+
+    var hasUpdate: Bool {
+        switch self {
+        case .general:
+            return true
+        case .details:
+            return true
+        case let .update(blockIds):
+            return !blockIds.isEmpty
+        }
+    }
+}
+
+
 extension Array where Element == EventHandlerUpdate {
+    
     var merged: [EventHandlerUpdate] {
         guard !hasGeneralUpdate else {
             return [.general]
@@ -31,4 +50,6 @@ extension Array where Element == EventHandlerUpdate {
     var hasGeneralUpdate: Bool {
         contains(where: { .general == $0 })
     }
+    
 }
+

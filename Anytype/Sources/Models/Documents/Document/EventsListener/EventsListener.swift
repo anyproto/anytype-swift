@@ -4,14 +4,14 @@ import BlocksModels
 import ProtobufMessages
 import AnytypeCore
 
-protocol EventHandlerProtocol: AnyObject {
-    var onUpdateReceive: ((EventHandlerUpdate) -> Void)? { get set }
-}
-
-final class EventsListener: EventHandlerProtocol {
+final class EventsListener: EventsListenerProtocol {
+    
+    // MARK: - Internal variables
     
     var onUpdateReceive: ((EventHandlerUpdate) -> Void)?
         
+    // MARK: - Private variables
+    
     private let objectId: BlockId
     private let container: RootBlockContainer
     
@@ -20,6 +20,8 @@ final class EventsListener: EventHandlerProtocol {
     private let mentionMarkupEventProvider: MentionMarkupEventProvider
     
     private var subscription: AnyCancellable?
+    
+    // MARK: - Initializers
     
     init(objectId: BlockId, container: RootBlockContainer) {
         self.objectId = objectId
@@ -42,6 +44,8 @@ final class EventsListener: EventHandlerProtocol {
             objectId: objectId
         )
     }
+    
+    // MARK: - EventsListenerProtocol
     
     func startListening() {
         subscription = NotificationCenter.Publisher(
