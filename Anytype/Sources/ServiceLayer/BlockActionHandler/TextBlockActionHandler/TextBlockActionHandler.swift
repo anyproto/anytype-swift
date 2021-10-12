@@ -109,12 +109,12 @@ final class TextBlockActionHandler {
         case let .enterAtTheBeginingOfContent(payload): // we should assure ourselves about type of block.
             /// TODO: Fix it in TextView API.
             /// If payload is empty, so, handle it as .enter ( or .enter at the end )
-            if payload?.isEmpty == true {
+            if payload.isEmpty == true {
                 self.handlingKeyboardAction(block, .enterAtTheEndOfContent)
                 return
             }
-            if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
-                if payload.isNotNil, case let .text(text) = block.information.content {
+            if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload) {
+                if case let .text(text) = block.information.content {
                     self.service.split(
                         info: block.information,
                         oldText: "",
@@ -176,7 +176,7 @@ final class TextBlockActionHandler {
                 }
             }
 
-        case .delete:
+        case .deleteAtTheBeginingOfContent:
             guard block.information.content.type != .text(.description) else { return }
             guard let previousModel = modelsHolder?.findModel(beforeBlockId: block.information.id) else {
                 anytypeAssertionFailure("""
