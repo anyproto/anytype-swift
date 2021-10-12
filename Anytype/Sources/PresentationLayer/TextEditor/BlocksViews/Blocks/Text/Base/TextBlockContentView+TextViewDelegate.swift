@@ -9,9 +9,9 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
-            currentConfiguration.blockDelegate.becomeFirstResponder(for: currentConfiguration.block)
+            currentConfiguration.blockDelegate.becomeFirstResponder(blockId: currentConfiguration.block.information.id)
         case .resign:
-            currentConfiguration.blockDelegate.resignFirstResponder()
+            currentConfiguration.blockDelegate.resignFirstResponder(blockId: currentConfiguration.block.information.id)
         }
     }
     
@@ -47,7 +47,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
             switch keyAction {
             case .enterInsideContent,
                  .enterAtTheEndOfContent,
-                 .enterOnEmptyContent:
+                 .enterAtTheBeginingOfContent:
                 // In the case of frequent pressing of enter
                 // we can send multiple split requests to middle
                 // from the same block, it will leads to wrong order of blocks in array,

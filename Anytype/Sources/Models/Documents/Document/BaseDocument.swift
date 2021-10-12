@@ -18,16 +18,6 @@ final class BaseDocument: BaseDocumentProtocol {
         rootModel.blocksContainer.model(id: objectId)
     }
     
-    var userSession: UserSession? {
-        get {
-            rootModel.blocksContainer.userSession
-        }
-        set {
-            guard let newValue = newValue else { return }
-            rootModel.blocksContainer.userSession = newValue
-        }
-    }
-    
     let rootModel: RootBlockContainer
     
     let eventHandler: EventHandler
