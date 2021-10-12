@@ -66,7 +66,7 @@ final class MarkStyleModifier {
     private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
         switch (attributedString.string.isEmpty, range) {
         // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
-        case (true, NSRange(location: 0, length: 0)): return [:]
+        case (true, NSRange.zero): return [:]
             
         // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
         case (true, _): return [:]
