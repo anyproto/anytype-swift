@@ -8,7 +8,7 @@ final class EditorPageAssembly {
     }
     
     func buildEditorPage(pageId: BlockId) -> EditorPageController {
-        return buildEditorModule(pageId: pageId).0
+        buildEditorModule(pageId: pageId).0
     }
     
     func buildEditorModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
@@ -22,7 +22,6 @@ final class EditorPageAssembly {
         )
 
         let viewModel = buildViewModel(
-            blockId: pageId,
             viewInput: controller,
             document: document,
             router: router
@@ -34,26 +33,23 @@ final class EditorPageAssembly {
     }
     
     private func buildViewModel(
-        blockId: BlockId,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter
     ) -> EditorPageViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
-            objectId: blockId,
+            objectId: document.objectId,
             objectDetailsService: ObjectDetailsService(
-                objectId: blockId
+                objectId: document.objectId
             )
         )
                 
-        let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
-        
-        // TODO: - details. remove documentId
-        let markupChanger = BlockMarkupChanger(
-            document: document,
-            documentId: blockId
+        let modelsHolder = ObjectContentViewModelsSharedHolder(
+            objectId: document.objectId
         )
+        
+        let markupChanger = BlockMarkupChanger(document: document)
         
         let blockActionHandler = BlockActionHandler(
             modelsHolder: modelsHolder,
@@ -96,7 +92,6 @@ final class EditorPageAssembly {
         )
         
         return EditorPageViewModel(
-            documentId: blockId,
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,

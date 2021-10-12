@@ -16,6 +16,7 @@ final class MiddlewareEventsListener: NSObject {
         
         _ = self.wrapper.with(value: self)
     }
+    
 }
 
 extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
