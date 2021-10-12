@@ -171,9 +171,7 @@ final class BaseDocument: BaseDocumentProtocol {
         switch updates {
         case .general:
             return getModels()
-        case .details:
-            return []
-        case .update:
+        case .details, .update, .syncStatus:
             return []
         }
     }

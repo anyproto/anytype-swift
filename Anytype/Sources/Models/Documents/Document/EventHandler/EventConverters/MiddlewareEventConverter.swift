@@ -17,6 +17,8 @@ final class MiddlewareEventConverter {
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate? {
         switch event {
+        case let .threadStatus(status):
+            return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
             updater.update(entry: fields.id) { block in
                 var block = block
