@@ -2,16 +2,26 @@ import UIKit
 import BlocksModels
 
 final class EditorSyncStatusItem: UIView {
-    private lazy var item = EditorBarButtonItem(style: itemStyle)
-    private var status: SyncStatus
+    private let backgroundView = UIView()
+    private let button = UIButton(type: .custom)
     
-    func changeBackgroundAlpha(_ alpha: CGFloat) {
-        item.changeBackgroundAlpha(alpha)
+    private var status: SyncStatus
+    private var state = EditorBarItemState.initial
+    
+    func changeState(_ state: EditorBarItemState) {
+        if self.state != state {
+            self.state = state
+            updateState()
+        }
     }
     
     func changeStatus(_ status: SyncStatus) {
-        self.status = status
-        item.changeStyle(style: itemStyle)
+        if self.status != status {
+            self.status = status
+            UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve) {
+                self.updateButtonState()
+            }
+        }
     }
     
     init(status: SyncStatus) {
@@ -21,27 +31,40 @@ final class EditorSyncStatusItem: UIView {
     }
     
     private func setup() {
-        addSubview(item) {
+        backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
+        backgroundView.layer.cornerRadius = 7
+        
+        button.titleLabel?.font = AnytypeFont.caption1Regular.uiKitFont
+        button.setImageAndTitleSpacing(6)
+        button.showsMenuAsPrimaryAction = true
+        
+        updateButtonState()
+        
+        layoutUsing.anchors {
+            $0.height.equal(to: 28)
+            $0.centerY.equal(to: centerYAnchor)
+        }
+        
+        addSubview(backgroundView) {
             $0.pinToSuperview()
+        }
+        
+        addSubview(button) {
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: -10))
         }
     }
     
-    private var itemStyle: EditorBarButtonItem.Style {
-        .syncStatus(
-            image: image,
-            title: status.title,
-            description: status.description
-        )
+    private func updateButtonState() {
+        button.setImage(status.image, for: .normal)
+        button.setImage(status.image, for: .highlighted)
+        button.setImage(status.image, for: .selected)
+        button.setTitle(status.title, for: .normal)
+        button.menu = UIMenu(title: "", children: [ UIAction(title: status.description) { _ in } ] )
     }
     
-    private var image: UIImage {
-        ImageBuilder(
-            ImageGuideline(
-                size: CGSize(width: 10, height: 10),
-                cornersGuideline: .init(radius: 5, borderColor: nil)
-            )
-        )
-            .setImageColor(status.color).build()
+    private func updateState() {
+        backgroundView.alpha = state.backgroundAlpha
+        button.setTitleColor(state.textColor, for: .normal)
     }
     
     // MARK: - Unavailable

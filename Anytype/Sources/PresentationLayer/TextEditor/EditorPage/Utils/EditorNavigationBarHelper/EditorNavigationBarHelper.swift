@@ -16,10 +16,8 @@ final class EditorNavigationBarHelper {
     private var objectHeaderHeight: CGFloat = 0.0
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
-        self.settingsItem = EditorBarButtonItem(
-            style: .settings(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
-        )
-        self.syncStatusItem = EditorSyncStatusItem(status: .unknown)
+        self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
+        self.syncStatusItem = EditorSyncStatusItem(status: .synced)
         
         self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
@@ -64,16 +62,14 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         isObjectHeaderWithCover = header.isWithCover
         objectHeaderHeight = header.height
         
-        updateBarButtonItemsBackground(alpha: isObjectHeaderWithCover ? 1.0 : 0.0)
+        updateBarButtonItemsBackground(percent: 0)
         
         let title: String = {
-            guard
-                let string = details?.name, !string.isEmpty
-            else {
-                return "Untitled".localized
+            if let string = details?.name, string.isNotEmpty {
+                return string
             }
             
-            return string
+            return "Untitled".localized
         }()
         
         navigationBarTitleView.configure(
@@ -106,51 +102,38 @@ private extension EditorNavigationBarHelper {
         )
     }
     
-    func updateBarButtonItemsBackground(alpha: CGFloat) {
-        settingsItem.changeBackgroundAlpha(alpha)
-        syncStatusItem.changeBackgroundAlpha(alpha)
+    func updateBarButtonItemsBackground(percent: CGFloat) {
+        let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, percentOfNavigationAppearance: percent)
+        settingsItem.changeState(state)
+        syncStatusItem.changeState(state)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
+        guard let alpha = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
+
+        navigationBarTitleView.setAlphaForSubviews(alpha)
+        updateBarButtonItemsBackground(percent: alpha)
+        fakeNavigationBarBackgroundView.alpha = alpha
+    }
+    
+    private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {
         let startAppearingOffset = objectHeaderHeight - 50
         let endAppearingOffset = objectHeaderHeight
 
         let navigationBarHeight = fakeNavigationBarBackgroundView.bounds.height
-        
-        let yFullOffset = newOffset + navigationBarHeight
+        let yFullOffset = offset + navigationBarHeight
 
-        let alpha: CGFloat? = {
-            if yFullOffset < startAppearingOffset {
-                return 0
-            } else if yFullOffset > endAppearingOffset {
-                return 1
-            } else if yFullOffset > startAppearingOffset, yFullOffset < endAppearingOffset {
-                let currentDiff = yFullOffset - startAppearingOffset
-                let max = endAppearingOffset - startAppearingOffset
-                return currentDiff / max
-            }
-            
-            return nil
-        }()
-        
-        guard let alpha = alpha else {
-            return
+        if yFullOffset < startAppearingOffset {
+            return 0
+        } else if yFullOffset > endAppearingOffset {
+            return 1
+        } else if yFullOffset > startAppearingOffset, yFullOffset < endAppearingOffset {
+            let currentDiff = yFullOffset - startAppearingOffset
+            let max = endAppearingOffset - startAppearingOffset
+            return currentDiff / max
         }
         
-        let barButtonItemsBackgroundAlpha: CGFloat = {
-            guard isObjectHeaderWithCover else { return 0.0 }
-            
-            switch alpha {
-            case 0.0:
-                return isObjectHeaderWithCover ? 1.0 : 0.0
-            default:
-                return 1.0 - alpha
-            }
-        }()
-
-        navigationBarTitleView.setAlphaForSubviews(alpha)
-        updateBarButtonItemsBackground(alpha: barButtonItemsBackgroundAlpha)
-        fakeNavigationBarBackgroundView.alpha = alpha
+        return nil
     }
     
 }

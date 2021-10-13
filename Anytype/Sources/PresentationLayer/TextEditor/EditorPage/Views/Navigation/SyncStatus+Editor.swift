@@ -3,17 +3,6 @@ import UIKit
 import Kingfisher
 
 extension SyncStatus {
-    var color: UIColor {
-        switch self {
-        case .unknown, .offline, .failed:
-            return .pureRed
-        case .syncing:
-            return .pureAmber
-        case .synced:
-            return .pureGreen
-        }
-    }
-    
     var title: String {
         switch self {
         case .unknown:
@@ -43,4 +32,26 @@ extension SyncStatus {
             return "Failed to sync, trying again...".localized
         }
     }
+    
+    var image: UIImage {
+        ImageBuilder(
+            ImageGuideline(
+                size: CGSize(width: 10, height: 10),
+                cornersGuideline: .init(radius: 5, borderColor: nil)
+            )
+        )
+            .setImageColor(color).build()
+    }
+    
+    private var color: UIColor {
+        switch self {
+        case .unknown, .offline, .failed:
+            return .pureRed
+        case .syncing:
+            return .pureAmber
+        case .synced:
+            return .pureGreen
+        }
+    }
+    
 }
