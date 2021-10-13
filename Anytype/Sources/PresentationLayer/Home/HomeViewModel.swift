@@ -71,8 +71,8 @@ final class HomeViewModel: ObservableObject {
             blockIds.forEach { updateCellWithTargetId($0) }
         case .details(let details):
             updateCellWithTargetId(details.blockId)
-        case .syncStatus(let status):
-            anytypeAssertionFailure("Not supported event sync status: \(status)")
+        case .syncStatus:
+            break
         }
     }
     

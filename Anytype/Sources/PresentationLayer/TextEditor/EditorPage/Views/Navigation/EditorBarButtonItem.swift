@@ -1,12 +1,5 @@
 import UIKit
 
-extension EditorBarButtonItem {
-    enum Style {
-        case settings(image: UIImage, action: () -> Void)
-        case syncStatus(image: UIImage, title: String, description: String)
-    }
-}
-
 final class EditorBarButtonItem: UIView, CustomizableHitTestAreaView {
     // CustomizableHitTestAreaView
     var minHitTestArea: CGSize = Constants.minimumHitArea
@@ -14,30 +7,22 @@ final class EditorBarButtonItem: UIView, CustomizableHitTestAreaView {
     private let backgroundView = UIView()
     private let button = UIButton(type: .custom)
     
-    private var style: Style
-    private var backgroundAlpha: CGFloat = 0.0
+    private var state = EditorBarItemState.initial
     
-    init(style: Style) {
-        self.style = style
+    init(image: UIImage, action: @escaping () -> Void) {
         super.init(frame: .zero)
-        setup()
+        setup(image: image, action: action)
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         return containsCustomHitTestArea(point) ? button : nil
     }
     
-    func changeBackgroundAlpha(_ alpha: CGFloat) {
-        if backgroundAlpha != alpha {
-            handleAlphaUpdate(alpha)
+    func changeState(_ state: EditorBarItemState) {
+        if self.state != state {
+            self.state = state
+            updateState()
         }
-    }
-    
-    func changeStyle(style: Style) {
-        self.style = style
-        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
-            self?.setupButton()
-        }, completion: nil)
     }
     
     @available(*, unavailable)
@@ -48,12 +33,12 @@ final class EditorBarButtonItem: UIView, CustomizableHitTestAreaView {
 
 private extension EditorBarButtonItem {
     
-    func setup() {
+    func setup(image: UIImage, action: @escaping () -> Void) {
         setupBackgroundView()
-        setupButton()
+        setupButton(image: image, action: action)
         setupLayout()
         
-        handleAlphaUpdate(backgroundAlpha)
+        updateState()
     }
     
     func setupBackgroundView() {
@@ -61,37 +46,22 @@ private extension EditorBarButtonItem {
         backgroundView.layer.cornerRadius = 7
     }
     
-    func setupButton() {
-        switch style {
-        case let .settings(image: image, action: action):
-            button.adjustsImageWhenHighlighted = false
-            button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
-            button.addAction(
-                UIAction(handler: { _ in action() } ),
-                for: .touchUpInside
-            )
-            enableAnimation(
-                .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
-                .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
-            )
-        case let .syncStatus(image: image, title: title, description: description):
-            button.setImage(image, for: .normal)
-            button.setTitle(title, for: .normal)
-            button.centerTextAndImage(spacing: 6)
-            button.showsMenuAsPrimaryAction = true
-            button.menu = UIMenu(title: "", children: [ UIAction(title: description) { _ in } ] )
-        }
+    func setupButton(image: UIImage, action: @escaping () -> Void) {
+        button.adjustsImageWhenHighlighted = false
+        button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.addAction(
+            UIAction(handler: { _ in action() } ),
+            for: .touchUpInside
+        )
+        enableAnimation(
+            .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
+            .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
+        )
     }
     
     func setupLayout() {
         layoutUsing.anchors {
-            switch style {
-            case .syncStatus:
-                $0.height.equal(to: 28)
-                $0.centerY.equal(to: centerYAnchor)
-            case .settings:
-                $0.size(CGSize(width: 28, height: 28))
-            }
+            $0.size(CGSize(width: 28, height: 28))
         }
         
         addSubview(backgroundView) {
@@ -99,21 +69,13 @@ private extension EditorBarButtonItem {
         }
         
         addSubview(button) {
-            switch style {
-            case .syncStatus:
-                $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: -10))
-            case .settings:
-                $0.pinToSuperview()
-            }
+            $0.pinToSuperview()
         }
     }
     
-    func handleAlphaUpdate(_ alpha: CGFloat) {
-        backgroundAlpha = alpha
-        backgroundView.alpha = alpha
-        button.tintColor = alpha.isLess(than: 0.5) ? UIColor.textSecondary : UIColor.backgroundPrimary
-        button.titleLabel?.font = AnytypeFont.caption1Regular.uiKitFont
-        button.setTitleColor(alpha.isLess(than: 0.5) ? UIColor.textSecondary : UIColor.backgroundPrimary, for: .normal)
+    func updateState() {
+        backgroundView.alpha = state.backgroundAlpha
+        button.tintColor = state.iconColor
     }
     
     func enableAnimation(_ inAnimator: ViewAnimator<UIView>, _ outAnimator: ViewAnimator<UIView>) {
@@ -147,21 +109,4 @@ private extension EditorBarButtonItem {
         static let minimumHitArea = CGSize(width: 44, height: 44)
     }
     
-}
-
-extension UIButton {
-
-    func centerTextAndImage(spacing: CGFloat) {
-        let insetAmount = spacing / 2
-        let isRTL = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
-        if isRTL {
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
-            titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
-            contentEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: -insetAmount)
-        } else {
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
-            titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
-            contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
-        }
-    }
 }
