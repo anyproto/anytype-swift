@@ -6,14 +6,9 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     var handler: EditorActionHandlerProtocol!
     
     private let document: BaseDocumentProtocol
-    private let documentId: String
 
-    init(
-        document: BaseDocumentProtocol,
-        documentId: String
-    ) {
+    init(document: BaseDocumentProtocol) {
         self.document = document
-        self.documentId = documentId
     }
     
     func toggleMarkup(

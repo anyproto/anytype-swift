@@ -9,9 +9,7 @@ import AnytypeCore
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
     
-    let documentId: BlockId
-    
-    var document: BaseDocumentProtocol
+    let document: BaseDocumentProtocol
     let modelsHolder: ObjectContentViewModelsSharedHolder
     let blockDelegate: BlockDelegate
     
@@ -27,7 +25,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     // MARK: - Initialization
     init(
-        documentId: BlockId,
         document: BaseDocumentProtocol,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
@@ -39,7 +36,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder
     ) {
-        self.documentId = documentId
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
         self.document = document
@@ -194,7 +190,7 @@ extension EditorPageViewModel {
     func viewLoaded() {
         Amplitude.instance().logEvent(
             AmplitudeEventsName.documentPage,
-            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: documentId]
+            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: document.objectId]
         )
         document.open()
     }
