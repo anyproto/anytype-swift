@@ -38,6 +38,18 @@ struct SettingsSectionView: View {
             .sheet(isPresented: $viewModel.about) {
                 AboutView()
             }
+            
+            #if !RELEASE
+            SettingsSectionItemView(
+                name: "Debug",
+                icon: Image.System.lassoAndSparkles,
+                comingSoon: false,
+                pressed: $viewModel.debugMenu
+            )
+            .sheet(isPresented: $viewModel.debugMenu) {
+                FeatureFlagsView()
+            }
+            #endif
         }
         .padding([.leading, .trailing], 20)
         .background(Color.background)

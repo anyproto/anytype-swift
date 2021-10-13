@@ -12,16 +12,6 @@ final class BaseDocument: BaseDocumentProtocol {
         guard let rootId = rootModel?.rootId else { return nil }
         return rootModel?.blocksContainer.model(id: rootId)
     }
-    
-    var userSession: UserSession? {
-        get {
-            rootModel?.blocksContainer.userSession
-        }
-        set {
-            guard let newValue = newValue else { return }
-            rootModel?.blocksContainer.userSession = newValue
-        }
-    }
 
     var documentId: BlockId? { rootModel?.rootId }
     
@@ -181,9 +171,7 @@ final class BaseDocument: BaseDocumentProtocol {
         switch updates {
         case .general:
             return getModels()
-        case .details:
-            return []
-        case .update:
+        case .details, .update, .syncStatus:
             return []
         }
     }

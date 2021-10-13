@@ -83,9 +83,8 @@ struct SearchView: View {
     }
     
     private func search(text: String) {
-        service.search(text: text) { results in
-            data = results.map { SearchCellData(searchResult: $0) }
-        }
+        guard let results = service.search(text: text) else { return }
+        data = results.map { SearchCellData(searchResult: $0) }
     }
 }
 

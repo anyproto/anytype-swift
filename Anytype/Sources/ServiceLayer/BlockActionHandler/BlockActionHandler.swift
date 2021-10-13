@@ -6,7 +6,6 @@ import AnytypeCore
 final class BlockActionHandler: BlockActionHandlerProtocol {
     private let documentId: String
     private let document: BaseDocumentProtocol
-    private var subscriptions: [AnyCancellable] = []
     
     private let service: BlockActionServiceProtocol
     private let listService = BlockListService()
@@ -97,7 +96,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .textView(action: action, block: blockModel):
             switch action {
             case let .changeCaretPosition(selectedRange):
-                document.userSession?.focus = .at(selectedRange)
+                UserSession.shared.focus = .at(selectedRange)
             case let .changeTextStyle(string, styleAction, range):
                 handleBlockAction(
                     .toggleFontStyle(string, styleAction, range),
@@ -128,8 +127,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     
-    // TODO: think how to manage duplicated coded in diff handlers
-    // self.handlingKeyboardAction(block, .pressKey(.delete))
     private func delete(blockId: BlockId) {
         service.delete(blockId: blockId) { [weak self] value in
             guard let previousModel = self?.modelsHolder?.findModel(beforeBlockId: blockId) else {
@@ -145,27 +142,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
 private extension BlockActionHandler {
     func setBlockColor(blockId: BlockId, color: BlockColor, completion: Completion?) {
-        let blockIds = [blockId]
-        
-        guard let response = listService.setBlockColor(contextId: documentId, blockIds: blockIds, color: color.middleware) else {
-            return
-        }
-        
-        completion?(PackOfEvents(middlewareEvents: response.messages, localEvents: []))
+        listService.setBlockColor(contextId: documentId, blockIds: [blockId], color: color.middleware)
+            .flatMap {
+                completion?(PackOfEvents(middlewareEvents: $0.messages, localEvents: []))
+            }
     }
     
-    func setAlignment(
-        blockId: BlockId,
-        alignment: LayoutAlignment,
-        completion: Completion?
-    ) {
-        let blockIds = [blockId]
-        
-        listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
-            .sinkWithDefaultCompletion("setAlignment") { value in
-                let value = PackOfEvents(middlewareEvents: value.messages, localEvents: [])
-                completion?(value)
+    func setAlignment(blockId: BlockId, alignment: LayoutAlignment, completion: Completion?) {
+        listService.setAlign(contextId: self.documentId, blockIds: [blockId], alignment: alignment)
+            .flatMap {
+                completion?(PackOfEvents(middlewareEvents: $0.messages, localEvents: []))
             }
-            .store(in: &self.subscriptions)
     }
 }

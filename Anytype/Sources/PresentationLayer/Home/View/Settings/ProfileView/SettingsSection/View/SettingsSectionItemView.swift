@@ -13,7 +13,7 @@ struct SettingsSectionItemView: View {
     var body: some View {
         Button(action: { pressed = true }) {
             HStack(alignment: .center, spacing: 0) {
-                icon.frame(width: iconWidth, height: iconWidth)
+                icon.imageScale(.large).frame(width: iconWidth, height: iconWidth)
                 Spacer.fixedWidth(iconSpacing)
                 AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()

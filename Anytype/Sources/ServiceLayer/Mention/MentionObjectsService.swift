@@ -1,4 +1,3 @@
-
 final class MentionObjectsService {
     
     var filterString = ""
@@ -8,11 +7,8 @@ final class MentionObjectsService {
         self.searchService = searchService
     }
     
-    func loadMentions(completion: @escaping ([MentionObject]) -> Void) {
-        searchService.search(text: filterString) { searchResults in
-            completion(
-                searchResults.map { MentionObject(searchResult: $0) }
-            )
-        }
+    func loadMentions() -> [MentionObject]? {
+        return searchService.search(text: filterString)?
+            .map { MentionObject(searchResult: $0) }
     }
 }

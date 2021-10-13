@@ -16,7 +16,7 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
     
     var userIcon: UserIconView.IconType {
         if let image = image {
-            return UserIconView.IconType.image(.local(image))
+            return UserIconView.IconType.image(.image(image))
         } else if let firstCharacter = name.first {
             return UserIconView.IconType.placeholder(firstCharacter)
         } else {
