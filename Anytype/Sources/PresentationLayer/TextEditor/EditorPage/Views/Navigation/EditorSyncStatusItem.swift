@@ -9,18 +9,14 @@ final class EditorSyncStatusItem: UIView {
     private var state = EditorBarItemState.initial
     
     func changeState(_ state: EditorBarItemState) {
-        if self.state != state {
-            self.state = state
-            updateState()
-        }
+        self.state = state
+        updateState()
     }
     
     func changeStatus(_ status: SyncStatus) {
-        if self.status != status {
-            self.status = status
-            UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve) {
-                self.updateButtonState()
-            }
+        self.status = status
+        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve) {
+            self.updateButtonState()
         }
     }
     

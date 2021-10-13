@@ -8,7 +8,7 @@ final class EditorNavigationBarHelper {
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
     private let settingsItem: EditorBarButtonItem
-    private let syncStatusItem: EditorSyncStatusItem
+    private let syncStatusItem = EditorSyncStatusItem(status: .unknown)
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -17,12 +17,13 @@ final class EditorNavigationBarHelper {
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
-        self.syncStatusItem = EditorSyncStatusItem(status: .synced)
         
         self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
+        
+        self.syncStatusItem.isHidden = true
     }
     
 }
@@ -81,6 +82,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func updateSyncStatus(_ status: SyncStatus) {
+        syncStatusItem.isHidden = false
         syncStatusItem.changeStatus(status)
     }    
 }
