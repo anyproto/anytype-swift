@@ -4,14 +4,18 @@ import AnytypeCore
 
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
-    private let container: RootBlockContainer
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
     private let informationCreator: BlockInformationCreator
     
     init(
-        container: RootBlockContainer,
-        informationCreator: BlockInformationCreator) {
-        self.updater = BlockUpdater(container)
-        self.container = container
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol,
+        informationCreator: BlockInformationCreator
+    ) {
+        self.updater = BlockUpdater(blocksContainer)
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
         self.informationCreator = informationCreator
     }
     
@@ -39,7 +43,7 @@ final class MiddlewareEventConverter {
         
         case let .blockDelete(value):
             value.blockIds.forEach { blockId in
-                container.blocksContainer.remove(blockId)
+                blocksContainer.remove(blockId)
             }
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
@@ -79,12 +83,12 @@ final class MiddlewareEventConverter {
             
             let id = amend.id
             
-            guard let currentDetails = container.detailsStorage.get(id: id) else {
+            guard let currentDetails = detailsStorage.get(id: id) else {
                 return nil
             }
             
             let updatedDetails = currentDetails.updated(by: rawDetails)
-            container.detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails, id: id)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -97,7 +101,7 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(payload):
             let id = payload.id
             
-            guard let currentDetails = container.detailsStorage.get(id: id) else {
+            guard let currentDetails = detailsStorage.get(id: id) else {
                 return nil
             }
             
@@ -106,7 +110,7 @@ final class MiddlewareEventConverter {
             guard unsettedRawDetails.isNotEmpty else { return nil }
             
             let updatedDetails = currentDetails.updated(by: unsettedRawDetails)
-            container.detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails, id: id)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -124,7 +128,7 @@ final class MiddlewareEventConverter {
             let rawDetails = MiddlewareDetailsConverter.convertSetEvent(value)
             let details = ObjectDetails(rawDetails)
             
-            container.detailsStorage.add(
+            detailsStorage.add(
                 details: details,
                 id: value.id
             )
@@ -256,7 +260,7 @@ final class MiddlewareEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
-        guard var blockModel = container.blocksContainer.model(id: newData.id) else {
+        guard var blockModel = blocksContainer.model(id: newData.id) else {
             anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }

@@ -3,11 +3,16 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
-    private weak var container: RootBlockContainer?
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(container: RootBlockContainer?) {
-        self.container = container
+    init(
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol
+    ) {
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
     }
     
     func convert(_ event: LocalEvent) -> EventHandlerUpdate? {
@@ -20,7 +25,7 @@ final class LocalEventConverter {
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
-            guard var model = container?.blocksContainer.model(id: blockId) else {
+            guard var model = blocksContainer.model(id: blockId) else {
                 anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)")
                 return nil
             }
@@ -42,7 +47,7 @@ final class LocalEventConverter {
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
         
-        guard var blockModel = container?.blocksContainer.model(id: blockId) else {
+        guard var blockModel = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container")
             return .general
         }
@@ -74,7 +79,7 @@ final class LocalEventConverter {
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        guard var model = container?.blocksContainer.model(id: blockId) else {
+        guard var model = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("setFocus. We can't find model by id \(blockId)")
             return
         }

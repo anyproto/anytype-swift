@@ -10,7 +10,10 @@ struct BaseDocumentUpdateResult {
 protocol BaseDocumentProtocol: AnyObject {
     var objectId: BlockId { get }
     var rootActiveModel: BlockModelProtocol? { get }
-    var rootModel: RootBlockContainer { get }
+    
+    var blocksContainer: BlockContainerModelProtocol { get }
+    var detailsStorage: ObjectDetailsStorageProtocol { get }
+    
     var eventHandler: EventsListener { get }
     
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)? { get set }

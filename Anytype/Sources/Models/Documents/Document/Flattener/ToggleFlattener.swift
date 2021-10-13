@@ -24,13 +24,16 @@ final class ToggleFlattener {
     ///   - id: Id of toggle block
     ///   - container: Container with blocks
     /// - Returns: Child block ids
-    func processedChildren(_ id: BlockId, in container: RootBlockContainer) -> [BlockId] {
+    func processedChildren(
+        _ id: BlockId,
+        in blocksContainer: BlockContainerModelProtocol
+    ) -> [BlockId] {
         if !shouldCheckToggleFlag {
-            return container.blocksContainer.children(of: id)
+            return blocksContainer.children(of: id)
         }
         let isToggled = UserSession.shared.toggles[id] ?? false
         if isToggled {
-            return container.blocksContainer.children(of: id)
+            return blocksContainer.children(of: id)
         }
         else {
             return []
