@@ -1,26 +1,21 @@
 import UIKit
 
-extension EditorBarButtonItemView {
+extension EditorBarButtonItem {
     enum Style {
         case settings(image: UIImage, action: () -> Void)
         case syncStatus(image: UIImage, title: String, description: String)
     }
 }
 
-final class EditorBarButtonItemView: UIView, CustomizableHitTestAreaView {
+final class EditorBarButtonItem: UIView, CustomizableHitTestAreaView {
     // CustomizableHitTestAreaView
     var minHitTestArea: CGSize = Constants.minimumHitArea
-
-    var backgroundAlpha: CGFloat = 0.0 {
-        didSet {
-            handleAlphaUpdate(backgroundAlpha)
-        }
-    }
     
     private let backgroundView = UIView()
     private let button = UIButton(type: .custom)
     
-    private let style: Style
+    private var style: Style
+    private var backgroundAlpha: CGFloat = 0.0
     
     init(style: Style) {
         self.style = style
@@ -28,17 +23,30 @@ final class EditorBarButtonItemView: UIView, CustomizableHitTestAreaView {
         setup()
     }
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return containsCustomHitTestArea(point) ? button : nil
+    }
+    
+    func changeBackgroundAlpha(_ alpha: CGFloat) {
+        if backgroundAlpha != alpha {
+            handleAlphaUpdate(alpha)
+        }
+    }
+    
+    func changeStyle(style: Style) {
+        self.style = style
+        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
+            self?.setupButton()
+        }, completion: nil)
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return containsCustomHitTestArea(point) ? button : nil
-    }
 }
 
-private extension EditorBarButtonItemView {
+private extension EditorBarButtonItem {
     
     func setup() {
         setupBackgroundView()
@@ -46,11 +54,6 @@ private extension EditorBarButtonItemView {
         setupLayout()
         
         handleAlphaUpdate(backgroundAlpha)
-        
-        enableAnimation(
-            .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
-            .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
-        )
     }
     
     func setupBackgroundView() {
@@ -66,6 +69,10 @@ private extension EditorBarButtonItemView {
             button.addAction(
                 UIAction(handler: { _ in action() } ),
                 for: .touchUpInside
+            )
+            enableAnimation(
+                .scale(toScale: Constants.pressedScale, duration: Constants.animationDuration),
+                .undoScale(scale: Constants.pressedScale, duration: Constants.animationDuration)
             )
         case let .syncStatus(image: image, title: title, description: description):
             button.setImage(image, for: .normal)
@@ -102,6 +109,7 @@ private extension EditorBarButtonItemView {
     }
     
     func handleAlphaUpdate(_ alpha: CGFloat) {
+        backgroundAlpha = alpha
         backgroundView.alpha = alpha
         button.tintColor = alpha.isLess(than: 0.5) ? UIColor.textSecondary : UIColor.backgroundPrimary
         button.titleLabel?.font = AnytypeFont.caption1Regular.uiKitFont
@@ -130,7 +138,7 @@ private extension EditorBarButtonItemView {
     
 }
 
-private extension EditorBarButtonItemView {
+private extension EditorBarButtonItem {
     
     enum Constants {
         static let animationDuration: TimeInterval = 0.1

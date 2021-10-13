@@ -7,8 +7,8 @@ final class EditorNavigationBarHelper {
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
-    private let settingsItem: EditorBarButtonItemView
-    private let syncStatusItem: EditorBarButtonItemView
+    private let settingsItem: EditorBarButtonItem
+    private let syncStatusItem: EditorSyncStatusItem
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -16,20 +16,10 @@ final class EditorNavigationBarHelper {
     private var objectHeaderHeight: CGFloat = 0.0
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
-        self.settingsItem = EditorBarButtonItemView(
+        self.settingsItem = EditorBarButtonItem(
             style: .settings(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
         )
-        
-        let greenCircle = ImageBuilder(
-            .init(
-                size: CGSize(width: 10, height: 10),
-                cornersGuideline: .init(radius: 5, borderColor: nil)
-            )
-        )
-            .setImageColor(.pureGreen).build()
-        self.syncStatusItem = EditorBarButtonItemView(
-            style: .syncStatus(image: greenCircle, title: "Synced", description: "Backed up on one node at least")
-        )
+        self.syncStatusItem = EditorSyncStatusItem(status: .unknown)
         
         self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
@@ -94,6 +84,9 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         )
     }
     
+    func updateSyncStatus(_ status: SyncStatus) {
+        syncStatusItem.changeStatus(status)
+    }    
 }
 
 // MARK: - Private extension
@@ -114,11 +107,8 @@ private extension EditorNavigationBarHelper {
     }
     
     func updateBarButtonItemsBackground(alpha: CGFloat) {
-        [settingsItem, syncStatusItem].forEach {
-            guard !$0.backgroundAlpha.isEqual(to: alpha) else { return }
-            
-            $0.backgroundAlpha = alpha
-        }
+        settingsItem.changeBackgroundAlpha(alpha)
+        syncStatusItem.changeBackgroundAlpha(alpha)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {

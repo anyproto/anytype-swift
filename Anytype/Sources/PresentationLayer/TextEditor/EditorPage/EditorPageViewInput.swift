@@ -6,6 +6,7 @@ protocol EditorPageViewInput: AnyObject {
     
     func update(header: ObjectHeader, details: DetailsDataProtocol?)
     func update(blocks: [BlockViewModelProtocol])
+    func update(syncStatus: SyncStatus)
     
     func selectBlock(blockId: BlockId)
 

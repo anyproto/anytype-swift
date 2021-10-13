@@ -110,7 +110,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             viewInput?.update(blocks: modelsHolder.models)
         case .syncStatus(let status):
-            print(status)
+            viewInput?.update(syncStatus: status)
         }
     }
     
