@@ -108,7 +108,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         let documentId = viewController.viewModel.document.objectId
         UserDefaultsConfig.storeOpenedPageId(documentId)
         
-        let details = viewController.viewModel.document.getDetails(id: documentId)
+        let details = viewController.viewModel.document.detailsStorage.get(id: documentId)
         let title = details?.name
         let subtitle = details?.description
         do {

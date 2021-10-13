@@ -12,7 +12,7 @@ class DetailsLoader {
     }
     
     func loadDetailsForBlockLink(blockId: BlockId, targetBlockId: BlockId) -> ObjectDetails? {
-        guard let detailsModel = document.getDetails(id: targetBlockId) else {
+        guard let detailsModel = document.detailsStorage.get(id: targetBlockId) else {
             anytypeAssertionFailure("No block data id: \(targetBlockId) for block link")
             return nil
         }

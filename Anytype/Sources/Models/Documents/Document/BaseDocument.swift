@@ -35,7 +35,37 @@ final class BaseDocument: BaseDocumentProtocol {
         setup()
     }
     
-    func setup() {
+    deinit {
+        blockActionsService.close(contextId: objectId, blockId: objectId)
+    }
+
+    // MARK: - BaseDocumentProtocol
+
+    func open() {
+        guard
+            let result = blockActionsService.open(
+                contextId: objectId,
+                blockId: objectId
+            )
+        else { return }
+        
+        ObjectOpenEventProcessor.fillRootModelWithEventData(
+            blocksContainer: blocksContainer,
+            detailsStorage: detailsStorage,
+            event: result
+        )
+
+        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
+    }
+    
+    /// Convenient publisher for accessing default details properties by typed enum.
+    /// - Returns: Publisher of default details properties.
+    func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never> {
+        // TODO: - details. implement
+        .empty()
+    }
+    
+    private func setup() {
         eventHandler.onUpdateReceive = { [weak self] update in
             guard update.hasUpdate else { return }
             guard let self = self else { return }
@@ -65,27 +95,13 @@ final class BaseDocument: BaseDocumentProtocol {
         eventHandler.startListening()
     }
     
-    deinit {
-        blockActionsService.close(contextId: objectId, blockId: objectId)
-    }
-
-    // MARK: - BaseDocumentProtocol
-
-    func open() {
-        guard
-            let result = blockActionsService.open(
-                contextId: objectId,
-                blockId: objectId
-            )
-        else { return }
-        
-        ObjectOpenEventProcessor.fillRootModelWithEventData(
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage,
-            event: result
-        )
-
-        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
+    private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
+        switch updates {
+        case .general:
+            return getModels()
+        case .details, .update, .syncStatus:
+            return []
+        }
     }
     
     /// Returns a flatten list of active models of document.
@@ -102,42 +118,6 @@ final class BaseDocument: BaseDocumentProtocol {
             in: blocksContainer,
             options: .default
         )
-    }
-    
-    private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
-        switch updates {
-        case .general:
-            return getModels()
-        case .details, .update, .syncStatus:
-            return []
-        }
-    }
-
-    // MARK: - Details
-    /// Return configured details for provided id for listening events.
-    ///
-    /// Note.
-    ///
-    /// Provided `id` should be in `a list of details of opened document`.
-    /// If you receive a error, assure yourself, that you've opened a document before accessing details.
-    ///
-    /// - Parameter id: Id of item for which we would like to listen events.
-    /// - Returns: details active model.
-    ///
-    func getDetails(id: BlockId) -> ObjectDetails? {
-        let value = detailsStorage.get(id: id)
-        if value.isNil {
-            AnytypeLogger.create(.baseDocument)
-                .debug("getDetails(by:). Our document is not ready yet")
-        }
-        return value
-    }
-    
-    /// Convenient publisher for accessing default details properties by typed enum.
-    /// - Returns: Publisher of default details properties.
-    func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never> {
-        // TODO: - details. implement
-        .empty()
     }
 
 }

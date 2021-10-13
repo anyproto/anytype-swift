@@ -22,5 +22,4 @@ protocol BaseDocumentProtocol: AnyObject {
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
     
-    func getDetails(id: BlockId) -> ObjectDetails?
 }

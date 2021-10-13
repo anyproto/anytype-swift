@@ -71,7 +71,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func updateCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.getDetails(id: blockId) else {
+        guard let newDetails = document.detailsStorage.get(id:  blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
