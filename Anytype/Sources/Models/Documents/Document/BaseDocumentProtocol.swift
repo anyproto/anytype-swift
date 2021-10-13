@@ -11,14 +11,13 @@ protocol BaseDocumentProtocol: AnyObject {
     var objectId: BlockId { get }
     var rootActiveModel: BlockModelProtocol? { get }
     var rootModel: RootBlockContainer { get }
-    var eventHandler: EventHandler { get }
+    var eventHandler: EventsListener { get }
     
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)? { get set }
     
     func open()
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
-    func handle(events: PackOfEvents)
     
     func getDetails(id: BlockId) -> ObjectDetails?
 }

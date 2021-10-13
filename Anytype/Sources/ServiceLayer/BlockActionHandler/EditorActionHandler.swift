@@ -36,7 +36,13 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     ) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        document.handle(events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId)))
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(
+                objectId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            )
+        )
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
@@ -53,8 +59,12 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        document.handle(
-            events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(
+                objectId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            )
         )
         
         blockActionHandler.upload(blockId: blockId, filePath: localPath)
@@ -83,9 +93,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
-        blockActionHandler.handleBlockAction(action, blockId: blockId) { [weak self] events in
-            self?.document.handle(events: events)
-        }
+        blockActionHandler.handleBlockAction(action, blockId: blockId)
     }
     
     // MARK: - Private

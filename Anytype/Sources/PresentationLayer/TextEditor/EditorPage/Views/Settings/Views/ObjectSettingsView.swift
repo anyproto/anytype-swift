@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Amplitude
-
+import BlocksModels
 
 struct ObjectSettingsView: View {
     
@@ -95,7 +95,6 @@ struct ObjectSettingsView_Previews: PreviewProvider {
                 ObjectSettingsViewModel(
                     objectId: "dummyPageId",
                     objectDetailsService: ObjectDetailsService(
-                        eventHandler: EventHandler(objectId: ""),
                         objectId: ""
                     )
                 )

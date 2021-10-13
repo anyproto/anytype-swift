@@ -43,20 +43,19 @@ final class EditorPageAssembly {
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectId: blockId,
             objectDetailsService: ObjectDetailsService(
-                eventHandler: document.eventHandler,
                 objectId: blockId
             )
         )
                 
         let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
         
+        // TODO: - details. remove documentId
         let markupChanger = BlockMarkupChanger(
             document: document,
             documentId: blockId
         )
         
         let blockActionHandler = BlockActionHandler(
-            documentId: blockId,
             modelsHolder: modelsHolder,
             document: document,
             markupChanger: markupChanger

@@ -3,7 +3,6 @@ import UIKit
 
 protocol BlockActionServiceProtocol {
     func configured(documentId: String) -> Self
-    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ())
     
     func upload(blockId: BlockId, filePath: String)
     

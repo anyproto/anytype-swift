@@ -21,8 +21,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
 
-    private var didReceiveEvent: (PackOfEvents) -> () = { _  in }
-
     init(documentId: String) {
         self.documentId = documentId
     }
@@ -32,16 +30,15 @@ final class BlockActionService: BlockActionServiceProtocol {
     /// - Parameters:
     ///   - events: Event to handle
     func receivelocalEvents(_ events: [LocalEvent]) {
-        didReceiveEvent(PackOfEvents(localEvents: events))
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(objectId: documentId, localEvents: events)
+        )
     }
 
     func configured(documentId: String) -> Self {
         self.documentId = documentId
         return self
-    }
-
-    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) {
-        self.didReceiveEvent = didReceiveEvent
     }
 
     // MARK: Actions/Add
@@ -55,7 +52,10 @@ final class BlockActionService: BlockActionServiceProtocol {
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
         
         let event = shouldSetFocusOnUpdate ? response.addEvent : response.defaultEvent
-        didReceiveEvent(event)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: event
+        )
     }
 
     func split(
@@ -94,18 +94,32 @@ final class BlockActionService: BlockActionServiceProtocol {
         ) else { return }
             
         let allEvents = PackOfEvents(
+            objectId: documentId,
             middlewareEvents: splitSuccess.responseEvent.messages,
             localEvents: [
                 .setFocus(blockId: splitSuccess.blockId, position: .beginning)
             ]
        )
-        didReceiveEvent(allEvents)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: allEvents
+        )
     }
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
-            .flatMap { didReceiveEvent(PackOfEvents(middlewareEvents: $0.messages)) }
+            .duplicate(
+                contextId: documentId,
+                targetId: blockId,
+                blockIds: [blockId],
+                position: .bottom
+            )
+            .flatMap {
+                NotificationCenter.default.post(
+                    name: .middlewareEvent,
+                    object: PackOfEvents(objectId: documentId, middlewareEvents: $0.messages)
+                )
+            }
     }
 
     func createPage(position: BlockPosition) {
@@ -118,7 +132,10 @@ final class BlockActionService: BlockActionServiceProtocol {
        ) else { return }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object:  PackOfEvents(objectId: documentId, middlewareEvents: response.messages)
+        )
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
@@ -143,22 +160,36 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard let response = textService.checked(contextId: documentId, blockId: blockId, newValue: newValue) else {
             return
         }
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(objectId: documentId, middlewareEvents: response.messages)
+        )
     }
     
     func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents)) {
-        guard let response = singleService.delete(contextId: documentId, blockIds: [blockId]) else {
+        guard
+            let response = singleService.delete(
+                contextId: documentId,
+                blockIds: [blockId]
+            )
+        else {
             return
         }
-
-        didReceiveEvent(completion(response))
+        
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: completion(response)
+        )
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
         guard let response = listService.setFields(contextId: contextID, fields: blockFields) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: response.defaultEvent
+        )
     }
 }
 
@@ -168,7 +199,10 @@ private extension BlockActionService {
         guard let response = listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: response.defaultEvent
+        )
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
@@ -177,7 +211,10 @@ private extension BlockActionService {
         }
         
         let events = shouldFocus ? response.turnIntoTextEvent : response.defaultEvent
-        didReceiveEvent(events)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: events
+        )
     }
 }
 
@@ -191,7 +228,10 @@ extension BlockActionService {
                 }
             
         let events = response.defaultEvent.enrichedWith(localEvents: localEvents)
-        didReceiveEvent(events)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: events
+        )
     }
 }
 
@@ -203,7 +243,10 @@ extension BlockActionService {
         guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: response.defaultEvent
+        )
     }
 }
 
@@ -218,7 +261,10 @@ extension BlockActionService {
         guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: response.defaultEvent
+        )
     }
 }
 
@@ -231,8 +277,11 @@ extension BlockActionService {
             contextID: self.documentId,
             blockID: blockId
         )
-            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] serviceSuccess in
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
+            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { serviceSuccess in
+                NotificationCenter.default.post(
+                    name: .middlewareEvent,
+                    object: serviceSuccess.defaultEvent
+                )
         }.store(in: &self.subscriptions)
     }
 }

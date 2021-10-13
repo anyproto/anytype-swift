@@ -9,8 +9,6 @@ private extension LoggerCategory {
 
 final class BaseDocument: BaseDocumentProtocol {
         
-    let objectId: BlockId
-    
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
@@ -18,9 +16,10 @@ final class BaseDocument: BaseDocumentProtocol {
         rootModel.blocksContainer.model(id: objectId)
     }
     
+    let objectId: BlockId
+
     let rootModel: RootBlockContainer
-    
-    let eventHandler: EventHandler
+    let eventHandler: EventsListener
     
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
@@ -32,9 +31,11 @@ final class BaseDocument: BaseDocumentProtocol {
             detailsStorage: ObjectDetailsStorage()
         )
         
-        self.eventHandler = EventHandler(objectId: objectId)
+        self.eventHandler = EventsListener(
+            objectId: objectId,
+            container: self.rootModel
+        )
         
-        eventHandler.configured(self.rootModel)
         setup()
     }
     
@@ -62,6 +63,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 )
             }
         }
+        eventHandler.startListening()
     }
     
     deinit {
@@ -79,8 +81,9 @@ final class BaseDocument: BaseDocumentProtocol {
         else { return }
         
         handleOpen(result)
-        eventHandler.handle(
-            events: PackOfEvents(middlewareEvents: result.messages)
+        NotificationCenter.default.post(
+            name: .middlewareEvent,
+            object: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
         )
     }
 
@@ -88,7 +91,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private func handleOpen(_ serviceSuccess: ResponseEvent) {
         let blocks = eventHandler.handleBlockShow(
-            events: .init(middlewareEvents: serviceSuccess.messages)
+            events: .init(objectId: objectId, middlewareEvents: serviceSuccess.messages)
         )
         guard let event = blocks.first else { return }
         
@@ -157,13 +160,4 @@ final class BaseDocument: BaseDocumentProtocol {
         .empty()
     }
 
-    // MARK: - Events
-    
-    /// Handle events initiated by user.
-    ///
-    /// - Parameter events: A pack of events.
-    ///
-    func handle(events: PackOfEvents) {
-        eventHandler.handle(events: events)
-    }
 }

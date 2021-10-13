@@ -1,25 +1,33 @@
 import ProtobufMessages
+import BlocksModels
 
 struct PackOfEvents {
+    let objectId: BlockId
+    
     let middlewareEvents: [Anytype_Event.Message]
     let localEvents: [LocalEvent]
     
-    init(
-        middlewareEvents: [Anytype_Event.Message] = [],
-        localEvents: [LocalEvent] = []
-    ) {
-        self.middlewareEvents = middlewareEvents
-        self.localEvents = localEvents
-    }
-    
-    init(localEvent: LocalEvent) {
-        self.init(middlewareEvents: [], localEvents: [localEvent])
-    }
-    
     func enrichedWith(localEvents: [LocalEvent]) -> PackOfEvents {
-        return PackOfEvents(
-            middlewareEvents: middlewareEvents,
+        PackOfEvents(
+            objectId: self.objectId,
+            middlewareEvents: self.middlewareEvents,
             localEvents: self.localEvents + localEvents
         )
+    }
+    
+}
+
+extension PackOfEvents {
+    
+    init(objectId: BlockId, middlewareEvents: [Anytype_Event.Message]) {
+        self.objectId = objectId
+        self.middlewareEvents = middlewareEvents
+        self.localEvents = []
+    }
+    
+    init(objectId: BlockId, localEvents: [LocalEvent]) {
+        self.objectId = objectId
+        self.middlewareEvents = []
+        self.localEvents = localEvents
     }
 }

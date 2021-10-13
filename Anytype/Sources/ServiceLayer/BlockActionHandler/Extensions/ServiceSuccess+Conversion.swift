@@ -2,7 +2,7 @@ import AnytypeCore
 
 extension ResponseEvent {
     var defaultEvent: PackOfEvents {
-        PackOfEvents(middlewareEvents: messages, localEvents: [])
+        PackOfEvents(objectId: contextID, middlewareEvents: messages, localEvents: [])
     }
     
     var turnIntoTextEvent: PackOfEvents {
@@ -12,7 +12,7 @@ extension ResponseEvent {
             [.setFocus(blockId: $0.blockSetText.id, position: .beginning)]
         } ?? []
 
-        return PackOfEvents(middlewareEvents: messages, localEvents: localEvents)
+        return PackOfEvents(objectId: contextID, middlewareEvents: messages, localEvents: localEvents)
     }
     
     var addEvent: PackOfEvents {
@@ -21,6 +21,6 @@ extension ResponseEvent {
             [.setFocus(blockId: $0.id, position: .beginning)]
         } ?? []
         
-        return .init(middlewareEvents: messages, localEvents: localEvents)
+        return .init(objectId: contextID, middlewareEvents: messages, localEvents: localEvents)
     }
 }
