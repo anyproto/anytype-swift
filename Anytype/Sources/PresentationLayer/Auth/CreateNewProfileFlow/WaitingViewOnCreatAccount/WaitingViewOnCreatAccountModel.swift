@@ -45,7 +45,7 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                 
                 switch result {
                 case .failure:
-                    self.error = "Sign up error"
+                    self.error = "Sign up error".localized
                     self.showError = true
                 case .success:
                     self.loginStateService.setupStateAfterLoginOrAuth()

@@ -34,7 +34,7 @@ struct LoginView: View {
     private var keychainPhraseView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Login with keychain", style: .heading, color: .textPrimary)
+                AnytypeText("Login with keychain".localized, style: .heading, color: .textPrimary)
                 Spacer.fixedHeight(32)
                 scanQR
                 enterMnemonic
@@ -48,11 +48,11 @@ struct LoginView: View {
     
     private var buttons: some View {
         HStack(spacing: 12) {
-            StandardButton(text: "Back", style: .secondary) {
+            StandardButton(text: "Back".localized, style: .secondary) {
                 self.presentationMode.wrappedValue.dismiss()
             }
 
-            StandardButton(disabled: viewModel.seed.isEmpty, text: "Login", style: .primary) {
+            StandardButton(disabled: viewModel.seed.isEmpty, text: "Login".localized, style: .primary) {
                 self.viewModel.recoverWallet()
             }
         }
@@ -63,7 +63,7 @@ struct LoginView: View {
     private var enterMnemonic: some View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
-                AnytypeText("or Type your keychain phrase", style: .codeBlock, color: .textSecondary)
+                AnytypeText("or Type your keychain phrase".localized, style: .codeBlock, color: .textSecondary)
                     .padding(.top, 17)
             }
             
@@ -88,7 +88,7 @@ struct LoginView: View {
             }
         ) {
             HStack {
-                AnytypeText("Scan QR code", style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText("Scan QR code".localized, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 Image.arrow
             }

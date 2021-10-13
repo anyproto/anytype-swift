@@ -32,9 +32,9 @@ struct MainAuthView: View {
     private var bottomSheet: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Welcome to Anytype", style: .heading, color: .textPrimary)
+                AnytypeText("Welcome to Anytype".localized, style: .heading, color: .textPrimary)
                 Spacer.fixedHeight(11)
-                AnytypeText("OrganizeEverythingDescription", style: .uxCalloutRegular, color: .textPrimary)
+                AnytypeText("OrganizeEverythingDescription".localized, style: .uxCalloutRegular, color: .textPrimary)
                 Spacer.fixedHeight(18)
                 buttons
             }
@@ -46,14 +46,14 @@ struct MainAuthView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: "Sign up", style: .secondary) {
+            StandardButton(text: "Sign up".localized, style: .secondary) {
                 viewModel.singUp()
             }
             
             NavigationLink(
                 destination: viewModel.loginView()
             ) {
-                StandardButtonView(text: "Login", style: .primary)
+                StandardButtonView(text: "Login".localized, style: .primary)
             }
         }
     }

@@ -197,7 +197,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(title: "Move to") { data in
+        let moveToView = SearchView(title: "Move to".localized) { data in
             onSelect(data.id)
         }
         

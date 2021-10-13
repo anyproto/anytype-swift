@@ -27,8 +27,7 @@ extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
             let event = try? Anytype_Event(serializedData: rawEvent)
         else { return }
         
-        let filteredEvents = event.messages.filter(isNotNoise)
-        AnytypeLogger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
+        logEvent(event: event)
         
         EventsBunch(
             objectId: event.contextID,
@@ -37,7 +36,13 @@ extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
     }
     
     
-    // TODO: Don't forget to remove it. We only add this method to hide logs from thread status.
+    private func logEvent(event: Anytype_Event) {
+        guard FeatureFlags.middlewareLogs else { return }
+        
+        let filteredEvents = event.messages.filter(isNotNoise)
+        AnytypeLogger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
+    }
+     
     private func isNotNoise(_ event: Anytype_Event.Message) -> Bool {
         guard let value = event.value else { return false }
         switch value {
