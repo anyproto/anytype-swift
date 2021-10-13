@@ -7,7 +7,7 @@ struct FeatureFlagsView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Feature flags 👻", style: .title, color: .textPrimary)
+            AnytypeText("Feature flags 👻".localized, style: .title, color: .textPrimary)
             buttons
             toggles
         }

@@ -64,6 +64,7 @@ extension Image {
     enum System {
         static let xmark = Image(systemName: "xmark")
         static let share = Image(systemName: "square.and.arrow.up")
+        static let lassoAndSparkles = Image(systemName: "sparkles")
     }
 }
 

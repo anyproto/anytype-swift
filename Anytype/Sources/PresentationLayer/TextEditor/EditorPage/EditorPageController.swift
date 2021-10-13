@@ -115,6 +115,10 @@ extension EditorPageController: EditorPageViewInput {
         )
     }
     
+    func update(syncStatus: SyncStatus) {
+        navigationBarHelper.updateSyncStatus(syncStatus)
+    }
+    
     func update(blocks: [BlockViewModelProtocol]) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         blocksSnapshot.append(blocks.map { EditorItem.block($0) })

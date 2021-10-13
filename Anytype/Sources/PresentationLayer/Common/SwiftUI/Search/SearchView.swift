@@ -73,7 +73,7 @@ struct SearchView: View {
             )
             .multilineTextAlignment(.center)
             AnytypeText(
-                "Try to create a new one or search for something else",
+                "Try to create a new one or search for something else".localized,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

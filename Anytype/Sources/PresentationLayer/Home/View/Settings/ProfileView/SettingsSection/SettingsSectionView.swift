@@ -6,14 +6,14 @@ struct SettingsSectionView: View {
     var body: some View {
         VStack(spacing: 12) {
             SettingsSectionItemView(
-                name: "Wallpaper",
+                name: "Wallpaper".localized,
                 icon: Image.settings.wallpaper,
                 comingSoon: true,
                 pressed: $viewModel.wallpaper
             )
             
             SettingsSectionItemView(
-                name: "Keychain phrase",
+                name: "Keychain phrase".localized,
                 icon: Image.settings.keychain,
                 comingSoon: false,
                 pressed: $viewModel.keychain
@@ -23,7 +23,7 @@ struct SettingsSectionView: View {
             }
             
             SettingsSectionItemView(
-                name: "Pin code",
+                name: "Pin code".localized,
                 icon: Image.settings.pin,
                 comingSoon: true,
                 pressed: $viewModel.pincode
@@ -38,6 +38,18 @@ struct SettingsSectionView: View {
             .sheet(isPresented: $viewModel.about) {
                 AboutView()
             }
+            
+            #if !RELEASE
+            SettingsSectionItemView(
+                name: "Debug",
+                icon: Image.System.lassoAndSparkles,
+                comingSoon: false,
+                pressed: $viewModel.debugMenu
+            )
+            .sheet(isPresented: $viewModel.debugMenu) {
+                FeatureFlagsView()
+            }
+            #endif
         }
         .padding([.leading, .trailing], 20)
         .background(Color.background)

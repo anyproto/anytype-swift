@@ -45,14 +45,14 @@ struct ObjectBasicIconPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText("Change icon", style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText("Change icon".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             Button {
                 viewModel.removeIcon()
                 dismiss()
             } label: {
-                AnytypeText("Remove", style: .uxBodyRegular, color: .pureRed)
+                AnytypeText("Remove".localized, style: .uxBodyRegular, color: .pureRed)
             }
         }
     }
@@ -103,7 +103,7 @@ struct ObjectBasicIconPicker: View {
                 handleSelectedEmoji($0)
             }
         } label: {
-            AnytypeText("Random", style: .uxBodyRegular, color: .buttonActive)
+            AnytypeText("Random".localized, style: .uxBodyRegular, color: .buttonActive)
         }
         .frame(maxWidth: .infinity)
     }
@@ -128,8 +128,8 @@ private extension ObjectBasicIconPicker {
         
         var title: String {
             switch self {
-            case .emoji: return "Emoji"
-            case .upload: return "Upload"
+            case .emoji: return "Emoji".localized
+            case .upload: return "Upload".localized
             }
         }
     }

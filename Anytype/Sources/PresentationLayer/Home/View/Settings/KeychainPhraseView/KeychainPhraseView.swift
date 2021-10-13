@@ -9,9 +9,9 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             
-            AnytypeText("Keychain phrase", style: .title, color: .textPrimary)
+            AnytypeText("Keychain phrase".localized, style: .title, color: .textPrimary)
                 .padding(.top, 58)
-            AnytypeText("Keychain phrase description", style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText("Keychain phrase description".localized, style: .uxBodyRegular, color: .textPrimary)
                 .padding(.top, 25)
             SeedPhraseView(phrase: $viewModel.recoveryPhrase, onTap: viewModel.onSeedViewTap)
                 .padding(.top, 34)
@@ -22,7 +22,7 @@ struct KeychainPhraseView: View {
         .padding([.leading, .trailing])
         .snackbar(
             isShowing: $viewModel.showSnackbar,
-            text: AnytypeText("Keychain phrase copied to clipboard", style: .uxCalloutRegular, color: .textPrimary)
+            text: AnytypeText("Keychain phrase copied to clipboard".localized, style: .uxCalloutRegular, color: .textPrimary)
         )
         .onAppear {
             // Analytics
