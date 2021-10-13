@@ -41,14 +41,14 @@ struct EmojiGridView: View {
         VStack {
             // TODO: - fix localisation. it does not work now
             AnytypeText(
-                "There is no emoji named" + " \"\(placeholder)\"",
+                "There is no emoji named".localized + " \"\(placeholder)\"",
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             
             AnytypeText(
-                "Try to find a new one or upload your image",
+                "Try to find a new one or upload your image".localized,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

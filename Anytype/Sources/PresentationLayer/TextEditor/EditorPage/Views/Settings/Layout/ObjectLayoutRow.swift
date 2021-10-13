@@ -54,11 +54,11 @@ private extension DetailsLayout {
     var title: String {
         switch self {
         case .basic:
-            return "Basic"
+            return "Basic".localized
         case .profile:
-            return "Profile"
+            return "Profile".localized
         case .todo:
-            return "Task"
+            return "Task".localized
         }
     }
     
