@@ -15,7 +15,7 @@ protocol BlockActionsServiceFileProtocol {
         filePath: String,
         contextID: BlockId,
         blockID: BlockId
-    ) -> AnyPublisher<ResponseEvent, Error>
+    ) -> AnyPublisher<MiddlewareResponse, Error>
     
     func syncUploadImageAt(localPath: String) -> Hash?
     func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error>

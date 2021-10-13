@@ -8,14 +8,14 @@ protocol TextServiceProtocol {
     typealias Style = BlockText.Style
     typealias SplitMode = Anytype_Rpc.Block.Split.Request.Mode
     
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> ResponseEvent?
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> ResponseEvent?
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> ResponseEvent?
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> MiddlewareResponse?
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> MiddlewareResponse?
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> MiddlewareResponse?
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> SplitSuccess?
     
     @discardableResult
-    func setForegroundColor(contextId: BlockId, blockId: BlockId, color: String) -> ResponseEvent?
+    func setForegroundColor(contextId: BlockId, blockId: BlockId, color: String) -> MiddlewareResponse?
     
     @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> ResponseEvent?    
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> MiddlewareResponse?    
 }

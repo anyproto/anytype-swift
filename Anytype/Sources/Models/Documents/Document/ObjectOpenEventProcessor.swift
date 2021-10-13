@@ -14,7 +14,7 @@ enum ObjectOpenEventProcessor {
     
     static func fillRootModelWithEventData(
         rootModel: RootBlockContainer,
-        event: ResponseEvent
+        event: MiddlewareResponse
     ) {
         let objectShowEvent = showEventsFromMessages(event.messages).first
         guard let objectShowEvent = objectShowEvent else { return }

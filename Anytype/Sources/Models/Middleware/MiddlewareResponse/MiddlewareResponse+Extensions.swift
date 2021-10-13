@@ -1,9 +1,18 @@
+import ProtobufMessages
 import AnytypeCore
 
-extension ResponseEvent {
-    var defaultEvent: EventsBunch {
-        EventsBunch(objectId: contextID, middlewareEvents: messages)
+extension MiddlewareResponse {
+    
+    var asEventsBunch: EventsBunch {
+        EventsBunch(
+            objectId: self.contextId,
+            middlewareEvents: self.messages
+        )
     }
+    
+}
+
+extension MiddlewareResponse {
     
     var turnIntoTextEvent: EventsBunch {
         let textMessage = messages.first { $0.value == .blockSetText($0.blockSetText) }
@@ -12,7 +21,11 @@ extension ResponseEvent {
             [.setFocus(blockId: $0.blockSetText.id, position: .beginning)]
         } ?? []
 
-        return EventsBunch(objectId: contextID, middlewareEvents: messages, localEvents: localEvents)
+        return EventsBunch(
+            objectId: self.contextId,
+            middlewareEvents: self.messages,
+            localEvents: localEvents
+        )
     }
     
     var addEvent: EventsBunch {
@@ -21,6 +34,12 @@ extension ResponseEvent {
             [.setFocus(blockId: $0.id, position: .beginning)]
         } ?? []
         
-        return .init(objectId: contextID, middlewareEvents: messages, localEvents: localEvents)
+        return EventsBunch(
+            objectId: self.contextId,
+            middlewareEvents: self.messages,
+            localEvents: localEvents
+        )
     }
+    
 }
+
