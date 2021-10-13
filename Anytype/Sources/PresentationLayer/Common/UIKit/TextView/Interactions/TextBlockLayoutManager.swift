@@ -80,7 +80,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
             UIColor.buttonActive.setFill()
             let lineHeight: CGFloat = 1
 
-            // When size of the uitextview was reduced using textContainerInset, underline should be moved upper to be visible.
+            // When size of the uitextview was reduced using negative textContainerInset values, underline should be moved upper to be visible.
             // Otherwise it will be outside the uitextview and not visible.
             var additionalYOffset: CGFloat = 0
 
