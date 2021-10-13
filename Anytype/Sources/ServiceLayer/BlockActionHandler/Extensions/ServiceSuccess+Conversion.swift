@@ -2,7 +2,7 @@ import AnytypeCore
 
 extension ResponseEvent {
     var defaultEvent: EventsBunch {
-        EventsBunch(objectId: contextID, middlewareEvents: messages, localEvents: [])
+        EventsBunch(objectId: contextID, middlewareEvents: messages)
     }
     
     var turnIntoTextEvent: EventsBunch {
