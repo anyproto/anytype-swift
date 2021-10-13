@@ -80,34 +80,15 @@ final class BaseDocument: BaseDocumentProtocol {
             )
         else { return }
         
-        handleOpen(result)
+        ObjectOpenEventProcessor.fillRootModelWithEventData(
+            rootModel: rootModel,
+            event: result
+        )
+
         NotificationCenter.default.post(
             name: .middlewareEvent,
             object: PackOfEvents(objectId: objectId, middlewareEvents: result.messages)
         )
-    }
-
-    // MARK: - Handle Open
-    
-    private func handleOpen(_ serviceSuccess: ResponseEvent) {
-        let blocks = eventHandler.handleBlockShow(
-            events: .init(objectId: objectId, middlewareEvents: serviceSuccess.messages)
-        )
-        guard let event = blocks.first else { return }
-        
-        // Build blocks tree and create new container
-        // And then, sync builders
-        let rootId = serviceSuccess.contextID
-        
-        TreeBlockBuilder.buildBlocksTree(
-            from: event.blocks,
-            with: rootId,
-            in: rootModel.blocksContainer
-        )
-        
-        event.details.forEach {
-            rootModel.detailsStorage.add(details: $0, id: $0.id)
-        }
     }
     
     /// Returns a flatten list of active models of document.
