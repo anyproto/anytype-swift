@@ -106,7 +106,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
 
         for blockId in blockIds {
-            guard let newRecord = document.rootActiveModel?.container?.model(id: blockId) else {
+            guard
+                let newRecord = document.blocksContainer.model(
+                    id: document.objectId
+                )?.container?.model(id: blockId) else {
                 anytypeAssertionFailure("Could not find object with id: \(blockId)")
                 return
             }
@@ -156,7 +159,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
-        let container = document.rootActiveModel?.container
+        let container = document.blocksContainer.model(id: document.objectId)?.container
         guard let currentInformation = container?.model(id: blockId)?.information else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
             anytypeAssertionFailure("Could not find object with id: \(blockId)")

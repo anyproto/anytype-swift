@@ -13,10 +13,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     
-    var rootActiveModel: BlockModelProtocol? {
-        blocksContainer.model(id: objectId)
-    }
-    
     let objectId: BlockId
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()

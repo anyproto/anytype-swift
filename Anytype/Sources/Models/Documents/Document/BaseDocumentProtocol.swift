@@ -9,7 +9,6 @@ struct BaseDocumentUpdateResult {
 
 protocol BaseDocumentProtocol: AnyObject {
     var objectId: BlockId { get }
-    var rootActiveModel: BlockModelProtocol? { get }
     
     var blocksContainer: BlockContainerModelProtocol { get }
     var detailsStorage: ObjectDetailsStorageProtocol { get }
