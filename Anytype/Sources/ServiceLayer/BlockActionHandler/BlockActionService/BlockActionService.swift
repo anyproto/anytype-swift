@@ -11,7 +11,7 @@ extension LoggerCategory {
 }
 
 final class BlockActionService: BlockActionServiceProtocol {
-    private var documentId: BlockId
+    private let documentId: BlockId
 
     private var subscriptions: [AnyCancellable] = []
     private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
@@ -34,11 +34,6 @@ final class BlockActionService: BlockActionServiceProtocol {
             name: .middlewareEvent,
             object: PackOfEvents(objectId: documentId, localEvents: events)
         )
-    }
-
-    func configured(documentId: String) -> Self {
-        self.documentId = documentId
-        return self
     }
 
     // MARK: Actions/Add
@@ -166,7 +161,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
     }
     
-    func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents)) {
+    func delete(blockId: BlockId, previousBlockId: BlockId?) {
         guard
             let response = singleService.delete(
                 contextId: documentId,
@@ -176,9 +171,17 @@ final class BlockActionService: BlockActionServiceProtocol {
             return
         }
         
+        let localEvents: [LocalEvent] = previousBlockId.flatMap {
+            [ .setFocus(blockId: $0, position: .end) ]
+        } ?? []
+        
         NotificationCenter.default.post(
             name: .middlewareEvent,
-            object: completion(response)
+            object: PackOfEvents(
+                objectId: documentId,
+                middlewareEvents: response.messages,
+                localEvents: localEvents
+            )
         )
     }
     

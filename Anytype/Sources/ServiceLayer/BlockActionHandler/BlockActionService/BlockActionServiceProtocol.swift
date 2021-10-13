@@ -2,7 +2,6 @@ import BlocksModels
 import UIKit
 
 protocol BlockActionServiceProtocol {
-    func configured(documentId: String) -> Self
     
     func upload(blockId: BlockId, filePath: String)
     
@@ -14,7 +13,7 @@ protocol BlockActionServiceProtocol {
     
     func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent])
     
-    func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents))
+    func delete(blockId: BlockId, previousBlockId: BlockId?)
     
     func createPage(position: BlockPosition)
     
