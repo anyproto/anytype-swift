@@ -15,11 +15,11 @@ final class LocalEventConverter {
         self.detailsStorage = detailsStorage
     }
     
-    func convert(_ event: LocalEvent) -> EventHandlerUpdate? {
+    func convert(_ event: LocalEvent) -> EventsListenerUpdate? {
         switch event {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         case .setToggled:
             return .general
         case let .setText(blockId: blockId, text: text):
@@ -36,16 +36,16 @@ final class LocalEventConverter {
             
             content.state = .uploading
             model.information.content = .file(content)
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         case .reload(blockId: let blockId):
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         }
     }
     
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
-    private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
+    private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventsListenerUpdate {
         
         guard var blockModel = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container")
@@ -75,7 +75,7 @@ final class LocalEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(blockIds: [blockId])
+        return .blocks(blockIds: [blockId])
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {

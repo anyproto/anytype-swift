@@ -2,7 +2,7 @@ import BlocksModels
 import Combine
 
 struct BaseDocumentUpdateResult {
-    let updates: EventHandlerUpdate
+    let updates: EventsListenerUpdate
     let details: ObjectDetails?
     let models: [BlockModelProtocol]
 }
