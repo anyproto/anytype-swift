@@ -13,8 +13,6 @@ protocol BaseDocumentProtocol: AnyObject {
     var blocksContainer: BlockContainerModelProtocol { get }
     var detailsStorage: ObjectDetailsStorageProtocol { get }
     
-    var eventHandler: EventsListener { get }
-    
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)? { get set }
     
     func open()
