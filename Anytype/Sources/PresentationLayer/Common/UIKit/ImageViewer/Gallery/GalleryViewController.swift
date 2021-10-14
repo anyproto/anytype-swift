@@ -7,19 +7,24 @@ final class GalleryViewController: UIViewController {
     }
 
     // MARK: - Properties
+
     private let viewModel: GalleryViewModel
-
     private var pageViewController: UIPageViewController
+    private let transitionViewController = GalleryViewTransitionController()
 
-    init(viewModel: GalleryViewModel) {
+    init(
+        viewModel: GalleryViewModel,
+        initialImageView: UIImageView? = nil
+    ) {
         self.viewModel = viewModel
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
                                                   options: [UIPageViewController.OptionsKey.interPageSpacing : Constants.spacingBetweenImages])
-
         super.init(nibName: nil, bundle: nil)
 
         setupPageViewController()
+
+        initialImageView.map(setupTransitionViewController)
     }
 
     required init?(coder: NSCoder) {
@@ -31,7 +36,9 @@ final class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupDesign()
+        setupUI()
+
+        setupPanGestureRecognizer()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -44,12 +51,27 @@ final class GalleryViewController: UIViewController {
 
     // MARK: - Private functions
 
-    private func setupDesign() {
+    private func setupUI() {
         view.backgroundColor = UIColor.black
 
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         didMove(toParent: pageViewController)
+    }
+
+    private func setupTransitionViewController(with initialImageView: UIImageView) {
+        modalPresentationStyle = .overFullScreen
+        transitioningDelegate = transitionViewController
+        transitionViewController.galleryViewController = self
+        transitionViewController.imageViewerImageView = { [weak self] in
+            guard let viewControllers = self?.pageViewController.viewControllers, viewControllers.count == 1 else {
+                return nil
+            }
+
+            return (viewControllers.first as? ImageViewerViewController)?.imageView
+        }
+
+        transitionViewController.presenterImageView = initialImageView
     }
 
     private func setupPageViewController() {
@@ -64,7 +86,7 @@ final class GalleryViewController: UIViewController {
         }
     }
 
-    fileprivate func imageViewController(forIndex index: Int) -> ImageViewerViewController? {
+    private func imageViewController(forIndex index: Int) -> ImageViewerViewController? {
         guard let imageSource = viewModel.imageSources[safe: index] else { return nil }
 
         let viewModel = ImageViewerViewModel(imageSource: imageSource)
@@ -72,6 +94,17 @@ final class GalleryViewController: UIViewController {
         viewController.view.tag = index
 
         return viewController
+    }
+
+    private func setupPanGestureRecognizer() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(GalleryViewController.didPan(_:)))
+        panGestureRecognizer.maximumNumberOfTouches = 1
+
+        view.addGestureRecognizer(panGestureRecognizer)
+    }
+
+    @objc private func didPan(_ sender: UIPanGestureRecognizer) {
+        transitionViewController.didPan(withGestureRecognizer: sender, sourceView: view)
     }
 }
 

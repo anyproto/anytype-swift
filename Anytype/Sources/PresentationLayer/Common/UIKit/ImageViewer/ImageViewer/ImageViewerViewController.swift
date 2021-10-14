@@ -12,7 +12,7 @@ final class ImageViewerViewController: UIViewController {
     private var effectiveImageSize: CGSize?
 
     private lazy var scrollView = UIScrollView(frame: view.bounds)
-    private lazy var imageView = UIImageView(frame: scrollView.bounds)
+    private(set) lazy var imageView = UIImageView(frame: scrollView.bounds)
 
     private var cancellables = [AnyCancellable]()
 
