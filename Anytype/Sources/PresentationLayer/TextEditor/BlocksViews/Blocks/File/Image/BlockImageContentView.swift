@@ -6,7 +6,8 @@ import AnytypeCore
 
 final class BlockImageContentView: UIView & UIContentView {
     
-    private let imageView = UIImageView()
+    private let imageView: UIImageView
+    private let tapGesture: BindableGestureRecognizer
     
     private var currentConfiguration: BlockImageConfiguration
     var configuration: UIContentConfiguration {
@@ -25,7 +26,11 @@ final class BlockImageContentView: UIView & UIContentView {
     }
 
     init(configuration: BlockImageConfiguration) {
+        let imageView = UIImageView()
         currentConfiguration = configuration
+        tapGesture = .init { _ in configuration.imageViewTapHandler(imageView) }
+
+        self.imageView = imageView
         super.init(frame: .zero)
         
         
@@ -34,10 +39,11 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
+        addGestureRecognizer(tapGesture)
+
         // TODO: Support image alignments
         imageView.contentMode = .center
         imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
         
         addSubview(imageView) {
