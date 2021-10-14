@@ -12,21 +12,17 @@ final class BaseDocument: BaseDocumentProtocol {
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
-    
-    var rootActiveModel: BlockModelProtocol? {
-        blocksContainer.model(id: objectId)
-    }
+    private let eventsListener: EventsListener
     
     let objectId: BlockId
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
     let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
-    let eventHandler: EventsListener
         
     init(objectId: BlockId) {
         self.objectId = objectId
         
-        self.eventHandler = EventsListener(
+        self.eventsListener = EventsListener(
             objectId: objectId,
             blocksContainer: blocksContainer,
             detailsStorage: detailsStorage
@@ -66,7 +62,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func setup() {
-        eventHandler.onUpdateReceive = { [weak self] update in
+        eventsListener.onUpdateReceive = { [weak self] update in
             guard update.hasUpdate else { return }
             guard let self = self else { return }
     
@@ -92,14 +88,14 @@ final class BaseDocument: BaseDocumentProtocol {
                 )
             }
         }
-        eventHandler.startListening()
+        eventsListener.startListening()
     }
     
-    private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
+    private func models(from updates: EventsListenerUpdate) -> [BlockModelProtocol] {
         switch updates {
         case .general:
             return getModels()
-        case .details, .update, .syncStatus:
+        case .details, .blocks, .syncStatus:
             return []
         }
     }

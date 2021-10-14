@@ -1,10 +1,10 @@
 import BlocksModels
 import AnytypeCore
 
-enum EventHandlerUpdate: Hashable {
+enum EventsListenerUpdate: Hashable {
     case general
     case syncStatus(SyncStatus)
-    case update(blockIds: Set<BlockId>)
+    case blocks(blockIds: Set<BlockId>)
     case details(ObjectDetails)
 
     var hasUpdate: Bool {
@@ -15,16 +15,16 @@ enum EventHandlerUpdate: Hashable {
             return true
         case .details:
             return true
-        case let .update(blockIds):
+        case let .blocks(blockIds):
             return !blockIds.isEmpty
         }
     }
 }
 
 
-extension Array where Element == EventHandlerUpdate {
+extension Array where Element == EventsListenerUpdate {
     
-    var merged: [EventHandlerUpdate] {
+    var merged: [EventsListenerUpdate] {
         guard !hasGeneralUpdate else {
             return [.general]
         }
@@ -35,7 +35,7 @@ extension Array where Element == EventHandlerUpdate {
         
         for update in self {
             switch update {
-            case let .update(blockIds: blockIds):
+            case let .blocks(blockIds: blockIds):
                 blockIds.forEach { updateIds.insert($0) }
             case let .details(detailsData):
                 details = detailsData
@@ -46,7 +46,7 @@ extension Array where Element == EventHandlerUpdate {
             }
         }
         
-        var updates: [EventHandlerUpdate] = [.update(blockIds: updateIds)]
+        var updates: [EventsListenerUpdate] = [.blocks(blockIds: updateIds)]
         
         details.flatMap { updates.append(.details($0)) }
         syncStatus.flatMap { updates.append(.syncStatus($0)) }
