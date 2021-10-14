@@ -20,11 +20,11 @@ final class MentionMarkupEventProvider {
         self.detailsStorage = detailsStorage
     }
     
-    func updateMentionsEvent() -> EventHandlerUpdate {
+    func updateMentionsEvent() -> EventsListenerUpdate {
         guard
               timeChecker.exceedsTimeInterval()
         else {
-            return .update(blockIds: [])
+            return .blocks(blockIds: [])
         }
         let allBlockIds = blocksContainer.children(of: objectId)
         let blockModels = allBlockIds.compactMap { blocksContainer.model(id: $0) }
@@ -90,7 +90,7 @@ final class MentionMarkupEventProvider {
                 )
             }
         }
-        return .update(blockIds: blockIdsForUpdate)
+        return .blocks(blockIds: blockIdsForUpdate)
     }
     
     private func mentionRange(

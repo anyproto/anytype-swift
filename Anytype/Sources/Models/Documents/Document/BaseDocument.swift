@@ -91,11 +91,11 @@ final class BaseDocument: BaseDocumentProtocol {
         eventsListener.startListening()
     }
     
-    private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
+    private func models(from updates: EventsListenerUpdate) -> [BlockModelProtocol] {
         switch updates {
         case .general:
             return getModels()
-        case .details, .update, .syncStatus:
+        case .details, .blocks, .syncStatus:
             return []
         }
     }
