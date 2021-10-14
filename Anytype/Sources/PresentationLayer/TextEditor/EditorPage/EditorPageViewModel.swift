@@ -86,7 +86,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 with: newDetails,
                 models: modelsHolder.models
             )
-        case let .update(updatedIds):
+        case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
             }
