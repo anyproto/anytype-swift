@@ -9,7 +9,7 @@ final class GalleryViewController: UIViewController {
     // MARK: - Properties
 
     private let viewModel: GalleryViewModel
-    private var pageViewController: UIPageViewController
+    private let pageViewController: UIPageViewController
     private let transitionViewController = GalleryViewTransitionController()
 
     init(
@@ -54,9 +54,7 @@ final class GalleryViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = UIColor.black
 
-        addChild(pageViewController)
-        view.addSubview(pageViewController.view)
-        didMove(toParent: pageViewController)
+        embedChild(pageViewController, into: view)
     }
 
     private func setupTransitionViewController(with initialImageView: UIImageView) {

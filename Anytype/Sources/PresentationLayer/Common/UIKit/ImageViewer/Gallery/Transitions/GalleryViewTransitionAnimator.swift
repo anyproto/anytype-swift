@@ -23,7 +23,7 @@ final class GalleryViewTransitionAnimator: NSObject {
     }
 
     private let presentationType: PresentationType
-    private var transitionContext: UIViewControllerContextTransitioning?
+    private weak var transitionContext: UIViewControllerContextTransitioning?
     private weak var fromViewController: UIViewController?
     private weak var toViewController: UIViewController?
 
@@ -36,7 +36,7 @@ final class GalleryViewTransitionAnimator: NSObject {
         prepareImageViews()
     }
 
-    fileprivate func prepareContainerView() {
+    private func prepareContainerView() {
         guard presentationType == .present,
             let transitionContainerView = transitionContext?.containerView,
             let fromView = fromViewController?.view,
@@ -47,7 +47,7 @@ final class GalleryViewTransitionAnimator: NSObject {
         transitionContainerView.insertSubview(toView, aboveSubview: fromView)
     }
 
-    fileprivate func prepareImageViews() {
+    private func prepareImageViews() {
         guard
             let transitionContainerView = transitionContext?.containerView,
             let fromImageView = fromImageView,
@@ -102,7 +102,7 @@ final class GalleryViewTransitionAnimator: NSObject {
             options: .curveLinear
         ) {
             animatingImageView.frame = rectToMove
-        } completion: {  [weak self] didComplete in
+        } completion: { [weak self] didComplete in
             guard let self = self else { return }
             if didComplete {
                 animatingImageView.removeFromSuperview()

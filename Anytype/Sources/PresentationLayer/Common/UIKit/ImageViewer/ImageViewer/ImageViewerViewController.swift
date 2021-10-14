@@ -3,7 +3,7 @@ import Combine
 
 final class ImageViewerViewController: UIViewController {
     private struct Constants {
-        static let animationDuration = 0.4
+        static let animationDuration = 0.35
         static let minZoomScale = 1.0
         static let maxZoomScale = 3.0
     }
@@ -82,9 +82,13 @@ final class ImageViewerViewController: UIViewController {
     }
 
     private func setupGestureRecognizer() {
-        let gestureRecognizer = BindableGestureRecognizer(action: didDoubleTap(_:))
-        gestureRecognizer.numberOfTapsRequired = 1
-        gestureRecognizer.numberOfTouchesRequired = 2
+        let gestureRecognizer = BindableGestureRecognizer { [unowned self] in
+            didDoubleTap($0)
+        }
+
+        gestureRecognizer.numberOfTouchesRequired = 1
+        gestureRecognizer.numberOfTapsRequired = 2
+
         view.addGestureRecognizer(gestureRecognizer)
     }
 
@@ -97,10 +101,7 @@ final class ImageViewerViewController: UIViewController {
     }
 
     private func didDoubleTap(_ sender: UITapGestureRecognizer) {
-        guard
-            let effectiveImageSize = effectiveImageSize  else {
-                return
-            }
+        guard let effectiveImageSize = effectiveImageSize else { return }
 
         let tapPointInContainer = sender.location(in: view)
         let scrollViewSize = scrollView.frame.size
@@ -163,10 +164,10 @@ final class ImageViewerViewController: UIViewController {
         effectiveImageSize = CGSize(width: scaleFactor * imageSize.width, height: scaleFactor * imageSize.height)
     }
 
-    fileprivate func centerImage() {
+    func centerImage() {
         guard let effectiveImageSize = effectiveImageSize else {
-                return
-            }
+            return
+        }
 
         let scaledImageSize = CGSize(width: effectiveImageSize.width * scrollView.zoomScale,
                                      height: effectiveImageSize.height * scrollView.zoomScale)
