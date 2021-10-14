@@ -323,14 +323,11 @@ final class StyleViewController: UIViewController {
 
     private func configureStyleDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<StyleCellView, Item> { [weak self] (cell, indexPath, item) in
-            cell.isSelected = false
 
-            if item.kind == self?.style {
+            if item.kind == self?.style, !cell.isSelected {
                 cell.isSelected = true
-                self?.currentDeselectAction = {
-                    cell.isSelected = false
-                    self?.styleCollectionView.deselectItem(at: indexPath, animated: true)
-                }
+                self?.styleCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+                self?.currentDeselectAction = {  self?.styleCollectionView.deselectItem(at: indexPath, animated: true) }
             }
 
             var content = StyleCellContentConfiguration()
@@ -406,8 +403,9 @@ extension StyleViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        selectStyle(style.kind) {
-            collectionView.deselectItem(at: indexPath, animated: true)
+
+        selectStyle(style.kind) { [weak self] in
+            self?.styleCollectionView.deselectItem(at: indexPath, animated: true)
         }
     }
 }
