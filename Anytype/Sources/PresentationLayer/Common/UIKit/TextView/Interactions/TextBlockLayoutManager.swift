@@ -76,7 +76,11 @@ final class TextBlockLayoutManager: NSLayoutManager {
         enumerateEnclosingRects(forGlyphRange: glyphRange,
                                 withinSelectedGlyphRange: withinRange,
                                 in: textContainer) { [weak self] rect, _ in
-            let textRect = rect.offsetBy(dx: origin.x, dy: origin.y)
+
+            let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as! UIFont
+            let rectRelatvieToFontHeight = CGRect(origin: rect.origin, size: .init(width: rect.width, height: font.lineHeight))
+            let textRect = rectRelatvieToFontHeight.offsetBy(dx: origin.x, dy: origin.y)
+
             UIColor.buttonActive.setFill()
             let lineHeight: CGFloat = 1
 
