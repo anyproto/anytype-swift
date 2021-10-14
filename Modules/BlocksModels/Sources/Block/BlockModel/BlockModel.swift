@@ -17,16 +17,16 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
 
     public var isFirstResponder: Bool {
         get {
-            UserSession.shared.firstResponderId == information.id
+            UserSession.shared.firstResponderId.value == information.id
         }
         set {
-            UserSession.shared.firstResponderId = information.id
+            UserSession.shared.firstResponderId.value = information.id
         }
     }
 
     public func unsetFirstResponder() {
         if isFirstResponder {
-            UserSession.shared.firstResponderId = nil
+            UserSession.shared.firstResponderId.value = nil
         }
     }
 
@@ -43,16 +43,16 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
 
     public var focusAt: BlockFocusPosition? {
         get {
-            guard UserSession.shared.firstResponderId == information.id else { return nil }
-            return UserSession.shared.focus
+            guard UserSession.shared.firstResponderId.value == information.id else { return nil }
+            return UserSession.shared.focus.value
         }
         set {
-            guard UserSession.shared.firstResponderId == information.id else { return }
+            guard UserSession.shared.firstResponderId.value == information.id else { return }
             if let value = newValue {
-                UserSession.shared.focus = value
+                UserSession.shared.focus.value = value
             }
             else {
-                UserSession.shared.focus = nil
+                UserSession.shared.focus.value = nil
             }
         }
     }
