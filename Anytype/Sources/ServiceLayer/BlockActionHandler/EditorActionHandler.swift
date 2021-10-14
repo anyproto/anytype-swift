@@ -23,7 +23,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func onEmptySpotTap() {
-        guard let block = document.rootActiveModel else {
+        guard let block = document.blocksContainer.model(id: document.objectId) else {
             return
         }
         handleAction(

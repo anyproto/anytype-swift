@@ -10,7 +10,7 @@ import Foundation
 
 protocol EventsListenerProtocol: AnyObject {
     
-    var onUpdateReceive: ((EventHandlerUpdate) -> Void)? { get set }
+    var onUpdateReceive: ((EventsListenerUpdate) -> Void)? { get set }
     
     func startListening()
     
