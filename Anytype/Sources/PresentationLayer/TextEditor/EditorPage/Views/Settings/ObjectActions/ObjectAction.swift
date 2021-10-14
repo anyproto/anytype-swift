@@ -22,7 +22,10 @@ enum ObjectAction: Hashable {
     static func allCasesWith(details: DetailsDataProtocol) -> [Self] {
         var allCases: [ObjectAction] = []
 
-        allCases.append(.archive(isArchived: details.isArchived ?? false))
+        // We shouldn't allow archive for profile
+        if details.typeUrl != ObjectTypeProvider.myProfileURL {
+            allCases.append(.archive(isArchived: details.isArchived ?? false))
+        }
         allCases.append(.favorite(isFavorite: details.isFavorite ?? false))
 //        allCases.append(.moveTo)
 //        allCases.append(.template)
