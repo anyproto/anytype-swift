@@ -26,12 +26,12 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func becomeFirstResponder(blockId: BlockId) {
-        UserSession.shared.firstResponderId = blockId
+        UserSession.shared.firstResponderId.value = blockId
     }
     
     func resignFirstResponder(blockId: BlockId) {
-        if UserSession.shared.firstResponderId == blockId {
-            UserSession.shared.firstResponderId = nil
+        if UserSession.shared.firstResponderId.value == blockId {
+            UserSession.shared.firstResponderId.value = nil
         }
     }
 

@@ -1,10 +1,3 @@
-//
-//  SynchronizedDictionary.swift
-//  AnytypeCore
-//
-//  Created by Konstantin Mordan on 25.09.2021.
-//
-
 /// A thread-safe dictionary.
 public final class SynchronizedDictionary<K, V> where K: Hashable {
 
