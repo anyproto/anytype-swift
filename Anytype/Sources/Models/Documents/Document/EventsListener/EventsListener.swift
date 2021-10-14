@@ -8,12 +8,14 @@ final class EventsListener: EventsListenerProtocol {
     
     // MARK: - Internal variables
     
-    var onUpdateReceive: ((EventHandlerUpdate) -> Void)?
+    var onUpdateReceive: ((EventsListenerUpdate) -> Void)?
         
     // MARK: - Private variables
     
     private let objectId: BlockId
-    private let container: RootBlockContainer
+     
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
     
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
@@ -23,25 +25,35 @@ final class EventsListener: EventsListenerProtocol {
     
     // MARK: - Initializers
     
-    init(objectId: BlockId, container: RootBlockContainer) {
+    init(
+        objectId: BlockId,
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol
+    ) {
         self.objectId = objectId
-        self.container = container
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
         
         let validator = BlockValidator(
             restrictionsFactory: BlockRestrictionsFactory()
         )
         let informationCreator = BlockInformationCreator(
             validator: validator,
-            container: container
+            blocksContainer: blocksContainer
         )
         self.middlewareConverter = MiddlewareEventConverter(
-            container: container,
+            blocksContainer: blocksContainer,
+            detailsStorage: detailsStorage,
             informationCreator: informationCreator
         )
-        self.localConverter = LocalEventConverter(container: container)
+        self.localConverter = LocalEventConverter(
+            blocksContainer: blocksContainer,
+            detailsStorage: detailsStorage
+        )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
-            container: container,
-            objectId: objectId
+            objectId: objectId,
+            blocksContainer: blocksContainer,
+            detailsStorage: detailsStorage
         )
     }
     
@@ -70,7 +82,7 @@ final class EventsListener: EventsListenerProtocol {
         updates.merged.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
-                    container: container.blocksContainer,
+                    container: blocksContainer,
                     id: objectId
                 )
             }

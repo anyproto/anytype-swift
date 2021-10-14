@@ -49,7 +49,7 @@ final class EditorPageAssembly {
             objectId: document.objectId
         )
         
-        let markupChanger = BlockMarkupChanger(document: document)
+        let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
         
         let blockActionHandler = BlockActionHandler(
             modelsHolder: modelsHolder,

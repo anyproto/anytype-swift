@@ -180,7 +180,7 @@ private extension BlockActionHandler {
         default:
             guard
                 let newBlock = BlockBuilder.createNewBlock(type: type),
-                let info = document.rootModel.blocksContainer.model(
+                let info = document.blocksContainer.model(
                     id: blockId
                 )?.information
             else {

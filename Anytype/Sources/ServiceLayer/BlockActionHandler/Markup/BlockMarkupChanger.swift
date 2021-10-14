@@ -5,17 +5,17 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     var handler: EditorActionHandlerProtocol!
     
-    private let document: BaseDocumentProtocol
+    private let blocksContainer: BlockContainerModelProtocol
 
-    init(document: BaseDocumentProtocol) {
-        self.document = document
+    init(blocksContainer: BlockContainerModelProtocol) {
+        self.blocksContainer = blocksContainer
     }
     
     func toggleMarkup(
         _ markup: BlockHandlerActionType.TextAttributesType,
         for blockId: BlockId
     ) {
-        guard let info = document.rootModel.blocksContainer.model(id: blockId)?.information,
+        guard let info = blocksContainer.model(id: blockId)?.information,
               case let .text(blockText) = info.content else { return }
         
         toggleMarkup(
@@ -103,7 +103,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
-        guard let model = document.rootModel.blocksContainer.model(id: blockId) else {
+        guard let model = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Can't find block with id: \(blockId)")
             return nil
         }

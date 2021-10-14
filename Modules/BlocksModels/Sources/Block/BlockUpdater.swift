@@ -1,10 +1,11 @@
 import Foundation
 import AnytypeCore
 
-public class BlockUpdater {
-    private let container: RootBlockContainer
+public final class BlockUpdater {
+    
+    private let container: BlockContainerModelProtocol
 
-    public init(_ container: RootBlockContainer) {
+    public init(_ container: BlockContainerModelProtocol) {
         self.container = container
     }
 
@@ -24,8 +25,9 @@ public class BlockUpdater {
     ///   - block: A model that we would like to insert in our container.
     ///   - at: an associated key to an entry.
     public func insert(block: BlockModelProtocol, at: BlockId) {
-        self.insert(block: block)
-        self.container.blocksContainer.add(child: block.information.id, beforeChild: at)
+        insert(block: block)
+        
+        container.add(child: block.information.id, beforeChild: at)
     }
     
     /// Like a method above, it do the same with the same warnings and notes.
@@ -36,15 +38,16 @@ public class BlockUpdater {
     ///   - block: A model that we would like to insert in our container.
     ///   - at: an associated key to an entry.
     public func insert(block: BlockModelProtocol, afterblock at: BlockId) {
-        self.insert(block: block)
-        self.container.blocksContainer.add(child: block.information.id, afterChild: at)
+        insert(block: block)
+        
+        container.add(child: block.information.id, afterChild: at)
     }
     
     /// Unlike other methods, this method only insert a model into a container.
     /// To build correct container, you should run method `buildTree` of a `BuilderProtocol` entry.
     /// - Parameter block: A model that we would like to insert in our container.
     public func insert(block: BlockModelProtocol) {
-        self.container.blocksContainer.add(block)
+        container.add(block)
         /// When we store new page link block, we also need to add details information with identifier from this page link block
         /// Then we can update our page link block view, when details will be updated with .blockSetDetails event
         /// We receive this two events (blockAdd and blockSetDetails) in different messages
@@ -70,7 +73,11 @@ public class BlockUpdater {
     ///   - children: new associated keys of children that will be set to parent.
     ///   - parent: an associated key to parent entry.
     public func set(children: [BlockId], parent: BlockId) {
-        container.blocksContainer.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
+        container.replace(
+            childrenIds: children,
+            parentId: parent,
+            shouldSkipGuardAgainstMissingIds: true
+        )
     }
 
     /// This is the only one valid way to update properties of entry.
@@ -80,7 +87,7 @@ public class BlockUpdater {
     ///   - update: update-closure that we would like to apply to an entry.
     /// - Returns: Nothing, heh
     public func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
-        guard let entry = container.blocksContainer.model(id: key) else {
+        guard let entry = container.model(id: key) else {
             anytypeAssertionFailure("We haven't found an entry by key: \(key)")
             return
         }

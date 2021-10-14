@@ -2,16 +2,16 @@ import BlocksModels
 import Combine
 
 struct BaseDocumentUpdateResult {
-    let updates: EventHandlerUpdate
+    let updates: EventsListenerUpdate
     let details: ObjectDetails?
     let models: [BlockModelProtocol]
 }
 
 protocol BaseDocumentProtocol: AnyObject {
     var objectId: BlockId { get }
-    var rootActiveModel: BlockModelProtocol? { get }
-    var rootModel: RootBlockContainer { get }
-    var eventHandler: EventsListener { get }
+    
+    var blocksContainer: BlockContainerModelProtocol { get }
+    var detailsStorage: ObjectDetailsStorageProtocol { get }
     
     var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)? { get set }
     
@@ -19,5 +19,4 @@ protocol BaseDocumentProtocol: AnyObject {
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
     
-    func getDetails(id: BlockId) -> ObjectDetails?
 }

@@ -13,7 +13,8 @@ import ProtobufMessages
 enum ObjectOpenEventProcessor {
     
     static func fillRootModelWithEventData(
-        rootModel: RootBlockContainer,
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol,
         event: MiddlewareResponse
     ) {
         let objectShowEvent = showEventsFromMessages(event.messages).first
@@ -21,7 +22,7 @@ enum ObjectOpenEventProcessor {
         
         let rootId = objectShowEvent.rootID
         guard rootId.isNotEmpty else { return }
-                
+        
         let parsedBlocks = objectShowEvent.blocks.compactMap {
             BlockInformationConverter.convert(block: $0)
         }
@@ -34,11 +35,11 @@ enum ObjectOpenEventProcessor {
         TreeBlockBuilder.buildBlocksTree(
             from: parsedBlocks,
             with: rootId,
-            in: rootModel.blocksContainer
+            in: blocksContainer
         )
         
         parsedDetails.forEach {
-            rootModel.detailsStorage.add(details: $0, id: $0.id)
+            detailsStorage.add(details: $0, id: $0.id)
         }
     }
     

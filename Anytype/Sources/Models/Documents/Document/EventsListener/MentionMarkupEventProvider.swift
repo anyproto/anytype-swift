@@ -4,28 +4,30 @@ import ProtobufMessages
 
 final class MentionMarkupEventProvider {
     
-    private enum Constants {
-        static let threshold: CFTimeInterval = 0.05
-    }
-    
-    private weak var container: RootBlockContainer?
     private let objectId: BlockId
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
+    
     private let timeChecker = TimeChecker(threshold: Constants.threshold)
     
-    init(container: RootBlockContainer, objectId: BlockId) {
-        self.container = container
+    init(
+        objectId: BlockId,
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol
+    ) {
         self.objectId = objectId
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
     }
     
-    func updateMentionsEvent() -> EventHandlerUpdate {
+    func updateMentionsEvent() -> EventsListenerUpdate {
         guard
-              timeChecker.exceedsTimeInterval(),
-              let allBlockIds = container?.blocksContainer.children(of: objectId)
+              timeChecker.exceedsTimeInterval()
         else {
-            return .update(blockIds: [])
+            return .blocks(blockIds: [])
         }
-        
-        let blockModels = allBlockIds.compactMap { container?.blocksContainer.model(id: $0) }
+        let allBlockIds = blocksContainer.children(of: objectId)
+        let blockModels = allBlockIds.compactMap { blocksContainer.model(id: $0) }
         
         var blockIdsForUpdate = Set<String>()
       
@@ -49,7 +51,7 @@ final class MentionMarkupEventProvider {
                 let mentionTo = mark.range.to
                 let mentionName = string[mentionRange]
                 
-                let details = container?.detailsStorage.get(id: mark.param)
+                let details = detailsStorage.get(id: mark.param)
                 guard let mentionNameInDetails = details?.name else { return }
                 
                 if mentionName != mentionNameInDetails {
@@ -88,7 +90,7 @@ final class MentionMarkupEventProvider {
                 )
             }
         }
-        return .update(blockIds: blockIdsForUpdate)
+        return .blocks(blockIds: blockIdsForUpdate)
     }
     
     private func mentionRange(
@@ -116,4 +118,12 @@ final class MentionMarkupEventProvider {
             model.information.content = .text(content)
         }
     }
+}
+
+private extension MentionMarkupEventProvider {
+    
+    enum Constants {
+        static let threshold: CFTimeInterval = 0.05
+    }
+    
 }

@@ -3,24 +3,29 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
-    private weak var container: RootBlockContainer?
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(container: RootBlockContainer?) {
-        self.container = container
+    init(
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol
+    ) {
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
     }
     
-    func convert(_ event: LocalEvent) -> EventHandlerUpdate? {
+    func convert(_ event: LocalEvent) -> EventsListenerUpdate? {
         switch event {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         case .setToggled:
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
-            guard var model = container?.blocksContainer.model(id: blockId) else {
+            guard var model = blocksContainer.model(id: blockId) else {
                 anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)")
                 return nil
             }
@@ -31,18 +36,18 @@ final class LocalEventConverter {
             
             content.state = .uploading
             model.information.content = .file(content)
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         case .reload(blockId: let blockId):
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         }
     }
     
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
-    private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventHandlerUpdate {
+    private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventsListenerUpdate {
         
-        guard var blockModel = container?.blocksContainer.model(id: blockId) else {
+        guard var blockModel = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container")
             return .general
         }
@@ -70,11 +75,11 @@ final class LocalEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .update(blockIds: [blockId])
+        return .blocks(blockIds: [blockId])
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        guard var model = container?.blocksContainer.model(id: blockId) else {
+        guard var model = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("setFocus. We can't find model by id \(blockId)")
             return
         }

@@ -4,18 +4,22 @@ import AnytypeCore
 
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
-    private let container: RootBlockContainer
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
     private let informationCreator: BlockInformationCreator
     
     init(
-        container: RootBlockContainer,
-        informationCreator: BlockInformationCreator) {
-        self.updater = BlockUpdater(container)
-        self.container = container
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol,
+        informationCreator: BlockInformationCreator
+    ) {
+        self.updater = BlockUpdater(blocksContainer)
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
         self.informationCreator = informationCreator
     }
     
-    func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate? {
+    func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventsListenerUpdate? {
         switch event {
         case let .threadStatus(status):
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
@@ -25,7 +29,7 @@ final class MiddlewareEventConverter {
 
                 block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
             }
-            return .update(blockIds: [fields.id])
+            return .blocks(blockIds: [fields.id])
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockInformationConverter.convert(block:))
@@ -39,7 +43,7 @@ final class MiddlewareEventConverter {
         
         case let .blockDelete(value):
             value.blockIds.forEach { blockId in
-                container.blocksContainer.remove(blockId)
+                blocksContainer.remove(blockId)
             }
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
@@ -57,7 +61,7 @@ final class MiddlewareEventConverter {
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
             })
-            return .update(blockIds: [updateData.id])
+            return .blocks(blockIds: [updateData.id])
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -71,7 +75,7 @@ final class MiddlewareEventConverter {
                 var value = value
                 value.information.alignment = modelAlignment
             })
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
         
         case let .objectDetailsAmend(amend):
             let rawDetails = MiddlewareDetailsConverter.convertAmendEvent(amend)
@@ -79,12 +83,12 @@ final class MiddlewareEventConverter {
             
             let id = amend.id
             
-            guard let currentDetails = container.detailsStorage.get(id: id) else {
+            guard let currentDetails = detailsStorage.get(id: id) else {
                 return nil
             }
             
             let updatedDetails = currentDetails.updated(by: rawDetails)
-            container.detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails, id: id)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -97,7 +101,7 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(payload):
             let id = payload.id
             
-            guard let currentDetails = container.detailsStorage.get(id: id) else {
+            guard let currentDetails = detailsStorage.get(id: id) else {
                 return nil
             }
             
@@ -106,7 +110,7 @@ final class MiddlewareEventConverter {
             guard unsettedRawDetails.isNotEmpty else { return nil }
             
             let updatedDetails = currentDetails.updated(by: unsettedRawDetails)
-            container.detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails, id: id)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -124,7 +128,7 @@ final class MiddlewareEventConverter {
             let rawDetails = MiddlewareDetailsConverter.convertSetEvent(value)
             let details = ObjectDetails(rawDetails)
             
-            container.detailsStorage.add(
+            detailsStorage.add(
                 details: details,
                 id: value.id
             )
@@ -175,7 +179,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(blockIds: [newData.id])
+            return .blocks(blockIds: [newData.id])
         case let .blockSetBookmark(value):
             
             let blockId = value.id
@@ -218,7 +222,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(blockIds: [blockId])
+            return .blocks(blockIds: [blockId])
             
         case let .blockSetDiv(value):
             guard value.hasStyle else {
@@ -243,7 +247,7 @@ final class MiddlewareEventConverter {
                 default: return
                 }
             })
-            return .update(blockIds: [value.id])
+            return .blocks(blockIds: [value.id])
         
         /// Special case.
         /// After we open document, we would like to receive all blocks of opened page.
@@ -255,8 +259,8 @@ final class MiddlewareEventConverter {
         }
     }
     
-    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventHandlerUpdate {
-        guard var blockModel = container.blocksContainer.model(id: newData.id) else {
+    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
+        guard var blockModel = blocksContainer.model(id: newData.id) else {
             anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }
@@ -276,6 +280,6 @@ final class MiddlewareEventConverter {
         let isOldStyleToggle = oldText.contentType == .toggle
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
-        return toggleStyleChanged ? .general : .update(blockIds: [newData.id])
+        return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
     }
 }
