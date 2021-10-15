@@ -4,6 +4,7 @@ import Combine
 import Foundation
 import ProtobufMessages
 import AnytypeCore
+import SwiftUI
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
@@ -30,6 +31,7 @@ final class HomeViewModel: ObservableObject {
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
+    private var animationsEnabled = true
     
     init() {
         fetchDashboardData()
@@ -40,22 +42,26 @@ final class HomeViewModel: ObservableObject {
     func viewLoaded() {
         updateArchiveTab()
         updateHistoryTab()
+        animationsEnabled = true
     }
 
     // MARK: - Private methods
 
     func updateArchiveTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
-        archiveCellData = cellDataBuilder.buildCellData(searchResults)
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            archiveCellData = cellDataBuilder.buildCellData(searchResults)
+        }
     }
     func updateHistoryTab() {
         guard let searchResults = searchService.searchHistoryPages() else { return }
-        historyCellData = cellDataBuilder.buildCellData(searchResults)
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            historyCellData = cellDataBuilder.buildCellData(searchResults)
+        }
     }
     
     private func fetchDashboardData() {        
         guard let response = dashboardService.openDashboard() else { return }
-        
         document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
             self?.onDashboardChange(updateResult: updateResult)
         }.store(in: &self.subscriptions)
@@ -64,19 +70,21 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
-        switch updateResult.updates {
-        case .general:
-            favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
-        case .update(let blockIds):
-            blockIds.forEach { updateCellWithTargetId($0) }
-        case .details(let details):
-            updateCellWithTargetId(details.blockId)
-        case .syncStatus:
-            break
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            switch updateResult.updates {
+            case .general:
+                favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
+            case .update(let blockIds):
+                blockIds.forEach { updateFavoritesCellWithTargetId($0) }
+            case .details(let details):
+                updateFavoritesCellWithTargetId(details.blockId)
+            case .syncStatus:
+                break
+            }
         }
     }
     
-    private func updateCellWithTargetId(_ blockId: BlockId) {
+    private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = document.getDetails(id: blockId)?.currentDetails else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
@@ -112,6 +120,7 @@ extension HomeViewModel {
     }
     
     func showPage(pageId: BlockId) {
+        animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
         openedPageData.pageId = pageId
         openedPageData.showingNewPage = true
     }

@@ -49,26 +49,10 @@ struct HomeTabsView: View {
         .background(BlurEffect())
         .blurEffectStyle(blurStyle)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        
         .onChange(of: tabSelection) { tab in
             UserDefaultsConfig.selectedTab = tab
-            
-            switch tab {
-            case .favourites:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
-                
-                break // updates via subscriptions
-            case .history:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
-
-                model.updateHistoryTab()
-            case .archive:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
-
-                model.updateArchiveTab()
-            }
+            onTabSelection()
         }
     }
     
@@ -78,8 +62,12 @@ struct HomeTabsView: View {
         ScrollView([]) {
             HStack(spacing: 20) {
                 tabButton(text: "Favorites".localized, tab: .favourites)
-                tabButton(text: "History".localized, tab: .history)
-                tabButton(text: "Archive".localized, tab: .archive)
+                tabButton(text: "History".localized, tab: .history) {
+                    if tabSelection == .history { onTabSelection() } // reload data on button tap
+                }
+                tabButton(text: "Archive".localized, tab: .archive) {
+                    if tabSelection == .archive { onTabSelection() } // reload data on button tap
+                }
                 Spacer()
             }
             .padding(.leading, 20)
@@ -90,15 +78,36 @@ struct HomeTabsView: View {
         .frame(height: 72, alignment: .center)
     }
     
-    private func tabButton(text: String, tab: Tab) -> some View {
+    private func tabButton(text: String, tab: Tab, action: (() -> ())? = nil) -> some View {
         Button(
             action: {
                 withAnimation(.spring()) {
                     tabSelection = tab
+                    action?()
                 }
             }
         ) {
             HomeTabsHeaderText(text: text, isSelected: tabSelection == tab)
+        }
+    }
+    
+    private func onTabSelection() {
+        switch tabSelection {
+        case .favourites:
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
+            
+            break // updates via subscriptions
+        case .history:
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
+
+            model.updateHistoryTab()
+        case .archive:
+            // Analytics
+            Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
+
+            model.updateArchiveTab()
         }
     }
 }
