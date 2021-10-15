@@ -47,7 +47,7 @@ final class ImageViewerViewController: UIViewController {
         scrollView.zoomScale = Constants.minZoomScale
 
         calculateEffectiveImageSize()
-        if let effectiveImageSize = effectiveImageSize {
+        if let effectiveImageSize = effectiveImageSize, effectiveImageSize.width > 0, effectiveImageSize.height > 0 {
             imageView.frame = CGRect(x: 0, y: 0, width: effectiveImageSize.width, height: effectiveImageSize.height)
             scrollView.contentSize = effectiveImageSize
         }
@@ -154,9 +154,9 @@ final class ImageViewerViewController: UIViewController {
     }
 
     private func calculateEffectiveImageSize() {
-        let imageViewSize = scrollView.frame.size
-        let imageSize = viewModel.image.size
+        guard let imageSize = viewModel.image?.size else { return }
 
+        let imageViewSize = scrollView.frame.size
         let widthFactor = imageViewSize.width / imageSize.width
         let heightFactor = imageViewSize.height / imageSize.height
         let scaleFactor = (widthFactor < heightFactor) ? widthFactor : heightFactor
