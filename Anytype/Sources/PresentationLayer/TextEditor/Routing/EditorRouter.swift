@@ -57,8 +57,8 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        if let details = DetailsContainer.shared.get(by: id) {
-            let typeUrl = details.detailsData.typeUrl
+        if let details = document.getDetails(id: id)?.currentDetails {
+            let typeUrl = details.typeUrl
             guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
                 let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
                 
