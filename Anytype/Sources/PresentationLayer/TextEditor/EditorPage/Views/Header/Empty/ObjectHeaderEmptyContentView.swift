@@ -27,7 +27,7 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
     
     init(configuration: ObjectHeaderEmptyConfiguration) {
         appliedConfiguration = configuration
-        tapGesture = BindableGestureRecognizer(action: configuration.data.onTap)
+        tapGesture = BindableGestureRecognizer { _ in configuration.data.onTap() }
         
         super.init(frame: .zero)
         

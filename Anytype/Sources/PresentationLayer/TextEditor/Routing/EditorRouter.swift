@@ -31,7 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
 }
 
 protocol AttachmentRouterProtocol {
-    func openImage(_ imageSource: ImageSource)
+    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -238,17 +238,11 @@ final class EditorRouter: EditorRouterProtocol {
 }
 
 extension EditorRouter: AttachmentRouterProtocol {
-    func openImage(_ imageSource: ImageSource) {
-        guard let viewModel = ImageViewerViewModel(imageSource: imageSource) else { return }
+    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext) {
+        let viewModel = GalleryViewModel(
+            imageSources: [imageContext.image], initialImageDisplayIndex: 0)
+        let galleryViewController = GalleryViewController(viewModel: viewModel)
 
-        let view = ImageViewerView(viewModel: viewModel) { [weak self] in
-            self?.viewController?.dismiss(animated: true, completion: nil)
-        }
-
-        let hostingViewController = UIHostingController(rootView: view)
-        hostingViewController.view.backgroundColor = .clear
-        hostingViewController.modalPresentationStyle = .overFullScreen
-        viewController?.present(hostingViewController, animated: true, completion: nil)
+        viewController?.present(galleryViewController, animated: true, completion: nil)
     }
-
 }
