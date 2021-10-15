@@ -55,13 +55,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchHistoryPages() -> [DetailsDataProtocol]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastOpenedDate,
+            relation: DetailsKind.lastModifiedDate,
             type: .desc
         )
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
+            SearchHelper.typeFilter(typeUrls: [ObjectTypeProvider.pageObjectURL])
         ]
         
         return makeRequest(
