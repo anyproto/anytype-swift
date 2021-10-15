@@ -108,18 +108,11 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return
         }
 
-        let saveAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            KingfisherManager.shared.retrieveImage(with: url) { result in
-                guard case let .success(success) = result else { return }
+        KingfisherManager.shared.retrieveImage(with: url) { result in
+            guard case let .success(success) = result else { return }
 
-                UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
-            }
+            UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
         }
-
-        let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
-        alert.addAction(saveAction)
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        windowHolder?.presentOnTop(alert, animated: true)
     }
     
     private func didTapOpenImage(_ sender: UIImageView) {
