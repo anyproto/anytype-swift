@@ -241,7 +241,10 @@ extension EditorRouter: AttachmentRouterProtocol {
     func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext) {
         let viewModel = GalleryViewModel(
             imageSources: [imageContext.image], initialImageDisplayIndex: 0)
-        let galleryViewController = GalleryViewController(viewModel: viewModel)
+        let galleryViewController = GalleryViewController(
+            viewModel: viewModel,
+            initialImageView: imageContext.imageView
+        )
 
         viewController?.present(galleryViewController, animated: true, completion: nil)
     }
