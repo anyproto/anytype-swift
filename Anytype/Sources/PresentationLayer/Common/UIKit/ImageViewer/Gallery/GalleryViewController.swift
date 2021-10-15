@@ -89,7 +89,6 @@ final class GalleryViewController: UIViewController {
 
         let viewModel = ImageViewerViewModel(imageSource: imageSource)
         let viewController = ImageViewerViewController(viewModel: viewModel)
-        viewController.view.tag = index
 
         return viewController
     }

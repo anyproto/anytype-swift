@@ -1,6 +1,6 @@
 import Foundation
 
-final class GalleryViewModel {
+struct GalleryViewModel {
     let imageSources: [ImageSource]
     let initialImageDisplayIndex: Int
 
