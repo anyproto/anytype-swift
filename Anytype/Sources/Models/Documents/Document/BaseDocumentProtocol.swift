@@ -11,6 +11,8 @@ protocol BaseDocumentProtocol: AnyObject {
     
     func open()
     func getFlattenBlocks() -> [BlockModelProtocol]
+    
+    var objectDetails: ObjectDetails? { get }
     func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
     
 }
