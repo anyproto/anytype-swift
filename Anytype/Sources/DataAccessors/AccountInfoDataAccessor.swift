@@ -11,7 +11,6 @@ final class AccountInfoDataAccessor: ObservableObject {
     @Published private(set) var avatarId: String?
     
     private let document: BaseDocumentProtocol
-    private var subscriptions: [AnyCancellable] = []
         
     init() {
         let blockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
