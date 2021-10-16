@@ -31,7 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
 }
 
 protocol AttachmentRouterProtocol {
-    func openImage(_ imageSource: ImageSource)
+    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
 }
 
 final class EditorRouter: EditorRouterProtocol {
@@ -57,8 +57,8 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        if let details = DetailsContainer.shared.get(by: id) {
-            let typeUrl = details.detailsData.typeUrl
+        if let details = document.detailsStorage.get(id: id) {
+            let typeUrl = details.type
             guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
                 let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
                 
@@ -238,17 +238,14 @@ final class EditorRouter: EditorRouterProtocol {
 }
 
 extension EditorRouter: AttachmentRouterProtocol {
-    func openImage(_ imageSource: ImageSource) {
-        guard let viewModel = ImageViewerViewModel(imageSource: imageSource) else { return }
+    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext) {
+        let viewModel = GalleryViewModel(
+            imageSources: [imageContext.image], initialImageDisplayIndex: 0)
+        let galleryViewController = GalleryViewController(
+            viewModel: viewModel,
+            initialImageView: imageContext.imageView
+        )
 
-        let view = ImageViewerView(viewModel: viewModel) { [weak self] in
-            self?.viewController?.dismiss(animated: true, completion: nil)
-        }
-
-        let hostingViewController = UIHostingController(rootView: view)
-        hostingViewController.view.backgroundColor = .clear
-        hostingViewController.modalPresentationStyle = .overFullScreen
-        viewController?.present(hostingViewController, animated: true, completion: nil)
+        viewController?.present(galleryViewController, animated: true, completion: nil)
     }
-
 }

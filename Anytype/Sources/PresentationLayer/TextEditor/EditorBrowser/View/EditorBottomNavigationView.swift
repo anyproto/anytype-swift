@@ -91,10 +91,12 @@ final class EditorBottomNavigationView: UIView {
     private func buildUIAction(page: BrowserPage, action: @escaping (BrowserPage) -> ()) -> UIAction {
         if #available(iOS 15.0, *) {
             return UIAction(title: page.title ?? "Untitled".localized, subtitle: page.subtitle ?? "") { _ in
+                UISelectionFeedbackGenerator().selectionChanged()
                 action(page)
             }
         } else {
             return UIAction(title: page.title ?? "Untitled".localized) { _ in
+                UISelectionFeedbackGenerator().selectionChanged()
                 action(page)
             }
         }

@@ -7,6 +7,11 @@ import AnytypeCore
 final class BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
 
+    struct ImageOpeningContext {
+        let image: ImageSource
+        let imageView: UIImageView
+    }
+
     var upperBlock: BlockModelProtocol?
     
     var hashable: AnyHashable {
@@ -23,7 +28,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     let indentationLevel: Int
     let showIconPicker: Action<BlockId>
 
-    var onImageOpen: Action<ImageSource>?
+    var onImageOpen: Action<ImageOpeningContext>?
     
     init?(
         information: BlockInformation,
@@ -71,7 +76,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return BlockImageConfiguration(
                 fileData: fileData,
                 alignmetn: information.alignment,
-                maxWidth: maxWidth
+                maxWidth: maxWidth,
+                imageViewTapHandler: { [weak self] imageView in
+                    self?.didTapOpenImage(imageView)
+                }
             )
         }
     }
@@ -86,11 +94,9 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     
     func didSelectRowInTableView() {
         switch fileData.state {
-        case .done:
-            openImage()
         case .empty, .error:
             showIconPicker(blockId)
-        case .uploading:
+        case .uploading, .done:
             return
         }
     }
@@ -102,23 +108,16 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return
         }
 
-        let saveAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            KingfisherManager.shared.retrieveImage(with: url) { result in
-                guard case let .success(success) = result else { return }
+        KingfisherManager.shared.retrieveImage(with: url) { result in
+            guard case let .success(success) = result else { return }
 
-                UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
-            }
+            UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
         }
-
-        let alert = UIAlertController(title: "Save image to the gallery?", message: "", preferredStyle: .alert)
-        alert.addAction(saveAction)
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        windowHolder?.presentOnTop(alert, animated: true)
     }
     
-    private func openImage() {
+    private func didTapOpenImage(_ sender: UIImageView) {
         let imageId = ImageID(id: fileData.metadata.hash, width: .original)
 
-        onImageOpen?(.middleware(imageId))
+        onImageOpen?(.init(image: .middleware(imageId), imageView: sender))
     }
 }

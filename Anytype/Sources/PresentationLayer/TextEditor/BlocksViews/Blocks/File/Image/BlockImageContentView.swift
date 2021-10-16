@@ -6,7 +6,8 @@ import AnytypeCore
 
 final class BlockImageContentView: UIView & UIContentView {
     
-    private let imageView = UIImageView()
+    private let imageView: UIImageView
+    private let tapGesture: BindableGestureRecognizer
     
     private var currentConfiguration: BlockImageConfiguration
     var configuration: UIContentConfiguration {
@@ -25,7 +26,11 @@ final class BlockImageContentView: UIView & UIContentView {
     }
 
     init(configuration: BlockImageConfiguration) {
+        let imageView = UIImageView()
         currentConfiguration = configuration
+        tapGesture = .init { _ in configuration.imageViewTapHandler(imageView) }
+
+        self.imageView = imageView
         super.init(frame: .zero)
         
         
@@ -34,8 +39,9 @@ final class BlockImageContentView: UIView & UIContentView {
     }
     
     func setupUIElements() {
+        addGestureRecognizer(tapGesture)
         // TODO: Support image alignments
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
         imageView.backgroundColor = .grayscale10
@@ -54,9 +60,6 @@ final class BlockImageContentView: UIView & UIContentView {
     
     func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
         guard !file.metadata.hash.isEmpty else { return }
-        
-        // TODO: Support alignments that does not look ugly
-        imageView.contentMode = .center // currentConfiguration.alignment.asContentMode
 
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }

@@ -318,7 +318,7 @@ private extension EditorPageController {
     private func focusOnFocusedBlock() {
         let userSession = UserSession.shared
         // TODO: we should move this logic to TextBlockViewModel
-        if let id = userSession.firstResponderId, let focusedAt = userSession.focus,
+        if let id = userSession.firstResponderId.value, let focusedAt = userSession.focus.value,
            let blockViewModel = viewModel.modelsHolder.models.first(where: { $0.blockId == id }) as? TextBlockViewModel {
             blockViewModel.set(focus: focusedAt)
         }

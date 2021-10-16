@@ -1,11 +1,3 @@
-//
-//  EditorNavigationBarTitleView.swift
-//  EditorNavigationBarTitleView
-//
-//  Created by Konstantin Mordan on 18.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -77,12 +69,13 @@ private extension EditorNavigationBarTitleView {
     
     func setupLayout() {
         addSubview(stackView) {
+            $0.width.lessThanOrEqual(to: 170)
             $0.pinToSuperview()
         }
-        
+
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
-        
+
         iconImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 18, height: 18))
         }
