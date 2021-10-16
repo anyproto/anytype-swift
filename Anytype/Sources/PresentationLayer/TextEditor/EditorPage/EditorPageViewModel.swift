@@ -75,11 +75,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         switch updateResult {
         case .general:
             let models = document.getFlattenBlocks()
-            let details = document.detailsStorage.get(id: document.objectId)
             
             let blocksViewModels = blockBuilder.build(
                 models,
-                details: details
+                currentObjectDetails: document.objectDetails
             )
             
             handleGeneralUpdate(
@@ -88,7 +87,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(id):
-            guard id == document.objectId else { return }
+            guard id == document.objectId else {
+                // TODO: - call blocks update to update mentions/links
+                return
+            }
             
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
@@ -134,7 +136,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             guard let newModel = blockBuilder.build(
                     newRecord,
-                    details: nil,//document.getDetails(id: blockId),
+                    currentObjectDetails: document.objectDetails,
                     previousBlock: upperBlock
             )
             else {
