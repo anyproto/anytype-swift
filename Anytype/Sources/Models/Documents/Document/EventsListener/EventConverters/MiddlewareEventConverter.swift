@@ -96,7 +96,7 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .details(updatedDetails)
+            return .details(id: id)
             
         case let .objectDetailsUnset(payload):
             let id = payload.id
@@ -118,22 +118,24 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .details(updatedDetails)
+            return .details(id: id)
             
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
                 return .general
             }
             
+            let id = value.id
+            
             let rawDetails = MiddlewareDetailsConverter.convertSetEvent(value)
             let details = ObjectDetails(rawDetails)
             
             detailsStorage.add(
                 details: details,
-                id: value.id
+                id: id
             )
             
-            return .details(details)
+            return .details(id: id)
 
         case let .blockSetFile(newData):
             guard newData.hasState else {

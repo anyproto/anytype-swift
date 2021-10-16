@@ -72,8 +72,8 @@ final class HomeViewModel: ObservableObject {
                 favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
-            case .details(let details):
-                updateFavoritesCellWithTargetId(details.id)
+            case .details(let detailId):
+                updateFavoritesCellWithTargetId(detailId)
             case .syncStatus:
                 break
             }
