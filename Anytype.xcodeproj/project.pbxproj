@@ -231,7 +231,6 @@
 		12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */; };
 		12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A8CCED26BD5F3B00090468 /* EditorItem.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
-		12BE8E5C26565D85000C95B9 /* DetailsDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE8E5B26565D85000C95B9 /* DetailsDataExtensions.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
@@ -329,7 +328,6 @@
 		3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */; };
 		3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
-		3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F02C26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
 		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
@@ -920,7 +918,6 @@
 		12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBlockRestrictions.swift; sourceTree = "<group>"; };
 		12A8CCED26BD5F3B00090468 /* EditorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorItem.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
-		12BE8E5B26565D85000C95B9 /* DetailsDataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsDataExtensions.swift; path = Anytype/Sources/Models/Extensions/DetailsDataExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
@@ -1017,7 +1014,6 @@
 		3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchView.swift; sourceTree = "<group>"; };
 		3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksFileEmptyViewConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/EmptyView/BlocksFileEmptyViewConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		3D53F02C26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlocksModelsDetailsConverter.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
 		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = Anytype/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
@@ -2072,7 +2068,6 @@
 				3D16840826DD671D008B9DFF /* BlockInformationConverter.swift */,
 				0A31FDF424CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift */,
 				3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */,
-				3D53F02C26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift */,
 			);
 			path = BlocksModelsIntergration;
 			sourceTree = "<group>";
@@ -2476,7 +2471,6 @@
 		12BE8E5826565D6D000C95B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				12BE8E5B26565D85000C95B9 /* DetailsDataExtensions.swift */,
 				124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */,
 			);
 			path = Extensions;
@@ -4478,7 +4472,6 @@
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
-				12BE8E5C26565D85000C95B9 /* DetailsDataExtensions.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
 				3D5A41612703132800F1F6A1 /* SlashActionMedia.swift in Sources */,
@@ -4863,7 +4856,6 @@
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				12426A1126DCE1A400693B1F /* ImageBuilder.swift in Sources */,
 				3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */,
-				3D53F02F26B2FF26001A6EEE /* BlocksModelsDetailsConverter.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
 				120E818426A04A31006FE84E /* ObjectDetailsService.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,

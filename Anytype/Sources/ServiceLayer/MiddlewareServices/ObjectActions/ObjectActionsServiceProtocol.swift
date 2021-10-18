@@ -28,7 +28,7 @@ protocol ObjectActionsServiceProtocol {
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: RawDetailsData,
+        details: ObjectRawDetails,
         position: BlockPosition,
         templateID: String
     ) -> CreatePageResponse?

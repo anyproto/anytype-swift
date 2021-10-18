@@ -13,7 +13,7 @@ class DashboardService: DashboardServiceProtocol {
         return objectsService.createPage(
             contextID: "",
             targetID: "",
-            details: [.name: DetailsEntry(value: "")],
+            details: [.name("")],
             position: .bottom,
             templateID: ""
         )

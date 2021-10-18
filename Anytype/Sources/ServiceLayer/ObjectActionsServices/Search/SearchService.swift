@@ -14,7 +14,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func search(text: String) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastOpenedDate,
+            relation: ObjectDetailsItemKey.lastOpenedDate,
             type: .desc
         )
         
@@ -32,7 +32,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchArchivedPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastModifiedDate,
+            relation: ObjectDetailsItemKey.lastModifiedDate,
             type: .desc
         )
         
@@ -55,7 +55,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchHistoryPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastModifiedDate,
+            relation: ObjectDetailsItemKey.lastModifiedDate,
             type: .desc
         )
         let filters = [
@@ -77,7 +77,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchSets() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastOpenedDate,
+            relation: ObjectDetailsItemKey.lastOpenedDate,
             type: .desc
         )
         let filters = [
@@ -132,13 +132,6 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 rawDetails: rawDetails
             )
         }
-        
-//        details.forEach { detail in
-//            DetailsContainer.shared.add(
-//                model: LegacyDetailsModel(detailsData: detail),
-//                id: detail.blockId
-//            )
-//        }
             
         return details
     }
