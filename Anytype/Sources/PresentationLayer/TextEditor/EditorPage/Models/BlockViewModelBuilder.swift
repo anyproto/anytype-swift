@@ -32,16 +32,16 @@ final class BlockViewModelBuilder {
         self.detailsLoader = detailsLoader
     }
 
-    func build(_ blocks: [BlockModelProtocol], details: ObjectDetails?) -> [BlockViewModelProtocol] {
+    func build(_ blocks: [BlockModelProtocol], currentObjectDetails: ObjectDetails?) -> [BlockViewModelProtocol] {
         var previousBlock: BlockModelProtocol?
         return blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(block, details: details, previousBlock: previousBlock)
+            let blockViewModel = build(block, currentObjectDetails: currentObjectDetails, previousBlock: previousBlock)
             previousBlock = block
             return blockViewModel
         }
     }
 
-    func build(_ block: BlockModelProtocol, details: ObjectDetails?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
+    func build(_ block: BlockModelProtocol, currentObjectDetails: ObjectDetails?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
@@ -74,7 +74,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? details?.layout == .todo : false
+                let isCheckable = content.contentType == .title ? currentObjectDetails?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
                     upperBlock: previousBlock,
