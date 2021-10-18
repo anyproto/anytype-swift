@@ -1,15 +1,8 @@
-//
-//  ObjectAction.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 24.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 
 
-enum ObjectAction: Hashable {
+enum ObjectAction: Hashable, Identifiable {
+    
 
     // NOTE: When adding new case here, it case MUST be added in allCasesWith method
     case archive(isArchived: Bool)
@@ -32,5 +25,14 @@ enum ObjectAction: Hashable {
 //        allCases.append(.search)
 
         return allCases
+    }
+    
+    var id: String {
+        switch self {
+        case .archive:
+            return "archive"
+        case .favorite:
+            return "favorite"
+        }
     }
 }

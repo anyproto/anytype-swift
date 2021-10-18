@@ -1,11 +1,3 @@
-//
-//  ObjectSettingsView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 14.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 import Amplitude
 
@@ -19,10 +11,7 @@ struct ObjectSettingsView: View {
     @Binding var isLayoutPickerPresented: Bool
     
     var body: some View {
-        VStack(
-            alignment: .center,
-            spacing: 0
-        ) {
+        VStack(alignment: .center, spacing: 0) {
             DragIndicator(bottomPadding: 0)
             settings
         }
@@ -35,27 +24,7 @@ struct ObjectSettingsView: View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
                 ForEach(viewModel.settings.indices, id: \.self) { index in
-                    ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
-                        switch viewModel.settings[index] {
-                        case .icon:
-                            // Analytics
-                            Amplitude.instance().logEvent(AmplitudeEventsName.buttonIconInObjectSettings)
-
-                            isIconPickerPresented = true
-                        case .cover:
-                            // Analytics
-                            Amplitude.instance().logEvent(AmplitudeEventsName.buttonCoverInObjectSettings)
-
-                            isCoverPickerPresented = true
-                        case .layout:
-                            // Analytics
-                            Amplitude.instance().logEvent(AmplitudeEventsName.buttonLayoutInObjectSettings)
-
-                            withAnimation() {
-                                isLayoutPickerPresented = true
-                            }
-                        }
-                    }
+                    mainSetting(index: index)
                 }
             }
             .padding([.leading, .trailing], Constants.edgeInset)
@@ -71,6 +40,30 @@ struct ObjectSettingsView: View {
                 .padding([.leading, .trailing], Constants.edgeInset)
         }
         .padding([.bottom], Constants.edgeInset)
+    }
+    
+    private func mainSetting(index: Int) -> some View {
+        ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
+            switch viewModel.settings[index] {
+            case .icon:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.buttonIconInObjectSettings)
+
+                isIconPickerPresented = true
+            case .cover:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.buttonCoverInObjectSettings)
+
+                isCoverPickerPresented = true
+            case .layout:
+                // Analytics
+                Amplitude.instance().logEvent(AmplitudeEventsName.buttonLayoutInObjectSettings)
+
+                withAnimation() {
+                    isLayoutPickerPresented = true
+                }
+            }
+        }
     }
 
     private enum Constants {

@@ -7,7 +7,7 @@ extension HomeTabsView {
     enum Tab: String {
         case favourites
         case history
-        case archive
+        case bin
     }
 }
 
@@ -43,8 +43,8 @@ struct HomeTabsView: View {
             .tag(Tab.favourites)
             HomeCollectionView(cellData: model.historyCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
                 .tag(Tab.history)
-            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.archive)
+            HomeCollectionView(cellData: model.binCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
+                .tag(Tab.bin)
         }
         .background(BlurEffect())
         .blurEffectStyle(blurStyle)
@@ -65,8 +65,8 @@ struct HomeTabsView: View {
                 tabButton(text: "History".localized, tab: .history) {
                     if tabSelection == .history { onTabSelection() } // reload data on button tap
                 }
-                tabButton(text: "Archive".localized, tab: .archive) {
-                    if tabSelection == .archive { onTabSelection() } // reload data on button tap
+                tabButton(text: "Bin".localized, tab: .bin) {
+                    if tabSelection == .bin { onTabSelection() } // reload data on button tap
                 }
                 Spacer()
             }
@@ -103,11 +103,11 @@ struct HomeTabsView: View {
             Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
 
             model.updateHistoryTab()
-        case .archive:
+        case .bin:
             // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
 
-            model.updateArchiveTab()
+            model.updateBinTab()
         }
     }
 }
