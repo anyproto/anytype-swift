@@ -6,10 +6,6 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-protocol EditorNavigationActionsHandler: AnyObject {
-    func didTapClose()
-}
-
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
     
@@ -27,6 +23,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
 
+    private let blockActionsService: BlockActionsServiceSingle
+
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
@@ -38,7 +36,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
-        headerBuilder: ObjectHeaderBuilder
+        headerBuilder: ObjectHeaderBuilder,
+        blockActionsService: BlockActionsServiceSingle
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -50,6 +49,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
+        self.blockActionsService = blockActionsService
         
         setupSubscriptions()
     }
@@ -217,6 +217,10 @@ extension EditorPageViewModel {
         )
         document.open()
     }
+
+    func viewWillDismiss() {
+        blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
+    }
 }
 
 // MARK: - Selection Handling
@@ -255,12 +259,5 @@ extension EditorPageViewModel {
 extension EditorPageViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         "\(String(reflecting: Self.self)) -> \(String(describing: document.objectId))"
-    }
-}
-
-// MARK: - EditorBrowserActionDelegate
-extension EditorPageViewModel: EditorNavigationActionsHandler {
-    func didTapClose() {
-        BlockActionsServiceSingle().close(contextId: document.objectId, blockId: document.objectId)
     }
 }

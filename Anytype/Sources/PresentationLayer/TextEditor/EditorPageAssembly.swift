@@ -105,7 +105,8 @@ final class EditorPageAssembly {
             blockBuilder: blocksConverter,
             blockActionHandler: editorBlockActionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
-            headerBuilder: headerBuilder
+            headerBuilder: headerBuilder,
+            blockActionsService: BlockActionsServiceSingle()
         )
     }
 }

@@ -10,6 +10,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     
     private let stateManager = BrowserNavigationManager()
+
+    private var currentViewController: EditorPageController? {
+        stateManager.openedPages.last?.controller
+    }
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -40,6 +44,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private func createNavigationView() -> EditorBottomNavigationView {
         EditorBottomNavigationView(
             onBackTap: { [weak self] in
+                self?.currentViewController?.viewWillRemoveFromBrowserController()
                 self?.pop()
             },
             onBackPageTap: { [weak self] page in
@@ -50,6 +55,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 } catch let error {
                     anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
+                }
+
+                self.stateManager.pages(after: page).forEach {
+                    $0.controller?.viewWillRemoveFromBrowserController()
                 }
                 self.childNavigation.popToViewController(controller, animated: true)
             },
@@ -72,6 +81,9 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
+                self?.stateManager.openedPages.forEach {
+                    $0.controller?.viewWillRemoveFromBrowserController()
+                }
                 self?.navigationController?.popViewController(animated: true)
             },
             onSearchTap: { [weak self] in
@@ -117,8 +129,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                     blockId: viewController.viewModel.document.objectId,
                     title: title,
                     subtitle: subtitle,
-                    controller: viewController,
-                    actionsHandler: viewController.viewModel
+                    controller: viewController
                 ),
                 childernCount: childNavigation.children.count
             )

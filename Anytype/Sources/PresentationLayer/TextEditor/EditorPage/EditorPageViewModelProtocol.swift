@@ -11,6 +11,7 @@ protocol EditorPageViewModelProtocol {
     var blockActionHandler: EditorActionHandlerProtocol { get }
     
     func viewLoaded()
+    func viewWillDismiss()
     func didSelectBlock(at index: IndexPath)
     
     func showSettings()
