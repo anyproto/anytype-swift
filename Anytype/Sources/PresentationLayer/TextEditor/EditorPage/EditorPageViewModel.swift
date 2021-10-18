@@ -74,7 +74,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func handleUpdate(updateResult: EventsListenerUpdate) {
         switch updateResult {
         case .general:
-            let models = document.getFlattenBlocks()
+            let models = document.flattenBlocks
             
             let blocksViewModels = blockBuilder.build(
                 models,
