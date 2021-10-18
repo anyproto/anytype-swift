@@ -54,13 +54,6 @@ final class BaseDocument: BaseDocumentProtocol {
         EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
     
-    /// Convenient publisher for accessing default details properties by typed enum.
-    /// - Returns: Publisher of default details properties.
-    func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never> {
-        // TODO: - details. implement
-        .empty()
-    }
-    
     var objectDetails: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }

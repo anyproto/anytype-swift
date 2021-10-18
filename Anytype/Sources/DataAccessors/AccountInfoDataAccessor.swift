@@ -11,44 +11,38 @@ final class AccountInfoDataAccessor: ObservableObject {
     @Published private(set) var avatarId: String?
     
     private let document: BaseDocumentProtocol
-    private var subscriptions: [AnyCancellable] = []
         
     init() {
         let blockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
         profileBlockId = blockId
         document = BaseDocument(objectId: blockId)
+        document.onUpdateReceive = { [weak self] update in
+            self?.handleDocumentUpdate(update)
+        }
         document.open()
+    }
+    
+    private func handleDocumentUpdate(_ update: EventsListenerUpdate) {
+        switch update {
+        case .general:
+            updateAccountInfoData(details: document.objectDetails)
+        case let .details(id: id):
+            guard id == document.objectId else { return }
+            
+            updateAccountInfoData(details: document.objectDetails)
+        case .blocks:
+            return
+        case .syncStatus:
+            return
+        }
+    }
+    
+    private func updateAccountInfoData(details: ObjectDetails?) {
+        guard let details = details else { return }
         
-        setUpSubscriptions()
-    }
-    
-    private func setUpSubscriptions() {
-        setUpNameSubscription()
-        setUpImageSubscription()
-    }
-    
-    private func setUpNameSubscription() {
-        document.pageDetailsPublisher()
-            .safelyUnwrapOptionals()
-            .map { $0.name }
-            .safelyUnwrapOptionals()
-            .receiveOnMain()
-            .sink { [weak self] accountName in
-                self?.name = accountName.isEmpty ? Constants.defaultName : accountName
-            }
-            .store(in: &self.subscriptions)
-    }
-    
-    private func setUpImageSubscription() {
-        document.pageDetailsPublisher()
-            .safelyUnwrapOptionals()
-            .map { $0.iconImage }
-            .safelyUnwrapOptionals()
-            .receiveOnMain()
-            .sink { [weak self] imageId in
-                self?.avatarId = imageId.isEmpty ? nil : imageId
-            }
-            .store(in: &self.subscriptions)
+        self.name = details.name.isEmpty ? Constants.defaultName : details.name
+        self.avatarId = details.iconImageHash?.value
+        
     }
     
 }
