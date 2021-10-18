@@ -197,24 +197,24 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(title: "Move to".localized) { data in
-            onSelect(data.id)
+        let moveToView = SearchView(title: "Move to".localized) { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: moveToView)
     }
     
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let linkToView = SearchView(title: "Link to") { data in
-            onSelect(data.id)
+        let linkToView = SearchView(title: "Link to") { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: linkToView)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(title: nil) { data in
-            onSelect(data.id)
+        let searchView = SearchView(title: nil) { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: searchView)

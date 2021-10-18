@@ -10,7 +10,9 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
         [
             indentationLevel,
-            information
+            information,
+            state
+            
         ] as [AnyHashable]
     }
     
