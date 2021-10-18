@@ -5,7 +5,7 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let title: String?
-    let onSelect: (ObjectDetails) -> ()
+    let onSelect: (BlockId) -> ()
     
     @State private var searchText = ""
     @State private var data = [ObjectDetails]()
@@ -52,7 +52,7 @@ struct SearchView: View {
                     Button(
                         action: {
                             presentationMode.wrappedValue.dismiss()
-                            onSelect(data)
+                            onSelect(data.id)
                         }
                     ) {
                         SearchCell(data: data)
