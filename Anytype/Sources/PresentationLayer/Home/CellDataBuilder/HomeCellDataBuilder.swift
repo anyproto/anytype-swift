@@ -9,7 +9,7 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buildCellData(_ searchResults: [DetailsDataProtocol]) -> [HomeCellData] {
+    func buildCellData(_ searchResults: [ObjectDetails]) -> [HomeCellData] {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     

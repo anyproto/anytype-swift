@@ -8,6 +8,7 @@
 
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 extension ObjectDetails {
     
@@ -82,6 +83,16 @@ extension ObjectDetails {
         }
         
         return nil
+    }
+    
+}
+
+extension ObjectDetails {
+    
+    var objectType: ObjectType? {
+        let type = ObjectTypeProvider.objectType(url: type)
+        anytypeAssert(type != nil, "Cannot parse type :\(String(describing: type)))")
+        return type
     }
     
 }
