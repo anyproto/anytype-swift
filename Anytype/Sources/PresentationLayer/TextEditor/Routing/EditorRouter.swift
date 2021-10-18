@@ -26,7 +26,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showIconPicker(viewModel: ObjectIconPickerViewModel)
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
 }
 
@@ -197,24 +197,24 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(title: "Move to".localized) { data in
-            onSelect(data.id)
+        let moveToView = SearchView(title: "Move to".localized) { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: moveToView)
     }
     
-    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let linkToView = SearchView(title: "Link to") {
-            onSelect($0)
+    func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
+        let linkToView = SearchView(title: "Link to") { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: linkToView)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(title: nil) { data in
-            onSelect(data.id)
+        let searchView = SearchView(title: nil) { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: searchView)

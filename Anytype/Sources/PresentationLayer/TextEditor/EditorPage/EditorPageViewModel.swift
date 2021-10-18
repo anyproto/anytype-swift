@@ -74,21 +74,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func handleUpdate(updateResult: EventsListenerUpdate) {
         switch updateResult {
         case .general:
-            let models = document.flattenBlocks
-            
-            let blocksViewModels = blockBuilder.build(
-                models,
-                currentObjectDetails: document.objectDetails
-            )
-            
-            handleGeneralUpdate(
-                with: blocksViewModels
-            )
-            
-            updateMarkupViewModel(newBlockViewModels: blocksViewModels)
+            performGeneralUpdate()
         case let .details(id):
             guard id == document.objectId else {
                 // TODO: - call blocks update to update mentions/links
+                performGeneralUpdate()
                 return
             }
             
@@ -108,6 +98,21 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
         }
+    }
+    
+    private func performGeneralUpdate() {
+        let models = document.flattenBlocks
+        
+        let blocksViewModels = blockBuilder.build(
+            models,
+            currentObjectDetails: document.objectDetails
+        )
+        
+        handleGeneralUpdate(
+            with: blocksViewModels
+        )
+        
+        updateMarkupViewModel(newBlockViewModels: blocksViewModels)
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
