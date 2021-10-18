@@ -62,12 +62,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
+        let details = document.objectDetails
         let header = headerBuilder.objectHeaderForLocalEvent(
             event,
-            details: modelsHolder.details
+            details: details
         )
         
-        viewInput?.update(header: header, details: modelsHolder.details)
+        viewInput?.update(header: header, details: details)
     }
     
     private func handleUpdate(updateResult: EventsListenerUpdate) {
@@ -82,18 +83,17 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             )
             
             handleGeneralUpdate(
-                with: details,
-                models: blocksViewModels
+                with: blocksViewModels
             )
             
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
         case let .details(id):
             guard id == document.objectId else { return }
             
-            handleGeneralUpdate(
-                with: document.detailsStorage.get(id: id),
-                models: modelsHolder.models
-            )
+            let details = document.objectDetails
+            let header = headerBuilder.objectHeader(details: details)
+            
+            viewInput?.update(header: header, details: details)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -180,11 +180,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func handleGeneralUpdate(with details: ObjectDetails?, models: [BlockViewModelProtocol]) {
+    private func handleGeneralUpdate(with models: [BlockViewModelProtocol]) {
         modelsHolder.apply(newModels: models)
-        modelsHolder.apply(newDetails: details)
         
-        let details = modelsHolder.details
+        let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
         
         viewInput?.update(header: header, details: details)

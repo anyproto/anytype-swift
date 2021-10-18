@@ -61,6 +61,10 @@ final class BaseDocument: BaseDocumentProtocol {
         .empty()
     }
     
+    var objectDetails: ObjectDetails? {
+        detailsStorage.get(id: objectId)
+    }
+    
     private func setup() {
         eventsListener.onUpdateReceive = { [weak self] update in
             guard update.hasUpdate else { return }
