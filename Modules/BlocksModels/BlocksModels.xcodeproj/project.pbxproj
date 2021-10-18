@@ -127,10 +127,10 @@
 		0A6D536A25D9C99E002F3F82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3D17023C2715C1FB0079B65B /* SyncStatus.swift */,
 				12F91CE7270DFDE000C92B28 /* BrandNewDetails */,
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
 				129D788C2694964800DA6757 /* Common */,
-				3D70BF1F261B055E008CED9E /* Details */,
 				3D70BF1E261B0551008CED9E /* Block */,
 			);
 			path = Sources;
@@ -171,18 +171,43 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		12F12E87271DA6D5000BAC24 /* Converters */ = {
+			isa = PBXGroup;
+			children = (
+				124A60B42713058D0012FD2D /* MiddlewareDetailsConverter.swift */,
+				12F91CF7270E082500C92B28 /* AnytypeDetailsConverter.swift */,
+			);
+			path = Converters;
+			sourceTree = "<group>";
+		};
+		12F12E88271DA6ED000BAC24 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				124A60BB271319C40012FD2D /* ObjectDetailDefaultValue.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		12F12E89271DA702000BAC24 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */,
+				124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		12F91CE7270DFDE000C92B28 /* BrandNewDetails */ = {
 			isa = PBXGroup;
 			children = (
+				12F12E89271DA702000BAC24 /* Storage */,
+				12F12E87271DA6D5000BAC24 /* Converters */,
+				12F12E88271DA6ED000BAC24 /* Helper */,
+				12B69C8B265D10E600D047E3 /* Entities */,
 				12F91CF9270E0C2800C92B28 /* ObjectDetailsItemKey.swift */,
 				12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */,
 				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
-				124A60BB271319C40012FD2D /* ObjectDetailDefaultValue.swift */,
 				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
-				124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */,
-				124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */,
-				124A60B42713058D0012FD2D /* MiddlewareDetailsConverter.swift */,
-				12F91CF7270E082500C92B28 /* AnytypeDetailsConverter.swift */,
 			);
 			path = BrandNewDetails;
 			sourceTree = "<group>";
@@ -264,15 +289,6 @@
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
 			);
 			path = Block;
-			sourceTree = "<group>";
-		};
-		3D70BF1F261B055E008CED9E /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				12B69C8B265D10E600D047E3 /* Entities */,
-				3D17023C2715C1FB0079B65B /* SyncStatus.swift */,
-			);
-			path = Details;
 			sourceTree = "<group>";
 		};
 		3DAAEF9626668CC900FA067E /* BlockInformation */ = {
