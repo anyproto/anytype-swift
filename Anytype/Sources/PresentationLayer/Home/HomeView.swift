@@ -68,6 +68,7 @@ struct HomeView: View {
                     HomeBottomSheetView(containerHeight: geometry.size.height, state: $bottomSheetState) {
                         HomeTabsView(offsetChanged: offsetChanged, onDrag: onDrag, onDragEnd: onDragEnd)
                     }
+                    DashboardSelectionActionsView()
                 }.frame(width: geometry.size.width, height: geometry.size.height)
             }
         }
