@@ -14,14 +14,10 @@ final class HomeViewModel: ObservableObject {
     
     @Published var historyCellData: [HomeCellData] = []
     
-    @Published private var _binCellData: [HomeCellData] = []
-    @Published var selectedPages: Set<BlockId> = []
-    var binCellData: [HomeCellData] {
-        _binCellData.map {
-            $0.withSelected(selectedPages.contains($0.id))
-        }
-    }
-    var isSelection: Bool { selectedPages.isNotEmpty }
+    @Published var binCellData: [HomeCellData] = []
+    var isSelectionMode: Bool { binCellData.filter { $0.selected }.isNotEmpty }
+    var isAllSelected: Bool { binCellData.first { !$0.selected }.isNil }
+    var numberOfSelectedPages: Int { binCellData.filter { $0.selected }.count }
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
@@ -60,7 +56,7 @@ final class HomeViewModel: ObservableObject {
     func updateBinTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
         withAnimation(animationsEnabled ? .spring() : nil) {
-            _binCellData = cellDataBuilder.buildCellData(searchResults)
+            binCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
     func updateHistoryTab() {
@@ -70,12 +66,19 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func select(data: HomeCellData) {
-        if selectedPages.contains(data.id) {
-            selectedPages.remove(data.id)
-        } else {
-            selectedPages.insert(data.id)
+    func selectAll(_ select: Bool) {
+        binCellData.indices.forEach { index in
+            binCellData[index].selected = select
         }
+    }
+    
+    func select(data: HomeCellData) {
+        guard let index = binCellData.firstIndex(where: { $0.id == data.id }) else {
+            anytypeAssertionFailure("No page in bin for data: \(data)")
+            return
+        }
+        
+        binCellData[index].selected.toggle()
     }
     
     // MARK: - Private methods
