@@ -70,20 +70,28 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: modelsHolder.details)
     }
     
-    private func handleUpdate(updateResult: BaseDocumentUpdateResult) {
-        switch updateResult.updates {
+    private func handleUpdate(updateResult: EventsListenerUpdate) {
+        switch updateResult {
         case .general:
-            let blocksViewModels = blockBuilder.build(updateResult.models, details: updateResult.details)
+            let models = document.getFlattenBlocks()
+            let details = document.detailsStorage.get(id: document.objectId)
+            
+            let blocksViewModels = blockBuilder.build(
+                models,
+                details: details
+            )
             
             handleGeneralUpdate(
-                with: updateResult.details,
+                with: details,
                 models: blocksViewModels
             )
             
             updateMarkupViewModel(newBlockViewModels: blocksViewModels)
-        case let .details(newDetails):
+        case let .details(id):
+            guard id == document.objectId else { return }
+            
             handleGeneralUpdate(
-                with: newDetails,
+                with: document.detailsStorage.get(id: id),
                 models: modelsHolder.models
             )
         case let .blocks(updatedIds):

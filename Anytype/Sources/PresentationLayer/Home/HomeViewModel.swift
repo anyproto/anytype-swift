@@ -65,15 +65,15 @@ final class HomeViewModel: ObservableObject {
     }
     
     
-    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
+    private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
-            switch updateResult.updates {
+            switch updateResult {
             case .general:
                 favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
-            case .details(let details):
-                updateFavoritesCellWithTargetId(details.id)
+            case .details(let detailId):
+                updateFavoritesCellWithTargetId(detailId)
             case .syncStatus:
                 break
             }

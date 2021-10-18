@@ -9,7 +9,7 @@ private extension LoggerCategory {
 
 final class BaseDocument: BaseDocumentProtocol {
         
-    var onUpdateReceive: ((BaseDocumentUpdateResult) -> Void)?
+    var onUpdateReceive: ((EventsListenerUpdate) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private let eventsListener: EventsListener
@@ -66,6 +66,7 @@ final class BaseDocument: BaseDocumentProtocol {
             guard update.hasUpdate else { return }
             guard let self = self else { return }
     
+            // TODO: - details. what is it?
             if let rootModel = self.blocksContainer.model(id: self.objectId) {
                 BlockFlattener.flattenIds(
                     root: rootModel,
@@ -74,35 +75,28 @@ final class BaseDocument: BaseDocumentProtocol {
                 )
             }
             
-            let details = self.detailsStorage.get(id: self.objectId)
-            
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                self.onUpdateReceive?(
-                    BaseDocumentUpdateResult(
-                        updates: update,
-                        details: details,
-                        models: self.models(from: update)
-                    )
-                )
+                self?.onUpdateReceive?(update)
             }
+            
+//            let details = self.detailsStorage.get(id: self.objectId)
+//            
+//            DispatchQueue.main.async { [weak self] in
+//                guard let self = self else { return }
+//                
+//                self.onUpdateReceive?(
+//                    BaseDocumentUpdateResult(
+//                        updates: update,
+//                        details: details,
+//                        models: self.models(from: update)
+//                    )
+//                )
+//            }
         }
         eventsListener.startListening()
     }
     
-    private func models(from updates: EventsListenerUpdate) -> [BlockModelProtocol] {
-        switch updates {
-        case .general:
-            return getModels()
-        case .details, .blocks, .syncStatus:
-            return []
-        }
-    }
-    
-    /// Returns a flatten list of active models of document.
-    /// - Returns: A list of active models.
-    private func getModels() -> [BlockModelProtocol] {
+    func getFlattenBlocks() -> [BlockModelProtocol] {
         guard
             let activeModel = blocksContainer.model(id: objectId)
         else {
@@ -115,5 +109,30 @@ final class BaseDocument: BaseDocumentProtocol {
             options: .default
         )
     }
+    
+//    private func models(from updates: EventsListenerUpdate) -> [BlockModelProtocol] {
+//        switch updates {
+//        case .general:
+//            return getModels()
+//        case .details, .blocks, .syncStatus:
+//            return []
+//        }
+//    }
+    
+    /// Returns a flatten list of active models of document.
+    /// - Returns: A list of active models.
+//    private func getModels() -> [BlockModelProtocol] {
+//        guard
+//            let activeModel = blocksContainer.model(id: objectId)
+//        else {
+//            AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
+//            return []
+//        }
+//        return BlockFlattener.flatten(
+//            root: activeModel,
+//            in: blocksContainer,
+//            options: .default
+//        )
+//    }
 
 }

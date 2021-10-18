@@ -13,8 +13,8 @@ final class HomeCellDataBuilder {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buildFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
-        let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
+    func buildFavoritesData(_ updateResult: EventsListenerUpdate) -> [HomeCellData] {
+        let links: [HomePageLink] = document.getFlattenBlocks().compactMap(blockToPageLink)
         
         return links
             .filter {

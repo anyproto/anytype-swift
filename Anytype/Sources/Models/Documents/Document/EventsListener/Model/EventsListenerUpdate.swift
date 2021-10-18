@@ -5,7 +5,7 @@ enum EventsListenerUpdate: Hashable {
     case general
     case syncStatus(SyncStatus)
     case blocks(blockIds: Set<BlockId>)
-    case details(ObjectDetails)
+    case details(id: BlockId)
 
     var hasUpdate: Bool {
         switch self {
@@ -29,16 +29,16 @@ extension Array where Element == EventsListenerUpdate {
             return [.general]
         }
         
-        var updateIds = Set<BlockId>()
-        var details: ObjectDetails? = nil
+        var blockIds = Set<BlockId>()
+        var detailsId: BlockId? = nil
         var syncStatus: SyncStatus?
         
         for update in self {
             switch update {
-            case let .blocks(blockIds: blockIds):
-                blockIds.forEach { updateIds.insert($0) }
-            case let .details(detailsData):
-                details = detailsData
+            case let .blocks(blockIds: ids):
+                ids.forEach { blockIds.insert($0) }
+            case let .details(id):
+                detailsId = id
             case .syncStatus(let status):
                 syncStatus = status
             case .general:
@@ -46,9 +46,16 @@ extension Array where Element == EventsListenerUpdate {
             }
         }
         
-        var updates: [EventsListenerUpdate] = [.blocks(blockIds: updateIds)]
+        var updates: [EventsListenerUpdate] = []
         
-        details.flatMap { updates.append(.details($0)) }
+        if !blockIds.isEmpty {
+            updates.append(.blocks(blockIds: blockIds))
+        }
+        
+        if let id = detailsId {
+            updates.append(.details(id: id))
+        }
+        
         syncStatus.flatMap { updates.append(.syncStatus($0)) }
         
         return updates
