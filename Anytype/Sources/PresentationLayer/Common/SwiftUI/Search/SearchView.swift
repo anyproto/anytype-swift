@@ -1,13 +1,14 @@
 import SwiftUI
+import BlocksModels
 
 struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let title: String?
-    let onSelect: (SearchCellData) -> ()
+    let onSelect: (ObjectDetails) -> ()
     
     @State private var searchText = ""
-    @State private var data = [SearchCellData]()
+    @State private var data = [ObjectDetails]()
 
     @StateObject private var service = SearchService()
     
@@ -47,7 +48,7 @@ struct SearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack {
-                ForEach(data) { data in
+                ForEach(data, id: \.id) { data in
                     Button(
                         action: {
                             presentationMode.wrappedValue.dismiss()
@@ -84,7 +85,7 @@ struct SearchView: View {
     
     private func search(text: String) {
         guard let results = service.search(text: text) else { return }
-        data = results.map { SearchCellData(searchResult: $0) }
+        data = results
     }
 }
 
