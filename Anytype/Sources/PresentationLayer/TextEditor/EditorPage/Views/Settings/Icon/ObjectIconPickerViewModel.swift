@@ -8,7 +8,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
     
-    @Published var details: ObjectDetails = ObjectDetails([])
+    @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: [])
     var detailsLayout: DetailsLayout {
         details.layout
     }

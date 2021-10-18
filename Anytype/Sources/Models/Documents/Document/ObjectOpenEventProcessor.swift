@@ -28,7 +28,8 @@ enum ObjectOpenEventProcessor {
         }
         let parsedDetails = objectShowEvent.details.map {
             ObjectDetails(
-                MiddlewareDetailsConverter.convertSetEvent($0)
+                id: $0.id,
+                rawDetails: MiddlewareDetailsConverter.convertSetEvent($0)
             )
         }
         

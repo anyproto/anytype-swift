@@ -10,8 +10,8 @@ import Foundation
 import AnytypeCore
 
 public struct ObjectDetails: Hashable {
-    // TODO: remove id
-    public private(set) var id: String = ObjectDetailDefaultValue.string
+    public let id: String
+    
     public private(set) var name: String = ObjectDetailDefaultValue.string
     public private(set) var iconEmoji: String = ObjectDetailDefaultValue.string
     public private(set) var iconImageHash: Hash? = ObjectDetailDefaultValue.hash
@@ -25,10 +25,10 @@ public struct ObjectDetails: Hashable {
     public private(set) var isDone: Bool = ObjectDetailDefaultValue.bool
     public private(set) var type: String = ObjectDetailDefaultValue.string
     
-    public init(_ rawDetails: ObjectRawDetails) {
+    public init(id: String, rawDetails: ObjectRawDetails) {
+        self.id = id
         rawDetails.forEach {
             switch $0 {
-            case .id(let value): id = value
             case .name(let value): name = value
             case .iconEmoji(let value): iconEmoji = value
             case .iconImageHash(let value): iconImageHash = value
@@ -52,7 +52,6 @@ public struct ObjectDetails: Hashable {
         
         rawDetails.forEach {
             switch $0 {
-            case .id(let value): currentDetails.id = value
             case .name(let value): currentDetails.name = value
             case .iconEmoji(let value): currentDetails.iconEmoji = value
             case .iconImageHash(let value): currentDetails.iconImageHash = value
