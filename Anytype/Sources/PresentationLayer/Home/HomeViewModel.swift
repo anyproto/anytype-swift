@@ -12,7 +12,7 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { $0.isArchived == false }
     }
     
-    @Published var archiveCellData: [HomeCellData] = []
+    @Published var binCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
     
     @Published var openedPageData = OpenedPageData.cached
@@ -40,17 +40,17 @@ final class HomeViewModel: ObservableObject {
     // MARK: - View output
 
     func viewLoaded() {
-        updateArchiveTab()
+        updateBinTab()
         updateHistoryTab()
         animationsEnabled = true
     }
 
     // MARK: - Private methods
 
-    func updateArchiveTab() {
+    func updateBinTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
         withAnimation(animationsEnabled ? .spring() : nil) {
-            archiveCellData = cellDataBuilder.buildCellData(searchResults)
+            binCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
     func updateHistoryTab() {
