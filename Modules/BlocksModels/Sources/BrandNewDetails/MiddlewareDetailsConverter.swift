@@ -48,9 +48,6 @@ private extension MiddlewareDetailsConverter {
             let unwrapedListValue = value.unwrapedListValue
             
             switch itemKey {
-            case .id:
-                return ObjectDetailsItem.id(unwrapedListValue.stringValue)
-                
             case .name:
                 return ObjectDetailsItem.name(unwrapedListValue.stringValue)
                 
@@ -128,7 +125,6 @@ private extension ObjectDetailsItem {
     
     static func defaultValueItem(by key: ObjectDetailsItemKey) -> ObjectDetailsItem {
         switch key {
-        case .id: return .id(ObjectDetailDefaultValue.string)
         case .name: return .name(ObjectDetailDefaultValue.string)
         case .iconEmoji: return .iconEmoji(ObjectDetailDefaultValue.string)
         case .iconImageHash: return .iconImageHash(ObjectDetailDefaultValue.hash)

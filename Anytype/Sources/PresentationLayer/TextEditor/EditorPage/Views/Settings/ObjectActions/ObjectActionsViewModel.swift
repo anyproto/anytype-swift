@@ -14,7 +14,7 @@ import BlocksModels
 final class ObjectActionsViewModel: ObservableObject {
     private let archiveService: OtherObjectActionsService
 
-    @Published var details: ObjectDetails = ObjectDetails([]) {
+    @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: []) {
         didSet {
             objectActions = ObjectAction.allCasesWith(details: details)
         }

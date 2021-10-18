@@ -127,8 +127,10 @@ final class MiddlewareEventConverter {
             
             let id = value.id
             
-            let rawDetails = MiddlewareDetailsConverter.convertSetEvent(value)
-            let details = ObjectDetails(rawDetails)
+            let details = ObjectDetails(
+                id: id,
+                rawDetails: MiddlewareDetailsConverter.convertSetEvent(value)
+            )
             
             detailsStorage.add(
                 details: details,
