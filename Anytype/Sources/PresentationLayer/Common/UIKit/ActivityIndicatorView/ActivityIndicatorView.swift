@@ -56,5 +56,4 @@ private extension ActivityIndicatorView {
             $0.pinToSuperview()
         }
     }
-    
 }
