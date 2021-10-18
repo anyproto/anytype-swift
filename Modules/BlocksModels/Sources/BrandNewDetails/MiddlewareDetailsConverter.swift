@@ -34,12 +34,8 @@ public enum MiddlewareDetailsConverter {
             return ObjectDetailsItem.defaultValueItem(by: key)
         }
     }
- 
-}
-
-private extension MiddlewareDetailsConverter {
     
-    static func convertMiddlewareDetailsDictionary(_ details: [String: Google_Protobuf_Value]) -> ObjectRawDetails {
+    public static func convertMiddlewareDetailsDictionary(_ details: [String: Google_Protobuf_Value]) -> ObjectRawDetails {
         details.compactMap { key, value -> ObjectDetailsItem? in
             guard let itemKey = ObjectDetailsItemKey(rawValue: key) else {
                 return nil
@@ -106,7 +102,7 @@ private extension MiddlewareDetailsConverter {
             }
         }
     }
-    
+ 
 }
 
 private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {

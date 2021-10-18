@@ -8,9 +8,10 @@ struct SearchCellData: Identifiable {
     let type: String
     let icon: ObjectIconImage
     
-    init(searchResult: DetailsDataProtocol) {
+    init(searchResult: ObjectDetails) {
         let title: String = {
-            if let title = searchResult.name, !title.isEmpty {
+            let title = searchResult.name
+            if title.isNotEmpty {
                 return title
             } else {
                 return "Untitled".localized
@@ -18,15 +19,16 @@ struct SearchCellData: Identifiable {
         }()
         
         let icon: ObjectIconImage = {
-            if let layout = searchResult.layout, layout == .todo {
-                return .todo(searchResult.done ?? false)
+            let layout = searchResult.layout
+            if layout == .todo {
+                return .todo(searchResult.isDone)
             } else {
                 return searchResult.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
             }
         }()
         
         let type: String = {
-            if let type = searchResult.type?.name, !type.isEmpty {
+            if let type = searchResult.objectType?.name, !type.isEmpty {
                 return type
             } else {
                 return "Page".localized
@@ -34,7 +36,7 @@ struct SearchCellData: Identifiable {
         }()
         
         self.init(
-            id: searchResult.blockId,
+            id: searchResult.id,
             title: title,
             description: searchResult.description,
             type: type,
