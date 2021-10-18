@@ -25,7 +25,7 @@ class DashboardService: DashboardServiceProtocol {
         return objectsService.createPage(
             contextID: "",
             targetID: "",
-            details: [.name: DetailsEntry(value: "")],
+            details: [.name: DetailsEntry(value: ""), .isDraft: DetailsEntry(value: true)],
             position: .bottom,
             templateID: ""
         )

@@ -19,4 +19,5 @@ public enum DetailsKind: String {
     case creator = "creator"
     case createdDate = "createdDate"
     case featuredRelations = "featuredRelations"
+    case isDraft = "isDraft"
 }

@@ -44,15 +44,6 @@ final class BaseDocument: BaseDocumentProtocol {
     /// We use it to subscribe on event subject.
     ///
     private var detailsEventSubjectSubscription: AnyCancellable?
-    
-    /// Services
-    private var smartblockService: BlockActionsServiceSingle = .init()
-    
-    deinit {
-        documentId.flatMap { rootId in
-            smartblockService.close(contextId: rootId, blockId: rootId)
-        }
-    }
 
     // MARK: - BaseDocumentProtocol
 

@@ -27,7 +27,8 @@ final class EditorPageAssembly {
             document: document,
             router: router
         )
-        
+
+        browser.delegate = viewModel
         controller.viewModel = viewModel
         
         return (controller, router)

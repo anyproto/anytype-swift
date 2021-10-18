@@ -2,10 +2,15 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
+protocol EditorBrowserActionDelegate: AnyObject {
+    func editorBrowserWillGetOffTheScreen(_ editorBrowser: EditorBrowserController)
+}
+
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate {
         
     var childNavigation: UINavigationController!
     var router: EditorRouterProtocol!
+    weak var delegate: EditorBrowserActionDelegate?
     
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     
@@ -45,6 +50,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             onBackPageTap: { [weak self] page in
                 guard let self = self else { return }
                 guard let controller = page.controller else { return }
+                self.delegate?.editorBrowserWillGetOffTheScreen(self)
                 do {
                     try self.stateManager.moveBack(page: page)
                 } catch let error {
@@ -72,7 +78,9 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
+                guard let self = self else { return }
+                self.delegate?.editorBrowserWillGetOffTheScreen(self)
+                self.navigationController?.popViewController(animated: true)
             },
             onSearchTap: { [weak self] in
                 self?.router.showSearch { blockId in

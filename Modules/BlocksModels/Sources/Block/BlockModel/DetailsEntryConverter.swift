@@ -62,6 +62,8 @@ public class DetailsEntryConverter {
                 return value.asStringEntry()
             case .isHidden:
                 return value.asBoolEntry()
+            case .isDraft:
+                return value.asBoolEntry()
             case .lastOpenedDate:
                 return nil
             case .lastModifiedDate:

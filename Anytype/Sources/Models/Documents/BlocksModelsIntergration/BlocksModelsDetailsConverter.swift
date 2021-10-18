@@ -53,6 +53,10 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
                     numberValue: Double(layout.rawValue)
                 )
             }
+
+            if let bool = entry.value as? Bool {
+                return Google_Protobuf_Value(boolValue: bool)
+            }
             
             anytypeAssertionFailure("Implement converter from \(entry.value) to `Google_Protobuf_Value`")
             return nil

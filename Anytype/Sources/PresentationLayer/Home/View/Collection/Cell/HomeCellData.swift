@@ -26,7 +26,6 @@ struct HomeCellData: Identifiable {
 }
 
 extension HomeCellData {
-    
     enum Title {
         case `default`(title: String)
         case todo(title: String, isChecked: Bool)
@@ -40,5 +39,4 @@ extension HomeCellData {
             }
         }
     }
-    
 }

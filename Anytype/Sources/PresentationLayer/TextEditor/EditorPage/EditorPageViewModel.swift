@@ -249,3 +249,10 @@ extension EditorPageViewModel: CustomDebugStringConvertible {
         "\(String(reflecting: Self.self)) -> \(String(describing: document.documentId))"
     }
 }
+
+// MARK: - EditorBrowserActionDelegate
+extension EditorPageViewModel: EditorBrowserActionDelegate {
+    func editorBrowserWillGetOffTheScreen(_ editorBrowser: EditorBrowserController) {
+        BlockActionsServiceSingle().close(contextId: documentId, blockId: documentId)
+    }
+}

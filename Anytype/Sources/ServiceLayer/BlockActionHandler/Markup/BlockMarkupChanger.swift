@@ -3,7 +3,7 @@ import BlocksModels
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    var handler: EditorActionHandlerProtocol!
+    weak var handler: EditorActionHandlerProtocol?
     
     private let document: BaseDocumentProtocol
     private let documentId: String
@@ -101,7 +101,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         modifier.apply(action, range: range)
         let result = NSAttributedString(attributedString: modifier.attributedString)
         
-        handler.handleAction(
+        handler?.handleAction(
             .textView(action: .changeText(result), block: block),
             blockId: block.information.id
         )
