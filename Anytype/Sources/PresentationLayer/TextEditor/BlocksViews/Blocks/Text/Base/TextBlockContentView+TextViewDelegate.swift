@@ -21,7 +21,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 textView: textView,
                 block: currentConfiguration.block,
                 information: currentConfiguration.information,
-                text: currentConfiguration.content.anytypeText
+                text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
             )
         )
         currentConfiguration.blockDelegate.willBeginEditing()

@@ -7,17 +7,25 @@ final class MarkupViewModel {
     var blockInformation: BlockInformation? {
         didSet {
             guard case let .text(textBlock) = blockInformation?.content else { return }
-            anytypeText = AttributedTextConverter.asModel(text: textBlock.text, marks: textBlock.marks, style: textBlock.contentType)
+            anytypeText = AttributedTextConverter.asModel(
+                text: textBlock.text,
+                marks: textBlock.marks,
+                style: textBlock.contentType,
+                detailsStorage: detailsStorage
+            )
             displayCurrentState()
         }
     }
     weak var view: MarkupViewProtocol?
     private let actionHandler: EditorActionHandlerProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
+
     private var selectedRange: MarkupRange?
     private var anytypeText: UIKitAnytypeText?
-
-    init(actionHandler: EditorActionHandlerProtocol) {
+    
+    init(actionHandler: EditorActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
         self.actionHandler = actionHandler
+        self.detailsStorage = detailsStorage
     }
     
     func setRange(_ range: MarkupRange) {

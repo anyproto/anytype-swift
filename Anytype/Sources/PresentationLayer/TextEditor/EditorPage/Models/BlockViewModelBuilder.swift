@@ -47,6 +47,7 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     block: block,
                     content: content,
+                    detailsStorage: document.detailsStorage,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
@@ -82,6 +83,7 @@ final class BlockViewModelBuilder {
                     blockDelegate: delegate,
                     actionHandler: editorActionHandler,
                     accessorySwitcher: accessorySwitcher,
+                    detailsStorage: document.detailsStorage,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
                     },
