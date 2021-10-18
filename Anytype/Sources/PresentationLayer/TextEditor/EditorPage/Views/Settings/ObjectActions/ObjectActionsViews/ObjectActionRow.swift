@@ -1,11 +1,3 @@
-//
-//  ObjectActionRow.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 23.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 
@@ -43,7 +35,7 @@ private extension ObjectAction {
     var title: String {
         switch self {
         case let .archive(isArchived: isArchived):
-            return isArchived ? "Restore".localized : "Archive".localized
+            return isArchived ? "Restore".localized : "Move to bin".localized
         case let .favorite(isFavorite: isFavorite):
             return isFavorite ? "Unfavorite".localized : "Favorite".localized
 //        case .moveTo:
@@ -57,10 +49,10 @@ private extension ObjectAction {
 
     var image: Image {
         switch self {
-        case .archive:
-            return Image.ObjectAction.archive
+        case let .archive(isArchived: isArchived):
+            return isArchived ? .ObjectAction.restore : .ObjectAction.archive
         case let .favorite(isFavorite: isFavorite):
-            return isFavorite ? Image.ObjectAction.unfavorite : Image.ObjectAction.favorite
+            return isFavorite ? .ObjectAction.unfavorite : .ObjectAction.favorite
 //        case .moveTo:
 //            return Image.ObjectAction.moveTo
 //        case .template:

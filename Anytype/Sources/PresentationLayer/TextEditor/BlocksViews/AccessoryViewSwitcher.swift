@@ -223,9 +223,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         let carretOffset = textView.offsetFromBegining(caretPosition)
         let prependSpace = carretOffset > 1 // We need whitespace before / or @ if it is not 1st symbol
         
-        if textBeforeCaret.hasSuffix(
-            TextTriggerSymbols.slashMenu(prependSpace: prependSpace)
-        ) {
+        if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) {
             showAccessoryViewWithDelay(.slashMenu(slashMenuView))
         } else if textBeforeCaret.hasSuffix(
             TextTriggerSymbols.mention(prependSpace: prependSpace)

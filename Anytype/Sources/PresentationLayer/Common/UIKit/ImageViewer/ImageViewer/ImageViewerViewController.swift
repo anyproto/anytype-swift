@@ -13,6 +13,7 @@ final class ImageViewerViewController: UIViewController {
 
     private lazy var scrollView = UIScrollView(frame: view.bounds)
     private(set) lazy var imageView = UIImageView(frame: scrollView.bounds)
+    private lazy var activityIndicator = ActivityIndicatorView(frame: .zero)
 
     private var cancellables = [AnyCancellable]()
 
@@ -62,6 +63,10 @@ final class ImageViewerViewController: UIViewController {
             self?.imageView.image = image
             self?.reloadImageView()
         }.store(in: &cancellables)
+
+        viewModel.$isLoading.sink { [weak self] isLoading in
+            isLoading ? self?.activityIndicator.show() : self?.activityIndicator.hide()
+        }.store(in: &cancellables)
     }
 
     private func setupScrollView() {
@@ -79,6 +84,11 @@ final class ImageViewerViewController: UIViewController {
         view.addSubview(scrollView)
 
         scrollView.addSubview(imageView)
+
+        view.addSubview(activityIndicator) {
+            $0.centerX.equal(to: view.centerXAnchor)
+            $0.centerY.equal(to: view.centerYAnchor)
+        }
     }
 
     private func setupGestureRecognizer() {
@@ -154,7 +164,7 @@ final class ImageViewerViewController: UIViewController {
     }
 
     private func calculateEffectiveImageSize() {
-        guard let imageSize = viewModel.image?.size else { return }
+        guard let imageSize = imageView.image?.size else { return }
 
         let imageViewSize = scrollView.frame.size
         let widthFactor = imageViewSize.width / imageSize.width
