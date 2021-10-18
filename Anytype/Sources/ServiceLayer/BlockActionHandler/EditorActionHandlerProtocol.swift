@@ -25,6 +25,7 @@ protocol EditorActionHandlerProtocol: AnyObject {
     )
     func showPage(blockId: ActionHandlerBlockIdSource)
     
+    func handleLinkTo(targetDetails: ObjectDetails, blockId: BlockId)
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
 }

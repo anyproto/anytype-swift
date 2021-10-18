@@ -25,8 +25,8 @@ final class SlashMenuActionHandler {
         case .objects(let action):
             switch action {
             case .linkTo:
-                router.showLinkTo { [weak self] targetBlockId in
-                    self?.actionHandler.handleAction(.addLink(targetBlockId), blockId: blockId)
+                router.showLinkTo { [weak self] in
+                    self?.actionHandler.handleLinkTo(targetDetails: $0, blockId: blockId)
                 }
             case .objectType:
                 actionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in

@@ -88,6 +88,11 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         blockActionHandler.handleBlockAction(action, blockId: blockId)
     }
     
+    func handleLinkTo(targetDetails: ObjectDetails, blockId: BlockId) {
+        document.detailsStorage.add(details: targetDetails, id: targetDetails.id)
+        handleAction(.addLink(targetDetails.id), blockId: blockId)
+    }
+    
     // MARK: - Private
     
     private func blockIdFromSource(_ blockIdSource: ActionHandlerBlockIdSource) -> BlockId? {
