@@ -108,7 +108,7 @@ final class BlockActionService: BlockActionServiceProtocol {
        guard let response = pageService.createPage(
             contextID: documentId,
             targetID: "",
-            details: [.name: DetailsEntry(value: "")],
+            details: [.name("")],
             position: position,
             templateID: ""
        ) else { return }

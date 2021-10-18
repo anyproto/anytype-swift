@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ObjectDetailsItemKey: String {
+public enum ObjectDetailsItemKey: String {
     case name = "name"
     case iconEmoji = "iconEmoji"
     case iconImageHash = "iconImage"
@@ -21,4 +21,7 @@ enum ObjectDetailsItemKey: String {
     case layoutAlign = "layoutAlign"
     case isDone = "done"
     case type = "type"
+    case lastOpenedDate = "lastOpenedDate"
+    case isHidden = "isHidden"
+    case lastModifiedDate = "lastModifiedDate"
 }

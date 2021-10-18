@@ -99,6 +99,12 @@ public enum MiddlewareDetailsConverter {
                 
             case .type:
                 return .type(unwrapedListValue.stringValue)
+            case .lastOpenedDate:
+                return nil
+            case .isHidden:
+                return nil
+            case .lastModifiedDate:
+                return nil
             }
         }
     }
@@ -119,7 +125,7 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
 
 private extension ObjectDetailsItem {
     
-    static func defaultValueItem(by key: ObjectDetailsItemKey) -> ObjectDetailsItem {
+    static func defaultValueItem(by key: ObjectDetailsItemKey) -> ObjectDetailsItem? {
         switch key {
         case .name: return .name(ObjectDetailDefaultValue.string)
         case .iconEmoji: return .iconEmoji(ObjectDetailDefaultValue.string)
@@ -133,6 +139,9 @@ private extension ObjectDetailsItem {
         case .layoutAlign: return .layoutAlign(ObjectDetailDefaultValue.layoutAlignment)
         case .isDone: return .isDone(ObjectDetailDefaultValue.bool)
         case .type: return .type(ObjectDetailDefaultValue.string)
+        case .lastOpenedDate: return nil
+        case .isHidden: return nil
+        case .lastModifiedDate: return nil
         }
     }
     

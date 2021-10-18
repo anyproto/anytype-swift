@@ -12,11 +12,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: RawDetailsData,
+        details: ObjectRawDetails,
         position: BlockPosition,
         templateID: String
     ) -> CreatePageResponse? {
-        let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        let convertedDetails = AnytypeDetailsConverter.convertObjectRawDetails(details) 
         let protobufDetails = convertedDetails.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
