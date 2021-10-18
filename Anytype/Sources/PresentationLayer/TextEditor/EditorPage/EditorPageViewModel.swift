@@ -25,6 +25,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     private let blockActionsService: BlockActionsServiceSingle
 
+    private var didAppearedOnce = false
+
+
     // MARK: - Initialization
     init(
         document: BaseDocumentProtocol,
@@ -196,7 +199,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
-        
         viewInput?.update(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
         
@@ -204,7 +206,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectSettingsViewModel.update(with: details)
         }
     }
-    
 }
 
 // MARK: - View output
@@ -216,6 +217,16 @@ extension EditorPageViewModel {
             withEventProperties: [AmplitudeEventsPropertiesKey.documentId: document.objectId]
         )
         document.open()
+    }
+
+    func viewAppeared() {
+        if !didAppearedOnce,
+           let firstModel = modelsHolder.models.first,
+           firstModel.content.isEmpty {
+            (firstModel as? TextBlockViewModel)?.set(focus: .beginning)
+        }
+
+        didAppearedOnce = true
     }
 
     func viewWillDismiss() {
