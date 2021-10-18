@@ -49,7 +49,8 @@ final class HomeCellDataBuilder {
             title: pageLink.details?.pageCellTitle ?? .default(title: ""),
             type: type,
             isLoading: pageLink.isLoading,
-            isArchived: pageLink.isArchived
+            isArchived: pageLink.isArchived,
+            selected: false
         )
     }
     
@@ -61,7 +62,8 @@ final class HomeCellDataBuilder {
             title: newDetails.pageCellTitle,
             type: oldData.type,
             isLoading: false,
-            isArchived: newDetails.isArchived
+            isArchived: newDetails.isArchived,
+            selected: false
         )
     }
 }

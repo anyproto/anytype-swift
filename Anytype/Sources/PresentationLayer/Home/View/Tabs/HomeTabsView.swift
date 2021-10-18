@@ -18,12 +18,10 @@ struct HomeTabsView: View {
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void
     let onDragEnd: (CGSize) -> Void
-        
-    private let blurStyle = UIBlurEffect.Style.systemMaterial
     
     var body: some View {
         VStack(spacing: 0) {
-            tabHeaders
+            HomeTabsHeader(tabSelection: $tabSelection, onTabSelection: onTabSelection)
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
                         .onChanged { gesture in
@@ -39,55 +37,47 @@ struct HomeTabsView: View {
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
+            HomeCollectionView(
+                cellData: model.nonArchivedFavoritesCellData,
+                coordinator: model.coordinator,
+                dragAndDropDelegate: model,
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    model.showPage(pageId: data.destinationId)
+                }
+            )
             .tag(Tab.favourites)
-            HomeCollectionView(cellData: model.historyCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.history)
-            HomeCollectionView(cellData: model.binCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.bin)
+            
+            HomeCollectionView(
+                cellData: model.historyCellData,
+                coordinator: model.coordinator,
+                dragAndDropDelegate: nil, // no dnd
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    model.showPage(pageId: data.destinationId)
+                }
+            )
+            .tag(Tab.history)
+            
+            HomeCollectionView(
+                cellData: model.binCellData,
+                coordinator: model.coordinator,
+                dragAndDropDelegate: nil, // no dnd
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    model.select(data: data)
+                }
+            )
+            .tag(Tab.bin)
         }
         .background(BlurEffect())
-        .blurEffectStyle(blurStyle)
+        .blurEffectStyle(UIBlurEffect.Style.systemMaterial)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         
         .onChange(of: tabSelection) { tab in
             UserDefaultsConfig.selectedTab = tab
             onTabSelection()
-        }
-    }
-    
-    
-    private var tabHeaders: some View {
-        // Scroll view hack, vibrancy effect do not work without it
-        ScrollView([]) {
-            HStack(spacing: 20) {
-                tabButton(text: "Favorites".localized, tab: .favourites)
-                tabButton(text: "History".localized, tab: .history) {
-                    if tabSelection == .history { onTabSelection() } // reload data on button tap
-                }
-                tabButton(text: "Bin".localized, tab: .bin) {
-                    if tabSelection == .bin { onTabSelection() } // reload data on button tap
-                }
-                Spacer()
-            }
-            .padding(.leading, 20)
-            .frame(height: 72, alignment: .center)
-            .background(BlurEffect())
-            .blurEffectStyle(blurStyle)
-        }
-        .frame(height: 72, alignment: .center)
-    }
-    
-    private func tabButton(text: String, tab: Tab, action: (() -> ())? = nil) -> some View {
-        Button(
-            action: {
-                withAnimation(.spring()) {
-                    tabSelection = tab
-                    action?()
-                }
-            }
-        ) {
-            HomeTabsHeaderText(text: text, isSelected: tabSelection == tab)
         }
     }
     

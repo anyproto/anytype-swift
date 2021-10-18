@@ -3,3 +3,9 @@ public extension Array {
         !isEmpty
     }
 }
+
+public extension Set {
+    var isNotEmpty: Bool {
+        !isEmpty
+    }
+}

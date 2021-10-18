@@ -12,8 +12,16 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { $0.isArchived == false }
     }
     
-    @Published var binCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
+    
+    @Published private var _binCellData: [HomeCellData] = []
+    @Published var selectedPages: Set<BlockId> = []
+    var binCellData: [HomeCellData] {
+        _binCellData.map {
+            $0.withSelected(selectedPages.contains($0.id))
+        }
+    }
+    var isSelection: Bool { selectedPages.isNotEmpty }
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
@@ -49,12 +57,10 @@ final class HomeViewModel: ObservableObject {
         animationsEnabled = true
     }
 
-    // MARK: - Private methods
-
     func updateBinTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
         withAnimation(animationsEnabled ? .spring() : nil) {
-            binCellData = cellDataBuilder.buildCellData(searchResults)
+            _binCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
     func updateHistoryTab() {
@@ -64,7 +70,15 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
+    func select(data: HomeCellData) {
+        if selectedPages.contains(data.id) {
+            selectedPages.remove(data.id)
+        } else {
+            selectedPages.insert(data.id)
+        }
+    }
     
+    // MARK: - Private methods
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {
