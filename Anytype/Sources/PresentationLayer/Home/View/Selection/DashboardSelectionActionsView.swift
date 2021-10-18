@@ -31,13 +31,14 @@ struct DashboardSelectionActionsView: View {
     private var buttons: some View {
         HStack(alignment: .center, spacing: 0) {
             Button(action: {
-                
+                UISelectionFeedbackGenerator().selectionChanged()
             }, label: {
                 AnytypeText("Delete".localized, style: .uxBodyRegular, color: .textPrimary)
             })
                 .frame(maxWidth: .infinity)
+            
             Button(action: {
-                
+                UISelectionFeedbackGenerator().selectionChanged()
             }, label: {
                 AnytypeText("Restore".localized, style: .uxBodyRegular, color: .textPrimary)
             })

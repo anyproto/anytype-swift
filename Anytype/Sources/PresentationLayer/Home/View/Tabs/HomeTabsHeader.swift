@@ -29,6 +29,7 @@ struct HomeTabsHeader: View {
         HStack(spacing: 0) {
             Button(action: {
                 model.selectAll(!model.isAllSelected)
+                UISelectionFeedbackGenerator().selectionChanged()
             }, label: {
                 AnytypeText(
                     model.isAllSelected ? "Deselect all".localized : "Select all".localized,
@@ -41,6 +42,7 @@ struct HomeTabsHeader: View {
             Spacer()
             Button(action: {
                 model.selectAll(false)
+                UISelectionFeedbackGenerator().selectionChanged()
             }, label: {
                 AnytypeText("Cancel", style: .uxBodyRegular, color: .textPrimary)
             })
