@@ -6,14 +6,7 @@ struct HomePageLink {
     let details: ObjectDetails?
     
     var isLoading: Bool {
-        return details.isNil
-//        guard let details = details else {
-//            return true
-//        }
- 
-        // TODO: - fix details
-//        return false
-//        return details.rawDetails.isEmpty
+        details.isNil
     }
     
     var isArchived: Bool {
