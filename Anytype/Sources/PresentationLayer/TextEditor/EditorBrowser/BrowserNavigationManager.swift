@@ -57,6 +57,10 @@ final class BrowserNavigationManager {
         
         state = .default
     }
+
+    func closeAll() {
+        openedPages.forEach { $0.actionsHandler?.didTapClose() }
+    }
     
     private func defaultAction(page: BrowserPage, childernCount: Int) throws {
         // didShow called twice in the first open

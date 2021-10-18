@@ -4,7 +4,7 @@ import BlocksModels
 /// Input data for document view
 protocol EditorPageViewInput: AnyObject {
     
-    func update(header: ObjectHeader, details: DetailsDataProtocol?)
+    func update(header: ObjectHeader, details: ObjectDetails?)
     func update(blocks: [BlockViewModelProtocol])
     func update(syncStatus: SyncStatus)
     

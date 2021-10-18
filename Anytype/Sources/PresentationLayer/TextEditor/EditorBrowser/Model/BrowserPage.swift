@@ -7,19 +7,23 @@ final class BrowserPage: Equatable, CustomStringConvertible {
     let subtitle: String?
     
     weak var controller: UIViewController?
+    weak var actionsHandler: EditorNavigationActionsHandler?
+    
     let controllerHash: Int
     
     init(
         blockId: BlockId,
         title: String?,
         subtitle: String?,
-        controller: UIViewController
+        controller: UIViewController,
+        actionsHandler: EditorNavigationActionsHandler?
     ) {
         self.blockId = blockId
         self.title = title
         self.subtitle = subtitle
         self.controller = controller
         self.controllerHash = controller.hash
+        self.actionsHandler = actionsHandler
     }
     
     static func == (lhs: BrowserPage, rhs: BrowserPage) -> Bool {

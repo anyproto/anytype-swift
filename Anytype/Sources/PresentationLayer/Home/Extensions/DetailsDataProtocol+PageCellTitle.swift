@@ -9,10 +9,10 @@
 import Foundation
 import BlocksModels
 
-extension DetailsDataProtocol {
+extension ObjectDetails {
     
     var pageCellTitle: HomeCellData.Title {
-        let title = name ?? ""
+        let title = name
         
         guard case .todo = layout else {
             return .default(title: title)
@@ -20,7 +20,7 @@ extension DetailsDataProtocol {
         
         return .todo(
             title: title,
-            isChecked: done ?? false
+            isChecked: isDone
         )
     }
     

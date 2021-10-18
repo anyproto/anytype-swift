@@ -46,6 +46,7 @@ extension Image {
 
     enum ObjectAction {
         static let archive = createImage("delete")
+        static let restore = createImage("restore")
         static let favorite = createImage("addToFavorites")
         static let unfavorite = createImage("unfavorite")
         static let moveTo = createImage("moveTo")

@@ -10,7 +10,9 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
         [
             indentationLevel,
-            information
+            information,
+            state
+            
         ] as [AnyHashable]
     }
     
@@ -28,7 +30,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         indentationLevel: Int,
         information: BlockInformation,
         content: BlockLink,
-        details: DetailsDataProtocol?,
+        details: ObjectDetails?,
         contextualMenuHandler: DefaultContextualMenuHandler,
         openLink: @escaping (BlockId) -> ()
     ) {

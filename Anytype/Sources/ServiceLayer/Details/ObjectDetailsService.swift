@@ -13,22 +13,18 @@ import Combine
 final class ObjectDetailsService {
     
     private let service = ObjectActionsService()
-    private let eventHandler: EventHandler
 
     private let objectId: String
         
-    init(eventHandler: EventHandler, objectId: String) {
-        self.eventHandler = eventHandler
+    init(objectId: String) {
         self.objectId = objectId
     }
     
-    func update(details: RawDetailsData) {
-        let result = service.syncSetDetails(contextID: objectId, details: details)
+    func update(details: ObjectRawDetails) {
+        let result = service.setDetails(contextID: objectId, details: details)
         
         guard let result = result else { return }
 
-        eventHandler.handle(
-            events: PackOfEvents(middlewareEvents: result.messages)
-        )
+        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
 }

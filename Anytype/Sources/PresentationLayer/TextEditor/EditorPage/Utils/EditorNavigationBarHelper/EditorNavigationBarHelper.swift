@@ -59,7 +59,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         contentOffsetObservation = nil
     }
     
-    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
+    func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?) {
         isObjectHeaderWithCover = header.isWithCover
         objectHeaderHeight = header.height
         

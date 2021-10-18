@@ -2,16 +2,11 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
-protocol EditorBrowserActionDelegate: AnyObject {
-    func editorBrowserWillGetOffTheScreen(_ editorBrowser: EditorBrowserController)
-}
-
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate {
         
     var childNavigation: UINavigationController!
     var router: EditorRouterProtocol!
-    weak var delegate: EditorBrowserActionDelegate?
-    
+
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     
     private let stateManager = BrowserNavigationManager()
@@ -50,7 +45,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             onBackPageTap: { [weak self] page in
                 guard let self = self else { return }
                 guard let controller = page.controller else { return }
-                self.delegate?.editorBrowserWillGetOffTheScreen(self)
                 do {
                     try self.stateManager.moveBack(page: page)
                 } catch let error {
@@ -78,9 +72,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
-                guard let self = self else { return }
-                self.delegate?.editorBrowserWillGetOffTheScreen(self)
-                self.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             },
             onSearchTap: { [weak self] in
                 self?.router.showSearch { blockId in
@@ -113,17 +105,20 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedPageId(viewController.viewModel.documentId)
+        let documentId = viewController.viewModel.document.objectId
+        UserDefaultsConfig.storeOpenedPageId(documentId)
         
-        let title = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.name
-        let subtitle = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.description
+        let details = viewController.viewModel.document.detailsStorage.get(id: documentId)
+        let title = details?.name
+        let subtitle = details?.description
         do {
             try stateManager.didShow(
                 page: BrowserPage(
-                    blockId: viewController.viewModel.documentId,
+                    blockId: viewController.viewModel.document.objectId,
                     title: title,
                     subtitle: subtitle,
-                    controller: viewController
+                    controller: viewController,
+                    actionsHandler: viewController.viewModel
                 ),
                 childernCount: childNavigation.children.count
             )

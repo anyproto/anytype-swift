@@ -3,8 +3,7 @@ import Combine
 import AnytypeCore
 
 final class TextBlockActionHandler {
-    typealias Completion = (PackOfEvents) -> Void
-
+    
     private let service: BlockActionServiceProtocol
     private let textService = TextService()
     private let contextId: String
@@ -21,12 +20,12 @@ final class TextBlockActionHandler {
         self.modelsHolder = modelsHolder
     }
 
-    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction, completion: Completion?) {
+    func handlingTextViewAction(_ block: BlockModelProtocol, _ action: CustomTextView.UserAction) {
         switch action {
         case let .keyboardAction(value):
             handlingKeyboardAction(block, value)
         case let .changeText(attributedText):
-            handleChangeText(block, text: attributedText, completion: completion)
+            handleChangeText(block, text: attributedText)
         case .changeTextStyle, .changeLink:
             anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         case .changeCaretPosition, .showPage, .openURL:
@@ -39,7 +38,7 @@ final class TextBlockActionHandler {
         }
     }
     
-    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString, completion: Completion?) {
+    private func handleChangeText(_ block: BlockModelProtocol, text: NSAttributedString) {
         guard case var .text(textContentType) = block.information.content else { return }
         var blockModel = block
 
@@ -50,39 +49,38 @@ final class TextBlockActionHandler {
         let blockId = blockModel.information.id
         blockModel.information.content = .text(textContentType)
 
-        completion?(
-            PackOfEvents(localEvent:
-                .setText(blockId: blockId, text: middlewareString.text)
-            )
-        )
-        
+        EventsBunch(
+            objectId: contextId,
+            localEvents: [.setText(blockId: blockId, text: middlewareString.text)]
+        ).send()
+
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.KeyboardAction) {
-        if DetailsKind(rawValue: block.information.id) == .name {
-            switch action {
-            case .enterAtTheEndOfContent, .enterInsideContent, .enterAtTheBeginingOfContent:
-                let id = block.information.id
-                let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
-                let block = block.container?.model(id: blockId)
-                let parentId = block?.information.id
-                let information = BlockBuilder.createDefaultInformation()
-
-                if let parentId = parentId {
-                    if block?.information.childrenIds.isEmpty == true {
-                        self.service.addChild(info: information, parentBlockId: parentId)
-                    }
-                    else {
-                        let first = block?.information.childrenIds.first
-                        service.add(info: information, targetBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
-                    }
-                }
-
-            default: return
-            }
-            return
-        }
+//        if block.information.id == ObjectDetailsItemKey.name.rawValue {
+//            switch action {
+//            case .enterAtTheEndOfContent, .enterInsideContent, .enterAtTheBeginingOfContent:
+//                let id = block.information.id
+//                let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
+//                let block = block.container?.model(id: blockId)
+//                let parentId = block?.information.id
+//                let information = BlockBuilder.createDefaultInformation()
+//
+//                if let parentId = parentId {
+//                    if block?.information.childrenIds.isEmpty == true {
+//                        self.service.addChild(info: information, parentBlockId: parentId)
+//                    }
+//                    else {
+//                        let first = block?.information.childrenIds.first
+//                        service.add(info: information, targetBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
+//                    }
+//                }
+//
+//            default: return
+//            }
+//            return
+//        }
         
         switch action {
         // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
@@ -202,21 +200,9 @@ final class TextBlockActionHandler {
             service.merge(firstBlockId: previousModel.blockId, secondBlockId: block.information.id, localEvents: localEvents)
 
         case .deleteOnEmptyContent:
-            service.delete(blockId: block.information.id) { [weak self] value in
-                guard let previousModel = self?.modelsHolder?.findModel(beforeBlockId: block.information.id) else {
-                    anytypeAssertionFailure(
-                        "We can't find previous block to focus on at command .delete for block \(block.information.id)"
-                    )
-                    return .init(middlewareEvents: value.messages, localEvents: [])
-                }
-                let previousBlockId = previousModel.blockId
-                return .init(
-                    middlewareEvents: value.messages,
-                    localEvents: [
-                        .setFocus(blockId: previousBlockId, position: .end)
-                    ]
-                )
-            }
+            let blockId = block.information.id
+            let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
+            service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
         }
     }
 }

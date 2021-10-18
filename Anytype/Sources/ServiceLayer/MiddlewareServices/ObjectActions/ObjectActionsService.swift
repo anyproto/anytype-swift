@@ -12,11 +12,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: RawDetailsData,
+        details: ObjectRawDetails,
         position: BlockPosition,
         templateID: String
     ) -> CreatePageResponse? {
-        let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+        let convertedDetails = AnytypeDetailsConverter.convertObjectRawDetails(details) 
         let protobufDetails = convertedDetails.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
@@ -44,32 +44,23 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?  {
-        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> MiddlewareResponse?  {
+        let middlewareDetails = AnytypeDetailsConverter.convertObjectRawDetails(details) 
         let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
             details: middlewareDetails
-        ).map { ResponseEvent($0.event) }
+        ).map { MiddlewareResponse($0.event) }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
         
         return result.getValue()
     }
     
-    func asyncSetDetails(contextID: BlockId, details: RawDetailsData) -> AnyPublisher<ResponseEvent, Error> {
-        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
-        
-        return setDetails(contextID: contextID, details: middlewareDetails).handleEvents(receiveRequest:  {_ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
-        }).eraseToAnyPublisher()
-    }
-    
-    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ResponseEvent, Error> {
+    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<MiddlewareResponse, Error> {
         Anytype_Rpc.Block.Set.Details.Service
             .invoke(contextID: contextID, details: details, queue: .global())
             .map(\.event)
-            .map(ResponseEvent.init(_:))
+            .map(MiddlewareResponse.init(_:))
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
@@ -83,12 +74,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     @discardableResult
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> ResponseEvent? {
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> MiddlewareResponse? {
         Anytype_Rpc.BlockList.Move.Service.invoke(
             contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
             dropTargetID: dropPositionblockId, position: position
         )
-            .map { ResponseEvent($0.event) }
+            .map { MiddlewareResponse($0.event) }
             .getValue()
     }
 }

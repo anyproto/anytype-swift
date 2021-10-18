@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-extension ResponseEvent {
+extension MiddlewareResponse {
     var newBlockId: String? {
         let blockAdd = self.messages.compactMap { message -> Anytype_Event.Block.Add?  in
             if case let .blockAdd(value)? = message.value {

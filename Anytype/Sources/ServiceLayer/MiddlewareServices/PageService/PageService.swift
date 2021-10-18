@@ -6,7 +6,7 @@ final class PageService {
     func createPage(name: String) -> CreatePageResponse? {
         let nameValue = Google_Protobuf_Value(stringValue: name)
         let details = Google_Protobuf_Struct(
-            fields: [ DetailsKind.name.rawValue: nameValue ]
+            fields: [ ObjectDetailsItemKey.name.rawValue: nameValue ]
         )
         
         return Anytype_Rpc.Page.Create.Service.invoke(details: details)

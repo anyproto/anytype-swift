@@ -8,12 +8,12 @@ final class EditorPageAssembly {
     }
     
     func buildEditorPage(pageId: BlockId) -> EditorPageController {
-        return buildEditorModule(pageId: pageId).0
+        buildEditorModule(pageId: pageId).0
     }
     
     func buildEditorModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
         let controller = EditorPageController()
-        let document = BaseDocument()
+        let document = BaseDocument(objectId: pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
@@ -22,42 +22,39 @@ final class EditorPageAssembly {
         )
 
         let viewModel = buildViewModel(
-            blockId: pageId,
             viewInput: controller,
             document: document,
             router: router
         )
 
-        browser.delegate = viewModel
         controller.viewModel = viewModel
         
         return (controller, router)
     }
     
     private func buildViewModel(
-        blockId: BlockId,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter
     ) -> EditorPageViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
-            objectId: blockId,
+            objectId: document.objectId,
             objectDetailsService: ObjectDetailsService(
-                eventHandler: document.eventHandler,
-                objectId: blockId
+                objectId: document.objectId
             )
         )
                 
-        let modelsHolder = ObjectContentViewModelsSharedHolder(objectId: blockId)
+        let modelsHolder = ObjectContentViewModelsSharedHolder(
+            objectId: document.objectId
+        )
         
         let markupChanger = BlockMarkupChanger(
-            document: document,
-            documentId: blockId
+            blocksContainer: document.blocksContainer,
+            detailsStorage: document.detailsStorage
         )
         
         let blockActionHandler = BlockActionHandler(
-            documentId: blockId,
             modelsHolder: modelsHolder,
             document: document,
             markupChanger: markupChanger
@@ -78,7 +75,6 @@ final class EditorPageAssembly {
         
         let accessorySwitcher = AccessoryViewSwitcherBuilder()
             .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
-        let detailsLoader = DetailsLoader(document: document)
 
         
         let blocksConverter = BlockViewModelBuilder(
@@ -86,11 +82,13 @@ final class EditorPageAssembly {
             editorActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            accessorySwitcher: accessorySwitcher,
-            detailsLoader: detailsLoader
+            accessorySwitcher: accessorySwitcher
         )
          
-        let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
+        let wholeBlockMarkupViewModel = MarkupViewModel(
+            actionHandler: editorBlockActionHandler,
+            detailsStorage: document.detailsStorage
+        )
         
         let headerBuilder = ObjectHeaderBuilder(
             settingsViewModel: objectSettinsViewModel,
@@ -98,7 +96,6 @@ final class EditorPageAssembly {
         )
         
         return EditorPageViewModel(
-            documentId: blockId,
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,

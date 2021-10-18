@@ -34,7 +34,7 @@ final class ImageName {
         enum actions {
             static let clear = "slash_menu_action_clear"
             static let copy = "slash_menu_action_copy"
-            static let delete = "slash_menu_action_delete"
+            static let delete = "delete"
             static let duplicate = "slash_menu_action_duplicate"
             static let move = "slash_menu_action_move"
             static let moveTo = "slash_menu_action_moveTo"

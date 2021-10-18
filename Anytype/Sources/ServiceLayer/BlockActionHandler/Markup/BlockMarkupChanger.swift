@@ -5,29 +5,29 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     weak var handler: EditorActionHandlerProtocol?
     
-    private let document: BaseDocumentProtocol
-    private let documentId: String
-
+    private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
+    
     init(
-        document: BaseDocumentProtocol,
-        documentId: String
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol
     ) {
-        self.document = document
-        self.documentId = documentId
+        self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
     }
     
     func toggleMarkup(
         _ markup: BlockHandlerActionType.TextAttributesType,
         for blockId: BlockId
     ) {
-        guard let info = document.rootModel?.blocksContainer.model(id: blockId)?.information,
+        guard let info = blocksContainer.model(id: blockId)?.information,
               case let .text(blockText) = info.content else { return }
         
         toggleMarkup(
             markup,
-            attributedText: blockText.anytypeText.attrString,
+            attributedText: blockText.anytypeText(using: detailsStorage).attrString,
             for: blockId,
-            in: blockText.anytypeText.attrString.wholeRange
+            in: blockText.anytypeText(using: detailsStorage).attrString.wholeRange
         )
     }
     
@@ -108,7 +108,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
-        guard let model = document.rootModel?.blocksContainer.model(id: blockId) else {
+        guard let model = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Can't find block with id: \(blockId)")
             return nil
         }

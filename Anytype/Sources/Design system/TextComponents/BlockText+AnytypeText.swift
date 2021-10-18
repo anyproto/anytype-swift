@@ -1,7 +1,12 @@
 import BlocksModels
 
 extension BlockText {
-    var anytypeText: UIKitAnytypeText {
-        return AttributedTextConverter.asModel(text: text, marks: marks, style: contentType)
+    func anytypeText(using detailsStorage: ObjectDetailsStorageProtocol) -> UIKitAnytypeText {
+        AttributedTextConverter.asModel(
+            text: text,
+            marks: marks,
+            style: contentType,
+            detailsStorage: detailsStorage
+        )
     }
 }

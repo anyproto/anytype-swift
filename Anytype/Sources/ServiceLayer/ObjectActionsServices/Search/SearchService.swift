@@ -3,18 +3,18 @@ import Combine
 import BlocksModels
 
 protocol SearchServiceProtocol {
-    func search(text: String) -> [DetailsDataProtocol]?
-    func searchArchivedPages() -> [DetailsDataProtocol]?
-    func searchHistoryPages() -> [DetailsDataProtocol]?
-    func searchSets() -> [DetailsDataProtocol]?
+    func search(text: String) -> [ObjectDetails]?
+    func searchArchivedPages() -> [ObjectDetails]?
+    func searchHistoryPages() -> [ObjectDetails]?
+    func searchSets() -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
-    func search(text: String) -> [DetailsDataProtocol]? {
+    func search(text: String) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastOpenedDate,
+            relation: ObjectDetailsItemKey.lastOpenedDate,
             type: .desc
         )
         
@@ -30,9 +30,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchArchivedPages() -> [DetailsDataProtocol]? {
+    func searchArchivedPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastModifiedDate,
+            relation: ObjectDetailsItemKey.lastModifiedDate,
             type: .desc
         )
         
@@ -53,9 +53,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchHistoryPages() -> [DetailsDataProtocol]? {
+    func searchHistoryPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastModifiedDate,
+            relation: ObjectDetailsItemKey.lastModifiedDate,
             type: .desc
         )
         let filters = [
@@ -75,9 +75,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchSets() -> [DetailsDataProtocol]? {
+    func searchSets() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: DetailsKind.lastOpenedDate,
+            relation: ObjectDetailsItemKey.lastOpenedDate,
             type: .desc
         )
         let filters = [
@@ -105,7 +105,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         limit: Int32,
         objectTypeFilter: [String],
         keys: [String]
-    ) -> [DetailsDataProtocol]? {
+    ) -> [ObjectDetails]? {
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
@@ -117,15 +117,19 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             ignoreWorkspace: false
         ).getValue() else { return nil }
             
-        let details: [DetailsData] = response.records.compactMap {
-            let rawDetails = DetailsEntryConverter.convert(details: $0.fields)
-            return DetailsData(rawDetails: rawDetails)
-        }
-        
-        details.forEach { detail in
-            DetailsContainer.shared.add(
-                model: LegacyDetailsModel(detailsData: detail),
-                id: detail.blockId
+        let details: [ObjectDetails] = response.records.compactMap { search in
+            let idValue = search.fields["id"]
+            let idString = idValue?.unwrapedListValue.stringValue
+            
+            guard
+                let id = idString,
+                id.isNotEmpty
+            else { return nil }
+            
+            let rawDetails = MiddlewareDetailsConverter.convertMiddlewareDetailsDictionary(search.fields)
+            return ObjectDetails(
+                id: id,
+                rawDetails: rawDetails
             )
         }
             
