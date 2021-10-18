@@ -49,7 +49,10 @@ final class EditorPageAssembly {
             objectId: document.objectId
         )
         
-        let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
+        let markupChanger = BlockMarkupChanger(
+            blocksContainer: document.blocksContainer,
+            detailsStorage: document.detailsStorage
+        )
         
         let blockActionHandler = BlockActionHandler(
             modelsHolder: modelsHolder,
@@ -82,7 +85,10 @@ final class EditorPageAssembly {
             accessorySwitcher: accessorySwitcher
         )
          
-        let wholeBlockMarkupViewModel = MarkupViewModel(actionHandler: editorBlockActionHandler)
+        let wholeBlockMarkupViewModel = MarkupViewModel(
+            actionHandler: editorBlockActionHandler,
+            detailsStorage: document.detailsStorage
+        )
         
         let headerBuilder = ObjectHeaderBuilder(
             settingsViewModel: objectSettinsViewModel,

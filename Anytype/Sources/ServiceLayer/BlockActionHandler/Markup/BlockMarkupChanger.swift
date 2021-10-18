@@ -6,9 +6,14 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     var handler: EditorActionHandlerProtocol!
     
     private let blocksContainer: BlockContainerModelProtocol
-
-    init(blocksContainer: BlockContainerModelProtocol) {
+    private let detailsStorage: ObjectDetailsStorageProtocol
+    
+    init(
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorageProtocol
+    ) {
         self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
     }
     
     func toggleMarkup(
@@ -20,9 +25,9 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         
         toggleMarkup(
             markup,
-            attributedText: blockText.anytypeText.attrString,
+            attributedText: blockText.anytypeText(using: detailsStorage).attrString,
             for: blockId,
-            in: blockText.anytypeText.attrString.wholeRange
+            in: blockText.anytypeText(using: detailsStorage).attrString.wholeRange
         )
     }
     
