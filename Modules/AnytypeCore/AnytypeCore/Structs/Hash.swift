@@ -5,7 +5,7 @@
 //  Created by Konstantin Mordan on 06.10.2021.
 //
 
-public struct Hash {
+public struct Hash: Hashable {
     
     public let value: String
     

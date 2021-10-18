@@ -11,7 +11,7 @@ extension LoggerCategory {
 }
 
 final class BlockActionService: BlockActionServiceProtocol {
-    private var documentId: BlockId
+    private let documentId: BlockId
 
     private var subscriptions: [AnyCancellable] = []
     private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
@@ -20,8 +20,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let listService = BlockListService()
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
-
-    private var didReceiveEvent: (PackOfEvents) -> () = { _  in }
 
     init(documentId: String) {
         self.documentId = documentId
@@ -32,16 +30,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     /// - Parameters:
     ///   - events: Event to handle
     func receivelocalEvents(_ events: [LocalEvent]) {
-        didReceiveEvent(PackOfEvents(localEvents: events))
-    }
-
-    func configured(documentId: String) -> Self {
-        self.documentId = documentId
-        return self
-    }
-
-    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) {
-        self.didReceiveEvent = didReceiveEvent
+        EventsBunch(objectId: documentId, localEvents: events).send()
     }
 
     // MARK: Actions/Add
@@ -54,8 +43,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard let response = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
         
-        let event = shouldSetFocusOnUpdate ? response.addEvent : response.defaultEvent
-        didReceiveEvent(event)
+        let event = shouldSetFocusOnUpdate ? response.addEvent : response.asEventsBunch
+        event.send()
     }
 
     func split(
@@ -93,32 +82,39 @@ final class BlockActionService: BlockActionServiceProtocol {
             mode: mode
         ) else { return }
             
-        let allEvents = PackOfEvents(
+        EventsBunch(
+            objectId: documentId,
             middlewareEvents: splitSuccess.responseEvent.messages,
             localEvents: [
                 .setFocus(blockId: splitSuccess.blockId, position: .beginning)
             ]
-       )
-        didReceiveEvent(allEvents)
+        ).send()
     }
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
-            .flatMap { didReceiveEvent(PackOfEvents(middlewareEvents: $0.messages)) }
+            .duplicate(
+                contextId: documentId,
+                targetId: blockId,
+                blockIds: [blockId],
+                position: .bottom
+            )
+            .flatMap {
+                EventsBunch(objectId: documentId, middlewareEvents: $0.messages).send()
+            }
     }
 
     func createPage(position: BlockPosition) {
        guard let response = pageService.createPage(
             contextID: documentId,
             targetID: "",
-            details: [.name: DetailsEntry(value: "")],
+            details: [.name("")],
             position: position,
             templateID: ""
        ) else { return }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
@@ -143,22 +139,35 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard let response = textService.checked(contextId: documentId, blockId: blockId, newValue: newValue) else {
             return
         }
-        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
+        EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
     }
     
-    func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents)) {
-        guard let response = singleService.delete(contextId: documentId, blockIds: [blockId]) else {
+    func delete(blockId: BlockId, previousBlockId: BlockId?) {
+        guard
+            let response = singleService.delete(
+                contextId: documentId,
+                blockIds: [blockId]
+            )
+        else {
             return
         }
-
-        didReceiveEvent(completion(response))
+        
+        let localEvents: [LocalEvent] = previousBlockId.flatMap {
+            [ .setFocus(blockId: $0, position: .end) ]
+        } ?? []
+        
+        EventsBunch(
+            objectId: documentId,
+            middlewareEvents: response.messages,
+            localEvents: localEvents
+        ).send()
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
         guard let response = listService.setFields(contextId: contextID, fields: blockFields) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        response.asEventsBunch.send()
     }
 }
 
@@ -168,7 +177,7 @@ private extension BlockActionService {
         guard let response = listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        response.asEventsBunch.send()
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
@@ -176,8 +185,8 @@ private extension BlockActionService {
             return
         }
         
-        let events = shouldFocus ? response.turnIntoTextEvent : response.defaultEvent
-        didReceiveEvent(events)
+        let events = shouldFocus ? response.turnIntoTextEvent : response.asEventsBunch
+        events.send()
     }
 }
 
@@ -190,8 +199,8 @@ extension BlockActionService {
                     return
                 }
             
-        let events = response.defaultEvent.enrichedWith(localEvents: localEvents)
-        didReceiveEvent(events)
+        let events = response.asEventsBunch.enrichedWith(localEvents: localEvents)
+        events.send()
     }
 }
 
@@ -203,7 +212,7 @@ extension BlockActionService {
         guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        response.asEventsBunch.send()
     }
 }
 
@@ -218,7 +227,7 @@ extension BlockActionService {
         guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
             return
         }
-        didReceiveEvent(response.defaultEvent)
+        response.asEventsBunch.send()
     }
 }
 
@@ -231,8 +240,8 @@ extension BlockActionService {
             contextID: self.documentId,
             blockID: blockId
         )
-            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] serviceSuccess in
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
+            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { serviceSuccess in
+                serviceSuccess.asEventsBunch.send()
         }.store(in: &self.subscriptions)
     }
 }

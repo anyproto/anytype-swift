@@ -7,7 +7,7 @@ extension BlockLinkState {
         case icon(ObjectIconType)
         case checkmark(Bool)
         
-        init(details: DetailsDataProtocol) {
+        init(details: ObjectDetails) {
             if let objectIcon = details.icon {
                 self = .icon(objectIcon)
                 return
@@ -18,7 +18,7 @@ extension BlockLinkState {
                 return
             }
             
-            self = .checkmark(details.done ?? false)
+            self = .checkmark(details.isDone)
         }
     }
     
@@ -32,12 +32,12 @@ struct BlockLinkState: Hashable, Equatable {
     let style: Style
     let type: ObjectType?
     
-    init(pageDetails: DetailsDataProtocol) {        
+    init(pageDetails: ObjectDetails) {
         self.init(
             archived: pageDetails.isArchived ?? false,
             title: pageDetails.name ?? "",
             style: Style(details: pageDetails),
-            typeUrl: pageDetails.typeUrl
+            typeUrl: pageDetails.type
         )
     }
     

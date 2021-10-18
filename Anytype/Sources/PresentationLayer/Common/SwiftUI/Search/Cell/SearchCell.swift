@@ -1,21 +1,18 @@
 import SwiftUI
 import AnytypeCore
+import BlocksModels
 
 struct SearchCell: View {
-    let data: SearchCellData
+    let data: ObjectDetails
     
     private var haveDescription: Bool {
-        guard let description = data.description else {
-            return false
-        }
-        
-        return description.isNotEmpty
+        data.description.isNotEmpty
     }
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             SwiftUIObjectIconImageView(
-                iconImage: data.icon,
+                iconImage: data.searchIcon,
                 usecase: .dashboardSearch
             ).frame(width: 48, height: 48)
             Spacer.fixedWidth(12)
@@ -30,7 +27,7 @@ struct SearchCell: View {
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(haveDescription ? 7 : 14)
-            AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(data.searchTitle, style: .previewTitle2Medium, color: .textPrimary)
                 .lineLimit(1)
             Spacer.fixedHeight(1)
             description
@@ -53,7 +50,7 @@ struct SearchCell: View {
     
     private var type: some View {
         AnytypeText(
-            data.type,
+            data.searchType,
             style: haveDescription ? .relation3Regular : .relation2Regular,
             color: .textSecondary
         )
@@ -61,14 +58,27 @@ struct SearchCell: View {
     }
 }
 
-import BlocksModels
-struct SearchCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ScrollView {
-            ForEach(SearchCellDataMock.data) { data in
-                SearchCell(data: data)
-            }
-        }
-        .background(Color.background)
+private extension ObjectDetails {
+    
+    var searchTitle: String {
+        self.name.isEmpty ? "Untitled".localized : self.name
     }
+    
+    var searchIcon: ObjectIconImage {
+        let layout = self.layout
+        if layout == .todo {
+            return .todo(self.isDone)
+        } else {
+            return self.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
+        }
+    }
+    
+    var searchType: String {
+        if let type = self.objectType?.name, !type.isEmpty {
+            return type
+        } else {
+            return "Page".localized
+        }
+    }
+    
 }

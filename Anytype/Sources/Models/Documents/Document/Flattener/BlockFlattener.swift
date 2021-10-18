@@ -40,43 +40,6 @@ import BlocksModels
 /// ```
 ///
 final class BlockFlattener {
-    
-    /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
-    /// It is like a "opening all nested folders" in a parent folder.
-    ///
-    /// - Parameters:
-    ///   - model: Model ( or Root ) from which we would like to start.
-    ///   - container: A container in which we will find items.
-    ///   - options: Options
-    /// - Returns: A list of block ids.
-    private static func flatten(root model: BlockModelProtocol,
-                                in container: RootBlockContainer,
-                                options: BlockFlattenerOptions) -> [BlockId] {
-        var result: Array<BlockId> = .init()
-        let stack: DataStructures.Stack<BlockId> = .init()
-        stack.push(model.information.id)
-        var isInRootModel = true
-        
-        while !stack.isEmpty {
-            if let value = stack.pop() {
-                /// Various flatteners?
-                if self.shouldKeep(item: value, in: container) {
-                    result.append(value)
-                }
-                
-                /// Do numbered stuff?
-                let children = self.filteredChildren(of: value,
-                                                     in: container,
-                                                     shouldCheckIsToggleOpened: isInRootModel ? options.shouldCheckIsRootToggleOpened : true)
-                options.normalizers.forEach { $0.normalize(children, in: container) }
-                for item in children.reversed() {
-                    stack.push(item)
-                }
-                isInRootModel = false
-            }
-        }
-        return result
-    }
             
     /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
     /// It is like a "opening all nested folders" in a parent folder.
@@ -85,12 +48,17 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of active models.
-    static func flatten(root model: BlockModelProtocol, in container: RootBlockContainer, options: BlockFlattenerOptions) -> [BlockModelProtocol] {
-        let ids = flattenIds(root: model,
-                              in: container,
-                              options: options)
-         let blocksContainer = container.blocksContainer
-         return ids.compactMap { blocksContainer.model(id: $0) }
+    static func flatten(
+        root model: BlockModelProtocol,
+        in blocksContainer: BlockContainerModelProtocol,
+        options: BlockFlattenerOptions
+    ) -> [BlockModelProtocol] {
+        let ids = flattenIds(
+            root: model,
+            in: blocksContainer,
+            options: options
+        )
+        return ids.compactMap { blocksContainer.model(id: $0) }
     }
     
     /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
@@ -100,25 +68,37 @@ final class BlockFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of block ids.
-    @discardableResult static func flattenIds(root model: BlockModelProtocol,
-                                              in container: RootBlockContainer,
-                                              options: BlockFlattenerOptions) -> [BlockId] {
+    @discardableResult
+    static func flattenIds(
+        root model: BlockModelProtocol,
+        in blocksContainer: BlockContainerModelProtocol,
+        options: BlockFlattenerOptions
+    ) -> [BlockId] {
         /// TODO: Fix it.
         /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
         /// There is no need to skip first block ( or parent block ) if it is already skipped by `ShouldKeep`.
         ///
         /// But for any other parent block it will work properly.
         ///
-        let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.information.id, in: container)
+        let rootItemIsAlreadySkipped = !self.shouldKeep(
+            item: model.information.id,
+            in: blocksContainer
+        )
         if options.shouldIncludeRootNode || rootItemIsAlreadySkipped {
-            return self.flatten(root: model,
-                                in: container,
-                                options: options)
+            return self.flatten(
+                root: model,
+                in: blocksContainer,
+                options: options
+            )
         }
         else {
-            return Array(self.flatten(root: model,
-                                      in: container,
-                                      options: options).dropFirst())
+            return Array(
+                self.flatten(
+                    root: model,
+                    in: blocksContainer,
+                    options: options
+                ).dropFirst()
+            )
         }
     }
 }
@@ -131,8 +111,11 @@ private extension BlockFlattener {
     ///   - item: Id of current item.
     ///   - container: Container.
     /// - Returns: A condition if we would like to keep item in list.
-    private static func shouldKeep(item: BlockId, in container: RootBlockContainer) -> Bool {
-        guard let model = container.blocksContainer.model(id: item) else {
+    static func shouldKeep(
+        item: BlockId,
+        in blocksContainer: BlockContainerModelProtocol
+    ) -> Bool {
+        guard let model = blocksContainer.model(id: item) else {
             return false
         }
         switch model.information.content {
@@ -149,17 +132,70 @@ private extension BlockFlattener {
     ///   - container: Container.
     ///   - shouldCheckIsToggleOpened: Should check opened state for toggle bocks
     /// - Returns: Filtered children of an item.
-    private static func filteredChildren(of item: BlockId,
-                                         in container: RootBlockContainer,
-                                         shouldCheckIsToggleOpened: Bool) -> [BlockId] {
-        guard let model = container.blocksContainer.model(id: item) else {
+    static func filteredChildren(
+        of item: BlockId,
+        in blocksContainer: BlockContainerModelProtocol,
+        shouldCheckIsToggleOpened: Bool
+    ) -> [BlockId] {
+        guard let model = blocksContainer.model(id: item) else {
             return []
         }
         switch model.information.content {
         case let .text(value) where value.contentType == .toggle:
-                return ToggleFlattener(shouldCheckToggleFlag: shouldCheckIsToggleOpened).processedChildren(item,
-                                                                                                           in: container)
-        default: return container.blocksContainer.children(of: item)
+            return ToggleFlattener(
+                shouldCheckToggleFlag: shouldCheckIsToggleOpened
+            ).processedChildren(
+                item,
+                in: blocksContainer
+            )
+        default:
+            return blocksContainer.children(of: item)
         }
+    }
+    
+    /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
+    /// It is like a "opening all nested folders" in a parent folder.
+    ///
+    /// - Parameters:
+    ///   - model: Model ( or Root ) from which we would like to start.
+    ///   - container: A container in which we will find items.
+    ///   - options: Options
+    /// - Returns: A list of block ids.
+    static func flatten(
+        root model: BlockModelProtocol,
+        in blocksContainer: BlockContainerModelProtocol,
+        options: BlockFlattenerOptions
+    ) -> [BlockId] {
+        var result: Array<BlockId> = .init()
+        let stack: DataStructures.Stack<BlockId> = .init()
+        stack.push(model.information.id)
+        var isInRootModel = true
+        
+        while !stack.isEmpty {
+            if let value = stack.pop() {
+                /// Various flatteners?
+                if self.shouldKeep(item: value, in: blocksContainer) {
+                    result.append(value)
+                }
+                
+                /// Do numbered stuff?
+                let children = self.filteredChildren(
+                    of: value,
+                    in: blocksContainer,
+                    shouldCheckIsToggleOpened: isInRootModel ? options.shouldCheckIsRootToggleOpened : true
+                )
+                options.normalizers.forEach {
+                    $0.normalize(
+                        children,
+                        in: blocksContainer
+                    )
+                }
+                for item in children.reversed() {
+                    stack.push(item)
+                }
+                isInRootModel = false
+            }
+        }
+        return result
     }
 }

@@ -11,14 +11,13 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let accessorySwitcher: AccessoryViewSwitcherProtocol
-    private let detailsLoader: DetailsLoader
+
     init(
         document: BaseDocumentProtocol,
         editorActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        accessorySwitcher: AccessoryViewSwitcherProtocol,
-        detailsLoader: DetailsLoader
+        accessorySwitcher: AccessoryViewSwitcherProtocol
     ) {
         self.document = document
         self.editorActionHandler = editorActionHandler
@@ -29,19 +28,18 @@ final class BlockViewModelBuilder {
             router: router
         )
         self.accessorySwitcher = accessorySwitcher
-        self.detailsLoader = detailsLoader
     }
 
-    func build(_ blocks: [BlockModelProtocol], details: DetailsDataProtocol?) -> [BlockViewModelProtocol] {
+    func build(_ blocks: [BlockModelProtocol], currentObjectDetails: ObjectDetails?) -> [BlockViewModelProtocol] {
         var previousBlock: BlockModelProtocol?
         return blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(block, details: details, previousBlock: previousBlock)
+            let blockViewModel = build(block, currentObjectDetails: currentObjectDetails, previousBlock: previousBlock)
             previousBlock = block
             return blockViewModel
         }
     }
 
-    func build(_ block: BlockModelProtocol, details: DetailsDataProtocol?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
+    func build(_ block: BlockModelProtocol, currentObjectDetails: ObjectDetails?, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
@@ -49,6 +47,7 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     block: block,
                     content: content,
+                    detailsStorage: document.detailsStorage,
                     contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
@@ -74,7 +73,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? details?.layout == .todo : false
+                let isCheckable = content.contentType == .title ? currentObjectDetails?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
                     upperBlock: previousBlock,
@@ -84,6 +83,7 @@ final class BlockViewModelBuilder {
                     blockDelegate: delegate,
                     actionHandler: editorActionHandler,
                     accessorySwitcher: accessorySwitcher,
+                    detailsStorage: document.detailsStorage,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
                     },
@@ -173,10 +173,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = detailsLoader.loadDetailsForBlockLink(
-                blockId: block.information.id,
-                targetBlockId: content.targetBlockID
-            )
+            let details = document.detailsStorage.get(id: content.targetBlockID)
             return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,

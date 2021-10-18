@@ -22,13 +22,13 @@ struct MentionObject {
         self.type = type
     }
     
-    init(searchResult: DetailsDataProtocol) {
+    init(searchResult: ObjectDetails) {
         self.init(
-            id: searchResult.blockId,
+            id: searchResult.id,
             objectIcon: searchResult.objectIcon,
             name: searchResult.mentionName,
             description: searchResult.description,
-            type: searchResult.type
+            type: searchResult.objectType
         )
     }
 }
@@ -45,7 +45,8 @@ extension MentionObject: Hashable {
     
 }
 
-extension DetailsDataProtocol {
+private extension ObjectDetails {
+    
     var objectIcon: ObjectIconImage {
         if let objectIcon = objectIconImage {
             return objectIcon
@@ -55,13 +56,7 @@ extension DetailsDataProtocol {
     }
     
     var mentionName: String {
-        let name = name ?? ""
         return name.isEmpty ? "Untitled".localized : name
     }
     
-    var type: ObjectType? {
-        let type = ObjectTypeProvider.objectType(url: typeUrl)
-        anytypeAssert(type != nil, "Cannot parse type :\(String(describing: typeUrl)))")
-        return type
-    }
 }

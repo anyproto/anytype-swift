@@ -23,10 +23,13 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
     
     func onEmptySpotTap() {
-        guard let block = document.rootActiveModel, let parentId = document.documentId else {
+        guard let block = document.blocksContainer.model(id: document.objectId) else {
             return
         }
-        handleAction(.createEmptyBlock(parentId: parentId), blockId: block.information.id)
+        handleAction(
+            .createEmptyBlock(parentId: document.objectId),
+            blockId: block.information.id
+        )
     }
     
     func uploadMediaFile(
@@ -34,29 +37,31 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         type: MediaPickerContentType,
         blockId: ActionHandlerBlockIdSource
     ) {
-        guard let objectId = document.documentId else { return }
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        document.handle(events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId)))
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: BlockMediaUploadingWorker(
-                objectId: objectId,
+                objectId: document.objectId,
                 blockId: blockId,
                 contentType: type
             )
         )
-        
         fileUploadingDemon.addOperation(operation)
     }
     
     func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        document.handle(
-            events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
         
         blockActionHandler.upload(blockId: blockId, filePath: localPath)
     }
@@ -79,14 +84,8 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         }
     }
 
-    func handleActions(_ actions: [BlockHandlerActionType], blockId: BlockId) {
-        actions.forEach { handleAction($0, blockId: blockId) }
-    }
-    
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
-        blockActionHandler.handleBlockAction(action, blockId: blockId) { [weak self] events in
-            self?.document.handle(events: events)
-        }
+        blockActionHandler.handleBlockAction(action, blockId: blockId)
     }
     
     // MARK: - Private

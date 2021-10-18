@@ -33,19 +33,13 @@ extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
         detailsService.update(
-            details: [
-                .coverType: DetailsEntry(value: CoverType.color),
-                .coverId: DetailsEntry(value: colorName)
-            ]
+            details: [.coverType(CoverType.color), .coverId(colorName)]
         )
     }
     
     func setGradient(_ gradientName: String) {
         detailsService.update(
-            details: [
-                .coverType: DetailsEntry(value: CoverType.gradient),
-                .coverId: DetailsEntry(value: gradientName)
-            ]
+            details: [.coverType(CoverType.gradient), .coverId(gradientName)]
         )
     }
     
@@ -63,10 +57,7 @@ extension ObjectCoverPickerViewModel {
     
     func removeCover() {
         detailsService.update(
-            details: [
-                .coverType: DetailsEntry(value: CoverType.none),
-                .coverId: DetailsEntry(value: "")
-            ]
+            details: [.coverType(CoverType.none), .coverId("")]
         )
     }
     

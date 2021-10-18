@@ -6,9 +6,9 @@ import BlocksModels
 final class ObjectActionsViewModel: ObservableObject {
     private let archiveService: OtherObjectActionsService
 
-    @Published var details: DetailsDataProtocol = DetailsData.empty {
+    @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: []) {
         didSet {
-            objectActions = details.rawDetails.isEmpty ? [] : ObjectAction.allCasesWith(details: details)
+            objectActions = ObjectAction.allCasesWith(details: details)
         }
     }
     @Published var objectActions: [ObjectAction] = []

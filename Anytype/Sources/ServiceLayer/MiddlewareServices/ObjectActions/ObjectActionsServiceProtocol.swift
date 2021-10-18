@@ -22,17 +22,13 @@ struct CreatePageResponse {
 protocol ObjectActionsServiceProtocol {
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
     
-    func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?
-    /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-    func asyncSetDetails(
-        contextID: BlockId, details: RawDetailsData
-    ) -> AnyPublisher<ResponseEvent, Error>
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> MiddlewareResponse?
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: RawDetailsData,
+        details: ObjectRawDetails,
         position: BlockPosition,
         templateID: String
     ) -> CreatePageResponse?
@@ -43,5 +39,5 @@ protocol ObjectActionsServiceProtocol {
         blockId: BlockId,
         dropPositionblockId: BlockId,
         position: Anytype_Model_Block.Position
-    ) -> ResponseEvent?
+    ) -> MiddlewareResponse?
 }

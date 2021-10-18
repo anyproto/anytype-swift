@@ -12,14 +12,14 @@ enum ObjectAction: Hashable, Identifiable {
 //    case search
 
     // When adding to case
-    static func allCasesWith(details: DetailsDataProtocol) -> [Self] {
+    static func allCasesWith(details: ObjectDetails) -> [Self] {
         var allCases: [ObjectAction] = []
 
         // We shouldn't allow archive for profile
-        if details.typeUrl != ObjectTypeProvider.myProfileURL {
-            allCases.append(.archive(isArchived: details.isArchived ?? false))
+        if details.type != ObjectTypeProvider.myProfileURL {
+            allCases.append(.archive(isArchived: details.isArchived))
         }
-        allCases.append(.favorite(isFavorite: details.isFavorite ?? false))
+        allCases.append(.favorite(isFavorite: details.isFavorite))
 //        allCases.append(.moveTo)
 //        allCases.append(.template)
 //        allCases.append(.search)

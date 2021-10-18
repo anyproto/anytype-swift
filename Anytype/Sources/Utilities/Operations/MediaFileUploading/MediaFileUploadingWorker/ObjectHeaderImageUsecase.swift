@@ -26,18 +26,13 @@ extension ObjectHeaderImageUsecase {
         }
     }
     
-    func updatedDetails(with imageHash: Hash) -> RawDetailsData {
+    func updatedDetails(with imageHash: Hash) -> ObjectRawDetails {
         switch self {
         case .icon:
-            return [
-                .iconEmoji: DetailsEntry(value: ""),
-                .iconImage: DetailsEntry(value: imageHash.value)
-            ]
+            return [.iconEmoji(""), .iconImageHash(imageHash)]
         case .cover:
-            return [
-                .coverType: DetailsEntry(value: CoverType.uploadedImage),
-                .coverId: DetailsEntry(value: imageHash.value)
-            ]
+            return [.coverType(CoverType.uploadedImage), .coverId(imageHash.value)]
+
         }
     }
     

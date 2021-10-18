@@ -20,21 +20,25 @@ final class HomeViewModel: ObservableObject {
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-
+    
+    private let configurationService = MiddlewareConfigurationService.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     
-    private var subscriptions = [AnyCancellable]()
-
-    let document: BaseDocumentProtocol = BaseDocument()
+    let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
     private var animationsEnabled = true
     
     init() {
-        fetchDashboardData()
+        let homeBlockId = configurationService.configuration().homeBlockID
+        document = BaseDocument(objectId: homeBlockId)
+        document.onUpdateReceive = { [weak self] updateResult in
+            self?.onDashboardChange(updateResult: updateResult)
+        }
+        document.open()
     }
 
     // MARK: - View output
@@ -60,24 +64,16 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    private func fetchDashboardData() {        
-        guard let response = dashboardService.openDashboard() else { return }
-        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
-            self?.onDashboardChange(updateResult: updateResult)
-        }.store(in: &self.subscriptions)
-        
-        document.open(response)
-    }
     
-    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
+    private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
-            switch updateResult.updates {
+            switch updateResult {
             case .general:
                 favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
-            case .update(let blockIds):
+            case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
-            case .details(let details):
-                updateFavoritesCellWithTargetId(details.blockId)
+            case .details(let detailId):
+                updateFavoritesCellWithTargetId(detailId)
             case .syncStatus:
                 break
             }
@@ -85,7 +81,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.getDetails(id: blockId)?.currentDetails else {
+        guard let newDetails = document.detailsStorage.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
@@ -93,7 +89,10 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                favoritesCellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+                favoritesCellData[offset] = cellDataBuilder.updatedCellData(
+                    newDetails: newDetails,
+                    oldData: data
+                )
             }
     }
 }
@@ -103,9 +102,10 @@ extension HomeViewModel {
     func createNewPage() {
         guard let response = dashboardService.createNewPage() else { return }
         
-        document.handle(
-            events: PackOfEvents(middlewareEvents: response.messages)
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            middlewareEvents: response.messages
+        ).send()
 
         guard !response.newBlockId.isEmpty else {
             anytypeAssertionFailure("No new block id in create new page response")
