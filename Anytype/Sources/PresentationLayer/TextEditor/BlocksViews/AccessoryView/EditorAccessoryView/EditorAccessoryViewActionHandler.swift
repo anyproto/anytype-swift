@@ -51,9 +51,7 @@ final class EditorAccessoryViewModel {
             
             delegate.showMentionsView()
         case .slashMenu:
-            textView.insertStringAfterCaret(
-                TextTriggerSymbols.slashMenu(prependSpace: shouldPrependSpace(textView: textView))
-            )
+            textView.insertStringAfterCaret(TextTriggerSymbols.slashMenu)
             
             handler.handleActionForFirstResponder(
                 .textView(
