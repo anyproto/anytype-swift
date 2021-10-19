@@ -6,7 +6,6 @@ struct FloaterAlertView: View {
     let cancelButtonData: StandardButtonData
     let destructiveButtonData: StandardButtonData
     
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)

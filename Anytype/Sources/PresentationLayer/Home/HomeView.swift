@@ -47,6 +47,11 @@ struct HomeView: View {
         .bottomFloater(isPresented: $showSettings) {
             viewModel.coordinator.settingsView().padding(8)
         }
+        .bottomFloater(isPresented: $viewModel.showDeletionAlert) {
+            DashboardDeletionAlert()
+        }
+        .animation(.ripple, value: viewModel.showDeletionAlert)
+        
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }
