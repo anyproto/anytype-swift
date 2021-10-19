@@ -94,6 +94,8 @@ struct HomeTabsView: View {
     }
     
     private func onTabSelection() {
+        model.selectAll(false)
+        
         switch tabSelection {
         case .favourites:
             // Analytics
