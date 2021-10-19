@@ -18,20 +18,20 @@ struct HomeTabsSelectionHeader: View {
                 }
             )
             Spacer()
-            AnytypeText("\(model.numberOfSelectedPages) \(objectsLiteral) selected", style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText("\(model.numberOfSelectedPages) \(objectsLiteral) \("selected".localized)", style: .uxTitle1Semibold, color: .textPrimary)
             Spacer()
             Button(
                 action: {
                     model.selectAll(false)
                     UISelectionFeedbackGenerator().selectionChanged()
                 }, label: {
-                    AnytypeText("Cancel", style: .uxBodyRegular, color: .textPrimary)
+                    AnytypeText("Cancel".localized, style: .uxBodyRegular, color: .textPrimary)
                 }
             )
         }
     }
     
     var objectsLiteral: String {
-        model.numberOfSelectedPages == 1 ? "object" : "objects"
+        model.numberOfSelectedPages == 1 ? "object".localized : "objects".localized
     }
 }
