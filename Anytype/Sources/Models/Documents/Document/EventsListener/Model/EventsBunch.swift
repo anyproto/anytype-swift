@@ -8,10 +8,7 @@ struct EventsBunch {
     let localEvents: [LocalEvent]
     
     func send() {
-        NotificationCenter.default.post(
-            name: .middlewareEvent,
-            object: self
-        )
+        NotificationCenter.default.post(name: .middlewareEvent, object: self)
     }
     
 }
@@ -28,6 +25,14 @@ extension EventsBunch {
         self.objectId = objectId
         self.middlewareEvents = []
         self.localEvents = localEvents
+    }
+    
+    init(event: Anytype_Event) {
+        self.init(objectId: event.contextID, middlewareEvents: event.messages)
+    }
+    
+    init(event: Anytype_ResponseEvent) {
+        self.init(objectId: event.contextID, middlewareEvents: event.messages)
     }
 }
 
