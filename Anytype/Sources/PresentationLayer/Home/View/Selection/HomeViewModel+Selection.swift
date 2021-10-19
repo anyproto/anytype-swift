@@ -31,6 +31,12 @@ extension HomeViewModel {
     }
     
     func deleteSelected() {
-        
+        showDeletionAlert = true
+    }
+    
+    func deleteConfirmation() {
+        // TODO: Delete
+        selectAll(false)
+        updateBinTab()
     }
 }
