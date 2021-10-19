@@ -12,6 +12,8 @@ struct HomeCellData: Identifiable {
     let isLoading: Bool
     let isArchived: Bool
     
+    var selected: Bool
+    
     static func create(searchResult: ObjectDetails) -> HomeCellData {
         HomeCellData(
             id: searchResult.id,
@@ -20,7 +22,8 @@ struct HomeCellData: Identifiable {
             title: searchResult.pageCellTitle,
             type: searchResult.objectType?.name ?? "Page".localized,
             isLoading: false,
-            isArchived: searchResult.isArchived
+            isArchived: searchResult.isArchived,
+            selected: false
         )
     }
 }

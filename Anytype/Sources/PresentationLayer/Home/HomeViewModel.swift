@@ -12,8 +12,12 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { $0.isArchived == false }
     }
     
-    @Published var binCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
+    
+    @Published var binCellData: [HomeCellData] = []
+    var isSelectionMode: Bool { binCellData.filter { $0.selected }.isNotEmpty }
+    var isAllSelected: Bool { binCellData.first { !$0.selected }.isNil }
+    var numberOfSelectedPages: Int { binCellData.filter { $0.selected }.count }
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
@@ -49,8 +53,6 @@ final class HomeViewModel: ObservableObject {
         animationsEnabled = true
     }
 
-    // MARK: - Private methods
-
     func updateBinTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
         withAnimation(animationsEnabled ? .spring() : nil) {
@@ -64,7 +66,22 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
+    func selectAll(_ select: Bool) {
+        binCellData.indices.forEach { index in
+            binCellData[index].selected = select
+        }
+    }
     
+    func select(data: HomeCellData) {
+        guard let index = binCellData.firstIndex(where: { $0.id == data.id }) else {
+            anytypeAssertionFailure("No page in bin for data: \(data)")
+            return
+        }
+        
+        binCellData[index].selected.toggle()
+    }
+    
+    // MARK: - Private methods
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {

@@ -10,7 +10,8 @@ struct HomeCellDataMock {
             title: .default(title: "Ubik"),
             type: "Book",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: false
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -19,7 +20,8 @@ struct HomeCellDataMock {
             title: .default(title: "The president’s American Family Plan, which remains in flux, does not currently include does not currently include does not currently include"),
             type: "Page",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: true
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -28,7 +30,8 @@ struct HomeCellDataMock {
             title: .default(title: "GridItem"),
             type: "Component",
             isLoading: true,
-            isArchived: true
+            isArchived: true,
+            selected: true
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -37,7 +40,8 @@ struct HomeCellDataMock {
             title: .todo(title: "DO IT!", isChecked: false),
             type: "Task",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: false
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -46,7 +50,8 @@ struct HomeCellDataMock {
             title: .default(title: "Neo"),
             type: "Character",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: false
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -55,7 +60,8 @@ struct HomeCellDataMock {
             title: .todo(title: "Relax", isChecked: true),
             type: "Character",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: false
         ),
         
         HomeCellData(
@@ -65,7 +71,8 @@ struct HomeCellDataMock {
             title: .default(title: "Main"),
             type: "Void",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: false
         ),
         
         HomeCellData(
@@ -75,7 +82,8 @@ struct HomeCellDataMock {
             title: .default(title: "Anton"),
             type: "Humanoid",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: true
         ),
         
         HomeCellData(
@@ -85,7 +93,8 @@ struct HomeCellDataMock {
             title: .todo(title: "TodoTodoTodoTodoTodoTodoTodoTodoTodo", isChecked: true),
             type: "Void",
             isLoading: false,
-            isArchived: true
+            isArchived: true,
+            selected: false
         )
     ]
 }

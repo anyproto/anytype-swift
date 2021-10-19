@@ -12,6 +12,7 @@ struct HomeCollectionView: View {
     let coordinator: HomeCoordinator
     let dragAndDropDelegate: DragAndDropDelegate?
     let offsetChanged: (CGPoint) -> Void
+    let onTap: (HomeCellData) -> Void
     
     @State private var dropData = DropData()
     @EnvironmentObject private var viewModel: HomeViewModel
@@ -32,7 +33,7 @@ struct HomeCollectionView: View {
             LazyVGrid(columns: columns) {
                 ForEach(cellData) { data in
                     Button(
-                        action: { viewModel.showPage(pageId: data.destinationId) },
+                        action: { onTap(data) },
                         label: { HomeCell(cellData: data) }
                     )
                     .disabled(data.isLoading)
@@ -58,6 +59,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], coordinator: ServiceLocator.shared.homeCoordinator(), dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in })
+        HomeCollectionView(cellData: [], coordinator: ServiceLocator.shared.homeCoordinator(), dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in }, onTap: { _ in })
     }
 }
