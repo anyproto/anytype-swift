@@ -115,7 +115,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
         selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
-        
+
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }
