@@ -11,11 +11,11 @@ class DashboardService: DashboardServiceProtocol {
     func createNewPage() -> CreatePageResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
         return objectsService.createPage(
-            contextID: "",
-            targetID: "",
+            contextId: "",
+            targetId: "",
             details: [.name(""), .isDraft(true)],
             position: .bottom,
-            templateID: ""
+            templateId: ""
         )
     }
 }

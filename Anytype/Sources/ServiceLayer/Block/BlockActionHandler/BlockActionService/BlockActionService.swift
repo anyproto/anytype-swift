@@ -106,11 +106,11 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func createPage(position: BlockPosition) {
        guard let response = pageService.createPage(
-            contextID: documentId,
-            targetID: "",
+            contextId: documentId,
+            targetId: "",
             details: [.name("")],
             position: position,
-            templateID: ""
+            templateId: ""
        ) else { return }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
