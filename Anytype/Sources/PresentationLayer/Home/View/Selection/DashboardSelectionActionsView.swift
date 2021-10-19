@@ -32,6 +32,7 @@ struct DashboardSelectionActionsView: View {
         HStack(alignment: .center, spacing: 0) {
             Button(action: {
                 UISelectionFeedbackGenerator().selectionChanged()
+                model.deleteSelected()
             }, label: {
                 AnytypeText("Delete".localized, style: .uxBodyRegular, color: .textPrimary)
             })
@@ -39,6 +40,7 @@ struct DashboardSelectionActionsView: View {
             
             Button(action: {
                 UISelectionFeedbackGenerator().selectionChanged()
+                model.restoreSelected()
             }, label: {
                 AnytypeText("Restore".localized, style: .uxBodyRegular, color: .textPrimary)
             })
