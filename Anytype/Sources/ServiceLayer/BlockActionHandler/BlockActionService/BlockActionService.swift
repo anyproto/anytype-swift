@@ -136,10 +136,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
-        guard let response = textService.checked(contextId: documentId, blockId: blockId, newValue: newValue) else {
-            return
-        }
-        EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
+        textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
     }
     
     func delete(blockId: BlockId, previousBlockId: BlockId?) {
@@ -188,13 +185,12 @@ private extension BlockActionService {
 
 extension BlockActionService {
     func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent]) {
-        guard let response = textService
+        guard let events = textService
                 .merge(contextId: documentId, firstBlockId: firstBlockId, secondBlockId: secondBlockId) else {
                     return
                 }
             
-        let events = response.asEventsBunch.enrichedWith(localEvents: localEvents)
-        events.send()
+        events.enrichedWith(localEvents: localEvents).send()
     }
 }
 
@@ -203,10 +199,7 @@ extension BlockActionService {
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
-        guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
-            return
-        }
-        response.asEventsBunch.send()
+        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
     }
 }
 

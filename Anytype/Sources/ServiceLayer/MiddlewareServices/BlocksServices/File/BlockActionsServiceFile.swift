@@ -60,18 +60,6 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             .flatMap { Hash($0.hash) }
     }
     
-    func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error> {
-        return Anytype_Rpc.UploadFile.Service.invoke(
-            url: "",
-            localPath: localPath,
-            type: FileContentType.image.asMiddleware,
-            disableEncryption: false // Deprecated
-        )
-            .compactMap { Hash($0.hash) }
-            .subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-    }
-    
     func fetchImageAsBlob(hash: String, wantWidth: Int32) -> Result<Data, Error> {
         Anytype_Rpc.Ipfs.Image.Get.Blob.Service.invoke(hash: hash, wantWidth: wantWidth)
             .map(\.blob)

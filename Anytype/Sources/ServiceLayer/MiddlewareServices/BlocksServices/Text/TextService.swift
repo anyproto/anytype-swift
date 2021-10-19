@@ -27,19 +27,7 @@ final class TextService: TextServiceProtocol {
             .getValue()
     }
     
-    @discardableResult
-    func setForegroundColor(contextId: String, blockId: String, color: String) -> MiddlewareResponse? {
-        Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextId, blockID: blockId, color: color)
-            .map { MiddlewareResponse($0.event) }
-            .getValue()
-    }
-    
-    func split(
-        contextId: BlockId,
-        blockId: BlockId, range: NSRange,
-        style: Style,
-        mode: Anytype_Rpc.Block.Split.Request.Mode
-    ) -> SplitSuccess? {
+    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> SplitSuccess? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
         return Anytype_Rpc.Block.Split.Service.invoke(
             contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
@@ -47,24 +35,21 @@ final class TextService: TextServiceProtocol {
             .getValue()
     }
 
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> MiddlewareResponse? {
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> EventsBunch? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
-        return Anytype_Rpc.Block.Merge.Service.invoke(
-            contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId
-        )
-            .map { MiddlewareResponse($0.event) }
+        return Anytype_Rpc.Block.Merge.Service
+            .invoke(contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
+            .map { EventsBunch(event: $0.event) }
             .getValue()
     }
     
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> MiddlewareResponse? {
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextChecked)
-        return Anytype_Rpc.Block.Set.Text.Checked.Service.invoke(
-            contextID: contextId,
-            blockID: blockId,
-            checked: newValue
-        )
-            .map { MiddlewareResponse($0.event) }
-            .getValue()
+        Anytype_Rpc.Block.Set.Text.Checked.Service
+            .invoke(contextID: contextId, blockID: blockId, checked: newValue)
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
     }
     
 }
