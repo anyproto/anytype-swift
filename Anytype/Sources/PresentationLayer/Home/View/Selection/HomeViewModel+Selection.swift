@@ -1,8 +1,10 @@
 import AnytypeCore
+import BlocksModels
 
 extension HomeViewModel {
     var isSelectionMode: Bool { binCellData.filter { $0.selected }.isNotEmpty }
     var isAllSelected: Bool { binCellData.first { !$0.selected }.isNil }
+    var selectedPageIds: [BlockId] { binCellData.filter { $0.selected }.map { $0.id } }
     var numberOfSelectedPages: Int { binCellData.filter { $0.selected }.count }
     
     func selectAll(_ select: Bool) {
@@ -18,5 +20,17 @@ extension HomeViewModel {
         }
         
         binCellData[index].selected.toggle()
+    }
+    
+    func restoreSelected() {
+        selectedPageIds.forEach {
+            objectActionsService.setArchive(objectId: $0, false)
+        }
+        selectAll(false)
+        updateBinTab()
+    }
+    
+    func deleteSelected() {
+        
     }
 }
