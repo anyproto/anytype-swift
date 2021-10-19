@@ -8,6 +8,14 @@ import AnytypeCore
 
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
+    func setArchive(objectId: String, _ isArchived: Bool) {
+        _ = Anytype_Rpc.Object.SetIsArchived.Service.invoke(contextID: objectId, isArchived: isArchived)
+    }
+
+    func setFavorite(objectId: String, _ isFavorite: Bool) {
+        _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
+    }
+    
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     func createPage(
         contextID: BlockId,
