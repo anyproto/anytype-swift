@@ -164,20 +164,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
-        guard let response = listService.setFields(contextId: contextID, fields: blockFields) else {
-            return
-        }
-        response.asEventsBunch.send()
+        listService.setFields(contextId: contextID, fields: blockFields)
     }
 }
 
 private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
-        guard let response = listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style) else {
-            return
-        }
-        response.asEventsBunch.send()
+        listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
@@ -224,10 +218,7 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
-            return
-        }
-        response.asEventsBunch.send()
+        listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color)
     }
 }
 
