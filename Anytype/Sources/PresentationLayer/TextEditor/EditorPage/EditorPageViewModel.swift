@@ -59,7 +59,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         document.onUpdateReceive = { [weak self] updateResult in
             self?.handleUpdate(updateResult: updateResult)
-            
         }
     }
     
@@ -86,6 +85,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
+            details.flatMap { objectSettingsViewModel.update(with: $0) } 
             
             viewInput?.update(header: header, details: details)
         case let .blocks(updatedIds):
@@ -110,9 +110,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             currentObjectDetails: document.objectDetails
         )
         
-        handleGeneralUpdate(
-            with: blocksViewModels
-        )
+        handleGeneralUpdate(with: blocksViewModels)
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels)
     }
