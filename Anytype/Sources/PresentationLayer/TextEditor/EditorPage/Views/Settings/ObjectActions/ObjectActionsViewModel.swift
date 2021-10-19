@@ -4,7 +4,8 @@ import BlocksModels
 
 
 final class ObjectActionsViewModel: ObservableObject {
-    private let archiveService: OtherObjectActionsService
+    private let service = ObjectActionsService()
+    private let objectId: BlockId
 
     @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: []) {
         didSet {
@@ -14,17 +15,15 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectActions: [ObjectAction] = []
 
     init(objectId: String) {
-        self.archiveService = OtherObjectActionsService(objectId: objectId)
+        self.objectId = objectId
     }
 
     func changeArchiveState() {
-        let isArchived = details.isArchived ?? false
-        archiveService.setArchive(!isArchived)
+        service.setArchive(objectId: objectId, !details.isArchived)
     }
 
     func changeFavoriteSate() {
-        let isFavorite = details.isFavorite ?? false
-        archiveService.setFavorite(!isFavorite)
+        service.setFavorite(objectId: objectId, !details.isFavorite)
     }
 
     func moveTo() {

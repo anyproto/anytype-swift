@@ -23,7 +23,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
 
+    private let blockActionsService: BlockActionsServiceSingle
+
     private var didAppearedOnce = false
+
 
     // MARK: - Initialization
     init(
@@ -36,7 +39,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
-        headerBuilder: ObjectHeaderBuilder
+        headerBuilder: ObjectHeaderBuilder,
+        blockActionsService: BlockActionsServiceSingle
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -48,6 +52,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
+        self.blockActionsService = blockActionsService
         
         setupSubscriptions()
     }
@@ -59,7 +64,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         document.onUpdateReceive = { [weak self] updateResult in
             self?.handleUpdate(updateResult: updateResult)
-            
         }
     }
     
@@ -86,6 +90,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
+            details.flatMap { objectSettingsViewModel.update(with: $0) } 
             
             viewInput?.update(header: header, details: details)
         case let .blocks(updatedIds):
@@ -110,9 +115,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             currentObjectDetails: document.objectDetails
         )
         
-        handleGeneralUpdate(
-            with: blocksViewModels
-        )
+        handleGeneralUpdate(with: blocksViewModels)
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels)
     }
@@ -222,6 +225,10 @@ extension EditorPageViewModel {
         }
 
         didAppearedOnce = true
+    }
+
+    func viewWillDismiss() {
+        blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
     }
 }
 

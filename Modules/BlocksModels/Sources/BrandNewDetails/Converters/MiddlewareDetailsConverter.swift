@@ -105,6 +105,8 @@ public enum MiddlewareDetailsConverter {
                 return nil
             case .lastModifiedDate:
                 return nil
+            case .isDraft:
+                return .isDraft(unwrapedListValue.boolValue)
             }
         }
     }
@@ -139,6 +141,7 @@ private extension ObjectDetailsItem {
         case .layoutAlign: return .layoutAlign(ObjectDetailDefaultValue.layoutAlignment)
         case .isDone: return .isDone(ObjectDetailDefaultValue.bool)
         case .type: return .type(ObjectDetailDefaultValue.string)
+        case .isDraft: return .isDraft(ObjectDetailDefaultValue.bool)
         case .lastOpenedDate: return nil
         case .isHidden: return nil
         case .lastModifiedDate: return nil

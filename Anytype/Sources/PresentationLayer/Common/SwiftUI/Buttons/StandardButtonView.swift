@@ -3,17 +3,16 @@ import SwiftUI
 enum StandardButtonStyle {
     case primary
     case secondary
+    case destructive
     
     func backgroundColor(disabled: Bool) -> Color {
         switch self {
         case .secondary:
             return .buttonSecondary
         case .primary:
-            if disabled {
-                return .stroke
-            } else {
-                return .buttonPrimary
-            }
+            return disabled ? .stroke : .buttonPrimary
+        case .destructive:
+            return disabled ? .stroke : .pureRed
         }
     }
     
@@ -25,7 +24,7 @@ enum StandardButtonStyle {
             } else {
                 return .buttonSecondaryText
             }
-        case .primary:
+        case .primary, .destructive:
             if disabled {
                 return .white
             } else {
@@ -38,8 +37,17 @@ enum StandardButtonStyle {
         switch self {
         case .secondary:
             return .buttonSecondaryBorder
-        case .primary:
+        case .primary, .destructive:
             return nil
+        }
+    }
+    
+    var textFont: AnytypeFont {
+        switch self {
+        case .primary, .destructive:
+            return .button1Semibold
+        case .secondary:
+            return .button1Regular
         }
     }
 }
@@ -52,7 +60,7 @@ struct StandardButtonView: View {
     var body: some View {
         AnytypeText(
             text,
-            style: style == .primary ? .button1Semibold : .button1Regular,
+            style: style.textFont,
             color: style.textColor(disabled: disabled)
         )
         .frame(minWidth: 0, maxWidth: .infinity)
@@ -75,6 +83,8 @@ struct StandardButton_Previews: PreviewProvider {
             StandardButton(disabled: true ,text: "Secondary disabled", style: .secondary, action: {})
             StandardButton(disabled: false ,text: "Primary enabled", style: .primary, action: {})
             StandardButton(disabled: true ,text: "Primary disabled", style: .primary, action: {})
+            StandardButton(disabled: false ,text: "Destructive enabled", style: .destructive, action: {})
+            StandardButton(disabled: true ,text: "Destructive disabled", style: .destructive, action: {})
         }.padding()
     }
 }

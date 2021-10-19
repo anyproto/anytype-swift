@@ -3,7 +3,9 @@ import Amplitude
 import AnytypeCore
 
 struct HomeView: View {
-    @StateObject var viewModel: HomeViewModel
+    @ObservedObject var viewModel: HomeViewModel
+    
+    @StateObject private var settingsModel = SettingSectionViewModel()
     @StateObject private var accountData = AccountInfoDataAccessor()
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
@@ -13,6 +15,7 @@ struct HomeView: View {
         navigationView
             .environment(\.font, .defaultAnytype)
             .environmentObject(viewModel)
+            .environmentObject(settingsModel)
             .environmentObject(accountData)
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
@@ -47,6 +50,17 @@ struct HomeView: View {
         .bottomFloater(isPresented: $showSettings) {
             viewModel.coordinator.settingsView().padding(8)
         }
+        
+        .bottomFloater(isPresented: $viewModel.showDeletionAlert) {
+            DashboardDeletionAlert().padding(8)
+        }
+        .animation(.ripple, value: viewModel.showDeletionAlert)
+        
+        .bottomFloater(isPresented: $settingsModel.loggingOut) {
+            DashboardLogoutAlert().padding(8)
+        }
+        .animation(.ripple, value: settingsModel.loggingOut)
+        
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }

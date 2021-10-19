@@ -17,7 +17,7 @@ final class BrowserNavigationManager {
     
     private var state = State.default
     private var cachedChildrenCount = 0
-    
+
     func moveForwardOnce() -> Bool {
         guard case .default = state else { return false }
         
@@ -39,7 +39,7 @@ final class BrowserNavigationManager {
         guard let index = openedPages.firstIndex(of: page) else {
             throw BrowserNavigationManagerError.moveBack(page: page)
         }
-        
+
         state = .movingBack(index: index)
     }
     
@@ -107,5 +107,15 @@ final class BrowserNavigationManager {
         openedPages.append(page)
         closedPages = []
         cachedChildrenCount += 1
+    }
+}
+
+extension BrowserNavigationManager {
+    func pages(after page: BrowserPage) -> [BrowserPage] {
+        guard let index = openedPages.firstIndex(of: page) else {
+            return []
+        }
+
+        return Array(openedPages[index + 1...openedPages.count - 1])
     }
 }
