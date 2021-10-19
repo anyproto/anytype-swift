@@ -12,7 +12,7 @@ struct HomeCellData: Identifiable {
     let isLoading: Bool
     let isArchived: Bool
     
-    let selected: Bool
+    var selected: Bool
     
     static func create(searchResult: ObjectDetails) -> HomeCellData {
         HomeCellData(
@@ -24,16 +24,6 @@ struct HomeCellData: Identifiable {
             isLoading: false,
             isArchived: searchResult.isArchived,
             selected: false
-        )
-    }
-    
-    func withSelected(_ selected: Bool) -> Self {
-        if self.selected == selected { return self }
-        
-        return HomeCellData(
-            id: id, destinationId: destinationId, icon: icon,
-            title: title, type: type, isLoading: isLoading, isArchived: isArchived,
-            selected: selected
         )
     }
 }

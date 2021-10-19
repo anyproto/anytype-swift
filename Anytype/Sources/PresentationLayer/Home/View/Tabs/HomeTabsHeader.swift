@@ -10,7 +10,7 @@ struct HomeTabsHeader: View {
         // Scroll view hack, vibrancy effect do not work without it
         ScrollView([]) {
             Group {
-                if model.isSelection {
+                if model.isSelectionMode {
                     selectionHeader
                         .padding(.horizontal, 20)
                 } else {
@@ -27,11 +27,25 @@ struct HomeTabsHeader: View {
     
     private var selectionHeader: some View {
         HStack(spacing: 0) {
-            AnytypeText("Select all".localized, style: .uxBodyRegular, color: .textPrimary)
+            Button(action: {
+                model.selectAll(!model.isAllSelected)
+                UISelectionFeedbackGenerator().selectionChanged()
+            }, label: {
+                AnytypeText(
+                    model.isAllSelected ? "Deselect all".localized : "Select all".localized,
+                    style: .uxBodyRegular,
+                    color: .textPrimary
+                )
+            })
             Spacer()
-            AnytypeText("\(model.selectedPages.count) object selected", style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText("\(model.numberOfSelectedPages) object selected", style: .uxTitle1Semibold, color: .textPrimary)
             Spacer()
-            AnytypeText("Cancel", style: .uxBodyRegular, color: .textPrimary)
+            Button(action: {
+                model.selectAll(false)
+                UISelectionFeedbackGenerator().selectionChanged()
+            }, label: {
+                AnytypeText("Cancel", style: .uxBodyRegular, color: .textPrimary)
+            })
         }
     }
     
