@@ -319,6 +319,7 @@
 		3D2F9C24271EB6AA0043C326 /* CreatePageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C23271EB6AA0043C326 /* CreatePageResponse.swift */; };
 		3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */; };
 		3D2F9C42271F09590043C326 /* DashboardDeletionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C41271F09590043C326 /* DashboardDeletionAlert.swift */; };
+		3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C43271F106A0043C326 /* DashboardLogoutAlert.swift */; };
 		3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */; };
 		3D36B09726A6DE1C0046C90F /* ContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B09626A6DE1C0046C90F /* ContextualMenu.swift */; };
 		3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36B09926A6DE250046C90F /* ContextualMenu+Title.swift */; };
@@ -1012,6 +1013,7 @@
 		3D2F9C23271EB6AA0043C326 /* CreatePageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePageResponse.swift; sourceTree = "<group>"; };
 		3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloaterAlertView.swift; sourceTree = "<group>"; };
 		3D2F9C41271F09590043C326 /* DashboardDeletionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDeletionAlert.swift; sourceTree = "<group>"; };
+		3D2F9C43271F106A0043C326 /* DashboardLogoutAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlert.swift; sourceTree = "<group>"; };
 		3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		3D36B09626A6DE1C0046C90F /* ContextualMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContextualMenu.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/ContextualMenu/ContextualMenu.swift; sourceTree = SOURCE_ROOT; };
 		3D36B09926A6DE250046C90F /* ContextualMenu+Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContextualMenu+Title.swift"; sourceTree = "<group>"; };
@@ -2875,6 +2877,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2F9C41271F09590043C326 /* DashboardDeletionAlert.swift */,
+				3D2F9C43271F106A0043C326 /* DashboardLogoutAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -4869,6 +4872,7 @@
 				3D2F9C42271F09590043C326 /* DashboardDeletionAlert.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
+				3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */,
 				120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */,
