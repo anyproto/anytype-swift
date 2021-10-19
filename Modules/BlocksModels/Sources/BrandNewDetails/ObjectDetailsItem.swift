@@ -22,4 +22,5 @@ public enum ObjectDetailsItem {
     case layoutAlign(LayoutAlignment)
     case isDone(Bool)
     case type(String)
+    case isDraft(Bool)
 }

@@ -6,14 +6,15 @@ final class BrowserPage: Equatable, CustomStringConvertible {
     let title: String?
     let subtitle: String?
     
-    weak var controller: UIViewController?
+    weak var controller: EditorPageController?
+    
     let controllerHash: Int
     
     init(
         blockId: BlockId,
         title: String?,
         subtitle: String?,
-        controller: UIViewController
+        controller: EditorPageController
     ) {
         self.blockId = blockId
         self.title = title

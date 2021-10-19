@@ -23,7 +23,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
 
+    private let blockActionsService: BlockActionsServiceSingle
+
     private var didAppearedOnce = false
+
 
     // MARK: - Initialization
     init(
@@ -36,7 +39,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
-        headerBuilder: ObjectHeaderBuilder
+        headerBuilder: ObjectHeaderBuilder,
+        blockActionsService: BlockActionsServiceSingle
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -48,6 +52,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
+        self.blockActionsService = blockActionsService
         
         setupSubscriptions()
     }
@@ -222,6 +227,10 @@ extension EditorPageViewModel {
         }
 
         didAppearedOnce = true
+    }
+
+    func viewWillDismiss() {
+        blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
     }
 }
 
