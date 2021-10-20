@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsSectionView: View {
-    @EnvironmentObject var viewModel: SettingSectionViewModel
+    @EnvironmentObject var viewModel: SettingsViewModel
 
     var body: some View {
         VStack(spacing: 12) {
@@ -61,7 +61,7 @@ struct SettingsSectionView: View {
 struct SettingsSectionView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsSectionView()
-            .environmentObject(SettingSectionViewModel())
+            .environmentObject(SettingsViewModel(authService: ServiceLocator.shared.authService()))
             .previewLayout(.sizeThatFits)
     }
 }

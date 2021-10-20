@@ -6,7 +6,7 @@ import AnytypeCore
 import AudioToolbox
 
 struct AboutView: View {
-    @EnvironmentObject var viewModel: SettingSectionViewModel
+    @EnvironmentObject var viewModel: SettingsViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
