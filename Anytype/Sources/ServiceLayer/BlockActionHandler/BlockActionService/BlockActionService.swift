@@ -1,6 +1,5 @@
 import Combine
 import BlocksModels
-import os
 import UIKit
 import Amplitude
 import AnytypeCore
@@ -17,9 +16,9 @@ final class BlockActionService: BlockActionServiceProtocol {
     private var subscriptions: [AnyCancellable] = []
     private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
     private let pageService = ObjectActionsService()
-    private let textService = BlockActionsServiceText()
-    private let listService = BlockActionsServiceList()
-    private let bookmarkService = BlockActionsServiceBookmark()
+    private let textService = TextService()
+    private let listService = BlockListService()
+    private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
 
     private var didReceiveEvent: (PackOfEvents) -> () = { _  in }
@@ -52,8 +51,8 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
-        let result = singleService.add(contextID: documentId, targetID: targetBlockId, info: info, position: position)
-        guard let response = try? result.get() else { return }
+        guard let response = singleService
+                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
         
         let event = shouldSetFocusOnUpdate ? response.addEvent : response.defaultEvent
         didReceiveEvent(event)
@@ -69,65 +68,54 @@ final class BlockActionService: BlockActionServiceProtocol {
         let position = oldText.count
 
         let content = info.content
-        guard case let .text(type) = content else {
+        guard case let .text(blockText) = content else {
             anytypeAssertionFailure("We have unsupported content type: \(content)")
             return
         }
 
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
+        
         // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        self.textService.setText(contextID: documentId, blockID: blockId,
-                                 middlewareString: MiddlewareString(text: type.text, marks: type.marks))
-            .flatMap { [weak self] value -> AnyPublisher<SplitSuccess, Error> in
-                return self?.textService.split(
-                    contextID: documentId,
-                    blockID: blockId,
-                    range: range,
-                    style: newBlockContentType,
-                    mode: mode
-                ) ?? .empty()
-            }
-            .sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
-                let allEvents = PackOfEvents(
-                    middlewareEvents: serviceSuccess.responseEvent.messages,
-                   localEvents: [
-                       .setFocus(blockId: serviceSuccess.blockId, position: .beginning)
-                   ]
-               )
-                self?.didReceiveEvent(allEvents)
-            }
-            .store(in: &self.subscriptions)
+        guard textService.setText(
+            contextId: documentId,
+            blockId: blockId,
+            middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
+        ).isNotNil else { return }
+            
+        guard let splitSuccess = textService.split(
+            contextId: documentId,
+            blockId: blockId,
+            range: range,
+            style: newBlockContentType,
+            mode: mode
+        ) else { return }
+            
+        let allEvents = PackOfEvents(
+            middlewareEvents: splitSuccess.responseEvent.messages,
+            localEvents: [
+                .setFocus(blockId: splitSuccess.blockId, position: .beginning)
+            ]
+       )
+        didReceiveEvent(allEvents)
     }
 
-    func duplicate(blockId: BlockId) {
-        let blockIds: [String] = [blockId]
-        let position: BlockPosition = .bottom
-        
-        singleService.duplicate(
-            contextID: documentId,
-            targetID: blockId,
-            blockIds: blockIds,
-            position: position
-        ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
-            self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
-        }.store(in: &self.subscriptions)
+    func duplicate(blockId: BlockId) {        
+        singleService
+            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
+            .flatMap { didReceiveEvent(PackOfEvents(middlewareEvents: $0.messages)) }
     }
 
     func createPage(position: BlockPosition) {
-        let result = pageService.createPage(
+       guard let response = pageService.createPage(
             contextID: documentId,
             targetID: "",
             details: [.name: DetailsEntry(value: "")],
             position: position,
             templateID: ""
-        )
-        
-        guard case let .response(response) = result else {
-            return
-        }
+       ) else { return }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
         didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
@@ -147,70 +135,49 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> () = { _ in }) {
-        let objectType = ""
-
-        let blocksIds = [blockId]
-
-        pageService.convertChildrenToPages(contextID: documentId, blocksIds: blocksIds, objectType: objectType)
-            .sinkWithDefaultCompletion("blocksActions.convertChildrenToPages") { blockIds in
-                completion(blockIds.first)
-            }
-            .store(in: &self.subscriptions)
+        pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")
+            .flatMap { completion($0.first) }
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
-        self.textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("textService.checked with payload") { [weak self] value in
-                self?.didReceiveEvent(PackOfEvents(middlewareEvents: value.messages))
-            }.store(in: &self.subscriptions)
+        guard let response = textService.checked(contextId: documentId, blockId: blockId, newValue: newValue) else {
+            return
+        }
+        didReceiveEvent(PackOfEvents(middlewareEvents: response.messages))
     }
     
-    func delete(blockId: BlockId, completion: @escaping Conversion) {
-        let blockIds = [blockId]
-        singleService.delete(contextID: self.documentId, blockIds: blockIds)
-            .receiveOnMain()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: return
-                case let .failure(error):
-                    // It occurs if you press delete at the beginning of title block
-                    Logger.create(.blockActionService).debug(
-                        "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
-                    )
-                }
-            }) { [weak self] value in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
-            }.store(in: &self.subscriptions)
+    func delete(blockId: BlockId, completion: @escaping (ResponseEvent) -> (PackOfEvents)) {
+        guard let response = singleService.delete(contextId: documentId, blockIds: [blockId]) else {
+            return
+        }
+
+        didReceiveEvent(completion(response))
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
-        listService.setFields(contextID: contextID, blockFields: blockFields)
-            .sinkWithDefaultCompletion("listService.setFields") { [weak self] serviceSuccess in
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
-            }.store(in: &self.subscriptions)
+        guard let response = listService.setFields(contextId: contextID, fields: blockFields) else {
+            return
+        }
+        didReceiveEvent(response.defaultEvent)
     }
 }
 
 private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
-        let blocksIds = [blockId]
-
-        listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: style)
-            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] serviceSuccess in
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
-        }.store(in: &self.subscriptions)
+        guard let response = listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style) else {
+            return
+        }
+        didReceiveEvent(response.defaultEvent)
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
-        textService.setStyle(contextID: self.documentId, blockID: blockId, style: style)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] serviceSuccess in
-                let events = shouldFocus ? serviceSuccess.turnIntoTextEvent : serviceSuccess.defaultEvent
-                self?.didReceiveEvent(events)
-            }.store(in: &self.subscriptions)
+        guard let response = textService.setStyle(contextId: documentId, blockId: blockId, style: style) else {
+            return
+        }
+        
+        let events = shouldFocus ? response.turnIntoTextEvent : response.defaultEvent
+        didReceiveEvent(events)
     }
 }
 
@@ -218,13 +185,13 @@ private extension BlockActionService {
 
 extension BlockActionService {
     func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent]) {
-        self.textService.merge(contextID: documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] serviceSuccess in
-                var events = serviceSuccess.defaultEvent
-                events = events.enrichedWith(localEvents: localEvents)
-                self?.didReceiveEvent(events)
-            }.store(in: &self.subscriptions)
+        guard let response = textService
+                .merge(contextId: documentId, firstBlockId: firstBlockId, secondBlockId: secondBlockId) else {
+                    return
+                }
+            
+        let events = response.defaultEvent.enrichedWith(localEvents: localEvents)
+        didReceiveEvent(events)
     }
 }
 
@@ -232,13 +199,11 @@ extension BlockActionService {
 
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
-        self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
-            .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] serviceSuccess in
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
-
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
-        }.store(in: &self.subscriptions)
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
+        guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
+            return
+        }
+        didReceiveEvent(response.defaultEvent)
     }
 }
 
@@ -250,13 +215,10 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        let blockIds = [blockId]
-
-        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: color)
-            .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] serviceSuccess in
-                self?.didReceiveEvent(serviceSuccess.defaultEvent)
-            }
-            .store(in: &self.subscriptions)
+        guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
+            return
+        }
+        didReceiveEvent(response.defaultEvent)
     }
 }
 
@@ -264,7 +226,11 @@ extension BlockActionService {
 
 extension BlockActionService {
     func upload(blockId: BlockId, filePath: String) {
-        fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
+        fileService.asyncUploadDataAt(
+            filePath: filePath,
+            contextID: self.documentId,
+            blockID: blockId
+        )
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] serviceSuccess in
                 self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)

@@ -18,7 +18,7 @@ final class HomeCellDataBuilder {
         
         return links
             .filter {
-                guard let details = $0.details else {
+                guard let details = $0.details, !$0.isLoading else {
                     return true
                 }
                 

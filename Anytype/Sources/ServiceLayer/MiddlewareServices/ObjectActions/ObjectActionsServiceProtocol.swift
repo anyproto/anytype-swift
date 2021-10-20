@@ -20,11 +20,7 @@ struct CreatePageResponse {
 
 
 protocol ObjectActionsServiceProtocol {
-    func convertChildrenToPages(
-        contextID: BlockId,
-        blocksIds: [BlockId],
-        objectType: String
-    ) -> AnyPublisher<[BlockId], Error>
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
     
     func syncSetDetails(contextID: BlockId, details: RawDetailsData) -> ResponseEvent?
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
@@ -39,7 +35,7 @@ protocol ObjectActionsServiceProtocol {
         details: RawDetailsData,
         position: BlockPosition,
         templateID: String
-    ) -> CreatePageResult
+    ) -> CreatePageResponse?
     
     @discardableResult
     func move(
@@ -47,5 +43,5 @@ protocol ObjectActionsServiceProtocol {
         blockId: BlockId,
         dropPositionblockId: BlockId,
         position: Anytype_Model_Block.Position
-    ) -> AnyPublisher<Void, Error>
+    ) -> ResponseEvent?
 }

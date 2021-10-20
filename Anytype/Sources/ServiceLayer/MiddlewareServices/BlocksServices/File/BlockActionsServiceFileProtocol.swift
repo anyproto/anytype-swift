@@ -2,21 +2,23 @@ import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
-
+import AnytypeCore 
 protocol BlockActionsServiceFileProtocol {
     
-    func uploadDataAtFilePath(
+    func syncUploadDataAt(
+        filePath: String,
         contextID: BlockId,
-        blockID: BlockId,
-        filePath: String
+        blockID: BlockId
+    )
+    
+    func asyncUploadDataAt(
+        filePath: String,
+        contextID: BlockId,
+        blockID: BlockId
     ) -> AnyPublisher<ResponseEvent, Error>
     
-    func uploadFile(
-        url: String,
-        localPath: String,
-        type: FileContentType,
-        disableEncryption: Bool
-    ) -> AnyPublisher<Hash, Error>
+    func syncUploadImageAt(localPath: String) -> Hash?
+    func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error>
     
-    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> AnyPublisher<Data, Error>
+    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> Result<Data, Error>
 }

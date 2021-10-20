@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import os
 import SwiftProtobuf
 import ProtobufMessages
 
@@ -18,42 +17,42 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
 
     public var isFirstResponder: Bool {
         get {
-            container?.userSession.firstResponder?.information.id == information.id
+            UserSession.shared.firstResponderId.value == information.id
         }
         set {
-            self.container?.userSession.firstResponder = self
+            UserSession.shared.firstResponderId.value = information.id
         }
     }
 
     public func unsetFirstResponder() {
-        if self.isFirstResponder {
-            self.container?.userSession.firstResponder = nil
+        if isFirstResponder {
+            UserSession.shared.firstResponderId.value = nil
         }
     }
 
     public var isToggled: Bool {
         get {
-            container?.userSession.toggles[information.id] ?? false
+            UserSession.shared.toggles[information.id] ?? false
         }
     }
 
     public func toggle() {
         let newValue = !isToggled
-        container?.userSession.toggles[information.id] = newValue
+        UserSession.shared.toggles[information.id] = newValue
     }
 
     public var focusAt: BlockFocusPosition? {
         get {
-            guard container?.userSession.firstResponder?.information.id == information.id else { return nil }
-            return container?.userSession.focus
+            guard UserSession.shared.firstResponderId.value == information.id else { return nil }
+            return UserSession.shared.focus.value
         }
         set {
-            guard container?.userSession.firstResponder?.information.id == information.id else { return }
+            guard UserSession.shared.firstResponderId.value == information.id else { return }
             if let value = newValue {
-                container?.userSession.focus = value
+                UserSession.shared.focus.value = value
             }
             else {
-                container?.userSession.focus = nil
+                UserSession.shared.focus.value = nil
             }
         }
     }

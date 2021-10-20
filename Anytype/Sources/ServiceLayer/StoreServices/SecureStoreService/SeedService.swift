@@ -5,7 +5,6 @@ private extension SeedService {
     }
 }
 
-/// Keychain store serivce
 final class SeedService: SeedServiceProtocol {
     private let keychainStore: KeychainStoreProtocol
     init(keychainStore: KeychainStoreProtocol) {

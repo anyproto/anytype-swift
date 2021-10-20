@@ -50,6 +50,7 @@ struct HomeCell: View {
         
         return AnytypeText(titleString, style: .previewTitle2Medium, color: .textPrimary)
             .lineLimit(lineLimit)
+            .multilineTextAlignment(.leading)
     }
     
     private func todoTitle(with text: String, isChecked: Bool) -> some View {

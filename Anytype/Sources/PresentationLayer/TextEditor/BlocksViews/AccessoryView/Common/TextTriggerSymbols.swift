@@ -1,9 +1,7 @@
 import UIKit
 
 enum TextTriggerSymbols {
-    static func slashMenu(prependSpace: Bool) -> String {
-        return prependSpaceSymbolIfNeeded("/", prepend: prependSpace)
-    }
+    static let slashMenu = "/"
     
     static func mention(prependSpace: Bool) -> String {
         return prependSpaceSymbolIfNeeded("@", prepend: prependSpace)

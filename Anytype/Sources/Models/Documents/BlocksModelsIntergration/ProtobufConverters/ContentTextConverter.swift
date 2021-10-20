@@ -7,27 +7,26 @@ class ContentTextConverter {
         return textContent(from).flatMap { .text($0) }
     }
     
-    func textContent(_ from: Anytype_Model_Block.Content.Text) -> BlockText? {
-        return BlockTextContentTypeConverter.asModel(from.style).flatMap { contentType in
+    func textContent(_ block: Anytype_Model_Block.Content.Text) -> BlockText? {
+        return BlockText.Style(block.style).flatMap { contentType in
             return BlockText(
-                text: from.text,
-                marks: from.marks,
-                color: MiddlewareColor(rawValue: from.color),
+                text: block.text,
+                marks: block.marks,
+                color: MiddlewareColor(rawValue: block.color),
                 contentType: contentType,
-                checked: from.checked
+                checked: block.checked
             )
         }
     }
     
-func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
-        let style = BlockTextContentTypeConverter.asMiddleware(from.contentType)
+func middleware(_ block: BlockText) -> Anytype_Model_Block.OneOf_Content {
         return .text(
             Anytype_Model_Block.Content.Text(
-                text: from.text,
-                style: style,
-                marks: from.marks,
-                checked: from.checked,
-                color: from.color?.rawValue ?? ""
+                text: block.text,
+                style: block.contentType.asMiddleware,
+                marks: block.marks,
+                checked: block.checked,
+                color: block.color?.rawValue ?? ""
             )
         )
     }

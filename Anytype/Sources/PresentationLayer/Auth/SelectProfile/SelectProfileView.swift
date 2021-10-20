@@ -3,7 +3,6 @@ import SwiftUI
 
 struct SelectProfileView: View {
     @StateObject var viewModel: SelectProfileViewModel
-    @State private var showCreateProfileView = false
     @State private var contentHeight: CGFloat = 0
     
     @Environment(\.presentationMode) var presentationMode
@@ -29,43 +28,6 @@ struct SelectProfileView: View {
             self.contentHeight = proxy.size.height
         }
         return Color.clear
-    }
-}
-
-
-struct AddProfileView: View {
-    var body: some View {
-        HStack {
-            Image("plus")
-                .frame(width: 48, height: 48)
-            AnytypeText("Add profile", style: .uxBodyRegular, color: .textSecondary)
-        }
-    }
-}
-
-
-private struct ProfileNameView: View {
-    @ObservedObject var viewModel: ProfileNameViewModel
-    
-    var body: some View {
-        HStack {
-            UserIconView(icon: viewModel.userIcon)
-                .frame(width: 80, height: 80)
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(viewModel.name, style: .uxBodyRegular, color: .textPrimary)
-                    .padding(.bottom, 3)
-                HStack {
-                    Image("uploaded")
-                        .clipShape(Circle())
-                    AnytypeText(
-                        viewModel.peers ?? "no peers",
-                        style: .uxBodyRegular,
-                        color: viewModel.peers.isNotNil ? .textPrimary : .textSecondary
-                    )
-                }
-            }
-            Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)
-        }
     }
 }
 

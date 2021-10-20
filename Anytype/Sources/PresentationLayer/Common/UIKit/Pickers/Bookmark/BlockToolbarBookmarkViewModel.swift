@@ -2,16 +2,6 @@ import Foundation
 import Combine
 import SwiftUI
 
-// MARK: ViewModelBuilder
-extension BlockToolbarBookmark {
-    enum ViewModelBuilder {
-        static func create() -> ViewModel {
-            let viewModel: ViewModel = .init()
-            return viewModel
-        }
-    }
-}
-
 // MARK: ViewModel
 extension BlockToolbarBookmark {
     class ViewModel: ObservableObject {

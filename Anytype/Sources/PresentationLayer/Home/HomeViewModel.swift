@@ -21,13 +21,11 @@ final class HomeViewModel: ObservableObject {
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
-    private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     
     private var subscriptions = [AnyCancellable]()
-    private var newPageSubscription: AnyCancellable?
-            
+
     let document: BaseDocumentProtocol = BaseDocument()
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
@@ -47,30 +45,22 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Private methods
 
     func updateArchiveTab() {
-        searchService.searchArchivedPages { [weak self] searchResults in
-            guard let self = self else { return }
-            self.archiveCellData = self.cellDataBuilder.buildCellData(searchResults)
-        }
+        guard let searchResults = searchService.searchArchivedPages() else { return }
+        archiveCellData = cellDataBuilder.buildCellData(searchResults)
     }
     func updateHistoryTab() {
-        searchService.searchHistoryPages { [weak self] searchResults in
-            guard let self = self else { return }
-            self.historyCellData = self.cellDataBuilder.buildCellData(searchResults)
-        }
+        guard let searchResults = searchService.searchHistoryPages() else { return }
+        historyCellData = cellDataBuilder.buildCellData(searchResults)
     }
     
     private func fetchDashboardData() {        
-        dashboardService.openDashboard() { [weak self] serviceSuccess in
-            self?.onOpenDashboard(serviceSuccess)
-        }
-    }
-    
-    private func onOpenDashboard(_ serviceSuccess: ResponseEvent) {
+        guard let response = dashboardService.openDashboard() else { return }
+        
         document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
             self?.onDashboardChange(updateResult: updateResult)
         }.store(in: &self.subscriptions)
         
-        document.open(serviceSuccess)
+        document.open(response)
     }
     
     private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
@@ -81,6 +71,8 @@ final class HomeViewModel: ObservableObject {
             blockIds.forEach { updateCellWithTargetId($0) }
         case .details(let details):
             updateCellWithTargetId(details.blockId)
+        case .syncStatus:
+            break
         }
     }
     
@@ -101,11 +93,8 @@ final class HomeViewModel: ObservableObject {
 // MARK: - New page
 extension HomeViewModel {
     func createNewPage() {
-        let result = dashboardService.createNewPage()
-        guard case let .response(response) = result else {
-            return
-        }
-
+        guard let response = dashboardService.createNewPage() else { return }
+        
         document.handle(
             events: PackOfEvents(middlewareEvents: response.messages)
         )

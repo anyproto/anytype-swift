@@ -1,6 +1,5 @@
 import ProtobufMessages
 import Foundation
-import os
 import AnytypeCore
 
 private extension LoggerCategory {
@@ -20,15 +19,18 @@ extension MiddlewareListener: ServiceEventsHandlerProtocol {
     func handle(_ data: Data?) {
         guard let rawEvent = data,
             let event = try? Anytype_Event(serializedData: rawEvent) else { return }
-        
-        let filteredEvents = event.messages.filter(isNotNoise)
-        Logger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
-        
+        logEvent(event: event)
         NotificationCenter.default.post(name: .middlewareEvent, object: event)
     }
     
     
-    // TODO: Don't forget to remove it. We only add this method to hide logs from thread status.
+    private func logEvent(event: Anytype_Event) {
+        guard FeatureFlags.middlewareLogs else { return }
+        
+        let filteredEvents = event.messages.filter(isNotNoise)
+        AnytypeLogger.create(.eventListening).debug("Middleware events:\n\(filteredEvents)")
+    }
+     
     private func isNotNoise(_ event: Anytype_Event.Message) -> Bool {
         guard let value = event.value else { return false }
         switch value {

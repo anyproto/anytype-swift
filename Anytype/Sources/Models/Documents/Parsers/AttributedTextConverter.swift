@@ -11,15 +11,15 @@ enum AttributedTextConverter {
         style: BlockText.Style
     ) -> UIKitAnytypeText {
         // Map attributes to our internal format.
-        var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markAction: MarkStyleAction)? in
+        var markAttributes = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkStyleAction)? in
             let middlewareTuple = MiddlewareTuple(
-                attribute: value.type,
-                value: value.param
+                attribute: mark.type,
+                value: mark.param
             )
             guard let markValue = MarkStyleActionConverter.asModel(middlewareTuple) else {
                 return nil
             }
-            return (RangeConverter.asModel(value.range), markValue)
+            return (NSRange(mark.range), markValue)
         }
 
         let font = style.uiFont
@@ -104,7 +104,7 @@ enum AttributedTextConverter {
             let indexSet: IndexSet = value as IndexSet
             
             return indexSet.rangeView.enumerated().map {
-                let range = RangeConverter.asMiddleware(NSRange($0.element))
+                let range = NSRange($0.element).asMiddleware
                 return Anytype_Model_Block.Content.Text.Mark(
                     range: range,
                     type: tuple.attribute,

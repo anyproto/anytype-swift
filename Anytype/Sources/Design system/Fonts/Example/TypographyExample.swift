@@ -1,4 +1,3 @@
-#if DEBUG
 import SwiftUI
 
 struct TypographyExample: View {
@@ -19,4 +18,3 @@ struct TypographyExample_Previews: PreviewProvider {
         TypographyExample()
     }
 }
-#endif

@@ -7,9 +7,10 @@ extension HomeViewModel {
         
         static var cached: OpenedPageData = {
             OpenedPageData(
-                pageId: UserDefaultsConfig.lastOpenedPageId ?? "",
-                showingNewPage: UserDefaultsConfig.lastOpenedPageId != nil
+                pageId: UserDefaultsConfig.pageIdFromLastSession ?? "",
+                showingNewPage: UserDefaultsConfig.pageIdFromLastSession != nil
             )
         }()
     }
 }
+

@@ -1,8 +1,9 @@
  import Combine
  
  final class SettingSectionViewModel: ObservableObject {
-    @Published var wallpaper: Bool = false
-    @Published var keychain: Bool = false
-    @Published var pincode: Bool = false
-    @Published var about: Bool = false
+    @Published var wallpaper = false
+    @Published var keychain = false
+    @Published var pincode = false
+    @Published var about = false
+    @Published var debugMenu = false
 }

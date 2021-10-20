@@ -8,9 +8,9 @@ struct SearchBar: View {
     var body: some View {
         Group {
             if focused {
-                AutofocusedTextField(title: "Search", text: $text)
+                AutofocusedTextField(title: "Search".localized, text: $text)
             } else {
-                TextField("Search", text: $text)
+                TextField("Search".localized, text: $text)
             }
         }
         .padding(8)

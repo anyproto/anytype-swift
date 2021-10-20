@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import Combine
-import os
 import AnytypeCore
 
 private extension LoggerCategory {
@@ -12,16 +11,6 @@ final class BaseDocument: BaseDocumentProtocol {
     var rootActiveModel: BlockModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
         return rootModel?.blocksContainer.model(id: rootId)
-    }
-    
-    var userSession: UserSession? {
-        get {
-            rootModel?.blocksContainer.userSession
-        }
-        set {
-            guard let newValue = newValue else { return }
-            rootModel?.blocksContainer.userSession = newValue
-        }
     }
 
     var documentId: BlockId? { rootModel?.rootId }
@@ -61,7 +50,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         documentId.flatMap { rootId in
-            _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
+            smartblockService.close(contextId: rootId, blockId: rootId)
         }
     }
 
@@ -152,7 +141,7 @@ final class BaseDocument: BaseDocumentProtocol {
               let rootId = container.rootId,
               let ourModel = container.detailsContainer.get(by: rootId)
         else {
-            Logger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
+            AnytypeLogger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
             return
         }
         let publisher = ourModel.changeInformationPublisher
@@ -172,7 +161,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Returns: A list of active models.
     private func getModels() -> [BlockModelProtocol] {
         guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.model(id: rootId) else {
-            Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
+            AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
         return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
@@ -182,9 +171,7 @@ final class BaseDocument: BaseDocumentProtocol {
         switch updates {
         case .general:
             return getModels()
-        case .details:
-            return []
-        case .update:
+        case .details, .update, .syncStatus:
             return []
         }
     }
@@ -202,7 +189,7 @@ final class BaseDocument: BaseDocumentProtocol {
     ///
     func getDetails(id: BlockId) -> DetailsActiveModel? {
         guard let value = self.rootModel?.detailsContainer.get(by: id) else {
-            Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
+            AnytypeLogger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
         let result = DetailsActiveModel()

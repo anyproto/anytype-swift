@@ -51,16 +51,15 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private func obtainAccountInfo() {
         guard let profileBlockId = profileBlockId else {
-            anytypeAssertionFailure("profileBlockId can`t be nill")
+            anytypeAssertionFailure("profileBlockId can`t be nil")
             return
         }
         
-        blocksActionsService
-            .open(contextID: profileBlockId, blockID: profileBlockId)
-            .sinkWithDefaultCompletion("obtainAccountInfo") { [weak self] serviceSuccess in
-                self?.document.open(serviceSuccess)
-            }
-            .store(in: &self.subscriptions)
+        guard let response = blocksActionsService.open(contextId: profileBlockId, blockId: profileBlockId) else {
+            return
+        }
+        
+        document.open(response)
     }
 }
 

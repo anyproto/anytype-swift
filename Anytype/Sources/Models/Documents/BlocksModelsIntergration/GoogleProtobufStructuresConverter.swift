@@ -1,6 +1,5 @@
 import Foundation
 import SwiftProtobuf
-import os
 import BlocksModels
 import ProtobufMessages
 import AnytypeCore
@@ -19,7 +18,9 @@ struct GoogleProtobufStructuresConverter {
         /// We should use either our replica of GoogleProtobufStruct or we could use GoogleProtobufStruct directly.
         /// Look at GoogleProtobufStruct.kind property type. It has indirect cases which are impossible to store without full support of same Struct type.
         ///
-        anytypeAssertionFailure("Do not forget to add conversion from our model to protobuf sucture: \(from)")
+        ///
+        AnytypeLogger.create(LoggerCategory(stringLiteral: "GoogleProtobufStructuresConverter"))
+            .debug("Add conversion for categories")
         return [:]
     }
 }

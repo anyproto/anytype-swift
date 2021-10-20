@@ -16,7 +16,7 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
     
     var userIcon: UserIconView.IconType {
         if let image = image {
-            return UserIconView.IconType.image(.local(image))
+            return UserIconView.IconType.image(.image(image))
         } else if let firstCharacter = name.first {
             return UserIconView.IconType.placeholder(firstCharacter)
         } else {
@@ -47,24 +47,20 @@ class SelectProfileViewModel: ObservableObject {
     func accountRecover() {
         DispatchQueue.global().async { [weak self] in
             self?.handleAccountShowEvent()
-            self?.authService.accountRecover { result in
-                if case .failure = result {
-                    self?.error = "Account recover error"
-                }
+            if let error = self?.authService.accountRecover() {
+                self?.error = error.localizedDescription
             }
         }
     }
     
     func selectProfile(id: String) {
-        self.authService.selectAccount(id: id) { result in
-            DispatchQueue.main.async { [weak self] in
-                switch result {
-                case .success:
-                    self?.showHomeView()
-                case .failure(let error):
-                    self?.error = error.localizedDescription
-                }
-            }
+        let result = authService.selectAccount(id: id)
+        
+        switch result {
+        case .success:
+            showHomeView()
+        case .failure(let error):
+            self.error = error.localizedDescription
         }
     }
     
@@ -97,43 +93,15 @@ class SelectProfileViewModel: ObservableObject {
             }
     }
     
-    private func profileViewModelFromAccount(_ account: Anytype_Model_Account) -> ProfileNameViewModel {
-        let profileViewModel = ProfileNameViewModel(id: account.id)
-        profileViewModel.name = account.name
-        
-        switch account.avatar.avatar {
-        case .color(let hexColor):
-            profileViewModel.color = UIColor(hexString: hexColor)
-        case .image(let file):
-            let defaultWidth: CGFloat = 500
-            let imageSize = Int32(defaultWidth * UIScreen.main.scale) // we also need device aspect ratio and etc.
-            // so, it is better here to subscribe or take event from UIWindow and get its data.
-            self.downloadAvatarImage(imageSize: imageSize, hash: file.hash, profileViewModel: profileViewModel)
-        default: break
-        }
-        
-        return profileViewModel
-    }
-    
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        _ = self.fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize).receiveOnMain()
-            .sink(receiveCompletion: { [weak self] result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.error = error.localizedDescription
-                }
-            }) { blob in
-                profileViewModel.image = UIImage(data: blob)
+        let result = fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize)
+        switch result {
+        case .success(let data):
+            profileViewModel.image = UIImage(data: data)
+        case .failure(let error):
+            self.error = error.localizedDescription
         }
     }
-    
-    // MARK: - Coordinator
-    
-//    func showCreateProfileView() -> some View {
-//        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
-//    }
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()

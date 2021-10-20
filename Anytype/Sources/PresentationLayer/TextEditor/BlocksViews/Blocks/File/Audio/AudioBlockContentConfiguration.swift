@@ -13,15 +13,15 @@ import AVFoundation
 
 struct AudioBlockContentConfiguration: Hashable {
     let file: BlockFile
-    let playerItem: AVPlayerItem
-    let duration: Double
+    let trackId: String
+    weak var audioPlayerViewDelegate: AudioPlayerViewDelegate?
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
-        lhs.file == rhs.file
+        lhs.trackId == rhs.trackId
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(file)
+        hasher.combine(trackId)
     }
 }
 

@@ -6,33 +6,19 @@ enum ActionHandlerBlockIdSource {
     case provided(BlockId)
 }
 
-protocol EditorActionHandlerProtocol: AnyObject {
-    func onEmptySpotTap()
-    
-    func upload(blockId: ActionHandlerBlockIdSource, filePath: String)
-    func turnIntoPage(blockId: ActionHandlerBlockIdSource, completion: @escaping (BlockId?) -> ())
-    func showPage(blockId: ActionHandlerBlockIdSource)
-    
-    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
-    func handleActions(_ actions: [BlockHandlerActionType], blockId: BlockId)
-    func handleActionForFirstResponder(_ action: BlockHandlerActionType)
-}
-
 final class EditorActionHandler: EditorActionHandlerProtocol {
+    private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
     private let blockActionHandler: BlockActionHandlerProtocol
-    private let eventProcessor: EventProcessor
     private let router: EditorRouterProtocol
     
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: BlockActionHandlerProtocol,
-        eventProcessor: EventProcessor,
         router: EditorRouterProtocol
     ) {
         self.document = document
         self.blockActionHandler = blockActionHandler
-        self.eventProcessor = eventProcessor
         self.router = router
     }
     
@@ -43,14 +29,36 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         handleAction(.createEmptyBlock(parentId: parentId), blockId: block.information.id)
     }
     
-    func upload(blockId: ActionHandlerBlockIdSource, filePath: String) {
+    func uploadMediaFile(
+        itemProvider: NSItemProvider,
+        type: MediaPickerContentType,
+        blockId: ActionHandlerBlockIdSource
+    ) {
+        guard let objectId = document.documentId else { return }
         guard let blockId = blockIdFromSource(blockId) else { return }
         
-        eventProcessor.process(
+        document.handle(events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId)))
+        
+        let operation = MediaFileUploadingOperation(
+            itemProvider: itemProvider,
+            worker: BlockMediaUploadingWorker(
+                objectId: objectId,
+                blockId: blockId,
+                contentType: type
+            )
+        )
+        
+        fileUploadingDemon.addOperation(operation)
+    }
+    
+    func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
+        guard let blockId = blockIdFromSource(blockId) else { return }
+        
+        document.handle(
             events: PackOfEvents(localEvent: .setLoadingState(blockId: blockId))
         )
         
-        blockActionHandler.upload(blockId: blockId, filePath: filePath)
+        blockActionHandler.upload(blockId: blockId, filePath: localPath)
     }
     
     func turnIntoPage(blockId: ActionHandlerBlockIdSource, completion: @escaping (BlockId?) -> ()) {
@@ -77,7 +85,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         blockActionHandler.handleBlockAction(action, blockId: blockId) { [weak self] events in
-            self?.eventProcessor.process(events: events)
+            self?.document.handle(events: events)
         }
     }
     
@@ -86,12 +94,12 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     private func blockIdFromSource(_ blockIdSource: ActionHandlerBlockIdSource) -> BlockId? {
         switch blockIdSource {
         case .firstResponder:
-            guard let firstResponder = document.userSession?.firstResponder else {
+            guard let firstResponder = UserSession.shared.firstResponderId.value else {
                 anytypeAssertionFailure("No first responder found")
                 return nil
             }
             
-            return firstResponder.information.id
+            return firstResponder
         case .provided(let blockId):
             return blockId
         }

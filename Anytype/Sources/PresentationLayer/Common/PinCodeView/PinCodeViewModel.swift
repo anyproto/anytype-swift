@@ -15,9 +15,9 @@ enum PinCodeViewType: Equatable {
     var title: String {
         switch self {
         case .setup:
-            return "Create pin code"
+            return "Create pin code".localized
         case .verify:
-            return "Verify pin code"
+            return "Verify pin code".localized
         }
     }
     

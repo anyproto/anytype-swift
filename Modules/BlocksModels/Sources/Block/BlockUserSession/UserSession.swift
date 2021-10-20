@@ -1,7 +1,10 @@
 import Foundation
+import AnytypeCore
 
 public class UserSession {
-    public var focus: BlockFocusPosition?
-    public var firstResponder: BlockModelProtocol?
-    public var toggles: [BlockId : Bool] = [:]
+    public static var shared = UserSession()
+    
+    public var focus = AtomicProperty<BlockFocusPosition?>(nil)
+    public var firstResponderId = AtomicProperty<BlockId?>(nil)
+    public var toggles = SynchronizedDictionary<BlockId, Bool>()
 }

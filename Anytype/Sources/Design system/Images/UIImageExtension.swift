@@ -4,11 +4,18 @@ import AnytypeCore
 extension UIImage {
     static let backArrow = createImage("backArrow")
     
-    static let more = createImage("TextEditor/More")
     static let searchIcon = createImage("searchTextFieldIcon")
 }
 
 extension UIImage {
+    enum editorNavigation {
+        static let more = createImage("TextEditor/More")
+        static let home = createImage("TextEditor/home")
+        static let search = createImage("TextEditor/search")
+        static let backArrow = createImage("TextEditor/backArrow")
+        static let forwardArrow = createImage("TextEditor/forwardArrow")
+    }
+    
     enum edititngToolbar {
         static let addNew = createImage("EditingToolbar/add_new")
         static let style = createImage("EditingToolbar/style")

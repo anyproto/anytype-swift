@@ -60,6 +60,12 @@ extension Image {
         
         static let checkmark = Image("layout_settings_checkmark")
     }
+
+    enum System {
+        static let xmark = Image(systemName: "xmark")
+        static let share = Image(systemName: "square.and.arrow.up")
+        static let lassoAndSparkles = Image(systemName: "sparkles")
+    }
 }
 
 private extension Image {

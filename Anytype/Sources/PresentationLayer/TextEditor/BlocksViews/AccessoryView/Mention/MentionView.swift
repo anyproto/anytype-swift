@@ -20,6 +20,7 @@ final class MentionView: DismissableInputAccessoryView {
         super.didMoveToWindow()
         guard let windowRootViewController = window?.rootViewController?.children.last else { return }
         addMentionsController(to: windowRootViewController)
+        mentionsController?.viewModel.setFilterString("")
     }
 
     override func didShow(from textView: UITextView) {

@@ -35,21 +35,21 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             
-            self.authService.createAccount(
+            let result = self.authService.createAccount(
                 profile: self.buildRequest(),
                 alphaInviteCode: self.signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
-            ) { result in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    
-                    switch result {
-                    case .failure(_):
-                        self.error = "Sign up error"
-                        self.showError = true
-                    case .success:
-                        self.loginStateService.setupStateAfterLoginOrAuth()
-                        windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
-                    }
+            )
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                switch result {
+                case .failure:
+                    self.error = "Sign up error".localized
+                    self.showError = true
+                case .success:
+                    self.loginStateService.setupStateAfterLoginOrAuth()
+                    windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
                 }
             }
         }

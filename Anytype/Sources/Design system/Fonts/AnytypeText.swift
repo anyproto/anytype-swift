@@ -23,7 +23,7 @@ struct AnytypeText: View {
         anytypeAssert(name != .plex, "Custom plex font requires custom line spacing implementation")
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
-        textView = Text(LocalizedStringKey(text)).font(font).eraseToAnyView()
+        textView = Text(text).font(font).eraseToAnyView()
     }
     
     var body: some View {
@@ -33,7 +33,7 @@ struct AnytypeText: View {
     static func buildText(_ text: String, style: AnytypeFont) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
         
-        return Text(LocalizedStringKey(text)).font(font)
+        return Text(text).font(font)
     }
 }
 
@@ -41,7 +41,7 @@ struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             AnytypeText("Foo", style: .title, color: .textPrimary)
-            AnytypeText("Foo", style: .bodyRegular, color: .textPrimary)
+            AnytypeText("Foo", style: .body, color: .textPrimary)
             AnytypeText("Foo", style: .relation3Regular, color: .textPrimary)
             AnytypeText("collapse", style: .codeBlock, color: .textPrimary)
         }

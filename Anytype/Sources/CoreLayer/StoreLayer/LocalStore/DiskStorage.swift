@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AnytypeCore
 
 
 class DiskStorage {
@@ -23,9 +24,8 @@ class DiskStorage {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
             } catch let removeError {
-                print("couldn't remove file at path", removeError)
+                anytypeAssertionFailure("Couldn't remove file at path \(fileURL.path) with error \(removeError)")
             }
             
         }
@@ -34,7 +34,7 @@ class DiskStorage {
             try data.write(to: fileURL)
             return fileURL.path
         } catch let error {
-            print("error saving file with error", error)
+            anytypeAssertionFailure("Error saving file: \(error)")
         }
         return nil
     }

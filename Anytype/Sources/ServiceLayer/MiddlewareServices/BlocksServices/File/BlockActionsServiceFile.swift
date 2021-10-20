@@ -3,14 +3,33 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
+import AnytypeCore
 
 final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
     
+    func syncUploadDataAt(
+        filePath: String,
+        contextID: BlockId,
+        blockID: BlockId
+    ) {
+        let result = Anytype_Rpc.Block.Upload.Service.invoke(
+            contextID: contextID,
+            blockID: blockID,
+            filePath: filePath,
+            url: ""
+        )
+        
+        // Analytics
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
+        
+        _ = result.getValue()
+    }
+    
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
-    func uploadDataAtFilePath(
-        contextID: String,
-        blockID: String,
-        filePath: String
+    func asyncUploadDataAt(
+        filePath: String,
+        contextID: BlockId,
+        blockID: BlockId
     ) -> AnyPublisher<ResponseEvent, Error>  {
         Anytype_Rpc.Block.Upload.Service.invoke(
             contextID: contextID,
@@ -30,54 +49,31 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             .eraseToAnyPublisher()
     }
     
-    func uploadFile(
-        url: String,
-        localPath: String,
-        type: FileContentType,
-        disableEncryption: Bool
-    ) -> AnyPublisher<Hash, Error> {
-        guard let contentType = BlockContentFileContentTypeConverter.asMiddleware(type) else {
-            return Fail(
-                error: PossibleError.uploadFileActionContentTypeConversionHasFailed
-            ).eraseToAnyPublisher()
-        }
-        return uploadFile(
-            url: url,
+    func syncUploadImageAt(localPath: String) -> Hash? {
+        Anytype_Rpc.UploadFile.Service.invoke(
+            url: "",
             localPath: localPath,
-            type: contentType,
-            disableEncryption: disableEncryption
+            type: FileContentType.image.asMiddleware,
+            disableEncryption: false // Deprecated
         )
+            .getValue()
+            .flatMap { Hash($0.hash) }
     }
     
-    private func uploadFile(
-        url: String,
-        localPath: String,
-        type: Anytype_Model_Block.Content.File.TypeEnum,
-        disableEncryption: Bool
-    ) -> AnyPublisher<Hash, Error> {
-        Anytype_Rpc.UploadFile.Service.invoke(
-            url: url,
+    func asyncUploadImageAt(localPath: String) -> AnyPublisher<Hash, Error> {
+        return Anytype_Rpc.UploadFile.Service.invoke(
+            url: "",
             localPath: localPath,
-            type: type,
-            disableEncryption: disableEncryption
+            type: FileContentType.image.asMiddleware,
+            disableEncryption: false // Deprecated
         )
             .compactMap { Hash($0.hash) }
-            .subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
     }
     
-    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> AnyPublisher<Data, Error> {
-        Anytype_Rpc.Ipfs.Image.Get.Blob.Service.invoke(
-            hash: hash,
-            wantWidth: wantWidth,
-            queue: .global()
-        )
+    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> Result<Data, Error> {
+        Anytype_Rpc.Ipfs.Image.Get.Blob.Service.invoke(hash: hash, wantWidth: wantWidth)
             .map(\.blob)
-            .subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-    }
-}
-
-private extension BlockActionsServiceFile {
-    enum PossibleError: Error {
-        case uploadFileActionContentTypeConversionHasFailed
     }
 }

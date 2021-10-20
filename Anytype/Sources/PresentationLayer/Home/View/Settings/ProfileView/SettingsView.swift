@@ -29,15 +29,15 @@ struct SettingsView: View {
     
     private var alert: Alert {
         Alert(
-            title: AnytypeText.buildText("Log out", style: .title),
-            message: AnytypeText.buildText("Have you backed up your keychain phrase?", style: .subheading),
+            title: AnytypeText.buildText("Log out".localized, style: .title),
+            message: AnytypeText.buildText("Have you backed up your keychain phrase?".localized, style: .subheading),
             primaryButton: Alert.Button.default(
-                AnytypeText.buildText("Backup keychain phrase", style: .bodyRegular)
+                AnytypeText.buildText("Backup keychain phrase".localized, style: .body)
             ) {
                 settingsSectionModel.keychain = true
             },
             secondaryButton: Alert.Button.destructive(
-                AnytypeText.buildText("Log out", style: .bodyRegular)
+                AnytypeText.buildText("Log out", style: .body)
             ) {
                 // Analytics
                 Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileLogOut)

@@ -27,9 +27,9 @@ struct AlphaInviteCodeView: View {
     private var contentView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Enter your invitation code", style: .heading, color: .textPrimary)
+                AnytypeText("Enter your invitation code".localized, style: .heading, color: .textPrimary)
                 Spacer.fixedHeight(11)
-                AnytypeText("Do not have invite", style: .uxCalloutRegular, color: .textPrimary)
+                AnytypeText("Do not have invite".localized, style: .uxCalloutRegular, color: .textPrimary)
                 Spacer.fixedHeight(30)
                 
                 AutofocusedTextField(title: "", text: $signUpData.inviteCode)
@@ -51,7 +51,7 @@ struct AlphaInviteCodeView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: "Back", style: .secondary) {
+            StandardButton(text: "Back".localized, style: .secondary) {
                 presentationMode.wrappedValue.dismiss()
             }
             

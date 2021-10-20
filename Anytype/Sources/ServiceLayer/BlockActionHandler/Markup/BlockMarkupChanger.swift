@@ -7,11 +7,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     private let document: BaseDocumentProtocol
     private let documentId: String
-    private lazy var blockUpdater: BlockUpdater? = {
-        guard let container = document.rootModel else { return nil }
-        return BlockUpdater(container)
-    }()
-    
+
     init(
         document: BaseDocumentProtocol,
         documentId: String

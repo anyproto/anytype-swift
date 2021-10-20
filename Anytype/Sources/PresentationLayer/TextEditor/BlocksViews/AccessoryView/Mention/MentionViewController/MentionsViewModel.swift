@@ -23,9 +23,8 @@ final class MentionsViewModel {
     }
     
     func obtainMentions() {
-        mentionService.loadMentions { [weak self] mentions in
-            self?.view?.display(mentions.map { .mention($0) })
-        }
+        guard let mentions = mentionService.loadMentions() else { return }
+        view?.display(mentions.map { .mention($0) })
     }
     
     func setFilterString(_ string: String) {
@@ -40,20 +39,15 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         let name = mentionService.filterString.isEmpty ? "Untitled".localized : mentionService.filterString
-        let result = pageService.createPage(name: name)
+        guard let response = pageService.createPage(name: name) else { return }
         
-        switch result {
-        case .error(let error):
-            anytypeAssertionFailure(error.localizedDescription)
-        case .response(let response):
-            let mention = MentionObject(
-                id: response.newBlockId,
-                objectIcon: .placeholder(name.first),
-                name: name,
-                description: nil,
-                type: nil
-            )
-            didSelectMention(mention)
-        }
+        let mention = MentionObject(
+            id: response.newBlockId,
+            objectIcon: .placeholder(name.first),
+            name: name,
+            description: nil,
+            type: nil
+        )
+        didSelectMention(mention)
     }
 }

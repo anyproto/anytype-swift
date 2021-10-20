@@ -1,9 +1,7 @@
 import BlocksModels
 
 struct BlockBuilder {
-    typealias KeyboardAction = CustomTextView.UserAction.KeyboardAction
-
-    static func createInformation(block: BlockModelProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
+    static func createInformation(block: BlockModelProtocol, action: CustomTextView.KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.information.content {
         case .text:
             return createContentType(block: block, action: action, textPayload: textPayload).flatMap { content in
@@ -54,7 +52,7 @@ struct BlockBuilder {
     }
 
     static func createContentType(
-        block: BlockModelProtocol, action: KeyboardAction, textPayload: String
+        block: BlockModelProtocol, action: CustomTextView.KeyboardAction, textPayload: String
     ) -> BlockContent? {
         switch block.information.content {
         case let .text(blockType):

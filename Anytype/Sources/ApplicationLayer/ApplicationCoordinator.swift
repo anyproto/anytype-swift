@@ -41,7 +41,7 @@ final class ApplicationCoordinator {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
         
-        modifyNavigationBarAppearance(navBarAppearance, controller)
+        controller.modifyBarAppearance(navBarAppearance)
 
         return controller
     }
@@ -64,15 +64,12 @@ private extension ApplicationCoordinator {
             return
         }
         
-        self.authService.selectAccount(id: userId) { [weak self] result in
-            switch result {
-            case .success:
-                guard let self = self else { return }
-                
-                self.showHomeScreen()
-            case .failure:
-                self?.showAuthScreen()
-            }
+        let result = authService.selectAccount(id: userId)
+        switch result {
+        case .success:
+            showHomeScreen()
+        case .failure:
+            showAuthScreen()
         }
     }
     
@@ -109,14 +106,4 @@ extension ApplicationCoordinator: WindowHolder {
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
         rootNavigationController.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
     }
-    
-    private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance,
-                                               _ vc: UINavigationController) {
-        vc.navigationBar.compactAppearance = appearance
-        vc.navigationBar.standardAppearance = appearance
-        vc.navigationBar.scrollEdgeAppearance = appearance
-        vc.navigationBar.barTintColor = UIColor.backgroundPrimary
-        vc.navigationBar.tintColor = UIColor.backgroundPrimary
-    }
-    
 }

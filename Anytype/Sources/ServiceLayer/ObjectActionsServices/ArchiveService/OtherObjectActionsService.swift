@@ -1,11 +1,3 @@
-//
-//  ArchiveService.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 24.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import ProtobufMessages
 import Combine
 import BlocksModels
@@ -16,7 +8,6 @@ protocol OtherObjectActionsServiceProtocol {
 }
 
 final class OtherObjectActionsService: OtherObjectActionsServiceProtocol {
-    private var subscriptions = [AnyCancellable]()
     private var objectId: String
 
     init(objectId: String) {
