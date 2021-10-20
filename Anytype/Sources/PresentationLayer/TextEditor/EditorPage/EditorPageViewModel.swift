@@ -83,11 +83,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
         case let .details(id):
             guard id == document.objectId else {
-                // TODO: - call blocks update to update mentions/links
+                // TODO: - call blocks update with new details to update mentions/links
                 performGeneralUpdate()
                 return
             }
             
+            // TODO: - also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
             details.flatMap { objectSettingsViewModel.update(with: $0) } 
