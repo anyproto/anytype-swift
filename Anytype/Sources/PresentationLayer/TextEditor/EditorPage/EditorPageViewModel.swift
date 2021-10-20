@@ -27,6 +27,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     private var didAppearedOnce = false
 
+    deinit {
+        blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
+
+        EventsBunch(
+            objectId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
+            localEvents: [.documentClosed(blockId: document.objectId)]
+        ).send()
+    }
 
     // MARK: - Initialization
     init(
@@ -225,10 +233,6 @@ extension EditorPageViewModel {
         }
 
         didAppearedOnce = true
-    }
-
-    func viewWillDismiss() {
-        blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
     }
 }
 

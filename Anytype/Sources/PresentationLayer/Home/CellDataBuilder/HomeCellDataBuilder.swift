@@ -13,7 +13,7 @@ final class HomeCellDataBuilder {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buildFavoritesData(_ updateResult: EventsListenerUpdate) -> [HomeCellData] {
+    func buildFavoritesData() -> [HomeCellData] {
         let links: [HomePageLink] = document.flattenBlocks.compactMap(blockToPageLink)
         
         return links

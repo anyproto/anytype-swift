@@ -20,7 +20,7 @@ final class LocalEventConverter {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
             return .blocks(blockIds: [blockId])
-        case .setToggled:
+        case .setToggled, .documentClosed:
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)

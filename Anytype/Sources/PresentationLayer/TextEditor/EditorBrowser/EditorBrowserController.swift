@@ -11,10 +11,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private let stateManager = BrowserNavigationManager()
 
-    private var currentViewController: EditorPageController? {
-        stateManager.openedPages.last?.controller
-    }
-    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,7 +40,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private func createNavigationView() -> EditorBottomNavigationView {
         EditorBottomNavigationView(
             onBackTap: { [weak self] in
-                self?.currentViewController?.viewWillRemoveFromBrowserController()
                 self?.pop()
             },
             onBackPageTap: { [weak self] page in
@@ -57,9 +52,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                     self.navigationController?.popViewController(animated: true)
                 }
 
-                self.stateManager.pages(after: page).forEach {
-                    $0.controller?.viewWillRemoveFromBrowserController()
-                }
                 self.childNavigation.popToViewController(controller, animated: true)
             },
             onForwardTap: { [weak self] in
@@ -81,9 +73,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
-                self?.stateManager.openedPages.forEach {
-                    $0.controller?.viewWillRemoveFromBrowserController()
-                }
                 self?.navigationController?.popViewController(animated: true)
             },
             onSearchTap: { [weak self] in
