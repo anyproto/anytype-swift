@@ -119,10 +119,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func performGeneralUpdate() {
         let models = document.flattenBlocks
         
-        let blocksViewModels = blockBuilder.build(
-            models,
-            currentObjectDetails: document.objectDetails
-        )
+        let blocksViewModels = blockBuilder.build(models)
         
         handleGeneralUpdate(with: blocksViewModels)
         
@@ -153,11 +150,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
             
-            guard let newModel = blockBuilder.build(
-                    newRecord,
-                    currentObjectDetails: document.objectDetails,
-                    previousBlock: upperBlock
-            )
+            guard
+                let newModel = blockBuilder.build(newRecord, previousBlock: upperBlock)
             else {
                 anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return
