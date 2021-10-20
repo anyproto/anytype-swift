@@ -4,24 +4,15 @@ final class HomeCoordinator {
     
     // MARK: - Private variables
     
-    private let settingsAssembly: SettingsAssembly
     private let editorAssembly: EditorAssembly
     
     // MARK: - Initializers
     
-    init(
-        settingsAssembly: SettingsAssembly,
-        editorAssembly: EditorAssembly
-    ) {
-        self.settingsAssembly = settingsAssembly
+    init(editorAssembly: EditorAssembly) {
         self.editorAssembly = editorAssembly
     }
     
     // MARK: - Internal functions
-    
-    func settingsView() -> some View {
-        settingsAssembly.settingsView()
-    }
     
     func documentView(selectedDocumentId: String) -> some View {
         editorAssembly.editor(blockId: selectedDocumentId)

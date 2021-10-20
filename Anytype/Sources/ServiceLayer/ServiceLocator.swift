@@ -60,10 +60,7 @@ final class ServiceLocator {
     }
     
     func homeCoordinator() -> HomeCoordinator {
-        HomeCoordinator(
-            settingsAssembly: SettingsAssembly(),
-            editorAssembly:  EditorAssembly()
-        )
+        HomeCoordinator(editorAssembly:  EditorAssembly())
     }
 
 }
