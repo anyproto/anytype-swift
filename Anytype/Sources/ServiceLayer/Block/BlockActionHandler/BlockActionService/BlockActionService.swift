@@ -104,17 +104,18 @@ final class BlockActionService: BlockActionServiceProtocol {
             }
     }
 
-    func createPage(position: BlockPosition) {
-       guard let response = pageService.createPage(
+    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId? {
+        guard let response = pageService.createPage(
             contextId: documentId,
-            targetId: "",
+            targetId: targetId,
             details: [.name("")],
             position: position,
             templateId: ""
-       ) else { return }
+        ) else { return nil }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
         EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
+        return response.newBlockId
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
@@ -123,16 +124,17 @@ final class BlockActionService: BlockActionServiceProtocol {
             setTextStyle(blockId: blockId, style: style, shouldFocus: shouldSetFocusOnUpdate)
         case .smartblock:
             anytypeAssertionFailure("Use turnIntoPage action instead")
-            turnIntoPage(blockId: blockId)
+            _ = turnIntoPage(blockId: blockId)
         case .divider(let style): setDividerStyle(blockId: blockId, style: style)
         case .bookmark, .file, .layout, .link:
             anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         }
     }
     
-    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> () = { _ in }) {
-        pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")
-            .flatMap { completion($0.first) }
+    func turnIntoPage(blockId: BlockId) -> BlockId? {
+        return pageService
+            .convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?
+            .first
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
