@@ -109,7 +109,7 @@ enum AttributedTextConverter {
                 }
             }
         }
-        
+
         let middlewareMarks = marksTuples.compactMap { (markup, ranges) -> [Anytype_Model_Block.Content.Text.Mark]? in
 
             ranges.map { range in
