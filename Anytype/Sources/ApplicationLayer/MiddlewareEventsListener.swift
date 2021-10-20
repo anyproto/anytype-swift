@@ -29,10 +29,7 @@ extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
         
         logEvent(event: event)
         
-        EventsBunch(
-            objectId: event.contextID,
-            middlewareEvents: event.messages
-        ).send()
+        EventsBunch(event: event).send()
     }
     
     

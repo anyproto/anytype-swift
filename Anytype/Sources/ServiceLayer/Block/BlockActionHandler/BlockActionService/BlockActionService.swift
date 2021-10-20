@@ -106,11 +106,11 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func createPage(position: BlockPosition) {
        guard let response = pageService.createPage(
-            contextID: documentId,
-            targetID: "",
+            contextId: documentId,
+            targetId: "",
             details: [.name("")],
             position: position,
-            templateID: ""
+            templateId: ""
        ) else { return }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
@@ -136,10 +136,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
-        guard let response = textService.checked(contextId: documentId, blockId: blockId, newValue: newValue) else {
-            return
-        }
-        EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
+        textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
     }
     
     func delete(blockId: BlockId, previousBlockId: BlockId?) {
@@ -164,20 +161,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
-        guard let response = listService.setFields(contextId: contextID, fields: blockFields) else {
-            return
-        }
-        response.asEventsBunch.send()
+        listService.setFields(contextId: contextID, fields: blockFields)
     }
 }
 
 private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
-        guard let response = listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style) else {
-            return
-        }
-        response.asEventsBunch.send()
+        listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
     }
 
     func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
@@ -194,13 +185,12 @@ private extension BlockActionService {
 
 extension BlockActionService {
     func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent]) {
-        guard let response = textService
+        guard let events = textService
                 .merge(contextId: documentId, firstBlockId: firstBlockId, secondBlockId: secondBlockId) else {
                     return
                 }
             
-        let events = response.asEventsBunch.enrichedWith(localEvents: localEvents)
-        events.send()
+        events.enrichedWith(localEvents: localEvents).send()
     }
 }
 
@@ -209,10 +199,7 @@ extension BlockActionService {
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
-        guard let response = bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url) else {
-            return
-        }
-        response.asEventsBunch.send()
+        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
     }
 }
 
@@ -224,10 +211,7 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        guard let response = listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color) else {
-            return
-        }
-        response.asEventsBunch.send()
+        listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color)
     }
 }
 

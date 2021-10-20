@@ -136,34 +136,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 private extension BlockActionHandler {
     
     func setBlockColor(blockId: BlockId, color: BlockColor) {
-        guard
-            let response = listService.setBlockColor(
-                contextId: document.objectId,
-                blockIds: [blockId],
-                color: color.middleware
-            )
-        else { return }
-        
-        EventsBunch(
-            objectId: document.objectId,
-            middlewareEvents: response.messages
-        ).send()
+        listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
     }
     
     func setAlignment(blockId: BlockId, alignment: LayoutAlignment) {
-        guard
-            let response = listService.setAlign(
-                contextId: document.objectId,
-                blockIds: [blockId],
-                alignment: alignment
-            )
-        else { return }
-        
-        EventsBunch(
-            objectId: document.objectId,
-            middlewareEvents: response.messages,
-            localEvents: []
-        ).send()
+        listService.setAlign(contextId: document.objectId, blockIds: [blockId], alignment: alignment)
     }
     
     func delete(blockId: BlockId) {
@@ -199,17 +176,6 @@ private extension BlockActionHandler {
     }
     
     func moveTo(targetId: BlockId, blockId: BlockId) {
-        guard
-            let response = listService.moveTo(
-                contextId: document.objectId,
-                blockId: blockId,
-                targetId: targetId
-            )
-        else { return }
-        
-        EventsBunch(
-            objectId: document.objectId,
-            middlewareEvents: response.messages
-        ).send()
+        listService.moveTo(contextId: document.objectId, blockId: blockId, targetId: targetId)
     }
 }

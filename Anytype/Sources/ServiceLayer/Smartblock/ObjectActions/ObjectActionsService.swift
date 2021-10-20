@@ -18,59 +18,37 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     func createPage(
-        contextID: BlockId,
-        targetID: BlockId,
+        contextId: BlockId,
+        targetId: BlockId,
         details: ObjectRawDetails,
         position: BlockPosition,
-        templateID: String
+        templateId: String
     ) -> CreatePageResponse? {
-        let convertedDetails = AnytypeDetailsConverter.convertObjectRawDetails(details) 
-        let protobufDetails = convertedDetails.reduce([String: Google_Protobuf_Value]()) { result, detail in
+        let protobufDetails = details.asMiddleware.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
             return result
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
-        return createPage(contextID: contextID, targetID: targetID, details: protobufStruct, position: position.asMiddleware, templateID: templateID)
-    }
-    
-    private func createPage(
-        contextID: String,
-        targetID: String,
-        details: Google_Protobuf_Struct,
-        position: Anytype_Model_Block.Position,
-        templateID: String
-    ) -> CreatePageResponse? {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(
-            contextID: contextID, details: details, templateID: templateID,
-            targetID: targetID, position: position, fields: .init()
-        )
+        return Anytype_Rpc.Block.CreatePage.Service
+            .invoke(
+                contextID: contextId, details: protobufStruct, templateID: templateId,
+                targetID: targetId, position: position.asMiddleware, fields: .init()
+            )
             .map { CreatePageResponse($0) }
             .getValue()
     }
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func setDetails(contextID: BlockId, details: ObjectRawDetails) -> MiddlewareResponse?  {
-        let middlewareDetails = AnytypeDetailsConverter.convertObjectRawDetails(details) 
-        let result = Anytype_Rpc.Block.Set.Details.Service.invoke(
-            contextID: contextID,
-            details: middlewareDetails
-        ).map { MiddlewareResponse($0.event) }
-        
+    func setDetails(contextID: BlockId, details: ObjectRawDetails) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
         
-        return result.getValue()
-    }
-    
-    private func setDetails(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<MiddlewareResponse, Error> {
-        Anytype_Rpc.Block.Set.Details.Service
-            .invoke(contextID: contextID, details: details, queue: .global())
-            .map(\.event)
-            .map(MiddlewareResponse.init(_:))
-            .subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
+        Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details.asMiddleware)
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
@@ -81,13 +59,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue()
     }
     
-    @discardableResult
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> MiddlewareResponse? {
-        Anytype_Rpc.BlockList.Move.Service.invoke(
-            contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
-            dropTargetID: dropPositionblockId, position: position
-        )
-            .map { MiddlewareResponse($0.event) }
-            .getValue()
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
+        Anytype_Rpc.BlockList.Move.Service
+            .invoke(
+                contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
+                dropTargetID: dropPositionblockId, position: position
+            )
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
     }
 }
