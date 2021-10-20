@@ -67,12 +67,13 @@ class SelectProfileViewModel: ObservableObject {
     // MARK: - Private func
     
     private func handleAccountShowEvent() {
-        // WTF?
-        cancellable = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
-            .compactMap { notification in
-                return notification.object as? Anytype_Event
-            }
-            .map(\.messages)
+        cancellable = NotificationCenter.Publisher(
+            center: .default,
+            name: .middlewareEvent,
+            object: nil
+        )
+            .compactMap { $0.object as? EventsBunch }
+            .map(\.middlewareEvents)
             .map {
                 $0.filter { message in
                     guard let value = message.value else { return false }
