@@ -24,4 +24,5 @@ public enum ObjectDetailsItemKey: String {
     case lastOpenedDate = "lastOpenedDate"
     case isHidden = "isHidden"
     case lastModifiedDate = "lastModifiedDate"
+    case isDraft = "isDraft"
 }

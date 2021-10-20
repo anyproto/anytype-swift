@@ -26,7 +26,7 @@ final class EditorPageAssembly {
             document: document,
             router: router
         )
-        
+
         controller.viewModel = viewModel
         
         return (controller, router)
@@ -105,7 +105,8 @@ final class EditorPageAssembly {
             blockBuilder: blocksConverter,
             blockActionHandler: editorBlockActionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
-            headerBuilder: headerBuilder
+            headerBuilder: headerBuilder,
+            blockActionsService: BlockActionsServiceSingle()
         )
     }
 }

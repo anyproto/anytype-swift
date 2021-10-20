@@ -3,15 +3,14 @@ import Amplitude
 
 
 struct SettingsView: View {
-    @StateObject var viewModel: SettingsViewModel
-    @StateObject private var settingsSectionModel = SettingSectionViewModel()
-    @State private var logginOut = false
+    @ObservedObject var viewModel: SettingsViewModel
+    @EnvironmentObject private var sectionModel: SettingSectionViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
             SettingsSectionView()
-            Button(action: { logginOut = true }) {
+            Button(action: { sectionModel.loggingOut = true }) {
                 AnytypeText("Log out".localized, style: .uxCalloutRegular, color: .textSecondary)
                     .padding()
             }
@@ -20,31 +19,7 @@ struct SettingsView: View {
         .cornerRadius(16)
         
         .environmentObject(viewModel)
-        .environmentObject(settingsSectionModel)
-        
-        .alert(isPresented: $logginOut) {
-            alert
-        }
-    }
-    
-    private var alert: Alert {
-        Alert(
-            title: AnytypeText.buildText("Log out".localized, style: .title),
-            message: AnytypeText.buildText("Have you backed up your keychain phrase?".localized, style: .subheading),
-            primaryButton: Alert.Button.default(
-                AnytypeText.buildText("Backup keychain phrase".localized, style: .body)
-            ) {
-                settingsSectionModel.keychain = true
-            },
-            secondaryButton: Alert.Button.destructive(
-                AnytypeText.buildText("Log out", style: .body)
-            ) {
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileLogOut)
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                viewModel.logout()
-            }
-        )
+        .environmentObject(sectionModel)
     }
 }
 

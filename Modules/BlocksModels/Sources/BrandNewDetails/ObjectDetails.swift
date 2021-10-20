@@ -24,6 +24,7 @@ public struct ObjectDetails: Hashable {
     public private(set) var layoutAlign: LayoutAlignment = ObjectDetailDefaultValue.layoutAlignment
     public private(set) var isDone: Bool = ObjectDetailDefaultValue.bool
     public private(set) var type: String = ObjectDetailDefaultValue.string
+    public private(set) var isDraft: Bool = ObjectDetailDefaultValue.bool
     
     public init(id: String, rawDetails: ObjectRawDetails) {
         self.id = id
@@ -41,6 +42,7 @@ public struct ObjectDetails: Hashable {
             case .layoutAlign(let value): layoutAlign = value
             case .isDone(let value): isDone = value
             case .type(let value): type = value
+            case .isDraft(let value): isDraft = value
             }
         }
     }
@@ -64,6 +66,7 @@ public struct ObjectDetails: Hashable {
             case .layoutAlign(let value): currentDetails.layoutAlign = value
             case .isDone(let value): currentDetails.isDone = value
             case .type(let value): currentDetails.type = value
+            case .isDraft(let value): currentDetails.isDraft = value
             }
         }
         

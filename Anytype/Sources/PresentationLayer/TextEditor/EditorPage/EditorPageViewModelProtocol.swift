@@ -12,6 +12,8 @@ protocol EditorPageViewModelProtocol {
     
     func viewLoaded()
     func viewAppeared()
+    func viewWillDismiss()
+
     func didSelectBlock(at index: IndexPath)
     
     func showSettings()

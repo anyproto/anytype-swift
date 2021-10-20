@@ -79,6 +79,11 @@ extension ObjectRawDetails {
                     key: ObjectDetailsItemKey.type.rawValue,
                     value: Google_Protobuf_Value(stringValue: string)
                 )
+            case .isDraft(let isDraft):
+                return Anytype_Rpc.Block.Set.Details.Detail(
+                    key: ObjectDetailsItemKey.isDraft.rawValue,
+                    value: Google_Protobuf_Value(boolValue: isDraft)
+                )
             }
         }
     }
