@@ -51,8 +51,7 @@ public enum MiddlewareDetailsConverter {
                 return .iconEmoji(unwrapedListValue.stringValue)
                 
             case .iconImageHash:
-                guard let hash = Hash(unwrapedListValue.stringValue) else { return nil }
-                return .iconImageHash(hash)
+                return .iconImageHash(Hash(unwrapedListValue.stringValue))
                 
             case .coverId:
                 return .coverId(unwrapedListValue.stringValue)
