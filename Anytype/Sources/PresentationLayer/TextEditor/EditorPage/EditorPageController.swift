@@ -81,6 +81,11 @@ final class EditorPageController: UIViewController {
             scrollView: collectionView
         )
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewAppeared()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -88,6 +93,10 @@ final class EditorPageController: UIViewController {
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
         firstResponderHelper = nil
+    }
+
+    func viewWillRemoveFromBrowserController() {
+        viewModel.viewWillDismiss()
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -104,7 +113,7 @@ final class EditorPageController: UIViewController {
 
 extension EditorPageController: EditorPageViewInput {
     
-    func update(header: ObjectHeader, details: DetailsDataProtocol?) {
+    func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
         dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)

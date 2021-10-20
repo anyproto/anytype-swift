@@ -6,61 +6,45 @@ import AnytypeCore
 
 final class AccountInfoDataAccessor: ObservableObject {
     
-    @Published private(set) var profileBlockId = MiddlewareConfigurationService.shared.configuration()?.profileBlockId
+    @Published private(set) var profileBlockId: BlockId
     @Published private(set) var name: String?
     @Published private(set) var avatarId: String?
     
-    private let document: BaseDocumentProtocol = BaseDocument()
-    private var subscriptions: [AnyCancellable] = []
-    
-    private let blocksActionsService = BlockActionsServiceSingle()
-    
-    init() {        
-        setUpSubscriptions()
-        obtainAccountInfo()
+    private let document: BaseDocumentProtocol
+        
+    init() {
+        let blockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
+        profileBlockId = blockId
+        document = BaseDocument(objectId: blockId)
+        document.onUpdateReceive = { [weak self] update in
+            self?.handleDocumentUpdate(update)
+        }
+        document.open()
     }
     
-    private func setUpSubscriptions() {
-        setUpNameSubscription()
-        setUpImageSubscription()
-    }
-    
-    private func setUpNameSubscription() {
-        document.pageDetailsPublisher()
-            .safelyUnwrapOptionals()
-            .map { $0.name }
-            .safelyUnwrapOptionals()
-            .receiveOnMain()
-            .sink { [weak self] accountName in
-                self?.name = accountName.isEmpty ? Constants.defaultName : accountName
-            }
-            .store(in: &self.subscriptions)
-    }
-    
-    private func setUpImageSubscription() {
-        document.pageDetailsPublisher()
-            .safelyUnwrapOptionals()
-            .map { $0.iconImage }
-            .safelyUnwrapOptionals()
-            .receiveOnMain()
-            .sink { [weak self] imageId in
-                self?.avatarId = imageId.isEmpty ? nil : imageId
-            }
-            .store(in: &self.subscriptions)
-    }
-    
-    private func obtainAccountInfo() {
-        guard let profileBlockId = profileBlockId else {
-            anytypeAssertionFailure("profileBlockId can`t be nil")
+    private func handleDocumentUpdate(_ update: EventsListenerUpdate) {
+        switch update {
+        case .general:
+            updateAccountInfoData(details: document.objectDetails)
+        case let .details(id: id):
+            guard id == document.objectId else { return }
+            
+            updateAccountInfoData(details: document.objectDetails)
+        case .blocks:
+            return
+        case .syncStatus:
             return
         }
-        
-        guard let response = blocksActionsService.open(contextId: profileBlockId, blockId: profileBlockId) else {
-            return
-        }
-        
-        document.open(response)
     }
+    
+    private func updateAccountInfoData(details: ObjectDetails?) {
+        guard let details = details else { return }
+        
+        self.name = details.name.isEmpty ? Constants.defaultName : details.name
+        self.avatarId = details.iconImageHash?.value
+        
+    }
+    
 }
 
 private extension AccountInfoDataAccessor {

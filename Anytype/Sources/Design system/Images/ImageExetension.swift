@@ -17,6 +17,7 @@ extension Image {
         static let search = createImage("main_search")
         static let settings = createImage("main_settings")
         static let marketplace = createImage("marketplace")
+        static let selection = createImage("selection")
     }
     
     enum settings {
@@ -46,6 +47,7 @@ extension Image {
 
     enum ObjectAction {
         static let archive = createImage("delete")
+        static let restore = createImage("restore")
         static let favorite = createImage("addToFavorites")
         static let unfavorite = createImage("unfavorite")
         static let moveTo = createImage("moveTo")

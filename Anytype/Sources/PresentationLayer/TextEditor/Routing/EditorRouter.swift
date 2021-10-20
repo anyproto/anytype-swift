@@ -57,8 +57,8 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        if let details = document.getDetails(id: id)?.currentDetails {
-            let typeUrl = details.typeUrl
+        if let details = document.detailsStorage.get(id: id) {
+            let typeUrl = details.type
             guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
                 let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
                 
@@ -123,7 +123,7 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let container = document.rootActiveModel?.container,
+              let container = document.blocksContainer.model(id: document.objectId)?.container,
               let rootController = rootController,
               let blockModel = container.model(id: information.id) else { return }
 
@@ -197,24 +197,24 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(title: "Move to".localized) { data in
-            onSelect(data.id)
+        let moveToView = SearchView(title: "Move to".localized) { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: moveToView)
     }
     
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let linkToView = SearchView(title: "Link to") { data in
-            onSelect(data.id)
+        let linkToView = SearchView(title: "Link to") { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: linkToView)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(title: nil) { data in
-            onSelect(data.id)
+        let searchView = SearchView(title: nil) { id in
+            onSelect(id)
         }
         
         presentSwuftUIView(view: searchView)

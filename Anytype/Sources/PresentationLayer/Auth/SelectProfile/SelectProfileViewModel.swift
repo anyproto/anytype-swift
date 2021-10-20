@@ -67,6 +67,7 @@ class SelectProfileViewModel: ObservableObject {
     // MARK: - Private func
     
     private func handleAccountShowEvent() {
+        // WTF?
         cancellable = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
             .compactMap { notification in
                 return notification.object as? Anytype_Event

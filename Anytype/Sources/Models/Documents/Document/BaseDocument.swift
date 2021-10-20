@@ -8,208 +8,85 @@ private extension LoggerCategory {
 }
 
 final class BaseDocument: BaseDocumentProtocol {
-    var rootActiveModel: BlockModelProtocol? {
-        guard let rootId = rootModel?.rootId else { return nil }
-        return rootModel?.blocksContainer.model(id: rootId)
-    }
+        
+    var onUpdateReceive: ((EventsListenerUpdate) -> Void)?
+    
+    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let eventsListener: EventsListener
+    
+    let objectId: BlockId
 
-    var documentId: BlockId? { rootModel?.rootId }
-    
-    /// RootModel
-    private(set) var rootModel: RootBlockContainer? {
-        didSet {
-            self.handleNewRootModel(self.rootModel)
-        }
+    let blocksContainer: BlockContainerModelProtocol = BlockContainer()
+    let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+        
+    init(objectId: BlockId) {
+        self.objectId = objectId
+        
+        self.eventsListener = EventsListener(
+            objectId: objectId,
+            blocksContainer: blocksContainer,
+            detailsStorage: detailsStorage
+        )
+        
+        setup()
     }
-    
-    let eventHandler = EventHandler()
-    
-    /// Details Active Models
-    /// But we have a lot of them, so, we should keep a list of them.
-    /// Or we could create them on the fly.
-    ///
-    /// This one is active model of default ( or main ) document id (smartblock id).
-    ///
-    let defaultDetailsActiveModel = DetailsActiveModel()
-    
-    /// This event subject is a subject for events from default details active model.
-    ///
-    /// When we set details, we need to listen for returned value ( success result ).
-    /// This success result should be handled by our event processor.
-    ///
-    private var detailsEventSubject: PassthroughSubject<PackOfEvents, Never> = .init()
-    
-    /// It is simple event subject subscription.
-    ///
-    /// We use it to subscribe on event subject.
-    ///
-    private var detailsEventSubjectSubscription: AnyCancellable?
-    
-    /// Services
-    private var smartblockService: BlockActionsServiceSingle = .init()
     
     deinit {
-        documentId.flatMap { rootId in
-            smartblockService.close(contextId: rootId, blockId: rootId)
-        }
+        blockActionsService.close(contextId: objectId, blockId: objectId)
     }
 
     // MARK: - BaseDocumentProtocol
 
-    var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
-        eventHandler.didProcessEventsPublisher.filter(\.hasUpdate)
-            .compactMap { [weak self] updates in
-                guard let self = self else { return nil }
-        
-                if let rootId = self.documentId,
-                   let container = self.rootModel,
-                   let rootModel = container.blocksContainer.model(id: rootId) {
-                    BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
-                }
-                
-                let details: DetailsDataProtocol? = {
-                    guard let id = self.documentId else { return nil }
-                    
-                    return self.rootModel?.detailsContainer.get(by: id)?.detailsData
-                }()
-                
-                return BaseDocumentUpdateResult(
-                    updates: updates,
-                    details: details,
-                    models: self.models(from: updates)
-                )
-            }.eraseToAnyPublisher()
-    }
-
-    // MARK: - Handle Open
-    
-    func open(_ sucess: ResponseEvent) {
-        handleOpen(sucess)
-        eventHandler.handle(
-            events: PackOfEvents(middlewareEvents: sucess.messages)
-        )
-    }
-    
-    private func handleOpen(_ serviceSuccess: ResponseEvent) {
-        let blocks = eventHandler.handleBlockShow(
-            events: .init(middlewareEvents: serviceSuccess.messages)
-        )
-        guard let event = blocks.first else { return }
-        
-        // Build blocks tree and create new container
-        // And then, sync builders
-        let rootId = serviceSuccess.contextID
-        
-        let blocksContainer = TreeBlockBuilder.buildBlocksTree(from: event.blocks, with: rootId)
-        let parsedDetails = event.details.map {
-            LegacyDetailsModel(detailsData: $0)
-        }
-        
-        let detailsStorage = DetailsContainer()
-        parsedDetails.forEach {
-            detailsStorage.add(
-                model: $0,
-                id: $0.detailsData.blockId
+    func open() {
+        guard
+            let result = blockActionsService.open(
+                contextId: objectId,
+                blockId: objectId
             )
-        }
+        else { return }
         
-        // Add details models to process.
-        rootModel = RootBlockContainer(
-            rootId: rootId,
+        ObjectOpenEventProcessor.fillRootModelWithEventData(
             blocksContainer: blocksContainer,
-            detailsContainer: detailsStorage
+            detailsStorage: detailsStorage,
+            event: result
         )
-    }
 
-    // MARK: - Configure Details
-
-    // Configure a subscription on events stream from details.
-    // We need it for set details success result to process it in our event processor.
-    private func listenDefaultDetails() {
-        self.detailsEventSubjectSubscription = self.detailsEventSubject.sink(receiveValue: { [weak self] (value) in
-            self?.handle(events: value)
-        })
+        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
     
-    /// Configure default details for a container.
-    ///
-    /// It is the first place where you can configure default details with various handlers and other stuff.
-    ///
-    /// - Parameter container: A container in which this details is default.
-    private func configureDetails(for container: RootBlockContainer?) {
-        guard let container = container,
-              let rootId = container.rootId,
-              let ourModel = container.detailsContainer.get(by: rootId)
+    var objectDetails: ObjectDetails? {
+        detailsStorage.get(id: objectId)
+    }
+    
+    // Looks like this code runs on main thread.
+    // This operation should be done in `eventsListener.onUpdateReceive` closure
+    // OR store flatten blocks instead of tree in `BlockContainer`
+    var flattenBlocks: [BlockModelProtocol] {
+        guard
+            let activeModel = blocksContainer.model(id: objectId)
         else {
-            AnytypeLogger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
-            return
-        }
-        let publisher = ourModel.changeInformationPublisher
-        defaultDetailsActiveModel.configured(publisher: publisher)
-        listenDefaultDetails()
-    }
-
-    // MARK: - Handle new root model
-    private func handleNewRootModel(_ container: RootBlockContainer?) {
-        if let container = container {
-            eventHandler.configured(container)
-        }
-        configureDetails(for: container)
-    }
-    
-    /// Returns a flatten list of active models of document.
-    /// - Returns: A list of active models.
-    private func getModels() -> [BlockModelProtocol] {
-        guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.model(id: rootId) else {
             AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
-        return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
-    }
-    
-    private func models(from updates: EventHandlerUpdate) -> [BlockModelProtocol] {
-        switch updates {
-        case .general:
-            return getModels()
-        case .details, .update, .syncStatus:
-            return []
-        }
+        return BlockFlattener.flatten(
+            root: activeModel,
+            in: blocksContainer,
+            options: .default
+        )
     }
 
-    // MARK: - Details
-    /// Return configured details for provided id for listening events.
-    ///
-    /// Note.
-    ///
-    /// Provided `id` should be in `a list of details of opened document`.
-    /// If you receive a error, assure yourself, that you've opened a document before accessing details.
-    ///
-    /// - Parameter id: Id of item for which we would like to listen events.
-    /// - Returns: details active model.
-    ///
-    func getDetails(id: BlockId) -> DetailsActiveModel? {
-        guard let value = self.rootModel?.detailsContainer.get(by: id) else {
-            AnytypeLogger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
-            return nil
+    
+    
+    private func setup() {
+        eventsListener.onUpdateReceive = { [weak self] update in
+            guard update.hasUpdate else { return }
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.onUpdateReceive?(update)
+            }
         }
-        let result = DetailsActiveModel()
-        result.configured(publisher: value.changeInformationPublisher)
-        return result
+        eventsListener.startListening()
     }
     
-    /// Convenient publisher for accessing default details properties by typed enum.
-    /// - Returns: Publisher of default details properties.
-    func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never> {
-        defaultDetailsActiveModel.$currentDetails.eraseToAnyPublisher()
-    }
-
-    // MARK: - Events
-    
-    /// Handle events initiated by user.
-    ///
-    /// - Parameter events: A pack of events.
-    ///
-    func handle(events: PackOfEvents) {
-        eventHandler.handle(events: events)
-    }
 }

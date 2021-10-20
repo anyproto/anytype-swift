@@ -4,6 +4,7 @@ import Combine
 import Foundation
 import ProtobufMessages
 import AnytypeCore
+import SwiftUI
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
@@ -11,73 +12,75 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { $0.isArchived == false }
     }
     
-    @Published var archiveCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
+    @Published var binCellData: [HomeCellData] = []
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
+    @Published var showDeletionAlert = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-
+    
+    private let configurationService = MiddlewareConfigurationService.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     
-    private var subscriptions = [AnyCancellable]()
-
-    let document: BaseDocumentProtocol = BaseDocument()
+    let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
+    private var animationsEnabled = true
     
     init() {
-        fetchDashboardData()
+        let homeBlockId = configurationService.configuration().homeBlockID
+        document = BaseDocument(objectId: homeBlockId)
+        document.onUpdateReceive = { [weak self] updateResult in
+            self?.onDashboardChange(updateResult: updateResult)
+        }
+        document.open()
     }
 
     // MARK: - View output
 
     func viewLoaded() {
-        updateArchiveTab()
+        updateBinTab()
         updateHistoryTab()
+        animationsEnabled = true
     }
 
-    // MARK: - Private methods
-
-    func updateArchiveTab() {
+    func updateBinTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
-        archiveCellData = cellDataBuilder.buildCellData(searchResults)
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            binCellData = cellDataBuilder.buildCellData(searchResults)
+        }
     }
     func updateHistoryTab() {
         guard let searchResults = searchService.searchHistoryPages() else { return }
-        historyCellData = cellDataBuilder.buildCellData(searchResults)
-    }
-    
-    private func fetchDashboardData() {        
-        guard let response = dashboardService.openDashboard() else { return }
-        
-        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
-            self?.onDashboardChange(updateResult: updateResult)
-        }.store(in: &self.subscriptions)
-        
-        document.open(response)
-    }
-    
-    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
-        switch updateResult.updates {
-        case .general:
-            favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
-        case .update(let blockIds):
-            blockIds.forEach { updateCellWithTargetId($0) }
-        case .details(let details):
-            updateCellWithTargetId(details.blockId)
-        case .syncStatus:
-            break
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            historyCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
     
-    private func updateCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.getDetails(id: blockId)?.currentDetails else {
+    // MARK: - Private methods
+    private func onDashboardChange(updateResult: EventsListenerUpdate) {
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            switch updateResult {
+            case .general:
+                favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
+            case .blocks(let blockIds):
+                blockIds.forEach { updateFavoritesCellWithTargetId($0) }
+            case .details(let detailId):
+                updateFavoritesCellWithTargetId(detailId)
+            case .syncStatus:
+                break
+            }
+        }
+    }
+    
+    private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
+        guard let newDetails = document.detailsStorage.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
@@ -85,7 +88,10 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                favoritesCellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+                favoritesCellData[offset] = cellDataBuilder.updatedCellData(
+                    newDetails: newDetails,
+                    oldData: data
+                )
             }
     }
 }
@@ -95,9 +101,10 @@ extension HomeViewModel {
     func createNewPage() {
         guard let response = dashboardService.createNewPage() else { return }
         
-        document.handle(
-            events: PackOfEvents(middlewareEvents: response.messages)
-        )
+        EventsBunch(
+            objectId: document.objectId,
+            middlewareEvents: response.messages
+        ).send()
 
         guard !response.newBlockId.isEmpty else {
             anytypeAssertionFailure("No new block id in create new page response")
@@ -112,6 +119,7 @@ extension HomeViewModel {
     }
     
     func showPage(pageId: BlockId) {
+        animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
         openedPageData.pageId = pageId
         openedPageData.showingNewPage = true
     }

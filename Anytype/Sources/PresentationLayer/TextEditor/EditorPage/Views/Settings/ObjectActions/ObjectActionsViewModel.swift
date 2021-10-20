@@ -1,38 +1,29 @@
-//
-//  ObjectActionsViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 24.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels
 
 
 final class ObjectActionsViewModel: ObservableObject {
-    private let archiveService: OtherObjectActionsService
+    private let service = ObjectActionsService()
+    private let objectId: BlockId
 
-    @Published var details: DetailsDataProtocol = DetailsData.empty {
+    @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: []) {
         didSet {
-            objectActions = details.rawDetails.isEmpty ? [] : ObjectAction.allCasesWith(details: details)
+            objectActions = ObjectAction.allCasesWith(details: details)
         }
     }
     @Published var objectActions: [ObjectAction] = []
 
     init(objectId: String) {
-        self.archiveService = OtherObjectActionsService(objectId: objectId)
+        self.objectId = objectId
     }
 
     func changeArchiveState() {
-        let isArchived = details.isArchived ?? false
-        archiveService.setArchive(!isArchived)
+        service.setArchive(objectId: objectId, !details.isArchived)
     }
 
     func changeFavoriteSate() {
-        let isFavorite = details.isFavorite ?? false
-        archiveService.setFavorite(!isFavorite)
+        service.setFavorite(objectId: objectId, !details.isFavorite)
     }
 
     func moveTo() {

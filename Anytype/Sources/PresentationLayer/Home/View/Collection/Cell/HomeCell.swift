@@ -23,6 +23,15 @@ struct HomeCell: View {
         .background(Color.background)
         .redacted(reason: isRedacted ? .placeholder : [])
         .cornerRadius(16)
+        
+        .if(cellData.selected) {
+            $0.overlay(
+                Image.main.selection
+                    .frame(width: 20, height: 20)
+                    .padding([.trailing, .bottom], 10),
+                alignment: .bottomTrailing
+            )
+        }
     }
     
     private var padding: EdgeInsets {

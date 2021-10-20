@@ -2,7 +2,6 @@ import Foundation
 import BlocksModels
 
 protocol EditorPageViewModelProtocol {
-    var documentId: BlockId { get }
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
@@ -12,6 +11,9 @@ protocol EditorPageViewModelProtocol {
     var blockActionHandler: EditorActionHandlerProtocol { get }
     
     func viewLoaded()
+    func viewAppeared()
+    func viewWillDismiss()
+
     func didSelectBlock(at index: IndexPath)
     
     func showSettings()
