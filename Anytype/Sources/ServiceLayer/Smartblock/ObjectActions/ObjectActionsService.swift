@@ -18,11 +18,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     func createPage(
-        contextID: BlockId,
-        targetID: BlockId,
+        contextId: BlockId,
+        targetId: BlockId,
         details: ObjectRawDetails,
         position: BlockPosition,
-        templateID: String
+        templateId: String
     ) -> CreatePageResponse? {
         let protobufDetails = details.asMiddleware.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
@@ -31,20 +31,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
-        return createPage(contextID: contextID, targetID: targetID, details: protobufStruct, position: position.asMiddleware, templateID: templateID)
-    }
-    
-    private func createPage(
-        contextID: String,
-        targetID: String,
-        details: Google_Protobuf_Struct,
-        position: Anytype_Model_Block.Position,
-        templateID: String
-    ) -> CreatePageResponse? {
-        Anytype_Rpc.Block.CreatePage.Service.invoke(
-            contextID: contextID, details: details, templateID: templateID,
-            targetID: targetID, position: position, fields: .init()
-        )
+        return Anytype_Rpc.Block.CreatePage.Service
+            .invoke(
+                contextID: contextId, details: protobufStruct, templateID: templateId,
+                targetID: targetId, position: position.asMiddleware, fields: .init()
+            )
             .map { CreatePageResponse($0) }
             .getValue()
     }
@@ -68,13 +59,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue()
     }
     
-    @discardableResult
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> MiddlewareResponse? {
-        Anytype_Rpc.BlockList.Move.Service.invoke(
-            contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
-            dropTargetID: dropPositionblockId, position: position
-        )
-            .map { MiddlewareResponse($0.event) }
-            .getValue()
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
+        Anytype_Rpc.BlockList.Move.Service
+            .invoke(
+                contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
+                dropTargetID: dropPositionblockId, position: position
+            )
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
     }
 }
