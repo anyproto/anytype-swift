@@ -45,8 +45,7 @@ final class HomeViewModel: ObservableObject {
     // MARK: - View output
 
     func viewLoaded() {
-        updateBinTab()
-        updateHistoryTab()
+        reloadItems()
         animationsEnabled = true
     }
 
@@ -62,13 +61,18 @@ final class HomeViewModel: ObservableObject {
             historyCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
+    func updateFevoritesTab() {
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            favoritesCellData = cellDataBuilder.buildFavoritesData()
+        }
+    }
     
     // MARK: - Private methods
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {
             case .general:
-                favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
+                reloadItems()
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
@@ -77,6 +81,12 @@ final class HomeViewModel: ObservableObject {
                 break
             }
         }
+    }
+
+    private func reloadItems() {
+        updateBinTab()
+        updateHistoryTab()
+        updateFevoritesTab()
     }
     
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
