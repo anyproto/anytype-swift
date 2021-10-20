@@ -6,4 +6,5 @@ enum LocalEvent {
     case setText(blockId: BlockId, text: String)
     case setLoadingState(blockId: BlockId)
     case reload(blockId: BlockId)
+    case documentClosed(blockId: BlockId)
 }

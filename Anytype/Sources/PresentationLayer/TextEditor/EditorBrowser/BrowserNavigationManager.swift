@@ -109,13 +109,3 @@ final class BrowserNavigationManager {
         cachedChildrenCount += 1
     }
 }
-
-extension BrowserNavigationManager {
-    func pages(after page: BrowserPage) -> [BrowserPage] {
-        guard let index = openedPages.firstIndex(of: page) else {
-            return []
-        }
-
-        return Array(openedPages[index + 1...openedPages.count - 1])
-    }
-}

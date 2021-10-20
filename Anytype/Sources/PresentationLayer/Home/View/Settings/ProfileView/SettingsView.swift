@@ -3,14 +3,13 @@ import Amplitude
 
 
 struct SettingsView: View {
-    @ObservedObject var viewModel: SettingsViewModel
-    @EnvironmentObject private var sectionModel: SettingSectionViewModel
+    @EnvironmentObject private var viewModel: SettingsViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
             SettingsSectionView()
-            Button(action: { sectionModel.loggingOut = true }) {
+            Button(action: { viewModel.loggingOut = true }) {
                 AnytypeText("Log out".localized, style: .uxCalloutRegular, color: .textSecondary)
                     .padding()
             }
@@ -19,7 +18,6 @@ struct SettingsView: View {
         .cornerRadius(16)
         
         .environmentObject(viewModel)
-        .environmentObject(sectionModel)
     }
 }
 
@@ -27,11 +25,9 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.pureAmber.ignoresSafeArea()
-            SettingsView(
-                viewModel: SettingsViewModel(
-                    authService: ServiceLocator.shared.authService()
-                )
-            ).previewLayout(.fixed(width: 360, height: 276))
+            SettingsView()
+                .environmentObject(SettingsViewModel(authService: ServiceLocator.shared.authService()))
+                .previewLayout(.fixed(width: 360, height: 276))
         }
     }
 }

@@ -94,10 +94,6 @@ final class EditorPageController: UIViewController {
         insetsHelper = nil
         firstResponderHelper = nil
     }
-
-    func viewWillRemoveFromBrowserController() {
-        viewModel.viewWillDismiss()
-    }
     
     private var controllerForNavigationItems: UIViewController? {
         guard parent is UINavigationController else {
