@@ -135,11 +135,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
 
         for blockId in blockIds {
-            guard
-                let newRecord = document.blocksContainer.model(
-                    id: document.objectId
-                )?.container?.model(id: blockId) else {
-                anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            guard let newRecord = document.blocksContainer
+                    .model(id: document.objectId)?
+                    .container?.model(id: blockId)
+            else {
+                AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
                 return
             }
 

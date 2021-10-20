@@ -6,7 +6,7 @@ protocol BlockActionServiceProtocol {
     func upload(blockId: BlockId, filePath: String)
     
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool)
-    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ())
+    func turnIntoPage(blockId: BlockId) -> BlockId?
     
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(info: BlockInformation, parentBlockId: BlockId)
@@ -15,7 +15,7 @@ protocol BlockActionServiceProtocol {
     
     func delete(blockId: BlockId, previousBlockId: BlockId?)
     
-    func createPage(position: BlockPosition)
+    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId?
     
     func split(info: BlockInformation, oldText: String, newBlockContentType: BlockText.Style)
     

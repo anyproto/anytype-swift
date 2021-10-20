@@ -50,9 +50,7 @@ extension CustomTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let contentSize = textView.intrinsicContentSize
 
-        delegate?.didReceiveAction(
-            .changeText(textView.attributedText)
-        )
+        delegate?.didReceiveAction(.changeText(textView.attributedText))
 
         guard textSize?.height != contentSize.height else { return }
         textSize = contentSize
