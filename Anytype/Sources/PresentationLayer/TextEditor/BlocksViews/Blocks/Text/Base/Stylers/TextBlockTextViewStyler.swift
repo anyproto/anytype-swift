@@ -90,8 +90,20 @@ final class TextBlockTextViewStyler {
             right: 0
         )
 
-        let font = textView.textView.typingAttributes[.font] as? UIFont
-        textView.textView.typingAttributes = textStyle.modifiedTypingAttributes(font: font ?? textStyle.anytypeFont.uiKitFont)
+        // setup typingAttributes
+        if textView.textView.text.count == .zero {
+            textView.textView.typingAttributes = textStyle.modifiedTypingAttributes(font: textStyle.anytypeFont.uiKitFont)
+        } else if let selectedRange = textView.textView.selectedTextRange {
+            let cursorPosition = textView.textView.offset(from: textView.textView.beginningOfDocument, to: selectedRange.start)
+            var font = textStyle.anytypeFont.uiKitFont
+
+            if cursorPosition != .zero {
+                let characterBeforeCursor = cursorPosition - 1
+                font = (textView.textView.attributedText.attribute(.font, at: characterBeforeCursor, effectiveRange: nil) as? UIFont) ?? font
+            }
+            textView.textView.typingAttributes = textStyle.modifiedTypingAttributes(font: font)
+        }
+
         textView.textView.defaultFontColor = .textPrimary
     }
 }
