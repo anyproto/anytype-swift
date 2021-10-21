@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import Foundation
 
 final class TextBlockActionHandler {
     
@@ -168,7 +169,8 @@ final class TextBlockActionHandler {
             
             var localEvents = [LocalEvent]()
             if case let .text(text) = previousModel.information.content {
-                let range = NSRange(location: text.text.count, length: 0)
+                let nsText = NSString(string: text.text)
+                let range = NSRange(location: nsText.length, length: 0)
                 localEvents.append(contentsOf: [
                     .setFocus(blockId: previousBlockId, position: .at(range))
                 ])
