@@ -60,8 +60,4 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             .flatMap { Hash($0.hash) }
     }
     
-    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> Result<Data, Error> {
-        Anytype_Rpc.Ipfs.Image.Get.Blob.Service.invoke(hash: hash, wantWidth: wantWidth)
-            .map(\.blob)
-    }
 }

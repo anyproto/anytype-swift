@@ -95,16 +95,6 @@ class SelectProfileViewModel: ObservableObject {
             }
     }
     
-    private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        let result = fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize)
-        switch result {
-        case .success(let data):
-            profileViewModel.image = UIImage(data: data)
-        case .failure(let error):
-            self.error = error.localizedDescription
-        }
-    }
-    
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())

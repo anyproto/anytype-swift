@@ -39,6 +39,12 @@ enum MarkStyleActionConverter {
         case .UNRECOGNIZED(let value):
             anytypeAssertionFailure("Unrecognized markup \(value)")
             return nil
+        case .emoji:
+            anytypeAssertionFailure("Unrecognized markup emoji")
+            return nil
+        case .object:
+            anytypeAssertionFailure("Unrecognized markup object")
+            return nil
         }
     }
 }

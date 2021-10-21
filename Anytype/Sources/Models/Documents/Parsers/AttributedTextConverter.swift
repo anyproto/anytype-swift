@@ -198,6 +198,10 @@ enum AttributedTextConverter {
             return pageId
         case .UNRECOGNIZED:
             return nil
+        case .emoji:
+            return nil
+        case .object:
+            return nil
         }
     }
 }
