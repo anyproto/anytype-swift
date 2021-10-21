@@ -7,8 +7,7 @@ private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
 }
 
-final class BaseDocument: BaseDocumentProtocol {
-        
+final class BaseDocument: BaseDocumentProtocol, PartialBaseDocument {
     var onUpdateReceive: ((EventsListenerUpdate) -> Void)?
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
@@ -18,6 +17,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
     let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
         
     init(objectId: BlockId) {
         self.objectId = objectId
@@ -45,11 +45,7 @@ final class BaseDocument: BaseDocumentProtocol {
             )
         else { return }
         
-        ObjectOpenEventProcessor.fillRootModelWithEventData(
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage,
-            event: result
-        )
+        ObjectOpenEventProcessor.fillRootModelWithEventData(baseDocument: self, event: result)
 
         EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }

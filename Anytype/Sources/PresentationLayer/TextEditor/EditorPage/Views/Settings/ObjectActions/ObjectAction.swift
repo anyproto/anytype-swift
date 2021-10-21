@@ -12,11 +12,11 @@ enum ObjectAction: Hashable, Identifiable {
 //    case search
 
     // When adding to case
-    static func allCasesWith(details: ObjectDetails) -> [Self] {
+    static func allCasesWith(details: ObjectDetails, objectRestrictions: ObjectRestrictions) -> [Self] {
         var allCases: [ObjectAction] = []
 
         // We shouldn't allow archive for profile
-        if details.type != ObjectTemplateType.profile.rawValue {
+        if !objectRestrictions.objectRestriction.contains(.delete) {
             allCases.append(.archive(isArchived: details.isArchived))
         }
         allCases.append(.favorite(isFavorite: details.isFavorite))
