@@ -47,7 +47,7 @@ extension UITextView {
     }
     
     func setFocus(_ position: BlockFocusPosition) {
-        let selectedRange = position.toSelectedRange(in: text)
+        let selectedRange = position.toSelectedRange(in: NSString(string: text))
 
         if let beginningSelectedTextPostion = self.position(from: beginningOfDocument, offset: selectedRange.location),
            let endSelectedTextPosition = self.position(from: beginningSelectedTextPostion, offset: selectedRange.length)
