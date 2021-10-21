@@ -513,12 +513,27 @@ public struct Anytype_Model_Block {
   public enum Position: SwiftProtobuf.Enum {
     public typealias RawValue = Int
     case none // = 0
+
+    /// above target block
     case top // = 1
+
+    /// under target block
     case bottom // = 2
+
+    /// to left of target block
     case left // = 3
+
+    /// to right of target block
     case right // = 4
+
+    /// inside target block, as last block
     case inner // = 5
+
+    /// replace target block
     case replace // = 6
+
+    /// inside target block, as first block
+    case innerFirst // = 7
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -534,6 +549,7 @@ public struct Anytype_Model_Block {
       case 4: self = .right
       case 5: self = .inner
       case 6: self = .replace
+      case 7: self = .innerFirst
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -547,6 +563,7 @@ public struct Anytype_Model_Block {
       case .right: return 4
       case .inner: return 5
       case .replace: return 6
+      case .innerFirst: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -950,6 +967,8 @@ public struct Anytype_Model_Block {
           case textColor // = 6
           case backgroundColor // = 7
           case mention // = 8
+          case emoji // = 9
+          case object // = 10
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -967,6 +986,8 @@ public struct Anytype_Model_Block {
             case 6: self = .textColor
             case 7: self = .backgroundColor
             case 8: self = .mention
+            case 9: self = .emoji
+            case 10: self = .object
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -982,6 +1003,8 @@ public struct Anytype_Model_Block {
             case .textColor: return 6
             case .backgroundColor: return 7
             case .mention: return 8
+            case .emoji: return 9
+            case .object: return 10
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -1540,6 +1563,7 @@ extension Anytype_Model_Block.Position: CaseIterable {
     .right,
     .inner,
     .replace,
+    .innerFirst,
   ]
 }
 
@@ -1611,6 +1635,8 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
     .textColor,
     .backgroundColor,
     .mention,
+    .emoji,
+    .object,
   ]
 }
 
@@ -2126,6 +2152,8 @@ public struct Anytype_Model_ObjectType {
     case file // = 6
     case dashboard // = 7
     case image // = 8
+    case note // = 9
+    case space // = 10
 
     /// to be released later
     case database // = 20
@@ -2146,6 +2174,8 @@ public struct Anytype_Model_ObjectType {
       case 6: self = .file
       case 7: self = .dashboard
       case 8: self = .image
+      case 9: self = .note
+      case 10: self = .space
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -2162,6 +2192,8 @@ public struct Anytype_Model_ObjectType {
       case .file: return 6
       case .dashboard: return 7
       case .image: return 8
+      case .note: return 9
+      case .space: return 10
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -2186,6 +2218,8 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .file,
     .dashboard,
     .image,
+    .note,
+    .space,
     .database,
   ]
 }
@@ -2357,6 +2391,9 @@ public struct Anytype_Model_Relation {
 
     /// stored in the account DB. means existing only for specific anytype account
     case account // = 2
+
+    /// stored locally
+    case local // = 3
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -2368,6 +2405,7 @@ public struct Anytype_Model_Relation {
       case 0: self = .details
       case 1: self = .derived
       case 2: self = .account
+      case 3: self = .local
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -2377,6 +2415,7 @@ public struct Anytype_Model_Relation {
       case .details: return 0
       case .derived: return 1
       case .account: return 2
+      case .local: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2465,6 +2504,7 @@ extension Anytype_Model_Relation.DataSource: CaseIterable {
     .details,
     .derived,
     .account,
+    .local,
   ]
 }
 
@@ -2950,6 +2990,7 @@ extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
     4: .same(proto: "Right"),
     5: .same(proto: "Inner"),
     6: .same(proto: "Replace"),
+    7: .same(proto: "InnerFirst"),
   ]
 }
 
@@ -3455,6 +3496,8 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: SwiftProtobuf._ProtoNa
     6: .same(proto: "TextColor"),
     7: .same(proto: "BackgroundColor"),
     8: .same(proto: "Mention"),
+    9: .same(proto: "Emoji"),
+    10: .same(proto: "Object"),
   ]
 }
 
@@ -4527,6 +4570,8 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     6: .same(proto: "file"),
     7: .same(proto: "dashboard"),
     8: .same(proto: "image"),
+    9: .same(proto: "note"),
+    10: .same(proto: "space"),
     20: .same(proto: "database"),
   ]
 }
@@ -4752,6 +4797,7 @@ extension Anytype_Model_Relation.DataSource: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "details"),
     1: .same(proto: "derived"),
     2: .same(proto: "account"),
+    3: .same(proto: "local"),
   ]
 }
 
