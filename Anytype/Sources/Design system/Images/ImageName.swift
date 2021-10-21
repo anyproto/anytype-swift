@@ -80,6 +80,7 @@ final class ImageName {
             static let code = "slash_menu_media_code"
             static let file = "slash_menu_media_file"
             static let video = "slash_menu_media_video"
+            static let audio = "slash_menu_media_audio"
             static let picture = "slash_menu_media_picture"
         }
         
