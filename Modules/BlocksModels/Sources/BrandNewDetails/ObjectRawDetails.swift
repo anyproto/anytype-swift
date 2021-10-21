@@ -74,10 +74,10 @@ extension ObjectRawDetails {
                     value: Google_Protobuf_Value(boolValue: bool)
                 )
                 
-            case .type(let string):
+            case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: ObjectDetailsItemKey.type.rawValue,
-                    value: Google_Protobuf_Value(stringValue: string)
+                    value: Google_Protobuf_Value(stringValue: type.rawValue)
                 )
             case .isDraft(let bool):
                 return Anytype_Rpc.Block.Set.Details.Detail(

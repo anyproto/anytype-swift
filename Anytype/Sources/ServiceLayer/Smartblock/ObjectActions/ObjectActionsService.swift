@@ -40,11 +40,23 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue()
     }
 
+    func updateLayout(contextID: BlockId, value: Int) {
+        guard let selectedLayout = Anytype_Model_ObjectType.Layout(rawValue: value) else {
+            return
+        }
+        let _ = Anytype_Rpc.Object.SetLayout.Service.invoke(
+            contextID: contextID,
+            layout: selectedLayout
+        ).map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
+    }
+
     // MARK: - ObjectActionsService / SetDetails
     
     func setDetails(contextID: BlockId, details: ObjectRawDetails) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
-        
+
         Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue()?
