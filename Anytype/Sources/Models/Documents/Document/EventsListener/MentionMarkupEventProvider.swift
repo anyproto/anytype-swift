@@ -7,9 +7,7 @@ final class MentionMarkupEventProvider {
     private let objectId: BlockId
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
-    
-    private let timeChecker = TimeChecker(threshold: Constants.threshold)
-    
+        
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
@@ -21,11 +19,6 @@ final class MentionMarkupEventProvider {
     }
     
     func updateMentionsEvent() -> EventsListenerUpdate {
-        guard
-              timeChecker.exceedsTimeInterval()
-        else {
-            return .blocks(blockIds: [])
-        }
         let allBlockIds = blocksContainer.children(of: objectId)
         let blockModels = allBlockIds.compactMap { blocksContainer.model(id: $0) }
         
@@ -118,12 +111,4 @@ final class MentionMarkupEventProvider {
             model.information.content = .text(content)
         }
     }
-}
-
-private extension MentionMarkupEventProvider {
-    
-    enum Constants {
-        static let threshold: CFTimeInterval = 0.05
-    }
-    
 }
