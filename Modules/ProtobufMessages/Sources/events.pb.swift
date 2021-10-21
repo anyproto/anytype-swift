@@ -313,6 +313,14 @@ public struct Anytype_Event {
       set {value = .blockDataviewViewDelete(newValue)}
     }
 
+    public var blockDataviewViewOrder: Anytype_Event.Block.Dataview.ViewOrder {
+      get {
+        if case .blockDataviewViewOrder(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.ViewOrder()
+      }
+      set {value = .blockDataviewViewOrder(newValue)}
+    }
+
     public var blockDataviewRelationDelete: Anytype_Event.Block.Dataview.RelationDelete {
       get {
         if case .blockDataviewRelationDelete(let v)? = value {return v}
@@ -437,6 +445,7 @@ public struct Anytype_Event {
       case blockDataviewSourceSet(Anytype_Event.Block.Dataview.SourceSet)
       case blockDataviewViewSet(Anytype_Event.Block.Dataview.ViewSet)
       case blockDataviewViewDelete(Anytype_Event.Block.Dataview.ViewDelete)
+      case blockDataviewViewOrder(Anytype_Event.Block.Dataview.ViewOrder)
       case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
       case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
       case userBlockJoin(Anytype_Event.User.Block.Join)
@@ -585,6 +594,10 @@ public struct Anytype_Event {
         }()
         case (.blockDataviewViewDelete, .blockDataviewViewDelete): return {
           guard case .blockDataviewViewDelete(let l) = lhs, case .blockDataviewViewDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewViewOrder, .blockDataviewViewOrder): return {
+          guard case .blockDataviewViewOrder(let l) = lhs, case .blockDataviewViewOrder(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataviewRelationDelete, .blockDataviewRelationDelete): return {
@@ -2534,6 +2547,22 @@ public struct Anytype_Event {
         public init() {}
       }
 
+      public struct ViewOrder {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// dataview block's id
+        public var id: String = String()
+
+        /// view ids in new order
+        public var viewIds: [String] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
       public struct SourceSet {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -3372,6 +3401,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     35: .same(proto: "blockDataviewSourceSet"),
     19: .same(proto: "blockDataviewViewSet"),
     20: .same(proto: "blockDataviewViewDelete"),
+    29: .same(proto: "blockDataviewViewOrder"),
     24: .same(proto: "blockDataviewRelationDelete"),
     23: .same(proto: "blockDataviewRelationSet"),
     31: .same(proto: "userBlockJoin"),
@@ -3742,6 +3772,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockDataviewRecordsDelete(v)
         }
       }()
+      case 29: try {
+        var v: Anytype_Event.Block.Dataview.ViewOrder?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataviewViewOrder(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataviewViewOrder(v)
+        }
+      }()
       case 30: try {
         var v: Anytype_Event.Object.Show?
         var hadOneofValue = false
@@ -4081,6 +4124,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockDataviewRecordsDelete?: try {
       guard case .blockDataviewRecordsDelete(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 28)
+    }()
+    case .blockDataviewViewOrder?: try {
+      guard case .blockDataviewViewOrder(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 29)
     }()
     case .objectShow?: try {
       guard case .objectShow(let v)? = self.value else { preconditionFailure() }
@@ -7842,6 +7889,44 @@ extension Anytype_Event.Block.Dataview.ViewDelete: SwiftProtobuf.Message, SwiftP
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewDelete, rhs: Anytype_Event.Block.Dataview.ViewDelete) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.viewID != rhs.viewID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewOrder"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "viewIds"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.viewIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.viewIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.viewIds, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewOrder, rhs: Anytype_Event.Block.Dataview.ViewOrder) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.viewIds != rhs.viewIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

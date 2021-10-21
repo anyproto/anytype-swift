@@ -539,6 +539,28 @@ extension Anytype_Rpc.Block.Dataview.RelationUpdate.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Dataview.SetSource.Request {
+  public init(contextID: String, blockID: String, source: [String]) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.source = source
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Response {
+  public init(error: Anytype_Rpc.Block.Dataview.SetSource.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error {
+  public init(code: Anytype_Rpc.Block.Dataview.SetSource.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Dataview.ViewCreate.Request {
   public init(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View) {
     self.contextID = contextID
@@ -603,6 +625,29 @@ extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response {
 
 extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error {
   public init(code: Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Request {
+  public init(contextID: String, blockID: String, viewID: String, position: UInt32) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.viewID = viewID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response {
+  public init(error: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error {
+  public init(code: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1494,26 +1539,6 @@ extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error {
   }
 }
 
-extension Anytype_Rpc.BlockList.Delete.Page.Request {
-  public init(blockIds: [String]) {
-    self.blockIds = blockIds
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Response {
-  public init(error: Anytype_Rpc.BlockList.Delete.Page.Response.Error, event: Anytype_ResponseEvent) {
-    self.error = error
-    self.event = event
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Response.Error {
-  public init(code: Anytype_Rpc.BlockList.Delete.Page.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
 extension Anytype_Rpc.BlockList.Duplicate.Request {
   public init(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) {
     self.contextID = contextID
@@ -1676,48 +1701,6 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response {
 
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error {
   public init(code: Anytype_Rpc.BlockList.Set.Fields.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Request {
-  public init(contextID: String, blockIds: [String], isArchived: Bool) {
-    self.contextID = contextID
-    self.blockIds = blockIds
-    self.isArchived = isArchived
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response {
-  public init(error: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error {
-  public init(code: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Request {
-  public init(contextID: String, blockIds: [String], isFavorite: Bool) {
-    self.contextID = contextID
-    self.blockIds = blockIds
-    self.isFavorite = isFavorite
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response {
-  public init(error: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error {
-  public init(code: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2078,6 +2061,49 @@ extension Anytype_Rpc.ExternalDrop.Files.Response.Error {
   }
 }
 
+extension Anytype_Rpc.File.Offload.Request {
+  public init(id: String, includeNotPinned: Bool) {
+    self.id = id
+    self.includeNotPinned = includeNotPinned
+  }
+}
+
+extension Anytype_Rpc.File.Offload.Response {
+  public init(error: Anytype_Rpc.File.Offload.Response.Error, bytesOffloaded: UInt64) {
+    self.error = error
+    self.bytesOffloaded = bytesOffloaded
+  }
+}
+
+extension Anytype_Rpc.File.Offload.Response.Error {
+  public init(code: Anytype_Rpc.File.Offload.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.FileList.Offload.Request {
+  public init(onlyIds: [String], includeNotPinned: Bool) {
+    self.onlyIds = onlyIds
+    self.includeNotPinned = includeNotPinned
+  }
+}
+
+extension Anytype_Rpc.FileList.Offload.Response {
+  public init(error: Anytype_Rpc.FileList.Offload.Response.Error, filesOffloaded: Int32, bytesOffloaded: UInt64) {
+    self.error = error
+    self.filesOffloaded = filesOffloaded
+    self.bytesOffloaded = bytesOffloaded
+  }
+}
+
+extension Anytype_Rpc.FileList.Offload.Response.Error {
+  public init(code: Anytype_Rpc.FileList.Offload.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.GenericErrorResponse {
   public init(error: Anytype_Rpc.GenericErrorResponse.Error) {
     self.error = error
@@ -2163,70 +2189,6 @@ extension Anytype_Rpc.History.Versions.Version {
     self.authorName = authorName
     self.time = time
     self.groupID = groupID
-  }
-}
-
-extension Anytype_Rpc.Ipfs.File.Get.Request {
-  public init(id: String) {
-    self.id = id
-  }
-}
-
-extension Anytype_Rpc.Ipfs.File.Get.Response {
-  public init(error: Anytype_Rpc.Ipfs.File.Get.Response.Error, data: Data, media: String, name: String) {
-    self.error = error
-    self.data = data
-    self.media = media
-    self.name = name
-  }
-}
-
-extension Anytype_Rpc.Ipfs.File.Get.Response.Error {
-  public init(code: Anytype_Rpc.Ipfs.File.Get.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Request {
-  public init(hash: String, wantWidth: Int32) {
-    self.hash = hash
-    self.wantWidth = wantWidth
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response {
-  public init(error: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error, blob: Data) {
-    self.error = error
-    self.blob = blob
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error {
-  public init(code: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.File.Request {
-  public init(hash: String, wantWidth: Int32) {
-    self.hash = hash
-    self.wantWidth = wantWidth
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response {
-  public init(error: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error, localPath: String) {
-    self.error = error
-    self.localPath = localPath
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error {
-  public init(code: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
   }
 }
 
@@ -2354,20 +2316,21 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error {
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Request {
-  public init(link: String) {
-    self.link = link
+extension Anytype_Rpc.Object.AddWithObjectId.Request {
+  public init(objectID: String, payload: String) {
+    self.objectID = objectID
+    self.payload = payload
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Response {
-  public init(error: Anytype_Rpc.Object.AddWithShareLink.Response.Error) {
+extension Anytype_Rpc.Object.AddWithObjectId.Response {
+  public init(error: Anytype_Rpc.Object.AddWithObjectId.Response.Error) {
     self.error = error
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Response.Error {
-  public init(code: Anytype_Rpc.Object.AddWithShareLink.Response.Error.Code, description_p: String) {
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error {
+  public init(code: Anytype_Rpc.Object.AddWithObjectId.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2428,7 +2391,7 @@ extension Anytype_Rpc.Object.Graph.Edge {
 }
 
 extension Anytype_Rpc.Object.Graph.Node {
-  public init(id: String, type: String, name: String, layout: Int32, description_p: String, iconImage: String, iconEmoji: String) {
+  public init(id: String, type: String, name: String, layout: Int32, description_p: String, iconImage: String, iconEmoji: String, done: Bool, relationFormat: Int32) {
     self.id = id
     self.type = type
     self.name = name
@@ -2436,6 +2399,8 @@ extension Anytype_Rpc.Object.Graph.Node {
     self.description_p = description_p
     self.iconImage = iconImage
     self.iconEmoji = iconEmoji
+    self.done = done
+    self.relationFormat = relationFormat
   }
 }
 
@@ -2745,6 +2710,66 @@ extension Anytype_Rpc.Object.ToSet.Response {
 
 extension Anytype_Rpc.Object.ToSet.Response.Error {
   public init(code: Anytype_Rpc.Object.ToSet.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Request {
+  public init(objectIds: [String]) {
+    self.objectIds = objectIds
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Response {
+  public init(error: Anytype_Rpc.ObjectList.Delete.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Response.Error {
+  public init(code: Anytype_Rpc.ObjectList.Delete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Request {
+  public init(objectIds: [String], isArchived: Bool) {
+    self.objectIds = objectIds
+    self.isArchived = isArchived
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response {
+  public init(error: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error {
+  public init(code: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Request {
+  public init(objectIds: [String], isFavorite: Bool) {
+    self.objectIds = objectIds
+    self.isFavorite = isFavorite
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response {
+  public init(error: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error {
+  public init(code: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -3063,6 +3088,12 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Workspace.Create.Request {
+  public init(name: String) {
+    self.name = name
+  }
+}
+
 extension Anytype_Rpc.Workspace.Create.Response {
   public init(error: Anytype_Rpc.Workspace.Create.Response.Error, workspaceID: String) {
     self.error = error
@@ -3072,6 +3103,34 @@ extension Anytype_Rpc.Workspace.Create.Response {
 
 extension Anytype_Rpc.Workspace.Create.Response.Error {
   public init(code: Anytype_Rpc.Workspace.Create.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Response {
+  public init(error: Anytype_Rpc.Workspace.GetAll.Response.Error, workspaceIds: [String]) {
+    self.error = error
+    self.workspaceIds = workspaceIds
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Response.Error {
+  public init(code: Anytype_Rpc.Workspace.GetAll.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetCurrent.Response {
+  public init(error: Anytype_Rpc.Workspace.GetCurrent.Response.Error, workspaceID: String) {
+    self.error = error
+    self.workspaceID = workspaceID
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error {
+  public init(code: Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -3091,6 +3150,26 @@ extension Anytype_Rpc.Workspace.Select.Response {
 
 extension Anytype_Rpc.Workspace.Select.Response.Error {
   public init(code: Anytype_Rpc.Workspace.Select.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Request {
+  public init(objectID: String, isHighlighted: Bool) {
+    self.objectID = objectID
+    self.isHighlighted = isHighlighted
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response {
+  public init(error: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error {
+  public init(code: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

@@ -701,204 +701,6 @@ public struct Anytype_Rpc {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Page {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct IsArchived {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Request {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var contextID: String = String()
-
-            public var blockIds: [String] = []
-
-            public var isArchived: Bool = false
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public init() {}
-          }
-
-          public struct Response {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var error: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error {
-              get {return _error ?? Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error()}
-              set {_error = newValue}
-            }
-            /// Returns true if `error` has been explicitly set.
-            public var hasError: Bool {return self._error != nil}
-            /// Clears the value of `error`. Subsequent reads from it will return its default value.
-            public mutating func clearError() {self._error = nil}
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public struct Error {
-              // SwiftProtobuf.Message conformance is added in an extension below. See the
-              // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-              // methods supported on all messages.
-
-              public var code: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code = .null
-
-              public var description_p: String = String()
-
-              public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-              public enum Code: SwiftProtobuf.Enum {
-                public typealias RawValue = Int
-                case null // = 0
-                case unknownError // = 1
-
-                /// ...
-                case badInput // = 2
-                case UNRECOGNIZED(Int)
-
-                public init() {
-                  self = .null
-                }
-
-                public init?(rawValue: Int) {
-                  switch rawValue {
-                  case 0: self = .null
-                  case 1: self = .unknownError
-                  case 2: self = .badInput
-                  default: self = .UNRECOGNIZED(rawValue)
-                  }
-                }
-
-                public var rawValue: Int {
-                  switch self {
-                  case .null: return 0
-                  case .unknownError: return 1
-                  case .badInput: return 2
-                  case .UNRECOGNIZED(let i): return i
-                  }
-                }
-
-              }
-
-              public init() {}
-            }
-
-            public init() {}
-
-            fileprivate var _error: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error? = nil
-          }
-
-          public init() {}
-        }
-
-        public struct IsFavorite {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Request {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var contextID: String = String()
-
-            public var blockIds: [String] = []
-
-            public var isFavorite: Bool = false
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public init() {}
-          }
-
-          public struct Response {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var error: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error {
-              get {return _error ?? Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error()}
-              set {_error = newValue}
-            }
-            /// Returns true if `error` has been explicitly set.
-            public var hasError: Bool {return self._error != nil}
-            /// Clears the value of `error`. Subsequent reads from it will return its default value.
-            public mutating func clearError() {self._error = nil}
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public struct Error {
-              // SwiftProtobuf.Message conformance is added in an extension below. See the
-              // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-              // methods supported on all messages.
-
-              public var code: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error.Code = .null
-
-              public var description_p: String = String()
-
-              public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-              public enum Code: SwiftProtobuf.Enum {
-                public typealias RawValue = Int
-                case null // = 0
-                case unknownError // = 1
-
-                /// ...
-                case badInput // = 2
-                case UNRECOGNIZED(Int)
-
-                public init() {
-                  self = .null
-                }
-
-                public init?(rawValue: Int) {
-                  switch rawValue {
-                  case 0: self = .null
-                  case 1: self = .unknownError
-                  case 2: self = .badInput
-                  default: self = .UNRECOGNIZED(rawValue)
-                  }
-                }
-
-                public var rawValue: Int {
-                  switch self {
-                  case .null: return 0
-                  case .unknownError: return 1
-                  case .badInput: return 2
-                  case .UNRECOGNIZED(let i): return i
-                  }
-                }
-
-              }
-
-              public init() {}
-            }
-
-            public init() {}
-
-            fileprivate var _error: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error? = nil
-          }
-
-          public init() {}
-        }
-
-        public init() {}
-      }
-
       /// commands acceptable only for text blocks, others will be ignored
       public struct Text {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1674,118 +1476,6 @@ public struct Anytype_Rpc {
           }
 
           public init() {}
-        }
-
-        public init() {}
-      }
-
-      public init() {}
-    }
-
-    public struct Delete {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
-
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      /// Deletes the page, keys and all records from the local store and unsubscribe from remote changes
-      public struct Page {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          /// pages to remove
-          public var blockIds: [String] = []
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Response {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var error: Anytype_Rpc.BlockList.Delete.Page.Response.Error {
-            get {return _error ?? Anytype_Rpc.BlockList.Delete.Page.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
-
-          public var event: Anytype_ResponseEvent {
-            get {return _event ?? Anytype_ResponseEvent()}
-            set {_event = newValue}
-          }
-          /// Returns true if `event` has been explicitly set.
-          public var hasEvent: Bool {return self._event != nil}
-          /// Clears the value of `event`. Subsequent reads from it will return its default value.
-          public mutating func clearEvent() {self._event = nil}
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var code: Anytype_Rpc.BlockList.Delete.Page.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-
-              /// ...
-              case badInput // = 2
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
-            }
-
-            public init() {}
-          }
-
-          public init() {}
-
-          fileprivate var _error: Anytype_Rpc.BlockList.Delete.Page.Response.Error? = nil
-          fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
         public init() {}
@@ -5862,6 +5552,116 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
+      public struct ViewSetPosition {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          /// id of the context block
+          public var contextID: String = String()
+
+          /// id of the dataview
+          public var blockID: String = String()
+
+          /// id of the view to remove
+          public var viewID: String = String()
+
+          /// index of view position (0 - means first)
+          public var position: UInt32 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error {
+            get {return _error ?? Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error()}
+            set {_error = newValue}
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {return self._error != nil}
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {self._error = nil}
+
+          public var event: Anytype_ResponseEvent {
+            get {return _event ?? Anytype_ResponseEvent()}
+            set {_event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {return self._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {self._event = nil}
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
+                }
+              }
+
+            }
+
+            public init() {}
+          }
+
+          public init() {}
+
+          fileprivate var _error: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
+        }
+
+        public init() {}
+      }
+
       /// set the current active view (persisted only within a session)
       public struct ViewSetActive {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -7107,6 +6907,108 @@ public struct Anytype_Rpc {
           public init() {}
 
           fileprivate var _error: Anytype_Rpc.Block.Dataview.RelationListAvailable.Response.Error? = nil
+        }
+
+        public init() {}
+      }
+
+      public struct SetSource {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var contextID: String = String()
+
+          public var blockID: String = String()
+
+          public var source: [String] = []
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.Block.Dataview.SetSource.Response.Error {
+            get {return _error ?? Anytype_Rpc.Block.Dataview.SetSource.Response.Error()}
+            set {_error = newValue}
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {return self._error != nil}
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {self._error = nil}
+
+          public var event: Anytype_ResponseEvent {
+            get {return _event ?? Anytype_ResponseEvent()}
+            set {_event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {return self._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {self._event = nil}
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.Block.Dataview.SetSource.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
+                }
+              }
+
+            }
+
+            public init() {}
+          }
+
+          public init() {}
+
+          fileprivate var _error: Anytype_Rpc.Block.Dataview.SetSource.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
         public init() {}
@@ -8618,6 +8520,186 @@ public struct Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+    public struct GetCurrent {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Workspace.GetCurrent.Response.Error {
+          get {return _error ?? Anytype_Rpc.Workspace.GetCurrent.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var workspaceID: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Workspace.GetCurrent.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct GetAll {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Workspace.GetAll.Response.Error {
+          get {return _error ?? Anytype_Rpc.Workspace.GetAll.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var workspaceIds: [String] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Workspace.GetAll.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Workspace.GetAll.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
     public struct Create {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -8629,6 +8711,8 @@ public struct Anytype_Rpc {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
+
+        public var name: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -8703,6 +8787,98 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Workspace.Create.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct SetIsHighlighted {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var objectID: String = String()
+
+        public var isHighlighted: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error {
+          get {return _error ?? Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error? = nil
       }
 
       public init() {}
@@ -9991,348 +10167,219 @@ public struct Anytype_Rpc {
     public init() {}
   }
 
-  ///
-  /// Namespace, that agregates subtopics and actions to work with IPFS directly (get files, blobs, images, etc)
-  public struct Ipfs {
+  public struct File {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public struct File {
+    public struct Offload {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Get {
+      public struct Request {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        public var id: String = String()
+
+        public var includeNotPinned: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
+        public init() {}
+      }
 
-          public var id: String = String()
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
 
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
+        public var error: Anytype_Rpc.File.Offload.Response.Error {
+          get {return _error ?? Anytype_Rpc.File.Offload.Response.Error()}
+          set {_error = newValue}
         }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
 
-        public struct Response {
+        public var bytesOffloaded: UInt64 = 0
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.Ipfs.File.Get.Response.Error {
-            get {return _error ?? Anytype_Rpc.Ipfs.File.Get.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
+          public var code: Anytype_Rpc.File.Offload.Response.Error.Code = .null
 
-          public var data: Data = Data()
-
-          public var media: String = String()
-
-          public var name: String = String()
+          public var description_p: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
 
-            public var code: Anytype_Rpc.Ipfs.File.Get.Response.Error.Code = .null
+            /// ...
+            case nodeNotStarted // = 103
+            case fileNotYetPinned // = 104
+            case UNRECOGNIZED(Int)
 
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-
-              /// ...
-              case badInput // = 2
-              case notFound // = 101
-              case timeout // = 102
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 101: self = .notFound
-                case 102: self = .timeout
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notFound: return 101
-                case .timeout: return 102
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
+            public init() {
+              self = .null
             }
 
-            public init() {}
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 103: self = .nodeNotStarted
+              case 104: self = .fileNotYetPinned
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .nodeNotStarted: return 103
+              case .fileNotYetPinned: return 104
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
           }
 
           public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Ipfs.File.Get.Response.Error? = nil
         }
 
         public init() {}
+
+        fileprivate var _error: Anytype_Rpc.File.Offload.Response.Error? = nil
       }
 
       public init() {}
     }
 
-    public struct Image {
+    public init() {}
+  }
+
+  public struct FileList {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Offload {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Get {
+      public struct Request {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// empty means all
+        public var onlyIds: [String] = []
+
+        /// false mean not-yet-pinned files will be not
+        public var includeNotPinned: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Blob {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
+        public init() {}
+      }
 
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
 
-          public struct Request {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var hash: String = String()
-
-            public var wantWidth: Int32 = 0
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public init() {}
-          }
-
-          public struct Response {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var error: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error {
-              get {return _error ?? Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error()}
-              set {_error = newValue}
-            }
-            /// Returns true if `error` has been explicitly set.
-            public var hasError: Bool {return self._error != nil}
-            /// Clears the value of `error`. Subsequent reads from it will return its default value.
-            public mutating func clearError() {self._error = nil}
-
-            public var blob: Data = Data()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public struct Error {
-              // SwiftProtobuf.Message conformance is added in an extension below. See the
-              // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-              // methods supported on all messages.
-
-              public var code: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error.Code = .null
-
-              public var description_p: String = String()
-
-              public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-              public enum Code: SwiftProtobuf.Enum {
-                public typealias RawValue = Int
-                case null // = 0
-                case unknownError // = 1
-
-                /// ...
-                case badInput // = 2
-                case notFound // = 101
-                case timeout // = 102
-                case nodeNotStarted // = 103
-                case UNRECOGNIZED(Int)
-
-                public init() {
-                  self = .null
-                }
-
-                public init?(rawValue: Int) {
-                  switch rawValue {
-                  case 0: self = .null
-                  case 1: self = .unknownError
-                  case 2: self = .badInput
-                  case 101: self = .notFound
-                  case 102: self = .timeout
-                  case 103: self = .nodeNotStarted
-                  default: self = .UNRECOGNIZED(rawValue)
-                  }
-                }
-
-                public var rawValue: Int {
-                  switch self {
-                  case .null: return 0
-                  case .unknownError: return 1
-                  case .badInput: return 2
-                  case .notFound: return 101
-                  case .timeout: return 102
-                  case .nodeNotStarted: return 103
-                  case .UNRECOGNIZED(let i): return i
-                  }
-                }
-
-              }
-
-              public init() {}
-            }
-
-            public init() {}
-
-            fileprivate var _error: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error? = nil
-          }
-
-          public init() {}
+        public var error: Anytype_Rpc.FileList.Offload.Response.Error {
+          get {return _error ?? Anytype_Rpc.FileList.Offload.Response.Error()}
+          set {_error = newValue}
         }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
 
-        public struct File {
+        public var filesOffloaded: Int32 = 0
+
+        public var bytesOffloaded: UInt64 = 0
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
+          public var code: Anytype_Rpc.FileList.Offload.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Request {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
 
-            public var hash: String = String()
+            /// ...
+            case nodeNotStarted // = 103
+            case UNRECOGNIZED(Int)
 
-            public var wantWidth: Int32 = 0
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public init() {}
-          }
-
-          public struct Response {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
-
-            public var error: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error {
-              get {return _error ?? Anytype_Rpc.Ipfs.Image.Get.File.Response.Error()}
-              set {_error = newValue}
+            public init() {
+              self = .null
             }
-            /// Returns true if `error` has been explicitly set.
-            public var hasError: Bool {return self._error != nil}
-            /// Clears the value of `error`. Subsequent reads from it will return its default value.
-            public mutating func clearError() {self._error = nil}
 
-            public var localPath: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public struct Error {
-              // SwiftProtobuf.Message conformance is added in an extension below. See the
-              // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-              // methods supported on all messages.
-
-              public var code: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code = .null
-
-              public var description_p: String = String()
-
-              public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-              public enum Code: SwiftProtobuf.Enum {
-                public typealias RawValue = Int
-                case null // = 0
-                case unknownError // = 1
-
-                /// ...
-                case badInput // = 2
-                case notFound // = 101
-                case timeout // = 102
-                case nodeNotStarted // = 103
-                case UNRECOGNIZED(Int)
-
-                public init() {
-                  self = .null
-                }
-
-                public init?(rawValue: Int) {
-                  switch rawValue {
-                  case 0: self = .null
-                  case 1: self = .unknownError
-                  case 2: self = .badInput
-                  case 101: self = .notFound
-                  case 102: self = .timeout
-                  case 103: self = .nodeNotStarted
-                  default: self = .UNRECOGNIZED(rawValue)
-                  }
-                }
-
-                public var rawValue: Int {
-                  switch self {
-                  case .null: return 0
-                  case .unknownError: return 1
-                  case .badInput: return 2
-                  case .notFound: return 101
-                  case .timeout: return 102
-                  case .nodeNotStarted: return 103
-                  case .UNRECOGNIZED(let i): return i
-                  }
-                }
-
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 103: self = .nodeNotStarted
+              default: self = .UNRECOGNIZED(rawValue)
               }
-
-              public init() {}
             }
 
-            public init() {}
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .nodeNotStarted: return 103
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
 
-            fileprivate var _error: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error? = nil
           }
 
           public init() {}
         }
 
         public init() {}
+
+        fileprivate var _error: Anytype_Rpc.FileList.Offload.Response.Error? = nil
       }
 
       public init() {}
@@ -12587,7 +12634,7 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
-    public struct AddWithShareLink {
+    public struct AddWithObjectId {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -12599,7 +12646,9 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var link: String = String()
+        public var objectID: String = String()
+
+        public var payload: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -12611,8 +12660,8 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Object.AddWithShareLink.Response.Error {
-          get {return _error ?? Anytype_Rpc.Object.AddWithShareLink.Response.Error()}
+        public var error: Anytype_Rpc.Object.AddWithObjectId.Response.Error {
+          get {return _error ?? Anytype_Rpc.Object.AddWithObjectId.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -12627,7 +12676,7 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Object.AddWithShareLink.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Object.AddWithObjectId.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -12671,7 +12720,7 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Object.AddWithShareLink.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Object.AddWithObjectId.Response.Error? = nil
       }
 
       public init() {}
@@ -13610,6 +13659,10 @@ public struct Anytype_Rpc {
 
         public var iconEmoji: String = String()
 
+        public var done: Bool = false
+
+        public var relationFormat: Int32 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -14351,6 +14404,312 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.ToSet.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
+  public struct ObjectList {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Delete {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      /// Deletes the object, keys from the local store and unsubscribe from remote changes. Also offloads all orphan files
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// objects to remove
+        public var objectIds: [String] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.ObjectList.Delete.Response.Error {
+          get {return _error ?? Anytype_Rpc.ObjectList.Delete.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        public var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        public mutating func clearEvent() {self._event = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.ObjectList.Delete.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.ObjectList.Delete.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct Set {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct IsArchived {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var objectIds: [String] = []
+
+          public var isArchived: Bool = false
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error {
+            get {return _error ?? Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error()}
+            set {_error = newValue}
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {return self._error != nil}
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {self._error = nil}
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
+                }
+              }
+
+            }
+
+            public init() {}
+          }
+
+          public init() {}
+
+          fileprivate var _error: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error? = nil
+        }
+
+        public init() {}
+      }
+
+      public struct IsFavorite {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var objectIds: [String] = []
+
+          public var isFavorite: Bool = false
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error {
+            get {return _error ?? Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error()}
+            set {_error = newValue}
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {return self._error != nil}
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {self._error = nil}
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
+                }
+              }
+
+            }
+
+            public init() {}
+          }
+
+          public init() {}
+
+          fileprivate var _error: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error? = nil
+        }
+
+        public init() {}
       }
 
       public init() {}
@@ -15505,24 +15864,6 @@ extension Anytype_Rpc.BlockList.Duplicate.Response.Error.Code: CaseIterable {
   ]
 }
 
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code] = [
-    .null,
-    .unknownError,
-    .badInput,
-  ]
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error.Code: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error.Code] = [
-    .null,
-    .unknownError,
-    .badInput,
-  ]
-}
-
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.BlockList.Set.Text.Style.Response.Error.Code] = [
@@ -15580,15 +15921,6 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response.Error.Code: CaseIterable {
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code] = [
-    .null,
-    .unknownError,
-    .badInput,
-  ]
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Response.Error.Code: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.BlockList.Delete.Page.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -15930,6 +16262,15 @@ extension Anytype_Rpc.Block.Dataview.ViewDelete.Response.Error.Code: CaseIterabl
   ]
 }
 
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
 extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error.Code] = [
@@ -16027,6 +16368,15 @@ extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Response.Error.Code: 
     .unknownError,
     .badInput,
     .notADataviewBlock,
+  ]
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Block.Dataview.SetSource.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
   ]
 }
 
@@ -16152,9 +16502,36 @@ extension Anytype_Rpc.Block.Close.Response.Error.Code: CaseIterable {
   ]
 }
 
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Workspace.GetAll.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
 extension Anytype_Rpc.Workspace.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Workspace.Create.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -16294,37 +16671,23 @@ extension Anytype_Rpc.Version.Get.Response.Error.Code: CaseIterable {
   ]
 }
 
-extension Anytype_Rpc.Ipfs.File.Get.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.File.Offload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Ipfs.File.Get.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.File.Offload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
-    .notFound,
-    .timeout,
-  ]
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error.Code: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error.Code] = [
-    .null,
-    .unknownError,
-    .badInput,
-    .notFound,
-    .timeout,
     .nodeNotStarted,
+    .fileNotYetPinned,
   ]
 }
 
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.FileList.Offload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.FileList.Offload.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
-    .notFound,
-    .timeout,
     .nodeNotStarted,
   ]
 }
@@ -16539,9 +16902,9 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error.Code: CaseIterable {
   ]
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Object.AddWithShareLink.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.AddWithObjectId.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -16686,6 +17049,33 @@ extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error.Code: CaseIt
 extension Anytype_Rpc.Object.ToSet.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Object.ToSet.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectList.Delete.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -17838,315 +18228,6 @@ extension Anytype_Rpc.BlockList.Set: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 }
 
-extension Anytype_Rpc.BlockList.Set.Page: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.protoMessageName + ".Page"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page, rhs: Anytype_Rpc.BlockList.Set.Page) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.protoMessageName + ".IsArchived"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsArchived, rhs: Anytype_Rpc.BlockList.Set.Page.IsArchived) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.IsArchived.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "contextId"),
-    2: .same(proto: "blockIds"),
-    3: .same(proto: "isArchived"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
-    }
-    if !self.blockIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
-    }
-    if self.isArchived != false {
-      try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsArchived.Request, rhs: Anytype_Rpc.BlockList.Set.Page.IsArchived.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.blockIds != rhs.blockIds {return false}
-    if lhs.isArchived != rhs.isArchived {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.IsArchived.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._error {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response, rhs: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response) -> Bool {
-    if lhs._error != rhs._error {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.code != .null {
-      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error, rhs: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error) -> Bool {
-    if lhs.code != rhs.code {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.protoMessageName + ".IsFavorite"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite, rhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.IsFavorite.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "contextId"),
-    2: .same(proto: "blockIds"),
-    3: .same(proto: "isFavorite"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.isFavorite) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
-    }
-    if !self.blockIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
-    }
-    if self.isFavorite != false {
-      try visitor.visitSingularBoolField(value: self.isFavorite, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Request, rhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.blockIds != rhs.blockIds {return false}
-    if lhs.isFavorite != rhs.isFavorite {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.IsFavorite.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._error {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response, rhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response) -> Bool {
-    if lhs._error != rhs._error {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.code != .null {
-      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error, rhs: Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error) -> Bool {
-    if lhs.code != rhs.code {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
-}
-
 extension Anytype_Rpc.BlockList.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockList.Set.protoMessageName + ".Text"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -19275,164 +19356,6 @@ extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: SwiftProtobuf.Mess
 }
 
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
-}
-
-extension Anytype_Rpc.BlockList.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.protoMessageName + ".Delete"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Delete, rhs: Anytype_Rpc.BlockList.Delete) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Delete.protoMessageName + ".Page"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Delete.Page, rhs: Anytype_Rpc.BlockList.Delete.Page) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Delete.Page.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "blockIds"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.blockIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Delete.Page.Request, rhs: Anytype_Rpc.BlockList.Delete.Page.Request) -> Bool {
-    if lhs.blockIds != rhs.blockIds {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Delete.Page.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "event"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._error {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Delete.Page.Response, rhs: Anytype_Rpc.BlockList.Delete.Page.Response) -> Bool {
-    if lhs._error != rhs._error {return false}
-    if lhs._event != rhs._event {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockList.Delete.Page.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.code != .null {
-      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.BlockList.Delete.Page.Response.Error, rhs: Anytype_Rpc.BlockList.Delete.Page.Response.Error) -> Bool {
-    if lhs.code != rhs.code {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.BlockList.Delete.Page.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -25442,6 +25365,163 @@ extension Anytype_Rpc.Block.Dataview.ViewDelete.Response.Error.Code: SwiftProtob
   ]
 }
 
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.protoMessageName + ".ViewSetPosition"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.ViewSetPosition, rhs: Anytype_Rpc.Block.Dataview.ViewSetPosition) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.ViewSetPosition.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "blockId"),
+    4: .same(proto: "viewId"),
+    5: .same(proto: "position"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.position) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
+    }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 4)
+    }
+    if self.position != 0 {
+      try visitor.visitSingularUInt32Field(value: self.position, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.ViewSetPosition.Request, rhs: Anytype_Rpc.Block.Dataview.ViewSetPosition.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.position != rhs.position {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.ViewSetPosition.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "event"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response, rhs: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error, rhs: Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
 extension Anytype_Rpc.Block.Dataview.ViewSetActive: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.protoMessageName + ".ViewSetActive"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -27309,6 +27389,157 @@ extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Response.Error.Code: 
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_A_DATAVIEW_BLOCK"),
+  ]
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.protoMessageName + ".SetSource"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.SetSource, rhs: Anytype_Rpc.Block.Dataview.SetSource) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.SetSource.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "blockId"),
+    3: .same(proto: "source"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
+    }
+    if !self.source.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.source, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.SetSource.Request, rhs: Anytype_Rpc.Block.Dataview.SetSource.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.source != rhs.source {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.SetSource.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    4: .same(proto: "event"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.SetSource.Response, rhs: Anytype_Rpc.Block.Dataview.SetSource.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Block.Dataview.SetSource.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Block.Dataview.SetSource.Response.Error, rhs: Anytype_Rpc.Block.Dataview.SetSource.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
   ]
 }
 
@@ -29372,6 +29603,258 @@ extension Anytype_Rpc.Workspace: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 }
 
+extension Anytype_Rpc.Workspace.GetCurrent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".GetCurrent"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetCurrent, rhs: Anytype_Rpc.Workspace.GetCurrent) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetCurrent.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.GetCurrent.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetCurrent.Request, rhs: Anytype_Rpc.Workspace.GetCurrent.Request) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetCurrent.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.GetCurrent.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "workspaceId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.workspaceID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.workspaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.workspaceID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetCurrent.Response, rhs: Anytype_Rpc.Workspace.GetCurrent.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.workspaceID != rhs.workspaceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.GetCurrent.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetCurrent.Response.Error, rhs: Anytype_Rpc.Workspace.GetCurrent.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Workspace.GetAll: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".GetAll"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetAll, rhs: Anytype_Rpc.Workspace.GetAll) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.GetAll.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetAll.Request, rhs: Anytype_Rpc.Workspace.GetAll.Request) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.GetAll.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "workspaceIds"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.workspaceIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.workspaceIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.workspaceIds, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetAll.Response, rhs: Anytype_Rpc.Workspace.GetAll.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.workspaceIds != rhs.workspaceIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.GetAll.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.GetAll.Response.Error, rhs: Anytype_Rpc.Workspace.GetAll.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.GetAll.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
 extension Anytype_Rpc.Workspace.Create: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".Create"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -29393,18 +29876,31 @@ extension Anytype_Rpc.Workspace.Create: SwiftProtobuf.Message, SwiftProtobuf._Me
 
 extension Anytype_Rpc.Workspace.Create.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Workspace.Create.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+  ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      default: break
+      }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Create.Request, rhs: Anytype_Rpc.Workspace.Create.Request) -> Bool {
+    if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -29491,6 +29987,145 @@ extension Anytype_Rpc.Workspace.Create.Response.Error: SwiftProtobuf.Message, Sw
 }
 
 extension Anytype_Rpc.Workspace.Create.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".SetIsHighlighted"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted, rhs: Anytype_Rpc.Workspace.SetIsHighlighted) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetIsHighlighted.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectId"),
+    2: .same(proto: "isHighlighted"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.isHighlighted) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.objectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
+    }
+    if self.isHighlighted != false {
+      try visitor.visitSingularBoolField(value: self.isHighlighted, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted.Request, rhs: Anytype_Rpc.Workspace.SetIsHighlighted.Request) -> Bool {
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs.isHighlighted != rhs.isHighlighted {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetIsHighlighted.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response, rhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Workspace.SetIsHighlighted.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error, rhs: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -31092,8 +31727,8 @@ extension Anytype_Rpc.Version.Get.Response.Error.Code: SwiftProtobuf._ProtoNameP
   ]
 }
 
-extension Anytype_Rpc.Ipfs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Ipfs"
+extension Anytype_Rpc.File: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".File"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31105,14 +31740,14 @@ extension Anytype_Rpc.Ipfs: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs, rhs: Anytype_Rpc.Ipfs) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File, rhs: Anytype_Rpc.File) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.File: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.protoMessageName + ".File"
+extension Anytype_Rpc.File.Offload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.protoMessageName + ".Offload"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31124,35 +31759,17 @@ extension Anytype_Rpc.Ipfs.File: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.File, rhs: Anytype_Rpc.Ipfs.File) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.Offload, rhs: Anytype_Rpc.File.Offload) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.File.Get: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.File.protoMessageName + ".Get"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.File.Get, rhs: Anytype_Rpc.Ipfs.File.Get) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.File.Get.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.File.Get.protoMessageName + ".Request"
+extension Anytype_Rpc.File.Offload.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.Offload.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
+    2: .same(proto: "includeNotPinned"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31162,6 +31779,7 @@ extension Anytype_Rpc.Ipfs.File.Get.Request: SwiftProtobuf.Message, SwiftProtobu
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.includeNotPinned) }()
       default: break
       }
     }
@@ -31171,23 +31789,25 @@ extension Anytype_Rpc.Ipfs.File.Get.Request: SwiftProtobuf.Message, SwiftProtobu
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    if self.includeNotPinned != false {
+      try visitor.visitSingularBoolField(value: self.includeNotPinned, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.File.Get.Request, rhs: Anytype_Rpc.Ipfs.File.Get.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.Offload.Request, rhs: Anytype_Rpc.File.Offload.Request) -> Bool {
     if lhs.id != rhs.id {return false}
+    if lhs.includeNotPinned != rhs.includeNotPinned {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.File.Get.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.File.Get.protoMessageName + ".Response"
+extension Anytype_Rpc.File.Offload.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.Offload.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "data"),
-    3: .same(proto: "media"),
-    4: .same(proto: "name"),
+    2: .same(proto: "bytesOffloaded"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31197,9 +31817,7 @@ extension Anytype_Rpc.Ipfs.File.Get.Response: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularBytesField(value: &self.data) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.media) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.bytesOffloaded) }()
       default: break
       }
     }
@@ -31213,30 +31831,22 @@ extension Anytype_Rpc.Ipfs.File.Get.Response: SwiftProtobuf.Message, SwiftProtob
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.data.isEmpty {
-      try visitor.visitSingularBytesField(value: self.data, fieldNumber: 2)
-    }
-    if !self.media.isEmpty {
-      try visitor.visitSingularStringField(value: self.media, fieldNumber: 3)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 4)
+    if self.bytesOffloaded != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bytesOffloaded, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.File.Get.Response, rhs: Anytype_Rpc.Ipfs.File.Get.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.Offload.Response, rhs: Anytype_Rpc.File.Offload.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.data != rhs.data {return false}
-    if lhs.media != rhs.media {return false}
-    if lhs.name != rhs.name {return false}
+    if lhs.bytesOffloaded != rhs.bytesOffloaded {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.File.Get.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.File.Get.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.File.Offload.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.File.Offload.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -31265,7 +31875,7 @@ extension Anytype_Rpc.Ipfs.File.Get.Response.Error: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.File.Get.Response.Error, rhs: Anytype_Rpc.Ipfs.File.Get.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.File.Offload.Response.Error, rhs: Anytype_Rpc.File.Offload.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -31273,204 +31883,18 @@ extension Anytype_Rpc.Ipfs.File.Get.Response.Error: SwiftProtobuf.Message, Swift
   }
 }
 
-extension Anytype_Rpc.Ipfs.File.Get.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.File.Offload.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NOT_FOUND"),
-    102: .same(proto: "TIMEOUT"),
-  ]
-}
-
-extension Anytype_Rpc.Ipfs.Image: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.protoMessageName + ".Image"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image, rhs: Anytype_Rpc.Ipfs.Image) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.protoMessageName + ".Get"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get, rhs: Anytype_Rpc.Ipfs.Image.Get) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.protoMessageName + ".Blob"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.Blob, rhs: Anytype_Rpc.Ipfs.Image.Get.Blob) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.Blob.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "hash"),
-    2: .same(proto: "wantWidth"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.hash) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.wantWidth) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.hash.isEmpty {
-      try visitor.visitSingularStringField(value: self.hash, fieldNumber: 1)
-    }
-    if self.wantWidth != 0 {
-      try visitor.visitSingularInt32Field(value: self.wantWidth, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.Blob.Request, rhs: Anytype_Rpc.Ipfs.Image.Get.Blob.Request) -> Bool {
-    if lhs.hash != rhs.hash {return false}
-    if lhs.wantWidth != rhs.wantWidth {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.Blob.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "blob"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularBytesField(value: &self.blob) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._error {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    if !self.blob.isEmpty {
-      try visitor.visitSingularBytesField(value: self.blob, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.Blob.Response, rhs: Anytype_Rpc.Ipfs.Image.Get.Blob.Response) -> Bool {
-    if lhs._error != rhs._error {return false}
-    if lhs.blob != rhs.blob {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.Blob.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.code != .null {
-      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error, rhs: Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error) -> Bool {
-    if lhs.code != rhs.code {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NOT_FOUND"),
-    102: .same(proto: "TIMEOUT"),
     103: .same(proto: "NODE_NOT_STARTED"),
+    104: .same(proto: "FILE_NOT_YET_PINNED"),
   ]
 }
 
-extension Anytype_Rpc.Ipfs.Image.Get.File: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.protoMessageName + ".File"
+extension Anytype_Rpc.FileList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".FileList"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31482,17 +31906,36 @@ extension Anytype_Rpc.Ipfs.Image.Get.File: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.File, rhs: Anytype_Rpc.Ipfs.Image.Get.File) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.FileList, rhs: Anytype_Rpc.FileList) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.Image.Get.File.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.File.protoMessageName + ".Request"
+extension Anytype_Rpc.FileList.Offload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.FileList.protoMessageName + ".Offload"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.FileList.Offload, rhs: Anytype_Rpc.FileList.Offload) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.FileList.Offload.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.FileList.Offload.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "hash"),
-    2: .same(proto: "wantWidth"),
+    1: .same(proto: "onlyIds"),
+    2: .same(proto: "includeNotPinned"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31501,36 +31944,37 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Request: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.hash) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.wantWidth) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.onlyIds) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.includeNotPinned) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.hash.isEmpty {
-      try visitor.visitSingularStringField(value: self.hash, fieldNumber: 1)
+    if !self.onlyIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.onlyIds, fieldNumber: 1)
     }
-    if self.wantWidth != 0 {
-      try visitor.visitSingularInt32Field(value: self.wantWidth, fieldNumber: 2)
+    if self.includeNotPinned != false {
+      try visitor.visitSingularBoolField(value: self.includeNotPinned, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.File.Request, rhs: Anytype_Rpc.Ipfs.Image.Get.File.Request) -> Bool {
-    if lhs.hash != rhs.hash {return false}
-    if lhs.wantWidth != rhs.wantWidth {return false}
+  public static func ==(lhs: Anytype_Rpc.FileList.Offload.Request, rhs: Anytype_Rpc.FileList.Offload.Request) -> Bool {
+    if lhs.onlyIds != rhs.onlyIds {return false}
+    if lhs.includeNotPinned != rhs.includeNotPinned {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.File.protoMessageName + ".Response"
+extension Anytype_Rpc.FileList.Offload.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.FileList.Offload.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "localPath"),
+    2: .same(proto: "filesOffloaded"),
+    3: .same(proto: "bytesOffloaded"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31540,7 +31984,8 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response: SwiftProtobuf.Message, Swift
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.localPath) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.filesOffloaded) }()
+      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.bytesOffloaded) }()
       default: break
       }
     }
@@ -31554,22 +31999,26 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response: SwiftProtobuf.Message, Swift
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.localPath.isEmpty {
-      try visitor.visitSingularStringField(value: self.localPath, fieldNumber: 2)
+    if self.filesOffloaded != 0 {
+      try visitor.visitSingularInt32Field(value: self.filesOffloaded, fieldNumber: 2)
+    }
+    if self.bytesOffloaded != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bytesOffloaded, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.File.Response, rhs: Anytype_Rpc.Ipfs.Image.Get.File.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.FileList.Offload.Response, rhs: Anytype_Rpc.FileList.Offload.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.localPath != rhs.localPath {return false}
+    if lhs.filesOffloaded != rhs.filesOffloaded {return false}
+    if lhs.bytesOffloaded != rhs.bytesOffloaded {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Ipfs.Image.Get.File.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.FileList.Offload.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.FileList.Offload.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -31598,7 +32047,7 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error, rhs: Anytype_Rpc.Ipfs.Image.Get.File.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.FileList.Offload.Response.Error, rhs: Anytype_Rpc.FileList.Offload.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -31606,13 +32055,11 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error: SwiftProtobuf.Message,
   }
 }
 
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.FileList.Offload.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NOT_FOUND"),
-    102: .same(proto: "TIMEOUT"),
     103: .same(proto: "NODE_NOT_STARTED"),
   ]
 }
@@ -34904,8 +35351,8 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error.Code: SwiftProtobuf._Pro
   ]
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".AddWithShareLink"
+extension Anytype_Rpc.Object.AddWithObjectId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".AddWithObjectId"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -34917,16 +35364,17 @@ extension Anytype_Rpc.Object.AddWithShareLink: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.AddWithShareLink, rhs: Anytype_Rpc.Object.AddWithShareLink) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.AddWithObjectId, rhs: Anytype_Rpc.Object.AddWithObjectId) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.AddWithShareLink.protoMessageName + ".Request"
+extension Anytype_Rpc.Object.AddWithObjectId.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.AddWithObjectId.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "link"),
+    1: .same(proto: "objectId"),
+    2: .same(proto: "payload"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -34935,28 +35383,33 @@ extension Anytype_Rpc.Object.AddWithShareLink.Request: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.link) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.payload) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.link.isEmpty {
-      try visitor.visitSingularStringField(value: self.link, fieldNumber: 1)
+    if !self.objectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
+    }
+    if !self.payload.isEmpty {
+      try visitor.visitSingularStringField(value: self.payload, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.AddWithShareLink.Request, rhs: Anytype_Rpc.Object.AddWithShareLink.Request) -> Bool {
-    if lhs.link != rhs.link {return false}
+  public static func ==(lhs: Anytype_Rpc.Object.AddWithObjectId.Request, rhs: Anytype_Rpc.Object.AddWithObjectId.Request) -> Bool {
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs.payload != rhs.payload {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.AddWithShareLink.protoMessageName + ".Response"
+extension Anytype_Rpc.Object.AddWithObjectId.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.AddWithObjectId.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
   ]
@@ -34984,15 +35437,15 @@ extension Anytype_Rpc.Object.AddWithShareLink.Response: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.AddWithShareLink.Response, rhs: Anytype_Rpc.Object.AddWithShareLink.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.AddWithObjectId.Response, rhs: Anytype_Rpc.Object.AddWithObjectId.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.AddWithShareLink.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.AddWithObjectId.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -35021,7 +35474,7 @@ extension Anytype_Rpc.Object.AddWithShareLink.Response.Error: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.AddWithShareLink.Response.Error, rhs: Anytype_Rpc.Object.AddWithShareLink.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.AddWithObjectId.Response.Error, rhs: Anytype_Rpc.Object.AddWithObjectId.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -35029,7 +35482,7 @@ extension Anytype_Rpc.Object.AddWithShareLink.Response.Error: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.Object.AddWithShareLink.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -36439,6 +36892,8 @@ extension Anytype_Rpc.Object.Graph.Node: SwiftProtobuf.Message, SwiftProtobuf._M
     5: .same(proto: "description"),
     6: .same(proto: "iconImage"),
     7: .same(proto: "iconEmoji"),
+    8: .same(proto: "done"),
+    9: .same(proto: "relationFormat"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -36454,6 +36909,8 @@ extension Anytype_Rpc.Object.Graph.Node: SwiftProtobuf.Message, SwiftProtobuf._M
       case 5: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.iconImage) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.done) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.relationFormat) }()
       default: break
       }
     }
@@ -36481,6 +36938,12 @@ extension Anytype_Rpc.Object.Graph.Node: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.iconEmoji.isEmpty {
       try visitor.visitSingularStringField(value: self.iconEmoji, fieldNumber: 7)
     }
+    if self.done != false {
+      try visitor.visitSingularBoolField(value: self.done, fieldNumber: 8)
+    }
+    if self.relationFormat != 0 {
+      try visitor.visitSingularInt32Field(value: self.relationFormat, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -36492,6 +36955,8 @@ extension Anytype_Rpc.Object.Graph.Node: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.description_p != rhs.description_p {return false}
     if lhs.iconImage != rhs.iconImage {return false}
     if lhs.iconEmoji != rhs.iconEmoji {return false}
+    if lhs.done != rhs.done {return false}
+    if lhs.relationFormat != rhs.relationFormat {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -37548,6 +38013,461 @@ extension Anytype_Rpc.Object.ToSet.Response.Error: SwiftProtobuf.Message, SwiftP
 }
 
 extension Anytype_Rpc.Object.ToSet.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.ObjectList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".ObjectList"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList, rhs: Anytype_Rpc.ObjectList) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.protoMessageName + ".Delete"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Delete, rhs: Anytype_Rpc.ObjectList.Delete) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Delete.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectIds"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.objectIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Delete.Request, rhs: Anytype_Rpc.ObjectList.Delete.Request) -> Bool {
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Delete.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "event"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Delete.Response, rhs: Anytype_Rpc.ObjectList.Delete.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Delete.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Delete.Response.Error, rhs: Anytype_Rpc.ObjectList.Delete.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Delete.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.ObjectList.Set: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.protoMessageName + ".Set"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set, rhs: Anytype_Rpc.ObjectList.Set) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.protoMessageName + ".IsArchived"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsArchived, rhs: Anytype_Rpc.ObjectList.Set.IsArchived) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.IsArchived.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectIds"),
+    2: .same(proto: "isArchived"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.objectIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 1)
+    }
+    if self.isArchived != false {
+      try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsArchived.Request, rhs: Anytype_Rpc.ObjectList.Set.IsArchived.Request) -> Bool {
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.isArchived != rhs.isArchived {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.IsArchived.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsArchived.Response, rhs: Anytype_Rpc.ObjectList.Set.IsArchived.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.IsArchived.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error, rhs: Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.protoMessageName + ".IsFavorite"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsFavorite, rhs: Anytype_Rpc.ObjectList.Set.IsFavorite) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.IsFavorite.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectIds"),
+    2: .same(proto: "isFavorite"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.isFavorite) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.objectIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 1)
+    }
+    if self.isFavorite != false {
+      try visitor.visitSingularBoolField(value: self.isFavorite, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsFavorite.Request, rhs: Anytype_Rpc.ObjectList.Set.IsFavorite.Request) -> Bool {
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.isFavorite != rhs.isFavorite {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.IsFavorite.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsFavorite.Response, rhs: Anytype_Rpc.ObjectList.Set.IsFavorite.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectList.Set.IsFavorite.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error, rhs: Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
