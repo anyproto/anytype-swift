@@ -4,6 +4,7 @@ enum SlashActionMedia: CaseIterable {
     case file
     case pictre
     case video
+    case audio
     case bookmark
     case codeSnippet
     
@@ -15,6 +16,8 @@ enum SlashActionMedia: CaseIterable {
             return "Picture".localized
         case .video:
             return "Video".localized
+        case .audio:
+            return "Audio".localized
         case .bookmark:
             return "Bookmark".localized
         case .codeSnippet:
@@ -30,6 +33,8 @@ enum SlashActionMedia: CaseIterable {
             return ImageName.slashMenu.media.picture
         case .video:
             return ImageName.slashMenu.media.video
+        case .audio:
+            return ImageName.slashMenu.media.audio
         case .bookmark:
             return ImageName.slashMenu.media.bookmark
         case .codeSnippet:
@@ -45,6 +50,8 @@ enum SlashActionMedia: CaseIterable {
             return "Picture block subtitle".localized
         case .video:
             return "Video block subtitle".localized
+        case .audio:
+            return "Upload playable audio".localized
         case .bookmark:
             return "Bookmark block subtitle".localized
         case .codeSnippet:
@@ -60,6 +67,8 @@ enum SlashActionMedia: CaseIterable {
             return .file(.image)
         case .video:
             return .file(.video)
+        case .audio:
+            return .file(.audio)
         case .bookmark:
             return .bookmark(.page)
         case .codeSnippet:
