@@ -41,7 +41,7 @@ public struct ObjectDetails: Hashable {
             case .layout(let value): layout = value
             case .layoutAlign(let value): layoutAlign = value
             case .isDone(let value): isDone = value
-            case .type(let value): type = value
+            case .type(let value): type = value.rawValue
             case .isDraft(let value): isDraft = value
             }
         }
@@ -65,7 +65,7 @@ public struct ObjectDetails: Hashable {
             case .layout(let value): currentDetails.layout = value
             case .layoutAlign(let value): currentDetails.layoutAlign = value
             case .isDone(let value): currentDetails.isDone = value
-            case .type(let value): currentDetails.type = value
+            case .type(let value): currentDetails.type = value.rawValue
             case .isDraft(let value): currentDetails.isDraft = value
             }
         }
