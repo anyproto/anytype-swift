@@ -51,7 +51,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var objectsMenuItem: SlashMenuItem? {
-        guard let draft = ObjectTypeProvider.objectType(url: ObjectTypeProvider.pageObjectURL) else {
+        guard let draft = ObjectTypeProvider.objectType(url: ObjectTemplateType.page.rawValue) else {
             return nil
         }
         

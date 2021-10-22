@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import Foundation
 
 final class TextBlockActionHandler {
     
@@ -58,30 +59,6 @@ final class TextBlockActionHandler {
     }
 
     private func handlingKeyboardAction(_ block: BlockModelProtocol, _ action: CustomTextView.KeyboardAction) {
-//        if block.information.id == ObjectDetailsItemKey.name.rawValue {
-//            switch action {
-//            case .enterAtTheEndOfContent, .enterInsideContent, .enterAtTheBeginingOfContent:
-//                let id = block.information.id
-//                let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
-//                let block = block.container?.model(id: blockId)
-//                let parentId = block?.information.id
-//                let information = BlockBuilder.createDefaultInformation()
-//
-//                if let parentId = parentId {
-//                    if block?.information.childrenIds.isEmpty == true {
-//                        self.service.addChild(info: information, parentBlockId: parentId)
-//                    }
-//                    else {
-//                        let first = block?.information.childrenIds.first
-//                        service.add(info: information, targetBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
-//                    }
-//                }
-//
-//            default: return
-//            }
-//            return
-//        }
-        
         switch action {
         // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
         case let .enterInsideContent(topString, bottomString):
@@ -192,7 +169,8 @@ final class TextBlockActionHandler {
             
             var localEvents = [LocalEvent]()
             if case let .text(text) = previousModel.information.content {
-                let range = NSRange(location: text.text.count, length: 0)
+                let nsText = NSString(string: text.text)
+                let range = NSRange(location: nsText.length, length: 0)
                 localEvents.append(contentsOf: [
                     .setFocus(blockId: previousBlockId, position: .at(range))
                 ])

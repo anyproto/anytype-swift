@@ -19,10 +19,8 @@ protocol EditorActionHandlerProtocol: AnyObject {
     )
     func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource)
         
-    func turnIntoPage(
-        blockId: ActionHandlerBlockIdSource,
-        completion: @escaping (BlockId?) -> ()
-    )
+    func turnIntoPage(blockId: ActionHandlerBlockIdSource) -> BlockId?
+    func createPage(targetId: BlockId) -> BlockId?
     func showPage(blockId: ActionHandlerBlockIdSource)
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)

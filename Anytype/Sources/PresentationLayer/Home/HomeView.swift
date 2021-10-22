@@ -5,7 +5,7 @@ import AnytypeCore
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     
-    @StateObject private var settingsModel = SettingSectionViewModel()
+    @StateObject private var settingsModel = SettingsViewModel(authService: ServiceLocator.shared.authService())
     @StateObject private var accountData = AccountInfoDataAccessor()
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
@@ -48,14 +48,14 @@ struct HomeView: View {
             }
         }
         .bottomFloater(isPresented: $showSettings) {
-            viewModel.coordinator.settingsView().padding(8)
+            SettingsView().padding(8)
         }
-        
+
         .bottomFloater(isPresented: $viewModel.showDeletionAlert) {
             DashboardDeletionAlert().padding(8)
         }
         .animation(.ripple, value: viewModel.showDeletionAlert)
-        
+
         .bottomFloater(isPresented: $settingsModel.loggingOut) {
             DashboardLogoutAlert().padding(8)
         }

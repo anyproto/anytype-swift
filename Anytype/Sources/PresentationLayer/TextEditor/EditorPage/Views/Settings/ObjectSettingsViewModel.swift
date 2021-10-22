@@ -6,7 +6,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", rawDetails: [])
     var settings: [ObjectSetting] {
-        if details.type == ObjectTypeProvider.myProfileURL {
+        if details.type == ObjectTemplateType.profile.rawValue {
             return ObjectSetting.allCases.filter { $0 != .layout }
         }
         
@@ -17,6 +17,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases
         case .todo:
             return ObjectSetting.allCases.filter { $0 != .icon }
+        case .note:
+            return [.layout]
         }
     }
 

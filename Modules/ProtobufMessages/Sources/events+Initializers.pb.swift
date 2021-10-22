@@ -149,6 +149,13 @@ extension Anytype_Event.Block.Dataview.ViewDelete {
   }
 }
 
+extension Anytype_Event.Block.Dataview.ViewOrder {
+  public init(id: String, viewIds: [String]) {
+    self.id = id
+    self.viewIds = viewIds
+  }
+}
+
 extension Anytype_Event.Block.Dataview.ViewSet {
   public init(id: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View, offset: UInt32, limit: UInt32) {
     self.id = id

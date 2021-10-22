@@ -194,6 +194,7 @@
 "Basic" = "Basic";
 "Profile" = "Profile";
 "Task" = "Task";
+"Note" = "Note";
 "Choose layout type" = "Choose layout type";
 
 // Object Type
@@ -219,3 +220,4 @@
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+

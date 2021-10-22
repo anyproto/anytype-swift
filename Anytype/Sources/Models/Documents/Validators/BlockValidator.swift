@@ -62,6 +62,10 @@ struct BlockValidator {
                 return restrictions.canApplyMention
             case .UNRECOGNIZED:
                 return false
+            case .emoji:
+                return false
+            case .object:
+                return false
             }
         }
         

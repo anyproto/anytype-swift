@@ -66,10 +66,19 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         blockActionHandler.upload(blockId: blockId, filePath: localPath)
     }
     
-    func turnIntoPage(blockId: ActionHandlerBlockIdSource, completion: @escaping (BlockId?) -> ()) {
-        guard let blockId = blockIdFromSource(blockId) else { return }
+    func turnIntoPage(blockId: ActionHandlerBlockIdSource) -> BlockId? {
+        guard let blockId = blockIdFromSource(blockId) else { return nil }
         
-        blockActionHandler.turnIntoPage(blockId: blockId, completion: completion)
+        return blockActionHandler.turnIntoPage(blockId: blockId)
+    }
+    
+    func createPage(targetId: BlockId) -> BlockId? {
+        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+            return blockActionHandler.createPage(targetId: targetId, position: .replace)
+        }
+        
+        return blockActionHandler.createPage(targetId: targetId, position: .bottom)
     }
     
     func showPage(blockId: ActionHandlerBlockIdSource) {

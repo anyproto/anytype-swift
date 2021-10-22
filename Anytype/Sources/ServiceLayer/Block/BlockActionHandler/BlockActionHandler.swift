@@ -32,12 +32,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Public methods
     
-    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ()) {
-        service.turnIntoPage(blockId: blockId, completion: completion)
+    func turnIntoPage(blockId: BlockId) -> BlockId? {
+        return service.turnIntoPage(blockId: blockId)
     }
     
     func upload(blockId: BlockId, filePath: String) {
         service.upload(blockId: blockId, filePath: filePath)
+    }
+    
+    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId? {
+        return service.createPage(targetId: targetId, position: position)
     }
     
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
@@ -151,8 +155,8 @@ private extension BlockActionHandler {
     func addBlock(blockId: BlockId, type: BlockContentType) {
         switch type {
         case .smartblock(.page):
-            service.createPage(position: .bottom)
-            
+            anytypeAssertionFailure("Use createPage func instead")
+            _ = createPage(targetId: blockId, position: .bottom)
         default:
             guard
                 let newBlock = BlockBuilder.createNewBlock(type: type),

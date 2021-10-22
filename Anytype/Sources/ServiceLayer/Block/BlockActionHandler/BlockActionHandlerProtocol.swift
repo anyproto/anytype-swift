@@ -6,6 +6,7 @@ protocol BlockActionHandlerProtocol {
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId)
 
     func upload(blockId: BlockId, filePath: String)
-    func turnIntoPage(blockId: BlockId, completion: @escaping (BlockId?) -> ())
+    func turnIntoPage(blockId: BlockId) -> BlockId?
+    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId?
     
 }

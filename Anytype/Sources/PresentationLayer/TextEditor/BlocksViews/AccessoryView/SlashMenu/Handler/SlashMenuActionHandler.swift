@@ -29,9 +29,8 @@ final class SlashMenuActionHandler {
                     self?.actionHandler.handleAction(.addLink(targetDetailsId), blockId: blockId)
                 }
             case .objectType:
-                actionHandler.turnIntoPage(blockId: .firstResponder) { [weak self] blockId in
-                    blockId.flatMap { self?.show(blockId: $0) }
-                }
+                actionHandler.createPage(targetId: blockId)
+                    .flatMap { actionHandler.showPage(blockId: .provided($0)) }
             }
         case .relations:
             break
@@ -123,14 +122,4 @@ final class SlashMenuActionHandler {
 //            break
         }
     }
-    
-    private func show(blockId: BlockId) {
-        // We add delay manualy to have some visual delay
-        // between selecting "Page" in slash menu
-        // and transfering to newly created page
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            self?.actionHandler.showPage(blockId: .provided(blockId))
-        }
-    }
-    
 }

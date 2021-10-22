@@ -91,11 +91,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
         case let .details(id):
             guard id == document.objectId else {
-                // TODO: - call blocks update to update mentions/links
+                // TODO: - call blocks update with new details to update mentions/links
                 performGeneralUpdate()
                 return
             }
             
+            // TODO: - also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
             details.flatMap { objectSettingsViewModel.update(with: $0) } 
@@ -118,10 +119,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func performGeneralUpdate() {
         let models = document.flattenBlocks
         
-        let blocksViewModels = blockBuilder.build(
-            models,
-            currentObjectDetails: document.objectDetails
-        )
+        let blocksViewModels = blockBuilder.build(models)
         
         handleGeneralUpdate(with: blocksViewModels)
         
@@ -134,11 +132,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
 
         for blockId in blockIds {
-            guard
-                let newRecord = document.blocksContainer.model(
-                    id: document.objectId
-                )?.container?.model(id: blockId) else {
-                anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            guard let newRecord = document.blocksContainer
+                    .model(id: document.objectId)?
+                    .container?.model(id: blockId)
+            else {
+                AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
                 return
             }
 
@@ -152,11 +150,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
             
-            guard let newModel = blockBuilder.build(
-                    newRecord,
-                    currentObjectDetails: document.objectDetails,
-                    previousBlock: upperBlock
-            )
+            guard
+                let newModel = blockBuilder.build(newRecord, previousBlock: upperBlock)
             else {
                 anytypeAssertionFailure("Could not build model from record: \(newRecord)")
                 return

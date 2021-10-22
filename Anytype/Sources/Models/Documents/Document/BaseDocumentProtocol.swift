@@ -7,7 +7,6 @@ protocol BaseDocumentProtocol: AnyObject {
     var blocksContainer: BlockContainerModelProtocol { get }
     var detailsStorage: ObjectDetailsStorageProtocol { get }
     
-
     var onUpdateReceive: ((EventsListenerUpdate) -> Void)? { get set }
     
     func open()

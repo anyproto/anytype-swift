@@ -16,7 +16,7 @@ enum ObjectAction: Hashable, Identifiable {
         var allCases: [ObjectAction] = []
 
         // We shouldn't allow archive for profile
-        if details.type != ObjectTypeProvider.myProfileURL {
+        if details.type != ObjectTemplateType.profile.rawValue {
             allCases.append(.archive(isArchived: details.isArchived))
         }
         allCases.append(.favorite(isFavorite: details.isFavorite))

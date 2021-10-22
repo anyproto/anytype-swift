@@ -41,7 +41,6 @@
 		3D6E9A3C270E11CA001B0A07 /* BlockPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3B270E11CA001B0A07 /* BlockPosition.swift */; };
 		3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3D270E13B5001B0A07 /* FileContentType.swift */; };
 		3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A5127102E30001B0A07 /* BlockTextStyle.swift */; };
-		3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */; };
 		3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B42697647600149864 /* MiddlewareColor.swift */; };
 		3DB7DCA42639DBE100635E4C /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA32639DBE100635E4C /* BlockModel.swift */; };
 		3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* UserSession.swift */; };
@@ -49,6 +48,7 @@
 		3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */; };
 		3DE511F926711E5C00153962 /* BlockText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511F826711E5C00153962 /* BlockText.swift */; };
 		53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */; };
+		C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +89,6 @@
 		3D6E9A3B270E11CA001B0A07 /* BlockPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPosition.swift; sourceTree = "<group>"; };
 		3D6E9A3D270E13B5001B0A07 /* FileContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileContentType.swift; sourceTree = "<group>"; };
 		3D6E9A5127102E30001B0A07 /* BlockTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTextStyle.swift; sourceTree = "<group>"; };
-		3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInformationConverter.swift; sourceTree = "<group>"; };
 		3DB692B42697647600149864 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		3DB7DCA32639DBE100635E4C /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
 		3DB7DCA72639DC0100635E4C /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
@@ -97,6 +96,7 @@
 		3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentIdentifiers.swift; sourceTree = "<group>"; };
 		3DE511F826711E5C00153962 /* BlockText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockText.swift; sourceTree = "<group>"; };
 		53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateType.swift; sourceTree = "<group>"; };
 		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +203,7 @@
 				12B69C8B265D10E600D047E3 /* Entities */,
 				12F91CF9270E0C2800C92B28 /* ObjectDetailsItemKey.swift */,
 				12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */,
+				C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */,
 				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
 				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
 			);
@@ -292,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				0A6D537425D9C99E002F3F82 /* BlockInformation.swift */,
-				3DAAEF9726668CF400FA067E /* BlockInformationConverter.swift */,
 				3DB692B42697647600149864 /* MiddlewareColor.swift */,
 			);
 			path = BlockInformation;
@@ -408,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */,
 				124A60B52713058D0012FD2D /* MiddlewareDetailsConverter.swift in Sources */,
 				3D6E9A3C270E11CA001B0A07 /* BlockPosition.swift in Sources */,
 				12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */,
@@ -417,7 +418,6 @@
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				12F91CFA270E0C2800C92B28 /* ObjectDetailsItemKey.swift in Sources */,
 				12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */,
-				3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */,
 				3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
 				3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */,

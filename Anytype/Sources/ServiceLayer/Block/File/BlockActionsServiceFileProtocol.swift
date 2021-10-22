@@ -8,7 +8,5 @@ protocol BlockActionsServiceFileProtocol {
     
     func asyncUploadDataAt(filePath: String, contextID: BlockId, blockID: BlockId) -> AnyPublisher<MiddlewareResponse, Error>
     
-    func syncUploadImageAt(localPath: String) -> Hash?
-    
-    func fetchImageAsBlob(hash: String, wantWidth: Int32) -> Result<Data, Error>
+    func syncUploadImageAt(localPath: String) -> Hash?    
 }

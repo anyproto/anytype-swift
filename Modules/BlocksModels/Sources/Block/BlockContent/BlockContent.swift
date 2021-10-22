@@ -68,7 +68,6 @@ public extension BlockContent {
         case .text(let blockText):
             return blockText.text.isEmpty
         default:
-            assertionFailure("not implemented for type \(self)")
             return false
         }
     }

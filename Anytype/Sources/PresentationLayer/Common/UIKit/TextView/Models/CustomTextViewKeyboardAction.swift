@@ -21,12 +21,16 @@ extension CustomTextView.KeyboardAction {
         range: NSRange,
         replacement: String
     ) -> Self? {
+        guard let range = Range(range, in: textView.text) else { return nil }
+
+        let isEmpty = range.isEmpty && range.lowerBound == textView.text.startIndex
+
         if replacement == newLine {
-            if range == .zero {
+            if isEmpty {
                 return .enterAtTheBeginingOfContent(textView.text)
             }
-            
-            if textView.text.count == range.location + range.length {
+
+            if textView.text.endIndex == range.upperBound {
                 return .enterAtTheEndOfContent
             }
             
@@ -34,21 +38,20 @@ extension CustomTextView.KeyboardAction {
             return .enterInsideContent(left: spitedText.left, right: spitedText.right)
         }
         
-        if textView.text == emptyString, replacement == emptyString, range == .zero {
+        if textView.text == emptyString, replacement == emptyString, isEmpty {
             return .deleteOnEmptyContent
         }
         
-        if replacement == emptyString, range == .zero {
+        if replacement == emptyString, isEmpty {
             return .deleteAtTheBeginingOfContent
         }
         
         return nil
     }
     
-    private static func splitText(text: String, range: NSRange) -> (left: String, right: String) {
-        let left = text.prefix(range.location)
-        let rightStart = text.index(text.startIndex, offsetBy: range.location + range.length)
-        let right = text[rightStart..<text.endIndex]
+    private static func splitText(text: String, range: Range<String.Index>) -> (left: String, right: String) {
+        let left = text[..<range.lowerBound]
+        let right = text[range.upperBound...]
         return (String(left), String(right))
     }
 }

@@ -51,8 +51,7 @@ public enum MiddlewareDetailsConverter {
                 return .iconEmoji(unwrapedListValue.stringValue)
                 
             case .iconImageHash:
-                guard let hash = Hash(unwrapedListValue.stringValue) else { return nil }
-                return .iconImageHash(hash)
+                return .iconImageHash(Hash(unwrapedListValue.stringValue))
                 
             case .coverId:
                 return .coverId(unwrapedListValue.stringValue)
@@ -98,7 +97,7 @@ public enum MiddlewareDetailsConverter {
                 return .isDone(unwrapedListValue.boolValue)
                 
             case .type:
-                return .type(unwrapedListValue.stringValue)
+                return .type(ObjectTemplateType(rawValue: unwrapedListValue.stringValue) ?? .note)
             case .lastOpenedDate:
                 return nil
             case .isHidden:
@@ -140,7 +139,7 @@ private extension ObjectDetailsItem {
         case .layout: return .layout(ObjectDetailDefaultValue.layout)
         case .layoutAlign: return .layoutAlign(ObjectDetailDefaultValue.layoutAlignment)
         case .isDone: return .isDone(ObjectDetailDefaultValue.bool)
-        case .type: return .type(ObjectDetailDefaultValue.string)
+        case .type: return .type(ObjectDetailDefaultValue.type)
         case .isDraft: return .isDraft(ObjectDetailDefaultValue.bool)
         case .lastOpenedDate: return nil
         case .isHidden: return nil

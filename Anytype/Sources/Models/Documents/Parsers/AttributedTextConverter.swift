@@ -23,7 +23,11 @@ enum AttributedTextConverter {
             ) else {
                 return nil
             }
-            return (NSRange(mark.range), markValue)
+            // we need convert marks to NSRange
+            let from = text.index(text.startIndex, offsetBy: Int(mark.range.from))
+            let to = text.index(text.startIndex, offsetBy: Int(mark.range.to))
+            let nsRange = NSRange(from..<to, in: text)
+            return (nsRange, markValue)
         }
 
         let font = style.uiFont
@@ -60,7 +64,7 @@ enum AttributedTextConverter {
     
     static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareString {
         // 1. Iterate over all ranges in a string.
-        var marksTuples = [MiddlewareTuple: NSMutableIndexSet]()
+        var marksTuples = [MiddlewareTuple: Set<Range<String.Index>>]()
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
         // We remove mention attachments to save correct markup ranges
         mutableAttributedText.removeAllMentionAttachmets()
@@ -92,27 +96,31 @@ enum AttributedTextConverter {
             
             // 3. Iterate over all marks in this range.
             for mark in marks {
-                
+                guard let range = Range(range, in: wholeText) else { return }
+
                 // 4. If key exists, so, we must add range to result indexSet.
-                if let value = marksTuples[mark] {
-                    value.add(in: range)
+                if var value = marksTuples[mark] {
+                    value.insert(range)
+                    marksTuples[mark] = value
                 }
                 // 5. Otherwise, we should init new indexSet from current range.
                 else {
-                    marksTuples[mark] = NSMutableIndexSet(indexesIn: range)
+                    marksTuples[mark] = [range]
                 }
             }
         }
-        
-        let middlewareMarks = marksTuples.compactMap { (tuple, value) -> [Anytype_Model_Block.Content.Text.Mark]? in
-            let indexSet: IndexSet = value as IndexSet
-            
-            return indexSet.rangeView.enumerated().map {
-                let range = NSRange($0.element).asMiddleware
+
+        let middlewareMarks = marksTuples.compactMap { (markup, ranges) -> [Anytype_Model_Block.Content.Text.Mark]? in
+
+            ranges.map { range in
+                let from = wholeText.distance(from: wholeText.startIndex, to: range.lowerBound)
+                let to = wholeText.distance(from: wholeText.startIndex, to: range.upperBound)
+
+                let middleRange = Anytype_Model_Range(from: Int32(from), to: Int32(to))
                 return Anytype_Model_Block.Content.Text.Mark(
-                    range: range,
-                    type: tuple.attribute,
-                    param: tuple.value
+                    range: middleRange,
+                    type: markup.attribute,
+                    param: markup.value
                 )
             }
         }.flatMap { $0 }
@@ -189,6 +197,10 @@ enum AttributedTextConverter {
             }
             return pageId
         case .UNRECOGNIZED:
+            return nil
+        case .emoji:
+            return nil
+        case .object:
             return nil
         }
     }
