@@ -61,11 +61,9 @@ extension ObjectRawDetails {
                 anytypeAssertionFailure("Set `layout` by details is not allowed. Use `setLayout` func")
                 return nil
                 
-            case .layoutAlign(let layoutAlign):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.layoutAlign.rawValue,
-                    value: Google_Protobuf_Value(numberValue: Double(layoutAlign.rawValue))
-                )
+            case .layoutAlign:
+                anytypeAssertionFailure("Set `layoutAlign` by details is not allowed. Use `setAlign` func")
+                return nil
                 
             case .isDone(let bool):
                 return Anytype_Rpc.Block.Set.Details.Detail(
