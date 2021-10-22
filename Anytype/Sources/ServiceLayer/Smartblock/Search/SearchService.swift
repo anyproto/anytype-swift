@@ -58,10 +58,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: ObjectDetailsItemKey.lastModifiedDate,
             type: .desc
         )
+        let searchTypes: [ObjectTemplateType] = [.note, .page]
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeUrls: [ObjectTypeProvider.pageObjectURL])
+            SearchHelper.typeFilter(typeUrls: searchTypes.map { $0.rawValue })
         ]
         
         return makeRequest(
