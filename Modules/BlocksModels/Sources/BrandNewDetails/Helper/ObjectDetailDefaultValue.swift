@@ -17,4 +17,5 @@ enum ObjectDetailDefaultValue {
     static let coverType: CoverType = .none
     static let layout: DetailsLayout = .note
     static let layoutAlignment: LayoutAlignment = .left
+    static let featuredRelations: [String] = []
 }

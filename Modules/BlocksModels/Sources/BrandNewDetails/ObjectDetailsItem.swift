@@ -23,4 +23,5 @@ public enum ObjectDetailsItem {
     case isDone(Bool)
     case type(ObjectTemplateType)
     case isDraft(Bool)
+    case featuredRelations(ids: [String])
 }

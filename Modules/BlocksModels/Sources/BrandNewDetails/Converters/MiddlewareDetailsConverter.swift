@@ -106,6 +106,14 @@ public enum MiddlewareDetailsConverter {
                 return nil
             case .isDraft:
                 return .isDraft(unwrapedListValue.boolValue)
+            case .featuredRelations:
+                let ids: [String] = value.listValue.values.compactMap {
+                    let value = $0.stringValue
+                    guard value.isNotEmpty else { return nil }
+                    return value
+                }
+                
+                return .featuredRelations(ids: ids)
             }
         }
     }
@@ -144,6 +152,7 @@ private extension ObjectDetailsItem {
         case .lastOpenedDate: return nil
         case .isHidden: return nil
         case .lastModifiedDate: return nil
+        case .featuredRelations: return .featuredRelations(ids: ObjectDetailDefaultValue.featuredRelations)
         }
     }
     

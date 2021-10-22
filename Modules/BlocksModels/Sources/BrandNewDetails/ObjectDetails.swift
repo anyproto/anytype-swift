@@ -25,6 +25,7 @@ public struct ObjectDetails: Hashable {
     public private(set) var isDone: Bool = ObjectDetailDefaultValue.bool
     public private(set) var type: String = ObjectDetailDefaultValue.string
     public private(set) var isDraft: Bool = ObjectDetailDefaultValue.bool
+    public private(set) var featuredRelations: [String] = ObjectDetailDefaultValue.featuredRelations
     
     public init(id: String, rawDetails: ObjectRawDetails) {
         self.id = id
@@ -43,6 +44,7 @@ public struct ObjectDetails: Hashable {
             case .isDone(let value): isDone = value
             case .type(let value): type = value.rawValue
             case .isDraft(let value): isDraft = value
+            case .featuredRelations(ids: let value): featuredRelations = value
             }
         }
     }
@@ -67,6 +69,7 @@ public struct ObjectDetails: Hashable {
             case .isDone(let value): currentDetails.isDone = value
             case .type(let value): currentDetails.type = value.rawValue
             case .isDraft(let value): currentDetails.isDraft = value
+            case .featuredRelations(ids: let value): currentDetails.featuredRelations = value
             }
         }
         
