@@ -1,6 +1,7 @@
 import ProtobufMessages
 import BlocksModels
 import AnytypeCore
+import SwiftProtobuf
 
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
@@ -78,8 +79,7 @@ final class MiddlewareEventConverter {
             return .blocks(blockIds: [blockId])
         
         case let .objectDetailsAmend(amend):
-            let rawDetails = MiddlewareDetailsConverter.convertAmendEvent(amend)
-            guard rawDetails.isNotEmpty else { return nil }
+            guard amend.details.isNotEmpty else { return nil }
             
             let id = amend.id
             
@@ -87,7 +87,7 @@ final class MiddlewareEventConverter {
                 return nil
             }
             
-            let updatedDetails = currentDetails.updated(by: rawDetails)
+            let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
             detailsStorage.add(details: updatedDetails, id: id)
             
             // change layout from `todo` to `basic` should trigger update title
@@ -105,11 +105,7 @@ final class MiddlewareEventConverter {
                 return nil
             }
             
-            let unsettedRawDetails = MiddlewareDetailsConverter.convertUnsetEvent(payload)
-            
-            guard unsettedRawDetails.isNotEmpty else { return nil }
-            
-            let updatedDetails = currentDetails.updated(by: unsettedRawDetails)
+            let updatedDetails = currentDetails.removed(keys: payload.keys)
             detailsStorage.add(details: updatedDetails, id: id)
             
             // change layout from `todo` to `basic` should trigger update title
@@ -129,7 +125,7 @@ final class MiddlewareEventConverter {
             
             let details = ObjectDetails(
                 id: id,
-                rawDetails: MiddlewareDetailsConverter.convertSetEvent(value)
+                values: value.details.fields
             )
             
             detailsStorage.add(
@@ -286,4 +282,16 @@ final class MiddlewareEventConverter {
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
         return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
     }
+}
+
+private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
+
+    var asDetailsDictionary: [String: Google_Protobuf_Value] {
+        reduce(
+            into: [String: Google_Protobuf_Value]()
+        ) { result, detail in
+            result[detail.key] = detail.value
+        }
+    }
+    
 }

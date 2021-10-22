@@ -4,7 +4,7 @@ import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
     
-    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", rawDetails: [])
+    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var settings: [ObjectSetting] {
         if details.type == ObjectTypeProvider.myProfileURL {
             return ObjectSetting.allCases.filter { $0 != .layout }

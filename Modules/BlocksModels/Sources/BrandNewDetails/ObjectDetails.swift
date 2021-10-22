@@ -10,15 +10,45 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-struct ObjectDetails2: Hashable {
+public struct ObjectDetails: Hashable {
     
-    let id: String
+    public let id: String
+    public let values: [String: Google_Protobuf_Value]
     
-    let values: [String: Google_Protobuf_Value]
+    public init(id: String, values: [String: Google_Protobuf_Value]) {
+        self.id = id
+        self.values = values
+    }
+    
+    public func updated(by rawDetails: [String: Google_Protobuf_Value]) -> ObjectDetails {
+        guard !rawDetails.isEmpty else { return self }
+        
+        let newValues = self.values.merging(rawDetails) { (_, new) in new }
+        
+        return ObjectDetails(
+            id: self.id,
+            values: newValues
+        )
+    }
+    
+    public func removed(keys: [String]) -> ObjectDetails {
+        guard keys.isNotEmpty else { return self }
+        
+        var currentValues = self.values
+        
+        keys.forEach {
+            currentValues.removeValue(forKey: $0)
+        }
+        
+        return ObjectDetails(
+            id: self.id,
+            values: currentValues
+        )
+    }
     
 }
 
-extension ObjectDetails2 {
+public extension ObjectDetails {
     
     var name: String {
         stringValue(with: .name)
@@ -117,7 +147,7 @@ extension ObjectDetails2 {
     }
 }
 
-public struct ObjectDetails: Hashable {
+public struct ObjectDetails2: Hashable {
     public let id: String
 
     public private(set) var name: String = ObjectDetailDefaultValue.string
@@ -157,7 +187,7 @@ public struct ObjectDetails: Hashable {
         }
     }
     
-    public func updated(by rawDetails: ObjectRawDetails) -> ObjectDetails {
+    public func updated(by rawDetails: ObjectRawDetails) -> ObjectDetails2 {
         guard rawDetails.isNotEmpty else { return self }
         
         var currentDetails = self

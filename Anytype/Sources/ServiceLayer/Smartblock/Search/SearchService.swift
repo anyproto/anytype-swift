@@ -126,10 +126,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 id.isNotEmpty
             else { return nil }
             
-            let rawDetails = MiddlewareDetailsConverter.convertMiddlewareDetailsDictionary(search.fields)
             return ObjectDetails(
                 id: id,
-                rawDetails: rawDetails
+                values: search.fields
             )
         }
             

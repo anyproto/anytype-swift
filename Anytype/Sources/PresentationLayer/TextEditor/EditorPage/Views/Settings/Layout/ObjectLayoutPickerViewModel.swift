@@ -4,7 +4,7 @@ import Combine
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
         
-    @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: [])
+    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var selectedLayout: DetailsLayout {
         details.layout
     }
