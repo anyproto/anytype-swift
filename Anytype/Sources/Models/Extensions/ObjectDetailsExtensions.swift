@@ -16,7 +16,7 @@ extension ObjectDetails {
     
     var icon: ObjectIconType? {
         switch layout {
-        case .basic:
+        case .basic, .note:
             return basicIcon
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }

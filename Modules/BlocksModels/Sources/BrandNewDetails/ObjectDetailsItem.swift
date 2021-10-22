@@ -21,7 +21,7 @@ public enum ObjectDetailsItem {
     case layout(DetailsLayout)
     case layoutAlign(LayoutAlignment)
     case isDone(Bool)
-    case type(String)
+    case type(ObjectTemplateType)
     case isDraft(Bool)
     case featuredRelations(ids: [String])
 }

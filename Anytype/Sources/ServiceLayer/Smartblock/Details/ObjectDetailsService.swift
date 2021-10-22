@@ -15,4 +15,8 @@ final class ObjectDetailsService {
     func update(details: ObjectRawDetails) {
         service.setDetails(contextID: objectId, details: details)
     }
+
+    func updateLayout(_ layoutDetails: DetailsLayout) {
+        service.updateLayout(contextID: objectId, value: layoutDetails.rawValue)
+    }
 }

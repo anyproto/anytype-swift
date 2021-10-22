@@ -11,10 +11,11 @@ import AnytypeCore
 
 enum ObjectDetailDefaultValue {
     static let string = ""
+    static let type = ObjectTemplateType.note
     static let bool = false
     static let hash: Hash? = nil
     static let coverType: CoverType = .none
-    static let layout: DetailsLayout = .basic
+    static let layout: DetailsLayout = .note
     static let layoutAlignment: LayoutAlignment = .left
     static let featuredRelations: [String] = []
 }

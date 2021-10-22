@@ -43,11 +43,14 @@ private extension DetailsLayout {
     var icon: Image {
         switch self {
         case .basic:
+            // About to change this icon
             return Image.LayoutSettings.basic
         case .profile:
             return Image.LayoutSettings.profile
         case .todo:
             return Image.LayoutSettings.todo
+        case .note:
+            return Image.LayoutSettings.note
         }
     }
     
@@ -59,6 +62,8 @@ private extension DetailsLayout {
             return "Profile".localized
         case .todo:
             return "Task".localized
+        case .note:
+            return "Note".localized
         }
     }
     
