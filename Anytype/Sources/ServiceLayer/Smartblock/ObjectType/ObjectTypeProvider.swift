@@ -1,9 +1,9 @@
 import ProtobufMessages
 import SwiftProtobuf
 import AnytypeCore
+import BlocksModels
 
 protocol ObjectTypeProviderProtocol {
-    static var pageObjectURL: String { get }
     static var supportedTypeUrls: [String] { get }
     
     static func loadObjects()
@@ -16,13 +16,10 @@ protocol ObjectTypeProviderProtocol {
 }
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
-    static let pageObjectURL = "_otpage"
-    static let myProfileURL = "_otprofile"
-    
-    // https://airtable.com/tblTjKSGFBqA0UYeL/viwi3waIIrz4Wktrh?blocks=hide
     static var supportedTypeUrls: [String] {
         objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
-            .map { $0.url }
+            .map { $0.url } +
+        [ObjectTemplateType.note.rawValue]
     }
     
     static func isSupported(type: ObjectType?) -> Bool {

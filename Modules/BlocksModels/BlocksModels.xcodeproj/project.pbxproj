@@ -49,6 +49,7 @@
 		3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */; };
 		3DE511F926711E5C00153962 /* BlockText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511F826711E5C00153962 /* BlockText.swift */; };
 		53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */; };
+		C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentIdentifiers.swift; sourceTree = "<group>"; };
 		3DE511F826711E5C00153962 /* BlockText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockText.swift; sourceTree = "<group>"; };
 		53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateType.swift; sourceTree = "<group>"; };
 		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +214,7 @@
 				12B69C8B265D10E600D047E3 /* Entities */,
 				12F91CF9270E0C2800C92B28 /* ObjectDetailsItemKey.swift */,
 				12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */,
+				C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */,
 				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
 				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
 			);
@@ -416,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */,
 				124A60B52713058D0012FD2D /* MiddlewareDetailsConverter.swift in Sources */,
 				3D6E9A3C270E11CA001B0A07 /* BlockPosition.swift in Sources */,
 				12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */,
