@@ -1,12 +1,13 @@
 import ProtobufMessages
 import SwiftProtobuf
+import AnytypeCore
 
 public typealias ObjectRawDetails = [ObjectDetailsItem]
 
 extension ObjectRawDetails {
     
     public var asMiddleware: [Anytype_Rpc.Block.Set.Details.Detail] {
-        self.map {
+        self.compactMap {
             switch $0 {
             case .name(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
@@ -84,6 +85,9 @@ extension ObjectRawDetails {
                     key: ObjectDetailsItemKey.isDraft.rawValue,
                     value: Google_Protobuf_Value(boolValue: bool)
                 )
+            case .featuredRelations:
+                anytypeAssertionFailure("Not implemented")
+                return nil
             }
         }
     }
