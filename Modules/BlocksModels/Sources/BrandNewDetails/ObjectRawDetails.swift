@@ -57,11 +57,9 @@ extension ObjectRawDetails {
                     value: Google_Protobuf_Value(stringValue: string)
                 )
                 
-            case .layout(let layout):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.layout.rawValue,
-                    value: Google_Protobuf_Value(numberValue: Double(layout.rawValue))
-                )
+            case .layout:
+                anytypeAssertionFailure("Set `layout` by details is not allowed. Use `setLayout` func")
+                return nil
                 
             case .layoutAlign(let layoutAlign):
                 return Anytype_Rpc.Block.Set.Details.Detail(
