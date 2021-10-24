@@ -97,7 +97,7 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Apply configuration
     
     private func applyNewConfiguration() {
-        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
+        textView.textView.attributedText = currentConfiguration.text.attrString
         
         let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
             for: currentConfiguration.content.contentType
