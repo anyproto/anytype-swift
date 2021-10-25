@@ -47,8 +47,8 @@ final class BaseDocument: BaseDocumentProtocol {
             )
         else { return }
         
-        ObjectOpenEventProcessor.fillRootModelWithEventData(baseDocument: self, event: result)
-
+        parseShowEvents(event: result)
+        
         EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
     
@@ -100,7 +100,7 @@ final class BaseDocument: BaseDocumentProtocol {
         let parsedDetails = objectShowEvent.details.map {
             ObjectDetails(
                 id: $0.id,
-                rawDetails: MiddlewareDetailsConverter.convertSetEvent($0)
+                values: $0.details.fields
             )
         }
 
