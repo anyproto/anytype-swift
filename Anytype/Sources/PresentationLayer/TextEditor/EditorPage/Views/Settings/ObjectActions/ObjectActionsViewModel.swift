@@ -9,7 +9,12 @@ final class ObjectActionsViewModel: ObservableObject {
 
     @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {
         didSet {
-            objectActions = ObjectAction.allCasesWith(details: details)
+            objectActions = ObjectAction.allCasesWith(details: details, objectRestrictions: objectRestrictions)
+        }
+    }
+    @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions() {
+        didSet {
+            objectActions = ObjectAction.allCasesWith(details: details, objectRestrictions: objectRestrictions)
         }
     }
     @Published var objectActions: [ObjectAction] = []
