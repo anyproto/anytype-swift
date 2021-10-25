@@ -99,8 +99,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             // TODO: - also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
-            details.flatMap { objectSettingsViewModel.update(with: $0) } 
-            
+
+            objectSettingsViewModel.update(with: details, objectRestrictions: document.objectRestrictions)
             viewInput?.update(header: header, details: details)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
@@ -203,9 +203,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
         
-        if let details = details {
-            objectSettingsViewModel.update(with: details)
-        }
+        objectSettingsViewModel.update(with: details, objectRestrictions: document.objectRestrictions)
     }
 }
 
