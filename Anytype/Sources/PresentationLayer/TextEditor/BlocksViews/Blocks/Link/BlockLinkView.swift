@@ -37,6 +37,7 @@ final class BlockLinkView: UIView, UIContentView {
         }
         
         textView.attributedText = state.attributedTitle
+        deletedLabel.isHidden = !state.archived
     }
     
     // MARK: - Private functions
@@ -50,15 +51,21 @@ final class BlockLinkView: UIView, UIContentView {
             $0.pinToSuperview(excluding: [.right])
         }
         contentView.addSubview(textView) {
-            $0.pinToSuperview(excluding: [.left])
+            $0.pinToSuperview(excluding: [.left, .right])
             $0.leading.equal(to: iconView.trailingAnchor)
+        }
+        contentView.addSubview(deletedLabel) {
+            $0.pinToSuperview(excluding: [.left, .right])
+            $0.trailing.lessThanOrEqual(to: contentView.trailingAnchor)
+            $0.leading.equal(to: textView.trailingAnchor)
         }
     }
     
     // MARK: - Views
     private let contentView = UIView()
-    
     private let iconView = UIView()
+    
+    private let deletedLabel = DeletedLabel()
     
     private let textView: UITextView = {
         let view = UITextView()
