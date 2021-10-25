@@ -8,6 +8,10 @@ import AnytypeCore
 
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
+    func delete(objectIds: [BlockId]) {
+        _ = Anytype_Rpc.ObjectList.Delete.Service.invoke(objectIds: objectIds)
+    }
+    
     func setArchive(objectId: BlockId, _ isArchived: Bool) {
         setArchive(objectIds: [objectId], isArchived)
     }
