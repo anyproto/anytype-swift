@@ -11,79 +11,43 @@ extension ObjectRawDetails {
             switch $0 {
             case .name(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.name.rawValue,
+                    key: RelationKey.name.rawValue,
                     value: Google_Protobuf_Value(stringValue: string)
                 )
                 
             case .iconEmoji(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.iconEmoji.rawValue,
+                    key: RelationKey.iconEmoji.rawValue,
                     value: Google_Protobuf_Value(stringValue: string)
                 )
                 
             case .iconImageHash(let hash):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.iconImageHash.rawValue,
+                    key: RelationKey.iconImage.rawValue,
                     value: Google_Protobuf_Value(stringValue: hash?.value ?? "")
                 )
                 
             case .coverId(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.coverId.rawValue,
+                    key: RelationKey.coverId.rawValue,
                     value: Google_Protobuf_Value(stringValue: string)
                 )
                 
             case .coverType(let coverType):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.coverType.rawValue,
+                    key: RelationKey.coverType.rawValue,
                     value: Google_Protobuf_Value(numberValue: Double(coverType.rawValue))
                 )
-                
-            case .isArchived(let bool):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isArchived.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
-                )
-                
-            case .isFavorite(let bool):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isFavorite.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
-                )
-                
-            case .description(let string):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.description.rawValue,
-                    value: Google_Protobuf_Value(stringValue: string)
-                )
-                
-            case .layout:
-                anytypeAssertionFailure("Set `layout` by details is not allowed. Use `setLayout` func")
-                return nil
-                
-            case .layoutAlign:
-                anytypeAssertionFailure("Set `layoutAlign` by details is not allowed. Use `setAlign` func")
-                return nil
-                
-            case .isDone(let bool):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isDone.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
-                )
-                
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.type.rawValue,
+                    key: RelationKey.type.rawValue,
                     value: Google_Protobuf_Value(stringValue: type.rawValue)
                 )
             case .isDraft(let bool):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isDraft.rawValue,
+                    key: RelationKey.isDraft.rawValue,
                     value: Google_Protobuf_Value(boolValue: bool)
                 )
-            case .featuredRelations:
-                anytypeAssertionFailure("Not implemented")
-                return nil
             }
         }
     }

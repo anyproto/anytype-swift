@@ -10,8 +10,10 @@ enum BlocksModelsConverter {
     private static let contentBookmark = ContentBookmarkConverter()
     private static let contentDivider = ContentDividerConverter()
     private static let contentLayout = ContentLayoutConverter()
-
-    static func convert(middleware: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+    
+    static func convert(
+        middleware: Anytype_Model_Block.OneOf_Content
+    ) -> BlockContent? {
         switch middleware {
         case .smartblock(let data): return contentObjectAsEmptyPage.blockType(data)
         case .link(let data): return contentLink.blockType(data)
@@ -20,7 +22,7 @@ enum BlocksModelsConverter {
         case .bookmark(let data): return contentBookmark.blockType(data)
         case .div(let data): return contentDivider.blockType(data)
         case .layout(let data): return contentLayout.blockType(data)
-
+        case .featuredRelations: return .featuredRelations
         default:
             return .unsupported
         }
@@ -35,6 +37,7 @@ enum BlocksModelsConverter {
         case .bookmark(let data): return contentBookmark.middleware(data)
         case .divider(let data): return contentDivider.middleware(data)
         case .layout(let data): return contentLayout.middleware(data)
+        case .featuredRelations: return nil
         case .unsupported: return nil
         }
     }

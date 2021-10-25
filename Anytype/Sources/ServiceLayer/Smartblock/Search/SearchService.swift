@@ -14,7 +14,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func search(text: String) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: ObjectDetailsItemKey.lastOpenedDate,
+            relation: RelationKey.lastOpenedDate,
             type: .desc
         )
         
@@ -32,7 +32,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchArchivedPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: ObjectDetailsItemKey.lastModifiedDate,
+            relation: RelationKey.lastModifiedDate,
             type: .desc
         )
         
@@ -55,7 +55,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchHistoryPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: ObjectDetailsItemKey.lastModifiedDate,
+            relation: RelationKey.lastModifiedDate,
             type: .desc
         )
         let searchTypes: [ObjectTemplateType] = [.note, .page]
@@ -78,7 +78,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchSets() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
-            relation: ObjectDetailsItemKey.lastOpenedDate,
+            relation: RelationKey.lastOpenedDate,
             type: .desc
         )
         let filters = [
@@ -127,10 +127,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 id.isNotEmpty
             else { return nil }
             
-            let rawDetails = MiddlewareDetailsConverter.convertMiddlewareDetailsDictionary(search.fields)
             return ObjectDetails(
                 id: id,
-                rawDetails: rawDetails
+                values: search.fields
             )
         }
             

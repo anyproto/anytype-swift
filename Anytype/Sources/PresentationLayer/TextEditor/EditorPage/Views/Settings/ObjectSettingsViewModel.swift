@@ -4,7 +4,7 @@ import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
     
-    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", rawDetails: [])
+    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var settings: [ObjectSetting] {
         if details.type == ObjectTemplateType.profile.rawValue {
             return ObjectSetting.allCases.filter { $0 != .layout }
@@ -49,10 +49,13 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId)
     }
     
-    func update(with details: ObjectDetails) {
-        objectActionsViewModel.details = details
-        self.details = details
-        iconPickerViewModel.details = details
-        layoutPickerViewModel.details = details
+    func update(with details: ObjectDetails?, objectRestrictions: ObjectRestrictions) {
+        if let details = details {
+            objectActionsViewModel.details = details
+            self.details = details
+            iconPickerViewModel.details = details
+            layoutPickerViewModel.details = details
+        }
+        objectActionsViewModel.objectRestrictions = objectRestrictions
     }
 }
