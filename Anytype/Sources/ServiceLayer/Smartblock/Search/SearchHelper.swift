@@ -31,6 +31,16 @@ class SearchHelper {
         return filter
     }
     
+    static func notDeletedFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
+        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+        filter.condition = .equal
+        filter.value = Google_Protobuf_Value(boolValue: false)
+        filter.relationKey = RelationKey.isDeleted.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func typeFilter(typeUrls: [String]) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .in

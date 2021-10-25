@@ -40,12 +40,7 @@ final class BaseDocument: BaseDocumentProtocol {
     // MARK: - BaseDocumentProtocol
 
     func open() {
-        guard
-            let result = blockActionsService.open(
-                contextId: objectId,
-                blockId: objectId
-            )
-        else { return }
+        guard let result = blockActionsService.open(contextId: objectId, blockId: objectId) else { return }
         
         parseShowEvents(event: result)
         

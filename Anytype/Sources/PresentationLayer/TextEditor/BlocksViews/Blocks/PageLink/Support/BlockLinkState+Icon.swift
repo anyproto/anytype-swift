@@ -2,11 +2,13 @@ import UIKit
 import BlocksModels
 import Kingfisher
 
-struct BlockLinkIconMaker {
-    private let imageViewSize = CGSize(width: 24, height: 24)
+extension BlockLinkState {
+    private static let imageViewSize = CGSize(width: 24, height: 24)
     
-    func makeIconView(state: BlockLinkState) -> UIView {
-        switch state.style {
+    func makeIconView() -> UIView {
+        if deleted { return makeIconImageView(.ghost) }
+        
+        switch style {
         case .noContent:
             return makeIconImageView()
         case let .icon(icon):
@@ -30,7 +32,7 @@ struct BlockLinkIconMaker {
     private func makeProfileIconView(_ icon: ObjectIconType.Profile) -> UIView {
         switch icon {
         case let .imageId(imageId):
-            return makeImageView(imageId: imageId, cornerRadius: imageViewSize.width / 2)
+            return makeImageView(imageId: imageId, cornerRadius: Self.imageViewSize.width / 2)
             
         case let .character(placeholder):
             return makePlaceholderView(placeholder)
@@ -39,7 +41,7 @@ struct BlockLinkIconMaker {
     
     private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
-        let size = imageViewSize
+        let size = Self.imageViewSize
 
         guard let url = ImageID(id: imageId, width: size.width.asImageWidth).resolvedUrl else {
             return imageView
@@ -78,13 +80,13 @@ struct BlockLinkIconMaker {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
-            $0.size(imageViewSize)
+            $0.size(Self.imageViewSize)
         }
         return imageView
     }
     
     private func makePlaceholderView(_ placeholder: Character) -> UIView {
-        let size = imageViewSize
+        let size = Self.imageViewSize
         let imageGuideline = ImageGuideline(
             size: size,
             cornerRadius: size.width / 2
@@ -103,7 +105,7 @@ struct BlockLinkIconMaker {
         label.text = string
         
         label.layoutUsing.anchors {
-            $0.size(imageViewSize)
+            $0.size(Self.imageViewSize)
         }
         return label
     }
