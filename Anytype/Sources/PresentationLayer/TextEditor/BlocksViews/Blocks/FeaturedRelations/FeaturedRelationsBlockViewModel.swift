@@ -10,25 +10,29 @@ import Foundation
 import UIKit
 import BlocksModels
 
+// TODO: Check if block updates when featuredRelations is changed
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     var upperBlock: BlockModelProtocol?
 
     let indentationLevel: Int = 0
     let information: BlockInformation
+    let type: String
     
     var hashable: AnyHashable {
         [
             indentationLevel,
-            information
+            information,
+            type
         ] as [AnyHashable]
     }
     
-    init(information: BlockInformation) {
+    init(information: BlockInformation, type: String) {
         self.information = information
+        self.type = type
     }
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        UnsupportedBlockContentConfiguration(text: "FeaturedRelationsBlock".localized)
+        UnsupportedBlockContentConfiguration(text: type)
     }
     
     func didSelectRowInTableView() {}
