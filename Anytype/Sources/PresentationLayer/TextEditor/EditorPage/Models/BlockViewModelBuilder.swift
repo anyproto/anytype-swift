@@ -186,9 +186,16 @@ final class BlockViewModelBuilder {
             )
         case .smartblock, .layout: return nil
         case .featuredRelations:
+            guard
+                let objectDetails = document.objectDetails,
+                let objectType = objectDetails.objectType
+            else { return nil }
+            
             return FeaturedRelationsBlockViewModel(
-                information: block.information
+                information: block.information,
+                type: objectType.name
             )
+            
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil
