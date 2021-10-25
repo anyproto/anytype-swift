@@ -8,6 +8,7 @@ extension BlockContent {
         case .bookmark(_): return ".bookmark"
         case .link(_): return ".link"
         case .layout(_): return ".layout"
+        case .featuredRelations: return ".featuredRelations"
         case .unsupported: return "unsupported"
         }
     }

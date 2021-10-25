@@ -9,6 +9,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case bookmark(BlockBookmark)
     case link(BlockLink)
     case layout(BlockLayout)
+    case featuredRelations
     case unsupported
     
     public var type: BlockContentType {
@@ -27,6 +28,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .link(link.style)
         case let .layout(layout):
             return .layout(layout.style)
+        case .featuredRelations:
+            return .text(.text)
         case .unsupported:
             return .text(.text)
         }
@@ -48,6 +51,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return "link"
         case .layout:
             return "layout"
+        case .featuredRelations:
+            return "featuredRelations"
         case .unsupported:
             return "unknown"
         }
