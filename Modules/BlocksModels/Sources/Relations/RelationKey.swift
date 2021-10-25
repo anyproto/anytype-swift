@@ -1,25 +1,27 @@
-
 import Foundation
 
+// Getters are located in ObjectDetails+Relations
 public enum RelationKey: String {
-    case id = "id"
-    case name = "name"
-    case iconEmoji = "iconEmoji"
-    case iconImage = "iconImage"
-    case coverId = "coverId"
-    case coverType = "coverType"
-    case isArchived = "isArchived"
-    case isFavorite = "isFavorite"
-    case description = "description"
-    case layout = "layout"
-    case layoutAlign = "layoutAlign"
-    case done = "done"
-    case type = "type"
-    case lastOpenedDate = "lastOpenedDate"
-    case isHidden = "isHidden"
-    case lastModifiedDate = "lastModifiedDate"
-    case isDraft = "isDraft"
-    case featuredRelations = "featuredRelations"
-    case relationFormat = "relationFormat"
-    case isReadonly = "isReadonly"
+    case id
+    case name
+    case iconEmoji
+    case iconImage
+    case coverId
+    case coverType
+    case isFavorite
+    case description
+    case layout
+    case layoutAlign
+    case done
+    case type
+    case lastOpenedDate
+    case lastModifiedDate
+    case featuredRelations
+    case relationFormat
+    
+    case isDeleted
+    case isArchived
+    case isHidden
+    case isReadonly
+    case isDraft
 }

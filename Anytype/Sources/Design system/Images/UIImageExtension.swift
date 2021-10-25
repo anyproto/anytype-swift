@@ -5,6 +5,8 @@ extension UIImage {
     static let backArrow = createImage("backArrow")
     
     static let searchIcon = createImage("searchTextFieldIcon")
+    
+    static let ghost = createImage("ghost")
 }
 
 extension UIImage {

@@ -4,7 +4,6 @@ import BlocksModels
 import Kingfisher
 
 final class BlockLinkView: UIView, UIContentView {
-    
     private var currentConfiguration: BlockLinkContentConfiguration
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
@@ -16,7 +15,6 @@ final class BlockLinkView: UIView, UIContentView {
         }
     }
     
-    private let iconMaker = BlockLinkIconMaker()
     
     init(configuration: BlockLinkContentConfiguration) {
         currentConfiguration = configuration
@@ -34,10 +32,12 @@ final class BlockLinkView: UIView, UIContentView {
     // MARK: - Internal functions
     func apply(_ state: BlockLinkState) {
         iconView.removeAllSubviews()
-        iconView.addSubview(iconMaker.makeIconView(state: state)) {
+        iconView.addSubview(state.makeIconView()) {
             $0.pinToSuperview()
         }
-        textView.text = !state.title.isEmpty ? state.title : "Untitled".localized
+        
+        textView.attributedText = state.attributedTitle
+        deletedLabel.isHidden = !state.archived
     }
     
     // MARK: - Private functions
@@ -51,28 +51,26 @@ final class BlockLinkView: UIView, UIContentView {
             $0.pinToSuperview(excluding: [.right])
         }
         contentView.addSubview(textView) {
-            $0.pinToSuperview(excluding: [.left])
+            $0.pinToSuperview(excluding: [.left, .right])
             $0.leading.equal(to: iconView.trailingAnchor)
+        }
+        contentView.addSubview(deletedLabel) {
+            $0.pinToSuperview(excluding: [.left, .right])
+            $0.trailing.lessThanOrEqual(to: contentView.trailingAnchor)
+            $0.leading.equal(to: textView.trailingAnchor)
         }
     }
     
     // MARK: - Views
     private let contentView = UIView()
-    
     private let iconView = UIView()
+    
+    private let deletedLabel = DeletedLabel()
     
     private let textView: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false
-        view.font = .bodyRegular
-        view.typingAttributes = [
-            .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.textPrimary,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .underlineColor: UIColor.textPrimary
-        ]
         view.textContainerInset = Constants.textContainerInset
-        view.textColor = .textPrimary
         view.isUserInteractionEnabled = false
         return view
     }()

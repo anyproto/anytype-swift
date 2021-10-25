@@ -9,6 +9,8 @@ extension Image {
     static let checked = createImage("TextEditor/Text/checked")
     
     static let noImage = Image("no_image")
+    
+    static let ghost = createImage("ghost")
 }
 
 extension Image {

@@ -25,27 +25,31 @@ extension BlockLinkState {
 }
 
 struct BlockLinkState: Hashable, Equatable {
-    static let empty = BlockLinkState(archived: false, title: "", style: .noContent, typeUrl: nil)
+    static let empty = BlockLinkState(title: "", style: .noContent, typeUrl: nil, archived: false, deleted: false)
 
-    let archived: Bool
     let title: String
     let style: Style
     let type: ObjectType?
     
+    let archived: Bool
+    let deleted: Bool
+    
     init(pageDetails: ObjectDetails) {
         self.init(
-            archived: pageDetails.isArchived ?? false,
-            title: pageDetails.name ?? "",
+            title: pageDetails.name,
             style: Style(details: pageDetails),
-            typeUrl: pageDetails.type
+            typeUrl: pageDetails.type,
+            archived: pageDetails.isArchived,
+            deleted: pageDetails.isDeleted
         )
     }
     
-    init(archived: Bool, title: String, style: Style, typeUrl: String?) {
-        self.archived = archived
+    init(title: String, style: Style, typeUrl: String?, archived: Bool, deleted: Bool) {
         self.title = title
         self.style = style
         self.type = ObjectTypeProvider.objectType(url: typeUrl)
+        self.archived = archived
+        self.deleted = deleted
     }
     
 }

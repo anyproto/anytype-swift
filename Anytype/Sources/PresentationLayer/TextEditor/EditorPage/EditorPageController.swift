@@ -129,16 +129,16 @@ extension EditorPageController: EditorPageViewInput {
         blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
-        
+
         sectionSnapshot.visibleItems.forEach { item in
             switch item {
             case let .block(block):
                 let blockForUpdate = blocks.first { $0.blockId == block.blockId }
-                
+
                 guard let blockForUpdate = blockForUpdate else { return }
                 guard let indexPath = self.dataSource.indexPath(for: item) else { return }
                 guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-                
+
                 cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = blockForUpdate.indentationLevel
             case .header:

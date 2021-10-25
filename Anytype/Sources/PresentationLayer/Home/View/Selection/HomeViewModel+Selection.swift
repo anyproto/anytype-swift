@@ -33,7 +33,7 @@ extension HomeViewModel {
     }
     
     func deleteConfirmation() {
-        // TODO: Delete
+        objectActionsService.delete(objectIds: selectedPageIds)
         selectAll(false)
         updateBinTab()
     }

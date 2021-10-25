@@ -3,6 +3,7 @@ import BlocksModels
 import ProtobufMessages
 
 protocol ObjectActionsServiceProtocol {
+    func delete(objectIds: [BlockId])
     func setArchive(objectId: BlockId, _ isArchived: Bool)
     func setArchive(objectIds: [BlockId], _ isArchived: Bool)
     func setFavorite(objectId: BlockId, _ isFavorite: Bool)
