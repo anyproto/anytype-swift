@@ -39,7 +39,7 @@ class SearchHelper {
                 values: typeUrls.map { Google_Protobuf_Value(stringValue: $0) }
             )
         )
-        filter.relationKey = ObjectDetailsItemKey.type.rawValue
+        filter.relationKey = RelationKey.type.rawValue
         filter.operator = .and
         
         return filter
