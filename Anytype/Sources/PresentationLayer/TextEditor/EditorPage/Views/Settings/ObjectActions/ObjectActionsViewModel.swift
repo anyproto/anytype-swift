@@ -7,7 +7,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private let service = ObjectActionsService()
     private let objectId: BlockId
 
-    @Published var details: ObjectDetails = ObjectDetails(id: "", rawDetails: []) {
+    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {
         didSet {
             objectActions = ObjectAction.allCasesWith(details: details, objectRestrictions: objectRestrictions)
         }
