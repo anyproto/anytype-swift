@@ -8,8 +8,8 @@ import SwiftUI
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
-    var nonArchivedFavoritesCellData: [HomeCellData] {
-        favoritesCellData.filter { $0.isArchived == false }
+    var notDeletedFavoritesCellData: [HomeCellData] {
+        favoritesCellData.filter { !$0.isArchived && !$0.isDeleted }
     }
     
     @Published var historyCellData: [HomeCellData] = []

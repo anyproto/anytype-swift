@@ -50,6 +50,7 @@ final class HomeCellDataBuilder {
             type: type,
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
+            isDeleted: pageLink.isDeleted,
             selected: false
         )
     }
@@ -63,6 +64,7 @@ final class HomeCellDataBuilder {
             type: oldData.type,
             isLoading: false,
             isArchived: newDetails.isArchived,
+            isDeleted: newDetails.isDeleted,
             selected: false
         )
     }
