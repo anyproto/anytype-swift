@@ -23,9 +23,7 @@ extension HomeViewModel {
     }
     
     func restoreSelected() {
-        selectedPageIds.forEach {
-            objectActionsService.setArchive(objectId: $0, false)
-        }
+        objectActionsService.setArchive(objectIds: selectedPageIds, false)
         selectAll(false)
         updateBinTab()
     }
