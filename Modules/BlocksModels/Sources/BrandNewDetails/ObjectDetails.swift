@@ -123,7 +123,7 @@ public extension ObjectDetails {
         boolValue(with: .isDraft)
     }
     
-    var featuredRelations: Set<String> {
+    var featuredRelations: [String] {
         guard let value = values[RelationKey.featuredRelations.rawValue] else { return [] }
         
         let ids: [String] = value.listValue.values.compactMap {
@@ -132,7 +132,7 @@ public extension ObjectDetails {
             return value
         }
         
-        return Set(ids)
+        return ids
     }
     
     
