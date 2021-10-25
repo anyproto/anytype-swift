@@ -38,39 +38,6 @@ extension ObjectRawDetails {
                     key: ObjectDetailsItemKey.coverType.rawValue,
                     value: Google_Protobuf_Value(numberValue: Double(coverType.rawValue))
                 )
-                
-            case .isArchived(let bool):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isArchived.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
-                )
-                
-            case .isFavorite(let bool):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isFavorite.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
-                )
-                
-            case .description(let string):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.description.rawValue,
-                    value: Google_Protobuf_Value(stringValue: string)
-                )
-                
-            case .layout:
-                anytypeAssertionFailure("Set `layout` by details is not allowed. Use `setLayout` func")
-                return nil
-                
-            case .layoutAlign:
-                anytypeAssertionFailure("Set `layoutAlign` by details is not allowed. Use `setAlign` func")
-                return nil
-                
-            case .isDone(let bool):
-                return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: ObjectDetailsItemKey.isDone.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
-                )
-                
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: ObjectDetailsItemKey.type.rawValue,
@@ -81,9 +48,6 @@ extension ObjectRawDetails {
                     key: ObjectDetailsItemKey.isDraft.rawValue,
                     value: Google_Protobuf_Value(boolValue: bool)
                 )
-            case .featuredRelations:
-                anytypeAssertionFailure("Not implemented")
-                return nil
             }
         }
     }

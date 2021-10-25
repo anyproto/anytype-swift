@@ -15,13 +15,6 @@ public enum ObjectDetailsItem {
     case iconImageHash(Hash?)
     case coverId(String)
     case coverType(CoverType)
-    case isArchived(Bool)
-    case isFavorite(Bool)
-    case description(String)
-    case layout(DetailsLayout)
-    case layoutAlign(LayoutAlignment)
-    case isDone(Bool)
     case type(ObjectTemplateType)
     case isDraft(Bool)
-    case featuredRelations(ids: [String])
 }
