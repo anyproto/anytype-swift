@@ -47,7 +47,7 @@ final class BaseDocument: BaseDocumentProtocol {
             )
         else { return }
         
-        parseShowEvents(event: result)
+        handleObjectShowResponse(response: result)
         
         EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
     }
@@ -87,8 +87,8 @@ final class BaseDocument: BaseDocumentProtocol {
         eventsListener.startListening()
     }
 
-    private func parseShowEvents(event: MiddlewareResponse) {
-        let objectShowEvent = showEventsFromMessages(event.messages).first
+    private func handleObjectShowResponse(response: MiddlewareResponse) {
+        let objectShowEvent = showEventsFromMessages(response.messages).first
         guard let objectShowEvent = objectShowEvent else { return }
 
         let rootId = objectShowEvent.rootID
