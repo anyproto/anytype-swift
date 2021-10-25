@@ -40,6 +40,8 @@ public struct Anytype_Event {
   /// Clears the value of `initiator`. Subsequent reads from it will return its default value.
   public mutating func clearInitiator() {self._initiator = nil}
 
+  public var traceID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public struct Message {
@@ -3155,6 +3157,8 @@ public struct Anytype_ResponseEvent {
 
   public var contextID: String = String()
 
+  public var traceID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -3323,6 +3327,7 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     1: .same(proto: "messages"),
     2: .same(proto: "contextId"),
     3: .same(proto: "initiator"),
+    4: .same(proto: "traceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3334,6 +3339,7 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._initiator) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
       default: break
       }
     }
@@ -3353,6 +3359,9 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try { if let v = self._initiator {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3360,6 +3369,7 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.messages != rhs.messages {return false}
     if lhs.contextID != rhs.contextID {return false}
     if lhs._initiator != rhs._initiator {return false}
+    if lhs.traceID != rhs.traceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8975,6 +8985,7 @@ extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "messages"),
     2: .same(proto: "contextId"),
+    4: .same(proto: "traceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8985,6 +8996,7 @@ extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
       default: break
       }
     }
@@ -8997,12 +9009,16 @@ extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     if !self.contextID.isEmpty {
       try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 2)
     }
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_ResponseEvent, rhs: Anytype_ResponseEvent) -> Bool {
     if lhs.messages != rhs.messages {return false}
     if lhs.contextID != rhs.contextID {return false}
+    if lhs.traceID != rhs.traceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

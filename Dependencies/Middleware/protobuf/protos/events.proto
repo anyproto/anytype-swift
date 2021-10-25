@@ -12,6 +12,7 @@ message Event {
     repeated Message messages = 1;
     string contextId = 2;
     anytype.model.Account initiator = 3;
+    string traceId = 4;
 
     message Message {
         oneof value {
@@ -748,6 +749,7 @@ message Event {
 message ResponseEvent {
     repeated Event.Message messages = 1;
     string contextId = 2;
+    string traceId = 4;
 }
 
 message Model {

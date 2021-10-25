@@ -59,10 +59,11 @@ extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
 /// End of classes
 
 extension Anytype_Event {
-  public init(messages: [Anytype_Event.Message], contextID: String, initiator: Anytype_Model_Account) {
+  public init(messages: [Anytype_Event.Message], contextID: String, initiator: Anytype_Model_Account, traceID: String) {
     self.messages = messages
     self.contextID = contextID
     self.initiator = initiator
+    self.traceID = traceID
   }
 }
 
@@ -899,8 +900,9 @@ extension Anytype_Model.Process.Progress {
 }
 
 extension Anytype_ResponseEvent {
-  public init(messages: [Anytype_Event.Message], contextID: String) {
+  public init(messages: [Anytype_Event.Message], contextID: String, traceID: String) {
     self.messages = messages
     self.contextID = contextID
+    self.traceID = traceID
   }
 }
