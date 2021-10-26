@@ -169,17 +169,14 @@ final class EditorRouter: EditorRouterProtocol {
             return
         }
         
-        let controller = UIHostingController(
-            rootView: ObjectSettingsContainerView(
-                viewModel: viewModel
-            )
-        )
+        let rootView = ObjectSettingsContainerView(viewModel: viewModel)
+        let controller = UIHostingController(rootView: rootView)
         controller.modalPresentationStyle = .overCurrentContext
         
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
         
-        controller.rootView.onHide = { [weak controller] in
+        rootView.viewModel.configure { [weak controller] in
             controller?.dismiss(animated: false)
         }
         
