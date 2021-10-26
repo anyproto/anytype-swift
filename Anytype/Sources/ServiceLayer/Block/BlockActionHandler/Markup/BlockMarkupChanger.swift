@@ -82,6 +82,24 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
             range: range
         )
     }
+
+    func setLinkToObject(id: BlockId, attributedText: NSAttributedString, for blockId: BlockId, in range: NSRange) {
+        guard let (model, content) = blockData(blockId: blockId) else { return }
+
+        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
+            for: content.contentType
+        )
+
+        guard restrictions.canApplyOtherMarkup else { return }
+
+        applyAndStore(
+            .linkToObject(id),
+            block: model,
+            content: content,
+            attributedText: attributedText,
+            range: range
+        )
+    }
     
     private func applyAndStore(
         _ action: MarkStyleAction,

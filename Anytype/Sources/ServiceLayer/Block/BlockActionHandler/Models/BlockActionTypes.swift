@@ -17,6 +17,7 @@ enum BlockHandlerActionType {
     case toggleFontStyle(NSAttributedString, TextAttributesType, NSRange)
     case setAlignment(LayoutAlignment)
     case setLink(NSAttributedString, URL?, NSRange)
+    case setLinkToObject(linkBlockId: BlockId, NSAttributedString, NSRange)
     case setFields(contextID: BlockId, fields: [BlockFields])
     
     case duplicate

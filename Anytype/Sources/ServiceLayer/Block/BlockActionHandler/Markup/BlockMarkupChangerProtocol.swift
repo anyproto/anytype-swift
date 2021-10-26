@@ -1,5 +1,6 @@
 import BlocksModels
 
+
 protocol BlockMarkupChangerProtocol {
     
     func toggleMarkup(
@@ -16,6 +17,13 @@ protocol BlockMarkupChangerProtocol {
     
     func setLink(
         _ link: URL?,
+        attributedText: NSAttributedString,
+        for blockId: BlockId,
+        in range: NSRange
+    )
+
+    func setLinkToObject(
+        id: BlockId,
         attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange

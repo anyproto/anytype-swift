@@ -201,7 +201,10 @@ enum AttributedTextConverter {
         case .emoji:
             return nil
         case .object:
-            return nil
+            guard let linkToObject = attributes[.linkToObject] as? String else {
+                return nil
+            }
+            return linkToObject
         }
     }
 }
