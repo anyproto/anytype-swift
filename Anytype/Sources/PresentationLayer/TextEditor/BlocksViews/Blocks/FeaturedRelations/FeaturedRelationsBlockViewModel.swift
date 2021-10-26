@@ -17,6 +17,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let indentationLevel: Int = 0
     let information: BlockInformation
     let type: String
+    let onTypeTap: () -> Void
     
     var hashable: AnyHashable {
         [
@@ -26,9 +27,14 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         ] as [AnyHashable]
     }
     
-    init(information: BlockInformation, type: String) {
+    init(
+        information: BlockInformation,
+        type: String,
+        onTypeTap: @escaping () -> Void
+    ) {
         self.information = information
         self.type = type
+        self.onTypeTap = onTypeTap
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
@@ -38,7 +44,9 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         )
     }
     
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView() {
+        onTypeTap()
+    }
     
     func makeContextualMenu() -> [ContextualMenu] {
         []

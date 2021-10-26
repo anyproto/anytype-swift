@@ -194,7 +194,9 @@ final class BlockViewModelBuilder {
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
                 type: objectType.name
-            )
+            ) {
+                debugPrint("FOO")
+            }
             
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
