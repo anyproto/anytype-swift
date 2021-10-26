@@ -11,6 +11,7 @@ struct HomeCellDataMock {
             type: "Book",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: false
         ),
         HomeCellData(
@@ -21,6 +22,7 @@ struct HomeCellDataMock {
             type: "Page",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: true
         ),
         HomeCellData(
@@ -31,6 +33,7 @@ struct HomeCellDataMock {
             type: "Component",
             isLoading: true,
             isArchived: true,
+            isDeleted: false,
             selected: true
         ),
         HomeCellData(
@@ -41,6 +44,7 @@ struct HomeCellDataMock {
             type: "Task",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: false
         ),
         HomeCellData(
@@ -51,6 +55,7 @@ struct HomeCellDataMock {
             type: "Character",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: false
         ),
         HomeCellData(
@@ -61,6 +66,7 @@ struct HomeCellDataMock {
             type: "Character",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: false
         ),
         
@@ -72,6 +78,7 @@ struct HomeCellDataMock {
             type: "Void",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: false
         ),
         
@@ -83,6 +90,7 @@ struct HomeCellDataMock {
             type: "Humanoid",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
             selected: true
         ),
         
@@ -94,6 +102,19 @@ struct HomeCellDataMock {
             type: "Void",
             isLoading: false,
             isArchived: true,
+            isDeleted: false,
+            selected: false
+        ),
+        
+        HomeCellData(
+            id: "\(UUID())",
+            destinationId: "destinationId",
+            icon: .none,
+            title: .todo(title: "TodoTodoTodoTodoTodoTodoTodoTodoTodo", isChecked: true),
+            type: "Void",
+            isLoading: false,
+            isArchived: true,
+            isDeleted: true,
             selected: false
         )
     ]

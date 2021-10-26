@@ -9,6 +9,8 @@ protocol EditorPageViewInput: AnyObject {
     func update(syncStatus: SyncStatus)
     
     func selectBlock(blockId: BlockId)
+    
+    func showDeletedScreen(_ show: Bool)
 
     /// Ask view rebuild layout
     func needsUpdateLayout()

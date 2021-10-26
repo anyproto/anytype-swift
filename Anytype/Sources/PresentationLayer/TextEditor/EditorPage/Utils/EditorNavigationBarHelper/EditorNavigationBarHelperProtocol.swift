@@ -10,4 +10,6 @@ protocol EditorNavigationBarHelperProtocol {
     
     func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?)
     
+    func setNavigationBarHidden(_ hidden: Bool)
+    
 }

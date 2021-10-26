@@ -117,6 +117,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func performGeneralUpdate() {
+        viewInput?.showDeletedScreen(document.objectDetails?.isDeleted ?? false)
+        
         let models = document.flattenBlocks
         
         let blocksViewModels = blockBuilder.build(models)

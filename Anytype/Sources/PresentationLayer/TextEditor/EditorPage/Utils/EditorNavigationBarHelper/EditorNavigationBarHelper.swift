@@ -4,6 +4,8 @@ import BlocksModels
 
 final class EditorNavigationBarHelper {
     
+    private weak var controller: UIViewController?
+    
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
@@ -84,7 +86,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     func updateSyncStatus(_ status: SyncStatus) {
         syncStatusItem.isHidden = false
         syncStatusItem.changeStatus(status)
-    }    
+    }
+    
+    func setNavigationBarHidden(_ hidden: Bool) {
+        controller?.navigationController?.setNavigationBarHidden(hidden, animated: false)
+        fakeNavigationBarBackgroundView.isHidden = hidden
+    }
 }
 
 // MARK: - Private extension
@@ -102,6 +109,10 @@ private extension EditorNavigationBarHelper {
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(
             customView: syncStatusItem
         )
+        
+        controller = vc
+        
+        setNavigationBarHidden(false)
     }
     
     func updateBarButtonItemsBackground(percent: CGFloat) {
