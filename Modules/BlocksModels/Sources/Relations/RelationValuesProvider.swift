@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-public protocol RelationValuesProtocol {
+public protocol RelationValuesProvider {
     
     var values: [String: Google_Protobuf_Value] { get }
     
@@ -25,7 +25,7 @@ public protocol RelationValuesProtocol {
 }
 
 
-public extension RelationValuesProtocol {
+public extension RelationValuesProvider {
     
     var name: String {
         stringValue(with: .name)
