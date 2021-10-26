@@ -77,4 +77,3 @@ private extension FeaturedRelationsBlockView {
         static let verticalSpacing: CGFloat = 8
     }
 }
-
