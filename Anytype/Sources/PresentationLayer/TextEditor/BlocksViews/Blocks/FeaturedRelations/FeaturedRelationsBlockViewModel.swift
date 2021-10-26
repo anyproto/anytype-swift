@@ -31,8 +31,11 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         self.type = type
     }
     
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        UnsupportedBlockContentConfiguration(text: type)
+    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
+        FeaturedRelationsBlockContentConfiguration(
+            type: type,
+            alignment: information.alignment.asNSTextAlignment
+        )
     }
     
     func didSelectRowInTableView() {}
