@@ -47,6 +47,24 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 )
             )
+        case .editorSearchExpandedIcons:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 24,
+                    weight: .regular
+                ),
+                placeholderImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 22,
+                    weight: .regular
+                )
+            )
         case .dashboardList:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(

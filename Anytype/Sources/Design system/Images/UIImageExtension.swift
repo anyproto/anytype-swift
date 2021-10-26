@@ -69,10 +69,6 @@ extension UIImage {
         static let arrow = createImage("TextEditor/turn_into_arrow")
     }
     
-    enum slashMenu {
-        static let legacyBack = createImage("slash_menu_back")
-    }
-    
     enum textAttributes {
         static let code = createImage("TextAttributes/code")
         static let url = createImage("TextAttributes/url")

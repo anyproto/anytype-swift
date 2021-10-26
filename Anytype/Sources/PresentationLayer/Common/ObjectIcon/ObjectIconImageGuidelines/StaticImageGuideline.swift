@@ -2,6 +2,11 @@ import Foundation
 import UIKit
 
 enum StaticImageGuideline {
+    static let x40 = ImageGuideline(
+        size: CGSize(width: 40, height: 40),
+        cornerRadius: 0
+    )
+    
     static let x28 = ImageGuideline(
         size: CGSize(width: 28, height: 28),
         cornerRadius: 0

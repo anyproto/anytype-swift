@@ -64,7 +64,8 @@ final class MentionsViewController: UITableViewController {
             cellData: EditorSearchCellData(
                 title: mention.name,
                 subtitle: mention.type?.name ?? "Object".localized,
-                icon: mention.objectIcon
+                icon: mention.objectIcon,
+                expandedIcon: false
             )
         )
     }

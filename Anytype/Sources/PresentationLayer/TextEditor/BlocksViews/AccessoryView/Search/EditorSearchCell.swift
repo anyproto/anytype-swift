@@ -60,7 +60,7 @@ final class EditorSearchCell: UIView, UIContentView {
         icon.configure(
             model: ObjectIconImageView.Model(
                 iconImage: configuration.cellData.icon,
-                usecase: .editorSearch
+                usecase: configuration.cellData.expandedIcon ? .editorSearchExpandedIcons : .editorSearch
             )
         )
 
