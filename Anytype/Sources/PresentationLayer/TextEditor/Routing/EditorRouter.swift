@@ -199,7 +199,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(title: "Move to".localized) { id in
+        let moveToView = SearchView(kind: .objects, title: "Move to".localized) { id in
             onSelect(id)
         }
         
@@ -207,7 +207,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let linkToView = SearchView(title: "Link to") { id in
+        let linkToView = SearchView(kind: .objects, title: "Link to") { id in
             onSelect(id)
         }
         
@@ -215,7 +215,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(title: nil) { id in
+        let searchView = SearchView(kind: .objects, title: nil) { id in
             onSelect(id)
         }
         
