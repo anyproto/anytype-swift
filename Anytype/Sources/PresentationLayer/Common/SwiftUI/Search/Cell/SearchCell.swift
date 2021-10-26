@@ -3,7 +3,7 @@ import AnytypeCore
 import BlocksModels
 
 struct SearchCell: View {
-    let data: ObjectDetails
+    let data: SearchData
     
     private var haveDescription: Bool {
         data.description.isNotEmpty
@@ -58,7 +58,7 @@ struct SearchCell: View {
     }
 }
 
-private extension ObjectDetails {
+private extension SearchData {
     
     var searchTitle: String {
         self.name.isEmpty ? "Untitled".localized : self.name

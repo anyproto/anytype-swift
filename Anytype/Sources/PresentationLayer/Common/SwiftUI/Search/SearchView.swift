@@ -8,7 +8,7 @@ struct SearchView: View {
     let onSelect: (BlockId) -> ()
     
     @State private var searchText = ""
-    @State private var data = [ObjectDetails]()
+    @State private var data = [SearchData]()
 
     @StateObject private var service = SearchService()
     
