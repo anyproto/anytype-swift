@@ -34,8 +34,6 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
         case .changeText:
-            currentConfiguration.accessorySwitcher.textDidChange()
-
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
@@ -43,6 +41,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 ),
                 blockId: currentConfiguration.information.id
             )
+
+            currentConfiguration.accessorySwitcher.textDidChange()
         case let .keyboardAction(keyAction):
             switch keyAction {
             case .enterInsideContent,
@@ -103,7 +103,14 @@ extension TextBlockContentView: CustomTextViewDelegate {
             let link: URL? = attrText.value(for: .link, range: range)
             currentConfiguration.accessorySwitcher.showURLInput(url: link)
         case let .showPage(pageId):
-            currentConfiguration.showPage(pageId)
+            guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
+                anytypeAssertionFailure("No details found")
+                return false
+            }
+            
+            if !details.isArchived && !details.isDeleted {
+                currentConfiguration.showPage(pageId)
+            }
         case let .openURL(url):
             currentConfiguration.openURL(url)
         }

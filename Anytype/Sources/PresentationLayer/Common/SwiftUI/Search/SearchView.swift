@@ -1,14 +1,20 @@
 import SwiftUI
 import BlocksModels
 
+enum SearchKind {
+    case objects
+    case objectTypes
+}
+
 struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
     
+    let kind: SearchKind
     let title: String?
     let onSelect: (BlockId) -> ()
     
     @State private var searchText = ""
-    @State private var data = [ObjectDetails]()
+    @State private var data = [SearchData]()
 
     @StateObject private var service = SearchService()
     
@@ -55,7 +61,7 @@ struct SearchView: View {
                             onSelect(data.id)
                         }
                     ) {
-                        SearchCell(data: data)
+                        SearchCell(searchKind: kind, data: data)
                     }
                     .frame(maxWidth: .infinity)
                     .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
@@ -84,14 +90,23 @@ struct SearchView: View {
     }
     
     private func search(text: String) {
-        guard let results = service.search(text: text) else { return }
+        let result: [SearchData]? = {
+            switch kind {
+            case .objects:
+                return service.search(text: text)
+            case .objectTypes:
+                return service.searchObjectTypes(text: text)
+            }
+        }()
+        
+        guard let results = result else { return }
         data = results
     }
 }
 
 struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(title: "FOoo") { _ in
+        SearchView(kind: .objects, title: "FOoo") { _ in
             
         }
     }

@@ -42,7 +42,8 @@ final class EditorPageAssembly {
             objectId: document.objectId,
             objectDetailsService: ObjectDetailsService(
                 objectId: document.objectId
-            )
+            ),
+            popScreenAction: router.goBack
         )
                 
         let modelsHolder = ObjectContentViewModelsSharedHolder(
@@ -74,7 +75,11 @@ final class EditorPageAssembly {
         )
         
         let accessorySwitcher = AccessoryViewSwitcherBuilder()
-            .accessoryViewSwitcher(actionHandler: editorBlockActionHandler, router: router)
+            .accessoryViewSwitcher(
+                actionHandler: editorBlockActionHandler,
+                router: router,
+                document: document
+            )
 
         
         let blocksConverter = BlockViewModelBuilder(

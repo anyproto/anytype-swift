@@ -114,6 +114,7 @@
 "Soon" = "Soon";
 "Anytype info" = "Anytype info";
 "Library version" = "Library version";
+"Clear cache description" = "All encrypted files that have been backed up will be offloaded from your device";
 
 // Action
 "Archive" = "Archive";

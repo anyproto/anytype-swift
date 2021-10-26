@@ -19,4 +19,6 @@ protocol ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateId: String
     ) -> CreatePageResponse?
+    
+    func setObjectType(objectId: BlockId, objectTypeUrl: String)
 }

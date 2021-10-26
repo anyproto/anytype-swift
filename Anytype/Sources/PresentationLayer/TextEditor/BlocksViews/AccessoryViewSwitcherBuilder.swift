@@ -4,18 +4,26 @@ import BlocksModels
 struct AccessoryViewSwitcherBuilder {
     func accessoryViewSwitcher(
         actionHandler: EditorActionHandlerProtocol,
-        router: EditorRouter
+        router: EditorRouter,
+        document: BaseDocumentProtocol
     ) -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
         let accessoryViewModel = EditorAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            searchService: SearchService()
+            searchService: SearchService(),
+            document: document
         )
 
-        let changeTypeViewModel = ChangeTypeAccessoryItemViewModel(itemProvider: accessoryViewModel)
-        let changeTypeView = ChangeTypeAccessoryView(viewModel: changeTypeViewModel)
+        let changeTypeViewModel = ChangeTypeAccessoryItemViewModel(itemProvider: accessoryViewModel) { [weak router] in
+            router?.showTypesSearch(onSelect: { id in
+                actionHandler.setObjectTypeUrl(id)
+            })
+        }
+        let changeTypeView = ChangeTypeAccessoryView(
+            viewModel: changeTypeViewModel
+        )
 
         let accessoryView = EditorAccessoryView(
             viewModel: accessoryViewModel,

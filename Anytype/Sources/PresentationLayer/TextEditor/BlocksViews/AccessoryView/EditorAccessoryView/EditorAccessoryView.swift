@@ -13,7 +13,7 @@ class EditorAccessoryView: UIView {
 
     typealias MenuItem = EditorAccessory.MenuItem
 
-    private let viewModel: EditorAccessoryViewModel
+    let viewModel: EditorAccessoryViewModel
 
     private let changeTypeView: UIView
     private lazy var menuItemsView = EditorMenuItemsView()
@@ -89,6 +89,11 @@ class EditorAccessoryView: UIView {
                 self?.stackView.layoutIfNeeded()
             }
         }.store(in: &cancellables)
+
+        viewModel.$isChangeTypeAvailable.sink { isAvailable in
+            self.changeButton.isHidden = !isAvailable
+            self.menuItemsView.isHidden = isAvailable
+        }.store(in: &cancellables)
     }
 
     override var intrinsicContentSize: CGSize {
@@ -138,4 +143,39 @@ class EditorAccessoryView: UIView {
     required init?(coder aDecoder: NSCoder) { fatalError("Not been implemented") }
     @available(*, unavailable)
     override init(frame: CGRect) { fatalError("Not been implemented") }
+}
+
+private final class ChangeButton: UIButton {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        setup()
+    }
+
+    private func setup() {
+        setTitle("Change type".localized, for: .normal)
+        setImage(.codeBlock.arrow, for: .normal)
+        setTitleColor(.black, for: .normal)
+        titleLabel?.font = .bodyRegular
+        setTitleColor(.grayscale50, for: .normal)
+        imageEdgeInsets = .init(top: 0, left: -9, bottom: 0, right: 0)
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            guard let transform = imageView?.transform.rotated(by: Double.pi) else {
+                return
+            }
+
+            UIView.animate(withDuration: 0.4) {
+                self.imageView?.transform = transform
+            }
+        }
+    }
 }

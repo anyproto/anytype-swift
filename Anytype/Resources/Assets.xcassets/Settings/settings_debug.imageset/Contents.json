@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "settings_debug.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

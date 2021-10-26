@@ -31,4 +31,6 @@ protocol BlockActionServiceProtocol {
     func setFields(contextID: BlockId, blockFields: [BlockFields])
     
     func receivelocalEvents(_ events: [LocalEvent])
+    
+    func setObjectTypeUrl(_ objectTypeUrl: String)
 }

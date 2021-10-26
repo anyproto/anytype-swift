@@ -14,22 +14,22 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
         let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
-        return draw(hash: hash, image: image, imageGuideline: imageGuideline, resize: true)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     
     func staticImage(name: String, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "staticImage.\(name).\(imageGuideline.identifier)"
         let image = UIImage.createImage(name)
-        return draw(hash: hash, image: image, imageGuideline: imageGuideline, resize: false)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     
-    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline, resize: Bool) -> UIImage {
+    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline) -> UIImage {
         if let image = imageStorage.image(forKey: hash) {
             return image
         }
         
-        let image = resize ? image.scaled(to: imageGuideline.size) : image
         let modifiedImage = image
+            .scaled(to: imageGuideline.size)
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
                 backgroundColor: UIColor.grayscale10.cgColor
@@ -40,11 +40,13 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         return modifiedImage
     }
     
-    func image(with string: String,
-               font: UIFont,
-               textColor: UIColor,
-               imageGuideline: ImageGuideline,
-               backgroundColor: UIColor) -> UIImage {
+    func image(
+        with string: String,
+        font: UIFont,
+        textColor: UIColor,
+        imageGuideline: ImageGuideline,
+        backgroundColor: UIColor
+    ) -> UIImage {
         ImageBuilder(imageGuideline)
             .setText(string)
             .setFont(font)

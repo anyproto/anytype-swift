@@ -12,8 +12,10 @@ final class EditorAccessoryViewModel {
     weak var delegate: EditorAccessoryViewDelegate?
 
     @Published private(set) var isTypesViewVisible: Bool = false
+    @Published private(set) var isChangeTypeAvailable: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
-    
+
+    private let document: BaseDocumentProtocol
     private let handler: EditorActionHandlerProtocol
     private let router: EditorRouter
     private let searchService: SearchServiceProtocol
@@ -21,24 +23,17 @@ final class EditorAccessoryViewModel {
     init(
         router: EditorRouter,
         handler: EditorActionHandlerProtocol,
-        searchService: SearchServiceProtocol
+        searchService: SearchServiceProtocol,
+        document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
-        let supportedTypes = searchService.search(text: "")?.compactMap { object in
-            let emoji = IconEmoji(object.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
-            TypeItem(
-                id: object.id,
-                title: object.name,
-                image:  ObjectIconImage.image(UIImage()), // ObjectIconImage.icon(.emoji(.init(object.iconEmoji)))
-                action: {
-                    handler.handleTypeChange(selectedType: object.type)
-                }
-            )
-        }
+        self.document = document
 
-        self.supportedTypes = supportedTypes!
+        fetchSupportedTypes()
+
+        updateAccessoryViewState()
     }
     
     func handleMenuItemTap(_ menuItem: MenuItemType) {
@@ -83,12 +78,58 @@ final class EditorAccessoryViewModel {
     func toogleChangeTypeState() {
         isTypesViewVisible.toggle()
     }
+
+    func textDidChange() {
+        updateAccessoryViewState()
+    }
+
+    private func updateAccessoryViewState() {
+        let isDocumentEmpty = document.isDocumentEmpty
+
+        isTypesViewVisible = isDocumentEmpty// if isDocumentEmpty !=  {  = false }
+
+        isChangeTypeAvailable = isDocumentEmpty
+    }
     
     private func shouldPrependSpace(textView: UITextView) -> Bool {
         let carretInTheBeginingOfDocument = textView.isCarretInTheBeginingOfDocument
         let haveSpaceBeforeCarret = textView.textBeforeCaret?.last == " "
         
         return !(carretInTheBeginingOfDocument || haveSpaceBeforeCarret)
+    }
+
+    private func fetchSupportedTypes() {
+        let supportedTypes = searchService.searchObjectTypes(text: "")?.map { object -> TypeItem in
+            let emoji = IconEmoji(object.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
+            return TypeItem(
+                id: object.id,
+                title: object.name,
+                image: emoji,
+                action: { [weak handler] in handler?.setObjectTypeUrl(object.id) }
+            )
+        }
+
+        self.supportedTypes = supportedTypes!
+    }
+}
+
+private extension BaseDocumentProtocol {
+    var isDocumentEmpty: Bool {
+        let childrenBlocks = blocksContainer
+            .children(of: objectId)
+            .filter { $0 != "header" }
+
+        if childrenBlocks.count == 0 {
+            return true
+        }
+
+        // Then it would be Note
+        if childrenBlocks.count == 1, let lastBlock = childrenBlocks.last {
+            let lastBlockContent = blocksContainer.model(id: lastBlock)
+            return lastBlockContent?.information.content.isEmpty ?? false
+        }
+
+        return false
     }
 }
 

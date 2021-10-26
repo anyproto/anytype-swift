@@ -25,7 +25,6 @@ extension Color {
     static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
     
-    static let backgroundPrimary: Color = .white
     static let toastBackground = Color("toastBackground")
     
     // MARK: - Color palette

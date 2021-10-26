@@ -97,8 +97,8 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         blockActionHandler.handleBlockAction(action, blockId: blockId)
     }
 
-    func handleTypeChange(selectedType: String) {
-        blockActionHandler.handleTypeChange(selectedType: selectedType)
+    func setObjectTypeUrl(_ objectTypeUrl: String) {
+        blockActionHandler.setObjectTypeUrl(objectTypeUrl)
     }
     
     // MARK: - Private

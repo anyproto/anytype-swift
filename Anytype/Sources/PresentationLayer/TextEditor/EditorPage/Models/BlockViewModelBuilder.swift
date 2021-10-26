@@ -3,7 +3,6 @@ import BlocksModels
 import Combine
 import UniformTypeIdentifiers
 
-
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let editorActionHandler: EditorActionHandlerProtocol
@@ -194,7 +193,13 @@ final class BlockViewModelBuilder {
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
                 type: objectType.name
-            )
+            ) { [weak self] in
+                self?.router.showTypesSearch(
+                    onSelect: { [weak self] id in
+                        self?.editorActionHandler.setObjectTypeUrl(id)
+                    }
+                )
+            }
             
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {

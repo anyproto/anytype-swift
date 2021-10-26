@@ -3,22 +3,31 @@ import Combine
 import BlocksModels
 
 protocol SearchServiceProtocol {
-    func search(text: String) -> [ObjectDetails]?
-    func searchArchivedPages() -> [ObjectDetails]?
-    func searchHistoryPages() -> [ObjectDetails]?
-    func searchSets() -> [ObjectDetails]?
+    func search(text: String) -> [SearchData]?
+    func searchArchivedPages() -> [SearchData]?
+    func searchHistoryPages() -> [SearchData]?
+    func searchSets() -> [SearchData]?
+    func searchObjectTypes(text: String) -> [SearchData]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
+    
+    // MARK: - Private variables
+    
     private var subscriptions = [AnyCancellable]()
     
-    func search(text: String) -> [ObjectDetails]? {
+    // MARK: - SearchServiceProtocol
+    
+    func search(text: String) -> [SearchData]? {
         let sort = SearchHelper.sort(
             relation: RelationKey.lastOpenedDate,
             type: .desc
         )
         
-        let filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        let filters = buildFilters(
+            isArchived: false,
+            typeUrls: ObjectTypeProvider.supportedTypeUrls
+        )
         
         return makeRequest(
             filters: filters, sorts: [sort], fullText: text,
@@ -26,14 +35,17 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchArchivedPages() -> [ObjectDetails]? {
+    func searchArchivedPages() -> [SearchData]? {
         let sort = SearchHelper.sort(
             relation: RelationKey.lastModifiedDate,
             type: .desc
         )
         
         
-        let filters = buildFilters(isArchived: true, typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        let filters = buildFilters(
+            isArchived: true,
+            typeUrls: ObjectTypeProvider.supportedTypeUrls
+        )
         
         return makeRequest(
             filters: filters,
@@ -46,13 +58,19 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchHistoryPages() -> [ObjectDetails]? {
+    func searchHistoryPages() -> [SearchData]? {
         let sort = SearchHelper.sort(
             relation: RelationKey.lastModifiedDate,
             type: .desc
         )
-        let searchTypes = [ObjectTemplateType.note, ObjectTemplateType.page].map { $0.rawValue }
-        let filters = buildFilters(isArchived: false, typeUrls: searchTypes)
+        let searchTypes = [
+            ObjectTemplateType.note.rawValue,
+            ObjectTemplateType.page.rawValue
+        ]
+        let filters = buildFilters(
+            isArchived: false,
+            typeUrls: searchTypes
+        )
         
         return makeRequest(
             filters: filters,
@@ -65,12 +83,15 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchSets() -> [ObjectDetails]? {
+    func searchSets() -> [SearchData]? {
         let sort = SearchHelper.sort(
             relation: RelationKey.lastOpenedDate,
             type: .desc
         )
-        let filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        let filters = buildFilters(
+            isArchived: false,
+            typeUrls: ObjectTypeProvider.supportedTypeUrls
+        )
         
         return makeRequest(
             filters: filters,
@@ -83,6 +104,23 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
+    func searchObjectTypes(text: String) -> [SearchData]? {
+        let sort = SearchHelper.sort(
+            relation: RelationKey.lastOpenedDate,
+            type: .desc
+        )
+        let filters = [
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.objectTypeFilter(
+                typeUrls: ObjectTypeProvider.supportedTypeUrls
+            )
+        ]
+        return makeRequest(
+            filters: filters, sorts: [sort], fullText: text,
+            offset: 0, limit: 100, objectTypeFilter: [], keys: []
+        )
+    }
+    
     private func makeRequest(
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
         sorts: [Anytype_Model_Block.Content.Dataview.Sort],
@@ -91,7 +129,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         limit: Int32,
         objectTypeFilter: [String],
         keys: [String]
-    ) -> [ObjectDetails]? {
+    ) -> [SearchData]? {
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
@@ -103,7 +141,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             ignoreWorkspace: false
         ).getValue() else { return nil }
             
-        let details: [ObjectDetails] = response.records.compactMap { search in
+        let details: [SearchData] = response.records.compactMap { search in
             let idValue = search.fields["id"]
             let idString = idValue?.unwrapedListValue.stringValue
             
@@ -112,7 +150,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 id.isNotEmpty
             else { return nil }
             
-            return ObjectDetails(
+            return SearchData(
                 id: id,
                 values: search.fields
             )
@@ -128,7 +166,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             
             SearchHelper.isArchivedFilter(isArchived: isArchived),
             
-            SearchHelper.typeFilter(typeUrls: ObjectTypeProvider.supportedTypeUrls)
+            SearchHelper.typeFilter(typeUrls: typeUrls)
         ]
     }
+    
 }

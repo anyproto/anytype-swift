@@ -89,7 +89,8 @@ struct ObjectSettingsView_Previews: PreviewProvider {
                     objectId: "dummyPageId",
                     objectDetailsService: ObjectDetailsService(
                         objectId: ""
-                    )
+                    ),
+                    popScreenAction: {}
                 )
             )
     }

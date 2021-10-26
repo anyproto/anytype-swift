@@ -10,7 +10,7 @@ extension Image {
     
     static let noImage = Image("no_image")
     
-    static let ghost = createImage("ghost")
+    static let ghost = createImage(ImageName.ghost)
 }
 
 extension Image {
@@ -27,6 +27,8 @@ extension Image {
         static let about = createImage("settings_about")
         static let pin = createImage("settings_set_pin_code")
         static let wallpaper = createImage("settings_set_wallpaper")
+        static let debug = createImage("settings_debug")
+        static let other = createImage("settings_other")
     }
     
     enum auth {
