@@ -117,7 +117,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func performGeneralUpdate() {
-        viewInput?.showDeletedScreen(document.objectDetails?.isDeleted ?? false)
+        handleDeletionState()
         
         let models = document.flattenBlocks
         
@@ -126,6 +126,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         handleGeneralUpdate(with: blocksViewModels)
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels)
+    }
+    
+    private func handleDeletionState() {
+        guard let details = document.objectDetails else {
+            anytypeAssertionFailure("No detais for general update")
+            return
+        }
+        
+        viewInput?.showDeletedScreen(details.isDeleted)
+        if details.isArchived { router.goBack() }
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {

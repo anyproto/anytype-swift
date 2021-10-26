@@ -1,11 +1,3 @@
-//
-//  ObjectSettingsContainerView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 14.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 import Amplitude
 import BlocksModels
@@ -13,8 +5,6 @@ import BlocksModels
 struct ObjectSettingsContainerView: View {
     
     @ObservedObject var viewModel: ObjectSettingsViewModel
-    
-    var onHide: () -> Void = {}
         
     @State private var mainViewPresented = false
     
@@ -36,7 +26,7 @@ struct ObjectSettingsContainerView: View {
                     guard !isLayoutPickerPresented else { return }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        onHide()
+                        viewModel.dismissHandler()
                     }
                 },
                 view: {
@@ -109,7 +99,8 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
                 objectId: "dummyPageId",
                 objectDetailsService: ObjectDetailsService(
                     objectId: ""
-                )
+                ),
+                popScreenAction: {}
             )
         )
     }

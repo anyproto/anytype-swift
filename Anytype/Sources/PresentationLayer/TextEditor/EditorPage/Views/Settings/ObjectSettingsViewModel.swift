@@ -3,6 +3,7 @@ import Combine
 import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
+    var dismissHandler: () -> Void = {}
     
     @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var settings: [ObjectSetting] {
@@ -30,7 +31,11 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     private let objectDetailsService: ObjectDetailsService
     
-    init(objectId: String, objectDetailsService: ObjectDetailsService) {
+    init(
+        objectId: String,
+        objectDetailsService: ObjectDetailsService,
+        popScreenAction: @escaping () -> ()
+    ) {
         self.objectDetailsService = objectDetailsService
 
         self.iconPickerViewModel = ObjectIconPickerViewModel(
@@ -46,7 +51,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
 
-        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId)
+        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
     
     func update(with details: ObjectDetails?, objectRestrictions: ObjectRestrictions) {
@@ -57,5 +62,10 @@ final class ObjectSettingsViewModel: ObservableObject {
             layoutPickerViewModel.details = details
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
+    }
+    
+    func configure(dismissHandler: @escaping () -> Void) {
+        self.dismissHandler = dismissHandler
+        objectActionsViewModel.dismissSheet = dismissHandler
     }
 }

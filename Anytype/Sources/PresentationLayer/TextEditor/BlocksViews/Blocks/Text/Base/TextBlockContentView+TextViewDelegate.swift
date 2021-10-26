@@ -103,7 +103,14 @@ extension TextBlockContentView: CustomTextViewDelegate {
             let link: URL? = attrText.value(for: .link, range: range)
             currentConfiguration.accessorySwitcher.showURLInput(url: link)
         case let .showPage(pageId):
-            currentConfiguration.showPage(pageId)
+            guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
+                anytypeAssertionFailure("No details found")
+                return false
+            }
+            
+            if !details.isArchived && !details.isDeleted {
+                currentConfiguration.showPage(pageId)
+            }
         case let .openURL(url):
             currentConfiguration.openURL(url)
         }

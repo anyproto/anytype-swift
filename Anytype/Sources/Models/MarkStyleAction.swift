@@ -2,7 +2,6 @@ import UIKit
 import BlocksModels
 
 enum MarkStyleAction: Equatable {
-    
     case bold(Bool)
     case italic(Bool)
     case keyboard(Bool)
@@ -11,7 +10,7 @@ enum MarkStyleAction: Equatable {
     case textColor(UIColor)
     case backgroundColor(UIColor)
     case link(URL?)
-    case mention(image: ObjectIconImage?, blockId: BlockId)
+    case mention(MentionData)
     
 }
 

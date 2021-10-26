@@ -42,7 +42,8 @@ final class EditorPageAssembly {
             objectId: document.objectId,
             objectDetailsService: ObjectDetailsService(
                 objectId: document.objectId
-            )
+            ),
+            popScreenAction: router.goBack
         )
                 
         let modelsHolder = ObjectContentViewModelsSharedHolder(

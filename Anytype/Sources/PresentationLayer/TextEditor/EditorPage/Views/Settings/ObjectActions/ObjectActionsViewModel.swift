@@ -19,12 +19,21 @@ final class ObjectActionsViewModel: ObservableObject {
     }
     @Published var objectActions: [ObjectAction] = []
 
-    init(objectId: String) {
+    let popScreenAction: () -> ()
+    var dismissSheet: () -> () = {}
+    
+    init(objectId: String, popScreenAction: @escaping () -> ()) {
         self.objectId = objectId
+        self.popScreenAction = popScreenAction
     }
 
     func changeArchiveState() {
-        service.setArchive(objectId: objectId, !details.isArchived)
+        let isArchived = !details.isArchived
+        service.setArchive(objectId: objectId, isArchived)
+        if isArchived {
+            popScreenAction()
+            dismissSheet()
+        }
     }
 
     func changeFavoriteSate() {

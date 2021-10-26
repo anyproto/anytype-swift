@@ -69,7 +69,7 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x28,
                 todoImageGuideline: TodoIconImageGuideline.x28,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: nil
+                staticImageGuideline: StaticImageGuideline.x28
             )
         case .heading:
             return ObjectIconImageGuidelineSet(
@@ -78,7 +78,7 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x24,
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: nil
+                staticImageGuideline: StaticImageGuideline.x24
             )
         case .subheading, .body:
             return ObjectIconImageGuidelineSet(
@@ -87,7 +87,7 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x20,
                 todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: nil
+                staticImageGuideline: StaticImageGuideline.x20
             )
         case .callout:
             return ObjectIconImageGuidelineSet(
@@ -96,7 +96,7 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x18,
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: nil
+                staticImageGuideline: StaticImageGuideline.x18
             )
         }
     }

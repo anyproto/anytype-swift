@@ -6,7 +6,7 @@ extension UIImage {
     
     static let searchIcon = createImage("searchTextFieldIcon")
     
-    static let ghost = createImage("ghost")
+    static let ghost = createImage(ImageName.ghost)
 }
 
 extension UIImage {
