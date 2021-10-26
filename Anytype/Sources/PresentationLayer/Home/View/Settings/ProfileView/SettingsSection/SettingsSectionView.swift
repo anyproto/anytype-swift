@@ -7,14 +7,14 @@ struct SettingsSectionView: View {
         VStack(spacing: 12) {
             SettingsSectionItemView(
                 name: "Wallpaper".localized,
-                icon: Image.settings.wallpaper,
+                icon: .settings.wallpaper,
                 comingSoon: true,
                 pressed: $viewModel.wallpaper
             )
             
             SettingsSectionItemView(
                 name: "Keychain phrase".localized,
-                icon: Image.settings.keychain,
+                icon: .settings.keychain,
                 comingSoon: false,
                 pressed: $viewModel.keychain
             )
@@ -22,16 +22,23 @@ struct SettingsSectionView: View {
                 KeychainPhraseView(viewModel: .init())
             }
             
+//            SettingsSectionItemView(
+//                name: "Pin code".localized,
+//                icon: .settings.pin,
+//                comingSoon: true,
+//                pressed: $viewModel.pincode
+//            )
+            
             SettingsSectionItemView(
-                name: "Pin code".localized,
-                icon: Image.settings.pin,
-                comingSoon: true,
-                pressed: $viewModel.pincode
+                name: "Other settings".localized,
+                icon: .settings.other,
+                comingSoon: false,
+                pressed: $viewModel.other
             )
             
             SettingsSectionItemView(
                 name: "About",
-                icon: Image.settings.about,
+                icon: .settings.about,
                 comingSoon: false,
                 pressed: $viewModel.about
             )
@@ -42,7 +49,7 @@ struct SettingsSectionView: View {
             #if !RELEASE
             SettingsSectionItemView(
                 name: "Debug",
-                icon: Image.System.lassoAndSparkles,
+                icon: .settings.debug,
                 comingSoon: false,
                 pressed: $viewModel.debugMenu
             )

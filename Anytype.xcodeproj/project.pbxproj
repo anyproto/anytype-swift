@@ -430,6 +430,8 @@
 		3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9DB2726C248000D2779 /* DeletedLabel.swift */; };
 		3DB1C9DF2726D0E5000D2779 /* EditorPageDeletedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9DE2726D0E5000D2779 /* EditorPageDeletedScreen.swift */; };
 		3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9E02727DAEF000D2779 /* UIView+SpookyShake.swift */; };
+		3DB1C9F3272835DA000D2779 /* OtherSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9F2272835DA000D2779 /* OtherSettingsView.swift */; };
+		3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9F427283FA0000D2779 /* DashboardClearCacheAlert.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
@@ -1127,6 +1129,8 @@
 		3DB1C9DB2726C248000D2779 /* DeletedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedLabel.swift; sourceTree = "<group>"; };
 		3DB1C9DE2726D0E5000D2779 /* EditorPageDeletedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageDeletedScreen.swift; sourceTree = "<group>"; };
 		3DB1C9E02727DAEF000D2779 /* UIView+SpookyShake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SpookyShake.swift"; sourceTree = "<group>"; };
+		3DB1C9F2272835DA000D2779 /* OtherSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherSettingsView.swift; sourceTree = "<group>"; };
+		3DB1C9F427283FA0000D2779 /* DashboardClearCacheAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlert.swift; sourceTree = "<group>"; };
 		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = Anytype/Sources/Models/Documents/Restrictions/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareColorConverter.swift; path = Anytype/Sources/Models/Documents/Parsers/MiddlewareColorConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -1498,6 +1502,7 @@
 		0331BBD822E5D8AB002AD179 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				3DB1C9EC272835BD000D2779 /* Other */,
 				0A1F0D9124DDCE0100A8B488 /* About */,
 				03913E51230B48120040CD4B /* ProfileView */,
 				03913E54230B485D0040CD4B /* KeychainPhraseView */,
@@ -2896,6 +2901,7 @@
 			children = (
 				3D2F9C41271F09590043C326 /* DashboardDeletionAlert.swift */,
 				3D2F9C43271F106A0043C326 /* DashboardLogoutAlert.swift */,
+				3DB1C9F427283FA0000D2779 /* DashboardClearCacheAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -3484,6 +3490,14 @@
 				3DB1C9E02727DAEF000D2779 /* UIView+SpookyShake.swift */,
 			);
 			path = PlaceholderScreens;
+			sourceTree = "<group>";
+		};
+		3DB1C9EC272835BD000D2779 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				3DB1C9F2272835DA000D2779 /* OtherSettingsView.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		3DB1E74B2639A9FB00F479BB /* Tabs */ = {
@@ -4731,6 +4745,7 @@
 				EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
+				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
@@ -5024,6 +5039,7 @@
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
+				3DB1C9F3272835DA000D2779 /* OtherSettingsView.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
