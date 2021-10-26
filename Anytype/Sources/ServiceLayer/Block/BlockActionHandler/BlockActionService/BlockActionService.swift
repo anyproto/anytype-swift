@@ -165,6 +165,10 @@ final class BlockActionService: BlockActionServiceProtocol {
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
         listService.setFields(contextId: contextID, fields: blockFields)
     }
+    
+    func setObjectTypeUrl(_ objectTypeUrl: String) {
+        pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
+    }
 }
 
 private extension BlockActionService {
