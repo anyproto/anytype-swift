@@ -1,11 +1,3 @@
-//
-//  ObjectDetailsExtensions.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 10.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 import AnytypeCore
