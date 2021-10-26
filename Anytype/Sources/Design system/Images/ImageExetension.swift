@@ -10,7 +10,7 @@ extension Image {
     
     static let noImage = Image("no_image")
     
-    static let ghost = createImage("ghost")
+    static let ghost = createImage(ImageName.ghost)
 }
 
 extension Image {
