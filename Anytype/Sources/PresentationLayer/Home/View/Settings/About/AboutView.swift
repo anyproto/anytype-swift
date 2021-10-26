@@ -47,7 +47,6 @@ struct AboutView: View {
             AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
         }
         .padding(.vertical, 12)
-        .modifier(DividerModifier(spacing: 0))
     }
     
     @State private var titleTapCount = 0

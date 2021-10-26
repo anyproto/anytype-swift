@@ -61,13 +61,24 @@ struct HomeView: View {
         }
         .animation(.ripple, value: settingsModel.loggingOut)
         
+        .bottomFloater(isPresented: $settingsModel.other) {
+            OtherSettingsView()
+        }
+        .animation(.ripple, value: settingsModel.other)
+        
+        .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
+            DashboardClearCacheAlert().padding(8)
+        }
+        .animation(.ripple, value: settingsModel.clearCacheAlert)
+        
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }
         .snackbar(
             isShowing: $viewModel.snackBarData.showSnackBar,
-            text: AnytypeText(viewModel.snackBarData.text, style: .caption1Regular, color: .textPrimary)
+            text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
         )
+        
         .navigationBarTitleDisplayMode(.inline)
     }
     
