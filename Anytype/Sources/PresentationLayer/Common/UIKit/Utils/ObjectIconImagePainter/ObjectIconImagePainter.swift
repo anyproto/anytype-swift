@@ -32,7 +32,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         let modifiedImage = image
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
-                backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
+                backgroundColor: UIColor.grayscale10.cgColor
             )
         
         imageStorage.saveImage(modifiedImage, forKey: hash)

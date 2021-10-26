@@ -25,4 +25,5 @@ protocol EditorActionHandlerProtocol: AnyObject {
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
+    func handleTypeChange(selectedType: String)
 }

@@ -10,6 +10,10 @@ final class EditorPageController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
+    private lazy var deletedScreen = EditorPageDeletedScreen(
+        onBackTap: viewModel.router.goBack
+    )
+    
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
@@ -129,16 +133,16 @@ extension EditorPageController: EditorPageViewInput {
         blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
-        
+
         sectionSnapshot.visibleItems.forEach { item in
             switch item {
             case let .block(block):
                 let blockForUpdate = blocks.first { $0.blockId == block.blockId }
-                
+
                 guard let blockForUpdate = blockForUpdate else { return }
                 guard let indexPath = self.dataSource.indexPath(for: item) else { return }
                 guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-                
+
                 cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = blockForUpdate.indentationLevel
             case .header:
@@ -176,6 +180,12 @@ extension EditorPageController: EditorPageViewInput {
     
     func textBlockDidBeginEditing() {
         collectionView.setContentOffset(contentOffset, animated: false)
+    }
+    
+    func showDeletedScreen(_ show: Bool) {
+        navigationBarHelper.setNavigationBarHidden(show)
+        deletedScreen.isHidden = !show
+        if show { UIApplication.shared.hideKeyboard() }
     }
     
     private func updateView() {
@@ -218,6 +228,10 @@ private extension EditorPageController {
         view.addSubview(collectionView) {
             $0.pinToSuperview()
         }
+        view.addSubview(deletedScreen) {
+            $0.pinToSuperview()
+        }
+        deletedScreen.isHidden = true
     }
     
     @objc

@@ -11,7 +11,6 @@ class EditorAccessoryView: UIView {
         static let doneButtonWidth: CGFloat = 45
     }
 
-
     typealias MenuItem = EditorAccessory.MenuItem
 
     private let viewModel: EditorAccessoryViewModel
@@ -84,8 +83,11 @@ class EditorAccessoryView: UIView {
     private func bindViewModel() {
         viewModel.$isTypesViewVisible.sink { [weak self] isVisible in
             self?.changeButton.isSelected = isVisible
-            self?.changeTypeView.isHidden = !isVisible
-            self?.invalidateIntrinsicContentSize()
+
+            UIView.animate(withDuration: 0.2) {
+                self?.changeTypeView.isHidden = !isVisible
+                self?.stackView.layoutIfNeeded()
+            }
         }.store(in: &cancellables)
     }
 

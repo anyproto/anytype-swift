@@ -1,76 +1,41 @@
-//
-//  ObjectDetails.swift
-//  BlocksModels
-//
-//  Created by Konstantin Mordan on 06.10.2021.
-//  Copyright © 2021 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import AnytypeCore
+import SwiftProtobuf
 
 public struct ObjectDetails: Hashable {
+    
     public let id: String
+    public let values: [String: Google_Protobuf_Value]
     
-    public private(set) var name: String = ObjectDetailDefaultValue.string
-    public private(set) var iconEmoji: String = ObjectDetailDefaultValue.string
-    public private(set) var iconImageHash: Hash? = ObjectDetailDefaultValue.hash
-    public private(set) var coverId: String = ObjectDetailDefaultValue.string
-    public private(set) var coverType: CoverType = ObjectDetailDefaultValue.coverType
-    public private(set) var isArchived: Bool = ObjectDetailDefaultValue.bool
-    public private(set) var isFavorite: Bool = ObjectDetailDefaultValue.bool
-    public private(set) var description: String = ObjectDetailDefaultValue.string
-    public private(set) var layout: DetailsLayout = ObjectDetailDefaultValue.layout
-    public private(set) var layoutAlign: LayoutAlignment = ObjectDetailDefaultValue.layoutAlignment
-    public private(set) var isDone: Bool = ObjectDetailDefaultValue.bool
-    public private(set) var type: String = ObjectDetailDefaultValue.string
-    public private(set) var isDraft: Bool = ObjectDetailDefaultValue.bool
-    
-    public init(id: String, rawDetails: ObjectRawDetails) {
+    public init(id: String, values: [String: Google_Protobuf_Value]) {
         self.id = id
-        rawDetails.forEach {
-            switch $0 {
-            case .name(let value): name = value
-            case .iconEmoji(let value): iconEmoji = value
-            case .iconImageHash(let value): iconImageHash = value
-            case .coverId(let value): coverId = value
-            case .coverType(let value): coverType = value
-            case .isArchived(let value): isArchived = value
-            case .isFavorite(let value): isFavorite = value
-            case .description(let value): description = value
-            case .layout(let value): layout = value
-            case .layoutAlign(let value): layoutAlign = value
-            case .isDone(let value): isDone = value
-            case .type(let value): type = value.rawValue
-            case .isDraft(let value): isDraft = value
-            }
-        }
+        self.values = values
     }
     
-    public func updated(by rawDetails: ObjectRawDetails) -> ObjectDetails {
-        guard rawDetails.isNotEmpty else { return self }
+    public func updated(by rawDetails: [String: Google_Protobuf_Value]) -> ObjectDetails {
+        guard !rawDetails.isEmpty else { return self }
         
-        var currentDetails = self
+        let newValues = self.values.merging(rawDetails) { (_, new) in new }
         
-        rawDetails.forEach {
-            switch $0 {
-            case .name(let value): currentDetails.name = value
-            case .iconEmoji(let value): currentDetails.iconEmoji = value
-            case .iconImageHash(let value): currentDetails.iconImageHash = value
-            case .coverId(let value): currentDetails.coverId = value
-            case .coverType(let value): currentDetails.coverType = value
-            case .isArchived(let value): currentDetails.isArchived = value
-            case .isFavorite(let value): currentDetails.isFavorite = value
-            case .description(let value): currentDetails.description = value
-            case .layout(let value): currentDetails.layout = value
-            case .layoutAlign(let value): currentDetails.layoutAlign = value
-            case .isDone(let value): currentDetails.isDone = value
-            case .type(let value): currentDetails.type = value.rawValue
-            case .isDraft(let value): currentDetails.isDraft = value
-            }
+        return ObjectDetails(
+            id: self.id,
+            values: newValues
+        )
+    }
+    
+    public func removed(keys: [String]) -> ObjectDetails {
+        guard keys.isNotEmpty else { return self }
+        
+        var currentValues = self.values
+        
+        keys.forEach {
+            currentValues.removeValue(forKey: $0)
         }
         
-        return currentDetails
+        return ObjectDetails(
+            id: self.id,
+            values: currentValues
+        )
     }
     
 }

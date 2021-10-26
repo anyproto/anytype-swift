@@ -26,11 +26,7 @@ struct ObjectIconImageFontSet {
             case .emoji:
                 return emojiImageFont
             }
-        case .todo:
-            return nil
-        case .placeholder:
-            return placeholderImageFont
-        case .staticImage:
+        case .todo, .image, .placeholder, .staticImage:
             return nil
         }
     }

@@ -134,7 +134,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             }
         }
     }
-    
+
+    func handleTypeChange(selectedType: String) {
+        ObjectDetailsService(objectId: document.objectId)
+            .update(details: [.type(ObjectTemplateType.page)])
+    }
 }
 
 private extension BlockActionHandler {

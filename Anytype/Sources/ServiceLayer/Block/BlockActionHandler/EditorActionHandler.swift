@@ -96,6 +96,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         blockActionHandler.handleBlockAction(action, blockId: blockId)
     }
+
+    func handleTypeChange(selectedType: String) {
+        blockActionHandler.handleTypeChange(selectedType: selectedType)
+    }
     
     // MARK: - Private
     

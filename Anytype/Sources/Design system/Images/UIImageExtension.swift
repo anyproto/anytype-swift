@@ -5,9 +5,15 @@ extension UIImage {
     static let backArrow = createImage("backArrow")
     
     static let searchIcon = createImage("searchTextFieldIcon")
+    
+    static let ghost = createImage("ghost")
 }
 
 extension UIImage {
+    enum editor {
+        static let bigGhost = createImage("TextEditor/bigGhost")
+    }
+    
     enum editorNavigation {
         static let more = createImage("TextEditor/More")
         static let home = createImage("TextEditor/home")

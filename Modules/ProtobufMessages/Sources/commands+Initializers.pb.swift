@@ -853,9 +853,10 @@ extension Anytype_Rpc.Block.ObjectType.Set.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Open.Request {
-  public init(contextID: String, blockID: String) {
+  public init(contextID: String, blockID: String, traceID: String) {
     self.contextID = contextID
     self.blockID = blockID
+    self.traceID = traceID
   }
 }
 
@@ -874,8 +875,9 @@ extension Anytype_Rpc.Block.Open.Response.Error {
 }
 
 extension Anytype_Rpc.Block.OpenBreadcrumbs.Request {
-  public init(contextID: String) {
+  public init(contextID: String, traceID: String) {
     self.contextID = contextID
+    self.traceID = traceID
   }
 }
 
@@ -1378,9 +1380,10 @@ extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Show.Request {
-  public init(contextID: String, blockID: String) {
+  public init(contextID: String, blockID: String, traceID: String) {
     self.contextID = contextID
     self.blockID = blockID
+    self.traceID = traceID
   }
 }
 
@@ -2138,17 +2141,19 @@ extension Anytype_Rpc.History.SetVersion.Response.Error {
 }
 
 extension Anytype_Rpc.History.Show.Request {
-  public init(pageID: String, versionID: String) {
+  public init(pageID: String, versionID: String, traceID: String) {
     self.pageID = pageID
     self.versionID = versionID
+    self.traceID = traceID
   }
 }
 
 extension Anytype_Rpc.History.Show.Response {
-  public init(error: Anytype_Rpc.History.Show.Response.Error, objectShow: Anytype_Event.Object.Show, version: Anytype_Rpc.History.Versions.Version) {
+  public init(error: Anytype_Rpc.History.Show.Response.Error, objectShow: Anytype_Event.Object.Show, version: Anytype_Rpc.History.Versions.Version, traceID: String) {
     self.error = error
     self.objectShow = objectShow
     self.version = version
+    self.traceID = traceID
   }
 }
 

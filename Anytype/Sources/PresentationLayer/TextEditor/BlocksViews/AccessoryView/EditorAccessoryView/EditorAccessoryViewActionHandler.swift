@@ -27,12 +27,14 @@ final class EditorAccessoryViewModel {
         self.handler = handler
         self.searchService = searchService
         let supportedTypes = searchService.search(text: "")?.compactMap { object in
-            
+            let emoji = IconEmoji(object.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
             TypeItem(
                 id: object.id,
                 title: object.name,
-                image: object.iconEmoji.map { ObjectIconImage.icon(.emoji(.init($0))) },
-                action: { print("Bambaleya")}
+                image:  ObjectIconImage.image(UIImage()), // ObjectIconImage.icon(.emoji(.init(object.iconEmoji)))
+                action: {
+                    handler.handleTypeChange(selectedType: object.type)
+                }
             )
         }
 

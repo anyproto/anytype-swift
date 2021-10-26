@@ -9,7 +9,7 @@ import BlocksModels
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
     func open(contextId: BlockId, blockId: BlockId) -> MiddlewareResponse? {
-        Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId)
+        Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId, traceID: "")
             .map { MiddlewareResponse($0.event) }
             .getValue()
     }

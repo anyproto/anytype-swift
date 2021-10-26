@@ -50,7 +50,7 @@ struct HomeTabsView: View {
     private var tabs: some View {
         TabView(selection: $tabSelection) {
             HomeCollectionView(
-                cellData: model.nonArchivedFavoritesCellData,
+                cellData: model.notDeletedFavoritesCellData,
                 coordinator: model.coordinator,
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,

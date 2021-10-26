@@ -7,5 +7,4 @@ enum StaticImageGuideline {
         size: CGSize(width: 24, height: 24),
         cornerRadius: 0
     )
-    
 }

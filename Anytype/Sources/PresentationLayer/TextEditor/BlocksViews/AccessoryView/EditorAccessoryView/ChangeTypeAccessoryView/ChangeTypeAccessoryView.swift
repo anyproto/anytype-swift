@@ -10,13 +10,11 @@ protocol ChangeTypeAccessoryDelegate: AnyObject {
     func didTapOnSearch()
 }
 
-
-
 final class ChangeTypeAccessoryItemViewModel: ObservableObject {
     struct Item: Identifiable {
         let id: String
         let title: String
-        let image: ObjectIconImage?
+        let image: ObjectIconImage
         let action: () -> Void
     }
 
@@ -38,7 +36,19 @@ final class ChangeTypeAccessoryItemViewModel: ObservableObject {
 
 extension ChangeTypeAccessoryItemViewModel.Item {
     static func searchItem(onTap: @escaping () -> Void) -> Self {
-        .init(id: "Search", title: "Search".localized, image: ObjectIconImage.staticImage(""), action: onTap)
+        let image = UIImage.editorNavigation.search.image(
+            imageSize: .init(width: 20, height: 20),
+            cornerRadius: 12,
+            side: 48,
+            backgroundColor: .grayscale10
+        )
+
+        return .init(
+            id: "Search",
+            title: "Search".localized,
+            image: ObjectIconImage.image(image),
+            action: onTap
+        )
     }
 }
 
@@ -47,19 +57,25 @@ struct ChangeTypeAccessoryView: View {
 
     var body: some View {
         Divider()
+            .frame(height: 0.5)
+            .foregroundColor(Color.grayscale30)
         ScrollView(.horizontal) {
-            LazyHStack(spacing: 32) {
-                ForEach(viewModel.items) {
-                    TypeView(image: $0.image, title: $0.title)
+            LazyHStack(spacing: 0) {
+                ForEach(viewModel.items) { item in
+                    Button {
+                        item.action()
+                    } label: {
+                        TypeView(image: item.image, title: item.title)
+                    }
+                    .frame(width: 80, height: 90)
                 }
             }
-            .padding(.init(top: 0, leading: 16, bottom: 14, trailing: 16))
         }
     }
 }
 
 private struct TypeView: View {
-    let image: ObjectIconImage?
+    let image: ObjectIconImage
     let title: String
 
     var body: some View {
@@ -70,31 +86,30 @@ private struct TypeView: View {
     }
 
     private var imageView: some View {
-        Group {
-            if let image = image {
-                SwiftUIObjectIconImageView(
-                    iconImage: image,
-                    usecase: .dashboardList
-                )
-                                .foregroundColor(Color.grayscale50)
-                                .frame(width: 48, height: 48, alignment: .center)
-                                .background(Color.grayscale10)
-                                .cornerRadius(12)
-            } else {
-                Text("")
-            }
-        }
+        SwiftUIObjectIconImageView(
+            iconImage: image,
+            usecase: .editorAccessorySearch
+        ).frame(width: 48, height: 48)
     }
 }
-//
-//struct ChangeTypeAccessoryView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ChangeTypeAccessoryView(
-//            items: [ChangeTypeAccessoryItemViewModel.Item.searchItem {}]
-//        )
-//            .previewLayout(.fixed(width: 300, height: 96))
-//    }
-//}
+
+struct ChangeTypeAccessoryView_Previews: PreviewProvider {
+    private final class ItemProvider: ChangeTypeItemProvider {
+        var typesPublisher: Published<[ChangeTypeAccessoryItemViewModel.Item]>.Publisher {
+            $items
+        }
+
+        @Published var items: [ChangeTypeAccessoryItemViewModel.Item] =
+        [ChangeTypeAccessoryItemViewModel.Item.searchItem {}]
+    }
+
+    static var previews: some View {
+        ChangeTypeAccessoryView(
+            viewModel: .init(itemProvider: ItemProvider())
+        )
+        .previewLayout(.fixed(width: 300, height: 96))
+    }
+}
 //
 //extension ChangeTypeAccessoryItemViewModel {
 //    static var searchItem: Self {
@@ -121,12 +136,12 @@ final class ChangeButton: UIButton {
     }
 
     private func setup() {
-        setTitle("Change type", for: .normal)
+        setTitle("Change type".localized, for: .normal)
         setImage(.codeBlock.arrow, for: .normal)
         setTitleColor(.black, for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.grayscale50, for: .normal)
-        imageEdgeInsets = .init(top: 0, left: -7, bottom: 0, right: 0)
+        imageEdgeInsets = .init(top: 0, left: -9, bottom: 0, right: 0)
     }
 
     override var isSelected: Bool {
@@ -135,7 +150,7 @@ final class ChangeButton: UIButton {
                 return
             }
 
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.4) {
                 self.imageView?.transform = transform
             }
         }

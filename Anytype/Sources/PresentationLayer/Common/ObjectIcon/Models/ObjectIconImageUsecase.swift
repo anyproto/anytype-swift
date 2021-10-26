@@ -12,6 +12,7 @@ enum ObjectIconImageUsecase: Equatable {
     case dashboardProfile
     case dashboardSearch
     case mention(ObjectIconImageMentionType)
+    case editorAccessorySearch
 }
 
 extension ObjectIconImageUsecase {

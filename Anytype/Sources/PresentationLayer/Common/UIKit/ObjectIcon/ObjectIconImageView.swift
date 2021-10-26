@@ -46,6 +46,8 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.image = model.imageGuideline.flatMap {
                 painter.staticImage(name: name, imageGuideline: $0)
             }
+        case .image(let image):
+            imageView.image = image
         }
     }
     

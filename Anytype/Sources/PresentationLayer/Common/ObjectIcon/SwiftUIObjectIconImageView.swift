@@ -25,5 +25,4 @@ struct SwiftUIObjectIconImageView: UIViewRepresentable {
             )
         )
     }
-    
 }

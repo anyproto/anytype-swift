@@ -8,7 +8,7 @@ struct ObjectActionRow: View {
     var body: some View {
         Button {
             onTap()
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            UISelectionFeedbackGenerator().selectionChanged()
         }
         label: {
             VStack(spacing: Constants.space) {
