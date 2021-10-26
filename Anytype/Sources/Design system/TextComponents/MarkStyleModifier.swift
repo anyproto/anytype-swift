@@ -2,22 +2,15 @@ import AnytypeCore
 import UIKit
 
 final class MarkStyleModifier {
-    
     let attributedString: NSMutableAttributedString
     private let anytypeFont: AnytypeFont
     
-    init(
-        attributedString: NSMutableAttributedString,
-        anytypeFont: AnytypeFont
-    ) {
+    init(attributedString: NSMutableAttributedString, anytypeFont: AnytypeFont) {
         self.attributedString = attributedString
         self.anytypeFont = anytypeFont
     }
     
-    convenience init(
-        attributedString: NSAttributedString,
-        anytypeFont: AnytypeFont
-    ) {
+    convenience init(attributedString: NSAttributedString, anytypeFont: AnytypeFont) {
         self.init(
             attributedString: NSMutableAttributedString(attributedString: attributedString),
             anytypeFont: anytypeFont
@@ -31,21 +24,20 @@ final class MarkStyleModifier {
         }
         
         switch action {
-        case .bold, .italic, .keyboard, .backgroundColor, .textColor, .link, .underscored, .strikethrough:
-            apply(action, toAllSubrangesIn: range)
         case .mention:
-            apply(action, toWhole: range)
+            applySingleAction(action, range: range)
+        default:
+            attributedString.enumerateAttributes(in: range) { _, subrange, _ in
+                applySingleAction(action, range: subrange)
+            }
         }
     }
     
-    private func apply(_ action: MarkStyleAction, toWhole range: NSRange) {
+    private func applySingleAction(_ action: MarkStyleAction, range: NSRange) {
         let oldAttributes = getAttributes(at: range)
         guard let update = apply(action, to: oldAttributes) else { return }
-        
-        var newAttributes = mergeAttributes(
-            origin: oldAttributes,
-            changes: update.changeAttributes
-        )
+
+        var newAttributes = oldAttributes.merging(update.changeAttributes) { old, new in new }
         for key in update.deletedKeys {
             newAttributes.removeValue(forKey: key)
             attributedString.removeAttribute(key, range: range)
@@ -53,53 +45,26 @@ final class MarkStyleModifier {
 
         attributedString.addAttributes(newAttributes, range: range)
         if case let .mention(data) = action {
-            applyMention(data: data, range: range, font: anytypeFont)
+            addMentionIcon(data: data, range: range, font: anytypeFont)
         }
     }
-    
-    private func mergeAttributes(origin: [NSAttributedString.Key : Any], changes: [NSAttributedString.Key : Any]) -> [NSAttributedString.Key : Any] {
-        var result = origin
-        result.merge(changes) { (source, target) in target }
-        return result
-    }
-    
+
     private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
         switch (attributedString.string.isEmpty, range) {
         // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
         case (true, NSRange.zero): return [:]
-            
+
         // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
         case (true, _): return [:]
-        
+
         // At the end.
         case let (_, value) where value.location == attributedString.length && value.length == 0: return [:]
-            
+
         // Otherwise, return string attributes.
         default: break
         }
         guard attributedString.length >= range.location + range.length else { return [:] }
         return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
-    }
-    
-    private func apply(_ action: MarkStyleAction, toAllSubrangesIn range: NSRange) {
-        attributedString.enumerateAttributes(in: range) { _, subrange, _ in
-            apply(action, toWhole: subrange)
-        }
-    }
-    
-    private func applyMention(data: MentionData, range: NSRange, font: AnytypeFont) {
-        
-        
-        let mentionAttributedString = attributedString.attributedSubstring(from: range)
-        let mentionAttachment = MentionAttachment(icon: data.image, size: font.mentionType)
-        let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
-        var currentAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
-        currentAttributes.removeValue(forKey: .localUnderline)
-        mentionAttachmentString.addAttributes(
-            currentAttributes,
-            range: mentionAttachmentString.wholeRange
-        )
-        attributedString.insert(mentionAttachmentString, at: range.location)
     }
     
     private func apply(_ action: MarkStyleAction, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
@@ -118,11 +83,7 @@ final class MarkStyleModifier {
             return AttributedStringChange(changeAttributes: [.font : newFont])
 
         case let .keyboard(hasStyle):
-            return keyboardUpdate(
-                with: old,
-                shouldHaveStyle: hasStyle
-            )
-
+            return keyboardUpdate(with: old, shouldHaveStyle: hasStyle)
         case let .strikethrough(shouldApplyMarkup):
             return AttributedStringChange(
                 changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
@@ -146,13 +107,33 @@ final class MarkStyleModifier {
             )
 
         case let .mention(data):
-            return AttributedStringChange(
-                changeAttributes: [
-                    .mention: data.blockId as Any,
-                    .localUnderline: true
-                ]
-            )
+            return mentionUpdate(data: data)
         }
+    }
+    
+    private func mentionUpdate(data: MentionData) -> AttributedStringChange {
+        let deletedStyle = data.isDeleted || data.isArchived
+        
+        var changeAttributes: [NSAttributedString.Key: Any] = [
+            .mention: data.blockId,
+            .localUnderline: deletedStyle ? false : true
+        ]
+        if deletedStyle { changeAttributes[.foregroundColor] = UIColor.textTertiary }
+        
+        return AttributedStringChange(changeAttributes: changeAttributes)
+    }
+    
+    private func addMentionIcon(data: MentionData, range: NSRange, font: AnytypeFont) {
+        let mentionAttributedString = attributedString.attributedSubstring(from: range)
+        var iconAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
+        iconAttributes.removeValue(forKey: .localUnderline) // no underline under icon
+        
+        let mentionIcon = data.isDeleted ? ObjectIconImage.staticImage(ImageName.ghost) : data.image
+        let mentionAttachment = MentionAttachment(icon: mentionIcon, size: font.mentionType)
+        let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
+        mentionAttachmentString.addAttributes(iconAttributes, range: mentionAttachmentString.wholeRange)
+        
+        attributedString.insert(mentionAttachmentString, at: range.location)
     }
     
     private func keyboardUpdate(

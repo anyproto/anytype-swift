@@ -1,4 +1,6 @@
 final class ImageName {
+    static let ghost = "ghost"
+    
     enum slashMenu {
         static let link_to = "slash_menu_link_to"
         
