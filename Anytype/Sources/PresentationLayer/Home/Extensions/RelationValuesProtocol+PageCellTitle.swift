@@ -9,7 +9,7 @@
 import Foundation
 import BlocksModels
 
-extension ObjectDetails {
+extension RelationValuesProvider {
     
     var pageCellTitle: HomeCellData.Title {
         let title = name
