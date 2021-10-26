@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-public struct ObjectDetails: Hashable {
+public struct ObjectDetails: Hashable, RelationValuesProvider {
     
     public let id: String
     public let values: [String: Google_Protobuf_Value]

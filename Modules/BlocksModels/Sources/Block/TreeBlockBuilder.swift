@@ -43,7 +43,7 @@ public enum TreeBlockBuilder {
         in container: BlockContainerModelProtocol
     ) {
         fromList(
-            information.compactMap(BlockModel.init),
+            information.compactMap { BlockModel(information: $0) },
             isRoot: isRoot,
             in: container
         )

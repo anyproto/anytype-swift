@@ -36,8 +36,15 @@ final class UIKitAnytypeText: Hashable {
         self.paragraphStyle = paragraphStyle
     }
 
-    func modifiedTypingAttributes(font: UIFont) -> [NSAttributedString.Key : Any] {
-        return [.font: font, .paragraphStyle: paragraphStyle]
+    func typingAttributes(for cursorPosition: Int) -> [NSAttributedString.Key : Any] {
+        // setup typingAttributes
+        if cursorPosition == .zero {
+            return [.font: anytypeFont.uiKitFont, .paragraphStyle: paragraphStyle]
+        } else {
+            let characterBeforeCursor = cursorPosition - 1
+            let font = (attrString.attribute(.font, at: characterBeforeCursor, effectiveRange: nil) as? UIFont) ?? anytypeFont.uiKitFont
+            return [.font: font, .paragraphStyle: paragraphStyle]
+        }
     }
 
     var verticalSpacing: CGFloat {

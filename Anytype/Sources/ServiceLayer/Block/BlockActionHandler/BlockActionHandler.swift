@@ -44,6 +44,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         return service.createPage(targetId: targetId, position: position)
     }
     
+    func setObjectTypeUrl(_ objectTypeUrl: String) {
+        service.setObjectTypeUrl(objectTypeUrl)
+    }
+    
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
         case let .turnInto(textStyle):

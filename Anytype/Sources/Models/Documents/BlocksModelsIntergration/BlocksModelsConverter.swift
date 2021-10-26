@@ -23,6 +23,7 @@ enum BlocksModelsConverter {
         case .div(let data): return contentDivider.blockType(data)
         case .layout(let data): return contentLayout.blockType(data)
         case .featuredRelations: return .featuredRelations
+            
         default:
             return .unsupported
         }

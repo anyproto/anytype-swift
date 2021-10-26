@@ -15,7 +15,7 @@ struct HomeCellData: Identifiable {
     
     var selected: Bool
     
-    static func create(searchResult: ObjectDetails) -> HomeCellData {
+    static func create(searchResult: SearchData) -> HomeCellData {
         HomeCellData(
             id: searchResult.id,
             destinationId: searchResult.id,
