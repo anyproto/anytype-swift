@@ -89,4 +89,15 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue()?
             .send()
     }
+    
+    func setObjectType(objectId: BlockId, objectTypeUrl: String) {
+        Anytype_Rpc.Block.ObjectType.Set.Service.invoke(
+            contextID: objectId,
+            objectTypeURL: objectTypeUrl
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
+    }
+    
 }

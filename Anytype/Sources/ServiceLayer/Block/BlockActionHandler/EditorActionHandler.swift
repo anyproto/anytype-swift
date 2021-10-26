@@ -97,6 +97,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         blockActionHandler.handleBlockAction(action, blockId: blockId)
     }
     
+    func setObjectTypeUrl(_ objectTypeUrl: String) {
+        blockActionHandler.setObjectTypeUrl(objectTypeUrl)
+    }
+    
     // MARK: - Private
     
     private func blockIdFromSource(_ blockIdSource: ActionHandlerBlockIdSource) -> BlockId? {
