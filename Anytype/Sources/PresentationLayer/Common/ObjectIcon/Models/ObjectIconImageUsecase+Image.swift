@@ -28,6 +28,15 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x24
             )
+        case .editorSearchExpandedIcons:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x40,
+                profileImageGuideline: ProfileIconImageGuideline.x40,
+                emojiImageGuideline: EmojiIconImageGuideline.x40,
+                todoImageGuideline: TodoIconImageGuideline.x24,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
+                staticImageGuideline: StaticImageGuideline.x40
+            )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x48,

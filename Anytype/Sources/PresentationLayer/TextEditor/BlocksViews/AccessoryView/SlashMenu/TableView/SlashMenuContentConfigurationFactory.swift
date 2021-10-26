@@ -13,7 +13,8 @@ final class SlashMenuContentConfigurationFactory {
             cellData: EditorSearchCellData(
                 title: displayData.title,
                 subtitle: displayData.subtitle ?? "",
-                icon: displayData.iconData
+                icon: displayData.iconData,
+                expandedIcon: displayData.expandedIcon
             )
         )
     }
