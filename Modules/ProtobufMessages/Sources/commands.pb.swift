@@ -7418,6 +7418,8 @@ public struct Anytype_Rpc {
 
         public var blockID: String = String()
 
+        public var traceID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -7523,6 +7525,8 @@ public struct Anytype_Rpc {
         public var contextID: String = String()
 
         public var blockID: String = String()
+
+        public var traceID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -7719,6 +7723,8 @@ public struct Anytype_Rpc {
 
         /// id of the context blo1k
         public var contextID: String = String()
+
+        public var traceID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -11469,6 +11475,8 @@ public struct Anytype_Rpc {
 
         public var versionID: String = String()
 
+        public var traceID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -11480,31 +11488,36 @@ public struct Anytype_Rpc {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.History.Show.Response.Error {
-          get {return _error ?? Anytype_Rpc.History.Show.Response.Error()}
-          set {_error = newValue}
+          get {return _storage._error ?? Anytype_Rpc.History.Show.Response.Error()}
+          set {_uniqueStorage()._error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {return self._error != nil}
+        public var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {self._error = nil}
+        public mutating func clearError() {_uniqueStorage()._error = nil}
 
         public var objectShow: Anytype_Event.Object.Show {
-          get {return _objectShow ?? Anytype_Event.Object.Show()}
-          set {_objectShow = newValue}
+          get {return _storage._objectShow ?? Anytype_Event.Object.Show()}
+          set {_uniqueStorage()._objectShow = newValue}
         }
         /// Returns true if `objectShow` has been explicitly set.
-        public var hasObjectShow: Bool {return self._objectShow != nil}
+        public var hasObjectShow: Bool {return _storage._objectShow != nil}
         /// Clears the value of `objectShow`. Subsequent reads from it will return its default value.
-        public mutating func clearObjectShow() {self._objectShow = nil}
+        public mutating func clearObjectShow() {_uniqueStorage()._objectShow = nil}
 
         public var version: Anytype_Rpc.History.Versions.Version {
-          get {return _version ?? Anytype_Rpc.History.Versions.Version()}
-          set {_version = newValue}
+          get {return _storage._version ?? Anytype_Rpc.History.Versions.Version()}
+          set {_uniqueStorage()._version = newValue}
         }
         /// Returns true if `version` has been explicitly set.
-        public var hasVersion: Bool {return self._version != nil}
+        public var hasVersion: Bool {return _storage._version != nil}
         /// Clears the value of `version`. Subsequent reads from it will return its default value.
-        public mutating func clearVersion() {self._version = nil}
+        public mutating func clearVersion() {_uniqueStorage()._version = nil}
+
+        public var traceID: String {
+          get {return _storage._traceID}
+          set {_uniqueStorage()._traceID = newValue}
+        }
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -11557,9 +11570,7 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.History.Show.Response.Error? = nil
-        fileprivate var _objectShow: Anytype_Event.Object.Show? = nil
-        fileprivate var _version: Anytype_Rpc.History.Versions.Version? = nil
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       public init() {}
@@ -28071,6 +28082,7 @@ extension Anytype_Rpc.Block.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
+    3: .same(proto: "traceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -28081,6 +28093,7 @@ extension Anytype_Rpc.Block.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
       default: break
       }
     }
@@ -28093,12 +28106,16 @@ extension Anytype_Rpc.Block.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
     }
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Open.Request, rhs: Anytype_Rpc.Block.Open.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
+    if lhs.traceID != rhs.traceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -28217,6 +28234,7 @@ extension Anytype_Rpc.Block.Show.Request: SwiftProtobuf.Message, SwiftProtobuf._
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
+    3: .same(proto: "traceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -28227,6 +28245,7 @@ extension Anytype_Rpc.Block.Show.Request: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
       default: break
       }
     }
@@ -28239,12 +28258,16 @@ extension Anytype_Rpc.Block.Show.Request: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
     }
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Show.Request, rhs: Anytype_Rpc.Block.Show.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
+    if lhs.traceID != rhs.traceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -28501,6 +28524,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Request: SwiftProtobuf.Message, Swif
   public static let protoMessageName: String = Anytype_Rpc.Block.OpenBreadcrumbs.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
+    2: .same(proto: "traceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -28510,6 +28534,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Request: SwiftProtobuf.Message, Swif
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
       default: break
       }
     }
@@ -28519,11 +28544,15 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Request: SwiftProtobuf.Message, Swif
     if !self.contextID.isEmpty {
       try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
     }
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.OpenBreadcrumbs.Request, rhs: Anytype_Rpc.Block.OpenBreadcrumbs.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
+    if lhs.traceID != rhs.traceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -33691,6 +33720,7 @@ extension Anytype_Rpc.History.Show.Request: SwiftProtobuf.Message, SwiftProtobuf
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "pageId"),
     2: .same(proto: "versionId"),
+    3: .same(proto: "traceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -33701,6 +33731,7 @@ extension Anytype_Rpc.History.Show.Request: SwiftProtobuf.Message, SwiftProtobuf
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.pageID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.versionID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
       default: break
       }
     }
@@ -33713,12 +33744,16 @@ extension Anytype_Rpc.History.Show.Request: SwiftProtobuf.Message, SwiftProtobuf
     if !self.versionID.isEmpty {
       try visitor.visitSingularStringField(value: self.versionID, fieldNumber: 2)
     }
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.History.Show.Request, rhs: Anytype_Rpc.History.Show.Request) -> Bool {
     if lhs.pageID != rhs.pageID {return false}
     if lhs.versionID != rhs.versionID {return false}
+    if lhs.traceID != rhs.traceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -33730,43 +33765,87 @@ extension Anytype_Rpc.History.Show.Response: SwiftProtobuf.Message, SwiftProtobu
     1: .same(proto: "error"),
     2: .same(proto: "objectShow"),
     3: .same(proto: "version"),
+    4: .same(proto: "traceId"),
   ]
 
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.History.Show.Response.Error? = nil
+    var _objectShow: Anytype_Event.Object.Show? = nil
+    var _version: Anytype_Rpc.History.Versions.Version? = nil
+    var _traceID: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _objectShow = source._objectShow
+      _version = source._version
+      _traceID = source._traceID
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._objectShow) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._version) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
+        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._objectShow) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._version) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._traceID) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._error {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._objectShow {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._version {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      } }()
+      try { if let v = _storage._objectShow {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      } }()
+      try { if let v = _storage._version {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
+      if !_storage._traceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._traceID, fieldNumber: 4)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.History.Show.Response, rhs: Anytype_Rpc.History.Show.Response) -> Bool {
-    if lhs._error != rhs._error {return false}
-    if lhs._objectShow != rhs._objectShow {return false}
-    if lhs._version != rhs._version {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._objectShow != rhs_storage._objectShow {return false}
+        if _storage._version != rhs_storage._version {return false}
+        if _storage._traceID != rhs_storage._traceID {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

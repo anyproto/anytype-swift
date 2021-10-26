@@ -8,11 +8,19 @@ import AnytypeCore
 
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
-    func setArchive(objectId: String, _ isArchived: Bool) {
-        _ = Anytype_Rpc.Object.SetIsArchived.Service.invoke(contextID: objectId, isArchived: isArchived)
+    func delete(objectIds: [BlockId]) {
+        _ = Anytype_Rpc.ObjectList.Delete.Service.invoke(objectIds: objectIds)
+    }
+    
+    func setArchive(objectId: BlockId, _ isArchived: Bool) {
+        setArchive(objectIds: [objectId], isArchived)
+    }
+    
+    func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
+        _ = Anytype_Rpc.ObjectList.Set.IsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
     }
 
-    func setFavorite(objectId: String, _ isFavorite: Bool) {
+    func setFavorite(objectId: BlockId, _ isFavorite: Bool) {
         _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
     }
     

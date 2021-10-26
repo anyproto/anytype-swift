@@ -47,6 +47,10 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {
+        if state.deleted || state.archived {
+            return
+        }
+        
         openLink(content.targetBlockID)
     }
     
@@ -55,6 +59,10 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func makeContextualMenu() -> [ContextualMenu] {
-        [ .addBlockBelow, .duplicate, .delete ]
+        if state.deleted || state.archived {
+            return [ .addBlockBelow, .delete ]
+        } else {
+            return [ .addBlockBelow, .duplicate, .delete ]
+        }
     }
 }

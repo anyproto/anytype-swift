@@ -3202,11 +3202,11 @@ extension Anytype_Rpc.Block.Open {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(contextID: String, blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID), on: queue)
+    public static func invoke(contextID: String, blockID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, traceID: traceID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
-      self.result(.init(contextID: contextID, blockID: blockID))
+    public static func invoke(contextID: String, blockID: String, traceID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, traceID: traceID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3252,11 +3252,11 @@ extension Anytype_Rpc.Block.Show {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(contextID: String, blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID), on: queue)
+    public static func invoke(contextID: String, blockID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, traceID: traceID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
-      self.result(.init(contextID: contextID, blockID: blockID))
+    public static func invoke(contextID: String, blockID: String, traceID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, traceID: traceID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3352,11 +3352,11 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
+    public static func invoke(contextID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, traceID: traceID), on: queue)
     }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
-      self.result(.init(contextID: contextID))
+    public static func invoke(contextID: String, traceID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, traceID: traceID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -5009,11 +5009,11 @@ extension Anytype_Rpc.History.Show {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(pageID: String, versionID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(pageID: pageID, versionID: versionID), on: queue)
+    public static func invoke(pageID: String, versionID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(pageID: pageID, versionID: versionID, traceID: traceID), on: queue)
     }
-    public static func invoke(pageID: String, versionID: String) -> Result<Response, Error> {
-      self.result(.init(pageID: pageID, versionID: versionID))
+    public static func invoke(pageID: String, versionID: String, traceID: String) -> Result<Response, Error> {
+      self.result(.init(pageID: pageID, versionID: versionID, traceID: traceID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in

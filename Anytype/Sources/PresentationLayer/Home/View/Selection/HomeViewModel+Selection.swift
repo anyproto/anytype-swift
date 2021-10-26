@@ -23,9 +23,7 @@ extension HomeViewModel {
     }
     
     func restoreSelected() {
-        selectedPageIds.forEach {
-            objectActionsService.setArchive(objectId: $0, false)
-        }
+        objectActionsService.setArchive(objectIds: selectedPageIds, false)
         selectAll(false)
         updateBinTab()
     }
@@ -35,7 +33,7 @@ extension HomeViewModel {
     }
     
     func deleteConfirmation() {
-        // TODO: Delete
+        objectActionsService.delete(objectIds: selectedPageIds)
         selectAll(false)
         updateBinTab()
     }
