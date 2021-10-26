@@ -3,11 +3,8 @@ import AnytypeCore
 import BlocksModels
 
 struct SearchCell: View {
+    let searchKind: SearchKind
     let data: SearchData
-    
-    private var haveDescription: Bool {
-        data.description.isNotEmpty
-    }
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -31,7 +28,9 @@ struct SearchCell: View {
                 .lineLimit(1)
             Spacer.fixedHeight(1)
             description
-            type
+            if shouldShowType {
+                type
+            }
             Spacer.fixedHeight(haveDescription ? 7 : 14)
         }
     }
@@ -39,7 +38,11 @@ struct SearchCell: View {
     private var description: some View {
         Group {
             if let descriptionText = data.description, !descriptionText.isEmpty {
-                AnytypeText(descriptionText, style: .relation3Regular, color: .textPrimary)
+                AnytypeText(
+                    descriptionText,
+                    style: .relation3Regular,
+                    color: descriptionTextColor
+                )
                     .lineLimit(1)
                 Spacer.fixedHeight(2)
             } else {
@@ -55,6 +58,28 @@ struct SearchCell: View {
             color: .textSecondary
         )
         .lineLimit(1)
+    }
+    
+    private var haveDescription: Bool {
+        data.description.isNotEmpty
+    }
+    
+    private var shouldShowType: Bool {
+        switch searchKind {
+        case .objects:
+            return true
+        case .objectTypes:
+            return false
+        }
+    }
+    
+    private var descriptionTextColor: Color {
+        switch searchKind {
+        case .objects:
+            return .textPrimary
+        case .objectTypes:
+            return .textSecondary
+        }
     }
 }
 

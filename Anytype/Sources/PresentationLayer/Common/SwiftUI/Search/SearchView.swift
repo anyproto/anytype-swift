@@ -61,7 +61,7 @@ struct SearchView: View {
                             onSelect(data.id)
                         }
                     ) {
-                        SearchCell(data: data)
+                        SearchCell(searchKind: kind, data: data)
                     }
                     .frame(maxWidth: .infinity)
                     .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
