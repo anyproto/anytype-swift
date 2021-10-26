@@ -11,6 +11,7 @@ struct HomeCellData: Identifiable {
     let type: String
     let isLoading: Bool
     let isArchived: Bool
+    let isDeleted: Bool
     
     var selected: Bool
     
@@ -23,6 +24,7 @@ struct HomeCellData: Identifiable {
             type: searchResult.objectType?.name ?? "Page".localized,
             isLoading: false,
             isArchived: searchResult.isArchived,
+            isDeleted: searchResult.isDeleted,
             selected: false
         )
     }

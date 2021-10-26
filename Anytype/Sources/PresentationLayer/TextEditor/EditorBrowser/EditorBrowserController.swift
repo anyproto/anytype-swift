@@ -83,8 +83,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         )
     }
     
-    // MARK: - Private
-    private func pop() {
+    func pop() {
         if childNavigation.children.count > 1 {
             childNavigation.popViewController(animated: true)
         } else {

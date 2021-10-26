@@ -12,4 +12,8 @@ struct HomePageLink {
     var isArchived: Bool {
         details?.isArchived ?? false
     }
+    
+    var isDeleted: Bool {
+        details?.isDeleted ?? false
+    }
 }

@@ -28,6 +28,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
+    
+    func goBack()
 }
 
 protocol AttachmentRouterProtocol {
@@ -218,6 +220,10 @@ final class EditorRouter: EditorRouterProtocol {
         }
         
         presentSwuftUIView(view: searchView)
+    }
+    
+    func goBack() {
+        rootController?.pop()
     }
     
     private func presentSwuftUIView<Content: View>(view: Content) {
