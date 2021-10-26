@@ -10,6 +10,10 @@ final class EditorPageController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
+    private lazy var deletedScreen = EditorPageDeletedScreen(
+        onBackTap: viewModel.router.goBack
+    )
+    
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
@@ -178,6 +182,12 @@ extension EditorPageController: EditorPageViewInput {
         collectionView.setContentOffset(contentOffset, animated: false)
     }
     
+    func showDeletedScreen(_ show: Bool) {
+        navigationBarHelper.setNavigationBarHidden(show)
+        deletedScreen.isHidden = !show
+        if show { UIApplication.shared.hideKeyboard() }
+    }
+    
     private func updateView() {
         UIView.performWithoutAnimation {
             dataSource.refresh(animatingDifferences: true)
@@ -218,6 +228,10 @@ private extension EditorPageController {
         view.addSubview(collectionView) {
             $0.pinToSuperview()
         }
+        view.addSubview(deletedScreen) {
+            $0.pinToSuperview()
+        }
+        deletedScreen.isHidden = true
     }
     
     @objc

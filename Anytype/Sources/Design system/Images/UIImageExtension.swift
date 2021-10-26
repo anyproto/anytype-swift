@@ -10,6 +10,10 @@ extension UIImage {
 }
 
 extension UIImage {
+    enum editor {
+        static let bigGhost = createImage("TextEditor/bigGhost")
+    }
+    
     enum editorNavigation {
         static let more = createImage("TextEditor/More")
         static let home = createImage("TextEditor/home")
