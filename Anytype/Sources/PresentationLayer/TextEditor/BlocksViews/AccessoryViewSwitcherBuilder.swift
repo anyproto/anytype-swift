@@ -8,8 +8,19 @@ struct AccessoryViewSwitcherBuilder {
     ) -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
-        let accessoryViewModel = EditorAccessoryViewModel(router: router, handler: actionHandler)
-        let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
+        let accessoryViewModel = EditorAccessoryViewModel(
+            router: router,
+            handler: actionHandler,
+            searchService: SearchService()
+        )
+
+        let changeTypeViewModel = ChangeTypeAccessoryItemViewModel(itemProvider: accessoryViewModel)
+        let changeTypeView = ChangeTypeAccessoryView(viewModel: changeTypeViewModel)
+
+        let accessoryView = EditorAccessoryView(
+            viewModel: accessoryViewModel,
+            changeTypeView: changeTypeView.asUIView()
+        )
         
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
