@@ -8,6 +8,7 @@ extension HomeTabsView {
         case favourites
         case history
         case bin
+        case shared
     }
 }
 
@@ -72,6 +73,17 @@ struct HomeTabsView: View {
             .tag(Tab.history)
             
             HomeCollectionView(
+                cellData: model.sharedCellData,
+                coordinator: model.coordinator,
+                dragAndDropDelegate: nil, // no dnd
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    model.showPage(pageId: data.destinationId)
+                }
+            )
+            .tag(Tab.shared)
+            
+            HomeCollectionView(
                 cellData: model.binCellData,
                 coordinator: model.coordinator,
                 dragAndDropDelegate: nil, // no dnd
@@ -98,20 +110,17 @@ struct HomeTabsView: View {
         
         switch tabSelection {
         case .favourites:
-            // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
-            
             break // updates via subscriptions
         case .history:
-            // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
-
             model.updateHistoryTab()
         case .bin:
-            // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
-
             model.updateBinTab()
+        case .shared:
+            Amplitude.instance().logEvent(AmplitudeEventsName.sharedTabSelected)
+            model.updateSharedTab()
         }
     }
 }

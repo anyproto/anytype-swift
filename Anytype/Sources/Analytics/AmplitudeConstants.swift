@@ -54,6 +54,7 @@ enum AmplitudeEventsName {
     static let favoritesTabSelected = "FavoritesTabSelected"
     static let archiveTabSelected = "ArchiveTabSelected"
     static let recentTabSelected = "RecentTabSelected"
+    static let sharedTabSelected = "SharedTabSelected"
 
     static let profilePage = "Page: Profile"
     static let documentPage = "Page: Document"

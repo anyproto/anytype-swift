@@ -6,6 +6,7 @@ protocol SearchServiceProtocol {
     func search(text: String) -> [SearchData]?
     func searchArchivedPages() -> [SearchData]?
     func searchHistoryPages() -> [SearchData]?
+    func searchSharedPages() -> [SearchData]?
     func searchSets() -> [SearchData]?
     func searchObjectTypes(text: String) -> [SearchData]?
 }
@@ -40,7 +41,6 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: RelationKey.lastModifiedDate,
             type: .desc
         )
-        
         
         let filters = buildFilters(
             isArchived: true,
@@ -77,7 +77,26 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             sorts: [sort],
             fullText: "",
             offset: 0,
-            limit: 30,
+            limit: 100,
+            objectTypeFilter: [],
+            keys: []
+        )
+    }
+    
+    func searchSharedPages() -> [SearchData]? {
+        let sort = SearchHelper.sort(
+            relation: RelationKey.lastModifiedDate,
+            type: .desc
+        )
+        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        filters.append(contentsOf: [SearchHelper.sharedObjectsFilter()])
+        
+        return makeRequest(
+            filters: filters,
+            sorts: [sort],
+            fullText: "",
+            offset: 0,
+            limit: 100,
             objectTypeFilter: [],
             keys: []
         )
