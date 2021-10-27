@@ -1,0 +1,44 @@
+default_platform(:ios)
+
+platform :ios do
+
+  lane :refresh_dev_dsyms do 
+    refresh_dsyms(
+      release: false
+    )
+  end
+
+  lane :refresh_release_dsyms do 
+    refresh_dsyms(
+      release: true
+    )
+  end
+
+  # Private lanes
+  
+  private_lane :refresh_dsyms do |options|
+    app_store_connect_api_key(
+        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
+        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+        key_content: ENV['APP_STORE_CONNECT_KEY_CONTENT'],
+        duration: 1200,
+        in_house: false
+    )
+
+    download_dsyms(
+      wait_for_dsym_processing: true,
+      wait_timeout: 1000,
+      version: 'latest'
+    )
+
+    release_plist = "./Anytype/Resources/Plists/GoogleService-Info.plist"
+    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
+
+    upload_symbols_to_crashlytics(
+      gsp_path: options[:release] ? release_plist : dev_plist,
+      binary_path: './Scripts/upload-symbols',
+      debug: true
+    )      
+  end
+
+end

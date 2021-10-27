@@ -21,12 +21,7 @@ extension MiddlewareConfigurationService {
         
         guard let result = try? Anytype_Rpc.Config.Get.Service.invoke().get() else {
             // Error will be returned if we try to get MiddlewareConfiguration without authorization
-            return MiddlewareConfiguration(
-                homeBlockID: "",
-                archiveBlockID: "",
-                profileBlockId: "",
-                gatewayURL: ""
-            )
+            return MiddlewareConfiguration.empty
         }
         
         let config = MiddlewareConfiguration(

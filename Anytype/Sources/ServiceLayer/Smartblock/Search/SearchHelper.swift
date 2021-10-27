@@ -69,7 +69,17 @@ class SearchHelper {
         return filter
     }
     
-    static func notObjectTypeUrlFilter(_ typeUrl: String) -> Anytype_Model_Block.Content.Dataview.Filter {
+    static func sharedObjectsFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
+        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+        filter.condition = .notEmpty
+        filter.value = nil
+        filter.relationKey = RelationKey.workspaceId.rawValue
+        filter.operator = .and
+   
+        return filter
+    }
+    
+    static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .notEqual
         filter.value = Google_Protobuf_Value(stringValue: typeUrl)

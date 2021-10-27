@@ -1,4 +1,5 @@
 import "./FastfileDeploy"
 import "./FastfileProfiles"
+import "./FastfileDsyms"
 import "./FastfileAppVersion"
 import "./FastfileTestLanes"

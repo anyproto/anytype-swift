@@ -64,11 +64,9 @@ private extension ApplicationCoordinator {
             return
         }
         
-        let result = authService.selectAccount(id: userId)
-        switch result {
-        case .success:
+        if authService.selectAccount(id: userId) {
             showHomeScreen()
-        case .failure:
+        } else {
             showAuthScreen()
         }
     }
