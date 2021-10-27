@@ -114,7 +114,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.supportedTypeUrls
             ),
-            SearchHelper.excludedObjectTypeUrlFilter(currentObjectTypeUrl)
+            SearchHelper.excludedObjectTypeUrlFilter(currentObjectTypeUrl),
+            SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.set.rawValue)
         ]
         let result = makeRequest(
             filters: filters, sorts: [sort], fullText: text,
