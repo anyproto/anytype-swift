@@ -24,4 +24,6 @@ public enum RelationKey: String {
     case isHidden
     case isReadonly
     case isDraft
+    
+    case workspaceId
 }

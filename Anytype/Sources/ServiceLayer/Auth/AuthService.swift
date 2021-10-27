@@ -6,10 +6,6 @@ import Amplitude
 import AnytypeCore
 import BlocksModels
 
-private extension LoggerCategory {
-    static let servicesAuthService: Self = "Services.AuthService"
-}
-
 final class AuthService: AuthServiceProtocol {
     private let seedService: SeedServiceProtocol
     private let rootPath: String
@@ -25,14 +21,12 @@ final class AuthService: AuthServiceProtocol {
         self.loginStateService = loginStateService
     }
 
-    func logout(completion: @escaping () -> Void) {
-        // Analytics
+    func logout() {
         Amplitude.instance().logEvent(AmplitudeEventsName.accountStop)
         
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
         
         loginStateService.cleanStateAfterLogout()
-        completion()
     }
 
     func createWallet() -> Result<String, AuthServiceError> {
@@ -42,37 +36,27 @@ final class AuthService: AuthServiceProtocol {
         
         if let mnemonic = result.getValue() {
             Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
-            AnytypeLogger.create(.servicesAuthService).debugPrivate("seed:", arg: mnemonic)
+            AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
             try? seedService.saveSeed(mnemonic)
         }
         
         return result
     }
 
-    func createAccount(profile: CreateAccountRequest, alphaInviteCode: String) -> Result<BlockId, AuthServiceError> {
-        func transform(_ avatar: ProfileModel.Avatar) -> Anytype_Rpc.Account.Create.Request.OneOf_Avatar? {
-            switch avatar {
-            case let .imagePath(value): return .avatarLocalPath(value)
-            }
-        }
+    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, Error> {
+        let result = Anytype_Rpc.Account.Create.Service
+            .invoke(name: name, avatar: .avatarLocalPath(imagePath), alphaInviteCode: alphaInviteCode)
         
-        let name = profile.name
-        let avatar = transform(profile.avatar)
-
-        let result = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode)
-            .mapError { _ in AuthServiceError.createAccountError }
-            .map { $0.account.id }
-        
-        if let accountId = result.getValue() {
+        if let response = result.getValue() {
+            AccountConfigurationProvider.shared.config = .init(config: response.config)
+            
+            let accountId = response.account.id
             Amplitude.instance().setUserId(accountId)
-            Amplitude.instance().logEvent(
-                AmplitudeEventsName.accountCreate,
-                withEventProperties: [AmplitudeEventsPropertiesKey.accountId : accountId]
-            )
+            Amplitude.instance().logAccountCreate(accountId)
             UserDefaultsConfig.usersIdKey = accountId
         }
         
-        return result
+        return result.map { _ in }
     }
 
     func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError> {
@@ -98,24 +82,22 @@ final class AuthService: AuthServiceProtocol {
         }
     }
 
-    func selectAccount(id: String) -> Result<BlockId, AuthServiceError> {
+    func selectAccount(id: String) -> Bool {
         let result = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
                 
         switch result {
         case .success(let response):
-            let accountId = response.account.id
+            AccountConfigurationProvider.shared.config = .init(config: response.config)
             
+            let accountId = response.account.id
             Amplitude.instance().setUserId(accountId)
-            Amplitude.instance().logEvent(
-                AmplitudeEventsName.accountSelect,
-                withEventProperties: [AmplitudeEventsPropertiesKey.accountId : accountId]
-            )
-
+            Amplitude.instance().logAccountSelect(accountId)
             UserDefaultsConfig.usersIdKey = accountId
+            
             loginStateService.setupStateAfterLoginOrAuth()
-            return .success(accountId)
+            return true
         case .failure:
-            return .failure(.selectAccountError)
+            return false
         }
     }
     

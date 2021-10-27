@@ -36,7 +36,8 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
             guard let self = self else { return }
             
             let result = self.authService.createAccount(
-                profile: self.buildRequest(),
+                name: self.signUpData.userName,
+                imagePath: self.imagePath(),
                 alphaInviteCode: self.signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
             )
             
@@ -55,13 +56,11 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
         }
     }
     
-    private func buildRequest() -> CreateAccountRequest {
-        let imagePath = signUpData.image.flatMap {
-            diskStorage.saveImage(imageName: "avatar_\(signUpData.userName.trimmingCharacters(in: .whitespacesAndNewlines))_\(UUID())", image: $0)
-        }
+    private func imagePath() -> String {
+        guard let image = signUpData.image else { return "" }
         
-        let avatar = ProfileModel.Avatar.imagePath(imagePath ?? "")
-                
-        return  CreateAccountRequest(name: signUpData.userName, avatar: avatar)
+        let imageName = "avatar_\(self.signUpData.userName.trimmingCharacters(in: .whitespacesAndNewlines))_\(UUID())"
+        return diskStorage.saveImage(imageName: imageName, image: image) ?? ""
     }
+    
 }
