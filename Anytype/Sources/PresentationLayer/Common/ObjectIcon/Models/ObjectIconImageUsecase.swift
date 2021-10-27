@@ -7,6 +7,7 @@ enum ObjectIconImageUsecase: Equatable {
     case openedObjectNavigationBar
     
     case editorSearch // slash menu + mention
+    case editorSearchExpandedIcons
     
     case dashboardList
     case dashboardProfile

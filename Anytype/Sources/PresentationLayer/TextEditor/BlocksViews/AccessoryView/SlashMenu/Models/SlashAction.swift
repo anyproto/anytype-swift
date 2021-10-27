@@ -22,7 +22,7 @@ enum SlashAction {
         case let .media(media):
             return SlashMenuItemDisplayData(iconData: .staticImage(media.iconName), title: media.title, subtitle: media.subtitle)
         case let .style(style):
-            return SlashMenuItemDisplayData(iconData: .staticImage(style.iconName), title: style.title, subtitle: style.subtitle)
+            return SlashMenuItemDisplayData(iconData: .staticImage(style.iconName), title: style.title, subtitle: style.subtitle, expandedIcon: true)
         case let .other(other):
             return SlashMenuItemDisplayData(iconData: .staticImage(other.iconName), title: other.title)
         case let .objects(object):
