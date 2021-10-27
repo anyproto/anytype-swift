@@ -77,6 +77,9 @@ enum AmplitudeEventsName {
     static let popupStyleMenu = "PopupStyleMenu"
     static let popupMentionMenu = "PopupMentionMenu"
     static let popupProfileIconMenu = "PopupProfileIconMenu"
+    
+    // Service events
+    static let objectListDelete = "ObjectListDelete"
 }
 
 enum AmplitudeEventsPropertiesKey {
@@ -84,4 +87,5 @@ enum AmplitudeEventsPropertiesKey {
     static let blockStyle = "style"
     static let blockType = "type"
     static let documentId = "documentId"
+    static let count = "count"
 }

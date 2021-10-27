@@ -14,4 +14,11 @@ extension Amplitude {
             withEventProperties: [AmplitudeEventsPropertiesKey.accountId : accountId]
         )
     }
+    
+    func logDeletion(count: Int) {
+        Amplitude.instance().logEvent(
+            AmplitudeEventsName.objectListDelete,
+            withEventProperties: [AmplitudeEventsPropertiesKey.count : count]
+        )
+    }
 }

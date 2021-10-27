@@ -9,6 +9,7 @@ import AnytypeCore
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
     func delete(objectIds: [BlockId]) {
+        Amplitude.instance().logDeletion(count: objectIds.count)
         _ = Anytype_Rpc.ObjectList.Delete.Service.invoke(objectIds: objectIds)
     }
     
