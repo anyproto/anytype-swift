@@ -13,12 +13,12 @@ jobs:
     runs-on: macOS-11
     timeout-minutes: 20
 
-    strategy:
-      matrix:
-        scheme:
-          - Anytype
-        product-name:
-          - Anytype
+    # strategy:
+    #   matrix:
+    #     scheme:
+    #       - Anytype
+    #     product-name:
+    #       - Anytype
 
     steps:
       - name: Checkout branch
@@ -62,16 +62,11 @@ jobs:
     timeout-minutes: 20
     
     steps:
-      #- name: Checkout branch
-      #  uses: actions/checkout@v2.3.4
-      #  with:
-      #    ref: ${{ github.event.inputs.branch }}
-          
-    - name: Setup ruby
+      - name: Setup ruby
         uses: ruby/setup-ruby@v1.81.0
-        with:
-          ruby-version: 2.7.2
-          bundler-cache: true
+          with:
+            ruby-version: 2.7.2
+            bundler-cache: true
 
       - name: Download and Upload DSYMs
         run: |
