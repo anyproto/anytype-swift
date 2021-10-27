@@ -222,7 +222,7 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
         let searchView = SearchView(
-            kind: .objectTypes(excludedTypeUrl: document.objectDetails?.type ?? ""),
+            kind: .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? ""),
             title: "Change type".localized
         ) { id in
             onSelect(id)
