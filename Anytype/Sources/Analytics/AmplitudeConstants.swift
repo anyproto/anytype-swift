@@ -1,11 +1,3 @@
-//
-//  AmplitudeConstants.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 15.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 enum AmplitudeConfiguration {
     static let apiKey = "827af3255d76ef87541cd459a0a38242"
 }

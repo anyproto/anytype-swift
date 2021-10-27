@@ -19,9 +19,8 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func logout() {
-        self.authService.logout() {
-            windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
-        }
+        authService.logout()
+        windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
     }
     
     func clearCache() -> Bool {
