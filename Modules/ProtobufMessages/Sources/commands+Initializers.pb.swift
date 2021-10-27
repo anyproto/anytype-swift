@@ -10,10 +10,11 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Account.Config {
-  public init(enableDataview: Bool, enableDebug: Bool, enableReleaseChannelSwitch: Bool, extra: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(enableDataview: Bool, enableDebug: Bool, enableReleaseChannelSwitch: Bool, enableSpaces: Bool, extra: SwiftProtobuf.Google_Protobuf_Struct) {
     self.enableDataview = enableDataview
     self.enableDebug = enableDebug
     self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
+    self.enableSpaces = enableSpaces
     self.extra = extra
   }
 }
