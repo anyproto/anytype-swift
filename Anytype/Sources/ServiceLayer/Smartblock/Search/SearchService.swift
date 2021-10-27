@@ -125,20 +125,28 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchObjectTypes(text: String, currentObjectTypeUrl: String) -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastOpenedDate,
-            type: .desc
+            relation: RelationKey.name,
+            type: .asc
         )
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.supportedTypeUrls
             ),
-            SearchHelper.notObjectTypeUrlFilter(currentObjectTypeUrl)
+            SearchHelper.excludedObjectTypeUrlFilter(currentObjectTypeUrl),
+            SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.set.rawValue)
         ]
-        return makeRequest(
+        let result = makeRequest(
             filters: filters, sorts: [sort], fullText: text,
             offset: 0, limit: 100, objectTypeFilter: [], keys: []
         )
+        
+        return result?.reordered(
+            by: [
+                ObjectTemplateType.note.rawValue,
+                ObjectTemplateType.page.rawValue
+            ]
+        ) { $0.id }
     }
     
     private func makeRequest(
