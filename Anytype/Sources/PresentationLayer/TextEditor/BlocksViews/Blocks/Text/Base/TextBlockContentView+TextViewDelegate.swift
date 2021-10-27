@@ -104,7 +104,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
             currentConfiguration.accessorySwitcher.showURLInput(url: link)
         case let .showPage(pageId):
             guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
-                anytypeAssertionFailure("No details found")
+                // Deleted objects goes here
                 return false
             }
             

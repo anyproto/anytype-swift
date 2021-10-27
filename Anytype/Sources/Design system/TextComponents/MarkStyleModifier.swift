@@ -125,6 +125,11 @@ final class MarkStyleModifier {
     
     private func addMentionIcon(data: MentionData, range: NSRange, font: AnytypeFont) {
         let mentionAttributedString = attributedString.attributedSubstring(from: range)
+        guard mentionAttributedString.string.isNotEmpty else {
+            // Empty string is for deleted mentions
+            return
+        }
+        
         var iconAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .localUnderline) // no underline under icon
         
