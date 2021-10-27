@@ -91,11 +91,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
             changeTextRange: range,
             replacementText: replacementText
         )
-        accessoryView.viewModel.textDidChange()
     }
 
     func textDidChange() {
         displayAcessoryViewTask.cancel()
+        accessoryView.viewModel.textDidChange()
         if isSlashOrMentionCurrentlyVisible() {
             setTextToSlashOrMention()
             return
@@ -107,7 +107,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         case .none, .deletingSymbols:
             return
         }
-        accessoryView.viewModel.textDidChange()
     }
     
     func showURLInput(url: URL?) {

@@ -8,7 +8,11 @@ final class EditorAccessoryViewModel {
 
     var block: BlockModelProtocol!
     
-    weak var customTextView: CustomTextView?
+    weak var customTextView: CustomTextView? {
+        didSet {
+            updateAccessoryViewState()
+        }
+    }
     weak var delegate: EditorAccessoryViewDelegate?
 
     @Published private(set) var isTypesViewVisible: Bool = false
@@ -32,8 +36,6 @@ final class EditorAccessoryViewModel {
         self.document = document
 
         fetchSupportedTypes()
-
-        updateAccessoryViewState()
     }
     
     func handleMenuItemTap(_ menuItem: MenuItemType) {
@@ -86,7 +88,9 @@ final class EditorAccessoryViewModel {
     private func updateAccessoryViewState() {
         let isDocumentEmpty = document.isDocumentEmpty
 
-        isTypesViewVisible = isDocumentEmpty// if isDocumentEmpty !=  {  = false }
+        if isTypesViewVisible && !isDocumentEmpty {
+            isTypesViewVisible = false
+        }
 
         isChangeTypeAvailable = isDocumentEmpty
     }
@@ -115,21 +119,33 @@ final class EditorAccessoryViewModel {
 
 private extension BaseDocumentProtocol {
     var isDocumentEmpty: Bool {
-        let childrenBlocks = blocksContainer
-            .children(of: objectId)
-            .filter { $0 != "header" }
+        print("-_- flattenBlocks content \(flattenBlocks.map { $0.information.content })")
 
-        if childrenBlocks.count == 0 {
+        let isExpectionTypesExists = flattenBlocks.contains {
+            switch $0.information.content {
+            case .text, .featuredRelations:
+                return false
+            default:
+                return true
+            }
+        }
+
+        if isExpectionTypesExists { return false }
+
+        let textBlocks = flattenBlocks.filter { $0.information.content.isText }
+
+        guard textBlocks.count < 3 else { return false }
+
+        print("-_- textBlocks.count \(textBlocks.count)")
+
+        switch textBlocks.count {
+        case 0, 1:
             return true
+        case 2:
+            return textBlocks.last?.information.content.isEmpty ?? false
+        default:
+            return false
         }
-
-        // Then it would be Note
-        if childrenBlocks.count == 1, let lastBlock = childrenBlocks.last {
-            let lastBlockContent = blocksContainer.model(id: lastBlock)
-            return lastBlockContent?.information.content.isEmpty ?? false
-        }
-
-        return false
     }
 }
 
