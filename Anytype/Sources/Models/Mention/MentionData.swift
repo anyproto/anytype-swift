@@ -7,7 +7,7 @@ struct MentionData: Equatable {
     let isArchived: Bool
     
     static func noDetails(blockId: BlockId) -> MentionData {
-        return MentionData(image: nil, blockId: blockId, isDeleted: false, isArchived: false)
+        return MentionData(image: nil, blockId: blockId, isDeleted: true, isArchived: false)
     }
 }
 
