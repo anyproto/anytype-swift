@@ -7,7 +7,10 @@ protocol SearchServiceProtocol {
     func searchArchivedPages() -> [SearchData]?
     func searchHistoryPages() -> [SearchData]?
     func searchSets() -> [SearchData]?
-    func searchObjectTypes(text: String) -> [SearchData]?
+    func searchObjectTypes(
+        text: String,
+        excludeTypeUrl excludedTypeUrl: String
+    ) -> [SearchData]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -104,16 +107,17 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchObjectTypes(text: String) -> [SearchData]? {
+    func searchObjectTypes(text: String, excludeTypeUrl excludedTypeUrl: String) -> [SearchData]? {
         let sort = SearchHelper.sort(
             relation: RelationKey.lastOpenedDate,
             type: .desc
         )
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.objectTypeFilter(
-                typeUrls: ObjectTypeProvider.supportedTypeUrls
-            )
+            SearchHelper.supportedObjectTypeUrlsFilter(
+                ObjectTypeProvider.supportedTypeUrls
+            ),
+            SearchHelper.notObjectTypeUrlFilter(typeUrl: excludedTypeUrl)
         ]
         return makeRequest(
             filters: filters, sorts: [sort], fullText: text,
