@@ -14,6 +14,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published var historyCellData: [HomeCellData] = []
     @Published var binCellData: [HomeCellData] = []
+    @Published var sharedCellData: [HomeCellData] = []
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
@@ -61,7 +62,13 @@ final class HomeViewModel: ObservableObject {
             historyCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
-    func updateFevoritesTab() {
+    func updateSharedTab() {
+        guard let searchResults = searchService.searchSharedPages() else { return }
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            sharedCellData = cellDataBuilder.buildCellData(searchResults)
+        }
+    }
+    func updateFavoritesTab() {
         withAnimation(animationsEnabled ? .spring() : nil) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
@@ -86,7 +93,8 @@ final class HomeViewModel: ObservableObject {
     private func reloadItems() {
         updateBinTab()
         updateHistoryTab()
-        updateFevoritesTab()
+        updateFavoritesTab()
+        updateSharedTab()
     }
     
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {

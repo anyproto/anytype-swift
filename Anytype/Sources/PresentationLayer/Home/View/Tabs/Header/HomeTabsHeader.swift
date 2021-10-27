@@ -31,6 +31,11 @@ struct HomeTabsHeader: View {
             tabButton(text: "History".localized, tab: .history) {
                 if tabSelection == .history { onTabSelection() } // reload data on button tap
             }
+            if AccountConfigurationProvider.shared.config.enableSpaces {
+                tabButton(text: "Shared".localized, tab: .shared) {
+                    if tabSelection == .shared { onTabSelection() } // reload data on button tap
+                }
+            }
             tabButton(text: "Bin".localized, tab: .bin) {
                 if tabSelection == .bin { onTabSelection() } // reload data on button tap
             }
