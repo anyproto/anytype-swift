@@ -122,19 +122,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             offset: 0, limit: 100, objectTypeFilter: [], keys: []
         )
         
-        guard var result = result else { return nil }
-
-        let firstTypes: [SearchData] = [
-            ObjectTemplateType.note.rawValue,
-            ObjectTemplateType.page.rawValue
-        ].compactMap { type in
-            let index = result.firstIndex { $0.id == type }
-            guard let index = index else { return nil }
-            
-            return result.remove(at: index)
-        }
-        
-        return firstTypes + result
+        return result?.reordered(
+            by: [
+                ObjectTemplateType.note.rawValue,
+                ObjectTemplateType.page.rawValue
+            ]
+        ) { $0.id }
     }
     
     private func makeRequest(
