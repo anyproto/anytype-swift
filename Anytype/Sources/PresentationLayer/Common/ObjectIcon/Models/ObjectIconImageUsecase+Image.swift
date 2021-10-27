@@ -62,10 +62,19 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x48,
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
-                staticImageGuideline: nil
+                staticImageGuideline: StaticImageGuideline.x24
             )
         case let .mention(type):
             return mentionImageGuidelineSet(for: type)
+        case .editorAccessorySearch:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: nil,
+                profileImageGuideline: nil,
+                emojiImageGuideline: EmojiIconImageGuideline.x48,
+                todoImageGuideline: nil,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
+            )
         }
     }
     

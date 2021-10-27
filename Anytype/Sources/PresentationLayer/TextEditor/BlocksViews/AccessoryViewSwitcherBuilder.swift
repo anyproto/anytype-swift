@@ -4,11 +4,38 @@ import BlocksModels
 struct AccessoryViewSwitcherBuilder {
     func accessoryViewSwitcher(
         actionHandler: EditorActionHandlerProtocol,
-        router: EditorRouter
+        router: EditorRouter,
+        document: BaseDocumentProtocol
     ) -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
-        let accessoryViewModel = EditorAccessoryViewModel(router: router, handler: actionHandler)
+        let accessoryViewModel = EditorAccessoryViewModel(
+            router: router,
+            handler: actionHandler
+        )
+
+        let changeTypeViewModel = ChangeTypeAccessoryViewModel(
+            router: router,
+            handler: actionHandler,
+            searchService: SearchService(),
+            document: document
+        )
+
+        let typeListViewModel = HorizonalTypeListViewModel(
+            itemProvider: changeTypeViewModel
+        ) { [weak router, weak actionHandler] in
+            router?.showTypesSearch(onSelect: { id in
+                actionHandler?.setObjectTypeUrl(id)
+            })
+        }
+
+        let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)
+
+        let changeTypeView = ChangeTypeAccessoryView(
+            viewModel: changeTypeViewModel,
+            changeTypeView: horizontalTypeListView.asUIView()
+        )
+
         let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
         
         let slashMenuViewModel = SlashMenuViewModel(
@@ -26,7 +53,9 @@ struct AccessoryViewSwitcherBuilder {
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
             accessoryView: accessoryView,
-            handler: actionHandler
+            changeTypeView: changeTypeView,
+            handler: actionHandler,
+            document: document
         )
         
         mentionsView.delegate = accessoryViewSwitcher

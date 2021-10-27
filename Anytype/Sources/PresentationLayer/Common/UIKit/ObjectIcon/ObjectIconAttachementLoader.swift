@@ -48,6 +48,8 @@ extension ObjectIconAttachementLoader {
                 painter.staticImage(name: name, imageGuideline: $0)
             }
             setImage(image: image, processor: processor)
+        case .image(let image):
+            setImage(image: image, processor: processor)
         }
     }
     

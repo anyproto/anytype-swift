@@ -34,8 +34,6 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
         case .changeText:
-            currentConfiguration.accessorySwitcher.textDidChange()
-
             currentConfiguration.actionHandler.handleAction(
                 .textView(
                     action: action,
@@ -43,6 +41,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 ),
                 blockId: currentConfiguration.information.id
             )
+
+            currentConfiguration.accessorySwitcher.textDidChange()
         case let .keyboardAction(keyAction):
             switch keyAction {
             case .enterInsideContent,

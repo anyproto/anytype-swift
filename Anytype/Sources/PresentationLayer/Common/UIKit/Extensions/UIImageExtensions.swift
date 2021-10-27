@@ -1,4 +1,4 @@
-import Foundation
+import CoreGraphics
 import UIKit
 
 extension UIImage {
@@ -142,4 +142,33 @@ extension UIImage {
 
             return image
         }
+
+    func image(
+        imageSize: CGSize,
+        cornerRadius: CGFloat,
+        side: CGFloat,
+        backgroundColor: UIColor?
+    ) -> UIImage {
+        let size = CGSize(width: side, height: side)
+        let renderer = UIGraphicsImageRenderer(size: size)
+
+        return renderer.image { actions in
+            let context = actions.cgContext
+
+            let rect = CGRect(origin: .zero, size: size)
+            let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+            context.addPath(rectPath.cgPath)
+            backgroundColor.map { context.setFillColor($0.cgColor) }
+            context.fillPath()
+
+            let x = (size.width - imageSize.width) / 2
+            let y = (size.height - imageSize.height) / 2
+
+            draw(
+                at: .init(x: x, y: y),
+                blendMode: .normal,
+                alpha: 1.0
+            )
+        }
+    }
 }

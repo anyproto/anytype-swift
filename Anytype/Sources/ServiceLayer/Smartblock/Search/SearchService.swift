@@ -8,7 +8,7 @@ protocol SearchServiceProtocol {
     func searchHistoryPages() -> [SearchData]?
     func searchSharedPages() -> [SearchData]?
     func searchSets() -> [SearchData]?
-    func searchObjectTypes(text: String, currentObjectTypeUrl: String) -> [SearchData]?
+    func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [SearchData]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -119,19 +119,21 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchObjectTypes(text: String, currentObjectTypeUrl: String) -> [SearchData]? {
+    func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [SearchData]? {
         let sort = SearchHelper.sort(
             relation: RelationKey.name,
             type: .asc
         )
-        let filters = [
+        var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.supportedTypeUrls
             ),
-            SearchHelper.excludedObjectTypeUrlFilter(currentObjectTypeUrl),
             SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.set.rawValue)
         ]
+        filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
+
+
         let result = makeRequest(
             filters: filters, sorts: [sort], fullText: text,
             offset: 0, limit: 100, objectTypeFilter: [], keys: []

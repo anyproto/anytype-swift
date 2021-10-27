@@ -169,7 +169,7 @@ extension EditorPageController: EditorPageViewInput {
         }
         updateView()
     }
-    
+
     func needsUpdateLayout() {
         updateView()
     }

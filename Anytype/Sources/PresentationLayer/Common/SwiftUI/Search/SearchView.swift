@@ -97,7 +97,7 @@ struct SearchView: View {
             case .objectTypes(let currentObjectTypeUrl):
                 return service.searchObjectTypes(
                     text: text,
-                    currentObjectTypeUrl: currentObjectTypeUrl
+                    filteringTypeUrl: currentObjectTypeUrl
                 )
             }
         }()
