@@ -1,11 +1,12 @@
 import UIKit
 import Combine
+import BlocksModels
 
-protocol ChangeTypeItemProvider: AnyObject {
-    var typesPublisher: Published<[ChangeTypeAccessoryItemViewModel.Item]>.Publisher { get }
+protocol TypeListItemProvider: AnyObject {
+    var typesPublisher: Published<[HorizonalTypeListViewModel.Item]>.Publisher { get }
 }
 
-final class ChangeTypeAccessoryItemViewModel: ObservableObject {
+final class HorizonalTypeListViewModel: ObservableObject {
     struct Item: Identifiable {
         let id: String
         let title: String
@@ -19,7 +20,7 @@ final class ChangeTypeAccessoryItemViewModel: ObservableObject {
     private var cancellables = [AnyCancellable]()
     private lazy var searchItem = Item.searchItem { [weak self] in self?.searchHandler() }
 
-    init(itemProvider: ChangeTypeItemProvider, searchHandler: @escaping () -> Void) {
+    init(itemProvider: TypeListItemProvider, searchHandler: @escaping () -> Void) {
         self.searchHandler = searchHandler
 
         itemProvider.typesPublisher.sink { [weak self] types in
@@ -30,7 +31,18 @@ final class ChangeTypeAccessoryItemViewModel: ObservableObject {
     }
 }
 
-extension ChangeTypeAccessoryItemViewModel.Item {
+extension HorizonalTypeListViewModel.Item {
+    init(from searchData: SearchData, handler: @escaping () -> Void) {
+        let emoji = IconEmoji(searchData.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
+
+        self.init(
+            id: searchData.id,
+            title: searchData.name,
+            image: emoji,
+            action: handler
+        )
+    }
+
     static func searchItem(onTap: @escaping () -> Void) -> Self {
         let image = UIImage.editorNavigation.search.image(
             imageSize: .init(width: 20, height: 20),

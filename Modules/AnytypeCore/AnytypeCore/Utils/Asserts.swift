@@ -12,7 +12,7 @@ public func anytypeAssertionFailure(
             showAlert(message)
         }
     #elseif DEBUG
-//        assertionFailure(message, file: file, line: line)
+        assertionFailure(message, file: file, line: line)
     #endif
 }
 

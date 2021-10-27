@@ -11,24 +11,32 @@ struct AccessoryViewSwitcherBuilder {
         
         let accessoryViewModel = EditorAccessoryViewModel(
             router: router,
+            handler: actionHandler
+        )
+
+        let changeTypeViewModel = ChangeTypeAccessoryViewModel(
+            router: router,
             handler: actionHandler,
             searchService: SearchService(),
             document: document
         )
 
-        let changeTypeViewModel = ChangeTypeAccessoryItemViewModel(itemProvider: accessoryViewModel) { [weak router] in
+        let typeListViewModel = HorizonalTypeListViewModel(
+            itemProvider: changeTypeViewModel
+        ) { [weak router, weak actionHandler] in
             router?.showTypesSearch(onSelect: { id in
-                actionHandler.setObjectTypeUrl(id)
+                actionHandler?.setObjectTypeUrl(id)
             })
         }
+
+        let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)
+
         let changeTypeView = ChangeTypeAccessoryView(
-            viewModel: changeTypeViewModel
+            viewModel: changeTypeViewModel,
+            changeTypeView: horizontalTypeListView.asUIView()
         )
 
-        let accessoryView = EditorAccessoryView(
-            viewModel: accessoryViewModel,
-            changeTypeView: changeTypeView.asUIView()
-        )
+        let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
         
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
@@ -45,7 +53,9 @@ struct AccessoryViewSwitcherBuilder {
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
             accessoryView: accessoryView,
-            handler: actionHandler
+            changeTypeView: changeTypeView,
+            handler: actionHandler,
+            document: document
         )
         
         mentionsView.delegate = accessoryViewSwitcher

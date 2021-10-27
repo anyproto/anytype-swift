@@ -1,5 +1,6 @@
 import UIKit
 import BlocksModels
+import Combine
 
 protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
     func showURLInput(url: URL?)
@@ -11,9 +12,10 @@ protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
 }
 
 extension AccessoryViewSwitcher {
-    enum ViewType {
+    enum ViewType: Equatable {
         case none
         case `default`(EditorAccessoryView)
+        case changeType(ChangeTypeAccessoryView)
         case mention(MentionView)
         case slashMenu(SlashMenuView)
         case urlInput(URLInputAccessoryView)
@@ -21,6 +23,8 @@ extension AccessoryViewSwitcher {
         var view: UIView? {
             switch self {
             case .default(let view):
+                return view
+            case .changeType(let view):
                 return view
             case .mention(let view):
                 return view
@@ -46,22 +50,35 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let accessoryView: EditorAccessoryView
     private let mentionsView: MentionView
     private let slashMenuView: SlashMenuView
+    private let changeTypeView: ChangeTypeAccessoryView
+
+    private let document: BaseDocumentProtocol
+
     private lazy var urlInputView = buildURLInputView()
     
     private let handler: EditorActionHandlerProtocol
     
     private var data: AccessoryViewSwitcherData?
-    
+    private var cancellables = [AnyCancellable]()
+
+    private var editorAccessoryView: ViewType {
+        document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
+    }
+
     init(
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         accessoryView: EditorAccessoryView,
-        handler: EditorActionHandlerProtocol
+        changeTypeView: ChangeTypeAccessoryView,
+        handler: EditorActionHandlerProtocol,
+        document: BaseDocumentProtocol
     ) {
         self.slashMenuView = slashMenuView
         self.accessoryView = accessoryView
+        self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
         self.handler = handler
+        self.document = document
         
         setupDismissHandlers()
     }
@@ -79,7 +96,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         self.data = data
         
         accessoryView.update(block: data.block, textView: data.textView)
-        changeAccessoryView(accessoryView)
+        showAccessoryView(editorAccessoryView)
         
         slashMenuView.update(block: data.block)
     }
@@ -95,7 +112,10 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     func textDidChange() {
         displayAcessoryViewTask.cancel()
-        accessoryView.viewModel.textDidChange()
+
+        let editorAccessoryView = editorAccessoryView
+        if activeView != editorAccessoryView { showAccessoryView(editorAccessoryView) }
+
         if isSlashOrMentionCurrentlyVisible() {
             setTextToSlashOrMention()
             return
@@ -190,7 +210,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private func dismissViewIfNeeded(forceDismiss: Bool = false) {
         if forceDismiss || isTriggerSymbolDeleted {
             cleanupDisplayedView()
-            showAccessoryView(.default(accessoryView))
+            showAccessoryView(editorAccessoryView)
         }
     }
     

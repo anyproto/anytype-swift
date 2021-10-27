@@ -1,41 +1,42 @@
 import UIKit
 
-enum EditorAccessory {
+extension EditorAccessoryView {
     enum Item {
-        case menuItems([MenuItem])
-        case changeType(isOpened: Bool)
-    }
+        case mention
+        case slash
+        case style
 
-    struct MenuItem {
-        enum MenuItemType {
-            case mention
-            case slash
-            case style
-
-            var image: UIImage {
-                switch self {
-                case .mention:
-                    return UIImage.edititngToolbar.mention
-                case .slash:
-                    return UIImage.edititngToolbar.addNew
-                case .style:
-                    return UIImage.edititngToolbar.style
-                }
-            }
-
-            var analyticsEvent: String {
-                switch self {
-                case .mention:
-                    return AmplitudeEventsName.buttonMentionMenu
-                case .slash:
-                    return AmplitudeEventsName.buttonSlashMenu
-                case .style:
-                    return AmplitudeEventsName.buttonStyleMenu
-                }
+        var image: UIImage {
+            switch self {
+            case .mention:
+                return UIImage.edititngToolbar.mention
+            case .slash:
+                return UIImage.edititngToolbar.addNew
+            case .style:
+                return UIImage.edititngToolbar.style
             }
         }
 
-        let action: () -> Void
-        let type: MenuItemType
+        var action: EditorAccessoryViewAction {
+            switch self {
+            case .mention:
+                return .mention
+            case .slash:
+                return .slashMenu
+            case .style:
+                return .showStyleMenu
+            }
+        }
+
+        var analyticsEvent: String {
+            switch self {
+            case .mention:
+                return AmplitudeEventsName.buttonMentionMenu
+            case .slash:
+                return AmplitudeEventsName.buttonSlashMenu
+            case .style:
+                return AmplitudeEventsName.buttonStyleMenu
+            }
+        }
     }
 }

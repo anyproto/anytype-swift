@@ -138,6 +138,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             }
         }
     }
+    
 }
 
 private extension BlockActionHandler {

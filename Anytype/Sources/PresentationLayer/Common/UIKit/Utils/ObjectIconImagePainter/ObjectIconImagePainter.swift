@@ -32,7 +32,7 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
             .scaled(to: imageGuideline.size)
             .rounded(
                 radius: imageGuideline.cornersGuideline.radius,
-                backgroundColor: UIColor.grayscale10.cgColor
+                backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
             )
         
         imageStorage.saveImage(modifiedImage, forKey: hash)
