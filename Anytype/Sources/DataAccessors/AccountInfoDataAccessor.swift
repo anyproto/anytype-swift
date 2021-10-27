@@ -9,6 +9,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     @Published private(set) var profileBlockId: BlockId
     @Published private(set) var name: String?
     @Published private(set) var avatarId: String?
+    private lazy var cancellables = [AnyCancellable]()
     
     private let document: BaseDocumentProtocol
         
@@ -16,9 +17,11 @@ final class AccountInfoDataAccessor: ObservableObject {
         let blockId = MiddlewareConfigurationService.shared.configuration().profileBlockId
         profileBlockId = blockId
         document = BaseDocument(objectId: blockId)
-        document.onUpdateReceive = { [weak self] update in
-            self?.handleDocumentUpdate(update)
-        }
+
+        document.updatePublisher.sink { [weak self] in
+            self?.handleDocumentUpdate($0)
+        }.store(in: &cancellables)
+
         document.open()
     }
     

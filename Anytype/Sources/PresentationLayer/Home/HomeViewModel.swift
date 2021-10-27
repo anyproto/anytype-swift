@@ -30,6 +30,8 @@ final class HomeViewModel: ObservableObject {
     
     let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
+    private lazy var cancellables = [AnyCancellable]()
+    
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
     private var animationsEnabled = true
@@ -37,9 +39,10 @@ final class HomeViewModel: ObservableObject {
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
         document = BaseDocument(objectId: homeBlockId)
-        document.onUpdateReceive = { [weak self] updateResult in
-            self?.onDashboardChange(updateResult: updateResult)
-        }
+
+        document.updatePublisher.sink { [weak self] in
+            self?.onDashboardChange(updateResult: $0)
+        }.store(in: &cancellables)
         document.open()
     }
 

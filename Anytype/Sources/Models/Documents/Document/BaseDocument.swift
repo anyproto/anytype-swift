@@ -10,10 +10,10 @@ private extension LoggerCategory {
 }
 
 final class BaseDocument: BaseDocumentProtocol {
-    var onUpdateReceive: ((EventsListenerUpdate) -> Void)?
-    
+    var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private let eventsListener: EventsListener
+    private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
     
     let objectId: BlockId
 
@@ -76,7 +76,7 @@ final class BaseDocument: BaseDocumentProtocol {
             guard let self = self else { return }
             
             DispatchQueue.main.async { [weak self] in
-                self?.onUpdateReceive?(update)
+                self?.updateSubject.send(update)
             }
         }
         eventsListener.startListening()
