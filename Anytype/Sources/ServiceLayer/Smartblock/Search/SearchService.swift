@@ -63,13 +63,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: RelationKey.lastModifiedDate,
             type: .desc
         )
-        let searchTypes = [
-            ObjectTemplateType.note.rawValue,
-            ObjectTemplateType.page.rawValue
-        ]
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: searchTypes
+            typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
         
         return makeRequest(
