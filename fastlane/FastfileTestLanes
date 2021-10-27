@@ -9,7 +9,6 @@ platform :ios do
     match(readonly: true)
 
     build_app(
-      derived_data_path: "~/DerivedData/Anytype/",
       scheme: "Anytype", 
       configuration: "Dev-Release",
       include_symbols: true,
