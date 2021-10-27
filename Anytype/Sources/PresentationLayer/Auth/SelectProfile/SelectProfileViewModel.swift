@@ -54,13 +54,10 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     func selectProfile(id: String) {
-        let result = authService.selectAccount(id: id)
-        
-        switch result {
-        case .success:
+        if authService.selectAccount(id: id) {
             showHomeView()
-        case .failure(let error):
-            self.error = error.localizedDescription
+        } else {
+            self.error = "Select account error".localized
         }
     }
     

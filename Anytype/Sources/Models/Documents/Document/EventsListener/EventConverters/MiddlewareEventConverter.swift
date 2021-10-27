@@ -255,6 +255,9 @@ final class MiddlewareEventConverter {
         ///
         case .objectShow:
             return .general
+        case .accountConfigUpdate(let config):
+            AccountConfigurationProvider.shared.config = .init(config: config.config)
+            return nil
         default: return nil
         }
     }

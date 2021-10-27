@@ -14,7 +14,13 @@ extension UserDefaultsConfig {
     
     static var selectedTab: HomeTabsView.Tab {
         get {
-            _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? HomeTabsView.Tab.favourites
+            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
+            
+            if tab == .shared && !AccountConfigurationProvider.shared.config.enableSpaces {
+                return .favourites
+            }
+            
+            return tab
         }
         set {
             _selectedTab = newValue.rawValue
