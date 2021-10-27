@@ -3,7 +3,7 @@ import BlocksModels
 
 enum SearchKind {
     case objects
-    case objectTypes(currentObjectTypeId: String)
+    case objectTypes(currentObjectTypeUrl: String)
 }
 
 struct SearchView: View {
@@ -94,10 +94,10 @@ struct SearchView: View {
             switch kind {
             case .objects:
                 return service.search(text: text)
-            case .objectTypes(let currentObjectTypeId):
+            case .objectTypes(let currentObjectTypeUrl):
                 return service.searchObjectTypes(
                     text: text,
-                    currentObjectTypeId: currentObjectTypeId
+                    currentObjectTypeUrl: currentObjectTypeUrl
                 )
             }
         }()

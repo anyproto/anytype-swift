@@ -69,10 +69,10 @@ class SearchHelper {
         return filter
     }
     
-    static func notObjectTypeIdFilter(_ typeId: String) -> Anytype_Model_Block.Content.Dataview.Filter {
+    static func notObjectTypeUrlFilter(_ typeUrl: String) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .notEqual
-        filter.value = Google_Protobuf_Value(stringValue: typeId)
+        filter.value = Google_Protobuf_Value(stringValue: typeUrl)
         
         filter.relationKey = RelationKey.id.rawValue
         filter.operator = .and
