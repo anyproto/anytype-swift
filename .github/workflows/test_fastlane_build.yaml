@@ -9,9 +9,9 @@ on:
         default: 'develop'
 
 jobs:
-  # main:
-  #   runs-on: macOS-11
-  #   timeout-minutes: 20
+  main:
+    runs-on: macOS-11
+    timeout-minutes: 20
 
     strategy:
       matrix:
@@ -20,16 +20,16 @@ jobs:
         product-name:
           - Anytype
 
-  #   steps:
-  #     - name: Checkout branch
-  #       uses: actions/checkout@v2.3.4
-  #       with:
-  #         ref: ${{ github.event.inputs.branch }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
-  #     - name: Install SSH key for access to repository.
-  #       uses: webfactory/ssh-agent@v0.5.3
-  #       with:
-  #         ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
+      - name: Install SSH key for access to repository.
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
   #     - name: Setup ruby
   #       uses: ruby/setup-ruby@v1.81.0
@@ -57,7 +57,7 @@ jobs:
   #         APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
 
   dsyms:
-    #needs: main
+    needs: main
     runs-on: ubuntu-latest
     timeout-minutes: 20
     
