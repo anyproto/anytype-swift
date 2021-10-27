@@ -13,12 +13,12 @@ jobs:
   #   runs-on: macOS-11
   #   timeout-minutes: 20
 
-  #   strategy:
-  #     matrix:
-  #       scheme:
-  #         - Anytype
-  #       product-name:
-  #         - Anytype
+    # strategy:
+    #   matrix:
+    #     scheme:
+    #       - Anytype
+    #     product-name:
+    #       - Anytype
 
   #   steps:
   #     - name: Checkout branch
@@ -57,7 +57,7 @@ jobs:
   #         APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
 
   dsyms:
-    needs: main
+    #needs: main
     runs-on: ubuntu-latest
     timeout-minutes: 20
     
@@ -72,7 +72,7 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-          
+
       - name: Download and Upload DSYMs
         run: |
           export LC_ALL=en_US.UTF-8
