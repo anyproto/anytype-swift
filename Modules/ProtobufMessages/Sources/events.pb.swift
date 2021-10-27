@@ -67,6 +67,14 @@ public struct Anytype_Event {
       set {value = .accountDetails(newValue)}
     }
 
+    public var accountConfigUpdate: Anytype_Event.Account.Config.Update {
+      get {
+        if case .accountConfigUpdate(let v)? = value {return v}
+        return Anytype_Event.Account.Config.Update()
+      }
+      set {value = .accountConfigUpdate(newValue)}
+    }
+
     public var objectDetailsSet: Anytype_Event.Object.Details.Set {
       get {
         if case .objectDetailsSet(let v)? = value {return v}
@@ -416,6 +424,7 @@ public struct Anytype_Event {
     public enum OneOf_Value: Equatable {
       case accountShow(Anytype_Event.Account.Show)
       case accountDetails(Anytype_Event.Account.Details)
+      case accountConfigUpdate(Anytype_Event.Account.Config.Update)
       case objectDetailsSet(Anytype_Event.Object.Details.Set)
       case objectDetailsAmend(Anytype_Event.Object.Details.Amend)
       case objectDetailsUnset(Anytype_Event.Object.Details.Unset)
@@ -472,6 +481,10 @@ public struct Anytype_Event {
         }()
         case (.accountDetails, .accountDetails): return {
           guard case .accountDetails(let l) = lhs, case .accountDetails(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountConfigUpdate, .accountConfigUpdate): return {
+          guard case .accountConfigUpdate(let l) = lhs, case .accountConfigUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectDetailsSet, .objectDetailsSet): return {
@@ -710,6 +723,37 @@ public struct Anytype_Event {
       public init() {}
 
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+    }
+
+    public struct Config {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Update {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var config: Anytype_Model_Account.Config {
+          get {return _config ?? Anytype_Model_Account.Config()}
+          set {_config = newValue}
+        }
+        /// Returns true if `config` has been explicitly set.
+        public var hasConfig: Bool {return self._config != nil}
+        /// Clears the value of `config`. Subsequent reads from it will return its default value.
+        public mutating func clearConfig() {self._config = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+
+        fileprivate var _config: Anytype_Model_Account.Config? = nil
+      }
+
+      public init() {}
     }
 
     public init() {}
@@ -3380,6 +3424,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "accountShow"),
     201: .same(proto: "accountDetails"),
+    202: .same(proto: "accountConfigUpdate"),
     16: .same(proto: "objectDetailsSet"),
     50: .same(proto: "objectDetailsAmend"),
     51: .same(proto: "objectDetailsUnset"),
@@ -4016,6 +4061,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .accountDetails(v)
         }
       }()
+      case 202: try {
+        var v: Anytype_Event.Account.Config.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .accountConfigUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .accountConfigUpdate(v)
+        }
+      }()
       default: break
       }
     }
@@ -4207,6 +4265,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
     }()
+    case .accountConfigUpdate?: try {
+      guard case .accountConfigUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 202)
+    }()
     case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -4317,6 +4379,61 @@ extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._M
   public static func ==(lhs: Anytype_Event.Account.Details, rhs: Anytype_Event.Account.Details) -> Bool {
     if lhs.profileID != rhs.profileID {return false}
     if lhs._details != rhs._details {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".Config"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Account.Config, rhs: Anytype_Event.Account.Config) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.Config.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "config"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Account.Config.Update, rhs: Anytype_Event.Account.Config.Update) -> Bool {
+    if lhs._config != rhs._config {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

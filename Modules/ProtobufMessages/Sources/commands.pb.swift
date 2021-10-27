@@ -7466,6 +7466,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case notFound // = 3
 
             /// failed to read unknown data format – need to upgrade anytype
             case anytypeNeedsUpgrade // = 10
@@ -7480,6 +7481,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .notFound
               case 10: self = .anytypeNeedsUpgrade
               default: self = .UNRECOGNIZED(rawValue)
               }
@@ -7490,6 +7492,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .notFound: return 3
               case .anytypeNeedsUpgrade: return 10
               case .UNRECOGNIZED(let i): return i
               }
@@ -7574,6 +7577,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case notFound // = 3
 
             /// failed to read unknown data format – need to upgrade anytype
             case anytypeNeedsUpgrade // = 10
@@ -7588,6 +7592,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .notFound
               case 10: self = .anytypeNeedsUpgrade
               default: self = .UNRECOGNIZED(rawValue)
               }
@@ -7598,6 +7603,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .notFound: return 3
               case .anytypeNeedsUpgrade: return 10
               case .UNRECOGNIZED(let i): return i
               }
@@ -9330,6 +9336,8 @@ public struct Anytype_Rpc {
       public var enableDebug: Bool = false
 
       public var enableReleaseChannelSwitch: Bool = false
+
+      public var enableSpaces: Bool = false
 
       public var extra: SwiftProtobuf.Google_Protobuf_Struct {
         get {return _extra ?? SwiftProtobuf.Google_Protobuf_Struct()}
@@ -16426,6 +16434,7 @@ extension Anytype_Rpc.Block.Open.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
+    .notFound,
     .anytypeNeedsUpgrade,
   ]
 }
@@ -16436,6 +16445,7 @@ extension Anytype_Rpc.Block.Show.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
+    .notFound,
     .anytypeNeedsUpgrade,
   ]
 }
@@ -28206,6 +28216,7 @@ extension Anytype_Rpc.Block.Open.Response.Error.Code: SwiftProtobuf._ProtoNamePr
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "NOT_FOUND"),
     10: .same(proto: "ANYTYPE_NEEDS_UPGRADE"),
   ]
 }
@@ -28358,6 +28369,7 @@ extension Anytype_Rpc.Block.Show.Response.Error.Code: SwiftProtobuf._ProtoNamePr
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "NOT_FOUND"),
     10: .same(proto: "ANYTYPE_NEEDS_UPGRADE"),
   ]
 }
@@ -30770,6 +30782,7 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
     1: .same(proto: "enableDataview"),
     2: .same(proto: "enableDebug"),
     3: .same(proto: "enableReleaseChannelSwitch"),
+    4: .same(proto: "enableSpaces"),
     100: .same(proto: "extra"),
   ]
 
@@ -30782,6 +30795,7 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 1: try { try decoder.decodeSingularBoolField(value: &self.enableDataview) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.enableDebug) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.enableReleaseChannelSwitch) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.enableSpaces) }()
       case 100: try { try decoder.decodeSingularMessageField(value: &self._extra) }()
       default: break
       }
@@ -30802,6 +30816,9 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.enableReleaseChannelSwitch != false {
       try visitor.visitSingularBoolField(value: self.enableReleaseChannelSwitch, fieldNumber: 3)
     }
+    if self.enableSpaces != false {
+      try visitor.visitSingularBoolField(value: self.enableSpaces, fieldNumber: 4)
+    }
     try { if let v = self._extra {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
     } }()
@@ -30812,6 +30829,7 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.enableDataview != rhs.enableDataview {return false}
     if lhs.enableDebug != rhs.enableDebug {return false}
     if lhs.enableReleaseChannelSwitch != rhs.enableReleaseChannelSwitch {return false}
+    if lhs.enableSpaces != rhs.enableSpaces {return false}
     if lhs._extra != rhs._extra {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

@@ -18,6 +18,7 @@ message Event {
         oneof value {
             Account.Show accountShow = 1;
             Account.Details accountDetails = 201;
+            Account.Config.Update accountConfigUpdate = 202;
 
             Object.Details.Set objectDetailsSet = 16;
             Object.Details.Amend objectDetailsAmend = 50;
@@ -88,6 +89,12 @@ message Event {
         message Details {
             string profileId = 1;
             google.protobuf.Struct details = 2;
+        }
+
+        message Config {
+            message Update {
+                anytype.model.Account.Config config = 1;
+            }
         }
     }
 

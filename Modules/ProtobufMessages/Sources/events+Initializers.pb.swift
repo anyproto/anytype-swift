@@ -67,6 +67,12 @@ extension Anytype_Event {
   }
 }
 
+extension Anytype_Event.Account.Config.Update {
+  public init(config: Anytype_Model_Account.Config) {
+    self.config = config
+  }
+}
+
 extension Anytype_Event.Account.Details {
   public init(profileID: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
     self.profileID = profileID
