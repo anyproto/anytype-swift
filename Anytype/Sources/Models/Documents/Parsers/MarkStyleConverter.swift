@@ -30,20 +30,22 @@ enum MarkStyleActionConverter {
                 return nil
             }
             return .backgroundColor(color)
+
         case .mention:
             guard let details = detailsStorage.get(id: tuple.value) else {
                 return .mention(.noDetails(blockId: tuple.value))
             }
-            
             return .mention(MentionData(details: details))
-        case .UNRECOGNIZED(let value):
-            anytypeAssertionFailure("Unrecognized markup \(value)")
-            return nil
+
+        case .object:
+            return .linkToObject(tuple.value)
+
         case .emoji:
             anytypeAssertionFailure("Unrecognized markup emoji")
             return nil
-        case .object:
-            anytypeAssertionFailure("Unrecognized markup object")
+
+        case .UNRECOGNIZED(let value):
+            anytypeAssertionFailure("Unrecognized markup \(value)")
             return nil
         }
     }

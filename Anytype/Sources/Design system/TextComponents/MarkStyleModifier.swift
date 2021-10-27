@@ -105,7 +105,14 @@ final class MarkStyleModifier {
                 changeAttributes: [.link : url as Any],
                 deletedKeys: url.isNil ? [.link] : []
             )
-
+        case let .linkToObject(blockId):
+            return AttributedStringChange(
+                changeAttributes: [
+                    .linkToObject: blockId as Any,
+                    .localUnderline: true
+                ],
+                deletedKeys: blockId.isEmpty ? [.linkToObject, .localUnderline] : []
+            )
         case let .mention(data):
             return mentionUpdate(data: data)
         }

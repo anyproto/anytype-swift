@@ -48,7 +48,7 @@ struct BlockValidator {
     func validatedTextContent(content: BlockText, restrictions: BlockRestrictions) -> BlockText {
         let filteredMarks = content.marks.marks.filter { mark in
             switch mark.type {
-            case .strikethrough, .keyboard, .underscored, .link:
+            case .strikethrough, .keyboard, .underscored, .link, .object:
                 return restrictions.canApplyOtherMarkup
             case .bold:
                 return restrictions.canApplyBold
@@ -63,8 +63,6 @@ struct BlockValidator {
             case .UNRECOGNIZED:
                 return false
             case .emoji:
-                return false
-            case .object:
                 return false
             }
         }

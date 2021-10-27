@@ -2,6 +2,7 @@
 import UIKit
 
 extension NSAttributedString.Key {
+    static let linkToObject = NSAttributedString.Key("LinkToObject")
     /// Value for this key should be page Id string
     static let mention = NSAttributedString.Key("Mention")
     /// Used to underline characters without sending markup to middleware, value should be Bool, only "true" will underline text
@@ -15,6 +16,7 @@ extension NSAttributedString.Key {
         case .paragraphStyle:
             return value is NSParagraphStyle
         case .mention,
+             .linkToObject,
              .textEffect:
             return value is String
         case .link:

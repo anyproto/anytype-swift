@@ -100,8 +100,9 @@ extension TextBlockContentView: CustomTextViewDelegate {
             }
             return shouldChangeText
         case let .changeLink(attrText, range):
-            let link: URL? = attrText.value(for: .link, range: range)
-            currentConfiguration.accessorySwitcher.showURLInput(url: link)
+            currentConfiguration.actionHandler.showLinkToSearch(blockId: currentConfiguration.information.id,
+                                                                attrText: attrText,
+                                                                range: range)
         case let .showPage(pageId):
             guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
                 // Deleted objects goes here

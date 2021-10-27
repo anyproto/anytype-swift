@@ -27,4 +27,5 @@ protocol EditorActionHandlerProtocol: AnyObject {
     func handleActionForFirstResponder(_ action: BlockHandlerActionType)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange)
 }

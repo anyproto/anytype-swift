@@ -48,6 +48,9 @@ extension UITextView {
     
     func setFocus(_ position: BlockFocusPosition) {
         let selectedRange = position.toSelectedRange(in: NSString(string: text))
+        // There is issue with persist typing attributes (font) when setting attr text with NSTextStorage
+        // Also we can't use https://github.com/anytypeio/ios-anytype/pull/1703 this approach as cursor will be reseted on typing
+        let oldTypingAttributes = typingAttributes
 
         if let beginningSelectedTextPostion = self.position(from: beginningOfDocument, offset: selectedRange.location),
            let endSelectedTextPosition = self.position(from: beginningSelectedTextPostion, offset: selectedRange.length)
@@ -60,6 +63,7 @@ extension UITextView {
         if !isFirstResponder && canBecomeFirstResponder {
             becomeFirstResponder()
         }
+        typingAttributes = oldTypingAttributes
     }
     
     func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextViewTextChangeType {

@@ -10,6 +10,7 @@ enum MarkStyleAction: Equatable {
     case textColor(UIColor)
     case backgroundColor(UIColor)
     case link(URL?)
+    case linkToObject(BlockId)
     case mention(MentionData)
     
 }

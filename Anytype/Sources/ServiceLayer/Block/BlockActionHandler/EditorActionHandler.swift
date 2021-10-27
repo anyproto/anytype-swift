@@ -1,6 +1,7 @@
 import BlocksModels
 import AnytypeCore
 
+
 enum ActionHandlerBlockIdSource {
     case firstResponder
     case provided(BlockId)
@@ -99,6 +100,12 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         blockActionHandler.setObjectTypeUrl(objectTypeUrl)
+    }
+
+    func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
+        router.showLinkTo { [weak self] linkBlockId in
+            self?.blockActionHandler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+        }
     }
     
     // MARK: - Private

@@ -87,7 +87,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         case let .setLink(attrText, url, range):
             markupChanger.setLink(url, attributedText: attrText, for: blockId, in: range)
-            
+
+        case let .setLinkToObject(linkBlockId: linkBlockId, attrText, range):
+            markupChanger.setLinkToObject(id: linkBlockId, attributedText: attrText, for: blockId, in: range)
+
         case .delete:
             delete(blockId: blockId)
             
