@@ -12,16 +12,13 @@ import BlocksModels
 extension RelationValuesProvider {
     
     var pageCellTitle: HomeCellData.Title {
-        let title = name
-        
-        guard case .todo = layout else {
-            return .default(title: title)
+        switch layout {
+        case .note:
+            return .default(title: snippet)
+        case .todo:
+            return .todo(title: name, isChecked: isDone)
+        default:
+            return .default(title: name)
         }
-        
-        return .todo(
-            title: title,
-            isChecked: isDone
-        )
     }
-    
 }
