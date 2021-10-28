@@ -1,24 +1,8 @@
 default_platform(:ios)
 
 platform :ios do
-
-  lane :upload_dev_symbols do |options|
-    upload_symbols(
-      release: false,
-      min_version: options[:min_version]
-    )
-  end
-
-  lane :upload_release_symbols do |options|
-    upload_symbols(
-      release: true,
-      min_version: options[:min_version]
-    )
-  end
-
-  # Private lanes
   
-  private_lane :upload_symbols do |options|
+  lane :update_symbols do |options|
     app_store_connect_api_key(
         key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
         issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
@@ -27,19 +11,44 @@ platform :ios do
         in_house: false
     )
 
+    if options[:is_release]
+      update_release_symbols(
+         min_version: options[:min_version]
+      )
+    else
+      update_dev_symbols(
+         min_version: options[:min_version]
+      )
+    end
+
+  end
+
+  lane :update_dev_symbols do |options|
     download_dsyms(
        min_version: options[:min_version]
     )
+    upload_symbols(
+      gsp_path: './Anytype/Resources/Plists/GoogleService-Info-Dev.plist',
+    )
+  end
 
-    release_plist = './Anytype/Resources/Plists/GoogleService-Info.plist'
-    dev_plist = './Anytype/Resources/Plists/GoogleService-Info-Dev.plist'
-    gsp_path = options[:release] ? release_plist : dev_plist
+  lane :update_release_symbols do |options|
+    download_dsyms(
+       min_version: options[:min_version]
+    )
+    upload_symbols(
+      gsp_path: './Anytype/Resources/Plists/GoogleService-Info.plist'
+    )
+  end
 
+  # Private lane
+
+  private_lane :upload_symbols do |options|
     upload_symbols_to_crashlytics(
-      gsp_path: gsp_path,
+      gsp_path: options[:gsp_path],
       binary_path: './Scripts/upload-symbols',
       debug: true
-    )      
+    )
   end
 
 end
