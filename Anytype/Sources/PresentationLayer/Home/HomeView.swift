@@ -102,9 +102,7 @@ struct HomeView: View {
     private var newPageNavigation: some View {
         Group {
             NavigationLink(
-                destination: viewModel.coordinator.documentView(
-                    selectedDocumentId: viewModel.openedPageData.pageId
-                ),
+                destination: viewModel.createBrowser(),
                 isActive: $viewModel.openedPageData.showingNewPage,
                 label: { EmptyView() }
             )

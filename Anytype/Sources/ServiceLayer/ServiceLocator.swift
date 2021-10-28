@@ -58,9 +58,5 @@ final class ServiceLocator {
             authAssembly: AuthAssembly()
         )
     }
-    
-    func homeCoordinator() -> HomeCoordinator {
-        HomeCoordinator(editorAssembly:  EditorAssembly())
-    }
 
 }
