@@ -35,7 +35,7 @@ platform :ios do
     dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
 
     upload_symbols_to_crashlytics(
-      gsp_path: options[:release] ? release_plist : dev_plist
+      gsp_path: options[:release] ? release_plist : dev_plist,
       debug: true
     )      
   end
