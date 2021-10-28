@@ -1,0 +1,56 @@
+name: Update dSYM's
+
+on:
+  workflow_dispatch:
+    inputs:
+      min_version:
+        description: 'The minimum app version for dSYMs you wish to download'     
+        required: true
+      type:
+        description: 'App type (release or dev)'     
+        required: true
+        default: 'dev'
+      branch:
+        description: 'Branch'     
+        required: true
+        default: 'develop'
+
+jobs:
+  main:
+    runs-on: macOS-11
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1.81.0
+        with:
+            ruby-version: 2.7.2
+            bundler-cache: true
+
+      - name: Update dev dSYMs
+        if: ${{ github.event.inputs.type == 'dev' }}
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane update_dev_symbols
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+          
+      - name: Update release dSYMs
+        if: ${{ github.event.inputs.type == 'release' }}
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane update_release_symbols
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+
