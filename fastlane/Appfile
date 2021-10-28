@@ -6,7 +6,7 @@ itc_team_id("120897371")
 
 apple_id("iosteam@anytype.io") 
 
-
+# Dev
 for_lane :dev do
 	app_identifier("com.anytypeio.anytype.dev") 
 end
@@ -15,6 +15,7 @@ for_lane :update_dev_symbols do
 	app_identifier("com.anytypeio.anytype.dev") 
 end
 
+# Release
 for_lane :release do
 	app_identifier("com.anytypeio.anytype") 
 end

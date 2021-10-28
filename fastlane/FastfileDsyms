@@ -3,41 +3,37 @@ default_platform(:ios)
 platform :ios do
   
   lane :update_dev_symbols do |options|
-    app_store_connect_api_key(
-        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
-        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
-        key_content: ENV['APP_STORE_CONNECT_KEY_CONTENT'],
-        duration: 1200,
-        in_house: false
-    )
-
-    download_dsyms(
-       min_version: options[:min_version]
-    )
-    upload_symbols(
-      gsp_path: './Anytype/Resources/Plists/GoogleService-Info-Dev.plist',
+    update_symbols(
+      version: options[:version],
+      build_number: options[:build_number],
+      gsp_path: './Anytype/Resources/Plists/GoogleService-Info-Dev.plist'
     )
   end
 
   lane :update_release_symbols do |options|
-    app_store_connect_api_key(
-        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
-        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
-        key_content: ENV['APP_STORE_CONNECT_KEY_CONTENT'],
-        duration: 1200,
-        in_house: false
-    )
-    download_dsyms(
-       min_version: options[:min_version]
-    )
-    upload_symbols(
+    update_symbols(
+      version: options[:version],
+      build_number: options[:build_number],
       gsp_path: './Anytype/Resources/Plists/GoogleService-Info.plist'
     )
   end
 
   # Private lane
 
-  private_lane :upload_symbols do |options|
+  private_lane :update_symbols do |options|
+    app_store_connect_api_key(
+        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
+        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+        key_content: ENV['APP_STORE_CONNECT_KEY_CONTENT'],
+        duration: 1200,
+        in_house: false
+    )
+
+    download_dsyms(
+      version: options[:version],
+      build_number: options[:build_number]
+    )
+
     upload_symbols_to_crashlytics(
       gsp_path: options[:gsp_path],
       binary_path: './Scripts/upload-symbols',
