@@ -22,6 +22,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
+    private lazy var cancellables = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingle
 
@@ -69,10 +70,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         objectHeaderLocalEventsListener.beginObservingEvents { [weak self] event in
             self?.handleObjectHeaderLocalEvent(event)
         }
-        
-        document.onUpdateReceive = { [weak self] updateResult in
-            self?.handleUpdate(updateResult: updateResult)
-        }
+
+        document.updatePublisher.sink { [weak self] in
+            self?.handleUpdate(updateResult: $0)
+        }.store(in: &cancellables)
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
