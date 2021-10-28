@@ -11,7 +11,7 @@ for_lane :dev do
 	app_identifier("com.anytypeio.anytype.dev") 
 end
 
-for_lane :refresh_dev_dsyms do
+for_lane :upload_dev_symbols do
 	app_identifier("com.anytypeio.anytype.dev") 
 end
 
@@ -19,7 +19,6 @@ for_lane :release do
 	app_identifier("com.anytypeio.anytype") 
 end
 
-
-for_lane :refresh_release_dsyms do
+for_lane :upload_release_symbols do
 	app_identifier("com.anytypeio.anytype") 
 end

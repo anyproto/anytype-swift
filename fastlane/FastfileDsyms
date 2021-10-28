@@ -2,21 +2,23 @@ default_platform(:ios)
 
 platform :ios do
 
-  lane :refresh_dev_dsyms do 
-    refresh_dsyms(
-      release: false
+  lane :upload_dev_symbols do |options|
+    upload_symbols(
+      release: false,
+      min_version: options[:min_version]
     )
   end
 
-  lane :refresh_release_dsyms do 
-    refresh_dsyms(
-      release: true
+  lane :upload_release_symbols do |options|
+    upload_symbols(
+      release: true,
+      min_version: options[:min_version]
     )
   end
 
   # Private lanes
   
-  private_lane :refresh_dsyms do |options|
+  private_lane :upload_symbols do |options|
     app_store_connect_api_key(
         key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
         issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
@@ -26,9 +28,7 @@ platform :ios do
     )
 
     download_dsyms(
-      wait_for_dsym_processing: true,
-      wait_timeout: 1000,
-      version: 'latest'
+       min_version: options[:min_version]
     )
 
     release_plist = './Anytype/Resources/Plists/GoogleService-Info.plist'
