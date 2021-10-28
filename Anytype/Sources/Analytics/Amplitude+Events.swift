@@ -1,4 +1,5 @@
 import Amplitude
+import BlocksModels
 
 extension Amplitude {
     func logAccountCreate(_ accountId: String) {
@@ -19,6 +20,13 @@ extension Amplitude {
         Amplitude.instance().logEvent(
             AmplitudeEventsName.objectListDelete,
             withEventProperties: [AmplitudeEventsPropertiesKey.count : count]
+        )
+    }
+    
+    func logDocumentShow(_ objectId: BlockId) {
+        Amplitude.instance().logEvent(
+            AmplitudeEventsName.documentPage,
+            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: objectId]
         )
     }
 }

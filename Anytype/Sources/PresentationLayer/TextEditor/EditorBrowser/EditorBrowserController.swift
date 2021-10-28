@@ -2,7 +2,13 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
-final class EditorBrowserController: UIViewController, UINavigationControllerDelegate {
+protocol EditorBrowser: AnyObject {
+    func pop()
+    func goToHome(animated: Bool)
+    func showPage(pageId: BlockId)
+}
+
+final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser {
         
     var childNavigation: UINavigationController!
     var router: EditorRouterProtocol!
@@ -73,7 +79,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
+                self?.goToHome(animated: true)
             },
             onSearchTap: { [weak self] in
                 self?.router.showSearch { blockId in
@@ -89,7 +95,15 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         } else {
             navigationController?.popViewController(animated: true)
         }
-    }    
+    }
+    
+    func goToHome(animated: Bool) {
+        navigationController?.popViewController(animated: animated)
+    }
+    
+    func showPage(pageId: BlockId) {
+        router.showPage(with: pageId)
+    }
     
     // MARK: - Unavailable
     @available(*, unavailable)

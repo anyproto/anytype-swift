@@ -32,13 +32,17 @@ final class HomeViewModel: ObservableObject {
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
     private var animationsEnabled = true
     
+    weak var editorBrowser: EditorBrowser?
+    private var quickActionsSubscription: AnyCancellable?
+    
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
         document = BaseDocument(objectId: homeBlockId)
         document.onUpdateReceive = { [weak self] updateResult in
             self?.onDashboardChange(updateResult: updateResult)
         }
-        document.open()
+        _ = document.open()
+        setupQuickActionsSubscription()
     }
 
     // MARK: - View output
@@ -73,6 +77,18 @@ final class HomeViewModel: ObservableObject {
     }
     
     // MARK: - Private methods
+    private func setupQuickActionsSubscription() {
+        quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
+            switch action {
+            case .newNote:
+                self?.createAndShowNewPage()
+                QuickActionsStorage.shared.action = nil
+            case .none:
+                break
+            }
+        }
+    }
+    
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {
@@ -114,10 +130,30 @@ final class HomeViewModel: ObservableObject {
 
 // MARK: - New page
 extension HomeViewModel {
+    func startSearch() {
+        showSearch = true
+    }
+    
     func createAndShowNewPage() {
         guard let blockId = createNewPage() else { return }
         
         showPage(pageId: blockId)
+    }
+    
+    func showPage(pageId: BlockId) {
+        if openedPageData.showingNewPage {
+            editorBrowser?.showPage(pageId: pageId)
+        } else {
+            animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
+            openedPageData.pageId = pageId
+            openedPageData.showingNewPage = true
+        }
+    }
+    
+    func createBrowser() -> some View {
+        EditorAssembly().editor(blockId: openedPageData.pageId, model: self)
+            .eraseToAnyView()
+            .edgesIgnoringSafeArea(.all)
     }
     
     private func createNewPage() -> BlockId? {
@@ -129,21 +165,5 @@ extension HomeViewModel {
         }
         
         return newBlockId
-    }
-    
-    func startSearch() {
-        showSearch = true
-    }
-    
-    func showPage(pageId: BlockId) {
-        animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
-        openedPageData.pageId = pageId
-        openedPageData.showingNewPage = true
-    }
-    
-    func createBrowser() -> some View {
-        EditorAssembly().editor(blockId: openedPageData.pageId)
-            .eraseToAnyView()
-            .edgesIgnoringSafeArea(.all)
     }
 }
