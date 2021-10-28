@@ -79,7 +79,6 @@
 		0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68C77B240D52B3001E2F44 /* DataStructures+GroupBy.swift */; };
 		0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F90052554546200B94AED /* BlocksModelsParserLayoutStyleConverter.swift */; };
 		0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F900D2554826700B94AED /* UnknownLabelViewModel.swift */; };
-		0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */; };
 		0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D79239591C80097560A /* Gradients.swift */; };
 		0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B72399C1FA00AD3BC3 /* DiskStorage.swift */; };
 		0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */; };
@@ -147,6 +146,7 @@
 		1223C9002726BE1C00C34616 /* FeaturedRelationsBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C8FF2726BE1C00C34616 /* FeaturedRelationsBlockView.swift */; };
 		1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */; };
 		1223C90D272828CA00C34616 /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C90C272828CA00C34616 /* SearchData.swift */; };
+		122FFD29272A60230069129A /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 122FFD28272A60230069129A /* FirebaseCrashlytics */; };
 		123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDACD26C1361B00F6F44B /* ObjectHeader.swift */; };
 		123FDAD026C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDACF26C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift */; };
 		123FDAD226C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */; };
@@ -1384,7 +1384,7 @@
 				1259300826F3A60B00B115CD /* Amplitude in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
-				0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */,
+				122FFD29272A60230069129A /* FirebaseCrashlytics in Frameworks */,
 				53856BEB265BC48800CB1FAE /* ProtobufMessages.framework in Frameworks */,
 				1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */,
 			);
@@ -4303,12 +4303,12 @@
 			);
 			name = Anytype;
 			packageProductDependencies = (
-				0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */,
 				5333421B262E249100238121 /* FloatingPanel */,
 				1259300426F3A5C500B115CD /* Highlightr */,
 				1259300726F3A60B00B115CD /* Amplitude */,
 				1259300D26F3A6AE00B115CD /* Kingfisher */,
 				1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */,
+				122FFD28272A60230069129A /* FirebaseCrashlytics */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -4361,12 +4361,12 @@
 			);
 			mainGroup = 0303ECF222D8EDAA005C552B;
 			packageReferences = (
-				0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */,
 				1259300626F3A60B00B115CD /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 				1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
+				122FFD27272A60230069129A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -5509,12 +5509,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		122FFD27272A60230069129A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:firebase/firebase-ios-sdk.git";
 			requirement = {
-				branch = "7.0-spm-beta";
-				kind = branch;
+				kind = exactVersion;
+				version = 8.8.0;
 			};
 		};
 		1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */ = {
@@ -5560,9 +5560,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */ = {
+		122FFD28272A60230069129A /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 122FFD27272A60230069129A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
 		1259300426F3A5C500B115CD /* Highlightr */ = {
