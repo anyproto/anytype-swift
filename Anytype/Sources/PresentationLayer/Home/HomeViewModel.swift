@@ -114,20 +114,21 @@ final class HomeViewModel: ObservableObject {
 
 // MARK: - New page
 extension HomeViewModel {
-    func createNewPage() {
-        guard let response = dashboardService.createNewPage() else { return }
+    func createAndShowNewPage() {
+        guard let blockId = createNewPage() else { return }
         
-        EventsBunch(
-            objectId: document.objectId,
-            middlewareEvents: response.messages
-        ).send()
+        showPage(pageId: blockId)
+    }
+    
+    private func createNewPage() -> BlockId? {
+        guard let newBlockId = dashboardService.createNewPage() else { return nil }
 
-        guard !response.newBlockId.isEmpty else {
+        if newBlockId.isEmpty {
             anytypeAssertionFailure("No new block id in create new page response")
-            return
+            return nil
         }
         
-        showPage(pageId: response.newBlockId)
+        return newBlockId
     }
     
     func startSearch() {

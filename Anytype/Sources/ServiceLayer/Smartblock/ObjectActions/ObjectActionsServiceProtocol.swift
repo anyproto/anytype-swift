@@ -13,12 +13,9 @@ protocol ObjectActionsServiceProtocol {
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
-        contextId: BlockId,
-        targetId: BlockId,
-        details: ObjectRawDetails,
-        position: BlockPosition,
-        templateId: String
-    ) -> CreatePageResponse?
+        contextId: BlockId, targetId: BlockId, details: ObjectRawDetails,
+        position: BlockPosition, templateId: String
+    ) -> BlockId?
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String)
 }

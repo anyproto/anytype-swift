@@ -32,7 +32,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         details: ObjectRawDetails,
         position: BlockPosition,
         templateId: String
-    ) -> CreatePageResponse? {
+    ) -> BlockId? {
         let protobufDetails = details.asMiddleware.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
@@ -40,13 +40,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
-        return Anytype_Rpc.Block.CreatePage.Service
+        let response = Anytype_Rpc.Block.CreatePage.Service
             .invoke(
                 contextID: contextId, details: protobufStruct, templateID: templateId,
                 targetID: targetId, position: position.asMiddleware, fields: .init()
             )
-            .map { CreatePageResponse($0) }
             .getValue()
+        
+        guard let response = response else { return nil}
+        EventsBunch(event: response.event).send()
+        return response.targetID
     }
 
     func updateLayout(contextID: BlockId, value: Int) {
