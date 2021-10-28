@@ -13,13 +13,6 @@ jobs:
     runs-on: macOS-11
     timeout-minutes: 20
 
-    # strategy:
-    #   matrix:
-    #     scheme:
-    #       - Anytype
-    #     product-name:
-    #       - Anytype
-
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2.3.4

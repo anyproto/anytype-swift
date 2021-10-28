@@ -36,7 +36,7 @@ platform :ios do
 
     upload_symbols_to_crashlytics(
       gsp_path: options[:release] ? release_plist : dev_plist,
-      binary_path: './Scripts/upload-symbols', 
+      binary_path: './Scripts/', 
       debug: true
     )      
   end
