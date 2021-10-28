@@ -29,5 +29,11 @@ public final class SynchronizedDictionary<K, V> where K: Hashable {
             lock.unlock()
         }
     }
+    
+    public func removeValue(forKey key: K) {
+        lock.lock()
+        dictionary.removeValue(forKey: key)
+        lock.unlock()
+    }
 
 }
