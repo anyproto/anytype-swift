@@ -31,13 +31,13 @@ platform :ios do
       version: 'latest'
     )
 
-    release_plist = './Anytype/Resources/Plists/GoogleService-Info.plist'
-    dev_plist = './Anytype/Resources/Plists/GoogleService-Info-Dev.plist'
+    release_plist = "./Anytype/Resources/Plists/GoogleService-Info.plist"
+    dev_plist = "./Anytype/Resources/Plists/GoogleService-Info-Dev.plist"
     gsp_path = options[:release] ? release_plist : dev_plist
 
     upload_symbols_to_crashlytics(
       gsp_path: gsp_path,
-      #binary_path: './Scripts/upload-symbols',
+      #binary_path: "./Scripts/upload-symbols",
       debug: true
     )      
   end
