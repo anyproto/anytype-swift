@@ -30,10 +30,6 @@ jobs:
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
         APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
-    defaults:
-      run: |
-          export LC_ALL=en_US.UTF-8
-          export LANG=en_US.UTF-8
 
     steps:
       - name: Checkout branch
@@ -50,10 +46,14 @@ jobs:
       - name: Update dev dSYMs
         if: ${{ github.event.inputs.type == 'dev' }}
         run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
           bundle exec fastlane update_dev_symbols version:"${{ github.event.inputs.version }}" build_number:"${{ github.event.inputs.build_number }}"
           
       - name: Update release dSYMs
         if: ${{ github.event.inputs.type == 'release' }}
         run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
           bundle exec fastlane update_release_symbols version:"${{ github.event.inputs.version }}" build_number:"${{ github.event.inputs.build_number }}"
 
