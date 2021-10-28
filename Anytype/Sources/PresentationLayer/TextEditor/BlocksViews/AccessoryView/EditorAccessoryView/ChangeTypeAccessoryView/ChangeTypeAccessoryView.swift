@@ -64,8 +64,6 @@ class ChangeTypeAccessoryView: UIView {
 
     private func bindViewModel() {
         viewModel.$isTypesViewVisible.sink { [weak self] isVisible in
-            self?.changeButton.isSelected = isVisible
-
             UIView.animate(withDuration: 0.2) {
                 self?.changeTypeView.isHidden = !isVisible
                 self?.stackView.layoutIfNeeded()
@@ -112,21 +110,22 @@ private final class ChangeButton: UIButton {
     private func setup() {
         setTitle("Change type".localized, for: .normal)
         setImage(.codeBlock.arrow, for: .normal)
-        setTitleColor(.black, for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.grayscale50, for: .normal)
+        setTitleColor(.black, for: .highlighted)
+
+        addTarget(self, action: #selector(didTap), for: .touchUpInside)
+
         imageEdgeInsets = .init(top: 0, left: -9, bottom: 0, right: 0)
     }
 
-    override var isSelected: Bool {
-        didSet {
-            guard let transform = imageView?.transform.rotated(by: Double.pi) else {
-                return
-            }
+    @objc func didTap() {
+        guard let transform = imageView?.transform.rotated(by: Double.pi) else {
+            return
+        }
 
-            UIView.animate(withDuration: 0.4) {
-                self.imageView?.transform = transform
-            }
+        UIView.animate(withDuration: 0.4) {
+            self.imageView?.transform = transform
         }
     }
 }
