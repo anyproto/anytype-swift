@@ -42,7 +42,6 @@ final class AccountInfoDataAccessor: ObservableObject {
         
         self.name = details.name.isEmpty ? Constants.defaultName : details.name
         self.avatarId = details.iconImageHash?.value
-        
     }
     
 }
