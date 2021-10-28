@@ -25,7 +25,7 @@ struct BlockRestrictionsFactory {
             return PageBlockRestrictions()
         case .bookmark:
             return BookmarkBlockRestrictions()
-        case .smartblock, .layout:
+        case .smartblock, .layout, .featuredRelations:
             return DummyRestrictions()
         }
     }

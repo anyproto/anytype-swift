@@ -29,7 +29,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
         case let .layout(layout):
             return .layout(layout.style)
         case .featuredRelations:
-            return .text(.text)
+            return .featuredRelations
         case .unsupported:
             return .text(.text)
         }

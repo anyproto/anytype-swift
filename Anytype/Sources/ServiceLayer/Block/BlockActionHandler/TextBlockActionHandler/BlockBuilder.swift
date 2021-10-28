@@ -80,7 +80,7 @@ struct BlockBuilder {
             return .file(.empty(contentType: type))
         case let .link(style):
             return .link(.init(style: style))
-        case .layout, .smartblock:
+        case .layout, .smartblock, .featuredRelations:
             return nil
         }
     }

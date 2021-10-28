@@ -7,6 +7,7 @@ public enum BlockContentType: Hashable {
     case bookmark(BlockBookmark.Style)
     case link(BlockLink.Style)
     case layout(BlockLayout.Style)
+    case featuredRelations
 
     public var style: String {
         switch self {
@@ -24,6 +25,8 @@ public enum BlockContentType: Hashable {
             return String(describing: style)
         case let .layout(style):
             return String(describing: style)
+        case .featuredRelations:
+            return "featuredRelations"
         }
     }
 }
