@@ -45,8 +45,8 @@ extension HorizonalTypeListViewModel.Item {
     }
 
     static func searchItem(onTap: @escaping () -> Void) -> Self {
-        let image = UIImage.editorNavigation.search.image(
-            imageSize: .init(width: 20, height: 20),
+        let image = UIImage.edititngToolbar.ChangeType.search.image(
+            imageSize: .init(width: 24, height: 24),
             cornerRadius: 12,
             side: 48,
             backgroundColor: .grayscale10
