@@ -63,6 +63,3 @@ jobs:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
-
-      - name: Upload dsyms to Crashlytics
-        run: ./Scripts/upload-symbols -gsp ./Anytype/Resources/Plists/GoogleService-Info-Dev.plist -p ios ./Anytype.app.dSYM.zip
