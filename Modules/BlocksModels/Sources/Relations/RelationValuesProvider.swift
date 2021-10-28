@@ -7,6 +7,7 @@ public protocol RelationValuesProvider {
     var values: [String: Google_Protobuf_Value] { get }
     
     var name: String { get }
+    var snippet: String { get }
     var iconEmoji: String { get }
     var iconImageHash: Hash? { get }
     var coverId: String { get }
@@ -29,6 +30,10 @@ public extension RelationValuesProvider {
     
     var name: String {
         stringValue(with: .name)
+    }
+
+    var snippet: String {
+        stringValue(with: .snippet)
     }
     
     var iconEmoji: String {
