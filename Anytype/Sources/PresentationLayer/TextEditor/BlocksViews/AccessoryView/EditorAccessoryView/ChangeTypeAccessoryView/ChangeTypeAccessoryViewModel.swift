@@ -7,10 +7,13 @@ final class ChangeTypeAccessoryViewModel {
     @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
 
+    private var allSupportedTypes = [TypeItem]()
     private let router: EditorRouterProtocol
     private let handler: EditorActionHandlerProtocol
     private let searchService: SearchServiceProtocol
     private let document: BaseDocumentProtocol
+
+    private var cancellables = [AnyCancellable]()
 
     init(
         router: EditorRouterProtocol,
@@ -24,6 +27,7 @@ final class ChangeTypeAccessoryViewModel {
         self.document = document
 
         fetchSupportedTypes()
+        subscribeOnDocumentChanges()
     }
 
     func handleDoneButtonTap() {
@@ -41,10 +45,22 @@ final class ChangeTypeAccessoryViewModel {
                 TypeItem(from: object, handler: { [weak handler] in handler?.setObjectTypeUrl(object.id) })
             }
 
-        supportedTypes.map { self.supportedTypes = $0 }
+        supportedTypes.map { allSupportedTypes = $0 }
+    }
+
+    private func subscribeOnDocumentChanges() {
+        document.updatePublisher.sink { [weak self] _ in
+            guard let self = self else { return }
+            let filteredItems = self.allSupportedTypes.filter {
+                $0.id != self.document.objectDetails?.type
+            }
+            self.supportedTypes = filteredItems
+        }.store(in: &cancellables)
     }
 }
 
 extension ChangeTypeAccessoryViewModel: TypeListItemProvider {
-    var typesPublisher: Published<[HorizonalTypeListViewModel.Item]>.Publisher { $supportedTypes }
+    var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> {
+        $supportedTypes.eraseToAnyPublisher()
+    }
 }

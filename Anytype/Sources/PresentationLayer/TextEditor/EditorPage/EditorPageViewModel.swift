@@ -16,6 +16,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let router: EditorRouterProtocol
     
     private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
+    private let cursorManager = EditorCursorManager()
     let objectSettingsViewModel: ObjectSettingsViewModel
     let blockActionHandler: EditorActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
@@ -25,8 +26,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private lazy var cancellables = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingle
-
-    private var didAppearedOnce = false
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -127,6 +126,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         handleGeneralUpdate(with: blocksViewModels)
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels)
+
+        cursorManager.handleGeneralUpdate(with: modelsHolder.models, type: document.objectDetails?.type)
     }
     
     private func handleDeletionState() {
@@ -140,10 +141,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
-        guard !blockIds.isEmpty else {
-            return
-        }
-
         for blockId in blockIds {
             guard let newRecord = document.blocksContainer
                     .model(id: document.objectId)?
@@ -232,13 +229,7 @@ extension EditorPageViewModel {
     }
 
     func viewAppeared() {
-        if !didAppearedOnce,
-           let firstModel = modelsHolder.models.first,
-           firstModel.content.isEmpty {
-            (firstModel as? TextBlockViewModel)?.set(focus: .beginning)
-        }
-
-        didAppearedOnce = true
+        cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
     }
 }
 
