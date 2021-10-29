@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import Combine
 import AnytypeCore
+import BlocksModels
 
 final class ApplicationCoordinator {
     
@@ -52,9 +53,18 @@ final class ApplicationCoordinator {
 private extension ApplicationCoordinator {
  
     func runAtFirstLaunch() {
-        guard UserDefaultsConfig.installedAtDate.isNil else { return }
+        if UserDefaultsConfig.defaultObjectType.isEmpty {
+            if UserDefaultsConfig.installedAtDate.isNil { // First launch
+                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.note.rawValue
+            } else {
+                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.page.rawValue
+            }
+        }
         
-        UserDefaultsConfig.installedAtDate = Date()
+        
+        if UserDefaultsConfig.installedAtDate.isNil {
+            UserDefaultsConfig.installedAtDate = Date()
+        }
     }
 
     func login() {
