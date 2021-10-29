@@ -10,7 +10,7 @@ import UIKit
 
 struct ObjectHeaderFilledConfiguration: UIContentConfiguration, Hashable {
         
-    let state: ObjectHeader.FilledState
+    let state: ObjectHeaderFilledState
     let width: CGFloat
     
     func makeContentView() -> UIView & UIContentView {

@@ -53,7 +53,7 @@ final class ObjectHeaderView: UIView {
 extension ObjectHeaderView: ConfigurableView {
     
     struct Model {
-        let state: ObjectHeader.FilledState
+        let state: ObjectHeaderFilledState
         let width: CGFloat
     }
     

@@ -74,12 +74,12 @@ extension ObjectHeader {
     
 }
 
-private extension ObjectHeader.FilledState {
+private extension ObjectHeaderFilledState {
     
     func modifiedByIconUploadingEventWith(
         image: UIImage?,
         onIconTap: @escaping () -> ()
-    ) -> ObjectHeader.FilledState {
+    ) -> ObjectHeaderFilledState {
         switch self {
         case .iconOnly(let objectHeaderIcon):
             return .iconOnly(
