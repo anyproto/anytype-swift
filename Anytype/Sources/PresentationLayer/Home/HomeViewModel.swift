@@ -78,13 +78,16 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Private methods
     private func setupQuickActionsSubscription() {
-        quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
-            switch action {
-            case .newNote:
-                self?.createAndShowNewPage()
-                QuickActionsStorage.shared.action = nil
-            case .none:
-                break
+        // visual delay on application launch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
+                switch action {
+                case .newNote:
+                    self?.createAndShowNewPage()
+                    QuickActionsStorage.shared.action = nil
+                case .none:
+                    break
+                }
             }
         }
     }
