@@ -22,6 +22,7 @@
 		3D93854626FC3AFB001C137F /* UserDefaultsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854526FC3AFB001C137F /* UserDefaultsConfig.swift */; };
 		3DA4B0C426AF3D2B0000F243 /* AnytypeCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4B0F126AF41940000F243 /* Asserts.swift */; };
+		3DB1CA4B272BE367000D2779 /* ProtobufExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA4A272BE367000D2779 /* ProtobufExtensions.swift */; };
 		3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */; };
 		3DFE7F4126E22B530093EECB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE7F4026E22B530093EECB /* StringExtension.swift */; };
 		C91AFEED270B4F4F005F9386 /* AssertionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEEC270B4F4F005F9386 /* AssertionLogger.swift */; };
@@ -47,6 +48,7 @@
 		3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnytypeCore.h; sourceTree = "<group>"; };
 		3DA4B0C326AF3D2B0000F243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DA4B0F126AF41940000F243 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
+		3DB1CA4A272BE367000D2779 /* ProtobufExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufExtensions.swift; sourceTree = "<group>"; };
 		3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		3DFE7F4026E22B530093EECB /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C91AFEEC270B4F4F005F9386 /* AssertionLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertionLogger.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */,
 				3DFE7F4026E22B530093EECB /* StringExtension.swift */,
 				3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */,
+				3DB1CA4A272BE367000D2779 /* ProtobufExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */,
 				3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */,
 				3D53F03826B30356001A6EEE /* Logger.swift in Sources */,
+				3DB1CA4B272BE367000D2779 /* ProtobufExtensions.swift in Sources */,
 				3D17025E271726710079B65B /* AtomicProperty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

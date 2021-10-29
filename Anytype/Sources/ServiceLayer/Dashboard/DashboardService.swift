@@ -10,10 +10,11 @@ class DashboardService: DashboardServiceProtocol {
     
     func createNewPage() -> BlockId? {
         Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
+        let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
         return objectsService.createPage(
             contextId: "",
             targetId: "",
-            details: [.name(""), .isDraft(true), .type(.note)],
+            details: [.name(""), .isDraft(true), .type(defaultTypeUrl)],
             position: .bottom,
             templateId: ""
         )

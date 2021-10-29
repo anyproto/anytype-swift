@@ -7,6 +7,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var keychain = false
     @Published var pincode = false
     @Published var other = false
+    @Published var defaultType = false
     @Published var clearCacheAlert = false
     @Published var clearCacheSuccessful = false
     @Published var about = false

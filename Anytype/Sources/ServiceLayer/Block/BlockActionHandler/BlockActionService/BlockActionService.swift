@@ -105,10 +105,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(targetId: BlockId, position: BlockPosition) -> BlockId? {
+        let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
         guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
-            details: [.name("")],
+            details: [ObjectDetailsItem.name(""), ObjectDetailsItem.type(defaultTypeUrl)],
             position: position,
             templateId: ""
         ) else { return nil }

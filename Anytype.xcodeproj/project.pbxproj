@@ -434,6 +434,7 @@
 		3DB1CA0D2729316F000D2779 /* AccountConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */; };
 		3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */; };
 		3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */; };
+		3DB1CA31272AE1F9000D2779 /* DefaultTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
@@ -1142,6 +1143,7 @@
 		3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfiguration.swift; sourceTree = "<group>"; };
 		3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfigurationProvider.swift; sourceTree = "<group>"; };
 		3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
+		3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTypePicker.swift; sourceTree = "<group>"; };
 		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = Anytype/Sources/Models/Documents/Restrictions/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareColorConverter.swift; path = Anytype/Sources/Models/Documents/Parsers/MiddlewareColorConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -3518,6 +3520,7 @@
 			isa = PBXGroup;
 			children = (
 				3DB1C9F2272835DA000D2779 /* OtherSettingsView.swift */,
+				3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -4941,6 +4944,7 @@
 				5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */,
 				3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */,
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
+				3DB1CA31272AE1F9000D2779 /* DefaultTypePicker.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,

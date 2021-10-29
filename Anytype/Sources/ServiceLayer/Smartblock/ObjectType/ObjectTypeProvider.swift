@@ -5,6 +5,7 @@ import BlocksModels
 
 protocol ObjectTypeProviderProtocol {
     static var supportedTypeUrls: [String] { get }
+    static var defaultObjectType: ObjectType { get }
     
     static func loadObjects()
     
@@ -20,6 +21,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
             .map { $0.url } +
         [ObjectTemplateType.note.rawValue]
+    }
+    
+    static var defaultObjectType: ObjectType {
+        objectType(url: UserDefaultsConfig.defaultObjectType) ?? .fallbackType
     }
     
     static func isSupported(type: ObjectType?) -> Bool {
