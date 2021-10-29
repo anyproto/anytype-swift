@@ -54,7 +54,13 @@ extension BlockViewModelProtocol {
                         identifier: menuItem.identifier,
                         state: .off
                     ) { action in
-                        if let identifier = ContextualMenu(rawValue: action.identifier.rawValue) {
+                        guard
+                            let identifier = ContextualMenu(rawValue: action.identifier.rawValue)
+                        else { return }
+                        
+                        // System must restore first responder after dismissing ContextMenu
+                        // before handling action
+                        DispatchQueue.main.async {
                             handle(action: identifier)
                         }
                     }

@@ -13,18 +13,21 @@ final class ObjectContentViewModelsSharedHolder {
         self.objectId = objectId
     }
     
-    func findModel(beforeBlockId blockId: BlockId) -> BlockDataProvider? {
+    func findModel(beforeBlockId blockId: BlockId, skipFeaturedRelations: Bool = true) -> BlockDataProvider? {
         guard let modelIndex = models.firstIndex(where: { $0.blockId == blockId }) else {
             return nil
-            
         }
 
         let index = models.index(before: modelIndex)
-        guard index >= models.startIndex else {
+        guard let model = models[safe: index] else {
             return nil
         }
         
-        return models[index]
+        if model.content.type == .featuredRelations && skipFeaturedRelations {
+            return self.findModel(beforeBlockId: model.blockId)
+        }
+    
+        return model
     }
 }
 
