@@ -104,6 +104,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             }
     }
 
+
     func createPage(targetId: BlockId, type: String, position: BlockPosition) -> BlockId? {
         guard let response = pageService.createPage(
             contextId: documentId,
@@ -114,8 +115,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         ) else { return nil }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-        EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
-        return response.newBlockId
+        return newBlockId
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
@@ -126,7 +126,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             anytypeAssertionFailure("Use turnIntoPage action instead")
             _ = turnIntoPage(blockId: blockId)
         case .divider(let style): setDividerStyle(blockId: blockId, style: style)
-        case .bookmark, .file, .layout, .link:
+        case .bookmark, .file, .layout, .link, .featuredRelations:
             anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
         }
     }

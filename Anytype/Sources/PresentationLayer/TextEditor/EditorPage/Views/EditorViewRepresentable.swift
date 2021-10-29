@@ -6,13 +6,16 @@ import os
 struct EditorViewRepresentable: UIViewControllerRepresentable {
     
     let blockId: String
+    let model: HomeViewModel
     
     // MARK: - UIViewControllerRepresentable
     
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorBrowserController {
-        EditorAssembly().buildRootEditor(blockId: blockId)
+        let browser = EditorAssembly().buildEditorBrowser(blockId: blockId)
+        model.editorBrowser = browser
+        return browser
     }
     
     func updateUIViewController(

@@ -9,7 +9,6 @@ struct HomeCollectionView: View {
     ]
     
     var cellData: [HomeCellData]
-    let coordinator: HomeCoordinator
     let dragAndDropDelegate: DragAndDropDelegate?
     let offsetChanged: (CGPoint) -> Void
     let onTap: (HomeCellData) -> Void
@@ -59,6 +58,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], coordinator: ServiceLocator.shared.homeCoordinator(), dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in }, onTap: { _ in })
     }
 }

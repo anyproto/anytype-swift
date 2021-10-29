@@ -39,10 +39,10 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         let name = mentionService.filterString.isEmpty ? "Untitled".localized : mentionService.filterString
-        guard let response = pageService.createPage(name: name) else { return }
+        guard let newBlockId = pageService.createPage(name: name) else { return }
         
         let mention = MentionObject(
-            id: response.newBlockId,
+            id: newBlockId,
             objectIcon: .placeholder(name.first),
             name: name,
             description: nil,

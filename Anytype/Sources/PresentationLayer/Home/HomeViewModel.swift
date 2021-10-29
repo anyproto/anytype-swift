@@ -21,12 +21,10 @@ final class HomeViewModel: ObservableObject {
     @Published var showDeletionAlert = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
-    let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-    
-    private let configurationService = MiddlewareConfigurationService.shared
-    private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
+    private let configurationService = MiddlewareConfigurationService.shared
+    private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     
     let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
@@ -36,14 +34,17 @@ final class HomeViewModel: ObservableObject {
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
     private var animationsEnabled = true
     
+    weak var editorBrowser: EditorBrowser?
+    private var quickActionsSubscription: AnyCancellable?
+    
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
         document = BaseDocument(objectId: homeBlockId)
-
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        document.open()
+        _ = document.open()
+        setupQuickActionsSubscription()
     }
 
     // MARK: - View output
@@ -78,6 +79,21 @@ final class HomeViewModel: ObservableObject {
     }
     
     // MARK: - Private methods
+    private func setupQuickActionsSubscription() {
+        // visual delay on application launch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
+                switch action {
+                case .newNote:
+                    self?.createAndShowNewPage()
+                    QuickActionsStorage.shared.action = nil
+                case .none:
+                    break
+                }
+            }
+        }
+    }
+    
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {
@@ -119,29 +135,40 @@ final class HomeViewModel: ObservableObject {
 
 // MARK: - New page
 extension HomeViewModel {
-    func createNewPage() {
-        guard let response = dashboardService.createNewPage() else { return }
-        
-        EventsBunch(
-            objectId: document.objectId,
-            middlewareEvents: response.messages
-        ).send()
-
-        guard !response.newBlockId.isEmpty else {
-            anytypeAssertionFailure("No new block id in create new page response")
-            return
-        }
-        
-        showPage(pageId: response.newBlockId)
-    }
-    
     func startSearch() {
         showSearch = true
     }
     
+    func createAndShowNewPage() {
+        guard let blockId = createNewPage() else { return }
+        
+        showPage(pageId: blockId)
+    }
+    
     func showPage(pageId: BlockId) {
-        animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
-        openedPageData.pageId = pageId
-        openedPageData.showingNewPage = true
+        if openedPageData.showingNewPage {
+            editorBrowser?.showPage(pageId: pageId)
+        } else {
+            animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
+            openedPageData.pageId = pageId
+            openedPageData.showingNewPage = true
+        }
+    }
+    
+    func createBrowser() -> some View {
+        EditorAssembly().editor(blockId: openedPageData.pageId, model: self)
+            .eraseToAnyView()
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func createNewPage() -> BlockId? {
+        guard let newBlockId = dashboardService.createNewPage() else { return nil }
+
+        if newBlockId.isEmpty {
+            anytypeAssertionFailure("No new block id in create new page response")
+            return nil
+        }
+        
+        return newBlockId
     }
 }

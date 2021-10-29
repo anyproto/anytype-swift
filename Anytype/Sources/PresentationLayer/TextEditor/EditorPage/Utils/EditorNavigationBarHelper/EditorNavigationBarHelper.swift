@@ -15,7 +15,9 @@ final class EditorNavigationBarHelper {
     private var contentOffsetObservation: NSKeyValueObservation?
     
     private var isObjectHeaderWithCover = false
-    private var objectHeaderHeight: CGFloat = 0.0
+    
+    private var startAppearingOffset: CGFloat = 0.0
+    private var endAppearingOffset: CGFloat = 0.0
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
@@ -63,7 +65,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     
     func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?) {
         isObjectHeaderWithCover = header.isWithCover
-        objectHeaderHeight = header.height
+        startAppearingOffset = header.startAppearingOffset
+        endAppearingOffset = header.endAppearingOffset
         
         updateBarButtonItemsBackground(percent: 0)
         
@@ -130,9 +133,6 @@ private extension EditorNavigationBarHelper {
     }
     
     private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {
-        let startAppearingOffset = objectHeaderHeight - 50
-        let endAppearingOffset = objectHeaderHeight
-
         let navigationBarHeight = fakeNavigationBarBackgroundView.bounds.height
         let yFullOffset = offset + navigationBarHeight
 
@@ -164,7 +164,17 @@ private extension ObjectHeader {
         }
     }
     
-    var height: CGFloat {
+    var startAppearingOffset: CGFloat {
+        switch self {
+        case .filled:
+            return ObjectHeaderView.Constants.height - 100
+            
+        case .empty:
+            return ObjectHeaderEmptyContentView.Constants.height - 50
+        }
+    }
+    
+    var endAppearingOffset: CGFloat {
         switch self {
         case .filled:
             return ObjectHeaderView.Constants.height

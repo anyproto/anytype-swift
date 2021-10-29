@@ -12,13 +12,13 @@ extension ObjectRawDetails {
             case .name(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.name.rawValue,
-                    value: Google_Protobuf_Value(stringValue: string)
+                    value: string.protobufValue
                 )
                 
             case .iconEmoji(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.iconEmoji.rawValue,
-                    value: Google_Protobuf_Value(stringValue: string)
+                    value: string.protobufValue
                 )
                 
             case .iconImageHash(let hash):
@@ -41,7 +41,7 @@ extension ObjectRawDetails {
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.type.rawValue,
-                    value: Google_Protobuf_Value(stringValue: type.rawValue)
+                    value: type.protobufValue
                 )
             case .isDraft(let bool):
                 return Anytype_Rpc.Block.Set.Details.Detail(

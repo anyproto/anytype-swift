@@ -27,6 +27,7 @@ public struct Anytype_Model_ObjectInfo {
 
   public var id: String = String()
 
+  /// deprecated
   public var objectTypeUrls: [String] = []
 
   public var details: SwiftProtobuf.Google_Protobuf_Struct {

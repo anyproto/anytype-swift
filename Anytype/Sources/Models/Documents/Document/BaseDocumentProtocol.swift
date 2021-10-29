@@ -10,5 +10,5 @@ protocol BaseDocumentProtocol: AnyObject {
     var objectDetails: ObjectDetails? { get }
     var flattenBlocks: [BlockModelProtocol] { get }
 
-    func open()
+    func open() -> Bool
 }

@@ -74,6 +74,10 @@ struct HomeView: View {
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }
+        .sheet(isPresented: $settingsModel.defaultType) {
+            DefaultTypePicker()
+        }
+        
         .snackbar(
             isShowing: $viewModel.snackBarData.showSnackBar,
             text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
@@ -102,9 +106,7 @@ struct HomeView: View {
     private var newPageNavigation: some View {
         Group {
             NavigationLink(
-                destination: viewModel.coordinator.documentView(
-                    selectedDocumentId: viewModel.openedPageData.pageId
-                ),
+                destination: viewModel.createBrowser(),
                 isActive: $viewModel.openedPageData.showingNewPage,
                 label: { EmptyView() }
             )

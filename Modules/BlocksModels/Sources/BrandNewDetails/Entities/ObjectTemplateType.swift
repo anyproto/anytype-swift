@@ -10,21 +10,21 @@ public enum ObjectTemplateType: RawRepresentable {
 
     public init?(rawValue: String) {
         if let knownType = KnownType(rawValue: rawValue) {
-            self = .known(knownType)
+            self = .bundled(knownType)
         } else {
-            self = .unknown(rawValue)
+            self = .dynamic(rawValue)
         }
     }
 
     public var rawValue: String {
         switch self {
-        case .known(let knownType):
+        case .bundled(let knownType):
             return knownType.rawValue
-        case .unknown(let string):
+        case .dynamic(let string):
             return string
         }
     }
 
-    case known(KnownType)
-    case unknown(String)
+    case bundled(KnownType)
+    case dynamic(String)
 }

@@ -96,6 +96,11 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
+            // if `type` changed we should reload featured relations block
+            guard currentDetails.type == updatedDetails.type else {
+                return .general
+            }
+            
             return .details(id: id)
             
         case let .objectDetailsUnset(payload):

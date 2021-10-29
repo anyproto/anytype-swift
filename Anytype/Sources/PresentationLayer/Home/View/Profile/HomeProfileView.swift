@@ -37,13 +37,10 @@ struct HomeProfileView: View {
     private var avatar: some View {
         Group {
             if let blockId = accountData.profileBlockId {
-                NavigationLink(
-                    destination: model.coordinator.documentView(selectedDocumentId: blockId).onAppear {
-                        // Analytics
-                        Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
-                    },
-                    label: { userIcon }
-                )
+                Button(action: {
+                    Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
+                    model.showPage(pageId: blockId)
+                }){ userIcon }
             } else {
                 userIcon
             }
@@ -80,7 +77,7 @@ struct HomeProfileView: View {
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
                 )
             }
-            Button(action: model.createNewPage) {
+            Button(action: model.createAndShowNewPage) {
                 HomeProfileViewButtonImage(image: Image.main.draft)
             }
         }

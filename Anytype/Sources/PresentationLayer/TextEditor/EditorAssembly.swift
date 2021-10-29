@@ -4,11 +4,11 @@ import Combine
 
 final class EditorAssembly {
     
-    func editor(blockId: BlockId) -> some View {
-        EditorViewRepresentable(blockId: blockId).eraseToAnyView()
+    func editor(blockId: BlockId, model: HomeViewModel) -> some View {
+        EditorViewRepresentable(blockId: blockId, model: model).eraseToAnyView()
     }
     
-    func buildRootEditor(blockId: BlockId) -> EditorBrowserController {
+    func buildEditorBrowser(blockId: BlockId) -> EditorBrowserController {
         let browser =  EditorBrowserController()
 
         let (page, router) = EditorPageAssembly(browser: browser).buildEditorModule(pageId: blockId)

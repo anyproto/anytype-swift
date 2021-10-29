@@ -52,7 +52,6 @@ struct HomeTabsView: View {
         TabView(selection: $tabSelection) {
             HomeCollectionView(
                 cellData: model.notDeletedFavoritesCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,
                 onTap: { data in
@@ -63,7 +62,6 @@ struct HomeTabsView: View {
             
             HomeCollectionView(
                 cellData: model.historyCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
@@ -72,20 +70,20 @@ struct HomeTabsView: View {
             )
             .tag(Tab.history)
             
-            HomeCollectionView(
-                cellData: model.sharedCellData,
-                coordinator: model.coordinator,
-                dragAndDropDelegate: nil, // no dnd
-                offsetChanged: offsetChanged,
-                onTap: { data in
-                    model.showPage(pageId: data.destinationId)
-                }
-            )
-            .tag(Tab.shared)
+            if AccountConfigurationProvider.shared.config.enableSpaces {
+                HomeCollectionView(
+                    cellData: model.sharedCellData,
+                    dragAndDropDelegate: nil, // no dnd
+                    offsetChanged: offsetChanged,
+                    onTap: { data in
+                        model.showPage(pageId: data.destinationId)
+                    }
+                )
+                .tag(Tab.shared)
+            }
             
             HomeCollectionView(
                 cellData: model.binCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in

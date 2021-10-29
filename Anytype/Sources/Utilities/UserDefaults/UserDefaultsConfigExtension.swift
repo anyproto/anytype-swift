@@ -48,4 +48,8 @@ extension UserDefaultsConfig {
         _pageIdFromLastSession = _lastOpenedPageId
         pageIdFromLastSessionInitialized = true
     }
+    
+    // Default object type
+    @UserDefault("UserData.DefaultObjectType", defaultValue: "")
+    static var defaultObjectType: String
 }
