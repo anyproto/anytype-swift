@@ -16,7 +16,7 @@ on:
 jobs:
   main:
     runs-on: macOS-11
-    timeout-minutes: 25
+    timeout-minutes: 35
 
     steps:
       - uses: actions/checkout@v2.3.4
