@@ -20,7 +20,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     static var supportedTypeUrls: [String] {
         objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
             .map { $0.url } +
-        [ObjectTemplateType.KnownType.note.rawValue]
+        [ObjectTemplateType.BundledType.note.rawValue]
     }
     
     static var defaultObjectType: ObjectType {
@@ -36,7 +36,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     static func isSupported(typeUrl: String?) -> Bool {
-        typeUrl != ObjectTemplateType.KnownType.set.rawValue
+        typeUrl != ObjectTemplateType.BundledType.set.rawValue
     }
     
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {

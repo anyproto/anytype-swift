@@ -1,7 +1,7 @@
 import Foundation
 
 public enum ObjectTemplateType: RawRepresentable {
-    public enum KnownType: String {
+    public enum BundledType: String {
         case page = "_otpage"
         case profile = "_otprofile"
         case note = "_otnote"
@@ -9,7 +9,7 @@ public enum ObjectTemplateType: RawRepresentable {
     }
 
     public init?(rawValue: String) {
-        if let knownType = KnownType(rawValue: rawValue) {
+        if let knownType = BundledType(rawValue: rawValue) {
             self = .bundled(knownType)
         } else {
             self = .dynamic(rawValue)
@@ -25,6 +25,6 @@ public enum ObjectTemplateType: RawRepresentable {
         }
     }
 
-    case bundled(KnownType)
+    case bundled(BundledType)
     case dynamic(String)
 }
