@@ -137,6 +137,7 @@ extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExportTemplates.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ExportLocalstore.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: Swift.Error {}
 extension Anytype_Rpc.CloneTemplate.Response.Error: Swift.Error {}
