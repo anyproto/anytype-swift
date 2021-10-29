@@ -41,7 +41,7 @@ extension ObjectRawDetails {
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.type.rawValue,
-                    value: type.protobufValue
+                    value: type.rawValue.protobufValue
                 )
             case .isDraft(let bool):
                 return Anytype_Rpc.Block.Set.Details.Detail(

@@ -14,8 +14,7 @@ class DashboardService: DashboardServiceProtocol {
         return objectsService.createPage(
             contextId: "",
             targetId: "",
-            details: [.name(""), .isDraft(true), .type()],
-            details: [.name(""), .isDraft(true), ],
+            details: [.name(""), .isDraft(true), .type(.dynamic(defaultTypeUrl))],
             position: .bottom,
             templateId: ""
         )

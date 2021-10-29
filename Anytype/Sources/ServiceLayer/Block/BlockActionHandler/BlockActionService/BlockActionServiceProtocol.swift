@@ -15,7 +15,7 @@ protocol BlockActionServiceProtocol {
     
     func delete(blockId: BlockId, previousBlockId: BlockId?)
     
-    func createPage(targetId: BlockId, type: String, position: BlockPosition) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     
     func split(info: BlockInformation, oldText: String, newBlockContentType: BlockText.Style)
     

@@ -19,7 +19,7 @@ struct ObjectType: Equatable, Hashable {
     
     static var fallbackType: ObjectType {
         ObjectType(
-            url: ObjectTemplateType.note.rawValue,
+            url: ObjectTemplateType.bundled(.note).rawValue,
             name: "Note".localized,
             iconEmoji: .default,
             description: "Blank canvas with no title".localized,
