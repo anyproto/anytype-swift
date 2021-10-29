@@ -2000,6 +2000,28 @@ extension Anytype_Rpc.Export.Response.Error {
   }
 }
 
+extension Anytype_Rpc.ExportLocalstore.Request {
+  public init(path: String, docIds: [String]) {
+    self.path = path
+    self.docIds = docIds
+  }
+}
+
+extension Anytype_Rpc.ExportLocalstore.Response {
+  public init(error: Anytype_Rpc.ExportLocalstore.Response.Error, path: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.path = path
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.ExportLocalstore.Response.Error {
+  public init(code: Anytype_Rpc.ExportLocalstore.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.ExportTemplates.Request {
   public init(path: String) {
     self.path = path
