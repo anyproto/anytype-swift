@@ -533,6 +533,8 @@
 		53856BEC265BC48800CB1FAE /* ProtobufMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53856BF0265BCD4B00CB1FAE /* FieldsExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */; };
 		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
+		538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */; };
+		538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */; };
 		5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */; };
 		539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleCellView.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
@@ -1243,6 +1245,8 @@
 		53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockViewModel.swift; sourceTree = "<group>"; };
 		53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FieldsExtenstion.swift; path = ../../../../../../Modules/ProtobufMessages/Sources/FieldsExtenstion.swift; sourceTree = "<group>"; };
 		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
+		538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelProtocol.swift; sourceTree = "<group>"; };
+		538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchViewModel.swift; sourceTree = "<group>"; };
 		5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellContentView.swift; sourceTree = "<group>"; };
 		539168842632DD5200AD5C5F /* StyleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellView.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
@@ -3179,9 +3183,8 @@
 		3D5A41762704541900F1F6A1 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				3D5A417B2704543300F1F6A1 /* Cell */,
-				3D5A41772704541900F1F6A1 /* SearchView.swift */,
-				3D5A41782704541900F1F6A1 /* SearchBar.swift */,
+				538F172A272C2F1E009528E7 /* SearchView */,
+				538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3910,6 +3913,17 @@
 				039F6D79239591C80097560A /* Gradients.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		538F172A272C2F1E009528E7 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				3D5A417B2704543300F1F6A1 /* Cell */,
+				3D5A41772704541900F1F6A1 /* SearchView.swift */,
+				538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */,
+				3D5A41782704541900F1F6A1 /* SearchBar.swift */,
+			);
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 		539168812632DCF600AD5C5F /* StyleCell */ = {
@@ -4863,6 +4877,7 @@
 				3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */,
 				EAAD6DEE26CC69E8005CE1E7 /* TextViewContextMenuOption.swift in Sources */,
 				C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */,
+				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
@@ -5055,6 +5070,7 @@
 				3DC78636265D443F00498993 /* MiddlewareEventConverter.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventsBunch.swift in Sources */,
+				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
 				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
 				12F3E75E270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift in Sources */,

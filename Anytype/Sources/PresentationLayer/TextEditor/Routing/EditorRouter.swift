@@ -197,36 +197,39 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(kind: .objects, title: "Move to".localized) { id in
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
             onSelect(id)
         }
+        let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
         
         presentSwuftUIView(view: moveToView)
     }
     
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let linkToView = SearchView(kind: .objects, title: "Link to".localized) { id in
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
             onSelect(id)
         }
+        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
         
         presentSwuftUIView(view: linkToView)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(kind: .objects, title: nil) { id in
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
             onSelect(id)
         }
+        let searchView = SearchView(title: nil, viewModel: viewModel)
         
         presentSwuftUIView(view: searchView)
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(
-            kind: .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? ""),
-            title: "Change type".localized
-        ) { id in
+        let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? "")
+        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { id in
             onSelect(id)
         }
+        let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
+
         presentSwuftUIView(view: searchView)
     }
     
