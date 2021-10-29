@@ -1,12 +1,13 @@
 import SwiftUI
 
-struct CoverColorsGridView: View {
+struct WallpaperColorsGridView: View {
     
     let onCoverSelect: (BackgroundType) -> ()
     
     private let columns = [
         GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible())
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible()),
     ]
     
     var body: some View {
@@ -25,10 +26,10 @@ struct CoverColorsGridView: View {
     
     private var colorsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Solid colors".localized)) {
-            ForEach(CoverConstants.colors) { color in
+            ForEach(Wallpapers.colors) { color in
                 Color(hex: color.hex)
                     .cornerRadius(4)
-                    .frame(height: 112)
+                    .frame(height: 208)
                     .onTapGesture {
                         onCoverSelect(.color(color))
                     }
@@ -38,10 +39,10 @@ struct CoverColorsGridView: View {
     
     private var gradientsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Gradients".localized)) {
-            ForEach(CoverConstants.gradients) { gradient in
+            ForEach(Wallpapers.gradients) { gradient in
                 gradient.asLinearGradient()
                 .cornerRadius(4)
-                .frame(height: 112)
+                .frame(height: 208)
                 .onTapGesture {
                     onCoverSelect(.gradient(gradient))
                 }
@@ -50,8 +51,8 @@ struct CoverColorsGridView: View {
     }
 }
 
-struct CoverColorsGridView_Previews: PreviewProvider {
+struct WallpaperColorsGridView_Previews: PreviewProvider {
     static var previews: some View {
-        CoverColorsGridView(onCoverSelect: { _ in })
+        WallpaperColorsGridView(onCoverSelect: { _ in })
     }
 }
