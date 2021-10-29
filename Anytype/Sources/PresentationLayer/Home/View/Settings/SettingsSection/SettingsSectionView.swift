@@ -8,14 +8,15 @@ struct SettingsSectionView: View {
             SettingsSectionItemView(
                 name: "Wallpaper".localized,
                 icon: .settings.wallpaper,
-                comingSoon: true,
-                pressed: $viewModel.wallpaper
+                pressed: $viewModel.wallpaperPicker
             )
+            .sheet(isPresented: $viewModel.wallpaperPicker) {
+                WallpaperPickerView()
+            }
             
             SettingsSectionItemView(
                 name: "Keychain phrase".localized,
                 icon: .settings.keychain,
-                comingSoon: false,
                 pressed: $viewModel.keychain
             )
             .sheet(isPresented: $viewModel.keychain) {
@@ -25,21 +26,18 @@ struct SettingsSectionView: View {
 //            SettingsSectionItemView(
 //                name: "Pin code".localized,
 //                icon: .settings.pin,
-//                comingSoon: true,
 //                pressed: $viewModel.pincode
 //            )
             
             SettingsSectionItemView(
                 name: "Other settings".localized,
                 icon: .settings.other,
-                comingSoon: false,
                 pressed: $viewModel.other
             )
             
             SettingsSectionItemView(
                 name: "About",
                 icon: .settings.about,
-                comingSoon: false,
                 pressed: $viewModel.about
             )
             .sheet(isPresented: $viewModel.about) {
@@ -50,7 +48,6 @@ struct SettingsSectionView: View {
             SettingsSectionItemView(
                 name: "Debug",
                 icon: .settings.debug,
-                comingSoon: false,
                 pressed: $viewModel.debugMenu
             )
             .sheet(isPresented: $viewModel.debugMenu) {

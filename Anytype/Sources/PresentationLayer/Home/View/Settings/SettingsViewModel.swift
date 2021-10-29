@@ -1,9 +1,10 @@
 import SwiftUI
 import ProtobufMessages
+import AnytypeCore
 
 final class SettingsViewModel: ObservableObject {
     @Published var loggingOut = false
-    @Published var wallpaper = false
+    @Published var wallpaperPicker = false
     @Published var keychain = false
     @Published var pincode = false
     @Published var other = false
@@ -12,6 +13,12 @@ final class SettingsViewModel: ObservableObject {
     @Published var clearCacheSuccessful = false
     @Published var about = false
     @Published var debugMenu = false
+    
+    @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
+        didSet {
+            UserDefaultsConfig.wallpaper = wallpaper
+        }
+    }
     
     private let authService: AuthServiceProtocol
 

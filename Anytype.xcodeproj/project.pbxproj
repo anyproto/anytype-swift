@@ -436,6 +436,9 @@
 		3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */; };
 		3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */; };
 		3DB1CA31272AE1F9000D2779 /* DefaultTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */; };
+		3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */; };
+		3DB1CA5C272BF2C3000D2779 /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */; };
+		3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA5E272BF43F000D2779 /* DashboardWallpaper.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB6929F2697066500149864 /* DummyRestrictions.swift */; };
 		3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */; };
@@ -1146,6 +1149,9 @@
 		3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfigurationProvider.swift; sourceTree = "<group>"; };
 		3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
 		3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTypePicker.swift; sourceTree = "<group>"; };
+		3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerView.swift; sourceTree = "<group>"; };
+		3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundType.swift; sourceTree = "<group>"; };
+		3DB1CA5E272BF43F000D2779 /* DashboardWallpaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWallpaper.swift; sourceTree = "<group>"; };
 		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB6929F2697066500149864 /* DummyRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyRestrictions.swift; path = Anytype/Sources/Models/Documents/Restrictions/Restrictions/DummyRestrictions.swift; sourceTree = SOURCE_ROOT; };
 		3DB692B02697645C00149864 /* MiddlewareColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiddlewareColorConverter.swift; path = Anytype/Sources/Models/Documents/Parsers/MiddlewareColorConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -1515,10 +1521,13 @@
 		0331BBD822E5D8AB002AD179 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				3DB1CA58272BEF2C000D2779 /* Wallpaper */,
+				3DB92F9F264D8B0100E83276 /* SettingsSection */,
 				3DB1C9EC272835BD000D2779 /* Other */,
 				0A1F0D9124DDCE0100A8B488 /* About */,
-				03913E51230B48120040CD4B /* ProfileView */,
 				03913E54230B485D0040CD4B /* KeychainPhraseView */,
+				0303ED0222D8EDAA005C552B /* SettingsView.swift */,
+				0311612D22DE0D1700885211 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1738,16 +1747,6 @@
 				EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */,
 			);
 			path = FrameworkExtensions;
-			sourceTree = "<group>";
-		};
-		03913E51230B48120040CD4B /* ProfileView */ = {
-			isa = PBXGroup;
-			children = (
-				3DB92F9F264D8B0100E83276 /* SettingsSection */,
-				0303ED0222D8EDAA005C552B /* SettingsView.swift */,
-				0311612D22DE0D1700885211 /* SettingsViewModel.swift */,
-			);
-			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		03913E54230B485D0040CD4B /* KeychainPhraseView */ = {
@@ -2577,6 +2576,7 @@
 				12A7B6BB26C3E47200544037 /* CoverColor.swift */,
 				12A7B6BC26C3E47200544037 /* CoverConstants.swift */,
 				12A7B6BD26C3E47200544037 /* CoverGradient.swift */,
+				3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */,
 			);
 			path = Cover;
 			sourceTree = "<group>";
@@ -3338,6 +3338,7 @@
 		3D932D3926317E3A00C7D1EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3DB1CA5D272BF2F5000D2779 /* Wallpaper */,
 				3D2F9C40271F08470043C326 /* Alerts */,
 				3D28A474271DCDDA009A0D48 /* Selection */,
 				3DEA980D2704A0F1004AB80B /* BottomSheet */,
@@ -3528,6 +3529,22 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		3DB1CA58272BEF2C000D2779 /* Wallpaper */ = {
+			isa = PBXGroup;
+			children = (
+				3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */,
+			);
+			path = Wallpaper;
+			sourceTree = "<group>";
+		};
+		3DB1CA5D272BF2F5000D2779 /* Wallpaper */ = {
+			isa = PBXGroup;
+			children = (
+				3DB1CA5E272BF43F000D2779 /* DashboardWallpaper.swift */,
+			);
+			path = Wallpaper;
+			sourceTree = "<group>";
+		};
 		3DB1E74B2639A9FB00F479BB /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -3586,18 +3603,10 @@
 		3DB92F9F264D8B0100E83276 /* SettingsSection */ = {
 			isa = PBXGroup;
 			children = (
-				3DB92FA1264D8B0100E83276 /* View */,
+				3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */,
 				3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */,
 			);
 			path = SettingsSection;
-			sourceTree = "<group>";
-		};
-		3DB92FA1264D8B0100E83276 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		3DBED669266F696B00B9E9AB /* Extensions */ = {
@@ -4491,6 +4500,7 @@
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
+				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
@@ -4931,6 +4941,7 @@
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				3D93851426FAED69001C137F /* ObjectIconImageUsecase+Font.swift in Sources */,
+				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				125B6ED326F235F400BCD7D6 /* SlashMenuView.swift in Sources */,
@@ -5074,6 +5085,7 @@
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				3D5A413D2702CBBE00F1F6A1 /* SnackBarData.swift in Sources */,
 				C961495E27182F9C00360840 /* GalleryViewTransitionController.swift in Sources */,
+				3DB1CA5C272BF2C3000D2779 /* BackgroundType.swift in Sources */,
 				3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlockLinkViewModel.swift in Sources */,

@@ -74,9 +74,6 @@ struct HomeView: View {
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }
-        .sheet(isPresented: $settingsModel.defaultType) {
-            DefaultTypePicker()
-        }
         
         .snackbar(
             isShowing: $viewModel.snackBarData.showSnackBar,
@@ -90,7 +87,7 @@ struct HomeView: View {
         GeometryReader { geometry in
             ZStack {
                 Group {
-                    Gradients.mainBackground()
+                    DashboardWallpaper()
                     newPageNavigation
                     HomeProfileView()
                     

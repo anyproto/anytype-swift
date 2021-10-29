@@ -1,16 +1,8 @@
-//
-//  CoverColorsGridView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 18.06.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 struct CoverColorsGridView: View {
     
-    let onCoverSelect: (Cover) -> ()
+    let onCoverSelect: (BackgroundType) -> ()
     
     private let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -56,15 +48,6 @@ struct CoverColorsGridView: View {
             }
         }
     }
-}
-
-extension CoverColorsGridView {
-    
-    enum Cover {
-        case color(CoverColor)
-        case gradient(CoverGradient)
-    }
-    
 }
 
 struct CoverColorsGridView_Previews: PreviewProvider {
