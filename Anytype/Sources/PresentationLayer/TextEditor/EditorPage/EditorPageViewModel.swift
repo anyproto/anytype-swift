@@ -221,11 +221,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
 extension EditorPageViewModel {
     func viewLoaded() {
-        Amplitude.instance().logEvent(
-            AmplitudeEventsName.documentPage,
-            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: document.objectId]
-        )
-        document.open()
+        guard document.open() else {
+            router.goBack()
+            return
+        }
+        
+        Amplitude.instance().logDocumentShow(document.objectId)
     }
 
     func viewAppeared() {

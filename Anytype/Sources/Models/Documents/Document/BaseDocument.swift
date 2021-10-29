@@ -39,12 +39,15 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
 
-    func open() {
-        guard let result = blockActionsService.open(contextId: objectId, blockId: objectId) else { return }
+    func open() -> Bool {
+        guard let result = blockActionsService.open(contextId: objectId, blockId: objectId) else {
+            return false
+        }
         
         handleObjectShowResponse(response: result)
         
         EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
+        return true
     }
     
     var objectDetails: ObjectDetails? {

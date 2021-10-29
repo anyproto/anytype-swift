@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
@@ -53,13 +54,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        guard let action = QuickAction(rawValue: shortcutItem.type) else {
-            anytypeAssertionFailure("Not supported action: \(shortcutItem.type)")
-            completionHandler(false)
-            return
+        completionHandler(handleQuickAction(shortcutItem))
+    }
+    
+    private func handleQuickAction(_ item: UIApplicationShortcutItem) -> Bool {
+        guard let action = QuickAction(rawValue: item.type) else {
+            anytypeAssertionFailure("Not supported action: \(item.type)")
+            return false
         }
         
         DispatchQueue.main.async { QuickActionsStorage.shared.action = action }
-        completionHandler(true)
+        return true
     }
 }

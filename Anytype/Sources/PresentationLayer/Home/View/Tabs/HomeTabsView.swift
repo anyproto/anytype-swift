@@ -70,15 +70,17 @@ struct HomeTabsView: View {
             )
             .tag(Tab.history)
             
-            HomeCollectionView(
-                cellData: model.sharedCellData,
-                dragAndDropDelegate: nil, // no dnd
-                offsetChanged: offsetChanged,
-                onTap: { data in
-                    model.showPage(pageId: data.destinationId)
-                }
-            )
-            .tag(Tab.shared)
+            if AccountConfigurationProvider.shared.config.enableSpaces {
+                HomeCollectionView(
+                    cellData: model.sharedCellData,
+                    dragAndDropDelegate: nil, // no dnd
+                    offsetChanged: offsetChanged,
+                    onTap: { data in
+                        model.showPage(pageId: data.destinationId)
+                    }
+                )
+                .tag(Tab.shared)
+            }
             
             HomeCollectionView(
                 cellData: model.binCellData,
