@@ -1,5 +1,5 @@
 enum ObjectHeaderFilledState: Hashable {
-    case iconOnly(ObjectHeaderIcon)
+    case iconOnly(ObjectHeaderIconOnlyState)
     case coverOnly(ObjectHeaderCover)
     case iconAndCover(icon: ObjectHeaderIcon, cover: ObjectHeaderCover)
     
@@ -13,4 +13,22 @@ enum ObjectHeaderFilledState: Hashable {
             return true
         }
     }
+}
+
+struct ObjectHeaderIconOnlyState: Hashable {
+    
+    let icon: ObjectHeaderIcon
+    let onCoverTap: () -> Void
+}
+
+extension ObjectHeaderIconOnlyState {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(icon)
+    }
+    
+    static func == (lhs: ObjectHeaderIconOnlyState, rhs: ObjectHeaderIconOnlyState) -> Bool {
+        lhs.icon == rhs.icon
+    }
+    
 }
