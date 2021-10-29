@@ -23,6 +23,10 @@ extension UIImage {
     }
     
     enum edititngToolbar {
+        enum ChangeType {
+            static let search = createImage("search")
+        }
+
         static let addNew = createImage("EditingToolbar/add_new")
         static let style = createImage("EditingToolbar/style")
         static let move = createImage("EditingToolbar/move")
