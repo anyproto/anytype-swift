@@ -1,4 +1,4 @@
-struct CoverGradient: Identifiable {
+struct CoverGradient: Identifiable, Codable, Equatable {
     let name: String
     
     let startHex: String

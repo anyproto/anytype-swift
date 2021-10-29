@@ -1,5 +1,6 @@
 import AnytypeCore
 import BlocksModels
+import Combine
 
 extension UserDefaultsConfig {
     static func cleanStateAfterLogout() {
@@ -52,4 +53,26 @@ extension UserDefaultsConfig {
     // Default object type
     @UserDefault("UserData.DefaultObjectType", defaultValue: "")
     static var defaultObjectType: String
+    
+    // Wallpaper    
+    @UserDefault("UserData.Wallpaper", defaultValue: nil)
+    private static var _wallpaper: Data?
+    
+    static var wallpaper: BackgroundType {
+        get {
+            guard let rawWallpaper = _wallpaper else { return .default }
+            guard let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) else {
+                return .default
+            }
+            
+            return wallpaper
+        }
+        set {
+            guard let encoded = try? JSONEncoder().encode(newValue) else {
+                anytypeAssertionFailure("Cannot encode \(newValue)")
+                return
+            }
+            _wallpaper = encoded
+        }
+    }
 }

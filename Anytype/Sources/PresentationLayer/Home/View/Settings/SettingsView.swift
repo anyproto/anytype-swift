@@ -17,6 +17,10 @@ struct SettingsView: View {
         .background(Color.background)
         .cornerRadius(16)
         
+        .sheet(isPresented: $viewModel.defaultType) {
+            DefaultTypePicker()
+        }
+        
         .environmentObject(viewModel)
     }
 }

@@ -2,8 +2,12 @@ import SwiftUI
 
 final class Gradients {
     static func mainBackground() -> some View {
-        return LinearGradient(
-            gradient: Gradient(colors: [Color(hex: "#74BDEC"), Color(hex: "#CFD9D9")]),
+        create(topHexColor: "#74BDEC", bottomHexColor: "#CFD9D9")
+    }
+    
+    static func create(topHexColor: String, bottomHexColor: String) -> some View {
+        LinearGradient(
+            gradient: Gradient(colors: [Color(hex: topHexColor), Color(hex: bottomHexColor)]),
             startPoint: .top,
             endPoint: .bottom
         )
