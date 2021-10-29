@@ -52,7 +52,6 @@ struct HomeTabsView: View {
         TabView(selection: $tabSelection) {
             HomeCollectionView(
                 cellData: model.notDeletedFavoritesCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,
                 onTap: { data in
@@ -63,7 +62,6 @@ struct HomeTabsView: View {
             
             HomeCollectionView(
                 cellData: model.historyCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
@@ -74,7 +72,6 @@ struct HomeTabsView: View {
             
             HomeCollectionView(
                 cellData: model.sharedCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
@@ -85,7 +82,6 @@ struct HomeTabsView: View {
             
             HomeCollectionView(
                 cellData: model.binCellData,
-                coordinator: model.coordinator,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in

@@ -21,12 +21,10 @@ final class HomeViewModel: ObservableObject {
     @Published var showDeletionAlert = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
-    let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-    
-    private let configurationService = MiddlewareConfigurationService.shared
-    private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
+    private let configurationService = MiddlewareConfigurationService.shared
+    private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     
     let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
@@ -143,5 +141,11 @@ extension HomeViewModel {
         animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
         openedPageData.pageId = pageId
         openedPageData.showingNewPage = true
+    }
+    
+    func createBrowser() -> some View {
+        EditorAssembly().editor(blockId: openedPageData.pageId)
+            .eraseToAnyView()
+            .edgesIgnoringSafeArea(.all)
     }
 }
