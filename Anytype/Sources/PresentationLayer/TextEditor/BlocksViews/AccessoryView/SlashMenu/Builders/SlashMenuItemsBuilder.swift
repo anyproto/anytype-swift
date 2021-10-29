@@ -3,9 +3,14 @@ import BlocksModels
 struct SlashMenuItemsBuilder {
     
     private let restrictions: BlockRestrictions
+    private let searchService: SearchServiceProtocol
     
-    init(blockType: BlockContentType) {
+    init(
+        blockType: BlockContentType,
+        searchService: SearchServiceProtocol = SearchService()
+    ) {
         restrictions = BlockRestrictionsFactory().makeRestrictions(for: blockType)
+        self.searchService = searchService
     }
     
     var slashMenuItems: [SlashMenuItem] {
@@ -51,16 +56,14 @@ struct SlashMenuItemsBuilder {
     }
     
     private var objectsMenuItem: SlashMenuItem? {
-        guard let draft = ObjectTypeProvider.objectType(url: ObjectTemplateType.page.rawValue) else {
-            return nil
-        }
-        
+        let searchTypes = searchService.searchObjectTypes(text: "", filteringTypeUrl: nil) ?? []
+
+        let linkTo = SlashActionObject.linkTo
+        let objectTypes = searchTypes.map(SlashActionObject.objectType)
+
         return SlashMenuItem(
             type: .objects,
-            children: [
-                .objects(.linkTo),
-                .objects(.objectType(draft))
-            ]
+            children: ([linkTo] + objectTypes).map(SlashAction.objects)
         )
     }
     

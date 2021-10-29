@@ -19,7 +19,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     static var supportedTypeUrls: [String] {
         objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
             .map { $0.url } +
-        [ObjectTemplateType.note.rawValue]
+        [ObjectTemplateType.KnownType.note.rawValue]
     }
     
     static func isSupported(type: ObjectType?) -> Bool {
@@ -31,12 +31,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     static func isSupported(typeUrl: String?) -> Bool {
-        guard let typeUrl = typeUrl else {
-            anytypeAssertionFailure("Nil type url")
-            return false
-        }
-        
-        return supportedTypeUrls.contains(typeUrl)
+        typeUrl != ObjectTemplateType.KnownType.set.rawValue
     }
     
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {

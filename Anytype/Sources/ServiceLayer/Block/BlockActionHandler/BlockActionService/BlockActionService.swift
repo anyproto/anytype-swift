@@ -104,11 +104,11 @@ final class BlockActionService: BlockActionServiceProtocol {
             }
     }
 
-    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: String, position: BlockPosition) -> BlockId? {
         guard let response = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
-            details: [.name("")],
+            details: [.name(""), .type(.unknown(type))],
             position: position,
             templateId: ""
         ) else { return nil }

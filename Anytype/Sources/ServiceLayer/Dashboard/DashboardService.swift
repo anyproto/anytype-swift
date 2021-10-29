@@ -13,7 +13,7 @@ class DashboardService: DashboardServiceProtocol {
         return objectsService.createPage(
             contextId: "",
             targetId: "",
-            details: [.name(""), .isDraft(true), .type(.note)],
+            details: [.name(""), .isDraft(true), .type(.known(.note))],
             position: .bottom,
             templateId: ""
         )
