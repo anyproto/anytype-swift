@@ -8,7 +8,7 @@ import Amplitude
 class DashboardService: DashboardServiceProtocol {
     private let objectsService = ObjectActionsService()
     
-    func createNewPage() -> CreatePageResponse? {
+    func createNewPage() -> BlockId? {
         Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
         return objectsService.createPage(
             contextId: "",

@@ -1,6 +1,5 @@
-import Foundation
-import Combine
+import BlocksModels
 
 protocol DashboardServiceProtocol {
-    func createNewPage() -> CreatePageResponse?
+    func createNewPage() -> BlockId?
 }

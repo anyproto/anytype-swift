@@ -105,7 +105,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func createPage(targetId: BlockId, position: BlockPosition) -> BlockId? {
-        guard let response = pageService.createPage(
+        guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
             details: [.name("")],
@@ -114,8 +114,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         ) else { return nil }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-        EventsBunch(objectId: documentId, middlewareEvents: response.messages).send()
-        return response.newBlockId
+        return newBlockId
     }
 
     func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {

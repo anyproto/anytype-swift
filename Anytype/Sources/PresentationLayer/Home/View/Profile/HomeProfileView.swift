@@ -77,7 +77,7 @@ struct HomeProfileView: View {
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
                 )
             }
-            Button(action: model.createNewPage) {
+            Button(action: model.createAndShowNewPage) {
                 HomeProfileViewButtonImage(image: Image.main.draft)
             }
         }
