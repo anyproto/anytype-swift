@@ -59,9 +59,10 @@ extension ObjectHeaderView: ConfigurableView {
     
     func configure(model: Model) {
         switch model.state {
-        case .iconOnly(let objectHeaderIcon):
+        case .iconOnly(let objectHeaderIconState):
             switchState(.icon)
-            applyObjectHeaderIcon(objectHeaderIcon)
+            applyObjectHeaderIcon(objectHeaderIconState.icon)
+            onCoverTap = objectHeaderIconState.onCoverTap
             
         case .coverOnly(let objectHeaderCover):
             switchState(.cover)

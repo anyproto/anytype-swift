@@ -55,10 +55,13 @@ final class ObjectHeaderBuilder {
         case .iconUploading(let uIImage):
             return ObjectHeader.filled(
                 .iconOnly(
-                    ObjectHeaderIcon(
-                        icon: .basicPreview(uIImage),
-                        layoutAlignment: .left,
-                        onTap: onIconTap
+                    ObjectHeaderIconOnlyState(
+                        icon: ObjectHeaderIcon(
+                            icon: .basicPreview(uIImage),
+                            layoutAlignment: .left,
+                            onTap: onIconTap
+                        ),
+                        onCoverTap: onCoverTap
                     )
                 )
             )
@@ -96,10 +99,13 @@ final class ObjectHeaderBuilder {
         if let icon = details.icon {
             return .filled(
                 .iconOnly(
-                    ObjectHeaderIcon(
-                        icon: .icon(icon),
-                        layoutAlignment: layoutAlign,
-                        onTap: onIconTap
+                    ObjectHeaderIconOnlyState(
+                        icon: ObjectHeaderIcon(
+                            icon: .icon(icon),
+                            layoutAlignment: layoutAlign,
+                            onTap: onIconTap
+                        ),
+                        onCoverTap: onCoverTap
                     )
                 )
             )
