@@ -40,8 +40,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId? {
-        return service.createPage(targetId: targetId, position: position)
+    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
+        return service.createPage(targetId: targetId, type: type, position: position)
     }
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {
@@ -163,7 +163,7 @@ private extension BlockActionHandler {
         switch type {
         case .smartblock(.page):
             anytypeAssertionFailure("Use createPage func instead")
-            _ = createPage(targetId: blockId, position: .bottom)
+            _ = createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
         default:
             guard
                 let newBlock = BlockBuilder.createNewBlock(type: type),

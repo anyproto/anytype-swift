@@ -7,6 +7,6 @@ protocol BlockActionHandlerProtocol {
 
     func upload(blockId: BlockId, filePath: String)
     func turnIntoPage(blockId: BlockId) -> BlockId?
-    func createPage(targetId: BlockId, position: BlockPosition) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
 }

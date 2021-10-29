@@ -1,4 +1,4 @@
 enum SlashActionObject {
     case linkTo
-    case objectType(ObjectType)
+    case objectType(SearchData)
 }

@@ -55,9 +55,9 @@ private extension ApplicationCoordinator {
     func runAtFirstLaunch() {
         if UserDefaultsConfig.defaultObjectType.isEmpty {
             if UserDefaultsConfig.installedAtDate.isNil { // First launch
-                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.note.rawValue
+                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.note).rawValue
             } else {
-                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.page.rawValue
+                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.page).rawValue
             }
         }
         

@@ -7,6 +7,6 @@ public enum ObjectDetailsItem {
     case iconImageHash(Hash?)
     case coverId(String)
     case coverType(CoverType)
-    case type(String)
+    case type(ObjectTemplateType)
     case isDraft(Bool)
 }

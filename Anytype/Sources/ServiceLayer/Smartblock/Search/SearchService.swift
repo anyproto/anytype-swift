@@ -129,7 +129,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.supportedTypeUrls
             ),
-            SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.set.rawValue)
+            SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.BundledType.set.rawValue)
         ]
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
@@ -141,8 +141,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return result?.reordered(
             by: [
-                ObjectTemplateType.note.rawValue,
-                ObjectTemplateType.page.rawValue
+                ObjectTemplateType.BundledType.note.rawValue,
+                ObjectTemplateType.BundledType.page.rawValue
             ]
         ) { $0.id }
     }

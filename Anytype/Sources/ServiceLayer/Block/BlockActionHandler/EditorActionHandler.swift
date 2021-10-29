@@ -73,13 +73,13 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         return blockActionHandler.turnIntoPage(blockId: blockId)
     }
     
-    func createPage(targetId: BlockId) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
         guard let block = document.blocksContainer.model(id: targetId) else { return nil }
         if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
-            return blockActionHandler.createPage(targetId: targetId, position: .replace)
+            return blockActionHandler.createPage(targetId: targetId, type: type, position: .replace)
         }
         
-        return blockActionHandler.createPage(targetId: targetId, position: .bottom)
+        return blockActionHandler.createPage(targetId: targetId, type: type, position: .bottom)
     }
     
     func showPage(blockId: ActionHandlerBlockIdSource) {

@@ -28,8 +28,8 @@ final class SlashMenuActionHandler {
                 router.showLinkTo { [weak self] targetDetailsId in
                     self?.actionHandler.handleAction(.addLink(targetDetailsId), blockId: blockId)
                 }
-            case .objectType:
-                actionHandler.createPage(targetId: blockId)
+            case .objectType(let object):
+                actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
                     .flatMap { actionHandler.showPage(blockId: .provided($0)) }
             }
         case .relations:
