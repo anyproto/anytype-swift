@@ -113,8 +113,16 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func textDidChange() {
         displayAcessoryViewTask.cancel()
 
-        let editorAccessoryView = editorAccessoryView
-        if activeView != editorAccessoryView { showAccessoryView(editorAccessoryView) }
+        switch activeView {
+        case .`default`, .changeType:
+            let editorAccessoryView = editorAccessoryView
+
+            if activeView != editorAccessoryView {
+                showAccessoryView(editorAccessoryView)
+            }
+        default:
+            break
+        }
 
         if isSlashOrMentionCurrentlyVisible() {
             setTextToSlashOrMention()

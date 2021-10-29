@@ -4,6 +4,7 @@ import Foundation
 public enum RelationKey: String {
     case id
     case name
+    case snippet
     case iconEmoji
     case iconImage
     case coverId

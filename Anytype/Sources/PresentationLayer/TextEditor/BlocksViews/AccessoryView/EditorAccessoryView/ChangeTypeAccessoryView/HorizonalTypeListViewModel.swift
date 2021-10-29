@@ -1,9 +1,10 @@
 import UIKit
 import Combine
 import BlocksModels
+import SwiftUI
 
 protocol TypeListItemProvider: AnyObject {
-    var typesPublisher: Published<[HorizonalTypeListViewModel.Item]>.Publisher { get }
+    var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> { get }
 }
 
 final class HorizonalTypeListViewModel: ObservableObject {

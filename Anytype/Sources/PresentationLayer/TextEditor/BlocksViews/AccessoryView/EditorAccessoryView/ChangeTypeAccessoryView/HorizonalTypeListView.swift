@@ -3,7 +3,7 @@ import UIKit
 import Combine
 
 struct HorizonalTypeListView: View {
-    let viewModel: HorizonalTypeListViewModel
+    @StateObject var viewModel: HorizonalTypeListViewModel
 
     var body: some View {
         Divider()
@@ -45,8 +45,8 @@ private struct TypeView: View {
 
 struct HorizonalTypeListView_Previews: PreviewProvider {
     private final class ItemProvider: TypeListItemProvider {
-        var typesPublisher: Published<[HorizonalTypeListViewModel.Item]>.Publisher {
-            $items
+        var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> {
+            $items.eraseToAnyPublisher()
         }
 
         @Published var items: [HorizonalTypeListViewModel.Item] =

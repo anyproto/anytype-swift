@@ -12,14 +12,7 @@ on:
 jobs:
   main:
     runs-on: macOS-11
-    timeout-minutes: 20
-
-    strategy:
-      matrix:
-        scheme:
-          - Anytype
-        product-name:
-          - Anytype
+    timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v2.3.4
@@ -62,5 +55,58 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
 
-      - name: Upload dsyms to Crashlytics
-        run: ./Scripts/upload-symbols -gsp ./Anytype/Resources/Plists/GoogleService-Info.plist -p ios ./Anytype.app.dSYM.zip
+  wait_for_dSYM:
+    needs: main
+    runs-on: ubuntu-latest
+    timeout-minutes: 67
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1.81.0
+        with:
+            ruby-version: 2.7.2
+            bundler-cache: true
+
+      - name: Download dSYM
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane download_release_symbols
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+  
+  update_dSYM:
+    needs: wait_for_dSYM
+    runs-on: macOS-11
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1.81.0
+        with:
+            ruby-version: 2.7.2
+            bundler-cache: true
+
+      - name: Update dev dSYMs
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane update_release_symbols version:"lates"
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}          
+
+
