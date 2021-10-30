@@ -27,6 +27,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
+    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     
@@ -204,7 +205,16 @@ final class EditorRouter: EditorRouterProtocol {
         
         presentSwuftUIView(view: moveToView)
     }
-    
+
+    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
+        let viewModel = LinkToObjectSearchViewModel { searchKind in
+            onSelect(searchKind)
+        }
+        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
+
+        presentSwuftUIView(view: linkToView)
+    }
+
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
             onSelect(id)

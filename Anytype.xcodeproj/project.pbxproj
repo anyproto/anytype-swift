@@ -532,6 +532,7 @@
 		53856BEB265BC48800CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; };
 		53856BEC265BC48800CB1FAE /* ProtobufMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53856BF0265BCD4B00CB1FAE /* FieldsExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */; };
+		538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */; };
 		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
 		538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */; };
 		538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */; };
@@ -1244,6 +1245,7 @@
 		538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackConfigurator.swift; sourceTree = "<group>"; };
 		53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockViewModel.swift; sourceTree = "<group>"; };
 		53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FieldsExtenstion.swift; path = ../../../../../../Modules/ProtobufMessages/Sources/FieldsExtenstion.swift; sourceTree = "<group>"; };
+		538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchViewModel.swift; sourceTree = "<group>"; };
 		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelProtocol.swift; sourceTree = "<group>"; };
 		538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchViewModel.swift; sourceTree = "<group>"; };
@@ -3185,6 +3187,7 @@
 			children = (
 				538F172A272C2F1E009528E7 /* SearchView */,
 				538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */,
+				538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -4864,6 +4867,7 @@
 				3DFD1B4026EB1F8B00F893FC /* StaticImageGuideline.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BookmarkServiceProtocol.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* EditorBarButtonItem.swift in Sources */,
+				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,

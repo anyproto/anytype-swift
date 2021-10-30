@@ -2,12 +2,12 @@ import SwiftUI
 import BlocksModels
 
 
-struct SearchView: View {
+struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
 
     let title: String?
     @State private var searchText = ""
-    @StateObject var viewModel: ObjectSearchViewModel
+    @StateObject var viewModel: SearchViewModel
     
     var body: some View {
         VStack() {
@@ -44,24 +44,37 @@ struct SearchView: View {
     
     private var searchResults: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 0) {
                 ForEach(viewModel.searchData) { section in
-                    Section {
+                    Section(content: {
                         ForEach(section.searchData) { searchData in
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
-                                    viewModel.onSelect(searchData.id)
+                                    viewModel.onSelect(searchData.searchResult)
                                 }
                             ) {
                                 SearchCell(data: searchData,
-                                           descriptionTextColor: viewModel.descriptionTextColor,
-                                           shouldShowCallout: viewModel.shouldShowCallout)
+                                           descriptionTextColor: searchData.descriptionTextColor,
+                                           shouldShowCallout: searchData.shouldShowCallout,
+                                           shouldShowDescription: searchData.shouldShowDescription)
                             }
                             .frame(maxWidth: .infinity)
                             .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
                         }
-                    }
+                    }, header: {
+                        if section.sectionName.isNotEmpty {
+                            VStack(alignment: .leading, spacing: 0) {
+                                Spacer()
+                                AnytypeText(section.sectionName, style: .caption1Regular, color: .textSecondary)
+                                    .modifier(DividerModifier(spacing: 7, leadingPadding: 0, trailingPadding: 0   , alignment: .leading))
+                            }
+                            .padding(.horizontal, 20)
+                            .frame(height: 52)
+                        } else {
+                            EmptyView()
+                        }
+                    })
                 }
             }
         }
