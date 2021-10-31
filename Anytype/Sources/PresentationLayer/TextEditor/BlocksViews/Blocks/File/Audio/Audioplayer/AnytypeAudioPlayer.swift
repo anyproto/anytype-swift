@@ -7,6 +7,7 @@
 //
 
 import AVKit
+import MediaPlayer
 
 
 final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
@@ -16,6 +17,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     var playerItemContext = 0
     private var timeObserverToken: Any? = nil
     private var isInterrupted: Bool = false
+    private var currentTrackName: String = ""
 
     var isPlaying: Bool {
         return audioPlayer.rate != 0 && audioPlayer.error == nil
@@ -37,6 +39,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
         super.init()
 
         self.setupObservers()
+        self.setupMPCommandCenter()
     }
 
     deinit {
@@ -79,9 +82,41 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
         }
     }
 
+    private func setupMPCommandCenter() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+
+        commandCenter.playCommand.addTarget { [weak self] _ in
+            self?.play()
+            self?.delegate?.playerReadyToResumeAfterInterruption()
+            return .success
+        }
+        commandCenter.pauseCommand.addTarget { [weak self] _ in
+            self?.pause()
+            self?.delegate?.stopPlaying()
+            return .success
+        }
+        commandCenter.changePlaybackPositionCommand.addTarget { [weak self] event in
+            guard let positionEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
+
+            self?.setTrackTime(value: positionEvent.positionTime, completion: {})
+            return .success
+        }
+    }
+
+    private func updatePlayingInfo() {
+        var info = [String: Any]()
+        info[MPMediaItemPropertyTitle] = currentTrackName
+        info[MPMediaItemPropertyPlaybackDuration] = duration
+        info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTime
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+    }
+
     // MARK: - Public methos
 
-    func setAudio(playerItem: AVPlayerItem?, delegate: AnytypeAudioPlayerDelegate) {
+    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: AnytypeAudioPlayerDelegate) {
         // tell current delegate that it stops playing
         self.delegate?.stopPlaying()
         // assing new delegate
@@ -94,20 +129,24 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
                                              forKeyPath: #keyPath(AVPlayerItem.status),
                                              options: .new,
                                              context: &playerItemContext)
+        currentTrackName = name
     }
 
     func play() {
         audioPlayer.play()
+        updatePlayingInfo()
     }
 
     func pause() {
         audioPlayer.pause()
+        updatePlayingInfo()
     }
 
     func setTrackTime(value: Double, completion: @escaping () -> Void) {
         let seekTime = CMTime(seconds: value, preferredTimescale: 10)
-        audioPlayer.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) {_ in
+        audioPlayer.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] _ in
             completion()
+            self?.updatePlayingInfo()
         }
     }
 }
