@@ -10,6 +10,7 @@ struct DefaultTypePicker: View {
             title: "Choose default object type".localized) { blockId in
                 UserDefaultsConfig.defaultObjectType = blockId
                 model.defaultType = false
+                model.other = false
             }
     }
 }

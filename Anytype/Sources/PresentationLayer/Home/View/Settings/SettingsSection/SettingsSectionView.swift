@@ -44,15 +44,15 @@ struct SettingsSectionView: View {
                 AboutView()
             }
             
+            .sheet(isPresented: $viewModel.debugMenu) {
+                FeatureFlagsView()
+            }
             #if !RELEASE
             SettingsSectionItemView(
                 name: "Debug",
                 icon: .settings.debug,
                 pressed: $viewModel.debugMenu
             )
-            .sheet(isPresented: $viewModel.debugMenu) {
-                FeatureFlagsView()
-            }
             #endif
         }
         .padding([.leading, .trailing], 20)
