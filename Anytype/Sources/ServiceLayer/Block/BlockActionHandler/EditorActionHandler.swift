@@ -11,6 +11,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
     private let blockActionHandler: BlockActionHandlerProtocol
+    private let pageServie: PageService
     private let router: EditorRouterProtocol
     
     init(
@@ -21,6 +22,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         self.document = document
         self.blockActionHandler = blockActionHandler
         self.router = router
+        self.pageServie = PageService()
     }
     
     func onEmptySpotTap() {
@@ -103,8 +105,18 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
 
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
-        router.showLinkTo { [weak self] linkBlockId in
-            self?.blockActionHandler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+        router.showLinkToObject { [weak self] searchKind in
+            switch searchKind {
+            case let .object(linkBlockId):
+                self?.blockActionHandler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+            case let .createObject(name):
+                if let linkBlockId = self?.pageServie.createPage(name: name) {
+                    self?.blockActionHandler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+                }
+            case let .web(url):
+                let link = URL(string: url)
+                self?.blockActionHandler.handleBlockAction(.setLink(attrText, link, range), blockId: blockId)
+            }
         }
     }
     
