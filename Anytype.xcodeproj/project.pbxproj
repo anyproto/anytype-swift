@@ -1504,10 +1504,6 @@
 		031B35572346C5650066DDB8 /* BlocksViews */ = {
 			isa = PBXGroup;
 			children = (
-				125B6E9326F235F400BCD7D6 /* AccessoryView */,
-				125B6EA926F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift */,
-				125B6E9B26F235F400BCD7D6 /* AccessoryViewSwitcherData.swift */,
-				125B6E9626F235F400BCD7D6 /* AccessoryViewSwitcher.swift */,
 				0A19E2B22444C9430078DFAB /* Base */,
 				0A10CC5A248EC2EE000FF498 /* Blocks */,
 				0ADE618B2448877300244E49 /* ContextualMenu */,
@@ -1781,12 +1777,13 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
-				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
-				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
 				0A0965BF25BEF5B000C004BD /* Routing */,
 				3D93D55B270AFDFE00614E29 /* EditorBrowser */,
 				0A0965BE25BEF5B000C004BD /* EditorPage */,
+				125B6E9326F235F400BCD7D6 /* AccessoryView */,
 				031B35572346C5650066DDB8 /* BlocksViews */,
+				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
+				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
 			);
 			path = TextEditor;
 			sourceTree = "<group>";
@@ -2355,6 +2352,9 @@
 				125B6E9C26F235F400BCD7D6 /* EditorAccessoryView */,
 				125B6EA126F235F400BCD7D6 /* Mention */,
 				125B6EB126F235F400BCD7D6 /* SlashMenu */,
+				125B6EA926F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift */,
+				125B6E9B26F235F400BCD7D6 /* AccessoryViewSwitcherData.swift */,
+				125B6E9626F235F400BCD7D6 /* AccessoryViewSwitcher.swift */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
