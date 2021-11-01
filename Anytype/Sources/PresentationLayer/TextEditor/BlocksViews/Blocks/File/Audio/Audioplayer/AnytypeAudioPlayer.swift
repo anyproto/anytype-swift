@@ -97,6 +97,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     }
 
     func play() {
+        try? AVAudioSession.sharedInstance().setActive(true)
         audioPlayer.play()
     }
 
@@ -156,11 +157,9 @@ private extension AnytypeAudioPlayer {
         // Switch over the interruption type.
         switch type {
         case .began:
-            if isPlaying {
-                pause()
-                isInterrupted = true
-                self.delegate?.playerInterrupted()
-            }
+            pause()
+            isInterrupted = true
+            self.delegate?.playerInterrupted()
         case .ended:
             // An interruption ended. Resume playback, if appropriate.
             guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }
