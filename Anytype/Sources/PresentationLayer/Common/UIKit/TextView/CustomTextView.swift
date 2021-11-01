@@ -92,9 +92,16 @@ private extension CustomTextView {
             numberOfTapsRequired: 1,
             tapHandler: mentionSelectionHandler
         )
+        let objectSelection = TextViewAttributeSelectionInteraction(
+            textView: textView,
+            attributeKey: .linkToObject,
+            numberOfTapsRequired: 1,
+            tapHandler: mentionSelectionHandler
+        )
         
         textView.addInteraction(linkSelection)
         textView.addInteraction(mentionSelection)
+        textView.addInteraction(objectSelection)
         textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }
