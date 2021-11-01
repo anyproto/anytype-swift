@@ -67,7 +67,7 @@ jobs:
   wait_for_dSYM:
     needs: main
     runs-on: ubuntu-latest
-    timeout-minutes: 67
+    timeout-minutes: 150
 
     steps:
       - name: Checkout branch
