@@ -47,6 +47,7 @@ extension Image {
         static let icon = createImage("object_settings_icon")
         static let cover = createImage("object_settings_cover")
         static let layout = createImage("object_settings_layout")
+        static let relations = createImage("object_settings_relations")
     }
 
     enum ObjectAction {
