@@ -11,6 +11,7 @@ struct ObjectSettingsContainerView: View {
     @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
     @State private var isLayoutPickerPresented = false
+    @State private var isRelationsViewPresented = false
     
     var body: some View {
         Color.clear
@@ -33,7 +34,8 @@ struct ObjectSettingsContainerView: View {
                     ObjectSettingsView(
                         isCoverPickerPresented: $isCoverPickerPresented,
                         isIconPickerPresented: $isIconPickerPresented,
-                        isLayoutPickerPresented: $isLayoutPickerPresented
+                        isLayoutPickerPresented: $isLayoutPickerPresented,
+                        isRelationsViewPresented: $isRelationsViewPresented
                     )
                         .padding(8)
                         .environmentObject(viewModel)
@@ -56,6 +58,15 @@ struct ObjectSettingsContainerView: View {
                 }
             ) {
                 ObjectIconPicker(viewModel: viewModel.iconPickerViewModel)
+            }
+            .sheet(
+                isPresented: $isRelationsViewPresented,
+                onDismiss: {
+                    // TODO: is it necessary?
+                    isRelationsViewPresented = false
+                }
+            ) {
+                ObjectRelationsView()
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
