@@ -21,24 +21,23 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     private let service = SearchService()
 
-    var descriptionTextColor: Color {
-        return .textPrimary
-    }
-    var shouldShowCallout: Bool {
-        return true
-    }
+    let descriptionTextColor: Color = .textPrimary
+    let shouldShowCallout: Bool = true
+
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     var onSelect: (SearchDataType.SearchResult) -> ()
 
     func search(text: String) {
         searchData.removeAll()
-        
-        let result: [SearchData]? = {
-            return service.search(text: text)
-        }()
+
+        let result = service.search(text: text)
+
+        var objectData = result?.compactMap { searchData in
+            LinkToObjectSearchData(searchData: searchData)
+        }
 
         if text.isNotEmpty {
-            let icon = UIImage(named: ImageName.slashMenu.style.link) ?? UIImage()
+            let icon = UIImage.createImage(ImageName.slashMenu.style.link)
             let webSearchData = LinkToObjectSearchData(
                 searchKind: .web(text),
                 searchTitle: text,
@@ -46,17 +45,12 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
             let webSection = SearchDataSection(searchData: [webSearchData], sectionName: "Web pages".localized)
             searchData.append(webSection)
-        }
-        var objectData = result?.compactMap { searchData in
-            LinkToObjectSearchData(searchData: searchData)
-        }
 
-        if text.isNotEmpty {
-            let icon = UIImage(named: "createNewObject") ?? UIImage()
+            let createObjectIcon = UIImage.createImage("createNewObject")
             let title = "Create object".localized + "  " + "\"" + text + "\""
             let createObjectData = LinkToObjectSearchData(searchKind: .createObject(text),
                                                           searchTitle: title,
-                                                          iconImage: .image(icon))
+                                                          iconImage: .image(createObjectIcon))
             objectData?.insert(createObjectData, at: 0)
         }
 
