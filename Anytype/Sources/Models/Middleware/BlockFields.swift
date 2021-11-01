@@ -13,8 +13,7 @@ extension BlockFields {
 
         let protoFields = fields.reduce(ProtobufDictionary()) { dictionary, item in
             var dictionary = dictionary
-            let protoValue = Google_Protobuf_Value(stringValue: item.value)
-            dictionary[item.key] = protoValue
+            dictionary[item.key] = item.value.protobufValue
             return dictionary
         }
         let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
