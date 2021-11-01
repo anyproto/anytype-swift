@@ -62,6 +62,8 @@ struct ObjectSettingsView: View {
                 withAnimation() {
                     isLayoutPickerPresented = true
                 }
+            case .relations:
+                break
             }
         }
     }
