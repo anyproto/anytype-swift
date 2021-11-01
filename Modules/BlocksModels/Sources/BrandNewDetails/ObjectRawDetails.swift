@@ -24,29 +24,29 @@ extension ObjectRawDetails {
             case .iconImageHash(let hash):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.iconImage.rawValue,
-                    value: Google_Protobuf_Value(stringValue: hash?.value ?? "")
+                    value: (hash?.value ?? "").protobufValue
                 )
                 
-            case .coverId(let string):
+            case .coverId(let coverId):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.coverId.rawValue,
-                    value: Google_Protobuf_Value(stringValue: string)
+                    value: coverId.protobufValue
                 )
                 
             case .coverType(let coverType):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.coverType.rawValue,
-                    value: Google_Protobuf_Value(numberValue: Double(coverType.rawValue))
+                    value: coverType.rawValue.protobufValue
                 )
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.type.rawValue,
                     value: type.rawValue.protobufValue
                 )
-            case .isDraft(let bool):
+            case .isDraft(let isDraft):
                 return Anytype_Rpc.Block.Set.Details.Detail(
                     key: RelationKey.isDraft.rawValue,
-                    value: Google_Protobuf_Value(boolValue: bool)
+                    value: isDraft.protobufValue
                 )
             }
         }

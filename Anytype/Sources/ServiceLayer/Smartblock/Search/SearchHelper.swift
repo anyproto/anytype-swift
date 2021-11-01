@@ -14,7 +14,7 @@ class SearchHelper {
     static func isArchivedFilter(isArchived: Bool) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
-        filter.value = Google_Protobuf_Value(boolValue: isArchived)
+        filter.value = isArchived.protobufValue
         filter.relationKey = RelationKey.isArchived.rawValue
         filter.operator = .and
         
@@ -24,7 +24,7 @@ class SearchHelper {
     static func notHiddenFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
-        filter.value = Google_Protobuf_Value(boolValue: false)
+        filter.value = false.protobufValue
         filter.relationKey = RelationKey.isHidden.rawValue
         filter.operator = .and
         
@@ -34,7 +34,7 @@ class SearchHelper {
     static func notDeletedFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
-        filter.value = Google_Protobuf_Value(boolValue: false)
+        filter.value = false.protobufValue
         filter.relationKey = RelationKey.isDeleted.rawValue
         filter.operator = .and
         
@@ -44,11 +44,7 @@ class SearchHelper {
     static func typeFilter(typeUrls: [String]) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .in
-        filter.value = Google_Protobuf_Value(
-            listValue: Google_Protobuf_ListValue(
-                values: typeUrls.map { Google_Protobuf_Value(stringValue: $0) }
-            )
-        )
+        filter.value = typeUrls.protobufValue
         filter.relationKey = RelationKey.type.rawValue
         filter.operator = .and
         
@@ -58,11 +54,7 @@ class SearchHelper {
     static func supportedObjectTypeUrlsFilter(_ typeUrls: [String]) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .in
-        filter.value = Google_Protobuf_Value(
-            listValue: Google_Protobuf_ListValue(
-                values: typeUrls.map { Google_Protobuf_Value(stringValue: $0) }
-            )
-        )
+        filter.value = typeUrls.protobufValue
         filter.relationKey = RelationKey.id.rawValue
         filter.operator = .and
         
@@ -82,7 +74,7 @@ class SearchHelper {
     static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .notEqual
-        filter.value = Google_Protobuf_Value(stringValue: typeUrl)
+        filter.value = typeUrl.protobufValue
         
         filter.relationKey = RelationKey.id.rawValue
         filter.operator = .and
