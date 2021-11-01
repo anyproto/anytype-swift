@@ -14,6 +14,7 @@ enum SearchKind {
     case objectTypes(currentObjectTypeUrl: String)
 }
 
+/// https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=6455%3A4097
 final class ObjectSearchViewModel: SearchViewModel, ObservableObject {
     typealias SearchDataType = SearchData
 
