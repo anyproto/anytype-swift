@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 
 final class AudioPlaybackConfigurator: AppConfiguratorProtocol {
@@ -18,6 +19,8 @@ final class AudioPlaybackConfigurator: AppConfiguratorProtocol {
             if !AVAudioSession.sharedInstance().isOtherAudioPlaying {
                 try AVAudioSession.sharedInstance().setActive(true)
             }
+
+            UIApplication.shared.beginReceivingRemoteControlEvents()
 
             //!! IMPORTANT !!
             /*
