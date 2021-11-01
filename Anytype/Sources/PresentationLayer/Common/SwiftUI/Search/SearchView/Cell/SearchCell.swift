@@ -7,6 +7,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     let data: SearchData
     let descriptionTextColor: Color
     let shouldShowCallout: Bool
+    let shouldShowDescription: Bool
 
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
