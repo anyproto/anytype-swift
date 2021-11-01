@@ -8,11 +8,11 @@ extension RelationValuesProvider {
     
     var icon: ObjectIconType? {
         switch layout {
-        case .basic, .note:
+        case .basic:
             return basicIcon
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
-        case .todo:
+        case .todo, .note:
             return nil
         }
     }
