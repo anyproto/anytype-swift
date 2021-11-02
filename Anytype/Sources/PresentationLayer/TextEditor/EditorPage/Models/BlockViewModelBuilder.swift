@@ -197,7 +197,7 @@ final class BlockViewModelBuilder {
                 guard let self = self else { return }
                 
                 guard
-                    self.document.objectDetails?.type != ObjectTemplateType.bundled(.profile).rawValue
+                    !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 else {
                     return
                 }

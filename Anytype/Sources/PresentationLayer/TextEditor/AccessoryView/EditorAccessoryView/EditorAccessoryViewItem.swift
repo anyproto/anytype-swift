@@ -5,6 +5,7 @@ extension EditorAccessoryView {
         case mention
         case slash
         case style
+        case actions
 
         var image: UIImage {
             switch self {
@@ -14,6 +15,8 @@ extension EditorAccessoryView {
                 return UIImage.edititngToolbar.addNew
             case .style:
                 return UIImage.edititngToolbar.style
+            case .actions:
+                return UIImage.edititngToolbar.actions
             }
         }
 
@@ -25,6 +28,8 @@ extension EditorAccessoryView {
                 return .slashMenu
             case .style:
                 return .showStyleMenu
+            case .actions:
+                return .editingMode
             }
         }
 
@@ -36,6 +41,8 @@ extension EditorAccessoryView {
                 return AmplitudeEventsName.buttonSlashMenu
             case .style:
                 return AmplitudeEventsName.buttonStyleMenu
+            case .actions:
+                return ""
             }
         }
     }
