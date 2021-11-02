@@ -16,12 +16,12 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
+    private let accessoryDelegate: AccessoryTextViewDelegate
     
     private let showPage: (String) -> Void
     private let openURL: (URL) -> Void
     
     private let actionHandler: EditorActionHandlerProtocol
-    private let accessorySwitcher: AccessoryViewSwitcherProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     private let detailsStorage: ObjectDetailsStorageProtocol
     
@@ -42,7 +42,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         contextualMenuHandler: DefaultContextualMenuHandler,
         blockDelegate: BlockDelegate,
         actionHandler: EditorActionHandlerProtocol,
-        accessorySwitcher: AccessoryViewSwitcherProtocol,
+        accessoryDelegate: AccessoryTextViewDelegate,
         detailsStorage: ObjectDetailsStorageProtocol,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void
@@ -54,7 +54,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
-        self.accessorySwitcher = accessorySwitcher
+        self.accessoryDelegate = accessoryDelegate
         self.showPage = showPage
         self.openURL = openURL
         self.toggled = block.isToggled
@@ -89,7 +89,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             upperBlock: upperBlock,
             isCheckable: isCheckable,
             actionHandler: actionHandler,
-            accessorySwitcher: accessorySwitcher,
+            accessoryDelegate: accessoryDelegate,
             showPage: showPage,
             openURL: openURL,
             focusPublisher: focusSubject.eraseToAnyPublisher(),

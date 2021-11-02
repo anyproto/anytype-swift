@@ -16,7 +16,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func willBeginEditing() {
-        currentConfiguration.accessorySwitcher.didBeginEditing(
+        currentConfiguration.accessoryDelegate.didBeginEditing(
             data: AccessoryViewSwitcherData(
                 textView: textView,
                 block: currentConfiguration.block,
@@ -42,7 +42,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
 
-            currentConfiguration.accessorySwitcher.textDidChange()
+            currentConfiguration.accessoryDelegate.textDidChange()
         case let .keyboardAction(keyAction):
             switch keyAction {
             case .enterInsideContent,
@@ -81,7 +81,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            currentConfiguration.accessorySwitcher.textWillChange(
+            currentConfiguration.accessoryDelegate.textWillChange(
                 replacementText: replacementText,
                 range: range
             )

@@ -80,14 +80,14 @@ final class EditorPageAssembly {
                 router: router,
                 document: document
             )
-
+        let accessoryDelegate = AccessoryViewStateManager(switcher: accessorySwitcher)
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             editorActionHandler: editorBlockActionHandler,
             router: router,
             delegate: blockDelegate,
-            accessorySwitcher: accessorySwitcher
+            accessoryDelegate: accessoryDelegate
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(

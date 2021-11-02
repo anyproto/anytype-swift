@@ -488,6 +488,8 @@
 		3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */; };
 		3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */; };
 		3DE6925127301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6925027301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift */; };
+		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
+		3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926C273147E300A4CD4E /* URLInputAccessoryViewModel.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
 		3DE8D5B026CD76E2006F31C1 /* ObjectTypeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8D5AF26CD76E2006F31C1 /* ObjectTypeProvider.swift */; };
 		3DE8D5C426CFFFE4006F31C1 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE8D5C326CFFFE4006F31C1 /* AlertHelper.swift */; };
@@ -1206,6 +1208,8 @@
 		3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseDocumentProtocol.swift; path = Anytype/Sources/Models/Documents/Document/BaseDocumentProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewType.swift; sourceTree = "<group>"; };
 		3DE6925027301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccessoryViewSwitcher+MentionViewDelegate.swift"; sourceTree = "<group>"; };
+		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
+		3DE6926C273147E300A4CD4E /* URLInputAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputAccessoryViewModel.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
 		3DE8D5AF26CD76E2006F31C1 /* ObjectTypeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeProvider.swift; sourceTree = "<group>"; };
 		3DE8D5C326CFFFE4006F31C1 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
@@ -2355,6 +2359,7 @@
 				125B6EA926F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift */,
 				125B6E9B26F235F400BCD7D6 /* AccessoryViewSwitcherData.swift */,
 				125B6E9626F235F400BCD7D6 /* AccessoryViewSwitcher.swift */,
+				3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
@@ -2363,6 +2368,7 @@
 			isa = PBXGroup;
 			children = (
 				125B6E9526F235F400BCD7D6 /* URLInputAccessoryView.swift */,
+				3DE6926C273147E300A4CD4E /* URLInputAccessoryViewModel.swift */,
 			);
 			path = URLInput;
 			sourceTree = "<group>";
@@ -4575,6 +4581,7 @@
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* HomeCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
+				3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */,
 				1255DF89270220E900870B95 /* MediaFileUploadingDemon.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BookmarkService.swift in Sources */,
@@ -4783,6 +4790,7 @@
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
 				3D93D561270B3FC500614E29 /* UINavigationController+Appearance.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
+				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
 				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
 				EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */,
 				3D6E9A46270F4889001B0A07 /* BrowserNavigationManagerError.swift in Sources */,

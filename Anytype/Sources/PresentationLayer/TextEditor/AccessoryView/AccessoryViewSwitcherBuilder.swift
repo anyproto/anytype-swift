@@ -48,12 +48,14 @@ struct AccessoryViewSwitcherBuilder {
             size: menuActionsViewSize,
             viewModel: slashMenuViewModel
         )
+        let urlInputView = URLInputAccessoryView(handler: actionHandler)
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
             accessoryView: accessoryView,
             changeTypeView: changeTypeView,
+            urlInputView: urlInputView,
             handler: actionHandler,
             document: document
         )

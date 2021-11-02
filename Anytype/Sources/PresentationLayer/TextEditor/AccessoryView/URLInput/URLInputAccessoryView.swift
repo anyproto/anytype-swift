@@ -1,19 +1,24 @@
 import UIKit
+import BlocksModels
 
 final class URLInputAccessoryView: DismissableInputAccessoryView {
-    
-    let urlInputView: URLInputView
-    
-    init(url: URL? = nil, didSetURL: @escaping (URL?) -> Void) {
-        self.urlInputView = URLInputView(
-            url: url,
-            didSetURL: didSetURL
+    private var model = Model.empty
+
+    lazy var urlInputView: URLInputView = URLInputView(url: .none, didSetURL: { [weak self] url in
+        guard let self = self else { return }
+        let model = self.model
+        
+        self.handler.handleAction(
+            .setLink(model.text, model.url, model.range),
+            blockId: model.blockId
         )
-        super.init(frame: CGRect(
-            origin: .zero,
-            size: Constants.ulrInputAccessoryViewSize
-            )
-        )
+        self.dismissHandler?()
+    })
+    private let handler: EditorActionHandlerProtocol
+    
+    init(handler: EditorActionHandlerProtocol) {
+        self.handler = handler
+        super.init(frame: CGRect(origin: .zero, size: Constants.ulrInputAccessoryViewSize))
     }
     
     override func didMoveToWindow() {
@@ -22,8 +27,9 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
         urlInputView.pinAllEdges(to: self)
     }
     
-    func updateUrl(_ url: URL?) {
-        urlInputView.updateUrl(url)
+    func updateUrlData(_ model: Model) {
+        self.model = model
+        urlInputView.updateUrl(model.url)
     }
 }
 

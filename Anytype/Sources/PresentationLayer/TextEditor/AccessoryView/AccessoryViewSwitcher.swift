@@ -4,42 +4,32 @@ import Combine
 
 protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
     func showURLInput(url: URL?)
-    
-    func didBeginEditing(data: AccessoryViewSwitcherData)
-        
-    func textDidChange()
-    func textWillChange(replacementText: String, range: NSRange)
+    func showDefaultView()
 }
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
-    private(set) var triggerSymbolPosition: UITextPosition?
+    var triggerSymbolPosition: UITextPosition?
     
-    private var activeView = AccessoryViewType.none
+    var activeView = AccessoryViewType.none
     
-    private var latestTextViewTextChange: TextViewTextChangeType?
-    
-    private let accessoryView: EditorAccessoryView
-    private let mentionsView: MentionView
-    private let slashMenuView: SlashMenuView
-    private let changeTypeView: ChangeTypeAccessoryView
-
-    private let document: BaseDocumentProtocol
-
-    private lazy var urlInputView = buildURLInputView()
+    let accessoryView: EditorAccessoryView
+    let mentionsView: MentionView
+    let slashMenuView: SlashMenuView
+    let changeTypeView: ChangeTypeAccessoryView
+    let urlInputView: URLInputAccessoryView
     
     let handler: EditorActionHandlerProtocol
+    let document: BaseDocumentProtocol
+    
     var data: AccessoryViewSwitcherData?
-    private var cancellables = [AnyCancellable]()
-
-    private var editorAccessoryView: AccessoryViewType {
-        document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
-    }
+    var cancellables = [AnyCancellable]()
 
     init(
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         accessoryView: EditorAccessoryView,
         changeTypeView: ChangeTypeAccessoryView,
+        urlInputView: URLInputAccessoryView,
         handler: EditorActionHandlerProtocol,
         document: BaseDocumentProtocol
     ) {
@@ -47,8 +37,10 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         self.accessoryView = accessoryView
         self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
-        self.handler = handler
+        self.urlInputView = urlInputView
         self.document = document
+        
+        self.handler = handler
         
         setupDismissHandlers()
     }
@@ -62,51 +54,16 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         showAccessoryView(.slashMenu(slashMenuView))
     }
     
-    func didBeginEditing(data: AccessoryViewSwitcherData) {
-        self.data = data
-        
-        accessoryView.update(block: data.block, textView: data.textView)
-        showAccessoryView(editorAccessoryView)
-        
-        slashMenuView.update(block: data.block)
-    }
-
-    func textWillChange(replacementText: String, range: NSRange) {
-        guard let data = data else { return }
-        
-        latestTextViewTextChange = data.textView.textView.textChangeType(
-            changeTextRange: range,
-            replacementText: replacementText
+    func showDefaultView() {
+        showAccessoryView(
+            document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
         )
-    }
-
-    func textDidChange() {
-        switch activeView {
-        case .`default`, .changeType:
-            let editorAccessoryView = editorAccessoryView
-
-            if activeView != editorAccessoryView {
-                showAccessoryView(editorAccessoryView)
-            }
-        default:
-            break
-        }
-
-        if isSlashOrMentionCurrentlyVisible() {
-            setTextToSlashOrMention()
-            return
-        }
-        
-        switch latestTextViewTextChange {
-        case .typingSymbols:
-            displaySlashOrMentionIfNeeded()
-        case .none, .deletingSymbols:
-            return
-        }
     }
     
     func showURLInput(url: URL?) {
-        urlInputView.updateUrl(url)
+        guard let data = data else { return }
+        
+        urlInputView.updateUrlData(.init(data: data, url: url))
         showAccessoryView(.urlInput(urlInputView))
         urlInputView.urlInputView.textField.becomeFirstResponder()
         cleanupDisplayedView()
@@ -120,7 +77,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         triggerSymbolPosition = nil
     }
     
-    private func showAccessoryView(_ view: AccessoryViewType) {
+    func showAccessoryView(_ view: AccessoryViewType) {
         guard let textView = data?.textView.textView else { return }
         
         activeView = view
@@ -150,16 +107,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
     }
     
-    private func isSlashOrMentionCurrentlyVisible() -> Bool {
-        switch activeView {
-        case .mention, .slashMenu:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    private func setTextToSlashOrMention() {
+    func setTextToSlashOrMention() {
         guard let filterText = searchText() else { return }
         
         switch activeView {
@@ -174,14 +122,14 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
     }
     
-    private func dismissViewIfNeeded(forceDismiss: Bool = false) {
+    func dismissViewIfNeeded(forceDismiss: Bool = false) {
         if forceDismiss || isTriggerSymbolDeleted {
             cleanupDisplayedView()
-            showAccessoryView(editorAccessoryView)
+            showDefaultView()
         }
     }
     
-    private var isTriggerSymbolDeleted: Bool {
+    var isTriggerSymbolDeleted: Bool {
         guard let triggerSymbolPosition = triggerSymbolPosition,
               let textView = data?.textView.textView,
               let caretPosition = textView.caretPosition else {
@@ -202,53 +150,15 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         return textView.text(in: range)
     }
     
-    private func displaySlashOrMentionIfNeeded() {
-        guard let textView = data?.textView.textView else { return }
-        guard let data = data, data.information.content.type != .text(.title) else { return }
-        guard let textBeforeCaret = textView.textBeforeCaret else { return }
-        guard let caretPosition = textView.caretPosition else { return }
-        
-        let carretOffset = textView.offsetFromBegining(caretPosition)
-        let prependSpace = carretOffset > 1 // We need whitespace before / or @ if it is not 1st symbol
-        
-        if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) {
-            showAccessoryView(.slashMenu(slashMenuView))
-        } else if textBeforeCaret.hasSuffix(
-            TextTriggerSymbols.mention(prependSpace: prependSpace)
-        ) {
-            showAccessoryView(.mention(mentionsView))
-        }
-    }
-    
     private func setupDismissHandlers() {
-        let dismissActionsMenu = { [weak self] in
+        let dismiss = { [weak self] in
             guard let self = self else { return }
             self.cleanupDisplayedView()
-            self.showAccessoryView(.default(self.accessoryView))
+            self.showDefaultView()
         }
 
-        mentionsView.dismissHandler = dismissActionsMenu
-        slashMenuView.dismissHandler = dismissActionsMenu
-    }
-    
-    // MARK: - Views
-    func buildURLInputView() -> URLInputAccessoryView {
-        let dismissHandler = { [weak self] in
-            guard let self = self, let textView = self.data?.textView.textView else { return }
-            _ = textView.becomeFirstResponder()
-            self.showAccessoryView(.default(self.accessoryView))
-        }
-        let urlInputView = URLInputAccessoryView() { [weak self] url in
-            guard let self = self, let data = self.data else { return }
-            
-            let range = data.textView.textView.selectedRange
-            self.handler.handleAction(
-                .setLink(data.text.attrString, url, range),
-                blockId: data.information.id
-            )
-            dismissHandler()
-        }
-        urlInputView.dismissHandler = dismissHandler
-        return urlInputView
+        mentionsView.dismissHandler = dismiss
+        slashMenuView.dismissHandler = dismiss
+        urlInputView.dismissHandler = dismiss
     }
 }
