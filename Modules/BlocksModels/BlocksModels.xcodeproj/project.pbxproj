@@ -140,7 +140,7 @@
 				127D1E202722F7340050FCB7 /* Relations */,
 				3D17023C2715C1FB0079B65B /* SyncStatus.swift */,
 				531605C6272191440057B7C1 /* ObjectRestrictions */,
-				12F91CE7270DFDE000C92B28 /* BrandNewDetails */,
+				12F91CE7270DFDE000C92B28 /* Details */,
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
 				129D788C2694964800DA6757 /* Common */,
 				3D70BF1E261B0551008CED9E /* Block */,
@@ -207,7 +207,7 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		12F91CE7270DFDE000C92B28 /* BrandNewDetails */ = {
+		12F91CE7270DFDE000C92B28 /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				12F12E89271DA702000BAC24 /* Storage */,
@@ -216,7 +216,7 @@
 				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
 				3DB1C9C72726A001000D2779 /* ObjectDetails+Relations.swift */,
 			);
-			path = BrandNewDetails;
+			path = Details;
 			sourceTree = "<group>";
 		};
 		3D0BCABA26663A70002F7A0D /* BlockModel */ = {
