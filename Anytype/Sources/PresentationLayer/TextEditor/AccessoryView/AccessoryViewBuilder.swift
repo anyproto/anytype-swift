@@ -1,8 +1,20 @@
 import UIKit
 import BlocksModels
 
-struct AccessoryViewSwitcherBuilder {
-    func accessoryViewSwitcher(
+struct AccessoryViewBuilder {
+    static func accessoryDelegate(
+        actionHandler: EditorActionHandlerProtocol,
+        router: EditorRouter,
+        document: BaseDocumentProtocol
+    ) -> AccessoryViewStateManager {
+        let switcher = buildSwitcher(actionHandler: actionHandler, router: router, document: document)
+        let stateManager = AccessoryViewStateManager(switcher: switcher, handler: actionHandler)
+        switcher.setDelegate(stateManager)
+        
+        return stateManager
+    }
+    
+    private static func buildSwitcher(
         actionHandler: EditorActionHandlerProtocol,
         router: EditorRouter,
         document: BaseDocumentProtocol
@@ -48,23 +60,21 @@ struct AccessoryViewSwitcherBuilder {
             size: menuActionsViewSize,
             viewModel: slashMenuViewModel
         )
+        let urlInputView = URLInputAccessoryView(handler: actionHandler)
 
         let accessoryViewSwitcher = AccessoryViewSwitcher(
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
             accessoryView: accessoryView,
             changeTypeView: changeTypeView,
-            handler: actionHandler,
+            urlInputView: urlInputView,
             document: document
         )
-        
-        mentionsView.delegate = accessoryViewSwitcher
-        accessoryViewModel.delegate = accessoryViewSwitcher
         
         return accessoryViewSwitcher
     }
     
-    private let menuActionsViewSize = CGSize(
+    private static let menuActionsViewSize = CGSize(
         width: UIScreen.main.bounds.width,
         height: UIScreen.main.isFourInch ? 160 : 215
     )

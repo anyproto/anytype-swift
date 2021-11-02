@@ -5,6 +5,7 @@ import UIKit
 struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let blockDelegate: BlockDelegate
+    let accessoryDelegate: AccessoryTextViewDelegate
     
     let block: BlockModelProtocol
     let information: BlockInformation
@@ -18,7 +19,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: EditorActionHandlerProtocol
-    let accessorySwitcher: AccessoryViewSwitcherProtocol
     let detailsStorage: ObjectDetailsStorageProtocol
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
@@ -34,7 +34,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: EditorActionHandlerProtocol,
-        accessorySwitcher: AccessoryViewSwitcherProtocol,
+        accessoryDelegate: AccessoryTextViewDelegate,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
@@ -45,7 +45,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.content = content
         self.upperBlock = upperBlock
         self.actionHandler = actionHandler
-        self.accessorySwitcher = accessorySwitcher
+        self.accessoryDelegate = accessoryDelegate
         self.showPage = showPage
         self.openURL = openURL
         self.focusPublisher = focusPublisher
