@@ -42,29 +42,17 @@ struct ObjectSettingsContainerView: View {
                 }
             )
             .sheet(
-                isPresented: $isCoverPickerPresented,
-                onDismiss: {
-                    // TODO: is it necessary?
-                    isCoverPickerPresented = false
-                }
+                isPresented: $isCoverPickerPresented
             ) {
                 ObjectCoverPicker(viewModel: viewModel.coverPickerViewModel)
             }
             .sheet(
-                isPresented: $isIconPickerPresented,
-                onDismiss: {
-                    // TODO: is it necessary?
-                    isIconPickerPresented = false
-                }
+                isPresented: $isIconPickerPresented
             ) {
                 ObjectIconPicker(viewModel: viewModel.iconPickerViewModel)
             }
             .sheet(
-                isPresented: $isRelationsViewPresented,
-                onDismiss: {
-                    // TODO: is it necessary?
-                    isRelationsViewPresented = false
-                }
+                isPresented: $isRelationsViewPresented
             ) {
                 ObjectRelationsView()
             }
@@ -74,9 +62,9 @@ struct ObjectSettingsContainerView: View {
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
-                dismissCallback: {
-                    isLayoutPickerPresented = false
-                },
+//                dismissCallback: {
+//                    isLayoutPickerPresented = false
+//                },
                 view: {
                     ObjectLayoutPicker()
                         .padding(8)
