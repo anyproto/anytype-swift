@@ -62,9 +62,6 @@ struct ObjectSettingsContainerView: View {
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
-//                dismissCallback: {
-//                    isLayoutPickerPresented = false
-//                },
                 view: {
                     ObjectLayoutPicker()
                         .padding(8)
