@@ -21,4 +21,17 @@ extension RelationValuesProvider {
             return .default(title: name)
         }
     }
+
+    var pageTitle: String {
+        let title: String
+
+        switch layout {
+        case .note:
+            title =  snippet
+        default:
+            title = name
+        }
+
+        return title.isEmpty ? "Untitled".localized : title
+    }
 }
