@@ -11,39 +11,10 @@ protocol AccessoryViewSwitcherProtocol: EditorAccessoryViewDelegate {
     func textWillChange(replacementText: String, range: NSRange)
 }
 
-extension AccessoryViewSwitcher {
-    enum ViewType: Equatable {
-        case none
-        case `default`(EditorAccessoryView)
-        case changeType(ChangeTypeAccessoryView)
-        case mention(MentionView)
-        case slashMenu(SlashMenuView)
-        case urlInput(URLInputAccessoryView)
-    
-        var view: UIView? {
-            switch self {
-            case .default(let view):
-                return view
-            case .changeType(let view):
-                return view
-            case .mention(let view):
-                return view
-            case .slashMenu(let view):
-                return view
-            case .urlInput(let view):
-                return view
-            case .none:
-                return nil
-            }
-        }
-    }
-}
-
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
-    private var displayAcessoryViewTask = DispatchWorkItem {}
     private(set) var triggerSymbolPosition: UITextPosition?
     
-    private var activeView = ViewType.none
+    private var activeView = AccessoryViewType.none
     
     private var latestTextViewTextChange: TextViewTextChangeType?
     
@@ -56,12 +27,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     private lazy var urlInputView = buildURLInputView()
     
-    private let handler: EditorActionHandlerProtocol
-    
-    private var data: AccessoryViewSwitcherData?
+    let handler: EditorActionHandlerProtocol
+    var data: AccessoryViewSwitcherData?
     private var cancellables = [AnyCancellable]()
 
-    private var editorAccessoryView: ViewType {
+    private var editorAccessoryView: AccessoryViewType {
         document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
     }
 
@@ -111,8 +81,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
 
     func textDidChange() {
-        displayAcessoryViewTask.cancel()
-
         switch activeView {
         case .`default`, .changeType:
             let editorAccessoryView = editorAccessoryView
@@ -152,7 +120,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         triggerSymbolPosition = nil
     }
     
-    private func showAccessoryView(_ view: ViewType) {
+    private func showAccessoryView(_ view: AccessoryViewType) {
         guard let textView = data?.textView.textView else { return }
         
         activeView = view
@@ -180,15 +148,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
             textView.reloadInputViews()
             textView.window?.layoutIfNeeded()
         }
-    }
-    
-    private func showAccessoryViewWithDelay(
-        _ accessoryView: ViewType
-    ) {
-        displayAcessoryViewTask = DispatchWorkItem { [weak self] in
-            self?.showAccessoryView(accessoryView)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: displayAcessoryViewTask)
     }
     
     private func isSlashOrMentionCurrentlyVisible() -> Bool {
@@ -253,11 +212,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         let prependSpace = carretOffset > 1 // We need whitespace before / or @ if it is not 1st symbol
         
         if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) {
-            showAccessoryViewWithDelay(.slashMenu(slashMenuView))
+            showAccessoryView(.slashMenu(slashMenuView))
         } else if textBeforeCaret.hasSuffix(
             TextTriggerSymbols.mention(prependSpace: prependSpace)
         ) {
-            showAccessoryViewWithDelay(.mention(mentionsView))
+            showAccessoryView(.mention(mentionsView))
         }
     }
     
@@ -291,39 +250,5 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
         urlInputView.dismissHandler = dismissHandler
         return urlInputView
-    }
-}
-
-// MARK: - MentionViewDelegate
-
-extension AccessoryViewSwitcher: MentionViewDelegate {
-    func selectMention(_ mention: MentionObject) {
-        guard let textView = data?.textView.textView, let block = data?.block else { return }
-        guard let mentionSymbolPosition = triggerSymbolPosition,
-              let newMentionPosition = textView.position(from: mentionSymbolPosition, offset: -1) else { return }
-        guard let caretPosition = textView.caretPosition else { return }
-        guard let oldText = textView.attributedText else { return }
-        
-        let mentionString = NSMutableAttributedString(string: mention.name)
-        mentionString.addAttribute(.mention, value: mention.id, range: NSMakeRange(0, mentionString.length))
-        
-        let newMentionOffset = textView.offsetFromBegining(newMentionPosition)
-        let mentionSearchTextLength = textView.offset(from: newMentionPosition, to: caretPosition)
-        let mentionSearchTextRange = NSMakeRange(newMentionOffset, mentionSearchTextLength)
-        
-        let newText = NSMutableAttributedString(attributedString: oldText)
-        newText.replaceCharacters(in: mentionSearchTextRange, with: mentionString)
-       
-        let lastMentionCharacterPosition = newMentionOffset + mentionString.length
-        newText.insert(NSAttributedString(string: " "), at: lastMentionCharacterPosition)
-        let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
-        
-        let actions: [BlockHandlerActionType] = [
-            .textView(action: .changeText(newText), block: block),
-            .textView(action: .changeCaretPosition(newCaretPosition), block: block)
-        ]
-        actions.forEach {
-            handler.handleAction($0, blockId: block.information.id)
-        }
     }
 }

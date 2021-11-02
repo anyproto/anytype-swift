@@ -194,7 +194,15 @@ final class BlockViewModelBuilder {
                 information: block.information,
                 type: objectType.name
             ) { [weak self] in
-                self?.router.showTypesSearch(
+                guard let self = self else { return }
+                
+                guard
+                    self.document.objectDetails?.type != ObjectTemplateType.bundled(.profile).rawValue
+                else {
+                    return
+                }
+                
+                self.router.showTypesSearch(
                     onSelect: { [weak self] id in
                         self?.editorActionHandler.setObjectTypeUrl(id)
                     }
