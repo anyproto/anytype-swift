@@ -5,9 +5,9 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
-            blockDelegate.becomeFirstResponder(blockId: currentConfiguration.block.information.id)
+            blockDelegate.becomeFirstResponder(blockId: currentConfiguration.information.id)
         case .resign:
-            blockDelegate.resignFirstResponder(blockId: currentConfiguration.block.information.id)
+            blockDelegate.resignFirstResponder(blockId: currentConfiguration.information.id)
         }
     }
     
@@ -28,7 +28,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         switch action {
         case .changeText:
             handler.handleAction(
-                .textView(action: action, block: currentConfiguration.block),
+                .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
 
@@ -44,10 +44,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 // adding a delay makes impossible to press enter very often
                 if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
                     handler.handleAction(
-                        .textView(
-                            action: action,
-                            block: currentConfiguration.block
-                        ),
+                        .textView(action: action, info: currentConfiguration.information),
                         blockId: currentConfiguration.information.id
                     )
                 }
@@ -56,18 +53,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 break
             }
             handler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
+                .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
         case .changeTextStyle, .changeCaretPosition:
             handler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
+                .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
@@ -75,15 +66,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 replacementText: replacementText,
                 range: range
             )
-            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
-                replacementRange: range,
-                replacementText: replacementText
-            )
+            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
             if !shouldChangeText {
                 handler.handleAction(
                     .textView(
                         action: .changeText(textView.textView.attributedText),
-                        block: currentConfiguration.block
+                        info: currentConfiguration.information
                     ),
                     blockId: currentConfiguration.information.id
                 )

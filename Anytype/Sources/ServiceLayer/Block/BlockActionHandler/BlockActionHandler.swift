@@ -126,7 +126,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case .moveTo(targetId: let targetId):
             moveTo(targetId: targetId, blockId: blockId)
             
-        case let .textView(action: action, block: blockModel):
+        case let .textView(action: action, info: info):
             switch action {
             case let .changeCaretPosition(selectedRange):
                 UserSession.shared.focus.value = .at(selectedRange)
@@ -137,7 +137,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 )
                 
             default:
-                textBlockActionHandler.handlingTextViewAction(blockModel, action)
+                textBlockActionHandler.handlingTextViewAction(info, action)
             }
         }
     }

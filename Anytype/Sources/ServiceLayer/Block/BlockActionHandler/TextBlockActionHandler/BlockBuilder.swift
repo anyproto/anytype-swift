@@ -1,10 +1,12 @@
 import BlocksModels
 
 struct BlockBuilder {
-    static func createInformation(block: BlockModelProtocol, action: CustomTextView.KeyboardAction, textPayload: String) -> BlockInformation? {
-        switch block.information.content {
+    static func createInformation(
+        info: BlockInformation, action: CustomTextView.KeyboardAction, textPayload: String
+    ) -> BlockInformation? {
+        switch info.content {
         case .text:
-            return createContentType(block: block, action: action, textPayload: textPayload).flatMap { content in
+            return createContentType(info: info, action: action, textPayload: textPayload).flatMap { content in
                 BlockInformation.createNew(content: content)
             }
         default: return nil
@@ -52,15 +54,15 @@ struct BlockBuilder {
     }
 
     static func createContentType(
-        block: BlockModelProtocol, action: CustomTextView.KeyboardAction, textPayload: String
+        info: BlockInformation, action: CustomTextView.KeyboardAction, textPayload: String
     ) -> BlockContent? {
-        switch block.information.content {
+        switch info.content {
         case let .text(blockType):
             switch blockType.contentType {
             case .bulleted where blockType.text != "": return .text(.init(contentType: .bulleted))
             case .checkbox where blockType.text != "": return .text(.init(contentType: .checkbox))
             case .numbered where blockType.text != "": return .text(.init(contentType: .numbered))
-            case .toggle where block.isToggled: return .text(.init(contentType: .text))
+            case .toggle where UserSession.shared.isToggled(blockId: info.id) : return .text(.init(contentType: .text))
             case .toggle where blockType.text != "": return .text(.init(contentType: .toggle))
             default: return .text(.init(contentType: .text))
             }

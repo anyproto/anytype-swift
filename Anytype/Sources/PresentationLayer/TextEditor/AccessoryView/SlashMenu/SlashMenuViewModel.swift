@@ -45,6 +45,6 @@ final class SlashMenuViewModel {
         textView.replace(textRange, withText: "")
         
         guard let text = textView.attributedText else { return }
-        handler.changeText(text, block: block)
+        handler.changeText(text, info: block.information)
     }
 }
