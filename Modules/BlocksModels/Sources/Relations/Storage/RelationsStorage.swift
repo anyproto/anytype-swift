@@ -11,12 +11,16 @@ public final class RelationsStorage {
 
 extension RelationsStorage: RelationsStorageProtocol {
     
-    public func get(id: String) -> Relation? {
-        storage[id]
+    public func get(key: String) -> Relation? {
+        storage[key]
     }
     
-    public func add(details: Relation, id: String) {
-        storage[id] = details
+    public func add(relations: Relation, key: String) {
+        storage[key] = relations
+    }
+    
+    public func remove(key: String) {
+        storage.removeValue(forKey: key)
     }
     
 }
