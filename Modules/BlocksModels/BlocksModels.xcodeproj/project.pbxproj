@@ -16,6 +16,8 @@
 		0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */; };
 		0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537D25D9C99E002F3F82 /* Aliases.swift */; };
 		0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */; };
+		12206711273164360051A331 /* RelationsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206710273164360051A331 /* RelationsStorageProtocol.swift */; };
+		12206713273164890051A331 /* RelationsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206712273164890051A331 /* RelationsStorage.swift */; };
 		1223C91227282A2600C34616 /* RelationValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C91127282A2600C34616 /* RelationValuesProvider.swift */; };
 		124A60B12712F9610012FD2D /* ObjectDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */; };
 		124A60B32712F9820012FD2D /* ObjectDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */; };
@@ -70,6 +72,8 @@
 		0A6D537D25D9C99E002F3F82 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
 		0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeBlockBuilder.swift; sourceTree = "<group>"; };
 		0A7831D224B8672D00A1B6F6 /* BlocksModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12206710273164360051A331 /* RelationsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsStorageProtocol.swift; sourceTree = "<group>"; };
+		12206712273164890051A331 /* RelationsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsStorage.swift; sourceTree = "<group>"; };
 		1223C91127282A2600C34616 /* RelationValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValuesProvider.swift; sourceTree = "<group>"; };
 		124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorage.swift; sourceTree = "<group>"; };
 		124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorageProtocol.swift; sourceTree = "<group>"; };
@@ -166,9 +170,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1220670F273164190051A331 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				12206710273164360051A331 /* RelationsStorageProtocol.swift */,
+				12206712273164890051A331 /* RelationsStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		127D1E202722F7340050FCB7 /* Relations */ = {
 			isa = PBXGroup;
 			children = (
+				1220670F273164190051A331 /* Storage */,
 				127D1E212722F7490050FCB7 /* RelationKey.swift */,
 				1223C91127282A2600C34616 /* RelationValuesProvider.swift */,
 				124E2BC62731243D00A2D534 /* Relation.swift */,
@@ -444,6 +458,7 @@
 				3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */,
 				3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */,
 				3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */,
+				12206711273164360051A331 /* RelationsStorageProtocol.swift in Sources */,
 				3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */,
 				124A60B32712F9820012FD2D /* ObjectDetailsStorageProtocol.swift in Sources */,
 				12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */,
@@ -464,6 +479,7 @@
 				124A60B12712F9610012FD2D /* ObjectDetailsStorage.swift in Sources */,
 				3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */,
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
+				12206713273164890051A331 /* RelationsStorage.swift in Sources */,
 				531605CA2721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift in Sources */,
 				124E2BC92731249600A2D534 /* RelationFormat.swift in Sources */,
 				124E2BCD273125C400A2D534 /* RelationOption.swift in Sources */,

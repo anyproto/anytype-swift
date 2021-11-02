@@ -1,18 +1,18 @@
-
 import Foundation
+import ProtobufMessages
 
 public struct Relation: Hashable {
     
     public let key: String
     public let name: String
     public let format: Format
-    public let isHidden: Bool = false
-    public let isReadOnly: Bool = false
-    public let isMulti: Bool = false
+    public let isHidden: Bool
+    public let isReadOnly: Bool
+    public let isMulti: Bool
     // list of values for multiple relations. ex.: tags
-    public let selections: [Option] = []
+    public let selections: [Option]
     // list of types used by relation. ex.: type of file
-    public let objectTypes: [String] = []
+    public let objectTypes: [String]
     
 }
 
@@ -20,6 +20,23 @@ extension Relation: Identifiable {
 
     public var id: String {
         return key
+    }
+    
+}
+
+public extension Relation {
+    
+    init(middlewareRelation: Anytype_Model_Relation) {
+        self.key = middlewareRelation.key
+        self.name = middlewareRelation.name
+        self.format = Format(rawValue: middlewareRelation.format.rawValue)
+        self.isHidden = middlewareRelation.hidden
+        self.isReadOnly = middlewareRelation.readOnly
+        self.isMulti = middlewareRelation.multi
+        self.selections = middlewareRelation.selectDict.map {
+            Option(middlewareOption: $0)
+        }
+        self.objectTypes = middlewareRelation.objectTypes
     }
     
 }
