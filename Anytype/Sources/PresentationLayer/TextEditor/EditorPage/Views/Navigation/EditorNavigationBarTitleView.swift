@@ -24,7 +24,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
     
     struct Model {
         let icon: ObjectIconImage?
-        let title: String
+        let title: String?
     }
     
     func configure(model: Model) {
