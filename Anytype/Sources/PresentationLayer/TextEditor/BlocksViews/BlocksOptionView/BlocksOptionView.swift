@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+// https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5469%3A0
 struct BlocksOptionView: View {
     let tapHandler: (BlocksOptionItem) -> Void
 
