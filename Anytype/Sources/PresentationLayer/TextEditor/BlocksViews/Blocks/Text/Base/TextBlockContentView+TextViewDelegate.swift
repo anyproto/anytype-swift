@@ -1,20 +1,7 @@
 import AnytypeCore
 import UIKit
 
-extension TextBlockContentView: CustomTextViewDelegate {
-    private var accessoryViewData: AccessoryViewSwitcherData {
-        AccessoryViewSwitcherData(
-            textView: textView,
-            block: currentConfiguration.block,
-            information: currentConfiguration.information,
-            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
-        )
-    }
-    
-    func sizeChanged() {
-        currentConfiguration.blockDelegate.blockSizeChanged()
-    }
-    
+extension TextBlockContentView: CustomTextViewDelegate {    
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
@@ -41,10 +28,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         switch action {
         case .changeText:
             currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
+                .textView(action: action, block: currentConfiguration.block),
                 blockId: currentConfiguration.information.id
             )
 
@@ -122,5 +106,14 @@ extension TextBlockContentView: CustomTextViewDelegate {
             currentConfiguration.openURL(url)
         }
         return true
+    }
+    
+    private var accessoryViewData: AccessoryViewSwitcherData {
+        AccessoryViewSwitcherData(
+            textView: textView,
+            block: currentConfiguration.block,
+            information: currentConfiguration.information,
+            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
+        )
     }
 }

@@ -12,9 +12,6 @@ protocol EditorPageViewInput: AnyObject {
     
     func showDeletedScreen(_ show: Bool)
 
-    /// Ask view rebuild layout
-    func needsUpdateLayout()
-
     /// Tells the delegate when editing of the text block begins
     func textBlockDidBeginEditing()
 

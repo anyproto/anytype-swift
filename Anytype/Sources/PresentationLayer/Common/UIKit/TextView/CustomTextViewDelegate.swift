@@ -6,7 +6,6 @@ enum CustomTextViewFirstResponderChange {
 }
 
 protocol CustomTextViewDelegate: AnyObject {
-    func sizeChanged()
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange)
     func willBeginEditing()
     func didBeginEditing()

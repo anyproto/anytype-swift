@@ -169,10 +169,6 @@ extension EditorPageController: EditorPageViewInput {
         }
         updateView()
     }
-
-    func needsUpdateLayout() {
-        updateView()
-    }
     
     func textBlockWillBeginEditing() {
         contentOffset = collectionView.contentOffset
