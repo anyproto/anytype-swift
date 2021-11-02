@@ -137,7 +137,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
         
         viewInput?.showDeletedScreen(details.isDeleted)
-        if details.isArchived { router.goBack() }
+        if details.isArchived {
+            if FeatureFlags.aletsForArchivedPages {
+                anytypeAssertionFailure("Man this is an archived page\n\(details)")
+            }
+            router.goBack()
+        }
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
