@@ -189,7 +189,7 @@
 		125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA626F235F400BCD7D6 /* MentionDisplayData.swift */; };
 		125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA726F235F400BCD7D6 /* MentionsViewModel.swift */; };
 		125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA826F235F400BCD7D6 /* MentionView.swift */; };
-		125B6ECA26F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA926F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift */; };
+		125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EA926F235F400BCD7D6 /* AccessoryViewBuilder.swift */; };
 		125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EAB26F235F400BCD7D6 /* FilterableItemsView.swift */; };
 		125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EB026F235F400BCD7D6 /* DismissableInputAccessoryView.swift */; };
 		125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B6EB226F235F400BCD7D6 /* SlashMenuViewController.swift */; };
@@ -487,7 +487,7 @@
 		3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */; };
 		3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */; };
 		3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */; };
-		3DE6925127301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6925027301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift */; };
+		3DE6925127301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6925027301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift */; };
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
 		3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926C273147E300A4CD4E /* URLInputAccessoryViewModel.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
@@ -910,7 +910,7 @@
 		125B6EA626F235F400BCD7D6 /* MentionDisplayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionDisplayData.swift; sourceTree = "<group>"; };
 		125B6EA726F235F400BCD7D6 /* MentionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewModel.swift; sourceTree = "<group>"; };
 		125B6EA826F235F400BCD7D6 /* MentionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
-		125B6EA926F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcherBuilder.swift; sourceTree = "<group>"; };
+		125B6EA926F235F400BCD7D6 /* AccessoryViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewBuilder.swift; sourceTree = "<group>"; };
 		125B6EAB26F235F400BCD7D6 /* FilterableItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterableItemsView.swift; sourceTree = "<group>"; };
 		125B6EB026F235F400BCD7D6 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
 		125B6EB226F235F400BCD7D6 /* SlashMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuViewController.swift; sourceTree = "<group>"; };
@@ -1207,7 +1207,7 @@
 		3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseDocumentProtocol.swift; path = Anytype/Sources/Models/Documents/Document/BaseDocumentProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewType.swift; sourceTree = "<group>"; };
-		3DE6925027301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccessoryViewSwitcher+MentionViewDelegate.swift"; sourceTree = "<group>"; };
+		3DE6925027301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccessoryViewStateManager+Mention.swift"; sourceTree = "<group>"; };
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
 		3DE6926C273147E300A4CD4E /* URLInputAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputAccessoryViewModel.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
@@ -2356,10 +2356,11 @@
 				125B6E9C26F235F400BCD7D6 /* EditorAccessoryView */,
 				125B6EA126F235F400BCD7D6 /* Mention */,
 				125B6EB126F235F400BCD7D6 /* SlashMenu */,
-				125B6EA926F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift */,
+				125B6EA926F235F400BCD7D6 /* AccessoryViewBuilder.swift */,
 				125B6E9B26F235F400BCD7D6 /* AccessoryViewSwitcherData.swift */,
 				125B6E9626F235F400BCD7D6 /* AccessoryViewSwitcher.swift */,
 				3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */,
+				3DE6925027301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift */,
 			);
 			path = AccessoryView;
 			sourceTree = "<group>";
@@ -2401,7 +2402,6 @@
 				125B6EA226F235F400BCD7D6 /* MentionViewController */,
 				125B6EA826F235F400BCD7D6 /* MentionView.swift */,
 				3D93851626FAF46E001C137F /* MentionAssembly.swift */,
-				3DE6925027301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift */,
 			);
 			path = Mention;
 			sourceTree = "<group>";
@@ -4665,7 +4665,7 @@
 				3DE8D5B026CD76E2006F31C1 /* ObjectTypeProvider.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
-				125B6ECA26F235F400BCD7D6 /* AccessoryViewSwitcherBuilder.swift in Sources */,
+				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
 				12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */,
 				3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */,
 				3D16841426DD672E008B9DFF /* ContentObjectAsEmptyPage.swift in Sources */,
@@ -4973,7 +4973,7 @@
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
-				3DE6925127301D4000A4CD4E /* AccessoryViewSwitcher+MentionViewDelegate.swift in Sources */,
+				3DE6925127301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift in Sources */,
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,

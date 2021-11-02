@@ -2,6 +2,15 @@ import AnytypeCore
 import UIKit
 
 extension TextBlockContentView: CustomTextViewDelegate {
+    private var accessoryViewData: AccessoryViewSwitcherData {
+        AccessoryViewSwitcherData(
+            textView: textView,
+            block: currentConfiguration.block,
+            information: currentConfiguration.information,
+            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
+        )
+    }
+    
     func sizeChanged() {
         currentConfiguration.blockDelegate.blockSizeChanged()
     }
@@ -16,19 +25,16 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func willBeginEditing() {
-        currentConfiguration.accessoryDelegate.didBeginEditing(
-            data: AccessoryViewSwitcherData(
-                textView: textView,
-                block: currentConfiguration.block,
-                information: currentConfiguration.information,
-                text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
-            )
-        )
+        currentConfiguration.accessoryDelegate.willBeginEditing(data: accessoryViewData)
         currentConfiguration.blockDelegate.willBeginEditing()
     }
 
     func didBeginEditing() {
         currentConfiguration.blockDelegate.didBeginEditing()
+    }
+    
+    func didEndEditing() {
+        currentConfiguration.accessoryDelegate.didEndEditing()
     }
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {

@@ -74,13 +74,11 @@ final class EditorPageAssembly {
             document: document
         )
         
-        let accessorySwitcher = AccessoryViewSwitcherBuilder()
-            .accessoryViewSwitcher(
-                actionHandler: editorBlockActionHandler,
-                router: router,
-                document: document
-            )
-        let accessoryDelegate = AccessoryViewStateManager(switcher: accessorySwitcher)
+        let accessoryDelegate = AccessoryViewBuilder.accessoryDelegate (
+            actionHandler: editorBlockActionHandler,
+            router: router,
+            document: document
+        )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
