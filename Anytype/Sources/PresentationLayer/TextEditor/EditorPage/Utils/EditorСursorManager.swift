@@ -15,7 +15,7 @@ final class EditorCursorManager {
     }
 
     func handleGeneralUpdate(with blocks: [BlockViewModelProtocol], type: String?) {
-        guard type != self.currentType else {
+        guard didAppearedOnce, type != self.currentType else {
             return
         }
 

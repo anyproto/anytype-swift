@@ -28,6 +28,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
+    let relationsViewModel: ObjectRelationsViewModel
     
     private let objectDetailsService: ObjectDetailsService
     
@@ -50,6 +51,8 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.layoutPickerViewModel = ObjectLayoutPickerViewModel(
             detailsService: objectDetailsService
         )
+        
+        self.relationsViewModel = ObjectRelationsViewModel()
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }

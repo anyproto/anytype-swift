@@ -19,6 +19,10 @@
 		1223C91227282A2600C34616 /* RelationValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C91127282A2600C34616 /* RelationValuesProvider.swift */; };
 		124A60B12712F9610012FD2D /* ObjectDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */; };
 		124A60B32712F9820012FD2D /* ObjectDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */; };
+		124E2BC72731243D00A2D534 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC62731243D00A2D534 /* Relation.swift */; };
+		124E2BC92731249600A2D534 /* RelationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC82731249600A2D534 /* RelationFormat.swift */; };
+		124E2BCD273125C400A2D534 /* RelationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BCC273125C400A2D534 /* RelationOption.swift */; };
+		124E2BD827312BC600A2D534 /* RelationOptionScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BD727312BC600A2D534 /* RelationOptionScope.swift */; };
 		127D1E222722F7490050FCB7 /* RelationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127D1E212722F7490050FCB7 /* RelationKey.swift */; };
 		12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12883FDB268E10E6002B971E /* DetailsLayout.swift */; };
 		129D788E2694965700DA6757 /* LayoutAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D788D2694965700DA6757 /* LayoutAlignment.swift */; };
@@ -69,6 +73,10 @@
 		1223C91127282A2600C34616 /* RelationValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValuesProvider.swift; sourceTree = "<group>"; };
 		124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorage.swift; sourceTree = "<group>"; };
 		124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorageProtocol.swift; sourceTree = "<group>"; };
+		124E2BC62731243D00A2D534 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
+		124E2BC82731249600A2D534 /* RelationFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormat.swift; sourceTree = "<group>"; };
+		124E2BCC273125C400A2D534 /* RelationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOption.swift; sourceTree = "<group>"; };
+		124E2BD727312BC600A2D534 /* RelationOptionScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionScope.swift; sourceTree = "<group>"; };
 		127D1E212722F7490050FCB7 /* RelationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationKey.swift; sourceTree = "<group>"; };
 		12883FDB268E10E6002B971E /* DetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsLayout.swift; sourceTree = "<group>"; };
 		129D788D2694965700DA6757 /* LayoutAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAlignment.swift; sourceTree = "<group>"; };
@@ -132,7 +140,7 @@
 				127D1E202722F7340050FCB7 /* Relations */,
 				3D17023C2715C1FB0079B65B /* SyncStatus.swift */,
 				531605C6272191440057B7C1 /* ObjectRestrictions */,
-				12F91CE7270DFDE000C92B28 /* BrandNewDetails */,
+				12F91CE7270DFDE000C92B28 /* Details */,
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
 				129D788C2694964800DA6757 /* Common */,
 				3D70BF1E261B0551008CED9E /* Block */,
@@ -163,6 +171,10 @@
 			children = (
 				127D1E212722F7490050FCB7 /* RelationKey.swift */,
 				1223C91127282A2600C34616 /* RelationValuesProvider.swift */,
+				124E2BC62731243D00A2D534 /* Relation.swift */,
+				124E2BC82731249600A2D534 /* RelationFormat.swift */,
+				124E2BCC273125C400A2D534 /* RelationOption.swift */,
+				124E2BD727312BC600A2D534 /* RelationOptionScope.swift */,
 			);
 			path = Relations;
 			sourceTree = "<group>";
@@ -195,7 +207,7 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		12F91CE7270DFDE000C92B28 /* BrandNewDetails */ = {
+		12F91CE7270DFDE000C92B28 /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				12F12E89271DA702000BAC24 /* Storage */,
@@ -204,7 +216,7 @@
 				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
 				3DB1C9C72726A001000D2779 /* ObjectDetails+Relations.swift */,
 			);
-			path = BrandNewDetails;
+			path = Details;
 			sourceTree = "<group>";
 		};
 		3D0BCABA26663A70002F7A0D /* BlockModel */ = {
@@ -419,6 +431,7 @@
 				12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */,
 				0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */,
 				12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */,
+				124E2BD827312BC600A2D534 /* RelationOptionScope.swift in Sources */,
 				3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */,
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				1223C91227282A2600C34616 /* RelationValuesProvider.swift in Sources */,
@@ -445,12 +458,15 @@
 				3D53F03326B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift in Sources */,
 				3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */,
 				0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */,
+				124E2BC72731243D00A2D534 /* Relation.swift in Sources */,
 				0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */,
 				EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */,
 				124A60B12712F9610012FD2D /* ObjectDetailsStorage.swift in Sources */,
 				3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */,
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				531605CA2721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift in Sources */,
+				124E2BC92731249600A2D534 /* RelationFormat.swift in Sources */,
+				124E2BCD273125C400A2D534 /* RelationOption.swift in Sources */,
 				3D17023D2715C1FB0079B65B /* SyncStatus.swift in Sources */,
 				3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* IndentationBuilder.swift in Sources */,

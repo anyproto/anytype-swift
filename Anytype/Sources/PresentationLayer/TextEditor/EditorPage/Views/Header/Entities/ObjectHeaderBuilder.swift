@@ -79,6 +79,10 @@ final class ObjectHeaderBuilder {
     
     private func buildObjectHeader(details: ObjectDetails) -> ObjectHeader {
         let layoutAlign = details.layoutAlign
+
+        if details.layout == .note {
+            return .empty(.init(onTap: {}))
+        }
         
         if let icon = details.icon, let cover = details.documentCover {
             return .filled(
