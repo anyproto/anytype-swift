@@ -2,7 +2,8 @@ import Foundation
 
 public protocol RelationsStorageProtocol {
     
-    func get(id: String) -> Relation?
-    func add(details: Relation, id: String)
+    func get(key: String) -> Relation?
+    func add(relations: Relation, key: String)
+    func remove(key: String)
     
 }

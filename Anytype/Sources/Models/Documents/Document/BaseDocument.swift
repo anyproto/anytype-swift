@@ -29,7 +29,8 @@ final class BaseDocument: BaseDocumentProtocol {
         self.eventsListener = EventsListener(
             objectId: objectId,
             blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage
+            detailsStorage: detailsStorage,
+            relationStorage: relationsStorage
         )
         
         setup()
