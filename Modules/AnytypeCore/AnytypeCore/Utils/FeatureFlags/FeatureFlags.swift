@@ -3,6 +3,7 @@ public enum Feature: String, Codable {
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
     case analytics = "Analytics Amplitude (only in development)"
     case middlewareLogs = "Show middleware logs in Xcode console"
+    case aletsForArchivedPages = "Show alert when open archived pages 🤧"
 }
 
 public final class FeatureFlags {
@@ -16,7 +17,8 @@ public final class FeatureFlags {
         .rainbowCells: false,
         .showAlertOnAssert : true,
         .analytics : false,
-        .middlewareLogs: false
+        .middlewareLogs: false,
+        .aletsForArchivedPages: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -41,5 +43,9 @@ public extension FeatureFlags {
     
     static var middlewareLogs: Bool {
         features[.middlewareLogs, default: false]
+    }
+    
+    static var aletsForArchivedPages: Bool {
+        features[.aletsForArchivedPages, default: false]
     }
 }
