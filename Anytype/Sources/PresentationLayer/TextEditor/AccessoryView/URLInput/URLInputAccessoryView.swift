@@ -31,6 +31,10 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
         self.model = model
         urlInputView.updateUrl(model.url)
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        urlInputView.textField.becomeFirstResponder()
+    }
 }
 
 extension URLInputAccessoryView {
