@@ -3,7 +3,7 @@ import Foundation
 
 public extension Relation {
     
-    enum Format: String {
+    enum Format: String, Hashable {
         case shortText = "Short text"
         case longText = "Text"
         case number = "Number"

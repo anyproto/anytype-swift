@@ -54,7 +54,7 @@ struct ObjectSettingsContainerView: View {
             .sheet(
                 isPresented: $isRelationsViewPresented
             ) {
-                ObjectRelationsView()
+                ObjectRelationsView(viewModel: viewModel.relationsViewModel)
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
