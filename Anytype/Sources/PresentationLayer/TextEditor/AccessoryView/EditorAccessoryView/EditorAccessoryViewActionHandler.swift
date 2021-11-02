@@ -10,6 +10,8 @@ enum EditorAccessoryViewAction {
     case showStyleMenu
     /// Show mention menu
     case mention
+    /// Enter editing mode
+    case editingMode
 }
 
 
@@ -61,6 +63,9 @@ final class EditorAccessoryViewModel {
             )
             
             delegate.showSlashMenuView()
+        case .editingMode:
+            // Not implemented
+            break
         }
     }
     
