@@ -142,6 +142,7 @@
 		1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */; };
 		1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8C026A86CAC0089AF7E /* ImageSource.swift */; };
 		1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1219F970269350A5009DE4D4 /* ObjectIconType.swift */; };
+		1220670827314E210051A331 /* ObjectRelationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1220670727314E210051A331 /* ObjectRelationsViewModel.swift */; };
 		1223C8FE272693E600C34616 /* FeaturedRelationsBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */; };
 		1223C9002726BE1C00C34616 /* FeaturedRelationsBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C8FF2726BE1C00C34616 /* FeaturedRelationsBlockView.swift */; };
 		1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */; };
@@ -867,6 +868,7 @@
 		1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConfigurator.swift; sourceTree = "<group>"; };
 		1215E8C026A86CAC0089AF7E /* ImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSource.swift; sourceTree = "<group>"; };
 		1219F970269350A5009DE4D4 /* ObjectIconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconType.swift; sourceTree = "<group>"; };
+		1220670727314E210051A331 /* ObjectRelationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationsViewModel.swift; sourceTree = "<group>"; };
 		1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationsBlockViewModel.swift; sourceTree = "<group>"; };
 		1223C8FF2726BE1C00C34616 /* FeaturedRelationsBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationsBlockView.swift; sourceTree = "<group>"; };
 		1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationsBlockContentConfiguration.swift; sourceTree = "<group>"; };
@@ -2333,6 +2335,7 @@
 			isa = PBXGroup;
 			children = (
 				124E2BC1273020F500A2D534 /* ObjectRelationsView.swift */,
+				1220670727314E210051A331 /* ObjectRelationsViewModel.swift */,
 			);
 			path = Relations;
 			sourceTree = "<group>";
@@ -4786,6 +4789,7 @@
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
+				1220670827314E210051A331 /* ObjectRelationsViewModel.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockListService.swift in Sources */,
 				3D6E9A34270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift in Sources */,
 				3D93D56F270C9E4E00614E29 /* ObjectContentViewModelsSharedHolder.swift in Sources */,

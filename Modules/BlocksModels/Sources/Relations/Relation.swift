@@ -1,17 +1,25 @@
 
 import Foundation
 
-public struct Relation {
+public struct Relation: Hashable {
     
-    let key: String
-    let name: String
-    let format: Format
-    let source: Source
-    let isHidden: Bool = false
-    let isReadOnly: Bool = false
-    let isMulti: Bool = false
-    let selections: [Option] = []
-    let objectTypes: [String] = []
-    let defaultValue: Any? = nil
+    public let key: String
+    public let name: String
+    public let format: Format
+    public let source: Source
+    public let isHidden: Bool = false
+    public let isReadOnly: Bool = false
+    public let isMulti: Bool = false
+    public let selections: [Option] = []
+    public let objectTypes: [String] = []
+    public let defaultValue: AnyHashable? = nil
+    
+}
+
+extension Relation: Identifiable {
+
+    public var id: String {
+        return key
+    }
     
 }

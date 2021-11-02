@@ -3,7 +3,7 @@ import Foundation
 
 extension Relation.Option {
     
-    enum Scope {
+    enum Scope: Hashable {
         case local
         case relation
         case format

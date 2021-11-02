@@ -54,7 +54,7 @@ struct ObjectSettingsContainerView: View {
             .sheet(
                 isPresented: $isRelationsViewPresented
             ) {
-                ObjectRelationsView()
+                ObjectRelationsView(viewModel: viewModel.relationsViewModel)
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
@@ -62,9 +62,6 @@ struct ObjectSettingsContainerView: View {
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
-//                dismissCallback: {
-//                    isLayoutPickerPresented = false
-//                },
                 view: {
                     ObjectLayoutPicker()
                         .padding(8)

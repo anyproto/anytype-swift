@@ -3,7 +3,7 @@ import Foundation
 
 public extension Relation {
     
-    struct Option {
+    struct Option: Hashable {
         let id: String
         let text: String
         let color: String
