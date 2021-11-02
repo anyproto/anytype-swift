@@ -8,6 +8,7 @@ struct DefaultTypePicker: View {
         let searchViewModel = ObjectSearchViewModel(searchKind: .objectTypes(currentObjectTypeUrl: "")) { [weak model] blockId in
             UserDefaultsConfig.defaultObjectType = blockId
             model?.defaultType = false
+            model?.other = false
         }
         return SearchView(title: "Choose default object type".localized, viewModel: searchViewModel)
     }
