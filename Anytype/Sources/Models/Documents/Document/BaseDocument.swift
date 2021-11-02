@@ -19,6 +19,8 @@ final class BaseDocument: BaseDocumentProtocol {
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
     let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
+    let relationsStorage: RelationsStorageProtocol = RelationsStorage()
+    
     private(set) var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
         
     init(objectId: BlockId) {
