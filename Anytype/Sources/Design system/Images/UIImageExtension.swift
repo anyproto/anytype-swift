@@ -11,6 +11,14 @@ extension UIImage {
 
 extension UIImage {
     enum editor {
+        enum BlockOption {
+            static let addBelow = createImage("TextEditor/BlocksOption/add_below")
+            static let delete = createImage("TextEditor/BlocksOption/delete")
+            static let duplicate = createImage("TextEditor/BlocksOption/duplicate")
+            static let moveTo = createImage("TextEditor/BlocksOption/move_to")
+            static let turnInto = createImage("TextEditor/BlocksOption/turn_into_object")
+        }
+
         static let bigGhost = createImage("TextEditor/bigGhost")
     }
     
@@ -31,6 +39,7 @@ extension UIImage {
         static let style = createImage("EditingToolbar/style")
         static let move = createImage("EditingToolbar/move")
         static let mention = createImage("EditingToolbar/mention")
+        static let actions = createImage("EditingToolbar/actions")
     }
     
     enum divider {
