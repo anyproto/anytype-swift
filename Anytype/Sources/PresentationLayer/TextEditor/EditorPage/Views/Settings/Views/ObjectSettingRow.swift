@@ -81,6 +81,8 @@ private extension ObjectSetting {
             return "Cover".localized
         case .layout:
             return "Layout".localized
+        case .relations:
+            return "Relations".localized
         }
     }
     
@@ -92,6 +94,8 @@ private extension ObjectSetting {
             return "Background picture".localized
         case .layout:
             return "Arrangement of objects on a canvas".localized
+        case .relations:
+            return "List of related objects".localized
         }
     }
     
@@ -103,6 +107,8 @@ private extension ObjectSetting {
             return Image.ObjectSettings.cover
         case .layout:
             return Image.ObjectSettings.layout
+        case .relations:
+            return Image.ObjectSettings.relations
         }
     }
 }

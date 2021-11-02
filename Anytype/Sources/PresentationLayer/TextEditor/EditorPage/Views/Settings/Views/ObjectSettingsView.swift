@@ -9,6 +9,7 @@ struct ObjectSettingsView: View {
     @Binding var isCoverPickerPresented: Bool
     @Binding var isIconPickerPresented: Bool
     @Binding var isLayoutPickerPresented: Bool
+    @Binding var isRelationsViewPresented: Bool
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -62,6 +63,12 @@ struct ObjectSettingsView: View {
                 withAnimation() {
                     isLayoutPickerPresented = true
                 }
+            case .relations:
+                // Analytics
+                Amplitude.instance().logEvent(
+                    AmplitudeEventsName.buttonRelationsInObjectSettings
+                )
+                isRelationsViewPresented = true
             }
         }
     }
@@ -69,7 +76,7 @@ struct ObjectSettingsView: View {
     private enum Constants {
         static let edgeInset: CGFloat = 16
         static let topActionObjectsViewInset: CGFloat = 20
-        static let dividerSpacing: CGFloat = 24
+        static let dividerSpacing: CGFloat = 20
     }
 }
 
@@ -77,12 +84,14 @@ struct ObjectSettingsView_Previews: PreviewProvider {
     @State static private var isIconPickerPresented = false
     @State static private var isCoverPickerPresented = false
     @State static private var isLayoutPickerPresented = false
+    @State static private var isRelationsViewPresented = false
     
     static var previews: some View {
         ObjectSettingsView(
             isCoverPickerPresented: $isCoverPickerPresented,
             isIconPickerPresented: $isIconPickerPresented,
-            isLayoutPickerPresented: $isLayoutPickerPresented
+            isLayoutPickerPresented: $isLayoutPickerPresented,
+            isRelationsViewPresented: $isRelationsViewPresented
         )
             .environmentObject(
                 ObjectSettingsViewModel(

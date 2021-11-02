@@ -16,7 +16,7 @@ on:
 jobs:
   main:
     runs-on: macOS-11
-    timeout-minutes: 25
+    timeout-minutes: 35
 
     steps:
       - uses: actions/checkout@v2.3.4
@@ -67,7 +67,7 @@ jobs:
   wait_for_dSYM:
     needs: main
     runs-on: ubuntu-latest
-    timeout-minutes: 67
+    timeout-minutes: 150
 
     steps:
       - name: Checkout branch

@@ -49,6 +49,7 @@ enum AmplitudeEventsName {
     static let buttonCoverInObjectSettings = "ButtonCoverInObjectSettings"
     static let buttonIconInObjectSettings = "ButtonIconInObjectSettings"
     static let buttonLayoutInObjectSettings = "ButtonLayoutInObjectSettings"
+    static let buttonRelationsInObjectSettings = "ButtonRelationsInObjectSettings"
 
     // Dashboard view events
     static let favoritesTabSelected = "FavoritesTabSelected"
