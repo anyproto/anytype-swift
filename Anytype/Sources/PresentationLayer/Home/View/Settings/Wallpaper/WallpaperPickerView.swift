@@ -8,7 +8,7 @@ struct WallpaperPickerView: View {
         DragIndicator()
         AnytypeText("Change wallpaper".localized, style: .uxTitle1Semibold, color: .textPrimary)
             .multilineTextAlignment(.center)
-        CoverColorsGridView() { background in
+        WallpaperColorsGridView() { background in
             model.wallpaper = background
             model.wallpaperPicker = false
         }
