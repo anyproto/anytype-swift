@@ -82,7 +82,7 @@ private extension CustomTextView {
             tapHandler: LinkAttributeSelectionHandler()
         )
         let mentionSelectionHandler = MentionAttributeSelectionHandler { [weak self] pageId in
-            self?.delegate?.didReceiveAction(.showPage(pageId))
+            self?.delegate?.showPage(blockId: pageId)
         }
         let mentionSelection = TextViewAttributeSelectionInteraction(
             textView: textView,

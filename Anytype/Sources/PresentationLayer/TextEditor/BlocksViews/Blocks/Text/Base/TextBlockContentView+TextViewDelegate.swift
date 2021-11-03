@@ -1,5 +1,6 @@
 import AnytypeCore
 import UIKit
+import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {    
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
@@ -79,17 +80,19 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 attrText: attrText,
                 range: range
             )
-        case let .showPage(pageId):
-            guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
-                // Deleted objects goes here
-                return false
-            }
-            
-            if !details.isArchived && !details.isDeleted {
-                currentConfiguration.showPage(pageId)
-            }
         }
         return true
+    }
+    
+    func showPage(blockId: BlockId) {
+        guard let details = currentConfiguration.detailsStorage.get(id: blockId) else {
+            // Deleted objects goes here
+            return
+        }
+        
+        if !details.isArchived && !details.isDeleted {
+            currentConfiguration.showPage(blockId)
+        }
     }
     
     func openURL(_ url: URL) {

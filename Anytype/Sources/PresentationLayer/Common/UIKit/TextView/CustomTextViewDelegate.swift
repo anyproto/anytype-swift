@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 enum CustomTextViewFirstResponderChange {
     case become
@@ -12,6 +13,7 @@ protocol CustomTextViewDelegate: AnyObject {
     func didEndEditing()
     
     func openURL(_ url: URL)
+    func showPage(blockId: BlockId)
 
     @discardableResult
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool
