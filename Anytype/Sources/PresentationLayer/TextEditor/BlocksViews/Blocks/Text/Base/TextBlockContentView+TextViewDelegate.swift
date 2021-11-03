@@ -74,6 +74,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func changeCaretPosition(_ range: NSRange) {
+    accessoryDelegate.selectionDidChange(range: range)
         handler.changeCaretPosition(range: range)
     }
     

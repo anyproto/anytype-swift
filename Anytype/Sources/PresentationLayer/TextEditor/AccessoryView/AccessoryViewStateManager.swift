@@ -5,6 +5,7 @@ protocol AccessoryViewStateManager {
     func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
     func textDidChange(changeType: TextChangeType)
+    func selectionDidChange(range: NSRange)
 }
 
 final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAccessoryViewDelegate {
@@ -20,6 +21,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
     }
     
     // MARK: - AccessoryViewStateManager
+
     func willBeginEditing(data: TextBlockDelegateData) {
         switcher.updateData(data: data)
     }
@@ -35,9 +37,13 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
             triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
-        case .none, .urlInput:
+        case .none, .urlInput, .markup:
             break
         }
+    }
+
+    func selectionDidChange(range: NSRange) {
+
     }
     
     // MARK: - View Delegate
