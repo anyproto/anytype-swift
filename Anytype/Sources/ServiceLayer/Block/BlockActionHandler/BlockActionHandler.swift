@@ -52,6 +52,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         UserSession.shared.focus.value = .at(range)
     }
     
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
+        textBlockActionHandler.handleKeyboardAction(info: info, action: action)
+    }
+    
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
         case let .turnInto(textStyle):

@@ -15,6 +15,8 @@ protocol CustomTextViewDelegate: AnyObject {
     func openURL(_ url: URL)
     func showPage(blockId: BlockId)
     func changeCaretPosition(_ range: NSRange)
+    
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
 
     @discardableResult
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool

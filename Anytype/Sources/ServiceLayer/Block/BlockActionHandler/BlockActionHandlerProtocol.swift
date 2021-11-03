@@ -10,4 +10,5 @@ protocol BlockActionHandlerProtocol {
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeCaretPosition(range: NSRange)
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
 }

@@ -15,9 +15,7 @@ extension CustomTextView: UITextViewDelegate {
             if case let .enterInsideContent(currentText, _) = keyAction {
                 self.textView.text = currentText
             }
-            guard delegate?.didReceiveAction(
-                .keyboardAction(keyAction)
-            ) ?? true else { return false }
+            guard delegate?.keyboardAction(keyAction) ?? true else { return false }
         }
 
         return delegate?.didReceiveAction(
