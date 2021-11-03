@@ -43,7 +43,7 @@ final class HomeViewModel: ObservableObject {
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        _ = document.open()
+        document.open()
         setupQuickActionsSubscription()
     }
 

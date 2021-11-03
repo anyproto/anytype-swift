@@ -72,7 +72,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             contextId: documentId,
             blockId: blockId,
             middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
-        ).isNotNil else { return }
+        ) else { return }
             
         guard let blockId = textService.split(
             contextId: documentId,

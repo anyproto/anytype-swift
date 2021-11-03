@@ -14,5 +14,5 @@ protocol TextServiceProtocol {
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId?
     
     @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> MiddlewareResponse?    
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool    
 }
