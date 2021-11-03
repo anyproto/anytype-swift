@@ -116,10 +116,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         return newBlockId
     }
 
-    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
+    func turnInto(blockId: BlockId, type: BlockContentType) {
         switch type {
         case .text(let style):
-            setTextStyle(blockId: blockId, style: style, shouldFocus: shouldSetFocusOnUpdate)
+            setTextStyle(blockId: blockId, style: style)
         case .smartblock:
             anytypeAssertionFailure("Use turnIntoPage action instead")
             _ = turnIntoPage(blockId: blockId)
@@ -175,13 +175,12 @@ private extension BlockActionService {
         listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
     }
 
-    func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
+    func setTextStyle(blockId: BlockId, style: BlockText.Style) {
         guard let response = textService.setStyle(contextId: documentId, blockId: blockId, style: style) else {
             return
         }
         
-        let events = shouldFocus ? response.turnIntoTextEvent : response.asEventsBunch
-        events.send()
+        response.turnIntoTextEvent.send()
     }
 }
 

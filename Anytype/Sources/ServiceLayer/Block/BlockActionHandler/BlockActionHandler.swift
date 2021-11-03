@@ -53,11 +53,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .turnInto(textStyle):
             // TODO: why we need here turnInto only for text block?
             let textBlockContentType = BlockContent.text(BlockText(contentType: textStyle))
-            service.turnInto(
-                blockId: blockId,
-                type: textBlockContentType.type,
-                shouldSetFocusOnUpdate: false
-            )
+            service.turnInto(blockId: blockId, type: textBlockContentType.type)
             
         case let .setTextColor(color):
             setBlockColor(blockId: blockId, color: color)
@@ -106,7 +102,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             )
             
         case let .turnIntoBlock(type):
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
+            service.turnInto(blockId: blockId, type: type)
             
         case let .fetch(url: url):
             service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
