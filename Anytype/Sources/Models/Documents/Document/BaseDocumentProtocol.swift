@@ -10,5 +10,6 @@ protocol BaseDocumentProtocol: AnyObject {
     var objectDetails: ObjectDetails? { get }
     var flattenBlocks: [BlockModelProtocol] { get }
 
+    @discardableResult
     func open() -> Bool
 }

@@ -72,7 +72,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             contextId: documentId,
             blockId: blockId,
             middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
-        ).isNotNil else { return }
+        ) else { return }
             
         guard let blockId = textService.split(
             contextId: documentId,
@@ -119,7 +119,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func turnInto(blockId: BlockId, type: BlockContentType) {
         switch type {
         case .text(let style):
-            setTextStyle(blockId: blockId, style: style)
+            textService.setStyle(contextId: documentId, blockId: blockId, style: style)
         case .smartblock:
             anytypeAssertionFailure("Use turnIntoPage action instead")
             _ = turnIntoPage(blockId: blockId)
@@ -173,14 +173,6 @@ private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
         listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
-    }
-
-    func setTextStyle(blockId: BlockId, style: BlockText.Style) {
-        guard let response = textService.setStyle(contextId: documentId, blockId: blockId, style: style) else {
-            return
-        }
-        
-        response.turnIntoTextEvent.send()
     }
 }
 

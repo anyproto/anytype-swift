@@ -10,23 +10,31 @@ extension Amplitude {
     }
     
     func logAccountSelect(_ accountId: String) {
-        Amplitude.instance().logEvent(
+        logEvent(
             AmplitudeEventsName.accountSelect,
             withEventProperties: [AmplitudeEventsPropertiesKey.accountId : accountId]
         )
     }
     
     func logDeletion(count: Int) {
-        Amplitude.instance().logEvent(
+        logEvent(
             AmplitudeEventsName.objectListDelete,
             withEventProperties: [AmplitudeEventsPropertiesKey.count : count]
         )
     }
     
     func logDocumentShow(_ objectId: BlockId) {
-        Amplitude.instance().logEvent(
+        logEvent(
             AmplitudeEventsName.documentPage,
             withEventProperties: [AmplitudeEventsPropertiesKey.documentId: objectId]
         )
+    }
+    
+    func logSetStyle(_ style: BlockText.Style) {
+        logEvent(
+            AmplitudeEventsName.blockSetTextStyle,
+            withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)]
+        )
+        
     }
 }

@@ -8,23 +8,28 @@ import Amplitude
 final class TextService: TextServiceProtocol {    
 
     @discardableResult
-    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) -> MiddlewareResponse? {
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
-        return Anytype_Rpc.Block.Set.Text.Text.Service
+        let event = Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
-            .map { MiddlewareResponse($0.event) }
+            .map { EventsBunch(event: $0.event) }
             .getValue()
+        
+        guard let event = event else {
+            return false
+        }
+
+        event.send()
+        return true
     }
     
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> MiddlewareResponse? {
-        Amplitude.instance().logEvent(
-            AmplitudeEventsName.blockSetTextStyle,
-            withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)]
-        )
-        return Anytype_Rpc.Block.Set.Text.Style.Service
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
+        Amplitude.instance().logSetStyle(style)
+        Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
-            .map { MiddlewareResponse($0.event) }
-            .getValue()
+            .map { MiddlewareResponse($0.event).turnIntoTextEvent }
+            .getValue()?
+            .send()
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
