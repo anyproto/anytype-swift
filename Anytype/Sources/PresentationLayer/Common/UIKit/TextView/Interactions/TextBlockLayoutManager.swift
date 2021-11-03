@@ -73,10 +73,11 @@ final class TextBlockLayoutManager: NSLayoutManager {
     private func drawUnderline(forGlyphRange glyphRange: NSRange, origin: CGPoint) {
         guard let textContainer = textContainer(forGlyphAt: glyphRange.location,
                                                 effectiveRange: nil) else { return }
-        let withinRange = NSRange(location: NSNotFound, length: 0)
-        enumerateEnclosingRects(forGlyphRange: glyphRange,
-                                withinSelectedGlyphRange: withinRange,
-                                in: textContainer) { [weak self] rect, _ in
+
+        enumerateLineFragments(forGlyphRange: glyphRange) { [weak self] _, _, _, glyphRangeInLine, _ in
+
+            guard let glyphRangeWithAttribute = glyphRangeInLine.intersection(glyphRange) else { return }
+            guard let rect = self?.boundingRect(forGlyphRange: glyphRangeWithAttribute, in: textContainer) else { return }
 
             guard let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as? UIFont else {
                 anytypeAssertionFailure("font attribute must be UIFont")
