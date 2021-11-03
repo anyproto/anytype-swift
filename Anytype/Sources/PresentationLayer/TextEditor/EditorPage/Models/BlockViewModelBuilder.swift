@@ -9,14 +9,14 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let accessorySwitcher: AccessoryViewSwitcherProtocol
+    private let accessoryDelegate: AccessoryTextViewDelegate
 
     init(
         document: BaseDocumentProtocol,
         editorActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        accessorySwitcher: AccessoryViewSwitcherProtocol
+        accessoryDelegate: AccessoryTextViewDelegate
     ) {
         self.document = document
         self.editorActionHandler = editorActionHandler
@@ -26,7 +26,7 @@ final class BlockViewModelBuilder {
             handler: editorActionHandler,
             router: router
         )
-        self.accessorySwitcher = accessorySwitcher
+        self.accessoryDelegate = accessoryDelegate
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -81,7 +81,7 @@ final class BlockViewModelBuilder {
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
                     actionHandler: editorActionHandler,
-                    accessorySwitcher: accessorySwitcher,
+                    accessoryDelegate: accessoryDelegate,
                     detailsStorage: document.detailsStorage,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
@@ -197,7 +197,7 @@ final class BlockViewModelBuilder {
                 guard let self = self else { return }
                 
                 guard
-                    self.document.objectDetails?.type != ObjectTemplateType.bundled(.profile).rawValue
+                    !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 else {
                     return
                 }

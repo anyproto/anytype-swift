@@ -23,6 +23,10 @@ class EditorAccessoryView: UIView {
     }
     
     // MARK: - Public methods
+    func setDelegate(_ delegate: EditorAccessoryViewDelegate) {
+        viewModel.delegate = delegate
+    }
+    
     func update(block: BlockModelProtocol, textView: CustomTextView) {
         viewModel.customTextView = textView
         viewModel.block = block

@@ -69,19 +69,11 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         endAppearingOffset = header.endAppearingOffset
         
         updateBarButtonItemsBackground(percent: 0)
-        
-        let title: String = {
-            if let string = details?.name, string.isNotEmpty {
-                return string
-            }
-            
-            return "Untitled".localized
-        }()
-        
+
         navigationBarTitleView.configure(
             model: EditorNavigationBarTitleView.Model(
                 icon: details?.objectIconImage,
-                title: title
+                title: details?.pageTitle
             )
         )
     }

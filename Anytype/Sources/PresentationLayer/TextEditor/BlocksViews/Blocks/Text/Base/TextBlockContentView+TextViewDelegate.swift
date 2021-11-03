@@ -2,6 +2,15 @@ import AnytypeCore
 import UIKit
 
 extension TextBlockContentView: CustomTextViewDelegate {
+    private var accessoryViewData: AccessoryViewSwitcherData {
+        AccessoryViewSwitcherData(
+            textView: textView,
+            block: currentConfiguration.block,
+            information: currentConfiguration.information,
+            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
+        )
+    }
+    
     func sizeChanged() {
         currentConfiguration.blockDelegate.blockSizeChanged()
     }
@@ -16,19 +25,16 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func willBeginEditing() {
-        currentConfiguration.accessorySwitcher.didBeginEditing(
-            data: AccessoryViewSwitcherData(
-                textView: textView,
-                block: currentConfiguration.block,
-                information: currentConfiguration.information,
-                text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
-            )
-        )
+        currentConfiguration.accessoryDelegate.willBeginEditing(data: accessoryViewData)
         currentConfiguration.blockDelegate.willBeginEditing()
     }
 
     func didBeginEditing() {
         currentConfiguration.blockDelegate.didBeginEditing()
+    }
+    
+    func didEndEditing() {
+        currentConfiguration.accessoryDelegate.didEndEditing()
     }
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
@@ -42,7 +48,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
 
-            currentConfiguration.accessorySwitcher.textDidChange()
+            currentConfiguration.accessoryDelegate.textDidChange()
         case let .keyboardAction(keyAction):
             switch keyAction {
             case .enterInsideContent,
@@ -81,7 +87,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            currentConfiguration.accessorySwitcher.textWillChange(
+            currentConfiguration.accessoryDelegate.textWillChange(
                 replacementText: replacementText,
                 range: range
             )

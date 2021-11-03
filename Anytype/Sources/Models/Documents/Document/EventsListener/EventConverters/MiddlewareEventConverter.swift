@@ -7,16 +7,20 @@ final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
+    private let relationStorage: RelationsStorageProtocol
+    
     private let informationCreator: BlockInformationCreator
     
     init(
         blocksContainer: BlockContainerModelProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
+        relationStorage: RelationsStorageProtocol,
         informationCreator: BlockInformationCreator
     ) {
         self.updater = BlockUpdater(blocksContainer)
         self.blocksContainer = blocksContainer
         self.detailsStorage = detailsStorage
+        self.relationStorage = relationStorage
         self.informationCreator = informationCreator
     }
     
@@ -139,7 +143,34 @@ final class MiddlewareEventConverter {
             )
             
             return .details(id: id)
-
+            
+        case .objectRelationsSet(let set):
+            set.relations.forEach {
+                relationStorage.add(
+                    relations: Relation(middlewareRelation: $0),
+                    key: $0.key
+                )
+            }
+            // TODO: - add relations update
+            return .general
+            
+        case .objectRelationsAmend(let amend):
+            amend.relations.forEach {
+                relationStorage.add(
+                    relations: Relation(middlewareRelation: $0),
+                    key: $0.key
+                )
+            }
+            // TODO: - add relations update
+            return .general
+            
+        case .objectRelationsRemove(let remove):
+            remove.keys.forEach {
+                relationStorage.remove(key: $0)
+            }
+            // TODO: - add relations update
+            return .general
+            
         case let .blockSetFile(newData):
             guard newData.hasState else {
                 return .general

@@ -16,6 +16,7 @@ final class EventsListener: EventsListenerProtocol {
      
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
+    private let relationStorage: RelationsStorageProtocol
     
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
@@ -28,11 +29,13 @@ final class EventsListener: EventsListenerProtocol {
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol
+        detailsStorage: ObjectDetailsStorageProtocol,
+        relationStorage: RelationsStorageProtocol
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer
         self.detailsStorage = detailsStorage
+        self.relationStorage = relationStorage
         
         let validator = BlockValidator(
             restrictionsFactory: BlockRestrictionsFactory()
@@ -44,6 +47,7 @@ final class EventsListener: EventsListenerProtocol {
         self.middlewareConverter = MiddlewareEventConverter(
             blocksContainer: blocksContainer,
             detailsStorage: detailsStorage,
+            relationStorage: relationStorage,
             informationCreator: informationCreator
         )
         self.localConverter = LocalEventConverter(

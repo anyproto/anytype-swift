@@ -68,4 +68,8 @@ extension CustomTextView: UITextViewDelegate {
         }
         return false
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.didEndEditing()
+    }
 }
