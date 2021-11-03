@@ -22,7 +22,7 @@ final class AccountInfoDataAccessor: ObservableObject {
             self?.handleDocumentUpdate($0)
         }.store(in: &cancellables)
 
-        document.open()
+        _ = document.open()
     }
     
     private func handleDocumentUpdate(_ update: EventsListenerUpdate) {

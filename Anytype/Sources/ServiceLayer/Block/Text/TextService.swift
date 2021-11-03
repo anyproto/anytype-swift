@@ -27,21 +27,30 @@ final class TextService: TextServiceProtocol {
             .getValue()
     }
     
-    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> SplitSuccess? {
+    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
-        return Anytype_Rpc.Block.Split.Service.invoke(
-            contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
-            .map { SplitSuccess($0) }
+        let response = Anytype_Rpc.Block.Split.Service
+            .invoke(contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
             .getValue()
+        
+        guard let response = response else {
+            return nil
+        }
+
+        EventsBunch(event: response.event).send()
+        return response.blockID
     }
 
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) {
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
-        Anytype_Rpc.Block.Merge.Service
+        let events = Anytype_Rpc.Block.Merge.Service
             .invoke(contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
-            .send()
+            .getValue()
+            
+        guard let events = events else { return false }
+        events.send()
+        return true
     }
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {

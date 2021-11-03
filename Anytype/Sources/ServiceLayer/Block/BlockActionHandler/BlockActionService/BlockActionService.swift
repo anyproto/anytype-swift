@@ -74,7 +74,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
         ).isNotNil else { return }
             
-        guard let splitSuccess = textService.split(
+        guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
             range: range,
@@ -84,10 +84,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             
         EventsBunch(
             objectId: documentId,
-            middlewareEvents: splitSuccess.responseEvent.messages,
-            localEvents: [
-                .setFocus(blockId: splitSuccess.blockId, position: .beginning)
-            ]
+            localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
         ).send()
     }
 

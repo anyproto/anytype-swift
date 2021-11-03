@@ -156,8 +156,9 @@ final class TextBlockActionHandler {
             }
             guard previousModel.content != .unsupported else { return }
             
-            textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id)
-            setFocus(model: previousModel)
+            if textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id) {
+                setFocus(model: previousModel)
+            }
 
         case .deleteOnEmptyContent:
             let blockId = info.id
