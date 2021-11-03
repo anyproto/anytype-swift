@@ -17,6 +17,7 @@ protocol CustomTextViewDelegate: AnyObject {
     func changeCaretPosition(_ range: NSRange)
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
+    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool
 
     @discardableResult
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool

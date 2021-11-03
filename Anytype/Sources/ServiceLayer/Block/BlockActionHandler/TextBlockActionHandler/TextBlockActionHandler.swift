@@ -26,9 +26,7 @@ final class TextBlockActionHandler {
         case let .changeText(attributedText):
             handleChangeText(info, text: attributedText)
         case .changeTextStyle, .changeLink:
-            anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
-        case let .shouldChangeText(_, replacementText, mentionsHolder):
-            mentionsHolder.removeMentionIfNeeded(text: replacementText)
+            anytypeAssertionFailure("We handle this update in `BlockActionHandler`")            
         }
     }
     

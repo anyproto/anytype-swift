@@ -8,23 +8,22 @@ extension CustomTextView: UITextViewDelegate {
         replacementText text: String
     ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
-
+        guard let delegate = delegate else { return true }
+        
         let keyAction = CustomTextView.KeyboardAction.build(textView: textView, range: range, replacement: text)
 
         if let keyAction = keyAction {
             if case let .enterInsideContent(currentText, _) = keyAction {
                 self.textView.text = currentText
             }
-            guard delegate?.keyboardAction(keyAction) ?? true else { return false }
+            guard delegate.keyboardAction(keyAction) else { return false }
         }
 
-        return delegate?.didReceiveAction(
-            .shouldChangeText(
-                range: range,
-                replacementText: text,
-                mentionsHolder: textView
-            )
-        ) ?? true
+        return delegate.shouldChangeText(
+            range: range,
+            replacementText: text,
+            mentionsHolder: textView
+        )
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {

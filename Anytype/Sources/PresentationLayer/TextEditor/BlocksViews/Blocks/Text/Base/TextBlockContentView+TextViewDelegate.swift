@@ -38,19 +38,6 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
-        case let .shouldChangeText(range, replacementText, mentionsHolder):
-            blockDelegate.textWillChange(text: replacementText, range: range)
-            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
-            if !shouldChangeText {
-                handler.handleAction(
-                    .textView(
-                        action: .changeText(textView.textView.attributedText),
-                        info: currentConfiguration.information
-                    ),
-                    blockId: currentConfiguration.information.id
-                )
-            }
-            return shouldChangeText
         case let .changeLink(attrText, range):
             handler.showLinkToSearch(
                 blockId: currentConfiguration.information.id,
@@ -97,6 +84,21 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func changeCaretPosition(_ range: NSRange) {
         handler.changeCarretPosition(range: range)
+    }
+    
+    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
+        blockDelegate.textWillChange(text: replacementText, range: range)
+        let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
+        if !shouldChangeText {
+            handler.handleAction(
+                .textView(
+                    action: .changeText(textView.textView.attributedText),
+                    info: currentConfiguration.information
+                ),
+                blockId: currentConfiguration.information.id
+            )
+        }
+        return shouldChangeText
     }
     
     // MARK: - Private
