@@ -3,7 +3,7 @@ public enum Feature: String, Codable {
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
     case analytics = "Analytics Amplitude (only in development)"
     case middlewareLogs = "Show middleware logs in Xcode console"
-    case aletsForArchivedPages = "Show alert when open archived pages 🤧"
+    case aletsForArchivedPages = "Show alert on autoclosed pages 🤧"
 }
 
 public final class FeatureFlags {
@@ -45,7 +45,7 @@ public extension FeatureFlags {
         features[.middlewareLogs, default: false]
     }
     
-    static var aletsForArchivedPages: Bool {
+    static var aletOnGoBack: Bool {
         features[.aletsForArchivedPages, default: false]
     }
 }

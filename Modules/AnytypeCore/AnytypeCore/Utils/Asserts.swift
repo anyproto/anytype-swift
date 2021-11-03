@@ -9,7 +9,7 @@ public func anytypeAssertionFailure(
         logNonFatal(message)
     #elseif ENTERPRISE
         if FeatureFlags.showAlertOnAssert {
-            showAlert(message)
+            showAssertionAlert(message)
         }
     #elseif DEBUG
         assertionFailure(message, file: file, line: line)
@@ -27,13 +27,7 @@ public func anytypeAssert(
     }
 }
 
-// MARK:- Private
-
-private func logNonFatal(_ message: String) {
-    AssertionLogger.shared?.log(message)
-}
-
-private func showAlert(_ message: String) {
+public func showAssertionAlert(_ message: String) {
     
     guard let keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
         return
@@ -52,4 +46,10 @@ private func showAlert(_ message: String) {
     DispatchQueue.main.async {
         keyWindow.rootViewController?.topPresentedController.present(alert, animated: true, completion: nil)
     }
+}
+
+
+// MARK:- Private
+private func logNonFatal(_ message: String) {
+    AssertionLogger.shared?.log(message)
 }
