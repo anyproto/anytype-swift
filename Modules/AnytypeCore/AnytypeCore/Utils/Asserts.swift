@@ -27,7 +27,8 @@ public func anytypeAssert(
     }
 }
 
-public func showAssertionAlert(_ message: String) {
+// MARK:- Private
+private func showAssertionAlert(_ message: String) {
     
     guard let keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
         return
@@ -48,8 +49,6 @@ public func showAssertionAlert(_ message: String) {
     }
 }
 
-
-// MARK:- Private
 private func logNonFatal(_ message: String) {
     AssertionLogger.shared?.log(message)
 }
