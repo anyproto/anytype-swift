@@ -1,7 +1,7 @@
 /// A thread-safe dictionary.
 public final class SynchronizedDictionary<K, V> where K: Hashable {
 
-    public var dictionary: [K: V] = [:]
+    private var dictionary: [K: V] = [:]
 
     // MARK: - Private variables
 
