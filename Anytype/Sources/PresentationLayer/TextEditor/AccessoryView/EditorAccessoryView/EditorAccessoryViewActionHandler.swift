@@ -47,7 +47,7 @@ final class EditorAccessoryViewModel {
             handler.handleActionForFirstResponder(
                 .textView(
                     action: .changeText(textView.attributedText),
-                    block: block
+                    info: block.information
                 )
             )
             
@@ -58,7 +58,7 @@ final class EditorAccessoryViewModel {
             handler.handleActionForFirstResponder(
                 .textView(
                     action: .changeText(textView.attributedText),
-                    block: block
+                    info: block.information
                 )
             )
             

@@ -5,34 +5,34 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
-            currentConfiguration.blockDelegate.becomeFirstResponder(blockId: currentConfiguration.block.information.id)
+            blockDelegate.becomeFirstResponder(blockId: currentConfiguration.information.id)
         case .resign:
-            currentConfiguration.blockDelegate.resignFirstResponder(blockId: currentConfiguration.block.information.id)
+            blockDelegate.resignFirstResponder(blockId: currentConfiguration.information.id)
         }
     }
     
     func willBeginEditing() {
-        currentConfiguration.accessoryDelegate.willBeginEditing(data: accessoryViewData)
-        currentConfiguration.blockDelegate.willBeginEditing()
+        accessoryDelegate.willBeginEditing(data: accessoryViewData)
+        blockDelegate.willBeginEditing()
     }
 
     func didBeginEditing() {
-        currentConfiguration.blockDelegate.didBeginEditing()
+        blockDelegate.didBeginEditing()
     }
     
     func didEndEditing() {
-        currentConfiguration.accessoryDelegate.didEndEditing()
+        accessoryDelegate.didEndEditing()
     }
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
         switch action {
         case .changeText:
-            currentConfiguration.actionHandler.handleAction(
-                .textView(action: action, block: currentConfiguration.block),
+            handler.handleAction(
+                .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
 
-            currentConfiguration.accessoryDelegate.textDidChange()
+            accessoryDelegate.textDidChange()
         case let .keyboardAction(keyAction):
             switch keyAction {
             case .enterInsideContent,
@@ -43,11 +43,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 // from the same block, it will leads to wrong order of blocks in array,
                 // adding a delay makes impossible to press enter very often
                 if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
-                    currentConfiguration.actionHandler.handleAction(
-                        .textView(
-                            action: action,
-                            block: currentConfiguration.block
-                        ),
+                    handler.handleAction(
+                        .textView(action: action, info: currentConfiguration.information),
                         blockId: currentConfiguration.information.id
                     )
                 }
@@ -55,44 +52,37 @@ extension TextBlockContentView: CustomTextViewDelegate {
             default:
                 break
             }
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
+            handler.handleAction(
+                .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
         case .changeTextStyle, .changeCaretPosition:
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
+            handler.handleAction(
+                .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            currentConfiguration.accessoryDelegate.textWillChange(
+            accessoryDelegate.textWillChange(
                 replacementText: replacementText,
                 range: range
             )
-            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
-                replacementRange: range,
-                replacementText: replacementText
-            )
+            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
             if !shouldChangeText {
-                currentConfiguration.actionHandler.handleAction(
+                handler.handleAction(
                     .textView(
                         action: .changeText(textView.textView.attributedText),
-                        block: currentConfiguration.block
+                        info: currentConfiguration.information
                     ),
                     blockId: currentConfiguration.information.id
                 )
             }
             return shouldChangeText
         case let .changeLink(attrText, range):
-            currentConfiguration.actionHandler.showLinkToSearch(blockId: currentConfiguration.information.id,
-                                                                attrText: attrText,
-                                                                range: range)
+            handler.showLinkToSearch(
+                blockId: currentConfiguration.information.id,
+                attrText: attrText,
+                range: range
+            )
         case let .showPage(pageId):
             guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
                 // Deleted objects goes here
@@ -106,6 +96,19 @@ extension TextBlockContentView: CustomTextViewDelegate {
             currentConfiguration.openURL(url)
         }
         return true
+    }
+    
+    // MARK: - Private
+    private var blockDelegate: BlockDelegate {
+        currentConfiguration.blockDelegate
+    }
+    
+    private var accessoryDelegate: AccessoryTextViewDelegate {
+        currentConfiguration.accessoryDelegate
+    }
+    
+    private var handler: EditorActionHandlerProtocol {
+        currentConfiguration.actionHandler
     }
     
     private var accessoryViewData: AccessoryViewSwitcherData {

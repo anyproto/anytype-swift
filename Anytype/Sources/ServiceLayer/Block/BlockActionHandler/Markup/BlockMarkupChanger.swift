@@ -120,7 +120,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         let result = NSAttributedString(attributedString: modifier.attributedString)
         
         handler?.handleAction(
-            .textView(action: .changeText(result), block: block),
+            .textView(action: .changeText(result), info: block.information),
             blockId: block.information.id
         )
     }
