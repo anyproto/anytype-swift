@@ -47,6 +47,8 @@ final class EditorPageController: UIViewController {
             self?.viewModel.showSettings()
         }
     )
+
+    private lazy var blocksSelectionOverlayView = BlocksSelectionOverlayView(frame: .zero)
     
     var viewModel: EditorPageViewModelProtocol!
     
@@ -208,7 +210,6 @@ private extension EditorPageController {
         setupInteractions()
         
         setupLayout()
-        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
     
     func setupCollectionView() {
@@ -231,6 +232,19 @@ private extension EditorPageController {
         view.addSubview(deletedScreen) {
             $0.pinToSuperview()
         }
+
+        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.navigationBarHelper.setNavigationBarHidden(true)
+        }
+
+        view.addSubview(blocksSelectionOverlayView) {
+            $0.pinToSuperview()
+        }
+
+        blocksSelectionOverlayView.isHidden = true
+
         deletedScreen.isHidden = true
     }
     

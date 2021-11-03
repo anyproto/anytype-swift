@@ -6,6 +6,12 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
+enum EditorEditingState {
+    case none
+    case editing
+    case selected(numberOfRowsSelected: Int)
+}
+
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
     

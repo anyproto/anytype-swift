@@ -580,6 +580,7 @@
 		C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */; };
 		C9367A9E27313692007D687A /* AccessoryViewSwitcherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9B27313692007D687A /* AccessoryViewSwitcherData.swift */; };
 		C9367A9F27313692007D687A /* AccessoryViewSwitcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9C27313692007D687A /* AccessoryViewSwitcherBuilder.swift */; };
+		C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */; };
 		C96149522718189000360840 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149512718189000360840 /* GalleryViewController.swift */; };
 		C96149542718286E00360840 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149532718286E00360840 /* GalleryViewModel.swift */; };
 		C9614958271829A200360840 /* ImageViewerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9614957271829A200360840 /* ImageViewerViewModel.swift */; };
@@ -1298,6 +1299,7 @@
 		C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcher.swift; sourceTree = "<group>"; };
 		C9367A9B27313692007D687A /* AccessoryViewSwitcherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcherData.swift; sourceTree = "<group>"; };
 		C9367A9C27313692007D687A /* AccessoryViewSwitcherBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcherBuilder.swift; sourceTree = "<group>"; };
+		C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayView.swift; sourceTree = "<group>"; };
 		C96149512718189000360840 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		C96149532718286E00360840 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
 		C9614957271829A200360840 /* ImageViewerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewModel.swift; sourceTree = "<group>"; };
@@ -2492,6 +2494,7 @@
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C9367AB227315209007D687A /* BlocksSelectionOverlayView */,
 				3DB1C9DD2726D0A7000D2779 /* PlaceholderScreens */,
 				3D170236271598790079B65B /* Navigation */,
 				120E816B269F26BE006FE84E /* Settings */,
@@ -4105,6 +4108,14 @@
 			path = BlocksOptionView;
 			sourceTree = "<group>";
 		};
+		C9367AB227315209007D687A /* BlocksSelectionOverlayView */ = {
+			isa = PBXGroup;
+			children = (
+				C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */,
+			);
+			path = BlocksSelectionOverlayView;
+			sourceTree = "<group>";
+		};
 		C96149552718288000360840 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -5154,6 +5165,7 @@
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
+				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3DB1C9F3272835DA000D2779 /* OtherSettingsView.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */,

@@ -36,7 +36,7 @@ class EditorAccessoryView: UIView {
         if information.content.type == .text(.title) {
             items = [.style]
         } else {
-            items = [.slash, .style, .mention]
+            items = [.slash, .style, .actions, .mention]
         }
         
         stackView.arrangedSubviews.forEach { view in
