@@ -156,23 +156,26 @@ final class TextBlockActionHandler {
             }
             guard previousModel.content != .unsupported else { return }
             
-            let previousBlockId = previousModel.blockId
-            
-            var localEvents = [LocalEvent]()
-            if case let .text(text) = previousModel.information.content {
-                let nsText = NSString(string: text.text)
-                let range = NSRange(location: nsText.length, length: 0)
-                localEvents.append(contentsOf: [
-                    .setFocus(blockId: previousBlockId, position: .at(range))
-                ])
-            }
-            service.merge(firstBlockId: previousModel.blockId, secondBlockId: info.id, localEvents: localEvents)
+            textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id)
+            setFocus(model: previousModel)
 
         case .deleteOnEmptyContent:
             let blockId = info.id
             let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
             service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
         }
+    }
+    
+    private func setFocus(model: BlockDataProvider) {
+        var localEvents = [LocalEvent]()
+        if case let .text(text) = model.information.content {
+            let nsText = NSString(string: text.text)
+            let range = NSRange(location: nsText.length, length: 0)
+            localEvents.append(contentsOf: [
+                .setFocus(blockId: model.blockId, position: .at(range))
+            ])
+        }
+        EventsBunch(objectId: contextId, localEvents: localEvents).send()
     }
 }
 

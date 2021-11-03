@@ -35,12 +35,13 @@ final class TextService: TextServiceProtocol {
             .getValue()
     }
 
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> EventsBunch? {
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
-        return Anytype_Rpc.Block.Merge.Service
+        Anytype_Rpc.Block.Merge.Service
             .invoke(contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .map { EventsBunch(event: $0.event) }
-            .getValue()
+            .getValue()?
+            .send()
     }
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {

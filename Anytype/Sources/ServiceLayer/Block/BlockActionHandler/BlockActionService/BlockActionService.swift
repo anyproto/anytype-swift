@@ -188,19 +188,6 @@ private extension BlockActionService {
     }
 }
 
-// MARK: - Delete
-
-extension BlockActionService {
-    func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent]) {
-        guard let events = textService
-                .merge(contextId: documentId, firstBlockId: firstBlockId, secondBlockId: secondBlockId) else {
-                    return
-                }
-            
-        events.enrichedWith(localEvents: localEvents).send()
-    }
-}
-
 // MARK: - BookmarkFetch
 
 extension BlockActionService {

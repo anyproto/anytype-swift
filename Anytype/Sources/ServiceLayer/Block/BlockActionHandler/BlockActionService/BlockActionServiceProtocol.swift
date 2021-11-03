@@ -11,8 +11,6 @@ protocol BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(info: BlockInformation, parentBlockId: BlockId)
     
-    func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent])
-    
     func delete(blockId: BlockId, previousBlockId: BlockId?)
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
