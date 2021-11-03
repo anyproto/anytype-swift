@@ -115,6 +115,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId) {
         handler.changeTextStyle(text: text, attribute: attribute, range: range, blockId: blockId)
     }
+    
+    func changeText(_ text: NSAttributedString, info: BlockInformation) {
+        handler.changeText(text, info: info)
+    }
 
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
         router.showLinkToObject { [weak self] searchKind in
