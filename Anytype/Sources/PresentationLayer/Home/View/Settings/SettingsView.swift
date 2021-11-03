@@ -19,6 +19,7 @@ struct SettingsView: View {
         
         .sheet(isPresented: $viewModel.defaultType) {
             DefaultTypePicker()
+                .environmentObject(viewModel)
         }
         
         .environmentObject(viewModel)
