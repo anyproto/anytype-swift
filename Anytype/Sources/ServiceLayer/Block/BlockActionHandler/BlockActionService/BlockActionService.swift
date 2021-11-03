@@ -72,9 +72,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             contextId: documentId,
             blockId: blockId,
             middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
-        ).isNotNil else { return }
+        ) else { return }
             
-        guard let splitSuccess = textService.split(
+        guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
             range: range,
@@ -84,10 +84,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             
         EventsBunch(
             objectId: documentId,
-            middlewareEvents: splitSuccess.responseEvent.messages,
-            localEvents: [
-                .setFocus(blockId: splitSuccess.blockId, position: .beginning)
-            ]
+            localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
         ).send()
     }
 
@@ -119,10 +116,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         return newBlockId
     }
 
-    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
+    func turnInto(blockId: BlockId, type: BlockContentType) {
         switch type {
         case .text(let style):
-            setTextStyle(blockId: blockId, style: style, shouldFocus: shouldSetFocusOnUpdate)
+            textService.setStyle(contextId: documentId, blockId: blockId, style: style)
         case .smartblock:
             anytypeAssertionFailure("Use turnIntoPage action instead")
             _ = turnIntoPage(blockId: blockId)
@@ -176,15 +173,6 @@ private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
         listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
-    }
-
-    func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
-        guard let response = textService.setStyle(contextId: documentId, blockId: blockId, style: style) else {
-            return
-        }
-        
-        let events = shouldFocus ? response.turnIntoTextEvent : response.asEventsBunch
-        events.send()
     }
 }
 

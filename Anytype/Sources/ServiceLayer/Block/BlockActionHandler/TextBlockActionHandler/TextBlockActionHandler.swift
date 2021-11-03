@@ -99,12 +99,7 @@ final class TextBlockActionHandler {
             case let .text(value) where value.contentType.isList && value.text == "":
                 // Turn Into empty text block.
                 if let newContentType = BlockBuilder.createContentType(info: info, action: action, textPayload: value.text) {
-                    /// TODO: Add focus on this block.
-                    self.service.turnInto(
-                        blockId: info.id,
-                        type: newContentType.type,
-                        shouldSetFocusOnUpdate: true
-                    )
+                    self.service.turnInto(blockId: info.id, type: newContentType.type)
                 }
             default:
                 if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: "") {
@@ -156,8 +151,9 @@ final class TextBlockActionHandler {
             }
             guard previousModel.content != .unsupported else { return }
             
-            textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id)
-            setFocus(model: previousModel)
+            if textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id) {
+                setFocus(model: previousModel)
+            }
 
         case .deleteOnEmptyContent:
             let blockId = info.id
