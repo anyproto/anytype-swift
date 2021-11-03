@@ -16,15 +16,13 @@ final class TextService: TextServiceProtocol {
             .getValue()
     }
     
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> MiddlewareResponse? {
-        Amplitude.instance().logEvent(
-            AmplitudeEventsName.blockSetTextStyle,
-            withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)]
-        )
-        return Anytype_Rpc.Block.Set.Text.Style.Service
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
+        Amplitude.instance().logSetStyle(style)        
+        Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
-            .map { MiddlewareResponse($0.event) }
-            .getValue()
+            .map { MiddlewareResponse($0.event).turnIntoTextEvent }
+            .getValue()?
+            .send()
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {

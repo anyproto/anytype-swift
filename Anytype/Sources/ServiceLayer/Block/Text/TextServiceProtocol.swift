@@ -10,7 +10,7 @@ protocol TextServiceProtocol {
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool)
     func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> MiddlewareResponse?
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style)
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId?
     
     @discardableResult
