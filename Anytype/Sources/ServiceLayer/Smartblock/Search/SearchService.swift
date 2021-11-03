@@ -66,13 +66,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
-        filters.append(contentsOf: [SearchHelper.sharedObjectsFilter()])
+        filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return makeRequest(
             filters: filters,
             sorts: [sort],
-            fullText: "",
-            keys: []
+            fullText: ""
         )
     }
     
