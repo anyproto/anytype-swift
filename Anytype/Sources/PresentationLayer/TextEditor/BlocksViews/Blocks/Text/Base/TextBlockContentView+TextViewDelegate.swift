@@ -114,8 +114,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     private var accessoryViewData: AccessoryViewSwitcherData {
         AccessoryViewSwitcherData(
             textView: textView,
-            block: currentConfiguration.block,
-            information: currentConfiguration.information,
+            info: currentConfiguration.information,
             text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
         )
     }

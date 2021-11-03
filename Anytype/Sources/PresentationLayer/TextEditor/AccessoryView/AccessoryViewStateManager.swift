@@ -114,7 +114,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     
     private func displaySlashOrMentionIfNeeded() {
         guard let textView = data?.textView.textView else { return }
-        guard let data = data, data.information.content.type != .text(.title) else { return }
+        guard let data = data, data.info.content.type != .text(.title) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret else { return }
         guard let caretPosition = textView.caretPosition else { return }
         

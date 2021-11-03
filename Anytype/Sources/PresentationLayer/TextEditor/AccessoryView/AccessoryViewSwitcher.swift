@@ -53,8 +53,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func updateData(data: AccessoryViewSwitcherData) {
         self.data = data
         
-        accessoryView.update(block: data.block, textView: data.textView)
-        slashMenuView.update(block: data.block)
+        accessoryView.update(info: data.info, textView: data.textView)
+        slashMenuView.update(info: data.info)
         
         showDefaultView()
     }

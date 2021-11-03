@@ -16,7 +16,7 @@ enum EditorAccessoryViewAction {
 
 
 final class EditorAccessoryViewModel {
-    var block: BlockModelProtocol!
+    var info: BlockInformation!
     
     weak var customTextView: CustomTextView?
     weak var delegate: EditorAccessoryViewDelegate?
@@ -36,7 +36,7 @@ final class EditorAccessoryViewModel {
 
         switch action {
         case .showStyleMenu:
-            router.showStyleMenu(information: block.information)
+            router.showStyleMenu(information: info)
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
@@ -47,7 +47,7 @@ final class EditorAccessoryViewModel {
             handler.handleActionForFirstResponder(
                 .textView(
                     action: .changeText(textView.attributedText),
-                    info: block.information
+                    info: info
                 )
             )
             
@@ -58,7 +58,7 @@ final class EditorAccessoryViewModel {
             handler.handleActionForFirstResponder(
                 .textView(
                     action: .changeText(textView.attributedText),
-                    info: block.information
+                    info: info
                 )
             )
             

@@ -71,8 +71,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(
             filters: filters,
             sorts: [sort],
-            fullText: "",
-            keys: []
+            fullText: ""
         )
     }
     

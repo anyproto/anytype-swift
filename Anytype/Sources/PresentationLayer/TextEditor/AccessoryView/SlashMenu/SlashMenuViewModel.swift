@@ -4,7 +4,7 @@ import ProtobufMessages
 import UIKit
 
 final class SlashMenuViewModel {
-    var block: BlockModelProtocol?
+    var info: BlockInformation?
     
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
@@ -16,10 +16,10 @@ final class SlashMenuViewModel {
     }
     
     func handle(_ action: SlashAction) {
-        guard let block = block else { return }
+        guard let info = info else { return }
         
         removeSlashMenuText()
-        handler.handle(action, blockId: block.information.id)
+        handler.handle(action, blockId: info.id)
     }
     
     func didShowMenuView(from textView: UITextView) {
@@ -39,12 +39,12 @@ final class SlashMenuViewModel {
               let textView = textView,
               let currentPosition = textView.caretPosition,
               let textRange = textView.textRange(from: initialCaretPosition, to: currentPosition),
-              let block = block else {
+              let info = info else {
             return
         }
         textView.replace(textRange, withText: "")
         
         guard let text = textView.attributedText else { return }
-        handler.changeText(text, info: block.information)
+        handler.changeText(text, info: info)
     }
 }
