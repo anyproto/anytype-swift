@@ -138,8 +138,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         viewInput?.showDeletedScreen(details.isDeleted)
         if details.isArchived {
-            if FeatureFlags.aletsForArchivedPages {
-                anytypeAssertionFailure("Man this is an archived page\n\(details)")
+            if FeatureFlags.aletOnGoBack {
+                showAssertionAlert("Man this is an archived page\n\(details)")
             }
             router.goBack()
         }
@@ -227,6 +227,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewLoaded() {
         guard document.open() else {
+            if FeatureFlags.aletOnGoBack {
+                showAssertionAlert("Could not open page 😫")
+            }
             router.goBack()
             return
         }
