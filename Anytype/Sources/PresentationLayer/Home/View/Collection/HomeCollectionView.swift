@@ -19,11 +19,6 @@ struct HomeCollectionView: View {
     var body: some View {
         VStack(spacing: 0) {
             content
-            
-            // Hack to prevent navigation link from pop
-            // https://developer.apple.com/forums/thread/677333
-            // https://app.clickup.com/t/1je3crk
-            NavigationLink(destination: EmptyView()) { EmptyView() }
         }
     }
     
