@@ -100,7 +100,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
 
-            objectSettingsViewModel.update(with: details, objectRestrictions: document.objectRestrictions)
+            objectSettingsViewModel.update(
+                with: details,
+                objectRestrictions: document.objectRestrictions,
+                objectRelations: document.relationsStorage.relations
+            )
             viewInput?.update(header: header, details: details)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
@@ -217,7 +221,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         objectSettingsViewModel.update(
             with: details,
-            objectRestrictions: document.objectRestrictions
+            objectRestrictions: document.objectRestrictions,
+            objectRelations: document.relationsStorage.relations
         )
     }
 }

@@ -11,6 +11,10 @@ public final class RelationsStorage {
 
 extension RelationsStorage: RelationsStorageProtocol {
     
+    public var relations: [Relation] {
+        storage.array
+    }
+    
     public func set(relations: [Relation]) {
         storage = SynchronizedArray<Relation>(array: relations)
     }

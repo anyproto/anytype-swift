@@ -3,7 +3,7 @@ public final class SynchronizedArray<T> {
 
     // MARK: - Private variables
 
-    private var array: [T]
+    public private(set) var array: [T]
     private let lock = NSLock()
 
     // MARK: - Initializers
