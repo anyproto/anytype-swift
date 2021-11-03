@@ -38,14 +38,16 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
-        case let .changeLink(attrText, range):
-            handler.showLinkToSearch(
-                blockId: currentConfiguration.information.id,
-                attrText: attrText,
-                range: range
-            )
         }
         return true
+    }
+    
+    func changeLink(text: NSAttributedString, range: NSRange) {
+        handler.showLinkToSearch(
+            blockId: currentConfiguration.information.id,
+            attrText: text,
+            range: range
+        )
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {

@@ -15,6 +15,7 @@ protocol CustomTextViewDelegate: AnyObject {
     func openURL(_ url: URL)
     func showPage(blockId: BlockId)
     func changeCaretPosition(_ range: NSRange)
+    func changeLink(text: NSAttributedString, range: NSRange)
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool
