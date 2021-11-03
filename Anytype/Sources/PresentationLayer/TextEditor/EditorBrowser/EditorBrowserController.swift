@@ -89,9 +89,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         )
     }
     
-    func pop() {
-        if FeatureFlags.aletOnGoBack { showAssertionAlert("Going back triggered\n\(Thread.callStackSymbols)") }
-        
+    func pop() {        
         if childNavigation.children.count > 1 {
             childNavigation.popViewController(animated: true)
         } else {
