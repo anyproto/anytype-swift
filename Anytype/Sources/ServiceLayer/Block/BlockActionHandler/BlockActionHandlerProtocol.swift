@@ -11,4 +11,7 @@ protocol BlockActionHandlerProtocol {
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeCaretPosition(range: NSRange)
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
+    func changeTextStyle(
+        text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
+    )
 }

@@ -111,6 +111,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
         handler.handleKeyboardAction(action, info: info)
     }
+    
+    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId) {
+        handler.changeTextStyle(text: text, attribute: attribute, range: range, blockId: blockId)
+    }
 
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
         router.showLinkToObject { [weak self] searchKind in

@@ -33,13 +33,14 @@ extension TextBlockContentView: CustomTextViewDelegate {
             )
 
             blockDelegate.textDidChange()
-        case .changeTextStyle:
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
         }
         return true
+    }
+    
+    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
+        handler.changeTextStyle(
+            text: text, attribute: attribute, range: range, blockId: currentConfiguration.information.id
+        )
     }
     
     func changeLink(text: NSAttributedString, range: NSRange) {

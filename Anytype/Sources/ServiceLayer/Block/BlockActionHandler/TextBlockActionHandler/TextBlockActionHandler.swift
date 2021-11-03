@@ -25,8 +25,6 @@ final class TextBlockActionHandler {
         switch action {
         case let .changeText(attributedText):
             handleChangeText(info, text: attributedText)
-        case .changeTextStyle:
-            anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
         }
     }
     

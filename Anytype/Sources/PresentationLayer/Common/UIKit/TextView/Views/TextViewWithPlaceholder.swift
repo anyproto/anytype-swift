@@ -212,11 +212,7 @@ extension TextViewWithPlaceholder {
     }
 
     private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
-        let range = selectedRange
-
-        customTextViewDelegate?.didReceiveAction(
-            .changeTextStyle(attributedText, action, range)
-        )
+        customTextViewDelegate?.changeTextStyle(text: attributedText, attribute: action, range: selectedRange)
     }
 }
 
