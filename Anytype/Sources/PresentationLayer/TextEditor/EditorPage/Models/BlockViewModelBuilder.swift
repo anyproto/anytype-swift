@@ -9,14 +9,12 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
-    private let accessoryDelegate: AccessoryTextViewDelegate
 
     init(
         document: BaseDocumentProtocol,
         editorActionHandler: EditorActionHandlerProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate,
-        accessoryDelegate: AccessoryTextViewDelegate
+        delegate: BlockDelegate
     ) {
         self.document = document
         self.editorActionHandler = editorActionHandler
@@ -26,7 +24,6 @@ final class BlockViewModelBuilder {
             handler: editorActionHandler,
             router: router
         )
-        self.accessoryDelegate = accessoryDelegate
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -81,7 +78,6 @@ final class BlockViewModelBuilder {
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
                     actionHandler: editorActionHandler,
-                    accessoryDelegate: accessoryDelegate,
                     detailsStorage: document.detailsStorage,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
