@@ -215,7 +215,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
         
-        objectSettingsViewModel.update(with: details, objectRestrictions: document.objectRestrictions)
+        objectSettingsViewModel.update(
+            with: details,
+            objectRestrictions: document.objectRestrictions
+        )
     }
 }
 

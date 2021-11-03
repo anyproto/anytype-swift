@@ -145,29 +145,24 @@ final class MiddlewareEventConverter {
             return .details(id: id)
             
         case .objectRelationsSet(let set):
-            set.relations.forEach {
-                relationStorage.add(
-                    relations: Relation(middlewareRelation: $0),
-                    key: $0.key
-                )
-            }
+            relationStorage.set(
+                relations: set.relations.map { Relation(middlewareRelation: $0) }
+            )
+            
             // TODO: - add relations update
             return .general
             
         case .objectRelationsAmend(let amend):
-            amend.relations.forEach {
-                relationStorage.add(
-                    relations: Relation(middlewareRelation: $0),
-                    key: $0.key
-                )
-            }
+            relationStorage.amend(
+                relations: amend.relations.map { Relation(middlewareRelation: $0) }
+            )
+            
             // TODO: - add relations update
             return .general
             
         case .objectRelationsRemove(let remove):
-            remove.keys.forEach {
-                relationStorage.remove(key: $0)
-            }
+            relationStorage.remove(relationKeys: remove.keys)
+            
             // TODO: - add relations update
             return .general
             
