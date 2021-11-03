@@ -9,10 +9,10 @@ protocol TextServiceProtocol {
     typealias SplitMode = Anytype_Rpc.Block.Split.Request.Mode
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool)
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> EventsBunch?
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) -> MiddlewareResponse?
-    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> SplitSuccess?
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style)
+    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId?
     
     @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> MiddlewareResponse?    
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool    
 }
