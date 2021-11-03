@@ -48,6 +48,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
+    func changeCaretPosition(range: NSRange) {
+        UserSession.shared.focus.value = .at(range)
+    }
+    
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
         case let .turnInto(textStyle):
@@ -124,8 +128,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         case let .textView(action: action, info: info):
             switch action {
-            case let .changeCaretPosition(selectedRange):
-                UserSession.shared.focus.value = .at(selectedRange)
             case let .changeTextStyle(string, styleAction, range):
                 handleBlockAction(
                     .toggleFontStyle(string, styleAction, range),

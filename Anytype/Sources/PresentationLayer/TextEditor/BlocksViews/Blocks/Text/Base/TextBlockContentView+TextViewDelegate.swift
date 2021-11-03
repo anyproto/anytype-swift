@@ -56,7 +56,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
             )
-        case .changeTextStyle, .changeCaretPosition:
+        case .changeTextStyle:
             handler.handleAction(
                 .textView(action: action, info: currentConfiguration.information),
                 blockId: currentConfiguration.information.id
@@ -97,6 +97,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func openURL(_ url: URL) {
         currentConfiguration.openURL(url)
+    }
+    
+    func changeCaretPosition(_ range: NSRange) {
+        handler.changeCarretPosition(range: range)
     }
     
     // MARK: - Private

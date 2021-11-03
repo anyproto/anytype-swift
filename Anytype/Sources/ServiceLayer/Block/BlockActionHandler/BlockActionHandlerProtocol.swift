@@ -9,4 +9,5 @@ protocol BlockActionHandlerProtocol {
     func turnIntoPage(blockId: BlockId) -> BlockId?
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func changeCaretPosition(range: NSRange)
 }

@@ -103,6 +103,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         blockActionHandler.setObjectTypeUrl(objectTypeUrl)
     }
+    
+    func changeCarretPosition(range: NSRange) {
+        blockActionHandler.changeCaretPosition(range: range)
+    }
 
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
         router.showLinkToObject { [weak self] searchKind in

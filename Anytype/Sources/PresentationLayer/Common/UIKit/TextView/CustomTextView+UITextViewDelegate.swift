@@ -31,9 +31,7 @@ extension CustomTextView: UITextViewDelegate {
 
     func textViewDidChangeSelection(_ textView: UITextView) {
         if textView.isFirstResponder {
-            delegate?.didReceiveAction(
-                .changeCaretPosition(textView.selectedRange)
-            )
+            delegate?.changeCaretPosition(textView.selectedRange)
         }
     }
 
