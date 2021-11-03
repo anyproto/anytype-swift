@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol AccessoryTextViewDelegate {
-    func willBeginEditing(data: AccessoryViewSwitcherData)
+    func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
     
     func textWillChange(replacementText: String, range: NSRange)
@@ -10,7 +10,7 @@ protocol AccessoryTextViewDelegate {
 }
 
 final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessoryViewDelegate {
-    private var data: AccessoryViewSwitcherData? { switcher.data }
+    private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
     private var latestTextViewTextChange: TextViewTextChangeType?
     
@@ -23,7 +23,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     // MARK: - AccessoryTextViewDelegate
-    func willBeginEditing(data: AccessoryViewSwitcherData) {
+    func willBeginEditing(data: TextBlockDelegateData) {
         switcher.updateData(data: data)
     }
     

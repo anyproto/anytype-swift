@@ -4,7 +4,7 @@ import Combine
 
 protocol AccessoryViewSwitcherProtocol {
     func setDelegate(_ delegate: MentionViewDelegate & EditorAccessoryViewDelegate)
-    func updateData(data: AccessoryViewSwitcherData)
+    func updateData(data: TextBlockDelegateData)
     
     func restoreDefaultState()
     
@@ -16,7 +16,7 @@ protocol AccessoryViewSwitcherProtocol {
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private(set) var activeView = AccessoryViewType.none
-    private(set) var data: AccessoryViewSwitcherData?
+    private(set) var data: TextBlockDelegateData?
     
     private let accessoryView: EditorAccessoryView
     private let mentionsView: MentionView
@@ -50,7 +50,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         accessoryView.setDelegate(delegate)
     }
     
-    func updateData(data: AccessoryViewSwitcherData) {
+    func updateData(data: TextBlockDelegateData) {
         self.data = data
         
         accessoryView.update(info: data.info, textView: data.textView)

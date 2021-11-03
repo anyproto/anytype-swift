@@ -13,7 +13,7 @@ extension URLInputAccessoryView {
 }
 
 extension URLInputAccessoryView.Model {
-    init(data: AccessoryViewSwitcherData, url: URL?) {
+    init(data: TextBlockDelegateData, url: URL?) {
         self.init(
             blockId: data.info.id,
             url: url,

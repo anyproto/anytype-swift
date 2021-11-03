@@ -2,22 +2,30 @@ import BlocksModels
 
 
 protocol BlockDelegate: AnyObject {
+    func willBeginEditing(data: TextBlockDelegateData)
+    func didBeginEditing()
+    func didEndEditing()
+    
     func becomeFirstResponder(blockId: BlockId)
     func resignFirstResponder(blockId: BlockId)
-    func didBeginEditing()
-    func willBeginEditing()
+    
+    func textWillChange(text: String, range: NSRange)
+    func textDidChange()
 }
 
 final class BlockDelegateImpl: BlockDelegate {
     weak private(set) var viewInput: EditorPageViewInput?
     let document: BaseDocumentProtocol
+    private let accessoryDelegate: AccessoryTextViewDelegate
     
     init(
         viewInput: EditorPageViewInput?,
-        document: BaseDocumentProtocol
+        document: BaseDocumentProtocol,
+        accessoryDelegate: AccessoryTextViewDelegate
     ) {
         self.viewInput = viewInput
         self.document = document
+        self.accessoryDelegate = accessoryDelegate
     }
 
     func becomeFirstResponder(blockId: BlockId) {
@@ -34,7 +42,20 @@ final class BlockDelegateImpl: BlockDelegate {
         viewInput?.textBlockDidBeginEditing()
     }
 
-    func willBeginEditing() {
+    func willBeginEditing(data: TextBlockDelegateData) {
         viewInput?.textBlockWillBeginEditing()
+        accessoryDelegate.willBeginEditing(data: data)
+    }
+    
+    func didEndEditing() {
+        accessoryDelegate.didEndEditing()
+    }
+    
+    func textWillChange(text: String, range: NSRange) {
+        accessoryDelegate.textWillChange(replacementText: text, range: range)
+    }
+    
+    func textDidChange() {
+        accessoryDelegate.textDidChange()
     }
 }

@@ -1,7 +1,7 @@
 import BlocksModels
 import UIKit
 
-struct AccessoryViewSwitcherData {
+struct TextBlockDelegateData {
     let textView: CustomTextView
     
     let info: BlockInformation

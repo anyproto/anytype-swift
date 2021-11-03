@@ -12,8 +12,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func willBeginEditing() {
-        accessoryDelegate.willBeginEditing(data: accessoryViewData)
-        blockDelegate.willBeginEditing()
+        blockDelegate.willBeginEditing(data: delegateData)
     }
 
     func didBeginEditing() {
@@ -21,7 +20,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func didEndEditing() {
-        accessoryDelegate.didEndEditing()
+        blockDelegate.didEndEditing()
     }
 
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
@@ -32,7 +31,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
 
-            accessoryDelegate.textDidChange()
+            blockDelegate.textDidChange()
         case let .keyboardAction(keyAction):
             switch keyAction {
             case .enterInsideContent,
@@ -62,10 +61,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
                 blockId: currentConfiguration.information.id
             )
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            accessoryDelegate.textWillChange(
-                replacementText: replacementText,
-                range: range
-            )
+            blockDelegate.textWillChange(text: replacementText, range: range)
             let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
             if !shouldChangeText {
                 handler.handleAction(
@@ -103,16 +99,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
         currentConfiguration.blockDelegate
     }
     
-    private var accessoryDelegate: AccessoryTextViewDelegate {
-        currentConfiguration.accessoryDelegate
-    }
-    
     private var handler: EditorActionHandlerProtocol {
         currentConfiguration.actionHandler
     }
     
-    private var accessoryViewData: AccessoryViewSwitcherData {
-        AccessoryViewSwitcherData(
+    private var delegateData: TextBlockDelegateData {
+        TextBlockDelegateData(
             textView: textView,
             info: currentConfiguration.information,
             text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
