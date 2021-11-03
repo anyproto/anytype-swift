@@ -10,6 +10,8 @@ protocol CustomTextViewDelegate: AnyObject {
     func willBeginEditing()
     func didBeginEditing()
     func didEndEditing()
+    
+    func openURL(_ url: URL)
 
     @discardableResult
     func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool

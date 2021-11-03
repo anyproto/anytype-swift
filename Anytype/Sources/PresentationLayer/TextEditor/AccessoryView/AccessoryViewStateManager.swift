@@ -32,7 +32,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
 
     func textWillChange(replacementText: String, range: NSRange) {
-        latestTextViewTextChange = switcher.data?.textView.textView.textChangeType(
+        latestTextViewTextChange = data?.textView.textView.textChangeType(
             changeTextRange: range,
             replacementText: replacementText
         )

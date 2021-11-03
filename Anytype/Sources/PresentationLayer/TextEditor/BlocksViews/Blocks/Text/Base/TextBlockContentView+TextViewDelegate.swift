@@ -88,10 +88,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
             if !details.isArchived && !details.isDeleted {
                 currentConfiguration.showPage(pageId)
             }
-        case let .openURL(url):
-            currentConfiguration.openURL(url)
         }
         return true
+    }
+    
+    func openURL(_ url: URL) {
+        currentConfiguration.openURL(url)
     }
     
     // MARK: - Private

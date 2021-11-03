@@ -57,7 +57,7 @@ extension CustomTextView: UITextViewDelegate {
         interaction: UITextItemInteraction
     ) -> Bool {
         if !textView.isFirstResponder && interaction == .invokeDefaultAction {
-            delegate?.didReceiveAction(.openURL(URL))
+            delegate?.openURL(URL)
         }
         return false
     }
