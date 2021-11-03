@@ -49,12 +49,10 @@ final class SlashMenuActionHandler {
         }
     }
     
-    func changeText(_ text: NSAttributedString, block: BlockModelProtocol) {
+    func changeText(_ text: NSAttributedString, info: BlockInformation) {
         actionHandler.handleAction(
-            .textView(
-                action: .changeText(text),
-                block: block
-            ), blockId: block.information.id
+            .textView(action: .changeText(text), info: info),
+            blockId: info.id
         )
     }
     

@@ -2,7 +2,7 @@ import Foundation
 
 extension AccessoryViewStateManager: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
-        guard let textView = switcher.data?.textView.textView, let block = switcher.data?.block else { return }
+        guard let textView = switcher.data?.textView.textView, let info = switcher.data?.information else { return }
         guard let mentionSymbolPosition = triggerSymbolPosition,
               let newMentionPosition = textView.position(from: mentionSymbolPosition, offset: -1) else { return }
         guard let caretPosition = textView.caretPosition else { return }
@@ -23,11 +23,9 @@ extension AccessoryViewStateManager: MentionViewDelegate {
         let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
         
         let actions: [BlockHandlerActionType] = [
-            .textView(action: .changeText(newText), block: block),
-            .textView(action: .changeCaretPosition(newCaretPosition), block: block)
+            .textView(action: .changeText(newText), info: info),
+            .textView(action: .changeCaretPosition(newCaretPosition), info: info)
         ]
-        actions.forEach {
-            handler.handleAction($0, blockId: block.information.id)
-        }
+        actions.forEach { handler.handleAction($0, blockId: info.id) }
     }
 }
