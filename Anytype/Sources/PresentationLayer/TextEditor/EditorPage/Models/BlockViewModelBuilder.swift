@@ -53,7 +53,7 @@ final class BlockViewModelBuilder {
                     },
                     textDidChange: { block, textView in
                         self.editorActionHandler.handleAction(
-                            .textView(action: .changeText(textView.attributedText), block: block),
+                            .textView(action: .changeText(textView.attributedText), info: block.information),
                             blockId: block.information.id
                         )
                     },

@@ -45,8 +45,7 @@ final class LocalEventConverter {
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
-    private func blockSetTextUpdate(blockId: BlockId, text: String) -> EventsListenerUpdate {
-        
+    private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> EventsListenerUpdate {
         guard var blockModel = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container")
             return .general
@@ -57,9 +56,9 @@ final class LocalEventConverter {
         }
         
         let middleContent = Anytype_Model_Block.Content.Text(
-            text: text,
+            text: text.text,
             style: oldText.contentType.asMiddleware,
-            marks: oldText.marks,
+            marks: text.marks,
             checked: oldText.checked,
             color: oldText.color?.rawValue ?? ""
         )

@@ -8,3 +8,9 @@ public class UserSession {
     public var firstResponderId = AtomicProperty<BlockId?>(nil)
     public var toggles = SynchronizedDictionary<BlockId, Bool>()
 }
+
+public extension UserSession {
+    func isToggled(blockId: BlockId) -> Bool {
+        toggles[blockId] ?? false
+    }
+}

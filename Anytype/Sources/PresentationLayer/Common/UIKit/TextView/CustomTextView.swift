@@ -9,8 +9,6 @@ final class CustomTextView: UIView {
             textView.customTextViewDelegate = delegate
         }
     }
-
-    var textSize: CGSize?
     
     var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: false)
     

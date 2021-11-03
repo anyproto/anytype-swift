@@ -2,7 +2,6 @@ import BlocksModels
 
 
 protocol BlockDelegate: AnyObject {
-    func blockSizeChanged()
     func becomeFirstResponder(blockId: BlockId)
     func resignFirstResponder(blockId: BlockId)
     func didBeginEditing()
@@ -19,10 +18,6 @@ final class BlockDelegateImpl: BlockDelegate {
     ) {
         self.viewInput = viewInput
         self.document = document
-    }
-    
-    func blockSizeChanged() {
-        viewInput?.needsUpdateLayout()
     }
 
     func becomeFirstResponder(blockId: BlockId) {

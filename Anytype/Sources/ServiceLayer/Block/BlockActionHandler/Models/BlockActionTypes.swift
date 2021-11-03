@@ -32,5 +32,5 @@ enum BlockHandlerActionType {
     case toggle
     case checkbox(selected: Bool)
     
-    case textView(action: CustomTextView.UserAction, block: BlockModelProtocol)
+    case textView(action: CustomTextView.UserAction, info: BlockInformation)
 }
