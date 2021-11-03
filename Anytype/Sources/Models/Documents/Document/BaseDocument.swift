@@ -114,7 +114,11 @@ final class BaseDocument: BaseDocumentProtocol {
         parsedDetails.forEach {
             detailsStorage.add(details: $0, id: $0.id)
         }
-
+        
+        relationsStorage.set(
+            relations: objectShowEvent.relations.map { Relation(middlewareRelation: $0) }
+        )
+        
         objectRestrictions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareResctrictions: objectShowEvent.restrictions)
     }
 
