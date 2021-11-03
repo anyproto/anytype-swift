@@ -25,9 +25,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
         }
     }
     
-    func update(block: BlockModelProtocol) {
-        viewModel.block = block
-        menuItems = SlashMenuItemsBuilder(blockType: block.information.content.type).slashMenuItems
+    func update(info: BlockInformation) {
+        viewModel.info = info
+        menuItems = SlashMenuItemsBuilder(blockType: info.content.type).slashMenuItems
         
         restoreDefaultState()
     }

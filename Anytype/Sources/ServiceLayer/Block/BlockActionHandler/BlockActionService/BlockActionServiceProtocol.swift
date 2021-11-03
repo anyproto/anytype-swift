@@ -5,13 +5,11 @@ protocol BlockActionServiceProtocol {
     
     func upload(blockId: BlockId, filePath: String)
     
-    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool)
+    func turnInto(blockId: BlockId, type: BlockContentType)
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(info: BlockInformation, parentBlockId: BlockId)
-    
-    func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent])
     
     func delete(blockId: BlockId, previousBlockId: BlockId?)
     

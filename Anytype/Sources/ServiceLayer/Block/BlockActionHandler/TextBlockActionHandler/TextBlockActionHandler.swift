@@ -99,12 +99,7 @@ final class TextBlockActionHandler {
             case let .text(value) where value.contentType.isList && value.text == "":
                 // Turn Into empty text block.
                 if let newContentType = BlockBuilder.createContentType(info: info, action: action, textPayload: value.text) {
-                    /// TODO: Add focus on this block.
-                    self.service.turnInto(
-                        blockId: info.id,
-                        type: newContentType.type,
-                        shouldSetFocusOnUpdate: true
-                    )
+                    self.service.turnInto(blockId: info.id, type: newContentType.type)
                 }
             default:
                 if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: "") {
@@ -156,23 +151,27 @@ final class TextBlockActionHandler {
             }
             guard previousModel.content != .unsupported else { return }
             
-            let previousBlockId = previousModel.blockId
-            
-            var localEvents = [LocalEvent]()
-            if case let .text(text) = previousModel.information.content {
-                let nsText = NSString(string: text.text)
-                let range = NSRange(location: nsText.length, length: 0)
-                localEvents.append(contentsOf: [
-                    .setFocus(blockId: previousBlockId, position: .at(range))
-                ])
+            if textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id) {
+                setFocus(model: previousModel)
             }
-            service.merge(firstBlockId: previousModel.blockId, secondBlockId: info.id, localEvents: localEvents)
 
         case .deleteOnEmptyContent:
             let blockId = info.id
             let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
             service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
         }
+    }
+    
+    private func setFocus(model: BlockDataProvider) {
+        var localEvents = [LocalEvent]()
+        if case let .text(text) = model.information.content {
+            let nsText = NSString(string: text.text)
+            let range = NSRange(location: nsText.length, length: 0)
+            localEvents.append(contentsOf: [
+                .setFocus(blockId: model.blockId, position: .at(range))
+            ])
+        }
+        EventsBunch(objectId: contextId, localEvents: localEvents).send()
     }
 }
 

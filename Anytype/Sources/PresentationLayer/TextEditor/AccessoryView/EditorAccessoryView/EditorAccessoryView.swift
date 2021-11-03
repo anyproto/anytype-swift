@@ -27,17 +27,17 @@ class EditorAccessoryView: UIView {
         viewModel.delegate = delegate
     }
     
-    func update(block: BlockModelProtocol, textView: CustomTextView) {
+    func update(info: BlockInformation, textView: CustomTextView) {
         viewModel.customTextView = textView
-        viewModel.block = block
+        viewModel.info = info
         
-        updateMenuItems(information: block.information)
+        updateMenuItems(info: info)
     }
 
     // MARK: - Private methods
-    private func updateMenuItems(information: BlockInformation) {
+    private func updateMenuItems(info: BlockInformation) {
         let items: [Item]
-        if information.content.type == .text(.title) {
+        if info.content.type == .text(.title) {
             items = [.style]
         } else {
             items = [.slash, .style, .mention]

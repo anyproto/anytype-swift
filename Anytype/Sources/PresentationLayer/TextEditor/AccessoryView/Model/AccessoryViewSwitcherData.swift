@@ -4,7 +4,6 @@ import UIKit
 struct AccessoryViewSwitcherData {
     let textView: CustomTextView
     
-    let block: BlockModelProtocol
-    let information: BlockInformation
+    let info: BlockInformation
     let text: UIKitAnytypeText
 }
