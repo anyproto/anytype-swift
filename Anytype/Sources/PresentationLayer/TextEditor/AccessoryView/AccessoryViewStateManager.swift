@@ -37,16 +37,19 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
             triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
-        case .none, .urlInput, .markup:
+        case .none, .urlInput:
             break
         }
     }
 
     func selectionDidChange(range: NSRange) {
-
+        if case .`default`(let view) = switcher.activeView {
+            view.selectionChanged(range: range)
+        }
     }
     
     // MARK: - View Delegate
+
     func showSlashMenuView() {
         switcher.showSlashMenuView()
     }
