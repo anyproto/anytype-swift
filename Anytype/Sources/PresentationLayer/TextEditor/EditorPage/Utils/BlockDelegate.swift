@@ -13,17 +13,17 @@ protocol BlockDelegate: AnyObject {
 }
 
 final class BlockDelegateImpl: BlockDelegate {
-    weak private(set) var viewInput: EditorPageViewInput?
-    let document: BaseDocumentProtocol
+    
+    private var changeType: TextChangeType?
+    
+    weak private var viewInput: EditorPageViewInput?
     private let accessoryDelegate: AccessoryTextViewDelegate
     
     init(
         viewInput: EditorPageViewInput?,
-        document: BaseDocumentProtocol,
         accessoryDelegate: AccessoryTextViewDelegate
     ) {
         self.viewInput = viewInput
-        self.document = document
         self.accessoryDelegate = accessoryDelegate
     }
 
@@ -51,10 +51,14 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func textWillChange(changeType: TextChangeType) {
-        accessoryDelegate.textWillChange(changeType: changeType)
+        self.changeType = changeType
     }
     
     func textDidChange() {
-        accessoryDelegate.textDidChange()
+        guard let changeType = changeType else {
+            return
+        }
+
+        accessoryDelegate.textDidChange(changeType: changeType)
     }
 }

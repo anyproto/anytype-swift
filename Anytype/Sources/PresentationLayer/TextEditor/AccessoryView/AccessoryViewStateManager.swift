@@ -4,15 +4,12 @@ import UIKit
 protocol AccessoryTextViewDelegate {
     func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
-    
-    func textWillChange(changeType: TextChangeType)
-    func textDidChange()
+    func textDidChange(changeType: TextChangeType)
 }
 
 final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessoryViewDelegate {
     private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
-    private var textChange: TextChangeType?
     
     let switcher: AccessoryViewSwitcher
     let handler: EditorActionHandlerProtocol
@@ -31,15 +28,11 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.restoreDefaultState()
     }
 
-    func textWillChange(changeType: TextChangeType) {
-        textChange = changeType
-    }
-
-    func textDidChange() {
+    func textDidChange(changeType: TextChangeType) {
         switch switcher.activeView {
         case .`default`, .changeType:
             updateDefaultView()
-            triggerTextActions()
+            triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
         case .none, .urlInput:
@@ -87,8 +80,8 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.showDefaultView()
     }
     
-    private func triggerTextActions() {
-        guard textChange == .typingSymbols else { return }
+    private func triggerTextActions(changeType: TextChangeType) {
+        guard changeType == .typingSymbols else { return }
         
         displaySlashOrMentionIfNeeded()
     }
