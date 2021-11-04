@@ -1,12 +1,6 @@
 import BlocksModels
 import AnytypeCore
 
-
-enum ActionHandlerBlockIdSource {
-    case firstResponder
-    case provided(BlockId)
-}
-
 final class EditorActionHandler: EditorActionHandlerProtocol {
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
@@ -35,13 +29,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         )
     }
     
-    func uploadMediaFile(
-        itemProvider: NSItemProvider,
-        type: MediaPickerContentType,
-        blockId: ActionHandlerBlockIdSource
-    ) {
-        guard let blockId = blockIdFromSource(blockId) else { return }
-        
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
             objectId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
@@ -58,21 +46,13 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         fileUploadingDemon.addOperation(operation)
     }
     
-    func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource) {
-        guard let blockId = blockIdFromSource(blockId) else { return }
-        
+    func uploadFileAt(localPath: String, blockId: BlockId) {        
         EventsBunch(
             objectId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
         handler.upload(blockId: blockId, filePath: localPath)
-    }
-    
-    func turnIntoPage(blockId: ActionHandlerBlockIdSource) -> BlockId? {
-        guard let blockId = blockIdFromSource(blockId) else { return nil }
-        
-        return handler.turnIntoPage(blockId: blockId)
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
@@ -84,16 +64,8 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         return handler.createPage(targetId: targetId, type: type, position: .bottom)
     }
     
-    func showPage(blockId: ActionHandlerBlockIdSource) {
-        guard let blockId = blockIdFromSource(blockId) else { return }
-        
+    func showPage(blockId: BlockId) {
         router.showPage(with: blockId)
-    }
-    
-    func handleActionForFirstResponder(_ action: BlockHandlerActionType) {
-        blockIdFromSource(.firstResponder).flatMap {
-            handleAction(action, blockId: $0)
-        }
     }
 
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
@@ -133,22 +105,6 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
                 let link = URL(string: url)
                 self?.handler.handleBlockAction(.setLink(attrText, link, range), blockId: blockId)
             }
-        }
-    }
-    
-    // MARK: - Private
-    
-    private func blockIdFromSource(_ blockIdSource: ActionHandlerBlockIdSource) -> BlockId? {
-        switch blockIdSource {
-        case .firstResponder:
-            guard let firstResponder = UserSession.shared.firstResponderId.value else {
-                anytypeAssertionFailure("No first responder found")
-                return nil
-            }
-            
-            return firstResponder
-        case .provided(let blockId):
-            return blockId
         }
     }
 }

@@ -4,19 +4,13 @@ import BlocksModels
 protocol EditorActionHandlerProtocol: AnyObject {
     func onEmptySpotTap()
     
-    func uploadMediaFile(
-        itemProvider: NSItemProvider,
-        type: MediaPickerContentType,
-        blockId: ActionHandlerBlockIdSource
-    )
-    func uploadFileAt(localPath: String, blockId: ActionHandlerBlockIdSource)
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
+    func uploadFileAt(localPath: String, blockId: BlockId)
         
-    func turnIntoPage(blockId: ActionHandlerBlockIdSource) -> BlockId?
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
-    func showPage(blockId: ActionHandlerBlockIdSource)
+    func showPage(blockId: BlockId)
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
-    func handleActionForFirstResponder(_ action: BlockHandlerActionType)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange)

@@ -221,7 +221,7 @@ final class BlockViewModelBuilder {
             self?.editorActionHandler.uploadMediaFile(
                 itemProvider: itemProvider,
                 type: type,
-                blockId: .provided(blockId)
+                blockId: blockId
             )
         }
         
@@ -231,10 +231,7 @@ final class BlockViewModelBuilder {
     private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
         let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.editorActionHandler.uploadFileAt(
-                localPath: result.filePath,
-                blockId: .provided(blockId)
-            )
+            self?.editorActionHandler.uploadFileAt(localPath: result.filePath, blockId: blockId)
         }.store(in: &subscriptions)
             
         router.showFilePicker(model: model)
