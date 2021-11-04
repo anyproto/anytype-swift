@@ -67,8 +67,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             self.details = details
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
+            relationsViewModel.update(with: objectRelations, details: details)
         }
-        relationsViewModel.update(with: objectRelations)
         objectActionsViewModel.objectRestrictions = objectRestrictions
     }
     
