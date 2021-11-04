@@ -7,6 +7,7 @@ struct HeaderBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = true
     let canApplyBackgroundColor = true
     let canApplyMention = true
+    let canDeleteOrDuplicate = true
     let availableAlignments = LayoutAlignment.allCases
     
     let turnIntoStyles: [BlockContentType] = [

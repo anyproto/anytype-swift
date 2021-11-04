@@ -67,11 +67,19 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {}
     
     func makeContextualMenu() -> [ContextualMenu] {
-        guard content.contentType != .title else {
-            return [ .addBlockBelow ]
+        let restrictions = BlockRestrictionsBuilder.build(content: content)
+        
+        var actions: [ContextualMenu] = [ .addBlockBelow, .style ]
+        
+        if restrictions.canApplyStyle(.smartblock(.page)) {
+            actions.append(.turnIntoPage)
+        }
+        
+        if restrictions.canDeleteOrDuplicate {
+            actions.append(contentsOf: [ .duplicate, .delete ])
         }
 
-        return [ .addBlockBelow, .turnIntoPage, .duplicate, .style, .delete ]
+        return actions
     }
     
     func handle(action: ContextualMenu) {

@@ -7,6 +7,7 @@ protocol BlockRestrictions {
     var canApplyBlockColor: Bool { get }
     var canApplyBackgroundColor: Bool { get }
     var canApplyMention: Bool { get }
+    var canDeleteOrDuplicate: Bool { get }
     var turnIntoStyles: [BlockContentType] { get }
     var availableAlignments: [LayoutAlignment] { get }
     var canCreateBlockBelowOnEnter: Bool { get }
