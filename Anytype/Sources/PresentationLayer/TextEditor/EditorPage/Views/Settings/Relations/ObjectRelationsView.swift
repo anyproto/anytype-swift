@@ -30,7 +30,7 @@ struct ObjectRelationsView: View {
                 )
             ) {
                 ForEach(viewModel.relations) { relation in
-                    ObjectRelationRow(relation: relation)
+                    ObjectRelationRow(relation: relation.relation)
                 }
             }
         }
@@ -45,35 +45,44 @@ struct ObjectRelationsView_Previews: PreviewProvider {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
                 relations: [
-                    Relation(
-                        key: "key1",
-                        name: "Relation name",
-                        format: .shortText,
-                        isHidden: false,
-                        isReadOnly: true,
-                        isMulti: false,
-                        selections: [],
-                        objectTypes: []
+                    RelationEntity(
+                        relation: Relation(
+                            key: "key1",
+                            name: "Relation name",
+                            format: .shortText,
+                            isHidden: false,
+                            isReadOnly: true,
+                            isMulti: false,
+                            selections: [],
+                            objectTypes: []
+                        ),
+                        value: nil
                     ),
-                    Relation(
-                        key: "key2",
-                        name: "Relation name",
-                        format: .shortText,
-                        isHidden: false,
-                        isReadOnly: true,
-                        isMulti: false,
-                        selections: [],
-                        objectTypes: []
+                    RelationEntity(
+                        relation: Relation(
+                            key: "key2",
+                            name: "Relation name",
+                            format: .shortText,
+                            isHidden: false,
+                            isReadOnly: true,
+                            isMulti: false,
+                            selections: [],
+                            objectTypes: []
+                        ),
+                        value: nil
                     ),
-                    Relation(
-                        key: "key3",
-                        name: "Relation name",
-                        format: .shortText,
-                        isHidden: false,
-                        isReadOnly: true,
-                        isMulti: false,
-                        selections: [],
-                        objectTypes: []
+                    RelationEntity(
+                        relation: Relation(
+                            key: "key3",
+                            name: "Relation name",
+                            format: .shortText,
+                            isHidden: false,
+                            isReadOnly: true,
+                            isMulti: false,
+                            selections: [],
+                            objectTypes: []
+                        ),
+                        value: nil
                     )
                 ]
             )
