@@ -11,10 +11,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
     
-    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
+    private weak var modelsHolder: BlockViewModelsHolder?
     
     init(
-        modelsHolder: ObjectContentViewModelsSharedHolder,
+        modelsHolder: BlockViewModelsHolder,
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol
     ) {

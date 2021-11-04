@@ -1,9 +1,9 @@
 import BlocksModels
 
 // We need to share models between several mutating services
-// Using reference semantics of ObjectContentViewModelsSharedHolder to share pointer
+// Using reference semantics of BlockViewModelsHolder to share pointer
 // To the same models everywhere
-final class ObjectContentViewModelsSharedHolder {
+final class BlockViewModelsHolder {
     
     let objectId: String
     
@@ -31,7 +31,7 @@ final class ObjectContentViewModelsSharedHolder {
     }
 }
 
-extension ObjectContentViewModelsSharedHolder {
+extension BlockViewModelsHolder {
     
     func apply(newModels: [BlockViewModelProtocol]) {
         let difference = newModels.difference(

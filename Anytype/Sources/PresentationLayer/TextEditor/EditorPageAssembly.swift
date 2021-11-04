@@ -46,7 +46,7 @@ final class EditorPageAssembly {
             popScreenAction: router.goBack
         )
                 
-        let modelsHolder = ObjectContentViewModelsSharedHolder(
+        let modelsHolder = BlockViewModelsHolder(
             objectId: document.objectId
         )
         
@@ -77,7 +77,6 @@ final class EditorPageAssembly {
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            document: document,
             accessoryDelegate: accessoryDelegate
         )
         

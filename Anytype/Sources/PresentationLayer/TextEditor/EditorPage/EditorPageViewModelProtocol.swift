@@ -6,7 +6,7 @@ protocol EditorPageViewModelProtocol {
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
     
-    var modelsHolder: ObjectContentViewModelsSharedHolder { get }
+    var modelsHolder: BlockViewModelsHolder { get }
     
     var blockActionHandler: EditorActionHandlerProtocol { get }
     
