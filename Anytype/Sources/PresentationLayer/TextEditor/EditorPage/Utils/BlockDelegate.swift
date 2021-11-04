@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 
 protocol BlockDelegate: AnyObject {
     func willBeginEditing(data: TextBlockDelegateData)
@@ -51,7 +52,6 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func didEndEditing() {
-        data = nil
         accessoryState.didEndEditing()
     }
     
@@ -60,8 +60,14 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func textDidChange() {
-        guard let changeType = changeType else { return }
-        guard let data = data else { return }
+        guard let changeType = changeType else {
+            anytypeAssertionFailure("No change type in textDidChange")
+            return
+        }
+        guard let data = data else {
+            anytypeAssertionFailure("No data in textDidChange")
+            return
+        }
 
         accessoryState.textDidChange(changeType: changeType)
         markdownListener.textDidChange(changeType: changeType, data: data)
