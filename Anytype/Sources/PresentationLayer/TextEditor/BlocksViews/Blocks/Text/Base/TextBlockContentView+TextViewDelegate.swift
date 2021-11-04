@@ -82,7 +82,9 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
-        blockDelegate.textWillChange(text: replacementText, range: range)
+        let changeType = textView.textView.textChangeType(changeTextRange: range, replacementText: replacementText)
+        blockDelegate.textWillChange(changeType: changeType)
+        
         let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
         if !shouldChangeText {
             handler.changeText(textView.textView.attributedText, info: currentConfiguration.information)

@@ -5,14 +5,14 @@ protocol AccessoryTextViewDelegate {
     func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
     
-    func textWillChange(replacementText: String, range: NSRange)
+    func textWillChange(changeType: TextChangeType)
     func textDidChange()
 }
 
 final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessoryViewDelegate {
     private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
-    private var latestTextViewTextChange: TextViewTextChangeType?
+    private var textChange: TextChangeType?
     
     let switcher: AccessoryViewSwitcher
     let handler: EditorActionHandlerProtocol
@@ -31,11 +31,8 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.restoreDefaultState()
     }
 
-    func textWillChange(replacementText: String, range: NSRange) {
-        latestTextViewTextChange = data?.textView.textView.textChangeType(
-            changeTextRange: range,
-            replacementText: replacementText
-        )
+    func textWillChange(changeType: TextChangeType) {
+        textChange = changeType
     }
 
     func textDidChange() {
@@ -91,7 +88,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func triggerTextActions() {
-        guard latestTextViewTextChange == .typingSymbols else { return }
+        guard textChange == .typingSymbols else { return }
         
         displaySlashOrMentionIfNeeded()
     }

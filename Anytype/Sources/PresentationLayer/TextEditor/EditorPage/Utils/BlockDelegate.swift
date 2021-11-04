@@ -8,7 +8,7 @@ protocol BlockDelegate: AnyObject {
     func becomeFirstResponder(blockId: BlockId)
     func resignFirstResponder(blockId: BlockId)
     
-    func textWillChange(text: String, range: NSRange)
+    func textWillChange(changeType: TextChangeType)
     func textDidChange()
 }
 
@@ -50,8 +50,8 @@ final class BlockDelegateImpl: BlockDelegate {
         accessoryDelegate.didEndEditing()
     }
     
-    func textWillChange(text: String, range: NSRange) {
-        accessoryDelegate.textWillChange(replacementText: text, range: range)
+    func textWillChange(changeType: TextChangeType) {
+        accessoryDelegate.textWillChange(changeType: changeType)
     }
     
     func textDidChange() {

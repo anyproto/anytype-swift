@@ -66,7 +66,7 @@ extension UITextView {
         typingAttributes = oldTypingAttributes
     }
     
-    func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextViewTextChangeType {
+    func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextChangeType {
         if replacementText == "",  changeTextRange.location < text.count {
             return .deletingSymbols
         }

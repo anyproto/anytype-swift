@@ -610,7 +610,7 @@
 		EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */; };
 		EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640C926C3DDF6006071BD /* NSRange+Middleware.swift */; };
 		EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */; };
-		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
+		EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextChangeType.swift */; };
 		EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */; };
 		EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */; };
 		EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3D1E4E26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift */; };
@@ -1332,7 +1332,7 @@
 		EA26404026BC05F3006071BD /* MarkStyleModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifierTests.swift; sourceTree = "<group>"; };
 		EA2640C926C3DDF6006071BD /* NSRange+Middleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+Middleware.swift"; sourceTree = "<group>"; };
 		EA2640E426C40DEA006071BD /* AttributedStringConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringConverterTests.swift; sourceTree = "<group>"; };
-		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
+		EA2F0D6C264EBA1B0039C1CB /* TextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextChangeType.swift; sourceTree = "<group>"; };
 		EA3D1DED26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMarkupChangerProtocol.swift; sourceTree = "<group>"; };
 		EA3D1E3126CEEE3B001A31D9 /* MiddlewareString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareString.swift; sourceTree = "<group>"; };
 		EA3D1E4E26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewAttributeSelectionInteraction.swift; sourceTree = "<group>"; };
@@ -1762,7 +1762,7 @@
 				EAC5728C2621D38A00F25949 /* UIApplicationExtension.swift */,
 				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */,
 				5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */,
-				EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */,
+				EA2F0D6C264EBA1B0039C1CB /* TextChangeType.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -4746,7 +4746,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
-				EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */,
+				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				3DC0F7D126EF4CDD00CFCB3D /* EditorActionHandler.swift in Sources */,
