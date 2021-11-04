@@ -66,7 +66,7 @@ final class MarkupViewModel {
         range: NSRange,
         alignment: LayoutAlignment
     ) -> AllMarkupsState {
-        let restrictions = RestrictionsFactory.build(textContentType: content.contentType)
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
         let markupCalculator = MarkupStateCalculator(
             attributedText: anytypeText.attrString,
