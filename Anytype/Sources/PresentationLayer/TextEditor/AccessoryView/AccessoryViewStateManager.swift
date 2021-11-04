@@ -1,13 +1,13 @@
 import Foundation
 import UIKit
 
-protocol AccessoryTextViewDelegate {
+protocol AccessoryViewStateManager {
     func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
     func textDidChange(changeType: TextChangeType)
 }
 
-final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessoryViewDelegate {
+final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAccessoryViewDelegate {
     private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
     
@@ -19,7 +19,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         self.handler = handler
     }
     
-    // MARK: - AccessoryTextViewDelegate
+    // MARK: - AccessoryViewStateManager
     func willBeginEditing(data: TextBlockDelegateData) {
         switcher.updateData(data: data)
     }
