@@ -22,10 +22,9 @@ struct ObjectRelationRow: View {
                     color: .textSecondary
                 )
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
-                AnytypeText(
-                    relation.format.placeholder,
-                    style: .callout,
-                    color: .textTertiary
+                TextRelationView(
+                    value: nil,
+                    hint: relation.format.placeholder
                 )
                 Spacer()
             }
