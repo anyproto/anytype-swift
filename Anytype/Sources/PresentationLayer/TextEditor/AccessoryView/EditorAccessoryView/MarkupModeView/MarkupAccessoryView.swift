@@ -42,7 +42,8 @@ class MarkupAccessoryView: UIView {
 struct MarkupAccessoryContentView: View {
 
     var body: some View {
-        Text("Markup panel")
-            .frame(height: 48)
+        HStack {
+            
+        }
     }
 }
