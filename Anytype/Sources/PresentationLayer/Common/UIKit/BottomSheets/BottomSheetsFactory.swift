@@ -50,7 +50,7 @@ final class BottomSheetsFactory {
             return blockModel.information.backgroundColor?.color(background: true)
         }
 
-        let restrictions = BlockRestrictionsFactory().makeRestrictions(for: blockModel.information.content)
+        let restrictions = RestrictionsFactory.build(content: blockModel.information.content)
 
         let contentVC = StyleViewController(
             viewControllerForPresenting: parentViewController,

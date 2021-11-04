@@ -5,7 +5,7 @@ import AnytypeCore
 final class LocalEventConverter {
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
-    private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
+    private let blockValidator = BlockValidator()
     
     init(
         blocksContainer: BlockContainerModelProtocol,

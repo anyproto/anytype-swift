@@ -1,16 +1,15 @@
-
 import BlocksModels
 
-struct BlockRestrictionsFactory {
+struct RestrictionsFactory {
     
-    func makeRestrictions(for contentType: BlockContent) -> BlockRestrictions {
-        self.makeRestrictions(for: contentType.type)
+    static func build(content: BlockContent) -> BlockRestrictions {
+        build(contentType: content.type)
     }
     
-    func makeRestrictions(for contentType: BlockContentType) -> BlockRestrictions {
+    static func build(contentType: BlockContentType) -> BlockRestrictions {
         switch contentType {
         case let .text(text):
-            return makeTextRestrictions(for: text)
+            return build(textContentType: text)
         case .divider:
             return DividerBlockRestrictions()
         case let .file(contentType):
@@ -30,8 +29,8 @@ struct BlockRestrictionsFactory {
         }
     }
     
-    func makeTextRestrictions(for contentType: BlockText.Style) -> BlockRestrictions {
-        switch contentType {
+    static func build(textContentType: BlockText.Style) -> BlockRestrictions {
+        switch textContentType {
         case .text:
             return TextBlockRestrictions()
         case .title, .description:

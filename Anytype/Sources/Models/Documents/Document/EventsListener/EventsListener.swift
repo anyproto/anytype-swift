@@ -37,11 +37,8 @@ final class EventsListener: EventsListenerProtocol {
         self.detailsStorage = detailsStorage
         self.relationStorage = relationStorage
         
-        let validator = BlockValidator(
-            restrictionsFactory: BlockRestrictionsFactory()
-        )
         let informationCreator = BlockInformationCreator(
-            validator: validator,
+            validator: BlockValidator(),
             blocksContainer: blocksContainer
         )
         self.middlewareConverter = MiddlewareEventConverter(

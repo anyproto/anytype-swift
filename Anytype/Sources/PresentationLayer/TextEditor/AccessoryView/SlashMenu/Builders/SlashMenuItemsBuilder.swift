@@ -9,7 +9,7 @@ struct SlashMenuItemsBuilder {
         blockType: BlockContentType,
         searchService: SearchServiceProtocol = SearchService()
     ) {
-        restrictions = BlockRestrictionsFactory().makeRestrictions(for: blockType)
+        restrictions = RestrictionsFactory.build(contentType: blockType)
         self.searchService = searchService
     }
     
