@@ -1,6 +1,5 @@
 import BlocksModels
 
-
 protocol BlockDelegate: AnyObject {
     func willBeginEditing(data: TextBlockDelegateData)
     func didBeginEditing()

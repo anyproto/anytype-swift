@@ -9,12 +9,12 @@ final class TextBlockActionHandler {
     private let textService = TextService()
     private let contextId: String
     
-    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
+    private weak var modelsHolder: BlockViewModelsHolder?
 
     init(
         contextId: String,
         service: BlockActionServiceProtocol,
-        modelsHolder: ObjectContentViewModelsSharedHolder
+        modelsHolder: BlockViewModelsHolder
     ) {
         self.service = service
         self.contextId = contextId

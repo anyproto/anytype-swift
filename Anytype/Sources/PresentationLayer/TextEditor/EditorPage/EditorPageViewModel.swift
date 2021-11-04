@@ -10,7 +10,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
     
     let document: BaseDocumentProtocol
-    let modelsHolder: ObjectContentViewModelsSharedHolder
+    let modelsHolder: BlockViewModelsHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
@@ -43,7 +43,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
-        modelsHolder: ObjectContentViewModelsSharedHolder,
+        modelsHolder: BlockViewModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         blockActionHandler: EditorActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
