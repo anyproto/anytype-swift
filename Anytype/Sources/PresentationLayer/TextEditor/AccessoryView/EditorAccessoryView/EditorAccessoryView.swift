@@ -27,8 +27,8 @@ class EditorAccessoryView: UIView {
         viewModel.delegate = delegate
     }
     
-    func update(info: BlockInformation, textView: CustomTextView) {
-        viewModel.customTextView = textView
+    func update(info: BlockInformation, textView: UITextView) {
+        viewModel.textView = textView
         viewModel.info = info
         
         updateMenuItems(info: info)

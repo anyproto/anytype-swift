@@ -1,5 +1,4 @@
-
-enum TextViewTextChangeType {
+enum TextChangeType {
     case deletingSymbols
     case typingSymbols
 }

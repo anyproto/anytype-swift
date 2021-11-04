@@ -77,7 +77,6 @@ final class EditorPageAssembly {
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            document: document,
             accessoryDelegate: accessoryDelegate
         )
         

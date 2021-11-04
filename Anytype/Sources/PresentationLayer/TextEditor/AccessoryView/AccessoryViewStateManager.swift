@@ -4,15 +4,12 @@ import UIKit
 protocol AccessoryTextViewDelegate {
     func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
-    
-    func textWillChange(replacementText: String, range: NSRange)
-    func textDidChange()
+    func textDidChange(changeType: TextChangeType)
 }
 
 final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessoryViewDelegate {
     private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
-    private var latestTextViewTextChange: TextViewTextChangeType?
     
     let switcher: AccessoryViewSwitcher
     let handler: EditorActionHandlerProtocol
@@ -31,18 +28,11 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.restoreDefaultState()
     }
 
-    func textWillChange(replacementText: String, range: NSRange) {
-        latestTextViewTextChange = data?.textView.textView.textChangeType(
-            changeTextRange: range,
-            replacementText: replacementText
-        )
-    }
-
-    func textDidChange() {
+    func textDidChange(changeType: TextChangeType) {
         switch switcher.activeView {
         case .`default`, .changeType:
             updateDefaultView()
-            triggerTextActions()
+            triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
         case .none, .urlInput:
@@ -76,7 +66,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func searchText() -> String? {
-        guard let textView = data?.textView.textView else { return nil }
+        guard let textView = data?.textView else { return nil }
         
         guard let caretPosition = textView.caretPosition,
               let triggerSymbolPosition = triggerSymbolPosition,
@@ -90,15 +80,15 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.showDefaultView()
     }
     
-    private func triggerTextActions() {
-        guard latestTextViewTextChange == .typingSymbols else { return }
+    private func triggerTextActions(changeType: TextChangeType) {
+        guard changeType == .typingSymbols else { return }
         
         displaySlashOrMentionIfNeeded()
     }
     
     private var isTriggerSymbolDeleted: Bool {
         guard let triggerSymbolPosition = triggerSymbolPosition,
-              let textView = data?.textView.textView,
+              let textView = data?.textView,
               let caretPosition = textView.caretPosition else {
             return false
         }
@@ -113,7 +103,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func displaySlashOrMentionIfNeeded() {
-        guard let textView = data?.textView.textView else { return }
+        guard let textView = data?.textView else { return }
         guard let data = data, data.info.content.type != .text(.title) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret else { return }
         guard let caretPosition = textView.caretPosition else { return }

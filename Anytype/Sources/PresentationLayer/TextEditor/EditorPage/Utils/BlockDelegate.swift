@@ -8,22 +8,23 @@ protocol BlockDelegate: AnyObject {
     func becomeFirstResponder(blockId: BlockId)
     func resignFirstResponder(blockId: BlockId)
     
-    func textWillChange(text: String, range: NSRange)
+    func textWillChange(changeType: TextChangeType)
     func textDidChange()
 }
 
 final class BlockDelegateImpl: BlockDelegate {
-    weak private(set) var viewInput: EditorPageViewInput?
-    let document: BaseDocumentProtocol
+    
+    private var changeType: TextChangeType?
+    private var data: TextBlockDelegateData?
+    
+    weak private var viewInput: EditorPageViewInput?
     private let accessoryDelegate: AccessoryTextViewDelegate
     
     init(
         viewInput: EditorPageViewInput?,
-        document: BaseDocumentProtocol,
         accessoryDelegate: AccessoryTextViewDelegate
     ) {
         self.viewInput = viewInput
-        self.document = document
         self.accessoryDelegate = accessoryDelegate
     }
 
@@ -32,9 +33,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func resignFirstResponder(blockId: BlockId) {
-        if UserSession.shared.firstResponderId.value == blockId {
-            UserSession.shared.firstResponderId.value = nil
-        }
+        UserSession.shared.resignFirstResponder(blockId: blockId)
     }
 
     func didBeginEditing() {
@@ -42,19 +41,25 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func willBeginEditing(data: TextBlockDelegateData) {
+        self.data = data
         viewInput?.textBlockWillBeginEditing()
         accessoryDelegate.willBeginEditing(data: data)
     }
     
     func didEndEditing() {
+        data = nil
         accessoryDelegate.didEndEditing()
     }
     
-    func textWillChange(text: String, range: NSRange) {
-        accessoryDelegate.textWillChange(replacementText: text, range: range)
+    func textWillChange(changeType: TextChangeType) {
+        self.changeType = changeType
     }
     
     func textDidChange() {
-        accessoryDelegate.textDidChange()
+        guard let changeType = changeType else {
+            return
+        }
+
+        accessoryDelegate.textDidChange(changeType: changeType)
     }
 }
