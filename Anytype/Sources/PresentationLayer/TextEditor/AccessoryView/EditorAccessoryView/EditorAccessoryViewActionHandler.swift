@@ -18,7 +18,7 @@ enum EditorAccessoryViewAction {
 final class EditorAccessoryViewModel {
     var info: BlockInformation!
     
-    weak var customTextView: CustomTextView?
+    weak var textView: UITextView?
     weak var delegate: EditorAccessoryViewDelegate?
     
     private let handler: EditorActionHandlerProtocol
@@ -30,7 +30,7 @@ final class EditorAccessoryViewModel {
     }
     
     func handle(_ action: EditorAccessoryViewAction) {
-        guard let textView = customTextView?.textView, let delegate = delegate else {
+        guard let textView = textView, let delegate = delegate else {
             return
         }
 

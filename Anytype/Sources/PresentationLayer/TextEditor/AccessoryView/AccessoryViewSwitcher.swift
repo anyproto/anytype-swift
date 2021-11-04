@@ -88,7 +88,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     // MARK: - Private methods
     private func showAccessoryView(_ view: AccessoryViewType) {
-        guard let textView = data?.textView.textView else { return }
+        guard let textView = data?.textView else { return }
         
         activeView = view
         
@@ -101,7 +101,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private func changeAccessoryView(_ accessoryView: UIView?) {
         guard let accessoryView = accessoryView,
-              let textView = data?.textView.textView,
+              let textView = data?.textView,
               textView.inputAccessoryView != accessoryView else {
             return
         }

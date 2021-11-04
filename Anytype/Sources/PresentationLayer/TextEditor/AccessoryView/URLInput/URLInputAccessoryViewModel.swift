@@ -18,7 +18,7 @@ extension URLInputAccessoryView.Model {
             blockId: data.info.id,
             url: url,
             text: data.text.attrString,
-            range: data.textView.textView.selectedRange
+            range: data.textView.selectedRange
         )
     }
 }

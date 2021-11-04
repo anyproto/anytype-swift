@@ -103,7 +103,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     private var delegateData: TextBlockDelegateData {
         TextBlockDelegateData(
-            textView: textView,
+            textView: textView.textView,
             info: currentConfiguration.information,
             text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
         )
