@@ -7,9 +7,9 @@ protocol MarkdownListener {
 }
 
 final class MarkdownListenerImpl: MarkdownListener {
-    private let handler: EditorActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     
-    init(handler: EditorActionHandlerProtocol) {
+    init(handler: BlockActionHandlerProtocol) {
         self.handler = handler
     }
     

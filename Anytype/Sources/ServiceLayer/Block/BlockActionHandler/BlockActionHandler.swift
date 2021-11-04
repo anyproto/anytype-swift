@@ -13,6 +13,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     private weak var modelsHolder: BlockViewModelsHolder?
     
+    private let fileUploadingDemon = MediaFileUploadingDemon.shared
+    
     init(
         modelsHolder: BlockViewModelsHolder,
         document: BaseDocumentProtocol,
@@ -40,10 +42,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
-        return service.createPage(targetId: targetId, type: type, position: position)
-    }
-    
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         service.setObjectTypeUrl(objectTypeUrl)
     }
@@ -59,14 +57,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func changeTextStyle(
         text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
     ) {
-        handleBlockAction(.toggleFontStyle(text, attribute, range), blockId: blockId)
+        handleAction(.toggleFontStyle(text, attribute, range), blockId: blockId)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
         textBlockActionHandler.changeText(info: info, text: text)
     }
     
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
+    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
         case let .turnInto(textStyle):
             // TODO: why we need here turnInto only for text block?
@@ -142,6 +140,54 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
+    
+    func onEmptySpotTap() {
+        guard let block = document.blocksContainer.model(id: document.objectId) else {
+            return
+        }
+        handleAction(
+            .createEmptyBlock(parentId: document.objectId),
+            blockId: block.information.id
+        )
+    }
+    
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
+        
+        let operation = MediaFileUploadingOperation(
+            itemProvider: itemProvider,
+            worker: BlockMediaUploadingWorker(
+                objectId: document.objectId,
+                blockId: blockId,
+                contentType: type
+            )
+        )
+        fileUploadingDemon.addOperation(operation)
+    }
+    
+    func uploadFileAt(localPath: String, blockId: BlockId) {
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
+        
+        upload(blockId: blockId, filePath: localPath)
+    }
+    
+    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        var position: BlockPosition
+        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+            position = .replace
+        } else {
+            position = .bottom
+        }
+        
+        return service.createPage(targetId: targetId, type: type, position: position)
+    }
 }
 
 private extension BlockActionHandler {
@@ -163,7 +209,7 @@ private extension BlockActionHandler {
         switch type {
         case .smartblock(.page):
             anytypeAssertionFailure("Use createPage func instead")
-            _ = createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
+            _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
         default:
             guard
                 let newBlock = BlockBuilder.createNewBlock(type: type),

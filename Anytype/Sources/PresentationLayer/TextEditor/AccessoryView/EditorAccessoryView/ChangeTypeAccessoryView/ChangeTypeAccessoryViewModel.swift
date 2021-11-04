@@ -9,7 +9,7 @@ final class ChangeTypeAccessoryViewModel {
 
     private var allSupportedTypes = [TypeItem]()
     private let router: EditorRouterProtocol
-    private let handler: EditorActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
     private let document: BaseDocumentProtocol
 
@@ -17,7 +17,7 @@ final class ChangeTypeAccessoryViewModel {
 
     init(
         router: EditorRouterProtocol,
-        handler: EditorActionHandlerProtocol,
+        handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
         document: BaseDocumentProtocol
     ) {

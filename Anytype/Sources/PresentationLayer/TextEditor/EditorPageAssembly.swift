@@ -55,27 +55,21 @@ final class EditorPageAssembly {
             detailsStorage: document.detailsStorage
         )
         
-        let blockActionHandler = BlockActionHandler(
+        let actionHandler = BlockActionHandler(
             modelsHolder: modelsHolder,
             document: document,
             markupChanger: markupChanger
         )
         
-        let editorBlockActionHandler = EditorActionHandler(
-            document: document,
-            blockActionHandler: blockActionHandler,
-            router: router
-        )
-        
-        markupChanger.handler = editorBlockActionHandler
+        markupChanger.handler = actionHandler
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
-            actionHandler: editorBlockActionHandler,
+            actionHandler: actionHandler,
             router: router,
             document: document
         )
         
-        let markdownListener = MarkdownListenerImpl(handler: editorBlockActionHandler)
+        let markdownListener = MarkdownListenerImpl(handler: actionHandler)
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
@@ -85,13 +79,13 @@ final class EditorPageAssembly {
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
-            editorActionHandler: editorBlockActionHandler,
+            handler: actionHandler,
             router: router,
             delegate: blockDelegate
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
-            actionHandler: editorBlockActionHandler,
+            actionHandler: actionHandler,
             detailsStorage: document.detailsStorage
         )
         
@@ -108,7 +102,7 @@ final class EditorPageAssembly {
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
-            blockActionHandler: editorBlockActionHandler,
+            actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
             blockActionsService: BlockActionsServiceSingle()
