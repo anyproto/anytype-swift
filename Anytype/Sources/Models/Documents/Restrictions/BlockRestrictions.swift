@@ -16,4 +16,11 @@ protocol BlockRestrictions {
 
 extension BlockRestrictions {
     var canCreateBlockBelowOnEnter: Bool { true }
+    
+    func canApplyStyle(_ style: BlockContentType) -> Bool {
+        turnIntoStyles.contains(style)
+    }
+    func canApplyTextStyle(_ style: BlockText.Style) -> Bool {
+        turnIntoStyles.contains(.text(style))
+    }
 }
