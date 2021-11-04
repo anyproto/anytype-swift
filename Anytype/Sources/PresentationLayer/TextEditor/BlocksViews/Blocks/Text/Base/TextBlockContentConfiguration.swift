@@ -26,6 +26,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let pressingEnterTimeChecker = TimeChecker()
     
     private(set) var isSelected: Bool = false
+    private(set) var isEditing: Bool = true
     
     init(
         blockDelegate: BlockDelegate,
@@ -65,6 +66,9 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         guard let state = state as? UICellConfigurationState else { return self }
         var updatedConfig = self
         updatedConfig.isSelected = state.isSelected
+        updatedConfig.isEditing = state.isEditing
+
+        print("-_- state.isEditing \(state.isEditing)")
         return updatedConfig
     }
 }

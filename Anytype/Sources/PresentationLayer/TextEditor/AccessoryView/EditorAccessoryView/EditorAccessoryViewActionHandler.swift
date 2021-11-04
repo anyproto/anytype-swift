@@ -14,7 +14,6 @@ enum EditorAccessoryViewAction {
     case editingMode
 }
 
-
 final class EditorAccessoryViewModel {
     var block: BlockModelProtocol!
     
@@ -64,8 +63,7 @@ final class EditorAccessoryViewModel {
             
             delegate.showSlashMenuView()
         case .editingMode:
-            // Not implemented
-            break
+            handler.selectBlock(blockId: block.information.id)
         }
     }
     

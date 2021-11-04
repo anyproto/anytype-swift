@@ -26,6 +26,7 @@ final class EditorPageController: UIViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.isEditing = true
         
         return collectionView
     }()
@@ -51,6 +52,7 @@ final class EditorPageController: UIViewController {
     private lazy var blocksSelectionOverlayView = BlocksSelectionOverlayView(frame: .zero)
     
     var viewModel: EditorPageViewModelProtocol!
+    private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
     
@@ -73,8 +75,9 @@ final class EditorPageController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel.viewLoaded()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +103,13 @@ final class EditorPageController: UIViewController {
         insetsHelper = nil
         firstResponderHelper = nil
     }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+//        collectionView.allowsMultipleSelection = editing
+//        collectionView.isEditing = editing
+//        collectionView.allowsSelection = editing
+    }
     
     private var controllerForNavigationItems: UIViewController? {
         guard parent is UINavigationController else {
@@ -108,13 +118,25 @@ final class EditorPageController: UIViewController {
         
         return self
     }
-    
+
+    func bindViewModel() {
+        viewModel.editorEditingState.sink { [unowned self] state in
+            switch state {
+            case .selected(let blockIds):
+                setEditing(true, animated: true)
+                blockIds.forEach(selectBlock)
+            case .none:
+                setEditing(false, animated: true)
+            case .editing:
+                setEditing(true, animated: true)
+            }
+        }.store(in: &cancellables)
+    }
 }
 
 // MARK: - EditorPageViewInput
 
 extension EditorPageController: EditorPageViewInput {
-    
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])

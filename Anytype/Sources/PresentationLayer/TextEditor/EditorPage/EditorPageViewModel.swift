@@ -9,10 +9,18 @@ import AnytypeCore
 enum EditorEditingState {
     case none
     case editing
-    case selected(numberOfRowsSelected: Int)
+    case selected(blocks: [BlockId])
+}
+
+protocol EditorEditingStateHandler: AnyObject {
+    func didSelectedEditingState(onBlockWith id: BlockId)
 }
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
+    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
+
+    @Published var editingState: EditorEditingState = .none
+
     weak private(set) var viewInput: EditorPageViewInput?
     
     let document: BaseDocumentProtocol
@@ -67,7 +75,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
         self.blockActionsService = blockActionsService
-        
+
+        blockActionHandler.editingStateHandler = self
+
         setupSubscriptions()
     }
 
@@ -276,6 +286,12 @@ extension EditorPageViewModel {
     
     func showCoverPicker() {
         router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
+    }
+}
+
+extension EditorPageViewModel: EditorEditingStateHandler {
+    func didSelectedEditingState(onBlockWith id: BlockId) {
+        editingState = .selected(blocks: [id])
     }
 }
 

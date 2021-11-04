@@ -28,4 +28,6 @@ protocol EditorActionHandlerProtocol: AnyObject {
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange)
+
+    func selectBlock(blockId: BlockId)
 }

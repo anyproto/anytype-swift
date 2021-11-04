@@ -8,12 +8,14 @@ enum ActionHandlerBlockIdSource {
 }
 
 final class EditorActionHandler: EditorActionHandlerProtocol {
+    weak var editingStateHandler: EditorEditingStateHandler?
+
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
     private let blockActionHandler: BlockActionHandlerProtocol
     private let pageServie: PageService
     private let router: EditorRouterProtocol
-    
+
     init(
         document: BaseDocumentProtocol,
         blockActionHandler: BlockActionHandlerProtocol,
@@ -118,6 +120,10 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
                 self?.blockActionHandler.handleBlockAction(.setLink(attrText, link, range), blockId: blockId)
             }
         }
+    }
+
+    func selectBlock(blockId: BlockId) {
+        editingStateHandler?.didSelectedEditingState(onBlockWith: blockId)
     }
     
     // MARK: - Private

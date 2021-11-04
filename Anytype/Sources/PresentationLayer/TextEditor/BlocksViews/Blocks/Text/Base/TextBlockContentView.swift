@@ -115,6 +115,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
         selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
+        textView.isUserInteractionEnabled = currentConfiguration.isEditing
+
+        print("-_- \(textView.isUserInteractionEnabled)")
 
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
