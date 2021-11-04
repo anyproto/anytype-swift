@@ -20,19 +20,8 @@ final class TextBlockActionHandler {
         self.contextId = contextId
         self.modelsHolder = modelsHolder
     }
-
-    func handlingTextViewAction(_ info: BlockInformation, _ action: CustomTextView.UserAction) {
-        switch action {
-        case let .changeText(attributedText):
-            handleChangeText(info, text: attributedText)
-        case .changeTextStyle, .changeLink:
-            anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
-        case let .shouldChangeText(_, replacementText, mentionsHolder):
-            mentionsHolder.removeMentionIfNeeded(text: replacementText)
-        }
-    }
     
-    private func handleChangeText(_ info: BlockInformation, text: NSAttributedString) {
+    func changeText(info: BlockInformation, text: NSAttributedString) {
         guard case .text = info.content else { return }
 
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)

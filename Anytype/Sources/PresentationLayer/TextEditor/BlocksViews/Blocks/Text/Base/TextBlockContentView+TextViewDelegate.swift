@@ -23,42 +23,24 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func didEndEditing() {
         blockDelegate.didEndEditing()
     }
-
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
-        switch action {
-        case .changeText:
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
-
-            blockDelegate.textDidChange()
-        case .changeTextStyle:
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
-        case let .shouldChangeText(range, replacementText, mentionsHolder):
-            blockDelegate.textWillChange(text: replacementText, range: range)
-            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
-            if !shouldChangeText {
-                handler.handleAction(
-                    .textView(
-                        action: .changeText(textView.textView.attributedText),
-                        info: currentConfiguration.information
-                    ),
-                    blockId: currentConfiguration.information.id
-                )
-            }
-            return shouldChangeText
-        case let .changeLink(attrText, range):
-            handler.showLinkToSearch(
-                blockId: currentConfiguration.information.id,
-                attrText: attrText,
-                range: range
-            )
-        }
-        return true
+    
+    func changeText(text: NSAttributedString) {
+        handler.changeText(text, info: currentConfiguration.information)
+        blockDelegate.textDidChange()
+    }
+    
+    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
+        handler.changeTextStyle(
+            text: text, attribute: attribute, range: range, blockId: currentConfiguration.information.id
+        )
+    }
+    
+    func changeLink(text: NSAttributedString, range: NSRange) {
+        handler.showLinkToSearch(
+            blockId: currentConfiguration.information.id,
+            attrText: text,
+            range: range
+        )
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
@@ -97,6 +79,15 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func changeCaretPosition(_ range: NSRange) {
         handler.changeCarretPosition(range: range)
+    }
+    
+    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
+        blockDelegate.textWillChange(text: replacementText, range: range)
+        let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
+        if !shouldChangeText {
+            handler.changeText(textView.textView.attributedText, info: currentConfiguration.information)
+        }
+        return shouldChangeText
     }
     
     // MARK: - Private

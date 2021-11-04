@@ -49,10 +49,7 @@ final class BlockViewModelBuilder {
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
                     textDidChange: { block, textView in
-                        self.editorActionHandler.handleAction(
-                            .textView(action: .changeText(textView.attributedText), info: block.information),
-                            blockId: block.information.id
-                        )
+                        self.editorActionHandler.changeText(textView.attributedText, info: block.information)
                     },
                     showCodeSelection: { [weak self] block in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in

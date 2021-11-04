@@ -56,6 +56,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         textBlockActionHandler.handleKeyboardAction(info: info, action: action)
     }
     
+    func changeTextStyle(
+        text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
+    ) {
+        handleBlockAction(.toggleFontStyle(text, attribute, range), blockId: blockId)
+    }
+    
+    func changeText(_ text: NSAttributedString, info: BlockInformation) {
+        textBlockActionHandler.changeText(info: info, text: text)
+    }
+    
     func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
         case let .turnInto(textStyle):
@@ -129,18 +139,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         case .moveTo(targetId: let targetId):
             moveTo(targetId: targetId, blockId: blockId)
-            
-        case let .textView(action: action, info: info):
-            switch action {
-            case let .changeTextStyle(string, styleAction, range):
-                handleBlockAction(
-                    .toggleFontStyle(string, styleAction, range),
-                    blockId: blockId
-                )
-                
-            default:
-                textBlockActionHandler.handlingTextViewAction(info, action)
-            }
         }
     }
     

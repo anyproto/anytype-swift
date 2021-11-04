@@ -208,15 +208,11 @@ extension TextViewWithPlaceholder {
     }
     
     @objc private func didSelectContextMenuLink() {
-        customTextViewDelegate?.didReceiveAction(.changeLink(attributedText, selectedRange))
+        customTextViewDelegate?.changeLink(text: attributedText, range: selectedRange)
     }
 
     private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
-        let range = selectedRange
-
-        customTextViewDelegate?.didReceiveAction(
-            .changeTextStyle(attributedText, action, range)
-        )
+        customTextViewDelegate?.changeTextStyle(text: attributedText, attribute: action, range: selectedRange)
     }
 }
 
