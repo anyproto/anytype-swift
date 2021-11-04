@@ -66,7 +66,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func searchText() -> String? {
-        guard let textView = data?.textView.textView else { return nil }
+        guard let textView = data?.textView else { return nil }
         
         guard let caretPosition = textView.caretPosition,
               let triggerSymbolPosition = triggerSymbolPosition,
@@ -88,7 +88,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     
     private var isTriggerSymbolDeleted: Bool {
         guard let triggerSymbolPosition = triggerSymbolPosition,
-              let textView = data?.textView.textView,
+              let textView = data?.textView,
               let caretPosition = textView.caretPosition else {
             return false
         }
@@ -103,7 +103,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func displaySlashOrMentionIfNeeded() {
-        guard let textView = data?.textView.textView else { return }
+        guard let textView = data?.textView else { return }
         guard let data = data, data.info.content.type != .text(.title) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret else { return }
         guard let caretPosition = textView.caretPosition else { return }

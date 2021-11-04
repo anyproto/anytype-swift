@@ -15,6 +15,7 @@ protocol BlockDelegate: AnyObject {
 final class BlockDelegateImpl: BlockDelegate {
     
     private var changeType: TextChangeType?
+    private var data: TextBlockDelegateData?
     
     weak private var viewInput: EditorPageViewInput?
     private let accessoryDelegate: AccessoryTextViewDelegate
@@ -32,9 +33,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func resignFirstResponder(blockId: BlockId) {
-        if UserSession.shared.firstResponderId.value == blockId {
-            UserSession.shared.firstResponderId.value = nil
-        }
+        UserSession.shared.resignFirstResponder(blockId: blockId)
     }
 
     func didBeginEditing() {
@@ -42,11 +41,13 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func willBeginEditing(data: TextBlockDelegateData) {
+        self.data = data
         viewInput?.textBlockWillBeginEditing()
         accessoryDelegate.willBeginEditing(data: data)
     }
     
     func didEndEditing() {
+        data = nil
         accessoryDelegate.didEndEditing()
     }
     
