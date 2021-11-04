@@ -22,12 +22,58 @@ struct ObjectRelationRow: View {
                     color: .textSecondary
                 )
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
-                relationEntity.valueView
+                valueView
                 Spacer()
             }
             .frame(width: gr.size.width, height: gr.size.height)
         }
         .frame(height: 44)
+    }
+    
+    private var valueView: some View {
+        Group {
+            switch relationEntity.relation.format {
+            case .longText:
+                TextRelationView(
+                    value: relationEntity.value?.stringValue,
+                    hint: relationEntity.relation.format.hint
+                )
+            case .shortText:
+                TextRelationView(
+                    value: relationEntity.value?.stringValue,
+                    hint: relationEntity.relation.format.hint
+                )
+            case .number:
+                EmptyView()
+            case .status:
+                EmptyView()
+            case .date:
+                TextRelationView(
+                    value: RelationValueConverter.dateString(from: relationEntity.value),
+                    hint: relationEntity.relation.format.hint
+                )
+            case .file:
+                EmptyView()
+            case .checkbox:
+                EmptyView()
+            case .url:
+                EmptyView()
+            case .email:
+                EmptyView()
+            case .phone:
+                EmptyView()
+            case .emoji:
+                EmptyView()
+            case .tag:
+                EmptyView()
+            case .object:
+                EmptyView()
+            case .relations:
+                EmptyView()
+            case .unrecognized:
+                EmptyView()
+            }
+        }
     }
 }
 

@@ -217,7 +217,7 @@
 		1289F5A12733B3FC00656EC2 /* RelationFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5A02733B3FC00656EC2 /* RelationFormat+Extensions.swift */; };
 		1289F5A42733C50500656EC2 /* TextRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5A32733C50500656EC2 /* TextRelationView.swift */; };
 		1289F5B62733F50000656EC2 /* RelationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5B52733F50000656EC2 /* RelationEntity.swift */; };
-		1289F5B82733F81A00656EC2 /* RelationEntity+ValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5B72733F81A00656EC2 /* RelationEntity+ValueView.swift */; };
+		1289F5BA2734029E00656EC2 /* RelationValueConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5B92734029E00656EC2 /* RelationValueConverter.swift */; };
 		129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */; };
 		129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */; };
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
@@ -949,7 +949,7 @@
 		1289F5A02733B3FC00656EC2 /* RelationFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationFormat+Extensions.swift"; sourceTree = "<group>"; };
 		1289F5A32733C50500656EC2 /* TextRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationView.swift; sourceTree = "<group>"; };
 		1289F5B52733F50000656EC2 /* RelationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEntity.swift; sourceTree = "<group>"; };
-		1289F5B72733F81A00656EC2 /* RelationEntity+ValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationEntity+ValueView.swift"; sourceTree = "<group>"; };
+		1289F5B92734029E00656EC2 /* RelationValueConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueConverter.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
@@ -2356,6 +2356,7 @@
 		124E2BBD273020CF00A2D534 /* Relations */ = {
 			isa = PBXGroup;
 			children = (
+				1289F5B92734029E00656EC2 /* RelationValueConverter.swift */,
 				1289F5B12733F37700656EC2 /* Entities */,
 				1289F5A22733C49D00656EC2 /* ValueViews */,
 				124E2BC1273020F500A2D534 /* ObjectRelationsView.swift */,
@@ -2548,7 +2549,6 @@
 			isa = PBXGroup;
 			children = (
 				1289F5B52733F50000656EC2 /* RelationEntity.swift */,
-				1289F5B72733F81A00656EC2 /* RelationEntity+ValueView.swift */,
 				1289F5A02733B3FC00656EC2 /* RelationFormat+Extensions.swift */,
 			);
 			path = Entities;
@@ -4601,6 +4601,7 @@
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				53856BF0265BCD4B00CB1FAE /* FieldsExtenstion.swift in Sources */,
+				1289F5BA2734029E00656EC2 /* RelationValueConverter.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */,
 				12C8440926FCECA300D64B8D /* ObjectHeaderFilledContentView.swift in Sources */,
@@ -4806,7 +4807,6 @@
 				1289F59C2733622C00656EC2 /* ObjectRelationRow.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
-				1289F5B82733F81A00656EC2 /* RelationEntity+ValueView.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
