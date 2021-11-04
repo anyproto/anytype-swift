@@ -1,5 +1,6 @@
 import AnytypeCore
 import UIKit
+import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {    
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
@@ -22,76 +23,71 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func didEndEditing() {
         blockDelegate.didEndEditing()
     }
-
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
+    
+    func changeText(text: NSAttributedString) {
+        handler.changeText(text, info: currentConfiguration.information)
+        blockDelegate.textDidChange()
+    }
+    
+    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
+        handler.changeTextStyle(
+            text: text, attribute: attribute, range: range, blockId: currentConfiguration.information.id
+        )
+    }
+    
+    func changeLink(text: NSAttributedString, range: NSRange) {
+        handler.showLinkToSearch(
+            blockId: currentConfiguration.information.id,
+            attrText: text,
+            range: range
+        )
+    }
+    
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
         switch action {
-        case .changeText:
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
-
-            blockDelegate.textDidChange()
-        case let .keyboardAction(keyAction):
-            switch keyAction {
-            case .enterInsideContent,
-                 .enterAtTheEndOfContent,
-                 .enterAtTheBeginingOfContent:
-                // In the case of frequent pressing of enter
-                // we can send multiple split requests to middle
-                // from the same block, it will leads to wrong order of blocks in array,
-                // adding a delay makes impossible to press enter very often
-                if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
-                    handler.handleAction(
-                        .textView(action: action, info: currentConfiguration.information),
-                        blockId: currentConfiguration.information.id
-                    )
-                }
-                return false
-            default:
-                break
+        case .enterInsideContent,
+             .enterAtTheEndOfContent,
+             .enterAtTheBeginingOfContent:
+            // In the case of frequent pressing of enter
+            // we can send multiple split requests to middle
+            // from the same block, it will leads to wrong order of blocks in array,
+            // adding a delay makes impossible to press enter very often
+            if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
+                handler.handleKeyboardAction(action, info: currentConfiguration.information)
             }
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
-        case .changeTextStyle, .changeCaretPosition:
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
-        case let .shouldChangeText(range, replacementText, mentionsHolder):
-            blockDelegate.textWillChange(text: replacementText, range: range)
-            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
-            if !shouldChangeText {
-                handler.handleAction(
-                    .textView(
-                        action: .changeText(textView.textView.attributedText),
-                        info: currentConfiguration.information
-                    ),
-                    blockId: currentConfiguration.information.id
-                )
-            }
-            return shouldChangeText
-        case let .changeLink(attrText, range):
-            handler.showLinkToSearch(
-                blockId: currentConfiguration.information.id,
-                attrText: attrText,
-                range: range
-            )
-        case let .showPage(pageId):
-            guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
-                // Deleted objects goes here
-                return false
-            }
-            
-            if !details.isArchived && !details.isDeleted {
-                currentConfiguration.showPage(pageId)
-            }
-        case let .openURL(url):
-            currentConfiguration.openURL(url)
+            return false
+        case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
+            handler.handleKeyboardAction(action, info: currentConfiguration.information)
+            return true
         }
-        return true
+    }
+    
+    func showPage(blockId: BlockId) {
+        guard let details = currentConfiguration.detailsStorage.get(id: blockId) else {
+            // Deleted objects goes here
+            return
+        }
+        
+        if !details.isArchived && !details.isDeleted {
+            currentConfiguration.showPage(blockId)
+        }
+    }
+    
+    func openURL(_ url: URL) {
+        currentConfiguration.openURL(url)
+    }
+    
+    func changeCaretPosition(_ range: NSRange) {
+        handler.changeCarretPosition(range: range)
+    }
+    
+    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
+        blockDelegate.textWillChange(text: replacementText, range: range)
+        let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
+        if !shouldChangeText {
+            handler.changeText(textView.textView.attributedText, info: currentConfiguration.information)
+        }
+        return shouldChangeText
     }
     
     // MARK: - Private

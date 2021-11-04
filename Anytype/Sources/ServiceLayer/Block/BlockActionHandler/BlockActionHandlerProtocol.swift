@@ -9,4 +9,10 @@ protocol BlockActionHandlerProtocol {
     func turnIntoPage(blockId: BlockId) -> BlockId?
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func changeCaretPosition(range: NSRange)
+    func changeText(_ text: NSAttributedString, info: BlockInformation)
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
+    func changeTextStyle(
+        text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
+    )
 }

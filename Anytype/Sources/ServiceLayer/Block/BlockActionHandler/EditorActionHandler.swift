@@ -10,7 +10,7 @@ enum ActionHandlerBlockIdSource {
 final class EditorActionHandler: EditorActionHandlerProtocol {
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     private let document: BaseDocumentProtocol
-    private let blockActionHandler: BlockActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     private let pageServie: PageService
     private let router: EditorRouterProtocol
     
@@ -20,7 +20,7 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
         router: EditorRouterProtocol
     ) {
         self.document = document
-        self.blockActionHandler = blockActionHandler
+        self.handler = blockActionHandler
         self.router = router
         self.pageServie = PageService()
     }
@@ -66,22 +66,22 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
-        blockActionHandler.upload(blockId: blockId, filePath: localPath)
+        handler.upload(blockId: blockId, filePath: localPath)
     }
     
     func turnIntoPage(blockId: ActionHandlerBlockIdSource) -> BlockId? {
         guard let blockId = blockIdFromSource(blockId) else { return nil }
         
-        return blockActionHandler.turnIntoPage(blockId: blockId)
+        return handler.turnIntoPage(blockId: blockId)
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
         guard let block = document.blocksContainer.model(id: targetId) else { return nil }
         if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
-            return blockActionHandler.createPage(targetId: targetId, type: type, position: .replace)
+            return handler.createPage(targetId: targetId, type: type, position: .replace)
         }
         
-        return blockActionHandler.createPage(targetId: targetId, type: type, position: .bottom)
+        return handler.createPage(targetId: targetId, type: type, position: .bottom)
     }
     
     func showPage(blockId: ActionHandlerBlockIdSource) {
@@ -97,25 +97,41 @@ final class EditorActionHandler: EditorActionHandlerProtocol {
     }
 
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
-        blockActionHandler.handleBlockAction(action, blockId: blockId)
+        handler.handleBlockAction(action, blockId: blockId)
     }
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {
-        blockActionHandler.setObjectTypeUrl(objectTypeUrl)
+        handler.setObjectTypeUrl(objectTypeUrl)
+    }
+    
+    func changeCarretPosition(range: NSRange) {
+        handler.changeCaretPosition(range: range)
+    }
+    
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
+        handler.handleKeyboardAction(action, info: info)
+    }
+    
+    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId) {
+        handler.changeTextStyle(text: text, attribute: attribute, range: range, blockId: blockId)
+    }
+    
+    func changeText(_ text: NSAttributedString, info: BlockInformation) {
+        handler.changeText(text, info: info)
     }
 
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
         router.showLinkToObject { [weak self] searchKind in
             switch searchKind {
             case let .object(linkBlockId):
-                self?.blockActionHandler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+                self?.handler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
             case let .createObject(name):
                 if let linkBlockId = self?.pageServie.createPage(name: name) {
-                    self?.blockActionHandler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+                    self?.handler.handleBlockAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
                 }
             case let .web(url):
                 let link = URL(string: url)
-                self?.blockActionHandler.handleBlockAction(.setLink(attrText, link, range), blockId: blockId)
+                self?.handler.handleBlockAction(.setLink(attrText, link, range), blockId: blockId)
             }
         }
     }

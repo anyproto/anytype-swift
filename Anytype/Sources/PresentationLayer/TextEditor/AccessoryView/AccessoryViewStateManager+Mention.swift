@@ -22,10 +22,7 @@ extension AccessoryViewStateManager: MentionViewDelegate {
         newText.insert(NSAttributedString(string: " "), at: lastMentionCharacterPosition)
         let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
         
-        let actions: [BlockHandlerActionType] = [
-            .textView(action: .changeText(newText), info: info),
-            .textView(action: .changeCaretPosition(newCaretPosition), info: info)
-        ]
-        actions.forEach { handler.handleAction($0, blockId: info.id) }
+        handler.changeText(newText, info: info)
+        handler.changeCarretPosition(range: newCaretPosition)
     }
 }

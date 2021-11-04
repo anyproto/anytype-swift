@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 enum CustomTextViewFirstResponderChange {
     case become
@@ -10,7 +11,14 @@ protocol CustomTextViewDelegate: AnyObject {
     func willBeginEditing()
     func didBeginEditing()
     func didEndEditing()
-
-    @discardableResult
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool
+    
+    func openURL(_ url: URL)
+    func showPage(blockId: BlockId)
+    func changeText(text: NSAttributedString)
+    func changeCaretPosition(_ range: NSRange)
+    func changeLink(text: NSAttributedString, range: NSRange)
+    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange)
+    
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
+    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool
 }

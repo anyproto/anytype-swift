@@ -8,32 +8,27 @@ extension CustomTextView: UITextViewDelegate {
         replacementText text: String
     ) -> Bool {
         guard options.createNewBlockOnEnter else { return true }
-
+        guard let delegate = delegate else { return true }
+        
         let keyAction = CustomTextView.KeyboardAction.build(textView: textView, range: range, replacement: text)
 
         if let keyAction = keyAction {
             if case let .enterInsideContent(currentText, _) = keyAction {
                 self.textView.text = currentText
             }
-            guard delegate?.didReceiveAction(
-                .keyboardAction(keyAction)
-            ) ?? true else { return false }
+            guard delegate.keyboardAction(keyAction) else { return false }
         }
 
-        return delegate?.didReceiveAction(
-            .shouldChangeText(
-                range: range,
-                replacementText: text,
-                mentionsHolder: textView
-            )
-        ) ?? true
+        return delegate.shouldChangeText(
+            range: range,
+            replacementText: text,
+            mentionsHolder: textView
+        )
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {
         if textView.isFirstResponder {
-            delegate?.didReceiveAction(
-                .changeCaretPosition(textView.selectedRange)
-            )
+            delegate?.changeCaretPosition(textView.selectedRange)
         }
     }
 
@@ -47,7 +42,7 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        delegate?.didReceiveAction(.changeText(textView.attributedText))
+        delegate?.changeText(text: textView.attributedText)
     }
     
     func textView(
@@ -57,7 +52,7 @@ extension CustomTextView: UITextViewDelegate {
         interaction: UITextItemInteraction
     ) -> Bool {
         if !textView.isFirstResponder && interaction == .invokeDefaultAction {
-            delegate?.didReceiveAction(.openURL(URL))
+            delegate?.openURL(URL)
         }
         return false
     }
