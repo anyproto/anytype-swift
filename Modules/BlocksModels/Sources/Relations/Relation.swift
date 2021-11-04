@@ -14,6 +14,26 @@ public struct Relation: Hashable {
     // list of types used by relation. ex.: type of file
     public let objectTypes: [String]
     
+    public init(
+        key: String,
+        name: String,
+        format: Format,
+        isHidden: Bool,
+        isReadOnly: Bool,
+        isMulti: Bool,
+        selections: [Option],
+        objectTypes: [String]
+    ) {
+        self.key = key
+        self.name = name
+        self.format = format
+        self.isHidden = isHidden
+        self.isReadOnly = isReadOnly
+        self.isMulti = isMulti
+        self.selections = selections
+        self.objectTypes = objectTypes
+    }
+    
 }
 
 extension Relation: Identifiable {

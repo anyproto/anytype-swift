@@ -29,11 +29,7 @@ struct ObjectRelationsView: View {
                 )
             ) {
                 ForEach(viewModel.relations) { relation in
-                    AnytypeText(
-                        relation.name,
-                        style: .relation1Regular,
-                        color: .textSecondary
-                    )
+                    ObjectRelationRow(relation: relation)
                 }
             }
         }
