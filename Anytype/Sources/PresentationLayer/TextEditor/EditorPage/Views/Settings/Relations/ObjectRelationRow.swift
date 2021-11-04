@@ -22,10 +22,7 @@ struct ObjectRelationRow: View {
                     color: .textSecondary
                 )
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
-                TextRelationView(
-                    value: nil,
-                    hint: relationEntity.relation.format.placeholder
-                )
+                relationEntity.valueView
                 Spacer()
             }
             .frame(width: gr.size.width, height: gr.size.height)
