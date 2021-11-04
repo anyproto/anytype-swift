@@ -39,7 +39,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
         
-        let restrictions = RestrictionsFactory.build(textContentType: content.contentType)
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
         let markupCalculator = MarkupStateCalculator(
             attributedText: attributedText,
             range: range,
@@ -67,7 +67,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
         
-        let restrictions = RestrictionsFactory.build(textContentType: content.contentType)
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
         guard restrictions.canApplyOtherMarkup else { return }
         
         applyAndStore(
@@ -82,7 +82,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     func setLinkToObject(id: BlockId, attributedText: NSAttributedString, for blockId: BlockId, in range: NSRange) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
 
-        let restrictions = RestrictionsFactory.build(textContentType: content.contentType)
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
         guard restrictions.canApplyOtherMarkup else { return }
 
