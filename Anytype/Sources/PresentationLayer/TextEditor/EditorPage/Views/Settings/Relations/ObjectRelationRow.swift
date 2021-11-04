@@ -23,13 +23,15 @@ struct ObjectRelationRow: View {
                 )
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
                 AnytypeText(
-                    "relation.name",
-                    style: .relation1Regular,
-                    color: .textSecondary
+                    relation.format.placeholder,
+                    style: .callout,
+                    color: .textTertiary
                 )
+                Spacer()
             }
-            
+            .frame(width: gr.size.width, height: gr.size.height)
         }
+        .frame(height: 44)
     }
 }
 
