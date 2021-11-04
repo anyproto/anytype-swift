@@ -20,21 +20,8 @@ final class TextBlockActionHandler {
         self.contextId = contextId
         self.modelsHolder = modelsHolder
     }
-
-    func handlingTextViewAction(_ info: BlockInformation, _ action: CustomTextView.UserAction) {
-        switch action {
-        case let .keyboardAction(value):
-            handlingKeyboardAction(info, value)
-        case let .changeText(attributedText):
-            handleChangeText(info, text: attributedText)
-        case .changeTextStyle, .changeLink:
-            anytypeAssertionFailure("We handle this update in `BlockActionHandler`")
-        case let .shouldChangeText(_, replacementText, mentionsHolder):
-            mentionsHolder.removeMentionIfNeeded(text: replacementText)
-        }
-    }
     
-    private func handleChangeText(_ info: BlockInformation, text: NSAttributedString) {
+    func changeText(info: BlockInformation, text: NSAttributedString) {
         guard case .text = info.content else { return }
 
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
@@ -47,7 +34,7 @@ final class TextBlockActionHandler {
         textService.setText(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
     }
 
-    private func handlingKeyboardAction(_ info: BlockInformation, _ action: CustomTextView.KeyboardAction) {
+    func handleKeyboardAction(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         switch action {
         // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
         case let .enterInsideContent(topString, bottomString):
@@ -74,7 +61,7 @@ final class TextBlockActionHandler {
             /// TODO: Fix it in TextView API.
             /// If payload is empty, so, handle it as .enter ( or .enter at the end )
             if payload.isEmpty == true {
-                self.handlingKeyboardAction(info, .enterAtTheEndOfContent)
+                handleKeyboardAction(info: info, action: .enterAtTheEndOfContent)
                 return
             }
             if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: payload) {
@@ -144,7 +131,7 @@ final class TextBlockActionHandler {
                     Moving to .delete command.
                     """
                 )
-                self.handlingKeyboardAction(info, .deleteOnEmptyContent)
+                handleKeyboardAction(info: info, action: .deleteOnEmptyContent)
                 return
             }
             guard previousModel.content != .unsupported else { return }

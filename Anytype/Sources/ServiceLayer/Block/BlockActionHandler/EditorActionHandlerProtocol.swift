@@ -1,11 +1,3 @@
-//
-//  EditorActionHandlerProtocol.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 04.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
 
@@ -30,4 +22,10 @@ protocol EditorActionHandlerProtocol: AnyObject {
     func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange)
     
     func changeCarretPosition(range: NSRange)
+    
+    func changeText(_ text: NSAttributedString, info: BlockInformation)
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
+    func changeTextStyle(
+        text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
+    )
 }
