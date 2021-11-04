@@ -15,33 +15,29 @@ struct ObjectRelationsView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
-            title
             relationsList
         }
-        .padding([.leading, .trailing, .bottom], 20)
-    }
-    
-    private var title: some View {
-        HStack {
-            AnytypeText(
-                "In this object".localized,
-                style: .uxTitle1Semibold,
-                color: .textPrimary
-            )
-            
-            Spacer()
-        }
-        .frame(height: 48)
     }
     
     private var relationsList: some View {
-        List(viewModel.relations) { relation in
-            AnytypeText(
-                relation.name,
-                style: .uxTitle1Semibold,
-                color: .textPrimary
-            )
+        List {
+            Section(
+                header: AnytypeText(
+                    "In this object".localized,
+                    style: .uxTitle1Semibold,
+                    color: .textPrimary
+                )
+            ) {
+                ForEach(viewModel.relations) { relation in
+                    AnytypeText(
+                        relation.name,
+                        style: .relation1Regular,
+                        color: .textSecondary
+                    )
+                }
+            }
         }
+        .listStyle(.plain)
     }
     
 }

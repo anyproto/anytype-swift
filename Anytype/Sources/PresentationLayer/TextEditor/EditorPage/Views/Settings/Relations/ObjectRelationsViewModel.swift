@@ -7,7 +7,7 @@ final class ObjectRelationsViewModel: ObservableObject {
     
     func update(with relations: [Relation]) {
         self.relations = relations.filter {
-            $0.name.isNotEmpty
+            !$0.isHidden
         }
     }
     
