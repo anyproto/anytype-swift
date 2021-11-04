@@ -19,4 +19,10 @@ enum RelationValueConverter {
         return dateFormatter.string(from: date)
     }
     
+    static func numberString(from value: Google_Protobuf_Value?) -> String? {
+        guard let number = value?.safeIntValue else { return nil }
+        
+        return String(number)
+    }
+    
 }
