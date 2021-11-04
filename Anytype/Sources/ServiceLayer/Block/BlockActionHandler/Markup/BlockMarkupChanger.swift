@@ -119,10 +119,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         modifier.apply(action, range: range)
         let result = NSAttributedString(attributedString: modifier.attributedString)
         
-        handler?.handleAction(
-            .textView(action: .changeText(result), info: block.information),
-            blockId: block.information.id
-        )
+        handler?.changeText(result, info: block.information)
     }
     
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {

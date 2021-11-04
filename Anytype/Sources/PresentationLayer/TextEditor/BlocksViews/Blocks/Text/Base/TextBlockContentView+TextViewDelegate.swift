@@ -23,18 +23,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func didEndEditing() {
         blockDelegate.didEndEditing()
     }
-
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
-        switch action {
-        case .changeText:
-            handler.handleAction(
-                .textView(action: action, info: currentConfiguration.information),
-                blockId: currentConfiguration.information.id
-            )
-
-            blockDelegate.textDidChange()
-        }
-        return true
+    
+    func changeText(text: NSAttributedString) {
+        handler.changeText(text, info: currentConfiguration.information)
+        blockDelegate.textDidChange()
     }
     
     func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
@@ -93,13 +85,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         blockDelegate.textWillChange(text: replacementText, range: range)
         let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
         if !shouldChangeText {
-            handler.handleAction(
-                .textView(
-                    action: .changeText(textView.textView.attributedText),
-                    info: currentConfiguration.information
-                ),
-                blockId: currentConfiguration.information.id
-            )
+            handler.changeText(textView.textView.attributedText, info: currentConfiguration.information)
         }
         return shouldChangeText
     }

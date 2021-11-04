@@ -44,23 +44,12 @@ final class EditorAccessoryViewModel {
                 TextTriggerSymbols.mention(prependSpace: shouldPrependSpace(textView: textView))
             )
             
-            handler.handleActionForFirstResponder(
-                .textView(
-                    action: .changeText(textView.attributedText),
-                    info: info
-                )
-            )
+            handler.changeText(textView.attributedText, info: info)
             
             delegate.showMentionsView()
         case .slashMenu:
             textView.insertStringAfterCaret(TextTriggerSymbols.slashMenu)
-            
-            handler.handleActionForFirstResponder(
-                .textView(
-                    action: .changeText(textView.attributedText),
-                    info: info
-                )
-            )
+            handler.changeText(textView.attributedText, info: info)
             
             delegate.showSlashMenuView()
         case .editingMode:
