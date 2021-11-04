@@ -1,6 +1,6 @@
 import Foundation
 
-extension AccessoryViewStateManager: MentionViewDelegate {
+extension AccessoryViewStateManagerImpl: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
         guard let textView = switcher.data?.textView, let info = switcher.data?.info else { return }
         guard let mentionSymbolPosition = triggerSymbolPosition,

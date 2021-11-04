@@ -69,15 +69,18 @@ final class EditorPageAssembly {
         
         markupChanger.handler = editorBlockActionHandler
         
-        let accessoryDelegate = AccessoryViewBuilder.accessoryDelegate (
+        let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: editorBlockActionHandler,
             router: router,
             document: document
         )
         
+        let markdownListener = MarkdownListenerImpl(handler: editorBlockActionHandler)
+        
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryDelegate: accessoryDelegate
+            accessoryState: accessoryState,
+            markdownListener: markdownListener
         )
         
         let blocksConverter = BlockViewModelBuilder(

@@ -2,13 +2,13 @@ import UIKit
 import BlocksModels
 
 struct AccessoryViewBuilder {
-    static func accessoryDelegate(
+    static func accessoryState(
         actionHandler: EditorActionHandlerProtocol,
         router: EditorRouter,
         document: BaseDocumentProtocol
     ) -> AccessoryViewStateManager {
         let switcher = buildSwitcher(actionHandler: actionHandler, router: router, document: document)
-        let stateManager = AccessoryViewStateManager(switcher: switcher, handler: actionHandler)
+        let stateManager = AccessoryViewStateManagerImpl(switcher: switcher, handler: actionHandler)
         switcher.setDelegate(stateManager)
         
         return stateManager
