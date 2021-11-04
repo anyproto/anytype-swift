@@ -11,7 +11,7 @@ import BlocksModels
 
 extension Relation.Format {
     
-    var placeholder: String {
+    var hint: String {
         switch self {
         case .longText:
             return "Enter text".localized

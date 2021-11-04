@@ -14,7 +14,7 @@ struct TextRelationView: View {
     let hint: String
     
     var body: some View {
-        if let value = value {
+        if let value = value, value.isNotEmpty {
             AnytypeText(
                 value,
                 style: .relation1Regular,
