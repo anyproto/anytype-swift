@@ -214,6 +214,7 @@
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12870A2B26DE6A7400A6F46A /* ImageWidth.swift */; };
 		1289F59C2733622C00656EC2 /* ObjectRelationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F59B2733622C00656EC2 /* ObjectRelationRow.swift */; };
+		1289F5A12733B3FC00656EC2 /* RelationFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5A02733B3FC00656EC2 /* RelationFormat+Extensions.swift */; };
 		129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */; };
 		129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */; };
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
@@ -940,6 +941,7 @@
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12870A2B26DE6A7400A6F46A /* ImageWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidth.swift; sourceTree = "<group>"; };
 		1289F59B2733622C00656EC2 /* ObjectRelationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationRow.swift; sourceTree = "<group>"; };
+		1289F5A02733B3FC00656EC2 /* RelationFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationFormat+Extensions.swift"; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
@@ -2347,6 +2349,7 @@
 				124E2BC1273020F500A2D534 /* ObjectRelationsView.swift */,
 				1289F59B2733622C00656EC2 /* ObjectRelationRow.swift */,
 				1220670727314E210051A331 /* ObjectRelationsViewModel.swift */,
+				1289F5A02733B3FC00656EC2 /* RelationFormat+Extensions.swift */,
 			);
 			path = Relations;
 			sourceTree = "<group>";
@@ -5116,6 +5119,7 @@
 				3DFD1B3926EA5AE600F893FC /* ObjectIconImageModel.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
+				1289F5A12733B3FC00656EC2 /* RelationFormat+Extensions.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,

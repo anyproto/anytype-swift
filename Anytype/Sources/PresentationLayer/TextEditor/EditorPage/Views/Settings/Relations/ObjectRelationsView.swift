@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import BlocksModels
 
 struct ObjectRelationsView: View {
     
@@ -39,7 +40,43 @@ struct ObjectRelationsView: View {
 }
 
 struct ObjectRelationsView_Previews: PreviewProvider {
+        
     static var previews: some View {
-        ObjectRelationsView(viewModel: ObjectRelationsViewModel())
+        ObjectRelationsView(
+            viewModel: ObjectRelationsViewModel(
+                relations: [
+                    Relation(
+                        key: "key1",
+                        name: "Relation name",
+                        format: .shortText,
+                        isHidden: false,
+                        isReadOnly: true,
+                        isMulti: false,
+                        selections: [],
+                        objectTypes: []
+                    ),
+                    Relation(
+                        key: "key2",
+                        name: "Relation name",
+                        format: .shortText,
+                        isHidden: false,
+                        isReadOnly: true,
+                        isMulti: false,
+                        selections: [],
+                        objectTypes: []
+                    ),
+                    Relation(
+                        key: "key3",
+                        name: "Relation name",
+                        format: .shortText,
+                        isHidden: false,
+                        isReadOnly: true,
+                        isMulti: false,
+                        selections: [],
+                        objectTypes: []
+                    )
+                ]
+            )
+        )
     }
 }
