@@ -3,7 +3,7 @@ import BlocksModels
 
 struct BlockValidator {    
     func validated(information info: BlockInformation) -> BlockInformation {
-        let restrictions = RestrictionsFactory.build(content: info.content)
+        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
         
         let content: BlockContent
         if case let .text(text) = info.content {

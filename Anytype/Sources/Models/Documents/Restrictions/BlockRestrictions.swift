@@ -9,8 +9,6 @@ protocol BlockRestrictions {
     var canApplyMention: Bool { get }
     var turnIntoStyles: [BlockContentType] { get }
     var availableAlignments: [LayoutAlignment] { get }
-    
-    /// If block can create block below current on enter pressing
     var canCreateBlockBelowOnEnter: Bool { get }
 }
 

@@ -1,6 +1,6 @@
 import BlocksModels
 
-struct RestrictionsFactory {
+struct BlockRestrictionsBuilder {
     
     static func build(content: BlockContent) -> BlockRestrictions {
         build(contentType: content.type)

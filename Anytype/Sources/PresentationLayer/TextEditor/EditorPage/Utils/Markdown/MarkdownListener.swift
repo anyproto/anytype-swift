@@ -47,7 +47,7 @@ final class MarkdownListenerImpl: MarkdownListener {
     private func applyStyle(_ style: BlockText.Style, data: TextBlockDelegateData, commandLength: Int) {
         guard case let .text(textContent) = data.info.content else { return }
         guard textContent.contentType != style else { return }
-        guard RestrictionsFactory.build(content:  data.info.content).canApplyTextStyle(style) else { return }
+        guard BlockRestrictionsBuilder.build(content:  data.info.content).canApplyTextStyle(style) else { return }
         
         handler.handleAction(.turnInto(style), blockId: data.info.id)
         
