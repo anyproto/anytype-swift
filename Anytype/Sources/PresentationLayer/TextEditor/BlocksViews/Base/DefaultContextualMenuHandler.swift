@@ -15,7 +15,7 @@ final class DefaultContextualMenuHandler {
     func handle(action: ContextualMenu, info: BlockInformation) {
         switch action {
         case .addBlockBelow:
-            handler.handleAction(.addBlock(.text(.text)), blockId: info.id)
+            handler.addBlock(.text(.text), blockId: info.id)
         case .delete:
             handler.delete(blockId: info.id)
         case .duplicate:
