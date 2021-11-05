@@ -82,8 +82,6 @@ struct ObjectRelationRow: View {
                     value: relationEntity.value?.stringValue,
                     hint: relationEntity.relation.format.hint
                 )
-            case .emoji:
-                EmptyView()
             case .tag:
                 EmptyView()
             case .object:

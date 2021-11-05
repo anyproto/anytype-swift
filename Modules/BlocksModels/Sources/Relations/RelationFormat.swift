@@ -13,7 +13,6 @@ public extension Relation {
         case url
         case email
         case phone
-        case emoji
         case tag
         case object
         case relations
@@ -35,7 +34,6 @@ extension Relation.Format {
       case 7: self = .url
       case 8: self = .email
       case 9: self = .phone
-      case 10: self = .emoji
       case 11: self = .tag
       case 100: self = .object
       case 101: self = .relations
@@ -55,7 +53,6 @@ extension Relation.Format {
       case .url: return 7
       case .email: return 8
       case .phone: return 9
-      case .emoji: return 10
       case .tag: return 11
       case .object: return 100
       case .relations: return 101
