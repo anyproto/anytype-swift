@@ -2,7 +2,7 @@ import UIKit
 
 enum AccessoryViewType: Equatable {
     case none
-    case `default`(EditorAccessoryView)
+    case `default`(EditModeAccessoryView)
     case changeType(ChangeTypeAccessoryView)
     case mention(MentionView)
     case slashMenu(SlashMenuView)

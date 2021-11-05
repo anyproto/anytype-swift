@@ -10,21 +10,18 @@ protocol BlockMarkupChangerProtocol {
     
     func toggleMarkup(
         _ markup: BlockHandlerActionType.TextAttributesType,
-        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     )
     
     func setLink(
         _ link: URL?,
-        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     )
 
     func setLinkToObject(
         id: BlockId,
-        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     )

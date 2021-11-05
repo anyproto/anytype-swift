@@ -5,6 +5,7 @@ protocol AccessoryViewStateManager {
     func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
     func textDidChange(changeType: TextChangeType)
+    func selectionDidChange(range: NSRange)
 }
 
 final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAccessoryViewDelegate {
@@ -20,6 +21,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
     }
     
     // MARK: - AccessoryViewStateManager
+
     func willBeginEditing(data: TextBlockDelegateData) {
         switcher.updateData(data: data)
     }
@@ -39,8 +41,15 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
             break
         }
     }
+
+    func selectionDidChange(range: NSRange) {
+        if case .`default`(let view) = switcher.activeView {
+            view.selectionChanged(range: range)
+        }
+    }
     
     // MARK: - View Delegate
+
     func showSlashMenuView() {
         switcher.showSlashMenuView()
     }

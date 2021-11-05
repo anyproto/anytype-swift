@@ -53,7 +53,6 @@ final class TextViewWithPlaceholder: UITextView {
     var availableContextMenuOptions = [TextViewContextMenuOption]() {
         didSet {
             if availableContextMenuOptions != oldValue {
-                setupMenu()
                 UIMenuController.shared.update()
             }
         }
@@ -84,9 +83,6 @@ final class TextViewWithPlaceholder: UITextView {
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
         onFirstResponderChange(.become)
-        if value {
-            setupMenu()
-        }
         return value
     }
 
@@ -158,33 +154,6 @@ private extension TextViewWithPlaceholder {
     private func syncPlaceholder() {
         self.placeholderLabel.isHidden = !self.text.isEmpty
     }
-    
-    func setupMenu() {
-        UIMenuController.shared.menuItems = availableContextMenuOptions.map { item in
-            let selector: Selector = {
-                switch item {
-                case let .toggleMarkup(type):
-                    switch type {
-                    case .bold:
-                        return #selector(didSelectContextMenuActionBold)
-                    case .italic:
-                        return #selector(didSelectContextMenuActionItalic)
-                    case .strikethrough:
-                        return #selector(didSelectContextMenuActionStrikethrough)
-                    case .keyboard:
-                        return #selector(didSelectContextMenuActionCode)
-                    }
-                case .setLink:
-                    return #selector(didSelectContextMenuLink)
-                }
-            }()
-            
-            return UIMenuItem(
-                title: item.title,
-                action: selector
-            )
-        }
-    }
 }
 
 // MARK: - Contextual Menu
@@ -206,13 +175,9 @@ extension TextViewWithPlaceholder {
     @objc private func didSelectContextMenuActionCode() {
         handleMenuAction(.keyboard)
     }
-    
-    @objc private func didSelectContextMenuLink() {
-        customTextViewDelegate?.changeLink(text: attributedText, range: selectedRange)
-    }
 
     private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
-        customTextViewDelegate?.changeTextStyle(text: attributedText, attribute: action, range: selectedRange)
+        customTextViewDelegate?.changeTextStyle(attribute: action, range: selectedRange)
     }
 }
 

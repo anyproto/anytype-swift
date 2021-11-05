@@ -9,7 +9,7 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
         let model = self.model
         
         self.handler.handleAction(
-            .setLink(model.text, model.url, model.range),
+            .setLink(model.url, model.range),
             blockId: model.blockId
         )
         self.dismissHandler?()

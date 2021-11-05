@@ -29,14 +29,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
         blockDelegate.textDidChange()
     }
     
-    func changeTextStyle(text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
+    func changeTextStyle(attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
         handler.changeTextStyle(
-            text: text, attribute: attribute, range: range, blockId: currentConfiguration.information.id
+            attribute: attribute, range: range, blockId: currentConfiguration.information.id
         )
-    }
-    
-    func changeLink(text: NSAttributedString, range: NSRange) {
-        currentConfiguration.changeLink(text, range)
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
@@ -75,6 +71,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func changeCaretPosition(_ range: NSRange) {
         handler.changeCaretPosition(range: range)
+        blockDelegate.selectionDidChange(range: range)
     }
     
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
