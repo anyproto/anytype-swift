@@ -11,6 +11,7 @@ protocol BlockDelegate: AnyObject {
     
     func textWillChange(changeType: TextChangeType)
     func textDidChange()
+    func selectionDidChange(range: NSRange)
 }
 
 final class BlockDelegateImpl: BlockDelegate {
@@ -71,5 +72,9 @@ final class BlockDelegateImpl: BlockDelegate {
 
         accessoryState.textDidChange(changeType: changeType)
         markdownListener.textDidChange(changeType: changeType, data: data)
+    }
+
+    func selectionDidChange(range: NSRange) {
+        accessoryState.selectionDidChange(range: range)
     }
 }

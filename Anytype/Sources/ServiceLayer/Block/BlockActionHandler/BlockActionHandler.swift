@@ -107,9 +107,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextStyle(
-        text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
+        attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
     ) {
-        handleAction(.toggleFontStyle(text, attribute, range), blockId: blockId)
+        handleAction(.toggleFontStyle(attribute, range), blockId: blockId)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
@@ -121,19 +121,18 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         case let .toggleWholeBlockMarkup(markup):
             markupChanger.toggleMarkup(markup, for: blockId)
             
-        case let .toggleFontStyle(attrText, fontAttributes, range):
+        case let .toggleFontStyle(fontAttributes, range):
             markupChanger.toggleMarkup(
                 fontAttributes,
-                attributedText: attrText,
                 for: blockId,
                 in: range
             )
             
-        case let .setLink(attrText, url, range):
-            markupChanger.setLink(url, attributedText: attrText, for: blockId, in: range)
+        case let .setLink(url, range):
+            markupChanger.setLink(url, for: blockId, in: range)
 
-        case let .setLinkToObject(linkBlockId: linkBlockId, attrText, range):
-            markupChanger.setLinkToObject(id: linkBlockId, attributedText: attrText, for: blockId, in: range)
+        case let .setLinkToObject(linkBlockId: linkBlockId, range):
+            markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
             
         case let .addBlock(type):
             addBlock(blockId: blockId, type: type)

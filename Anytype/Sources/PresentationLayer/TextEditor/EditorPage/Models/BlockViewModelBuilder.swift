@@ -78,9 +78,6 @@ final class BlockViewModelBuilder {
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
-                    },
-                    changeLink: { text, range in
-                        self.showLinkToSearch(blockId: block.information.id, attrText: text, range: range)
                     }
                 )
             }
@@ -248,22 +245,6 @@ final class BlockViewModelBuilder {
             guard let self = self else { return }
             
             self.handler.fetch(url: url, blockId: info.id)
-        }
-    }
-    
-    func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
-        router.showLinkToObject { [weak self] searchKind in
-            switch searchKind {
-            case let .object(linkBlockId):
-                self?.handler.handleAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
-            case let .createObject(name):
-                if let linkBlockId = self?.pageService.createPage(name: name) {
-                    self?.handler.handleAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
-                }
-            case let .web(url):
-                let link = URL(string: url)
-                self?.handler.handleAction(.setLink(attrText, link, range), blockId: blockId)
-            }
         }
     }
 }

@@ -19,7 +19,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let showPage: (String) -> Void
     private let openURL: (URL) -> Void
-    private let changeLink: (NSAttributedString, NSRange) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
@@ -44,8 +43,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         actionHandler: BlockActionHandlerProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
         showPage: @escaping (String) -> Void,
-        openURL: @escaping (URL) -> Void,
-        changeLink: @escaping (NSAttributedString, NSRange) -> Void
+        openURL: @escaping (URL) -> Void
     ) {
         self.block = block
         self.upperBlock = upperBlock
@@ -56,7 +54,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.actionHandler = actionHandler
         self.showPage = showPage
         self.openURL = openURL
-        self.changeLink = changeLink
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
@@ -99,7 +96,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actionHandler: actionHandler,
             showPage: showPage,
             openURL: openURL,
-            changeLink: changeLink,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
             detailsStorage: detailsStorage
         )
