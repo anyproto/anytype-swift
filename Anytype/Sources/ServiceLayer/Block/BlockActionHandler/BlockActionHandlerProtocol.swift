@@ -5,7 +5,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
 
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     
-    func turnInto(blockId: BlockId, style: BlockText.Style)
+    func turnInto(_ style: BlockText.Style, blockId: BlockId)
+    func setTextColor(_ color: BlockColor, blockId: BlockId)
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId)
 
     func upload(blockId: BlockId, filePath: String)
     func turnIntoPage(blockId: BlockId) -> BlockId?

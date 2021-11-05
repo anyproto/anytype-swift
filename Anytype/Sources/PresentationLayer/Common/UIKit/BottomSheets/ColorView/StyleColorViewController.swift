@@ -231,10 +231,10 @@ extension StyleColorViewController: UICollectionViewDelegate {
         switch colorItem {
         case .text(let color):
             self.color = color.color
-            actionHandler.handleAction(.setTextColor(color), blockId: blockId)
+            actionHandler.setTextColor(color, blockId: blockId)
         case .background(let color):
             self.backgroundColor = color.color
-            actionHandler.handleAction(.setBackgroundColor(color), blockId: blockId)
+            actionHandler.setBackgroundColor(color, blockId: blockId)
         }
 
         return true

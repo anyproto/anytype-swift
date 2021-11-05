@@ -46,9 +46,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
-    func turnInto(blockId: BlockId, style: BlockText.Style) {
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
         let textBlockContentType = BlockContent.text(BlockText(contentType: style))
         service.turnInto(blockId: blockId, type: textBlockContentType.type)
+    }
+    
+    func setTextColor(_ color: BlockColor, blockId: BlockId) {
+        listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
+    }
+    
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
+        service.setBackgroundColor(blockId: blockId, color: color)
     }
     
     // MARK: - Public methods
@@ -72,12 +80,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
-        case let .setTextColor(color):
-            setBlockColor(blockId: blockId, color: color)
-            
-        case let .setBackgroundColor(color):
-            service.setBackgroundColor(blockId: blockId, color: color)
-            
         case let .toggleWholeBlockMarkup(markup):
             markupChanger.toggleMarkup(markup, for: blockId)
             
@@ -192,11 +194,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 }
 
 private extension BlockActionHandler {
-    
-    func setBlockColor(blockId: BlockId, color: BlockColor) {
-        listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
-    }
-    
     func setAlignment(blockId: BlockId, alignment: LayoutAlignment) {
         listService.setAlign(contextId: document.objectId, blockIds: [blockId], alignment: alignment)
     }

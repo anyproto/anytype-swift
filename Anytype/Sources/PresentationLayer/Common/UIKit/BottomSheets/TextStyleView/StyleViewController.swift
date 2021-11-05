@@ -367,7 +367,7 @@ final class StyleViewController: UIViewController {
         if style == .code {
             actionHandler.handleAction(.toggleWholeBlockMarkup(.keyboard), blockId: blockId)
         } else {
-            actionHandler.turnInto(blockId: blockId, style: style)
+            actionHandler.turnInto(style, blockId: blockId)
         }
     }
 
