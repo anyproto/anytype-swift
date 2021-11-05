@@ -1,6 +1,6 @@
 import Foundation
 
-extension Relation.Option {
+public extension Relation.Option {
     
     enum Scope: Hashable {
         case local
