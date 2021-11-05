@@ -32,21 +32,23 @@ struct ObjectRelationRow: View {
     
     private var valueView: some View {
         Group {
-            switch relationEntity.relation.format {
+            let format = relationEntity.relation.format
+            let hint = format.hint
+            switch format {
             case .longText:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .shortText:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .number:
                 TextRelationView(
                     value: RelationValueConverter.numberString(from: relationEntity.value),
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .status:
                 StatusRelationView(
@@ -54,12 +56,12 @@ struct ObjectRelationRow: View {
                         from: relationEntity.value,
                         selections: relationEntity.relation.selections
                     ),
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .date:
                 TextRelationView(
                     value: RelationValueConverter.dateString(from: relationEntity.value),
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .file:
                 EmptyView()
@@ -70,17 +72,17 @@ struct ObjectRelationRow: View {
             case .url:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .email:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .phone:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
-                    hint: relationEntity.relation.format.hint
+                    hint: hint
                 )
             case .tag:
                 EmptyView()
