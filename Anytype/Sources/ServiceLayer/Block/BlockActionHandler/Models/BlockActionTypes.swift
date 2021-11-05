@@ -16,5 +16,4 @@ enum BlockHandlerActionType {
     
     case addLink(BlockId)
     case addBlock(BlockContentType)
-    case createEmptyBlock(parentId: BlockId)
 }

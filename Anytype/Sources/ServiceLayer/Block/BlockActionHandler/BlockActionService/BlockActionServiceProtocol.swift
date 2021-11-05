@@ -9,7 +9,7 @@ protocol BlockActionServiceProtocol {
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
-    func addChild(info: BlockInformation, parentBlockId: BlockId)
+    func addChild(info: BlockInformation, parentId: BlockId)
     
     func delete(blockId: BlockId, previousBlockId: BlockId?)
     

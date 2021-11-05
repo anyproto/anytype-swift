@@ -27,8 +27,8 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions/Add
 
-    func addChild(info: BlockInformation, parentBlockId: BlockId) {
-        add(info: info, targetBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
+    func addChild(info: BlockInformation, parentId: BlockId) {
+        add(info: info, targetBlockId: parentId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
