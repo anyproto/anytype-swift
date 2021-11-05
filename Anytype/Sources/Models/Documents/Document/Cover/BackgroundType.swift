@@ -1,8 +1,8 @@
 enum BackgroundType: Codable, Equatable {
-    case color(CoverColor)
-    case gradient(CoverGradient)
+    case color(AnytypeColor)
+    case gradient(AnytypeGradient)
     
     static var `default`: BackgroundType {
-        .gradient(CoverGradient(name: "Default", startHex: "#74BDEC", endHex: "#CFD9D9"))
+        .gradient(AnytypeGradient(name: "Default", startHex: "#74BDEC", endHex: "#CFD9D9"))
     }
 }
