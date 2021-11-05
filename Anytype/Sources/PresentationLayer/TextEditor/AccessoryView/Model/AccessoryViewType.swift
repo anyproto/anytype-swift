@@ -2,12 +2,11 @@ import UIKit
 
 enum AccessoryViewType: Equatable {
     case none
-    case `default`(EditorAccessoryView)
+    case `default`(EditModeAccessoryView)
     case changeType(ChangeTypeAccessoryView)
     case mention(MentionView)
     case slashMenu(SlashMenuView)
     case urlInput(URLInputAccessoryView)
-    case markup(MarkupAccessoryView)
 
     var view: UIView? {
         switch self {
@@ -20,8 +19,6 @@ enum AccessoryViewType: Equatable {
         case .slashMenu(let view):
             return view
         case .urlInput(let view):
-            return view
-        case .markup(let view):
             return view
         case .none:
             return nil

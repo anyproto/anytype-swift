@@ -3,7 +3,6 @@ import BlocksModels
 import Combine
 
 protocol AccessoryViewSwitcherProtocol {
-    func setDelegate(_ delegate: MentionViewDelegate & EditorAccessoryViewDelegate)
     func updateData(data: TextBlockDelegateData)
     
     func restoreDefaultState()
@@ -18,7 +17,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private(set) var activeView = AccessoryViewType.none
     private(set) var data: TextBlockDelegateData?
     
-    private let accessoryView: EditorAccessoryView
+    private let accessoryView: EditModeAccessoryView
     private let mentionsView: MentionView
     private let slashMenuView: SlashMenuView
     private let changeTypeView: ChangeTypeAccessoryView
@@ -29,7 +28,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     init(
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
-        accessoryView: EditorAccessoryView,
+        accessoryView: EditModeAccessoryView,
         changeTypeView: ChangeTypeAccessoryView,
         urlInputView: URLInputAccessoryView,
         document: BaseDocumentProtocol
@@ -45,15 +44,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
 
     // MARK: - Public methods
-    func setDelegate(_ delegate: MentionViewDelegate & EditorAccessoryViewDelegate) {
-        mentionsView.delegate = delegate
-        accessoryView.setDelegate(delegate)
-    }
     
     func updateData(data: TextBlockDelegateData) {
         self.data = data
-        
-        accessoryView.update(info: data.info, textView: data.textView)
+
+        accessoryView.update(block: data.block, textView: data.textView)
         slashMenuView.update(info: data.info)
         
         showDefaultView()
@@ -68,6 +63,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
     
     func showDefaultView() {
+        accessoryView.selectionChanged(range: .zero)
+        
         showAccessoryView(
             document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
         )
