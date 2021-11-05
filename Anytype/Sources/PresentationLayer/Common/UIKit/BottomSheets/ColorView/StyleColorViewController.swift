@@ -1,5 +1,5 @@
 import UIKit
-
+import BlocksModels
 
 private enum SectionKind: Int, CaseIterable {
     case textColor
@@ -26,8 +26,6 @@ extension StyleColorViewController {
 }
 
 final class StyleColorViewController: UIViewController {
-    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
-
     // MARK: - Viwes
 
     private lazy var styleCollectionView: UICollectionView = {
@@ -102,10 +100,11 @@ final class StyleColorViewController: UIViewController {
 
     // MARK: - Properties
 
+    private let blockId: BlockId
     private var styleDataSource: UICollectionViewDiffableDataSource<SectionKind, ColorItem>?
     private var color: UIColor?
     private var backgroundColor: UIColor?
-    private var actionHandler: ActionHandler
+    private var actionHandler: BlockActionHandlerProtocol
     private var viewDidCloseHandler: () -> Void
 
     // MARK: - Lifecycle
@@ -113,10 +112,14 @@ final class StyleColorViewController: UIViewController {
     /// Init style view controller
     /// - Parameter color: Foreground color
     /// - Parameter backgroundColor: Background color
-    init(color: UIColor = .textPrimary,
-         backgroundColor: UIColor = .backgroundPrimary,
-         actionHandler: @escaping ActionHandler,
-         viewDidClose: @escaping () -> Void) {
+    init(
+        blockId: BlockId,
+        color: UIColor = .textPrimary,
+        backgroundColor: UIColor = .backgroundPrimary,
+        actionHandler: BlockActionHandlerProtocol,
+        viewDidClose: @escaping () -> Void
+    ) {
+        self.blockId = blockId
         self.actionHandler = actionHandler
         self.viewDidCloseHandler = viewDidClose
         self.color = color
@@ -228,10 +231,10 @@ extension StyleColorViewController: UICollectionViewDelegate {
         switch colorItem {
         case .text(let color):
             self.color = color.color
-            actionHandler(.setTextColor(color))
+            actionHandler.handleAction(.setTextColor(color), blockId: blockId)
         case .background(let color):
             self.backgroundColor = color.color
-            actionHandler(.setBackgroundColor(color))
+            actionHandler.handleAction(.setBackgroundColor(color), blockId: blockId)
         }
 
         return true

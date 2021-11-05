@@ -4,6 +4,8 @@ import BlocksModels
 protocol BlockActionHandlerProtocol: AnyObject {
 
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
+    
+    func turnInto(blockId: BlockId, style: BlockText.Style)
 
     func upload(blockId: BlockId, filePath: String)
     func turnIntoPage(blockId: BlockId) -> BlockId?

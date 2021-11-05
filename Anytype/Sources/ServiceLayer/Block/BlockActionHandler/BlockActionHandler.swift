@@ -32,8 +32,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
 
-    // MARK: - Public methods
     
+    // MARK: - Service proxy
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         return service.turnIntoPage(blockId: blockId)
     }
@@ -46,6 +46,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
+    func turnInto(blockId: BlockId, style: BlockText.Style) {
+        let textBlockContentType = BlockContent.text(BlockText(contentType: style))
+        service.turnInto(blockId: blockId, type: textBlockContentType.type)
+    }
+    
+    // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
         UserSession.shared.focus.value = .at(range)
     }
@@ -66,11 +72,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
-        case let .turnInto(textStyle):
-            // TODO: why we need here turnInto only for text block?
-            let textBlockContentType = BlockContent.text(BlockText(contentType: textStyle))
-            service.turnInto(blockId: blockId, type: textBlockContentType.type)
-            
         case let .setTextColor(color):
             setBlockColor(blockId: blockId, color: color)
             

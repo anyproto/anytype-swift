@@ -51,7 +51,7 @@ final class MarkdownListenerImpl: MarkdownListener {
         guard textContent.contentType != style else { return }
         guard BlockRestrictionsBuilder.build(content:  data.info.content).canApplyTextStyle(style) else { return }
         
-        handler.handleAction(.turnInto(style), blockId: data.info.id)
+        handler.turnInto(blockId: data.info.id, style: style)
         
         let text = data.textView.attributedText.mutable
         text.mutableString.deleteCharacters(in: NSMakeRange(0, commandLength))
