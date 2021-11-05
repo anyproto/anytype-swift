@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-enum EditorAccessoryViewAction {
+enum CursorModeAccessoryViewAction {
     /// Slash button pressed
     case slashMenu
     /// Done button pressed
@@ -15,11 +15,11 @@ enum EditorAccessoryViewAction {
 }
 
 
-final class EditorAccessoryViewModel {
+final class CursorModeAccessoryViewModel {
     var info: BlockInformation!
     
     weak var textView: UITextView?
-    weak var delegate: EditorAccessoryViewDelegate?
+    weak var delegate: CursorModeAccessoryViewDelegate?
     
     private let handler: BlockActionHandlerProtocol
     private let router: EditorRouter
@@ -29,7 +29,7 @@ final class EditorAccessoryViewModel {
         self.handler = handler
     }
     
-    func handle(_ action: EditorAccessoryViewAction) {
+    func handle(_ action: CursorModeAccessoryViewAction) {
         guard let textView = textView, let delegate = delegate else {
             return
         }
