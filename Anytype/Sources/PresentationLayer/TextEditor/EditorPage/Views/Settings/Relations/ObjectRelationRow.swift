@@ -44,7 +44,10 @@ struct ObjectRelationRow: View {
                     hint: relationEntity.relation.format.hint
                 )
             case .number:
-                EmptyView()
+                TextRelationView(
+                    value: RelationValueConverter.numberString(from: relationEntity.value),
+                    hint: relationEntity.relation.format.hint
+                )
             case .status:
                 EmptyView()
             case .date:
@@ -57,11 +60,20 @@ struct ObjectRelationRow: View {
             case .checkbox:
                 EmptyView()
             case .url:
-                EmptyView()
+                TextRelationView(
+                    value: relationEntity.value?.stringValue,
+                    hint: relationEntity.relation.format.hint
+                )
             case .email:
-                EmptyView()
+                TextRelationView(
+                    value: relationEntity.value?.stringValue,
+                    hint: relationEntity.relation.format.hint
+                )
             case .phone:
-                EmptyView()
+                TextRelationView(
+                    value: relationEntity.value?.stringValue,
+                    hint: relationEntity.relation.format.hint
+                )
             case .emoji:
                 EmptyView()
             case .tag:
