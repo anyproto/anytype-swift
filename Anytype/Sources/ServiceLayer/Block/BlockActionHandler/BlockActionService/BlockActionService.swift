@@ -24,14 +24,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     init(documentId: String) {
         self.documentId = documentId
     }
-    
-    /// Method to handle our events from outside of action service
-    ///
-    /// - Parameters:
-    ///   - events: Event to handle
-    func receivelocalEvents(_ events: [LocalEvent]) {
-        EventsBunch(objectId: documentId, localEvents: events).send()
-    }
 
     // MARK: Actions/Add
 
