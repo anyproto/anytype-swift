@@ -12,9 +12,9 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
     private(set) var triggerSymbolPosition: UITextPosition?
     
     let switcher: AccessoryViewSwitcher
-    let handler: EditorActionHandlerProtocol
+    let handler: BlockActionHandlerProtocol
     
-    init(switcher: AccessoryViewSwitcher, handler: EditorActionHandlerProtocol) {
+    init(switcher: AccessoryViewSwitcher, handler: BlockActionHandlerProtocol) {
         self.switcher = switcher
         self.handler = handler
     }

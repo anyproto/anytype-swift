@@ -21,10 +21,10 @@ final class EditorAccessoryViewModel {
     weak var textView: UITextView?
     weak var delegate: EditorAccessoryViewDelegate?
     
-    private let handler: EditorActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     private let router: EditorRouter
     
-    init(router: EditorRouter, handler: EditorActionHandlerProtocol) {
+    init(router: EditorRouter, handler: BlockActionHandlerProtocol) {
         self.router = router
         self.handler = handler
     }

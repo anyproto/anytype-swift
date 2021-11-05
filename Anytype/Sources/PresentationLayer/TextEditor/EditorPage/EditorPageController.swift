@@ -236,7 +236,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.blockActionHandler.onEmptySpotTap()
+        viewModel.actionHandler.onEmptySpotTap()
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {

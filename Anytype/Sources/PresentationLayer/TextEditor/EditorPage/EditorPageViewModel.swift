@@ -18,7 +18,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     private let cursorManager = EditorCursorManager()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let blockActionHandler: EditorActionHandlerProtocol
+    let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
@@ -45,7 +45,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         router: EditorRouterProtocol,
         modelsHolder: BlockViewModelsHolder,
         blockBuilder: BlockViewModelBuilder,
-        blockActionHandler: EditorActionHandler,
+        actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
         blockActionsService: BlockActionsServiceSingle
@@ -56,7 +56,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.router = router
         self.modelsHolder = modelsHolder
         self.blockBuilder = blockBuilder
-        self.blockActionHandler = blockActionHandler
+        self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder

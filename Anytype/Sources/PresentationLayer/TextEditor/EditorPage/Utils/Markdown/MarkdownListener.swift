@@ -7,9 +7,9 @@ protocol MarkdownListener {
 }
 
 final class MarkdownListenerImpl: MarkdownListener {
-    private let handler: EditorActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     
-    init(handler: EditorActionHandlerProtocol) {
+    init(handler: BlockActionHandlerProtocol) {
         self.handler = handler
     }
     
@@ -24,21 +24,23 @@ final class MarkdownListenerImpl: MarkdownListener {
         
         switch textBeforeCaret {
         case "# ":
-            applyStyle(.header, data: data, commandLength: 2)
+            applyStyle(.header, data: data, commandLength: textBeforeCaret.count)
         case "## ":
-            applyStyle(.header2, data: data, commandLength: 3)
+            applyStyle(.header2, data: data, commandLength: textBeforeCaret.count)
         case "### ":
-            applyStyle(.header3, data: data, commandLength: 4)
+            applyStyle(.header3, data: data, commandLength: textBeforeCaret.count)
         case "\" ", "\' ", "“ ", "‘ ":
-            applyStyle(.quote, data: data, commandLength: 2)
+            applyStyle(.quote, data: data, commandLength: textBeforeCaret.count)
         case "* ", "- ", "+ ":
-            applyStyle(.bulleted, data: data, commandLength: 2)
+            applyStyle(.bulleted, data: data, commandLength: textBeforeCaret.count)
         case "[] ":
-            applyStyle(.checkbox, data: data, commandLength: 3)
+            applyStyle(.checkbox, data: data, commandLength: textBeforeCaret.count)
         case "1. ":
-            applyStyle(.numbered, data: data, commandLength: 3)
+            applyStyle(.numbered, data: data, commandLength: textBeforeCaret.count)
         case "> ":
-            applyStyle(.toggle, data: data, commandLength: 2)
+            applyStyle(.toggle, data: data, commandLength: textBeforeCaret.count)
+        case "``` ":
+            applyStyle(.code, data: data, commandLength: textBeforeCaret.count)
         default:
             break
         }

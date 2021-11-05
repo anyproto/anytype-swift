@@ -14,9 +14,9 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
         )
         self.dismissHandler?()
     })
-    private let handler: EditorActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     
-    init(handler: EditorActionHandlerProtocol) {
+    init(handler: BlockActionHandlerProtocol) {
         self.handler = handler
         super.init(frame: CGRect(origin: .zero, size: Constants.ulrInputAccessoryViewSize))
     }
