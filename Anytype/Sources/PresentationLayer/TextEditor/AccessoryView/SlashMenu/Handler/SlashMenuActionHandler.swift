@@ -81,13 +81,13 @@ final class SlashMenuActionHandler {
         case .toggle:
             actionHandler.turnInto(.toggle, blockId: blockId)
         case .bold:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.bold), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.bold, blockId: blockId)
         case .italic:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.italic), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.italic, blockId: blockId)
         case .strikethrough:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.strikethrough), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.strikethrough, blockId: blockId)
         case .code:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.keyboard), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: blockId)
         case .link:
             break
         }

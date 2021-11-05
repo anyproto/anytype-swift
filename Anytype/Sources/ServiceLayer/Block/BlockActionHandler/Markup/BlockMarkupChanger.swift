@@ -17,7 +17,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     func toggleMarkup(
-        _ markup: BlockHandlerActionType.TextAttributesType,
+        _ markup: TextAttributesType,
         for blockId: BlockId
     ) {
         guard let info = blocksContainer.model(id: blockId)?.information,
@@ -31,7 +31,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     func toggleMarkup(
-        _ markup: BlockHandlerActionType.TextAttributesType,
+        _ markup: TextAttributesType,
         for blockId: BlockId,
         in range: NSRange
     ) {

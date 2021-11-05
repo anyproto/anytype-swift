@@ -1,15 +1,9 @@
 import UIKit
 import BlocksModels
 
-enum BlockHandlerActionType {
-    enum TextAttributesType: CaseIterable {
-        case bold
-        case italic
-        case strikethrough
-        case keyboard
-    }
 
-    case toggleWholeBlockMarkup(TextAttributesType)
+
+enum BlockHandlerActionType {
     case toggleFontStyle(TextAttributesType, NSRange)
     case setLink(URL?, NSRange)
     case setLinkToObject(linkBlockId: BlockId, NSRange)

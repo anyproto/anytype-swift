@@ -55,9 +55,9 @@ final class MarkupViewModel {
     }
     
     private func setMarkup(
-        markup: BlockHandlerActionType.TextAttributesType, blockId: BlockId
+        markup: TextAttributesType, blockId: BlockId
     ) {
-        actionHandler.handleAction(.toggleWholeBlockMarkup(markup), blockId: blockId)
+        actionHandler.toggleWholeBlockMarkup(markup, blockId: blockId)
     }
     
     private func textAttributes(

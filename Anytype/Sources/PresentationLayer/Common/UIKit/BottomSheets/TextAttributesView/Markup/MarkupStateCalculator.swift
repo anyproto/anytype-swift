@@ -72,7 +72,7 @@ struct MarkupStateCalculator {
         return alignmentState
     }
     
-    func state(for markup: BlockHandlerActionType.TextAttributesType) -> MarkupState {
+    func state(for markup: TextAttributesType) -> MarkupState {
         switch markup {
         case .bold:
             return boldState()

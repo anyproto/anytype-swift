@@ -97,6 +97,18 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
+    // MARK: - Markup changer
+    func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId) {
+        markupChanger.toggleMarkup(markup, for: blockId)
+    }
+    
+    func changeTextStyle(
+        attribute: TextAttributesType, range: NSRange, blockId: BlockId
+    ) {
+        handleAction(.toggleFontStyle(attribute, range), blockId: blockId)
+    }
+
+    
     // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
         UserSession.shared.focus.value = .at(range)
@@ -106,21 +118,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         textBlockActionHandler.handleKeyboardAction(info: info, action: action)
     }
     
-    func changeTextStyle(
-        attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
-    ) {
-        handleAction(.toggleFontStyle(attribute, range), blockId: blockId)
-    }
-    
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
         textBlockActionHandler.changeText(info: info, text: text)
     }
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
-        case let .toggleWholeBlockMarkup(markup):
-            markupChanger.toggleMarkup(markup, for: blockId)
-            
         case let .toggleFontStyle(fontAttributes, range):
             markupChanger.toggleMarkup(
                 fontAttributes,

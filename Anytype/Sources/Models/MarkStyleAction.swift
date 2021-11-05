@@ -15,7 +15,7 @@ enum MarkStyleAction: Equatable {
     
 }
 
-extension BlockHandlerActionType.TextAttributesType {
+extension TextAttributesType {
     func marksStyleAction(shouldApplyMarkup: Bool) -> MarkStyleAction {
         switch self {
         case .bold:

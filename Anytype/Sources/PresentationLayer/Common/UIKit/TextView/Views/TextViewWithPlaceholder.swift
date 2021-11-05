@@ -176,7 +176,7 @@ extension TextViewWithPlaceholder {
         handleMenuAction(.keyboard)
     }
 
-    private func handleMenuAction(_ action: BlockHandlerActionType.TextAttributesType) {
+    private func handleMenuAction(_ action: TextAttributesType) {
         customTextViewDelegate?.changeTextStyle(attribute: action, range: selectedRange)
     }
 }
@@ -202,7 +202,7 @@ extension TextViewWithPlaceholder {
 
 // MARK: - ContextMenuAction
 
-extension BlockHandlerActionType.TextAttributesType {
+extension TextAttributesType {
 
     var title: String {
         switch self {

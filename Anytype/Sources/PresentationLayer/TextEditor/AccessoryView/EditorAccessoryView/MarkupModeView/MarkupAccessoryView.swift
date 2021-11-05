@@ -130,7 +130,7 @@ extension MarkupAccessoryContentViewModel.MarkupKind {
 
 extension MarkupAccessoryContentViewModel.MarkupKind.FontStyle {
 
-    var blockActionHandlerTypeMarkup: BlockHandlerActionType.TextAttributesType {
+    var blockActionHandlerTypeMarkup: TextAttributesType {
         switch self {
         case .bold:
             return .bold
