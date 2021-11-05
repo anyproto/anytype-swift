@@ -3,7 +3,7 @@ import BlocksModels
 
 struct AccessoryViewBuilder {
     static func accessoryState(
-        actionHandler: EditorActionHandlerProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         router: EditorRouter,
         document: BaseDocumentProtocol
     ) -> AccessoryViewStateManager {
@@ -15,7 +15,7 @@ struct AccessoryViewBuilder {
     }
     
     private static func buildSwitcher(
-        actionHandler: EditorActionHandlerProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         router: EditorRouter,
         document: BaseDocumentProtocol
     ) -> AccessoryViewSwitcher {

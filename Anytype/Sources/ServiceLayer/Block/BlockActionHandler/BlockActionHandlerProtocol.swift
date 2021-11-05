@@ -1,13 +1,13 @@
 import Foundation
 import BlocksModels
 
-protocol BlockActionHandlerProtocol {
+protocol BlockActionHandlerProtocol: AnyObject {
 
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId)
+    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
 
     func upload(blockId: BlockId, filePath: String)
     func turnIntoPage(blockId: BlockId) -> BlockId?
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeCaretPosition(range: NSRange)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
@@ -15,4 +15,7 @@ protocol BlockActionHandlerProtocol {
     func changeTextStyle(
         text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
     )
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
+    func uploadFileAt(localPath: String, blockId: BlockId)
+    func onEmptySpotTap()
 }

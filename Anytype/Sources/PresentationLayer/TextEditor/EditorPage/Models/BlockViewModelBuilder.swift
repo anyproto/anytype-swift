@@ -5,23 +5,24 @@ import UniformTypeIdentifiers
 
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
-    private let editorActionHandler: EditorActionHandlerProtocol
+    private let handler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let contextualMenuHandler: DefaultContextualMenuHandler
+    private let pageService = PageService()
 
     init(
         document: BaseDocumentProtocol,
-        editorActionHandler: EditorActionHandlerProtocol,
+        handler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate
     ) {
         self.document = document
-        self.editorActionHandler = editorActionHandler
+        self.handler = handler
         self.router = router
         self.delegate = delegate
         self.contextualMenuHandler = DefaultContextualMenuHandler(
-            handler: editorActionHandler,
+            handler: handler,
             router: router
         )
     }
@@ -49,7 +50,7 @@ final class BlockViewModelBuilder {
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
                     textDidChange: { block, textView in
-                        self.editorActionHandler.changeText(textView.attributedText, info: block.information)
+                        self.handler.changeText(textView.attributedText, info: block.information)
                     },
                     showCodeSelection: { [weak self] block in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
@@ -58,7 +59,7 @@ final class BlockViewModelBuilder {
                                 blockId: block.information.id,
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
-                            self?.editorActionHandler.handleAction(
+                            self?.handler.handleAction(
                                 .setFields(contextID: contextId, fields: [fields]),
                                 blockId: block.information.id
                             )
@@ -74,13 +75,16 @@ final class BlockViewModelBuilder {
                     isCheckable: isCheckable,
                     contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
-                    actionHandler: editorActionHandler,
+                    actionHandler: handler,
                     detailsStorage: document.detailsStorage,
                     showPage: { [weak self] pageId in
                         self?.router.showPage(with: pageId)
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
+                    },
+                    changeLink: { text, range in
+                        self.showLinkToSearch(blockId: block.information.id, attrText: text, range: range)
                     }
                 )
             }
@@ -197,7 +201,7 @@ final class BlockViewModelBuilder {
                 
                 self.router.showTypesSearch(
                     onSelect: { [weak self] id in
-                        self?.editorActionHandler.setObjectTypeUrl(id)
+                        self?.handler.setObjectTypeUrl(id)
                     }
                 )
             }
@@ -218,10 +222,10 @@ final class BlockViewModelBuilder {
         let model = MediaPickerViewModel(type: type) { [weak self] itemProvider in
             guard let itemProvider = itemProvider else { return }
 
-            self?.editorActionHandler.uploadMediaFile(
+            self?.handler.uploadMediaFile(
                 itemProvider: itemProvider,
                 type: type,
-                blockId: .provided(blockId)
+                blockId: blockId
             )
         }
         
@@ -231,10 +235,7 @@ final class BlockViewModelBuilder {
     private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
         let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.editorActionHandler.uploadFileAt(
-                localPath: result.filePath,
-                blockId: .provided(blockId)
-            )
+            self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
         }.store(in: &subscriptions)
             
         router.showFilePicker(model: model)
@@ -250,10 +251,26 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
             
-            self.editorActionHandler.handleAction(
+            self.handler.handleAction(
                 .fetch(url: url),
                 blockId: info.id
             )
+        }
+    }
+    
+    func showLinkToSearch(blockId: BlockId, attrText: NSAttributedString, range: NSRange) {
+        router.showLinkToObject { [weak self] searchKind in
+            switch searchKind {
+            case let .object(linkBlockId):
+                self?.handler.handleAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+            case let .createObject(name):
+                if let linkBlockId = self?.pageService.createPage(name: name) {
+                    self?.handler.handleAction(.setLinkToObject(linkBlockId: linkBlockId, attrText, range), blockId: blockId)
+                }
+            case let .web(url):
+                let link = URL(string: url)
+                self?.handler.handleAction(.setLink(attrText, link, range), blockId: blockId)
+            }
         }
     }
 }

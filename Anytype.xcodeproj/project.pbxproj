@@ -264,7 +264,6 @@
 		12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4055264AE455007B5074 /* LayoutDimension.swift */; };
 		12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */; };
 		12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* WindowHolder.swift */; };
-		12E15B87270B2F820055EA01 /* EditorActionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B86270B2F820055EA01 /* EditorActionHandlerProtocol.swift */; };
 		12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */; };
 		12EEC36B26A0903F00C3C4B1 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36726A0903F00C3C4B1 /* Emoji.swift */; };
 		12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */; };
@@ -331,7 +330,7 @@
 		3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */; };
 		3D38CC9626D632C500E4F7BF /* ObjectHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */; };
 		3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A18292733E946000D0842 /* MarkdownListener.swift */; };
-		3D3A183927340187000D0842 /* NSAttributedString+Mutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A183827340187000D0842 /* NSAttributedString+Mutable.swift */; };
+		3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
@@ -460,7 +459,6 @@
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
-		3DC0F7D126EF4CDD00CFCB3D /* EditorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0F7CD26EF4CDD00CFCB3D /* EditorActionHandler.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */; };
 		3DC78636265D443F00498993 /* MiddlewareEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* MiddlewareEventConverter.swift */; };
 		3DC78638265D571500498993 /* LocalEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* LocalEventConverter.swift */; };
@@ -996,7 +994,6 @@
 		12DE4055264AE455007B5074 /* LayoutDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
 		12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		12E014D3266FCA7A008036B0 /* WindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowHolder.swift; sourceTree = "<group>"; };
-		12E15B86270B2F820055EA01 /* EditorActionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionHandlerProtocol.swift; sourceTree = "<group>"; };
 		12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandlerProtocol.swift; sourceTree = "<group>"; };
 		12EEC36726A0903F00C3C4B1 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
@@ -1063,7 +1060,7 @@
 		3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingAssembly.swift; sourceTree = "<group>"; };
 		3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderBuilder.swift; sourceTree = "<group>"; };
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
-		3D3A183827340187000D0842 /* NSAttributedString+Mutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Mutable.swift"; sourceTree = "<group>"; };
+		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -1191,7 +1188,6 @@
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "Anytype/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
-		3DC0F7CD26EF4CDD00CFCB3D /* EditorActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorActionHandler.swift; sourceTree = "<group>"; };
 		3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventsListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* MiddlewareEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* LocalEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEventConverter.swift; sourceTree = "<group>"; };
@@ -1772,7 +1768,6 @@
 				3D568FC2266A713300DC7881 /* UIKit */,
 				3DB7DCB3263AA5D100635E4C /* SwiftUI */,
 				0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */,
-				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
 				EAC5728C2621D38A00F25949 /* UIApplicationExtension.swift */,
 				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */,
 				5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */,
@@ -3585,7 +3580,8 @@
 				3DE0CFE026F860EF003A606A /* StringExtension.swift */,
 				3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */,
 				3DA7AD832712CF8400EA45F6 /* NSRange+Zero.swift */,
-				3D3A183827340187000D0842 /* NSAttributedString+Mutable.swift */,
+				3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */,
+				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -3939,8 +3935,6 @@
 				3DE511FE26712FBE00153962 /* Models */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
 				12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */,
-				3DC0F7CD26EF4CDD00CFCB3D /* EditorActionHandler.swift */,
-				12E15B86270B2F820055EA01 /* EditorActionHandlerProtocol.swift */,
 			);
 			path = BlockActionHandler;
 			sourceTree = "<group>";
@@ -4796,7 +4790,6 @@
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
-				3DC0F7D126EF4CDD00CFCB3D /* EditorActionHandler.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
@@ -4925,7 +4918,6 @@
 				C92DCD952729952500A03D91 /* EditorAccessoryViewActionHandler.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
-				12E15B87270B2F820055EA01 /* EditorActionHandlerProtocol.swift in Sources */,
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
 				3D28A476271DCDF4009A0D48 /* DashboardSelectionActionsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
@@ -5065,7 +5057,7 @@
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
 				EA54129C26C6856B00C9B6F3 /* AttributedStringChange.swift in Sources */,
-				3D3A183927340187000D0842 /* NSAttributedString+Mutable.swift in Sources */,
+				3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */,
 				3D16841526DD672E008B9DFF /* ContentTextConverter.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
