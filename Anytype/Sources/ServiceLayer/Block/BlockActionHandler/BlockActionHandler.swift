@@ -59,6 +59,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setBackgroundColor(blockId: blockId, color: color)
     }
     
+    func duplicate(blockId: BlockId) {
+        service.duplicate(blockId: blockId)
+    }
+    
+    func setFields(_ fields: [BlockFields], blockId: BlockId) {
+        service.setFields(contextID: document.objectId, blockFields: fields)
+    }
+    
     // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
         UserSession.shared.focus.value = .at(range)
@@ -93,12 +101,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         case let .setAlignment(alignment):
             setAlignment(blockId: blockId, alignment: alignment)
-            
-        case let .setFields(contextID, fields):
-            service.setFields(contextID: contextID, blockFields: fields)
-            
-        case .duplicate:
-            service.duplicate(blockId: blockId)
             
         case let .setLink(attrText, url, range):
             markupChanger.setLink(url, attributedText: attrText, for: blockId, in: range)

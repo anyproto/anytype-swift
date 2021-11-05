@@ -98,7 +98,7 @@ final class SlashMenuActionHandler {
         case .delete:
             actionHandler.handleAction(.delete, blockId: blockId)
         case .duplicate:
-            actionHandler.handleAction(.duplicate, blockId: blockId)
+            actionHandler.duplicate(blockId: blockId)
         case .moveTo:
             router.showMoveTo { [weak self] targetId in
                 self?.actionHandler.handleAction(

@@ -19,7 +19,7 @@ final class DefaultContextualMenuHandler {
         case .delete:
             handler.handleAction(.delete, blockId: info.id)
         case .duplicate:
-            handler.handleAction(.duplicate, blockId: info.id)
+            handler.duplicate(blockId: info.id)
         case .turnIntoPage:
             handler.handleAction(.turnIntoBlock(.smartblock(.page)), blockId: info.id)
         case .style:

@@ -15,9 +15,7 @@ enum BlockHandlerActionType {
     case setAlignment(LayoutAlignment)
     case setLink(NSAttributedString, URL?, NSRange)
     case setLinkToObject(linkBlockId: BlockId, NSAttributedString, NSRange)
-    case setFields(contextID: BlockId, fields: [BlockFields])
     
-    case duplicate
     case delete
     case addLink(BlockId)
     case addBlock(BlockContentType)
