@@ -74,6 +74,11 @@ extension Image {
         static let share = Image(systemName: "square.and.arrow.up")
         static let lassoAndSparkles = Image(systemName: "sparkles")
     }
+    
+    enum Relations {
+        static let checkboxChecked = createImage("relation_checkbox_checked")
+        static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
+    }
 }
 
 private extension Image {

@@ -58,7 +58,9 @@ struct ObjectRelationRow: View {
             case .file:
                 EmptyView()
             case .checkbox:
-                EmptyView()
+                CheckboxRelationView(
+                    isChecked: relationEntity.value?.boolValue ?? false
+                )
             case .url:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
