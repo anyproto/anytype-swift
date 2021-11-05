@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CoverGradient: Identifiable, Codable, Equatable {
+struct AnytypeGradient: Identifiable, Codable, Equatable {
     let name: String
     
     let startHex: String
@@ -11,7 +11,8 @@ struct CoverGradient: Identifiable, Codable, Equatable {
     }
 }
 
-extension CoverGradient {
+extension AnytypeGradient {
+    
     func asLinearGradient() -> some View {
         LinearGradient(
             gradient: Gradient(
@@ -24,5 +25,5 @@ extension CoverGradient {
             endPoint: .bottom
         )
     }
+    
 }
-
