@@ -52,11 +52,11 @@ final class SlashMenuActionHandler {
     private func handleAlignment(_ alignment: SlashActionAlignment, blockId: BlockId) {
         switch alignment {
         case .left :
-            actionHandler.handleAction(.setAlignment(.left), blockId: blockId)
+            actionHandler.setAlignment(.left, blockId: blockId)
         case .right:
-            actionHandler.handleAction(.setAlignment(.right), blockId: blockId)
+            actionHandler.setAlignment(.right, blockId: blockId)
         case .center:
-            actionHandler.handleAction(.setAlignment(.center), blockId: blockId)
+            actionHandler.setAlignment(.center, blockId: blockId)
         }
     }
     
@@ -96,14 +96,12 @@ final class SlashMenuActionHandler {
     private func handleActions(_ action: BlockAction, blockId: BlockId) {
         switch action {
         case .delete:
-            actionHandler.handleAction(.delete, blockId: blockId)
+            actionHandler.delete(blockId: blockId)
         case .duplicate:
             actionHandler.duplicate(blockId: blockId)
         case .moveTo:
             router.showMoveTo { [weak self] targetId in
-                self?.actionHandler.handleAction(
-                    .moveTo(targetId: targetId), blockId: blockId
-                )
+                self?.actionHandler.moveTo(targetId: targetId, blockId: blockId)
             }
         }
     }
