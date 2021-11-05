@@ -44,22 +44,22 @@ final class TextBlockActionHandler {
             }
             service.split(info: info, position: position, newBlockContentType: text.contentType.contentTypeForSplit)
 
-        case let .enterAtTheBeginingOfContent(payload): // we should assure ourselves about type of block.
-            /// TODO: Fix it in TextView API.
-            /// If payload is empty, so, handle it as .enter ( or .enter at the end )
-            if payload.isEmpty == true {
+        case let .enterAtTheBeginingOfContent(payload):
+            guard payload.isNotEmpty else {
+                /// TODO: Fix it in TextView API.
+                /// If payload is empty, so, handle it as .enter ( or .enter at the end )
                 handleKeyboardAction(info: info, action: .enterAtTheEndOfContent)
+                anytypeAssertionFailure("Payload is empty for enterAtTheBeginingOfContent")
                 return
             }
-            if let newBlock = BlockBuilder.createInformation(info: info) {
-                if case let .text(text) = info.content {
-                    let type = text.contentType.contentTypeForSplit
-                    service.split(info: info, position: 0, newBlockContentType: type)
-                }
-                else {
-                    service.add(info: newBlock, targetBlockId: info.id, position: .bottom, shouldSetFocusOnUpdate: true)
-                }
+            
+            guard case let .text(text) = info.content else {
+                anytypeAssertionFailure("Not text block for enterAtTheBeginingOfContent")
+                return
             }
+            
+            let type = text.contentType.contentTypeForSplit
+            service.split(info: info, position: 0, newBlockContentType: type)
 
         case .enterAtTheEndOfContent:
             // BUSINESS LOGIC:
