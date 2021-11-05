@@ -39,9 +39,9 @@ final class SlashMenuActionHandler {
         case let .other(other):
             actionHandler.handleAction(.addBlock(other.blockViewsType), blockId: blockId)
         case let .color(color):
-            actionHandler.handleAction(.setTextColor(color), blockId: blockId)
+            actionHandler.setTextColor(color, blockId: blockId)
         case let .background(color):
-            actionHandler.handleAction(.setBackgroundColor(color), blockId: blockId)
+            actionHandler.setBackgroundColor(color, blockId: blockId)
         }
     }
     

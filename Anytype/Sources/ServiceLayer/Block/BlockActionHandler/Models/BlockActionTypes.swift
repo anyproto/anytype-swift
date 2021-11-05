@@ -10,8 +10,6 @@ enum BlockHandlerActionType {
     }
 
     case moveTo(targetId: BlockId)
-    case setTextColor(BlockColor)
-    case setBackgroundColor(BlockBackgroundColor)
     case toggleWholeBlockMarkup(TextAttributesType)
     case toggleFontStyle(NSAttributedString, TextAttributesType, NSRange)
     case setAlignment(LayoutAlignment)
