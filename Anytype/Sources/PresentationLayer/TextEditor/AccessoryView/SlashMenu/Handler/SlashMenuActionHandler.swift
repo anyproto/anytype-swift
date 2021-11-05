@@ -23,12 +23,12 @@ final class SlashMenuActionHandler {
         case let .style(style):
             handleStyle(style, blockId: blockId)
         case let .media(media):
-            actionHandler.handleAction(.addBlock(media.blockViewsType), blockId: blockId)
+            actionHandler.addBlock(media.blockViewsType, blockId: blockId)
         case .objects(let action):
             switch action {
             case .linkTo:
                 router.showLinkTo { [weak self] targetDetailsId in
-                    self?.actionHandler.handleAction(.addLink(targetDetailsId), blockId: blockId)
+                    self?.actionHandler.addLink(targetId: targetDetailsId, blockId: blockId)
                 }
             case .objectType(let object):
                 actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
@@ -37,7 +37,7 @@ final class SlashMenuActionHandler {
         case .relations:
             break
         case let .other(other):
-            actionHandler.handleAction(.addBlock(other.blockViewsType), blockId: blockId)
+            actionHandler.addBlock(other.blockViewsType, blockId: blockId)
         case let .color(color):
             actionHandler.setTextColor(color, blockId: blockId)
         case let .background(color):

@@ -2,8 +2,6 @@ import Foundation
 import BlocksModels
 
 protocol BlockActionHandlerProtocol: AnyObject {
-
-    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
@@ -22,9 +20,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createEmptyBlock(parentId: BlockId?)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId)
-    
+    func addLink(targetId: BlockId, blockId: BlockId)
+    func addBlock(_ type: BlockContentType, blockId: BlockId)
     func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId)
-
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
