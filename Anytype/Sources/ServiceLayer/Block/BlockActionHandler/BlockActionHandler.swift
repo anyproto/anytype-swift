@@ -97,23 +97,33 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
-    // MARK: - Markup changer
+    func addLink(targetId: BlockId, blockId: BlockId) {
+        service.add(
+            info: BlockBuilder.createNewLink(targetBlockId: targetId),
+            targetBlockId: blockId,
+            position: .bottom,
+            shouldSetFocusOnUpdate: false
+        )
+    }
+    
+    // MARK: - Markup changer proxy
     func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId) {
         markupChanger.toggleMarkup(markup, for: blockId)
     }
     
-    func changeTextStyle(
-        attribute: TextAttributesType, range: NSRange, blockId: BlockId
-    ) {
-        handleAction(.toggleFontStyle(attribute, range), blockId: blockId)
-    }
-
-    
-    // MARK: - Public methods
-    func changeCaretPosition(range: NSRange) {
-        UserSession.shared.focus.value = .at(range)
+    func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId) {
+        markupChanger.toggleMarkup(attribute, for: blockId, in: range)
     }
     
+    func setLink(url: URL?, range: NSRange, blockId: BlockId) {
+        markupChanger.setLink(url, for: blockId, in: range)
+    }
+    
+    func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId) {
+        markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
+    }
+    
+    // MARK: - TextBlockActionHandler proxy
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
         textBlockActionHandler.handleKeyboardAction(info: info, action: action)
     }
@@ -122,32 +132,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         textBlockActionHandler.changeText(info: info, text: text)
     }
     
-    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
-        switch action {
-        case let .toggleFontStyle(fontAttributes, range):
-            markupChanger.toggleMarkup(
-                fontAttributes,
-                for: blockId,
-                in: range
-            )
-            
-        case let .setLink(url, range):
-            markupChanger.setLink(url, for: blockId, in: range)
-
-        case let .setLinkToObject(linkBlockId: linkBlockId, range):
-            markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
-            
-        case let .addBlock(type):
-            addBlock(blockId: blockId, type: type)
-            
-        case let .addLink(targetBlockId):
-            service.add(
-                info: BlockBuilder.createNewLink(targetBlockId: targetBlockId),
-                targetBlockId: blockId,
-                position: .bottom,
-                shouldSetFocusOnUpdate: false
-            )
-        }
+    // MARK: - Public methods
+    func changeCaretPosition(range: NSRange) {
+        UserSession.shared.focus.value = .at(range)
     }
     
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
@@ -187,10 +174,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         return service.createPage(targetId: targetId, type: type, position: position)
     }
-}
 
-private extension BlockActionHandler {
-    func addBlock(blockId: BlockId, type: BlockContentType) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId) {
         switch type {
         case .smartblock(.page):
             anytypeAssertionFailure("Use createPage func instead")

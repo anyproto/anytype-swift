@@ -321,7 +321,6 @@
 		3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C19271EAE5D0043C326 /* ObjectType.swift */; };
 		3D2F9C1C271EAE7D0043C326 /* BlockActionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C1B271EAE7D0043C326 /* BlockActionServiceProtocol.swift */; };
 		3D2F9C1E271EAE8E0043C326 /* FirebaseNonFatalLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C1D271EAE8E0043C326 /* FirebaseNonFatalLogger.swift */; };
-		3D2F9C20271EAE9F0043C326 /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C1F271EAE9F0043C326 /* BlockActionTypes.swift */; };
 		3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */; };
 		3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */; };
 		3D2F9C42271F09590043C326 /* DashboardDeletionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C41271F09590043C326 /* DashboardDeletionAlert.swift */; };
@@ -1058,7 +1057,6 @@
 		3D2F9C19271EAE5D0043C326 /* ObjectType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
 		3D2F9C1B271EAE7D0043C326 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionServiceProtocol.swift; sourceTree = "<group>"; };
 		3D2F9C1D271EAE8E0043C326 /* FirebaseNonFatalLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseNonFatalLogger.swift; sourceTree = "<group>"; };
-		3D2F9C1F271EAE9F0043C326 /* BlockActionTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionTypes.swift; sourceTree = "<group>"; };
 		3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBuilder.swift; sourceTree = "<group>"; };
 		3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloaterAlertView.swift; sourceTree = "<group>"; };
 		3D2F9C41271F09590043C326 /* DashboardDeletionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDeletionAlert.swift; sourceTree = "<group>"; };
@@ -3850,7 +3848,6 @@
 		3DE511FE26712FBE00153962 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D2F9C1F271EAE9F0043C326 /* BlockActionTypes.swift */,
 				3D3A184D273573AA000D0842 /* TextAttributesType.swift */,
 			);
 			path = Models;
@@ -5024,7 +5021,6 @@
 				1255DF842702098300870B95 /* MediaFileUploadingOperation.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageService.swift in Sources */,
-				3D2F9C20271EAE9F0043C326 /* BlockActionTypes.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */,
 				3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */,

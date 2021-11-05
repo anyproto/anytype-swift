@@ -8,10 +8,7 @@ final class URLInputAccessoryView: DismissableInputAccessoryView {
         guard let self = self else { return }
         let model = self.model
         
-        self.handler.handleAction(
-            .setLink(model.url, model.range),
-            blockId: model.blockId
-        )
+        self.handler.setLink(url: model.url, range: model.range, blockId: model.blockId)
         self.dismissHandler?()
     })
     private let handler: BlockActionHandlerProtocol
