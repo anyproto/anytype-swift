@@ -148,7 +148,7 @@ final class EditorRouter: EditorRouterProtocol {
             parentViewController: rootController,
             delegate: controller,
             blockModel: blockModel,
-            actionHandler: controller.viewModel.blockActionHandler,
+            actionHandler: controller.viewModel.actionHandler,
             didShow: didShow,
             showMarkupMenu: { [weak controller, weak rootController] styleView, viewDidClose in
                 guard let controller = controller else { return }

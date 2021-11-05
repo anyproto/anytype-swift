@@ -8,7 +8,7 @@ protocol EditorPageViewModelProtocol {
     
     var modelsHolder: BlockViewModelsHolder { get }
     
-    var blockActionHandler: EditorActionHandlerProtocol { get }
+    var actionHandler: BlockActionHandlerProtocol { get }
     
     func viewLoaded()
     func viewAppeared()

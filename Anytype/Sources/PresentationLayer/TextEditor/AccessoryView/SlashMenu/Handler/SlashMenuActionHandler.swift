@@ -3,11 +3,11 @@ import BlocksModels
 
 
 final class SlashMenuActionHandler {
-    private let actionHandler: EditorActionHandlerProtocol
+    private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     
     init(
-        actionHandler: EditorActionHandlerProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
         self.actionHandler = actionHandler
@@ -32,7 +32,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
-                    .flatMap { actionHandler.showPage(blockId: $0) }
+                    .flatMap { router.showPage(with: $0) }
             }
         case .relations:
             break

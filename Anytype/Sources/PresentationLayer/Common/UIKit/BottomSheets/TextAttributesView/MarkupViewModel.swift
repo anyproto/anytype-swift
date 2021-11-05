@@ -17,13 +17,13 @@ final class MarkupViewModel {
         }
     }
     weak var view: MarkupViewProtocol?
-    private let actionHandler: EditorActionHandlerProtocol
+    private let actionHandler: BlockActionHandlerProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
 
     private var selectedRange: MarkupRange?
     private var anytypeText: UIKitAnytypeText?
     
-    init(actionHandler: EditorActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
+    init(actionHandler: BlockActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
         self.actionHandler = actionHandler
         self.detailsStorage = detailsStorage
     }
