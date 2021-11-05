@@ -8,7 +8,7 @@ struct AccessoryViewBuilder {
         document: BaseDocumentProtocol
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
-
+        
         let accessoryViewModel = EditorAccessoryViewModel(
             router: router,
             handler: actionHandler
@@ -37,8 +37,11 @@ struct AccessoryViewBuilder {
         )
 
         let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
-        let markupView = MarkupAccessoryView()
-        let editModeAccessoryView = EditModeAccessoryView(cursorModeView: accessoryView, markupModeView: markupView)
+        let markupViewModel = MarkupAccessoryContentViewModel(markupOptions: [], actionHandler: actionHandler, router: router)
+        let markupView = MarkupAccessoryView(viewModel: markupViewModel)
+        let editModeAccessoryView = EditModeAccessoryView(cursorModeView: accessoryView,
+                                                          markupModeView: markupView,
+                                                          markupModeViewModel: markupViewModel)
 
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
@@ -62,7 +65,7 @@ struct AccessoryViewBuilder {
         )
 
         // set delegate
-        let stateManager = AccessoryViewStateManager(switcher: accessoryViewSwitcher, handler: actionHandler)
+        let stateManager = AccessoryViewStateManagerImpl(switcher: accessoryViewSwitcher, handler: actionHandler)
         mentionsView.delegate = stateManager
         accessoryView.setDelegate(stateManager)
 

@@ -47,8 +47,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     func updateData(data: TextBlockDelegateData) {
         self.data = data
-        
-        accessoryView.update(info: data.info, textView: data.textView)
+
+        accessoryView.update(block: data.block, textView: data.textView)
         slashMenuView.update(info: data.info)
         
         showDefaultView()
@@ -63,6 +63,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
     
     func showDefaultView() {
+        accessoryView.selectionChanged(range: .zero)
+        
         showAccessoryView(
             document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
         )
