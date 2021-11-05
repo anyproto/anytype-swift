@@ -46,8 +46,8 @@ final class TextBlockLeftViewStyler {
 
         return TextBlockIconView(viewType: .titleCheckbox(isSelected: configuration.content.checked)) {
             UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-            configuration.actionHandler.handleAction(
-                .checkbox(selected: !configuration.content.checked),
+            configuration.actionHandler.checkbox(
+                selected: !configuration.content.checked,
                 blockId: configuration.information.id
             )
          }
@@ -56,15 +56,15 @@ final class TextBlockLeftViewStyler {
     private static func leftToggleView(configuration: TextBlockContentConfiguration) -> UIView {
         TextBlockIconView(viewType: .toggle(toggled: configuration.block.isToggled)) {
             configuration.block.toggle()
-            configuration.actionHandler.handleAction(.toggle, blockId: configuration.information.id)
+            configuration.actionHandler.toggle(blockId: configuration.information.id)
         }
     }
     
     private static func leftCheckboxView(configuration: TextBlockContentConfiguration) -> UIView {
         TextBlockIconView(viewType: .checkbox(isSelected: configuration.content.checked)) {
             UISelectionFeedbackGenerator().selectionChanged()
-            configuration.actionHandler.handleAction(
-                .checkbox(selected: !configuration.content.checked),
+            configuration.actionHandler.checkbox(
+                selected: !configuration.content.checked,
                 blockId: configuration.information.id
             )
         }

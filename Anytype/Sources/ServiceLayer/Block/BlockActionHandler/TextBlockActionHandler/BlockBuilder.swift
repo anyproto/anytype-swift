@@ -5,14 +5,14 @@ struct BlockBuilder {
         switch info.content {
         case .text:
             return createContentType(info: info).flatMap { content in
-                BlockInformation.createNew(content: content)
+                BlockInformation(content: content)
             }
         default: return nil
         }
     }
     
     static func createNewLink(targetBlockId: BlockId) -> BlockInformation {
-        BlockInformation.createNew(
+        BlockInformation(
             content: .link(
                 BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:])
             )
@@ -21,7 +21,7 @@ struct BlockBuilder {
 
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContentType(blockType: type).flatMap { content in
-            var block = BlockInformation.createNew(content: content)
+            var block = BlockInformation(content: content)
             
             if case .file(let blockFile) = content, case .image = blockFile.contentType {
                 block.alignment = .center
@@ -32,34 +32,15 @@ struct BlockBuilder {
     }
     
     static func createDefaultInformation() -> BlockInformation {
-        return BlockInformation.createNew(content: .text(.empty()))
+        return BlockInformation(content: .text(.empty()))
     }
 
-    static func createDefaultInformation(block: BlockModelProtocol) -> BlockInformation? {
-        switch block.information.content {
-        case let .text(value):
-            switch value.contentType {
-            case .toggle: return BlockInformation.createNew(content: .text(.empty()))
-            default: return nil
-            }
-        case .smartblock: return BlockInformation.createNew(content: .text(.empty()))
-        default: return nil
-        }
-    }
-    
     static func textStyle(info: BlockInformation) -> BlockText.Style? {
-        switch info.content {
-        case let .text(blockType):
-            switch blockType.contentType {
-            case .bulleted where blockType.text != "": return .bulleted
-            case .checkbox where blockType.text != "": return .checkbox
-            case .numbered where blockType.text != "": return .numbered
-            case .toggle where UserSession.shared.isToggled(blockId: info.id) : return .text
-            case .toggle where blockType.text != "": return .toggle
-            default: return .text
-            }
-        default: return nil
+        if case let .text(textContent) = createContentType(info: info) {
+            return textContent.contentType
         }
+        
+        return nil
     }
 
     private static func createContentType(info: BlockInformation) -> BlockContent? {

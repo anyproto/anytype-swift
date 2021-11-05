@@ -247,10 +247,7 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
             
-            self.handler.handleAction(
-                .fetch(url: url),
-                blockId: info.id
-            )
+            self.handler.fetch(url: url, blockId: info.id)
         }
     }
     
