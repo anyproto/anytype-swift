@@ -54,8 +54,12 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         cursorModeAccessoryView.update(info: data.block.information, textView: data.textView)
         markupAccessoryView.update(block: data.block, textView: data.textView)
         slashMenuView.update(info: data.info)
-        
-        showDefaultView()
+
+        if data.textView.selectedRange != .zero {
+            showMarkupView(range: data.textView.selectedRange)
+        } else {
+            showDefaultView()
+        }
     }
     
     func showMentionsView() {

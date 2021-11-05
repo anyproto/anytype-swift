@@ -36,12 +36,11 @@ final class MarkupAccessoryView: UIView {
     // MARK: - Public methos
 
     func selectionChanged(range: NSRange) {
-        markupModeViewModel.range = range
+        markupModeViewModel.updateRange(range: range)
     }
 
     func update(block: BlockModelProtocol, textView: UITextView) {
-        markupModeViewModel.selectBlock(block)
-        markupModeViewModel.range = textView.selectedRange
+        markupModeViewModel.selectBlock(block, text: textView.attributedText, range: textView.selectedRange)
     }
 
     // MARK: - Unavailable
@@ -63,7 +62,7 @@ struct MarkupAccessoryContentView: View {
                 } label: {
                     item.icon
                         .renderingMode(.template)
-                        .foregroundColor(.textPrimary)
+                        .foregroundColor(viewModel.iconColor(for: item))
                         .frame(width: 48, height: 48)
 
                 }

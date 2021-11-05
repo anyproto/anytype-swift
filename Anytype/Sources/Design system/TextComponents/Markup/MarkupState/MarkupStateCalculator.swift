@@ -3,9 +3,9 @@ import UIKit
 import BlocksModels
 
 struct MarkupStateCalculator {
-    private let attributedText: NSAttributedString
+    private(set) var attributedText: NSAttributedString
     private let range: NSRange
-    private let restrictions: BlockRestrictions
+    private(set) var restrictions: BlockRestrictions
     private let alignment: NSTextAlignment?
     
     init(
@@ -52,7 +52,9 @@ struct MarkupStateCalculator {
             return .disabled
         }
         let url: URL? = attributedText.value(for: .link, range: range)
-        return url.isNil ? .notApplied : .applied
+        let objectLink: String? = attributedText.value(for: .linkToObject, range: range)
+
+        return url.isNil && objectLink.isNil ? .notApplied : .applied
     }
 
     func alignmentState() -> [LayoutAlignment: MarkupState] {

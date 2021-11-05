@@ -15,7 +15,7 @@ struct AccessoryViewBuilder {
         )
 
         let markupViewModel = MarkupAccessoryViewModel(
-            markupOptions: [],
+            document: document,
             actionHandler: actionHandler,
             router: router
         )

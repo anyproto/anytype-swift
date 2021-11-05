@@ -3904,8 +3904,8 @@
 		53040A4C26D838EF0023AC73 /* TextComponents */ = {
 			isa = PBXGroup;
 			children = (
+				EA57F3DE26B84AD7007D4292 /* Markup */,
 				3D4125F926A014E1007A6880 /* TextContent+Font.swift */,
-				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
 				53040A4526D80DFC0023AC73 /* UIKitAnytypeText.swift */,
 				530F501F26F0981700F76D03 /* AnytypeLabel.swift */,
 				3D88217B26F3722600A41E75 /* BlockText+AnytypeText.swift */,
@@ -3983,9 +3983,7 @@
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
 			isa = PBXGroup;
 			children = (
-				EA57F3DE26B84AD7007D4292 /* Markup */,
 				533856AF263B22B8005A06A9 /* MarkupViewController.swift */,
-				EA57F3D026B83DDF007D4292 /* AllMarkupsState.swift */,
 				EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */,
 				EA57F41926B99936007D4292 /* MarkupViewModel.swift */,
 				EA57F41A26B99937007D4292 /* MarkupViewModelProtocol.swift */,
@@ -4026,6 +4024,17 @@
 				127EABB42735207900C731F2 /* BundledGradients.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		53728D012735BD2A0092A8CF /* MarkupState */ = {
+			isa = PBXGroup;
+			children = (
+				EA57F3D026B83DDF007D4292 /* AllMarkupsState.swift */,
+				EA43DD6526B1A28500E66878 /* MarkupState.swift */,
+				EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */,
+				EA57F3D926B84AA9007D4292 /* MarkupRange.swift */,
+			);
+			path = MarkupState;
 			sourceTree = "<group>";
 		};
 		538F172A272C2F1E009528E7 /* SearchView */ = {
@@ -4366,9 +4375,8 @@
 		EA57F3DE26B84AD7007D4292 /* Markup */ = {
 			isa = PBXGroup;
 			children = (
-				EA43DD6526B1A28500E66878 /* MarkupState.swift */,
-				EA43DD6726B1A33000E66878 /* MarkupStateCalculator.swift */,
-				EA57F3D926B84AA9007D4292 /* MarkupRange.swift */,
+				53728D012735BD2A0092A8CF /* MarkupState */,
+				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
 			);
 			path = Markup;
 			sourceTree = "<group>";

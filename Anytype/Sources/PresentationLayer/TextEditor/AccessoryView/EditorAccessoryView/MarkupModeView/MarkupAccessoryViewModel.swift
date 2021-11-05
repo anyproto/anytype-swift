@@ -7,26 +7,54 @@
 //
 
 import BlocksModels
-
+import SwiftUI
+import Combine
 
 final class MarkupAccessoryViewModel: ObservableObject {
-    private(set) var markupOptions: [MarkupKind]
+    let markupOptions: [MarkupKind] = MarkupKind.allCases
+    @Published private var markupCalculator: MarkupStateCalculator?
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let pageService = PageService()
     private var blockId: BlockId = ""
-    var range: NSRange = .zero
+    private var range: NSRange = .zero
+    private let document: BaseDocumentProtocol
+    private var cancellables = [AnyCancellable]()
 
-    init(markupOptions: [MarkupKind], actionHandler: BlockActionHandlerProtocol, router: EditorRouterProtocol) {
-        self.markupOptions = markupOptions
+    init(document: BaseDocumentProtocol, actionHandler: BlockActionHandlerProtocol, router: EditorRouterProtocol) {
         self.actionHandler = actionHandler
         self.router = router
+        self.document = document
+        self.subscribeOnBlocksChanges()
     }
 
-    func selectBlock(_ block: BlockModelProtocol) {
+    func selectBlock(_ block: BlockModelProtocol, text: NSAttributedString, range: NSRange) {
         let restrictions = BlockRestrictionsBuilder.build(contentType: block.information.content.type)
-        self.blockId = block.information.id
-        markupOptions = availableMarkup(for: restrictions)
+        blockId = block.information.id
+
+        setRange(range: range, text: text, restrictions: restrictions)
+    }
+
+    func updateRange(range: NSRange) {
+        guard let currentMarkupCalculator = markupCalculator else {
+            return
+        }
+
+        let currentText = currentMarkupCalculator.attributedText
+        let currentRestrictions = currentMarkupCalculator.restrictions
+
+        setRange(range: range, text: currentText, restrictions: currentRestrictions)
+    }
+
+    private func setRange(range: NSRange, text: NSAttributedString, restrictions: BlockRestrictions) {
+        self.range = range
+
+        markupCalculator = MarkupStateCalculator(
+            attributedText: text,
+            range: range,
+            restrictions: restrictions,
+            alignment: nil
+        )
     }
 
     func action(_ markup: MarkupKind) {
@@ -38,16 +66,25 @@ final class MarkupAccessoryViewModel: ObservableObject {
         }
     }
 
-    private func availableMarkup(for restrictions: BlockRestrictions) -> [MarkupKind] {
-        MarkupKind.allCases.filter { markup -> Bool in
-            switch markup {
-            case .fontStyle(.bold):
-                return restrictions.canApplyBold
-            case .fontStyle(.italic):
-                return restrictions.canApplyItalic
-            case .fontStyle(.strikethrough), .fontStyle(.keyboard), .link:
-                return restrictions.canApplyOtherMarkup
-            }
+    func iconColor(for markup: MarkupKind) -> Color {
+        let state = markupState(for: markup)
+
+        switch state {
+        case .disabled:
+            return .buttonInactive
+        case .applied:
+            return .buttonSelected
+        case .notApplied:
+            return .buttonActive
+        }
+    }
+
+    private func markupState(for markup: MarkupKind) -> MarkupState {
+        switch markup {
+        case .fontStyle(let fontStyle):
+            return markupCalculator?.state(for: fontStyle.blockActionHandlerTypeMarkup) ?? .disabled
+        case .link:
+            return markupCalculator?.linkState() ?? .disabled
         }
     }
 
@@ -64,5 +101,31 @@ final class MarkupAccessoryViewModel: ObservableObject {
                 self?.actionHandler.setLink(url: URL(string: url), range: range, blockId: blockId)
             }
         }
+    }
+
+    private func subscribeOnBlocksChanges() {
+        document.updatePublisher.sink { [weak self] update in
+            guard let self = self else { return }
+            guard case let .blocks(blocks) = update else { return }
+
+            let isCurrentBlock = blocks.contains(where: { blockId in
+                blockId == self.blockId
+            })
+
+            guard isCurrentBlock, let (block, textBlockContent) = self.blockData(blockId: self.blockId) else { return }
+
+            let currentText = textBlockContent.anytypeText(using: self.document.detailsStorage).attrString
+            self.selectBlock(block, text: currentText, range: self.range)
+        }.store(in: &cancellables)
+    }
+
+    private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
+        guard let model = document.blocksContainer.model(id: blockId) else {
+            return nil
+        }
+        guard case let .text(content) = model.information.content else {
+            return nil
+        }
+        return (model, content)
     }
 }
