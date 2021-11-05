@@ -1,12 +1,10 @@
 import BlocksModels
 
 struct BlockBuilder {
-    static func createInformation(
-        info: BlockInformation, action: CustomTextView.KeyboardAction, textPayload: String
-    ) -> BlockInformation? {
+    static func createInformation(info: BlockInformation) -> BlockInformation? {
         switch info.content {
         case .text:
-            return createContentType(info: info, action: action, textPayload: textPayload).flatMap { content in
+            return createContentType(info: info).flatMap { content in
                 BlockInformation.createNew(content: content)
             }
         default: return nil
@@ -16,11 +14,7 @@ struct BlockBuilder {
     static func createNewLink(targetBlockId: BlockId) -> BlockInformation {
         BlockInformation.createNew(
             content: .link(
-                BlockLink(
-                    targetBlockID: targetBlockId,
-                    style: .page,
-                    fields: [:]
-                )
+                BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:])
             )
         )
     }
@@ -68,9 +62,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(
-        info: BlockInformation, action: CustomTextView.KeyboardAction, textPayload: String
-    ) -> BlockContent? {
+    private static func createContentType(info: BlockInformation) -> BlockContent? {
         switch info.content {
         case let .text(blockType):
             switch blockType.contentType {

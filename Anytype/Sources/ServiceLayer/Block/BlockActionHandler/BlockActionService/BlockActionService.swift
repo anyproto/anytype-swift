@@ -47,14 +47,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         event.send()
     }
 
-    func split(
-        info: BlockInformation,
-        oldText: String,
-        newBlockContentType: BlockText.Style
-    ) {
+    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style) {
         let blockId = info.id
-        // We are using old text as a cursor position.
-        let position = oldText.count
 
         let content = info.content
         guard case let .text(blockText) = content else {

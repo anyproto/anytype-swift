@@ -37,25 +37,12 @@ final class TextBlockActionHandler {
     func handleKeyboardAction(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         switch action {
         // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
-        case let .enterInsideContent(topString, bottomString):
-            if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: bottomString ?? "") {
-                if let oldText = topString {
-                    guard case let .text(text) = info.content else {
-                        anytypeAssertionFailure("Only text block may send keyboard action")
-                        return
-                    }
-                    self.service.split(
-                        info: info,
-                        oldText: oldText,
-                        newBlockContentType: text.contentType.contentTypeForSplit
-                    )
-                }
-                else {
-                    self.service.add(
-                        info: newBlock, targetBlockId: info.id, position: .bottom, shouldSetFocusOnUpdate: true
-                    )
-                }
+        case let .enterInsideContent(position):
+            guard case let .text(text) = info.content else {
+                anytypeAssertionFailure("Only text block may send keyboard action")
+                return
             }
+            service.split(info: info, position: position, newBlockContentType: text.contentType.contentTypeForSplit)
 
         case let .enterAtTheBeginingOfContent(payload): // we should assure ourselves about type of block.
             /// TODO: Fix it in TextView API.
@@ -64,16 +51,13 @@ final class TextBlockActionHandler {
                 handleKeyboardAction(info: info, action: .enterAtTheEndOfContent)
                 return
             }
-            if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: payload) {
+            if let newBlock = BlockBuilder.createInformation(info: info) {
                 if case let .text(text) = info.content {
-                    self.service.split(
-                        info: info,
-                        oldText: "",
-                        newBlockContentType: text.contentType.contentTypeForSplit
-                    )
+                    let type = text.contentType.contentTypeForSplit
+                    service.split(info: info, position: 0, newBlockContentType: type)
                 }
                 else {
-                    self.service.add(info: newBlock, targetBlockId: info.id, position: .bottom, shouldSetFocusOnUpdate: true)
+                    service.add(info: newBlock, targetBlockId: info.id, position: .bottom, shouldSetFocusOnUpdate: true)
                 }
             }
 
@@ -87,7 +71,7 @@ final class TextBlockActionHandler {
                     self.service.turnInto(style, blockId: info.id)
                 }
             default:
-                if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: "") {
+                if let newBlock = BlockBuilder.createInformation(info: info) {
                     switch info.content {
                     case let .text(payload):
                         let isListAndNotToggle = payload.contentType.isListAndNotToggle
@@ -109,13 +93,8 @@ final class TextBlockActionHandler {
                                 shouldSetFocusOnUpdate: true
                             )
                         default:
-                            let newContentType = payload.contentType.isList ? payload.contentType : .text
-
-                            self.service.split(
-                                info: info,
-                                oldText: payload.text,
-                                newBlockContentType: newContentType
-                            )
+                            let type = payload.contentType.isList ? payload.contentType : .text
+                            service.split(info: info, position: payload.text.count, newBlockContentType: type)
                         }
                     default: return
                     }
