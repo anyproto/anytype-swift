@@ -20,6 +20,8 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func delete(blockId: BlockId)
     func moveTo(targetId: BlockId, blockId: BlockId)
     func createEmptyBlock(parentId: BlockId?)
+    func setLink(url: URL?, range: NSRange, blockId: BlockId)
+    func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId)
     
     func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId)
 
@@ -29,7 +31,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeCaretPosition(range: NSRange)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
-    func changeTextStyle(attribute: TextAttributesType, range: NSRange, blockId: BlockId)
+    func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
 }

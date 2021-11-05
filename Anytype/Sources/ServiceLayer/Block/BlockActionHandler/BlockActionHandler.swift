@@ -102,12 +102,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         markupChanger.toggleMarkup(markup, for: blockId)
     }
     
-    func changeTextStyle(
-        attribute: TextAttributesType, range: NSRange, blockId: BlockId
-    ) {
-        handleAction(.toggleFontStyle(attribute, range), blockId: blockId)
+    func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId) {
+        markupChanger.toggleMarkup(attribute, for: blockId, in: range)
     }
-
+    
+    func setLink(url: URL?, range: NSRange, blockId: BlockId) {
+        markupChanger.setLink(url, for: blockId, in: range)
+    }
+    
+    func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId) {
+        markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
+    }
     
     // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
@@ -124,19 +129,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
-        case let .toggleFontStyle(fontAttributes, range):
-            markupChanger.toggleMarkup(
-                fontAttributes,
-                for: blockId,
-                in: range
-            )
-            
-        case let .setLink(url, range):
-            markupChanger.setLink(url, for: blockId, in: range)
-
-        case let .setLinkToObject(linkBlockId: linkBlockId, range):
-            markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
-            
         case let .addBlock(type):
             addBlock(blockId: blockId, type: type)
             
