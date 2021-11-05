@@ -16,17 +16,20 @@ final class EditModeAccessoryView: UIView {
         case markap
     }
 
-    var accessoryViewKind: EditModeAccessoryViewKind
-    let cursorModeView: EditorAccessoryView
-    let markupModeView: MarkupAccessoryView
+    private(set) var accessoryViewKind: EditModeAccessoryViewKind
+
+    private let cursorModeView: EditorAccessoryView
+    private let markupModeView: MarkupAccessoryView
+    private let markupModeViewModel: MarkupAccessoryContentViewModel
 
     // MARK: - Lifecycle
 
-    init(cursorModeView: EditorAccessoryView, markupModeView: MarkupAccessoryView) {
+    init(cursorModeView: EditorAccessoryView, markupModeView: MarkupAccessoryView, markupModeViewModel: MarkupAccessoryContentViewModel) {
         self.cursorModeView = cursorModeView
         self.markupModeView = markupModeView
-        self.accessoryViewKind = .cursor
+        self.markupModeViewModel = markupModeViewModel
 
+        self.accessoryViewKind = .cursor
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
 
         setupViews()
@@ -45,7 +48,7 @@ final class EditModeAccessoryView: UIView {
         case .cursor:
             return cursorModeView
         case .markap:
-            return markupModeView
+            return markupModeView.asUIView()
         }
     }
 
@@ -65,14 +68,19 @@ final class EditModeAccessoryView: UIView {
         if case .markap = accessoryViewKind {
             if range.length == 0 {
                 changeAccessoryViewKind(.cursor)
+            } else {
+                markupModeViewModel.range = range
             }
         } else if range.length > 0 {
             changeAccessoryViewKind(.markap)
+            markupModeViewModel.range = range
         }
     }
 
-    func update(block: BlockModelProtocol, textView: CustomTextView) {
-        cursorModeView.update(block: block, textView: textView)
+    func update(block: BlockModelProtocol, textView: UITextView) {
+        cursorModeView.update(info: block.information, textView: textView)
+        markupModeViewModel.selectBlock(block)
+        markupModeViewModel.range = textView.selectedRange
     }
 
     // MARK: - Unavailable

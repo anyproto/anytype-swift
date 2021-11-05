@@ -25,7 +25,6 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         
         toggleMarkup(
             markup,
-            attributedText: blockText.anytypeText(using: detailsStorage).attrString,
             for: blockId,
             in: blockText.anytypeText(using: detailsStorage).attrString.wholeRange
         )
@@ -33,13 +32,14 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     func toggleMarkup(
         _ markup: BlockHandlerActionType.TextAttributesType,
-        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
         
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
+
         let markupCalculator = MarkupStateCalculator(
             attributedText: attributedText,
             range: range,
@@ -61,7 +61,6 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
     func setLink(
         _ link: URL?,
-        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     ) {
@@ -69,6 +68,8 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
         guard restrictions.canApplyOtherMarkup else { return }
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
         
         applyAndStore(
             .link(link),
@@ -79,10 +80,12 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
     }
 
-    func setLinkToObject(id: BlockId, attributedText: NSAttributedString, for blockId: BlockId, in range: NSRange) {
+    func setLinkToObject(id: BlockId, for blockId: BlockId, in range: NSRange) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
 
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
 
         guard restrictions.canApplyOtherMarkup else { return }
 

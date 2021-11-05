@@ -21,7 +21,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let detailsStorage: ObjectDetailsStorageProtocol
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
-    let changeLink: (NSAttributedString, NSRange) -> Void
         
     let pressingEnterTimeChecker = TimeChecker()
     
@@ -36,7 +35,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
-        changeLink: @escaping (NSAttributedString, NSRange) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
         detailsStorage: ObjectDetailsStorageProtocol
     ) {
@@ -47,7 +45,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         self.actionHandler = actionHandler
         self.showPage = showPage
         self.openURL = openURL
-        self.changeLink = changeLink
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable

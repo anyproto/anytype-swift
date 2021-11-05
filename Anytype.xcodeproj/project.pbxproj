@@ -2399,7 +2399,6 @@
 				125B6E9C26F235F400BCD7D6 /* EditorAccessoryView */,
 				125B6EA126F235F400BCD7D6 /* Mention */,
 				125B6EB126F235F400BCD7D6 /* SlashMenu */,
-				53FB4E7C2731CC9B00BF3F0E /* MarkupAccessoryView */,
 				125B6EA926F235F400BCD7D6 /* AccessoryViewBuilder.swift */,
 				C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */,
 				3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */,
@@ -2431,10 +2430,8 @@
 			isa = PBXGroup;
 			children = (
 				C965247A272077EF00254057 /* ChangeTypeAccessoryView */,
-				125B6E9D26F235F400BCD7D6 /* EditorAccessoryViewItem.swift */,
-				125B6E9F26F235F400BCD7D6 /* EditorAccessoryViewDelegate.swift */,
-				C92DCD942729952500A03D91 /* EditorAccessoryViewActionHandler.swift */,
-				125B6EA026F235F400BCD7D6 /* EditorAccessoryView.swift */,
+				538FFB7227346A6500B4CEDE /* CursorModeView */,
+				53FB4E7C2731CC9B00BF3F0E /* MarkupModeView */,
 				538FFB6D2733314500B4CEDE /* EditModeAccessoryView.swift */,
 			);
 			path = EditorAccessoryView;
@@ -4041,6 +4038,17 @@
 			path = SearchView;
 			sourceTree = "<group>";
 		};
+		538FFB7227346A6500B4CEDE /* CursorModeView */ = {
+			isa = PBXGroup;
+			children = (
+				125B6E9D26F235F400BCD7D6 /* EditorAccessoryViewItem.swift */,
+				125B6E9F26F235F400BCD7D6 /* EditorAccessoryViewDelegate.swift */,
+				C92DCD942729952500A03D91 /* EditorAccessoryViewActionHandler.swift */,
+				125B6EA026F235F400BCD7D6 /* EditorAccessoryView.swift */,
+			);
+			path = CursorModeView;
+			sourceTree = "<group>";
+		};
 		539168812632DCF600AD5C5F /* StyleCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -4123,12 +4131,12 @@
 			path = ColorCell;
 			sourceTree = "<group>";
 		};
-		53FB4E7C2731CC9B00BF3F0E /* MarkupAccessoryView */ = {
+		53FB4E7C2731CC9B00BF3F0E /* MarkupModeView */ = {
 			isa = PBXGroup;
 			children = (
 				53FB4E802731CCD200BF3F0E /* MarkupAccessoryView.swift */,
 			);
-			path = MarkupAccessoryView;
+			path = MarkupModeView;
 			sourceTree = "<group>";
 		};
 		53FF7C4026F751A800A5A592 /* Views */ = {

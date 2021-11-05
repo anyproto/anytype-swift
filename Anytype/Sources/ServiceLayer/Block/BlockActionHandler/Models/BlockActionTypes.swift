@@ -10,9 +10,9 @@ enum BlockHandlerActionType {
     }
 
     case toggleWholeBlockMarkup(TextAttributesType)
-    case toggleFontStyle(NSAttributedString, TextAttributesType, NSRange)
-    case setLink(NSAttributedString, URL?, NSRange)
-    case setLinkToObject(linkBlockId: BlockId, NSAttributedString, NSRange)
+    case toggleFontStyle(TextAttributesType, NSRange)
+    case setLink(URL?, NSRange)
+    case setLinkToObject(linkBlockId: BlockId, NSRange)
     
     case addLink(BlockId)
     case addBlock(BlockContentType)
