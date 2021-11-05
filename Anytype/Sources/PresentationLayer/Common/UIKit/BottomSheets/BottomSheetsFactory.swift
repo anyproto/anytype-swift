@@ -11,7 +11,7 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         blockModel: BlockModelProtocol,
-        actionHandler: EditorActionHandlerProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
     ) {
