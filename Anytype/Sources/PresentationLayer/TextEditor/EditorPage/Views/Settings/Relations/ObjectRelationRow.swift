@@ -49,7 +49,13 @@ struct ObjectRelationRow: View {
                     hint: relationEntity.relation.format.hint
                 )
             case .status:
-                EmptyView()
+                StatusRelationView(
+                    value: RelationValueConverter.status(
+                        from: relationEntity.value,
+                        selections: relationEntity.relation.selections
+                    ),
+                    hint: relationEntity.relation.format.hint
+                )
             case .date:
                 TextRelationView(
                     value: RelationValueConverter.dateString(from: relationEntity.value),

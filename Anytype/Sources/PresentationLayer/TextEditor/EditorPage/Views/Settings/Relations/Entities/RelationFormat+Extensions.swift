@@ -27,7 +27,9 @@ extension Relation.Format {
             return "Enter e-mail".localized
         case .phone:
             return "Enter phone".localized
-        case .status, .file, .checkbox, .emoji, .tag , .object, .relations, .unrecognized:
+        case .status:
+            return "Select status".localized
+        case .file, .checkbox, .emoji, .tag , .object, .relations, .unrecognized:
             return "Enter value".localized
         }
     }
