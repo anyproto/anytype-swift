@@ -19,8 +19,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let showPage: (String) -> Void
     private let openURL: (URL) -> Void
+    private let changeLink: (NSAttributedString, NSRange) -> Void
     
-    private let actionHandler: EditorActionHandlerProtocol
+    private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
     private let detailsStorage: ObjectDetailsStorageProtocol
     
@@ -40,10 +41,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         isCheckable: Bool,
         contextualMenuHandler: DefaultContextualMenuHandler,
         blockDelegate: BlockDelegate,
-        actionHandler: EditorActionHandlerProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
         showPage: @escaping (String) -> Void,
-        openURL: @escaping (URL) -> Void
+        openURL: @escaping (URL) -> Void,
+        changeLink: @escaping (NSAttributedString, NSRange) -> Void
     ) {
         self.block = block
         self.upperBlock = upperBlock
@@ -54,6 +56,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.actionHandler = actionHandler
         self.showPage = showPage
         self.openURL = openURL
+        self.changeLink = changeLink
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
@@ -67,11 +70,19 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {}
     
     func makeContextualMenu() -> [ContextualMenu] {
-        guard content.contentType != .title else {
-            return [ .addBlockBelow ]
+        let restrictions = BlockRestrictionsBuilder.build(content: content)
+        
+        var actions: [ContextualMenu] = [ .addBlockBelow, .style ]
+        
+        if restrictions.canApplyStyle(.smartblock(.page)) {
+            actions.append(.turnIntoPage)
+        }
+        
+        if restrictions.canDeleteOrDuplicate {
+            actions.append(contentsOf: [ .duplicate, .delete ])
         }
 
-        return [ .addBlockBelow, .turnIntoPage, .duplicate, .style, .delete ]
+        return actions
     }
     
     func handle(action: ContextualMenu) {
@@ -88,6 +99,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actionHandler: actionHandler,
             showPage: showPage,
             openURL: openURL,
+            changeLink: changeLink,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
             detailsStorage: detailsStorage
         )

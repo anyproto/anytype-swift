@@ -23,6 +23,6 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
         let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
         
         handler.changeText(newText, info: info)
-        handler.changeCarretPosition(range: newCaretPosition)
+        handler.changeCaretPosition(range: newCaretPosition)
     }
 }

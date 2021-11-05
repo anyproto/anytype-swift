@@ -11,7 +11,7 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
         blockModel: BlockModelProtocol,
-        actionHandler: EditorActionHandlerProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
     ) {
@@ -53,15 +53,15 @@ final class BottomSheetsFactory {
         let restrictions = BlockRestrictionsBuilder.build(content: blockModel.information.content)
 
         let contentVC = StyleViewController(
+            blockId: blockModel.information.id,
             viewControllerForPresenting: parentViewController,
             style: textContentType,
             restrictions: restrictions,
             askColor: askColor,
             askBackgroundColor: askBackgroundColor,
-            didTapMarkupButton: showMarkupMenu
-        ) { action in
-            actionHandler.handleAction(action, blockId: blockModel.information.id)
-        }
+            didTapMarkupButton: showMarkupMenu,
+            actionHandler: actionHandler
+        )
         
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: parentViewController, animated: true) {

@@ -9,10 +9,7 @@ enum BlockHandlerActionType {
         case keyboard
     }
 
-    case turnInto(BlockText.Style)
     case moveTo(targetId: BlockId)
-    case setTextColor(BlockColor)
-    case setBackgroundColor(BlockBackgroundColor)
     case toggleWholeBlockMarkup(TextAttributesType)
     case toggleFontStyle(NSAttributedString, TextAttributesType, NSRange)
     case setAlignment(LayoutAlignment)

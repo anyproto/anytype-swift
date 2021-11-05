@@ -36,11 +36,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func changeLink(text: NSAttributedString, range: NSRange) {
-        handler.showLinkToSearch(
-            blockId: currentConfiguration.information.id,
-            attrText: text,
-            range: range
-        )
+        currentConfiguration.changeLink(text, range)
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
@@ -78,7 +74,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func changeCaretPosition(_ range: NSRange) {
-        handler.changeCarretPosition(range: range)
+        handler.changeCaretPosition(range: range)
     }
     
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
@@ -97,7 +93,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         currentConfiguration.blockDelegate
     }
     
-    private var handler: EditorActionHandlerProtocol {
+    private var handler: BlockActionHandlerProtocol {
         currentConfiguration.actionHandler
     }
     

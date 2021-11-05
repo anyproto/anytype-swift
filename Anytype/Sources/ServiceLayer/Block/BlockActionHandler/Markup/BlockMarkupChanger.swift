@@ -3,7 +3,7 @@ import BlocksModels
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    weak var handler: EditorActionHandlerProtocol?
+    weak var handler: BlockActionHandlerProtocol?
     
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol

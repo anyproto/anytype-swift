@@ -13,6 +13,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     private weak var modelsHolder: BlockViewModelsHolder?
     
+    private let fileUploadingDemon = MediaFileUploadingDemon.shared
+    
     init(
         modelsHolder: BlockViewModelsHolder,
         document: BaseDocumentProtocol,
@@ -30,8 +32,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
 
-    // MARK: - Public methods
     
+    // MARK: - Service proxy
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         return service.turnIntoPage(blockId: blockId)
     }
@@ -40,14 +42,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
-        return service.createPage(targetId: targetId, type: type, position: position)
-    }
-    
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        let textBlockContentType = BlockContent.text(BlockText(contentType: style))
+        service.turnInto(blockId: blockId, type: textBlockContentType.type)
+    }
+    
+    func setTextColor(_ color: BlockColor, blockId: BlockId) {
+        listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
+    }
+    
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
+        service.setBackgroundColor(blockId: blockId, color: color)
+    }
+    
+    // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
         UserSession.shared.focus.value = .at(range)
     }
@@ -59,26 +71,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func changeTextStyle(
         text: NSAttributedString, attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
     ) {
-        handleBlockAction(.toggleFontStyle(text, attribute, range), blockId: blockId)
+        handleAction(.toggleFontStyle(text, attribute, range), blockId: blockId)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
         textBlockActionHandler.changeText(info: info, text: text)
     }
     
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
+    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId) {
         switch action {
-        case let .turnInto(textStyle):
-            // TODO: why we need here turnInto only for text block?
-            let textBlockContentType = BlockContent.text(BlockText(contentType: textStyle))
-            service.turnInto(blockId: blockId, type: textBlockContentType.type)
-            
-        case let .setTextColor(color):
-            setBlockColor(blockId: blockId, color: color)
-            
-        case let .setBackgroundColor(color):
-            service.setBackgroundColor(blockId: blockId, color: color)
-            
         case let .toggleWholeBlockMarkup(markup):
             markupChanger.toggleMarkup(markup, for: blockId)
             
@@ -142,14 +143,57 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
+    
+    func onEmptySpotTap() {
+        guard let block = document.blocksContainer.model(id: document.objectId) else {
+            return
+        }
+        handleAction(
+            .createEmptyBlock(parentId: document.objectId),
+            blockId: block.information.id
+        )
+    }
+    
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
+        
+        let operation = MediaFileUploadingOperation(
+            itemProvider: itemProvider,
+            worker: BlockMediaUploadingWorker(
+                objectId: document.objectId,
+                blockId: blockId,
+                contentType: type
+            )
+        )
+        fileUploadingDemon.addOperation(operation)
+    }
+    
+    func uploadFileAt(localPath: String, blockId: BlockId) {
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
+        
+        upload(blockId: blockId, filePath: localPath)
+    }
+    
+    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        var position: BlockPosition
+        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+            position = .replace
+        } else {
+            position = .bottom
+        }
+        
+        return service.createPage(targetId: targetId, type: type, position: position)
+    }
 }
 
 private extension BlockActionHandler {
-    
-    func setBlockColor(blockId: BlockId, color: BlockColor) {
-        listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
-    }
-    
     func setAlignment(blockId: BlockId, alignment: LayoutAlignment) {
         listService.setAlign(contextId: document.objectId, blockIds: [blockId], alignment: alignment)
     }
@@ -163,7 +207,7 @@ private extension BlockActionHandler {
         switch type {
         case .smartblock(.page):
             anytypeAssertionFailure("Use createPage func instead")
-            _ = createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
+            _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
         default:
             guard
                 let newBlock = BlockBuilder.createNewBlock(type: type),

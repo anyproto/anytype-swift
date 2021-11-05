@@ -15,19 +15,11 @@ for_lane :update_dev_symbols do
 	app_identifier("com.anytypeio.anytype.dev") 
 end
 
-for_lane :download_dev_symbols do
-	app_identifier("com.anytypeio.anytype.dev") 
-end
-
 # Release
 for_lane :release do
 	app_identifier("com.anytypeio.anytype") 
 end
 
 for_lane :update_release_symbols do
-	app_identifier("com.anytypeio.anytype") 
-end
-
-for_lane :download_release_symbols do
 	app_identifier("com.anytypeio.anytype") 
 end

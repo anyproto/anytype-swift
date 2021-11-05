@@ -1,11 +1,11 @@
 import BlocksModels
 
 final class DefaultContextualMenuHandler {
-    let handler: EditorActionHandlerProtocol
+    let handler: BlockActionHandlerProtocol
     let router: EditorRouterProtocol
     
     init(
-        handler: EditorActionHandlerProtocol,
+        handler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
         self.handler = handler
