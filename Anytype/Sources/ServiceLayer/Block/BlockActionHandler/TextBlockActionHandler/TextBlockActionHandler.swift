@@ -49,7 +49,6 @@ final class TextBlockActionHandler {
                 /// TODO: Fix it in TextView API.
                 /// If payload is empty, so, handle it as .enter ( or .enter at the end )
                 handleKeyboardAction(info: info, action: .enterAtTheEndOfContent)
-                anytypeAssertionFailure("Payload is empty for enterAtTheBeginingOfContent")
                 return
             }
             
@@ -83,10 +82,10 @@ final class TextBlockActionHandler {
 
                         switch (childrenIds.isEmpty, isToggleAndOpen, isListAndNotToggle) {
                         case (true, true, _):
-                            self.service.addChild(info: newBlock, parentBlockId: info.id)
+                            service.addChild(info: newBlock, parentId: info.id)
                         case (false, true, _), (false, _, true):
                             let firstChildId = childrenIds[0]
-                            self.service.add(
+                            service.add(
                                 info: newBlock,
                                 targetBlockId: firstChildId,
                                 position: .top,

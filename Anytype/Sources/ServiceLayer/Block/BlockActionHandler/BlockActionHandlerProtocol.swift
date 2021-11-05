@@ -19,6 +19,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
     func delete(blockId: BlockId)
     func moveTo(targetId: BlockId, blockId: BlockId)
+    func createEmptyBlock(parentId: BlockId?)
 
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
@@ -31,5 +32,4 @@ protocol BlockActionHandlerProtocol: AnyObject {
     )
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
-    func onEmptySpotTap()
 }

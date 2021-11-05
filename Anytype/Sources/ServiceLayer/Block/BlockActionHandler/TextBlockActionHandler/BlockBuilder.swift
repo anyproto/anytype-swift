@@ -30,10 +30,6 @@ struct BlockBuilder {
             return block
         }
     }
-    
-    static func createDefaultInformation() -> BlockInformation {
-        return BlockInformation(content: .text(.empty()))
-    }
 
     static func textStyle(info: BlockInformation) -> BlockText.Style? {
         if case let .text(textContent) = createContentType(info: info) {

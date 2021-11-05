@@ -14,9 +14,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
         guard let self = self else { return }
         let blockId = self.currentConfiguration.information.id
-        self.currentConfiguration.actionHandler.handleAction(
-            .createEmptyBlock(parentId: blockId), blockId: blockId
-        )
+        self.currentConfiguration.actionHandler.createEmptyBlock(parentId: blockId)
     }
     
     private let mainStackView: UIStackView = makeMainStackView()

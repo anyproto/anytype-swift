@@ -92,6 +92,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         listService.moveTo(contextId: document.objectId, blockId: blockId, targetId: targetId)
     }
     
+    func createEmptyBlock(parentId: BlockId?) {
+        let parentId = parentId ?? document.objectId
+        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+    }
+    
     // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
         UserSession.shared.focus.value = .at(range)
@@ -140,24 +145,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 position: .bottom,
                 shouldSetFocusOnUpdate: false
             )
-            
-        case .createEmptyBlock(let parentId):
-            service.addChild(
-                info: BlockBuilder.createDefaultInformation(),
-                parentBlockId: parentId
-            )
         }
-    }
-    
-    
-    func onEmptySpotTap() {
-        guard let block = document.blocksContainer.model(id: document.objectId) else {
-            return
-        }
-        handleAction(
-            .createEmptyBlock(parentId: document.objectId),
-            blockId: block.information.id
-        )
     }
     
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {

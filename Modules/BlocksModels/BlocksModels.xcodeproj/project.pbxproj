@@ -41,6 +41,7 @@
 		3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21B2687809900C78C28 /* BlockContentDivider.swift */; };
 		3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */; };
 		3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21F268781C300C78C28 /* BlockContentLayout.swift */; };
+		3D3A184927353B21000D0842 /* BlockInformationExstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A184827353B21000D0842 /* BlockInformationExstension.swift */; };
 		3D43FD8526B14E9E0094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */; };
 		3D53F03326B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */; };
 		3D6E9A3C270E11CA001B0A07 /* BlockPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3B270E11CA001B0A07 /* BlockPosition.swift */; };
@@ -97,6 +98,7 @@
 		3D22B21B2687809900C78C28 /* BlockContentDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentDivider.swift; sourceTree = "<group>"; };
 		3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentBookmark.swift; sourceTree = "<group>"; };
 		3D22B21F268781C300C78C28 /* BlockContentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentLayout.swift; sourceTree = "<group>"; };
+		3D3A184827353B21000D0842 /* BlockInformationExstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInformationExstension.swift; sourceTree = "<group>"; };
 		3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Google_Protobuf_Value+Entries.swift"; sourceTree = "<group>"; };
 		3D6E9A3B270E11CA001B0A07 /* BlockPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPosition.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 			children = (
 				0A6D537425D9C99E002F3F82 /* BlockInformation.swift */,
 				3DB692B42697647600149864 /* MiddlewareColor.swift */,
+				3D3A184827353B21000D0842 /* BlockInformationExstension.swift */,
 			);
 			path = BlockInformation;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				124A60B32712F9820012FD2D /* ObjectDetailsStorageProtocol.swift in Sources */,
 				12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */,
 				127D1E222722F7490050FCB7 /* RelationKey.swift in Sources */,
+				3D3A184927353B21000D0842 /* BlockInformationExstension.swift in Sources */,
 				3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */,
 				3D22B2192687804000C78C28 /* BlockFile.swift in Sources */,
 				0A6D538F25D9C99F002F3F82 /* BlockUpdater.swift in Sources */,
