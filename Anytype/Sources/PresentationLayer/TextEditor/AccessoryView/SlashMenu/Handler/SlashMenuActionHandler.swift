@@ -63,23 +63,23 @@ final class SlashMenuActionHandler {
     private func handleStyle(_ style: SlashActionStyle, blockId: BlockId) {
         switch style {
         case .text:
-            actionHandler.handleAction(.turnIntoBlock(.text(.text)), blockId: blockId)
+            actionHandler.turnInto(.text, blockId: blockId)
         case .title:
-            actionHandler.handleAction(.turnIntoBlock(.text(.header)), blockId: blockId)
+            actionHandler.turnInto(.header, blockId: blockId)
         case .heading:
-            actionHandler.handleAction(.turnIntoBlock(.text(.header2)), blockId: blockId)
+            actionHandler.turnInto(.header2, blockId: blockId)
         case .subheading:
-            actionHandler.handleAction(.turnIntoBlock(.text(.header3)), blockId: blockId)
+            actionHandler.turnInto(.header3, blockId: blockId)
         case .highlighted:
-            actionHandler.handleAction(.turnIntoBlock(.text(.quote)), blockId: blockId)
+            actionHandler.turnInto(.quote, blockId: blockId)
         case .checkbox:
-            actionHandler.handleAction(.turnIntoBlock(.text(.checkbox)), blockId: blockId)
+            actionHandler.turnInto(.checkbox, blockId: blockId)
         case .bulleted:
-            actionHandler.handleAction(.turnIntoBlock(.text(.bulleted)), blockId: blockId)
+            actionHandler.turnInto(.bulleted, blockId: blockId)
         case .numberedList:
-            actionHandler.handleAction(.turnIntoBlock(.text(.numbered)), blockId: blockId)
+            actionHandler.turnInto(.numbered, blockId: blockId)
         case .toggle:
-            actionHandler.handleAction(.turnIntoBlock(.text(.toggle)), blockId: blockId)
+            actionHandler.turnInto(.toggle, blockId: blockId)
         case .bold:
             actionHandler.handleAction(.toggleWholeBlockMarkup(.bold), blockId: blockId)
         case .italic:

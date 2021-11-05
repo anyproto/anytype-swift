@@ -116,17 +116,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         return newBlockId
     }
 
-    func turnInto(blockId: BlockId, type: BlockContentType) {
-        switch type {
-        case .text(let style):
-            textService.setStyle(contextId: documentId, blockId: blockId, style: style)
-        case .smartblock:
-            anytypeAssertionFailure("Use turnIntoPage action instead")
-            _ = turnIntoPage(blockId: blockId)
-        case .divider(let style): setDividerStyle(blockId: blockId, style: style)
-        case .bookmark, .file, .layout, .link, .featuredRelations:
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        }
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        textService.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {

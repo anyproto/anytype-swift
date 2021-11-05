@@ -52,6 +52,21 @@ struct BlockBuilder {
         default: return nil
         }
     }
+    
+    static func textStyle(info: BlockInformation) -> BlockText.Style? {
+        switch info.content {
+        case let .text(blockType):
+            switch blockType.contentType {
+            case .bulleted where blockType.text != "": return .bulleted
+            case .checkbox where blockType.text != "": return .checkbox
+            case .numbered where blockType.text != "": return .numbered
+            case .toggle where UserSession.shared.isToggled(blockId: info.id) : return .text
+            case .toggle where blockType.text != "": return .toggle
+            default: return .text
+            }
+        default: return nil
+        }
+    }
 
     static func createContentType(
         info: BlockInformation, action: CustomTextView.KeyboardAction, textPayload: String

@@ -38,17 +38,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         return service.turnIntoPage(blockId: blockId)
     }
     
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        service.turnInto(style, blockId: blockId)
+    }
+    
     func upload(blockId: BlockId, filePath: String) {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         service.setObjectTypeUrl(objectTypeUrl)
-    }
-    
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
-        let textBlockContentType = BlockContent.text(BlockText(contentType: style))
-        service.turnInto(blockId: blockId, type: textBlockContentType.type)
     }
     
     func setTextColor(_ color: BlockColor, blockId: BlockId) {
@@ -121,9 +120,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 position: .bottom,
                 shouldSetFocusOnUpdate: false
             )
-            
-        case let .turnIntoBlock(type):
-            service.turnInto(blockId: blockId, type: type)
             
         case let .fetch(url: url):
             service.bookmarkFetch(blockId: blockId, url: url.absoluteString)

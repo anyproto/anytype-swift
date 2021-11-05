@@ -5,7 +5,7 @@ protocol BlockActionServiceProtocol {
     
     func upload(blockId: BlockId, filePath: String)
     
-    func turnInto(blockId: BlockId, type: BlockContentType)
+    func turnInto(_ style: BlockText.Style, blockId: BlockId)
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)

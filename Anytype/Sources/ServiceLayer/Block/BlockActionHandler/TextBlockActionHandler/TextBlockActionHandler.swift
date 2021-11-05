@@ -83,8 +83,8 @@ final class TextBlockActionHandler {
             switch info.content {
             case let .text(value) where value.contentType.isList && value.text == "":
                 // Turn Into empty text block.
-                if let newContentType = BlockBuilder.createContentType(info: info, action: action, textPayload: value.text) {
-                    self.service.turnInto(blockId: info.id, type: newContentType.type)
+                BlockBuilder.textStyle(info: info).flatMap { style in
+                    self.service.turnInto(style, blockId: info.id)
                 }
             default:
                 if let newBlock = BlockBuilder.createInformation(info: info, action: action, textPayload: "") {
