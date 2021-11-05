@@ -24,14 +24,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     init(documentId: String) {
         self.documentId = documentId
     }
-    
-    /// Method to handle our events from outside of action service
-    ///
-    /// - Parameters:
-    ///   - events: Event to handle
-    func receivelocalEvents(_ events: [LocalEvent]) {
-        EventsBunch(objectId: documentId, localEvents: events).send()
-    }
 
     // MARK: Actions/Add
 
@@ -47,14 +39,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         event.send()
     }
 
-    func split(
-        info: BlockInformation,
-        oldText: String,
-        newBlockContentType: BlockText.Style
-    ) {
+    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style) {
         let blockId = info.id
-        // We are using old text as a cursor position.
-        let position = oldText.count
 
         let content = info.content
         guard case let .text(blockText) = content else {
@@ -116,17 +102,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         return newBlockId
     }
 
-    func turnInto(blockId: BlockId, type: BlockContentType) {
-        switch type {
-        case .text(let style):
-            textService.setStyle(contextId: documentId, blockId: blockId, style: style)
-        case .smartblock:
-            anytypeAssertionFailure("Use turnIntoPage action instead")
-            _ = turnIntoPage(blockId: blockId)
-        case .divider(let style): setDividerStyle(blockId: blockId, style: style)
-        case .bookmark, .file, .layout, .link, .featuredRelations:
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        }
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        textService.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {

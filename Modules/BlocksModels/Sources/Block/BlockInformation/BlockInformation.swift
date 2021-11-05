@@ -30,9 +30,9 @@ public struct BlockInformation: Hashable {
     }
 }
 
-extension BlockInformation {
-    public static func createNew(content: BlockContent) -> BlockInformation {
-        BlockInformation(
+public extension BlockInformation {
+    init(content: BlockContent) {
+        self.init(
             id: BlockId(""),
             content: content,
             backgroundColor: nil,
@@ -42,7 +42,7 @@ extension BlockInformation {
         )
     }
     
-    public func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
+    func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
         BlockInformation(
             id: id,
             content: content,
@@ -53,7 +53,7 @@ extension BlockInformation {
         )
     }
     
-    public func updated(with fields: BlockFields) -> BlockInformation {
+    func updated(with fields: BlockFields) -> BlockInformation {
         BlockInformation(
             id: id,
             content: content,
@@ -64,8 +64,8 @@ extension BlockInformation {
         )
     }
     
-    public func updated(with alignment: LayoutAlignment) -> BlockInformation {
-        return BlockInformation(
+    func updated(with alignment: LayoutAlignment) -> BlockInformation {
+        BlockInformation(
             id: id,
             content: content,
             backgroundColor: backgroundColor,

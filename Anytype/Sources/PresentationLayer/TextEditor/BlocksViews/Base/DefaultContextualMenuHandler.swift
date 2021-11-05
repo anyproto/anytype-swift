@@ -17,11 +17,11 @@ final class DefaultContextualMenuHandler {
         case .addBlockBelow:
             handler.handleAction(.addBlock(.text(.text)), blockId: info.id)
         case .delete:
-            handler.handleAction(.delete, blockId: info.id)
+            handler.delete(blockId: info.id)
         case .duplicate:
-            handler.handleAction(.duplicate, blockId: info.id)
+            handler.duplicate(blockId: info.id)
         case .turnIntoPage:
-            handler.handleAction(.turnIntoBlock(.smartblock(.page)), blockId: info.id)
+            handler.turnIntoPage(blockId: info.id)
         case .style:
             router.showStyleMenu(information: info)
         case .download,.replace:

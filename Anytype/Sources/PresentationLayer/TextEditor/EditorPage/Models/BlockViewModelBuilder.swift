@@ -54,15 +54,11 @@ final class BlockViewModelBuilder {
                     },
                     showCodeSelection: { [weak self] block in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
-                            guard let contextId = block.container?.rootId else { return }
                             let fields = BlockFields(
                                 blockId: block.information.id,
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
-                            self?.handler.handleAction(
-                                .setFields(contextID: contextId, fields: [fields]),
-                                blockId: block.information.id
-                            )
+                            self?.handler.setFields([fields], blockId: block.information.id)
                         }
                     }
                 )
@@ -251,10 +247,7 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
             
-            self.handler.handleAction(
-                .fetch(url: url),
-                blockId: info.id
-            )
+            self.handler.fetch(url: url, blockId: info.id)
         }
     }
     
