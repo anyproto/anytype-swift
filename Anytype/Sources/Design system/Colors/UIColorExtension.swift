@@ -11,13 +11,13 @@ extension UIColor {
     static let divider = color(name: ColorName.divider)
     static let dividerSecondary = color(name: ColorName.dividerSecondary)
     
-    static let buttonActive = color(name: ColorName.grayscale50)
+    static let buttonActive = UIColor.grayscale50
     static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
 
     // MARK: - Color for background
 
-    static let backgroundPrimary = color(name: ColorName.grayscaleWhite)
+    static let backgroundPrimary = UIColor.grayscaleWhite
 
     static var selected: UIColor {
         .init(hexString: "#867D42", alpha: 0.1)

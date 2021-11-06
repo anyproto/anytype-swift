@@ -3,7 +3,7 @@ import SwiftUI
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=3681%3A1219
 extension Color {
     
-    static let background = Color(ColorName.grayscaleWhite)
+    static let background = Color.grayscaleWhite
     
     static let divider = Color(ColorName.divider)
     static let dividerSecondary = Color(ColorName.dividerSecondary)
@@ -18,7 +18,7 @@ extension Color {
     static let buttonSecondaryBorder = stroke
     static let buttonSecondaryText = textPrimary
     
-    static let buttonActive = Color(ColorName.grayscale50)
+    static let buttonActive = Color.grayscale50
     static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
     
