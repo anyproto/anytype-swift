@@ -36,7 +36,7 @@ enum RelationValueConverter {
 
         guard let option = option else { return nil }
         
-        let anytypeColor: AnytypeColor? = BundledColors.colors.first {
+        let anytypeColor: CoverColor? = BundledColors.colors.first {
             $0.name == option.color
         }
 

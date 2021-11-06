@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AnytypeGradient: Identifiable, Codable, Equatable {
+struct CoverGradient: Identifiable, Codable, Equatable {
     let name: String
     
     let startHex: String
@@ -11,7 +11,7 @@ struct AnytypeGradient: Identifiable, Codable, Equatable {
     }
 }
 
-extension AnytypeGradient {
+extension CoverGradient {
     
     func asLinearGradient() -> some View {
         LinearGradient(
