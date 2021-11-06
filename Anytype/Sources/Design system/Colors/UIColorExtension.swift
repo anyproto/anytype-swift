@@ -14,14 +14,6 @@ extension UIColor {
     static let buttonActive = color(name: ColorName.grayscale50)
     static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
-    
-    // MARK: - Color palette
-    
-    static let grayscale90 = color(name: ColorName.grayscale90)
-    static let grayscale70 = color(name: ColorName.grayscale70)
-    static let grayscale50 = color(name: ColorName.grayscale50)
-    static let grayscale30 = color(name: ColorName.grayscale30)
-    static let grayscale10 = color(name: ColorName.grayscale10)
 
     // MARK: - Color for background
 
@@ -90,5 +82,14 @@ extension UIColor: AnytypeColorProtocol {
     static let textPrimary: UIColor = AnytypeColor.textPrimary.asUIColor
     static let textSecondary: UIColor = AnytypeColor.textSecondary.asUIColor
     static let textTertiary: UIColor = AnytypeColor.textTertiary.asUIColor
+    
+    // MARK: - Grayscale
+    
+    static let grayscaleWhite: UIColor = AnytypeColor.grayscaleWhite.asUIColor
+    static let grayscale90: UIColor = AnytypeColor.grayscale90.asUIColor
+    static let grayscale70: UIColor = AnytypeColor.grayscale70.asUIColor
+    static let grayscale50: UIColor = AnytypeColor.grayscale50.asUIColor
+    static let grayscale30: UIColor = AnytypeColor.grayscale30.asUIColor
+    static let grayscale10: UIColor = AnytypeColor.grayscale10.asUIColor
     
 }
