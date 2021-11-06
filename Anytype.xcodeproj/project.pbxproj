@@ -214,6 +214,7 @@
 		127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB62735254500C731F2 /* StatusRelationView.swift */; };
 		127EABBC27352D4100C731F2 /* StatusRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABBB27352D4100C731F2 /* StatusRelation.swift */; };
 		127EABD72737413900C731F2 /* AnytypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD62737413900C731F2 /* AnytypeColor.swift */; };
+		127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */; };
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
 		1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */; };
 		1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */; };
@@ -951,6 +952,7 @@
 		127EABB62735254500C731F2 /* StatusRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationView.swift; sourceTree = "<group>"; };
 		127EABBB27352D4100C731F2 /* StatusRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelation.swift; sourceTree = "<group>"; };
 		127EABD62737413900C731F2 /* AnytypeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColor.swift; sourceTree = "<group>"; };
+		127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorProtocol.swift; sourceTree = "<group>"; };
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGuideline.swift; path = Anytype/Sources/Utilities/Images/ImageGuideline.swift; sourceTree = SOURCE_ROOT; };
 		1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCornersGuideline.swift; path = Anytype/Sources/Utilities/Images/ImageCornersGuideline.swift; sourceTree = SOURCE_ROOT; };
@@ -4026,6 +4028,7 @@
 				127EABB22735204E00C731F2 /* BundledColors.swift */,
 				127EABB42735207900C731F2 /* BundledGradients.swift */,
 				127EABD62737413900C731F2 /* AnytypeColor.swift */,
+				127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -4766,6 +4769,7 @@
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
+				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
