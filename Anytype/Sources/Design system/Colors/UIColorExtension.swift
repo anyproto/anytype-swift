@@ -6,10 +6,6 @@ extension UIColor {
         .init(red: 255.0/255.0, green: 181.0/255.0, blue: 34.0/255.0, alpha: 1)
     }
     
-    static let textPrimary = color(name: ColorName.textPrimary)
-    static let textSecondary = color(name: ColorName.textSecondary)
-    static let textTertiary = color(name: ColorName.textTertiary)
-    
     static let stroke = color(name: ColorName.stroke)
     
     static let divider = color(name: ColorName.divider)
@@ -25,58 +21,11 @@ extension UIColor {
     static let grayscale70 = color(name: ColorName.grayscale70)
     static let grayscale50 = color(name: ColorName.grayscale50)
     static let grayscale30 = color(name: ColorName.grayscale30)
-    static let grayscale10 = color(name: ColorName.grayscale10)    
-    
-    static let pureAmber = color(name: ColorName.pureAmber)
-    static let pureLemon = color(name: ColorName.pureLemon)
-    static let pureRed = color(name: ColorName.pureRed)
-    static let purePink = color(name: ColorName.purePink)
-    static let purePurple = color(name: ColorName.purePurple)
-    static let pureUltramarine = color(name: ColorName.pureUltramarine)
-    static let pureBlue = color(name: ColorName.pureBlue)
-    static let pureTeal = color(name: ColorName.pureTeal)
-    static let pureGreen = color(name: ColorName.pureGreen)
-    
-    static let darkGray = color(name: ColorName.darkColdGray)
-    static let lightGray = color(name: ColorName.lightColdGray)
+    static let grayscale10 = color(name: ColorName.grayscale10)
 
     // MARK: - Color for background
 
     static let backgroundPrimary = color(name: ColorName.grayscaleWhite)
-
-    static var lightLemon: UIColor {
-        .init(hexString: "#FEF9CC")
-    }
-
-    static var lightAmber: UIColor {
-        .init(hexString: "#FEF3C5")
-    }
-
-    static var lightRed: UIColor {
-        .init(hexString: "#FFEBE5")
-    }
-
-    static var lightPink: UIColor {
-        .init(hexString: "#FEE3F5")
-    }
-
-    static var lightPurple: UIColor {
-        .init(hexString: "#F4E3FA")
-    }
-
-    static var lightUltramarine: UIColor {
-        .init(hexString: "#E4E7FC")
-    }
-
-    static let lightBlue = color(name: ColorName.lightBlue)
-
-    static var lightTeal: UIColor {
-        .init(hexString: "#D6F5F3")
-    }
-
-    static var lightGreen: UIColor {
-        .init(hexString: "#E3F7D0")
-    }
 
     static var selected: UIColor {
         .init(hexString: "#867D42", alpha: 0.1)
@@ -93,4 +42,53 @@ extension UIColor {
         
         return color
     }
+}
+
+extension UIColor: AnytypeColorProtocol {
+    
+    // MARK: - Pure colors
+
+    static let pureLemon: UIColor = AnytypeColor.pureLemon.asUIColor
+    static let pureAmber: UIColor = AnytypeColor.pureAmber.asUIColor
+    static let pureRed: UIColor = AnytypeColor.pureRed.asUIColor
+    static let purePink: UIColor = AnytypeColor.purePink.asUIColor
+    static let purePurple: UIColor = AnytypeColor.purePurple.asUIColor
+    static let pureUltramarine: UIColor =  AnytypeColor.pureUltramarine.asUIColor
+    static let pureBlue: UIColor = AnytypeColor.pureBlue.asUIColor
+    static let pureTeal: UIColor = AnytypeColor.pureTeal.asUIColor
+    static let pureGreen: UIColor = AnytypeColor.pureGreen.asUIColor
+    
+    // MARK: - Dark colors
+    
+    static let darkLemon: UIColor = AnytypeColor.darkLemon.asUIColor
+    static let darkAmber: UIColor = AnytypeColor.darkAmber.asUIColor
+    static let darkRed: UIColor = AnytypeColor.darkRed.asUIColor
+    static let darkPink: UIColor =  AnytypeColor.darkPink.asUIColor
+    static let darkPurple: UIColor =  AnytypeColor.darkPurple.asUIColor
+    static let darkUltramarine: UIColor = AnytypeColor.darkUltramarine.asUIColor
+    static let darkBlue: UIColor = AnytypeColor.darkBlue.asUIColor
+    static let darkTeal: UIColor = AnytypeColor.darkTeal.asUIColor
+    static let darkGreen: UIColor = AnytypeColor.darkGreen.asUIColor
+    static let darkColdGray: UIColor =  AnytypeColor.darkColdGray.asUIColor
+    
+    
+    // MARK: - Light colors
+    
+    static let lightLemon: UIColor = AnytypeColor.lightLemon.asUIColor
+    static let lightAmber: UIColor = AnytypeColor.lightAmber.asUIColor
+    static let lightRed: UIColor = AnytypeColor.lightRed.asUIColor
+    static let lightPink: UIColor = AnytypeColor.lightPink.asUIColor
+    static let lightPurple: UIColor =  AnytypeColor.lightPurple.asUIColor
+    static let lightUltramarine: UIColor = AnytypeColor.lightUltramarine.asUIColor
+    static let lightBlue: UIColor = AnytypeColor.lightBlue.asUIColor
+    static let lightTeal: UIColor = AnytypeColor.lightTeal.asUIColor
+    static let lightGreen: UIColor = AnytypeColor.lightGreen.asUIColor
+    static let lightColdGray: UIColor = AnytypeColor.lightColdGray.asUIColor
+    
+    // MARK: - Text colors
+    
+    static let textPrimary: UIColor = AnytypeColor.textPrimary.asUIColor
+    static let textSecondary: UIColor = AnytypeColor.textSecondary.asUIColor
+    static let textTertiary: UIColor = AnytypeColor.textTertiary.asUIColor
+    
 }
