@@ -25,7 +25,7 @@ struct CoverColorsGridView: View {
     
     private var colorsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Solid colors".localized)) {
-            ForEach(BundledColors.colors) { color in
+            ForEach(CoverConstants.colors) { color in
                 Color(hex: color.hex)
                     .cornerRadius(4)
                     .frame(height: 112)
@@ -38,7 +38,7 @@ struct CoverColorsGridView: View {
     
     private var gradientsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Gradients".localized)) {
-            ForEach(BundledGradients.gradients) { gradient in
+            ForEach(CoverConstants.gradients) { gradient in
                 gradient.asLinearGradient()
                 .cornerRadius(4)
                 .frame(height: 112)

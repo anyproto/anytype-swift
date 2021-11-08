@@ -50,11 +50,11 @@ extension RelationValuesProvider {
         case .uploadedImage:
             return DocumentCover.imageId(coverId)
         case .color:
-            return BundledColors.colors.first { $0.name == coverId }.flatMap {
+            return CoverConstants.colors.first { $0.name == coverId }.flatMap {
                 DocumentCover.color(UIColor(hexString: $0.hex))
             }
         case .gradient:
-            return BundledGradients.gradients.first { $0.name == coverId }.flatMap {
+            return CoverConstants.gradients.first { $0.name == coverId }.flatMap {
                 DocumentCover.gradient(
                     GradientColor(
                         start: UIColor(hexString: $0.startHex),
