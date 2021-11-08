@@ -68,4 +68,8 @@ enum RelationValueConverter {
         return tags
     }
     
+    static func object(from value: Google_Protobuf_Value?) -> ObjectRelation? {
+        return nil
+    }
+    
 }

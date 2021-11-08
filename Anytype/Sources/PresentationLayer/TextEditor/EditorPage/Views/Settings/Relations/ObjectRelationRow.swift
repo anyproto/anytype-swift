@@ -93,7 +93,10 @@ struct ObjectRelationRow: View {
                     hint: hint
                 )
             case .object:
-                EmptyView()
+                ObjectRelationView(
+                    value: RelationValueConverter.object(from: relationEntity.value, selections: relationEntity.relation.selections),
+                    hint: hint
+                )
             case .unrecognized:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,

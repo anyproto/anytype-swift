@@ -217,6 +217,8 @@
 		127EABF22739391600C731F2 /* MiddlewareColor+RelationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */; };
 		127EABF42739440200C731F2 /* TagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF32739440200C731F2 /* TagRelationView.swift */; };
 		127EABF6273944DA00C731F2 /* TagRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF5273944DA00C731F2 /* TagRelation.swift */; };
+		127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF82739587400C731F2 /* ObjectRelationView.swift */; };
+		127EABFB2739588A00C731F2 /* ObjectRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABFA2739588A00C731F2 /* ObjectRelation.swift */; };
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
 		1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */; };
 		1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */; };
@@ -957,6 +959,8 @@
 		127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareColor+RelationExtensions.swift"; sourceTree = "<group>"; };
 		127EABF32739440200C731F2 /* TagRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationView.swift; sourceTree = "<group>"; };
 		127EABF5273944DA00C731F2 /* TagRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelation.swift; sourceTree = "<group>"; };
+		127EABF82739587400C731F2 /* ObjectRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationView.swift; sourceTree = "<group>"; };
+		127EABFA2739588A00C731F2 /* ObjectRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelation.swift; sourceTree = "<group>"; };
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGuideline.swift; path = Anytype/Sources/Utilities/Images/ImageGuideline.swift; sourceTree = SOURCE_ROOT; };
 		1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCornersGuideline.swift; path = Anytype/Sources/Utilities/Images/ImageCornersGuideline.swift; sourceTree = SOURCE_ROOT; };
@@ -2576,6 +2580,8 @@
 				1289F5A32733C50500656EC2 /* TextRelationView.swift */,
 				127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */,
 				127EABF7273944E300C731F2 /* TagRelationView */,
+				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
+				127EABFA2739588A00C731F2 /* ObjectRelation.swift */,
 			);
 			path = ValueViews;
 			sourceTree = "<group>";
@@ -5086,6 +5092,7 @@
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				3D6E9A43270F2CCC001B0A07 /* BrowserPage.swift in Sources */,
+				127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventsListenerUpdate.swift in Sources */,
 				3D44984526D53D61005A3E06 /* EditorPageViewModelProtocol.swift in Sources */,
 				12A7B6BE26C3E47200544037 /* IconEmoji.swift in Sources */,
@@ -5262,6 +5269,7 @@
 				12C8441926FE294200D64B8D /* ObjectHeaderEmptyData.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
+				127EABFB2739588A00C731F2 /* ObjectRelation.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,
 				530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */,
