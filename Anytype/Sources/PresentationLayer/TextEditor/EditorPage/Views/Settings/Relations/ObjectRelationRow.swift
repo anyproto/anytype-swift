@@ -94,8 +94,6 @@ struct ObjectRelationRow: View {
                 )
             case .object:
                 EmptyView()
-            case .relations:
-                EmptyView()
             case .unrecognized:
                 TextRelationView(
                     value: relationEntity.value?.stringValue,
