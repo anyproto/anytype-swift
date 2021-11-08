@@ -4,6 +4,6 @@ import SwiftUI
 struct StatusRelation: Hashable {
     
     let text: String
-    let color: Color
+    let color: AnytypeColor
     
 }

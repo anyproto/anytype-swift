@@ -1,19 +1,6 @@
-enum MiddlewareRelationColor: String {
-    
-    case yellow
-    case orange
-    case red
-    case pink
-    case purple
-    case blue
-    case ice
-    case teal
-    case green
-    case grey
-    
-}
+import BlocksModels
 
-extension MiddlewareRelationColor {
+extension MiddlewareColor {
     
     var asDarkColor: AnytypeColor {
         switch self {
@@ -25,8 +12,9 @@ extension MiddlewareRelationColor {
         case .blue: return .darkUltramarine
         case .ice: return .darkBlue
         case .teal: return .darkTeal
-        case .green: return .darkGreen
+        case .lime: return .darkGreen
         case .grey: return .darkColdGray
+        case .`default`: return .grayscale90
         }
     }
     
@@ -40,8 +28,9 @@ extension MiddlewareRelationColor {
         case .blue: return .lightUltramarine
         case .ice: return .lightBlue
         case .teal: return .lightTeal
-        case .green: return .lightGreen
+        case .lime: return .lightGreen
         case .grey: return .lightColdGray
+        case .`default`: return .grayscaleWhite
         }
     }
     
