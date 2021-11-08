@@ -36,13 +36,12 @@ enum RelationValueConverter {
 
         guard let option = option else { return nil }
         
-        let anytypeColor: CoverColor? = CoverConstants.colors.first {
-            $0.name == option.color
-        }
+        let middlewareColor = MiddlewareColor(rawValue: option.color)
+        let anytypeColor: AnytypeColor = middlewareColor?.asDarkColor ?? .grayscale90
 
         return StatusRelation(
             text: option.text,
-            color: anytypeColor.flatMap { Color(hex: $0.hex) } ?? Color.textPrimary
+            color: anytypeColor
         )
     }
     

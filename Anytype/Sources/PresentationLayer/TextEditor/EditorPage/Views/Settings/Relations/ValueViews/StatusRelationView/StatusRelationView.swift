@@ -15,7 +15,7 @@ struct StatusRelationView: View {
     
     var body: some View {
         if let value = value {
-            AnytypeText(value.text, style: .relation1Regular, color: value.color)
+            AnytypeText(value.text, style: .relation1Regular, color: value.color.asColor)
                 .lineLimit(1)
         } else {
             AnytypeText(hint, style: .callout, color: .textTertiary)
