@@ -19,7 +19,7 @@ struct ObjectRelationView: View {
     }
     
     private func objectView(objectRelation: ObjectRelation) -> some View {
-        HStack(spacing: 3) {
+        HStack(spacing: 6) {
             SwiftUIObjectIconImageView(
                 iconImage: objectRelation.icon,
                 usecase: .mention(.body)
