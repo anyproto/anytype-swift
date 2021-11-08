@@ -85,7 +85,13 @@ struct ObjectRelationRow: View {
                     hint: hint
                 )
             case .tag:
-                EmptyView()
+                TagRelationView(
+                    value: RelationValueConverter.tags(
+                        from: relationEntity.value,
+                        selections: relationEntity.relation.selections
+                    ),
+                    hint: hint
+                )
             case .object:
                 EmptyView()
             case .relations:
