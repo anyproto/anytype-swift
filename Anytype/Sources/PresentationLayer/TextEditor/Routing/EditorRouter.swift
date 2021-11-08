@@ -202,7 +202,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
         
-        presentSwuftUIView(view: moveToView)
+        presentSwuftUIView(view: moveToView, model: viewModel)
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
@@ -211,7 +211,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
 
-        presentSwuftUIView(view: linkToView)
+        presentSwuftUIView(view: linkToView, model: viewModel)
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
@@ -220,7 +220,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
         
-        presentSwuftUIView(view: linkToView)
+        presentSwuftUIView(view: linkToView, model: viewModel)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
@@ -229,7 +229,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let searchView = SearchView(title: nil, viewModel: viewModel)
         
-        presentSwuftUIView(view: searchView)
+        presentSwuftUIView(view: searchView, model: viewModel)
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
@@ -239,17 +239,18 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
 
-        presentSwuftUIView(view: searchView)
+        presentSwuftUIView(view: searchView, model: viewModel)
     }
     
     func goBack() {
         rootController?.pop()
     }
     
-    private func presentSwuftUIView<Content: View>(view: Content) {
+    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
+        model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.present(controller, animated: true)
     }
     

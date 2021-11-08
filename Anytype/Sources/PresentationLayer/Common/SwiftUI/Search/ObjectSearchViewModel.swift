@@ -32,6 +32,7 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     }
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     var onSelect: (SearchDataType.SearchResult) -> ()
+    var onDismiss: () -> () = {}
 
     func search(text: String) {
         let result: [SearchData]? = {
@@ -52,8 +53,10 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
         searchData = [SearchDataSection(searchData: objectsSearchData ?? [], sectionName: "")]
     }
 
-    init(searchKind: SearchKind,
-         onSelect: @escaping (SearchDataType.SearchResult) -> ()) {
+    init(
+        searchKind: SearchKind,
+        onSelect: @escaping (SearchDataType.SearchResult) -> ()
+    ) {
         self.searchKind = searchKind
         self.onSelect = onSelect
     }
