@@ -6,7 +6,6 @@ public protocol BlockModelProtocol {
     var information: BlockInformation { get set }
     init(information: BlockInformation)
 
-    var container: BlockContainerModelProtocol? { get set }
     var parent: BlockModelProtocol? { get set }
     var kind: BlockKind { get }
 

@@ -105,11 +105,7 @@ final class BaseDocument: BaseDocumentProtocol {
             )
         }
 
-        TreeBlockBuilder.buildBlocksTree(
-            from: parsedBlocks,
-            with: rootId,
-            in: blocksContainer
-        )
+        TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: rootId, in: blocksContainer)
 
         parsedDetails.forEach {
             detailsStorage.add(details: $0, id: $0.id)
