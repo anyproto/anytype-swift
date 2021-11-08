@@ -1,4 +1,4 @@
-struct AnytypeColor: Identifiable, Codable, Equatable {
+struct CoverColor: Identifiable, Codable, Equatable {
     let name: String
     
     let hex: String
