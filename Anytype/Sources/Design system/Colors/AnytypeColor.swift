@@ -49,6 +49,15 @@ enum AnytypeColor: String {
     case textSecondary
     case textTertiary
     
+    // MARK: - Grayscale
+    
+    case grayscaleWhite
+    case grayscale90
+    case grayscale70
+    case grayscale50
+    case grayscale30
+    case grayscale10
+    
 }
 
 extension AnytypeColor {
@@ -56,8 +65,7 @@ extension AnytypeColor {
     var asUIColor: UIColor {
         guard let color = UIColor(named: self.rawValue) else {
             anytypeAssertionFailure("No color named: \(self.rawValue)")
-            // TODO: - change
-            return .red
+            return .grayscale90
         }
         
         return color

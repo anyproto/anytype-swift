@@ -47,4 +47,13 @@ protocol AnytypeColorProtocol {
     static var textSecondary: T { get }
     static var textTertiary: T { get }
     
+    // MARK: - Grayscale
+    
+    static var grayscaleWhite: T { get }
+    static var grayscale90: T { get }
+    static var grayscale70: T { get }
+    static var grayscale50: T { get }
+    static var grayscale30: T { get }
+    static var grayscale10: T { get }
+    
 }

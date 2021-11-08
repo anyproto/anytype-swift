@@ -3,7 +3,7 @@ import SwiftUI
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=3681%3A1219
 extension Color {
     
-    static let background = Color(ColorName.grayscaleWhite)
+    static let background = Color.grayscaleWhite
     
     static let divider = Color(ColorName.divider)
     static let dividerSecondary = Color(ColorName.dividerSecondary)
@@ -18,18 +18,12 @@ extension Color {
     static let buttonSecondaryBorder = stroke
     static let buttonSecondaryText = textPrimary
     
-    static let buttonActive = Color(ColorName.grayscale50)
+    static let buttonActive = Color.grayscale50
     static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
     
     static let toastBackground = Color("toastBackground")
     
-    // MARK: - Color palette
-    
-    static let grayscale10 = Color(ColorName.grayscale10)
-    static let grayscale30 = Color(ColorName.grayscale30)
-    static let grayscale50 = Color(ColorName.grayscale50)
-    static let grayscaleWhite = Color(ColorName.grayscaleWhite)
 }
 
 extension Color: AnytypeColorProtocol {
@@ -78,5 +72,14 @@ extension Color: AnytypeColorProtocol {
     static let textPrimary: Color = AnytypeColor.textPrimary.asColor
     static let textSecondary: Color = AnytypeColor.textSecondary.asColor
     static let textTertiary: Color = AnytypeColor.textTertiary.asColor
+    
+    // MARK: - Grayscale
+    
+    static let grayscaleWhite: Color = AnytypeColor.grayscaleWhite.asColor
+    static let grayscale90: Color = AnytypeColor.grayscale90.asColor
+    static let grayscale70: Color = AnytypeColor.grayscale70.asColor
+    static let grayscale50: Color = AnytypeColor.grayscale50.asColor
+    static let grayscale30: Color = AnytypeColor.grayscale30.asColor
+    static let grayscale10: Color = AnytypeColor.grayscale10.asColor
     
 }
