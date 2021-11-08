@@ -40,6 +40,7 @@ final class EditorPageAssembly {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectId: document.objectId,
+            detailsStorage: document.detailsStorage,
             objectDetailsService: ObjectDetailsService(
                 objectId: document.objectId
             ),
