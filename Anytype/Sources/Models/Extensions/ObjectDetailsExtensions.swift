@@ -34,9 +34,7 @@ extension RelationValuesProvider {
             return ObjectIconType.Profile.imageId(iconImageHash.value)
         }
         
-        return (self.name.isEmpty ? "Untitled".localized : self.name).first.flatMap {
-            ObjectIconType.Profile.character($0)
-        }
+        return title.first.flatMap { ObjectIconType.Profile.character($0) }
     }
     
     // MARK: - Cover
@@ -77,10 +75,10 @@ extension RelationValuesProvider {
         return nil
     }
     
-    var objectType: ObjectType? {
+    var objectType: ObjectType {
         let type = ObjectTypeProvider.objectType(url: type)
         anytypeAssert(type != nil, "Cannot parse type :\(String(describing: type)))")
-        return type
+        return type ?? ObjectTypeProvider.defaultObjectType
     }
     
 }
