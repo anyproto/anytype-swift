@@ -99,7 +99,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
 
     init(searchData: SearchData) {
         self.searchResult = .object(searchData.id)
-        self.searchTitle = searchData.name.isEmpty ? "Untitled".localized : searchData.name
+        self.searchTitle = searchData.title
         self.description = searchData.description
 
         let layout = searchData.layout
@@ -109,11 +109,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
             self.iconImage = searchData.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
         }
 
-        if case searchData.type = searchData.objectType?.name, !searchData.type.isEmpty {
-            callout = searchData.type
-        } else {
-            callout = "Page".localized
-        }
+        callout = searchData.objectType.name
     }
 
     init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {
