@@ -26,7 +26,7 @@ struct MentionObject {
         self.init(
             id: searchResult.id,
             objectIcon: searchResult.objectIcon,
-            name: searchResult.mentionName,
+            name: searchResult.title,
             description: searchResult.description,
             type: searchResult.objectType
         )
@@ -52,11 +52,7 @@ private extension SearchData {
             return objectIcon
         }
         
-        return .placeholder(mentionName.first)
-    }
-    
-    var mentionName: String {
-        return name.isEmpty ? "Untitled".localized : name
+        return .placeholder(title.first)
     }
     
 }

@@ -127,9 +127,8 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let container = document.blocksContainer.model(id: document.objectId)?.container,
               let rootController = rootController,
-              let blockModel = container.model(id: information.id) else { return }
+              let blockModel = document.blocksContainer.model(id: information.id) else { return }
 
         controller.view.endEditing(true)
 
