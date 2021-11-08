@@ -30,7 +30,10 @@ struct ObjectRelationsView: View {
                 )
             ) {
                 ForEach(viewModel.relationEntities) { relationEntity in
-                    ObjectRelationRow(relationEntity: relationEntity)
+                    ObjectRelationRow(
+                        detailsStorage: viewModel.detailsStorage,
+                        relationEntity: relationEntity
+                    )
                 }
             }
         }

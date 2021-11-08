@@ -11,6 +11,7 @@ import BlocksModels
 
 struct ObjectRelationRow: View {
     
+    let detailsStorage: ObjectDetailsStorageProtocol
     let relationEntity: RelationEntity
     
     var body: some View {
@@ -94,7 +95,10 @@ struct ObjectRelationRow: View {
                 )
             case .object:
                 ObjectRelationView(
-                    value: RelationValueConverter.object(from: relationEntity.value),
+                    value: RelationValueConverter.object(
+                        from: relationEntity.value,
+                        detailsStorage: detailsStorage
+                    ),
                     hint: hint
                 )
             case .unrecognized:
@@ -110,6 +114,7 @@ struct ObjectRelationRow: View {
 struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationRow(
+            detailsStorage: ObjectDetailsStorage(),
             relationEntity: RelationEntity(
                 relation: Relation(
                     key: "key",

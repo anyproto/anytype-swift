@@ -24,6 +24,8 @@ struct ObjectRelationView: View {
                 iconImage: objectRelation.icon,
                 usecase: .mention(.body)
             )
+                .frame(width: 20, height: 20)
+            
             AnytypeText(
                 objectRelation.text,
                 style: .relation1Regular,

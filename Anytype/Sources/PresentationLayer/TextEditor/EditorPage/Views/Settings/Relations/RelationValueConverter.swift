@@ -68,8 +68,27 @@ enum RelationValueConverter {
         return tags
     }
     
-    static func object(from value: Google_Protobuf_Value?) -> ObjectRelation? {
-        return nil
+    static func object(from value: Google_Protobuf_Value?, detailsStorage: ObjectDetailsStorageProtocol) -> ObjectRelation? {
+        guard
+            let objectId = value?.unwrapedListValue.stringValue,
+            objectId.isNotEmpty,
+            let objectDetails = detailsStorage.get(id: objectId)
+        else { return nil }
+        
+        let name = objectDetails.name
+        let icon: ObjectIconImage = {
+            if let objectIcon = objectDetails.objectIconImage {
+                return objectIcon
+            }
+            
+            return .placeholder(name.first)
+        }()
+        
+        return ObjectRelation(
+            icon: icon,
+            text: name
+        )
+        
     }
     
 }
