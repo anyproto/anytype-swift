@@ -209,8 +209,7 @@
 		1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9626DA85E900B2D443 /* GradientPoint.swift */; };
 		127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE7402656CE770047A99A /* MediaPickerViewModel.swift */; };
 		127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */; };
-		127EABB32735204E00C731F2 /* BundledColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB22735204E00C731F2 /* BundledColors.swift */; };
-		127EABB52735207900C731F2 /* BundledGradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB42735207900C731F2 /* BundledGradients.swift */; };
+		127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB22735204E00C731F2 /* CoverConstants.swift */; };
 		127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB62735254500C731F2 /* StatusRelationView.swift */; };
 		127EABBC27352D4100C731F2 /* StatusRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABBB27352D4100C731F2 /* StatusRelation.swift */; };
 		127EABD72737413900C731F2 /* AnytypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD62737413900C731F2 /* AnytypeColor.swift */; };
@@ -947,8 +946,7 @@
 		1270CE9626DA85E900B2D443 /* GradientPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPoint.swift; sourceTree = "<group>"; };
 		127DE7402656CE770047A99A /* MediaPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaPickerViewModel.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Pickers/MediaPicker/MediaPickerViewModel.swift; sourceTree = SOURCE_ROOT; };
 		127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxRelationView.swift; sourceTree = "<group>"; };
-		127EABB22735204E00C731F2 /* BundledColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledColors.swift; sourceTree = "<group>"; };
-		127EABB42735207900C731F2 /* BundledGradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledGradients.swift; sourceTree = "<group>"; };
+		127EABB22735204E00C731F2 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
 		127EABB62735254500C731F2 /* StatusRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationView.swift; sourceTree = "<group>"; };
 		127EABBB27352D4100C731F2 /* StatusRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelation.swift; sourceTree = "<group>"; };
 		127EABD62737413900C731F2 /* AnytypeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColor.swift; sourceTree = "<group>"; };
@@ -2663,6 +2661,7 @@
 		12C8441226FE01AF00D64B8D /* Cover */ = {
 			isa = PBXGroup;
 			children = (
+				127EABB22735204E00C731F2 /* CoverConstants.swift */,
 				12A7B6B926C3E47200544037 /* DocumentCover.swift */,
 				3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */,
 			);
@@ -4025,8 +4024,6 @@
 				03CB3F09230C2464003D5DFD /* UIColorExtension.swift */,
 				0ACA781B23E5C9A300442690 /* ColorExtension.swift */,
 				039F6D79239591C80097560A /* Gradients.swift */,
-				127EABB22735204E00C731F2 /* BundledColors.swift */,
-				127EABB42735207900C731F2 /* BundledGradients.swift */,
 				127EABD62737413900C731F2 /* AnytypeColor.swift */,
 				127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */,
 			);
@@ -4961,7 +4958,7 @@
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
 				3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */,
 				3D5A415F2703132800F1F6A1 /* SlashActionAlignment.swift in Sources */,
-				127EABB32735204E00C731F2 /* BundledColors.swift in Sources */,
+				127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */,
@@ -5089,7 +5086,6 @@
 				0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				3D16840926DD671D008B9DFF /* BlockInformationConverter.swift in Sources */,
-				127EABB52735207900C731F2 /* BundledGradients.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */,
 				12C8440726FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift in Sources */,
 				12CAF34C26D643F7001E56B2 /* EmojiIconImageGuideline.swift in Sources */,
