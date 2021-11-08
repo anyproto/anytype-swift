@@ -26,4 +26,8 @@ extension RelationValuesProvider {
 
         return title.isEmpty ? "Untitled".localized : title
     }
+    
+    var mentionTitle: String {
+        String(title.prefix(30))
+    }
 }

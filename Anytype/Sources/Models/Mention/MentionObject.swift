@@ -26,7 +26,7 @@ struct MentionObject {
         self.init(
             id: searchResult.id,
             objectIcon: searchResult.objectIcon,
-            name: searchResult.title,
+            name: searchResult.mentionTitle,
             description: searchResult.description,
             type: searchResult.objectType
         )
