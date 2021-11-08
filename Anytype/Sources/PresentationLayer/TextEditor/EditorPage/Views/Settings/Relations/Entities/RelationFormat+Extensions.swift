@@ -29,7 +29,7 @@ extension Relation.Format {
             return "Enter phone".localized
         case .status:
             return "Select status".localized
-        case .file, .checkbox, .tag , .object, .relations, .unrecognized:
+        case .file, .checkbox, .tag , .object, .unrecognized:
             return "Enter value".localized
         }
     }
