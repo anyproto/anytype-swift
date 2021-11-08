@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 struct StatusRelation: Hashable {
     

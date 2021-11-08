@@ -45,4 +45,27 @@ enum RelationValueConverter {
         )
     }
     
+    static func tags(from value: Google_Protobuf_Value?, selections: [Relation.Option]) -> [TagRelation] {
+        guard let value = value else { return [] }
+
+        let selectedTagIds: [String] = value.listValue.values.compactMap {
+            let tagId = $0.stringValue
+            return tagId.isEmpty ? nil : tagId
+        }
+        
+        let options: [Relation.Option] = selections.filter {
+            selectedTagIds.contains($0.id)
+        }
+        
+        let tags: [TagRelation] = options.map {
+            TagRelation(
+                text: $0.text,
+                textColor: MiddlewareColor(rawValue: $0.color)?.asDarkColor ?? .grayscale90,
+                backgroundColor: MiddlewareColor(rawValue: $0.color)?.asLightColor ?? .grayscaleWhite
+            )
+        }
+        
+        return tags
+    }
+    
 }
