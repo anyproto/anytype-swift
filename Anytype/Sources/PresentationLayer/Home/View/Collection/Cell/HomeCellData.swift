@@ -21,7 +21,7 @@ struct HomeCellData: Identifiable {
             destinationId: searchResult.id,
             icon: searchResult.icon,
             title: searchResult.pageCellTitle,
-            type: searchResult.objectType?.name ?? "Page".localized,
+            type: searchResult.objectType.name,
             isLoading: false,
             isArchived: searchResult.isArchived,
             isDeleted: searchResult.isDeleted,

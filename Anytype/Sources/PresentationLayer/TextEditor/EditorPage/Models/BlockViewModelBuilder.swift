@@ -185,10 +185,7 @@ final class BlockViewModelBuilder {
             )
         case .smartblock, .layout: return nil
         case .featuredRelations:
-            guard
-                let objectDetails = document.objectDetails,
-                let objectType = objectDetails.objectType
-            else { return nil }
+            guard let objectType = document.objectDetails?.objectType else { return nil }
             
             return FeaturedRelationsBlockViewModel(
                 information: block.information,

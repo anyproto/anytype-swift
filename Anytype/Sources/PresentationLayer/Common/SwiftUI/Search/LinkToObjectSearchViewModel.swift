@@ -1,11 +1,3 @@
-//
-//  LinkToObjectSearchViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 29.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 import BlocksModels
 
@@ -26,6 +18,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     var onSelect: (SearchDataType.SearchResult) -> ()
+    var onDismiss: () -> () = { }
 
     func search(text: String) {
         searchData.removeAll()
@@ -99,7 +92,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
 
     init(searchData: SearchData) {
         self.searchResult = .object(searchData.id)
-        self.searchTitle = searchData.name.isEmpty ? "Untitled".localized : searchData.name
+        self.searchTitle = searchData.title
         self.description = searchData.description
 
         let layout = searchData.layout
@@ -109,11 +102,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
             self.iconImage = searchData.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
         }
 
-        if case searchData.type = searchData.objectType?.name, !searchData.type.isEmpty {
-            callout = searchData.type
-        } else {
-            callout = "Page".localized
-        }
+        callout = searchData.objectType.name
     }
 
     init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {

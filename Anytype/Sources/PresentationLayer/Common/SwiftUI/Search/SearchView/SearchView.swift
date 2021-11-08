@@ -51,13 +51,16 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
+                                    viewModel.onDismiss()
                                     viewModel.onSelect(searchData.searchResult)
                                 }
                             ) {
-                                SearchCell(data: searchData,
-                                           descriptionTextColor: searchData.descriptionTextColor,
-                                           shouldShowCallout: searchData.shouldShowCallout,
-                                           shouldShowDescription: searchData.shouldShowDescription)
+                                SearchCell(
+                                    data: searchData,
+                                    descriptionTextColor: searchData.descriptionTextColor,
+                                    shouldShowCallout: searchData.shouldShowCallout,
+                                    shouldShowDescription: searchData.shouldShowDescription
+                                )
                             }
                             .frame(maxWidth: .infinity)
                             .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
