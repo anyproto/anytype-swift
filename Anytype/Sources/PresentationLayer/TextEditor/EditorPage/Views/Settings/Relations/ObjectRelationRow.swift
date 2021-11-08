@@ -94,7 +94,7 @@ struct ObjectRelationRow: View {
                 )
             case .object:
                 ObjectRelationView(
-                    value: RelationValueConverter.object(from: relationEntity.value, selections: relationEntity.relation.selections),
+                    value: RelationValueConverter.object(from: relationEntity.value),
                     hint: hint
                 )
             case .unrecognized:
