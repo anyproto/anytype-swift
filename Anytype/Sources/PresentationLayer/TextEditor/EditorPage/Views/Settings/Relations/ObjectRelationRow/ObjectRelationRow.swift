@@ -7,18 +7,16 @@
 //
 
 import SwiftUI
-import BlocksModels
 
 struct ObjectRelationRow: View {
     
-    let detailsStorage: ObjectDetailsStorageProtocol
-    let relationEntity: RelationEntity
+    let viewModel: ObjectRelationRowViewModel
     
     var body: some View {
         GeometryReader { gr in
             HStack(spacing: 8) {
                 AnytypeText(
-                    relationEntity.relation.name,
+                    viewModel.name,
                     style: .relation1Regular,
                     color: .textSecondary
                 )
@@ -33,79 +31,29 @@ struct ObjectRelationRow: View {
     
     private var valueView: some View {
         Group {
-            let format = relationEntity.relation.format
-            let hint = format.hint
-            switch format {
-            case .longText:
-                TextRelationView(
-                    value: relationEntity.value?.stringValue,
-                    hint: hint
-                )
-            case .shortText:
-                TextRelationView(
-                    value: relationEntity.value?.stringValue,
-                    hint: hint
-                )
-            case .number:
-                TextRelationView(
-                    value: RelationValueConverter.numberString(from: relationEntity.value),
-                    hint: hint
-                )
-            case .status:
-                StatusRelationView(
-                    value: RelationValueConverter.status(
-                        from: relationEntity.value,
-                        selections: relationEntity.relation.selections
-                    ),
-                    hint: hint
-                )
-            case .date:
-                TextRelationView(
-                    value: RelationValueConverter.dateString(from: relationEntity.value),
-                    hint: hint
-                )
+            let value = viewModel.value
+            let hint = viewModel.hint
+            switch value {
+            case .text(let string):
+                TextRelationView(value: string, hint: hint)
+                
+            case .status(let statusRelation):
+                StatusRelationView(value: statusRelation, hint: hint)
+                
             case .file:
                 EmptyView()
-            case .checkbox:
-                CheckboxRelationView(
-                    isChecked: relationEntity.value?.boolValue ?? false
-                )
-            case .url:
-                TextRelationView(
-                    value: relationEntity.value?.stringValue,
-                    hint: hint
-                )
-            case .email:
-                TextRelationView(
-                    value: relationEntity.value?.stringValue,
-                    hint: hint
-                )
-            case .phone:
-                TextRelationView(
-                    value: relationEntity.value?.stringValue,
-                    hint: hint
-                )
-            case .tag:
-                TagRelationView(
-                    value: RelationValueConverter.tags(
-                        from: relationEntity.value,
-                        selections: relationEntity.relation.selections
-                    ),
-                    hint: hint
-                )
-            case .object:
-                ObjectRelationView(
-                    value: RelationValueConverter.object(
-                        from: relationEntity.value,
-                        detailsStorage: detailsStorage
-                    ),
-                    hint: hint
-                )
-            case .unrecognized:
-                TextRelationView(
-                    value: relationEntity.value?.stringValue,
-                    hint: hint
-                )
+                
+            case .checkbox(let bool):
+                CheckboxRelationView(isChecked: bool)
+                
+            case .tag(let tags):
+                TagRelationView(value: tags, hint: hint)
+                
+            case .object(let objectRelation):
+                ObjectRelationView(value: objectRelation, hint: hint)
+                
+            case .unknown(let string):
+                TextRelationView(value: string, hint: hint)
             }
         }
     }
@@ -114,19 +62,10 @@ struct ObjectRelationRow: View {
 struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationRow(
-            detailsStorage: ObjectDetailsStorage(),
-            relationEntity: RelationEntity(
-                relation: Relation(
-                    key: "key",
-                    name: "Relation name",
-                    format: .shortText,
-                    isHidden: false,
-                    isReadOnly: true,
-                    isMulti: false,
-                    selections: [],
-                    objectTypes: []
-                ),
-                value: nil
+            viewModel: ObjectRelationRowViewModel(
+                name: "Relation name",
+                value: .text("Hello"),
+                hint: "hint"
             )
         )
     }

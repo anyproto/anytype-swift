@@ -29,11 +29,8 @@ struct ObjectRelationsView: View {
                     color: .textPrimary
                 )
             ) {
-                ForEach(viewModel.relationEntities) { relationEntity in
-                    ObjectRelationRow(
-                        detailsStorage: viewModel.detailsStorage,
-                        relationEntity: relationEntity
-                    )
+                ForEach(viewModel.rowViewModels) { rowViewModel in
+                    ObjectRelationRow(viewModel: rowViewModel)
                 }
             }
         }
@@ -47,47 +44,22 @@ struct ObjectRelationsView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
-                detailsStorage: ObjectDetailsStorage(),
-                relationEntities: [
-                    RelationEntity(
-                        relation: Relation(
-                            key: "key1",
-                            name: "Relation name",
-                            format: .shortText,
-                            isHidden: false,
-                            isReadOnly: true,
-                            isMulti: false,
-                            selections: [],
-                            objectTypes: []
-                        ),
-                        value: nil
+                rowViewModels: [
+                    ObjectRelationRowViewModel(
+                        name: "Relation name1",
+                        value: .text("text"),
+                        hint: "hint"
                     ),
-                    RelationEntity(
-                        relation: Relation(
-                            key: "key2",
-                            name: "Relation name",
-                            format: .shortText,
-                            isHidden: false,
-                            isReadOnly: true,
-                            isMulti: false,
-                            selections: [],
-                            objectTypes: []
-                        ),
-                        value: nil
+                    ObjectRelationRowViewModel(
+                        name: "Relation name2",
+                        value: .text("text2"),
+                        hint: "hint"
                     ),
-                    RelationEntity(
-                        relation: Relation(
-                            key: "key3",
-                            name: "Relation name",
-                            format: .shortText,
-                            isHidden: false,
-                            isReadOnly: true,
-                            isMulti: false,
-                            selections: [],
-                            objectTypes: []
-                        ),
-                        value: nil
-                    )
+                    ObjectRelationRowViewModel(
+                        name: "Relation name3",
+                        value: .text("text3"),
+                        hint: "hint"
+                    ),
                 ]
             )
         )
