@@ -28,4 +28,6 @@ public enum RelationKey: String {
     case isHighlighted
     
     case workspaceId
+    case fileExt
+    case fileMimeType
 }
