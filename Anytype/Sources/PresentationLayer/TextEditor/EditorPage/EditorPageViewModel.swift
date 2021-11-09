@@ -101,7 +101,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let header = headerBuilder.objectHeader(details: details)
 
             objectSettingsViewModel.update(
-                with: details,
+                objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
                 objectRelations: document.relationsStorage.relations
             )
@@ -216,7 +216,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(blocks: modelsHolder.models)
         
         objectSettingsViewModel.update(
-            with: details,
+            objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
             objectRelations: document.relationsStorage.relations
         )
