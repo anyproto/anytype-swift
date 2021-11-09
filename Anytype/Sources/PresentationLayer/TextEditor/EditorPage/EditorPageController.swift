@@ -26,8 +26,7 @@ final class EditorPageController: UIViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.isEditing = true
-        
+
         return collectionView
     }()
     
@@ -78,6 +77,8 @@ final class EditorPageController: UIViewController {
 
         viewModel.viewLoaded()
         bindViewModel()
+        setEditing(true, animated: false)
+        collectionView.allowsSelectionDuringEditing = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,9 +107,8 @@ final class EditorPageController: UIViewController {
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-//        collectionView.allowsMultipleSelection = editing
-//        collectionView.isEditing = editing
-//        collectionView.allowsSelection = editing
+        collectionView.isEditing = editing
+        collectionView.reloadData()
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -123,10 +123,10 @@ final class EditorPageController: UIViewController {
         viewModel.editorEditingState.sink { [unowned self] state in
             switch state {
             case .selected(let blockIds):
-                setEditing(true, animated: true)
+                setEditing(false, animated: true)
                 blockIds.forEach(selectBlock)
             case .none:
-                setEditing(false, animated: true)
+                setEditing(true, animated: true)
             case .editing:
                 setEditing(true, animated: true)
             }
@@ -252,10 +252,6 @@ private extension EditorPageController {
         }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.navigationBarHelper.setNavigationBarHidden(true)
-        }
 
         view.addSubview(blocksSelectionOverlayView) {
             $0.pinToSuperview()

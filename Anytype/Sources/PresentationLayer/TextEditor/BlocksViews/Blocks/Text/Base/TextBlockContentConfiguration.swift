@@ -23,9 +23,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let openURL: (URL) -> Void
         
     let pressingEnterTimeChecker = TimeChecker()
-    
-    private(set) var isSelected: Bool = false
-    private(set) var isEditing: Bool = true
+    private(set) var currentConfigurationState: UICellConfigurationState?
     
     init(
         blockDelegate: BlockDelegate,
@@ -62,10 +60,9 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     func updated(for state: UIConfigurationState) -> TextBlockContentConfiguration {
         guard let state = state as? UICellConfigurationState else { return self }
         var updatedConfig = self
-        updatedConfig.isSelected = state.isSelected
-        updatedConfig.isEditing = state.isEditing
 
-        print("-_- state.isEditing \(state.isEditing)")
+        updatedConfig.currentConfigurationState = state
+
         return updatedConfig
     }
 }
@@ -74,7 +71,7 @@ extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
         lhs.information == rhs.information &&
-        lhs.isSelected == rhs.isSelected &&
+        lhs.currentConfigurationState == rhs.currentConfigurationState &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
         lhs.isCheckable == rhs.isCheckable
     }
@@ -84,8 +81,8 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information.alignment)
         hasher.combine(information.backgroundColor)
         hasher.combine(information.content)
-        hasher.combine(isSelected)
         hasher.combine(shouldDisplayPlaceholder)
         hasher.combine(isCheckable)
+        hasher.combine(currentConfigurationState)
     }
 }

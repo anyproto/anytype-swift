@@ -11,14 +11,14 @@ extension EditorPageController: UICollectionViewDelegate {
         didSelectItemAt indexPath: IndexPath
     ) {
         viewModel.didSelectBlock(at: indexPath)
-        collectionView.deselectItem(at: indexPath, animated: false)
+//        collectionView.deselectItem(at: indexPath, animated: false)
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        return
+        viewModel.didDeselectBlock(at: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -35,8 +35,7 @@ extension EditorPageController: UICollectionViewDelegate {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         
         switch item {
-        case let .block(block):
-            if case .text = block.content { return false }
+        case .block:
             return true
         case .header:
             return false
@@ -48,6 +47,7 @@ extension EditorPageController: UICollectionViewDelegate {
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
+        return nil
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
 
         switch item {
@@ -59,6 +59,10 @@ extension EditorPageController: UICollectionViewDelegate {
         case .header:
                     return nil
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+        return collectionView.isEditing
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

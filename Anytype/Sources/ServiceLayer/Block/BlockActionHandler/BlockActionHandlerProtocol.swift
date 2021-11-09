@@ -2,7 +2,6 @@ import Foundation
 import BlocksModels
 
 protocol BlockActionHandlerProtocol: AnyObject {
-    
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?
@@ -32,4 +31,5 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
+    func selectBlock(blockId: BlockId)
 }

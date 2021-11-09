@@ -3,12 +3,11 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: UIView & UIContentView {
+final class TextBlockContentView: BaseBlockView & UIContentView {
     
     // MARK: - Views
     
     private let backgroundColorView = UIView()
-    private let selectionView = TextBlockSelectionView()
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
@@ -60,9 +59,10 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Setup views
     
     private func setupLayout() {
+        backgroundColor = .red
         contentStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
         contentStackView.addArrangedSubview(textView)
-        
+
         contentView.addSubview(contentStackView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)
             bottomContentnConstraint = $0.bottom.equal(to: contentView.bottomAnchor)
@@ -73,17 +73,14 @@ final class TextBlockContentView: UIView & UIContentView {
         backgroundColorView.addSubview(contentView) {
             $0.pinToSuperview(insets: TextBlockLayout.contentInset)
         }
-        backgroundColorView.addSubview(selectionView) {
-            $0.pinToSuperview(insets: TextBlockLayout.selectionViewInset)
-        }
-        
+
         createEmptyBlockButton.layoutUsing.anchors {
             $0.height.equal(to: 26)
         }
-        
+
         mainStackView.addArrangedSubview(backgroundColorView)
         mainStackView.addArrangedSubview(createEmptyBlockButton)
-        
+
         addSubview(mainStackView) {
             topMainConstraint = $0.top.equal(to: topAnchor)
             bottomMainConstraint = $0.bottom.equal(to: bottomAnchor)
@@ -103,17 +100,13 @@ final class TextBlockContentView: UIView & UIContentView {
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration, restrictions: restrictions)
 
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
-
+        
         textView.delegate = self
         
         let displayPlaceholder = currentConfiguration.content.contentType == .toggle && currentConfiguration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
-        selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
-        textView.isUserInteractionEnabled = currentConfiguration.isEditing
-
-        print("-_- \(textView.isUserInteractionEnabled)")
 
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)

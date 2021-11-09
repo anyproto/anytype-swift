@@ -52,7 +52,7 @@ final class EditorAccessoryViewModel {
             
             delegate.showSlashMenuView()
         case .editingMode:
-            handler.selectBlock(blockId: block.information.id)
+            handler.selectBlock(blockId: info.id)
         }
     }
     

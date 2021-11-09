@@ -12,6 +12,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let markupChanger: BlockMarkupChangerProtocol
     
     private weak var modelsHolder: BlockViewModelsHolder?
+    weak var editingStateDelegate: EditorEditingStateHandler?
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
@@ -200,5 +201,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
             )
         }
+    }
+
+    func selectBlock(blockId: BlockId) {
+        editingStateDelegate?.didSelectedEditingState(onBlockWith: blockId)
     }
 }

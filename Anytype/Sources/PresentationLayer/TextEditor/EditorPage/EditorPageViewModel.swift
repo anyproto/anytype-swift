@@ -76,7 +76,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.headerBuilder = headerBuilder
         self.blockActionsService = blockActionsService
 
-        blockActionHandler.editingStateHandler = self
+        actionHandler.editingStateDelegate = self
 
         setupSubscriptions()
     }
@@ -260,7 +260,28 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel {
     func didSelectBlock(at index: IndexPath) {
-        element(at: index)?.didSelectRowInTableView()
+//        guard let element = element(at: index) else { return }
+//        switch editingState {
+//        case .none, .editing: element.didSelectRowInTableView()
+//        case .selected(let blocks):
+//            var newSelectedBlocks = blocks
+//            newSelectedBlocks.append(element.blockId)
+//            editingState = .selected(blocks: newSelectedBlocks)
+//        }
+    }
+
+    func didDeselectBlock(at index: IndexPath) {
+//        switch editingState {
+//        case .editing, .none: break
+//        case .selected(let blocks):
+//            guard let element = element(at: index),
+//                  let index = blocks.firstIndex (where: {  $0 == element.blockId }) else { return }
+//
+//            var newSelectedBlocks = blocks
+//            newSelectedBlocks.remove(at: index)
+//
+//            editingState = .selected(blocks: newSelectedBlocks)
+//        }
     }
 
     private func element(at: IndexPath) -> BlockViewModelProtocol? {
