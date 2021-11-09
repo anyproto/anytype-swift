@@ -61,8 +61,7 @@ final class EditorPageAssembly {
             document: document,
             markupChanger: markupChanger
         )
-        
-        markupChanger.handler = actionHandler
+
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,

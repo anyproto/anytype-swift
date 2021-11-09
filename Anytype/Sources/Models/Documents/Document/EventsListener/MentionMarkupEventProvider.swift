@@ -48,8 +48,6 @@ final class MentionMarkupEventProvider {
             let mentionBlockId = mark.param
             let details = detailsStorage.get(id: mentionBlockId)
             
-            let mentionData = details.flatMap { MentionData(details: $0) } ?? .noDetails(blockId: mentionBlockId)
-            
             guard let mentionNameInDetails = details?.mentionTitle else { return nil }
             
             // TODO: Update only mentions to updated pages

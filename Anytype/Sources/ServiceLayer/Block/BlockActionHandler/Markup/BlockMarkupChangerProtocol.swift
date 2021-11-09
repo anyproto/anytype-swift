@@ -1,8 +1,8 @@
 import BlocksModels
 
 protocol BlockMarkupChangerProtocol {
-    func toggleMarkup(_ markup: MarkupType, for blockId: BlockId)
-    func toggleMarkup(_ markup: MarkupType, for blockId: BlockId, in range: NSRange)
-    func setMarkup(_ markup: MarkupType, for blockId: BlockId, in range: NSRange)
-    func removeMarkup(_ markup: MarkupType, for blockId: BlockId, in range: NSRange)
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId) -> NSAttributedString?
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString?
+    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString?
+    func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString?
 }
