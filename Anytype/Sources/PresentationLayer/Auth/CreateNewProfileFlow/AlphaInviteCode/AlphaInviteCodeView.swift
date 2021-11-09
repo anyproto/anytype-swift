@@ -33,6 +33,7 @@ struct AlphaInviteCodeView: View {
                 Spacer.fixedHeight(30)
                 
                 AutofocusedTextField(title: "", text: $signUpData.inviteCode)
+                    .disableAutocorrection(true)
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.textPrimary)
                     .placeholder(when: signUpData.inviteCode.isEmpty) {

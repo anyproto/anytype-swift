@@ -3,13 +3,13 @@ import UIKit
 
 final class MarkupChecker {
     
-    private let markupType: BlockHandlerActionType.TextAttributesType
+    private let markupType: TextAttributesType
     private let attributedStringBlueprint: [(NSRange, Any?)]
     let exampleString: NSAttributedString
     let wholeStringWithMarkup: NSAttributedString
     
     init(
-        markupType: BlockHandlerActionType.TextAttributesType,
+        markupType: TextAttributesType,
         attributedStringBlueprint: [(NSRange, Any?)]
     ) {
         self.markupType = markupType

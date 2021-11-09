@@ -1,7 +1,7 @@
 
 enum TextViewContextMenuOption: CaseIterable, Equatable {
     
-    case toggleMarkup(BlockHandlerActionType.TextAttributesType)
+    case toggleMarkup(TextAttributesType)
     case setLink
     
     static var allCases: [TextViewContextMenuOption] {

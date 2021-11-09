@@ -15,7 +15,6 @@ public extension Relation {
         case phone
         case tag
         case object
-        case relations
         case unrecognized(Int)
     }
 }
@@ -36,7 +35,6 @@ extension Relation.Format {
       case 9: self = .phone
       case 11: self = .tag
       case 100: self = .object
-      case 101: self = .relations
       default: self = .unrecognized(rawValue)
       }
     }
@@ -55,7 +53,6 @@ extension Relation.Format {
       case .phone: return 9
       case .tag: return 11
       case .object: return 100
-      case .relations: return 101
       case .unrecognized(let value): return value
       }
     }

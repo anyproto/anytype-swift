@@ -74,7 +74,7 @@ final class MarkupAccessoryContentViewModel: ObservableObject {
     func action(_ markup: MarkupKind) {
         switch markup {
         case .fontStyle(let fontStyle):
-            actionHandler.handleAction(.toggleFontStyle(fontStyle.blockActionHandlerTypeMarkup, range), blockId: blockId)
+            actionHandler.changeTextStyle(fontStyle.blockActionHandlerTypeMarkup, range: range, blockId: blockId)
         case .link:
             showLinkToSearch(blockId: blockId, range: range)
         }
@@ -97,14 +97,13 @@ final class MarkupAccessoryContentViewModel: ObservableObject {
         router.showLinkToObject { [weak self] searchKind in
             switch searchKind {
             case let .object(linkBlockId):
-                self?.actionHandler.handleAction(.setLinkToObject(linkBlockId: linkBlockId, range), blockId: blockId)
+                self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
             case let .createObject(name):
                 if let linkBlockId = self?.pageService.createPage(name: name) {
-                    self?.actionHandler.handleAction(.setLinkToObject(linkBlockId: linkBlockId, range), blockId: blockId)
+                    self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
                 }
             case let .web(url):
-                let link = URL(string: url)
-                self?.actionHandler.handleAction(.setLink(link, range), blockId: blockId)
+                self?.actionHandler.setLink(url: URL(string: url), range: range, blockId: blockId)
             }
         }
     }
@@ -130,7 +129,7 @@ extension MarkupAccessoryContentViewModel.MarkupKind {
 
 extension MarkupAccessoryContentViewModel.MarkupKind.FontStyle {
 
-    var blockActionHandlerTypeMarkup: BlockHandlerActionType.TextAttributesType {
+    var blockActionHandlerTypeMarkup: TextAttributesType {
         switch self {
         case .bold:
             return .bold

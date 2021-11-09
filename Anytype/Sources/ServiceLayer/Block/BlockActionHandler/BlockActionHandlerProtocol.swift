@@ -2,8 +2,6 @@ import Foundation
 import BlocksModels
 
 protocol BlockActionHandlerProtocol: AnyObject {
-
-    func handleAction(_ action: BlockHandlerActionType, blockId: BlockId)
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
@@ -20,16 +18,18 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func delete(blockId: BlockId)
     func moveTo(targetId: BlockId, blockId: BlockId)
     func createEmptyBlock(parentId: BlockId?)
-
+    func setLink(url: URL?, range: NSRange, blockId: BlockId)
+    func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId)
+    func addLink(targetId: BlockId, blockId: BlockId)
+    func addBlock(_ type: BlockContentType, blockId: BlockId)
+    func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeCaretPosition(range: NSRange)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
-    func changeTextStyle(
-        attribute: BlockHandlerActionType.TextAttributesType, range: NSRange, blockId: BlockId
-    )
+    func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
 }

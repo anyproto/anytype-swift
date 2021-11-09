@@ -1,9 +1,9 @@
 import Foundation
-import SwiftUI
 
-struct StatusRelation: Hashable {
+struct StatusRelation: Hashable, Identifiable {
+    let id = UUID()
     
     let text: String
-    let color: Color
+    let color: AnytypeColor
     
 }

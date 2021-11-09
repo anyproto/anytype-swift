@@ -29,10 +29,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
         blockDelegate.textDidChange()
     }
     
-    func changeTextStyle(attribute: BlockHandlerActionType.TextAttributesType, range: NSRange) {
-        handler.changeTextStyle(
-            attribute: attribute, range: range, blockId: currentConfiguration.information.id
-        )
+    func changeTextStyle(attribute: TextAttributesType, range: NSRange) {
+        handler.changeTextStyle(attribute, range: range, blockId: currentConfiguration.information.id)
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {

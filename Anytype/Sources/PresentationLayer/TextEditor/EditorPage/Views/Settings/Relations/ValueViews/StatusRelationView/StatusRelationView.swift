@@ -15,17 +15,16 @@ struct StatusRelationView: View {
     
     var body: some View {
         if let value = value {
-            AnytypeText(value.text, style: .relation1Regular, color: value.color)
+            AnytypeText(value.text, style: .relation1Regular, color: value.color.asColor)
                 .lineLimit(1)
         } else {
-            AnytypeText(hint, style: .callout, color: .textTertiary)
-                .lineLimit(1)
+            ObjectRelationRowHintView(hint: hint)
         }
     }
 }
 
 struct StatusRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        TextRelationView(value: "nil", hint: "Hint")
+        StatusRelationView(value: StatusRelation(text: "text", color: .pureTeal), hint: "Hint")
     }
 }

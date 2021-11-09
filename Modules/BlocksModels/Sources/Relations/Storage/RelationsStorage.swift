@@ -20,7 +20,14 @@ extension RelationsStorage: RelationsStorageProtocol {
     }
     
     public func amend(relations: [Relation]) {
-        storage.append(contentsOf: relations)
+        relations.forEach { relation in
+            let index = storage.array.firstIndex { $0.id == relation.id }
+            if let index = index {
+                storage[index] = relation
+            } else {
+                storage.append(relation)
+            }
+        }
     }
     
     public func remove(relationKeys: [String]) {

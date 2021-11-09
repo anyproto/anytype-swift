@@ -5,8 +5,6 @@ import ProtobufMessages
 
 
 public final class BlockModel: ObservableObject, BlockModelProtocol {
-    public weak var container: BlockContainerModelProtocol?
-
     @Published public var information: BlockInformation
     public var parent: BlockModelProtocol?
     public var indentationLevel: Int = 0

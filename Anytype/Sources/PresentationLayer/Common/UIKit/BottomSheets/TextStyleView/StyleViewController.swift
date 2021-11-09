@@ -365,7 +365,7 @@ final class StyleViewController: UIViewController {
         currentDeselectAction?()
         currentDeselectAction = deselectAction
         if style == .code {
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.keyboard), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: blockId)
         } else {
             actionHandler.turnInto(style, blockId: blockId)
         }

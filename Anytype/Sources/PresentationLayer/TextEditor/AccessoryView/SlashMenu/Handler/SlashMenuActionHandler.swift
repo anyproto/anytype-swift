@@ -23,12 +23,12 @@ final class SlashMenuActionHandler {
         case let .style(style):
             handleStyle(style, blockId: blockId)
         case let .media(media):
-            actionHandler.handleAction(.addBlock(media.blockViewsType), blockId: blockId)
+            actionHandler.addBlock(media.blockViewsType, blockId: blockId)
         case .objects(let action):
             switch action {
             case .linkTo:
                 router.showLinkTo { [weak self] targetDetailsId in
-                    self?.actionHandler.handleAction(.addLink(targetDetailsId), blockId: blockId)
+                    self?.actionHandler.addLink(targetId: targetDetailsId, blockId: blockId)
                 }
             case .objectType(let object):
                 actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
@@ -37,7 +37,7 @@ final class SlashMenuActionHandler {
         case .relations:
             break
         case let .other(other):
-            actionHandler.handleAction(.addBlock(other.blockViewsType), blockId: blockId)
+            actionHandler.addBlock(other.blockViewsType, blockId: blockId)
         case let .color(color):
             actionHandler.setTextColor(color, blockId: blockId)
         case let .background(color):
@@ -81,13 +81,13 @@ final class SlashMenuActionHandler {
         case .toggle:
             actionHandler.turnInto(.toggle, blockId: blockId)
         case .bold:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.bold), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.bold, blockId: blockId)
         case .italic:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.italic), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.italic, blockId: blockId)
         case .strikethrough:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.strikethrough), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.strikethrough, blockId: blockId)
         case .code:
-            actionHandler.handleAction(.toggleWholeBlockMarkup(.keyboard), blockId: blockId)
+            actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: blockId)
         case .link:
             break
         }
