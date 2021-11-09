@@ -17,10 +17,11 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private(set) var activeView = AccessoryViewType.none
     private(set) var data: TextBlockDelegateData?
     
-    private let accessoryView: EditModeAccessoryView
+    private let cursorModeAccessoryView: CursorModeAccessoryView
     private let mentionsView: MentionView
     private let slashMenuView: SlashMenuView
     private let changeTypeView: ChangeTypeAccessoryView
+    private let markupAccessoryView: MarkupAccessoryView
     private let urlInputView: URLInputAccessoryView
     
     private let document: BaseDocumentProtocol
@@ -28,13 +29,15 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     init(
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
-        accessoryView: EditModeAccessoryView,
+        cursorModeAccessoryView: CursorModeAccessoryView,
+        markupAccessoryView: MarkupAccessoryView,
         changeTypeView: ChangeTypeAccessoryView,
         urlInputView: URLInputAccessoryView,
         document: BaseDocumentProtocol
     ) {
         self.slashMenuView = slashMenuView
-        self.accessoryView = accessoryView
+        self.cursorModeAccessoryView = cursorModeAccessoryView
+        self.markupAccessoryView = markupAccessoryView
         self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
         self.urlInputView = urlInputView
@@ -48,10 +51,15 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func updateData(data: TextBlockDelegateData) {
         self.data = data
 
-        accessoryView.update(block: data.block, textView: data.textView)
+        cursorModeAccessoryView.update(info: data.block.information, textView: data.textView)
+        markupAccessoryView.update(block: data.block, textView: data.textView)
         slashMenuView.update(info: data.info)
-        
-        showDefaultView()
+
+        if data.textView.selectedRange.length != .zero {
+            showMarkupView(range: data.textView.selectedRange)
+        } else {
+            showDefaultView()
+        }
     }
     
     func showMentionsView() {
@@ -61,12 +69,22 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func showSlashMenuView() {
         showAccessoryView(.slashMenu(slashMenuView))
     }
-    
+
+    func showMarkupView(range: NSRange) {
+        markupAccessoryView.selectionChanged(range: range)
+        showAccessoryView(.markup(markupAccessoryView))
+    }
+
+    func updateSelection(range: NSRange) {
+        markupAccessoryView.selectionChanged(range: range)
+    }
+
     func showDefaultView() {
-        accessoryView.selectionChanged(range: .zero)
+        markupAccessoryView.selectionChanged(range: .zero)
         
         showAccessoryView(
-            document.isDocumentEmpty ? .changeType(changeTypeView) : .default(accessoryView)
+            document.isDocumentEmpty ? .changeType(changeTypeView) : .default(cursorModeAccessoryView),
+            animation: activeView.animation
         )
     }
     
@@ -84,19 +102,19 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     }
     
     // MARK: - Private methods
-    private func showAccessoryView(_ view: AccessoryViewType) {
+    private func showAccessoryView(_ view: AccessoryViewType, animation: Bool = false) {
         guard let textView = data?.textView else { return }
         
         activeView = view
         
-        changeAccessoryView(view.view)
+        changeAccessoryView(view.view, animation: animation)
         
         if let view = view.view as? DismissableInputAccessoryView {
             view.didShow(from: textView)
         }
     }
     
-    private func changeAccessoryView(_ accessoryView: UIView?) {
+    private func changeAccessoryView(_ accessoryView: UIView?, animation: Bool = false) {
         guard let accessoryView = accessoryView,
               let textView = data?.textView,
               textView.inputAccessoryView != accessoryView else {
@@ -104,12 +122,20 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         }
         
         textView.inputAccessoryView = accessoryView
-        
-        accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.bounds.size.height)
-        UIView.animate(withDuration: CATransaction.animationDuration()) {
+
+        let reloadInputViews = {
             accessoryView.transform = .identity
             textView.reloadInputViews()
             textView.window?.layoutIfNeeded()
+        }
+        accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.bounds.size.height)
+
+        if animation {
+            UIView.animate(withDuration: CATransaction.animationDuration()) {
+                reloadInputViews()
+            }
+        } else {
+            reloadInputViews()
         }
     }
     

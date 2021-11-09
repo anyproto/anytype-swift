@@ -2,12 +2,12 @@ import UIKit
 import Amplitude
 import BlocksModels
 
-class EditorAccessoryView: UIView {
-    private let viewModel: EditorAccessoryViewModel
+class CursorModeAccessoryView: UIView {
+    private let viewModel: CursorModeAccessoryViewModel
 
     // MARK: - Lifecycle
 
-    init(viewModel: EditorAccessoryViewModel) {
+    init(viewModel: CursorModeAccessoryViewModel) {
         self.viewModel = viewModel
 
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
@@ -23,7 +23,7 @@ class EditorAccessoryView: UIView {
     }
     
     // MARK: - Public methods
-    func setDelegate(_ delegate: EditorAccessoryViewDelegate) {
+    func setDelegate(_ delegate: CursorModeAccessoryViewDelegate) {
         viewModel.delegate = delegate
     }
     

@@ -8,7 +8,7 @@ protocol AccessoryViewStateManager {
     func selectionDidChange(range: NSRange)
 }
 
-final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAccessoryViewDelegate {
+final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorModeAccessoryViewDelegate {
     private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
     
@@ -37,14 +37,20 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAcce
             triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
-        case .none, .urlInput:
+        case .none, .urlInput, .markup:
             break
         }
     }
 
     func selectionDidChange(range: NSRange) {
-        if case .`default`(let view) = switcher.activeView {
-            view.selectionChanged(range: range)
+        if case .markup = switcher.activeView {
+            if range.length == 0 {
+                updateDefaultView()
+            } else {
+                switcher.updateSelection(range: range)
+            }
+        } else if range.length > 0 {
+            switcher.showMarkupView(range: range)
         }
     }
     

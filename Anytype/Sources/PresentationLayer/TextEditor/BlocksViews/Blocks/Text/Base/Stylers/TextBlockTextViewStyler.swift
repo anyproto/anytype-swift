@@ -4,7 +4,6 @@ import BlocksModels
 final class TextBlockTextViewStyler {
     static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: BlockRestrictions) {
         updateText(textView: textView, configuration: configuration)
-        updateContextMenu(textView: textView, restrictions: restrictions)
         updateCustomTextViewOptions(textView: textView, configuration: configuration, restrictions: restrictions)
         
         textView.textView.tertiaryColor = configuration.content.color?.color(background: false)
@@ -27,26 +26,6 @@ final class TextBlockTextViewStyler {
             autocorrect: autocorrect
         )
         textView.setCustomTextViewOptions(options: options)
-    }
-    
-    private static func updateContextMenu(textView: CustomTextView, restrictions: BlockRestrictions) {
-        let allOptions = TextViewContextMenuOption.allCases
-        let availableOptions = allOptions.filter { option -> Bool in
-            switch option {
-            case let .toggleMarkup(type):
-                switch type {
-                case .bold:
-                    return restrictions.canApplyBold
-                case .italic:
-                    return restrictions.canApplyItalic
-                case .strikethrough, .keyboard:
-                    return restrictions.canApplyOtherMarkup
-                }
-            case .setLink:
-                return restrictions.canApplyOtherMarkup
-            }
-        }
-        textView.textView.availableContextMenuOptions = availableOptions
     }
     
     private static func updateText(textView: CustomTextView, configuration: TextBlockContentConfiguration) {

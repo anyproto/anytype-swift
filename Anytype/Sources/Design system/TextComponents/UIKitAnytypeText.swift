@@ -51,8 +51,8 @@ final class UIKitAnytypeText: Hashable {
         anytypeFont.lineSpacing / 2
     }
 
-    func apply(_ action: MarkStyleAction, range: NSRange) {
-        textModifier.apply(action, range: range)
+    func apply(_ action: MarkupType, range: NSRange) {
+        textModifier.apply(action, shouldApplyMarkup: true , range: range)
     }
 
     static func == (lhs: UIKitAnytypeText, rhs: UIKitAnytypeText) -> Bool {

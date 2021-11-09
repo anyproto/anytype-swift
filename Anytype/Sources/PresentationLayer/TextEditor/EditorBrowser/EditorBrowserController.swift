@@ -24,10 +24,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     func setup() {
         childNavigation.delegate = self
         
-//        view.addSubview(navigationView) {
-//            $0.pinToSuperview(excluding: [.top, .bottom])
-//            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
-//        }
+        view.addSubview(navigationView) {
+            $0.pinToSuperview(excluding: [.top, .bottom])
+            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
+        }
         
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {

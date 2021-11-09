@@ -4,18 +4,18 @@ import AnytypeCore
 
 enum MarkStyleActionConverter {
     
-    static func asModel(tuple: MiddlewareTuple, detailsStorage: ObjectDetailsStorageProtocol) -> MarkStyleAction? {
+    static func asModel(tuple: MiddlewareTuple, detailsStorage: ObjectDetailsStorageProtocol) -> MarkupType? {
         switch tuple.attribute {
         case .strikethrough:
-            return .strikethrough(true)
+            return .strikethrough
         case .keyboard:
-            return .keyboard(true)
+            return .keyboard
         case .italic:
-            return .italic(true)
+            return .italic
         case .bold:
-            return .bold(true)
+            return .bold
         case .underscored:
-            return .underscored(true)
+            return .underscored
         case .link:
             return .link(URL(string: tuple.value))
 

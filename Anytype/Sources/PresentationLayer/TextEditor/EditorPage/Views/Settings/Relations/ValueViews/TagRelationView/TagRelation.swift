@@ -1,17 +1,10 @@
 import Foundation
 
-struct TagRelation: Hashable {
+struct TagRelation: Hashable, Identifiable {
+    let id = UUID()
     
     let text: String
     let textColor: AnytypeColor
     let backgroundColor: AnytypeColor
-    
-}
-
-extension TagRelation: Identifiable {
-    
-    var id: String {
-        "\(text)\(textColor.rawValue)\(backgroundColor.rawValue)"
-    }
     
 }

@@ -91,6 +91,7 @@ extension UIImage {
         static let alignLeft = createImage("TextAttributes/align_left")
         static let alignRight = createImage("TextAttributes/align_right")
         static let alignCenter = createImage("TextAttributes/align_center")
+        static let color = createImage("StyleBottomSheet/color")
     }
     
     static func createImage(_ name: String) -> UIImage {

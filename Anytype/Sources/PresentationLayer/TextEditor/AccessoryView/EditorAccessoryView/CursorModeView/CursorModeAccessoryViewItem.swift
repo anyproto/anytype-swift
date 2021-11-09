@@ -1,6 +1,6 @@
 import UIKit
 
-extension EditorAccessoryView {
+extension CursorModeAccessoryView {
     enum Item {
         case mention
         case slash
@@ -20,7 +20,7 @@ extension EditorAccessoryView {
             }
         }
 
-        var action: EditorAccessoryViewAction {
+        var action: CursorModeAccessoryViewAction {
             switch self {
             case .mention:
                 return .mention

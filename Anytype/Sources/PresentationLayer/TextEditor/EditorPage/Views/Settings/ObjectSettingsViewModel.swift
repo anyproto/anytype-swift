@@ -30,13 +30,16 @@ final class ObjectSettingsViewModel: ObservableObject {
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
     let relationsViewModel: ObjectRelationsViewModel
     
+    private let objectId: String
     private let objectDetailsService: ObjectDetailsService
     
     init(
         objectId: String,
+        detailsStorage: ObjectDetailsStorageProtocol,
         objectDetailsService: ObjectDetailsService,
         popScreenAction: @escaping () -> ()
     ) {
+        self.objectId = objectId
         self.objectDetailsService = objectDetailsService
 
         self.iconPickerViewModel = ObjectIconPickerViewModel(
@@ -58,16 +61,20 @@ final class ObjectSettingsViewModel: ObservableObject {
     }
     
     func update(
-        with details: ObjectDetails?,
+        objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
         objectRelations: [Relation]
     ) {
-        if let details = details {
+        if let details = objectDetailsStorage.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
-            relationsViewModel.update(with: objectRelations, details: details)
+            relationsViewModel.update(
+                with: objectRelations,
+                objectId: objectId,
+                detailsStorage: objectDetailsStorage
+            )
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
     }
