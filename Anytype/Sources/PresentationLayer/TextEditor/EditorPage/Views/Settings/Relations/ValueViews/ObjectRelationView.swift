@@ -9,12 +9,7 @@ struct ObjectRelationView: View {
         if let value = value {
             objectView(objectRelation: value)
         } else {
-            AnytypeText(
-                hint,
-                style: .callout,
-                color: .textTertiary
-            )
-                .lineLimit(1)
+            ObjectRelationRowHintView(hint: hint)
         }
     }
     
