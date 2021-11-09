@@ -54,7 +54,7 @@ struct ObjectRelationRow: View {
                 ObjectRelationView(value: objectRelation, hint: hint)
                 
             case .unknown(let string):
-                TextRelationView(value: string, hint: hint)
+                ObjectRelationRowHintView(hint: string)
             }
         }
     }
