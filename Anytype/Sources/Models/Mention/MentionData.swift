@@ -1,6 +1,6 @@
 import BlocksModels
 
-struct MentionData: Equatable {
+struct MentionData: Equatable, Hashable {
     let image: ObjectIconImage?
     let blockId: BlockId
     let isDeleted: Bool

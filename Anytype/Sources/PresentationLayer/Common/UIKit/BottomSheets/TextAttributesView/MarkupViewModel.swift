@@ -2,6 +2,13 @@ import AnytypeCore
 import BlocksModels
 import Foundation
 
+extension MarkupViewModel {
+    struct AllAttributesState {
+        let markup: [MarkupType: AttributeState]
+        let alignment: [LayoutAlignment: AttributeState]
+    }
+}
+
 final class MarkupViewModel {
     
     var blockInformation: BlockInformation? {
@@ -55,7 +62,7 @@ final class MarkupViewModel {
     }
     
     private func setMarkup(
-        markup: TextAttributesType, blockId: BlockId
+        markup: MarkupType, blockId: BlockId
     ) {
         actionHandler.toggleWholeBlockMarkup(markup, blockId: blockId)
     }
@@ -65,23 +72,21 @@ final class MarkupViewModel {
         from content: BlockText,
         range: NSRange,
         alignment: LayoutAlignment
-    ) -> AllMarkupsState {
+    ) -> AllAttributesState {
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
-        let markupCalculator = MarkupStateCalculator(
-            attributedText: anytypeText.attrString,
-            range: range,
-            restrictions: restrictions,
-            alignment: alignment.asNSTextAlignment
-        )
-        return AllMarkupsState(
-            bold: markupCalculator.boldState(),
-            italic: markupCalculator.italicState(),
-            strikethrough: markupCalculator.strikethroughState(),
-            codeStyle: markupCalculator.codeState(),
-            alignment: markupCalculator.alignmentState(),
-            url: nil
-        )
+        let markupsStates = AttributeState.allMarkupAttributesState(in: range, string: anytypeText.attrString, with: restrictions)
+
+        var alignmentsStates = [LayoutAlignment: AttributeState]()
+        LayoutAlignment.allCases.forEach {
+            guard restrictions.isAlignmentAvailable($0) else {
+                alignmentsStates[$0] = .disabled
+                return
+            }
+            alignmentsStates[$0] = alignment == $0 ? .applied : .notApplied
+        }
+
+        return .init(markup: markupsStates, alignment: alignmentsStates)
     }
 }
 

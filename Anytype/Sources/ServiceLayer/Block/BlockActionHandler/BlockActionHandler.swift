@@ -107,20 +107,28 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Markup changer proxy
-    func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId) {
+    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
         markupChanger.toggleMarkup(markup, for: blockId)
     }
     
-    func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId) {
+    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
         markupChanger.toggleMarkup(attribute, for: blockId, in: range)
     }
     
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
-        markupChanger.setLink(url, for: blockId, in: range)
+        guard let url = url else {
+            markupChanger.removeMarkup(.link(nil), for: blockId, in: range)
+            return
+        }
+        markupChanger.setMarkup(.link(url), for: blockId, in: range)
     }
     
-    func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId) {
-        markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
+    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
+        guard let linkBlockId = linkBlockId else {
+            markupChanger.removeMarkup(.linkToObject(nil), for: blockId, in: range)
+            return
+        }
+        markupChanger.setMarkup(.linkToObject(linkBlockId), for: blockId, in: range)
     }
     
     // MARK: - TextBlockActionHandler proxy
