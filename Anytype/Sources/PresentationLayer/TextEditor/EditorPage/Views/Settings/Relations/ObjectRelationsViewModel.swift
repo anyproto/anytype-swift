@@ -1,6 +1,7 @@
 import Foundation
 import BlocksModels
 import SwiftProtobuf
+import UIKit
 
 final class ObjectRelationsViewModel: ObservableObject {
     
@@ -67,7 +68,7 @@ private extension ObjectRelationsViewModel {
         case .date:
             return dateRelationRowValue(relation: relation, details: details)
         case .file:
-            return .file(nil)
+            return fileRelationRowValue(relation: relation, details: details, detailsStorage: detailsStorage)
         case .checkbox:
             return checkboxRelationRowValue(relation: relation, details: details)
         case .url:
@@ -141,7 +142,6 @@ private extension ObjectRelationsViewModel {
     
     func tagRelationRowValue(relation: Relation, details: ObjectDetails) -> ObjectRelationRowValue {
         let value = details.values[relation.key]
-        
         guard let value = value else { return .tag([]) }
 
         let selectedTagIds: [String] = value.listValue.values.compactMap {
@@ -200,6 +200,54 @@ private extension ObjectRelationsViewModel {
             return ObjectRelation(icon: icon, text: name)
         }
         
+        
+        return .object(objectRelations)
+    }
+    
+    func fileRelationRowValue(
+        relation: Relation,
+        details: ObjectDetails,
+        detailsStorage: ObjectDetailsStorageProtocol
+    ) -> ObjectRelationRowValue {
+        let value = details.values[relation.key]
+        guard let value = value else { return .object([]) }
+        
+        let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
+            let objectId = $0.stringValue
+            guard objectId.isNotEmpty else { return nil }
+            
+            let objectDetails = detailsStorage.get(id: objectId)
+            return objectDetails
+        }
+
+        let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
+            let fileName: String = {
+                let name = objectDetail.name
+                let fileExt = objectDetail.values[RelationKey.fileExt.rawValue]
+                let fileExtString = fileExt?.stringValue
+                
+                guard
+                    let fileExtString = fileExtString, fileExtString.isNotEmpty
+                else { return name }
+                
+                return "\(name).\(fileExtString)"
+            }()
+            
+            let icon: ObjectIconImage = {
+                if let objectIconType = objectDetail.icon {
+                    return .icon(objectIconType)
+                }
+                
+                let fileMimeType = objectDetail.values[RelationKey.fileMimeType.rawValue]?.stringValue
+                guard let fileMimeType = fileMimeType else {
+                    return .image(UIImage.blockFile.content.other)
+                }
+                
+                return .image(BlockFileIconBuilder.convert(mime: fileMimeType))
+            }()
+            
+            return ObjectRelation(icon: icon, text: fileName)
+        }
         
         return .object(objectRelations)
     }
