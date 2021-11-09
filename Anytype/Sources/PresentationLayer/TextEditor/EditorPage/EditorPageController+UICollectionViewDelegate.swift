@@ -11,9 +11,6 @@ extension EditorPageController: UICollectionViewDelegate {
         didSelectItemAt indexPath: IndexPath
     ) {
         if collectionView.isEditing {
-            guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
-            if case let .block(block) = item, case .text = block.content { return }
-
             viewModel.didSelectBlock(at: indexPath)
             collectionView.deselectItem(at: indexPath, animated: false)
         } else {
@@ -42,7 +39,9 @@ extension EditorPageController: UICollectionViewDelegate {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
         
         switch item {
-        case .block:
+        case let .block(block):
+            if case .text = block.content, collectionView.isEditing { return false }
+
             return true
         case .header:
             return false
