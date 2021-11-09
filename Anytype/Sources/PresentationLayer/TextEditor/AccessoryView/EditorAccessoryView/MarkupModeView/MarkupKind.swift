@@ -10,21 +10,34 @@ import SwiftUI
 
 
 extension MarkupAccessoryViewModel {
-    enum MarkupKind: CaseIterable, Equatable, Hashable {
-        enum FontStyle: CaseIterable, Equatable {
-            case bold
-            case italic
-            case strikethrough
-            case keyboard
-        }
+    enum LinkType {
+        case url(URL)
+        case linkToObject(String)
+    }
+
+    enum ColorType {
+        case text(UIColor)
+        case background(UIColor)
+    }
+
+    enum FontStyle: CaseIterable {
+        case bold
+        case italic
+        case strikethrough
+        case keyboard
+    }
+
+    enum MarkupKind {
         case fontStyle(FontStyle)
-        case link
+        case link(LinkType?)
+        case color(ColorType?)
 
         static var allCases: [MarkupAccessoryViewModel.MarkupKind] {
             var allMarkup = FontStyle.allCases.map {
                 MarkupKind.fontStyle($0)
             }
-            allMarkup += [.link]
+            allMarkup += [.link(nil), .color(nil)]
+
             return allMarkup
         }
     }
@@ -44,13 +57,39 @@ extension MarkupAccessoryViewModel.MarkupKind {
             return Image(uiImage: .textAttributes.code)
         case .link:
             return Image(uiImage: .textAttributes.url)
+        case .color:
+            return Image(uiImage: .textAttributes.color)
+        }
+    }
+
+    var markupType: MarkupType? {
+        switch self {
+        case let .fontStyle(fontStyle):
+            return fontStyle.markupType
+        case let .link(kind):
+            switch kind {
+            case let .url(url):
+                return .link(url)
+            case let .linkToObject(blockId):
+                return .linkToObject(blockId)
+            case .none:
+                return nil
+            }
+        case let .color(kind):
+            switch kind {
+            case let .text(color):
+                return .textColor(color)
+            case let .background(color):
+                return .backgroundColor(color)
+            case .none:
+                return nil
+            }
         }
     }
 }
 
-extension MarkupAccessoryViewModel.MarkupKind.FontStyle {
-
-    var blockActionHandlerTypeMarkup: TextAttributesType {
+extension MarkupAccessoryViewModel.FontStyle {
+    var markupType: MarkupType {
         switch self {
         case .bold:
             return .bold
