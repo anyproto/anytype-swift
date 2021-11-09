@@ -6459,7 +6459,7 @@ extension Anytype_Rpc.ObjectList.Set.IsArchived {
 
 extension Anytype_Rpc.ObjectList.Set.IsFavorite {
   private struct Invocation {
-      static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectListSetIsFavorite(data) }
+      static func invoke(_ data: Data?) -> Data? { fatalError("Unsupported method") }
   }
 
   public enum Service {

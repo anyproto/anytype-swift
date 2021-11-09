@@ -22,11 +22,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func setFavorite(objectId: BlockId, _ isFavorite: Bool) {
-        setFavorite(objectIds: [objectId], isFavorite)
-    }
-    
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
-        _ = Anytype_Rpc.ObjectList.Set.IsFavorite.Service.invoke(objectIds: objectIds, isFavorite: isFavorite)
+        _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
     }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
