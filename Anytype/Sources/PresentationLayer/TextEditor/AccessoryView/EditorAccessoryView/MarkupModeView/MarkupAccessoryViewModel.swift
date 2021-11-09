@@ -10,16 +10,32 @@ import BlocksModels
 import SwiftUI
 import Combine
 
+struct MarkupItem: Identifiable, Equatable {
+    let id = UUID()
+    let markupItem: MarkupAccessoryViewModel.MarkupKind
+
+    static func == (lhs: MarkupItem, rhs: MarkupItem) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    static var allItems: [MarkupItem] {
+        MarkupAccessoryViewModel.MarkupKind.allCases.map {
+            MarkupItem(markupItem: $0)
+        }
+    }
+}
+
 final class MarkupAccessoryViewModel: ObservableObject {
-    let markupOptions: [MarkupKind] = MarkupKind.allCases
-    @Published private var markupCalculator: MarkupStateCalculator?
+    let markupItems: [MarkupItem] = MarkupItem.allItems
+    private(set) var restrictions: BlockRestrictions?
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let pageService = PageService()
     private var blockId: BlockId = ""
-    private var range: NSRange = .zero
+    @Published private var range: NSRange = .zero
     private let document: BaseDocumentProtocol
     private var cancellables = [AnyCancellable]()
+    @Published private(set) var currentText: NSAttributedString?
 
     init(document: BaseDocumentProtocol, actionHandler: BlockActionHandlerProtocol, router: EditorRouterProtocol) {
         self.actionHandler = actionHandler
@@ -29,45 +45,30 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
 
     func selectBlock(_ block: BlockModelProtocol, text: NSAttributedString, range: NSRange) {
-        let restrictions = BlockRestrictionsBuilder.build(contentType: block.information.content.type)
+        restrictions = BlockRestrictionsBuilder.build(contentType: block.information.content.type)
         blockId = block.information.id
+        currentText = text
 
-        setRange(range: range, text: text, restrictions: restrictions)
+        updateRange(range: range)
     }
 
     func updateRange(range: NSRange) {
-        guard let currentMarkupCalculator = markupCalculator else {
-            return
-        }
-
-        let currentText = currentMarkupCalculator.attributedText
-        let currentRestrictions = currentMarkupCalculator.restrictions
-
-        setRange(range: range, text: currentText, restrictions: currentRestrictions)
-    }
-
-    private func setRange(range: NSRange, text: NSAttributedString, restrictions: BlockRestrictions) {
         self.range = range
-
-        markupCalculator = MarkupStateCalculator(
-            attributedText: text,
-            range: range,
-            restrictions: restrictions,
-            alignment: nil
-        )
     }
 
     func action(_ markup: MarkupKind) {
         switch markup {
-        case .fontStyle(let fontStyle):
-            actionHandler.changeTextStyle(fontStyle.blockActionHandlerTypeMarkup, range: range, blockId: blockId)
         case .link:
             showLinkToSearch(blockId: blockId, range: range)
+        case .color:
+            break
+        case let .fontStyle(fontMarkup):
+            actionHandler.changeTextStyle(fontMarkup.markupType, range: range, blockId: blockId)
         }
     }
 
     func iconColor(for markup: MarkupKind) -> Color {
-        let state = markupState(for: markup)
+        let state = attributeState(for: markup)
 
         switch state {
         case .disabled:
@@ -79,13 +80,14 @@ final class MarkupAccessoryViewModel: ObservableObject {
         }
     }
 
-    private func markupState(for markup: MarkupKind) -> MarkupState {
-        switch markup {
-        case .fontStyle(let fontStyle):
-            return markupCalculator?.state(for: fontStyle.blockActionHandlerTypeMarkup) ?? .disabled
-        case .link:
-            return markupCalculator?.linkState() ?? .disabled
+    private func attributeState(for markup: MarkupKind) -> AttributeState {
+        guard let markupType = markup.markupType, let currentText = currentText else { return .disabled }
+        guard restrictions?.isMarkupAvailable(markupType) ?? false else { return .disabled }
+
+        if currentText.hasMarkup(markupType, range: range) {
+            return .applied
         }
+        return .notApplied
     }
 
     private func showLinkToSearch(blockId: BlockId, range: NSRange) {

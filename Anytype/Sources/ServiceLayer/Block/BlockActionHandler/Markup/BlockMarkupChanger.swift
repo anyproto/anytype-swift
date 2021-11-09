@@ -17,7 +17,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     func toggleMarkup(
-        _ markup: TextAttributesType,
+        _ markup: MarkupType,
         for blockId: BlockId
     ) {
         guard let info = blocksContainer.model(id: blockId)?.information,
@@ -31,27 +31,22 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     func toggleMarkup(
-        _ markup: TextAttributesType,
+        _ markup: MarkupType,
         for blockId: BlockId,
         in range: NSRange
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
-        
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
 
-        let markupCalculator = MarkupStateCalculator(
-            attributedText: attributedText,
-            range: range,
-            restrictions: restrictions,
-            alignment: nil
-        )
-        let markupState = markupCalculator.state(for: markup)
-        guard markupState != .disabled else { return }
-        
-        let shouldApplyMarkup = markupState == .notApplied
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+
+        guard restrictions.isMarkupAvailable(markup) else { return }
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
+        let shouldApplyMarkup = !attributedText.hasMarkup(markup, range: range)
+
         applyAndStore(
-            markup.marksStyleAction(shouldApplyMarkup: shouldApplyMarkup),
+            markup,
+            shouldApplyMarkup: shouldApplyMarkup,
             block: model,
             content: content,
             attributedText: attributedText,
@@ -59,20 +54,39 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
     }
 
-    func setLink(
-        _ link: URL?,
+    func setMarkup(
+        _ markup: MarkupType,
+        for blockId: BlockId,
+        in range: NSRange
+    ) {
+        updateMarkup(markup, shouldApplyMarkup: true, for: blockId, in: range)
+    }
+
+    func removeMarkup(
+        _ markup: MarkupType,
+        for blockId: BlockId,
+        in range: NSRange
+    ) {
+        updateMarkup(markup, shouldApplyMarkup: false, for: blockId, in: range)
+    }
+
+    private func updateMarkup(
+        _ markup: MarkupType,
+        shouldApplyMarkup: Bool,
         for blockId: BlockId,
         in range: NSRange
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
-        
+
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-        guard restrictions.canApplyOtherMarkup else { return }
+
+        guard restrictions.isMarkupAvailable(markup) else { return }
 
         let attributedText = content.anytypeText(using: detailsStorage).attrString
-        
+
         applyAndStore(
-            .link(link),
+            markup,
+            shouldApplyMarkup: shouldApplyMarkup,
             block: model,
             content: content,
             attributedText: attributedText,
@@ -80,26 +94,10 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
     }
 
-    func setLinkToObject(id: BlockId, for blockId: BlockId, in range: NSRange) {
-        guard let (model, content) = blockData(blockId: blockId) else { return }
-
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
-
-        guard restrictions.canApplyOtherMarkup else { return }
-
-        applyAndStore(
-            .linkToObject(id),
-            block: model,
-            content: content,
-            attributedText: attributedText,
-            range: range
-        )
-    }
     
     private func applyAndStore(
-        _ action: MarkStyleAction,
+        _ action: MarkupType,
+        shouldApplyMarkup: Bool,
         block: BlockModelProtocol,
         content: BlockText,
         attributedText: NSAttributedString,
@@ -113,7 +111,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
             anytypeFont: content.contentType.uiFont
         )
         
-        modifier.apply(action, range: range)
+        modifier.apply(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
         let result = NSAttributedString(attributedString: modifier.attributedString)
         
         handler?.changeText(result, info: block.information)

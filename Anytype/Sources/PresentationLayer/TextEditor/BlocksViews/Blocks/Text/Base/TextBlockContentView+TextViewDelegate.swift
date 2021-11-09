@@ -29,7 +29,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         blockDelegate.textDidChange()
     }
     
-    func changeTextStyle(attribute: TextAttributesType, range: NSRange) {
+    func changeTextStyle(attribute: MarkupType, range: NSRange) {
         handler.changeTextStyle(attribute, range: range, blockId: currentConfiguration.information.id)
     }
     

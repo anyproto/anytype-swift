@@ -12,7 +12,7 @@ enum AttributedTextConverter {
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> UIKitAnytypeText {
         // Map attributes to our internal format.
-        var markAttributes = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkStyleAction)? in
+        var markAttributes = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkupType)? in
             let middlewareTuple = MiddlewareTuple(
                 attribute: mark.type,
                 value: mark.param
@@ -40,7 +40,7 @@ enum AttributedTextConverter {
         //
         // If we will add mentions after other markup and starting from tail of string
         // it will not break ranges
-        var mentionMarks = [(range: NSRange, markAction: MarkStyleAction)]()
+        var mentionMarks = [(range: NSRange, markAction: MarkupType)]()
         
         markAttributes.removeAll { (range, markAction) -> Bool in
             if case .mention = markAction {
