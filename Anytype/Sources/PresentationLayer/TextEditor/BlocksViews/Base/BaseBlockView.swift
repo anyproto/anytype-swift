@@ -1,11 +1,3 @@
-//
-//  BaseBlockView.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 09.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 class BaseBlockView: UIView {
