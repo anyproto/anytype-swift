@@ -34,6 +34,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     init(
         objectId: String,
+        detailsStorage: ObjectDetailsStorageProtocol,
         objectDetailsService: ObjectDetailsService,
         popScreenAction: @escaping () -> ()
     ) {
@@ -52,7 +53,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
         
-        self.relationsViewModel = ObjectRelationsViewModel()
+        self.relationsViewModel = ObjectRelationsViewModel(detailsStorage: detailsStorage)
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }

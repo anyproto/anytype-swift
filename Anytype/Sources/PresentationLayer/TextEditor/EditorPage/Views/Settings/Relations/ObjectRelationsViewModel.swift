@@ -3,9 +3,14 @@ import BlocksModels
 
 final class ObjectRelationsViewModel: ObservableObject {
     
+    let detailsStorage: ObjectDetailsStorageProtocol
     @Published private(set) var relationEntities: [RelationEntity]
     
-    init(relationEntities: [RelationEntity] = []) {
+    init(
+        detailsStorage: ObjectDetailsStorageProtocol,
+        relationEntities: [RelationEntity] = []
+    ) {
+        self.detailsStorage = detailsStorage
         self.relationEntities = relationEntities
     }
     

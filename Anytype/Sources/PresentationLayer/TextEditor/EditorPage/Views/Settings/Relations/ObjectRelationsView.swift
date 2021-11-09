@@ -30,7 +30,10 @@ struct ObjectRelationsView: View {
                 )
             ) {
                 ForEach(viewModel.relationEntities) { relationEntity in
-                    ObjectRelationRow(relationEntity: relationEntity)
+                    ObjectRelationRow(
+                        detailsStorage: viewModel.detailsStorage,
+                        relationEntity: relationEntity
+                    )
                 }
             }
         }
@@ -44,6 +47,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
+                detailsStorage: ObjectDetailsStorage(),
                 relationEntities: [
                     RelationEntity(
                         relation: Relation(
