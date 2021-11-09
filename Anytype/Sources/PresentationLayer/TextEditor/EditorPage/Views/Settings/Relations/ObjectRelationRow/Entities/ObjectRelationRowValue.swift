@@ -6,6 +6,6 @@ enum ObjectRelationRowValue: Hashable {
     case file(String?)
     case checkbox(Bool)
     case tag([TagRelation])
-    case object(ObjectRelation?)
+    case object([ObjectRelation])
     case unknown(String)
 }

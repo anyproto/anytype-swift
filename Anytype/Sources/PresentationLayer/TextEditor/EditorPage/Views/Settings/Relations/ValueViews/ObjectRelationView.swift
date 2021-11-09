@@ -2,14 +2,24 @@ import SwiftUI
 
 struct ObjectRelationView: View {
     
-    let value: ObjectRelation?
+    let value: [ObjectRelation]
     let hint: String
     
     var body: some View {
-        if let value = value {
-            objectView(objectRelation: value)
+        if value.isNotEmpty {
+            objectsList
         } else {
             ObjectRelationRowHintView(hint: hint)
+        }
+    }
+    
+    private var objectsList: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(value) { object in
+                    objectView(objectRelation: object)
+                }
+            }.padding(.horizontal, 1)
         }
     }
     
@@ -34,6 +44,6 @@ struct ObjectRelationView: View {
 
 struct ObjectRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectRelationView(value: nil, hint: "Hint")
+        ObjectRelationView(value: [], hint: "Hint")
     }
 }

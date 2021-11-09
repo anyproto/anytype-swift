@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import SwiftProtobuf
 
 final class ObjectRelationsViewModel: ObservableObject {
     
@@ -169,23 +170,38 @@ private extension ObjectRelationsViewModel {
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> ObjectRelationRowValue {
         let value = details.values[relation.key]
+        guard let value = value else { return .object([]) }
         
-        guard
-            let objectId = value?.unwrapedListValue.stringValue,
-            objectId.isNotEmpty,
-            let objectDetails = detailsStorage.get(id: objectId)
-        else { return .object(nil) }
-        
-        let name = objectDetails.name
-        let icon: ObjectIconImage = {
-            if let objectIcon = objectDetails.objectIconImage {
-                return objectIcon
+        let values: [Google_Protobuf_Value] = {
+            if case let .listValue(listValue) = value.kind {
+                return listValue.values
             }
             
-            return .placeholder(name.first)
+            return [value]
         }()
         
-        return .object(ObjectRelation(icon: icon, text: name))
+        let objectDetails: [ObjectDetails] = values.compactMap {
+            let objectId = $0.stringValue
+            guard objectId.isNotEmpty else { return nil }
+            let objectDetails = detailsStorage.get(id: objectId)
+            return objectDetails
+        }
+
+        let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
+            let name = objectDetail.name
+            let icon: ObjectIconImage = {
+                if let objectIcon = objectDetail.objectIconImage {
+                    return objectIcon
+                }
+                
+                return .placeholder(name.first)
+            }()
+            
+            return ObjectRelation(icon: icon, text: name)
+        }
+        
+        
+        return .object(objectRelations)
     }
     
 }
