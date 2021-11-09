@@ -547,6 +547,7 @@
 		5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */; };
 		53728CFB273596750092A8CF /* MarkupKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFA273596750092A8CF /* MarkupKind.swift */; };
 		53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */; };
+		53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728D1D273AC8F90092A8CF /* ColorView.swift */; };
 		537A73852677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */; };
 		537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F49712677EB6700C81BA0 /* BlockDelegate.swift */; };
 		538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */; };
@@ -1287,6 +1288,7 @@
 		5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53728CFA273596750092A8CF /* MarkupKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupKind.swift; sourceTree = "<group>"; };
 		53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupAccessoryViewModel.swift; sourceTree = "<group>"; };
+		53728D1D273AC8F90092A8CF /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		537A73842677FA5F001FEBBB /* CustomTextView+UITextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomTextView+UITextViewDelegate.swift"; sourceTree = "<group>"; };
 		537F49712677EB6700C81BA0 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
 		538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackConfigurator.swift; sourceTree = "<group>"; };
@@ -4166,6 +4168,7 @@
 			children = (
 				53EA4A762637634900968B8E /* ColorCell */,
 				53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */,
+				53728D1D273AC8F90092A8CF /* ColorView.swift */,
 			);
 			path = ColorView;
 			sourceTree = "<group>";
@@ -4757,6 +4760,7 @@
 				0AD7695325D58D6000669F8C /* BookmarkService.swift in Sources */,
 				127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */,
 				3DEA98122704A10C004AB80B /* HomeView+BottomSheet.swift in Sources */,
+				53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */,
 				EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */,
 				3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
