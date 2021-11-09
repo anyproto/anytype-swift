@@ -4,7 +4,7 @@ import BlocksModels
 import Kingfisher
 import AnytypeCore
 
-final class BlockImageContentView: UIView & UIContentView {
+final class BlockImageContentView: BaseBlockView & UIContentView {
     
     private let imageView: UIImageView
     private let tapGesture: BindableGestureRecognizer
@@ -20,6 +20,7 @@ final class BlockImageContentView: UIView & UIContentView {
             
             let oldConfiguration = currentConfiguration
             currentConfiguration = configuration
+            configuration.currentConfigurationState.map(update(with:))
             
             handleFile(currentConfiguration.fileData, oldConfiguration.fileData)
         }
@@ -28,14 +29,24 @@ final class BlockImageContentView: UIView & UIContentView {
     init(configuration: BlockImageConfiguration) {
         let imageView = UIImageView()
         currentConfiguration = configuration
-        tapGesture = .init { _ in configuration.imageViewTapHandler(imageView) }
+        tapGesture = .init { gesture in
+            configuration.imageViewTapHandler(imageView)
+
+            print("Tap gesture init: \(gesture)")
+        }
 
         self.imageView = imageView
         super.init(frame: .zero)
         
-        
+        configuration.currentConfigurationState.map(update(with:))
         setupUIElements()
         handleFile(currentConfiguration.fileData, nil)
+    }
+
+    override func update(with state: UICellConfigurationState) {
+        super.update(with: state)
+        tapGesture.isEnabled = state.isEditing
+        print("Tap gesture update: \(tapGesture) \(state.isEditing)")
     }
     
     func setupUIElements() {

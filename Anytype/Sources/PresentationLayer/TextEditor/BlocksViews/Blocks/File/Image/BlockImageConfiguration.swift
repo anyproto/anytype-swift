@@ -7,6 +7,7 @@ struct BlockImageConfiguration: UIContentConfiguration, Hashable {
     let maxWidth: CGFloat
     let alignment: LayoutAlignment
     let imageViewTapHandler: (UIImageView) -> Void
+    private(set) var currentConfigurationState: UICellConfigurationState?
     
     init(
         fileData: BlockFile,
@@ -24,19 +25,26 @@ struct BlockImageConfiguration: UIContentConfiguration, Hashable {
         BlockImageContentView(configuration: self)
     }
     
-    func updated(for state: UIConfigurationState) -> BlockImageConfiguration {
-        self
+    func updated(for state: UIConfigurationState) -> Self {
+        guard let state = state as? UICellConfigurationState else { return self }
+        var updatedConfig = self
+
+        updatedConfig.currentConfigurationState = state
+
+        return updatedConfig
     }
         
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.fileData == rhs.fileData &&
         lhs.alignment == rhs.alignment &&
-        lhs.maxWidth.isEqual(to: rhs.maxWidth)
+        lhs.maxWidth.isEqual(to: rhs.maxWidth) &&
+        lhs.currentConfigurationState == rhs.currentConfigurationState
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(fileData)
         hasher.combine(alignment)
         hasher.combine(maxWidth)
+        hasher.combine(currentConfigurationState)
     }
 }

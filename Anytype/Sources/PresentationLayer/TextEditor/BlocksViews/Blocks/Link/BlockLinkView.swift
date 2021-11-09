@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 import Kingfisher
 
-final class BlockLinkView: UIView, UIContentView {
+final class BlockLinkView: BaseBlockView, UIContentView {
     private var currentConfiguration: BlockLinkContentConfiguration
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
@@ -11,7 +11,7 @@ final class BlockLinkView: UIView, UIContentView {
             guard let configuration = newValue as? BlockLinkContentConfiguration else { return }
             guard currentConfiguration != configuration else { return }
             currentConfiguration = configuration
-            apply(configuration.state)
+            apply(configuration)
         }
     }
     
@@ -21,7 +21,7 @@ final class BlockLinkView: UIView, UIContentView {
         super.init(frame: .zero)
         
         setup()
-        apply(configuration.state)
+        apply(configuration)
     }
     
     @available(*, unavailable)
@@ -30,14 +30,15 @@ final class BlockLinkView: UIView, UIContentView {
     }
 
     // MARK: - Internal functions
-    func apply(_ state: BlockLinkState) {
+    func apply(_ configuration: BlockLinkContentConfiguration) {
         iconView.removeAllSubviews()
-        iconView.addSubview(state.makeIconView()) {
+        iconView.addSubview(configuration.state.makeIconView()) {
             $0.pinToSuperview()
         }
         
-        textView.attributedText = state.attributedTitle
-        deletedLabel.isHidden = !state.archived
+        textView.attributedText = configuration.state.attributedTitle
+        deletedLabel.isHidden = !configuration.state.archived
+        configuration.currentConfigurationState.map(update(with:))
     }
     
     // MARK: - Private functions

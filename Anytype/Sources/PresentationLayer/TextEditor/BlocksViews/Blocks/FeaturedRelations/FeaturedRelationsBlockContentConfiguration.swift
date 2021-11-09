@@ -4,13 +4,19 @@ struct FeaturedRelationsBlockContentConfiguration: UIContentConfiguration, Hasha
         
     let type: String
     let alignment: NSTextAlignment
+    private(set) var currentConfigurationState: UICellConfigurationState?
     
     func makeContentView() -> UIView & UIContentView {
         FeaturedRelationsBlockView(configuration: self)
     }
-    
+
     func updated(for state: UIConfigurationState) -> Self {
-        return self
+        guard let state = state as? UICellConfigurationState else { return self }
+        var updatedConfig = self
+
+        updatedConfig.currentConfigurationState = state
+
+        return updatedConfig
     }
 }
 

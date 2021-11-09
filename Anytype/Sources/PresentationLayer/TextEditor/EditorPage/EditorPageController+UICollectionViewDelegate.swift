@@ -10,15 +10,22 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        viewModel.didSelectBlock(at: indexPath)
-//        collectionView.deselectItem(at: indexPath, animated: false)
+        if collectionView.isEditing {
+            guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
+            if case let .block(block) = item, case .text = block.content { return }
+
+            viewModel.didSelectBlock(at: indexPath)
+            collectionView.deselectItem(at: indexPath, animated: false)
+        } else {
+            // View model handle selection
+        }
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        viewModel.didDeselectBlock(at: indexPath)
+        // View model handle selection
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

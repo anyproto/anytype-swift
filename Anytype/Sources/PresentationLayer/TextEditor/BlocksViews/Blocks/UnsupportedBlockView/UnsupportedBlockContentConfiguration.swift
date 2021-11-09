@@ -10,6 +10,7 @@ import UIKit
 
 struct UnsupportedBlockContentConfiguration {
     let text: String
+    private(set) var currentConfigurationState: UICellConfigurationState?
 }
 
 extension UnsupportedBlockContentConfiguration: UIContentConfiguration {
@@ -18,18 +19,12 @@ extension UnsupportedBlockContentConfiguration: UIContentConfiguration {
         return UnsupportedBlockView(configuration: self)
     }
 
-    func updated(for state: UIConfigurationState) -> UnsupportedBlockContentConfiguration {
-        return self
-    }
-}
+    func updated(for state: UIConfigurationState) -> Self {
+        guard let state = state as? UICellConfigurationState else { return self }
+        var updatedConfig = self
 
-extension UnsupportedBlockContentConfiguration: Hashable {
+        updatedConfig.currentConfigurationState = state
 
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.text == rhs.text
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(text)
+        return updatedConfig
     }
 }

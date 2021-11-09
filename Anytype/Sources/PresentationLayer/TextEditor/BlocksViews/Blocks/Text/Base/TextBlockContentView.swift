@@ -56,10 +56,15 @@ final class TextBlockContentView: BaseBlockView & UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func update(with state: UICellConfigurationState) {
+        super.update(with: state)
+
+        textView.isUserInteractionEnabled = state.isEditing
+    }
+
     // MARK: - Setup views
     
     private func setupLayout() {
-        backgroundColor = .red
         contentStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
         contentStackView.addArrangedSubview(textView)
 
@@ -92,6 +97,7 @@ final class TextBlockContentView: BaseBlockView & UIContentView {
     // MARK: - Apply configuration
     
     private func applyNewConfiguration() {
+        currentConfiguration.currentConfigurationState.map(update(with:))
         textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
         
         let restrictions = BlockRestrictionsBuilder.build(textContentType: currentConfiguration.content.contentType)

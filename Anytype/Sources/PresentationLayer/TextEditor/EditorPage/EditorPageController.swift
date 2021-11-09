@@ -122,15 +122,19 @@ final class EditorPageController: UIViewController {
     func bindViewModel() {
         viewModel.editorEditingState.sink { [unowned self] state in
             switch state {
-            case .selected(let blockIds):
+            case .selecting(let blockIds):
                 setEditing(false, animated: true)
                 blockIds.forEach(selectBlock)
-            case .none:
-                setEditing(true, animated: true)
+                blocksSelectionOverlayView.isHidden = false
+                self.navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
                 setEditing(true, animated: true)
+                blocksSelectionOverlayView.isHidden = true
+                self.navigationBarHelper.setNavigationBarHidden(false)
             }
         }.store(in: &cancellables)
+
+        blocksSelectionOverlayView.delegate = viewModel
     }
 }
 

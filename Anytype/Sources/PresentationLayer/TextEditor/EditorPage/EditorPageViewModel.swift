@@ -7,9 +7,8 @@ import Amplitude
 import AnytypeCore
 
 enum EditorEditingState {
-    case none
     case editing
-    case selected(blocks: [BlockId])
+    case selecting(blocks: [BlockId])
 }
 
 protocol EditorEditingStateHandler: AnyObject {
@@ -19,7 +18,7 @@ protocol EditorEditingStateHandler: AnyObject {
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
 
-    @Published var editingState: EditorEditingState = .none
+    @Published var editingState: EditorEditingState = .editing
 
     weak private(set) var viewInput: EditorPageViewInput?
     
@@ -260,28 +259,12 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel {
     func didSelectBlock(at index: IndexPath) {
-//        guard let element = element(at: index) else { return }
-//        switch editingState {
-//        case .none, .editing: element.didSelectRowInTableView()
-//        case .selected(let blocks):
-//            var newSelectedBlocks = blocks
-//            newSelectedBlocks.append(element.blockId)
-//            editingState = .selected(blocks: newSelectedBlocks)
-//        }
+        guard let element = element(at: index) else { return }
+        element.didSelectRowInTableView()
     }
 
-    func didDeselectBlock(at index: IndexPath) {
-//        switch editingState {
-//        case .editing, .none: break
-//        case .selected(let blocks):
-//            guard let element = element(at: index),
-//                  let index = blocks.firstIndex (where: {  $0 == element.blockId }) else { return }
-//
-//            var newSelectedBlocks = blocks
-//            newSelectedBlocks.remove(at: index)
-//
-//            editingState = .selected(blocks: newSelectedBlocks)
-//        }
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+        // Check restrictions, update options view, etc
     }
 
     private func element(at: IndexPath) -> BlockViewModelProtocol? {
@@ -310,7 +293,7 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel: EditorEditingStateHandler {
     func didSelectedEditingState(onBlockWith id: BlockId) {
-        editingState = .selected(blocks: [id])
+        editingState = .selecting(blocks: [id])
     }
 }
 

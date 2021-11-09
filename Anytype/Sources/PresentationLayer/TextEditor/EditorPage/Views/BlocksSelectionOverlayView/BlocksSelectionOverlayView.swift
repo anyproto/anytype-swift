@@ -1,10 +1,21 @@
 import UIKit
 import SwiftUI
 
+protocol BlocksSelectionDelegate: AnyObject {
+    func didTapEndSelectionModeButton()
+
+    func didTapDelete()
+    func didTapAddBelow()
+    func didTapDuplicate()
+    func didTapTurnInto()
+    func didTapMoveTo()
+}
+
 final class BlocksSelectionOverlayView: UIView {
     private lazy var navigationView = SelectionNavigationView(frame: .zero)
     private lazy var blocksOptionView = BlocksOptionView(tapHandler: { _ in } )
     private lazy var statusBarOverlayView = UIView()
+    weak var delegate: BlocksSelectionDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,12 +30,15 @@ final class BlocksSelectionOverlayView: UIView {
     }
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        subviews.contains {
+        let isValid = subviews.contains {
             $0.hitTest(convert(point, to: $0), with: event) != nil
         }
+
+        return isValid
     }
 
     private func setupView() {
+        bindActions()
         backgroundColor = .clear
 
         addSubview(statusBarOverlayView) {
@@ -57,9 +71,17 @@ final class BlocksSelectionOverlayView: UIView {
         shadowedBlocksOptionView.shadowLayer.shadowOpacity = 0.25
         shadowedBlocksOptionView.shadowLayer.shadowRadius = 3
     }
+
+    private func bindActions() {
+        navigationView.leftButtonTap = { [unowned self] in
+            delegate?.didTapEndSelectionModeButton()
+        }
+    }
 }
 
 private final class SelectionNavigationView: UIView {
+    var leftButtonTap: (() -> Void)?
+
     private lazy var titleLabel = UILabel()
     private lazy var leftButton = UIButton()
 
@@ -85,8 +107,10 @@ private final class SelectionNavigationView: UIView {
 
         titleLabel.text = "Awesome new text will be here"
 
-        let leftButtonAction = UIAction(handler: { _ in print("TAPPPS") })
-        leftButton.setTitle("Done", for: .normal)
+        let leftButtonAction = UIAction(handler: { [unowned self] _ in
+            leftButtonTap?()
+        })
+        leftButton.setTitle("Done".localized, for: .normal)
         leftButton.setTitleColor(.pureAmber, for: .normal)
         leftButton.addAction(leftButtonAction, for: .touchUpInside)
 

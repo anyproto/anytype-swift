@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 
-protocol EditorPageViewModelProtocol {
+protocol EditorPageViewModelProtocol: BlocksSelectionDelegate {
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
@@ -16,7 +16,8 @@ protocol EditorPageViewModelProtocol {
     func viewAppeared()
 
     func didSelectBlock(at index: IndexPath)
-    func didDeselectBlock(at index: IndexPath)
+
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
     
     func showSettings()
     
