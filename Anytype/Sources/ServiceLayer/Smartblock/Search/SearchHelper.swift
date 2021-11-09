@@ -61,14 +61,23 @@ class SearchHelper {
         return filter
     }
     
-    static func sharedObjectsFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
-        var filter = Anytype_Model_Block.Content.Dataview.Filter()
-        filter.condition = .notEmpty
-        filter.value = nil
-        filter.relationKey = RelationKey.workspaceId.rawValue
-        filter.operator = .and
+    static func sharedObjectsFilters() -> [Anytype_Model_Block.Content.Dataview.Filter] {
+        var workspaceFilter = Anytype_Model_Block.Content.Dataview.Filter()
+        workspaceFilter.condition = .notEmpty
+        workspaceFilter.value = nil
+        workspaceFilter.relationKey = RelationKey.workspaceId.rawValue
+        workspaceFilter.operator = .and
    
-        return filter
+        var highlightedFilter = Anytype_Model_Block.Content.Dataview.Filter()
+        highlightedFilter.condition = .equal
+        highlightedFilter.value = true
+        highlightedFilter.relationKey = RelationKey.isHighlighted.rawValue
+        highlightedFilter.operator = .and
+        
+        return [
+            workspaceFilter,
+            highlightedFilter
+        ]
     }
     
     static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> Anytype_Model_Block.Content.Dataview.Filter {

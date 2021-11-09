@@ -1,8 +1,8 @@
 import Foundation
 
-extension AccessoryViewStateManager: MentionViewDelegate {
+extension AccessoryViewStateManagerImpl: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
-        guard let textView = switcher.data?.textView.textView, let block = switcher.data?.block else { return }
+        guard let textView = switcher.data?.textView, let info = switcher.data?.info else { return }
         guard let mentionSymbolPosition = triggerSymbolPosition,
               let newMentionPosition = textView.position(from: mentionSymbolPosition, offset: -1) else { return }
         guard let caretPosition = textView.caretPosition else { return }
@@ -22,12 +22,7 @@ extension AccessoryViewStateManager: MentionViewDelegate {
         newText.insert(NSAttributedString(string: " "), at: lastMentionCharacterPosition)
         let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
         
-        let actions: [BlockHandlerActionType] = [
-            .textView(action: .changeText(newText), block: block),
-            .textView(action: .changeCaretPosition(newCaretPosition), block: block)
-        ]
-        actions.forEach {
-            handler.handleAction($0, blockId: block.information.id)
-        }
+        handler.changeText(newText, info: info)
+        handler.changeCaretPosition(range: newCaretPosition)
     }
 }

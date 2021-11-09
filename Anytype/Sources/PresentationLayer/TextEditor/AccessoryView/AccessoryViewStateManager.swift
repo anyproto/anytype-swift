@@ -1,29 +1,28 @@
 import Foundation
 import UIKit
 
-protocol AccessoryTextViewDelegate {
-    func willBeginEditing(data: AccessoryViewSwitcherData)
+protocol AccessoryViewStateManager {
+    func willBeginEditing(data: TextBlockDelegateData)
     func didEndEditing()
-    
-    func textWillChange(replacementText: String, range: NSRange)
-    func textDidChange()
+    func textDidChange(changeType: TextChangeType)
+    func selectionDidChange(range: NSRange)
 }
 
-final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessoryViewDelegate {
-    private var data: AccessoryViewSwitcherData? { switcher.data }
+final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, EditorAccessoryViewDelegate {
+    private var data: TextBlockDelegateData? { switcher.data }
     private(set) var triggerSymbolPosition: UITextPosition?
-    private var latestTextViewTextChange: TextViewTextChangeType?
     
     let switcher: AccessoryViewSwitcher
-    let handler: EditorActionHandlerProtocol
+    let handler: BlockActionHandlerProtocol
     
-    init(switcher: AccessoryViewSwitcher, handler: EditorActionHandlerProtocol) {
+    init(switcher: AccessoryViewSwitcher, handler: BlockActionHandlerProtocol) {
         self.switcher = switcher
         self.handler = handler
     }
     
-    // MARK: - AccessoryTextViewDelegate
-    func willBeginEditing(data: AccessoryViewSwitcherData) {
+    // MARK: - AccessoryViewStateManager
+
+    func willBeginEditing(data: TextBlockDelegateData) {
         switcher.updateData(data: data)
     }
     
@@ -31,26 +30,26 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.restoreDefaultState()
     }
 
-    func textWillChange(replacementText: String, range: NSRange) {
-        latestTextViewTextChange = switcher.data?.textView.textView.textChangeType(
-            changeTextRange: range,
-            replacementText: replacementText
-        )
-    }
-
-    func textDidChange() {
+    func textDidChange(changeType: TextChangeType) {
         switch switcher.activeView {
         case .`default`, .changeType:
             updateDefaultView()
-            triggerTextActions()
+            triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
         case .none, .urlInput:
             break
         }
     }
+
+    func selectionDidChange(range: NSRange) {
+        if case .`default`(let view) = switcher.activeView {
+            view.selectionChanged(range: range)
+        }
+    }
     
     // MARK: - View Delegate
+
     func showSlashMenuView() {
         switcher.showSlashMenuView()
     }
@@ -76,7 +75,7 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func searchText() -> String? {
-        guard let textView = data?.textView.textView else { return nil }
+        guard let textView = data?.textView else { return nil }
         
         guard let caretPosition = textView.caretPosition,
               let triggerSymbolPosition = triggerSymbolPosition,
@@ -90,15 +89,15 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
         switcher.showDefaultView()
     }
     
-    private func triggerTextActions() {
-        guard latestTextViewTextChange == .typingSymbols else { return }
+    private func triggerTextActions(changeType: TextChangeType) {
+        guard changeType == .typingSymbols else { return }
         
         displaySlashOrMentionIfNeeded()
     }
     
     private var isTriggerSymbolDeleted: Bool {
         guard let triggerSymbolPosition = triggerSymbolPosition,
-              let textView = data?.textView.textView,
+              let textView = data?.textView,
               let caretPosition = textView.caretPosition else {
             return false
         }
@@ -113,8 +112,8 @@ final class AccessoryViewStateManager: AccessoryTextViewDelegate, EditorAccessor
     }
     
     private func displaySlashOrMentionIfNeeded() {
-        guard let textView = data?.textView.textView else { return }
-        guard let data = data, data.information.content.type != .text(.title) else { return }
+        guard let textView = data?.textView else { return }
+        guard let data = data, data.info.content.type != .text(.title) else { return }
         guard let textBeforeCaret = textView.textBeforeCaret else { return }
         guard let caretPosition = textView.caretPosition else { return }
         

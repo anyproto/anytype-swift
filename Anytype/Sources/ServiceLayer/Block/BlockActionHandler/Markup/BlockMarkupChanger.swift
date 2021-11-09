@@ -3,7 +3,7 @@ import BlocksModels
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    weak var handler: EditorActionHandlerProtocol?
+    weak var handler: BlockActionHandlerProtocol?
     
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
@@ -17,7 +17,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     func toggleMarkup(
-        _ markup: BlockHandlerActionType.TextAttributesType,
+        _ markup: TextAttributesType,
         for blockId: BlockId
     ) {
         guard let info = blocksContainer.model(id: blockId)?.information,
@@ -25,23 +25,21 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         
         toggleMarkup(
             markup,
-            attributedText: blockText.anytypeText(using: detailsStorage).attrString,
             for: blockId,
             in: blockText.anytypeText(using: detailsStorage).attrString.wholeRange
         )
     }
     
     func toggleMarkup(
-        _ markup: BlockHandlerActionType.TextAttributesType,
-        attributedText: NSAttributedString,
+        _ markup: TextAttributesType,
         for blockId: BlockId,
         in range: NSRange
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
         
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
-            for: content.contentType
-        )
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
+
         let markupCalculator = MarkupStateCalculator(
             attributedText: attributedText,
             range: range,
@@ -63,16 +61,15 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
     func setLink(
         _ link: URL?,
-        attributedText: NSAttributedString,
         for blockId: BlockId,
         in range: NSRange
     ) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
         
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
-            for: content.contentType
-        )
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
         guard restrictions.canApplyOtherMarkup else { return }
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
         
         applyAndStore(
             .link(link),
@@ -83,12 +80,12 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
     }
 
-    func setLinkToObject(id: BlockId, attributedText: NSAttributedString, for blockId: BlockId, in range: NSRange) {
+    func setLinkToObject(id: BlockId, for blockId: BlockId, in range: NSRange) {
         guard let (model, content) = blockData(blockId: blockId) else { return }
 
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
-            for: content.contentType
-        )
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
 
         guard restrictions.canApplyOtherMarkup else { return }
 
@@ -119,10 +116,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         modifier.apply(action, range: range)
         let result = NSAttributedString(attributedString: modifier.attributedString)
         
-        handler?.handleAction(
-            .textView(action: .changeText(result), block: block),
-            blockId: block.information.id
-        )
+        handler?.changeText(result, info: block.information)
     }
     
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {

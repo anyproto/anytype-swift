@@ -2,24 +2,6 @@ import Foundation
 
 public extension Relation {
     
-    // TODO: - Remove later
-//    enum Format: String, Hashable {
-//        case shortText = "Short text"
-//        case longText = "Text"
-//        case number = "Number"
-//        case status = "Status"
-//        case tag = "Tag"
-//        case date = "Date"
-//        case file = "File"
-//        case checkbox = "Checkbox"
-//        case url = "URL"
-//        case email = "Email"
-//        case phone = "Phone number"
-//        case emoji = "Emoji"
-//        case object = "Object"
-//        case relations = "Relations"
-//    }
-    
     enum Format: Hashable {
         case longText
         case shortText
@@ -31,10 +13,8 @@ public extension Relation {
         case url
         case email
         case phone
-        case emoji
         case tag
         case object
-        case relations
         case unrecognized(Int)
     }
 }
@@ -53,10 +33,8 @@ extension Relation.Format {
       case 7: self = .url
       case 8: self = .email
       case 9: self = .phone
-      case 10: self = .emoji
       case 11: self = .tag
       case 100: self = .object
-      case 101: self = .relations
       default: self = .unrecognized(rawValue)
       }
     }
@@ -73,10 +51,8 @@ extension Relation.Format {
       case .url: return 7
       case .email: return 8
       case .phone: return 9
-      case .emoji: return 10
       case .tag: return 11
       case .object: return 100
-      case .relations: return 101
       case .unrecognized(let value): return value
       }
     }

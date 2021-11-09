@@ -17,13 +17,13 @@ final class MarkupViewModel {
         }
     }
     weak var view: MarkupViewProtocol?
-    private let actionHandler: EditorActionHandlerProtocol
+    private let actionHandler: BlockActionHandlerProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
 
     private var selectedRange: MarkupRange?
     private var anytypeText: UIKitAnytypeText?
     
-    init(actionHandler: EditorActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
+    init(actionHandler: BlockActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
         self.actionHandler = actionHandler
         self.detailsStorage = detailsStorage
     }
@@ -55,9 +55,9 @@ final class MarkupViewModel {
     }
     
     private func setMarkup(
-        markup: BlockHandlerActionType.TextAttributesType, blockId: BlockId
+        markup: TextAttributesType, blockId: BlockId
     ) {
-        actionHandler.handleAction(.toggleWholeBlockMarkup(markup), blockId: blockId)
+        actionHandler.toggleWholeBlockMarkup(markup, blockId: blockId)
     }
     
     private func textAttributes(
@@ -66,7 +66,7 @@ final class MarkupViewModel {
         range: NSRange,
         alignment: LayoutAlignment
     ) -> AllMarkupsState {
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: content.contentType)
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
         let markupCalculator = MarkupStateCalculator(
             attributedText: anytypeText.attrString,
@@ -98,10 +98,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
         }
         switch action {
         case let .selectAlignment(alignment):
-            actionHandler.handleAction(
-                .setAlignment(alignment),
-                blockId: blockInformation.id
-            )
+            actionHandler.setAlignment(alignment, blockId: blockInformation.id)
         case let .toggleMarkup(markup):
             setMarkup(markup: markup, blockId: blockInformation.id)
         }

@@ -193,10 +193,6 @@ extension EditorPageController: EditorPageViewInput {
         }
         updateView()
     }
-
-    func needsUpdateLayout() {
-        updateView()
-    }
     
     func textBlockWillBeginEditing() {
         contentOffset = collectionView.contentOffset
@@ -276,7 +272,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.blockActionHandler.onEmptySpotTap()
+        viewModel.actionHandler.createEmptyBlock(parentId: nil)
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {

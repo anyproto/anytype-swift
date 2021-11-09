@@ -1,13 +1,13 @@
 import UIKit
 
 protocol Mentionable {
-    @discardableResult func removeMentionIfNeeded(replacementRange: NSRange, replacementText: String) -> Bool
+    @discardableResult func removeMentionIfNeeded(text: String) -> Bool
 }
 
 extension UITextView: Mentionable {
 
-    func removeMentionIfNeeded(replacementRange: NSRange, replacementText: String) -> Bool {
-        guard replacementText == "" else { return false }
+    func removeMentionIfNeeded(text: String) -> Bool {
+        guard text == "" else { return false }
         let mentionSearchRange = NSRange(location: 0, length: selectedRange.location)
         
         var result = false

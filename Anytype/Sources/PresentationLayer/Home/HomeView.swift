@@ -107,7 +107,6 @@ struct HomeView: View {
                 isActive: $viewModel.openedPageData.showingNewPage,
                 label: { EmptyView() }
             )
-            NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099
         }
     }
 }

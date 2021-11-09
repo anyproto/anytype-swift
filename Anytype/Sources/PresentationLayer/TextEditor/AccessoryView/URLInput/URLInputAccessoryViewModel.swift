@@ -13,12 +13,12 @@ extension URLInputAccessoryView {
 }
 
 extension URLInputAccessoryView.Model {
-    init(data: AccessoryViewSwitcherData, url: URL?) {
+    init(data: TextBlockDelegateData, url: URL?) {
         self.init(
-            blockId: data.information.id,
+            blockId: data.info.id,
             url: url,
             text: data.text.attrString,
-            range: data.textView.textView.selectedRange
+            range: data.textView.selectedRange
         )
     }
 }

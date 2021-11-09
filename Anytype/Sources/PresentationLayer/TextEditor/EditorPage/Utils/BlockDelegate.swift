@@ -1,28 +1,37 @@
 import BlocksModels
-
+import AnytypeCore
 
 protocol BlockDelegate: AnyObject {
-    func blockSizeChanged()
+    func willBeginEditing(data: TextBlockDelegateData)
+    func didBeginEditing()
+    func didEndEditing()
+    
     func becomeFirstResponder(blockId: BlockId)
     func resignFirstResponder(blockId: BlockId)
-    func didBeginEditing()
-    func willBeginEditing()
+    
+    func textWillChange(changeType: TextChangeType)
+    func textDidChange()
+    func selectionDidChange(range: NSRange)
 }
 
 final class BlockDelegateImpl: BlockDelegate {
-    weak private(set) var viewInput: EditorPageViewInput?
-    let document: BaseDocumentProtocol
+    
+    private var changeType: TextChangeType?
+    private var data: TextBlockDelegateData?
+    
+    weak private var viewInput: EditorPageViewInput?
+    
+    private let accessoryState: AccessoryViewStateManager
+    private let markdownListener: MarkdownListener
     
     init(
         viewInput: EditorPageViewInput?,
-        document: BaseDocumentProtocol
+        accessoryState: AccessoryViewStateManager,
+        markdownListener: MarkdownListener
     ) {
         self.viewInput = viewInput
-        self.document = document
-    }
-    
-    func blockSizeChanged() {
-        viewInput?.needsUpdateLayout()
+        self.accessoryState = accessoryState
+        self.markdownListener = markdownListener
     }
 
     func becomeFirstResponder(blockId: BlockId) {
@@ -30,16 +39,42 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func resignFirstResponder(blockId: BlockId) {
-        if UserSession.shared.firstResponderId.value == blockId {
-            UserSession.shared.firstResponderId.value = nil
-        }
+        UserSession.shared.resignFirstResponder(blockId: blockId)
     }
 
     func didBeginEditing() {
         viewInput?.textBlockDidBeginEditing()
     }
 
-    func willBeginEditing() {
+    func willBeginEditing(data: TextBlockDelegateData) {
+        self.data = data
         viewInput?.textBlockWillBeginEditing()
+        accessoryState.willBeginEditing(data: data)
+    }
+    
+    func didEndEditing() {
+        accessoryState.didEndEditing()
+    }
+    
+    func textWillChange(changeType: TextChangeType) {
+        self.changeType = changeType
+    }
+    
+    func textDidChange() {
+        guard let changeType = changeType else {
+            anytypeAssertionFailure("No change type in textDidChange")
+            return
+        }
+        guard let data = data else {
+            anytypeAssertionFailure("No data in textDidChange")
+            return
+        }
+
+        accessoryState.textDidChange(changeType: changeType)
+        markdownListener.textDidChange(changeType: changeType, data: data)
+    }
+
+    func selectionDidChange(range: NSRange) {
+        accessoryState.selectionDidChange(range: range)
     }
 }

@@ -1,4 +1,3 @@
-
 enum CoverConstants {
     
     static let colors: [CoverColor] = [

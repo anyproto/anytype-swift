@@ -11,10 +11,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
     
-    private weak var modelsHolder: ObjectContentViewModelsSharedHolder?
+    private weak var modelsHolder: BlockViewModelsHolder?
+    
+    private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
     init(
-        modelsHolder: ObjectContentViewModelsSharedHolder,
+        modelsHolder: BlockViewModelsHolder,
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol
     ) {
@@ -30,127 +32,54 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
 
-    // MARK: - Public methods
     
+    // MARK: - Service proxy
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         return service.turnIntoPage(blockId: blockId)
+    }
+    
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        service.turnInto(style, blockId: blockId)
     }
     
     func upload(blockId: BlockId, filePath: String) {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
-        return service.createPage(targetId: targetId, type: type, position: position)
-    }
-    
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
-    func handleBlockAction(_ action: BlockHandlerActionType, blockId: BlockId) {
-        switch action {
-        case let .turnInto(textStyle):
-            // TODO: why we need here turnInto only for text block?
-            let textBlockContentType = BlockContent.text(BlockText(contentType: textStyle))
-            service.turnInto(
-                blockId: blockId,
-                type: textBlockContentType.type,
-                shouldSetFocusOnUpdate: false
-            )
-            
-        case let .setTextColor(color):
-            setBlockColor(blockId: blockId, color: color)
-            
-        case let .setBackgroundColor(color):
-            service.setBackgroundColor(blockId: blockId, color: color)
-            
-        case let .toggleWholeBlockMarkup(markup):
-            markupChanger.toggleMarkup(markup, for: blockId)
-            
-        case let .toggleFontStyle(attrText, fontAttributes, range):
-            markupChanger.toggleMarkup(
-                fontAttributes,
-                attributedText: attrText,
-                for: blockId,
-                in: range
-            )
-            
-        case let .setAlignment(alignment):
-            setAlignment(blockId: blockId, alignment: alignment)
-            
-        case let .setFields(contextID, fields):
-            service.setFields(contextID: contextID, blockFields: fields)
-            
-        case .duplicate:
-            service.duplicate(blockId: blockId)
-            
-        case let .setLink(attrText, url, range):
-            markupChanger.setLink(url, attributedText: attrText, for: blockId, in: range)
-
-        case let .setLinkToObject(linkBlockId: linkBlockId, attrText, range):
-            markupChanger.setLinkToObject(id: linkBlockId, attributedText: attrText, for: blockId, in: range)
-
-        case .delete:
-            delete(blockId: blockId)
-            
-        case let .addBlock(type):
-            addBlock(blockId: blockId, type: type)
-            
-        case let .addLink(targetBlockId):
-            service.add(
-                info: BlockBuilder.createNewLink(targetBlockId: targetBlockId),
-                targetBlockId: blockId,
-                position: .bottom,
-                shouldSetFocusOnUpdate: false
-            )
-            
-        case let .turnIntoBlock(type):
-            service.turnInto(blockId: blockId, type: type, shouldSetFocusOnUpdate: false)
-            
-        case let .fetch(url: url):
-            service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
-            
-        case .toggle:
-            service.receivelocalEvents([.setToggled(blockId: blockId)])
-            
-        case .checkbox(selected: let selected):
-            service.checked(blockId: blockId, newValue: selected)
-            
-        case .createEmptyBlock(let parentId):
-            service.addChild(
-                info: BlockBuilder.createDefaultInformation(),
-                parentBlockId: parentId
-            )
-            
-        case .moveTo(targetId: let targetId):
-            moveTo(targetId: targetId, blockId: blockId)
-            
-        case let .textView(action: action, block: blockModel):
-            switch action {
-            case let .changeCaretPosition(selectedRange):
-                UserSession.shared.focus.value = .at(selectedRange)
-            case let .changeTextStyle(string, styleAction, range):
-                handleBlockAction(
-                    .toggleFontStyle(string, styleAction, range),
-                    blockId: blockId
-                )
-                
-            default:
-                textBlockActionHandler.handlingTextViewAction(blockModel, action)
-            }
-        }
-    }
-    
-}
-
-private extension BlockActionHandler {
-    
-    func setBlockColor(blockId: BlockId, color: BlockColor) {
+    func setTextColor(_ color: BlockColor, blockId: BlockId) {
         listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
     }
     
-    func setAlignment(blockId: BlockId, alignment: LayoutAlignment) {
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
+        service.setBackgroundColor(blockId: blockId, color: color)
+    }
+    
+    func duplicate(blockId: BlockId) {
+        service.duplicate(blockId: blockId)
+    }
+    
+    func setFields(_ fields: [BlockFields], blockId: BlockId) {
+        service.setFields(contextID: document.objectId, blockFields: fields)
+    }
+    
+    func fetch(url: URL, blockId: BlockId) {
+        service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
+    }
+    
+    func checkbox(selected: Bool, blockId: BlockId) {
+        service.checked(blockId: blockId, newValue: selected)
+    }
+    
+    func toggle(blockId: BlockId) {
+        EventsBunch(objectId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
+            .send()
+    }
+    
+    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
         listService.setAlign(contextId: document.objectId, blockIds: [blockId], alignment: alignment)
     }
     
@@ -159,11 +88,98 @@ private extension BlockActionHandler {
         service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
     }
     
-    func addBlock(blockId: BlockId, type: BlockContentType) {
+    func moveTo(targetId: BlockId, blockId: BlockId) {
+        listService.moveTo(contextId: document.objectId, blockId: blockId, targetId: targetId)
+    }
+    
+    func createEmptyBlock(parentId: BlockId?) {
+        let parentId = parentId ?? document.objectId
+        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+    }
+    
+    func addLink(targetId: BlockId, blockId: BlockId) {
+        service.add(
+            info: BlockBuilder.createNewLink(targetBlockId: targetId),
+            targetBlockId: blockId,
+            position: .bottom,
+            shouldSetFocusOnUpdate: false
+        )
+    }
+    
+    // MARK: - Markup changer proxy
+    func toggleWholeBlockMarkup(_ markup: TextAttributesType, blockId: BlockId) {
+        markupChanger.toggleMarkup(markup, for: blockId)
+    }
+    
+    func changeTextStyle(_ attribute: TextAttributesType, range: NSRange, blockId: BlockId) {
+        markupChanger.toggleMarkup(attribute, for: blockId, in: range)
+    }
+    
+    func setLink(url: URL?, range: NSRange, blockId: BlockId) {
+        markupChanger.setLink(url, for: blockId, in: range)
+    }
+    
+    func setLinkToObject(linkBlockId: BlockId, range: NSRange, blockId: BlockId) {
+        markupChanger.setLinkToObject(id: linkBlockId, for: blockId, in: range)
+    }
+    
+    // MARK: - TextBlockActionHandler proxy
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
+        textBlockActionHandler.handleKeyboardAction(info: info, action: action)
+    }
+    
+    func changeText(_ text: NSAttributedString, info: BlockInformation) {
+        textBlockActionHandler.changeText(info: info, text: text)
+    }
+    
+    // MARK: - Public methods
+    func changeCaretPosition(range: NSRange) {
+        UserSession.shared.focus.value = .at(range)
+    }
+    
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
+        
+        let operation = MediaFileUploadingOperation(
+            itemProvider: itemProvider,
+            worker: BlockMediaUploadingWorker(
+                objectId: document.objectId,
+                blockId: blockId,
+                contentType: type
+            )
+        )
+        fileUploadingDemon.addOperation(operation)
+    }
+    
+    func uploadFileAt(localPath: String, blockId: BlockId) {
+        EventsBunch(
+            objectId: document.objectId,
+            localEvents: [.setLoadingState(blockId: blockId)]
+        ).send()
+        
+        upload(blockId: blockId, filePath: localPath)
+    }
+    
+    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        var position: BlockPosition
+        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+            position = .replace
+        } else {
+            position = .bottom
+        }
+        
+        return service.createPage(targetId: targetId, type: type, position: position)
+    }
+
+    func addBlock(_ type: BlockContentType, blockId: BlockId) {
         switch type {
         case .smartblock(.page):
             anytypeAssertionFailure("Use createPage func instead")
-            _ = createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
+            _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
         default:
             guard
                 let newBlock = BlockBuilder.createNewBlock(type: type),
@@ -184,9 +200,5 @@ private extension BlockActionHandler {
                 shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
             )
         }
-    }
-    
-    func moveTo(targetId: BlockId, blockId: BlockId) {
-        listService.moveTo(contextId: document.objectId, blockId: blockId, targetId: targetId)
     }
 }

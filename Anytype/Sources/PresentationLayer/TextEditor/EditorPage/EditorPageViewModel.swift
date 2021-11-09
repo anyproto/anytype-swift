@@ -24,7 +24,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
     
     let document: BaseDocumentProtocol
-    let modelsHolder: ObjectContentViewModelsSharedHolder
+    let modelsHolder: BlockViewModelsHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
@@ -32,7 +32,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     private let cursorManager = EditorCursorManager()
     let objectSettingsViewModel: ObjectSettingsViewModel
-    let blockActionHandler: EditorActionHandlerProtocol
+    let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
@@ -57,9 +57,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
-        modelsHolder: ObjectContentViewModelsSharedHolder,
+        modelsHolder: BlockViewModelsHolder,
         blockBuilder: BlockViewModelBuilder,
-        blockActionHandler: EditorActionHandler,
+        actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
         blockActionsService: BlockActionsServiceSingle
@@ -70,7 +70,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.router = router
         self.modelsHolder = modelsHolder
         self.blockBuilder = blockBuilder
-        self.blockActionHandler = blockActionHandler
+        self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
@@ -116,7 +116,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
 
-            objectSettingsViewModel.update(with: details, objectRestrictions: document.objectRestrictions)
+            objectSettingsViewModel.update(
+                with: details,
+                objectRestrictions: document.objectRestrictions,
+                objectRelations: document.relationsStorage.relations
+            )
             viewInput?.update(header: header, details: details)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
@@ -154,19 +158,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         viewInput?.showDeletedScreen(details.isDeleted)
         if details.isArchived {
-            if FeatureFlags.aletOnGoBack {
-                showAssertionAlert("Man this is an archived page\n\(details)")
-            }
             router.goBack()
         }
     }
     
     private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
         for blockId in blockIds {
-            guard let newRecord = document.blocksContainer
-                    .model(id: document.objectId)?
-                    .container?.model(id: blockId)
-            else {
+            guard let newRecord = document.blocksContainer.model(id: blockId) else {
                 AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
                 return
             }
@@ -213,8 +211,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
-        let container = document.blocksContainer.model(id: document.objectId)?.container
-        guard let currentInformation = container?.model(id: blockId)?.information else {
+        guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
@@ -234,7 +231,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
         
-        objectSettingsViewModel.update(with: details, objectRestrictions: document.objectRestrictions)
+        objectSettingsViewModel.update(
+            with: details,
+            objectRestrictions: document.objectRestrictions,
+            objectRelations: document.relationsStorage.relations
+        )
     }
 }
 
@@ -243,9 +244,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewLoaded() {
         guard document.open() else {
-            if FeatureFlags.aletOnGoBack {
-                showAssertionAlert("Could not open page 😫")
-            }
             router.goBack()
             return
         }

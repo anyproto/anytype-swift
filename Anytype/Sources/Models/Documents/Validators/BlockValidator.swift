@@ -1,16 +1,9 @@
 
 import BlocksModels
 
-struct BlockValidator {
-    
-    private let restrictionsFactory: BlockRestrictionsFactory
-    
-    init(restrictionsFactory: BlockRestrictionsFactory) {
-        self.restrictionsFactory = restrictionsFactory
-    }
-    
+struct BlockValidator {    
     func validated(information info: BlockInformation) -> BlockInformation {
-        let restrictions = restrictionsFactory.makeRestrictions(for: info.content)
+        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
         
         let content: BlockContent
         if case let .text(text) = info.content {

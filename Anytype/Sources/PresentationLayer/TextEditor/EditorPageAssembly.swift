@@ -46,7 +46,7 @@ final class EditorPageAssembly {
             popScreenAction: router.goBack
         )
                 
-        let modelsHolder = ObjectContentViewModelsSharedHolder(
+        let modelsHolder = BlockViewModelsHolder(
             objectId: document.objectId
         )
         
@@ -55,41 +55,37 @@ final class EditorPageAssembly {
             detailsStorage: document.detailsStorage
         )
         
-        let blockActionHandler = BlockActionHandler(
+        let actionHandler = BlockActionHandler(
             modelsHolder: modelsHolder,
             document: document,
             markupChanger: markupChanger
         )
         
-        let editorBlockActionHandler = EditorActionHandler(
-            document: document,
-            blockActionHandler: blockActionHandler,
-            router: router
+        markupChanger.handler = actionHandler
+        
+        let accessoryState = AccessoryViewBuilder.accessoryState(
+            actionHandler: actionHandler,
+            router: router,
+            document: document
         )
         
-        markupChanger.handler = editorBlockActionHandler
+        let markdownListener = MarkdownListenerImpl(handler: actionHandler)
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            document: document
-        )
-        
-        let accessoryDelegate = AccessoryViewBuilder.accessoryDelegate (
-            actionHandler: editorBlockActionHandler,
-            router: router,
-            document: document
+            accessoryState: accessoryState,
+            markdownListener: markdownListener
         )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
-            editorActionHandler: editorBlockActionHandler,
+            handler: actionHandler,
             router: router,
-            delegate: blockDelegate,
-            accessoryDelegate: accessoryDelegate
+            delegate: blockDelegate
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
-            actionHandler: editorBlockActionHandler,
+            actionHandler: actionHandler,
             detailsStorage: document.detailsStorage
         )
         
@@ -106,7 +102,7 @@ final class EditorPageAssembly {
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
-            blockActionHandler: editorBlockActionHandler,
+            actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
             blockActionsService: BlockActionsServiceSingle()

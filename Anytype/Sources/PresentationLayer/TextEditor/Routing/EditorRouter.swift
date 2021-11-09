@@ -127,9 +127,8 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let container = document.blocksContainer.model(id: document.objectId)?.container,
               let rootController = rootController,
-              let blockModel = container.model(id: information.id) else { return }
+              let blockModel = document.blocksContainer.model(id: information.id) else { return }
 
         controller.view.endEditing(true)
 
@@ -148,7 +147,7 @@ final class EditorRouter: EditorRouterProtocol {
             parentViewController: rootController,
             delegate: controller,
             blockModel: blockModel,
-            actionHandler: controller.viewModel.blockActionHandler,
+            actionHandler: controller.viewModel.actionHandler,
             didShow: didShow,
             showMarkupMenu: { [weak controller, weak rootController] styleView, viewDidClose in
                 guard let controller = controller else { return }
@@ -203,7 +202,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
         
-        presentSwuftUIView(view: moveToView)
+        presentSwuftUIView(view: moveToView, model: viewModel)
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
@@ -212,7 +211,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
 
-        presentSwuftUIView(view: linkToView)
+        presentSwuftUIView(view: linkToView, model: viewModel)
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
@@ -221,7 +220,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
         
-        presentSwuftUIView(view: linkToView)
+        presentSwuftUIView(view: linkToView, model: viewModel)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
@@ -230,7 +229,7 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let searchView = SearchView(title: nil, viewModel: viewModel)
         
-        presentSwuftUIView(view: searchView)
+        presentSwuftUIView(view: searchView, model: viewModel)
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
@@ -240,17 +239,18 @@ final class EditorRouter: EditorRouterProtocol {
         }
         let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
 
-        presentSwuftUIView(view: searchView)
+        presentSwuftUIView(view: searchView, model: viewModel)
     }
     
     func goBack() {
         rootController?.pop()
     }
     
-    private func presentSwuftUIView<Content: View>(view: Content) {
+    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
+        model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.present(controller, animated: true)
     }
     

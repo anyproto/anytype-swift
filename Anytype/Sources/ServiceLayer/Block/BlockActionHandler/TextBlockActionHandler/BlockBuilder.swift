@@ -1,31 +1,27 @@
 import BlocksModels
 
 struct BlockBuilder {
-    static func createInformation(block: BlockModelProtocol, action: CustomTextView.KeyboardAction, textPayload: String) -> BlockInformation? {
-        switch block.information.content {
+    static func createInformation(info: BlockInformation) -> BlockInformation? {
+        switch info.content {
         case .text:
-            return createContentType(block: block, action: action, textPayload: textPayload).flatMap { content in
-                BlockInformation.createNew(content: content)
+            return createContentType(info: info).flatMap { content in
+                BlockInformation(content: content)
             }
         default: return nil
         }
     }
     
     static func createNewLink(targetBlockId: BlockId) -> BlockInformation {
-        BlockInformation.createNew(
+        BlockInformation(
             content: .link(
-                BlockLink(
-                    targetBlockID: targetBlockId,
-                    style: .page,
-                    fields: [:]
-                )
+                BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:])
             )
         )
     }
 
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContentType(blockType: type).flatMap { content in
-            var block = BlockInformation.createNew(content: content)
+            var block = BlockInformation(content: content)
             
             if case .file(let blockFile) = content, case .image = blockFile.contentType {
                 block.alignment = .center
@@ -34,33 +30,23 @@ struct BlockBuilder {
             return block
         }
     }
-    
-    static func createDefaultInformation() -> BlockInformation {
-        return BlockInformation.createNew(content: .text(.empty()))
-    }
 
-    static func createDefaultInformation(block: BlockModelProtocol) -> BlockInformation? {
-        switch block.information.content {
-        case let .text(value):
-            switch value.contentType {
-            case .toggle: return BlockInformation.createNew(content: .text(.empty()))
-            default: return nil
-            }
-        case .smartblock: return BlockInformation.createNew(content: .text(.empty()))
-        default: return nil
+    static func textStyle(info: BlockInformation) -> BlockText.Style? {
+        if case let .text(textContent) = createContentType(info: info) {
+            return textContent.contentType
         }
+        
+        return nil
     }
 
-    static func createContentType(
-        block: BlockModelProtocol, action: CustomTextView.KeyboardAction, textPayload: String
-    ) -> BlockContent? {
-        switch block.information.content {
+    private static func createContentType(info: BlockInformation) -> BlockContent? {
+        switch info.content {
         case let .text(blockType):
             switch blockType.contentType {
             case .bulleted where blockType.text != "": return .text(.init(contentType: .bulleted))
             case .checkbox where blockType.text != "": return .text(.init(contentType: .checkbox))
             case .numbered where blockType.text != "": return .text(.init(contentType: .numbered))
-            case .toggle where block.isToggled: return .text(.init(contentType: .text))
+            case .toggle where UserSession.shared.isToggled(blockId: info.id) : return .text(.init(contentType: .text))
             case .toggle where blockType.text != "": return .text(.init(contentType: .toggle))
             default: return .text(.init(contentType: .text))
             }

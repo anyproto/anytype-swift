@@ -1,126 +1,102 @@
 import AnytypeCore
 import UIKit
+import BlocksModels
 
-extension TextBlockContentView: CustomTextViewDelegate {
-    private var accessoryViewData: AccessoryViewSwitcherData {
-        AccessoryViewSwitcherData(
-            textView: textView,
-            block: currentConfiguration.block,
-            information: currentConfiguration.information,
-            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
-        )
-    }
-    
-    func sizeChanged() {
-        currentConfiguration.blockDelegate.blockSizeChanged()
-    }
-    
+extension TextBlockContentView: CustomTextViewDelegate {    
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
-            currentConfiguration.blockDelegate.becomeFirstResponder(blockId: currentConfiguration.block.information.id)
+            blockDelegate.becomeFirstResponder(blockId: currentConfiguration.information.id)
         case .resign:
-            currentConfiguration.blockDelegate.resignFirstResponder(blockId: currentConfiguration.block.information.id)
+            blockDelegate.resignFirstResponder(blockId: currentConfiguration.information.id)
         }
     }
     
     func willBeginEditing() {
-        currentConfiguration.accessoryDelegate.willBeginEditing(data: accessoryViewData)
-        currentConfiguration.blockDelegate.willBeginEditing()
+        blockDelegate.willBeginEditing(data: delegateData)
     }
 
     func didBeginEditing() {
-        currentConfiguration.blockDelegate.didBeginEditing()
+        blockDelegate.didBeginEditing()
     }
     
     func didEndEditing() {
-        currentConfiguration.accessoryDelegate.didEndEditing()
+        blockDelegate.didEndEditing()
     }
-
-    func didReceiveAction(_ action: CustomTextView.UserAction) -> Bool {
+    
+    func changeText(text: NSAttributedString) {
+        handler.changeText(text, info: currentConfiguration.information)
+        blockDelegate.textDidChange()
+    }
+    
+    func changeTextStyle(attribute: TextAttributesType, range: NSRange) {
+        handler.changeTextStyle(attribute, range: range, blockId: currentConfiguration.information.id)
+    }
+    
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
         switch action {
-        case .changeText:
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
-                blockId: currentConfiguration.information.id
-            )
-
-            currentConfiguration.accessoryDelegate.textDidChange()
-        case let .keyboardAction(keyAction):
-            switch keyAction {
-            case .enterInsideContent,
-                 .enterAtTheEndOfContent,
-                 .enterAtTheBeginingOfContent:
-                // In the case of frequent pressing of enter
-                // we can send multiple split requests to middle
-                // from the same block, it will leads to wrong order of blocks in array,
-                // adding a delay makes impossible to press enter very often
-                if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
-                    currentConfiguration.actionHandler.handleAction(
-                        .textView(
-                            action: action,
-                            block: currentConfiguration.block
-                        ),
-                        blockId: currentConfiguration.information.id
-                    )
-                }
-                return false
-            default:
-                break
+        case .enterInsideContent,
+             .enterAtTheEndOfContent,
+             .enterAtTheBeginingOfContent:
+            // In the case of frequent pressing of enter
+            // we can send multiple split requests to middle
+            // from the same block, it will leads to wrong order of blocks in array,
+            // adding a delay makes impossible to press enter very often
+            if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
+                handler.handleKeyboardAction(action, info: currentConfiguration.information)
             }
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
-                blockId: currentConfiguration.information.id
-            )
-        case .changeTextStyle, .changeCaretPosition:
-            currentConfiguration.actionHandler.handleAction(
-                .textView(
-                    action: action,
-                    block: currentConfiguration.block
-                ),
-                blockId: currentConfiguration.information.id
-            )
-        case let .shouldChangeText(range, replacementText, mentionsHolder):
-            currentConfiguration.accessoryDelegate.textWillChange(
-                replacementText: replacementText,
-                range: range
-            )
-            let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(
-                replacementRange: range,
-                replacementText: replacementText
-            )
-            if !shouldChangeText {
-                currentConfiguration.actionHandler.handleAction(
-                    .textView(
-                        action: .changeText(textView.textView.attributedText),
-                        block: currentConfiguration.block
-                    ),
-                    blockId: currentConfiguration.information.id
-                )
-            }
-            return shouldChangeText
-        case let .changeLink(attrText, range):
-            currentConfiguration.actionHandler.showLinkToSearch(blockId: currentConfiguration.information.id,
-                                                                attrText: attrText,
-                                                                range: range)
-        case let .showPage(pageId):
-            guard let details = currentConfiguration.detailsStorage.get(id: pageId) else {
-                // Deleted objects goes here
-                return false
-            }
-            
-            if !details.isArchived && !details.isDeleted {
-                currentConfiguration.showPage(pageId)
-            }
-        case let .openURL(url):
-            currentConfiguration.openURL(url)
+            return false
+        case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
+            handler.handleKeyboardAction(action, info: currentConfiguration.information)
+            return true
         }
-        return true
+    }
+    
+    func showPage(blockId: BlockId) {
+        guard let details = currentConfiguration.detailsStorage.get(id: blockId) else {
+            // Deleted objects goes here
+            return
+        }
+        
+        if !details.isArchived && !details.isDeleted {
+            currentConfiguration.showPage(blockId)
+        }
+    }
+    
+    func openURL(_ url: URL) {
+        currentConfiguration.openURL(url)
+    }
+    
+    func changeCaretPosition(_ range: NSRange) {
+        handler.changeCaretPosition(range: range)
+        blockDelegate.selectionDidChange(range: range)
+    }
+    
+    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
+        let changeType = textView.textView.textChangeType(changeTextRange: range, replacementText: replacementText)
+        blockDelegate.textWillChange(changeType: changeType)
+        
+        let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
+        if !shouldChangeText {
+            handler.changeText(textView.textView.attributedText, info: currentConfiguration.information)
+        }
+        return shouldChangeText
+    }
+    
+    // MARK: - Private
+    private var blockDelegate: BlockDelegate {
+        currentConfiguration.blockDelegate
+    }
+    
+    private var handler: BlockActionHandlerProtocol {
+        currentConfiguration.actionHandler
+    }
+    
+    private var delegateData: TextBlockDelegateData {
+        TextBlockDelegateData(
+            textView: textView.textView,
+            block: currentConfiguration.block,
+            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
+        )
     }
 }

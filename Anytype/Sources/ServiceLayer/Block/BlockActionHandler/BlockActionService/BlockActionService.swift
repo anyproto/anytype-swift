@@ -24,19 +24,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     init(documentId: String) {
         self.documentId = documentId
     }
-    
-    /// Method to handle our events from outside of action service
-    ///
-    /// - Parameters:
-    ///   - events: Event to handle
-    func receivelocalEvents(_ events: [LocalEvent]) {
-        EventsBunch(objectId: documentId, localEvents: events).send()
-    }
 
     // MARK: Actions/Add
 
-    func addChild(info: BlockInformation, parentBlockId: BlockId) {
-        add(info: info, targetBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
+    func addChild(info: BlockInformation, parentId: BlockId) {
+        add(info: info, targetBlockId: parentId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
@@ -47,14 +39,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         event.send()
     }
 
-    func split(
-        info: BlockInformation,
-        oldText: String,
-        newBlockContentType: BlockText.Style
-    ) {
+    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style) {
         let blockId = info.id
-        // We are using old text as a cursor position.
-        let position = oldText.count
 
         let content = info.content
         guard case let .text(blockText) = content else {
@@ -72,9 +58,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             contextId: documentId,
             blockId: blockId,
             middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
-        ).isNotNil else { return }
+        ) else { return }
             
-        guard let splitSuccess = textService.split(
+        guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
             range: range,
@@ -84,10 +70,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             
         EventsBunch(
             objectId: documentId,
-            middlewareEvents: splitSuccess.responseEvent.messages,
-            localEvents: [
-                .setFocus(blockId: splitSuccess.blockId, position: .beginning)
-            ]
+            localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
         ).send()
     }
 
@@ -119,17 +102,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         return newBlockId
     }
 
-    func turnInto(blockId: BlockId, type: BlockContentType, shouldSetFocusOnUpdate: Bool) {
-        switch type {
-        case .text(let style):
-            setTextStyle(blockId: blockId, style: style, shouldFocus: shouldSetFocusOnUpdate)
-        case .smartblock:
-            anytypeAssertionFailure("Use turnIntoPage action instead")
-            _ = turnIntoPage(blockId: blockId)
-        case .divider(let style): setDividerStyle(blockId: blockId, style: style)
-        case .bookmark, .file, .layout, .link, .featuredRelations:
-            anytypeAssertionFailure("TurnInto for that style is not implemented \(type)")
-        }
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        textService.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
@@ -176,28 +150,6 @@ private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
         listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
-    }
-
-    func setTextStyle(blockId: BlockId, style: BlockText.Style, shouldFocus: Bool) {
-        guard let response = textService.setStyle(contextId: documentId, blockId: blockId, style: style) else {
-            return
-        }
-        
-        let events = shouldFocus ? response.turnIntoTextEvent : response.asEventsBunch
-        events.send()
-    }
-}
-
-// MARK: - Delete
-
-extension BlockActionService {
-    func merge(firstBlockId: BlockId, secondBlockId: BlockId, localEvents: [LocalEvent]) {
-        guard let events = textService
-                .merge(contextId: documentId, firstBlockId: firstBlockId, secondBlockId: secondBlockId) else {
-                    return
-                }
-            
-        events.enrichedWith(localEvents: localEvents).send()
     }
 }
 

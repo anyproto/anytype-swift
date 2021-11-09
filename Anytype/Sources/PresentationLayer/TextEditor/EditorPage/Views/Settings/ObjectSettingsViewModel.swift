@@ -57,12 +57,17 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
     
-    func update(with details: ObjectDetails?, objectRestrictions: ObjectRestrictions) {
+    func update(
+        with details: ObjectDetails?,
+        objectRestrictions: ObjectRestrictions,
+        objectRelations: [Relation]
+    ) {
         if let details = details {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
+            relationsViewModel.update(with: objectRelations, details: details)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
     }

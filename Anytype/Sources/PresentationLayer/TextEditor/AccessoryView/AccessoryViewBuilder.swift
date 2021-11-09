@@ -2,23 +2,11 @@ import UIKit
 import BlocksModels
 
 struct AccessoryViewBuilder {
-    static func accessoryDelegate(
-        actionHandler: EditorActionHandlerProtocol,
+    static func accessoryState(
+        actionHandler: BlockActionHandlerProtocol,
         router: EditorRouter,
         document: BaseDocumentProtocol
     ) -> AccessoryViewStateManager {
-        let switcher = buildSwitcher(actionHandler: actionHandler, router: router, document: document)
-        let stateManager = AccessoryViewStateManager(switcher: switcher, handler: actionHandler)
-        switcher.setDelegate(stateManager)
-        
-        return stateManager
-    }
-    
-    private static func buildSwitcher(
-        actionHandler: EditorActionHandlerProtocol,
-        router: EditorRouter,
-        document: BaseDocumentProtocol
-    ) -> AccessoryViewSwitcher {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
         let accessoryViewModel = EditorAccessoryViewModel(
@@ -49,7 +37,12 @@ struct AccessoryViewBuilder {
         )
 
         let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
-        
+        let markupViewModel = MarkupAccessoryContentViewModel(markupOptions: [], actionHandler: actionHandler, router: router)
+        let markupView = MarkupAccessoryView(viewModel: markupViewModel)
+        let editModeAccessoryView = EditModeAccessoryView(cursorModeView: accessoryView,
+                                                          markupModeView: markupView,
+                                                          markupModeViewModel: markupViewModel)
+
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
                 actionHandler: actionHandler,
@@ -65,13 +58,18 @@ struct AccessoryViewBuilder {
         let accessoryViewSwitcher = AccessoryViewSwitcher(
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
-            accessoryView: accessoryView,
+            accessoryView: editModeAccessoryView,
             changeTypeView: changeTypeView,
             urlInputView: urlInputView,
             document: document
         )
-        
-        return accessoryViewSwitcher
+
+        // set delegate
+        let stateManager = AccessoryViewStateManagerImpl(switcher: accessoryViewSwitcher, handler: actionHandler)
+        mentionsView.delegate = stateManager
+        accessoryView.setDelegate(stateManager)
+
+        return stateManager
     }
     
     private static let menuActionsViewSize = CGSize(

@@ -30,10 +30,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
         
-        return makeRequest(
-            filters: filters, sorts: [sort], fullText: text,
-            offset: 0, limit: 100, objectTypeFilter: [], keys: []
-        )
+        return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchArchivedPages() -> [SearchData]? {
@@ -47,15 +44,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
         
-        return makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: "",
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: []
-        )
+        return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
     func searchHistoryPages() -> [SearchData]? {
@@ -68,15 +57,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
         
-        return makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: "",
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: []
-        )
+        return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
     func searchSharedPages() -> [SearchData]? {
@@ -85,16 +66,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
-        filters.append(contentsOf: [SearchHelper.sharedObjectsFilter()])
+        filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return makeRequest(
             filters: filters,
             sorts: [sort],
-            fullText: "",
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: []
+            fullText: ""
         )
     }
     
@@ -108,15 +85,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
         
-        return makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: "",
-            offset: 0,
-            limit: 100,
-            objectTypeFilter: [],
-            keys: []
-        )
+        return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
     func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [SearchData]? {
@@ -134,10 +103,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
 
-        let result = makeRequest(
-            filters: filters, sorts: [sort], fullText: text,
-            offset: 0, limit: 100, objectTypeFilter: [], keys: []
-        )
+        let result = makeRequest(filters: filters, sorts: [sort], fullText: text)
         
         return result?.reordered(
             by: [
@@ -150,20 +116,16 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     private func makeRequest(
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
         sorts: [Anytype_Model_Block.Content.Dataview.Sort],
-        fullText: String,
-        offset: Int32,
-        limit: Int32,
-        objectTypeFilter: [String],
-        keys: [String]
+        fullText: String
     ) -> [SearchData]? {
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
             fullText: fullText,
-            offset: offset,
-            limit: limit,
-            objectTypeFilter: objectTypeFilter,
-            keys: keys,
+            offset: 0,
+            limit: 100,
+            objectTypeFilter: [],
+            keys: [],
             ignoreWorkspace: false
         ).getValue() else { return nil }
             

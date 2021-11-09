@@ -21,8 +21,7 @@ enum BlockInformationConverter {
             fields: block.fields.toFieldTypeMap()
         )
         
-        let validator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
-        return validator.validated(information: info)
+        return BlockValidator().validated(information: info)
     }
     
     static func convert(information: BlockInformation) -> Anytype_Model_Block? {

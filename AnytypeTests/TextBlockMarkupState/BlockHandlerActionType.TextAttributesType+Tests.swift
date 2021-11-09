@@ -1,7 +1,7 @@
 @testable import Anytype
 import UIKit
 
-extension BlockHandlerActionType.TextAttributesType {
+extension TextAttributesType {
     
     var attributedStringKey: NSAttributedString.Key {
         switch self {

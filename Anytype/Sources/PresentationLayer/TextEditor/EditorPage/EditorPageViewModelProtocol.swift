@@ -7,11 +7,15 @@ protocol EditorPageViewModelProtocol {
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
     
-    var modelsHolder: ObjectContentViewModelsSharedHolder { get }
+    var modelsHolder: BlockViewModelsHolder { get }
     
+<<<<<<< HEAD
     var blockActionHandler: EditorActionHandlerProtocol { get }
 
     var editorEditingState: AnyPublisher<EditorEditingState, Never> { get }
+=======
+    var actionHandler: BlockActionHandlerProtocol { get }
+>>>>>>> 5e17a9f33411c5509928c824f5e8611cbb7d7948
     
     func viewLoaded()
     func viewAppeared()
