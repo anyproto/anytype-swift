@@ -53,7 +53,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
         
-        self.relationsViewModel = ObjectRelationsViewModel(detailsStorage: detailsStorage)
+        self.relationsViewModel = ObjectRelationsViewModel()
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
