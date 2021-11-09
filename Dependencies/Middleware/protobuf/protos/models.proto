@@ -10,10 +10,12 @@ message SmartBlockSnapshotBase {
     google.protobuf.Struct fileKeys = 3;
     repeated Relation extraRelations = 4;
     repeated string objectTypes = 5;
+    google.protobuf.Struct collections = 6;
 }
 
 enum SmartBlockType {
-    Breadcrumbs = 0;
+    AccountOld = 0;
+    Breadcrumbs = 0x01;
 
     Page = 0x10;
     ProfilePage = 0x11;
@@ -37,7 +39,9 @@ enum SmartBlockType {
     BundledObjectType = 0x202;
     AnytypeProfile = 0x203;
     Date = 0x204;
-    Workspace = 0x205;
+    WorkspaceOld = 0x205; // deprecated thread-based workspace
+    Workspace = 0x206;
+
 }
 
 message Block {

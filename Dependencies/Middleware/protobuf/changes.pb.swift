@@ -201,6 +201,22 @@ public struct Anytype_Change {
       set {value = .objectTypeRemove(newValue)}
     }
 
+    public var storeKeySet: Anytype_Change.StoreKeySet {
+      get {
+        if case .storeKeySet(let v)? = value {return v}
+        return Anytype_Change.StoreKeySet()
+      }
+      set {value = .storeKeySet(newValue)}
+    }
+
+    public var storeKeyUnset: Anytype_Change.StoreKeyUnset {
+      get {
+        if case .storeKeyUnset(let v)? = value {return v}
+        return Anytype_Change.StoreKeyUnset()
+      }
+      set {value = .storeKeyUnset(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -216,6 +232,8 @@ public struct Anytype_Change {
       case relationUpdate(Anytype_Change.RelationUpdate)
       case objectTypeAdd(Anytype_Change.ObjectTypeAdd)
       case objectTypeRemove(Anytype_Change.ObjectTypeRemove)
+      case storeKeySet(Anytype_Change.StoreKeySet)
+      case storeKeyUnset(Anytype_Change.StoreKeyUnset)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Change.Content.OneOf_Value, rhs: Anytype_Change.Content.OneOf_Value) -> Bool {
@@ -269,6 +287,14 @@ public struct Anytype_Change {
         }()
         case (.objectTypeRemove, .objectTypeRemove): return {
           guard case .objectTypeRemove(let l) = lhs, case .objectTypeRemove(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.storeKeySet, .storeKeySet): return {
+          guard case .storeKeySet(let l) = lhs, case .storeKeySet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.storeKeyUnset, .storeKeyUnset): return {
+          guard case .storeKeyUnset(let l) = lhs, case .storeKeyUnset(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -574,6 +600,41 @@ public struct Anytype_Change {
     public init() {}
   }
 
+  public struct StoreKeySet {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var path: [String] = []
+
+    public var value: SwiftProtobuf.Google_Protobuf_Value {
+      get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
+      set {_value = newValue}
+    }
+    /// Returns true if `value` has been explicitly set.
+    public var hasValue: Bool {return self._value != nil}
+    /// Clears the value of `value`. Subsequent reads from it will return its default value.
+    public mutating func clearValue() {self._value = nil}
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
+  }
+
+  public struct StoreKeyUnset {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var path: [String] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _snapshot: Anytype_Change.Snapshot? = nil
@@ -756,6 +817,8 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     104: .same(proto: "relationUpdate"),
     105: .same(proto: "objectTypeAdd"),
     106: .same(proto: "objectTypeRemove"),
+    107: .same(proto: "storeKeySet"),
+    108: .same(proto: "storeKeyUnset"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -920,6 +983,32 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           self.value = .objectTypeRemove(v)
         }
       }()
+      case 107: try {
+        var v: Anytype_Change.StoreKeySet?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .storeKeySet(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .storeKeySet(v)
+        }
+      }()
+      case 108: try {
+        var v: Anytype_Change.StoreKeyUnset?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .storeKeyUnset(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .storeKeyUnset(v)
+        }
+      }()
       default: break
       }
     }
@@ -978,6 +1067,14 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     case .objectTypeRemove?: try {
       guard case .objectTypeRemove(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 106)
+    }()
+    case .storeKeySet?: try {
+      guard case .storeKeySet(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 107)
+    }()
+    case .storeKeyUnset?: try {
+      guard case .storeKeyUnset(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 108)
     }()
     case nil: break
     }
@@ -1585,6 +1682,80 @@ extension Anytype_Change.ObjectTypeRemove: SwiftProtobuf.Message, SwiftProtobuf.
 
   public static func ==(lhs: Anytype_Change.ObjectTypeRemove, rhs: Anytype_Change.ObjectTypeRemove) -> Bool {
     if lhs.url != rhs.url {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.StoreKeySet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".StoreKeySet"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+    2: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.path.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.path, fieldNumber: 1)
+    }
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.StoreKeySet, rhs: Anytype_Change.StoreKeySet) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.StoreKeyUnset: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".StoreKeyUnset"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.path) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.path.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.path, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.StoreKeyUnset, rhs: Anytype_Change.StoreKeyUnset) -> Bool {
+    if lhs.path != rhs.path {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

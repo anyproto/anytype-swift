@@ -989,7 +989,7 @@ public struct Anytype_Event {
       /// details for the current and dependent objects
       public var details: [Anytype_Event.Object.Details.Set] = []
 
-      public var type: Anytype_Model_SmartBlockType = .breadcrumbs
+      public var type: Anytype_Model_SmartBlockType = .accountOld
 
       /// objectTypes contains ONLY to get layouts for the actual and all dependent objects. Relations are currently omitted // todo: switch to other pb model
       public var objectTypes: [Anytype_Model_ObjectType] = []
@@ -4955,7 +4955,7 @@ extension Anytype_Event.Object.Show: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.details.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.details, fieldNumber: 3)
     }
-    if self.type != .breadcrumbs {
+    if self.type != .accountOld {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 4)
     }
     if !self.objectTypes.isEmpty {
