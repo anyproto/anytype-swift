@@ -22,7 +22,8 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
-  case breadcrumbs // = 0
+  case accountOld // = 0
+  case breadcrumbs // = 1
   case page // = 16
   case profilePage // = 17
   case home // = 32
@@ -45,16 +46,20 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case bundledObjectType // = 514
   case anytypeProfile // = 515
   case date // = 516
-  case workspace // = 517
+
+  /// deprecated thread-based workspace
+  case workspaceOld // = 517
+  case workspace // = 518
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .breadcrumbs
+    self = .accountOld
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .breadcrumbs
+    case 0: self = .accountOld
+    case 1: self = .breadcrumbs
     case 16: self = .page
     case 17: self = .profilePage
     case 32: self = .home
@@ -73,14 +78,16 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 514: self = .bundledObjectType
     case 515: self = .anytypeProfile
     case 516: self = .date
-    case 517: self = .workspace
+    case 517: self = .workspaceOld
+    case 518: self = .workspace
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .breadcrumbs: return 0
+    case .accountOld: return 0
+    case .breadcrumbs: return 1
     case .page: return 16
     case .profilePage: return 17
     case .home: return 32
@@ -99,7 +106,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .bundledObjectType: return 514
     case .anytypeProfile: return 515
     case .date: return 516
-    case .workspace: return 517
+    case .workspaceOld: return 517
+    case .workspace: return 518
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -111,6 +119,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 extension Anytype_Model_SmartBlockType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_SmartBlockType] = [
+    .accountOld,
     .breadcrumbs,
     .page,
     .profilePage,
@@ -130,6 +139,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .bundledObjectType,
     .anytypeProfile,
     .date,
+    .workspaceOld,
     .workspace,
   ]
 }
@@ -282,12 +292,22 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
 
   public var objectTypes: [String] = []
 
+  public var collections: SwiftProtobuf.Google_Protobuf_Struct {
+    get {return _collections ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_collections = newValue}
+  }
+  /// Returns true if `collections` has been explicitly set.
+  public var hasCollections: Bool {return self._collections != nil}
+  /// Clears the value of `collections`. Subsequent reads from it will return its default value.
+  public mutating func clearCollections() {self._collections = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _fileKeys: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  fileprivate var _collections: SwiftProtobuf.Google_Protobuf_Struct? = nil
 }
 
 public struct Anytype_Model_Block {
@@ -2578,7 +2598,8 @@ fileprivate let _protobuf_package = "anytype.model"
 
 extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Breadcrumbs"),
+    0: .same(proto: "AccountOld"),
+    1: .same(proto: "Breadcrumbs"),
     16: .same(proto: "Page"),
     17: .same(proto: "ProfilePage"),
     32: .same(proto: "Home"),
@@ -2597,7 +2618,8 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     514: .same(proto: "BundledObjectType"),
     515: .same(proto: "AnytypeProfile"),
     516: .same(proto: "Date"),
-    517: .same(proto: "Workspace"),
+    517: .same(proto: "WorkspaceOld"),
+    518: .same(proto: "Workspace"),
   ]
 }
 
@@ -2628,6 +2650,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     3: .same(proto: "fileKeys"),
     4: .same(proto: "extraRelations"),
     5: .same(proto: "objectTypes"),
+    6: .same(proto: "collections"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2641,6 +2664,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 3: try { try decoder.decodeSingularMessageField(value: &self._fileKeys) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.extraRelations) }()
       case 5: try { try decoder.decodeRepeatedStringField(value: &self.objectTypes) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._collections) }()
       default: break
       }
     }
@@ -2666,6 +2690,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.objectTypes.isEmpty {
       try visitor.visitRepeatedStringField(value: self.objectTypes, fieldNumber: 5)
     }
+    try { if let v = self._collections {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2675,6 +2702,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs._fileKeys != rhs._fileKeys {return false}
     if lhs.extraRelations != rhs.extraRelations {return false}
     if lhs.objectTypes != rhs.objectTypes {return false}
+    if lhs._collections != rhs._collections {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
