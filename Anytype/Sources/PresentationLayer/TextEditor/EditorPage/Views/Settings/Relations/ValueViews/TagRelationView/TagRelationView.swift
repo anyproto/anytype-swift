@@ -10,8 +10,7 @@ struct TagRelationView: View {
             tagsView
             
         } else {
-            AnytypeText(hint, style: .callout, color: .textTertiary)
-                .lineLimit(1)
+            ObjectRelationRowHintView(hint: hint)
         }
     }
     

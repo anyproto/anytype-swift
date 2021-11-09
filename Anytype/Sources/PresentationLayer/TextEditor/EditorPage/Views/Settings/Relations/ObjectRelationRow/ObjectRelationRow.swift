@@ -15,18 +15,19 @@ struct ObjectRelationRow: View {
     var body: some View {
         GeometryReader { gr in
             HStack(spacing: 8) {
-                AnytypeText(
-                    viewModel.name,
-                    style: .relation1Regular,
-                    color: .textSecondary
-                )
+                name
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
                 valueView
+                
                 Spacer()
             }
             .frame(width: gr.size.width, height: gr.size.height)
         }
         .frame(height: 44)
+    }
+    
+    private var name: some View {
+        AnytypeText(viewModel.name, style: .relation1Regular, color: .textSecondary)
     }
     
     private var valueView: some View {
