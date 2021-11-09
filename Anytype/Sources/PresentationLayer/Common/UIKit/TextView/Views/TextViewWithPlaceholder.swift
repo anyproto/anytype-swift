@@ -48,15 +48,6 @@ final class TextViewWithPlaceholder: UITextView {
             blockLayoutManager.primaryColor = selectedColor
         }
     }
-    
-    /// Available markup options (bold, italic, strikethrough, etc)
-    var availableContextMenuOptions = [TextViewContextMenuOption]() {
-        didSet {
-            if availableContextMenuOptions != oldValue {
-                UIMenuController.shared.update()
-            }
-        }
-    }
 
     // MARK: - Overrides
     
@@ -176,7 +167,7 @@ extension TextViewWithPlaceholder {
         handleMenuAction(.keyboard)
     }
 
-    private func handleMenuAction(_ action: TextAttributesType) {
+    private func handleMenuAction(_ action: MarkupType) {
         customTextViewDelegate?.changeTextStyle(attribute: action, range: selectedRange)
     }
 }
@@ -197,23 +188,5 @@ extension TextViewWithPlaceholder {
     
     func update(placeholder: NSAttributedString?) {
         placeholderLabel.attributedText = placeholder
-    }
-}
-
-// MARK: - ContextMenuAction
-
-extension TextAttributesType {
-
-    var title: String {
-        switch self {
-        case .bold:
-            return "Bold".localized
-        case .italic:
-            return "Italic".localized
-        case .strikethrough:
-            return "Strikethrough".localized
-        case .keyboard:
-            return "Code".localized
-        }
     }
 }

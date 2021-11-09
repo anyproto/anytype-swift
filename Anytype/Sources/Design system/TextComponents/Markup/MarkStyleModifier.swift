@@ -17,7 +17,7 @@ final class MarkStyleModifier {
         )
     }
         
-    func apply(_ action: MarkStyleAction, range: NSRange) {
+    func apply(_ action: MarkupType, shouldApplyMarkup: Bool, range: NSRange) {
         guard attributedString.isRangeValid(range) else {
             anytypeAssertionFailure("Range out of bounds in \(#function)")
             return
@@ -25,17 +25,17 @@ final class MarkStyleModifier {
         
         switch action {
         case .mention:
-            applySingleAction(action, range: range)
+            applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
         default:
             attributedString.enumerateAttributes(in: range) { _, subrange, _ in
-                applySingleAction(action, range: subrange)
+                applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: subrange)
             }
         }
     }
     
-    private func applySingleAction(_ action: MarkStyleAction, range: NSRange) {
+    private func applySingleAction(_ action: MarkupType, shouldApplyMarkup: Bool, range: NSRange) {
         let oldAttributes = getAttributes(at: range)
-        guard let update = apply(action, to: oldAttributes) else { return }
+        guard let update = apply(action, shouldApplyMarkup: shouldApplyMarkup, to: oldAttributes) else { return }
 
         var newAttributes = oldAttributes.merging(update.changeAttributes) { old, new in new }
         for key in update.deletedKeys {
@@ -67,29 +67,29 @@ final class MarkStyleModifier {
         return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
     }
     
-    private func apply(_ action: MarkStyleAction, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
+    private func apply(_ action: MarkupType, shouldApplyMarkup: Bool, to old: [NSAttributedString.Key : Any]) -> AttributedStringChange? {
         switch action {
-        case let .bold(shouldApplyMarkup):
+        case .bold:
             guard let oldFont = old[.font] as? UIFont else { return nil }
 
             let newFont = shouldApplyMarkup ? oldFont.bold : oldFont.regular
             return AttributedStringChange(changeAttributes: [.font : newFont])
 
 
-        case let .italic(shouldApplyMarkup):
+        case .italic:
             guard let oldFont = old[.font] as? UIFont else { return nil }
 
             let newFont = shouldApplyMarkup ? oldFont.italic : oldFont.nonItalic
             return AttributedStringChange(changeAttributes: [.font : newFont])
 
-        case let .keyboard(hasStyle):
-            return keyboardUpdate(with: old, shouldHaveStyle: hasStyle)
-        case let .strikethrough(shouldApplyMarkup):
+        case .keyboard:
+            return keyboardUpdate(with: old, shouldHaveStyle: shouldApplyMarkup)
+        case .strikethrough:
             return AttributedStringChange(
                 changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
             )
 
-        case let .underscored(shouldApplyMarkup):
+        case .underscored:
             return AttributedStringChange(
                 changeAttributes: [.underlineStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
             )
@@ -111,7 +111,7 @@ final class MarkStyleModifier {
                     .linkToObject: blockId as Any,
                     .localUnderline: true
                 ],
-                deletedKeys: blockId.isEmpty ? [.linkToObject, .localUnderline] : []
+                deletedKeys: blockId?.isEmpty ?? true ? [.linkToObject, .localUnderline] : []
             )
         case let .mention(data):
             return mentionUpdate(data: data)

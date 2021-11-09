@@ -16,7 +16,7 @@ protocol CustomTextViewDelegate: AnyObject {
     func showPage(blockId: BlockId)
     func changeText(text: NSAttributedString)
     func changeCaretPosition(_ range: NSRange)
-    func changeTextStyle(attribute: TextAttributesType, range: NSRange)
+    func changeTextStyle(attribute: MarkupType, range: NSRange)
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool

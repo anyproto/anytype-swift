@@ -56,13 +56,13 @@ struct MarkupAccessoryContentView: View {
 
     var body: some View {
         HStack {
-            ForEach(viewModel.markupOptions, id: \.self) { item in
+            ForEach(viewModel.markupItems, id:\.id) { item in
                 Button {
-                    viewModel.action(item)
+                    viewModel.action(item.markupItem)
                 } label: {
-                    item.icon
+                    item.markupItem.icon
                         .renderingMode(.template)
-                        .foregroundColor(viewModel.iconColor(for: item))
+                        .foregroundColor(viewModel.iconColor(for: item.markupItem))
                         .frame(width: 48, height: 48)
 
                 }

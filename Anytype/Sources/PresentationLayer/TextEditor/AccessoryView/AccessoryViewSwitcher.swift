@@ -55,7 +55,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         markupAccessoryView.update(block: data.block, textView: data.textView)
         slashMenuView.update(info: data.info)
 
-        if data.textView.selectedRange != .zero {
+        if data.textView.selectedRange.length != .zero {
             showMarkupView(range: data.textView.selectedRange)
         } else {
             showDefaultView()
