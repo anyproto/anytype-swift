@@ -5,7 +5,7 @@ extension MiddlewareColor {
     func color(background: Bool) -> UIColor {
         switch self {
         case .default: return background ? .backgroundPrimary : .textPrimary
-        case .grey: return background ? .lightGray : .darkGray
+        case .grey: return background ? .lightColdGray : .darkColdGray
         case .yellow: return background ? .lightLemon : .pureLemon
         case .orange: return background ? .lightAmber : .pureAmber
         case .red: return background ? .lightRed : .pureRed
