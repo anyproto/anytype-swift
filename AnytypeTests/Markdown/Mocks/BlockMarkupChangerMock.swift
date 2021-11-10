@@ -8,9 +8,20 @@ final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {
         return nil
     }
     
+    var toggleMarkupInRangeStubReturnString: NSAttributedString?
+    var toggleMarkupInRangeLastMarkupType: MarkupType?
+    var toggleMarkupInRangeNumberOfCalls = 0
+    var toggleMarkupInRangeLastRange: NSRange?
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        assertionFailure()
-        return nil
+        if let string = toggleMarkupInRangeStubReturnString {
+            toggleMarkupInRangeLastMarkupType = markup
+            toggleMarkupInRangeLastRange = range
+            toggleMarkupInRangeNumberOfCalls += 1
+            return string
+        } else {
+            assertionFailure()
+            return nil
+        }
     }
     
     func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {

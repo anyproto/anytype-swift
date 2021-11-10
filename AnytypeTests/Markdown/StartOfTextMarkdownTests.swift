@@ -2,7 +2,7 @@ import XCTest
 @testable import Anytype
 @testable import BlocksModels
 
-class MarkdownTests: XCTestCase {
+class StartOfTextMarkdownTests: XCTestCase {
 
     var listener: MarkdownListenerImpl!
     var handler: BlockActionHandlerMock!
@@ -96,8 +96,4 @@ class MarkdownTests: XCTestCase {
         
         return TextBlockDelegateData(textView: textView, block: block, text: text)
     }
-}
-
-extension UITextView {
-    open override var isFirstResponder: Bool { true }
 }
