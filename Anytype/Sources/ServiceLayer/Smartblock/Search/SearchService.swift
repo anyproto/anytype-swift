@@ -171,15 +171,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             let idValue = search.fields["id"]
             let idString = idValue?.unwrapedListValue.stringValue
             
-            guard
-                let id = idString,
-                id.isNotEmpty
-            else { return nil }
+            guard let id = idString, id.isNotEmpty else { return nil }
             
-            return SearchData(
-                id: id,
-                values: search.fields
-            )
+            return SearchData(id: id, values: search.fields)
         }
             
         return details
@@ -188,7 +182,6 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [Anytype_Model_Block.Content.Dataview.Filter] {
         [
             SearchHelper.notHiddenFilter(),
-            SearchHelper.notDeletedFilter(),
             
             SearchHelper.isArchivedFilter(isArchived: isArchived),
             
