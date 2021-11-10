@@ -27,17 +27,26 @@ struct MarkupItem: Identifiable, Equatable {
 
 final class MarkupAccessoryViewModel: ObservableObject {
     let markupItems: [MarkupItem] = MarkupItem.allItems
+
     private(set) var restrictions: BlockRestrictions?
-    private let actionHandler: BlockActionHandlerProtocol
+    private(set) var actionHandler: BlockActionHandlerProtocol
+    private(set) var blockId: BlockId = ""
     private let router: EditorRouterProtocol
     private let pageService = PageService()
-    private var blockId: BlockId = ""
-    @Published private var range: NSRange = .zero
     private let document: BaseDocumentProtocol
-    private var cancellables = [AnyCancellable]()
-    @Published private(set) var currentText: NSAttributedString?
 
-    init(document: BaseDocumentProtocol, actionHandler: BlockActionHandlerProtocol, router: EditorRouterProtocol) {
+    @Published private(set) var range: NSRange = .zero
+    @Published private(set) var currentText: NSAttributedString?
+    @Published var showColorView: Bool = false
+
+    var colorButtonFrame: CGRect?
+
+    private var cancellables = [AnyCancellable]()
+
+    init(document: BaseDocumentProtocol,
+         actionHandler: BlockActionHandlerProtocol,
+         router: EditorRouterProtocol
+    ) {
         self.actionHandler = actionHandler
         self.router = router
         self.document = document
@@ -61,7 +70,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
         case .link:
             showLinkToSearch(blockId: blockId, range: range)
         case .color:
-            break
+            showColorView.toggle()
         case let .fontStyle(fontMarkup):
             actionHandler.changeTextStyle(fontMarkup.markupType, range: range, blockId: blockId)
         }
@@ -81,10 +90,17 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
 
     private func attributeState(for markup: MarkupKind) -> AttributeState {
-        guard let markupType = markup.markupType, let currentText = currentText else { return .disabled }
-        guard restrictions?.isMarkupAvailable(markupType) ?? false else { return .disabled }
+        guard let currentText = currentText else { return .disabled }
+        guard let restrictions = restrictions else { return .disabled }
 
-        if currentText.hasMarkup(markupType, range: range) {
+        switch markup {
+        case .fontStyle(let fontStyle):
+            guard restrictions.isMarkupAvailable(fontStyle.markupType) else { return .disabled }
+        case .link, .color:
+            guard restrictions.canApplyOtherMarkup else { return .disabled }
+        }
+
+        if markup.hasMarkup(for: currentText, range: range) {
             return .applied
         }
         return .notApplied

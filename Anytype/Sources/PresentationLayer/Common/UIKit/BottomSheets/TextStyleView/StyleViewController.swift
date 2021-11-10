@@ -390,7 +390,7 @@ final class StyleViewController: UIViewController {
         viewControllerForPresenting.embedChild(contentVC)
 
         contentVC.view.pinAllEdges(to: viewControllerForPresenting.view)
-        contentVC.containerView.layoutUsing.anchors {
+        contentVC.colorView.containerView.layoutUsing.anchors {
             $0.width.equal(to: 260)
             $0.height.equal(to: 176)
             $0.trailing.equal(to: view.trailingAnchor, constant: -10)

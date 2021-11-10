@@ -10,16 +10,6 @@ import SwiftUI
 
 
 extension MarkupAccessoryViewModel {
-    enum LinkType {
-        case url(URL)
-        case linkToObject(String)
-    }
-
-    enum ColorType {
-        case text(UIColor)
-        case background(UIColor)
-    }
-
     enum FontStyle: CaseIterable {
         case bold
         case italic
@@ -27,16 +17,16 @@ extension MarkupAccessoryViewModel {
         case keyboard
     }
 
-    enum MarkupKind {
+    enum MarkupKind: CaseIterable {
         case fontStyle(FontStyle)
-        case link(LinkType?)
-        case color(ColorType?)
+        case link
+        case color
 
         static var allCases: [MarkupAccessoryViewModel.MarkupKind] {
             var allMarkup = FontStyle.allCases.map {
                 MarkupKind.fontStyle($0)
             }
-            allMarkup += [.link(nil), .color(nil)]
+            allMarkup += [.link, .color]
 
             return allMarkup
         }
@@ -62,28 +52,14 @@ extension MarkupAccessoryViewModel.MarkupKind {
         }
     }
 
-    var markupType: MarkupType? {
+    func hasMarkup(for text: NSAttributedString, range: NSRange) -> Bool {
         switch self {
         case let .fontStyle(fontStyle):
-            return fontStyle.markupType
-        case let .link(kind):
-            switch kind {
-            case let .url(url):
-                return .link(url)
-            case let .linkToObject(blockId):
-                return .linkToObject(blockId)
-            case .none:
-                return nil
-            }
-        case let .color(kind):
-            switch kind {
-            case let .text(color):
-                return .textColor(color)
-            case let .background(color):
-                return .backgroundColor(color)
-            case .none:
-                return nil
-            }
+            return text.hasMarkup(fontStyle.markupType, range: range)
+        case .link:
+            return text.linkState(range: range).isNotNil || text.linkToObjectState(range: range).isNotNil
+        case .color:
+            return true
         }
     }
 }
