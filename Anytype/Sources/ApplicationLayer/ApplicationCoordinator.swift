@@ -37,7 +37,13 @@ final class ApplicationCoordinator {
     }
         
     fileprivate func createNavigationController() -> UINavigationController {
-        let controller = UINavigationController()
+        let controller: UINavigationController
+        
+        if #available(iOS 14.0, *) {
+            controller = iOS14SwiftUINavigationController()
+        } else {
+            controller = UINavigationController()
+        }
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
