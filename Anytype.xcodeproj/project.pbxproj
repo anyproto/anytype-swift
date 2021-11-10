@@ -246,6 +246,7 @@
 		12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A8CCED26BD5F3B00090468 /* EditorItem.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12AF9986273A8B87004CBB80 /* ObjectRelationRowViewModelBuilder.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF9985273A8B87004CBB80 /* ObjectRelationRowViewModelBuilder.swift.swift */; };
+		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
@@ -987,6 +988,7 @@
 		12A8CCED26BD5F3B00090468 /* EditorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorItem.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12AF9985273A8B87004CBB80 /* ObjectRelationRowViewModelBuilder.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationRowViewModelBuilder.swift.swift; sourceTree = "<group>"; };
+		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
@@ -1738,6 +1740,7 @@
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
 				12E014D3266FCA7A008036B0 /* WindowHolder.swift */,
+				12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -5276,7 +5279,6 @@
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
-				1289F5A12733B3FC00656EC2 /* RelationFormat+Extensions.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationView.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
@@ -5287,6 +5289,7 @@
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
+				12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
