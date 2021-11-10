@@ -1,6 +1,6 @@
 import UIKit
 
-protocol EditorAccessoryViewDelegate: AnyObject {
+protocol CursorModeAccessoryViewDelegate: AnyObject {
     func showSlashMenuView()
     func showMentionsView()
 }

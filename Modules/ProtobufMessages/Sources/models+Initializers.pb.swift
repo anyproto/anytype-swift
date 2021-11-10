@@ -322,13 +322,15 @@ extension Anytype_Model_Restrictions.DataviewRestrictions {
 
 extension Anytype_Model_SmartBlockSnapshotBase {
   public init(
-    blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation], objectTypes: [String]
+    blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation], objectTypes: [String],
+    collections: SwiftProtobuf.Google_Protobuf_Struct
   ) {
     self.blocks = blocks
     self.details = details
     self.fileKeys = fileKeys
     self.extraRelations = extraRelations
     self.objectTypes = objectTypes
+    self.collections = collections
   }
 }
 

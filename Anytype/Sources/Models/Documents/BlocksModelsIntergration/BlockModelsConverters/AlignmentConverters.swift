@@ -47,6 +47,18 @@ extension NSTextAlignment {
             return nil
         }
     }
-    
+
+    var asModel: LayoutAlignment? {
+        switch self {
+        case .left: return .left
+        case .center: return .center
+        case .right: return .right
+
+        case .justified, .natural:
+            return nil
+        @unknown default:
+            return nil
+        }
+    }
 }
 

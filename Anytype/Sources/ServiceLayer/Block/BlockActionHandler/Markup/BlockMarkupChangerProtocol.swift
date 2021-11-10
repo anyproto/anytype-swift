@@ -1,13 +1,8 @@
 import BlocksModels
 
-
 protocol BlockMarkupChangerProtocol {
-    
-    func toggleMarkup(_ markup: TextAttributesType, for blockId: BlockId)
-    
-    func toggleMarkup(_ markup: TextAttributesType, for blockId: BlockId, in range: NSRange)
-    
-    func setLink(_ link: URL?, for blockId: BlockId, in range: NSRange)
-
-    func setLinkToObject(id: BlockId, for blockId: BlockId, in range: NSRange)
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId) -> NSAttributedString?
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString?
+    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString?
+    func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString?
 }

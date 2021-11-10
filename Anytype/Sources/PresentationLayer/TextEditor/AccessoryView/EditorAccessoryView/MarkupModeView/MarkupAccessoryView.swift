@@ -6,139 +6,68 @@
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
 import BlocksModels
 
 /// https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5172%3A1931
-struct MarkupAccessoryView: View {
-    @StateObject var viewModel: MarkupAccessoryContentViewModel
+final class MarkupAccessoryView: UIView {
+    private let markupModeViewModel: MarkupAccessoryViewModel
+
+    // MARK: - Lifecycle
+
+    init(viewModel: MarkupAccessoryViewModel) {
+        self.markupModeViewModel = viewModel
+
+        super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
+
+        setupViews()
+    }
+
+    private func setupViews() {
+        autoresizingMask = .flexibleHeight
+        backgroundColor = .backgroundPrimary
+        let contentView = MarkupAccessoryContentView(viewModel: self.markupModeViewModel).asUIView()
+        
+        addSubview(contentView) {
+            $0.pinToSuperview()
+        }
+    }
+
+    // MARK: - Public methos
+
+    func selectionChanged(range: NSRange) {
+        markupModeViewModel.updateRange(range: range)
+    }
+
+    func update(block: BlockModelProtocol, textView: UITextView) {
+        markupModeViewModel.selectBlock(block, text: textView.attributedText, range: textView.selectedRange)
+    }
+
+    // MARK: - Unavailable
+
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) { fatalError("Not been implemented") }
+    @available(*, unavailable)
+    override init(frame: CGRect) { fatalError("Not been implemented") }
+}
+
+struct MarkupAccessoryContentView: View {
+    @StateObject var viewModel: MarkupAccessoryViewModel
 
     var body: some View {
         HStack {
-            ForEach(viewModel.markupOptions, id: \.self) { item in
+            ForEach(viewModel.markupItems, id:\.id) { item in
                 Button {
-                    viewModel.action(item)
+                    viewModel.action(item.markupItem)
                 } label: {
-                    item.icon
+                    item.markupItem.icon
                         .renderingMode(.template)
-                        .foregroundColor(.textPrimary)
+                        .foregroundColor(viewModel.iconColor(for: item.markupItem))
                         .frame(width: 48, height: 48)
 
                 }
                 .frame(maxWidth: .infinity)
             }
-        }
-    }
-}
-
-final class MarkupAccessoryContentViewModel: ObservableObject {
-    enum MarkupKind: CaseIterable, Equatable, Hashable {
-        enum FontStyle: CaseIterable, Equatable {
-            case bold
-            case italic
-            case strikethrough
-            case keyboard
-        }
-        case fontStyle(FontStyle)
-        case link
-
-        static var allCases: [MarkupAccessoryContentViewModel.MarkupKind] {
-            var allMarkup = FontStyle.allCases.map {
-                MarkupKind.fontStyle($0)
-            }
-            allMarkup += [.link]
-            return allMarkup
-        }
-    }
-
-    private(set) var markupOptions: [MarkupKind]
-    private let actionHandler: BlockActionHandlerProtocol
-    private let router: EditorRouterProtocol
-    private let pageService = PageService()
-    private var blockId: BlockId = ""
-    var range: NSRange = .zero
-
-    init(markupOptions: [MarkupKind], actionHandler: BlockActionHandlerProtocol, router: EditorRouterProtocol) {
-        self.markupOptions = markupOptions
-        self.actionHandler = actionHandler
-        self.router = router
-    }
-
-    func selectBlock(_ block: BlockModelProtocol) {
-        let restrictions = BlockRestrictionsBuilder.build(contentType: block.information.content.type)
-        self.blockId = block.information.id
-        markupOptions = availableMarkup(for: restrictions)
-    }
-
-    func action(_ markup: MarkupKind) {
-        switch markup {
-        case .fontStyle(let fontStyle):
-            actionHandler.changeTextStyle(fontStyle.blockActionHandlerTypeMarkup, range: range, blockId: blockId)
-        case .link:
-            showLinkToSearch(blockId: blockId, range: range)
-        }
-    }
-
-    private func availableMarkup(for restrictions: BlockRestrictions) -> [MarkupKind] {
-        MarkupKind.allCases.filter { markup -> Bool in
-            switch markup {
-            case .fontStyle(.bold):
-                return restrictions.canApplyBold
-            case .fontStyle(.italic):
-                return restrictions.canApplyItalic
-            case .fontStyle(.strikethrough), .fontStyle(.keyboard), .link:
-                return restrictions.canApplyOtherMarkup
-            }
-        }
-    }
-
-    private func showLinkToSearch(blockId: BlockId, range: NSRange) {
-        router.showLinkToObject { [weak self] searchKind in
-            switch searchKind {
-            case let .object(linkBlockId):
-                self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
-            case let .createObject(name):
-                if let linkBlockId = self?.pageService.createPage(name: name) {
-                    self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
-                }
-            case let .web(url):
-                self?.actionHandler.setLink(url: URL(string: url), range: range, blockId: blockId)
-            }
-        }
-    }
-}
-
-extension MarkupAccessoryContentViewModel.MarkupKind {
-
-    var icon: Image {
-        switch self {
-        case .fontStyle(.bold):
-            return Image(uiImage: .textAttributes.bold)
-        case .fontStyle(.italic):
-            return Image(uiImage: .textAttributes.italic)
-        case .fontStyle(.strikethrough):
-            return Image(uiImage: .textAttributes.strikethrough)
-        case .fontStyle(.keyboard):
-            return Image(uiImage: .textAttributes.code)
-        case .link:
-            return Image(uiImage: .textAttributes.url)
-        }
-    }
-}
-
-extension MarkupAccessoryContentViewModel.MarkupKind.FontStyle {
-
-    var blockActionHandlerTypeMarkup: TextAttributesType {
-        switch self {
-        case .bold:
-            return .bold
-        case .italic:
-            return .italic
-        case .strikethrough:
-            return .strikethrough
-        case .keyboard:
-            return .keyboard
         }
     }
 }

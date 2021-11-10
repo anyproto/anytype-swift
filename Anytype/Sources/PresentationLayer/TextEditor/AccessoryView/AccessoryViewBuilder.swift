@@ -9,9 +9,15 @@ struct AccessoryViewBuilder {
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
-        let accessoryViewModel = EditorAccessoryViewModel(
+        let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
             router: router,
             handler: actionHandler
+        )
+
+        let markupViewModel = MarkupAccessoryViewModel(
+            document: document,
+            actionHandler: actionHandler,
+            router: router
         )
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
@@ -36,12 +42,8 @@ struct AccessoryViewBuilder {
             changeTypeView: horizontalTypeListView.asUIView()
         )
 
-        let accessoryView = EditorAccessoryView(viewModel: accessoryViewModel)
-        let markupViewModel = MarkupAccessoryContentViewModel(markupOptions: [], actionHandler: actionHandler, router: router)
-        let markupView = MarkupAccessoryView(viewModel: markupViewModel)
-        let editModeAccessoryView = EditModeAccessoryView(cursorModeView: accessoryView,
-                                                          markupModeView: markupView,
-                                                          markupModeViewModel: markupViewModel)
+        let cursorModeAccessoryView = CursorModeAccessoryView(viewModel: cursorModeAccessoryViewModel)
+        let markupModeAccessoryView = MarkupAccessoryView(viewModel: markupViewModel)
 
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
@@ -58,7 +60,8 @@ struct AccessoryViewBuilder {
         let accessoryViewSwitcher = AccessoryViewSwitcher(
             mentionsView: mentionsView,
             slashMenuView: slashMenuView,
-            accessoryView: editModeAccessoryView,
+            cursorModeAccessoryView: cursorModeAccessoryView,
+            markupAccessoryView: markupModeAccessoryView,
             changeTypeView: changeTypeView,
             urlInputView: urlInputView,
             document: document
@@ -67,7 +70,7 @@ struct AccessoryViewBuilder {
         // set delegate
         let stateManager = AccessoryViewStateManagerImpl(switcher: accessoryViewSwitcher, handler: actionHandler)
         mentionsView.delegate = stateManager
-        accessoryView.setDelegate(stateManager)
+        cursorModeAccessoryView.setDelegate(stateManager)
 
         return stateManager
     }

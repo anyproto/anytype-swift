@@ -167,7 +167,7 @@ final class MarkupsViewController: UIViewController {
         return button
     }
     
-    private func setup(button: ButtonWithImage, with state: MarkupState) {
+    private func setup(button: ButtonWithImage, with state: AttributeState) {
         button.isEnabled = state != .disabled
         button.isSelected = state == .applied
     }
@@ -179,12 +179,12 @@ final class MarkupsViewController: UIViewController {
 
 extension MarkupsViewController: MarkupViewProtocol {
     
-    func setMarkupState(_ state: AllMarkupsState) {
+    func setMarkupState(_ state: MarkupViewModel.AllAttributesState) {
         DispatchQueue.main.async {
-            self.setup(button: self.boldButton, with: state.bold)
-            self.setup(button: self.italicButton, with: state.italic)
-            self.setup(button: self.strikethroughButton, with: state.strikethrough)
-            self.setup(button: self.codeButton, with: state.codeStyle)
+            self.setup(button: self.boldButton, with: state.markup[.bold, default: .disabled])
+            self.setup(button: self.italicButton, with: state.markup[.italic, default: .disabled])
+            self.setup(button: self.strikethroughButton, with: state.markup[.strikethrough, default: .disabled])
+            self.setup(button: self.codeButton, with: state.markup[.keyboard, default: .disabled])
             self.urlButton.isEnabled = false
 
             self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])

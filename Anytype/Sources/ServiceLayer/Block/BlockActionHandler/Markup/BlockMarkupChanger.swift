@@ -3,120 +3,91 @@ import BlocksModels
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    weak var handler: BlockActionHandlerProtocol?
-    
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
     
-    init(
-        blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) {
+    init(blocksContainer: BlockContainerModelProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
         self.blocksContainer = blocksContainer
         self.detailsStorage = detailsStorage
     }
     
-    func toggleMarkup(
-        _ markup: TextAttributesType,
-        for blockId: BlockId
-    ) {
-        guard let info = blocksContainer.model(id: blockId)?.information,
-              case let .text(blockText) = info.content else { return }
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
+        guard let info = blocksContainer.model(id: blockId)?.information else { return nil }
+        guard case let .text(blockText) = info.content else { return nil }
         
-        toggleMarkup(
+        let range = blockText.anytypeText(using: detailsStorage).attrString.wholeRange
+        
+        return toggleMarkup(markup, blockId: blockId, range: range)
+    }
+    
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+        guard let (model, content) = blockData(blockId: blockId) else { return nil }
+
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+
+        guard restrictions.isMarkupAvailable(markup) else { return nil }
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
+        let shouldApplyMarkup = !attributedText.hasMarkup(markup, range: range)
+
+        return apply(
             markup,
-            for: blockId,
-            in: blockText.anytypeText(using: detailsStorage).attrString.wholeRange
+            shouldApplyMarkup: shouldApplyMarkup,
+            block: model,
+            content: content,
+            attributedText: attributedText,
+            range: range
         )
     }
+
+    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+        return updateMarkup(markup, shouldApplyMarkup: true, blockId: blockId, range: range)
+    }
+
+    func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+        return updateMarkup(markup, shouldApplyMarkup: false, blockId: blockId, range: range)
+    }
+
+    private func updateMarkup(
+        _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: BlockId, range: NSRange
+    ) -> NSAttributedString? {
+        guard let (model, content) = blockData(blockId: blockId) else { return nil }
+
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
+
+        guard restrictions.isMarkupAvailable(markup) else { return nil }
+
+        let attributedText = content.anytypeText(using: detailsStorage).attrString
+
+        return apply(
+            markup,
+            shouldApplyMarkup: shouldApplyMarkup,
+            block: model,
+            content: content,
+            attributedText: attributedText,
+            range: range
+        )
+    }
+
     
-    func toggleMarkup(
-        _ markup: TextAttributesType,
-        for blockId: BlockId,
-        in range: NSRange
-    ) {
-        guard let (model, content) = blockData(blockId: blockId) else { return }
-        
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
-
-        let markupCalculator = MarkupStateCalculator(
-            attributedText: attributedText,
-            range: range,
-            restrictions: restrictions,
-            alignment: nil
-        )
-        let markupState = markupCalculator.state(for: markup)
-        guard markupState != .disabled else { return }
-        
-        let shouldApplyMarkup = markupState == .notApplied
-        applyAndStore(
-            markup.marksStyleAction(shouldApplyMarkup: shouldApplyMarkup),
-            block: model,
-            content: content,
-            attributedText: attributedText,
-            range: range
-        )
-    }
-
-    func setLink(
-        _ link: URL?,
-        for blockId: BlockId,
-        in range: NSRange
-    ) {
-        guard let (model, content) = blockData(blockId: blockId) else { return }
-        
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-        guard restrictions.canApplyOtherMarkup else { return }
-
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
-        
-        applyAndStore(
-            .link(link),
-            block: model,
-            content: content,
-            attributedText: attributedText,
-            range: range
-        )
-    }
-
-    func setLinkToObject(id: BlockId, for blockId: BlockId, in range: NSRange) {
-        guard let (model, content) = blockData(blockId: blockId) else { return }
-
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
-
-        guard restrictions.canApplyOtherMarkup else { return }
-
-        applyAndStore(
-            .linkToObject(id),
-            block: model,
-            content: content,
-            attributedText: attributedText,
-            range: range
-        )
-    }
-    
-    private func applyAndStore(
-        _ action: MarkStyleAction,
+    private func apply(
+        _ action: MarkupType,
+        shouldApplyMarkup: Bool,
         block: BlockModelProtocol,
         content: BlockText,
         attributedText: NSAttributedString,
         range: NSRange
-    ) {
-        // Ignore changing markup in empty string 
-        guard range.length != 0 else { return }
+    ) -> NSAttributedString? {
+        // Ignore changing markup in empty string
+        guard range.length != 0 else { return nil }
         
         let modifier = MarkStyleModifier(
             attributedString: attributedText,
             anytypeFont: content.contentType.uiFont
         )
         
-        modifier.apply(action, range: range)
-        let result = NSAttributedString(attributedString: modifier.attributedString)
-        
-        handler?.changeText(result, info: block.information)
+        modifier.apply(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
+        return NSAttributedString(attributedString: modifier.attributedString)
     }
     
     private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
