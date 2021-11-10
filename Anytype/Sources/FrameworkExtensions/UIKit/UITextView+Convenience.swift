@@ -83,6 +83,11 @@ extension UITextView {
     func offsetFromBegining(_ position: UITextPosition) -> Int {
         return offset(from: self.beginningOfDocument, to: position)
     }
+    
+    func offsetToCaretPosition() -> Int? {
+        guard let caretPosition = caretPosition else { return nil }
+        return offset(from: self.beginningOfDocument, to: caretPosition)
+    }
 }
 
 extension UITextView: TextViewManagingFocus {
