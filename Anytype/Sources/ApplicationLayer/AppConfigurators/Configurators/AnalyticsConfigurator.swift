@@ -23,7 +23,11 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
         // Enable sending automatic session events
         Amplitude.instance().trackingSessionEvents = true
           // Initialize SDK
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.apiKey)
+        #if !RELEASE
+        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.devAPIKey)
+        #else
+        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.prodAPIKey)
+        #endif
     }
 
 }

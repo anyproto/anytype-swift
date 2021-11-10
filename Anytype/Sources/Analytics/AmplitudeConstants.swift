@@ -1,5 +1,6 @@
 enum AmplitudeConfiguration {
-    static let apiKey = "827af3255d76ef87541cd459a0a38242"
+    static let devAPIKey = "827af3255d76ef87541cd459a0a38242"
+    static let prodAPIKey = "1ba981d1a9afb8af8c81847ef3383a20"
 }
 
 enum AmplitudeEventsName {
