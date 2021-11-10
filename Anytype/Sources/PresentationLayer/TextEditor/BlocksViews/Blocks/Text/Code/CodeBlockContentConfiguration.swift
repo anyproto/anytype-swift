@@ -1,7 +1,7 @@
 import BlocksModels
 import UIKit
 
-struct CodeBlockContentConfiguration {
+struct CodeBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
     let content: BlockText
     let backgroundColor: MiddlewareColor?
     let codeLanguage: CodeLanguage
@@ -9,22 +9,12 @@ struct CodeBlockContentConfiguration {
     let becomeFirstResponder: () -> ()
     let textDidChange: (UITextView) -> ()
     let showCodeSelection: () -> ()
-    private(set) var currentConfigurationState: UICellConfigurationState?
+    var currentConfigurationState: UICellConfigurationState?
 }
 
 extension CodeBlockContentConfiguration: UIContentConfiguration {
-
     func makeContentView() -> UIView & UIContentView {
         return CodeBlockView(configuration: self)
-    }
-
-    func updated(for state: UIConfigurationState) -> Self {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-
-        updatedConfig.currentConfigurationState = state
-
-        return updatedConfig
     }
 }
 

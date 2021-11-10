@@ -1,13 +1,13 @@
 import UIKit
 import BlocksModels
 
-struct BlockImageConfiguration: UIContentConfiguration, Hashable {
+struct BlockImageConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable {
     
     let fileData: BlockFile
     let maxWidth: CGFloat
     let alignment: LayoutAlignment
     let imageViewTapHandler: (UIImageView) -> Void
-    private(set) var currentConfigurationState: UICellConfigurationState?
+    var currentConfigurationState: UICellConfigurationState?
     
     init(
         fileData: BlockFile,
@@ -23,15 +23,6 @@ struct BlockImageConfiguration: UIContentConfiguration, Hashable {
             
     func makeContentView() -> UIView & UIContentView {
         BlockImageContentView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> Self {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-
-        updatedConfig.currentConfigurationState = state
-
-        return updatedConfig
     }
         
     static func == (lhs: Self, rhs: Self) -> Bool {

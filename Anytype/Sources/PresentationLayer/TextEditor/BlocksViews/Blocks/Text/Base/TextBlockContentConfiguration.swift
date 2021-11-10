@@ -2,7 +2,7 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: UIContentConfiguration {
+struct TextBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
     
     let blockDelegate: BlockDelegate
     
@@ -23,7 +23,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let openURL: (URL) -> Void
         
     let pressingEnterTimeChecker = TimeChecker()
-    private(set) var currentConfigurationState: UICellConfigurationState?
+    var currentConfigurationState: UICellConfigurationState?
     
     init(
         blockDelegate: BlockDelegate,
@@ -55,15 +55,6 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         TextBlockContentView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> TextBlockContentConfiguration {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-
-        updatedConfig.currentConfigurationState = state
-
-        return updatedConfig
     }
 }
 

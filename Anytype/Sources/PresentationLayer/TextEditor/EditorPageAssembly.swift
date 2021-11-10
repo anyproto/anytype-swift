@@ -12,7 +12,8 @@ final class EditorPageAssembly {
     }
     
     func buildEditorModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
-        let controller = EditorPageController()
+        let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
+        let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
         let document = BaseDocument(objectId: pageId)
         let router = EditorRouter(
             rootController: browser,
@@ -24,7 +25,8 @@ final class EditorPageAssembly {
         let viewModel = buildViewModel(
             viewInput: controller,
             document: document,
-            router: router
+            router: router,
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel
         )
 
         controller.viewModel = viewModel
@@ -35,7 +37,8 @@ final class EditorPageAssembly {
     private func buildViewModel(
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
-        router: EditorRouter
+        router: EditorRouter,
+        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
     ) -> EditorPageViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
@@ -106,7 +109,21 @@ final class EditorPageAssembly {
             actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
-            blockActionsService: BlockActionsServiceSingle()
+            blockActionsService: BlockActionsServiceSingle(),
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel
+        )
+    }
+
+    private func buildBlocksSelectionOverlayView() -> BlocksSelectionOverlayView {
+        let blocksOptionViewModel = BlocksOptionViewModel()
+        let blocksOptionView = BlocksOptionView(viewModel: blocksOptionViewModel)
+        let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()
+
+        blocksSelectionOverlayViewModel.blocksOptionViewModel = blocksOptionViewModel
+
+        return BlocksSelectionOverlayView(
+            viewModel: blocksSelectionOverlayViewModel,
+            blocksOptionView: blocksOptionView
         )
     }
 }

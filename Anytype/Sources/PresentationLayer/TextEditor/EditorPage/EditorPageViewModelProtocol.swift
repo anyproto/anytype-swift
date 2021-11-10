@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 
-protocol EditorPageViewModelProtocol: BlocksSelectionDelegate {
+protocol EditorPageViewModelProtocol {
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }

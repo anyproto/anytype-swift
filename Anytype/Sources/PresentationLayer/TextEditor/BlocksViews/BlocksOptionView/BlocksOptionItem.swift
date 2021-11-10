@@ -1,6 +1,6 @@
 import UIKit
 
-enum BlocksOptionItem: String, CaseIterable {
+enum BlocksOptionItem: CaseIterable, Comparable {
     case delete
     case addBlockBelow
     case duplicate

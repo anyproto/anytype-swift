@@ -589,7 +589,12 @@
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
 		C9121A36273A506000FFDA07 /* BaseBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A35273A506000FFDA07 /* BaseBlockView.swift */; };
-		C9121A41273A835000FFDA07 /* EditorPageViewModel+BlocksSelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelectionDelegate.swift */; };
+		C9121A41273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */; };
+		C9121A55273B4B9700FFDA07 /* BlocksOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A54273B4B9700FFDA07 /* BlocksOptionViewModel.swift */; };
+		C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */; };
+		C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */; };
+		C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */; };
+		C9121A60273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5F273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift */; };
 		C917DF0E271772BD0085185D /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917DF0D271772BD0085185D /* ImageViewerViewController.swift */; };
 		C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEFB270B6618005F9386 /* EventsLogView.swift */; };
 		C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */; };
@@ -1330,7 +1335,12 @@
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 		C9121A35273A506000FFDA07 /* BaseBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBlockView.swift; sourceTree = "<group>"; };
-		C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageViewModel+BlocksSelectionDelegate.swift"; sourceTree = "<group>"; };
+		C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageViewModel+BlocksSelection.swift"; sourceTree = "<group>"; };
+		C9121A54273B4B9700FFDA07 /* BlocksOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksOptionViewModel.swift; sourceTree = "<group>"; };
+		C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockRestrictions+BlocksOptionItem.swift"; sourceTree = "<group>"; };
+		C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
+		C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayViewModel.swift; sourceTree = "<group>"; };
+		C9121A5F273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeBlockContentConfigurationProtocol.swift; sourceTree = "<group>"; };
 		C917DF0D271772BD0085185D /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		C91AFEFB270B6618005F9386 /* EventsLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogView.swift; sourceTree = "<group>"; };
 		C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogViewModel.swift; sourceTree = "<group>"; };
@@ -2005,7 +2015,7 @@
 				123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */,
 				3D44984426D53D61005A3E06 /* EditorPageViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* EditorPageViewModel.swift */,
-				C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelectionDelegate.swift */,
+				C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */,
 			);
 			path = EditorPage;
 			sourceTree = "<group>";
@@ -2063,6 +2073,7 @@
 				3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */,
 				3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */,
 				C9121A35273A506000FFDA07 /* BaseBlockView.swift */,
+				C9121A5F273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3173,6 +3184,7 @@
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
 				128495DF267371B900351C66 /* BottomFloaterBuilder.swift */,
+				C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -4266,6 +4278,7 @@
 			isa = PBXGroup;
 			children = (
 				C9367A90273126AD007D687A /* BlocksOptionView.swift */,
+				C9121A54273B4B9700FFDA07 /* BlocksOptionViewModel.swift */,
 				C9367A9227312E8C007D687A /* BlocksOptionItem.swift */,
 			);
 			path = BlocksOptionView;
@@ -4275,6 +4288,7 @@
 			isa = PBXGroup;
 			children = (
 				C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */,
+				C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */,
 			);
 			path = BlocksSelectionOverlayView;
 			sourceTree = "<group>";
@@ -4339,6 +4353,7 @@
 			children = (
 				3DB692A326970DDC00149864 /* Restrictions */,
 				EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */,
+				C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */,
 				EA0261352625D12000AE6D86 /* BlockRestrictionsBuilder.swift */,
 			);
 			path = Restrictions;
@@ -4746,6 +4761,7 @@
 				3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
+				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
 				123FDAD226C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift in Sources */,
@@ -4767,6 +4783,7 @@
 				3D932D4326317E3A00C7D1EA /* HomeCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
 				3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */,
+				C9121A60273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift in Sources */,
 				1255DF89270220E900870B95 /* MediaFileUploadingDemon.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BookmarkService.swift in Sources */,
@@ -4879,6 +4896,7 @@
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
+				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
 				1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */,
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
@@ -4901,7 +4919,7 @@
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
-				C9121A41273A835000FFDA07 /* EditorPageViewModel+BlocksSelectionDelegate.swift in Sources */,
+				C9121A41273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
@@ -5056,6 +5074,7 @@
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
+				C9121A55273B4B9700FFDA07 /* BlocksOptionViewModel.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
@@ -5290,6 +5309,7 @@
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
+				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,

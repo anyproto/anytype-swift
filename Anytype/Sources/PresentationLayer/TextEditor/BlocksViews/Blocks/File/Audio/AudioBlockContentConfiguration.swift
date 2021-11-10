@@ -14,7 +14,7 @@ import AVFoundation
 struct AudioBlockContentConfiguration: Hashable {
     let file: BlockFile
     let trackId: String
-    private(set) var currentConfigurationState: UICellConfigurationState?
+    var currentConfigurationState: UICellConfigurationState?
     weak var audioPlayerViewDelegate: AudioPlayerViewDelegate?
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
@@ -28,18 +28,9 @@ struct AudioBlockContentConfiguration: Hashable {
     }
 }
 
-extension AudioBlockContentConfiguration: UIContentConfiguration {
+extension AudioBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
 
     func makeContentView() -> UIView & UIContentView {
         return AudioBlockContentView(configuration: self)
-    }
-
-    func updated(for state: UIConfigurationState) -> Self {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-
-        updatedConfig.currentConfigurationState = state
-
-        return updatedConfig
     }
 }

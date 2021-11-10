@@ -48,14 +48,15 @@ final class EditorPageController: UIViewController {
         }
     )
 
-    private lazy var blocksSelectionOverlayView = BlocksSelectionOverlayView(frame: .zero)
+    private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     
     var viewModel: EditorPageViewModelProtocol!
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
-    
-    init() {
+    init(blocksSelectionOverlayView: BlocksSelectionOverlayView) {
+        self.blocksSelectionOverlayView = blocksSelectionOverlayView
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -126,15 +127,13 @@ final class EditorPageController: UIViewController {
                 setEditing(false, animated: true)
                 blockIds.forEach(selectBlock)
                 blocksSelectionOverlayView.isHidden = false
-                self.navigationBarHelper.setNavigationBarHidden(true)
+                navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
-                self.navigationBarHelper.setNavigationBarHidden(false)
+                navigationBarHelper.setNavigationBarHidden(false)
             }
         }.store(in: &cancellables)
-
-        blocksSelectionOverlayView.delegate = viewModel
     }
 }
 
@@ -193,7 +192,7 @@ extension EditorPageController: EditorPageViewInput {
         
         if let item = item {
             let indexPath = dataSource.indexPath(for: item)
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
         }
         updateView()
     }
@@ -217,7 +216,6 @@ extension EditorPageController: EditorPageViewInput {
             dataSource.refresh(animatingDifferences: true)
         }
     }
-    
 }
 
 // MARK: - Private extension

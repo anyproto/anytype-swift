@@ -6,22 +6,13 @@ enum BlocksFileEmptyViewState {
     case error
 }
 
-struct BlocksFileEmptyViewConfiguration: UIContentConfiguration {
+struct BlocksFileEmptyViewConfiguration: AnytypeBlockContentConfigurationProtocol {
     let image: UIImage
     let text: String
     let state: BlocksFileEmptyViewState
-    private(set) var currentConfigurationState: UICellConfigurationState?
+    var currentConfigurationState: UICellConfigurationState?
     
     func makeContentView() -> UIView & UIContentView {
         BlocksFileEmptyView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> Self {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-
-        updatedConfig.currentConfigurationState = state
-
-        return updatedConfig
     }
 }

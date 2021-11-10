@@ -1,34 +1,31 @@
 import UIKit
 import SwiftUI
 
-protocol BlocksSelectionDelegate: AnyObject {
-    func didTapEndSelectionModeButton()
-
-    func didTapDelete()
-    func didTapAddBelow()
-    func didTapDuplicate()
-    func didTapTurnInto()
-    func didTapMoveTo()
-}
-
 final class BlocksSelectionOverlayView: UIView {
+    let viewModel: BlocksSelectionOverlayViewModel
+
+    // MARK: - UI elements
+    private let blocksOptionView: BlocksOptionView
     private lazy var navigationView = SelectionNavigationView(frame: .zero)
-    private lazy var blocksOptionView = BlocksOptionView(tapHandler: { _ in } )
     private lazy var statusBarOverlayView = UIView()
-    weak var delegate: BlocksSelectionDelegate?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(
+        viewModel: BlocksSelectionOverlayViewModel,
+        blocksOptionView: BlocksOptionView
+    ) {
+        self.viewModel = viewModel
+        self.blocksOptionView = blocksOptionView
 
+        super.init(frame: .zero)
         setupView()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
-        setupView()
+        fatalError("unavailable initializer")
     }
 
+    // MARK: - Override
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let isValid = subviews.contains {
             $0.hitTest(convert(point, to: $0), with: event) != nil
@@ -37,13 +34,15 @@ final class BlocksSelectionOverlayView: UIView {
         return isValid
     }
 
+    // MARK: - Private
     private func setupView() {
         bindActions()
         backgroundColor = .clear
 
+        let statusBarHeight = UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         addSubview(statusBarOverlayView) {
             $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: UIApplication.shared.statusBarFrame.height)
+            $0.height.equal(to: statusBarHeight)
         }
 
         statusBarOverlayView.backgroundColor = .white
@@ -53,7 +52,6 @@ final class BlocksSelectionOverlayView: UIView {
             $0.top.equal(to: statusBarOverlayView.bottomAnchor)
             $0.height.equal(to: 48)
         }
-
 
         let blocksOptionUIView = blocksOptionView.asUIView()
         let shadowedBlocksOptionView = RoundedShadowView(view: blocksOptionUIView, cornerRadius: 16)
@@ -74,7 +72,7 @@ final class BlocksSelectionOverlayView: UIView {
 
     private func bindActions() {
         navigationView.leftButtonTap = { [unowned self] in
-            delegate?.didTapEndSelectionModeButton()
+            viewModel.endEditingModeHandler?()
         }
     }
 }
@@ -118,45 +116,5 @@ private final class SelectionNavigationView: UIView {
             $0.trailing.equal(to: trailingAnchor, constant: -16)
             $0.centerY.equal(to: centerYAnchor)
         }
-    }
-}
-
-final private class RoundedShadowView<View: UIView>: UIView {
-    let view: View
-    let shadowLayer: CAShapeLayer
-    private let cornerRadius: CGFloat
-
-    init(view: View, cornerRadius: CGFloat) {
-        self.view = view
-        self.cornerRadius = cornerRadius
-
-        self.shadowLayer = CAShapeLayer()
-
-        shadowLayer.shadowPath = shadowLayer.path
-
-        super.init(frame: view.frame)
-
-        setupLayout()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        shadowLayer.frame = view.frame
-
-        shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-    }
-
-    private func setupLayout() {
-        layer.insertSublayer(shadowLayer, at: 0)
-
-        addSubview(view) {
-            $0.pinToSuperview()
-        }
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

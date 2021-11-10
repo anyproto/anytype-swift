@@ -14,7 +14,7 @@ extension EditorPageController: UICollectionViewDelegate {
             viewModel.didSelectBlock(at: indexPath)
             collectionView.deselectItem(at: indexPath, animated: false)
         } else {
-            // View model handle selection
+            collectionView.indexPathsForSelectedItems.map(viewModel.didUpdateSelectedIndexPaths)
         }
     }
     
@@ -22,7 +22,7 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        // View model handle selection
+        collectionView.indexPathsForSelectedItems.map(viewModel.didUpdateSelectedIndexPaths)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -53,7 +53,6 @@ extension EditorPageController: UICollectionViewDelegate {
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        return nil
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
 
         switch item {

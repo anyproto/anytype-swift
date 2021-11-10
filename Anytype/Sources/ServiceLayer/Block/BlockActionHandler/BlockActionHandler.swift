@@ -211,7 +211,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
 
-    func selectBlock(blockId: BlockId) {
-        editingStateDelegate?.didSelectedEditingState(onBlockWith: blockId)
+    func selectBlock(blockInformation: BlockInformation) {
+        editingStateDelegate?.didSelectedEditingState(on: blockInformation)
     }
 }

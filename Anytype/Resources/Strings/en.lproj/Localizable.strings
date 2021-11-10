@@ -98,6 +98,9 @@
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
 
+"selected block" = "selected block";
+"selected blocks" = "selected blocks";
+
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
@@ -221,4 +224,3 @@
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
-
