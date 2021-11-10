@@ -41,9 +41,6 @@ struct ObjectRelationRow: View {
             case .status(let statusRelation):
                 StatusRelationView(value: statusRelation, hint: hint)
                 
-            case .file:
-                EmptyView()
-                
             case .checkbox(let bool):
                 CheckboxRelationView(isChecked: bool)
                 
