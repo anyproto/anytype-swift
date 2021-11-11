@@ -64,8 +64,7 @@ final class EditorPageAssembly {
             document: document,
             markupChanger: markupChanger
         )
-        
-        markupChanger.handler = actionHandler
+
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
@@ -73,7 +72,7 @@ final class EditorPageAssembly {
             document: document
         )
         
-        let markdownListener = MarkdownListenerImpl(handler: actionHandler)
+        let markdownListener = MarkdownListenerImpl(handler: actionHandler, markupChanger: markupChanger)
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,

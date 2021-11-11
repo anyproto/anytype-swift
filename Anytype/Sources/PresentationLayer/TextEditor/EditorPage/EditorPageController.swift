@@ -143,7 +143,7 @@ extension EditorPageController: EditorPageViewInput {
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
         
         navigationBarHelper.configureNavigationBar(
             using: header,

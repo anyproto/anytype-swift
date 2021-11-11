@@ -6,6 +6,6 @@ extension NSAttributedString {
     }
     
     static var empty: NSAttributedString {
-        NSAttributedString(string: "")
+        NSAttributedString()
     }
 }

@@ -8246,8 +8246,10 @@ public struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
+        /// (optional) id of the link block pointing to this set
         public var blockID: String = String()
 
+        /// id of the new set
         public var targetID: String = String()
 
         public var event: Anytype_ResponseEvent {

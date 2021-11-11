@@ -109,32 +109,49 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     // MARK: - Markup changer proxy
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
-        markupChanger.toggleMarkup(markup, for: blockId)
+        guard let newText = markupChanger.toggleMarkup(markup, blockId: blockId) else { return }
+        
+        changeText(newText, blockId: blockId)
     }
     
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
-        markupChanger.toggleMarkup(attribute, for: blockId, in: range)
+        guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
+        
+        changeText(newText, blockId: blockId)
     }
     
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
-        guard let url = url else {
-            markupChanger.removeMarkup(.link(nil), for: blockId, in: range)
-            return
+        let newText: NSAttributedString?
+        if let url = url {
+            newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
+        } else {
+            newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
         }
-        markupChanger.setMarkup(.link(url), for: blockId, in: range)
+        
+        guard let newText = newText else { return }
+        changeText(newText, blockId: blockId)
     }
     
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
-        guard let linkBlockId = linkBlockId else {
-            markupChanger.removeMarkup(.linkToObject(nil), for: blockId, in: range)
-            return
+        let newText: NSAttributedString?
+        if let linkBlockId = linkBlockId {
+            newText = markupChanger.setMarkup(.linkToObject(linkBlockId), blockId: blockId, range: range)
+        } else {
+            newText = markupChanger.removeMarkup(.linkToObject(nil), blockId: blockId, range: range)
         }
-        markupChanger.setMarkup(.linkToObject(linkBlockId), for: blockId, in: range)
+        
+        guard let newText = newText else { return }
+        changeText(newText, blockId: blockId)
     }
     
     // MARK: - TextBlockActionHandler proxy
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
         textBlockActionHandler.handleKeyboardAction(info: info, action: action)
+    }
+    
+    func changeText(_ text: NSAttributedString, blockId: BlockId) {
+        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        changeText(text, info: info)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {

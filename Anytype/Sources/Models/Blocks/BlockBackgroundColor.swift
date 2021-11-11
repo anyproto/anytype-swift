@@ -38,7 +38,7 @@ enum BlockBackgroundColor: CaseIterable {
         case .green:
             return .lightGreen
         case .gray:
-            return .lightGray
+            return .lightColdGray
         }
     }
     
