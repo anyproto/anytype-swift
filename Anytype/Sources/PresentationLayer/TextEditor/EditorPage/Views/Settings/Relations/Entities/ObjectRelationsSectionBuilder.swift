@@ -93,7 +93,7 @@ private extension ObjectRelationsSectionBuilder {
         case .shortText:
             return textRelationRowValue(relation: relation, details: details)
         case .number:
-            return textRelationRowValue(relation: relation, details: details)
+            return numberRelationRowValue(relation: relation, details: details)
         case .status:
             return statusRelationRowValue(relation: relation, details: details)
         case .date:
