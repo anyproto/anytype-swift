@@ -1,6 +1,6 @@
 import Foundation
 
-struct ObjectRelationRowViewModel: Hashable, Identifiable {
+struct ObjectRelationRowData: Hashable, Identifiable {
     let id = UUID()
     
     let name: String

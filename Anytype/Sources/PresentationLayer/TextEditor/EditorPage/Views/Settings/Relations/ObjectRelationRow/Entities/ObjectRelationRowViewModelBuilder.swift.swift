@@ -21,17 +21,17 @@ final class ObjectRelationRowViewModelBuilder {
         using relations: [Relation],
         objectId: BlockId,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> [ObjectRelationRowViewModel] {
+    ) -> [ObjectRelationRowData] {
         guard let objectDetails = detailsStorage.get(id: objectId) else { return [] }
         
-        let viewModels: [ObjectRelationRowViewModel] = relations.map { relation in
+        let viewModels: [ObjectRelationRowData] = relations.map { relation in
             let value = relationRowValue(
                 relation: relation,
                 details: objectDetails,
                 detailsStorage: detailsStorage
             )
             
-            return ObjectRelationRowViewModel(
+            return ObjectRelationRowData(
                 name: relation.name,
                 value: value,
                 hint: relation.format.hint

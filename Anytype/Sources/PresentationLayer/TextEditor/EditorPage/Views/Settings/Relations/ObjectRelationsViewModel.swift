@@ -7,12 +7,12 @@ final class ObjectRelationsViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    @Published private(set) var rowViewModels: [ObjectRelationRowViewModel]
+    @Published private(set) var rowViewModels: [ObjectRelationRowData]
     private let viewModelBuilder = ObjectRelationRowViewModelBuilder()
     
     // MARK: - Initializers
     
-    init(rowViewModels: [ObjectRelationRowViewModel] = []) {
+    init(rowViewModels: [ObjectRelationRowData] = []) {
         self.rowViewModels = rowViewModels
     }
     
