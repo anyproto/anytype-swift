@@ -47,17 +47,17 @@ struct ObjectRelationsView_Previews: PreviewProvider {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
                 rowViewModels: [
-                    ObjectRelationRowViewModel(
+                    ObjectRelationRowData(
                         name: "Relation name1",
                         value: .text("text"),
                         hint: "hint"
                     ),
-                    ObjectRelationRowViewModel(
+                    ObjectRelationRowData(
                         name: "Relation name2",
                         value: .text("text2"),
                         hint: "hint"
                     ),
-                    ObjectRelationRowViewModel(
+                    ObjectRelationRowData(
                         name: "Relation name3",
                         value: .text("text3"),
                         hint: "hint"
