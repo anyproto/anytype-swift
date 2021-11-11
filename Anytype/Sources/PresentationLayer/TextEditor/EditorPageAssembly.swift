@@ -56,12 +56,20 @@ final class EditorPageAssembly {
             detailsStorage: document.detailsStorage
         )
         
-        let actionHandler = BlockActionHandler(
-            modelsHolder: modelsHolder,
-            document: document,
-            markupChanger: markupChanger
+        
+        let blockActionService = BlockActionService(documentId: document.objectId, modelsHolder: modelsHolder)
+        let blockActionHandler = TextBlockActionHandler(
+            contextId: document.objectId,
+            service: blockActionService,
+            modelsHolder: modelsHolder
         )
-
+        
+        let actionHandler = BlockActionHandler(
+            document: document,
+            markupChanger: markupChanger,
+            service: blockActionService,
+            actionHandler: blockActionHandler
+        )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
