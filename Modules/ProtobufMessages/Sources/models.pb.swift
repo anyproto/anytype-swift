@@ -153,19 +153,19 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
   /// string
   case longtext // = 0
 
-  /// string, usually short enough. May be truncated
+  /// string, usually short enough. May be truncated in the future
   case shorttext // = 1
 
   /// double
   case number // = 2
 
-  /// string (choose one from a list)
+  /// string or list of string(len==1)
   case status // = 3
 
   /// list of string (choose multiple from a list)
   case tag // = 11
 
-  /// int64(pb.Value doesn't have int64) or string
+  /// float64(pb.Value doesn't have int64) or the string
   case date // = 4
 
   /// relation can has objects of specific types: file, image, audio, video
@@ -189,7 +189,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
   /// relation can has objectType to specify objectType
   case object // = 100
 
-  /// base64-encoded
+  /// base64-encoded relation pb model
   case relations // = 101
   case UNRECOGNIZED(Int)
 
