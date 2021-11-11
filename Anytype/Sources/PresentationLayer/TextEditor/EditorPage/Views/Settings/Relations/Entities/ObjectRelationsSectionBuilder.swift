@@ -21,10 +21,10 @@ final class ObjectRelationsSectionBuilder {
         using relations: [Relation],
         objectId: BlockId,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> [ObjectRelationRowData] {
+    ) -> [ObjectRelationsSection] {
         guard let objectDetails = detailsStorage.get(id: objectId) else { return [] }
         
-        let viewModels: [ObjectRelationRowData] = relations.map { relation in
+        let rowsData: [ObjectRelationRowData] = relations.map { relation in
             let value = relationRowValue(
                 relation: relation,
                 details: objectDetails,
@@ -39,7 +39,13 @@ final class ObjectRelationsSectionBuilder {
             )
         }
         
-        return viewModels
+        return [
+            ObjectRelationsSection(
+                id: "foo",
+                title: "In this object".localized,
+                relations: rowsData
+            )
+        ]
     }
     
 }

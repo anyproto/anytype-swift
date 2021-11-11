@@ -25,17 +25,11 @@ final class ObjectRelationsViewModel: ObservableObject {
     ) {
         let visibleRelations = relations.filter { !$0.isHidden }
         
-        self.sections = [
-            ObjectRelationsSection(
-                id: "foo",
-                title: "In this object".localized,
-                relations: sectionsBuilder.buildViewModels(
-                    using: visibleRelations,
-                    objectId: objectId,
-                    detailsStorage: detailsStorage
-                )
-            )
-        ]
+        self.sections = sectionsBuilder.buildViewModels(
+            using: visibleRelations,
+            objectId: objectId,
+            detailsStorage: detailsStorage
+        )
     }
     
 }
