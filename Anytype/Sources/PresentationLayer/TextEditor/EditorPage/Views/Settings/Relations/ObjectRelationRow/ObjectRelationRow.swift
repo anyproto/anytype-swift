@@ -23,7 +23,8 @@ struct ObjectRelationRow: View {
             }
             .frame(width: gr.size.width, height: gr.size.height)
         }
-        .frame(height: 44)
+        .frame(height: 48)
+        .modifier(DividerModifier(spacing:0))
     }
     
     private var name: some View {

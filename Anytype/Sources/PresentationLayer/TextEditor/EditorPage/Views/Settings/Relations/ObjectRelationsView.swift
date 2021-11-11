@@ -21,20 +21,22 @@ struct ObjectRelationsView: View {
     }
     
     private var relationsList: some View {
-        List {
-            Section(
-                header: AnytypeText(
-                    "In this object".localized,
-                    style: .uxTitle1Semibold,
-                    color: .textPrimary
-                )
-            ) {
-                ForEach(viewModel.rowViewModels) { rowViewModel in
-                    ObjectRelationRow(viewModel: rowViewModel)
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 0) {
+                Section(
+                    header: AnytypeText(
+                        "In this object".localized,
+                        style: .uxTitle1Semibold,
+                        color: .textPrimary
+                    )
+                        .padding(.vertical, 12)
+                ) {
+                    ForEach(viewModel.rowViewModels) { rowViewModel in
+                        ObjectRelationRow(viewModel: rowViewModel)
+                    }
                 }
-            }
+            }.padding(.horizontal, 20)
         }
-        .listStyle(.plain)
     }
     
 }
