@@ -23,17 +23,24 @@ struct ObjectRelationsView: View {
     private var relationsList: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
-                Section(
-                    header: AnytypeText(
-                        "In this object".localized,
-                        style: .uxTitle1Semibold,
-                        color: .textPrimary
-                    )
-                        .padding(.vertical, 12)
-                ) {
-                    ForEach(viewModel.rowViewModels) { rowViewModel in
-                        ObjectRelationRow(viewModel: rowViewModel)
+                ForEach(viewModel.sections) { section in
+                    VStack(alignment: .leading, spacing: 0) {
+                        Section(
+                            header: AnytypeText(
+                                section.title,
+                                style: .uxTitle1Semibold,
+                                color: .textPrimary
+                            )
+                                .padding(.vertical, 12)
+                        ) {
+                            ForEach(section.relations) { relation in
+                                ObjectRelationRow(viewModel: relation)
+                            }
+                        }
+                        
+                        Spacer().frame(height: 20)
                     }
+                    
                 }
             }.padding(.horizontal, 20)
         }
@@ -46,22 +53,55 @@ struct ObjectRelationsView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
-                rowViewModels: [
-                    ObjectRelationRowViewModel(
-                        name: "Relation name1",
-                        value: .text("text"),
-                        hint: "hint"
+                sections: [
+                    ObjectRelationsSection(
+                        id: "id",
+                        title: "title",
+                        relations: [
+                            ObjectRelationRowData(
+                                id: "1",
+                                name: "Relation name1",
+                                value: .text("text"),
+                                hint: "hint"
+                            ),
+                            ObjectRelationRowData(
+                                id: "2",
+                                name: "Relation name2",
+                                value: .text("text2"),
+                                hint: "hint"
+                            ),
+                            ObjectRelationRowData(
+                                id: "3",
+                                name: "Relation name3",
+                                value: .text("text3"),
+                                hint: "hint"
+                            )
+                        ]
                     ),
-                    ObjectRelationRowViewModel(
-                        name: "Relation name2",
-                        value: .text("text2"),
-                        hint: "hint"
-                    ),
-                    ObjectRelationRowViewModel(
-                        name: "Relation name3",
-                        value: .text("text3"),
-                        hint: "hint"
-                    ),
+                    ObjectRelationsSection(
+                        id: "id1",
+                        title: "title2",
+                        relations: [
+                            ObjectRelationRowData(
+                                id: "12",
+                                name: "Relation name1",
+                                value: .text("text"),
+                                hint: "hint"
+                            ),
+                            ObjectRelationRowData(
+                                id: "22",
+                                name: "Relation name2",
+                                value: .text("text2"),
+                                hint: "hint"
+                            ),
+                            ObjectRelationRowData(
+                                id: "32",
+                                name: "Relation name3",
+                                value: .text("text3"),
+                                hint: "hint"
+                            )
+                        ]
+                    )
                 ]
             )
         )
