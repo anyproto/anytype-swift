@@ -13,9 +13,6 @@ class StartOfTextMarkdownTests: XCTestCase {
         changer = BlockMarkupChangerMock()
         listener = MarkdownListenerImpl(handler: handler, markupChanger: changer)
     }
-
-    override func tearDownWithError() throws {
-    }
     
     func testChechbox_triggered_on_every_carret_position_inside_shortcut() throws {
         testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, carretPosition: 0, success: true)

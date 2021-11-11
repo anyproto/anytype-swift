@@ -12,7 +12,7 @@ extension MarkdownShortcut {
 }
 
 extension MarkdownShortcut {
-    static var beginingOfText: [MarkdownShortcut] = [
+    static let beginingOfText: [MarkdownShortcut] = [
         MarkdownShortcut(text: "# ", style: .header),
         MarkdownShortcut(text: "## ", style: .header2),
         MarkdownShortcut(text: "### ", style: .header3),

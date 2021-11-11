@@ -13,9 +13,6 @@ class InlineMarkdownTests: XCTestCase {
         changer = BlockMarkupChangerMock()
         listener = MarkdownListenerImpl(handler: handler, markupChanger: changer)
     }
-
-    override func tearDownWithError() throws {
-    }
     
     func testInlineMarkups() {
         testInlineMarkdown(shortcut: "`", markup: .keyboard)
