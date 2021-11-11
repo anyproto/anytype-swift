@@ -8,28 +8,14 @@
 
 import UIKit
 
-struct UnsupportedBlockContentConfiguration {
+struct UnsupportedBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
     let text: String
+    var currentConfigurationState: UICellConfigurationState?
 }
 
 extension UnsupportedBlockContentConfiguration: UIContentConfiguration {
 
     func makeContentView() -> UIView & UIContentView {
         return UnsupportedBlockView(configuration: self)
-    }
-
-    func updated(for state: UIConfigurationState) -> UnsupportedBlockContentConfiguration {
-        return self
-    }
-}
-
-extension UnsupportedBlockContentConfiguration: Hashable {
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.text == rhs.text
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(text)
     }
 }

@@ -1,16 +1,11 @@
 import UIKit
 
-struct FeaturedRelationsBlockContentConfiguration: UIContentConfiguration, Hashable {
-        
+struct FeaturedRelationsBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable {        
     let type: String
     let alignment: NSTextAlignment
+    var currentConfigurationState: UICellConfigurationState?
     
     func makeContentView() -> UIView & UIContentView {
         FeaturedRelationsBlockView(configuration: self)
     }
-    
-    func updated(for state: UIConfigurationState) -> Self {
-        return self
-    }
 }
-

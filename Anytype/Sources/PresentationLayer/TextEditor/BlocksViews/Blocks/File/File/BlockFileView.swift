@@ -7,25 +7,15 @@ struct BlockFileMediaData: Hashable {
     var typeIcon: UIImage
 }
 
-class BlockFileView: UIView & UIContentView {
-    private var currentConfiguration: BlockFileConfiguration
-    
-    init(configuration: BlockFileConfiguration) {
-        self.currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+class BlockFileView: BaseBlockView<BlockFileConfiguration> {
+    override func setupSubviews() {
+        super.setupSubviews()
         setup()
+    }
+
+    override func update(with configuration: BlockFileConfiguration) {
+        super.update(with: configuration)
         handle(data: configuration.data)
-    }
-    
-    @available(*, unavailable)
-    override init(frame: CGRect) {
-        fatalError("Not implemented")
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     func setup() {
@@ -81,16 +71,4 @@ class BlockFileView: UIView & UIContentView {
         view.textColor = . textSecondary
         return view
     }()
-    
-    // MARK: - UIContentView
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockFileConfiguration else { return }
-            guard self.currentConfiguration != configuration else { return }
-            self.currentConfiguration = configuration
-            
-            handle(data: currentConfiguration.data)
-        }
-    }
 }
