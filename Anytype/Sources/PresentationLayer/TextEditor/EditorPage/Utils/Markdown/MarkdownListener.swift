@@ -23,14 +23,13 @@ final class MarkdownListenerImpl: MarkdownListener {
         applyInlineShortcuts(data: data)
     }
     
-    
+    // MARK: - Inline
     private func applyInlineShortcuts(data: TextBlockDelegateData) {
-        applyInlineMarkup(.keyboard, triggerSymbol: "`", data: data)
-        applyInlineMarkup(.italic, triggerSymbol: "_", data: data)
-        applyInlineMarkup(.italic, triggerSymbol: "*", data: data)
-        applyInlineMarkup(.bold, triggerSymbol: "__", data: data)
-        applyInlineMarkup(.bold, triggerSymbol: "**", data: data)
-        applyInlineMarkup(.strikethrough, triggerSymbol: "~~", data: data)
+        InlineMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                applyInlineMarkup(shortcut.markup, triggerSymbol: text, data: data)
+            }
+        }
     }
     
     private func applyInlineMarkup(_ markup: MarkupType, triggerSymbol: String, data: TextBlockDelegateData) {
@@ -87,8 +86,9 @@ final class MarkdownListenerImpl: MarkdownListener {
         return italicDistance < boldDistance
     }
     
+    // MARK: - BeginningOfText
     private func applyBeginningOfTextShortcuts(data: TextBlockDelegateData) {
-        MarkdownShortcut.beginingOfText.forEach { shortcut in
+        BeginingOfTextMarkdown.all.forEach { shortcut in
             shortcut.text.forEach { text in
                 if beginingOfTextHaveShortcutAndCarretInsideIt(text, data: data) {
                     applyStyle(shortcut.style, data: data, commandLength: text.count)

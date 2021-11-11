@@ -429,6 +429,7 @@
 		3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */; };
 		3D93D57A270CBF7100614E29 /* BrowserNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D579270CBF7100614E29 /* BrowserNavigationManager.swift */; };
 		3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D57B270CC88300614E29 /* EditorBrowserButton.swift */; };
+		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
 		3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* HomeCellDataMock.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventsListenerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventsListenerUpdate.swift */; };
 		3DA46B64273BEB1E007B7464 /* StartOfTextMarkdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B63273BEB1E007B7464 /* StartOfTextMarkdownTests.swift */; };
@@ -485,7 +486,7 @@
 		3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC549126D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift */; };
 		3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC549326D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift */; };
 		3DCE79FA2615215D00E09593 /* EventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventsListener.swift */; };
-		3DCEE135273C18FC00BC5565 /* MarkdownShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE134273C18FC00BC5565 /* MarkdownShortcuts.swift */; };
+		3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */; };
 		3DCEE13A273C1F8B00BC5565 /* InlineMarkdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE139273C1F8B00BC5565 /* InlineMarkdownTests.swift */; };
 		3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
@@ -1171,6 +1172,7 @@
 		3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageAssembly.swift; sourceTree = "<group>"; };
 		3D93D579270CBF7100614E29 /* BrowserNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserNavigationManager.swift; sourceTree = "<group>"; };
 		3D93D57B270CC88300614E29 /* EditorBrowserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserButton.swift; sourceTree = "<group>"; };
+		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* HomeCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellDataMock.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventsListenerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListenerUpdate.swift; sourceTree = "<group>"; };
 		3DA46B63273BEB1E007B7464 /* StartOfTextMarkdownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartOfTextMarkdownTests.swift; path = AnyTypeTests/Markdown/StartOfTextMarkdownTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1227,7 +1229,7 @@
 		3DCC549126D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkOnlyUrlConfiguration.swift; sourceTree = "<group>"; };
 		3DCC549326D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkOnlyUrlView.swift; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListener.swift; sourceTree = "<group>"; };
-		3DCEE134273C18FC00BC5565 /* MarkdownShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownShortcuts.swift; sourceTree = "<group>"; };
+		3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdown.swift; sourceTree = "<group>"; };
 		3DCEE139273C1F8B00BC5565 /* InlineMarkdownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InlineMarkdownTests.swift; path = AnyTypeTests/Markdown/InlineMarkdownTests.swift; sourceTree = SOURCE_ROOT; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
@@ -3120,8 +3122,8 @@
 		3D3A18342733F810000D0842 /* Markdown */ = {
 			isa = PBXGroup;
 			children = (
+				3D9EE8D8273D42D9004FEAA7 /* Model */,
 				3D3A18292733E946000D0842 /* MarkdownListener.swift */,
-				3DCEE134273C18FC00BC5565 /* MarkdownShortcuts.swift */,
 			);
 			path = Markdown;
 			sourceTree = "<group>";
@@ -3613,6 +3615,15 @@
 				0A2ADCE92497CFDC00FA135D /* TextServiceProtocol.swift */,
 			);
 			path = Text;
+			sourceTree = "<group>";
+		};
+		3D9EE8D8273D42D9004FEAA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */,
+				3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3DA12E6A2636F6330085D008 /* FileLoader */ = {
@@ -4596,7 +4607,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = Anytype;
 				TargetAttributes = {
 					0303ECFA22D8EDAA005C552B = {
@@ -4809,6 +4820,7 @@
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
+				3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
 				12426A1626DCE1B900693B1F /* ImageBuilderProtocol.swift in Sources */,
@@ -4829,7 +4841,6 @@
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				C9367A91273126AD007D687A /* BlocksOptionView.swift in Sources */,
 				12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */,
-				0A2ADCEA2497CFDC00FA135D /* TextServiceProtocol.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* TextServiceProtocol.swift in Sources */,
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
 				3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */,
@@ -5055,7 +5066,7 @@
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
-				3DCEE135273C18FC00BC5565 /* MarkdownShortcuts.swift in Sources */,
+				3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */,
 				3D5A41802704543300F1F6A1 /* SearchCell.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
@@ -5474,7 +5485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5532,7 +5543,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -5701,7 +5712,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

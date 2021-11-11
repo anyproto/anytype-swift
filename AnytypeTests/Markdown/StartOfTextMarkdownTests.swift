@@ -14,46 +14,31 @@ class StartOfTextMarkdownTests: XCTestCase {
         listener = MarkdownListenerImpl(handler: handler, markupChanger: changer)
     }
     
-    func testChechbox_triggered_on_every_carret_position_inside_shortcut() throws {
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, carretPosition: 0, success: true)
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, carretPosition: 1, success: true)
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, carretPosition: 2, success: true)
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, carretPosition: 3, success: true)
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, carretPosition: 4, success: false)
+    func testStartOfTextMarkdowns_triggered_on_every_carret_position_inside_shortcut() throws {
+        BeginingOfTextMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                (0...text.count).forEach { index in
+                    testStartOfTextMarkdown(shortcut: text, style: shortcut.style, carretPosition: index, success: true)
+                }
+                testStartOfTextMarkdown(shortcut: text, style: shortcut.style, carretPosition: text.count + 1, success: false)
+            }
+        }
     }
 
     func testStartOfTextMarkdowns() throws {
-        testStartOfTextMarkdown(shortcut: "# ", style: .header)
-        testStartOfTextMarkdown(shortcut: "## ", style: .header2)
-        testStartOfTextMarkdown(shortcut: "### ", style: .header3)
-        testStartOfTextMarkdown(shortcut: "\" ", style: .quote)
-        testStartOfTextMarkdown(shortcut: "\' ", style: .quote)
-        testStartOfTextMarkdown(shortcut: "‘ ", style: .quote)
-        testStartOfTextMarkdown(shortcut: "“ ", style: .quote)
-        testStartOfTextMarkdown(shortcut: "* ", style: .bulleted)
-        testStartOfTextMarkdown(shortcut: "- ", style: .bulleted)
-        testStartOfTextMarkdown(shortcut: "+ ", style: .bulleted)
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox)
-        testStartOfTextMarkdown(shortcut: "1. ", style: .numbered)
-        testStartOfTextMarkdown(shortcut: "> ", style: .toggle)
-        testStartOfTextMarkdown(shortcut: "``` ", style: .code)
+        BeginingOfTextMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                testStartOfTextMarkdown(shortcut: text, style: shortcut.style)
+            }
+        }
     }
     
     func testStartOfTextMarkdowns_did_not_trigger_on_delete() throws {
-        testStartOfTextMarkdown(shortcut: "# ", style: .header, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "## ", style: .header2, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "### ", style: .header3, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "\" ", style: .quote, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "\' ", style: .quote, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "‘ ", style: .quote, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "“ ", style: .quote, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "* ", style: .bulleted, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "- ", style: .bulleted, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "+ ", style: .bulleted, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "[] ", style: .checkbox, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "1. ", style: .numbered, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "> ", style: .toggle, changeType: .deletingSymbols, success: false)
-        testStartOfTextMarkdown(shortcut: "``` ", style: .code, changeType: .deletingSymbols, success: false)
+        BeginingOfTextMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                testStartOfTextMarkdown(shortcut: text, style: shortcut.style, changeType: .deletingSymbols, success: false)
+            }
+        }
     }
     
     private func testStartOfTextMarkdown(
