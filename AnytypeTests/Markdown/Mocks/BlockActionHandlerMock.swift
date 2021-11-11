@@ -96,8 +96,16 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    var changeCaretPositionStub = false
+    var changeCaretPositionLastRange: NSRange?
+    var changeCaretPositionNumberOfCalls = 0
     func changeCaretPosition(range: NSRange) {
-        assertionFailure()
+        if changeCaretPositionStub {
+            changeCaretPositionLastRange = range
+            changeCaretPositionNumberOfCalls += 1
+        } else {
+            assertionFailure()
+        }
     }
     
     func changeText(_ text: NSAttributedString, blockId: BlockId) {
