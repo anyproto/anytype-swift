@@ -24,28 +24,56 @@ final class ObjectRelationsSectionBuilder {
     ) -> [ObjectRelationsSection] {
         guard let objectDetails = detailsStorage.get(id: objectId) else { return [] }
         
-        let rowsData: [ObjectRelationRowData] = relations.map { relation in
+        var featuredRelations: [ObjectRelationRowData] = []
+        var otherRelations: [ObjectRelationRowData] = []
+        
+        let featuredRelationIds = objectDetails.featuredRelations
+        relations.forEach { relation in
             let value = relationRowValue(
                 relation: relation,
                 details: objectDetails,
                 detailsStorage: detailsStorage
             )
             
-            return ObjectRelationRowData(
+            let rowData = ObjectRelationRowData(
                 id: relation.id,
                 name: relation.name,
                 value: value,
                 hint: relation.format.hint
             )
+            
+            if featuredRelationIds.contains(relation.id) {
+                featuredRelations.append(rowData)
+            } else {
+                otherRelations.append(rowData)
+            }
         }
         
-        return [
-            ObjectRelationsSection(
-                id: "foo",
-                title: "In this object".localized,
-                relations: rowsData
+        var sections: [ObjectRelationsSection] = []
+        
+        if featuredRelations.isNotEmpty {
+            sections.append(
+                ObjectRelationsSection(
+                    id: Constants.featuredRelationsSectionId,
+                    title: "Featured relations".localized,
+                    relations: featuredRelations
+                )
             )
-        ]
+        }
+        
+        let otherRelationsSectionTitle = featuredRelations.isNotEmpty ?
+        "Other relations".localized :
+        "In this object".localized
+        
+        sections.append(
+            ObjectRelationsSection(
+                id: Constants.otherRelationsSectionId,
+                title: otherRelationsSectionTitle,
+                relations: otherRelations
+            )
+        )
+        
+        return sections
     }
     
 }
@@ -288,6 +316,15 @@ extension Relation.Format {
         case .unrecognized:
             return "Enter value".localized
         }
+    }
+    
+}
+
+private extension ObjectRelationsSectionBuilder {
+    
+    enum Constants {
+        static let featuredRelationsSectionId = "featuredRelationsSectionId"
+        static let otherRelationsSectionId = "otherRelationsSectionId"
     }
     
 }
