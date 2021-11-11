@@ -6,6 +6,6 @@ struct BlockLinkContentConfiguration: AnytypeBlockContentConfigurationProtocol, 
     var currentConfigurationState: UICellConfigurationState?
     
     func makeContentView() -> UIView & UIContentView {
-        return BlockLinkView(configuration: self)
+        BlockLinkView(configuration: self)
     }
 }

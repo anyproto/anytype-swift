@@ -39,7 +39,7 @@ extension BlockDataProvider {
 }
 
 extension BlockViewModelProtocol {
-    func  contextMenuConfiguration() -> UIContextMenuConfiguration? {
+    func contextMenuConfiguration() -> UIContextMenuConfiguration? {
         let menuItems = makeContextualMenu()
         guard !menuItems.isEmpty else {
             return nil

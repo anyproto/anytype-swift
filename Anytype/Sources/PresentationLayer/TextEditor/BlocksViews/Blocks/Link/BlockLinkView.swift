@@ -3,30 +3,16 @@ import Combine
 import BlocksModels
 import Kingfisher
 
-final class BlockLinkView: BaseBlockView, UIContentView {
-    private var currentConfiguration: BlockLinkContentConfiguration
-    var configuration: UIContentConfiguration {
-        get { self.currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockLinkContentConfiguration else { return }
-            guard currentConfiguration != configuration else { return }
-            currentConfiguration = configuration
-            apply(configuration)
-        }
-    }
-    
-    
-    init(configuration: BlockLinkContentConfiguration) {
-        currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+final class BlockLinkView: BaseBlockView<BlockLinkContentConfiguration> {
+    override func setupSubviews() {
+        super.setupSubviews()
+
         setup()
-        apply(configuration)
     }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("Not implemented")
+
+    override func update(with configuration: BlockLinkContentConfiguration) {
+        super.update(with: configuration)
+        apply(configuration)
     }
 
     // MARK: - Internal functions
@@ -38,7 +24,6 @@ final class BlockLinkView: BaseBlockView, UIContentView {
         
         textView.attributedText = configuration.state.attributedTitle
         deletedLabel.isHidden = !configuration.state.archived
-        configuration.currentConfigurationState.map(update(with:))
     }
     
     // MARK: - Private functions

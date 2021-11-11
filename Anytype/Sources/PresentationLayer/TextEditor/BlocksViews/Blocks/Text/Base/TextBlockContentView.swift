@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: BaseBlockView & UIContentView {
+final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
     
     // MARK: - Views
     
@@ -24,36 +24,14 @@ final class TextBlockContentView: BaseBlockView & UIContentView {
     
     private var topContentConstraint: NSLayoutConstraint?
     private var bottomContentnConstraint: NSLayoutConstraint?
-    
-    private(set) var currentConfiguration: TextBlockContentConfiguration
-    
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? TextBlockContentConfiguration else { return }
-            guard configuration != currentConfiguration else { return }
-            
-            currentConfiguration = configuration
-            applyNewConfiguration()
-        }
-    }
 
     private var focusSubscription: AnyCancellable?
-
-    // MARK: - Initializers
     
-    init(configuration: TextBlockContentConfiguration) {
-        self.currentConfiguration = configuration
+    override func setupSubviews() {
+        super.setupSubviews()
 
-        super.init(frame: .zero)
-        
         setupLayout()
         applyNewConfiguration()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func update(with state: UICellConfigurationState) {
