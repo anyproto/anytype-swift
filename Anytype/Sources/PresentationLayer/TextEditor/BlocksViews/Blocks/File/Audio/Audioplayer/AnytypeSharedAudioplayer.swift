@@ -57,7 +57,7 @@ final class AnytypeSharedAudioplayer {
     }
 
     func updateDelegate(audioId: String, delegate: AnytypeAudioPlayerDelegate) {
-        guard currentAudioId == audioId else { return }
+        guard currentAudioId == audioId, anytypeAudioplayer.delegate !== delegate  else { return }
         anytypeAudioplayer.delegate = delegate
     }
 }

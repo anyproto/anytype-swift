@@ -13,16 +13,14 @@ import AnytypeCore
 
 
 final class AudioBlockContentView: UIView, UIContentView {
-    private var currentConfiguration: AudioBlockContentConfiguration
+    private var currentConfiguration: AudioBlockContentConfiguration!
+
     var configuration: UIContentConfiguration {
         get {
             self.currentConfiguration
         }
         set {
             guard let configuration = newValue as? AudioBlockContentConfiguration else { return }
-            guard self.currentConfiguration != configuration else { return }
-
-            self.currentConfiguration = configuration
             apply(configuration: configuration)
         }
     }
@@ -34,8 +32,6 @@ final class AudioBlockContentView: UIView, UIContentView {
     // MARK: - Lifecycle
 
     init(configuration: AudioBlockContentConfiguration) {
-        self.currentConfiguration = configuration
-
         super.init(frame: .zero)
 
         setup()
@@ -62,6 +58,10 @@ final class AudioBlockContentView: UIView, UIContentView {
     }
 
     private func apply(configuration: AudioBlockContentConfiguration) {
+        guard currentConfiguration != configuration else { return }
+        currentConfiguration = configuration
+
+        self.audioPlayerView.setDelegate(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.updateAudioInformation(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.trackNameLabel.setText(configuration.file.metadata.name)
     }
