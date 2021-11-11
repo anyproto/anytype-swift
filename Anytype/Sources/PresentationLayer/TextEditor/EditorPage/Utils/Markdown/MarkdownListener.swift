@@ -54,7 +54,7 @@ final class MarkdownListenerImpl: MarkdownListener {
                 let range = NSRange(location: locationOfOpeningSymbol, length: lengthOfText)
                 
                 guard let newText = markupChanger
-                        .toggleMarkup(markup, blockId: data.info.id, range: range)?.mutable else {
+                        .setMarkup(markup, blockId: data.info.id, range: range)?.mutable else {
                             anytypeAssertionFailure("Could not apply markup \(markup) for \(data.info)")
                             return
                         }
