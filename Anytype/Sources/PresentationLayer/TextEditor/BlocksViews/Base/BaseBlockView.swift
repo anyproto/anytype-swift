@@ -8,16 +8,21 @@ class BaseBlockView<Configuration: AnytypeBlockContentConfigurationProtocol>: UI
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
         set {
-            guard let newConfiguration = newValue as? Configuration else { return }
+            guard let newConfiguration = newValue as? Configuration,
+                  currentConfiguration != newConfiguration else { return }
 
             currentConfiguration = newConfiguration
 
         }
     }
     var currentConfiguration: Configuration {
-        didSet { update(with: currentConfiguration) }
+        didSet {
+            guard didSetupSubviews else { return }
+            update(with: currentConfiguration)
+        }
     }
 
+    private var didSetupSubviews = false
     private let selectionView = BaseSelectionView()
 
     init(configuration: Configuration) {
@@ -26,6 +31,8 @@ class BaseBlockView<Configuration: AnytypeBlockContentConfigurationProtocol>: UI
         super.init(frame: .zero)
 
         setupSubviews()
+        didSetupSubviews = true
+        update(with: currentConfiguration)
     }
 
     @available(*, unavailable)
@@ -46,32 +53,5 @@ class BaseBlockView<Configuration: AnytypeBlockContentConfigurationProtocol>: UI
         addSubview(selectionView) {
             $0.pinToSuperview(insets: Constants.selectionViewInset)
         }
-    }
-}
-
-private final class BaseSelectionView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        layer.cornerRadius = 6
-        layer.cornerCurve = .continuous
-        isUserInteractionEnabled = false
-        clipsToBounds = true
-    }
-
-    func updateStyle(isSelected: Bool) {
-        if isSelected {
-            layer.borderWidth = 2.0
-            layer.borderColor = UIColor.pureAmber.cgColor
-            backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
-        } else {
-            layer.borderWidth = 0.0
-            layer.borderColor = nil
-            backgroundColor = .clear
-        }
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
