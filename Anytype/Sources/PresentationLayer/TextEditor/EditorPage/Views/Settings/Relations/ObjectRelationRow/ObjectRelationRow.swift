@@ -62,7 +62,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationRow(
             viewModel: ObjectRelationRowData(
-                name: "Relation name",
+                id: "1", name: "Relation name",
                 value: .text("Hello"),
                 hint: "hint"
             )

@@ -7,13 +7,13 @@ final class ObjectRelationsViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    @Published private(set) var rowViewModels: [ObjectRelationRowData]
+    @Published private(set) var sections: [ObjectRelationsSection]
     private let viewModelBuilder = ObjectRelationRowViewModelBuilder()
     
     // MARK: - Initializers
     
-    init(rowViewModels: [ObjectRelationRowData] = []) {
-        self.rowViewModels = rowViewModels
+    init(sections: [ObjectRelationsSection] = []) {
+        self.sections = sections
     }
     
     // MARK: - Internal functions
@@ -25,11 +25,17 @@ final class ObjectRelationsViewModel: ObservableObject {
     ) {
         let visibleRelations = relations.filter { !$0.isHidden }
         
-        self.rowViewModels = viewModelBuilder.buildViewModels(
-            using: visibleRelations,
-            objectId: objectId,
-            detailsStorage: detailsStorage
-        )
+        self.sections = [
+            ObjectRelationsSection(
+                id: "foo",
+                title: "In this object".localized,
+                relations: viewModelBuilder.buildViewModels(
+                    using: visibleRelations,
+                    objectId: objectId,
+                    detailsStorage: detailsStorage
+                )
+            )
+        ]
     }
     
 }

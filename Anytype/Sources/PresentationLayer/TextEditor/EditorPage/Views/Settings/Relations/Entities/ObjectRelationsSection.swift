@@ -1,7 +1,7 @@
 import Foundation
 
 struct ObjectRelationsSection: Identifiable {
-    let id = UUID()
+    let id: String
     let title: String
-    let relations: [SearchData]
+    let relations: [ObjectRelationRowData]
 }

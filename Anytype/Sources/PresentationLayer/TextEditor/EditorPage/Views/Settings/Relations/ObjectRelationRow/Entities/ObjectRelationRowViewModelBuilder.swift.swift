@@ -32,6 +32,7 @@ final class ObjectRelationRowViewModelBuilder {
             )
             
             return ObjectRelationRowData(
+                id: relation.id,
                 name: relation.name,
                 value: value,
                 hint: relation.format.hint
