@@ -15,36 +15,69 @@ class InlineMarkdownTests: XCTestCase {
     }
     
     func testInlineMarkups() {
-        testInlineMarkdown(shortcut: "`", markup: .keyboard)
-        testInlineMarkdown(shortcut: "_", markup: .italic)
-        testInlineMarkdown(shortcut: "*", markup: .italic)
-        testInlineMarkdown(shortcut: "__", markup: .bold)
-        testInlineMarkdown(shortcut: "**", markup: .bold)
-        testInlineMarkdown(shortcut: "~~", markup: .strikethrough)
+        InlineMarkdown.all.forEach { markdown in
+            markdown.text.forEach { text in
+                testInlineMarkdown(shortcut: text, markup: markdown.markup)
+            }
+        }
     }
     
     func testInlineMarkups_not_trigger_on_empty_text() {
-        testInlineMarkdown(shortcut: "`", markup: .keyboard, initialText: "", success: false)
-        testInlineMarkdown(shortcut: "_", markup: .italic, initialText: "", success: false)
-        testInlineMarkdown(shortcut: "*", markup: .italic, initialText: "", success: false)
-        testInlineMarkdown(shortcut: "__", markup: .bold, initialText: "", success: false)
-        testInlineMarkdown(shortcut: "**", markup: .bold, initialText: "", success: false)
-        testInlineMarkdown(shortcut: "~~", markup: .strikethrough, initialText: "", success: false)
+        InlineMarkdown.all.forEach { markdown in
+            markdown.text.forEach { text in
+                testInlineMarkdown(shortcut: text, markup: markdown.markup, initialText: "", success: false)
+            }
+        }
+    }
+    
+    func testInlineMarkups_not_trigger_on_deletion() {
+        InlineMarkdown.all.forEach { markdown in
+            markdown.text.forEach { text in
+                testInlineMarkdown(shortcut: text, markup: markdown.markup, changeType: .deletingSymbols, success: false)
+            }
+        }
+    }
+    
+    func testInlineMarkups_triggers_only_on_position_after_shortcut() {
+        InlineMarkdown.all.forEach { markdown in
+            markdown.text.forEach { shortcut in
+                let initialText = "123"
+                let fullTextLength = (shortcut.count * 2) + initialText.count
+                (0..<fullTextLength).forEach { carretPosition in
+                    testInlineMarkdown(
+                        shortcut: shortcut,
+                        markup: markdown.markup,
+                        initialText: initialText,
+                        carretPosition: carretPosition,
+                        success: false
+                    )
+                }
+                testInlineMarkdown(
+                    shortcut: shortcut,
+                    markup: markdown.markup,
+                    initialText: initialText,
+                    carretPosition: fullTextLength,
+                    success: true
+                )
+            }
+        }
     }
     
     private func testInlineMarkdown(
         shortcut: String,
         markup: MarkupType,
         initialText: String = "Equilibrium",
+        changeType: TextChangeType = .typingSymbols,
+        carretPosition: Int? = nil,
         success: Bool = true
     ) {
         let text = shortcut + initialText + shortcut
-        let data = buildData(text: text, carretPosition: text.count)
+        let data = buildData(text: text, carretPosition: carretPosition ?? text.count)
         changer.toggleMarkupInRangeStubReturnString = NSAttributedString(string: text)
         handler.changeTextStub = true
         handler.changeCaretPositionStub = true
         
-        listener.textDidChange(changeType: .typingSymbols, data: data)
+        listener.textDidChange(changeType: changeType, data: data)
         
         if success {
             XCTAssertEqual(changer.toggleMarkupInRangeNumberOfCalls, 1)
