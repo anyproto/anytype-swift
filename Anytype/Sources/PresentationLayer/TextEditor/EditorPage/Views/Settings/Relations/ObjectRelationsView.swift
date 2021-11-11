@@ -48,16 +48,19 @@ struct ObjectRelationsView_Previews: PreviewProvider {
             viewModel: ObjectRelationsViewModel(
                 rowViewModels: [
                     ObjectRelationRowData(
+                        id: "1",
                         name: "Relation name1",
                         value: .text("text"),
                         hint: "hint"
                     ),
                     ObjectRelationRowData(
+                        id: "2",
                         name: "Relation name2",
                         value: .text("text2"),
                         hint: "hint"
                     ),
                     ObjectRelationRowData(
+                        id: "3",
                         name: "Relation name3",
                         value: .text("text3"),
                         hint: "hint"
