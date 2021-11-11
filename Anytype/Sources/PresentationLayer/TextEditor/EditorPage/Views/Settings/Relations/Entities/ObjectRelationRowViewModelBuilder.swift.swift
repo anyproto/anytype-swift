@@ -3,7 +3,7 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 
-final class ObjectRelationRowViewModelBuilder {
+final class ObjectRelationsSectionBuilder {
     
     // MARK: - Private variables
     
@@ -46,7 +46,7 @@ final class ObjectRelationRowViewModelBuilder {
 
 // MARK: - Private extension
 
-private extension ObjectRelationRowViewModelBuilder {
+private extension ObjectRelationsSectionBuilder {
     
     func relationRowValue(
         relation: Relation,

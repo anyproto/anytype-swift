@@ -2509,6 +2509,7 @@
 		126F3D52273D2BB800AEF39A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				12AF9985273A8B87004CBB80 /* ObjectRelationRowViewModelBuilder.swift.swift */,
 				126F3D56273D2C0A00AEF39A /* ObjectRelationsSection.swift */,
 			);
 			path = Entities;
@@ -2577,7 +2578,6 @@
 			isa = PBXGroup;
 			children = (
 				127EAC0B273A353A00C731F2 /* ObjectRelationRowData.swift */,
-				12AF9985273A8B87004CBB80 /* ObjectRelationRowViewModelBuilder.swift.swift */,
 				127EAC16273A397900C731F2 /* ObjectRelationRowValue.swift */,
 			);
 			path = Entities;
