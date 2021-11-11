@@ -8,25 +8,25 @@ final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {
         return nil
     }
     
-    var toggleMarkupInRangeStubReturnString: NSAttributedString?
-    var toggleMarkupInRangeLastMarkupType: MarkupType?
-    var toggleMarkupInRangeNumberOfCalls = 0
-    var toggleMarkupInRangeLastRange: NSRange?
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        if let string = toggleMarkupInRangeStubReturnString {
-            toggleMarkupInRangeLastMarkupType = markup
-            toggleMarkupInRangeLastRange = range
-            toggleMarkupInRangeNumberOfCalls += 1
+        assertionFailure()
+        return nil
+    }
+    
+    var setMarkupStubReturnString: NSAttributedString?
+    var setMarkupLastMarkupType: MarkupType?
+    var setMarkupNumberOfCalls = 0
+    var setMarkupLastRange: NSRange?
+    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+        if let string = setMarkupStubReturnString {
+            setMarkupLastMarkupType = markup
+            setMarkupLastRange = range
+            setMarkupNumberOfCalls += 1
             return string
         } else {
             assertionFailure()
             return nil
         }
-    }
-    
-    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        assertionFailure()
-        return nil
     }
     
     func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {

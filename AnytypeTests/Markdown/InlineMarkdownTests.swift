@@ -22,6 +22,14 @@ class InlineMarkdownTests: XCTestCase {
         }
     }
     
+    func testInlineMarkups_works_with_multiline_strings() {
+        InlineMarkdown.all.forEach { markdown in
+            markdown.text.forEach { text in
+                testInlineMarkdown(shortcut: text, markup: markdown.markup, initialText: "one\ntwo\three")
+            }
+        }
+    }
+    
     func testInlineMarkups_not_trigger_on_empty_text() {
         InlineMarkdown.all.forEach { markdown in
             markdown.text.forEach { text in
@@ -73,27 +81,27 @@ class InlineMarkdownTests: XCTestCase {
     ) {
         let text = shortcut + initialText + shortcut
         let data = buildData(text: text, carretPosition: carretPosition ?? text.count)
-        changer.toggleMarkupInRangeStubReturnString = NSAttributedString(string: text)
+        changer.setMarkupStubReturnString = NSAttributedString(string: text)
         handler.changeTextStub = true
         handler.changeCaretPositionStub = true
         
         listener.textDidChange(changeType: changeType, data: data)
         
         if success {
-            XCTAssertEqual(changer.toggleMarkupInRangeNumberOfCalls, 1)
-            XCTAssertEqual(changer.toggleMarkupInRangeLastMarkupType, markup)
-            XCTAssertEqual(changer.toggleMarkupInRangeLastRange, NSRange(location: shortcut.count, length: initialText.count))
+            XCTAssertEqual(changer.setMarkupNumberOfCalls, 1)
+            XCTAssertEqual(changer.setMarkupLastMarkupType, markup)
+            XCTAssertEqual(changer.setMarkupLastRange, NSRange(location: shortcut.count, length: initialText.count))
             XCTAssertEqual(handler.changeTextNumberOfCalls, 1)
             XCTAssertEqual(handler.changeTextTextFromLastCall?.string, initialText)
             XCTAssertEqual(handler.changeCaretPositionNumberOfCalls, 1)
             XCTAssertEqual(handler.changeCaretPositionLastRange, NSRange(location: initialText.count, length: 0))
         } else {
-            XCTAssertEqual(changer.toggleMarkupInRangeNumberOfCalls, 0)
+            XCTAssertEqual(changer.setMarkupNumberOfCalls, 0)
             XCTAssertEqual(handler.changeTextNumberOfCalls, 0)
             XCTAssertEqual(handler.changeCaretPositionNumberOfCalls, 0)
         }
         
-        changer.toggleMarkupInRangeNumberOfCalls = 0
+        changer.setMarkupNumberOfCalls = 0
         handler.changeTextNumberOfCalls = 0
         handler.changeCaretPositionNumberOfCalls = 0
     }
