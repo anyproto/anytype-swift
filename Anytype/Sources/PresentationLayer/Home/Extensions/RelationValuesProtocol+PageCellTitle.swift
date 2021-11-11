@@ -28,6 +28,6 @@ extension RelationValuesProvider {
     }
     
     var mentionTitle: String {
-        String(title.prefix(30))
+        String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
     }
 }
