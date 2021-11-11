@@ -8,7 +8,7 @@ final class ObjectRelationsViewModel: ObservableObject {
     // MARK: - Private variables
     
     @Published private(set) var sections: [ObjectRelationsSection]
-    private let viewModelBuilder = ObjectRelationRowViewModelBuilder()
+    private let sectionsBuilder = ObjectRelationsSectionBuilder()
     
     // MARK: - Initializers
     
@@ -25,17 +25,11 @@ final class ObjectRelationsViewModel: ObservableObject {
     ) {
         let visibleRelations = relations.filter { !$0.isHidden }
         
-        self.sections = [
-            ObjectRelationsSection(
-                id: "foo",
-                title: "In this object".localized,
-                relations: viewModelBuilder.buildViewModels(
-                    using: visibleRelations,
-                    objectId: objectId,
-                    detailsStorage: detailsStorage
-                )
-            )
-        ]
+        self.sections = sectionsBuilder.buildViewModels(
+            using: visibleRelations,
+            objectId: objectId,
+            detailsStorage: detailsStorage
+        )
     }
     
 }
