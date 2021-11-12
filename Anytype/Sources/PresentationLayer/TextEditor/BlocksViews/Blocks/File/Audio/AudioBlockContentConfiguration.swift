@@ -11,13 +11,16 @@ import UIKit
 import AVFoundation
 
 
-struct AudioBlockContentConfiguration: Hashable {
+struct AudioBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
     let file: BlockFile
     let trackId: String
+    var currentConfigurationState: UICellConfigurationState?
     weak var audioPlayerViewDelegate: AudioPlayerViewDelegate?
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
-        lhs.trackId == rhs.trackId && lhs.audioPlayerViewDelegate === rhs.audioPlayerViewDelegate
+        lhs.trackId == rhs.trackId &&
+        lhs.currentConfigurationState == rhs.currentConfigurationState &&
+        lhs.audioPlayerViewDelegate === rhs.audioPlayerViewDelegate
     }
 
     func hash(into hasher: inout Hasher) {
@@ -30,9 +33,5 @@ extension AudioBlockContentConfiguration: UIContentConfiguration {
 
     func makeContentView() -> UIView & UIContentView {
         return AudioBlockContentView(configuration: self)
-    }
-
-    func updated(for state: UIConfigurationState) -> AudioBlockContentConfiguration {
-        self
     }
 }
