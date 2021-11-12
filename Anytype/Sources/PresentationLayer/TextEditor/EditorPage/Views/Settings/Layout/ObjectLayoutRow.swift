@@ -74,7 +74,7 @@ private extension DetailsLayout {
         case .basic:
             return "Standard layout for canvas blocks".localized
         case .profile:
-            return "Companies, contacts, friends, and family".localized
+            return "Companies, contacts, friends and family".localized
         case .todo:
             return "Action-focused layout with a checkbox".localized
         case .note:
