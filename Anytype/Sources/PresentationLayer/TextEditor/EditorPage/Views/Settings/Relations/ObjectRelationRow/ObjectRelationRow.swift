@@ -20,8 +20,7 @@ struct ObjectRelationRow: View {
             HStack(spacing: 0) {
                 name
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
-                Spacer()
-                    .frame(width: 8)
+                Spacer.fixedWidth(8)
                 valueView
                 Spacer(minLength: 8)
                 starImageView
