@@ -30,7 +30,8 @@ struct ObjectLayoutPicker: View {
                 )
             }
         }
-        .padding([.leading, .trailing, .bottom], 20)
+        .padding([.leading, .trailing], 20)
+        .padding(.bottom, UIApplication.shared.mainWindowInsets.bottom + 20)
     }
 }
 
