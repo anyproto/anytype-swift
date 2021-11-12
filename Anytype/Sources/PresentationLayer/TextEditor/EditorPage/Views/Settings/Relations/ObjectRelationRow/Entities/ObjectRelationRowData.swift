@@ -5,4 +5,5 @@ struct ObjectRelationRowData: Hashable, Identifiable {
     let name: String
     let value: ObjectRelationRowValue
     let hint: String
+    let isFeatured: Bool
 }

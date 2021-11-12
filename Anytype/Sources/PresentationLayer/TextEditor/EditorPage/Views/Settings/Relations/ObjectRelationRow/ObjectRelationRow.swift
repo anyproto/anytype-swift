@@ -64,7 +64,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             viewModel: ObjectRelationRowData(
                 id: "1", name: "Relation name",
                 value: .text("Hello"),
-                hint: "hint"
+                hint: "hint",
+                isFeatured: false
             )
         )
     }

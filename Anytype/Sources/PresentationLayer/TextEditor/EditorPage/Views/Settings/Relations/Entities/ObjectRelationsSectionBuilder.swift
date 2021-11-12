@@ -39,7 +39,8 @@ final class ObjectRelationsSectionBuilder {
                 id: relation.id,
                 name: relation.name,
                 value: value,
-                hint: relation.format.hint
+                hint: relation.format.hint,
+                isFeatured: false
             )
             
             if featuredRelationIds.contains(relation.id) {
