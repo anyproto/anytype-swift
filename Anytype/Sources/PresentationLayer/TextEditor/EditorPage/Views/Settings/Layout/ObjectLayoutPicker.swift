@@ -5,12 +5,6 @@ import BlocksModels
 struct ObjectLayoutPicker: View {
     
     @EnvironmentObject private var viewModel: ObjectLayoutPickerViewModel
-    private let layouts: [DetailsLayout] = [
-        .note,
-        .basic,
-        .profile,
-        .todo
-    ]
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -20,13 +14,13 @@ struct ObjectLayoutPicker: View {
             layoutList
         }
         .background(Color.background)
-        .cornerRadius(16)
+        .cornerRadius(16, corners: [.topLeft, .topRight])
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     
     private var layoutList: some View {
         VStack(spacing: 0) {
-            ForEach(layouts, id: \.self) { layout in
+            ForEach(DetailsLayout.orderedLayouts, id: \.self) { layout in
                 ObjectLayoutRow(
                     layout: layout,
                     isSelected: layout == viewModel.selectedLayout,

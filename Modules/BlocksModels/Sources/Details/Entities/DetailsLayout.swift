@@ -12,3 +12,14 @@ public enum DetailsLayout: Int, CaseIterable {
 //
 //    case database = 20 // to be released later
 }
+
+public extension DetailsLayout {
+    
+    static var orderedLayouts: [DetailsLayout] = [
+        .note,
+        .basic,
+        .profile,
+        .todo
+    ]
+    
+}
