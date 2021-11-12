@@ -34,7 +34,9 @@ struct ObjectRelationsView: View {
                                 .padding(.vertical, 12)
                         ) {
                             ForEach(section.relations) { relation in
-                                ObjectRelationRow(viewModel: relation)
+                                ObjectRelationRow(viewModel: relation) {
+                                    viewModel.changeRelationFeaturedState(relationId: $0)
+                                }
                             }
                         }
                         
@@ -54,6 +56,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
+                objectId: "",
                 sections: [
                     ObjectRelationsSection(
                         id: "id",
