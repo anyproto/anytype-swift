@@ -55,7 +55,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
         
-        self.relationsViewModel = ObjectRelationsViewModel()
+        self.relationsViewModel = ObjectRelationsViewModel(objectId: objectId)
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
@@ -72,7 +72,6 @@ final class ObjectSettingsViewModel: ObservableObject {
             layoutPickerViewModel.details = details
             relationsViewModel.update(
                 with: objectRelations,
-                objectId: objectId,
                 detailsStorage: objectDetailsStorage
             )
         }

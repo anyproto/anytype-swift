@@ -11,6 +11,7 @@ import SwiftUI
 struct ObjectRelationRow: View {
     
     let viewModel: ObjectRelationRowData
+    let onStarTap: (String) -> ()
     
     var body: some View {
         GeometryReader { gr in
@@ -62,7 +63,9 @@ struct ObjectRelationRow: View {
     }
     
     private var starImageView: some View {
-        Group {
+        Button {
+            onStarTap(viewModel.id)
+        } label: {
             viewModel.isFeatured ?
             Image.Relations.removeFromFeatured :
             Image.Relations.addToFeatured
@@ -84,7 +87,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                     ]),
                     hint: "hint",
                     isFeatured: false
-                )
+                ),
+                onStarTap: { _ in }
             )
             ObjectRelationRow(
                 viewModel: ObjectRelationRowData(
@@ -92,7 +96,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                     value: .text("hello"),
                     hint: "hint",
                     isFeatured: false
-                )
+                ),
+                onStarTap: { _ in }
             )
         }
     }
