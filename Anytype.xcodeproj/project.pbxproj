@@ -446,6 +446,8 @@
 		3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA7AD832712CF8400EA45F6 /* NSRange+Zero.swift */; };
 		3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */; };
 		3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAD610E26EB58FD00EC0C43 /* ImageName.swift */; };
+		3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAE1C83273E69AD009A72F3 /* Range+Mention.swift */; };
+		3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAE1C88273E6A59009A72F3 /* String+Range.swift */; };
 		3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9C92726A6E7000D2779 /* BlockLinkState+Title.swift */; };
 		3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9DB2726C248000D2779 /* DeletedLabel.swift */; };
 		3DB1C9DF2726D0E5000D2779 /* EditorPageDeletedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9DE2726D0E5000D2779 /* EditorPageDeletedScreen.swift */; };
@@ -1192,6 +1194,8 @@
 		3DA7AD832712CF8400EA45F6 /* NSRange+Zero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRange+Zero.swift"; sourceTree = "<group>"; };
 		3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeText.swift; sourceTree = "<group>"; };
 		3DAD610E26EB58FD00EC0C43 /* ImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
+		3DAE1C83273E69AD009A72F3 /* Range+Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+Mention.swift"; sourceTree = "<group>"; };
+		3DAE1C88273E6A59009A72F3 /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
 		3DB1C9C92726A6E7000D2779 /* BlockLinkState+Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Title.swift"; sourceTree = "<group>"; };
 		3DB1C9DB2726C248000D2779 /* DeletedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedLabel.swift; sourceTree = "<group>"; };
 		3DB1C9DE2726D0E5000D2779 /* EditorPageDeletedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageDeletedScreen.swift; sourceTree = "<group>"; };
@@ -3049,6 +3053,7 @@
 			isa = PBXGroup;
 			children = (
 				EAADB1A42678CD6E004B0AF2 /* UITextView+Mentionable.swift */,
+				3DAE1C83273E69AD009A72F3 /* Range+Mention.swift */,
 			);
 			path = Mentionable;
 			sourceTree = "<group>";
@@ -3719,6 +3724,7 @@
 				3DA7AD832712CF8400EA45F6 /* NSRange+Zero.swift */,
 				3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */,
 				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
+				3DAE1C88273E6A59009A72F3 /* String+Range.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -5177,6 +5183,7 @@
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				1223C90D272828CA00C34616 /* SearchData.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
+				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
@@ -5297,6 +5304,7 @@
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,
 				12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
+				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,
 				3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */,
 				12426A1126DCE1A400693B1F /* ImageBuilder.swift in Sources */,
 				3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */,
