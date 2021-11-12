@@ -22,7 +22,7 @@ struct ObjectRelationsView: View {
     
     private var relationsList: some View {
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: 0) {
+            LazyVStack(spacing: 0) {
                 ForEach(viewModel.sections) { section in
                     VStack(alignment: .leading, spacing: 0) {
                         Section(
@@ -34,11 +34,14 @@ struct ObjectRelationsView: View {
                                 .padding(.vertical, 12)
                         ) {
                             ForEach(section.relations) { relation in
-                                ObjectRelationRow(viewModel: relation)
+                                ObjectRelationRow(viewModel: relation) {
+                                    viewModel.changeRelationFeaturedState(relationId: $0)
+                                }
                             }
                         }
                         
-                        Spacer().frame(height: 20)
+                        Spacer()
+                            .frame(height: 20)
                     }
                     
                 }
@@ -53,6 +56,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationsView(
             viewModel: ObjectRelationsViewModel(
+                objectId: "",
                 sections: [
                     ObjectRelationsSection(
                         id: "id",
@@ -62,19 +66,28 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                 id: "1",
                                 name: "Relation name1",
                                 value: .text("text"),
-                                hint: "hint"
+                                hint: "hint",
+                                isFeatured: false
+                                
                             ),
                             ObjectRelationRowData(
                                 id: "2",
                                 name: "Relation name2",
                                 value: .text("text2"),
-                                hint: "hint"
+                                hint: "hint",
+                                isFeatured: false
                             ),
                             ObjectRelationRowData(
                                 id: "3",
                                 name: "Relation name3",
-                                value: .text("text3"),
-                                hint: "hint"
+                                value: .tag([
+                                    TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+                                    TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                                    TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                                    TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+                                ]),
+                                hint: "hint",
+                                isFeatured: false
                             )
                         ]
                     ),
@@ -86,19 +99,22 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                 id: "12",
                                 name: "Relation name1",
                                 value: .text("text"),
-                                hint: "hint"
+                                hint: "hint",
+                                isFeatured: false
                             ),
                             ObjectRelationRowData(
                                 id: "22",
                                 name: "Relation name2",
                                 value: .text("text2"),
-                                hint: "hint"
+                                hint: "hint",
+                                isFeatured: false
                             ),
                             ObjectRelationRowData(
                                 id: "32",
                                 name: "Relation name3",
                                 value: .text("text3"),
-                                hint: "hint"
+                                hint: "hint",
+                                isFeatured: false
                             )
                         ]
                     )

@@ -205,6 +205,8 @@
 		126C46D326BD909300D31DBF /* EditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C46D226BD909300D31DBF /* EditorSection.swift */; };
 		126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C46D626BD966700D31DBF /* ObjectHeaderIcon.swift */; };
 		126F3D57273D2C0A00AEF39A /* ObjectRelationsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D56273D2C0A00AEF39A /* ObjectRelationsSection.swift */; };
+		126F3D8A273E4E4F00AEF39A /* RelationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D89273E4E4F00AEF39A /* RelationsService.swift */; };
+		126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */; };
 		1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */; };
 		1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9426DA85BB00B2D443 /* GradientColor.swift */; };
 		1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9626DA85E900B2D443 /* GradientPoint.swift */; };
@@ -950,6 +952,8 @@
 		126C46D226BD909300D31DBF /* EditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSection.swift; sourceTree = "<group>"; };
 		126C46D626BD966700D31DBF /* ObjectHeaderIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderIcon.swift; sourceTree = "<group>"; };
 		126F3D56273D2C0A00AEF39A /* ObjectRelationsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationsSection.swift; sourceTree = "<group>"; };
+		126F3D89273E4E4F00AEF39A /* RelationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsService.swift; sourceTree = "<group>"; };
+		126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsServiceProtocol.swift; sourceTree = "<group>"; };
 		1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBuilder.swift; sourceTree = "<group>"; };
 		1270CE9426DA85BB00B2D443 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		1270CE9626DA85E900B2D443 /* GradientPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPoint.swift; sourceTree = "<group>"; };
@@ -2517,6 +2521,15 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		126F3D85273E4E4300AEF39A /* Relations */ = {
+			isa = PBXGroup;
+			children = (
+				126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */,
+				126F3D89273E4E4F00AEF39A /* RelationsService.swift */,
+			);
+			path = Relations;
+			sourceTree = "<group>";
+		};
 		1270CE8E26DA848B00B2D443 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -3053,6 +3066,7 @@
 		3D2F9C14271EADC50043C326 /* Smartblock */ = {
 			isa = PBXGroup;
 			children = (
+				126F3D85273E4E4300AEF39A /* Relations */,
 				120E818226A04A23006FE84E /* Details */,
 				3DE8D5AE26CD76CF006F31C1 /* ObjectType */,
 				3D24F435269C92F700FA0F5F /* Search */,
@@ -4840,6 +4854,7 @@
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* Amplitude+Events.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
+				126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				3D16841326DD672E008B9DFF /* ContentLinkConverter.swift in Sources */,
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
@@ -5353,6 +5368,7 @@
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */,
 				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
+				126F3D8A273E4E4F00AEF39A /* RelationsService.swift in Sources */,
 				3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */,
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,

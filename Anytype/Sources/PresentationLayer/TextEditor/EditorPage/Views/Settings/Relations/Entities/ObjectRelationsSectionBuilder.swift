@@ -39,10 +39,11 @@ final class ObjectRelationsSectionBuilder {
                 id: relation.id,
                 name: relation.name,
                 value: value,
-                hint: relation.format.hint
+                hint: relation.format.hint,
+                isFeatured: featuredRelationIds.contains(relation.id)
             )
             
-            if featuredRelationIds.contains(relation.id) {
+            if rowData.isFeatured {
                 featuredRelations.append(rowData)
             } else {
                 otherRelations.append(rowData)
