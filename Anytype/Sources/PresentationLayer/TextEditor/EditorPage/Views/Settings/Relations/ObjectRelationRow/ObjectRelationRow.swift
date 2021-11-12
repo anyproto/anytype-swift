@@ -14,12 +14,17 @@ struct ObjectRelationRow: View {
     
     var body: some View {
         GeometryReader { gr in
-            HStack(spacing: 8) {
+            // If we will use spacing more than 0 it will be added to
+            // `Spacer()` from both sides as a result
+            // `Spacer` will take up more space
+            HStack(spacing: 0) {
                 name
                     .frame(width: gr.size.width * 0.4, alignment: .leading)
-                valueView
-                
                 Spacer()
+                    .frame(width: 8)
+                valueView
+                Spacer(minLength: 8)
+                starImageView
             }
             .frame(width: gr.size.width, height: gr.size.height)
         }
@@ -56,17 +61,40 @@ struct ObjectRelationRow: View {
             }
         }
     }
+    
+    private var starImageView: some View {
+        Group {
+            viewModel.isFeatured ?
+            Image.Relations.removeFromFeatured :
+            Image.Relations.addToFeatured
+        }.frame(width: 24, height: 24)
+    }
 }
 
 struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectRelationRow(
-            viewModel: ObjectRelationRowData(
-                id: "1", name: "Relation name",
-                value: .text("Hello"),
-                hint: "hint",
-                isFeatured: false
+        VStack(spacing: 0) {
+            ObjectRelationRow(
+                viewModel: ObjectRelationRowData(
+                    id: "1", name: "Relation name",
+                    value: .tag([
+                        TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+                        TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                        TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                        TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+                    ]),
+                    hint: "hint",
+                    isFeatured: false
+                )
             )
-        )
+            ObjectRelationRow(
+                viewModel: ObjectRelationRowData(
+                    id: "1", name: "Relation name",
+                    value: .text("hello"),
+                    hint: "hint",
+                    isFeatured: false
+                )
+            )
+        }
     }
 }

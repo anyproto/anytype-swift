@@ -22,7 +22,7 @@ struct ObjectRelationsView: View {
     
     private var relationsList: some View {
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: 0) {
+            LazyVStack(spacing: 0) {
                 ForEach(viewModel.sections) { section in
                     VStack(alignment: .leading, spacing: 0) {
                         Section(
@@ -38,7 +38,8 @@ struct ObjectRelationsView: View {
                             }
                         }
                         
-                        Spacer().frame(height: 20)
+                        Spacer()
+                            .frame(height: 20)
                     }
                     
                 }
@@ -76,7 +77,12 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                             ObjectRelationRowData(
                                 id: "3",
                                 name: "Relation name3",
-                                value: .text("text3"),
+                                value: .tag([
+                                    TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+                                    TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                                    TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                                    TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+                                ]),
                                 hint: "hint",
                                 isFeatured: false
                             )
