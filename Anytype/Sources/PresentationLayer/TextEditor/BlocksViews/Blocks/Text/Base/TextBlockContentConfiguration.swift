@@ -2,7 +2,7 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: UIContentConfiguration {
+struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     
     let blockDelegate: BlockDelegate
     
@@ -23,8 +23,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let openURL: (URL) -> Void
         
     let pressingEnterTimeChecker = TimeChecker()
-    
-    private(set) var isSelected: Bool = false
+    var currentConfigurationState: UICellConfigurationState?
     
     init(
         blockDelegate: BlockDelegate,
@@ -57,20 +56,13 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     func makeContentView() -> UIView & UIContentView {
         TextBlockContentView(configuration: self)
     }
-    
-    func updated(for state: UIConfigurationState) -> TextBlockContentConfiguration {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-        updatedConfig.isSelected = state.isSelected
-        return updatedConfig
-    }
 }
 
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
         lhs.information == rhs.information &&
-        lhs.isSelected == rhs.isSelected &&
+        lhs.currentConfigurationState == rhs.currentConfigurationState &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
         lhs.isCheckable == rhs.isCheckable
     }
@@ -80,8 +72,8 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information.alignment)
         hasher.combine(information.backgroundColor)
         hasher.combine(information.content)
-        hasher.combine(isSelected)
         hasher.combine(shouldDisplayPlaceholder)
         hasher.combine(isCheckable)
+        hasher.combine(currentConfigurationState)
     }
 }

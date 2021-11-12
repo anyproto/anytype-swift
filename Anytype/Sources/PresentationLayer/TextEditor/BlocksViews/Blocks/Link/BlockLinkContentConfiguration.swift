@@ -1,15 +1,11 @@
 import UIKit
 import BlocksModels
 
-
-struct BlockLinkContentConfiguration: UIContentConfiguration, Hashable, Equatable {
+struct BlockLinkContentConfiguration: BlockConfigurationProtocol, Hashable, Equatable {
     let state: BlockLinkState
+    var currentConfigurationState: UICellConfigurationState?
     
     func makeContentView() -> UIView & UIContentView {
-        return BlockLinkView(configuration: self)
-    }
-
-    func updated(for state: UIConfigurationState) -> BlockLinkContentConfiguration {
-        return self
+        BlockLinkView(configuration: self)
     }
 }

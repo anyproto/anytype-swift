@@ -3,31 +3,18 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-class BlocksFileEmptyView: UIView & UIContentView {
-    private var currentConfiguration: BlocksFileEmptyViewConfiguration
-        var configuration: UIContentConfiguration {
-            get { currentConfiguration }
-            set {
-                guard let newConfiguration = newValue as? BlocksFileEmptyViewConfiguration else {
-                    anytypeAssertionFailure("Wrong configuration: \(newValue) for block file empty view")
-                    return
-                }
-                self.currentConfiguration = newConfiguration
-                apply(configuration: newConfiguration)
-            }
-        }
-    
-    init(configuration: BlocksFileEmptyViewConfiguration) {
-        self.currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+class BlocksFileEmptyView: BaseBlockView<BlocksFileEmptyViewConfiguration> {
+    override func setupSubviews() {
+        super.setupSubviews()
+
         setup()
     }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+    override func update(with configuration: BlocksFileEmptyViewConfiguration) {
+        super.update(with: configuration)
+        apply(configuration: configuration)
     }
+
     
     private func setup() {
         addSubview(contentView) {

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-final class FeaturedRelationsBlockView: UIView, UIContentView {
+final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockContentConfiguration> {
         
     // MARK: - Views
     
@@ -12,37 +12,16 @@ final class FeaturedRelationsBlockView: UIView, UIContentView {
     }()
     
     // MARK: - Private variables
-    
-    private var appliedConfiguration: FeaturedRelationsBlockContentConfiguration!
-    
-    // MARK: - Internal variables
-    
-    var configuration: UIContentConfiguration {
-        get { self.appliedConfiguration }
-        set {
-            guard
-                let configuration = newValue as? FeaturedRelationsBlockContentConfiguration,
-                appliedConfiguration != configuration
-            else {
-                return
-            }
-            
-            apply(configuration)
-        }
-    }
-    
-    // MARK: - Initializers
-    
-    init(configuration: FeaturedRelationsBlockContentConfiguration) {
-        super.init(frame: .zero)
-        
-        setupLayout()
+
+    override func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
+        super.update(with: configuration)
+
         apply(configuration)
     }
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setupSubviews() {
+        super.setupSubviews()
+        setupLayout()
     }
     
 }
@@ -63,7 +42,6 @@ private extension FeaturedRelationsBlockView  {
     }
     
     func apply(_ configuration: FeaturedRelationsBlockContentConfiguration) {
-        appliedConfiguration = configuration
         typeLabel.setText(configuration.type)
         typeLabel.textAlignment = configuration.alignment
     }

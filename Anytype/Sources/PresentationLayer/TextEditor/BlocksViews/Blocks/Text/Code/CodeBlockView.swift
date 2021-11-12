@@ -3,29 +3,15 @@ import UIKit
 import Highlightr
 import BlocksModels
 
-final class CodeBlockView: UIView & UIContentView {
-    private var currentConfiguration: CodeBlockContentConfiguration
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? CodeBlockContentConfiguration else { return }
-            guard currentConfiguration != configuration else { return }
-            currentConfiguration = configuration
-            
-            applyNewConfiguration()
-        }
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    init(configuration: CodeBlockContentConfiguration) {
-        self.currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
+    override func setupSubviews() {
+        super.setupSubviews()
         setupViews()
+    }
+
+    override func update(with configuration: CodeBlockContentConfiguration) {
+        super.update(with: configuration)
+
         applyNewConfiguration()
     }
 
