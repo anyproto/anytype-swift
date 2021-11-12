@@ -116,8 +116,15 @@ extension EditorPageController: EditorPageViewInput {
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
-        
+
+        if #available(iOS 15.0, *) {
+            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
+        } else {
+            UIView.performWithoutAnimation {
+                dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
+            }
+        }
+
         navigationBarHelper.configureNavigationBar(
             using: header,
             details: details

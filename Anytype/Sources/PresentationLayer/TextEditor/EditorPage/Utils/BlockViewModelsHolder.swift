@@ -8,6 +8,7 @@ final class BlockViewModelsHolder {
     let objectId: String
     
     var models: [BlockViewModelProtocol] = []
+    var header: ObjectHeader?
 
     init(objectId: String) {
         self.objectId = objectId
