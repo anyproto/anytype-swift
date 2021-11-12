@@ -27,7 +27,7 @@ final class TextService: TextServiceProtocol {
         Amplitude.instance().logSetStyle(style)
         Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
-            .map { MiddlewareResponse($0.event).turnIntoTextEvent }
+            .map { EventsBunch(event: $0.event) }
             .getValue()?
             .send()
     }

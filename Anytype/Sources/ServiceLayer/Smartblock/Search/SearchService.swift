@@ -107,8 +107,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return result?.reordered(
             by: [
+                ObjectTemplateType.BundledType.page.rawValue,
                 ObjectTemplateType.BundledType.note.rawValue,
-                ObjectTemplateType.BundledType.page.rawValue
+                ObjectTemplateType.BundledType.task.rawValue
             ]
         ) { $0.id }
     }

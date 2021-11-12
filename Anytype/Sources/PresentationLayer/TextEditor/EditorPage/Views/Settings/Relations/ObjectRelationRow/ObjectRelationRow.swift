@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ObjectRelationRow: View {
     
-    let viewModel: ObjectRelationRowViewModel
+    let viewModel: ObjectRelationRowData
     
     var body: some View {
         GeometryReader { gr in
@@ -23,7 +23,8 @@ struct ObjectRelationRow: View {
             }
             .frame(width: gr.size.width, height: gr.size.height)
         }
-        .frame(height: 44)
+        .frame(height: 48)
+        .modifier(DividerModifier(spacing:0))
     }
     
     private var name: some View {
@@ -60,8 +61,8 @@ struct ObjectRelationRow: View {
 struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationRow(
-            viewModel: ObjectRelationRowViewModel(
-                name: "Relation name",
+            viewModel: ObjectRelationRowData(
+                id: "1", name: "Relation name",
                 value: .text("Hello"),
                 hint: "hint"
             )

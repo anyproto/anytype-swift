@@ -8,31 +8,23 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
     private let listService = BlockListService()
-    private let textBlockActionHandler: TextBlockActionHandler
     private let markupChanger: BlockMarkupChangerProtocol
-    
-    private weak var modelsHolder: BlockViewModelsHolder?
+    private let actionHandler: TextBlockActionHandler
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
     init(
-        modelsHolder: BlockViewModelsHolder,
         document: BaseDocumentProtocol,
-        markupChanger: BlockMarkupChangerProtocol
+        markupChanger: BlockMarkupChangerProtocol,
+        service: BlockActionServiceProtocol,
+        actionHandler: TextBlockActionHandler
     ) {
-        self.modelsHolder = modelsHolder
-        self.service = BlockActionService(documentId: document.objectId)
         self.document = document
         self.markupChanger = markupChanger
-        
-        self.textBlockActionHandler = TextBlockActionHandler(
-            contextId: document.objectId,
-            service: service,
-            modelsHolder: modelsHolder
-        )
+        self.service = service
+        self.actionHandler = actionHandler
     }
 
-    
     // MARK: - Service proxy
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         return service.turnIntoPage(blockId: blockId)
@@ -84,8 +76,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func delete(blockId: BlockId) {
-        let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
-        service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
+        service.delete(blockId: blockId)
     }
     
     func moveTo(targetId: BlockId, blockId: BlockId) {
@@ -145,7 +136,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     // MARK: - TextBlockActionHandler proxy
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
-        textBlockActionHandler.handleKeyboardAction(info: info, action: action)
+        actionHandler.handleKeyboardAction(info: info, action: action)
     }
     
     func changeText(_ text: NSAttributedString, blockId: BlockId) {
@@ -154,7 +145,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        textBlockActionHandler.changeText(info: info, text: text)
+        actionHandler.changeText(info: info, text: text)
     }
     
     // MARK: - Public methods

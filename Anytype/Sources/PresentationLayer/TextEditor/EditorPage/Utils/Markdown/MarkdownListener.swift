@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import FloatingPanel
+import AnytypeCore
 
 protocol MarkdownListener {
     func textDidChange(changeType: TextChangeType, data: TextBlockDelegateData)
@@ -22,14 +23,13 @@ final class MarkdownListenerImpl: MarkdownListener {
         applyInlineShortcuts(data: data)
     }
     
-    
+    // MARK: - Inline
     private func applyInlineShortcuts(data: TextBlockDelegateData) {
-        applyInlineMarkup(.keyboard, triggerSymbol: "`", data: data)
-        applyInlineMarkup(.italic, triggerSymbol: "_", data: data)
-        applyInlineMarkup(.italic, triggerSymbol: "*", data: data)
-        applyInlineMarkup(.bold, triggerSymbol: "__", data: data)
-        applyInlineMarkup(.bold, triggerSymbol: "**", data: data)
-        applyInlineMarkup(.strikethrough, triggerSymbol: "~~", data: data)
+        InlineMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                applyInlineMarkup(shortcut.markup, triggerSymbol: text, data: data)
+            }
+        }
     }
     
     private func applyInlineMarkup(_ markup: MarkupType, triggerSymbol: String, data: TextBlockDelegateData) {
@@ -47,12 +47,17 @@ final class MarkdownListenerImpl: MarkdownListener {
                 let lengthOfText = reversedTextBeforeCaret
                     .distanceFromTheBegining(to: rangeOfTrigger.lowerBound)
                 
+                guard lengthOfText > 0 else { return }
+                
                 let locationOfClosingSymbol = data.textView.offsetFromBegining(caretPosition) - triggerSymbol.count
                 let locationOfOpeningSymbol = locationOfClosingSymbol - lengthOfText
                 let range = NSRange(location: locationOfOpeningSymbol, length: lengthOfText)
                 
                 guard let newText = markupChanger
-                        .toggleMarkup(markup, blockId: data.info.id, range: range)?.mutable else { return }
+                        .setMarkup(markup, blockId: data.info.id, range: range)?.mutable else {
+                            anytypeAssertionFailure("Could not apply markup \(markup) for \(data.info)")
+                            return
+                        }
                 
                 let rangeOfClosingSymbol = NSRange(location: locationOfClosingSymbol, length: triggerSymbol.count)
                 newText.mutableString.deleteCharacters(in: rangeOfClosingSymbol)
@@ -81,32 +86,26 @@ final class MarkdownListenerImpl: MarkdownListener {
         return italicDistance < boldDistance
     }
     
+    // MARK: - BeginningOfText
     private func applyBeginningOfTextShortcuts(data: TextBlockDelegateData) {
-        guard let textBeforeCaret = data.textView.textBeforeCaret else { return }
-        
-        switch textBeforeCaret {
-        case "# ":
-            applyStyle(.header, data: data, commandLength: textBeforeCaret.count)
-        case "## ":
-            applyStyle(.header2, data: data, commandLength: textBeforeCaret.count)
-        case "### ":
-            applyStyle(.header3, data: data, commandLength: textBeforeCaret.count)
-        case "\" ", "\' ", "“ ", "‘ ":
-            applyStyle(.quote, data: data, commandLength: textBeforeCaret.count)
-        case "* ", "- ", "+ ":
-            applyStyle(.bulleted, data: data, commandLength: textBeforeCaret.count)
-        case "[] ":
-            applyStyle(.checkbox, data: data, commandLength: textBeforeCaret.count)
-        case "1. ":
-            applyStyle(.numbered, data: data, commandLength: textBeforeCaret.count)
-        case "> ":
-            applyStyle(.toggle, data: data, commandLength: textBeforeCaret.count)
-        case "``` ":
-            applyStyle(.code, data: data, commandLength: textBeforeCaret.count)
-        default:
-            break
+        BeginingOfTextMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                if beginingOfTextHaveShortcutAndCarretInsideIt(text, data: data) {
+                    applyStyle(shortcut.style, data: data, commandLength: text.count)
+                }
+            }
         }
     }
+    
+    private func beginingOfTextHaveShortcutAndCarretInsideIt(_ shortcut: String, data: TextBlockDelegateData) -> Bool {
+        guard let offsetToCaretPosition = data.textView.offsetToCaretPosition() else {
+            anytypeAssertionFailure("No caret position for markdown call")
+            return false
+        }
+        
+        return data.textView.text.hasPrefix(shortcut) && shortcut.count >= offsetToCaretPosition
+    }
+
     
     private func applyStyle(_ style: BlockText.Style, data: TextBlockDelegateData, commandLength: Int) {
         guard case let .text(textContent) = data.info.content else { return }

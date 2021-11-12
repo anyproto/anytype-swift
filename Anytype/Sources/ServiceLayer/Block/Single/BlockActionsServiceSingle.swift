@@ -43,11 +43,16 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             .getValue()
     }
     
-    func delete(contextId: BlockId, blockIds: [BlockId]) -> MiddlewareResponse? {
+    func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
-        return Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
-            .map { MiddlewareResponse($0.event) }
+        let event = Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
+            .map { EventsBunch(event: $0.event) }
             .getValue()
+        
+        guard let event = event else { return false }
+        event.send()
+        
+        return true
     }
 
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> MiddlewareResponse? {

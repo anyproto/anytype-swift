@@ -12,9 +12,7 @@ extension UITextView {
     }
     
     var caretPosition: UITextPosition? {
-        if !isFirstResponder {
-            return nil
-        }
+        guard isFirstResponder else { return nil }
         let offset = selectedRange.location + selectedRange.length
         return position(from: beginningOfDocument, offset: offset)
     }
@@ -84,6 +82,11 @@ extension UITextView {
     
     func offsetFromBegining(_ position: UITextPosition) -> Int {
         return offset(from: self.beginningOfDocument, to: position)
+    }
+    
+    func offsetToCaretPosition() -> Int? {
+        guard let caretPosition = caretPosition else { return nil }
+        return offset(from: self.beginningOfDocument, to: caretPosition)
     }
 }
 

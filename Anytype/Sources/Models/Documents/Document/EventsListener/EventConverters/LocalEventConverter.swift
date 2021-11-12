@@ -19,7 +19,8 @@ final class LocalEventConverter {
         switch event {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
-            return .blocks(blockIds: [blockId])
+            return .general // https://app.clickup.com/t/1r67hcc
+//            return .blocks(blockIds: [blockId])
         case .setToggled, .documentClosed:
             return .general
         case let .setText(blockId: blockId, text: text):

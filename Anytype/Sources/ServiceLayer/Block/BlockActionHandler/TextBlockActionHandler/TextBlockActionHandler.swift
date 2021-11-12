@@ -6,7 +6,6 @@ import Foundation
 final class TextBlockActionHandler {
     
     private let service: BlockActionServiceProtocol
-    private let textService = TextService()
     private let contextId: String
     
     private weak var modelsHolder: BlockViewModelsHolder?
@@ -31,7 +30,7 @@ final class TextBlockActionHandler {
             localEvents: [.setText(blockId: info.id, text: middlewareString)]
         ).send()
 
-        textService.setText(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
+        service.setText(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
     }
 
     func handleKeyboardAction(info: BlockInformation, action: CustomTextView.KeyboardAction) {
@@ -102,39 +101,12 @@ final class TextBlockActionHandler {
 
         case .deleteAtTheBeginingOfContent:
             guard info.content.type != .text(.description) else { return }
-            guard let previousModel = modelsHolder?.findModel(beforeBlockId: info.id) else {
-                anytypeAssertionFailure("""
-                    We can't find previous block to focus on at command .delete
-                    Block: \(info.id)
-                    Moving to .delete command.
-                    """
-                )
-                handleKeyboardAction(info: info, action: .deleteOnEmptyContent)
-                return
-            }
-            guard previousModel.content != .unsupported else { return }
             
-            if textService.merge(contextId: contextId, firstBlockId: previousModel.blockId, secondBlockId: info.id) {
-                setFocus(model: previousModel)
-            }
+            service.merge(secondBlockId: info.id)
 
         case .deleteOnEmptyContent:
-            let blockId = info.id
-            let previousModel = modelsHolder?.findModel(beforeBlockId: blockId)
-            service.delete(blockId: blockId, previousBlockId: previousModel?.blockId)
+            service.delete(blockId: info.id)
         }
-    }
-    
-    private func setFocus(model: BlockDataProvider) {
-        var localEvents = [LocalEvent]()
-        if case let .text(text) = model.information.content {
-            let nsText = NSString(string: text.text)
-            let range = NSRange(location: nsText.length, length: 0)
-            localEvents.append(contentsOf: [
-                .setFocus(blockId: model.blockId, position: .at(range))
-            ])
-        }
-        EventsBunch(objectId: contextId, localEvents: localEvents).send()
     }
 }
 

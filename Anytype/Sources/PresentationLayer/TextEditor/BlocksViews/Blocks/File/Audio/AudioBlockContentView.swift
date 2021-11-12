@@ -12,22 +12,35 @@ import BlocksModels
 import AnytypeCore
 
 
-final class AudioBlockContentView: BaseBlockView<AudioBlockContentConfiguration> {
+final class AudioBlockContentView: UIView, UIContentView {
+    private var currentConfiguration: AudioBlockContentConfiguration!
+
+    var configuration: UIContentConfiguration {
+        get {
+            self.currentConfiguration
+        }
+        set {
+            guard let configuration = newValue as? AudioBlockContentConfiguration else { return }
+            apply(configuration: configuration)
+        }
+    }
+
     // MARK: - Views
     let audioPlayerView = AudioPlayerView()
     let backgroundView = UIView()
 
     // MARK: - Lifecycle
-    override func setupSubviews() {
-        super.setupSubviews()
+
+    init(configuration: AudioBlockContentConfiguration) {
+        super.init(frame: .zero)
 
         setup()
         setupLayout()
+        apply(configuration: configuration)
     }
 
-    override func update(with configuration: AudioBlockContentConfiguration) {
-        super.update(with: configuration)
-        apply(configuration: configuration)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func setup() {
@@ -45,6 +58,10 @@ final class AudioBlockContentView: BaseBlockView<AudioBlockContentConfiguration>
     }
 
     private func apply(configuration: AudioBlockContentConfiguration) {
+        guard currentConfiguration != configuration else { return }
+        currentConfiguration = configuration
+
+        self.audioPlayerView.setDelegate(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.updateAudioInformation(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.trackNameLabel.setText(configuration.file.metadata.name)
     }

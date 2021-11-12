@@ -54,8 +54,6 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
             self.playerItem = AVPlayerItem(url: url)
         }
-
-        audioPlayer.updateDelegate(audioId: information.id, delegate: self)
     }
 
     func didSelectRowInTableView() {
@@ -94,6 +92,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
+            audioPlayer.updateDelegate(audioId: information.id, delegate: self)
             return AudioBlockContentConfiguration(file: fileData, trackId: information.id, audioPlayerViewDelegate: self)
         }
     }
