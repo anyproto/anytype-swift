@@ -39,10 +39,11 @@ final class ObjectRelationsSectionBuilder {
                 id: relation.id,
                 name: relation.name,
                 value: value,
-                hint: relation.format.hint
+                hint: relation.format.hint,
+                isFeatured: featuredRelationIds.contains(relation.id)
             )
             
-            if featuredRelationIds.contains(relation.id) {
+            if rowData.isFeatured {
                 featuredRelations.append(rowData)
             } else {
                 otherRelations.append(rowData)
@@ -93,7 +94,7 @@ private extension ObjectRelationsSectionBuilder {
         case .shortText:
             return textRelationRowValue(relation: relation, details: details)
         case .number:
-            return textRelationRowValue(relation: relation, details: details)
+            return numberRelationRowValue(relation: relation, details: details)
         case .status:
             return statusRelationRowValue(relation: relation, details: details)
         case .date:

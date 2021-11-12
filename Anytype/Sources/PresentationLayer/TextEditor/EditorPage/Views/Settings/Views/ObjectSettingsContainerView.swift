@@ -58,13 +58,12 @@ struct ObjectSettingsContainerView: View {
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
-                type: .floater(verticalPadding: 42),
+                type: .floater(verticalPadding: 0),
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
                 view: {
                     ObjectLayoutPicker()
-                        .padding(8)
                         .environmentObject(viewModel.layoutPickerViewModel)
                 }
             )
