@@ -81,8 +81,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             event,
             details: details
         )
-        
-        viewInput?.update(header: header, details: details)
+
+        updateHeaderIfNeeded(header: header, details: details)
     }
     
     private func handleUpdate(updateResult: EventsListenerUpdate) {
@@ -105,7 +105,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 objectRestrictions: document.objectRestrictions,
                 objectRelations: document.relationsStorage.relations
             )
-            viewInput?.update(header: header, details: details)
+            updateHeaderIfNeeded(header: header, details: details)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -212,7 +212,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
-        viewInput?.update(header: header, details: details)
+        updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
         
         objectSettingsViewModel.update(
@@ -220,6 +220,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectRestrictions: document.objectRestrictions,
             objectRelations: document.relationsStorage.relations
         )
+    }
+
+    // iOS 14 bug fix applying header section while editing
+    private func updateHeaderIfNeeded(header: ObjectHeader, details: ObjectDetails?) {
+        guard modelsHolder.header != header else { return }
+
+        viewInput?.update(header: header, details: details)
+        modelsHolder.header = header
     }
 }
 
