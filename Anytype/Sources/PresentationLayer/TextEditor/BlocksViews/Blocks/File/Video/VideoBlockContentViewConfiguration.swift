@@ -11,7 +11,7 @@ struct VideoBlockConfiguration: Hashable {
     }
 }
 
-extension VideoBlockConfiguration: AnytypeBlockContentConfigurationProtocol {
+extension VideoBlockConfiguration: BlockConfigurationProtocol {
     
     func makeContentView() -> UIView & UIContentView {
         return VideoBlockContentView(configuration: self)

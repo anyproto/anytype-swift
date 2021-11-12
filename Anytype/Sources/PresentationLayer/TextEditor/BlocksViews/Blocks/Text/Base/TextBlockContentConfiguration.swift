@@ -2,7 +2,7 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
+struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     
     let blockDelegate: BlockDelegate
     

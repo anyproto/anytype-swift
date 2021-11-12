@@ -6,7 +6,7 @@ enum BlocksFileEmptyViewState {
     case error
 }
 
-struct BlocksFileEmptyViewConfiguration: AnytypeBlockContentConfigurationProtocol {
+struct BlocksFileEmptyViewConfiguration: BlockConfigurationProtocol {
     let image: UIImage
     let text: String
     let state: BlocksFileEmptyViewState

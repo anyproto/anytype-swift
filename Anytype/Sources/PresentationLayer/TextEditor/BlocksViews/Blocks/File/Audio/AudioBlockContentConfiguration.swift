@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 
 
-struct AudioBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
+struct AudioBlockContentConfiguration: BlockConfigurationProtocol {
     let file: BlockFile
     let trackId: String
     var currentConfigurationState: UICellConfigurationState?

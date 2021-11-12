@@ -4,7 +4,7 @@ private enum Constants {
     static let selectionViewInset: UIEdgeInsets = .init(top: 0, left: 8, bottom: 0, right: -8)
 }
 
-class BaseBlockView<Configuration: AnytypeBlockContentConfigurationProtocol>: UIView, UIContentView {
+class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
         set {

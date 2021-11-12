@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-struct BlockLinkContentConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable, Equatable {
+struct BlockLinkContentConfiguration: BlockConfigurationProtocol, Hashable, Equatable {
     let state: BlockLinkState
     var currentConfigurationState: UICellConfigurationState?
     

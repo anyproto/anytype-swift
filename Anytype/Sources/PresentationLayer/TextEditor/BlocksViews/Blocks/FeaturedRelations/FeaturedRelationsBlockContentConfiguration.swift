@@ -1,6 +1,6 @@
 import UIKit
 
-struct FeaturedRelationsBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable {        
+struct FeaturedRelationsBlockContentConfiguration: BlockConfigurationProtocol, Hashable {        
     let type: String
     let alignment: NSTextAlignment
     var currentConfigurationState: UICellConfigurationState?

@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-struct BlockImageConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable {
+struct BlockImageConfiguration: BlockConfigurationProtocol, Hashable {
     
     let fileData: BlockFile
     let maxWidth: CGFloat
