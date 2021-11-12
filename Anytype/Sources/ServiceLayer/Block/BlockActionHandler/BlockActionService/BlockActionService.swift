@@ -156,10 +156,8 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     private func setFocus(model: BlockDataProvider) {
         if case let .text(text) = model.information.content {
-            let nsText = NSString(string: text.text)
-            let range = NSRange(location: nsText.length, length: 0)
-            let localEvents: [LocalEvent] = [ .setFocus(blockId: model.blockId, position: .at(range)) ]
-            EventsBunch(objectId: documentId, localEvents: localEvents).send()
+            let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))
+            EventsBunch(objectId: documentId, localEvents: [event]).send()
         }
     }
 }
