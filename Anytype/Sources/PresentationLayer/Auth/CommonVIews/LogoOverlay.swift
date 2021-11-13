@@ -20,7 +20,7 @@ struct LogoOverlay: ViewModifier {
                 alignment: .topLeading
             )
             .sheet(isPresented: $showDebug) {
-                FeatureFlagsView()
+                DebugMenu()
             }
     }
 }

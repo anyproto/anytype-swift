@@ -8,6 +8,8 @@ struct EditorSetView: View {
             settings
             SetTableView()
         }
+        .ignoresSafeArea()
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private var header: some View {
@@ -15,7 +17,8 @@ struct EditorSetView: View {
             Rectangle().foregroundColor(.pureBlue)
                 .frame(height: 240)
             AnytypeText("Set title", style: .title, color: .textPrimary).padding()
-            AnytypeText("British film director and writer acclaimed for his noirish visual aesthetic and unconventional often highly conceptual narratives", style: .body, color: .textPrimary).padding()
+            AnytypeText("Set description", style: .body, color: .textPrimary)
+                .padding()
         }
     }
     

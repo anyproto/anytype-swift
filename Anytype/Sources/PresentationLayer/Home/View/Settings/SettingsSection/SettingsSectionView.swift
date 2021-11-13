@@ -45,7 +45,7 @@ struct SettingsSectionView: View {
             }
             
             .sheet(isPresented: $viewModel.debugMenu) {
-                FeatureFlagsView()
+                DebugMenu()
             }
             #if !RELEASE
             SettingsSectionItemView(

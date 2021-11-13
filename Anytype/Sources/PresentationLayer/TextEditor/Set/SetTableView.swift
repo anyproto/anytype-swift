@@ -53,7 +53,7 @@ struct SetTableView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText("🚀 " + row, style: .body, color: .grayscale90)
                 .padding()
-                .offset(x: initialOffset - xOffset, y: 0)
+                .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
             
             HStack(spacing: 0) {
                 ForEach(colums, id: \.self) { colum in
