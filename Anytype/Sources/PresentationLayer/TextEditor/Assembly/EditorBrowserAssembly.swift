@@ -2,16 +2,22 @@ import SwiftUI
 import BlocksModels
 import Combine
 
-final class EditorAssembly {
+enum EditorViewType {
+    case page
+    case set
+}
+
+final class EditorBrowserAssembly {
     
     func editor(blockId: BlockId, model: HomeViewModel) -> some View {
         EditorViewRepresentable(blockId: blockId, model: model).eraseToAnyView()
     }
     
-    func buildEditorBrowser(blockId: BlockId) -> EditorBrowserController {
-        let browser =  EditorBrowserController()
+    func buildEditorBrowser(blockId: BlockId, type: EditorViewType) -> EditorBrowserController {
+        let browser = EditorBrowserController()
 
-        let (page, router) = EditorPageAssembly(browser: browser).buildEditorModule(pageId: blockId)
+        let (page, router) = EditorAssembly(browser: browser)
+            .buildEditorModule(pageId: blockId, type: type)
         
         browser.childNavigation = navigationStack(rootPage: page)
         browser.router = router
@@ -21,7 +27,7 @@ final class EditorAssembly {
         return browser
     }
     
-    private func navigationStack(rootPage: EditorPageController) -> UINavigationController {
+    private func navigationStack(rootPage: UIViewController) -> UINavigationController {
         let navigationController = UINavigationController(
             rootViewController: rootPage
         )

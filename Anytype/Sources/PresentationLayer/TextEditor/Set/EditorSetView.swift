@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct EditorSetView: View {
+    @ObservedObject var model: EditorSetViewModel
     
     var body: some View {
         VStack {
@@ -8,8 +9,8 @@ struct EditorSetView: View {
             settings
             SetTableView()
         }
-        .ignoresSafeArea()
-        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(edges: .top)
+        .navigationBarHidden(true)
     }
     
     private var header: some View {
@@ -36,6 +37,6 @@ struct EditorSetView: View {
 
 struct EditorSetView_Previews: PreviewProvider {
     static var previews: some View {
-        EditorSetView()
+        EditorSetView(model: EditorSetViewModel(document: BaseDocument(objectId: "")))
     }
 }

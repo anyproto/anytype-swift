@@ -38,7 +38,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     static func isSupported(typeUrl: String?) -> Bool {
-        typeUrl != ObjectTemplateType.BundledType.set.rawValue
+        if FeatureFlags.sets { return true }
+        
+        return typeUrl != ObjectTemplateType.BundledType.set.rawValue
     }
     
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {

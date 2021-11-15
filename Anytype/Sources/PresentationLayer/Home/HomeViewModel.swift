@@ -164,7 +164,7 @@ extension HomeViewModel {
     }
     
     func createBrowser() -> some View {
-        EditorAssembly().editor(blockId: openedPageData.pageId, model: self)
+        EditorBrowserAssembly().editor(blockId: openedPageData.pageId, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }

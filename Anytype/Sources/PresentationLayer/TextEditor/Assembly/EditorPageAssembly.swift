@@ -1,17 +1,47 @@
 import BlocksModels
+import UIKit
 
-final class EditorPageAssembly {
+final class EditorAssembly {
     private weak var browser: EditorBrowserController!
     
     init(browser: EditorBrowserController) {
         self.browser = browser
     }
     
-    func buildEditorPage(pageId: BlockId) -> EditorPageController {
-        buildEditorModule(pageId: pageId).0
+    func buildEditorController(pageId: BlockId, type: EditorViewType) -> UIViewController {
+        buildEditorModule(pageId: pageId, type: type).0
     }
     
-    func buildEditorModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
+    func buildEditorModule(pageId: BlockId, type: EditorViewType) -> (UIViewController, EditorRouterProtocol) {
+        switch type {
+        case .page:
+            return buildPageModule(pageId: pageId)
+        case .set:
+            return buildSetModule(pageId: pageId)
+        }
+    }
+    
+    // MARK: - Set
+    private func buildSetModule(pageId: BlockId) -> (EditorSetHostingController, EditorRouterProtocol) {
+        let document = BaseDocument(objectId: pageId)
+        let model = EditorSetViewModel(document: document)
+        let controller = EditorSetHostingController(documentId: pageId, model: model)
+        
+        let router = EditorRouter(
+            rootController: browser,
+            viewController: controller,
+            document: document,
+            assembly: self
+        )
+        
+        model.router = router
+        
+        return (controller, router)
+    }
+    
+    // MARK: - Page
+    
+    private func buildPageModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
         let controller = EditorPageController()
         let document = BaseDocument(objectId: pageId)
         let router = EditorRouter(

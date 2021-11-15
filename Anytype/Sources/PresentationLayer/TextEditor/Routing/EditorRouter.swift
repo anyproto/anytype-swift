@@ -40,45 +40,46 @@ protocol AttachmentRouterProtocol {
 
 final class EditorRouter: EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
-    private weak var viewController: EditorPageController?
+    private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
-    private let pageAssembly: EditorPageAssembly
+    private let editorAssembly: EditorAssembly
 
     init(
         rootController: EditorBrowserController,
-        viewController: EditorPageController,
+        viewController: UIViewController,
         document: BaseDocumentProtocol,
-        assembly: EditorPageAssembly
+        assembly: EditorAssembly
     ) {
         self.rootController = rootController
         self.viewController = viewController
         self.document = document
-        self.pageAssembly = assembly
+        self.editorAssembly = assembly
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
-    /// Show page
     func showPage(with id: BlockId) {
-        if let details = document.detailsStorage.get(id: id) {
-            let typeUrl = details.type
-            guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
-                let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
-                
-                AlertHelper.showToast(
-                    title: "Not supported type \"\(typeName)\"",
-                    message: "You can open it via desktop"
-                )
-                return
-            }
+        guard let details = document.detailsStorage.get(id: id) else {
+            anytypeAssertionFailure("No details for id: \(id)")
+            return
         }
         
-        let newEditorViewController = pageAssembly.buildEditorPage(pageId: id)
+        guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
+            showUnsupportedTypeAlert(typeUrl: details.type)
+            return
+        }
         
-        viewController?.navigationController?.pushViewController(
-            newEditorViewController,
-            animated: true
+        let controller = editorAssembly.buildEditorController(pageId: id, type: details.editorViewType)
+        viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func showUnsupportedTypeAlert(typeUrl: String) {
+        let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
+        
+        AlertHelper.showToast(
+            title: "Not supported type \"\(typeName)\"",
+            message: "You can open it via desktop"
         )
     }
     
@@ -129,6 +130,10 @@ final class EditorRouter: EditorRouterProtocol {
         guard let controller = viewController,
               let rootController = rootController,
               let blockModel = document.blocksContainer.model(id: information.id) else { return }
+        guard let controller = controller as? EditorPageController else {
+            anytypeAssertionFailure("Not supported type of controller: \(controller)")
+            return
+        }
 
         controller.view.endEditing(true)
 

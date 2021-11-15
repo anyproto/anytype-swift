@@ -20,6 +20,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases.filter { $0 != .icon }
         case .note:
             return [.layout]
+        case .set:
+            return ObjectSetting.allCases
         }
     }
 
