@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftUIVisualEffects
+import AnytypeCore
 
 struct HomeTabsHeader: View {
     @EnvironmentObject var model: HomeViewModel
@@ -30,6 +31,11 @@ struct HomeTabsHeader: View {
             tabButton(text: "Favorites".localized, tab: .favourites)
             tabButton(text: "History".localized, tab: .history) {
                 if tabSelection == .history { onTabSelection() } // reload data on button tap
+            }
+            if FeatureFlags.sets {
+                tabButton(text: "Sets".localized, tab: .sets) {
+                    if tabSelection == .sets { onTabSelection() } // reload data on button tap
+                }
             }
             if AccountConfigurationProvider.shared.config.enableSpaces {
                 tabButton(text: "Shared".localized, tab: .shared) {
