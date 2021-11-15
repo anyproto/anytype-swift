@@ -40,7 +40,8 @@ final class ObjectRelationsSectionBuilder {
                 name: relation.name,
                 value: value,
                 hint: relation.format.hint,
-                isFeatured: featuredRelationIds.contains(relation.id)
+                isFeatured: featuredRelationIds.contains(relation.id),
+                isEditable: !relation.isReadOnly
             )
             
             if rowData.isFeatured {

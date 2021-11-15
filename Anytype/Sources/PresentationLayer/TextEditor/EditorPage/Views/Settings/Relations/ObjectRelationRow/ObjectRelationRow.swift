@@ -86,7 +86,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
                     ]),
                     hint: "hint",
-                    isFeatured: false
+                    isFeatured: false,
+                    isEditable: true
                 ),
                 onStarTap: { _ in }
             )
@@ -95,7 +96,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                     id: "1", name: "Relation name",
                     value: .text("hello"),
                     hint: "hint",
-                    isFeatured: false
+                    isFeatured: false,
+                    isEditable: false
                 ),
                 onStarTap: { _ in }
             )
