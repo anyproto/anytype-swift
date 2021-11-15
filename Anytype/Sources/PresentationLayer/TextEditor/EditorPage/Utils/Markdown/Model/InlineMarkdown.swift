@@ -13,11 +13,9 @@ extension InlineMarkdown {
 
 extension InlineMarkdown {
     static let all: [InlineMarkdown] = [        
-        InlineMarkdown(text: "`", markup: .keyboard),
-        InlineMarkdown(text: "_", markup: .italic),
-        InlineMarkdown(text: "*", markup: .italic),
-        InlineMarkdown(text: "__", markup: .bold),
-        InlineMarkdown(text: "**", markup: .bold),
+        InlineMarkdown(text: ["`", "‘"], markup: .keyboard),
+        InlineMarkdown(text: ["_", "*"], markup: .italic),
+        InlineMarkdown(text: ["__", "**"], markup: .bold),
         InlineMarkdown(text: "~~", markup: .strikethrough),
     ]
 }
