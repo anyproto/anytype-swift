@@ -185,7 +185,7 @@ final class MiddlewareEventConverter {
                     }
 
                     if newData.hasState {
-                        if let state = BlockFileStateConverter.asModel(newData.state.value) {
+                        if let state = newData.state.value.asModel {
                             fileData.state = state
                         }
                     }

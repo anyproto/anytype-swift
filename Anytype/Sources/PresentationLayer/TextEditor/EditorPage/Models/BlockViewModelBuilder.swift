@@ -173,7 +173,6 @@ final class BlockViewModelBuilder {
                     self?.router.showPage(with: blockId)
                 }
             )
-        case .smartblock, .layout: return nil
         case .featuredRelations:
             guard let objectType = document.objectDetails?.objectType else { return nil }
             
@@ -196,6 +195,7 @@ final class BlockViewModelBuilder {
                 )
             }
             
+        case .smartblock, .layout: return nil
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil

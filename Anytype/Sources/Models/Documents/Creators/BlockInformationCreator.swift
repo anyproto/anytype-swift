@@ -40,7 +40,7 @@ struct BlockInformationCreator {
             color: color ?? ""
         )
         
-        guard var textContent = ContentTextConverter().textContent(middleContent) else {
+        guard var textContent = middleContent.textContent else {
             anytypeAssertionFailure("We cannot block content from: \(middleContent)")
             return nil
         }
