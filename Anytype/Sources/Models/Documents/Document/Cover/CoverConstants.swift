@@ -19,7 +19,11 @@ enum CoverConstants {
         CoverGradient(name: "yellow", startHex: "#ffb522", endHex: "#ecd91b"),
         CoverGradient(name: "red", startHex: "#f55522", endHex: "#e51ca0"),
         CoverGradient(name: "blue", startHex: "#ab50cc", endHex: "#3e58eb"),
-        CoverGradient(name: "teal", startHex: "#2aa7ee", endHex: "#0fc8ba")
+        CoverGradient(name: "teal", startHex: "#2aa7ee", endHex: "#0fc8ba"),
+        CoverGradient(name: "pinkOrange", startHex: "#d8a4e1", endHex: "#ffcc81"),
+        CoverGradient(name: "bluePink", startHex: "#73b7f0", endHex: "#f3bfac"),
+        CoverGradient(name: "greenOrange", startHex: "#63b3cb", endHex: "#f7c47a"),
+        CoverGradient(name: "sky", startHex: "#6eb6e4", endHex: "#daeaf3")
     ]
     
 }
