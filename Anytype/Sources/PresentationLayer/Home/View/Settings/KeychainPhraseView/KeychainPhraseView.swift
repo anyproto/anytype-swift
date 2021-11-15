@@ -6,16 +6,15 @@ struct KeychainPhraseView: View {
     @ObservedObject var viewModel: KeychainPhraseViewModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             DragIndicator()
-            
-            AnytypeText("Keychain phrase".localized, style: .title, color: .textPrimary)
-                .padding(.top, 58)
+            Spacer.fixedHeight(58)
+            AnytypeText("Back up your keychain phrase".localized, style: .title, color: .textPrimary)
+                .multilineTextAlignment(.center)
+            Spacer.fixedHeight(25)
             AnytypeText("Keychain phrase description".localized, style: .uxBodyRegular, color: .textPrimary)
-                .padding(.top, 25)
+            Spacer.fixedHeight(34)
             SeedPhraseView(phrase: $viewModel.recoveryPhrase, onTap: viewModel.onSeedViewTap)
-                .padding(.top, 34)
-
             Spacer()
         }
         .cornerRadius(12)
@@ -25,7 +24,6 @@ struct KeychainPhraseView: View {
             text: AnytypeText("Keychain phrase copied to clipboard".localized, style: .uxCalloutRegular, color: .textPrimary)
         )
         .onAppear {
-            // Analytics
             Amplitude.instance().logEvent(AmplitudeEventsName.showKeychainPhraseScreen)
 
             viewModel.obtainRecoveryPhrase()

@@ -10,10 +10,12 @@ message SmartBlockSnapshotBase {
     google.protobuf.Struct fileKeys = 3;
     repeated Relation extraRelations = 4;
     repeated string objectTypes = 5;
+    google.protobuf.Struct collections = 6;
 }
 
 enum SmartBlockType {
-    Breadcrumbs = 0;
+    AccountOld = 0;
+    Breadcrumbs = 0x01;
 
     Page = 0x10;
     ProfilePage = 0x11;
@@ -37,7 +39,9 @@ enum SmartBlockType {
     BundledObjectType = 0x202;
     AnytypeProfile = 0x203;
     Date = 0x204;
-    Workspace = 0x205;
+    WorkspaceOld = 0x205; // deprecated thread-based workspace
+    Workspace = 0x206;
+
 }
 
 message Block {
@@ -74,12 +78,20 @@ message Block {
 
     enum Position {
         None = 0;
+        // above target block
         Top = 1;
+        // under target block
         Bottom = 2;
+        // to left of target block
         Left = 3;
+        // to right of target block
         Right = 4;
+        // inside target block, as last block
         Inner = 5;
+        // replace target block
         Replace = 6;
+        // inside target block, as first block
+        InnerFirst = 7;
     }
 
     enum Align {
@@ -178,6 +190,8 @@ message Block {
                     TextColor = 6;
                     BackgroundColor = 7;
                     Mention = 8;
+                    Emoji = 9;
+                    Object = 10;
                 }
             }
 
@@ -369,6 +383,14 @@ message Account {
             string color = 2; // Color of the avatar, used if image not set.
         }
     }
+    message Config {
+        bool enableDataview = 1;
+        bool enableDebug = 2;
+        bool enableReleaseChannelSwitch = 3;
+        bool enableSpaces = 4;
+
+        google.protobuf.Struct extra = 100;
+    }
 }
 
 message LinkPreview {
@@ -452,6 +474,8 @@ message ObjectType {
         file = 6;
         dashboard = 7;
         image = 8;
+        note = 9;
+        space = 10;
 
         database = 20; // to be released later
     }
@@ -520,17 +544,18 @@ message Relation {
         details = 0; // default, stored inside the object's details
         derived = 1; // stored locally, e.g. in badger or generated on the fly
         account = 2; // stored in the account DB. means existing only for specific anytype account
+        local = 3; // stored locally
     }
 }
 
 // RelationFormat describes how the underlying data is stored in the google.protobuf.Value and how it should be validated/sanitized
 enum RelationFormat {
     longtext = 0; // string
-    shorttext = 1; // string, usually short enough. May be truncated
+    shorttext = 1; // string, usually short enough. May be truncated in the future
     number = 2; // double
-    status = 3; // string (choose one from a list)
+    status = 3; // string or list of string(len==1)
     tag = 11; // list of string (choose multiple from a list)
-    date = 4; // int64(pb.Value doesn't have int64) or string
+    date = 4; // float64(pb.Value doesn't have int64) or the string
     file = 5; // relation can has objects of specific types: file, image, audio, video
     checkbox = 6; // boolean
     url = 7; // string with sanity check
@@ -539,7 +564,7 @@ enum RelationFormat {
     emoji = 10; // one emoji, can contains multiple utf-8 symbols
 
     object = 100; // relation can has objectType to specify objectType
-    relations = 101; // base64-encoded
+    relations = 101; // base64-encoded relation pb model
 
 }
 

@@ -114,6 +114,7 @@
 "Soon" = "Soon";
 "Anytype info" = "Anytype info";
 "Library version" = "Library version";
+"Clear cache description" = "All encrypted files that have been backed up will be offloaded from your device";
 
 // Action
 "Archive" = "Archive";
@@ -194,6 +195,7 @@
 "Basic" = "Basic";
 "Profile" = "Profile";
 "Task" = "Task";
+"Note" = "Note";
 "Choose layout type" = "Choose layout type";
 
 // Object Type
@@ -219,3 +221,4 @@
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+

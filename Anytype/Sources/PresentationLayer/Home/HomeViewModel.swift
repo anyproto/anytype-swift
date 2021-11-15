@@ -4,80 +4,120 @@ import Combine
 import Foundation
 import ProtobufMessages
 import AnytypeCore
+import SwiftUI
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
-    var nonArchivedFavoritesCellData: [HomeCellData] {
-        favoritesCellData.filter { $0.isArchived == false }
+    var notDeletedFavoritesCellData: [HomeCellData] {
+        favoritesCellData.filter { !$0.isArchived && !$0.isDeleted }
     }
     
-    @Published var archiveCellData: [HomeCellData] = []
     @Published var historyCellData: [HomeCellData] = []
+    @Published var binCellData: [HomeCellData] = []
+    @Published var sharedCellData: [HomeCellData] = []
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
+    @Published var showDeletionAlert = false
     @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
     
-    let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-
-    private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
+    private let configurationService = MiddlewareConfigurationService.shared
+    private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     
-    private var subscriptions = [AnyCancellable]()
-
-    let document: BaseDocumentProtocol = BaseDocument()
+    let document: BaseDocumentProtocol
     private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
+    private lazy var cancellables = [AnyCancellable]()
+    
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
+    private var animationsEnabled = true
+    
+    weak var editorBrowser: EditorBrowser?
+    private var quickActionsSubscription: AnyCancellable?
     
     init() {
-        fetchDashboardData()
+        let homeBlockId = configurationService.configuration().homeBlockID
+        document = BaseDocument(objectId: homeBlockId)
+        document.updatePublisher.sink { [weak self] in
+            self?.onDashboardChange(updateResult: $0)
+        }.store(in: &cancellables)
+        document.open()
+        setupQuickActionsSubscription()
     }
 
     // MARK: - View output
 
     func viewLoaded() {
-        updateArchiveTab()
-        updateHistoryTab()
+        reloadItems()
+        animationsEnabled = true
     }
 
-    // MARK: - Private methods
-
-    func updateArchiveTab() {
+    func updateBinTab() {
         guard let searchResults = searchService.searchArchivedPages() else { return }
-        archiveCellData = cellDataBuilder.buildCellData(searchResults)
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            binCellData = cellDataBuilder.buildCellData(searchResults)
+        }
     }
     func updateHistoryTab() {
         guard let searchResults = searchService.searchHistoryPages() else { return }
-        historyCellData = cellDataBuilder.buildCellData(searchResults)
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            historyCellData = cellDataBuilder.buildCellData(searchResults)
+        }
     }
-    
-    private func fetchDashboardData() {        
-        guard let response = dashboardService.openDashboard() else { return }
-        
-        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
-            self?.onDashboardChange(updateResult: updateResult)
-        }.store(in: &self.subscriptions)
-        
-        document.open(response)
+    func updateSharedTab() {
+        guard let searchResults = searchService.searchSharedPages() else { return }
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            sharedCellData = cellDataBuilder.buildCellData(searchResults)
+        }
     }
-    
-    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
-        switch updateResult.updates {
-        case .general:
-            favoritesCellData = cellDataBuilder.buildFavoritesData(updateResult)
-        case .update(let blockIds):
-            blockIds.forEach { updateCellWithTargetId($0) }
-        case .details(let details):
-            updateCellWithTargetId(details.blockId)
-        case .syncStatus:
-            break
+    func updateFavoritesTab() {
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
     }
     
-    private func updateCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.getDetails(id: blockId)?.currentDetails else {
+    // MARK: - Private methods
+    private func setupQuickActionsSubscription() {
+        // visual delay on application launch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
+                switch action {
+                case .newNote:
+                    self?.createAndShowNewPage()
+                    QuickActionsStorage.shared.action = nil
+                case .none:
+                    break
+                }
+            }
+        }
+    }
+    
+    private func onDashboardChange(updateResult: EventsListenerUpdate) {
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            switch updateResult {
+            case .general:
+                reloadItems()
+            case .blocks(let blockIds):
+                blockIds.forEach { updateFavoritesCellWithTargetId($0) }
+            case .details(let detailId):
+                updateFavoritesCellWithTargetId(detailId)
+            case .syncStatus:
+                break
+            }
+        }
+    }
+
+    private func reloadItems() {
+        updateBinTab()
+        updateHistoryTab()
+        updateFavoritesTab()
+        updateSharedTab()
+    }
+    
+    private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
+        guard let newDetails = document.detailsStorage.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)")
             return
         }
@@ -85,34 +125,50 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                favoritesCellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+                favoritesCellData[offset] = cellDataBuilder.updatedCellData(
+                    newDetails: newDetails,
+                    oldData: data
+                )
             }
     }
 }
 
 // MARK: - New page
 extension HomeViewModel {
-    func createNewPage() {
-        guard let response = dashboardService.createNewPage() else { return }
-        
-        document.handle(
-            events: PackOfEvents(middlewareEvents: response.messages)
-        )
-
-        guard !response.newBlockId.isEmpty else {
-            anytypeAssertionFailure("No new block id in create new page response")
-            return
-        }
-        
-        showPage(pageId: response.newBlockId)
-    }
-    
     func startSearch() {
         showSearch = true
     }
     
+    func createAndShowNewPage() {
+        guard let blockId = createNewPage() else { return }
+        
+        showPage(pageId: blockId)
+    }
+    
     func showPage(pageId: BlockId) {
-        openedPageData.pageId = pageId
-        openedPageData.showingNewPage = true
+        if openedPageData.showingNewPage {
+            editorBrowser?.showPage(pageId: pageId)
+        } else {
+            animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
+            openedPageData.pageId = pageId
+            openedPageData.showingNewPage = true
+        }
+    }
+    
+    func createBrowser() -> some View {
+        EditorAssembly().editor(blockId: openedPageData.pageId, model: self)
+            .eraseToAnyView()
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func createNewPage() -> BlockId? {
+        guard let newBlockId = dashboardService.createNewPage() else { return nil }
+
+        if newBlockId.isEmpty {
+            anytypeAssertionFailure("No new block id in create new page response")
+            return nil
+        }
+        
+        return newBlockId
     }
 }

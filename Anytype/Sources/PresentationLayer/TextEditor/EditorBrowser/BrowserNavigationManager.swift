@@ -17,7 +17,7 @@ final class BrowserNavigationManager {
     
     private var state = State.default
     private var cachedChildrenCount = 0
-    
+
     func moveForwardOnce() -> Bool {
         guard case .default = state else { return false }
         
@@ -39,7 +39,7 @@ final class BrowserNavigationManager {
         guard let index = openedPages.firstIndex(of: page) else {
             throw BrowserNavigationManagerError.moveBack(page: page)
         }
-        
+
         state = .movingBack(index: index)
     }
     

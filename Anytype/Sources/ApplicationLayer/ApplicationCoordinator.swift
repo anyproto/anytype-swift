@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import Combine
 import AnytypeCore
+import BlocksModels
 
 final class ApplicationCoordinator {
     
@@ -36,7 +37,13 @@ final class ApplicationCoordinator {
     }
         
     fileprivate func createNavigationController() -> UINavigationController {
-        let controller = UINavigationController()
+        let controller: UINavigationController
+        
+        if #available(iOS 14.0, *) {
+            controller = iOS14SwiftUINavigationController()
+        } else {
+            controller = UINavigationController()
+        }
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
@@ -52,9 +59,18 @@ final class ApplicationCoordinator {
 private extension ApplicationCoordinator {
  
     func runAtFirstLaunch() {
-        guard UserDefaultsConfig.installedAtDate.isNil else { return }
+        if UserDefaultsConfig.defaultObjectType.isEmpty {
+            if UserDefaultsConfig.installedAtDate.isNil { // First launch
+                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.note).rawValue
+            } else {
+                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.page).rawValue
+            }
+        }
         
-        UserDefaultsConfig.installedAtDate = Date()
+        
+        if UserDefaultsConfig.installedAtDate.isNil {
+            UserDefaultsConfig.installedAtDate = Date()
+        }
     }
 
     func login() {
@@ -64,11 +80,9 @@ private extension ApplicationCoordinator {
             return
         }
         
-        let result = authService.selectAccount(id: userId)
-        switch result {
-        case .success:
+        if authService.selectAccount(id: userId) {
             showHomeScreen()
-        case .failure:
+        } else {
             showAuthScreen()
         }
     }

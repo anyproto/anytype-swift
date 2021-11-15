@@ -10,8 +10,6 @@ extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error: Swift.Err
 extension Anytype_Rpc.BlockList.Move.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Duplicate.Response.Error: Swift.Error {}
-extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error: Swift.Error {}
-extension Anytype_Rpc.BlockList.Set.Page.IsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error: Swift.Error {}
@@ -19,7 +17,6 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error: Swift.Error 
 extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
-extension Anytype_Rpc.BlockList.Delete.Page.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.TurnInto.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.UpdateContent.Response.Error: Swift.Error {}
@@ -56,6 +53,7 @@ extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.ViewCreate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.ViewUpdate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.ViewDelete.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.RecordUpdate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.RecordDelete.Response.Error: Swift.Error {}
@@ -67,6 +65,7 @@ extension Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Response.Error: Swi
 extension Anytype_Rpc.Block.Dataview.RecordRelationOptionUpdate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.RecordRelationOptionDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Get.Marks.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Undo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Redo.Response.Error: Swift.Error {}
@@ -80,7 +79,10 @@ extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.CreateSet.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Close.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Workspace.GetAll.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Select.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
@@ -91,9 +93,8 @@ extension Anytype_Rpc.Account.Select.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Stop.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Log.Send.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Version.Get.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Ipfs.File.Get.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error: Swift.Error {}
+extension Anytype_Rpc.File.Offload.Response.Error: Swift.Error {}
+extension Anytype_Rpc.FileList.Offload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Shutdown.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Config.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ping.Response.Error: Swift.Error {}
@@ -115,7 +116,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectType.Relation.Update.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectType.Relation.List.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ShareByLink.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Object.AddWithShareLink.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationAdd.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationUpdate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationDelete.Response.Error: Swift.Error {}
@@ -131,8 +132,12 @@ extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ToSet.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ObjectList.Delete.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExportTemplates.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ExportLocalstore.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: Swift.Error {}
 extension Anytype_Rpc.CloneTemplate.Response.Error: Swift.Error {}

@@ -1,24 +1,16 @@
 import BlocksModels
 import Combine
 
-struct BaseDocumentUpdateResult {
-    var updates: EventHandlerUpdate
-    var details: DetailsDataProtocol?
-    var models: [BlockModelProtocol]
-}
-
 protocol BaseDocumentProtocol: AnyObject {
-    var documentId: BlockId? { get }
-    var defaultDetailsActiveModel: DetailsActiveModel { get }
-    var rootActiveModel: BlockModelProtocol? { get }
-    var rootModel: RootBlockContainer? { get }
-    var eventHandler: EventHandler { get }
-    
-    func pageDetailsPublisher() -> AnyPublisher<DetailsDataProtocol?, Never>
-    func open(_ value: ResponseEvent)
-    func handle(events: PackOfEvents)
-    /// Return publisher that received event on blocks update
-    var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }
-    
-    func getDetails(id: BlockId) -> DetailsActiveModel?
+    var blocksContainer: BlockContainerModelProtocol { get }
+    var detailsStorage: ObjectDetailsStorageProtocol { get }
+    var objectRestrictions: ObjectRestrictions { get }
+    var relationsStorage: RelationsStorageProtocol { get }
+    var objectId: BlockId { get }
+    var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { get }
+    var objectDetails: ObjectDetails? { get }
+    var flattenBlocks: [BlockModelProtocol] { get }
+
+    @discardableResult
+    func open() -> Bool
 }

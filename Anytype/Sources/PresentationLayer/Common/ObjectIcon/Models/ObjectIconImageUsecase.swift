@@ -7,11 +7,13 @@ enum ObjectIconImageUsecase: Equatable {
     case openedObjectNavigationBar
     
     case editorSearch // slash menu + mention
+    case editorSearchExpandedIcons
     
     case dashboardList
     case dashboardProfile
     case dashboardSearch
     case mention(ObjectIconImageMentionType)
+    case editorAccessorySearch
 }
 
 extension ObjectIconImageUsecase {

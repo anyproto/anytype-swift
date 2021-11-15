@@ -10,6 +10,10 @@ final class EditorPageController: UIViewController {
     
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
+    private lazy var deletedScreen = EditorPageDeletedScreen(
+        onBackTap: viewModel.router.goBack
+    )
+    
     let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
@@ -81,6 +85,11 @@ final class EditorPageController: UIViewController {
             scrollView: collectionView
         )
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.viewAppeared()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -104,11 +113,18 @@ final class EditorPageController: UIViewController {
 
 extension EditorPageController: EditorPageViewInput {
     
-    func update(header: ObjectHeader, details: DetailsDataProtocol?) {
+    func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
-        
+
+        if #available(iOS 15.0, *) {
+            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
+        } else {
+            UIView.performWithoutAnimation {
+                dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
+            }
+        }
+
         navigationBarHelper.configureNavigationBar(
             using: header,
             details: details
@@ -124,16 +140,16 @@ extension EditorPageController: EditorPageViewInput {
         blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         
         let sectionSnapshot = self.dataSource.snapshot(for: .main)
-        
+
         sectionSnapshot.visibleItems.forEach { item in
             switch item {
             case let .block(block):
                 let blockForUpdate = blocks.first { $0.blockId == block.blockId }
-                
+
                 guard let blockForUpdate = blockForUpdate else { return }
                 guard let indexPath = self.dataSource.indexPath(for: item) else { return }
                 guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-                
+
                 cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
                 cell.indentationLevel = blockForUpdate.indentationLevel
             case .header:
@@ -161,16 +177,18 @@ extension EditorPageController: EditorPageViewInput {
         updateView()
     }
     
-    func needsUpdateLayout() {
-        updateView()
-    }
-    
     func textBlockWillBeginEditing() {
         contentOffset = collectionView.contentOffset
     }
     
     func textBlockDidBeginEditing() {
         collectionView.setContentOffset(contentOffset, animated: false)
+    }
+    
+    func showDeletedScreen(_ show: Bool) {
+        navigationBarHelper.setNavigationBarHidden(show)
+        deletedScreen.isHidden = !show
+        if show { UIApplication.shared.hideKeyboard() }
     }
     
     private func updateView() {
@@ -213,6 +231,10 @@ private extension EditorPageController {
         view.addSubview(collectionView) {
             $0.pinToSuperview()
         }
+        view.addSubview(deletedScreen) {
+            $0.pinToSuperview()
+        }
+        deletedScreen.isHidden = true
     }
     
     @objc
@@ -221,7 +243,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.blockActionHandler.onEmptySpotTap()
+        viewModel.actionHandler.createEmptyBlock(parentId: nil)
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {

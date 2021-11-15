@@ -1,4 +1,6 @@
 final class ImageName {
+    static let ghost = "ghost"
+    
     enum slashMenu {
         static let link_to = "slash_menu_link_to"
         
@@ -34,7 +36,7 @@ final class ImageName {
         enum actions {
             static let clear = "slash_menu_action_clear"
             static let copy = "slash_menu_action_copy"
-            static let delete = "slash_menu_action_delete"
+            static let delete = "delete"
             static let duplicate = "slash_menu_action_duplicate"
             static let move = "slash_menu_action_move"
             static let moveTo = "slash_menu_action_moveTo"
@@ -80,6 +82,7 @@ final class ImageName {
             static let code = "slash_menu_media_code"
             static let file = "slash_menu_media_file"
             static let video = "slash_menu_media_video"
+            static let audio = "slash_menu_media_audio"
             static let picture = "slash_menu_media_picture"
         }
         

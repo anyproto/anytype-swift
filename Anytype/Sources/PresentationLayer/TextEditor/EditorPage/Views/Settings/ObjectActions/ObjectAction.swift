@@ -1,15 +1,8 @@
-//
-//  ObjectAction.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 24.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 
 
-enum ObjectAction: Hashable {
+enum ObjectAction: Hashable, Identifiable {
+    
 
     // NOTE: When adding new case here, it case MUST be added in allCasesWith method
     case archive(isArchived: Bool)
@@ -19,18 +12,27 @@ enum ObjectAction: Hashable {
 //    case search
 
     // When adding to case
-    static func allCasesWith(details: DetailsDataProtocol) -> [Self] {
+    static func allCasesWith(details: ObjectDetails, objectRestrictions: ObjectRestrictions) -> [Self] {
         var allCases: [ObjectAction] = []
 
         // We shouldn't allow archive for profile
-        if details.typeUrl != ObjectTypeProvider.myProfileURL {
-            allCases.append(.archive(isArchived: details.isArchived ?? false))
+        if !objectRestrictions.objectRestriction.contains(.delete) {
+            allCases.append(.archive(isArchived: details.isArchived))
         }
-        allCases.append(.favorite(isFavorite: details.isFavorite ?? false))
+        allCases.append(.favorite(isFavorite: details.isFavorite))
 //        allCases.append(.moveTo)
 //        allCases.append(.template)
 //        allCases.append(.search)
 
         return allCases
+    }
+    
+    var id: String {
+        switch self {
+        case .archive:
+            return "archive"
+        case .favorite:
+            return "favorite"
+        }
     }
 }

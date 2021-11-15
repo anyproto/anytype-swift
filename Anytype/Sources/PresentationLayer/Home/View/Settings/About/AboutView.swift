@@ -6,7 +6,7 @@ import AnytypeCore
 import AudioToolbox
 
 struct AboutView: View {
-    @EnvironmentObject var viewModel: SettingSectionViewModel
+    @EnvironmentObject var viewModel: SettingsViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -47,7 +47,6 @@ struct AboutView: View {
             AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
         }
         .padding(.vertical, 12)
-        .modifier(DividerModifier(spacing: 0))
     }
     
     @State private var titleTapCount = 0

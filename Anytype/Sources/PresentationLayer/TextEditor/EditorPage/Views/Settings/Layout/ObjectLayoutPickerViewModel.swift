@@ -4,9 +4,9 @@ import Combine
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
         
-    @Published var details: DetailsDataProtocol = DetailsData.empty
+    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var selectedLayout: DetailsLayout {
-        details.layout ?? .basic
+        details.layout
     }
     
     // MARK: - Private variables
@@ -20,11 +20,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        detailsService.update(
-            details: [
-                .layout: DetailsEntry(value: layout)
-            ]
-        )
+        detailsService.updateLayout(layout)
     }
     
 }

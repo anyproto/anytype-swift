@@ -2,15 +2,21 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
-final class EditorBrowserController: UIViewController, UINavigationControllerDelegate {
+protocol EditorBrowser: AnyObject {
+    func pop()
+    func goToHome(animated: Bool)
+    func showPage(pageId: BlockId)
+}
+
+final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser {
         
     var childNavigation: UINavigationController!
     var router: EditorRouterProtocol!
-    
+
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     
     private let stateManager = BrowserNavigationManager()
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,7 +39,19 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        if let navigationController = navigationController as? iOS14SwiftUINavigationController {
+            navigationController.anytype_setNavigationBarHidden(true, animated: false)
+        } else {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let navigationController = navigationController as? iOS14SwiftUINavigationController {
+            navigationController.anytype_setNavigationBarHidden(false, animated: false)
+        }
     }
     
     // MARK: - Views
@@ -51,6 +69,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                     anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
                 }
+
                 self.childNavigation.popToViewController(controller, animated: true)
             },
             onForwardTap: { [weak self] in
@@ -72,7 +91,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(with: page.blockId)
             },
             onHomeTap: { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
+                self?.goToHome(animated: true)
             },
             onSearchTap: { [weak self] in
                 self?.router.showSearch { blockId in
@@ -82,14 +101,21 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         )
     }
     
-    // MARK: - Private
-    private func pop() {
+    func pop() {        
         if childNavigation.children.count > 1 {
             childNavigation.popViewController(animated: true)
         } else {
             navigationController?.popViewController(animated: true)
         }
-    }    
+    }
+    
+    func goToHome(animated: Bool) {
+        navigationController?.popViewController(animated: animated)
+    }
+    
+    func showPage(pageId: BlockId) {
+        router.showPage(with: pageId)
+    }
     
     // MARK: - Unavailable
     @available(*, unavailable)
@@ -105,14 +131,16 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedPageId(viewController.viewModel.documentId)
+        let documentId = viewController.viewModel.document.objectId
+        UserDefaultsConfig.storeOpenedPageId(documentId)
         
-        let title = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.name
-        let subtitle = viewController.viewModel.document.defaultDetailsActiveModel.currentDetails?.description
+        let details = viewController.viewModel.document.detailsStorage.get(id: documentId)
+        let title = details?.name
+        let subtitle = details?.description
         do {
             try stateManager.didShow(
                 page: BrowserPage(
-                    blockId: viewController.viewModel.documentId,
+                    blockId: viewController.viewModel.document.objectId,
                     title: title,
                     subtitle: subtitle,
                     controller: viewController

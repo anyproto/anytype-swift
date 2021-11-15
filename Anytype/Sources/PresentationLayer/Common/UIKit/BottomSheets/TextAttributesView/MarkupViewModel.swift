@@ -2,22 +2,37 @@ import AnytypeCore
 import BlocksModels
 import Foundation
 
+extension MarkupViewModel {
+    struct AllAttributesState {
+        let markup: [MarkupType: AttributeState]
+        let alignment: [LayoutAlignment: AttributeState]
+    }
+}
+
 final class MarkupViewModel {
     
     var blockInformation: BlockInformation? {
         didSet {
             guard case let .text(textBlock) = blockInformation?.content else { return }
-            anytypeText = AttributedTextConverter.asModel(text: textBlock.text, marks: textBlock.marks, style: textBlock.contentType)
+            anytypeText = AttributedTextConverter.asModel(
+                text: textBlock.text,
+                marks: textBlock.marks,
+                style: textBlock.contentType,
+                detailsStorage: detailsStorage
+            )
             displayCurrentState()
         }
     }
     weak var view: MarkupViewProtocol?
-    private let actionHandler: EditorActionHandlerProtocol
+    private let actionHandler: BlockActionHandlerProtocol
+    private let detailsStorage: ObjectDetailsStorageProtocol
+
     private var selectedRange: MarkupRange?
     private var anytypeText: UIKitAnytypeText?
-
-    init(actionHandler: EditorActionHandlerProtocol) {
+    
+    init(actionHandler: BlockActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
         self.actionHandler = actionHandler
+        self.detailsStorage = detailsStorage
     }
     
     func setRange(_ range: MarkupRange) {
@@ -47,9 +62,9 @@ final class MarkupViewModel {
     }
     
     private func setMarkup(
-        markup: BlockHandlerActionType.TextAttributesType, blockId: BlockId
+        markup: MarkupType, blockId: BlockId
     ) {
-        actionHandler.handleAction(.toggleWholeBlockMarkup(markup), blockId: blockId)
+        actionHandler.toggleWholeBlockMarkup(markup, blockId: blockId)
     }
     
     private func textAttributes(
@@ -57,23 +72,21 @@ final class MarkupViewModel {
         from content: BlockText,
         range: NSRange,
         alignment: LayoutAlignment
-    ) -> AllMarkupsState {
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(for: content.contentType)
+    ) -> AllAttributesState {
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
-        let markupCalculator = MarkupStateCalculator(
-            attributedText: anytypeText.attrString,
-            range: range,
-            restrictions: restrictions,
-            alignment: alignment.asNSTextAlignment
-        )
-        return AllMarkupsState(
-            bold: markupCalculator.boldState(),
-            italic: markupCalculator.italicState(),
-            strikethrough: markupCalculator.strikethroughState(),
-            codeStyle: markupCalculator.codeState(),
-            alignment: markupCalculator.alignmentState(),
-            url: nil
-        )
+        let markupsStates = AttributeState.allMarkupAttributesState(in: range, string: anytypeText.attrString, with: restrictions)
+
+        var alignmentsStates = [LayoutAlignment: AttributeState]()
+        LayoutAlignment.allCases.forEach {
+            guard restrictions.isAlignmentAvailable($0) else {
+                alignmentsStates[$0] = .disabled
+                return
+            }
+            alignmentsStates[$0] = alignment == $0 ? .applied : .notApplied
+        }
+
+        return .init(markup: markupsStates, alignment: alignmentsStates)
     }
 }
 
@@ -90,10 +103,7 @@ extension MarkupViewModel: MarkupViewModelProtocol {
         }
         switch action {
         case let .selectAlignment(alignment):
-            actionHandler.handleAction(
-                .setAlignment(alignment),
-                blockId: blockInformation.id
-            )
+            actionHandler.setAlignment(alignment, blockId: blockInformation.id)
         case let .toggleMarkup(markup):
             setMarkup(markup: markup, blockId: blockInformation.id)
         }

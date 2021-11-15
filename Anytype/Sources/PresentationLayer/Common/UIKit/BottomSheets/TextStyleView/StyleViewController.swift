@@ -50,8 +50,6 @@ private extension StyleViewController {
 // MARK: - StyleViewController
 
 final class StyleViewController: UIViewController {
-    typealias ActionHandler = (_ action: BlockHandlerActionType) -> Void
-
     // MARK: - Views
 
     private lazy var styleCollectionView: UICollectionView = {
@@ -114,7 +112,8 @@ final class StyleViewController: UIViewController {
     // MARK: - Other properties
 
     private weak var viewControllerForPresenting: UIViewController?
-    private var actionHandler: ActionHandler
+    private let blockId: BlockId
+    private let actionHandler: BlockActionHandlerProtocol
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
     private var didTapMarkupButton: (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
@@ -130,14 +129,16 @@ final class StyleViewController: UIViewController {
     /// - Parameter actionHandler: Handle bottom sheet  actions, see `StyleViewController.ActionType`
     /// - important: Use weak self inside `ActionHandler`
     init(
+        blockId: BlockId,
         viewControllerForPresenting: UIViewController,
         style: BlockText.Style,
         restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
         didTapMarkupButton: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
-        actionHandler: @escaping ActionHandler
+        actionHandler: BlockActionHandlerProtocol
     ) {
+        self.blockId = blockId
         self.viewControllerForPresenting = viewControllerForPresenting
         self.style = style
         self.askColor = askColor
@@ -364,9 +365,9 @@ final class StyleViewController: UIViewController {
         currentDeselectAction?()
         currentDeselectAction = deselectAction
         if style == .code {
-            actionHandler(.toggleWholeBlockMarkup(.keyboard))
+            actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: blockId)
         } else {
-            actionHandler(.turnInto(style))
+            actionHandler.turnInto(style, blockId: blockId)
         }
     }
 
@@ -378,13 +379,18 @@ final class StyleViewController: UIViewController {
         let color = askColor() ?? .textPrimary
         let backgroundColor = askBackgroundColor() ?? .backgroundPrimary
 
-        let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler) {
+        let contentVC = StyleColorViewController(
+            blockId: blockId,
+            color: color,
+            backgroundColor: backgroundColor,
+            actionHandler: actionHandler
+        ) {
             button.isSelected = false
         }
         viewControllerForPresenting.embedChild(contentVC)
 
         contentVC.view.pinAllEdges(to: viewControllerForPresenting.view)
-        contentVC.containerView.layoutUsing.anchors {
+        contentVC.colorView.containerView.layoutUsing.anchors {
             $0.width.equal(to: 260)
             $0.height.equal(to: 176)
             $0.trailing.equal(to: view.trailingAnchor, constant: -10)

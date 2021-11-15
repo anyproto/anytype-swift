@@ -7,7 +7,7 @@ final class GalleryViewTransitionAnimator: NSObject {
     }
 
     private struct Contants {
-        static let duration = 0.3
+        static let duration = 0.2
     }
 
     init(

@@ -11,16 +11,21 @@ struct HomeCellData: Identifiable {
     let type: String
     let isLoading: Bool
     let isArchived: Bool
+    let isDeleted: Bool
     
-    static func create(searchResult: DetailsDataProtocol) -> HomeCellData {
+    var selected: Bool
+    
+    static func create(searchResult: SearchData) -> HomeCellData {
         HomeCellData(
-            id: searchResult.blockId,
-            destinationId: searchResult.blockId,
+            id: searchResult.id,
+            destinationId: searchResult.id,
             icon: searchResult.icon,
             title: searchResult.pageCellTitle,
-            type: searchResult.type?.name ?? "Page".localized,
+            type: searchResult.objectType.name,
             isLoading: false,
-            isArchived: searchResult.isArchived ?? false
+            isArchived: searchResult.isArchived,
+            isDeleted: searchResult.isDeleted,
+            selected: false
         )
     }
 }

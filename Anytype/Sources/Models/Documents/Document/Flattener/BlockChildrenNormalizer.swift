@@ -9,5 +9,5 @@ protocol BlockChildrenNormalizer {
     /// - Parameters:
     ///   - ids: Children ids to change
     ///   - container: Container with all blocks
-    func normalize(_ ids: [BlockId], in container: RootBlockContainer)
+    func normalize(_ ids: [BlockId], in blocksContainer: BlockContainerModelProtocol)
 }

@@ -9,7 +9,7 @@ struct CodeBlockRestrictions: BlockRestrictions {
     let canApplyBackgroundColor = true
     let canApplyMention = false
     let canCreateBlockBelowOnEnter = false
-    
+    let canDeleteOrDuplicate = true
     let availableAlignments = [LayoutAlignment]()
     let turnIntoStyles: [BlockContentType] = [
         .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),

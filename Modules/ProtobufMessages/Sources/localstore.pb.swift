@@ -27,6 +27,7 @@ public struct Anytype_Model_ObjectInfo {
 
   public var id: String = String()
 
+  /// deprecated
   public var objectTypeUrls: [String] = []
 
   public var details: SwiftProtobuf.Google_Protobuf_Struct {
@@ -44,7 +45,7 @@ public struct Anytype_Model_ObjectInfo {
 
   public var hasInboundLinks_p: Bool = false
 
-  public var objectType: Anytype_Model_SmartBlockType = .breadcrumbs
+  public var objectType: Anytype_Model_SmartBlockType = .accountOld
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -275,7 +276,7 @@ extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.hasInboundLinks_p != false {
       try visitor.visitSingularBoolField(value: self.hasInboundLinks_p, fieldNumber: 6)
     }
-    if self.objectType != .breadcrumbs {
+    if self.objectType != .accountOld {
       try visitor.visitSingularEnumField(value: self.objectType, fieldNumber: 7)
     }
     try unknownFields.traverse(visitor: &visitor)

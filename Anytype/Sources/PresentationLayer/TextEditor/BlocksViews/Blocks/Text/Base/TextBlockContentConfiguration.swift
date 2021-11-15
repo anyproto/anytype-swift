@@ -17,12 +17,11 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let isCheckable: Bool
     
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
-    let actionHandler: EditorActionHandlerProtocol
-    let accessorySwitcher: AccessoryViewSwitcherProtocol
-    
+    let actionHandler: BlockActionHandlerProtocol
+    let detailsStorage: ObjectDetailsStorageProtocol
     let showPage: (String) -> Void
     let openURL: (URL) -> Void
-    
+        
     let pressingEnterTimeChecker = TimeChecker()
     
     private(set) var isSelected: Bool = false
@@ -33,25 +32,25 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         content: BlockText,
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
-        actionHandler: EditorActionHandlerProtocol,
-        accessorySwitcher: AccessoryViewSwitcherProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
-        focusPublisher: AnyPublisher<BlockFocusPosition, Never>
+        focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
+        detailsStorage: ObjectDetailsStorageProtocol
     ) {
         self.blockDelegate = blockDelegate
         self.block = block
         self.content = content
         self.upperBlock = upperBlock
         self.actionHandler = actionHandler
-        self.accessorySwitcher = accessorySwitcher
         self.showPage = showPage
         self.openURL = openURL
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
+        self.detailsStorage = detailsStorage
         
-        self.text = content.anytypeText
+        self.text = content.anytypeText(using: detailsStorage)
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     

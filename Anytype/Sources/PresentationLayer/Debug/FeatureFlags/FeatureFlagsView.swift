@@ -2,13 +2,14 @@ import SwiftUI
 import AnytypeCore
 
 struct FeatureFlagsView: View {
-    @State var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
-    @State var showLogs = false
-    @State var showTypography = false
+    @State private var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
+    @State private var showLogs = false
+    @State private var showTypography = false
+    
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Feature flags 👻".localized, style: .title, color: .textPrimary)
+            AnytypeText("Debug menu 👻".localized, style: .title, color: .textPrimary)
             buttons
             toggles
         }

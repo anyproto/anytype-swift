@@ -4,7 +4,7 @@ import AnytypeCore
 extension CustomTextView {
     enum KeyboardAction {
         case enterAtTheBeginingOfContent(String)
-        case enterInsideContent(left: String?, right: String?)
+        case enterInsideContent(position: Int)
         case enterAtTheEndOfContent
         
         case deleteAtTheBeginingOfContent
@@ -16,39 +16,32 @@ extension CustomTextView.KeyboardAction {
     private static let newLine = "\n"
     private static let emptyString = ""
     
-    static func build(
-        textView: UITextView,
-        range: NSRange,
-        replacement: String
-    ) -> Self? {
+    static func build(text: String, range: NSRange, replacement: String) -> Self? {
+        guard let range = Range(range, in: text) else { return nil }
+
+        let isEmpty = range.isEmpty && range.lowerBound == text.startIndex
+
         if replacement == newLine {
-            if range == .zero {
-                return .enterAtTheBeginingOfContent(textView.text)
+            if isEmpty {
+                return .enterAtTheBeginingOfContent(text)
             }
-            
-            if textView.text.count == range.location + range.length {
+
+            if text.endIndex == range.upperBound {
                 return .enterAtTheEndOfContent
             }
             
-            let spitedText = splitText(text: textView.text, range: range)
-            return .enterInsideContent(left: spitedText.left, right: spitedText.right)
+            let position = String(text[..<range.lowerBound]).count
+            return .enterInsideContent(position: position)
         }
         
-        if textView.text == emptyString, replacement == emptyString, range == .zero {
+        if text == emptyString, replacement == emptyString, isEmpty {
             return .deleteOnEmptyContent
         }
         
-        if replacement == emptyString, range == .zero {
+        if replacement == emptyString, isEmpty {
             return .deleteAtTheBeginingOfContent
         }
         
         return nil
-    }
-    
-    private static func splitText(text: String, range: NSRange) -> (left: String, right: String) {
-        let left = text.prefix(range.location)
-        let rightStart = text.index(text.startIndex, offsetBy: range.location + range.length)
-        let right = text[rightStart..<text.endIndex]
-        return (String(left), String(right))
     }
 }

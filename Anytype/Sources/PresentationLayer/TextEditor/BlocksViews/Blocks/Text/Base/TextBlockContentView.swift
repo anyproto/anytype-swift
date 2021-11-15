@@ -14,9 +14,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
         guard let self = self else { return }
         let blockId = self.currentConfiguration.information.id
-        self.currentConfiguration.actionHandler.handleAction(
-            .createEmptyBlock(parentId: blockId), blockId: blockId
-        )
+        self.currentConfiguration.actionHandler.createEmptyBlock(parentId: blockId)
     }
     
     private let mainStackView: UIStackView = makeMainStackView()
@@ -99,9 +97,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
         
-        let restrictions = BlockRestrictionsFactory().makeTextRestrictions(
-            for: currentConfiguration.content.contentType
-        )
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: currentConfiguration.content.contentType)
         
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: currentConfiguration)
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration, restrictions: restrictions)
@@ -115,7 +111,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
         selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
-        
+
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }

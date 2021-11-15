@@ -4,6 +4,8 @@ import BlocksModels
 
 final class EditorNavigationBarHelper {
     
+    private weak var controller: UIViewController?
+    
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
@@ -13,7 +15,9 @@ final class EditorNavigationBarHelper {
     private var contentOffsetObservation: NSKeyValueObservation?
     
     private var isObjectHeaderWithCover = false
-    private var objectHeaderHeight: CGFloat = 0.0
+    
+    private var startAppearingOffset: CGFloat = 0.0
+    private var endAppearingOffset: CGFloat = 0.0
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
@@ -59,24 +63,17 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         contentOffsetObservation = nil
     }
     
-    func configureNavigationBar(using header: ObjectHeader, details: DetailsDataProtocol?) {
+    func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?) {
         isObjectHeaderWithCover = header.isWithCover
-        objectHeaderHeight = header.height
+        startAppearingOffset = header.startAppearingOffset
+        endAppearingOffset = header.endAppearingOffset
         
         updateBarButtonItemsBackground(percent: 0)
-        
-        let title: String = {
-            if let string = details?.name, string.isNotEmpty {
-                return string
-            }
-            
-            return "Untitled".localized
-        }()
-        
+
         navigationBarTitleView.configure(
             model: EditorNavigationBarTitleView.Model(
                 icon: details?.objectIconImage,
-                title: title
+                title: details?.title
             )
         )
     }
@@ -84,7 +81,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     func updateSyncStatus(_ status: SyncStatus) {
         syncStatusItem.isHidden = false
         syncStatusItem.changeStatus(status)
-    }    
+    }
+    
+    func setNavigationBarHidden(_ hidden: Bool) {
+        controller?.navigationController?.setNavigationBarHidden(hidden, animated: false)
+        fakeNavigationBarBackgroundView.isHidden = hidden
+    }
 }
 
 // MARK: - Private extension
@@ -102,6 +104,10 @@ private extension EditorNavigationBarHelper {
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(
             customView: syncStatusItem
         )
+        
+        controller = vc
+        
+        setNavigationBarHidden(false)
     }
     
     func updateBarButtonItemsBackground(percent: CGFloat) {
@@ -119,9 +125,6 @@ private extension EditorNavigationBarHelper {
     }
     
     private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {
-        let startAppearingOffset = objectHeaderHeight - 50
-        let endAppearingOffset = objectHeaderHeight
-
         let navigationBarHeight = fakeNavigationBarBackgroundView.bounds.height
         let yFullOffset = offset + navigationBarHeight
 
@@ -153,7 +156,17 @@ private extension ObjectHeader {
         }
     }
     
-    var height: CGFloat {
+    var startAppearingOffset: CGFloat {
+        switch self {
+        case .filled:
+            return ObjectHeaderView.Constants.height - 100
+            
+        case .empty:
+            return ObjectHeaderEmptyContentView.Constants.height - 50
+        }
+    }
+    
+    var endAppearingOffset: CGFloat {
         switch self {
         case .filled:
             return ObjectHeaderView.Constants.height

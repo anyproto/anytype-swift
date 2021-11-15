@@ -30,7 +30,11 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
             audioPlayer.pause(audioId: information.id)
             audioPlayerView?.pause()
         } else {
-            audioPlayer.play(audioId: information.id, playerItem: playerItem, seekTime: sliderValue, delegate: self)
+            audioPlayer.play(audioId: information.id,
+                             name: fileData.metadata.name,
+                             playerItem: playerItem,
+                             seekTime: sliderValue,
+                             delegate: self)
             audioPlayerView?.play()
         }
     }

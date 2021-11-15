@@ -27,7 +27,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
+    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (BlockId) -> ())
+    func showTypesSearch(onSelect: @escaping (BlockId) -> ())
+    
+    func goBack()
 }
 
 protocol AttachmentRouterProtocol {
@@ -57,8 +61,8 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        if let details = document.getDetails(id: id)?.currentDetails {
-            let typeUrl = details.typeUrl
+        if let details = document.detailsStorage.get(id: id) {
+            let typeUrl = details.type
             guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
                 let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
                 
@@ -123,9 +127,8 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
-              let container = document.rootActiveModel?.container,
               let rootController = rootController,
-              let blockModel = container.model(id: information.id) else { return }
+              let blockModel = document.blocksContainer.model(id: information.id) else { return }
 
         controller.view.endEditing(true)
 
@@ -144,7 +147,7 @@ final class EditorRouter: EditorRouterProtocol {
             parentViewController: rootController,
             delegate: controller,
             blockModel: blockModel,
-            actionHandler: controller.viewModel.blockActionHandler,
+            actionHandler: controller.viewModel.actionHandler,
             didShow: didShow,
             showMarkupMenu: { [weak controller, weak rootController] styleView, viewDidClose in
                 guard let controller = controller else { return }
@@ -167,17 +170,14 @@ final class EditorRouter: EditorRouterProtocol {
             return
         }
         
-        let controller = UIHostingController(
-            rootView: ObjectSettingsContainerView(
-                viewModel: viewModel
-            )
-        )
+        let rootView = ObjectSettingsContainerView(viewModel: viewModel)
+        let controller = UIHostingController(rootView: rootView)
         controller.modalPresentationStyle = .overCurrentContext
         
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
         
-        controller.rootView.onHide = { [weak controller] in
+        rootView.viewModel.configure { [weak controller] in
             controller?.dismiss(animated: false)
         }
         
@@ -197,33 +197,60 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let moveToView = SearchView(title: "Move to".localized) { data in
-            onSelect(data.id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
+            onSelect(id)
         }
+        let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
         
-        presentSwuftUIView(view: moveToView)
+        presentSwuftUIView(view: moveToView, model: viewModel)
     }
-    
-    func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let linkToView = SearchView(title: "Link to") { data in
-            onSelect(data.id)
+
+    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
+        let viewModel = LinkToObjectSearchViewModel { searchKind in
+            onSelect(searchKind)
         }
+        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
+
+        presentSwuftUIView(view: linkToView, model: viewModel)
+    }
+
+    func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
+            onSelect(id)
+        }
+        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
         
-        presentSwuftUIView(view: linkToView)
+        presentSwuftUIView(view: linkToView, model: viewModel)
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let searchView = SearchView(title: nil) { data in
-            onSelect(data.id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
+            onSelect(id)
         }
+        let searchView = SearchView(title: nil, viewModel: viewModel)
         
-        presentSwuftUIView(view: searchView)
+        presentSwuftUIView(view: searchView, model: viewModel)
     }
     
-    private func presentSwuftUIView<Content: View>(view: Content) {
+    func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
+        let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? "")
+        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { id in
+            onSelect(id)
+        }
+        let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
+
+        presentSwuftUIView(view: searchView, model: viewModel)
+    }
+    
+    func goBack() {
+        rootController?.pop()
+    }
+    
+    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
+        model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.present(controller, animated: true)
     }
     

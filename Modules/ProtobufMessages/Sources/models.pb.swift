@@ -22,7 +22,8 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
-  case breadcrumbs // = 0
+  case accountOld // = 0
+  case breadcrumbs // = 1
   case page // = 16
   case profilePage // = 17
   case home // = 32
@@ -45,16 +46,20 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case bundledObjectType // = 514
   case anytypeProfile // = 515
   case date // = 516
-  case workspace // = 517
+
+  /// deprecated thread-based workspace
+  case workspaceOld // = 517
+  case workspace // = 518
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .breadcrumbs
+    self = .accountOld
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .breadcrumbs
+    case 0: self = .accountOld
+    case 1: self = .breadcrumbs
     case 16: self = .page
     case 17: self = .profilePage
     case 32: self = .home
@@ -73,14 +78,16 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 514: self = .bundledObjectType
     case 515: self = .anytypeProfile
     case 516: self = .date
-    case 517: self = .workspace
+    case 517: self = .workspaceOld
+    case 518: self = .workspace
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .breadcrumbs: return 0
+    case .accountOld: return 0
+    case .breadcrumbs: return 1
     case .page: return 16
     case .profilePage: return 17
     case .home: return 32
@@ -99,7 +106,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .bundledObjectType: return 514
     case .anytypeProfile: return 515
     case .date: return 516
-    case .workspace: return 517
+    case .workspaceOld: return 517
+    case .workspace: return 518
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -111,6 +119,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 extension Anytype_Model_SmartBlockType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_SmartBlockType] = [
+    .accountOld,
     .breadcrumbs,
     .page,
     .profilePage,
@@ -130,6 +139,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .bundledObjectType,
     .anytypeProfile,
     .date,
+    .workspaceOld,
     .workspace,
   ]
 }
@@ -143,19 +153,19 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
   /// string
   case longtext // = 0
 
-  /// string, usually short enough. May be truncated
+  /// string, usually short enough. May be truncated in the future
   case shorttext // = 1
 
   /// double
   case number // = 2
 
-  /// string (choose one from a list)
+  /// string or list of string(len==1)
   case status // = 3
 
   /// list of string (choose multiple from a list)
   case tag // = 11
 
-  /// int64(pb.Value doesn't have int64) or string
+  /// float64(pb.Value doesn't have int64) or the string
   case date // = 4
 
   /// relation can has objects of specific types: file, image, audio, video
@@ -179,7 +189,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
   /// relation can has objectType to specify objectType
   case object // = 100
 
-  /// base64-encoded
+  /// base64-encoded relation pb model
   case relations // = 101
   case UNRECOGNIZED(Int)
 
@@ -282,12 +292,22 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
 
   public var objectTypes: [String] = []
 
+  public var collections: SwiftProtobuf.Google_Protobuf_Struct {
+    get {return _collections ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_collections = newValue}
+  }
+  /// Returns true if `collections` has been explicitly set.
+  public var hasCollections: Bool {return self._collections != nil}
+  /// Clears the value of `collections`. Subsequent reads from it will return its default value.
+  public mutating func clearCollections() {self._collections = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _fileKeys: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  fileprivate var _collections: SwiftProtobuf.Google_Protobuf_Struct? = nil
 }
 
 public struct Anytype_Model_Block {
@@ -513,12 +533,27 @@ public struct Anytype_Model_Block {
   public enum Position: SwiftProtobuf.Enum {
     public typealias RawValue = Int
     case none // = 0
+
+    /// above target block
     case top // = 1
+
+    /// under target block
     case bottom // = 2
+
+    /// to left of target block
     case left // = 3
+
+    /// to right of target block
     case right // = 4
+
+    /// inside target block, as last block
     case inner // = 5
+
+    /// replace target block
     case replace // = 6
+
+    /// inside target block, as first block
+    case innerFirst // = 7
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -534,6 +569,7 @@ public struct Anytype_Model_Block {
       case 4: self = .right
       case 5: self = .inner
       case 6: self = .replace
+      case 7: self = .innerFirst
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -547,6 +583,7 @@ public struct Anytype_Model_Block {
       case .right: return 4
       case .inner: return 5
       case .replace: return 6
+      case .innerFirst: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -950,6 +987,8 @@ public struct Anytype_Model_Block {
           case textColor // = 6
           case backgroundColor // = 7
           case mention // = 8
+          case emoji // = 9
+          case object // = 10
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -967,6 +1006,8 @@ public struct Anytype_Model_Block {
             case 6: self = .textColor
             case 7: self = .backgroundColor
             case 8: self = .mention
+            case 9: self = .emoji
+            case 10: self = .object
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -982,6 +1023,8 @@ public struct Anytype_Model_Block {
             case .textColor: return 6
             case .backgroundColor: return 7
             case .mention: return 8
+            case .emoji: return 9
+            case .object: return 10
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -1540,6 +1583,7 @@ extension Anytype_Model_Block.Position: CaseIterable {
     .right,
     .inner,
     .replace,
+    .innerFirst,
   ]
 }
 
@@ -1611,6 +1655,8 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
     .textColor,
     .backgroundColor,
     .mention,
+    .emoji,
+    .object,
   ]
 }
 
@@ -1834,6 +1880,35 @@ public struct Anytype_Model_Account {
     }
 
     public init() {}
+  }
+
+  public struct Config {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var enableDataview: Bool = false
+
+    public var enableDebug: Bool = false
+
+    public var enableReleaseChannelSwitch: Bool = false
+
+    public var enableSpaces: Bool = false
+
+    public var extra: SwiftProtobuf.Google_Protobuf_Struct {
+      get {return _extra ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_extra = newValue}
+    }
+    /// Returns true if `extra` has been explicitly set.
+    public var hasExtra: Bool {return self._extra != nil}
+    /// Clears the value of `extra`. Subsequent reads from it will return its default value.
+    public mutating func clearExtra() {self._extra = nil}
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _extra: SwiftProtobuf.Google_Protobuf_Struct? = nil
   }
 
   public init() {}
@@ -2126,6 +2201,8 @@ public struct Anytype_Model_ObjectType {
     case file // = 6
     case dashboard // = 7
     case image // = 8
+    case note // = 9
+    case space // = 10
 
     /// to be released later
     case database // = 20
@@ -2146,6 +2223,8 @@ public struct Anytype_Model_ObjectType {
       case 6: self = .file
       case 7: self = .dashboard
       case 8: self = .image
+      case 9: self = .note
+      case 10: self = .space
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -2162,6 +2241,8 @@ public struct Anytype_Model_ObjectType {
       case .file: return 6
       case .dashboard: return 7
       case .image: return 8
+      case .note: return 9
+      case .space: return 10
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -2186,6 +2267,8 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .file,
     .dashboard,
     .image,
+    .note,
+    .space,
     .database,
   ]
 }
@@ -2357,6 +2440,9 @@ public struct Anytype_Model_Relation {
 
     /// stored in the account DB. means existing only for specific anytype account
     case account // = 2
+
+    /// stored locally
+    case local // = 3
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -2368,6 +2454,7 @@ public struct Anytype_Model_Relation {
       case 0: self = .details
       case 1: self = .derived
       case 2: self = .account
+      case 3: self = .local
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -2377,6 +2464,7 @@ public struct Anytype_Model_Relation {
       case .details: return 0
       case .derived: return 1
       case .account: return 2
+      case .local: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2465,6 +2553,7 @@ extension Anytype_Model_Relation.DataSource: CaseIterable {
     .details,
     .derived,
     .account,
+    .local,
   ]
 }
 
@@ -2509,7 +2598,8 @@ fileprivate let _protobuf_package = "anytype.model"
 
 extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Breadcrumbs"),
+    0: .same(proto: "AccountOld"),
+    1: .same(proto: "Breadcrumbs"),
     16: .same(proto: "Page"),
     17: .same(proto: "ProfilePage"),
     32: .same(proto: "Home"),
@@ -2528,7 +2618,8 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     514: .same(proto: "BundledObjectType"),
     515: .same(proto: "AnytypeProfile"),
     516: .same(proto: "Date"),
-    517: .same(proto: "Workspace"),
+    517: .same(proto: "WorkspaceOld"),
+    518: .same(proto: "Workspace"),
   ]
 }
 
@@ -2559,6 +2650,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     3: .same(proto: "fileKeys"),
     4: .same(proto: "extraRelations"),
     5: .same(proto: "objectTypes"),
+    6: .same(proto: "collections"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2572,6 +2664,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 3: try { try decoder.decodeSingularMessageField(value: &self._fileKeys) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.extraRelations) }()
       case 5: try { try decoder.decodeRepeatedStringField(value: &self.objectTypes) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._collections) }()
       default: break
       }
     }
@@ -2597,6 +2690,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.objectTypes.isEmpty {
       try visitor.visitRepeatedStringField(value: self.objectTypes, fieldNumber: 5)
     }
+    try { if let v = self._collections {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2606,6 +2702,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs._fileKeys != rhs._fileKeys {return false}
     if lhs.extraRelations != rhs.extraRelations {return false}
     if lhs.objectTypes != rhs.objectTypes {return false}
+    if lhs._collections != rhs._collections {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2950,6 +3047,7 @@ extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
     4: .same(proto: "Right"),
     5: .same(proto: "Inner"),
     6: .same(proto: "Replace"),
+    7: .same(proto: "InnerFirst"),
   ]
 }
 
@@ -3455,6 +3553,8 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: SwiftProtobuf._ProtoNa
     6: .same(proto: "TextColor"),
     7: .same(proto: "BackgroundColor"),
     8: .same(proto: "Mention"),
+    9: .same(proto: "Emoji"),
+    10: .same(proto: "Object"),
   ]
 }
 
@@ -4185,6 +4285,66 @@ extension Anytype_Model_Account.Avatar: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
+extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Config"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "enableDataview"),
+    2: .same(proto: "enableDebug"),
+    3: .same(proto: "enableReleaseChannelSwitch"),
+    4: .same(proto: "enableSpaces"),
+    100: .same(proto: "extra"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.enableDataview) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.enableDebug) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.enableReleaseChannelSwitch) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.enableSpaces) }()
+      case 100: try { try decoder.decodeSingularMessageField(value: &self._extra) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.enableDataview != false {
+      try visitor.visitSingularBoolField(value: self.enableDataview, fieldNumber: 1)
+    }
+    if self.enableDebug != false {
+      try visitor.visitSingularBoolField(value: self.enableDebug, fieldNumber: 2)
+    }
+    if self.enableReleaseChannelSwitch != false {
+      try visitor.visitSingularBoolField(value: self.enableReleaseChannelSwitch, fieldNumber: 3)
+    }
+    if self.enableSpaces != false {
+      try visitor.visitSingularBoolField(value: self.enableSpaces, fieldNumber: 4)
+    }
+    try { if let v = self._extra {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Account.Config, rhs: Anytype_Model_Account.Config) -> Bool {
+    if lhs.enableDataview != rhs.enableDataview {return false}
+    if lhs.enableDebug != rhs.enableDebug {return false}
+    if lhs.enableReleaseChannelSwitch != rhs.enableReleaseChannelSwitch {return false}
+    if lhs.enableSpaces != rhs.enableSpaces {return false}
+    if lhs._extra != rhs._extra {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".LinkPreview"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -4527,6 +4687,8 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     6: .same(proto: "file"),
     7: .same(proto: "dashboard"),
     8: .same(proto: "image"),
+    9: .same(proto: "note"),
+    10: .same(proto: "space"),
     20: .same(proto: "database"),
   ]
 }
@@ -4752,6 +4914,7 @@ extension Anytype_Model_Relation.DataSource: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "details"),
     1: .same(proto: "derived"),
     2: .same(proto: "account"),
+    3: .same(proto: "local"),
   ]
 }
 

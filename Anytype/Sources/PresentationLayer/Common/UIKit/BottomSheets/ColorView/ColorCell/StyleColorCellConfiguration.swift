@@ -10,7 +10,7 @@ import UIKit
 
 
 struct StyleColorCellContentConfiguration: UIContentConfiguration, Hashable {
-    let colorItem: StyleColorViewController.ColorItem
+    let colorItem: ColorView.ColorItem
     var isSelected: Bool = false
 
     func makeContentView() -> UIView & UIContentView {

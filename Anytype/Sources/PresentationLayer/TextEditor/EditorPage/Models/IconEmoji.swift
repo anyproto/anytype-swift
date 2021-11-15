@@ -21,5 +21,5 @@ struct IconEmoji: Hashable {
         self.value = value
     }
     
-    static let `default` = IconEmoji("📄")!
+    static let `default` = IconEmoji("⚪️")!
 }

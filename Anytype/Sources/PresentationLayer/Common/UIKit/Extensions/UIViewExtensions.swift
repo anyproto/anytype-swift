@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 // MARK: - Constraints
 
@@ -135,5 +136,12 @@ public extension UIView {
         (0..<count).map { _ in
             UIColor.randomColor()
         }
+    }
+}
+
+extension View {
+    func asUIView() -> UIView {
+        let hostingController = UIHostingController(rootView: self)
+        return hostingController.view
     }
 }

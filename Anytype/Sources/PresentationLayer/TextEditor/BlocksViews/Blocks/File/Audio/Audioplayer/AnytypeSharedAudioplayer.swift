@@ -42,13 +42,13 @@ final class AnytypeSharedAudioplayer {
         anytypeAudioplayer.setTrackTime(value: value, completion: completion)
     }
 
-    func play(audioId: String, playerItem: AVPlayerItem?, seekTime: Double, delegate: AnytypeAudioPlayerDelegate) {
+    func play(audioId: String, name: String, playerItem: AVPlayerItem?, seekTime: Double, delegate: AnytypeAudioPlayerDelegate) {
         if currentAudioId != audioId {
             // pause current audio item
             anytypeAudioplayer.pause()
 
             // set new audio item
-            anytypeAudioplayer.setAudio(playerItem: playerItem, delegate: delegate)
+            anytypeAudioplayer.setAudio(playerItem: playerItem, name: name, delegate: delegate)
             currentAudioId = audioId
         }
         anytypeAudioplayer.setTrackTime(value: seekTime, completion: { [weak self] in
@@ -57,7 +57,7 @@ final class AnytypeSharedAudioplayer {
     }
 
     func updateDelegate(audioId: String, delegate: AnytypeAudioPlayerDelegate) {
-        guard currentAudioId == audioId else { return }
+        guard currentAudioId == audioId, anytypeAudioplayer.delegate !== delegate  else { return }
         anytypeAudioplayer.delegate = delegate
     }
 }

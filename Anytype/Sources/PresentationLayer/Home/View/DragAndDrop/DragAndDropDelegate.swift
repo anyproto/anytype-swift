@@ -33,10 +33,7 @@ extension HomeViewModel: DragAndDropDelegate {
     }
     
     func onDrop(from: HomeCellData, to: HomeCellData, direction: DropData.Direction) -> Bool {
-        guard let homeBlockId = MiddlewareConfigurationService.shared.configuration()?.homeBlockID else {
-            anytypeAssertionFailure("Shared configuration is nil")
-            return false
-        }
+        let homeBlockId = MiddlewareConfigurationService.shared.configuration().homeBlockID
         
         objectActionsService.move(
             dashboadId: homeBlockId,

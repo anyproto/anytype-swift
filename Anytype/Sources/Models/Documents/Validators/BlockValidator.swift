@@ -1,16 +1,9 @@
 
 import BlocksModels
 
-struct BlockValidator {
-    
-    private let restrictionsFactory: BlockRestrictionsFactory
-    
-    init(restrictionsFactory: BlockRestrictionsFactory) {
-        self.restrictionsFactory = restrictionsFactory
-    }
-    
+struct BlockValidator {    
     func validated(information info: BlockInformation) -> BlockInformation {
-        let restrictions = restrictionsFactory.makeRestrictions(for: info.content)
+        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
         
         let content: BlockContent
         if case let .text(text) = info.content {
@@ -48,7 +41,7 @@ struct BlockValidator {
     func validatedTextContent(content: BlockText, restrictions: BlockRestrictions) -> BlockText {
         let filteredMarks = content.marks.marks.filter { mark in
             switch mark.type {
-            case .strikethrough, .keyboard, .underscored, .link:
+            case .strikethrough, .keyboard, .underscored, .link, .object:
                 return restrictions.canApplyOtherMarkup
             case .bold:
                 return restrictions.canApplyBold
@@ -61,6 +54,8 @@ struct BlockValidator {
             case .mention:
                 return restrictions.canApplyMention
             case .UNRECOGNIZED:
+                return false
+            case .emoji:
                 return false
             }
         }

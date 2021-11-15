@@ -54,24 +54,23 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     func selectProfile(id: String) {
-        let result = authService.selectAccount(id: id)
-        
-        switch result {
-        case .success:
+        if authService.selectAccount(id: id) {
             showHomeView()
-        case .failure(let error):
-            self.error = error.localizedDescription
+        } else {
+            self.error = "Select account error".localized
         }
     }
     
     // MARK: - Private func
     
     private func handleAccountShowEvent() {
-        cancellable = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
-            .compactMap { notification in
-                return notification.object as? Anytype_Event
-            }
-            .map(\.messages)
+        cancellable = NotificationCenter.Publisher(
+            center: .default,
+            name: .middlewareEvent,
+            object: nil
+        )
+            .compactMap { $0.object as? EventsBunch }
+            .map(\.middlewareEvents)
             .map {
                 $0.filter { message in
                     guard let value = message.value else { return false }
@@ -91,16 +90,6 @@ class SelectProfileViewModel: ObservableObject {
                 
                 self.selectProfile(id: events[0].accountShow.account.id)
             }
-    }
-    
-    private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        let result = fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize)
-        switch result {
-        case .success(let data):
-            profileViewModel.image = UIImage(data: data)
-        case .failure(let error):
-            self.error = error.localizedDescription
-        }
     }
     
     func showHomeView() {

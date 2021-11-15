@@ -12,9 +12,7 @@ extension UITextView {
     }
     
     var caretPosition: UITextPosition? {
-        if !isFirstResponder {
-            return nil
-        }
+        guard isFirstResponder else { return nil }
         let offset = selectedRange.location + selectedRange.length
         return position(from: beginningOfDocument, offset: offset)
     }
@@ -47,7 +45,10 @@ extension UITextView {
     }
     
     func setFocus(_ position: BlockFocusPosition) {
-        let selectedRange = position.toSelectedRange(in: text)
+        let selectedRange = position.toSelectedRange(in: NSString(string: text))
+        // There is issue with persist typing attributes (font) when setting attr text with NSTextStorage
+        // Also we can't use https://github.com/anytypeio/ios-anytype/pull/1703 this approach as cursor will be reseted on typing
+        let oldTypingAttributes = typingAttributes
 
         if let beginningSelectedTextPostion = self.position(from: beginningOfDocument, offset: selectedRange.location),
            let endSelectedTextPosition = self.position(from: beginningSelectedTextPostion, offset: selectedRange.length)
@@ -60,9 +61,10 @@ extension UITextView {
         if !isFirstResponder && canBecomeFirstResponder {
             becomeFirstResponder()
         }
+        typingAttributes = oldTypingAttributes
     }
     
-    func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextViewTextChangeType {
+    func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextChangeType {
         if replacementText == "",  changeTextRange.location < text.count {
             return .deletingSymbols
         }
@@ -80,6 +82,11 @@ extension UITextView {
     
     func offsetFromBegining(_ position: UITextPosition) -> Int {
         return offset(from: self.beginningOfDocument, to: position)
+    }
+    
+    func offsetToCaretPosition() -> Int? {
+        guard let caretPosition = caretPosition else { return nil }
+        return offset(from: self.beginningOfDocument, to: caretPosition)
     }
 }
 

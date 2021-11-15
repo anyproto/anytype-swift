@@ -3,17 +3,17 @@ import BlocksModels
 struct HomePageLink {
     let blockId: BlockId
     let targetBlockId: BlockId // Id of linked page
-    let details: DetailsDataProtocol?
+    let details: ObjectDetails?
     
     var isLoading: Bool {
-        guard let details = details else {
-            return true
-        }
- 
-        return details.rawDetails.isEmpty
+        details.isNil
     }
     
     var isArchived: Bool {
         details?.isArchived ?? false
+    }
+    
+    var isDeleted: Bool {
+        details?.isDeleted ?? false
     }
 }

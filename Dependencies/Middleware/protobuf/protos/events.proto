@@ -12,11 +12,13 @@ message Event {
     repeated Message messages = 1;
     string contextId = 2;
     anytype.model.Account initiator = 3;
+    string traceId = 4;
 
     message Message {
         oneof value {
             Account.Show accountShow = 1;
             Account.Details accountDetails = 201;
+            Account.Config.Update accountConfigUpdate = 202;
 
             Object.Details.Set objectDetailsSet = 16;
             Object.Details.Amend objectDetailsAmend = 50;
@@ -55,6 +57,7 @@ message Event {
             Block.Dataview.SourceSet blockDataviewSourceSet = 35;
             Block.Dataview.ViewSet blockDataviewViewSet = 19;
             Block.Dataview.ViewDelete blockDataviewViewDelete = 20;
+            Block.Dataview.ViewOrder blockDataviewViewOrder = 29;
             Block.Dataview.RelationDelete blockDataviewRelationDelete = 24;
             Block.Dataview.RelationSet blockDataviewRelationSet = 23;
 
@@ -86,6 +89,12 @@ message Event {
         message Details {
             string profileId = 1;
             google.protobuf.Struct details = 2;
+        }
+
+        message Config {
+            message Update {
+                anytype.model.Account.Config config = 1;
+            }
         }
     }
 
@@ -573,6 +582,12 @@ message Event {
                 string viewId = 2; // view id to remove
             }
 
+
+            message ViewOrder {
+                string id = 1; // dataview block's id
+                repeated string viewIds = 2; // view ids in new order
+            }
+
             message SourceSet {
                 string id = 1; // dataview block's id
                 repeated string source = 2;
@@ -741,6 +756,7 @@ message Event {
 message ResponseEvent {
     repeated Event.Message messages = 1;
     string contextId = 2;
+    string traceId = 4;
 }
 
 message Model {

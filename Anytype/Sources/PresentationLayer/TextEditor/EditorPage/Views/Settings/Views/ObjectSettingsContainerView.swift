@@ -1,26 +1,17 @@
-//
-//  ObjectSettingsContainerView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 14.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 import Amplitude
-
+import BlocksModels
 
 struct ObjectSettingsContainerView: View {
     
     @ObservedObject var viewModel: ObjectSettingsViewModel
-    
-    var onHide: () -> Void = {}
         
     @State private var mainViewPresented = false
     
     @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
     @State private var isLayoutPickerPresented = false
+    @State private var isRelationsViewPresented = false
     
     var body: some View {
         Color.clear
@@ -36,49 +27,43 @@ struct ObjectSettingsContainerView: View {
                     guard !isLayoutPickerPresented else { return }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        onHide()
+                        viewModel.dismissHandler()
                     }
                 },
                 view: {
                     ObjectSettingsView(
                         isCoverPickerPresented: $isCoverPickerPresented,
                         isIconPickerPresented: $isIconPickerPresented,
-                        isLayoutPickerPresented: $isLayoutPickerPresented
+                        isLayoutPickerPresented: $isLayoutPickerPresented,
+                        isRelationsViewPresented: $isRelationsViewPresented
                     )
                         .padding(8)
                         .environmentObject(viewModel)
                 }
             )
             .sheet(
-                isPresented: $isCoverPickerPresented,
-                onDismiss: {
-                    // TODO: is it necessary?
-                    isCoverPickerPresented = false
-                }
+                isPresented: $isCoverPickerPresented
             ) {
                 ObjectCoverPicker(viewModel: viewModel.coverPickerViewModel)
             }
             .sheet(
-                isPresented: $isIconPickerPresented,
-                onDismiss: {
-                    // TODO: is it necessary?
-                    isIconPickerPresented = false
-                }
+                isPresented: $isIconPickerPresented
             ) {
                 ObjectIconPicker(viewModel: viewModel.iconPickerViewModel)
             }
+            .sheet(
+                isPresented: $isRelationsViewPresented
+            ) {
+                ObjectRelationsView(viewModel: viewModel.relationsViewModel)
+            }
             .popup(
                 isPresented: $isLayoutPickerPresented,
-                type: .floater(verticalPadding: 42),
+                type: .floater(verticalPadding: 0),
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
-                dismissCallback: {
-                    isLayoutPickerPresented = false
-                },
                 view: {
                     ObjectLayoutPicker()
-                        .padding(8)
                         .environmentObject(viewModel.layoutPickerViewModel)
                 }
             )
@@ -107,7 +92,9 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
         ObjectSettingsContainerView(
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
-                objectDetailsService: ObjectDetailsService(eventHandler: EventHandler(), objectId: "")
+                detailsStorage: ObjectDetailsStorage(),
+                objectDetailsService: ObjectDetailsService(objectId: ""),
+                popScreenAction: {}
             )
         )
     }

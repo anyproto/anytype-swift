@@ -3,24 +3,23 @@ import Combine
 import BlocksModels
 
 final class ObjectSettingsViewModel: ObservableObject {
+    var dismissHandler: () -> Void = {}
     
-    @Published private(set) var details: DetailsDataProtocol = DetailsData.empty
+    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var settings: [ObjectSetting] {
-        if details.typeUrl == ObjectTypeProvider.myProfileURL {
+        if details.type == ObjectTemplateType.BundledType.profile.rawValue {
             return ObjectSetting.allCases.filter { $0 != .layout }
         }
         
-        guard let layout = details.layout else {
-            return ObjectSetting.allCases
-        }
-        
-        switch layout {
+        switch details.layout {
         case .basic:
             return ObjectSetting.allCases
         case .profile:
             return ObjectSetting.allCases
         case .todo:
             return ObjectSetting.allCases.filter { $0 != .icon }
+        case .note:
+            return [.layout]
         }
     }
 
@@ -29,10 +28,18 @@ final class ObjectSettingsViewModel: ObservableObject {
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
+    let relationsViewModel: ObjectRelationsViewModel
     
+    private let objectId: String
     private let objectDetailsService: ObjectDetailsService
     
-    init(objectId: String, objectDetailsService: ObjectDetailsService) {
+    init(
+        objectId: String,
+        detailsStorage: ObjectDetailsStorageProtocol,
+        objectDetailsService: ObjectDetailsService,
+        popScreenAction: @escaping () -> ()
+    ) {
+        self.objectId = objectId
         self.objectDetailsService = objectDetailsService
 
         self.iconPickerViewModel = ObjectIconPickerViewModel(
@@ -47,14 +54,32 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.layoutPickerViewModel = ObjectLayoutPickerViewModel(
             detailsService: objectDetailsService
         )
+        
+        self.relationsViewModel = ObjectRelationsViewModel(objectId: objectId)
 
-        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId)
+        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
     
-    func update(with details: DetailsDataProtocol) {
-        objectActionsViewModel.details = details
-        self.details = details
-        iconPickerViewModel.details = details
-        layoutPickerViewModel.details = details
+    func update(
+        objectDetailsStorage: ObjectDetailsStorageProtocol,
+        objectRestrictions: ObjectRestrictions,
+        objectRelations: [Relation]
+    ) {
+        if let details = objectDetailsStorage.get(id: objectId) {
+            objectActionsViewModel.details = details
+            self.details = details
+            iconPickerViewModel.details = details
+            layoutPickerViewModel.details = details
+            relationsViewModel.update(
+                with: objectRelations,
+                detailsStorage: objectDetailsStorage
+            )
+        }
+        objectActionsViewModel.objectRestrictions = objectRestrictions
+    }
+    
+    func configure(dismissHandler: @escaping () -> Void) {
+        self.dismissHandler = dismissHandler
+        objectActionsViewModel.dismissSheet = dismissHandler
     }
 }

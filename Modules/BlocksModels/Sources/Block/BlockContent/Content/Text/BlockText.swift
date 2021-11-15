@@ -1,7 +1,6 @@
 import ProtobufMessages
 
 public struct BlockText: Hashable {
-    private static var defaultChecked = false
     public var text: String
     public var marks: Anytype_Model_Block.Content.Text.Marks
     
@@ -12,12 +11,14 @@ public struct BlockText: Hashable {
     public var number: Int
     
     // MARK: - Memberwise initializer
-    public init(text: String,
-                marks: Anytype_Model_Block.Content.Text.Marks,
-                color: MiddlewareColor?,
-                contentType: Style,
-                checked: Bool,
-                number: Int = 1) {
+    public init(
+        text: String,
+        marks: Anytype_Model_Block.Content.Text.Marks,
+        color: MiddlewareColor?,
+        contentType: Style,
+        checked: Bool,
+        number: Int = 1
+    ) {
         self.text = text
         self.marks = marks
         self.color = color
@@ -30,16 +31,12 @@ public struct BlockText: Hashable {
 // MARK: ContentType / Text / Supplements
 public extension BlockText {
     init(contentType: Style) {
-        self.init(text: "", marks: .init(), color: nil, contentType: contentType, checked: Self.defaultChecked)
+        self.init(text: "", marks: .init(), color: nil, contentType: contentType, checked: false)
     }
             
     // MARK: - Create
 
-    static func empty() -> Self {
-        self.createDefault(text: "")
-    }
-
-    static func createDefault(text: String) -> Self {
-        .init(text: text, marks: .init(), color: nil, contentType: .text, checked: Self.defaultChecked)
+    static var empty: Self {
+        .init(text: "", marks: .init(), color: nil, contentType: .text, checked: false)
     }
 }

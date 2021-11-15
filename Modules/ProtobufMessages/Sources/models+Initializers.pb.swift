@@ -22,6 +22,16 @@ extension Anytype_Model_Account.Avatar {
   }
 }
 
+extension Anytype_Model_Account.Config {
+  public init(enableDataview: Bool, enableDebug: Bool, enableReleaseChannelSwitch: Bool, enableSpaces: Bool, extra: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.enableDataview = enableDataview
+    self.enableDebug = enableDebug
+    self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
+    self.enableSpaces = enableSpaces
+    self.extra = extra
+  }
+}
+
 extension Anytype_Model_Block {
   public init(
     id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], backgroundColor: String, align: Anytype_Model_Block.Align,
@@ -312,13 +322,15 @@ extension Anytype_Model_Restrictions.DataviewRestrictions {
 
 extension Anytype_Model_SmartBlockSnapshotBase {
   public init(
-    blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation], objectTypes: [String]
+    blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation], objectTypes: [String],
+    collections: SwiftProtobuf.Google_Protobuf_Struct
   ) {
     self.blocks = blocks
     self.details = details
     self.fileKeys = fileKeys
     self.extraRelations = extraRelations
     self.objectTypes = objectTypes
+    self.collections = collections
   }
 }
 

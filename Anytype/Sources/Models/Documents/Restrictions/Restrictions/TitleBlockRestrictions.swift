@@ -1,11 +1,3 @@
-//
-//  TitleBlockRestrictions.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 09.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 
 
@@ -16,6 +8,7 @@ struct TitleBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = true
     let canApplyBackgroundColor = true
     let canApplyMention = true
+    let canDeleteOrDuplicate = false
     let availableAlignments = LayoutAlignment.allCases
     let turnIntoStyles: [BlockContentType] = []
 }

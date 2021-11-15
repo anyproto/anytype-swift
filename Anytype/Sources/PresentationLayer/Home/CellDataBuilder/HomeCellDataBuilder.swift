@@ -9,12 +9,12 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buildCellData(_ searchResults: [DetailsDataProtocol]) -> [HomeCellData] {
+    func buildCellData(_ searchResults: [SearchData]) -> [HomeCellData] {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
-    func buildFavoritesData(_ updateResult: BaseDocumentUpdateResult) -> [HomeCellData] {
-        let links: [HomePageLink] = updateResult.models.compactMap(blockToPageLink)
+    func buildFavoritesData() -> [HomeCellData] {
+        let links: [HomePageLink] = document.flattenBlocks.compactMap(blockToPageLink)
         
         return links
             .filter {
@@ -22,7 +22,7 @@ final class HomeCellDataBuilder {
                     return true
                 }
                 
-                return ObjectTypeProvider.isSupported(typeUrl: details.typeUrl)
+                return ObjectTypeProvider.isSupported(typeUrl: details.type)
 
             }
             .map { buildHomeCellData(pageLink: $0) }
@@ -31,7 +31,7 @@ final class HomeCellDataBuilder {
     private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
         guard case .link(let link) = blockModel.information.content else { return nil }
 
-        let details = document.getDetails(id: link.targetBlockID)?.currentDetails
+        let details = document.detailsStorage.get(id: link.targetBlockID)
         return HomePageLink(
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
@@ -40,9 +40,7 @@ final class HomeCellDataBuilder {
     }
     
     private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
-        let type = pageLink.details?.typeUrl.flatMap {
-            ObjectTypeProvider.objectType(url: $0)?.name
-        } ?? "Object".localized
+        let type = ObjectTypeProvider.objectType(url: pageLink.details?.type)?.name ?? "Object".localized
         
         return HomeCellData(
             id: pageLink.blockId,
@@ -51,11 +49,13 @@ final class HomeCellDataBuilder {
             title: pageLink.details?.pageCellTitle ?? .default(title: ""),
             type: type,
             isLoading: pageLink.isLoading,
-            isArchived: pageLink.isArchived
+            isArchived: pageLink.isArchived,
+            isDeleted: pageLink.isDeleted,
+            selected: false
         )
     }
     
-    func updatedCellData(newDetails: DetailsDataProtocol, oldData: HomeCellData) -> HomeCellData {
+    func updatedCellData(newDetails: ObjectDetails, oldData: HomeCellData) -> HomeCellData {
         return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
@@ -63,7 +63,9 @@ final class HomeCellDataBuilder {
             title: newDetails.pageCellTitle,
             type: oldData.type,
             isLoading: false,
-            isArchived: newDetails.isArchived ?? false
+            isArchived: newDetails.isArchived,
+            isDeleted: newDetails.isDeleted,
+            selected: false
         )
     }
 }

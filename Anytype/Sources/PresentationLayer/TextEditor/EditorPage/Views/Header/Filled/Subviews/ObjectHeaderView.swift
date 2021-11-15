@@ -53,15 +53,16 @@ final class ObjectHeaderView: UIView {
 extension ObjectHeaderView: ConfigurableView {
     
     struct Model {
-        let state: ObjectHeader.FilledState
+        let state: ObjectHeaderFilledState
         let width: CGFloat
     }
     
     func configure(model: Model) {
         switch model.state {
-        case .iconOnly(let objectHeaderIcon):
+        case .iconOnly(let objectHeaderIconState):
             switchState(.icon)
-            applyObjectHeaderIcon(objectHeaderIcon)
+            applyObjectHeaderIcon(objectHeaderIconState.icon)
+            onCoverTap = objectHeaderIconState.onCoverTap
             
         case .coverOnly(let objectHeaderCover):
             switchState(.cover)

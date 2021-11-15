@@ -1,13 +1,6 @@
-//
-//  AmplitudeConstants.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 15.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 enum AmplitudeConfiguration {
-    static let apiKey = "827af3255d76ef87541cd459a0a38242"
+    static let devAPIKey = "827af3255d76ef87541cd459a0a38242"
+    static let prodAPIKey = "1ba981d1a9afb8af8c81847ef3383a20"
 }
 
 enum AmplitudeEventsName {
@@ -57,11 +50,13 @@ enum AmplitudeEventsName {
     static let buttonCoverInObjectSettings = "ButtonCoverInObjectSettings"
     static let buttonIconInObjectSettings = "ButtonIconInObjectSettings"
     static let buttonLayoutInObjectSettings = "ButtonLayoutInObjectSettings"
+    static let buttonRelationsInObjectSettings = "ButtonRelationsInObjectSettings"
 
     // Dashboard view events
     static let favoritesTabSelected = "FavoritesTabSelected"
     static let archiveTabSelected = "ArchiveTabSelected"
     static let recentTabSelected = "RecentTabSelected"
+    static let sharedTabSelected = "SharedTabSelected"
 
     static let profilePage = "Page: Profile"
     static let documentPage = "Page: Document"
@@ -84,6 +79,9 @@ enum AmplitudeEventsName {
     static let popupStyleMenu = "PopupStyleMenu"
     static let popupMentionMenu = "PopupMentionMenu"
     static let popupProfileIconMenu = "PopupProfileIconMenu"
+    
+    // Service events
+    static let objectListDelete = "ObjectListDelete"
 }
 
 enum AmplitudeEventsPropertiesKey {
@@ -91,4 +89,5 @@ enum AmplitudeEventsPropertiesKey {
     static let blockStyle = "style"
     static let blockType = "type"
     static let documentId = "documentId"
+    static let count = "count"
 }

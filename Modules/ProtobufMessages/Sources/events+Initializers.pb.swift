@@ -59,10 +59,17 @@ extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
 /// End of classes
 
 extension Anytype_Event {
-  public init(messages: [Anytype_Event.Message], contextID: String, initiator: Anytype_Model_Account) {
+  public init(messages: [Anytype_Event.Message], contextID: String, initiator: Anytype_Model_Account, traceID: String) {
     self.messages = messages
     self.contextID = contextID
     self.initiator = initiator
+    self.traceID = traceID
+  }
+}
+
+extension Anytype_Event.Account.Config.Update {
+  public init(config: Anytype_Model_Account.Config) {
+    self.config = config
   }
 }
 
@@ -146,6 +153,13 @@ extension Anytype_Event.Block.Dataview.ViewDelete {
   public init(id: String, viewID: String) {
     self.id = id
     self.viewID = viewID
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewOrder {
+  public init(id: String, viewIds: [String]) {
+    self.id = id
+    self.viewIds = viewIds
   }
 }
 
@@ -892,8 +906,9 @@ extension Anytype_Model.Process.Progress {
 }
 
 extension Anytype_ResponseEvent {
-  public init(messages: [Anytype_Event.Message], contextID: String) {
+  public init(messages: [Anytype_Event.Message], contextID: String, traceID: String) {
     self.messages = messages
     self.contextID = contextID
+    self.traceID = traceID
   }
 }

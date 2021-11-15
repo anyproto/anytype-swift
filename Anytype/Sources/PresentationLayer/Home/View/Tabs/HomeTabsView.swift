@@ -7,7 +7,8 @@ extension HomeTabsView {
     enum Tab: String {
         case favourites
         case history
-        case archive
+        case bin
+        case shared
     }
 }
 
@@ -18,12 +19,10 @@ struct HomeTabsView: View {
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void
     let onDragEnd: (CGSize) -> Void
-        
-    private let blurStyle = UIBlurEffect.Style.systemMaterial
     
     var body: some View {
         VStack(spacing: 0) {
-            tabHeaders
+            HomeTabsHeader(tabSelection: $tabSelection, onTabSelection: onTabSelection)
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
                         .onChanged { gesture in
@@ -34,71 +33,92 @@ struct HomeTabsView: View {
                         }
                 )
             tabs
+            selectionViewStub
+        }
+    }
+    
+    // stub for DashboardSelectionActionsView
+    private var selectionViewStub: some View {
+        Group {
+            if model.isSelectionMode {
+                Color.clear.frame(height: DashboardSelectionActionsView.height)
+            } else {
+                EmptyView()
+            }
         }
     }
     
     private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(cellData: model.nonArchivedFavoritesCellData, coordinator: model.coordinator, dragAndDropDelegate: model, offsetChanged: offsetChanged)
+            HomeCollectionView(
+                cellData: model.notDeletedFavoritesCellData,
+                dragAndDropDelegate: model,
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    model.showPage(pageId: data.destinationId)
+                }
+            )
             .tag(Tab.favourites)
-            HomeCollectionView(cellData: model.historyCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.history)
-            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, dragAndDropDelegate: nil, offsetChanged: offsetChanged)
-                .tag(Tab.archive)
+            
+            HomeCollectionView(
+                cellData: model.historyCellData,
+                dragAndDropDelegate: nil, // no dnd
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    model.showPage(pageId: data.destinationId)
+                }
+            )
+            .tag(Tab.history)
+            
+            if AccountConfigurationProvider.shared.config.enableSpaces {
+                HomeCollectionView(
+                    cellData: model.sharedCellData,
+                    dragAndDropDelegate: nil, // no dnd
+                    offsetChanged: offsetChanged,
+                    onTap: { data in
+                        model.showPage(pageId: data.destinationId)
+                    }
+                )
+                .tag(Tab.shared)
+            }
+            
+            HomeCollectionView(
+                cellData: model.binCellData,
+                dragAndDropDelegate: nil, // no dnd
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    model.select(data: data)
+                }
+            )
+            .tag(Tab.bin)
         }
         .background(BlurEffect())
-        .blurEffectStyle(blurStyle)
+        .blurEffectStyle(UIBlurEffect.Style.systemMaterial)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        
         .onChange(of: tabSelection) { tab in
             UserDefaultsConfig.selectedTab = tab
-            
-            switch tab {
-            case .favourites:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
-                
-                break // updates via subscriptions
-            case .history:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
-
-                model.updateHistoryTab()
-            case .archive:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
-
-                model.updateArchiveTab()
-            }
+            onTabSelection()
         }
     }
     
-    
-    private var tabHeaders: some View {
-        // Scroll view hack, vibrancy effect do not work without it
-        ScrollView([]) {
-            HStack(spacing: 20) {
-                tabButton(text: "Favorites".localized, tab: .favourites)
-                tabButton(text: "History".localized, tab: .history)
-                tabButton(text: "Archive".localized, tab: .archive)
-                Spacer()
-            }
-            .padding(.leading, 20)
-            .frame(height: 72, alignment: .center)
-            .background(BlurEffect())
-            .blurEffectStyle(blurStyle)
-        }
-        .frame(height: 72, alignment: .center)
-    }
-    
-    private func tabButton(text: String, tab: Tab) -> some View {
-        Button(
-            action: {
-                withAnimation(.spring()) {
-                    tabSelection = tab
-                }
-            }
-        ) {
-            HomeTabsHeaderText(text: text, isSelected: tabSelection == tab)
+    private func onTabSelection() {
+        model.selectAll(false)
+        
+        switch tabSelection {
+        case .favourites:
+            Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
+            break // updates via subscriptions
+        case .history:
+            Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
+            model.updateHistoryTab()
+        case .bin:
+            Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
+            model.updateBinTab()
+        case .shared:
+            Amplitude.instance().logEvent(AmplitudeEventsName.sharedTabSelected)
+            model.updateSharedTab()
         }
     }
 }

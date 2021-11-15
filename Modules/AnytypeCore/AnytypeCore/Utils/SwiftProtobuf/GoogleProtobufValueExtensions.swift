@@ -3,14 +3,15 @@ import SwiftProtobuf
 public extension Google_Protobuf_Value {
     
     var safeIntValue: Int? {
-        guard
-            case let .numberValue(number) = kind,
-            !number.isNaN
-        else {
-            return nil
-        }
-        
+        guard let number = safeDoubleValue else { return nil }
         return Int(number)
+    }
+    
+    var safeDoubleValue: Double? {
+        let number = numberValue
+        guard !number.isNaN else { return nil }
+        
+        return number
     }
     
 }

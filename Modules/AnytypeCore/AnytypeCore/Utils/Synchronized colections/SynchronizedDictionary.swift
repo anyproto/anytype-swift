@@ -1,7 +1,7 @@
 /// A thread-safe dictionary.
 public final class SynchronizedDictionary<K, V> where K: Hashable {
 
-    public var dictionary: [K: V] = [:]
+    private var dictionary: [K: V] = [:]
 
     // MARK: - Private variables
 
@@ -28,6 +28,12 @@ public final class SynchronizedDictionary<K, V> where K: Hashable {
             dictionary[key] = newValue
             lock.unlock()
         }
+    }
+    
+    public func removeValue(forKey key: K) {
+        lock.lock()
+        dictionary.removeValue(forKey: key)
+        lock.unlock()
     }
 
 }

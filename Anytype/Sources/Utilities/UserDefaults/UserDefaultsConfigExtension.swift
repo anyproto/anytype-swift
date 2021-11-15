@@ -1,5 +1,6 @@
 import AnytypeCore
 import BlocksModels
+import Combine
 
 extension UserDefaultsConfig {
     static func cleanStateAfterLogout() {
@@ -14,7 +15,13 @@ extension UserDefaultsConfig {
     
     static var selectedTab: HomeTabsView.Tab {
         get {
-            _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? HomeTabsView.Tab.favourites
+            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
+            
+            if tab == .shared && !AccountConfigurationProvider.shared.config.enableSpaces {
+                return .favourites
+            }
+            
+            return tab
         }
         set {
             _selectedTab = newValue.rawValue
@@ -41,5 +48,31 @@ extension UserDefaultsConfig {
         guard !pageIdFromLastSessionInitialized else { return }
         _pageIdFromLastSession = _lastOpenedPageId
         pageIdFromLastSessionInitialized = true
+    }
+    
+    // Default object type
+    @UserDefault("UserData.DefaultObjectType", defaultValue: "")
+    static var defaultObjectType: String
+    
+    // Wallpaper    
+    @UserDefault("UserData.Wallpaper", defaultValue: nil)
+    private static var _wallpaper: Data?
+    
+    static var wallpaper: BackgroundType {
+        get {
+            guard let rawWallpaper = _wallpaper else { return .default }
+            guard let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) else {
+                return .default
+            }
+            
+            return wallpaper
+        }
+        set {
+            guard let encoded = try? JSONEncoder().encode(newValue) else {
+                anytypeAssertionFailure("Cannot encode \(newValue)")
+                return
+            }
+            _wallpaper = encoded
+        }
     }
 }

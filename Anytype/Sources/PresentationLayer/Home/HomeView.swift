@@ -3,7 +3,9 @@ import Amplitude
 import AnytypeCore
 
 struct HomeView: View {
-    @StateObject var viewModel: HomeViewModel
+    @ObservedObject var viewModel: HomeViewModel
+    
+    @StateObject private var settingsModel = SettingsViewModel(authService: ServiceLocator.shared.authService())
     @StateObject private var accountData = AccountInfoDataAccessor()
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
@@ -13,6 +15,7 @@ struct HomeView: View {
         navigationView
             .environment(\.font, .defaultAnytype)
             .environmentObject(viewModel)
+            .environmentObject(settingsModel)
             .environmentObject(accountData)
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
@@ -45,15 +48,38 @@ struct HomeView: View {
             }
         }
         .bottomFloater(isPresented: $showSettings) {
-            viewModel.coordinator.settingsView().padding(8)
+            SettingsView().padding(8)
         }
+
+        .bottomFloater(isPresented: $viewModel.showDeletionAlert) {
+            DashboardDeletionAlert().padding(8)
+        }
+        .animation(.ripple, value: viewModel.showDeletionAlert)
+
+        .bottomFloater(isPresented: $settingsModel.loggingOut) {
+            DashboardLogoutAlert().padding(8)
+        }
+        .animation(.ripple, value: settingsModel.loggingOut)
+        
+        .bottomFloater(isPresented: $settingsModel.other) {
+            OtherSettingsView()
+        }
+        .animation(.ripple, value: settingsModel.other)
+        
+        .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
+            DashboardClearCacheAlert().padding(8)
+        }
+        .animation(.ripple, value: settingsModel.clearCacheAlert)
+        
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
         }
+        
         .snackbar(
             isShowing: $viewModel.snackBarData.showSnackBar,
-            text: AnytypeText(viewModel.snackBarData.text, style: .caption1Regular, color: .textPrimary)
+            text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
         )
+        
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -61,13 +87,14 @@ struct HomeView: View {
         GeometryReader { geometry in
             ZStack {
                 Group {
-                    Gradients.mainBackground()
+                    DashboardWallpaper()
                     newPageNavigation
                     HomeProfileView()
                     
                     HomeBottomSheetView(containerHeight: geometry.size.height, state: $bottomSheetState) {
                         HomeTabsView(offsetChanged: offsetChanged, onDrag: onDrag, onDragEnd: onDragEnd)
                     }
+                    DashboardSelectionActionsView()
                 }.frame(width: geometry.size.width, height: geometry.size.height)
             }
         }
@@ -76,13 +103,10 @@ struct HomeView: View {
     private var newPageNavigation: some View {
         Group {
             NavigationLink(
-                destination: viewModel.coordinator.documentView(
-                    selectedDocumentId: viewModel.openedPageData.pageId
-                ),
+                destination: viewModel.createBrowser(),
                 isActive: $viewModel.openedPageData.showingNewPage,
                 label: { EmptyView() }
             )
-            NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099
         }
     }
 }

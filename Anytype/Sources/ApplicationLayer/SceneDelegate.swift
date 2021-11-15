@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import AnytypeCore
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -16,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
@@ -37,8 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+        UIApplication.shared.shortcutItems = QuickAction.allCases.map { $0.shortcut }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -50,5 +51,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        completionHandler(handleQuickAction(shortcutItem))
+    }
+    
+    private func handleQuickAction(_ item: UIApplicationShortcutItem) -> Bool {
+        guard let action = QuickAction(rawValue: item.type) else {
+            anytypeAssertionFailure("Not supported action: \(item.type)")
+            return false
+        }
+        
+        DispatchQueue.main.async { QuickActionsStorage.shared.action = action }
+        return true
     }
 }

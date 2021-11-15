@@ -1,11 +1,3 @@
-//
-//  ObjectLayoutPicker.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 06.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 import BlocksModels
 
@@ -22,13 +14,13 @@ struct ObjectLayoutPicker: View {
             layoutList
         }
         .background(Color.background)
-        .cornerRadius(16)
+        .cornerRadius(16, corners: [.topLeft, .topRight])
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     
     private var layoutList: some View {
         VStack(spacing: 0) {
-            ForEach(DetailsLayout.allCases, id: \.self) { layout in
+            ForEach(DetailsLayout.orderedLayouts, id: \.self) { layout in
                 ObjectLayoutRow(
                     layout: layout,
                     isSelected: layout == viewModel.selectedLayout,
@@ -38,7 +30,8 @@ struct ObjectLayoutPicker: View {
                 )
             }
         }
-        .padding([.leading, .trailing, .bottom], 20)
+        .padding([.leading, .trailing], 20)
+        .padding(.bottom, UIApplication.shared.mainWindowInsets.bottom + 20)
     }
 }
 

@@ -8,16 +8,16 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
     
-    @Published var details: DetailsDataProtocol = DetailsData.empty
+    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var detailsLayout: DetailsLayout {
-        details.layout ?? .basic
+        details.layout
     }
     var isRemoveEnabled: Bool {
         switch detailsLayout {
         case .basic:
             return true
         case .profile:
-            return !(details.iconImage?.isEmpty ?? true)
+            return details.iconImageHash.isNotNil
         default:
             anytypeAssertionFailure("`ObjectIconPickerViewModel` unavailable in \(detailsLayout)")
             return true
@@ -43,8 +43,7 @@ extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
         detailsService.update(
             details: [
-                .iconEmoji: DetailsEntry(value: emojiUnicode),
-                .iconImage: DetailsEntry(value: "")
+                .iconEmoji(emojiUnicode), .iconImageHash(nil)
             ]
         )
     }
@@ -68,10 +67,7 @@ extension ObjectIconPickerViewModel {
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonRemoveEmoji)
         
         detailsService.update(
-            details: [
-                .iconEmoji: DetailsEntry(value: ""),
-                .iconImage: DetailsEntry(value: "")
-            ]
+            details: [.iconEmoji(""), .iconImageHash(nil)]
         )
     }
     

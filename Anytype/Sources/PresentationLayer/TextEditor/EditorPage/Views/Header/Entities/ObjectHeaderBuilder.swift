@@ -29,14 +29,14 @@ final class ObjectHeaderBuilder {
     
     // MARK: - Internal functions
     
-    func objectHeader(details: DetailsDataProtocol?) -> ObjectHeader {
+    func objectHeader(details: ObjectDetails?) -> ObjectHeader {
         guard let details = details else {
             return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
         }
         return buildObjectHeader(details: details)
     }
     
-    func objectHeaderForLocalEvent(_ event: ObjectHeaderLocalEvent, details: DetailsDataProtocol?) -> ObjectHeader {
+    func objectHeaderForLocalEvent(_ event: ObjectHeaderLocalEvent, details: ObjectDetails?) -> ObjectHeader {
         guard let details = details else {
             return fakeHeader(event: event)
         }
@@ -55,10 +55,13 @@ final class ObjectHeaderBuilder {
         case .iconUploading(let uIImage):
             return ObjectHeader.filled(
                 .iconOnly(
-                    ObjectHeaderIcon(
-                        icon: .basicPreview(uIImage),
-                        layoutAlignment: .left,
-                        onTap: onIconTap
+                    ObjectHeaderIconOnlyState(
+                        icon: ObjectHeaderIcon(
+                            icon: .basicPreview(uIImage),
+                            layoutAlignment: .left,
+                            onTap: onIconTap
+                        ),
+                        onCoverTap: onCoverTap
                     )
                 )
             )
@@ -74,8 +77,12 @@ final class ObjectHeaderBuilder {
         }
     }
     
-    private func buildObjectHeader(details: DetailsDataProtocol) -> ObjectHeader {
-        let layoutAlign = details.layoutAlign ?? .left
+    private func buildObjectHeader(details: ObjectDetails) -> ObjectHeader {
+        let layoutAlign = details.layoutAlign
+
+        if details.layout == .note {
+            return .empty(.init(onTap: {}))
+        }
         
         if let icon = details.icon, let cover = details.documentCover {
             return .filled(
@@ -96,10 +103,13 @@ final class ObjectHeaderBuilder {
         if let icon = details.icon {
             return .filled(
                 .iconOnly(
-                    ObjectHeaderIcon(
-                        icon: .icon(icon),
-                        layoutAlignment: layoutAlign,
-                        onTap: onIconTap
+                    ObjectHeaderIconOnlyState(
+                        icon: ObjectHeaderIcon(
+                            icon: .icon(icon),
+                            layoutAlignment: layoutAlign,
+                            onTap: onIconTap
+                        ),
+                        onCoverTap: onCoverTap
                     )
                 )
             )
