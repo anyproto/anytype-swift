@@ -3,21 +3,7 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-class UnsupportedBlockView: UIView & UIContentView {
-    private var currentConfiguration: UnsupportedBlockContentConfiguration
-
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let newConfiguration = newValue as? UnsupportedBlockContentConfiguration else {
-                anytypeAssertionFailure("Wrong configuration: \(newValue) for block file empty view")
-                return
-            }
-            self.currentConfiguration = newConfiguration
-            apply(configuration: newConfiguration)
-        }
-    }
-
+class UnsupportedBlockView: BaseBlockView<UnsupportedBlockContentConfiguration> {
     private let label: AnytypeLabel = {
         let label = AnytypeLabel(style: .callout)
         label.textColor = .textTertiary
@@ -31,17 +17,15 @@ class UnsupportedBlockView: UIView & UIContentView {
         return imageView
     }()
 
-    init(configuration: UnsupportedBlockContentConfiguration) {
-        self.currentConfiguration = configuration
+    override func update(with configuration: UnsupportedBlockContentConfiguration) {
+        super.update(with: configuration)
 
-        super.init(frame: .zero)
-
-        setup()
+        apply(configuration: configuration)
     }
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setupSubviews() {
+        super.setupSubviews()
+        setup()
     }
 
     private func setup() {

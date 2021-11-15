@@ -2,11 +2,9 @@ import Foundation
 import BlocksModels
 import ProtobufMessages
 
-final class BlocksModelsParserLayoutStyleConverter {
-    typealias MiddlewareModel = Anytype_Model_Block.Content.Layout.Style
-    
-    static func asModel(_ value: MiddlewareModel) -> BlockLayout.Style? {
-        switch value {
+extension Anytype_Model_Block.Content.Layout.Style {
+    var asModel: BlockLayout.Style? {
+        switch self {
         case .row: return .row
         case .column: return .column
         case .div: return .div
@@ -14,9 +12,11 @@ final class BlocksModelsParserLayoutStyleConverter {
         default: return nil
         }
     }
-    
-    static func asMiddleware(_ value: BlockLayout.Style) -> MiddlewareModel {
-        switch value {
+}
+
+extension BlockLayout.Style {
+    var asMiddleware: Anytype_Model_Block.Content.Layout.Style {
+        switch self {
         case .row: return .row
         case .column: return .column
         case .div: return .div

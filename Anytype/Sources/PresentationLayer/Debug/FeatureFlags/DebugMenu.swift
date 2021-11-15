@@ -1,7 +1,7 @@
 import SwiftUI
 import AnytypeCore
 
-struct FeatureFlagsView: View {
+struct DebugMenu: View {
     @State private var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
     @State private var showLogs = false
     @State private var showTypography = false
@@ -13,10 +13,24 @@ struct FeatureFlagsView: View {
             buttons
             toggles
         }
+        .ignoresSafeArea()
+        .embedInNavigation()
+        .navigationBarHidden(true)
     }
     
     var buttons: some View {
         VStack {
+            NavigationLink(destination: { EditorSetView() }) {
+                StandardButtonView(text: "🌈 Sets 😱", style: .secondary)
+            }
+            HStack {
+                StandardButton(text: "Logs 🧻", style: .secondary) {
+                    showLogs.toggle()
+                }
+                StandardButton(text: "Typography 🦭", style: .secondary) {
+                    showTypography.toggle()
+                }
+            }
             HStack {
                 StandardButton(text: "Crash 🔥", style: .primary) {
                     let crash: [Int] = []
@@ -25,16 +39,9 @@ struct FeatureFlagsView: View {
                 StandardButton(text: "Assert 🥲", style: .secondary) {
                     anytypeAssertionFailure("Test assert")
                 }
-            }.padding(.horizontal)
-            HStack {
-                StandardButton(text: "Logs 🧻", style: .secondary) {
-                    showLogs.toggle()
-                }
-                StandardButton(text: "Typography 🦭", style: .secondary) {
-                    showTypography.toggle()
-                }
-            }.padding(.horizontal)
+            }
         }
+        .padding(.horizontal)
         .padding()
         .sheet(isPresented: $showLogs) { EventsLogView(viewModel: .init()) }
         .sheet(isPresented: $showTypography) { TypographyExample() }
@@ -55,7 +62,7 @@ struct FeatureFlagsView: View {
 
 struct FeatureFlagsView_Previews: PreviewProvider {
     static var previews: some View {
-        FeatureFlagsView()
+        DebugMenu()
     }
 }
 

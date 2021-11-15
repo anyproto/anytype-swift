@@ -185,7 +185,7 @@ final class MiddlewareEventConverter {
                     }
 
                     if newData.hasState {
-                        if let state = BlockFileStateConverter.asModel(newData.state.value) {
+                        if let state = newData.state.value.asModel {
                             fileData.state = state
                         }
                     }
@@ -243,7 +243,7 @@ final class MiddlewareEventConverter {
                     }
 
                     if newUpdate.hasType {
-                        if let type = BlocksModelsParserBookmarkTypeEnumConverter.asModel(newUpdate.type.value) {
+                        if let type = newUpdate.type.value.asModel {
                             value.type = type
                         }
                     }

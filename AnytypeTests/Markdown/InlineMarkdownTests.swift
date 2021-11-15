@@ -16,34 +16,56 @@ class InlineMarkdownTests: XCTestCase {
     
     func testInlineMarkups() {
         InlineMarkdown.all.forEach { markdown in
-            markdown.text.forEach { text in
-                testInlineMarkdown(shortcut: text, markup: markdown.markup)
+            markdown.text.forEach { shortcut in
+                testInlineMarkdown(shortcut: shortcut, markup: markdown.markup)
             }
         }
     }
     
     func testInlineMarkups_works_with_multiline_strings() {
         InlineMarkdown.all.forEach { markdown in
-            markdown.text.forEach { text in
-                testInlineMarkdown(shortcut: text, markup: markdown.markup, initialText: "one\ntwo\three")
+            markdown.text.forEach { shortcut in
+                testInlineMarkdown(shortcut: shortcut, markup: markdown.markup, initialText: "one\ntwo\three")
             }
         }
     }
     
     func testInlineMarkups_not_trigger_on_empty_text() {
         InlineMarkdown.all.forEach { markdown in
-            markdown.text.forEach { text in
-                testInlineMarkdown(shortcut: text, markup: markdown.markup, initialText: "", success: false)
+            markdown.text.forEach { shortcut in
+                testInlineMarkdown(shortcut: shortcut, markup: markdown.markup, initialText: "", success: false)
             }
         }
     }
     
     func testInlineMarkups_not_trigger_on_deletion() {
         InlineMarkdown.all.forEach { markdown in
-            markdown.text.forEach { text in
-                testInlineMarkdown(shortcut: text, markup: markdown.markup, changeType: .deletingSymbols, success: false)
+            markdown.text.forEach { shortcut in
+                testInlineMarkdown(shortcut: shortcut, markup: markdown.markup, changeType: .deletingSymbols, success: false)
             }
         }
+    }
+    
+    // _nested_markup_
+    func testInlineMarkups_triggers_on_closest_range() {
+        InlineMarkdown.all.forEach { markdown in
+            markdown.text.forEach { shortcut in
+                let firstText = "nested"
+                let secondText = "markup"
+                testInlineMarkdown(
+                    shortcut: shortcut,
+                    markup: markdown.markup,
+                    initialText: firstText + shortcut + secondText,
+                    finalText:  shortcut + firstText + secondText,
+                    markupRange: NSRange(location: (shortcut + firstText + shortcut).count, length: secondText.count)
+                )
+            }
+        }
+    }
+    
+    func testInlineMarkups_italic_do_not_trigger_if_opened_shortcut_is_bold() {
+        testInlineMarkdown(shortcut: "", markup: .italic, initialText: "__boldplease_", success: false)
+        testInlineMarkdown(shortcut: "", markup: .italic, initialText: "**boldplease*", success: false)
     }
     
     func testInlineMarkups_triggers_only_on_position_after_shortcut() {
@@ -75,6 +97,8 @@ class InlineMarkdownTests: XCTestCase {
         shortcut: String,
         markup: MarkupType,
         initialText: String = "Equilibrium",
+        finalText: String? = nil,
+        markupRange: NSRange? = nil,
         changeType: TextChangeType = .typingSymbols,
         carretPosition: Int? = nil,
         success: Bool = true
@@ -88,11 +112,12 @@ class InlineMarkdownTests: XCTestCase {
         listener.textDidChange(changeType: changeType, data: data)
         
         if success {
+            let markupRange = markupRange ?? NSRange(location: shortcut.count, length: initialText.count)
             XCTAssertEqual(changer.setMarkupNumberOfCalls, 1)
             XCTAssertEqual(changer.setMarkupLastMarkupType, markup)
-            XCTAssertEqual(changer.setMarkupLastRange, NSRange(location: shortcut.count, length: initialText.count))
+            XCTAssertEqual(changer.setMarkupLastRange, markupRange)
             XCTAssertEqual(handler.changeTextNumberOfCalls, 1)
-            XCTAssertEqual(handler.changeTextTextFromLastCall?.string, initialText)
+            XCTAssertEqual(handler.changeTextTextFromLastCall?.string, finalText ?? initialText)
             XCTAssertEqual(handler.changeCaretPositionNumberOfCalls, 1)
             XCTAssertEqual(handler.changeCaretPositionLastRange, NSRange(location: initialText.count, length: 0))
         } else {

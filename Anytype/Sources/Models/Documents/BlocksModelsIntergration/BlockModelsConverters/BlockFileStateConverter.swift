@@ -2,12 +2,9 @@ import Foundation
 import BlocksModels
 import ProtobufMessages
 
-
-final class BlockFileStateConverter {
-    typealias MiddlewareModel = Anytype_Model_Block.Content.File.State
-    
-    static func asModel(_ value: MiddlewareModel) -> BlockFileState? {
-        switch value {
+extension Anytype_Model_Block.Content.File.State {
+    var asModel: BlockFileState? {
+        switch self {
         case .empty: return .empty
         case .uploading: return .uploading
         case .done: return .done
@@ -16,9 +13,11 @@ final class BlockFileStateConverter {
             return nil
         }
     }
-    
-    static func asMiddleware(_ value: BlockFileState) -> MiddlewareModel {
-        switch value {
+}
+
+extension BlockFileState {
+    var asMiddleware: Anytype_Model_Block.Content.File.State {
+        switch self {
         case .empty: return .empty
         case .uploading: return .uploading
         case .done: return .done
