@@ -35,6 +35,8 @@ struct ObjectRelationsView: View {
                         ) {
                             ForEach(section.relations) { relation in
                                 ObjectRelationRow(viewModel: relation) {
+                                    viewModel.removeRelation(id: $0)
+                                } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)
                                 }
                             }

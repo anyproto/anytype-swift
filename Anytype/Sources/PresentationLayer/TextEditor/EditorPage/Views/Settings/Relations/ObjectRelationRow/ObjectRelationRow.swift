@@ -11,6 +11,7 @@ import SwiftUI
 struct ObjectRelationRow: View {
     
     let viewModel: ObjectRelationRowData
+    let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
     
     var body: some View {
@@ -72,7 +73,7 @@ struct ObjectRelationRow: View {
     
     private var removeButton: some View {
         Button {
-            
+            onRemoveTap(viewModel.id)
         } label: {
             Image(systemName: "minus.circle.fill")
                 .foregroundColor(.red)
@@ -114,6 +115,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                     isFeatured: false,
                     isEditable: true
                 ),
+                onRemoveTap: { _ in },
                 onStarTap: { _ in }
             )
             ObjectRelationRow(
@@ -124,6 +126,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                     isFeatured: false,
                     isEditable: false
                 ),
+                onRemoveTap: { _ in },
                 onStarTap: { _ in }
             )
         }

@@ -48,4 +48,9 @@ final class ObjectRelationsViewModel: ObservableObject {
         }
     }
     
+    func removeRelation(id: String) {
+        relationsService.removeRelation(objectId: objectId, relationId: id)
+    }
+    
+    
 }
