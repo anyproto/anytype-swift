@@ -77,12 +77,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchSets() -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastOpenedDate,
+            relation: RelationKey.lastModifiedDate,
             type: .desc
         )
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
+            typeUrls: ObjectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
         )
         
         return makeRequest(filters: filters, sorts: [sort], fullText: "")

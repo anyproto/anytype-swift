@@ -20,9 +20,6 @@ struct DebugMenu: View {
     
     var buttons: some View {
         VStack {
-            NavigationLink(destination: { EditorSetView() }) {
-                StandardButtonView(text: "🌈 Sets 😱", style: .secondary)
-            }
             HStack {
                 StandardButton(text: "Logs 🧻", style: .secondary) {
                     showLogs.toggle()

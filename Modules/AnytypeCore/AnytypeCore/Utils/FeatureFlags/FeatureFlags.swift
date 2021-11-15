@@ -1,4 +1,5 @@
 public enum Feature: String, Codable {
+    case sets = "Sets YEAH 🚀"
     case rainbowCells = "Paint editor cells 🌈"
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
     case analytics = "Analytics Amplitude (only in development)"
@@ -12,7 +13,16 @@ public final class FeatureFlags {
         UserDefaultsConfig.featureFlags.merging(defaultValues, uniquingKeysWith: { (first, _) in first })
     }
     
+    private static var isRelease: Bool {
+        #if RELEASE
+        true
+        #else
+        false
+        #endif
+    }
+    
     private static let defaultValues: Features = [
+        .sets: !isRelease,
         .rainbowCells: false,
         .showAlertOnAssert : true,
         .analytics : false,
@@ -27,6 +37,10 @@ public final class FeatureFlags {
 }
 
 public extension FeatureFlags {
+    static var sets: Bool {
+        features[.sets, default: false]
+    }
+    
     static var showAlertOnAssert: Bool {
         features[.showAlertOnAssert, default: true]
     }

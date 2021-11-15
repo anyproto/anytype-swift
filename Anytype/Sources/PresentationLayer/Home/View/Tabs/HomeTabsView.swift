@@ -7,8 +7,9 @@ extension HomeTabsView {
     enum Tab: String {
         case favourites
         case history
-        case bin
+        case sets
         case shared
+        case bin
     }
 }
 
@@ -70,6 +71,18 @@ struct HomeTabsView: View {
             )
             .tag(Tab.history)
             
+            if FeatureFlags.sets {
+                HomeCollectionView(
+                    cellData: model.setsCellData,
+                    dragAndDropDelegate: nil, // no dnd
+                    offsetChanged: offsetChanged,
+                    onTap: { data in
+                        model.showPage(pageId: data.destinationId)
+                    }
+                )
+                .tag(Tab.sets)
+            }
+            
             if AccountConfigurationProvider.shared.config.enableSpaces {
                 HomeCollectionView(
                     cellData: model.sharedCellData,
@@ -119,6 +132,9 @@ struct HomeTabsView: View {
         case .shared:
             Amplitude.instance().logEvent(AmplitudeEventsName.sharedTabSelected)
             model.updateSharedTab()
+        case .sets:
+            Amplitude.instance().logEvent(AmplitudeEventsName.setsTabSelected)
+            model.updateSetsTab()
         }
     }
 }
