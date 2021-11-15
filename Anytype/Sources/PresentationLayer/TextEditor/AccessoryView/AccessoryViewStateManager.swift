@@ -57,10 +57,16 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     // MARK: - View Delegate
 
     func showSlashMenuView() {
+        guard let textView = data?.textView else { return }
+        triggerSymbolPosition = textView.caretPosition
+        
         switcher.showSlashMenuView()
     }
     
     func showMentionsView() {
+        guard let textView = data?.textView else { return }
+        triggerSymbolPosition = textView.caretPosition
+        
         switcher.showMentionsView()
     }
     
