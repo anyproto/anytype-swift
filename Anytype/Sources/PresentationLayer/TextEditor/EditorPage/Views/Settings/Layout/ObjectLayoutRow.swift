@@ -46,13 +46,15 @@ private extension DetailsLayout {
     var icon: Image {
         switch self {
         case .basic:
-            return Image.LayoutSettings.basic
+            return .LayoutSettings.basic
         case .profile:
-            return Image.LayoutSettings.profile
+            return .LayoutSettings.profile
         case .todo:
-            return Image.LayoutSettings.todo
+            return .LayoutSettings.todo
         case .note:
-            return Image.LayoutSettings.note
+            return .LayoutSettings.note
+        case .set:
+            return .noImage
         }
     }
     
@@ -66,6 +68,8 @@ private extension DetailsLayout {
             return "Task".localized
         case .note:
             return "Note".localized
+        case .set:
+            return "Set".localized
         }
     }
     
@@ -79,6 +83,8 @@ private extension DetailsLayout {
             return "Action-focused layout with a checkbox".localized
         case .note:
             return "Designed to capture thoughts quickly".localized
+        case .set:
+            return "Collection of objects".localized
         }
     }
     

@@ -126,21 +126,20 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     // MARK: - UINavigationControllerDelegate
         
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        guard let viewController = viewController as? EditorPageController else {
+        guard let detailsProvider = viewController as? DocumentDetaisProvider else {
             anytypeAssertionFailure("Not supported browser controller: \(viewController)")
             return
         }
         
-        let documentId = viewController.viewModel.document.objectId
-        UserDefaultsConfig.storeOpenedPageId(documentId)
+        UserDefaultsConfig.storeOpenedPageId(detailsProvider.documentId)
         
-        let details = viewController.viewModel.document.detailsStorage.get(id: documentId)
+        let details = detailsProvider.details
         let title = details?.name
         let subtitle = details?.description
         do {
             try stateManager.didShow(
                 page: BrowserPage(
-                    blockId: viewController.viewModel.document.objectId,
+                    blockId: detailsProvider.documentId,
                     title: title,
                     subtitle: subtitle,
                     controller: viewController

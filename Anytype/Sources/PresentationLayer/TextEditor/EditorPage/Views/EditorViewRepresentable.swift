@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 import os
+import AnytypeCore
 
 struct EditorViewRepresentable: UIViewControllerRepresentable {
     
@@ -13,7 +14,12 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorBrowserController {
-        let browser = EditorAssembly().buildEditorBrowser(blockId: blockId)
+        let type = model.document.detailsStorage.get(id: blockId)?.editorViewType
+        if type.isNil {
+            anytypeAssertionFailure("KNOWN ISSUE\nNo data for new page with id: \(blockId)")
+        }
+        
+        let browser = EditorBrowserAssembly().buildEditorBrowser(blockId: blockId, type: type ?? .page)
         model.editorBrowser = browser
         return browser
     }
