@@ -21,8 +21,9 @@ final class BlockLinkView: BaseBlockView<BlockLinkContentConfiguration> {
         iconView.addSubview(configuration.state.makeIconView()) {
             $0.pinToSuperview()
         }
-        
-        textView.attributedText = configuration.state.attributedTitle
+
+        textView.setText(configuration.state.attributedTitle)
+        textView.setLineBreakMode(.byTruncatingTail)
         deletedLabel.isHidden = !configuration.state.archived
     }
     
@@ -42,7 +43,7 @@ final class BlockLinkView: BaseBlockView<BlockLinkContentConfiguration> {
         }
         contentView.addSubview(deletedLabel) {
             $0.pinToSuperview(excluding: [.left, .right])
-            $0.trailing.lessThanOrEqual(to: contentView.trailingAnchor)
+            $0.trailing.equal(to: contentView.trailingAnchor)
             $0.leading.equal(to: textView.trailingAnchor)
         }
     }
@@ -53,10 +54,8 @@ final class BlockLinkView: BaseBlockView<BlockLinkContentConfiguration> {
     
     private let deletedLabel = DeletedLabel()
     
-    private let textView: UITextView = {
-        let view = UITextView()
-        view.isScrollEnabled = false
-        view.textContainerInset = Constants.textContainerInset
+    private let textView: AnytypeLabel = {
+        let view = AnytypeLabel(style: .body)
         view.isUserInteractionEnabled = false
         return view
     }()
