@@ -2,7 +2,7 @@ import ProtobufMessages
 import BlocksModels
 
 extension Anytype_Model_Block.Content.File {
-    var blockType: BlockContent? {
+    var blockContent: BlockContent? {
         guard let state = state.asModel else { return nil }
         return FileContentType(type).flatMap { type in
             .file(

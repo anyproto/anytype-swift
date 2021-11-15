@@ -3,22 +3,17 @@ import BlocksModels
 import AnytypeCore
 
 enum BlocksModelsConverter {
-    private static let contentObjectAsEmptyPage = ContentObjectAsEmptyPage()
-    private static let contentBookmark = ContentBookmarkConverter()
-    private static let contentDivider = ContentDividerConverter()
-    private static let contentLayout = ContentLayoutConverter()
-    
     static func convert(
         middleware: Anytype_Model_Block.OneOf_Content
     ) -> BlockContent? {
         switch middleware {
-        case .smartblock(let data): return contentObjectAsEmptyPage.blockType(data)
-        case .link(let data): return data.blockType
+        case .smartblock(let data): return data.blockContent
+        case .link(let data): return data.blockContent
         case .text(let data): return data.blockContent
-        case .file(let data): return data.blockType
-        case .bookmark(let data): return contentBookmark.blockType(data)
-        case .div(let data): return contentDivider.blockType(data)
-        case .layout(let data): return contentLayout.blockType(data)
+        case .file(let data): return data.blockContent
+        case .bookmark(let data): return data.blockConten
+        case .div(let data): return data.blockContent
+        case .layout(let data): return data.blockContent
         case .featuredRelations: return .featuredRelations
         
         case .icon, .relation, .latex, .dataview:
@@ -28,13 +23,13 @@ enum BlocksModelsConverter {
 
     static func convert(block: BlockContent) -> Anytype_Model_Block.OneOf_Content? {
         switch block {
-        case .smartblock(let data): return contentObjectAsEmptyPage.middleware(data)
+        case .smartblock(let data): return data.asMiddleware
         case .link(let data): return data.asMiddleware
         case .text(let data): return data.asMiddleware
         case .file(let data): return data.asMiddleware
-        case .bookmark(let data): return contentBookmark.middleware(data)
-        case .divider(let data): return contentDivider.middleware(data)
-        case .layout(let data): return contentLayout.middleware(data)
+        case .bookmark(let data): return data.asMiddleware
+        case .divider(let data): return data.asMiddleware
+        case .layout(let data): return data.asMiddleware
         case .featuredRelations:
             anytypeAssertionFailure("Not suppoted converter from featuredRelations to middleware")
             return nil
