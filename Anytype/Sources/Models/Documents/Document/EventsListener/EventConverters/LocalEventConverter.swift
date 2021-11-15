@@ -64,7 +64,7 @@ final class LocalEventConverter {
             color: oldText.color?.rawValue ?? ""
         )
         
-        guard var textContent = ContentTextConverter().textContent(middleContent) else {
+        guard var textContent = middleContent.textContent else {
             anytypeAssertionFailure("We cannot block content from: \(middleContent)")
             return .general
         }
