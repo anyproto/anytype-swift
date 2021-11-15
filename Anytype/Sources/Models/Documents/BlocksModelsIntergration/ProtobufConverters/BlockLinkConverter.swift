@@ -2,7 +2,7 @@ import BlocksModels
 import ProtobufMessages
 
 extension Anytype_Model_Block.Content.Link {
-    var blockType: BlockContent? {
+    var blockContent: BlockContent? {
         style.asModel.flatMap {
             return .link(
                 BlockLink(targetBlockID: targetBlockID, style: $0, fields: fields.fields)
