@@ -80,6 +80,7 @@ extension Image {
         static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
         static let addToFeatured = createImage("relation_add_to_featured")
         static let removeFromFeatured = createImage("relations_remove_from_featured")
+        static let locked = createImage("relation_locked")
     }
 }
 
