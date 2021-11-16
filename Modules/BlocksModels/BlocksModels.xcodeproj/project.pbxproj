@@ -19,6 +19,7 @@
 		12206711273164360051A331 /* RelationsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206710273164360051A331 /* RelationsStorageProtocol.swift */; };
 		12206713273164890051A331 /* RelationsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206712273164890051A331 /* RelationsStorage.swift */; };
 		1223C91227282A2600C34616 /* RelationValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C91127282A2600C34616 /* RelationValuesProvider.swift */; };
+		12336DC52742A5C8001D4434 /* RelationScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12336DC42742A5C8001D4434 /* RelationScope.swift */; };
 		124A60B12712F9610012FD2D /* ObjectDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */; };
 		124A60B32712F9820012FD2D /* ObjectDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */; };
 		124E2BC72731243D00A2D534 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC62731243D00A2D534 /* Relation.swift */; };
@@ -76,6 +77,7 @@
 		12206710273164360051A331 /* RelationsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsStorageProtocol.swift; sourceTree = "<group>"; };
 		12206712273164890051A331 /* RelationsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsStorage.swift; sourceTree = "<group>"; };
 		1223C91127282A2600C34616 /* RelationValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValuesProvider.swift; sourceTree = "<group>"; };
+		12336DC42742A5C8001D4434 /* RelationScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationScope.swift; sourceTree = "<group>"; };
 		124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorage.swift; sourceTree = "<group>"; };
 		124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorageProtocol.swift; sourceTree = "<group>"; };
 		124E2BC62731243D00A2D534 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				1223C91127282A2600C34616 /* RelationValuesProvider.swift */,
 				124E2BC62731243D00A2D534 /* Relation.swift */,
 				124E2BC82731249600A2D534 /* RelationFormat.swift */,
+				12336DC42742A5C8001D4434 /* RelationScope.swift */,
 				124E2BCC273125C400A2D534 /* RelationOption.swift */,
 				124E2BD727312BC600A2D534 /* RelationOptionScope.swift */,
 			);
@@ -453,6 +456,7 @@
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				1223C91227282A2600C34616 /* RelationValuesProvider.swift in Sources */,
 				3DB1C9C82726A001000D2779 /* ObjectDetails+Relations.swift in Sources */,
+				12336DC52742A5C8001D4434 /* RelationScope.swift in Sources */,
 				12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */,
 				3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,

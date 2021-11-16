@@ -13,6 +13,7 @@ public struct Relation: Hashable {
     public let selections: [Option]
     // list of types used by relation. ex.: type of file
     public let objectTypes: [String]
+    public let scope: Scope
     
     public init(
         key: String,
@@ -22,7 +23,8 @@ public struct Relation: Hashable {
         isReadOnly: Bool,
         isMulti: Bool,
         selections: [Option],
-        objectTypes: [String]
+        objectTypes: [String],
+        scope: Scope
     ) {
         self.key = key
         self.name = name
@@ -32,6 +34,7 @@ public struct Relation: Hashable {
         self.isMulti = isMulti
         self.selections = selections
         self.objectTypes = objectTypes
+        self.scope = scope
     }
     
 }
@@ -57,6 +60,7 @@ public extension Relation {
             Option(middlewareOption: $0)
         }
         self.objectTypes = middlewareRelation.objectTypes
+        self.scope = Scope(rawValue: middlewareRelation.scope.rawValue)
     }
     
 }

@@ -26,7 +26,7 @@ final class ObjectRelationsViewModel: ObservableObject {
         with relations: [Relation],
         detailsStorage: ObjectDetailsStorageProtocol
     ) {
-        let visibleRelations = relations.filter { !$0.isHidden }
+        let visibleRelations = relations.filter { !$0.isHidden && $0.scope == .object }
         
         self.sections = sectionsBuilder.buildViewModels(
             using: visibleRelations,
