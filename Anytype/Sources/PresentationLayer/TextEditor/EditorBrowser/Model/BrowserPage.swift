@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 
 final class BrowserPage: Equatable, CustomStringConvertible {
-    let blockId: BlockId
+    let pageData: EditorScreenData
     let title: String?
     let subtitle: String?
     
@@ -11,12 +11,12 @@ final class BrowserPage: Equatable, CustomStringConvertible {
     let controllerHash: Int
     
     init(
-        blockId: BlockId,
+        pageData: EditorScreenData,
         title: String?,
         subtitle: String?,
         controller: UIViewController
     ) {
-        self.blockId = blockId
+        self.pageData = pageData
         self.title = title
         self.subtitle = subtitle
         self.controller = controller
@@ -32,7 +32,7 @@ final class BrowserPage: Equatable, CustomStringConvertible {
     
     var description: String {
         return """
-        BlockId: \(blockId)
+        PageData: \(pageData)
         Title: \(String(describing: title))
         Subtitle: \(String(describing: subtitle))
         Controller: \(String(describing: controller))

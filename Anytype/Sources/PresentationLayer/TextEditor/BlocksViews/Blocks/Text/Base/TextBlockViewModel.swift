@@ -17,7 +17,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let contextualMenuHandler: DefaultContextualMenuHandler
     private let blockDelegate: BlockDelegate
     
-    private let showPage: (String) -> Void
+    private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
@@ -42,7 +42,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
-        showPage: @escaping (String) -> Void,
+        showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void
     ) {
         self.block = block

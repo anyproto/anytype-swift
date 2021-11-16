@@ -8,7 +8,7 @@ import AnytypeCore
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
-    func showPage(with id: BlockId)
+    func showPage(data: EditorScreenData)
     func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (URL) -> ())
     func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
@@ -28,7 +28,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
-    func showSearch(onSelect: @escaping (BlockId) -> ())
+    func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     
     func goBack()
@@ -59,20 +59,15 @@ final class EditorRouter: EditorRouterProtocol {
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
-    func showPage(with id: BlockId) {
-        guard let details = document.detailsStorage.get(id: id) else {
-            anytypeAssertionFailure("No details for id: \(id)")
-            return
+    func showPage(data: EditorScreenData) {
+        if let details = document.detailsStorage.get(id: data.pageId)  {
+            guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
+                showUnsupportedTypeAlert(typeUrl: details.type)
+                return
+            }
         }
         
-        guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
-            showUnsupportedTypeAlert(typeUrl: details.type)
-            return
-        }
-        
-        let controller = editorAssembly.buildEditorController(
-            data: EditorScreenData(pageId: id, type: details.editorViewType)
-        )
+        let controller = editorAssembly.buildEditorController(data: data)
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -230,9 +225,9 @@ final class EditorRouter: EditorRouterProtocol {
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
     
-    func showSearch(onSelect: @escaping (BlockId) -> ()) {
+    func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
-            onSelect(data.blockId)
+            onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, viewModel: viewModel)
         

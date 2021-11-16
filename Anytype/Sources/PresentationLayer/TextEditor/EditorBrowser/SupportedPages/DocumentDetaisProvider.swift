@@ -1,8 +1,9 @@
 import BlocksModels
+import AnytypeCore
 
 protocol DocumentDetaisProvider {
     var objectId: BlockId { get }
-    var screenData: EditorScreenData? { get }
+    var screenData: EditorScreenData { get }
     var details: ObjectDetails? { get }
 }
 
@@ -11,10 +12,11 @@ extension EditorPageController: DocumentDetaisProvider {
         viewModel.document.objectId
     }
     
-    var screenData: EditorScreenData? {
-        guard let details = details else { return nil }
+    var screenData: EditorScreenData {
+        let type = details?.editorViewType
+        if type.isNil { anytypeAssertionFailure("Nil details in \(self)") }
         
-        return EditorScreenData(pageId: objectId, type: details.editorViewType)
+        return EditorScreenData(pageId: objectId, type: type ?? .page)
     }
     
     var details: ObjectDetails? {
@@ -23,10 +25,11 @@ extension EditorPageController: DocumentDetaisProvider {
 }
 
 extension EditorSetHostingController: DocumentDetaisProvider {
-    var screenData: EditorScreenData? {
-        guard let details = details else { return nil }
+    var screenData: EditorScreenData {
+        let type = details?.editorViewType
+        if type.isNil { anytypeAssertionFailure("Nil details in \(self)") }
         
-        return EditorScreenData(pageId: objectId, type: details.editorViewType)
+        return EditorScreenData(pageId: objectId, type: type ?? .page)
     }
     
     var details: ObjectDetails? {
