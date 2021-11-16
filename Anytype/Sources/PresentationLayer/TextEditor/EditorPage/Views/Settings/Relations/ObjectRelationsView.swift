@@ -13,11 +13,30 @@ struct ObjectRelationsView: View {
     
     @ObservedObject var viewModel: ObjectRelationsViewModel
     
+    @State private var editingMode = false
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
+            navigationBar
             relationsList
         }
+    }
+    
+    private var navigationBar: some View {
+        HStack {
+            Button {
+                withAnimation(.spring()) {
+                    editingMode.toggle()
+                }
+            } label: {
+                AnytypeText(editingMode ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .textSecondary)
+            }
+
+            Spacer()
+        }
+        .frame(height: 48)
+        .padding(.horizontal, 16)
     }
     
     private var relationsList: some View {
@@ -34,7 +53,7 @@ struct ObjectRelationsView: View {
                                 .padding(.vertical, 12)
                         ) {
                             ForEach(section.relations) { relation in
-                                ObjectRelationRow(viewModel: relation) {
+                                ObjectRelationRow(editingMode: $editingMode, viewModel: relation) {
                                     viewModel.removeRelation(id: $0)
                                 } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)

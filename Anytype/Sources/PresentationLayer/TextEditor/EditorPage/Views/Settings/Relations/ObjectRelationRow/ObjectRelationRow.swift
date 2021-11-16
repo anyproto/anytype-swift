@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ObjectRelationRow: View {
     
+    @Binding var editingMode: Bool
     let viewModel: ObjectRelationRowData
     let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
@@ -17,10 +18,12 @@ struct ObjectRelationRow: View {
     var body: some View {
         GeometryReader { gr in
             HStack(spacing: 8) {
-                if viewModel.isEditable {
-                    removeButton
-                } else {
-                    Spacer.fixedWidth(Constants.buttonWidth)
+                if editingMode {
+                    if viewModel.isEditable {
+                        removeButton
+                    } else {
+                        Spacer.fixedWidth(Constants.buttonWidth)
+                    }
                 }
                 
                 // If we will use spacing more than 0 it will be added to
@@ -78,12 +81,14 @@ struct ObjectRelationRow: View {
     }
     
     private var removeButton: some View {
-        Button {
-            onRemoveTap(viewModel.id)
-        } label: {
-            Image(systemName: "minus.circle.fill")
-                .foregroundColor(.red)
-        }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
+        withAnimation(.spring()) {
+            Button {
+                onRemoveTap(viewModel.id)
+            } label: {
+                Image(systemName: "minus.circle.fill")
+                    .foregroundColor(.red)
+            }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
+        }
     }
     
     private var starImageView: some View {
@@ -109,6 +114,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {
             ObjectRelationRow(
+                editingMode: .constant(false),
                 viewModel: ObjectRelationRowData(
                     id: "1", name: "Relation name",
                     value: .tag([
@@ -125,6 +131,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 onStarTap: { _ in }
             )
             ObjectRelationRow(
+                editingMode: .constant(false),
                 viewModel: ObjectRelationRowData(
                     id: "1", name: "Relation name",
                     value: .text("hello"),
