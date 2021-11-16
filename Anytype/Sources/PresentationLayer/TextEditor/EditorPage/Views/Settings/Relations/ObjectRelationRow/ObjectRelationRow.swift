@@ -27,6 +27,12 @@ struct ObjectRelationRow: View {
                 // `Spacer()` from both sides as a result
                 // `Spacer` will take up more space
                 HStack(spacing: 0) {
+                    if !viewModel.isEditable {
+                        Image.Relations.locked
+                            .frame(width: 15, height: 12)
+                        Spacer.fixedWidth(6)
+                    }
+                    
                     name
                         .frame(width: gr.size.width * 0.4, alignment: .leading)
                     Spacer.fixedWidth(8)
