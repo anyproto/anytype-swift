@@ -202,8 +202,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+            onSelect(data.blockId)
         }
         let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
         
@@ -211,8 +211,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
-        let viewModel = LinkToObjectSearchViewModel { searchKind in
-            onSelect(searchKind)
+        let viewModel = LinkToObjectSearchViewModel { data in
+            onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
 
@@ -220,8 +220,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+            onSelect(data.blockId)
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
         
@@ -229,8 +229,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+            onSelect(data.blockId)
         }
         let searchView = SearchView(title: nil, viewModel: viewModel)
         
@@ -239,8 +239,8 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
         let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? "")
-        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
+            onSelect(data.blockId)
         }
         let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
 

@@ -1,12 +1,12 @@
 import BlocksModels
 
 protocol DocumentDetaisProvider {
-    var documentId: BlockId { get }
+    var objectId: BlockId { get }
     var details: ObjectDetails? { get }
 }
 
 extension EditorPageController: DocumentDetaisProvider {
-    var documentId: BlockId {
+    var objectId: BlockId {
         viewModel.document.objectId
     }
     

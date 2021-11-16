@@ -2,11 +2,11 @@ import SwiftUI
 import BlocksModels
 
 final class EditorSetHostingController: UIHostingController<EditorSetView> {
-    let documentId: BlockId
+    let objectId: BlockId
     let model: EditorSetViewModel
     
-    init(documentId: BlockId, model: EditorSetViewModel) {
-        self.documentId = documentId
+    init(objectId: BlockId, model: EditorSetViewModel) {
+        self.objectId = objectId
         self.model = model
         
         super.init(rootView: EditorSetView(model: model))

@@ -131,7 +131,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedPageId(detailsProvider.documentId)
+        UserDefaultsConfig.storeOpenedPageId(detailsProvider.objectId)
         
         let details = detailsProvider.details
         let title = details?.name
@@ -139,7 +139,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         do {
             try stateManager.didShow(
                 page: BrowserPage(
-                    blockId: detailsProvider.documentId,
+                    blockId: detailsProvider.objectId,
                     title: title,
                     subtitle: subtitle,
                     controller: viewController
