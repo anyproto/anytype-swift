@@ -63,17 +63,19 @@ final class ObjectRelationsSectionBuilder {
             )
         }
         
-        let otherRelationsSectionTitle = featuredRelations.isNotEmpty ?
-        "Other relations".localized :
-        "In this object".localized
-        
-        sections.append(
-            ObjectRelationsSection(
-                id: Constants.otherRelationsSectionId,
-                title: otherRelationsSectionTitle,
-                relations: otherRelations
+        if otherRelations.isNotEmpty {
+            let otherRelationsSectionTitle = featuredRelations.isNotEmpty ?
+            "Other relations".localized :
+            "In this object".localized
+            
+            sections.append(
+                ObjectRelationsSection(
+                    id: Constants.otherRelationsSectionId,
+                    title: otherRelationsSectionTitle,
+                    relations: otherRelations
+                )
             )
-        )
+        }
         
         return sections
     }
