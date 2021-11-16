@@ -50,7 +50,7 @@ struct ObjectRelationRow: View {
                 Image.Relations.locked
                     .frame(width: 15, height: 12)
             }
-            AnytypeText(viewModel.name, style: .relation1Regular, color: .textSecondary)
+            AnytypeText(viewModel.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
         }
     }
     
