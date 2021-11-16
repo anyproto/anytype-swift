@@ -2,13 +2,13 @@ import AnytypeCore
 
 extension HomeViewModel {
     struct OpenedPageData {
-        var pageId: String
-        var showingNewPage: Bool
+        var data: EditorScreenData
+        var showing: Bool
         
         static var cached: OpenedPageData = {
             OpenedPageData(
-                pageId: UserDefaultsConfig.pageIdFromLastSession ?? "",
-                showingNewPage: UserDefaultsConfig.pageIdFromLastSession != nil
+                data: UserDefaultsConfig.screenDataFromLastSession ?? .empty,
+                showing: UserDefaultsConfig.screenDataFromLastSession != nil
             )
         }()
     }

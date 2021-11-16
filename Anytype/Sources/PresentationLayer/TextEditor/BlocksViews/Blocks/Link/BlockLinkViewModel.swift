@@ -23,7 +23,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     private let state: BlockLinkState
     
     private let content: BlockLink
-    private let openLink: (BlockId) -> ()
+    private let openLink: (EditorScreenData) -> ()
 
 
     init(
@@ -32,14 +32,14 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         content: BlockLink,
         details: ObjectDetails?,
         contextualMenuHandler: DefaultContextualMenuHandler,
-        openLink: @escaping (BlockId) -> ()
+        openLink: @escaping (EditorScreenData) -> ()
     ) {
         self.indentationLevel = indentationLevel
         self.information = information
         self.content = content
         self.contextualMenuHandler = contextualMenuHandler
         self.openLink = openLink
-        self.state = details.flatMap { BlockLinkState(pageDetails: $0) } ?? .empty
+        self.state = details.flatMap { BlockLinkState(details: $0) } ?? .empty
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
@@ -51,7 +51,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
             return
         }
         
-        openLink(content.targetBlockID)
+        openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
     }
     
     func handle(action: ContextualMenu) {

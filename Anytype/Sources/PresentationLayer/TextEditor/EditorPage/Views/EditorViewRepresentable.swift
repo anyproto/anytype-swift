@@ -6,7 +6,7 @@ import AnytypeCore
 
 struct EditorViewRepresentable: UIViewControllerRepresentable {
     
-    let blockId: String
+    let data: EditorScreenData
     let model: HomeViewModel
     
     // MARK: - UIViewControllerRepresentable
@@ -14,12 +14,7 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorBrowserController {
-        let type = model.document.detailsStorage.get(id: blockId)?.editorViewType
-        if type.isNil {
-            anytypeAssertionFailure("KNOWN ISSUE\nNo data for new page with id: \(blockId)")
-        }
-        
-        let browser = EditorBrowserAssembly().buildEditorBrowser(blockId: blockId, type: type ?? .page)
+        let browser = EditorBrowserAssembly().buildEditorBrowser(data: data)
         model.editorBrowser = browser
         return browser
     }

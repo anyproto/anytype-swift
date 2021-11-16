@@ -5,7 +5,7 @@ import AnytypeCore
 protocol EditorBrowser: AnyObject {
     func pop()
     func goToHome(animated: Bool)
-    func showPage(pageId: BlockId)
+    func showPage(data: EditorScreenData)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser {
@@ -77,7 +77,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 guard let page = self.stateManager.closedPages.last else { return }
                 guard self.stateManager.moveForwardOnce() else { return }
                 
-                self.router.showPage(with: page.blockId)
+                self.router.showPage(data: page.pageData)
             },
             onForwardPageTap: { [weak self] page in
                 guard let self = self else { return }
@@ -88,14 +88,14 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                     self.navigationController?.popViewController(animated: true)
                 }
                 
-                self.router.showPage(with: page.blockId)
+                self.router.showPage(data: page.pageData)
             },
             onHomeTap: { [weak self] in
                 self?.goToHome(animated: true)
             },
             onSearchTap: { [weak self] in
-                self?.router.showSearch { blockId in
-                    self?.router.showPage(with: blockId)
+                self?.router.showSearch { data in
+                    self?.router.showPage(data: data)
                 }
             }
         )
@@ -113,8 +113,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         navigationController?.popViewController(animated: animated)
     }
     
-    func showPage(pageId: BlockId) {
-        router.showPage(with: pageId)
+    func showPage(data: EditorScreenData) {
+        router.showPage(data: data)
     }
     
     // MARK: - Unavailable
@@ -131,15 +131,15 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedPageId(detailsProvider.objectId)
+        UserDefaultsConfig.storeOpenedScreenData(detailsProvider.screenData)
         
         let details = detailsProvider.details
-        let title = details?.name
+        let title = details?.title
         let subtitle = details?.description
         do {
             try stateManager.didShow(
                 page: BrowserPage(
-                    blockId: detailsProvider.objectId,
+                    pageData: detailsProvider.screenData,
                     title: title,
                     subtitle: subtitle,
                     controller: viewController

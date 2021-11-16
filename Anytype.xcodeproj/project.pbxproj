@@ -407,6 +407,7 @@
 		3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41B52742840000F8EBF3 /* DocumentDetaisProvider.swift */; };
 		3D8D41B9274287A900F8EBF3 /* EditorSetHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */; };
 		3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */; };
+		3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
 		3D929B6226332ACA0063F1BE /* HomeCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B6126332ACA0063F1BE /* HomeCellData.swift */; };
@@ -1163,6 +1164,7 @@
 		3D8D41B52742840000F8EBF3 /* DocumentDetaisProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetaisProvider.swift; sourceTree = "<group>"; };
 		3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetHostingController.swift; sourceTree = "<group>"; };
 		3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewModel.swift; sourceTree = "<group>"; };
+		3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScreenData.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
 		3D929B6126332ACA0063F1BE /* HomeCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellData.swift; sourceTree = "<group>"; };
@@ -3538,6 +3540,7 @@
 			children = (
 				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */,
+				3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -4910,6 +4913,7 @@
 				3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
+				3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
 				3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,

@@ -8,16 +8,16 @@ final class EditorAssembly {
         self.browser = browser
     }
     
-    func buildEditorController(pageId: BlockId, type: EditorViewType) -> UIViewController {
-        buildEditorModule(pageId: pageId, type: type).vc
+    func buildEditorController(data: EditorScreenData) -> UIViewController {
+        buildEditorModule(data: data).vc
     }
     
-    func buildEditorModule(pageId: BlockId, type: EditorViewType) -> (vc: UIViewController, router: EditorRouterProtocol) {
-        switch type {
+    func buildEditorModule(data: EditorScreenData) -> (vc: UIViewController, router: EditorRouterProtocol) {
+        switch data.type {
         case .page:
-            return buildPageModule(pageId: pageId)
+            return buildPageModule(pageId: data.pageId)
         case .set:
-            return buildSetModule(pageId: pageId)
+            return buildSetModule(pageId: data.pageId)
         }
     }
     

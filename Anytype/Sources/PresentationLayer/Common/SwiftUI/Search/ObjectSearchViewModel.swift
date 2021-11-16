@@ -107,6 +107,10 @@ struct ObjectSearchData: SearchDataProtocol {
     var callout: String {
         searchData.objectType.name
     }
+    
+    var viewType: EditorViewType {
+        searchData.editorViewType
+    }
 
     init(searchKind: SearchKind, searchData: SearchData) {
         self.searchData = searchData

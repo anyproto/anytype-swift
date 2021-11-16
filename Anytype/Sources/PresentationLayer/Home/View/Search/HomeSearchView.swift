@@ -5,7 +5,7 @@ struct HomeSearchView: View {
         
     var body: some View {
         let searchViewModel = ObjectSearchViewModel(searchKind: .objects) { [weak viewModel] data in
-            viewModel?.showPage(pageId: data.blockId)
+            viewModel?.showPage(pageId: data.blockId, viewType: data.viewType)
         }
         return SearchView(title: nil, viewModel: searchViewModel)
     }

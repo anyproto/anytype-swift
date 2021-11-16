@@ -22,7 +22,7 @@ struct HomeView: View {
 
                 viewModel.viewLoaded()
                 
-                UserDefaultsConfig.storeOpenedPageId(nil)
+                UserDefaultsConfig.storeOpenedScreenData(nil)
             }
     }
     
@@ -104,7 +104,7 @@ struct HomeView: View {
         Group {
             NavigationLink(
                 destination: viewModel.createBrowser(),
-                isActive: $viewModel.openedPageData.showingNewPage,
+                isActive: $viewModel.openedPageData.showing,
                 label: { EmptyView() }
             )
         }

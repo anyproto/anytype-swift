@@ -150,21 +150,23 @@ extension HomeViewModel {
     func createAndShowNewPage() {
         guard let blockId = createNewPage() else { return }
         
-        showPage(pageId: blockId)
+        showPage(pageId: blockId, viewType: .page)
     }
     
-    func showPage(pageId: BlockId) {
-        if openedPageData.showingNewPage {
-            editorBrowser?.showPage(pageId: pageId)
+    func showPage(pageId: BlockId, viewType: EditorViewType) {
+        let data = EditorScreenData(pageId: pageId, type: viewType)
+        
+        if openedPageData.showing {
+            editorBrowser?.showPage(data: data)
         } else {
             animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
-            openedPageData.pageId = pageId
-            openedPageData.showingNewPage = true
+            openedPageData.data = data
+            openedPageData.showing = true
         }
     }
     
     func createBrowser() -> some View {
-        EditorBrowserAssembly().editor(blockId: openedPageData.pageId, model: self)
+        EditorBrowserAssembly().editor(data: openedPageData.data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }
