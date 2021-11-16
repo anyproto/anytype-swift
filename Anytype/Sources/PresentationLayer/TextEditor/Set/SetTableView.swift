@@ -51,10 +51,12 @@ struct SetTableView: View {
     
     private func rowsView(row: String) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText("🚀 " + row, style: .body, color: .grayscale90)
-                .padding()
-                .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
+            Spacer.fixedHeight(18)
             
+            AnytypeText("🚀 " + row, style: .body, color: .grayscale90)
+                .padding(.horizontal, 16)
+                .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
+            Spacer.fixedHeight(18)
             HStack(spacing: 0) {
                 ForEach(colums, id: \.self) { colum in
                     AnytypeText(row + colum, style: .relation2Regular, color: .textPrimary)
@@ -64,6 +66,9 @@ struct SetTableView: View {
                         .foregroundColor(.grayscale30)
                 }
             }
+            
+            Spacer.fixedHeight(12)
+            Divider()
         }
     }
 }

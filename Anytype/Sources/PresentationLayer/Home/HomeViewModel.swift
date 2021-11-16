@@ -154,11 +154,13 @@ extension HomeViewModel {
     }
     
     func showPage(pageId: BlockId, viewType: EditorViewType) {
+        let data = EditorScreenData(pageId: pageId, type: viewType)
+        
         if openedPageData.showing {
-            editorBrowser?.showPage(pageId: pageId)
+            editorBrowser?.showPage(data: data)
         } else {
             animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
-            openedPageData.data = EditorScreenData(pageId: pageId, type: viewType)
+            openedPageData.data = data
             openedPageData.showing = true
         }
     }
