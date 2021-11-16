@@ -2,10 +2,6 @@ import SwiftUI
 
 
 protocol SearchDataProtocol: Identifiable {
-    associatedtype SearchResult
-
-    var searchResult: SearchResult { get }
-
     var usecase: ObjectIconImageUsecase { get }
     var iconImage: ObjectIconImage { get }
 
@@ -33,7 +29,7 @@ protocol SearchViewModelProtocol: ObservableObject, Dismissible {
     associatedtype SearchDataType: SearchDataProtocol
 
     var searchData: [SearchDataSection<SearchDataType>] { get }
-    var onSelect: (SearchDataType.SearchResult) -> () { get }
+    var onSelect: (SearchDataType) -> () { get }
     var onDismiss: () -> () { get set }
 
     func search(text: String)

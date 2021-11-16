@@ -17,7 +17,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     let shouldShowCallout: Bool = true
 
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
-    var onSelect: (SearchDataType.SearchResult) -> ()
+    var onSelect: (SearchDataType) -> ()
     var onDismiss: () -> () = { }
 
     func search(text: String) {
@@ -50,7 +50,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         searchData.append(SearchDataSection(searchData: objectData ?? [], sectionName: text.isNotEmpty ? "Objects".localized : ""))
     }
 
-    init(onSelect: @escaping (SearchDataType.SearchResult) -> ()) {
+    init(onSelect: @escaping (SearchDataType) -> ()) {
         self.onSelect = onSelect
     }
 }
@@ -59,21 +59,21 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 struct LinkToObjectSearchData: SearchDataProtocol {
     let id = UUID()
 
-    let searchResult: LinkToObjectSearchViewModel.SearchKind
+    let searchKind: LinkToObjectSearchViewModel.SearchKind
     let searchTitle: String
     let description: String
     let iconImage: ObjectIconImage
     let callout: String
 
     var shouldShowDescription: Bool {
-        switch searchResult {
+        switch searchKind {
         case .object: return true
         case .web, .createObject: return false
         }
     }
 
     var shouldShowCallout: Bool {
-        switch searchResult {
+        switch searchKind {
         case .object: return true
         case .web, .createObject: return false
         }
@@ -84,14 +84,14 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     }
 
     var usecase: ObjectIconImageUsecase {
-        switch searchResult {
+        switch searchKind {
         case .object: return .dashboardSearch
         case .web, .createObject: return .mention(.heading)
         }
     }
 
     init(searchData: SearchData) {
-        self.searchResult = .object(searchData.id)
+        self.searchKind = .object(searchData.id)
         self.searchTitle = searchData.title
         self.description = searchData.description
 
@@ -106,7 +106,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     }
 
     init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {
-        self.searchResult = searchKind
+        self.searchKind = searchKind
         self.searchTitle = searchTitle
         self.iconImage = iconImage
         self.description = ""

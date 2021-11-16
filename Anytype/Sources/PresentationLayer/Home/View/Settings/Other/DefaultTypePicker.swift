@@ -5,8 +5,8 @@ struct DefaultTypePicker: View {
     @EnvironmentObject private var model: SettingsViewModel
     
     var body: some View {
-        let searchViewModel = ObjectSearchViewModel(searchKind: .objectTypes(currentObjectTypeUrl: "")) { [weak model] blockId in
-            UserDefaultsConfig.defaultObjectType = blockId
+        let searchViewModel = ObjectSearchViewModel(searchKind: .objectTypes(currentObjectTypeUrl: "")) { [weak model] data in
+            UserDefaultsConfig.defaultObjectType = data.blockId
             model?.defaultType = false
             model?.other = false
         }
