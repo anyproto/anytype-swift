@@ -64,6 +64,8 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let description: String
     let iconImage: ObjectIconImage
     let callout: String
+    let viewType: EditorViewType
+
 
     var shouldShowDescription: Bool {
         switch searchKind {
@@ -89,11 +91,12 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         case .web, .createObject: return .mention(.heading)
         }
     }
-
+    
     init(searchData: SearchData) {
         self.searchKind = .object(searchData.id)
         self.searchTitle = searchData.title
         self.description = searchData.description
+        self.viewType = searchData.editorViewType
 
         let layout = searchData.layout
         if layout == .todo {
@@ -111,5 +114,6 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.iconImage = iconImage
         self.description = ""
         self.callout = ""
+        self.viewType = .page
     }
 }

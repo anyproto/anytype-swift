@@ -70,7 +70,9 @@ final class EditorRouter: EditorRouterProtocol {
             return
         }
         
-        let controller = editorAssembly.buildEditorController(pageId: id, type: details.editorViewType)
+        let controller = editorAssembly.buildEditorController(
+            data: EditorScreenData(pageId: id, type: details.editorViewType)
+        )
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
     

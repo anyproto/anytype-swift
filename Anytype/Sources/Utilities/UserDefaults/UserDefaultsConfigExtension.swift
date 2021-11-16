@@ -31,30 +31,37 @@ extension UserDefaultsConfig {
     // MARK: - Opened Page id
     @UserDefault("UserData.LastOpenedPageId", defaultValue: nil)
     private static var _lastOpenedPageId: String?
+    @UserDefault("UserData.LastOpenedViewType", defaultValue: nil)
+    private static var _lastOpenedViewType: String?
     
-    private static var pageIdFromLastSessionInitialized = false
-    private static var _pageIdFromLastSession: String?
-    static var pageIdFromLastSession: BlockId? {
-        initializePageIdFromLastSession()
-        return _pageIdFromLastSession
+    private static var _screenDataFromLastSessionInitialized = false
+    private static var _screenDataFromLastSession: EditorScreenData?
+    static var screenDataFromLastSession: EditorScreenData? {
+        initializeScreenDataFromLastSession()
+        return _screenDataFromLastSession
     }
     
-    static func storeOpenedPageId(_ pageId: BlockId?) {
-        initializePageIdFromLastSession()
-        _lastOpenedPageId = pageId
+    static func storeOpenedScreenData(_ data: EditorScreenData?) {
+        initializeScreenDataFromLastSession()
+        _lastOpenedPageId = data?.pageId
+        _lastOpenedViewType = data?.type.rawValue
     }
     
-    private static func initializePageIdFromLastSession() {
-        guard !pageIdFromLastSessionInitialized else { return }
-        _pageIdFromLastSession = _lastOpenedPageId
-        pageIdFromLastSessionInitialized = true
+    private static func initializeScreenDataFromLastSession() {
+        guard !_screenDataFromLastSessionInitialized else { return }
+        _screenDataFromLastSessionInitialized = true
+        
+        guard let type = _lastOpenedViewType.flatMap ({ EditorViewType(rawValue: $0) }) else { return }
+        guard let pageId = _lastOpenedPageId else { return }
+                
+        _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
     }
     
-    // Default object type
+    // MARK: - Default object type
     @UserDefault("UserData.DefaultObjectType", defaultValue: "")
     static var defaultObjectType: String
     
-    // Wallpaper    
+    // MARK: - Wallpaper    
     @UserDefault("UserData.Wallpaper", defaultValue: nil)
     private static var _wallpaper: Data?
     

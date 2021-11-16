@@ -131,10 +131,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedPageId(detailsProvider.objectId)
+        detailsProvider.screenData.flatMap { UserDefaultsConfig.storeOpenedScreenData($0) }
         
         let details = detailsProvider.details
-        let title = details?.name
+        let title = details?.title
         let subtitle = details?.description
         do {
             try stateManager.didShow(
