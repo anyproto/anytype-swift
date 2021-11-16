@@ -9,10 +9,10 @@ final class EditorAssembly {
     }
     
     func buildEditorController(pageId: BlockId, type: EditorViewType) -> UIViewController {
-        buildEditorModule(pageId: pageId, type: type).0
+        buildEditorModule(pageId: pageId, type: type).vc
     }
     
-    func buildEditorModule(pageId: BlockId, type: EditorViewType) -> (UIViewController, EditorRouterProtocol) {
+    func buildEditorModule(pageId: BlockId, type: EditorViewType) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch type {
         case .page:
             return buildPageModule(pageId: pageId)
@@ -25,7 +25,7 @@ final class EditorAssembly {
     private func buildSetModule(pageId: BlockId) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: pageId)
         let model = EditorSetViewModel(document: document)
-        let controller = EditorSetHostingController(documentId: pageId, model: model)
+        let controller = EditorSetHostingController(objectId: pageId, model: model)
         
         let router = EditorRouter(
             rootController: browser,
