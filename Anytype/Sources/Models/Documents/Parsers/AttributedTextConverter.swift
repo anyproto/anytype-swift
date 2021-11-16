@@ -1,7 +1,7 @@
 import BlocksModels
 import UIKit
 import ProtobufMessages
-
+import AnytypeCore
 
 enum AttributedTextConverter {
     
@@ -39,7 +39,15 @@ enum AttributedTextConverter {
                 return to
             }()
             
-            guard let fromOffset = fromOffset, let toOffset = toOffset  else {
+            guard let fromOffset = fromOffset, let toOffset = toOffset else {
+                let message = """
+                AttributedTextConverter parsing error.
+                string: \(text),
+                mark range from: \(mark.range.from),
+                mark range to: \(mark.range.to),
+                mark type: \(mark.type)
+                """
+                anytypeAssertionFailure(message)
                 return nil
             }
             
