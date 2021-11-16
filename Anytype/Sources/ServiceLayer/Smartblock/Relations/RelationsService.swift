@@ -22,4 +22,13 @@ final class RelationsService: RelationsServiceProtocol {
         .send()
     }
     
+    func removeRelation(objectId: BlockId, relationId: String) {
+        Anytype_Rpc.Object.RelationDelete.Service.invoke(
+            contextID: objectId,
+            relationKey: relationId
+        ).map { EventsBunch(event: $0.event) }
+        .getValue()?
+        .send()
+    }
+    
 }

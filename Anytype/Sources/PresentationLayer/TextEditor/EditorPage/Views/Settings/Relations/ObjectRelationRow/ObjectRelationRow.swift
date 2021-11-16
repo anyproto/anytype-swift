@@ -11,25 +11,34 @@ import SwiftUI
 struct ObjectRelationRow: View {
     
     let viewModel: ObjectRelationRowData
+    let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
     
     var body: some View {
         GeometryReader { gr in
-            // If we will use spacing more than 0 it will be added to
-            // `Spacer()` from both sides as a result
-            // `Spacer` will take up more space
-            HStack(spacing: 0) {
-                name
-                    .frame(width: gr.size.width * 0.4, alignment: .leading)
-                Spacer.fixedWidth(8)
-                valueView
-                Spacer(minLength: 8)
-                starImageView
+            HStack(spacing: 8) {
+                if viewModel.isEditable {
+                    removeButton
+                } else {
+                    Spacer.fixedWidth(Constants.buttonWidth)
+                }
+                
+                // If we will use spacing more than 0 it will be added to
+                // `Spacer()` from both sides as a result
+                // `Spacer` will take up more space
+                HStack(spacing: 0) {
+                    name
+                        .frame(width: gr.size.width * 0.4, alignment: .leading)
+                    Spacer.fixedWidth(8)
+                    valueView
+                    Spacer(minLength: 8)
+                    starImageView
+                }
+                .frame(height: gr.size.height)
+                .modifier(DividerModifier(spacing:0))
             }
-            .frame(width: gr.size.width, height: gr.size.height)
         }
         .frame(height: 48)
-        .modifier(DividerModifier(spacing:0))
     }
     
     private var name: some View {
@@ -62,6 +71,15 @@ struct ObjectRelationRow: View {
         }
     }
     
+    private var removeButton: some View {
+        Button {
+            onRemoveTap(viewModel.id)
+        } label: {
+            Image(systemName: "minus.circle.fill")
+                .foregroundColor(.red)
+        }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
+    }
+    
     private var starImageView: some View {
         Button {
             onStarTap(viewModel.id)
@@ -69,8 +87,16 @@ struct ObjectRelationRow: View {
             viewModel.isFeatured ?
             Image.Relations.removeFromFeatured :
             Image.Relations.addToFeatured
-        }.frame(width: 24, height: 24)
+        }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
     }
+}
+
+private extension ObjectRelationRow {
+    
+    enum Constants {
+        static let buttonWidth: CGFloat = 24
+    }
+    
 }
 
 struct ObjectRelationRow_Previews: PreviewProvider {
@@ -86,8 +112,10 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
                     ]),
                     hint: "hint",
-                    isFeatured: false
+                    isFeatured: false,
+                    isEditable: true
                 ),
+                onRemoveTap: { _ in },
                 onStarTap: { _ in }
             )
             ObjectRelationRow(
@@ -95,8 +123,10 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                     id: "1", name: "Relation name",
                     value: .text("hello"),
                     hint: "hint",
-                    isFeatured: false
+                    isFeatured: false,
+                    isEditable: false
                 ),
+                onRemoveTap: { _ in },
                 onStarTap: { _ in }
             )
         }
