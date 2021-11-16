@@ -23,20 +23,15 @@ final class ObjectRelationsViewModel: ObservableObject {
     // MARK: - Internal functions
     
     func update(
-        with relations: [Relation],
+        with objectRelationsStorage: ObjectRelationsStorageProtocol,
         detailsStorage: ObjectDetailsStorageProtocol
     ) {
-        let visibleRelations = relations.filter { !$0.isHidden && $0.scope == .object }
-        
-        self.sections = sectionsBuilder.buildViewModels(
-            using: visibleRelations,
-            objectId: objectId,
-            detailsStorage: detailsStorage
-        )
+        self.sections = sectionsBuilder.buildViewModels(featuredRelations: objectRelationsStorage.featuredObjectRelations,
+                                                        otherRelations: objectRelationsStorage.otherObjectRelations)
     }
     
     func changeRelationFeaturedState(relationId: String) {
-        let relationsRowData: [ObjectRelationRowData] = sections.flatMap { $0.relations }
+        let relationsRowData: [ObjectRelationData] = sections.flatMap { $0.relations }
         let relationRowData = relationsRowData.first { $0.id == relationId }
         
         guard let relationRowData = relationRowData else { return }

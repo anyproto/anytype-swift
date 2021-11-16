@@ -1,9 +1,9 @@
 import Foundation
 
-struct ObjectRelationRowData: Hashable, Identifiable {
+struct ObjectRelationData: Hashable, Identifiable {
     let id: String
     let name: String
-    let value: ObjectRelationRowValue
+    let value: ObjectRelationValue
     let hint: String
     let isFeatured: Bool
     let isEditable: Bool

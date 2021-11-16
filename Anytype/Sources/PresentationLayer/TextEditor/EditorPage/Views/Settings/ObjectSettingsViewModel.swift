@@ -65,15 +65,16 @@ final class ObjectSettingsViewModel: ObservableObject {
     func update(
         objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
-        objectRelations: [Relation]
+        objectRelationsStorage: ObjectRelationsStorageProtocol
     ) {
         if let details = objectDetailsStorage.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
+
             relationsViewModel.update(
-                with: objectRelations,
+                with: objectRelationsStorage,
                 detailsStorage: objectDetailsStorage
             )
         }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ObjectRelationRow: View {
     
     @Binding var editingMode: Bool
-    let viewModel: ObjectRelationRowData
+    let viewModel: ObjectRelationData
     let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
     
@@ -115,7 +115,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
         VStack(spacing: 0) {
             ObjectRelationRow(
                 editingMode: .constant(false),
-                viewModel: ObjectRelationRowData(
+                viewModel: ObjectRelationData(
                     id: "1", name: "Relation name",
                     value: .tag([
                         TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
@@ -132,7 +132,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             )
             ObjectRelationRow(
                 editingMode: .constant(false),
-                viewModel: ObjectRelationRowData(
+                viewModel: ObjectRelationData(
                     id: "1", name: "Relation name",
                     value: .text("hello"),
                     hint: "hint",
