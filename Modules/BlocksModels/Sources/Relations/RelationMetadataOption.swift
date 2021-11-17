@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public extension Relation {
+public extension RelationMetadata {
     
     struct Option: Hashable {
         public let id: String
@@ -12,7 +12,7 @@ public extension Relation {
     
 }
 
-extension Relation.Option {
+extension RelationMetadata.Option {
     
     init(middlewareOption: Anytype_Model_Relation.Option) {
         self.id = middlewareOption.id

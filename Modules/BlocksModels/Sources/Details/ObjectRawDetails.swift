@@ -11,41 +11,41 @@ extension ObjectRawDetails {
             switch $0 {
             case .name(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.name.rawValue,
+                    key: RelationMetadataKey.name.rawValue,
                     value: string.protobufValue
                 )
                 
             case .iconEmoji(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.iconEmoji.rawValue,
+                    key: RelationMetadataKey.iconEmoji.rawValue,
                     value: string.protobufValue
                 )
                 
             case .iconImageHash(let hash):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.iconImage.rawValue,
+                    key: RelationMetadataKey.iconImage.rawValue,
                     value: (hash?.value ?? "").protobufValue
                 )
                 
             case .coverId(let coverId):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.coverId.rawValue,
+                    key: RelationMetadataKey.coverId.rawValue,
                     value: coverId.protobufValue
                 )
                 
             case .coverType(let coverType):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.coverType.rawValue,
+                    key: RelationMetadataKey.coverType.rawValue,
                     value: coverType.rawValue.protobufValue
                 )
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.type.rawValue,
+                    key: RelationMetadataKey.type.rawValue,
                     value: type.rawValue.protobufValue
                 )
             case .isDraft(let isDraft):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationKey.isDraft.rawValue,
+                    key: RelationMetadataKey.isDraft.rawValue,
                     value: isDraft.protobufValue
                 )
             }

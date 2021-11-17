@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct Relation: Hashable {
+public struct RelationMetadata: Hashable {
     
     public let key: String
     public let name: String
@@ -39,7 +39,7 @@ public struct Relation: Hashable {
     
 }
 
-extension Relation: Identifiable {
+extension RelationMetadata: Identifiable {
 
     public var id: String {
         return key
@@ -47,7 +47,7 @@ extension Relation: Identifiable {
     
 }
 
-public extension Relation {
+public extension RelationMetadata {
     
     init(middlewareRelation: Anytype_Model_Relation) {
         self.key = middlewareRelation.key

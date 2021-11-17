@@ -103,7 +103,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectSettingsViewModel.update(
                 objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
-                objectRelations: document.relationsStorage.relations
+                objectRelationsStorage: document.parsedRelations
             )
             updateHeaderIfNeeded(header: header, details: details)
         case let .blocks(updatedIds):
@@ -214,11 +214,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         let header = headerBuilder.objectHeader(details: details)
         updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
-        
+
         objectSettingsViewModel.update(
             objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
-            objectRelations: document.relationsStorage.relations
+            objectRelationsStorage: document.parsedRelations
         )
     }
 

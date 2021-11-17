@@ -7,14 +7,14 @@ final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
-    private let relationStorage: RelationsStorageProtocol
+    private let relationStorage: RelationsMetadataStorageProtocol
     
     private let informationCreator: BlockInformationCreator
     
     init(
         blocksContainer: BlockContainerModelProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
-        relationStorage: RelationsStorageProtocol,
+        relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator
     ) {
         self.updater = BlockUpdater(blocksContainer)
@@ -146,7 +146,7 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsSet(let set):
             relationStorage.set(
-                relations: set.relations.map { Relation(middlewareRelation: $0) }
+                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
             // TODO: - add relations update
@@ -154,7 +154,7 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsAmend(let amend):
             relationStorage.amend(
-                relations: amend.relations.map { Relation(middlewareRelation: $0) }
+                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
             // TODO: - add relations update
