@@ -1,25 +1,25 @@
 import Foundation
 import AnytypeCore
 
-public final class RelationsStorage {
+public final class RelationsMetadataStorage {
     
-    private var storage = SynchronizedArray<Relation>()
+    private var storage = SynchronizedArray<RelationMetadata>()
     
     public init() {}
     
 }
 
-extension RelationsStorage: RelationsStorageProtocol {
+extension RelationsMetadataStorage: RelationsMetadataStorageProtocol {
     
-    public var relations: [Relation] {
+    public var relations: [RelationMetadata] {
         storage.array
     }
     
-    public func set(relations: [Relation]) {
-        storage = SynchronizedArray<Relation>(array: relations)
+    public func set(relations: [RelationMetadata]) {
+        storage = SynchronizedArray<RelationMetadata>(array: relations)
     }
     
-    public func amend(relations: [Relation]) {
+    public func amend(relations: [RelationMetadata]) {
         relations.forEach { relation in
             let index = storage.array.firstIndex { $0.id == relation.id }
             if let index = index {

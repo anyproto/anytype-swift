@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Relation {
+public extension RelationMetadata {
     
     enum Scope: Hashable {
         /// stored within the object
@@ -18,7 +18,7 @@ public extension Relation {
     }
 }
 
-extension Relation.Scope {
+extension RelationMetadata.Scope {
     
     init(rawValue: Int) {
         switch rawValue {

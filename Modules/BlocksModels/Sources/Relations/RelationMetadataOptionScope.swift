@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Relation.Option {
+public extension RelationMetadata.Option {
     
     enum Scope: Hashable {
         case local
@@ -11,7 +11,7 @@ public extension Relation.Option {
     
 }
 
-extension Relation.Option.Scope {
+extension RelationMetadata.Option.Scope {
     
     init(rawValue: Int) {
       switch rawValue {

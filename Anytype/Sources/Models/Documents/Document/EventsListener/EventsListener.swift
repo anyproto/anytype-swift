@@ -28,7 +28,7 @@ final class EventsListener: EventsListenerProtocol {
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
-        relationStorage: RelationsStorageProtocol
+        relationStorage: RelationsMetadataStorageProtocol
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer

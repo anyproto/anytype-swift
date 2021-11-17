@@ -21,7 +21,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func search(text: String) -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastOpenedDate,
+            relation: RelationMetadataKey.lastOpenedDate,
             type: .desc
         )
         
@@ -35,7 +35,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchArchivedPages() -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastModifiedDate,
+            relation: RelationMetadataKey.lastModifiedDate,
             type: .desc
         )
         
@@ -49,7 +49,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchHistoryPages() -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastModifiedDate,
+            relation: RelationMetadataKey.lastModifiedDate,
             type: .desc
         )
         let filters = buildFilters(
@@ -62,7 +62,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchSharedPages() -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastModifiedDate,
+            relation: RelationMetadataKey.lastModifiedDate,
             type: .desc
         )
         var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
@@ -77,7 +77,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchSets() -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.lastModifiedDate,
+            relation: RelationMetadataKey.lastModifiedDate,
             type: .desc
         )
         let filters = buildFilters(
@@ -90,7 +90,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [SearchData]? {
         let sort = SearchHelper.sort(
-            relation: RelationKey.name,
+            relation: RelationMetadataKey.name,
             type: .asc
         )
         var filters = [

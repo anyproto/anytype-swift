@@ -16,7 +16,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let router: EditorRouterProtocol
     
     private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
-    private let objectRelationsBuilder = ObjectRelationsBuilder()
     private let cursorManager = EditorCursorManager()
     let objectSettingsViewModel: ObjectSettingsViewModel
     let actionHandler: BlockActionHandlerProtocol
@@ -101,16 +100,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
 
-            let objectRelationsStorage = objectRelationsBuilder.buildObjectRelations(
-                using: document.relationsStorage.relations,
-                objectId: document.objectId,
-                detailsStorage: document.detailsStorage
-            )
-
             objectSettingsViewModel.update(
                 objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
-                objectRelationsStorage: objectRelationsStorage
+                objectRelationsStorage: document.parsedRelations
             )
             updateHeaderIfNeeded(header: header, details: details)
         case let .blocks(updatedIds):
@@ -222,16 +215,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
 
-        let objectRelationsStorage = objectRelationsBuilder.buildObjectRelations(
-            using: document.relationsStorage.relations,
-            objectId: document.objectId,
-            detailsStorage: document.detailsStorage
-        )
-
         objectSettingsViewModel.update(
             objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
-            objectRelationsStorage: objectRelationsStorage
+            objectRelationsStorage: document.parsedRelations
         )
     }
 

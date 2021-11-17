@@ -3,7 +3,7 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 
-final class ObjectRelationsBuilder {
+final class RelationsBuilder {
 
     // MARK: - Private variables
     
@@ -17,22 +17,22 @@ final class ObjectRelationsBuilder {
     
     // MARK: - Internal functions
     
-    func buildObjectRelations(
-        using relations: [Relation],
+    func buildRelations(
+        using relations: [RelationMetadata],
         objectId: BlockId,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> ObjectRelationsStorageProtocol {
+    ) -> ParsedRelations {
         guard let objectDetails = detailsStorage.get(id: objectId) else {
-            return ObjectRelationsStorage(allRelations: [], otherRelations: [], featuredRelations: [])
+            return ParsedRelations(otherRelations: [], featuredRelations: [])
         }
         
-        var featuredRelations: [ObjectRelationData] = []
-        var otherRelations: [ObjectRelationData] = []
-        var allRelations: [ObjectRelationData] = []
+        var featuredRelations: [Relation] = []
+        var otherRelations: [Relation] = []
+        var allRelations: [Relation] = []
         
         let featuredRelationIds = objectDetails.featuredRelations
         relations.forEach { relation in
-            guard !relation.isHidden else { return }
+            guard !relation.isHidden, relation.scope == .object else { return }
             
             let value = relationValue(
                 relation: relation,
@@ -40,7 +40,7 @@ final class ObjectRelationsBuilder {
                 detailsStorage: detailsStorage
             )
             
-            let relationData = ObjectRelationData(
+            let relationData = Relation(
                 id: relation.id,
                 name: relation.name,
                 value: value,
@@ -58,20 +58,20 @@ final class ObjectRelationsBuilder {
             }
         }
         
-        return ObjectRelationsStorage(allRelations: allRelations, otherRelations: otherRelations, featuredRelations: featuredRelations)
+        return ParsedRelations(otherRelations: otherRelations, featuredRelations: featuredRelations)
     }
     
 }
 
 // MARK: - Private extension
 
-private extension ObjectRelationsBuilder {
+private extension RelationsBuilder {
     
     func relationValue(
-        relation: Relation,
+        relation: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> ObjectRelationValue {
+    ) -> RelationValue {
         switch relation.format {
         case .longText:
             return textRelationValue(relation: relation, details: details)
@@ -102,14 +102,14 @@ private extension ObjectRelationsBuilder {
         }
     }
     
-    func textRelationValue(relation: Relation, details: ObjectDetails) -> ObjectRelationValue {
+    func textRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         let text: String? = value?.stringValue
         
         return .text(text)
     }
     
-    func numberRelationValue(relation: Relation, details: ObjectDetails) -> ObjectRelationValue {
+    func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
         let number = value?.safeIntValue
@@ -118,14 +118,14 @@ private extension ObjectRelationsBuilder {
         return .text(text)
     }
     
-    func statusRelationValue(relation: Relation, details: ObjectDetails) -> ObjectRelationValue {
+    func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
         guard
             let optionId = value?.unwrapedListValue.stringValue, optionId.isNotEmpty
         else { return .status(nil) }
         
-        let option: Relation.Option? = relation.selections.first { $0.id == optionId }
+        let option: RelationMetadata.Option? = relation.selections.first { $0.id == optionId }
 
         guard let option = option else { return .status(nil) }
         
@@ -140,7 +140,7 @@ private extension ObjectRelationsBuilder {
         )
     }
     
-    func dateRelationValue(relation: Relation, details: ObjectDetails) -> ObjectRelationValue {
+    func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
         guard let number = value?.safeDoubleValue else { return .text(nil) }
@@ -150,13 +150,13 @@ private extension ObjectRelationsBuilder {
         return .text(dateFormatter.string(from: date))
     }
     
-    func checkboxRelationValue(relation: Relation, details: ObjectDetails) -> ObjectRelationValue {
+    func checkboxRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
         return .checkbox(value?.boolValue ?? false)
     }
     
-    func tagRelationValue(relation: Relation, details: ObjectDetails) -> ObjectRelationValue {
+    func tagRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         guard let value = value else { return .tag([]) }
 
@@ -165,7 +165,7 @@ private extension ObjectRelationsBuilder {
             return tagId.isEmpty ? nil : tagId
         }
         
-        let options: [Relation.Option] = relation.selections.filter {
+        let options: [RelationMetadata.Option] = relation.selections.filter {
             selectedTagIds.contains($0.id)
         }
         
@@ -181,10 +181,10 @@ private extension ObjectRelationsBuilder {
     }
     
     func objectRelationValue(
-        relation: Relation,
+        relation: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> ObjectRelationValue {
+    ) -> RelationValue {
         let value = details.values[relation.key]
         guard let value = value else { return .object([]) }
         
@@ -221,10 +221,10 @@ private extension ObjectRelationsBuilder {
     }
     
     func fileRelationValue(
-        relation: Relation,
+        relation: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> ObjectRelationValue {
+    ) -> RelationValue {
         let value = details.values[relation.key]
         guard let value = value else { return .object([]) }
         
@@ -239,7 +239,7 @@ private extension ObjectRelationsBuilder {
         let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
             let fileName: String = {
                 let name = objectDetail.name
-                let fileExt = objectDetail.values[RelationKey.fileExt.rawValue]
+                let fileExt = objectDetail.values[RelationMetadataKey.fileExt.rawValue]
                 let fileExtString = fileExt?.stringValue
                 
                 guard
@@ -254,7 +254,7 @@ private extension ObjectRelationsBuilder {
                     return .icon(objectIconType)
                 }
                 
-                let fileMimeType = objectDetail.values[RelationKey.fileMimeType.rawValue]?.stringValue
+                let fileMimeType = objectDetail.values[RelationMetadataKey.fileMimeType.rawValue]?.stringValue
                 guard let fileMimeType = fileMimeType else {
                     return .image(UIImage.blockFile.content.other)
                 }
@@ -270,7 +270,7 @@ private extension ObjectRelationsBuilder {
     
 }
 
-extension Relation.Format {
+extension RelationMetadata.Format {
     
     var hint: String {
         switch self {

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Relation {
+public extension RelationMetadata {
     
     enum Format: Hashable {
         case longText
@@ -19,7 +19,7 @@ public extension Relation {
     }
 }
 
-extension Relation.Format {
+extension RelationMetadata.Format {
     
     init(rawValue: Int) {
         switch rawValue {

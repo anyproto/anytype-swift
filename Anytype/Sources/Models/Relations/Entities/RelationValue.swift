@@ -1,6 +1,6 @@
 import Foundation
 
-enum ObjectRelationValue: Hashable {
+enum RelationValue: Hashable {
     case text(String?)
     case status(StatusRelation?)
     case checkbox(Bool)

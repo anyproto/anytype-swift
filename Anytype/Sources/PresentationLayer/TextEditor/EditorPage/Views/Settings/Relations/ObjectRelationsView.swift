@@ -83,7 +83,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                         id: "id",
                         title: "title",
                         relations: [
-                            ObjectRelationData(
+                            Relation(
                                 id: "1",
                                 name: "Relation name1",
                                 value: .text("text"),
@@ -92,7 +92,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                 isEditable: true
                                 
                             ),
-                            ObjectRelationData(
+                            Relation(
                                 id: "2",
                                 name: "Relation name2",
                                 value: .text("text2"),
@@ -100,7 +100,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                 isFeatured: false,
                                 isEditable: true
                             ),
-                            ObjectRelationData(
+                            Relation(
                                 id: "3",
                                 name: "Relation name3",
                                 value: .tag([
@@ -119,7 +119,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                         id: "id1",
                         title: "title2",
                         relations: [
-                            ObjectRelationData(
+                            Relation(
                                 id: "12",
                                 name: "Relation name1",
                                 value: .text("text"),
@@ -127,7 +127,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                 isFeatured: false,
                                 isEditable: true
                             ),
-                            ObjectRelationData(
+                            Relation(
                                 id: "22",
                                 name: "Relation name2",
                                 value: .text("text2"),
@@ -135,7 +135,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                 isFeatured: false,
                                 isEditable: true
                             ),
-                            ObjectRelationData(
+                            Relation(
                                 id: "32",
                                 name: "Relation name3",
                                 value: .text("text3"),

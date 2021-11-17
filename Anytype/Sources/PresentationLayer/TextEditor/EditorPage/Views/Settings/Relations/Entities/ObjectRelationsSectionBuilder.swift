@@ -25,8 +25,8 @@ final class ObjectRelationsSectionBuilder {
     // MARK: - Internal functions
 
     func buildViewModels(
-        featuredRelations: [ObjectRelationData],
-        otherRelations: [ObjectRelationData]
+        featuredRelations: [Relation],
+        otherRelations: [Relation]
     ) -> [ObjectRelationsSection] {
         var sections: [ObjectRelationsSection] = []
 
@@ -40,21 +40,22 @@ final class ObjectRelationsSectionBuilder {
             )
         }
 
-        let otherRelationsSectionTitle = otherRelations.isNotEmpty ?
-        "Other relations".localized :
-        "In this object".localized
+        if otherRelations.isNotEmpty {
+            let otherRelationsSectionTitle = featuredRelations.isNotEmpty ?
+            "Other relations".localized :
+            "In this object".localized
 
-        sections.append(
-            ObjectRelationsSection(
-                id: Constants.otherRelationsSectionId,
-                title: otherRelationsSectionTitle,
-                relations: otherRelations
+            sections.append(
+                ObjectRelationsSection(
+                    id: Constants.otherRelationsSectionId,
+                    title: otherRelationsSectionTitle,
+                    relations: otherRelations
+                )
             )
         }
-        
+
         return sections
     }
-
 }
 
 private extension ObjectRelationsSectionBuilder {

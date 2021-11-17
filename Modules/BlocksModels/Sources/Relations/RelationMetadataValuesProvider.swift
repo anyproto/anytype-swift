@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-public protocol RelationValuesProvider {
+public protocol RelationMetadataValuesProvider {
     
     var values: [String: Google_Protobuf_Value] { get }
     
@@ -26,7 +26,7 @@ public protocol RelationValuesProvider {
 }
 
 
-public extension RelationValuesProvider {
+public extension RelationMetadataValuesProvider {
     
     var name: String {
         stringValue(with: .name)
@@ -41,7 +41,7 @@ public extension RelationValuesProvider {
     }
     
     var iconImageHash: Hash? {
-        guard let value = values[RelationKey.iconImage.rawValue] else { return nil }
+        guard let value = values[RelationMetadataKey.iconImage.rawValue] else { return nil }
         return Hash(value.unwrapedListValue.stringValue)
     }
     
@@ -51,7 +51,7 @@ public extension RelationValuesProvider {
     
     var coverType: CoverType {
         guard
-            let value = values[RelationKey.coverType.rawValue],
+            let value = values[RelationMetadataKey.coverType.rawValue],
             let number = value.unwrapedListValue.safeIntValue,
             let coverType = CoverType(rawValue: number)
         else { return .none }
@@ -73,7 +73,7 @@ public extension RelationValuesProvider {
     
     var layout: DetailsLayout {
         guard
-            let value = values[RelationKey.layout.rawValue],
+            let value = values[RelationMetadataKey.layout.rawValue],
             let number = value.unwrapedListValue.safeIntValue,
             let layout = DetailsLayout(rawValue: number)
         else {
@@ -84,7 +84,7 @@ public extension RelationValuesProvider {
     
     var layoutAlign: LayoutAlignment {
         guard
-            let value = values[RelationKey.layoutAlign.rawValue],
+            let value = values[RelationMetadataKey.layoutAlign.rawValue],
             let number = value.unwrapedListValue.safeIntValue,
             let layout = LayoutAlignment(rawValue: number)
         else {
@@ -110,7 +110,7 @@ public extension RelationValuesProvider {
     }
     
     var featuredRelations: [String] {
-        guard let value = values[RelationKey.featuredRelations.rawValue] else { return [] }
+        guard let value = values[RelationMetadataKey.featuredRelations.rawValue] else { return [] }
         
         let ids: [String] = value.listValue.values.compactMap {
             let value = $0.stringValue
@@ -122,12 +122,12 @@ public extension RelationValuesProvider {
     }
     
     
-    private func stringValue(with key: RelationKey) -> String {
+    private func stringValue(with key: RelationMetadataKey) -> String {
         guard let value = values[key.rawValue] else { return "" }
         return value.unwrapedListValue.stringValue
     }
     
-    private func boolValue(with key: RelationKey) -> Bool {
+    private func boolValue(with key: RelationMetadataKey) -> Bool {
         guard let value = values[key.rawValue] else { return false }
         return value.unwrapedListValue.boolValue
     }
