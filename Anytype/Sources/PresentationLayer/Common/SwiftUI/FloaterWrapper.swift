@@ -24,7 +24,7 @@ struct FloaterWrapper<Content :View>: View {
                 }
             }
             .onAppear {
-                withAnimation(.ripple) {
+                withAnimation(.fastSpring) {
                     showFloater = true
                 }
             }
