@@ -55,10 +55,15 @@ struct TextValueRelationEditingView: View {
             TextEditor(text: $text)
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .foregroundColor(Color.grayscale90)
-                .frame(maxHeight: max(48, height))
+                .frame(maxHeight: max(40, height))
                 .border(Color.red)
+            
+            AnytypeText("Add text", style: .uxBodyRegular, color: .textTertiary)
+                .padding(6)
+                .opacity(text.isEmpty ? 1 : 0)
         }
         .onPreferenceChange(ViewHeightKey.self) { height = $0 }
+        .frame(maxHeight: 200)
     }
 }
 
