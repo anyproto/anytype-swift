@@ -9,7 +9,7 @@ struct TextValueRelationEditingView: View {
             Spacer()
             content
         }
-        .padding(.bottom, -UIApplication.shared.mainWindowInsets.bottom)
+        .ignoresSafeArea(.container)
     }
     
     private var content: some View {
@@ -19,8 +19,10 @@ struct TextValueRelationEditingView: View {
                 .padding([.top, .bottom], 12)
             
             textEditingView
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
             
-            Spacer.fixedHeight(20 + UIApplication.shared.mainWindowInsets.bottom)
+            Spacer.fixedHeight(20)
         }
         .background(Color.background)
         .cornerRadius(16, corners: [.topLeft, .topRight])
@@ -34,14 +36,16 @@ struct TextValueRelationEditingView: View {
                 .padding(6)
                 .background(FrameCatcher { height = $0.height })
             
-            TextEditor(text: $text)
+            if(text.isEmpty) {
+                AnytypeText("Add text".localized, style: .uxBodyRegular, color: .textTertiary)
+                    .padding(6)
+            }
+
+            AutofocusedTextEditor(text: $text)
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                .foregroundColor(Color.grayscale90)
+                .foregroundColor(.grayscale90)
+                .opacity(text.isEmpty ? 0.25 : 1)
                 .frame(maxHeight: max(40, height))
-            
-            AnytypeText("Add text", style: .uxBodyRegular, color: .textTertiary)
-                .padding(6)
-                .opacity(text.isEmpty ? 1 : 0)
         }
     }
 }
