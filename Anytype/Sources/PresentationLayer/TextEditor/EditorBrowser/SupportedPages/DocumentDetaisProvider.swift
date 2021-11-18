@@ -13,10 +13,7 @@ extension EditorPageController: DocumentDetaisProvider {
     }
     
     var screenData: EditorScreenData {
-        let type = details?.editorViewType
-        if type.isNil { anytypeAssertionFailure("Nil details in \(self)") }
-        
-        return EditorScreenData(pageId: objectId, type: type ?? .page)
+        EditorScreenData(pageId: objectId, type: .page)
     }
     
     var details: ObjectDetails? {
@@ -26,10 +23,7 @@ extension EditorPageController: DocumentDetaisProvider {
 
 extension EditorSetHostingController: DocumentDetaisProvider {
     var screenData: EditorScreenData {
-        let type = details?.editorViewType
-        if type.isNil { anytypeAssertionFailure("Nil details in \(self)") }
-        
-        return EditorScreenData(pageId: objectId, type: type ?? .page)
+        EditorScreenData(pageId: objectId, type: .set)
     }
     
     var details: ObjectDetails? {
