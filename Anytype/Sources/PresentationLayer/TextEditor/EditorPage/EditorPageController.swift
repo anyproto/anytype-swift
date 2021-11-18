@@ -107,6 +107,12 @@ final class EditorPageController: UIViewController {
         return self
     }
     
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            viewModel.router.showRelationValueEditingView()
+        }
+    }
+    
 }
 
 // MARK: - EditorPageViewInput
