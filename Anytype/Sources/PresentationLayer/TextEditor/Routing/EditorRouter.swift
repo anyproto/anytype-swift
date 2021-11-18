@@ -24,7 +24,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showSettings(viewModel: ObjectSettingsViewModel)
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
     func showIconPicker(viewModel: ObjectIconPickerViewModel)
-    func showRelationValueEditingView()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
@@ -183,19 +182,6 @@ final class EditorRouter: EditorRouterProtocol {
         rootView.viewModel.configure { [weak controller] in
             controller?.dismiss(animated: false)
         }
-        
-        viewController.present(controller, animated: false)
-    }
-    
-    func showRelationValueEditingView() {
-        guard let viewController = rootController else { return }
-        
-        let rootView = TextValueRelationEditingView(text: "")
-        let controller = UIHostingController(rootView: rootView)
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .black.withAlphaComponent(0.25)
-        controller.view.isOpaque = true
         
         viewController.present(controller, animated: false)
     }
