@@ -136,7 +136,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleDeletionState() {
         guard let details = document.objectDetails else {
-            anytypeAssertionFailure("No detais for general update")
+            anytypeAssertionFailure("No detais for general update", domain: .editorPage)
             return
         }
         
@@ -166,7 +166,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard
                 let newModel = blockBuilder.build(newRecord, previousBlock: upperBlock)
             else {
-                anytypeAssertionFailure("Could not build model from record: \(newRecord)")
+                anytypeAssertionFailure(
+                    "Could not build model from record: \(newRecord)",
+                    domain: .editorPage
+                )
                 return
             }
 
@@ -197,7 +200,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
         guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .editorPage)
             return
         }
         guard case .text = currentInformation.content else {
@@ -257,7 +260,7 @@ extension EditorPageViewModel {
 
     private func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
-            anytypeAssertionFailure("Row doesn't exist")
+            anytypeAssertionFailure("Row doesn't exist", domain: .editorPage)
             return nil
         }
         return modelsHolder.models[at.row]

@@ -47,7 +47,10 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let content = info.content
         guard case let .text(blockText) = content else {
-            anytypeAssertionFailure("We have unsupported content type: \(content)")
+            anytypeAssertionFailure(
+                "We have unsupported content type: \(content)",
+                domain: .blockActionsService
+            )
             return
         }
 

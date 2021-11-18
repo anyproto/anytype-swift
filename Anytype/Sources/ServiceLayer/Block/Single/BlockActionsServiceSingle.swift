@@ -21,7 +21,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse? {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("addActionBlockIsNotParsed")
+            anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
 
@@ -33,7 +33,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> MiddlewareResponse? {
         guard let block = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("replace action parsing error")
+            anytypeAssertionFailure("replace action parsing error", domain: .blockActionsService)
             return nil
         }
         

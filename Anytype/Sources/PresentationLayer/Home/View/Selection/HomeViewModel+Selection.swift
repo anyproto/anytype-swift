@@ -15,7 +15,7 @@ extension HomeViewModel {
     
     func select(data: HomeCellData) {
         guard let index = binCellData.firstIndex(where: { $0.id == data.id }) else {
-            anytypeAssertionFailure("No page in bin for data: \(data)")
+            anytypeAssertionFailure("No page in bin for data: \(data)", domain: .homeView)
             return
         }
         

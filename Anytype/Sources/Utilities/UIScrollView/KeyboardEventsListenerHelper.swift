@@ -21,33 +21,49 @@ class KeyboardEventsListnerHelper {
     ) {
 
         guard ![didHideAction, willChangeFrame, didChangeFrame, willHideAction, didHideAction].compactMap({ $0 }).isEmpty else {
-            anytypeAssertionFailure("No arguments passed")
+            anytypeAssertionFailure("No arguments passed", domain: .keyboardListner)
             return nil
         }
 
-        let entities = [UIResponder.keyboardWillShowNotification: actionWrapper(allowedStates: [.hidden],
-                                                                                newState: .appearing,
-                                                                                originalAction: willShowAction),
-                        UIResponder.keyboardDidShowNotification: actionWrapper(allowedStates: [.disappearing, .appearing],
-                                                                               newState: .shown,
-                                                                               originalAction: didShowAction),
-                        UIResponder.keyboardWillHideNotification: actionWrapper(allowedStates: [.appearing, .shown],
-                                                                                newState: .disappearing,
-                                                                                originalAction: willHideAction),
-                        UIResponder.keyboardDidHideNotification: actionWrapper(allowedStates: [.disappearing],
-                                                                               newState: .hidden,
-                                                                               originalAction: didHideAction),
-                        UIResponder.keyboardWillChangeFrameNotification: actionWrapper(allowedStates: [.shown],
-                                                                                       newState: .
-                                                                                        shown, originalAction: willChangeFrame),
-                        UIResponder.keyboardDidChangeFrameNotification: actionWrapper(allowedStates: [.shown],
-                                                                                      newState: .shown,
-                                                                                      originalAction: didChangeFrame)]
+        let entities = [
+            UIResponder.keyboardWillShowNotification: actionWrapper(
+                allowedStates: [.hidden],
+                newState: .appearing,
+                originalAction: willShowAction
+            ),
+            UIResponder.keyboardDidShowNotification: actionWrapper(
+                allowedStates: [.disappearing, .appearing],
+                newState: .shown,
+                originalAction: didShowAction
+            ),
+            UIResponder.keyboardWillHideNotification: actionWrapper(
+                allowedStates: [.appearing, .shown],
+                newState: .disappearing,
+                originalAction: willHideAction
+            ),
+            UIResponder.keyboardDidHideNotification: actionWrapper(
+                allowedStates: [.disappearing],
+                newState: .hidden,
+                originalAction: didHideAction
+            ),
+            UIResponder.keyboardWillChangeFrameNotification: actionWrapper(
+                allowedStates: [.shown],
+                newState: .shown,
+                originalAction: willChangeFrame
+            ),
+            UIResponder.keyboardDidChangeFrameNotification: actionWrapper(
+                allowedStates: [.shown],
+                newState: .shown,
+                originalAction: didChangeFrame
+            )
+        ]
         observerTokens = entities.map { name, action in
-            return NotificationCenter.default.addObserver(forName: name,
-                                                          object: nil,
-                                                          queue: .main,
-                                                          using: action)
+            return NotificationCenter.default.addObserver(
+                forName: name,
+                object: nil,
+                queue: .main,
+                using: action
+            )
         }
     }
     

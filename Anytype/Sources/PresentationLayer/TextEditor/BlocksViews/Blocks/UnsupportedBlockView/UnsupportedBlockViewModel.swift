@@ -1,11 +1,3 @@
-//
-//  UnsupportedBlockViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 03.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 import AnytypeCore
@@ -32,7 +24,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
     }
 
     func handle(action: ContextualMenu) {
-        anytypeAssertionFailure("Handling of contextual menu items not supported")
+        anytypeAssertionFailure("Handling of contextual menu items not supported", domain: .unsupportedBlock)
     }
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {

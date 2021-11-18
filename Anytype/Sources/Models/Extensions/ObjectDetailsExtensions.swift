@@ -77,7 +77,11 @@ extension RelationMetadataValuesProvider {
     
     var objectType: ObjectType {
         let type = ObjectTypeProvider.objectType(url: type)
-        anytypeAssert(type != nil, "Cannot parse type :\(String(describing: type)))")
+        anytypeAssert(
+            type != nil,
+            "Cannot parse type :\(String(describing: type)))",
+            domain: .objectDetails
+        )
         return type ?? ObjectTypeProvider.defaultObjectType
     }
     

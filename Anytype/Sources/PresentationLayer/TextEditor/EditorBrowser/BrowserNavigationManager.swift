@@ -96,7 +96,7 @@ final class BrowserNavigationManager {
     
     private func closeAction() {
         guard let closedBlockId = openedPages.popLast() else {
-            anytypeAssertionFailure("Empty opened pages list")
+            anytypeAssertionFailure("Empty opened pages list", domain: .editorBrowser)
             return
         }
         closedPages.append(closedBlockId)

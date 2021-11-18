@@ -11,7 +11,7 @@ extension Publisher {
             switch completion {
             case .finished: return
             case let .failure(error):
-                anytypeAssertionFailure("\(actionName) error: \(error)")
+                anytypeAssertionFailure("\(actionName) error: \(error)", domain: .defaultCompletion)
             }
         }
     }

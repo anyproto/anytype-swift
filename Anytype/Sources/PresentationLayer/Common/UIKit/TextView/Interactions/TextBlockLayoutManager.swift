@@ -1,11 +1,3 @@
-//
-//  TextBlockLayoutManager.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 16.03.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 import AnytypeCore
 
@@ -80,7 +72,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
             guard let rect = self?.boundingRect(forGlyphRange: glyphRangeWithAttribute, in: textContainer) else { return }
 
             guard let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as? UIFont else {
-                anytypeAssertionFailure("font attribute must be UIFont")
+                anytypeAssertionFailure("font attribute must be UIFont", domain: .textLayout)
                 return
             }
             let rectRelatvieToFontHeight = CGRect(origin: rect.origin, size: .init(width: rect.width, height: font.lineHeight))

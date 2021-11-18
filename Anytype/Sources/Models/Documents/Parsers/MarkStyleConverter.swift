@@ -41,11 +41,11 @@ enum MarkStyleActionConverter {
             return .linkToObject(tuple.value)
 
         case .emoji:
-            anytypeAssertionFailure("Unrecognized markup emoji")
+            anytypeAssertionFailure("Unrecognized markup emoji", domain: .markStyleConverter)
             return nil
 
         case .UNRECOGNIZED(let value):
-            anytypeAssertionFailure("Unrecognized markup \(value)")
+            anytypeAssertionFailure("Unrecognized markup \(value)", domain: .markStyleConverter)
             return nil
         }
     }

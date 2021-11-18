@@ -1,11 +1,3 @@
-//
-//  CameraPermissionVerifier.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 29.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import AVFoundation
 import AnytypeCore
 import Combine
@@ -23,7 +15,7 @@ final class CameraPermissionVerifier {
                     promise(.success(success))
                 }
             @unknown default:
-                anytypeAssertionFailure("@unknown AVAuthorizationStatus case")
+                anytypeAssertionFailure("@unknown AVAuthorizationStatus case", domain: .camera)
                 promise(.success(false))
             }
         }
