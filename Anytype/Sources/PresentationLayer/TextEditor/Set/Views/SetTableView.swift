@@ -1,6 +1,11 @@
 import SwiftUI
 
 struct SetTableView: View {
+    @Binding var yOffset: CGFloat
+    @Binding var headerSize: CGSize
+    
+    @EnvironmentObject private var model: EditorSetViewModel
+    
     @State private var xOffset = CGFloat.zero
     @State private var initialOffset = CGFloat.zero
     
@@ -9,10 +14,14 @@ struct SetTableView: View {
     
     var body: some View {
         OffsetAwareScrollView(
-            axes: .horizontal,
+            axes: [.horizontal, .vertical],
             showsIndicators: false,
-            offsetChanged: { xOffset = $0.x }
+            offsetChanged: {
+                xOffset = $0.x
+                if -$0.y < (headerSize.height + 100) { yOffset = $0.y } // optimization
+            }
         ) {
+            Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
             tableHeader
             tableContent
         }
@@ -40,11 +49,9 @@ struct SetTableView: View {
     }
     
     private var tableContent: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack {
-                ForEach(rows, id: \.self) { row in
-                    rowsView(row: row)
-                }
+        LazyVStack {
+            ForEach(rows, id: \.self) { row in
+                rowsView(row: row)
             }
         }
     }
@@ -75,6 +82,6 @@ struct SetTableView: View {
 
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {
-        SetTableView()
+        SetTableView(yOffset: .constant(0), headerSize: .constant(.zero))
     }
 }

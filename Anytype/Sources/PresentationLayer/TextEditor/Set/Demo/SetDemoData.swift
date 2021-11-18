@@ -1,6 +1,6 @@
 enum SetDemoData {
     static let colums: [String] = {
-        (0...3).map { index -> [String] in
+        (0...0).map { index -> [String] in
             ["Text", "Tag", "Status", "Date", "Attachement", "Object", "Checkbox", "Url", "Email"]
                 .map { $0 + "\(index)" }
         }.flatMap { $0 }
