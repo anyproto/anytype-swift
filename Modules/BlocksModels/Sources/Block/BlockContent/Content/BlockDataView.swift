@@ -54,7 +54,7 @@ public struct BlockDataview: Hashable {
         relations: [RelationMetadata]
     ) {
         self.source = source
-        self.activeViewId = activeView
+        self.activeViewId = activeView 
         self.views = views
         self.relations = relations
     }
