@@ -73,6 +73,7 @@ struct HomeView: View {
         
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
+                .environmentObject(viewModel)
         }
         
         .snackbar(

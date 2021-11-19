@@ -3,7 +3,7 @@ import AnytypeCore
 
 final class FirebaseConfigurator: AppConfiguratorProtocol {
     #if RELEASE
-    private let settingsFile = "GoogleService-Info-Release"
+    private let settingsFile = "GoogleService-Info"
     #else
     private let settingsFile = "GoogleService-Info-Dev"
     #endif
