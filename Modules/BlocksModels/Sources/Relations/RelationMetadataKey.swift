@@ -1,6 +1,5 @@
 import Foundation
 
-// Getters are located in ObjectDetails+Relations
 public enum RelationMetadataKey: String {
     case id
     case name
