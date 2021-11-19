@@ -194,7 +194,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func addBlock(_ type: BlockContentType, blockId: BlockId) {
         switch type {
         case .smartblock(.page):
-            anytypeAssertionFailure("Use createPage func instead")
+            anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
         default:
             guard

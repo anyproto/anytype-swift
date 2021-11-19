@@ -19,7 +19,10 @@ final class ObjectIconPickerViewModel: ObservableObject {
         case .profile:
             return details.iconImageHash.isNotNil
         default:
-            anytypeAssertionFailure("`ObjectIconPickerViewModel` unavailable in \(detailsLayout)")
+            anytypeAssertionFailure(
+                "`ObjectIconPickerViewModel` unavailable in \(detailsLayout)",
+                domain: .iconPicker
+            )
             return true
         }
     }

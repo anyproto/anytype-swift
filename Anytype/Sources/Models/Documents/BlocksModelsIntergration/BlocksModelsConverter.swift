@@ -31,10 +31,16 @@ enum BlocksModelsConverter {
         case .divider(let data): return data.asMiddleware
         case .layout(let data): return data.asMiddleware
         case .featuredRelations:
-            anytypeAssertionFailure("Not suppoted converter from featuredRelations to middleware")
+            anytypeAssertionFailure(
+                "Not suppoted converter from featuredRelations to middleware",
+                domain: .blocksConverter
+            )
             return nil
         case .unsupported:
-            anytypeAssertionFailure("Not suppoted converter from unsupported to middleware")
+            anytypeAssertionFailure(
+                "Not suppoted converter from unsupported to middleware",
+                domain: .blocksConverter
+            )
             return nil
         }
     }

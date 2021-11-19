@@ -34,7 +34,7 @@ struct DebugMenu: View {
                     _ = crash[1]
                 }
                 StandardButton(text: "Assert 🥲", style: .secondary) {
-                    anytypeAssertionFailure("Test assert")
+                    anytypeAssertionFailure("Test assert", domain: .debug)
                 }
             }
         }

@@ -128,7 +128,7 @@ final class EditorRouter: EditorRouterProtocol {
               let rootController = rootController,
               let blockModel = document.blocksContainer.model(id: information.id) else { return }
         guard let controller = controller as? EditorPageController else {
-            anytypeAssertionFailure("Not supported type of controller: \(controller)")
+            anytypeAssertionFailure("Not supported type of controller: \(controller)", domain: .editorPage)
             return
         }
 

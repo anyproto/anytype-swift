@@ -32,7 +32,7 @@ extension ImageDownloader {
         completion: @escaping (Result<UIImage, Error>) -> Void
     ) {
         guard let url = imageId.resolvedUrl else {
-            anytypeAssertionFailure("fileId has no resolvedUrl")
+            anytypeAssertionFailure("fileId has no resolvedUrl", domain: .imageDownloader)
             completion(.failure(KingfisherError.imageSettingError(reason: KingfisherError.ImageSettingErrorReason.emptySource)))
             return
         }
@@ -43,7 +43,7 @@ extension ImageDownloader {
                 let image = UIImage(data: imageResult.originalData)!
                 completion(.success(image))
             case .failure(let error):
-                anytypeAssertionFailure(error.localizedDescription)
+                anytypeAssertionFailure(error.localizedDescription, domain: .imageDownloader)
                 completion(.failure(error))
             }
         }

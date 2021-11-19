@@ -88,7 +88,7 @@ private extension Image {
     
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
-            anytypeAssertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return .noImage
         }
         
@@ -97,7 +97,7 @@ private extension Image {
     
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
-            anytypeAssertionFailure("No system image named: \(name)")
+            anytypeAssertionFailure("No system image named: \(name)", domain: .imageCreation)
             return .noImage
         }
         

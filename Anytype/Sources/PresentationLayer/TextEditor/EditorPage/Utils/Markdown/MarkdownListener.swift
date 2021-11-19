@@ -55,7 +55,10 @@ final class MarkdownListenerImpl: MarkdownListener {
                 
                 guard let newText = markupChanger
                         .setMarkup(markup, blockId: data.info.id, range: range)?.mutable else {
-                            anytypeAssertionFailure("Could not apply markup \(markup) for \(data.info)")
+                            anytypeAssertionFailure(
+                                "Could not apply markup \(markup) for \(data.info)",
+                                domain: .markdownListener
+                            )
                             return
                         }
                 
@@ -99,7 +102,7 @@ final class MarkdownListenerImpl: MarkdownListener {
     
     private func beginingOfTextHaveShortcutAndCarretInsideIt(_ shortcut: String, data: TextBlockDelegateData) -> Bool {
         guard let offsetToCaretPosition = data.textView.offsetToCaretPosition() else {
-            anytypeAssertionFailure("No caret position for markdown call")
+            anytypeAssertionFailure("No caret position for markdown call", domain: .markdownListener)
             return false
         }
         

@@ -126,7 +126,7 @@ final class HomeViewModel: ObservableObject {
     
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = document.detailsStorage.get(id: blockId) else {
-            anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
 
@@ -175,7 +175,7 @@ extension HomeViewModel {
         guard let newBlockId = dashboardService.createNewPage() else { return nil }
 
         if newBlockId.isEmpty {
-            anytypeAssertionFailure("No new block id in create new page response")
+            anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil
         }
         
