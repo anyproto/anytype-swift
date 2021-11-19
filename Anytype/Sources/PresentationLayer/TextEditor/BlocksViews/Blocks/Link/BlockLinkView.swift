@@ -3,41 +3,28 @@ import Combine
 import BlocksModels
 import Kingfisher
 
-final class BlockLinkView: UIView, UIContentView {
-    private var currentConfiguration: BlockLinkContentConfiguration
-    var configuration: UIContentConfiguration {
-        get { self.currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockLinkContentConfiguration else { return }
-            guard currentConfiguration != configuration else { return }
-            currentConfiguration = configuration
-            apply(configuration.state)
-        }
-    }
-    
-    
-    init(configuration: BlockLinkContentConfiguration) {
-        currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+final class BlockLinkView: BaseBlockView<BlockLinkContentConfiguration> {
+    override func setupSubviews() {
+        super.setupSubviews()
+
         setup()
-        apply(configuration.state)
     }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("Not implemented")
+
+    override func update(with configuration: BlockLinkContentConfiguration) {
+        super.update(with: configuration)
+        apply(configuration)
     }
 
     // MARK: - Internal functions
-    func apply(_ state: BlockLinkState) {
+    func apply(_ configuration: BlockLinkContentConfiguration) {
         iconView.removeAllSubviews()
-        iconView.addSubview(state.makeIconView()) {
+        iconView.addSubview(configuration.state.makeIconView()) {
             $0.pinToSuperview()
         }
-        
-        textView.attributedText = state.attributedTitle
-        deletedLabel.isHidden = !state.archived
+
+        textView.setText(configuration.state.attributedTitle)
+        textView.setLineBreakMode(.byTruncatingTail)
+        deletedLabel.isHidden = !configuration.state.archived
     }
     
     // MARK: - Private functions
@@ -56,7 +43,7 @@ final class BlockLinkView: UIView, UIContentView {
         }
         contentView.addSubview(deletedLabel) {
             $0.pinToSuperview(excluding: [.left, .right])
-            $0.trailing.lessThanOrEqual(to: contentView.trailingAnchor)
+            $0.trailing.equal(to: contentView.trailingAnchor)
             $0.leading.equal(to: textView.trailingAnchor)
         }
     }
@@ -67,10 +54,8 @@ final class BlockLinkView: UIView, UIContentView {
     
     private let deletedLabel = DeletedLabel()
     
-    private let textView: UITextView = {
-        let view = UITextView()
-        view.isScrollEnabled = false
-        view.textContainerInset = Constants.textContainerInset
+    private let textView: AnytypeLabel = {
+        let view = AnytypeLabel(style: .body)
         view.isUserInteractionEnabled = false
         return view
     }()

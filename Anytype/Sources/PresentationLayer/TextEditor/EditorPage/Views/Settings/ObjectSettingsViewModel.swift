@@ -20,6 +20,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases.filter { $0 != .icon }
         case .note:
             return [.layout]
+        case .set:
+            return ObjectSetting.allCases
         }
     }
 
@@ -63,15 +65,16 @@ final class ObjectSettingsViewModel: ObservableObject {
     func update(
         objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
-        objectRelations: [Relation]
+        objectRelationsStorage: ParsedRelations
     ) {
         if let details = objectDetailsStorage.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
+
             relationsViewModel.update(
-                with: objectRelations,
+                with: objectRelationsStorage,
                 detailsStorage: objectDetailsStorage
             )
         }

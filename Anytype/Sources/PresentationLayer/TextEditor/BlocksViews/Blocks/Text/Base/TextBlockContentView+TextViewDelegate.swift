@@ -59,7 +59,9 @@ extension TextBlockContentView: CustomTextViewDelegate {
         }
         
         if !details.isArchived && !details.isDeleted {
-            currentConfiguration.showPage(blockId)
+            currentConfiguration.showPage(
+                EditorScreenData(pageId: details.id, type: details.editorViewType)
+            )
         }
     }
     

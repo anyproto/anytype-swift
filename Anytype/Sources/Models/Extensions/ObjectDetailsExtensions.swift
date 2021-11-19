@@ -2,13 +2,13 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-extension RelationValuesProvider {
+extension RelationMetadataValuesProvider {
     
     // MARK: - Icon
     
     var icon: ObjectIconType? {
         switch layout {
-        case .basic:
+        case .basic, .set:
             return basicIcon
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
@@ -81,4 +81,12 @@ extension RelationValuesProvider {
         return type ?? ObjectTypeProvider.defaultObjectType
     }
     
+    var editorViewType: EditorViewType {
+        switch layout {
+        case .basic, .profile, .todo, .note:
+            return .page
+        case .set:
+            return .set
+        }
+    }
 }

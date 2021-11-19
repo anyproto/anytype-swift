@@ -2,21 +2,21 @@ import BlocksModels
 import UIKit
 
 final class BrowserPage: Equatable, CustomStringConvertible {
-    let blockId: BlockId
+    let pageData: EditorScreenData
     let title: String?
     let subtitle: String?
     
-    weak var controller: EditorPageController?
+    weak var controller: UIViewController?
     
     let controllerHash: Int
     
     init(
-        blockId: BlockId,
+        pageData: EditorScreenData,
         title: String?,
         subtitle: String?,
-        controller: EditorPageController
+        controller: UIViewController
     ) {
-        self.blockId = blockId
+        self.pageData = pageData
         self.title = title
         self.subtitle = subtitle
         self.controller = controller
@@ -24,7 +24,7 @@ final class BrowserPage: Equatable, CustomStringConvertible {
     }
     
     static func == (lhs: BrowserPage, rhs: BrowserPage) -> Bool {
-        guard let lhsController = lhs.controller, let rhsController = rhs.controller  else {
+        guard let lhsController = lhs.controller, let rhsController = rhs.controller else {
             return lhs.controllerHash == rhs.controllerHash
         }
         return lhsController.isEqual(rhsController)
@@ -32,7 +32,7 @@ final class BrowserPage: Equatable, CustomStringConvertible {
     
     var description: String {
         return """
-        BlockId: \(blockId)
+        PageData: \(pageData)
         Title: \(String(describing: title))
         Subtitle: \(String(describing: subtitle))
         Controller: \(String(describing: controller))

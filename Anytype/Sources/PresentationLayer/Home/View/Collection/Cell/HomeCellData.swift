@@ -12,6 +12,7 @@ struct HomeCellData: Identifiable {
     let isLoading: Bool
     let isArchived: Bool
     let isDeleted: Bool
+    let viewType: EditorViewType
     
     var selected: Bool
     
@@ -25,6 +26,7 @@ struct HomeCellData: Identifiable {
             isLoading: false,
             isArchived: searchResult.isArchived,
             isDeleted: searchResult.isDeleted,
+            viewType: searchResult.editorViewType,
             selected: false
         )
     }

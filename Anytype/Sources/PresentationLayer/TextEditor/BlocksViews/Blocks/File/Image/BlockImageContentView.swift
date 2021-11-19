@@ -4,38 +4,22 @@ import BlocksModels
 import Kingfisher
 import AnytypeCore
 
-final class BlockImageContentView: UIView & UIContentView {
+final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
     
-    private let imageView: UIImageView
-    private let tapGesture: BindableGestureRecognizer
-    
-    private var currentConfiguration: BlockImageConfiguration
-    var configuration: UIContentConfiguration {
-        get { self.currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockImageConfiguration,
-                  currentConfiguration != configuration else {
-                return
-            }
-            
-            let oldConfiguration = currentConfiguration
-            currentConfiguration = configuration
-            
-            handleFile(currentConfiguration.fileData, oldConfiguration.fileData)
-        }
+    private lazy var imageView = UIImageView()
+    private lazy var tapGesture = BindableGestureRecognizer { [unowned self] _ in
+        currentConfiguration.imageViewTapHandler(imageView)
+    }
+    private var currentFile: BlockFile?
+
+    override func setupSubviews() {
+        super.setupSubviews()
+        setupUIElements()
     }
 
-    init(configuration: BlockImageConfiguration) {
-        let imageView = UIImageView()
-        currentConfiguration = configuration
-        tapGesture = .init { _ in configuration.imageViewTapHandler(imageView) }
-
-        self.imageView = imageView
-        super.init(frame: .zero)
-        
-        
-        setupUIElements()
-        handleFile(currentConfiguration.fileData, nil)
+    override func update(with configuration: BlockImageConfiguration) {
+        super.update(with: configuration)
+        handleFile(configuration.fileData, currentFile)
     }
     
     func setupUIElements() {
@@ -63,6 +47,7 @@ final class BlockImageContentView: UIView & UIContentView {
 
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
+        currentFile = file
         
         imageView.kf.cancelDownloadTask()
         
@@ -81,12 +66,6 @@ final class BlockImageContentView: UIView & UIContentView {
             placeholder: placeholder,
             options: [.processor(DownsamplingImageProcessor(size: imageSize)), .transition(.fade(0.2))]
         )
-    }
-    
-    // MARK: - Unavailable
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

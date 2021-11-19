@@ -1,8 +1,9 @@
 import UIKit
 import BlocksModels
 
-struct BlockFileConfiguration: UIContentConfiguration, Hashable {
+struct BlockFileConfiguration: BlockConfigurationProtocol, Hashable {
     let data: BlockFileMediaData
+    var currentConfigurationState: UICellConfigurationState?
 
     init(_ fileData: BlockFileMediaData) {
         self.data = fileData
@@ -10,9 +11,5 @@ struct BlockFileConfiguration: UIContentConfiguration, Hashable {
             
     func makeContentView() -> UIView & UIContentView {
         return BlockFileView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> BlockFileConfiguration {
-        return self
     }
 }

@@ -39,7 +39,7 @@ struct HomeProfileView: View {
             if let blockId = accountData.profileBlockId {
                 Button(action: {
                     Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
-                    model.showPage(pageId: blockId)
+                    model.showPage(pageId: blockId, viewType: .page)
                 }){ userIcon }
             } else {
                 userIcon

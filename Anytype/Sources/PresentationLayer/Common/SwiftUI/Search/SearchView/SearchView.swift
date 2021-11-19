@@ -52,7 +52,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
                                     viewModel.onDismiss()
-                                    viewModel.onSelect(searchData.searchResult)
+                                    viewModel.onSelect(searchData)
                                 }
                             ) {
                                 SearchCell(

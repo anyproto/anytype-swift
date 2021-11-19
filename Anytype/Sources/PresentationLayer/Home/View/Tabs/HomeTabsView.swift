@@ -7,8 +7,9 @@ extension HomeTabsView {
     enum Tab: String {
         case favourites
         case history
-        case bin
+        case sets
         case shared
+        case bin
     }
 }
 
@@ -55,7 +56,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId)
+                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
                 }
             )
             .tag(Tab.favourites)
@@ -65,10 +66,22 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId)
+                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
                 }
             )
             .tag(Tab.history)
+            
+            if FeatureFlags.sets {
+                HomeCollectionView(
+                    cellData: model.setsCellData,
+                    dragAndDropDelegate: nil, // no dnd
+                    offsetChanged: offsetChanged,
+                    onTap: { data in
+                        model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    }
+                )
+                .tag(Tab.sets)
+            }
             
             if AccountConfigurationProvider.shared.config.enableSpaces {
                 HomeCollectionView(
@@ -76,7 +89,7 @@ struct HomeTabsView: View {
                     dragAndDropDelegate: nil, // no dnd
                     offsetChanged: offsetChanged,
                     onTap: { data in
-                        model.showPage(pageId: data.destinationId)
+                        model.showPage(pageId: data.destinationId, viewType: data.viewType)
                     }
                 )
                 .tag(Tab.shared)
@@ -119,6 +132,9 @@ struct HomeTabsView: View {
         case .shared:
             Amplitude.instance().logEvent(AmplitudeEventsName.sharedTabSelected)
             model.updateSharedTab()
+        case .sets:
+            Amplitude.instance().logEvent(AmplitudeEventsName.setsTabSelected)
+            model.updateSetsTab()
         }
     }
 }

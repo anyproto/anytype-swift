@@ -22,7 +22,7 @@ struct HomeView: View {
 
                 viewModel.viewLoaded()
                 
-                UserDefaultsConfig.storeOpenedPageId(nil)
+                UserDefaultsConfig.storeOpenedScreenData(nil)
             }
     }
     
@@ -35,7 +35,7 @@ struct HomeView: View {
             ToolbarItem {
                 Button(action: {
                     UISelectionFeedbackGenerator().selectionChanged()
-                    withAnimation(.ripple) {
+                    withAnimation(.fastSpring) {
                         showSettings.toggle()
                         if showSettings {
                             // Analytics
@@ -54,22 +54,22 @@ struct HomeView: View {
         .bottomFloater(isPresented: $viewModel.showDeletionAlert) {
             DashboardDeletionAlert().padding(8)
         }
-        .animation(.ripple, value: viewModel.showDeletionAlert)
+        .animation(.fastSpring, value: viewModel.showDeletionAlert)
 
         .bottomFloater(isPresented: $settingsModel.loggingOut) {
             DashboardLogoutAlert().padding(8)
         }
-        .animation(.ripple, value: settingsModel.loggingOut)
+        .animation(.fastSpring, value: settingsModel.loggingOut)
         
         .bottomFloater(isPresented: $settingsModel.other) {
             OtherSettingsView()
         }
-        .animation(.ripple, value: settingsModel.other)
+        .animation(.fastSpring, value: settingsModel.other)
         
         .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
             DashboardClearCacheAlert().padding(8)
         }
-        .animation(.ripple, value: settingsModel.clearCacheAlert)
+        .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
@@ -105,7 +105,7 @@ struct HomeView: View {
         Group {
             NavigationLink(
                 destination: viewModel.createBrowser(),
-                isActive: $viewModel.openedPageData.showingNewPage,
+                isActive: $viewModel.openedPageData.showing,
                 label: { EmptyView() }
             )
         }

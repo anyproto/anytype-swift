@@ -13,11 +13,30 @@ struct ObjectRelationsView: View {
     
     @ObservedObject var viewModel: ObjectRelationsViewModel
     
+    @State private var editingMode = false
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
+            navigationBar
             relationsList
         }
+    }
+    
+    private var navigationBar: some View {
+        HStack {
+            Button {
+                withAnimation(.spring()) {
+                    editingMode.toggle()
+                }
+            } label: {
+                AnytypeText(editingMode ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .textSecondary)
+            }
+
+            Spacer()
+        }
+        .frame(height: 48)
+        .padding(.horizontal, 16)
     }
     
     private var relationsList: some View {
@@ -34,7 +53,9 @@ struct ObjectRelationsView: View {
                                 .padding(.vertical, 12)
                         ) {
                             ForEach(section.relations) { relation in
-                                ObjectRelationRow(viewModel: relation) {
+                                ObjectRelationRow(editingMode: $editingMode, viewModel: relation) {
+                                    viewModel.removeRelation(id: $0)
+                                } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)
                                 }
                             }
@@ -62,22 +83,24 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                         id: "id",
                         title: "title",
                         relations: [
-                            ObjectRelationRowData(
+                            Relation(
                                 id: "1",
                                 name: "Relation name1",
                                 value: .text("text"),
                                 hint: "hint",
-                                isFeatured: false
+                                isFeatured: false,
+                                isEditable: true
                                 
                             ),
-                            ObjectRelationRowData(
+                            Relation(
                                 id: "2",
                                 name: "Relation name2",
                                 value: .text("text2"),
                                 hint: "hint",
-                                isFeatured: false
+                                isFeatured: false,
+                                isEditable: true
                             ),
-                            ObjectRelationRowData(
+                            Relation(
                                 id: "3",
                                 name: "Relation name3",
                                 value: .tag([
@@ -87,7 +110,8 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
                                 ]),
                                 hint: "hint",
-                                isFeatured: false
+                                isFeatured: false,
+                                isEditable: true
                             )
                         ]
                     ),
@@ -95,26 +119,29 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                         id: "id1",
                         title: "title2",
                         relations: [
-                            ObjectRelationRowData(
+                            Relation(
                                 id: "12",
                                 name: "Relation name1",
                                 value: .text("text"),
                                 hint: "hint",
-                                isFeatured: false
+                                isFeatured: false,
+                                isEditable: true
                             ),
-                            ObjectRelationRowData(
+                            Relation(
                                 id: "22",
                                 name: "Relation name2",
                                 value: .text("text2"),
                                 hint: "hint",
-                                isFeatured: false
+                                isFeatured: false,
+                                isEditable: true
                             ),
-                            ObjectRelationRowData(
+                            Relation(
                                 id: "32",
                                 name: "Relation name3",
                                 value: .text("text3"),
                                 hint: "hint",
-                                isFeatured: false
+                                isFeatured: false,
+                                isEditable: true
                             )
                         ]
                     )
