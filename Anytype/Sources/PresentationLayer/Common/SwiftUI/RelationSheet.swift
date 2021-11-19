@@ -10,12 +10,15 @@ import SwiftUI
 
 struct RelationSheet<Content: View>: View {
     
+    @ObservedObject var viewModel: RelationSheetViewModel
+    @State private var backgroundOpacity = 0.0
     @State private var showPopup = false
     @State private var sheetHeight = 0.0
     
     private let content: Content
     
-    init(@ViewBuilder content: () -> Content) {
+    init(viewModel: RelationSheetViewModel, @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
         self.content = content()
     }
     
@@ -31,16 +34,21 @@ struct RelationSheet<Content: View>: View {
         .ignoresSafeArea(.container)
         .onAppear {
             withAnimation(.fastSpring) {
+                backgroundOpacity = 0.25
                 showPopup = true
             }
         }
     }
     
     private var background: some View {
-        Color.grayscale90.opacity(0.25)
+        Color.grayscale90.opacity(backgroundOpacity)
             .onTapGesture {
                 withAnimation(.fastSpring) {
+                    backgroundOpacity = 0.0
                     showPopup = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        viewModel.onDismiss?()
+                    }
                 }
             }
     }
@@ -77,7 +85,7 @@ struct RelationSheet<Content: View>: View {
 
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RelationSheet { Color.blue.frame(height: 100) }
+        RelationSheet(viewModel: RelationSheetViewModel()) { Color.blue.frame(height: 100) }
             .background(Color.red)
     }
 }
