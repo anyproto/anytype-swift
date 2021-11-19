@@ -1,8 +1,8 @@
 import Foundation
 import UIKit
+import SwiftUI
 
 final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockContentConfiguration> {
-        
     // MARK: - Views
     
     private let typeLabel: AnytypeLabel = {
@@ -10,6 +10,12 @@ final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockCont
         label.textColor = .textSecondary
         return label
     }()
+
+    private lazy var relationsView: UIView = {
+        return UIView()
+    }()
+
+    private var relationFlowViewModel: FlowRelationsViewModel?
     
     // MARK: - Private variables
 
@@ -29,23 +35,24 @@ final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockCont
 private extension FeaturedRelationsBlockView  {
     
     func setupLayout() {
-        addSubview(typeLabel) {
-            $0.pinToSuperview(
-                insets: UIEdgeInsets(
-                    top: Constants.verticalSpacing,
-                    left: Constants.horizontalSpacing,
-                    bottom: -Constants.verticalSpacing,
-                    right: -Constants.horizontalSpacing
-                )
-            )
+        let relationFlowViewModel = FlowRelationsViewModel(relations: currentConfiguration.featuredRelations,
+                                                       onRelationTap: currentConfiguration.onRelationTap)
+        self.relationFlowViewModel = relationFlowViewModel
+
+        let relationsView = FlowRelationsView(viewModel: relationFlowViewModel).asUIView()
+
+        addSubview(relationsView) {
+            $0.leading.equal(to: leadingAnchor, constant: Constants.horizontalSpacing)
+            $0.top.equal(to: topAnchor, constant: Constants.verticalSpacing)
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalSpacing)
+            $0.trailing.equal(to: trailingAnchor, constant: -Constants.horizontalSpacing)
         }
     }
     
     func apply(_ configuration: FeaturedRelationsBlockContentConfiguration) {
-        typeLabel.setText(configuration.type)
-        typeLabel.textAlignment = configuration.alignment
+        relationFlowViewModel?.relations = configuration.featuredRelations
+        relationFlowViewModel?.alignment = configuration.alignment.asSwiftUI
     }
-    
 }
 
 private extension FeaturedRelationsBlockView {

@@ -87,8 +87,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleUpdate(updateResult: EventsListenerUpdate) {
         switch updateResult {
+
         case .general:
             performGeneralUpdate()
+
         case let .details(id):
             guard id == document.objectId else {
                 // TODO: - call blocks update with new details to update mentions/links
@@ -106,6 +108,18 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 objectRelationsStorage: document.parsedRelations
             )
             updateHeaderIfNeeded(header: header, details: details)
+
+            let featuredRelationsBlock = modelsHolder.models.first { blockModel in
+                if case .featuredRelations = blockModel.content {
+                    return true
+                }
+                return false
+            }
+            if let featuredRelationsBlockViewModel = featuredRelationsBlock as? FeaturedRelationsBlockViewModel {
+                updateViewModelsWithStructs(Set([featuredRelationsBlockViewModel.blockId]))
+                viewInput?.update(blocks: modelsHolder.models)
+            }
+
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -115,6 +129,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             updateMarkupViewModel(updatedIds)
             
             viewInput?.update(blocks: modelsHolder.models)
+
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
         }
