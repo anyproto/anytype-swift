@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-protocol RelationValueEditingViewModelProtocol {
+protocol RelationValueEditingViewModelProtocol: View {
     
     var title: String { get }
     

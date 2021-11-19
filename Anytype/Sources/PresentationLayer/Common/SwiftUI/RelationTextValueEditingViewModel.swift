@@ -1,17 +1,22 @@
-
 import Foundation
+import BlocksModels
 
 final class RelationTextValueEditingViewModel: ObservableObject {
     
+    @Published var value: String = ""
     
-}
-
-extension RelationTextValueEditingViewModel: RelationValueEditingViewModelProtocol {
+    private let relationKey: String
+    private let service: ObjectDetailsService
     
-    var title: String { "About".localized }
+    init(objectId: BlockId, relationKey: String, value: String) {
+        self.service = ObjectDetailsService(objectId: objectId)
+        self.relationKey = relationKey
+        self.value = value
+        
+    }
     
     func saveValue() {
-        
+        service.updateRelationValue(key: relationKey, value: value.protobufValue)
     }
     
 }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RelationSheet<Content: View>: View {
+struct RelationSheet<Content: RelationValueEditingViewModelProtocol>: View {
     
     @ObservedObject var viewModel: RelationSheetViewModel
     @State private var backgroundOpacity = 0.0
@@ -46,6 +46,7 @@ struct RelationSheet<Content: View>: View {
                 withAnimation(.fastSpring) {
                     backgroundOpacity = 0.0
                     showPopup = false
+                    content.saveValue()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         viewModel.onDismiss?()
                     }
@@ -56,7 +57,7 @@ struct RelationSheet<Content: View>: View {
     private var sheet: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
-            AnytypeText("About".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(content.title, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             
             content
@@ -86,7 +87,7 @@ struct RelationSheet<Content: View>: View {
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
         RelationSheet(viewModel: RelationSheetViewModel()) {
-            RelationTextValueEditingView(text: "")
+            RelationTextValueEditingView(viewModel: RelationTextValueEditingViewModel(objectId: "", relationKey: "", value: ""))
         }
             .background(Color.red)
     }
