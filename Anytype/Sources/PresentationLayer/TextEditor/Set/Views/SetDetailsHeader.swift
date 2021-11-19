@@ -82,7 +82,7 @@ struct SetDetailsHeader: View {
     
     private var settings: some View {
         HStack {
-            AnytypeText("All employees", style: .heading, color: .textPrimary)
+            AnytypeText(model.dataView.activeView?.name ?? "Untitled".localized, style: .heading, color: .textPrimary)
                 .padding()
             Image.arrow.rotationEffect(.degrees(90))
             Spacer()

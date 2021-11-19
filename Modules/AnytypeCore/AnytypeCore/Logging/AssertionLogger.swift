@@ -31,6 +31,7 @@ public enum ErrorDomain: String {
     
     case editorBrowser
     case editorPage
+    case editorSet
     
     case markStyleModifier
     case markupChanger
