@@ -63,7 +63,7 @@ struct SetDetailsHeader: View {
                         SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObject)
                             .frame(width: 96, height: 96)
                             .padding(.leading, 20)
-                            .padding(.bottom, -15),
+                            .padding(.bottom, -25),
                         alignment: .bottomLeading
                     )
                 }
