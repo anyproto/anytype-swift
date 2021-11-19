@@ -82,6 +82,16 @@ final class MiddlewareEventConverter {
             })
             return .blocks(blockIds: [blockId])
         
+        case let .objectDetailsSet(value):
+            guard value.hasDetails else { return .general }
+            
+            let id = value.id
+            
+            let details = ObjectDetails(id: id, values: value.details.fields)
+            detailsStorage.add(details: details)
+            
+            return .details(id: id)
+            
         case let .objectDetailsAmend(amend):
             guard amend.details.isNotEmpty else { return nil }
             
@@ -92,7 +102,7 @@ final class MiddlewareEventConverter {
             }
             
             let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
-            detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -115,32 +125,13 @@ final class MiddlewareEventConverter {
             }
             
             let updatedDetails = currentDetails.removed(keys: payload.keys)
-            detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
             guard currentDetails.layout == updatedDetails.layout else {
                 return .general
             }
-            
-            return .details(id: id)
-            
-        case let .objectDetailsSet(value):
-            guard value.hasDetails else {
-                return .general
-            }
-            
-            let id = value.id
-            
-            let details = ObjectDetails(
-                id: id,
-                values: value.details.fields
-            )
-            
-            detailsStorage.add(
-                details: details,
-                id: id
-            )
             
             return .details(id: id)
             

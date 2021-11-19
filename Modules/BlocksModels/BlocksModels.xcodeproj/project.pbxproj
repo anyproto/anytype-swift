@@ -226,8 +226,8 @@
 		12F12E89271DA702000BAC24 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */,
 				124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */,
+				124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";

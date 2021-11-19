@@ -12,7 +12,11 @@ public struct ObjectDetails: Hashable, RelationMetadataValuesProvider {
         self.values = values
     }
     
-    public func updated(by rawDetails: [String: Google_Protobuf_Value]) -> ObjectDetails {
+}
+
+public extension ObjectDetails {
+    
+    func updated(by rawDetails: [String: Google_Protobuf_Value]) -> ObjectDetails {
         guard !rawDetails.isEmpty else { return self }
         
         let newValues = self.values.merging(rawDetails) { (_, new) in new }
@@ -23,7 +27,7 @@ public struct ObjectDetails: Hashable, RelationMetadataValuesProvider {
         )
     }
     
-    public func removed(keys: [String]) -> ObjectDetails {
+    func removed(keys: [String]) -> ObjectDetails {
         guard keys.isNotEmpty else { return self }
         
         var currentValues = self.values
