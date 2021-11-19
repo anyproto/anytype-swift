@@ -86,7 +86,7 @@ struct RelationSheet<Content: View>: View {
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
         RelationSheet(viewModel: RelationSheetViewModel()) {
-            TextValueRelationEditingView(text: "")
+            RelationTextValueEditingView(text: "")
         }
             .background(Color.red)
     }

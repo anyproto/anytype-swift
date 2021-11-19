@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TextValueRelationEditingView: View {
+struct RelationTextValueEditingView: View {
     @State var text: String = ""
     @State private var height: CGFloat = 0
     
@@ -34,7 +34,7 @@ struct TextValueRelationEditingView: View {
 
 struct TextValueRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        TextValueRelationEditingView()
+        RelationTextValueEditingView()
             .background(Color.red)
     }
 }
