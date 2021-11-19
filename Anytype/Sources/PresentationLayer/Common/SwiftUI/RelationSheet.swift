@@ -8,9 +8,16 @@
 
 import SwiftUI
 
-struct RelationSheet: View {
+struct RelationSheet<Content: View>: View {
     
     @State private var showPopup = false
+    @State private var sheetHeight = 0.0
+    
+    private let content: Content
+    
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
     
     var body: some View {
         ZStack {
@@ -44,17 +51,18 @@ struct RelationSheet: View {
             AnytypeText("About".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             
-            Color.blue.frame(height: 100)
+            content
             
             Spacer.fixedHeight(20)
         }
         .background(Color.background)
+        .background(FrameCatcher { sheetHeight = $0.height })
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .offset(x: 0, y: currentOffset)
     }
     
     private var currentOffset: CGFloat {
-        showPopup ? 0 : 1000
+        showPopup ? 0 : sheetHeight
     }
     
     @ViewBuilder
@@ -69,7 +77,7 @@ struct RelationSheet: View {
 
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RelationSheet()
+        RelationSheet { Color.blue.frame(height: 100) }
             .background(Color.red)
     }
 }
