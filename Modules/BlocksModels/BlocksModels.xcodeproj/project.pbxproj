@@ -235,9 +235,9 @@
 		12F91CE7270DFDE000C92B28 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
 				12F12E89271DA702000BAC24 /* Storage */,
 				12B69C8B265D10E600D047E3 /* Entities */,
-				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
 				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
 			);
 			path = Details;
