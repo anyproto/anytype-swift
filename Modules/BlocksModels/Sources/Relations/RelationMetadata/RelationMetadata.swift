@@ -40,7 +40,7 @@ public struct RelationMetadata: Hashable {
 }
 
 extension RelationMetadata: Identifiable {
-
+    
     public var id: String {
         return key
     }

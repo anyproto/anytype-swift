@@ -15,8 +15,8 @@ extension ObjectDetailsStorage: ObjectDetailsStorageProtocol {
         detailsStorage[id]
     }
     
-    public func add(details: ObjectDetails, id: BlockId) {
-        detailsStorage[id] = details
+    public func add(details: ObjectDetails) {
+        detailsStorage[details.id] = details
     }
     
 }

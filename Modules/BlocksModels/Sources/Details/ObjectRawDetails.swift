@@ -11,41 +11,41 @@ extension ObjectRawDetails {
             switch $0 {
             case .name(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.name.rawValue,
+                    key: BundledRelationKey.name.rawValue,
                     value: string.protobufValue
                 )
                 
             case .iconEmoji(let string):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.iconEmoji.rawValue,
+                    key: BundledRelationKey.iconEmoji.rawValue,
                     value: string.protobufValue
                 )
                 
             case .iconImageHash(let hash):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.iconImage.rawValue,
+                    key: BundledRelationKey.iconImage.rawValue,
                     value: (hash?.value ?? "").protobufValue
                 )
                 
             case .coverId(let coverId):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.coverId.rawValue,
+                    key: BundledRelationKey.coverId.rawValue,
                     value: coverId.protobufValue
                 )
                 
             case .coverType(let coverType):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.coverType.rawValue,
+                    key: BundledRelationKey.coverType.rawValue,
                     value: coverType.rawValue.protobufValue
                 )
             case .type(let type):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.type.rawValue,
+                    key: BundledRelationKey.type.rawValue,
                     value: type.rawValue.protobufValue
                 )
             case .isDraft(let isDraft):
                 return Anytype_Rpc.Block.Set.Details.Detail(
-                    key: RelationMetadataKey.isDraft.rawValue,
+                    key: BundledRelationKey.isDraft.rawValue,
                     value: isDraft.protobufValue
                 )
             }
