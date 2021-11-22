@@ -40,7 +40,15 @@ final class EditorPageController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
-    
+
+    private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
+
+        recognizer.minimumPressDuration = 0.5
+        recognizer.delaysTouchesBegan = true
+        return recognizer
+    }()
+
     private lazy var navigationBarHelper = EditorNavigationBarHelper(
         onSettingsBarButtonItemTap: { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
@@ -251,6 +259,8 @@ private extension EditorPageController {
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
         view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+
+        collectionView.addGestureRecognizer(longTapGestureRecognizer)
     }
     
     func setupLayout() {
@@ -281,6 +291,15 @@ private extension EditorPageController {
         guard cellIndexPath == nil else { return }
         
         viewModel.actionHandler.createEmptyBlock(parentId: nil)
+    }
+
+    @objc
+    private func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .ended else { return }
+        let location = gesture.location(in: collectionView)
+        collectionView.indexPathForItem(at: location).map {
+            viewModel.didLongTap(at: $0)
+        }
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {

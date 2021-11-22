@@ -42,27 +42,9 @@ extension EditorPageController: UICollectionViewDelegate {
         case let .block(block):
             if case .text = block.content, collectionView.isEditing { return false }
 
-            return true
+            return viewModel.canSelectBlock(at: indexPath)
         case .header:
             return false
-        }
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        contextMenuConfigurationForItemAt indexPath: IndexPath,
-        point: CGPoint
-    ) -> UIContextMenuConfiguration? {
-        guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
-
-        switch item {
-        case let .block(block):
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
-            
-            return block.contextMenuConfiguration()
-        case .header:
-                    return nil
         }
     }
 

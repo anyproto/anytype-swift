@@ -15,7 +15,9 @@ protocol EditorPageViewModelProtocol {
     func viewLoaded()
     func viewAppeared()
 
-    func didSelectBlock(at index: IndexPath)
+    func canSelectBlock(at indexPath: IndexPath) -> Bool
+    func didSelectBlock(at indexPath: IndexPath)
+    func didLongTap(at indexPath: IndexPath)
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
     
