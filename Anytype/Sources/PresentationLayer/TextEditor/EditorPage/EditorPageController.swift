@@ -124,6 +124,7 @@ final class EditorPageController: UIViewController {
         viewModel.editorEditingState.sink { [unowned self] state in
             switch state {
             case .selecting(let blockIds):
+                view.endEditing(true)
                 setEditing(false, animated: true)
                 blockIds.forEach(selectBlock)
                 blocksSelectionOverlayView.isHidden = false
@@ -199,7 +200,7 @@ extension EditorPageController: EditorPageViewInput {
         
         if let item = item {
             let indexPath = dataSource.indexPath(for: item)
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
         updateView()
     }
@@ -263,7 +264,8 @@ private extension EditorPageController {
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
 
         view.addSubview(blocksSelectionOverlayView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
         }
 
         blocksSelectionOverlayView.isHidden = true
@@ -273,6 +275,7 @@ private extension EditorPageController {
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
+        guard collectionView.isEditing else { return }
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }

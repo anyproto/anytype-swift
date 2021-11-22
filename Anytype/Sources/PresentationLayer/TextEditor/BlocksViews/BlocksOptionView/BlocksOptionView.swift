@@ -18,7 +18,7 @@ struct BlocksOptionView: View {
                     }
                     .frame(width: 68, height: 100)
                 }
-            }
+            }.padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
         }
     }
 }

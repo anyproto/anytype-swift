@@ -11,10 +11,6 @@ enum EditorEditingState {
     case selecting(blocks: [BlockId])
 }
 
-protocol EditorEditingStateHandler: AnyObject {
-    func didSelectedEditingState(on block: BlockInformation)
-}
-
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
 
@@ -79,7 +75,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockActionsService = blockActionsService
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
 
-        actionHandler.editingStateDelegate = self
+        actionHandler.blockSelectionHandler = self
 
         blocksSelectionOverlayViewModel.endEditingModeHandler = { [weak self] in self?.editingState = .editing }
         blocksSelectionOverlayViewModel.blocksOptionViewModel?.tapHandler = { [weak self] in self?.handleBlocksOptionItemSelection($0) }
@@ -269,6 +265,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: details)
         modelsHolder.header = header
     }
+
+    private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
+        let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
+
+        blocksSelectionOverlayViewModel.setSelectedBlocksCount(selectedBlocks.count)
+        blocksSelectionOverlayViewModel.blocksOptionViewModel?.options = restrictions.mergedOptions
+    }
 }
 
 // MARK: - View output
@@ -297,10 +300,9 @@ extension EditorPageViewModel {
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
         selectedBlocksIndexPaths = indexPaths
-        let elements = indexPaths.compactMap { element(at: $0) }
-        let restrictions = elements.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
+        let elements = indexPaths.compactMap { element(at: $0)?.information }
 
-        blocksSelectionOverlayViewModel.blocksOptionViewModel?.options = restrictions.mergedOptions
+        updateSelectionContent(selectedBlocks: elements)
     }
 
     func element(at: IndexPath) -> BlockViewModelProtocol? {
@@ -327,11 +329,10 @@ extension EditorPageViewModel {
     }
 }
 
-extension EditorPageViewModel: EditorEditingStateHandler {
-    func didSelectedEditingState(on block: BlockInformation) {
-        let restriction = BlockRestrictionsBuilder.build(contentType: block.content.type)
-        blocksSelectionOverlayViewModel.blocksOptionViewModel?.options = [restriction].mergedOptions
+extension EditorPageViewModel: BlockSelectionHandler {
+    func didSelectEditingState(on block: BlockInformation) {
         editingState = .selecting(blocks: [block.id])
+        updateSelectionContent(selectedBlocks: [block])
     }
 }
 

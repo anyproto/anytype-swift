@@ -1,7 +1,13 @@
 import Foundation
 import BlocksModels
 
+protocol BlockSelectionHandler: AnyObject {
+    func didSelectEditingState(on block: BlockInformation)
+}
+
 protocol BlockActionHandlerProtocol: AnyObject {
+    var blockSelectionHandler: BlockSelectionHandler? { get set }
+
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?

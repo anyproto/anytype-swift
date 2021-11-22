@@ -625,7 +625,6 @@
 		C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */; };
 		C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */; };
 		C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */; };
-		C9121A60273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5F273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift */; };
 		C917DF0E271772BD0085185D /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917DF0D271772BD0085185D /* ImageViewerViewController.swift */; };
 		C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEFB270B6618005F9386 /* EventsLogView.swift */; };
 		C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */; };
@@ -1399,7 +1398,6 @@
 		C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockRestrictions+BlocksOptionItem.swift"; sourceTree = "<group>"; };
 		C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayViewModel.swift; sourceTree = "<group>"; };
-		C9121A5F273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeBlockContentConfigurationProtocol.swift; sourceTree = "<group>"; };
 		C917DF0D271772BD0085185D /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		C91AFEFB270B6618005F9386 /* EventsLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogView.swift; sourceTree = "<group>"; };
 		C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogViewModel.swift; sourceTree = "<group>"; };
@@ -2134,7 +2132,6 @@
 				3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */,
 				3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */,
 				C9121A35273A506000FFDA07 /* BaseBlockView.swift */,
-				C9121A5F273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3287,7 +3284,6 @@
 				534D19C62623A7220080AEF0 /* SearchListViewController.swift */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
-				128495DF267371B900351C66 /* BottomFloaterBuilder.swift */,
 				C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */,
 			);
 			path = UIKit;
@@ -4989,7 +4985,6 @@
 				3D932D4326317E3A00C7D1EA /* HomeCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
 				3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */,
-				C9121A60273BCD9600FFDA07 /* AnytypeBlockContentConfigurationProtocol.swift in Sources */,
 				1255DF89270220E900870B95 /* MediaFileUploadingDemon.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BookmarkService.swift in Sources */,

@@ -21,7 +21,7 @@ final class RoundedShadowView<View: UIView>: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        shadowLayer.frame = view.frame
+        shadowLayer.frame = view.bounds
 
         shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
     }

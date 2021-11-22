@@ -32,7 +32,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
             $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: view.bottomAnchor)
+            $0.bottom.equal(to: navigationView.topAnchor)
         }
     }
     

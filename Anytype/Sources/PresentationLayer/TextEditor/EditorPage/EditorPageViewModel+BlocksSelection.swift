@@ -18,9 +18,9 @@ extension EditorPageViewModel {
         case .duplicate:
             elements.forEach { actionHandler.duplicate(blockId: $0.blockId) }
         case .turnInto:
-            break
-        case .moveTo:
-            break
+            elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
+//        case .moveTo:
+//            break
         }
 
         editingState = .editing
