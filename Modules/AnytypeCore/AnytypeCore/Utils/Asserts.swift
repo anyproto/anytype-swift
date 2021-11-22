@@ -2,11 +2,12 @@ import UIKit
 
 public func anytypeAssertionFailure(
     _ message: String,
+    domain: ErrorDomain,
     file: StaticString = #file,
     line: UInt = #line
 ) {
     #if RELEASE
-        logNonFatal(message)
+        logNonFatal(message, domain: domain)
     #elseif ENTERPRISE
         if FeatureFlags.showAlertOnAssert {
             showAssertionAlert(message)
@@ -19,11 +20,12 @@ public func anytypeAssertionFailure(
 public func anytypeAssert(
     _ condition: @autoclosure () -> Bool,
     _ message: String,
+    domain: ErrorDomain,
     file: StaticString = #file,
     line: UInt = #line
 ) {
     if condition() != true {
-        anytypeAssertionFailure(message, file: file, line: line)
+        anytypeAssertionFailure(message, domain: domain, file: file, line: line)
     }
 }
 
@@ -49,6 +51,6 @@ private func showAssertionAlert(_ message: String) {
     }
 }
 
-private func logNonFatal(_ message: String) {
-    AssertionLogger.shared?.log(message)
+private func logNonFatal(_ message: String, domain: ErrorDomain) {
+    AssertionLogger.shared?.log(message, domain: domain)
 }

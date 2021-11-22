@@ -37,7 +37,11 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
     }
     
     private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
-        anytypeAssert(file.state == .done, "Wrong state \(file.state) for block image")
+        anytypeAssert(
+            file.state == .done,
+            "Wrong state \(file.state) for block image",
+            domain: .blockImage
+        )
         setupImage(file, oldFile)
         invalidateIntrinsicContentSize()
     }

@@ -38,7 +38,7 @@ final class TextBlockActionHandler {
         // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
         case let .enterInsideContent(position):
             guard case let .text(text) = info.content else {
-                anytypeAssertionFailure("Only text block may send keyboard action")
+                anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
                 return
             }
             service.split(info: info, position: position, newBlockContentType: text.contentType.contentTypeForSplit)
@@ -52,7 +52,7 @@ final class TextBlockActionHandler {
             }
             
             guard case let .text(text) = info.content else {
-                anytypeAssertionFailure("Not text block for enterAtTheBeginingOfContent")
+                anytypeAssertionFailure("Not text block for enterAtTheBeginingOfContent", domain: .textBlockActionHandler)
                 return
             }
             

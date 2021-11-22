@@ -27,20 +27,24 @@ struct HomeTabsHeader: View {
     }
     
     private var defaultTabHeader: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 0) {
             tabButton(text: "Favorites".localized, tab: .favourites)
+            Spacer().frame(maxWidth: 15)
             tabButton(text: "History".localized, tab: .history) {
                 if tabSelection == .history { onTabSelection() } // reload data on button tap
             }
+            Spacer().frame(maxWidth: 15)
             if FeatureFlags.sets {
                 tabButton(text: "Sets".localized, tab: .sets) {
                     if tabSelection == .sets { onTabSelection() } // reload data on button tap
                 }
+                Spacer().frame(maxWidth: 15)
             }
             if AccountConfigurationProvider.shared.config.enableSpaces {
                 tabButton(text: "Shared".localized, tab: .shared) {
                     if tabSelection == .shared { onTabSelection() } // reload data on button tap
                 }
+                Spacer().frame(maxWidth: 15)
             }
             tabButton(text: "Bin".localized, tab: .bin) {
                 if tabSelection == .bin { onTabSelection() } // reload data on button tap
@@ -59,6 +63,8 @@ struct HomeTabsHeader: View {
             }
         ) {
             HomeTabsHeaderText(text: text, isSelected: tabSelection == tab)
+                .frame(minWidth: 40)
+                .contentShape(Rectangle())
         }
     }
 }

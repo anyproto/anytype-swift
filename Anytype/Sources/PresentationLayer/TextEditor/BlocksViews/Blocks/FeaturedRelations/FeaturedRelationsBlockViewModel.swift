@@ -17,7 +17,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let indentationLevel: Int = 0
     let information: BlockInformation
     let type: String
-    let onTypeTap: () -> Void
+    var featuredRelations: [Relation]
+    let onRelationTap: (Relation) -> Void
     
     var hashable: AnyHashable {
         [
@@ -29,29 +30,52 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     init(
         information: BlockInformation,
+        featuredRelation: [Relation],
         type: String,
-        onTypeTap: @escaping () -> Void
+        onRelationTap: @escaping (Relation) -> Void
     ) {
         self.information = information
+        self.featuredRelations = featuredRelation
         self.type = type
-        self.onTypeTap = onTypeTap
+        self.onRelationTap = onRelationTap
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         FeaturedRelationsBlockContentConfiguration(
+            featuredRelations: enhanceFeaturedRelations(featuredRelations),
             type: type,
-            alignment: information.alignment.asNSTextAlignment
+            alignment: information.alignment.asNSTextAlignment,
+            onRelationTap: onRelationTap
         )
     }
     
-    func didSelectRowInTableView() {
-        onTypeTap()
-    }
+    func didSelectRowInTableView() {}
     
     func makeContextualMenu() -> [ContextualMenu] {
         []
     }
     
     func handle(action: ContextualMenu) {}
+
+    private func enhanceFeaturedRelations(_ relations: [Relation]) -> [Relation] {
+        var enhancedRelations = featuredRelations
+
+        let objectTypeRelation = Relation(
+            id: RelationMetadataKey.type.rawValue,
+            name: "",
+            value: RelationValue.text(type),
+            hint: "",
+            isFeatured: false,
+            isEditable: false
+        )
+
+        enhancedRelations.insert(objectTypeRelation, at: 0)
+
+        enhancedRelations.removeAll { relation in
+            relation.id == RelationMetadataKey.description.rawValue
+        }
+
+        return enhancedRelations
+    }
     
 }

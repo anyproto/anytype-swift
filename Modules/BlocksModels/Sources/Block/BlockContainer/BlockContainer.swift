@@ -40,7 +40,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
 
     public func add(_ block: BlockModelProtocol) {        
         if models[block.information.id] != nil {
-            anytypeAssertionFailure("We shouldn't replace block by add operation. Skipping...")
+            anytypeAssertionFailure("We shouldn't replace block by add operation. Skipping...", domain: .blockContainer)
             return
         }
         models[block.information.id] = block
@@ -48,12 +48,12 @@ public final class BlockContainer: BlockContainerModelProtocol {
 
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
         guard var parentModel = model(id: parentId) else {
-            anytypeAssertionFailure("I can't find parent with id: \(parentId)")
+            anytypeAssertionFailure("I can't find parent with id: \(parentId)", domain: .blockContainer)
             return
         }
         
         guard var childModel = self.model(id: childId) else {
-            anytypeAssertionFailure("I can't find child with id: \(childId)")
+            anytypeAssertionFailure("I can't find child with id: \(childId)", domain: .blockContainer)
             return
         }
         
@@ -68,7 +68,10 @@ public final class BlockContainer: BlockContainerModelProtocol {
     public func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
         guard let parent = model(id: beforeChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: beforeChild) else {
-            anytypeAssertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
+            anytypeAssertionFailure(
+                "I can't find either parent or block itself with id: \(beforeChild)",
+                domain: .blockContainer
+            )
             return
         }
 
@@ -79,7 +82,10 @@ public final class BlockContainer: BlockContainerModelProtocol {
     public func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
         guard let parent = model(id: afterChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: afterChild) else {
-            anytypeAssertionFailure("I can't find either parent or block itself with id: \(afterChild)")
+            anytypeAssertionFailure(
+                "I can't find either parent or block itself with id: \(afterChild)",
+                domain: .blockContainer
+            )
             return
         }
 
@@ -110,7 +116,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
     ) {
         
         guard var parent = model(id: parentId) else {
-            anytypeAssertionFailure("I can't find entry with id: \(parentId)")
+            anytypeAssertionFailure("I can't find entry with id: \(parentId)", domain: .blockContainer)
             return
         }
                 
@@ -119,7 +125,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
                 return true
             }
             else {
-                anytypeAssertionFailure("I can't find entry with id: \(parentId)")
+                anytypeAssertionFailure("I can't find entry with id: \(parentId)", domain: .blockContainer)
                 return false
             }
         } : childrenIds

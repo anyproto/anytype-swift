@@ -94,11 +94,14 @@ extension MarkupViewModel: MarkupViewModelProtocol {
     
     func handle(action: MarkupViewModelAction) {
         guard let blockInformation = blockInformation else {
-            anytypeAssertionFailure("blockInformation must not be nil")
+            anytypeAssertionFailure("blockInformation must not be nil", domain: .markupViewModel)
             return
         }
         guard case .text = blockInformation.content else {
-            anytypeAssertionFailure("Expected text content type but got: \(blockInformation.content)")
+            anytypeAssertionFailure(
+                "Expected text content type but got: \(blockInformation.content)",
+                domain: .markupViewModel
+            )
             return
         }
         switch action {

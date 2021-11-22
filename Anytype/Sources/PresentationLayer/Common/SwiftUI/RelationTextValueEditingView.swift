@@ -40,7 +40,7 @@ struct RelationTextValueEditingView: View, RelationValueEditingViewModelProtocol
     
 }
 
-struct TextValueRelationEditingView_Previews: PreviewProvider {
+struct RelationTextValueEditingView_Previews: PreviewProvider {
     static var previews: some View {
         RelationTextValueEditingView(viewModel: RelationTextValueEditingViewModel(objectId: "", relationKey: "", value: ""))
             .background(Color.red)

@@ -72,7 +72,10 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = alignment.asBlockModel else {
-                anytypeAssertionFailure("We cannot parse alignment: \(value)")
+                anytypeAssertionFailure(
+                    "We cannot parse alignment: \(value)",
+                    domain: .middlewareEventConverter
+                )
                 return .general
             }
             
@@ -286,11 +289,17 @@ final class MiddlewareEventConverter {
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
         guard var blockModel = blocksContainer.model(id: newData.id) else {
-            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
+            anytypeAssertionFailure(
+                "Block model with id \(newData.id) not found in container",
+                domain: .middlewareEventConverter
+            )
             return .general
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure(
+                "Block model doesn't support text:\n \(blockModel.information)",
+                domain: .middlewareEventConverter
+            )
             return .general
         }
         
