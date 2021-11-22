@@ -17,7 +17,6 @@ public enum RelationMetadataKey: String {
     case lastOpenedDate
     case lastModifiedDate
     case featuredRelations
-    case relationFormat
     
     case isDeleted
     case isArchived
