@@ -2,17 +2,18 @@ import Combine
 import UIKit
 import BlocksModels
     
-final class BlockBookmarkView: UIView & UIContentView {
-    private var currentConfiguration: BlockBookmarkConfiguration
-    
-    init(configuration: BlockBookmarkConfiguration) {
-        self.currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+final class BlockBookmarkView: BaseBlockView<BlockBookmarkConfiguration> {
+    override func setupSubviews() {
+        super.setupSubviews()
         setup()
-        apply(payload: currentConfiguration.payload)
     }
-    
+
+    override func update(with configuration: BlockBookmarkConfiguration) {
+        super.update(with: configuration)
+
+        apply(payload: configuration.payload)
+    }
+
     private func setup() {
         addSubview(backgroundView) {
             $0.pinToSuperview(insets: Layout.backgroundViewInsets)
@@ -59,29 +60,6 @@ final class BlockBookmarkView: UIView & UIContentView {
         view.clipsToBounds = true
         return view
     }()
-    
-    // MARK: - UIContentView
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockBookmarkConfiguration,
-                  configuration != currentConfiguration else { return }
-            
-            currentConfiguration = configuration
-            apply(payload: currentConfiguration.payload)
-        }
-    }
-    
-    // MARK: - Unavailable
-    @available(*, unavailable)
-    override init(frame: CGRect) {
-        fatalError("Not implemented")
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 private extension BlockBookmarkView {
