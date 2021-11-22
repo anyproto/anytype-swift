@@ -9,23 +9,33 @@ struct SetTableView: View {
     @State private var xOffset = CGFloat.zero
     @State private var initialOffset = CGFloat.zero
     
-    private let rows = SetDemoData.rows
-    
     var body: some View {
-        OffsetAwareScrollView(
-            axes: [.horizontal, .vertical],
-            showsIndicators: false,
-            offsetChanged: {
-                xOffset = $0.x
-                if -$0.y < (headerSize.height + 100) { yOffset = $0.y } // optimization
+        GeometryReader { geo in
+            OffsetAwareScrollView(
+                axes: [.horizontal, .vertical],
+                showsIndicators: false,
+                offsetChanged: {
+                    xOffset = $0.x
+                    if -$0.y < (headerSize.height + 100) { yOffset = $0.y } // optimization
+                }
+            ) {
+                ScrollViewReader { reader in
+                    VStack(spacing: 0) {
+                        Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
+                            .id("fakeHeaderId")
+                        tableHeader
+                        tableContent.onAppear {
+                            reader.scrollTo("fakeHeaderId", anchor: UnitPoint.zero)
+                        }
+                        Spacer()
+                    }
+                  .frame(minWidth: geo.size.width, minHeight: geo.size.height)
+            
+                }
+                .onAppear {
+                    initialOffset = xOffset
+                }
             }
-        ) {
-            Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
-            tableHeader
-            tableContent
-        }
-        .onAppear {
-            initialOffset = xOffset
         }
     }
     
@@ -48,11 +58,13 @@ struct SetTableView: View {
     }
     
     private var tableContent: some View {
+        VStack {
         LazyVStack(alignment: .leading) {
-            ForEach(rows, id: \.self) { row in
+            ForEach(model.rows, id: \.self) { row in
                 rowsView(row: row)
             }
         }
+            Spacer()}
     }
     
     private func rowsView(row: String) -> some View {
@@ -76,7 +88,6 @@ struct SetTableView: View {
             Spacer.fixedHeight(12)
             Divider()
         }
-        .frame(minWidth: 500)
     }
 }
 
