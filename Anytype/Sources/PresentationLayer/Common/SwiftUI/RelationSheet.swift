@@ -8,15 +8,25 @@
 
 import SwiftUI
 
-struct RelationSheet: View {
+struct RelationSheet<Content: View>: View {
     
+    @ObservedObject var viewModel: RelationSheetViewModel
+    @State private var backgroundOpacity = 0.0
     @State private var showPopup = false
+    @State private var sheetHeight = 0.0
+    
+    private let content: Content
+    
+    init(viewModel: RelationSheetViewModel, @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
+        self.content = content()
+    }
     
     var body: some View {
         ZStack {
             background
             
-            VStack {
+            VStack(spacing: 0) {
                 Spacer()
                 sheet
             }
@@ -24,16 +34,21 @@ struct RelationSheet: View {
         .ignoresSafeArea(.container)
         .onAppear {
             withAnimation(.fastSpring) {
+                backgroundOpacity = 0.25
                 showPopup = true
             }
         }
     }
     
     private var background: some View {
-        Color.grayscale90.opacity(0.25)
+        Color.grayscale90.opacity(backgroundOpacity)
             .onTapGesture {
                 withAnimation(.fastSpring) {
+                    backgroundOpacity = 0.0
                     showPopup = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        viewModel.onDismiss?()
+                    }
                 }
             }
     }
@@ -44,17 +59,18 @@ struct RelationSheet: View {
             AnytypeText("About".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             
-            Color.blue.frame(height: 100)
+            content
             
             Spacer.fixedHeight(20)
         }
         .background(Color.background)
+        .background(FrameCatcher { sheetHeight = $0.height })
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .offset(x: 0, y: currentOffset)
     }
     
     private var currentOffset: CGFloat {
-        showPopup ? 0 : 1000
+        showPopup ? 0 : sheetHeight
     }
     
     @ViewBuilder
@@ -69,7 +85,9 @@ struct RelationSheet: View {
 
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RelationSheet()
+        RelationSheet(viewModel: RelationSheetViewModel()) {
+            TextValueRelationEditingView(text: "")
+        }
             .background(Color.red)
     }
 }

@@ -5,27 +5,9 @@ struct TextValueRelationEditingView: View {
     @State private var height: CGFloat = 0
     
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            content
-        }
-        .ignoresSafeArea(.container)
-    }
-    
-    private var content: some View {
-        VStack(spacing: 0) {
-            DragIndicator(bottomPadding: 0)
-            AnytypeText("About".localized, style: .uxTitle1Semibold, color: .textPrimary)
-                .padding([.top, .bottom], 12)
-            
-            textEditingView
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
-            
-            Spacer.fixedHeight(20)
-        }
-        .background(Color.background)
-        .cornerRadius(16, corners: [.topLeft, .topRight])
+        textEditingView
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
     }
     
     private var textEditingView: some View {
