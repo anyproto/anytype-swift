@@ -49,6 +49,8 @@ struct RelationsListView: View {
                                     viewModel.removeRelation(id: $0)
                                 } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)
+                                } onEditTap: {
+                                    viewModel.editRelation(id: $0)
                                 }
                             }
                         }

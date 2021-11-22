@@ -40,7 +40,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         detailsStorage: ObjectDetailsStorageProtocol,
         objectDetailsService: DetailsService,
         popScreenAction: @escaping () -> (),
-        onRelationValueEditingTap: (String) -> ()
+        onRelationValueEditingTap: @escaping (String) -> ()
     ) {
         self.objectId = objectId
         self.objectDetailsService = objectDetailsService
