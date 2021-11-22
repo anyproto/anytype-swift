@@ -16,7 +16,7 @@ final class RelationTextValueEditingViewModel: ObservableObject {
     }
     
     func saveValue() {
-        service.updateRelationValue(key: relationKey, value: value.protobufValue)
+        service.updateDetails([DetailsUpdate(key: relationKey, value: value.protobufValue)])
     }
     
 }

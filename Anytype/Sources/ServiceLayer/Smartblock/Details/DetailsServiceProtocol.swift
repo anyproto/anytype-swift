@@ -12,8 +12,6 @@ import SwiftProtobuf
 
 protocol DetailsServiceProtocol {
         
-    func updateRelationValue(key: String, value: Google_Protobuf_Value)
-
     func updateBundledDetails(_ bundledDpdates: [BundledDetails])
     func updateDetails(_ updates: [DetailsUpdate])
     func setLayout(_ detailsLayout: DetailsLayout)
