@@ -1,9 +1,7 @@
 import Foundation
 import BlocksModels
-import Combine
 import SwiftProtobuf
 
-// TODO: rething ObjectRawDetails/RelationMetadataKey
 final class DetailsService {
     
     private let service = ObjectActionsService()
@@ -18,12 +16,12 @@ final class DetailsService {
 
 extension DetailsService: DetailsServiceProtocol {
     
-    func update(details: ObjectRawDetails) {
-        service.setDetails(contextID: objectId, details: details)
+    func updateBundledDetails(_ bundledDpdates: [BundledDetails]) {
+        updateDetails(bundledDpdates.map { $0.asDetailsUpdate })
     }
     
-    func updateRelationValue(key: String, value: Google_Protobuf_Value) {
-        service.setRelationValue(contextID: objectId, key: key, value: value)
+    func updateDetails(_ updates: [DetailsUpdate]) {
+        service.updateDetails(contextID: objectId, updates: updates)
     }
 
     func setLayout(_ detailsLayout: DetailsLayout) {

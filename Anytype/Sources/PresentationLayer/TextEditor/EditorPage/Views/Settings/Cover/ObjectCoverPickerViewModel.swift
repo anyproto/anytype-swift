@@ -32,14 +32,14 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
-        detailsService.update(
-            details: [.coverType(CoverType.color), .coverId(colorName)]
+        detailsService.updateBundledDetails(
+            [.coverType(CoverType.color), .coverId(colorName)]
         )
     }
     
     func setGradient(_ gradientName: String) {
-        detailsService.update(
-            details: [.coverType(CoverType.gradient), .coverId(gradientName)]
+        detailsService.updateBundledDetails(
+            [.coverType(CoverType.gradient), .coverId(gradientName)]
         )
     }
     
@@ -56,8 +56,8 @@ extension ObjectCoverPickerViewModel {
     }
     
     func removeCover() {
-        detailsService.update(
-            details: [.coverType(CoverType.none), .coverId("")]
+        detailsService.updateBundledDetails(
+            [.coverType(CoverType.none), .coverId("")]
         )
     }
     

@@ -52,10 +52,7 @@ extension ObjectHeaderImageUploadingWorker: MediaFileUploadingWorkerProtocol {
     
     func finish() {
         guard let hash = uploadedImageHash else { return }
-        
-        detailsService.update(
-            details: usecase.updatedDetails(with: hash)
-        )
+        detailsService.updateBundledDetails(usecase.updatedDetails(with: hash))
     }
     
 }

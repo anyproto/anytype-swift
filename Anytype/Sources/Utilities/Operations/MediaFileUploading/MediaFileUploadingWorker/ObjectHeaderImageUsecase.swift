@@ -26,7 +26,7 @@ extension ObjectHeaderImageUsecase {
         }
     }
     
-    func updatedDetails(with imageHash: Hash) -> ObjectRawDetails {
+    func updatedDetails(with imageHash: Hash) -> [BundledDetails] {
         switch self {
         case .icon:
             return [.iconEmoji(""), .iconImageHash(imageHash)]
