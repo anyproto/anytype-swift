@@ -61,7 +61,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         var enhancedRelations = featuredRelations
 
         let objectTypeRelation = Relation(
-            id: RelationMetadataKey.type.rawValue,
+            id: BundledRelationKey.type.rawValue,
             name: "",
             value: RelationValue.text(type),
             hint: "",
@@ -72,7 +72,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         enhancedRelations.insert(objectTypeRelation, at: 0)
 
         enhancedRelations.removeAll { relation in
-            relation.id == RelationMetadataKey.description.rawValue
+            relation.id == BundledRelationKey.description.rawValue
         }
 
         return enhancedRelations

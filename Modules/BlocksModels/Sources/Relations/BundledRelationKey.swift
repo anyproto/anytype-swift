@@ -1,6 +1,6 @@
 import Foundation
 
-public enum RelationMetadataKey: String {
+public enum BundledRelationKey: String {
     case id
     case name
     case snippet
