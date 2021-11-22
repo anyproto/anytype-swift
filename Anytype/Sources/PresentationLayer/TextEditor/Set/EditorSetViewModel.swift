@@ -8,7 +8,7 @@ final class EditorSetViewModel: ObservableObject {
     var router: EditorRouterProtocol!
     var dataView: BlockDataview!
     var dataViewId: BlockId!
-    var records: [ObjectDetails] = []
+    @Published var records: [ObjectDetails] = []
     
     var colums: [String] {
         dataView.activeView?.relations.filter { $0.isVisible }.map(\.key) ?? []

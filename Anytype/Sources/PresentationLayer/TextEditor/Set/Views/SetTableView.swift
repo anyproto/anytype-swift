@@ -9,8 +9,6 @@ struct SetTableView: View {
     @State private var xOffset = CGFloat.zero
     @State private var initialOffset = CGFloat.zero
     
-    private let rows = SetDemoData.rows
-    
     var body: some View {
         OffsetAwareScrollView(
             axes: [.horizontal, .vertical],
@@ -20,9 +18,14 @@ struct SetTableView: View {
                 if -$0.y < (headerSize.height + 100) { yOffset = $0.y } // optimization
             }
         ) {
-            Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
-            tableHeader
-            tableContent
+            ScrollViewReader { reader in
+                Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
+                    .id("fakeHeaderId")
+                tableHeader
+                tableContent.onAppear {
+                    reader.scrollTo("fakeHeaderId", anchor: UnitPoint.zero)
+                }
+            }
         }
         .onAppear {
             initialOffset = xOffset
@@ -49,7 +52,7 @@ struct SetTableView: View {
     
     private var tableContent: some View {
         LazyVStack(alignment: .leading) {
-            ForEach(rows, id: \.self) { row in
+            ForEach(model.rows, id: \.self) { row in
                 rowsView(row: row)
             }
         }
