@@ -26,7 +26,7 @@ struct RelationSheet<Content: View>: View {
         ZStack {
             background
             
-            VStack {
+            VStack(spacing: 0) {
                 Spacer()
                 sheet
             }
@@ -85,7 +85,9 @@ struct RelationSheet<Content: View>: View {
 
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RelationSheet(viewModel: RelationSheetViewModel()) { Color.blue.frame(height: 100) }
+        RelationSheet(viewModel: RelationSheetViewModel()) {
+            TextValueRelationEditingView(text: "")
+        }
             .background(Color.red)
     }
 }
