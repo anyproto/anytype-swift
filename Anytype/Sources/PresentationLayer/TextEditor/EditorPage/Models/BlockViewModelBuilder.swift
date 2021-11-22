@@ -180,20 +180,24 @@ final class BlockViewModelBuilder {
                 information: block.information,
                 featuredRelation: document.parsedRelations.featuredRelations,
                 type: objectType.name
-            ) { [weak self] _ in
+            ) { [weak self] relation in
                 guard let self = self else { return }
-                
-                guard
-                    !self.document.objectRestrictions.objectRestriction.contains(.typechange)
-                else {
-                    return
-                }
-                
-                self.router.showTypesSearch(
-                    onSelect: { [weak self] id in
-                        self?.handler.setObjectTypeUrl(id)
+
+                // TODO: reimplement when relation edit will be ready
+
+                if relation.id == RelationMetadataKey.type.rawValue {
+                    guard
+                        !self.document.objectRestrictions.objectRestriction.contains(.typechange)
+                    else {
+                        return
                     }
-                )
+
+                    self.router.showTypesSearch(
+                        onSelect: { [weak self] id in
+                            self?.handler.setObjectTypeUrl(id)
+                        }
+                    )
+                }
             }
             
         case .smartblock, .layout, .dataView: return nil

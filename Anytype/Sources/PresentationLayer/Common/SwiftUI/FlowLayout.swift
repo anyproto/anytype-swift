@@ -45,7 +45,7 @@ struct FlowLayout<Element: Identifiable, Cell: View>: View {
             .onPreferenceChange(SizeKey.self) { value in
                 self.containerWidth = value[0].width
             }
-            ZStack(alignment: .center) {
+            ZStack(alignment: .topLeading) {
                 ForEach(Array(zip(items, items.indices)), id: \.0.id) { (item, index) in
                     cell(item, index)
                         .fixedSize()
