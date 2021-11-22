@@ -7,10 +7,21 @@
 //
 
 import Foundation
+import BlocksModels
+import AnytypeCore
+import SwiftUI
 
 final class RelationSheetViewModel: ObservableObject {
     
+    let name: String
+    let saveValueAction: () -> ()
+    
     private(set) var onDismiss: (() -> Void)?
+    
+    init(name: String, saveValueAction: @escaping () -> ()) {
+        self.name = name
+        self.saveValueAction = saveValueAction
+    }
     
     func configureOnDismiss(_ onDismiss: @escaping () -> Void) {
         self.onDismiss = onDismiss

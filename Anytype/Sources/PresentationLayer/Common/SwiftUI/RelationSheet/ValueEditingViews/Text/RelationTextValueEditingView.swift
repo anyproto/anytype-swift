@@ -1,9 +1,7 @@
 import SwiftUI
 
-struct RelationTextValueEditingView: View, RelationValueEditingViewProtocol {
-    
-    let title = "About".localized
-    
+struct RelationTextValueEditingView: View {
+            
     @ObservedObject var viewModel: RelationTextValueEditingViewModel
     @State private var height: CGFloat = 0
     
@@ -32,10 +30,6 @@ struct RelationTextValueEditingView: View, RelationValueEditingViewProtocol {
                 .opacity(viewModel.value.isEmpty ? 0.25 : 1)
                 .frame(maxHeight: max(40, height))
         }
-    }
-    
-    func saveValue() {
-        viewModel.saveValue()
     }
     
 }
