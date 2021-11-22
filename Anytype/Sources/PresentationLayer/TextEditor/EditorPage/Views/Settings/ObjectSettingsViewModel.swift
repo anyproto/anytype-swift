@@ -39,7 +39,8 @@ final class ObjectSettingsViewModel: ObservableObject {
         objectId: String,
         detailsStorage: ObjectDetailsStorageProtocol,
         objectDetailsService: DetailsService,
-        popScreenAction: @escaping () -> ()
+        popScreenAction: @escaping () -> (),
+        onRelationValueEditingTap: (String) -> ()
     ) {
         self.objectId = objectId
         self.objectDetailsService = objectDetailsService
@@ -57,7 +58,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
         
-        self.relationsViewModel = RelationsListViewModel(objectId: objectId)
+        self.relationsViewModel = RelationsListViewModel(objectId: objectId, onValueEditingTap: onRelationValueEditingTap)
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
@@ -65,7 +66,7 @@ final class ObjectSettingsViewModel: ObservableObject {
     func update(
         objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
-        objectRelationsStorage: ParsedRelations
+        parsedRelations: ParsedRelations
     ) {
         if let details = objectDetailsStorage.get(id: objectId) {
             objectActionsViewModel.details = details
@@ -73,10 +74,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
 
-            relationsViewModel.update(
-                with: objectRelationsStorage,
-                detailsStorage: objectDetailsStorage
-            )
+            relationsViewModel.update(with: parsedRelations)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
     }

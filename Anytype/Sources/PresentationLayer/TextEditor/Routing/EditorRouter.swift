@@ -30,7 +30,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
-    
+    func showRelationValueEditingView(key: String)
     func goBack()
 }
 
@@ -242,6 +242,10 @@ final class EditorRouter: EditorRouterProtocol {
         let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
 
         presentSwuftUIView(view: searchView, model: viewModel)
+    }
+    
+    func showRelationValueEditingView(key: String) {
+        debugPrint(key)
     }
     
     func goBack() {

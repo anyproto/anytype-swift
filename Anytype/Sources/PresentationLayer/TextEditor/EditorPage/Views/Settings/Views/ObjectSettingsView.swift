@@ -98,7 +98,8 @@ struct ObjectSettingsView_Previews: PreviewProvider {
                     objectId: "dummyPageId",
                     detailsStorage: ObjectDetailsStorage(),
                     objectDetailsService: DetailsService(objectId: ""),
-                    popScreenAction: {}
+                    popScreenAction: {},
+                    onRelationValueEditingTap: { _ in }
                 )
             )
     }

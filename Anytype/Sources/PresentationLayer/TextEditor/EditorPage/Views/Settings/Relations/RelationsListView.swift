@@ -137,7 +137,8 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                             )
                         ]
                     )
-                ]
+                ],
+                onValueEditingTap: { _ in }
             )
         )
     }
