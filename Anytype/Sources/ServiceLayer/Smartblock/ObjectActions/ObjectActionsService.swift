@@ -66,6 +66,23 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
+    func updateDetails(contextID: BlockId, update: DetailsUpdate) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
+
+        Anytype_Rpc.Block.Set.Details.Service.invoke(
+            contextID: contextID,
+            details: [
+                Anytype_Rpc.Block.Set.Details.Detail(
+                    key: update.key,
+                    value: update.newValue
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
+    }
+    
     func setDetails(contextID: BlockId, details: ObjectRawDetails) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
 
