@@ -7,7 +7,8 @@ extension Anytype_Model_Block.Content.Dataview {
             BlockDataview(
                 source: source,
                 activeView: activeView,
-                views: views.compactMap(\.asModel)
+                views: views.compactMap(\.asModel),
+                relations: relations.map { RelationMetadata(middlewareRelation: $0) }
             )
         )
     }
@@ -16,7 +17,7 @@ extension Anytype_Model_Block.Content.Dataview {
 extension Anytype_Model_Block.Content.Dataview.View {
     var asModel: DataviewView? {
         type.asModel.flatMap {
-            DataviewView(id: id, name: name, type: $0)
+            DataviewView(id: id, name: name, type: $0, relations: relations.map(\.asModel))
         }
     }
 }
@@ -30,5 +31,11 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum {
         case .kanban: return .kanban
         case .UNRECOGNIZED: return nil
         }
+    }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Relation {
+    var asModel: DataviewViewRelation {
+        DataviewViewRelation(key: key, isVisible: isVisible)
     }
 }

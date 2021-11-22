@@ -9,7 +9,6 @@ struct SetTableView: View {
     @State private var xOffset = CGFloat.zero
     @State private var initialOffset = CGFloat.zero
     
-    private let colums = SetDemoData.colums
     private let rows = SetDemoData.rows
     
     var body: some View {
@@ -34,7 +33,7 @@ struct SetTableView: View {
         VStack(alignment: .leading, spacing: 0) {
             Divider()
             HStack(spacing: 0) {
-                ForEach(colums, id: \.self) { name in
+                ForEach(model.colums, id: \.self) { name in
                     AnytypeText(name, style: .relation2Regular, color: .textSecondary)
                         .frame(width: 144)
                     
@@ -49,7 +48,7 @@ struct SetTableView: View {
     }
     
     private var tableContent: some View {
-        LazyVStack {
+        LazyVStack(alignment: .leading) {
             ForEach(rows, id: \.self) { row in
                 rowsView(row: row)
             }
@@ -65,7 +64,7 @@ struct SetTableView: View {
                 .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
             Spacer.fixedHeight(18)
             HStack(spacing: 0) {
-                ForEach(colums, id: \.self) { colum in
+                ForEach(model.colums, id: \.self) { colum in
                     AnytypeText(row + colum, style: .relation2Regular, color: .textPrimary)
                         .frame(width: 144)
                     Rectangle()
@@ -77,6 +76,7 @@ struct SetTableView: View {
             Spacer.fixedHeight(12)
             Divider()
         }
+        .frame(minWidth: 500)
     }
 }
 

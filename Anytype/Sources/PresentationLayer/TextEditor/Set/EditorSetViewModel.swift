@@ -7,6 +7,10 @@ final class EditorSetViewModel: ObservableObject {
     var router: EditorRouterProtocol!
     var dataView: BlockDataview!
     
+    var colums: [String] {
+        dataView.activeView?.relations.filter { $0.isVisible }.map(\.key) ?? []
+    }
+    
     init(document: BaseDocument) {
         self.document = document
 //        document.updatePublisher.sink { [weak self] in
