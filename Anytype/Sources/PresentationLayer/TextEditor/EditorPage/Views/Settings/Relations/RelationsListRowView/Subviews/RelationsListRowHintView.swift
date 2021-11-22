@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ObjectRelationRowHintView: View {
+struct RelationsListRowHintView: View {
     let hint: String
     
     var body: some View {
@@ -11,6 +11,6 @@ struct ObjectRelationRowHintView: View {
 
 struct ObjectRelationRowHintView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectRelationRowHintView(hint: "hint")
+        RelationsListRowHintView(hint: "hint")
     }
 }

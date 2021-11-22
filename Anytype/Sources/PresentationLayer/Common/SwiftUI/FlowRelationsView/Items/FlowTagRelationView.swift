@@ -10,7 +10,7 @@ struct FlowTagRelationView: View {
         if value.isNotEmpty {
             contnetView
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
 

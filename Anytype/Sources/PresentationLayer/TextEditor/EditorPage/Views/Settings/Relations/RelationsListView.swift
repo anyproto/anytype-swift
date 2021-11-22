@@ -1,17 +1,9 @@
-//
-//  ObjectRelationsView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 01.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 import BlocksModels
 
-struct ObjectRelationsView: View {
+struct RelationsListView: View {
     
-    @ObservedObject var viewModel: ObjectRelationsViewModel
+    @ObservedObject var viewModel: RelationsListViewModel
     
     @State private var editingMode = false
     
@@ -53,7 +45,7 @@ struct ObjectRelationsView: View {
                                 .padding(.vertical, 12)
                         ) {
                             ForEach(section.relations) { relation in
-                                ObjectRelationRow(editingMode: $editingMode, viewModel: relation) {
+                                RelationsListRowView(editingMode: $editingMode, relation: relation) {
                                     viewModel.removeRelation(id: $0)
                                 } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)
@@ -75,11 +67,11 @@ struct ObjectRelationsView: View {
 struct ObjectRelationsView_Previews: PreviewProvider {
         
     static var previews: some View {
-        ObjectRelationsView(
-            viewModel: ObjectRelationsViewModel(
+        RelationsListView(
+            viewModel: RelationsListViewModel(
                 objectId: "",
                 sections: [
-                    ObjectRelationsSection(
+                    RelationsSection(
                         id: "id",
                         title: "title",
                         relations: [
@@ -115,7 +107,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                             )
                         ]
                     ),
-                    ObjectRelationsSection(
+                    RelationsSection(
                         id: "id1",
                         title: "title2",
                         relations: [
@@ -145,7 +137,8 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                             )
                         ]
                     )
-                ]
+                ],
+                onValueEditingTap: { _ in }
             )
         )
     }

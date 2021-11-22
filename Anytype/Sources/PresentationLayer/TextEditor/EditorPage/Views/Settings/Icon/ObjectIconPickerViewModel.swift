@@ -31,11 +31,11 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
-    private let detailsService: ObjectDetailsService
+    private let detailsService: DetailsService
         
     // MARK: - Initializer
     
-    init(fileService: BlockActionsServiceFile, detailsService: ObjectDetailsService) {
+    init(fileService: BlockActionsServiceFile, detailsService: DetailsService) {
         self.fileService = fileService
         self.detailsService = detailsService
     }
@@ -44,11 +44,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
 extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
-        detailsService.update(
-            details: [
-                .iconEmoji(emojiUnicode), .iconImageHash(nil)
-            ]
-        )
+        detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
@@ -69,8 +65,8 @@ extension ObjectIconPickerViewModel {
         // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonRemoveEmoji)
         
-        detailsService.update(
-            details: [.iconEmoji(""), .iconImageHash(nil)]
+        detailsService.updateBundledDetails(
+            [.iconEmoji(""), .iconImageHash(nil)]
         )
     }
     

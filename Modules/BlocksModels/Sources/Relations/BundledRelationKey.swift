@@ -1,7 +1,6 @@
 import Foundation
 
-// Getters are located in ObjectDetails+Relations
-public enum RelationMetadataKey: String {
+public enum BundledRelationKey: String {
     case id
     case name
     case snippet
@@ -18,7 +17,6 @@ public enum RelationMetadataKey: String {
     case lastOpenedDate
     case lastModifiedDate
     case featuredRelations
-    case relationFormat
     
     case isDeleted
     case isArchived

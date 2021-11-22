@@ -116,9 +116,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
         TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: rootId, in: blocksContainer)
 
-        parsedDetails.forEach {
-            detailsStorage.add(details: $0, id: $0.id)
-        }
+        parsedDetails.forEach { detailsStorage.add(details: $0) }
         
         relationsStorage.set(
             relations: objectShowEvent.relations.map { RelationMetadata(middlewareRelation: $0) }

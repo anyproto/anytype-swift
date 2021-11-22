@@ -1,7 +1,10 @@
 import SwiftUI
 
-struct TextValueRelationEditingView: View {
-    @State var text: String = ""
+struct RelationTextValueEditingView: View, RelationValueEditingViewProtocol {
+    
+    let title = "About".localized
+    
+    @ObservedObject var viewModel: RelationTextValueEditingViewModel
     @State private var height: CGFloat = 0
     
     var body: some View {
@@ -12,29 +15,34 @@ struct TextValueRelationEditingView: View {
     
     private var textEditingView: some View {
         ZStack(alignment: .leading) {
-            Text(text)
+            Text(viewModel.value)
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .opacity(0)
                 .padding(6)
                 .background(FrameCatcher { height = $0.height })
             
-            if(text.isEmpty) {
+            if(viewModel.value.isEmpty) {
                 AnytypeText("Add text".localized, style: .uxBodyRegular, color: .textTertiary)
                     .padding(6)
             }
 
-            AutofocusedTextEditor(text: $text)
+            AutofocusedTextEditor(text: $viewModel.value)
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .foregroundColor(.grayscale90)
-                .opacity(text.isEmpty ? 0.25 : 1)
+                .opacity(viewModel.value.isEmpty ? 0.25 : 1)
                 .frame(maxHeight: max(40, height))
         }
     }
+    
+    func saveValue() {
+        viewModel.saveValue()
+    }
+    
 }
 
-struct TextValueRelationEditingView_Previews: PreviewProvider {
+struct RelationTextValueEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        TextValueRelationEditingView()
+        RelationTextValueEditingView(viewModel: RelationTextValueEditingViewModel(objectId: "", relationKey: "", value: ""))
             .background(Color.red)
     }
 }

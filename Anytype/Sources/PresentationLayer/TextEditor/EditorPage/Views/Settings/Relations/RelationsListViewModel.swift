@@ -3,31 +3,31 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 
-final class ObjectRelationsViewModel: ObservableObject {
+final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    @Published private(set) var sections: [ObjectRelationsSection]
-    private let sectionsBuilder = ObjectRelationsSectionBuilder()
+    @Published private(set) var sections: [RelationsSection]
+    private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol = RelationsService()
     
     private let objectId: String
     
     // MARK: - Initializers
     
-    init(objectId: String, sections: [ObjectRelationsSection] = []) {
+    init(
+        objectId: String,
+        sections: [RelationsSection] = [],
+        onValueEditingTap: (String) -> ()
+    ) {
         self.objectId = objectId
         self.sections = sections
     }
     
     // MARK: - Internal functions
     
-    func update(
-        with objectRelationsStorage: ParsedRelations,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) {
-        self.sections = sectionsBuilder.buildViewModels(featuredRelations: objectRelationsStorage.featuredRelations,
-                                                        otherRelations: objectRelationsStorage.otherRelations)
+    func update(with parsedRelations: ParsedRelations) {
+        self.sections = sectionsBuilder.buildSections(from: parsedRelations)
     }
     
     func changeRelationFeaturedState(relationId: String) {
@@ -46,6 +46,5 @@ final class ObjectRelationsViewModel: ObservableObject {
     func removeRelation(id: String) {
         relationsService.removeRelation(objectId: objectId, relationId: id)
     }
-    
     
 }

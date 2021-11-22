@@ -23,7 +23,7 @@ final class RelationsBuilder {
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> ParsedRelations {
         guard let objectDetails = detailsStorage.get(id: objectId) else {
-            return ParsedRelations(otherRelations: [], featuredRelations: [])
+            return ParsedRelations(featuredRelations: [], otherRelations: [])
         }
         
         var featuredRelations: [Relation] = []
@@ -58,7 +58,7 @@ final class RelationsBuilder {
             }
         }
         
-        return ParsedRelations(otherRelations: otherRelations, featuredRelations: featuredRelations)
+        return ParsedRelations(featuredRelations: featuredRelations, otherRelations: otherRelations)
     }
     
 }
@@ -239,7 +239,7 @@ private extension RelationsBuilder {
         let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
             let fileName: String = {
                 let name = objectDetail.name
-                let fileExt = objectDetail.values[RelationMetadataKey.fileExt.rawValue]
+                let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
                 let fileExtString = fileExt?.stringValue
                 
                 guard
@@ -254,7 +254,7 @@ private extension RelationsBuilder {
                     return .icon(objectIconType)
                 }
                 
-                let fileMimeType = objectDetail.values[RelationMetadataKey.fileMimeType.rawValue]?.stringValue
+                let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
                 guard let fileMimeType = fileMimeType else {
                     return .image(UIImage.blockFile.content.other)
                 }
