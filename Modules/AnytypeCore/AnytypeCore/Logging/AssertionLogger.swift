@@ -49,6 +49,7 @@ public enum ErrorDomain: String {
     case blockActionsService
     case keyboardListner
     case textLayout
+    case textConverter
     
     case homeView
     
