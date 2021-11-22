@@ -58,35 +58,10 @@ struct SetTableView: View {
     }
     
     private var tableContent: some View {
-        VStack {
         LazyVStack(alignment: .leading) {
             ForEach(model.rows) { row in
-                rowsView(row)
+                SetTableViewRow(data: row, initialOffset: initialOffset, xOffset: xOffset)
             }
-        }
-            Spacer()}
-    }
-    
-    private func rowsView(_ row: SetTableViewRow) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Spacer.fixedHeight(18)
-            
-            AnytypeText("🚀 " + row.title, style: .body, color: .grayscale90)
-                .padding(.horizontal, 16)
-                .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
-            Spacer.fixedHeight(18)
-            HStack(spacing: 0) {
-                ForEach(row.relations) { colum in
-                    AnytypeText(colum.value, style: .relation2Regular, color: .textPrimary)
-                        .frame(width: 144)
-                    Rectangle()
-                        .frame(width: 0.5, height: 18)
-                        .foregroundColor(.grayscale30)
-                }
-            }
-            
-            Spacer.fixedHeight(12)
-            Divider()
         }
     }
 }

@@ -8,19 +8,19 @@ struct SetRowRelation: Identifiable {
     let value: String
 }
 
-struct SetTableViewRow: Identifiable {
+struct SetTableViewRowData: Identifiable {
     let id: BlockId
     let title: String
     let relations: [SetRowRelation]
     
-    init(id: BlockId, title: String, allRelations: [Relation], colums: [RelationMetadata]) {
+    init(id: BlockId, title: String, allRelations: [Relation], colums: [SetColumData]) {
         self.id = id
         self.title = title
         
-        self.relations = colums.compactMap { columRelation in
-            let relation = allRelations.first { $0.id == columRelation.id }
+        self.relations = colums.compactMap { colum in
+            let relation = allRelations.first { $0.id == colum.key }
             guard let relation = relation else {
-                anytypeAssertionFailure("No relation: \(columRelation) found in \(title)", domain: .editorSet)
+                anytypeAssertionFailure("No relation: \(colum) found in \(title)", domain: .editorSet)
                 return nil
             }
         

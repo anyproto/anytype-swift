@@ -16,26 +16,23 @@ final class EditorSetViewModel: ObservableObject {
             .map { SetColumData(key: $0.key, value: $0.name) }
     }
     
-    var rows: [SetTableViewRow] {
+    var rows: [SetTableViewRowData] {
         records.map {
-            let foo = ObjectDetailsStorage()
-            records.forEach { foo.add(details: $0) }
-            
             let relations = relationsBuilder.buildRelations(
                 using: dataView.activeViewRelations,
                 objectId: $0.id,
-                detailsStorage: foo
+                detailsStorage: detailsStorage
             ).all
             
             let sortedRelations = colums.compactMap { colum in
                 relations.first { $0.id == colum.key }
             }
             
-            return SetTableViewRow(
+            return SetTableViewRowData(
                 id: $0.id,
                 title: $0.title,
                 allRelations: sortedRelations,
-                colums: dataView.activeViewRelations
+                colums: colums
             )
         }
     }
@@ -45,6 +42,7 @@ final class EditorSetViewModel: ObservableObject {
     private let relationsBuilder = RelationsBuilder(scope: .type)
     
     @Published private var records: [ObjectDetails] = []
+    private var detailsStorage = ObjectDetailsStorage()
     private var subscription: AnyCancellable?
     
     init(document: BaseDocument) {
@@ -114,6 +112,8 @@ final class EditorSetViewModel: ObservableObject {
             
             return ObjectDetails(id: id, values: record.fields)
         }
+        
+        records.forEach { detailsStorage.add(details: $0) }
     }
     
     private func extractDataViewFromDocument() -> BlockDataview? {
