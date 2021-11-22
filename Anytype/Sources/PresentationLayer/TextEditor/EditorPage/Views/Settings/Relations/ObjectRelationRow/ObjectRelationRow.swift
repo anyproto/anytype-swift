@@ -1,17 +1,10 @@
-//
-//  ObjectRelationRow.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 04.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 struct ObjectRelationRow: View {
     
     @Binding var editingMode: Bool
-    let viewModel: Relation
+    let relation: Relation
+    
     let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
     
@@ -19,7 +12,7 @@ struct ObjectRelationRow: View {
         GeometryReader { gr in
             HStack(spacing: 8) {
                 if editingMode {
-                    if viewModel.isEditable {
+                    if relation.isEditable {
                         removeButton
                     } else {
                         Spacer.fixedWidth(Constants.buttonWidth)
@@ -46,18 +39,18 @@ struct ObjectRelationRow: View {
     
     private var name: some View {
         HStack(spacing: 6) {
-            if !viewModel.isEditable {
+            if !relation.isEditable {
                 Image.Relations.locked
                     .frame(width: 15, height: 12)
             }
-            AnytypeText(viewModel.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
+            AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
         }
     }
     
     private var valueView: some View {
         Group {
-            let value = viewModel.value
-            let hint = viewModel.hint
+            let value = relation.value
+            let hint = relation.hint
             switch value {
             case .text(let string):
                 TextRelationView(value: string, hint: hint)
@@ -83,7 +76,7 @@ struct ObjectRelationRow: View {
     private var removeButton: some View {
         withAnimation(.spring()) {
             Button {
-                onRemoveTap(viewModel.id)
+                onRemoveTap(relation.id)
             } label: {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.red)
@@ -93,9 +86,9 @@ struct ObjectRelationRow: View {
     
     private var starImageView: some View {
         Button {
-            onStarTap(viewModel.id)
+            onStarTap(relation.id)
         } label: {
-            viewModel.isFeatured ?
+            relation.isFeatured ?
             Image.Relations.removeFromFeatured :
             Image.Relations.addToFeatured
         }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
@@ -115,7 +108,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
         VStack(spacing: 0) {
             ObjectRelationRow(
                 editingMode: .constant(false),
-                viewModel: Relation(
+                relation: Relation(
                     id: "1", name: "Relation name",
                     value: .tag([
                         TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
@@ -132,7 +125,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             )
             ObjectRelationRow(
                 editingMode: .constant(false),
-                viewModel: Relation(
+                relation: Relation(
                     id: "1", name: "Relation name",
                     value: .text("hello"),
                     hint: "hint",

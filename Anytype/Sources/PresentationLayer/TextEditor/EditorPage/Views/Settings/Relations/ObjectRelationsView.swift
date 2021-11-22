@@ -53,7 +53,7 @@ struct ObjectRelationsView: View {
                                 .padding(.vertical, 12)
                         ) {
                             ForEach(section.relations) { relation in
-                                ObjectRelationRow(editingMode: $editingMode, viewModel: relation) {
+                                ObjectRelationRow(editingMode: $editingMode, relation: relation) {
                                     viewModel.removeRelation(id: $0)
                                 } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)
