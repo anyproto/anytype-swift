@@ -4,6 +4,12 @@ import SwiftProtobuf
 import UIKit
 
 final class RelationsBuilder {
+    
+    private let scope: RelationMetadata.Scope
+    
+    init(scope: RelationMetadata.Scope = .object) {
+        self.scope = scope
+    }
 
     // MARK: - Private variables
     
@@ -23,7 +29,7 @@ final class RelationsBuilder {
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> ParsedRelations {
         guard let objectDetails = detailsStorage.get(id: objectId) else {
-            return ParsedRelations(featuredRelations: [], otherRelations: [])
+            return .empty
         }
         
         var featuredRelations: [Relation] = []
@@ -31,7 +37,7 @@ final class RelationsBuilder {
         
         let featuredRelationIds = objectDetails.featuredRelations
         relations.forEach { relation in
-            guard !relation.isHidden, relation.scope == .object else { return }
+            guard !relation.isHidden, relation.scope == scope else { return }
             
             let value = relationValue(
                 relation: relation,

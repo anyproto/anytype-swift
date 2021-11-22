@@ -1,3 +1,4 @@
+import AnytypeCore
 public enum DataviewViewType: Hashable {
     case table
     case list
@@ -47,6 +48,20 @@ public struct BlockDataview: Hashable {
         views.first { $0.id == activeViewId } ?? views.first
     }
     
+    public var activeViewRelations: [RelationMetadata] {
+        guard let activeView = activeView else {
+            anytypeAssertionFailure("No active view", domain: .editorSet)
+            return []
+        }
+
+        return activeView.relations
+            .filter { $0.isVisible }
+            .map(\.key)
+            .compactMap { key in
+                relations.first { $0.key == key }
+            }
+    }
+    
     public init(
         source: [String],
         activeView: BlockId,
@@ -57,5 +72,9 @@ public struct BlockDataview: Hashable {
         self.activeViewId = activeView 
         self.views = views
         self.relations = relations
+    }
+    
+    public static var empty: BlockDataview {
+        BlockDataview(source: [], activeView: "", views: [], relations: [])
     }
 }

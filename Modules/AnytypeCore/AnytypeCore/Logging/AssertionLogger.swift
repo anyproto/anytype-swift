@@ -17,6 +17,7 @@ public enum ErrorDomain: String {
     case localEventConverter
     case middlewareEventConverter
     case objectDetails
+    case relationsBuilder
     
     case blockInformationCreator
     case blockContainer

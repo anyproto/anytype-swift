@@ -43,8 +43,8 @@ struct SetTableView: View {
         VStack(alignment: .leading, spacing: 0) {
             Divider()
             HStack(spacing: 0) {
-                ForEach(model.colums, id: \.self) { name in
-                    AnytypeText(name, style: .relation2Regular, color: .textSecondary)
+                ForEach(model.colums, id: \.key) { name in
+                    AnytypeText(name.value, style: .relation2Regular, color: .textSecondary)
                         .frame(width: 144)
                     
                     Rectangle()
@@ -60,24 +60,24 @@ struct SetTableView: View {
     private var tableContent: some View {
         VStack {
         LazyVStack(alignment: .leading) {
-            ForEach(model.rows, id: \.self) { row in
-                rowsView(row: row)
+            ForEach(model.rows) { row in
+                rowsView(row)
             }
         }
             Spacer()}
     }
     
-    private func rowsView(row: String) -> some View {
+    private func rowsView(_ row: SetTableViewRow) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(18)
             
-            AnytypeText("🚀 " + row, style: .body, color: .grayscale90)
+            AnytypeText("🚀 " + row.title, style: .body, color: .grayscale90)
                 .padding(.horizontal, 16)
                 .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
             Spacer.fixedHeight(18)
             HStack(spacing: 0) {
-                ForEach(model.colums, id: \.self) { colum in
-                    AnytypeText(row + colum, style: .relation2Regular, color: .textPrimary)
+                ForEach(row.relations) { colum in
+                    AnytypeText(colum.value, style: .relation2Regular, color: .textPrimary)
                         .frame(width: 144)
                     Rectangle()
                         .frame(width: 0.5, height: 18)
