@@ -28,7 +28,7 @@ extension UIColor {
     
     private static func color(name: String) -> UIColor {
         guard let color = UIColor(named: name) else {
-            anytypeAssertionFailure("No color named: \(name)")
+            anytypeAssertionFailure("No color named: \(name)", domain: .colorCreation)
             return defaultColor
         }
         

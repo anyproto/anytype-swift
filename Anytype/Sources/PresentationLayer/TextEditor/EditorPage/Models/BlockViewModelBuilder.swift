@@ -73,8 +73,8 @@ final class BlockViewModelBuilder {
                     blockDelegate: delegate,
                     actionHandler: handler,
                     detailsStorage: document.detailsStorage,
-                    showPage: { [weak self] pageId in
-                        self?.router.showPage(with: pageId)
+                    showPage: { [weak self] data in
+                        self?.router.showPage(data: data)
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
@@ -169,18 +169,18 @@ final class BlockViewModelBuilder {
                 content: content,
                 details: details,
                 contextualMenuHandler: contextualMenuHandler,
-                openLink: { [weak self] blockId in
-                    self?.router.showPage(with: blockId)
+                openLink: { [weak self] data in
+                    self?.router.showPage(data: data)
                 }
             )
-        case .smartblock, .layout: return nil
         case .featuredRelations:
             guard let objectType = document.objectDetails?.objectType else { return nil }
             
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
+                featuredRelation: document.parsedRelations.featuredRelations,
                 type: objectType.name
-            ) { [weak self] in
+            ) { [weak self] _ in
                 guard let self = self else { return }
                 
                 guard
@@ -196,6 +196,7 @@ final class BlockViewModelBuilder {
                 )
             }
             
+        case .smartblock, .layout: return nil
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil

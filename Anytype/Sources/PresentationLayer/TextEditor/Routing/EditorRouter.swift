@@ -8,7 +8,7 @@ import AnytypeCore
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
-    func showPage(with id: BlockId)
+    func showPage(data: EditorScreenData)
     func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (URL) -> ())
     func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
@@ -28,7 +28,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
-    func showSearch(onSelect: @escaping (BlockId) -> ())
+    func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     
     func goBack()
@@ -40,45 +40,43 @@ protocol AttachmentRouterProtocol {
 
 final class EditorRouter: EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
-    private weak var viewController: EditorPageController?
+    private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
-    private let pageAssembly: EditorPageAssembly
+    private let editorAssembly: EditorAssembly
 
     init(
         rootController: EditorBrowserController,
-        viewController: EditorPageController,
+        viewController: UIViewController,
         document: BaseDocumentProtocol,
-        assembly: EditorPageAssembly
+        assembly: EditorAssembly
     ) {
         self.rootController = rootController
         self.viewController = viewController
         self.document = document
-        self.pageAssembly = assembly
+        self.editorAssembly = assembly
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
-    /// Show page
-    func showPage(with id: BlockId) {
-        if let details = document.detailsStorage.get(id: id) {
-            let typeUrl = details.type
-            guard ObjectTypeProvider.isSupported(typeUrl: typeUrl) else {
-                let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
-                
-                AlertHelper.showToast(
-                    title: "Not supported type \"\(typeName)\"",
-                    message: "You can open it via desktop"
-                )
+    func showPage(data: EditorScreenData) {
+        if let details = document.detailsStorage.get(id: data.pageId)  {
+            guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
+                showUnsupportedTypeAlert(typeUrl: details.type)
                 return
             }
         }
         
-        let newEditorViewController = pageAssembly.buildEditorPage(pageId: id)
+        let controller = editorAssembly.buildEditorController(data: data)
+        viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func showUnsupportedTypeAlert(typeUrl: String) {
+        let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
         
-        viewController?.navigationController?.pushViewController(
-            newEditorViewController,
-            animated: true
+        AlertHelper.showToast(
+            title: "Not supported type \"\(typeName)\"",
+            message: "You can open it via desktop"
         )
     }
     
@@ -129,6 +127,10 @@ final class EditorRouter: EditorRouterProtocol {
         guard let controller = viewController,
               let rootController = rootController,
               let blockModel = document.blocksContainer.model(id: information.id) else { return }
+        guard let controller = controller as? EditorPageController else {
+            anytypeAssertionFailure("Not supported type of controller: \(controller)", domain: .editorPage)
+            return
+        }
 
         controller.view.endEditing(true)
 
@@ -197,8 +199,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+            onSelect(data.blockId)
         }
         let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
         
@@ -206,8 +208,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
-        let viewModel = LinkToObjectSearchViewModel { searchKind in
-            onSelect(searchKind)
+        let viewModel = LinkToObjectSearchViewModel { data in
+            onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
 
@@ -215,17 +217,17 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+            onSelect(data.blockId)
         }
         let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
         
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
     
-    func showSearch(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { id in
-            onSelect(id)
+    func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
+        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+            onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, viewModel: viewModel)
         
@@ -234,8 +236,8 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
         let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? "")
-        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { id in
-            onSelect(id)
+        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
+            onSelect(data.blockId)
         }
         let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
 

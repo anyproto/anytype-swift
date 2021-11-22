@@ -19,7 +19,7 @@ struct ObjectSettingsContainerView: View {
             .popup(
                 isPresented: $mainViewPresented,
                 type: .floater(verticalPadding: 42),
-                animation: .ripple,
+                animation: .fastSpring,
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
@@ -58,13 +58,12 @@ struct ObjectSettingsContainerView: View {
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
-                type: .floater(verticalPadding: 42),
+                type: .floater(verticalPadding: 0),
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
                 view: {
                     ObjectLayoutPicker()
-                        .padding(8)
                         .environmentObject(viewModel.layoutPickerViewModel)
                 }
             )
@@ -81,7 +80,7 @@ struct ObjectSettingsContainerView: View {
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.popupDocumentMenu)
                 
-                withAnimation(.ripple) {
+                withAnimation(.fastSpring) {
                     mainViewPresented = true
                 }
             }

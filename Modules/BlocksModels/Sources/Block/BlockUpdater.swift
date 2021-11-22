@@ -88,7 +88,7 @@ public final class BlockUpdater {
     /// - Returns: Nothing, heh
     public func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
         guard let entry = container.model(id: key) else {
-            anytypeAssertionFailure("We haven't found an entry by key: \(key)")
+            anytypeAssertionFailure("We haven't found an entry by key: \(key)", domain: .blockUpdater)
             return
         }
         

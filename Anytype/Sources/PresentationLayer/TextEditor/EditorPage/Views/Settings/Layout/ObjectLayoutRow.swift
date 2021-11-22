@@ -21,14 +21,17 @@ struct ObjectLayoutRow: View {
             onTap()
         }
         label: {
-            HStack(spacing: 9) {
-                layout.icon.frame(width: 24, height: 24)
-                AnytypeText(layout.title, style: .uxBodyRegular, color: .textPrimary)
+            HStack(spacing: 12) {
+                layout.icon.frame(width: 44, height: 44)
+                VStack(alignment: .leading, spacing: 0) {
+                    AnytypeText(layout.title, style: .uxTitle2Medium, color: .textPrimary)
+                    AnytypeText(layout.description, style: .caption1Regular, color: .textSecondary)
+                }
                 
                 Spacer()
                 
                 if isSelected {
-                    Image.LayoutSettings.checkmark.frame(width: 24, height: 24)
+                    Image.LayoutSettings.checkmark.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
                 }
             }
         }
@@ -43,14 +46,15 @@ private extension DetailsLayout {
     var icon: Image {
         switch self {
         case .basic:
-            // About to change this icon
-            return Image.LayoutSettings.basic
+            return .LayoutSettings.basic
         case .profile:
-            return Image.LayoutSettings.profile
+            return .LayoutSettings.profile
         case .todo:
-            return Image.LayoutSettings.todo
+            return .LayoutSettings.todo
         case .note:
-            return Image.LayoutSettings.note
+            return .LayoutSettings.note
+        case .set:
+            return .noImage
         }
     }
     
@@ -64,6 +68,23 @@ private extension DetailsLayout {
             return "Task".localized
         case .note:
             return "Note".localized
+        case .set:
+            return "Set".localized
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .basic:
+            return "Standard layout for canvas blocks".localized
+        case .profile:
+            return "Companies, contacts, friends and family".localized
+        case .todo:
+            return "Action-focused layout with a checkbox".localized
+        case .note:
+            return "Designed to capture thoughts quickly".localized
+        case .set:
+            return "Collection of objects".localized
         }
     }
     

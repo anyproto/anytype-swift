@@ -15,8 +15,6 @@ final class EventsListener: EventsListenerProtocol {
     private let objectId: BlockId
      
     private let blocksContainer: BlockContainerModelProtocol
-    private let detailsStorage: ObjectDetailsStorageProtocol
-    private let relationStorage: RelationsStorageProtocol
     
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
@@ -30,12 +28,10 @@ final class EventsListener: EventsListenerProtocol {
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
-        relationStorage: RelationsStorageProtocol
+        relationStorage: RelationsMetadataStorageProtocol
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer
-        self.detailsStorage = detailsStorage
-        self.relationStorage = relationStorage
         
         let informationCreator = BlockInformationCreator(
             validator: BlockValidator(),

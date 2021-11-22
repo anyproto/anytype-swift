@@ -1,7 +1,7 @@
 import UIKit
 import BlocksModels
 
-struct BlockFileConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable {
+struct BlockFileConfiguration: BlockConfigurationProtocol, Hashable {
     let data: BlockFileMediaData
     var currentConfigurationState: UICellConfigurationState?
 

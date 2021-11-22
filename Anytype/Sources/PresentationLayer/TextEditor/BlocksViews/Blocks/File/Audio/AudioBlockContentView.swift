@@ -18,6 +18,7 @@ final class AudioBlockContentView: BaseBlockView<AudioBlockContentConfiguration>
     let backgroundView = UIView()
 
     // MARK: - Lifecycle
+
     override func setupSubviews() {
         super.setupSubviews()
 
@@ -45,6 +46,7 @@ final class AudioBlockContentView: BaseBlockView<AudioBlockContentConfiguration>
     }
 
     private func apply(configuration: AudioBlockContentConfiguration) {
+        audioPlayerView.setDelegate(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.updateAudioInformation(delegate: configuration.audioPlayerViewDelegate)
         audioPlayerView.trackNameLabel.setText(configuration.file.metadata.name)
     }

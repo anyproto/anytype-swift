@@ -21,7 +21,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse? {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("addActionBlockIsNotParsed")
+            anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
 
@@ -33,7 +33,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> MiddlewareResponse? {
         guard let block = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("replace action parsing error")
+            anytypeAssertionFailure("replace action parsing error", domain: .blockActionsService)
             return nil
         }
         
@@ -43,11 +43,16 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             .getValue()
     }
     
-    func delete(contextId: BlockId, blockIds: [BlockId]) -> MiddlewareResponse? {
+    func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
-        return Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
-            .map { MiddlewareResponse($0.event) }
+        let event = Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
+            .map { EventsBunch(event: $0.event) }
             .getValue()
+        
+        guard let event = event else { return false }
+        event.send()
+        
+        return true
     }
 
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> MiddlewareResponse? {

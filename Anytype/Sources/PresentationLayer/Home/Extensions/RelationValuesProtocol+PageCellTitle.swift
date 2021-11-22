@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-extension RelationValuesProvider {
+extension RelationMetadataValuesProvider {
     
     var pageCellTitle: HomeCellData.Title {
         switch layout {
@@ -28,6 +28,6 @@ extension RelationValuesProvider {
     }
     
     var mentionTitle: String {
-        String(title.prefix(30))
+        String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
     }
 }

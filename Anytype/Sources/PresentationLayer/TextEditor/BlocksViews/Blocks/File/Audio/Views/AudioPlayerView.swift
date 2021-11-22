@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 
-protocol AudioPlayerViewDelegate: AnyObject {
+protocol AudioPlayerViewDelegate: AnyObject, HashableProvier {
     var audioPlayerView: AudioPlayerViewInput? { get set }
     var currentTime: Double { get }
     /// Track duration in seconds
@@ -29,16 +29,12 @@ protocol AudioPlayerViewInput: AnyObject {
 final class AudioPlayerView: UIView {
     private var isSeekInProgress = false
 
-    private weak var delegate: AudioPlayerViewDelegate?
+    weak var delegate: AudioPlayerViewDelegate?
 
     // MARK: - Views
 
     private let playButton = ButtonWithImage()
-    private let progressSlider: AudioProgressSlider = {
-        let progressSlider = AudioProgressSlider()
-        progressSlider.addTarget(self, action: #selector(progressSliderAction), for: .valueChanged)
-        return progressSlider
-    }()
+    private let progressSlider = AudioProgressSlider()
     private(set) var trackNameLabel = AnytypeLabel(style: .previewTitle2Medium)
     private let durationLabel = AnytypeLabel(style: .caption2Medium)
     private let currentTimeLabel = AnytypeLabel(style: .caption2Medium)
@@ -69,6 +65,8 @@ final class AudioPlayerView: UIView {
 
             self.delegate?.playButtonDidPress(sliderValue: Double(self.progressSlider.value))
         }), for: .touchUpInside)
+
+        progressSlider.addTarget(self, action: #selector(progressSliderAction), for: .valueChanged)
 
         slashView.setText(Constants.timingSeparator, style: .caption2Medium)
         currentTimeLabel.setText(Constants.defaultTimingText)
@@ -148,9 +146,6 @@ final class AudioPlayerView: UIView {
         guard let delegate = delegate else {
             return
         }
-        self.delegate?.audioPlayerView = nil
-        self.delegate = delegate
-        delegate.audioPlayerView = self
 
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = Float(delegate.duration)
@@ -162,6 +157,15 @@ final class AudioPlayerView: UIView {
         setTimingText(currentTime: Float(delegate.currentTime))
 
         delegate.isPlaying ? play() : pause()
+    }
+
+    func setDelegate(delegate: AudioPlayerViewDelegate?) {
+        guard let delegate = delegate else {
+            return
+        }
+        self.delegate?.audioPlayerView = nil
+        self.delegate = delegate
+        delegate.audioPlayerView = self
     }
 
     // MARK: - Helper methods
@@ -188,7 +192,6 @@ final class AudioPlayerView: UIView {
 // MARK: - AudioBlockViewModelOutput
 
 extension AudioPlayerView: AudioPlayerViewInput {
-
     func play() -> Void {
         playButton.setImage(UIImage(systemName: "pause.fill"))
     }

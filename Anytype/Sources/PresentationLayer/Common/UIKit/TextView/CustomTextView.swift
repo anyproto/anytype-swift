@@ -10,7 +10,7 @@ final class CustomTextView: UIView {
         }
     }
     
-    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: false)
+    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: true)
     
     // MARK: - Private variables
     

@@ -2,7 +2,7 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
+struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     
     let blockDelegate: BlockDelegate
     
@@ -19,7 +19,7 @@ struct TextBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: BlockActionHandlerProtocol
     let detailsStorage: ObjectDetailsStorageProtocol
-    let showPage: (String) -> Void
+    let showPage: (EditorScreenData) -> Void
     let openURL: (URL) -> Void
         
     let pressingEnterTimeChecker = TimeChecker()
@@ -32,7 +32,7 @@ struct TextBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: BlockActionHandlerProtocol,
-        showPage: @escaping (String) -> Void,
+        showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
         detailsStorage: ObjectDetailsStorageProtocol

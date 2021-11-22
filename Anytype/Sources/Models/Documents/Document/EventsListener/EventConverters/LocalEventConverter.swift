@@ -19,18 +19,19 @@ final class LocalEventConverter {
         switch event {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
-            return .blocks(blockIds: [blockId])
+            return .general // https://app.clickup.com/t/1r67hcc
+//            return .blocks(blockIds: [blockId])
         case .setToggled, .documentClosed:
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
             guard var model = blocksContainer.model(id: blockId) else {
-                anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)")
+                anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)", domain: .localEventConverter)
                 return nil
             }
             guard case var .file(content) = model.information.content else {
-                anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action")
+                anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action", domain: .localEventConverter)
                 return nil
             }
             
@@ -47,11 +48,11 @@ final class LocalEventConverter {
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> EventsListenerUpdate {
         guard var blockModel = blocksContainer.model(id: blockId) else {
-            anytypeAssertionFailure("Block model with id \(blockId) not found in container")
+            anytypeAssertionFailure("Block model with id \(blockId) not found in container", domain: .localEventConverter)
             return .general
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)", domain: .localEventConverter)
             return .general
         }
         
@@ -63,8 +64,8 @@ final class LocalEventConverter {
             color: oldText.color?.rawValue ?? ""
         )
         
-        guard var textContent = ContentTextConverter().textContent(middleContent) else {
-            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
+        guard var textContent = middleContent.textContent else {
+            anytypeAssertionFailure("We cannot block content from: \(middleContent)", domain: .localEventConverter)
             return .general
         }
 
@@ -79,7 +80,7 @@ final class LocalEventConverter {
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
         guard var model = blocksContainer.model(id: blockId) else {
-            anytypeAssertionFailure("setFocus. We can't find model by id \(blockId)")
+            anytypeAssertionFailure("setFocus. We can't find model by id \(blockId)", domain: .localEventConverter)
             return
         }
         model.isFirstResponder = true

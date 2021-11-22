@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UnsupportedBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol {
+struct UnsupportedBlockContentConfiguration: BlockConfigurationProtocol {
     let text: String
     var currentConfigurationState: UICellConfigurationState?
 }

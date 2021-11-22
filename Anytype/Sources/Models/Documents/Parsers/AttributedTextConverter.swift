@@ -1,7 +1,7 @@
 import BlocksModels
 import UIKit
 import ProtobufMessages
-
+import AnytypeCore
 
 enum AttributedTextConverter {
     
@@ -17,15 +17,42 @@ enum AttributedTextConverter {
                 attribute: mark.type,
                 value: mark.param
             )
-            guard let markValue = MarkStyleActionConverter.asModel(
+            guard
+                let markValue = MarkStyleActionConverter.asModel(
                 tuple: middlewareTuple,
                 detailsStorage: detailsStorage
             ) else {
                 return nil
             }
+            
             // we need convert marks to NSRange
-            let from = text.index(text.startIndex, offsetBy: Int(mark.range.from))
-            let to = text.index(text.startIndex, offsetBy: Int(mark.range.to))
+            let distance = text.distance(from: text.startIndex, to: text.endIndex)
+            
+            let fromOffset: Int? = {
+                let from = Int(mark.range.from)
+                guard from <= distance else { return nil }
+                return from
+            }()
+            let toOffset: Int? = {
+                let to = Int(mark.range.to)
+                guard to <= distance else { return nil }
+                return to
+            }()
+            
+            guard let fromOffset = fromOffset, let toOffset = toOffset else {
+                let message = """
+                AttributedTextConverter parsing error.
+                string: \(text),
+                mark range from: \(mark.range.from),
+                mark range to: \(mark.range.to),
+                mark type: \(mark.type)
+                """
+                anytypeAssertionFailure(message)
+                return nil
+            }
+            
+            let from = text.index(text.startIndex, offsetBy: fromOffset)
+            let to = text.index(text.startIndex, offsetBy: toOffset)
             let nsRange = NSRange(from..<to, in: text)
             return (nsRange, markValue)
         }

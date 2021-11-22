@@ -6,6 +6,7 @@ public enum ObjectTemplateType: RawRepresentable {
         case profile = "_otprofile"
         case note = "_otnote"
         case set = "_otset"
+        case task = "_ottask"
     }
 
     public init?(rawValue: String) {

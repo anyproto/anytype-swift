@@ -3,7 +3,7 @@ import SwiftUI
 import BlocksModels
 import MobileCoreServices
 
-struct DividerBlockContentConfiguration: AnytypeBlockContentConfigurationProtocol, Hashable {
+struct DividerBlockContentConfiguration: BlockConfigurationProtocol, Hashable {
     let content: BlockDivider
     var currentConfigurationState: UICellConfigurationState?
     

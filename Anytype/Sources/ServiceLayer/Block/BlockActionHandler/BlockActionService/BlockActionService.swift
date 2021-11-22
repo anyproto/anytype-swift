@@ -20,9 +20,12 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let listService = BlockListService()
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
+    
+    private weak var modelsHolder: BlockViewModelsHolder?
 
-    init(documentId: String) {
+    init(documentId: String, modelsHolder: BlockViewModelsHolder) {
         self.documentId = documentId
+        self.modelsHolder = modelsHolder
     }
 
     // MARK: Actions/Add
@@ -44,7 +47,10 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let content = info.content
         guard case let .text(blockText) = content else {
-            anytypeAssertionFailure("We have unsupported content type: \(content)")
+            anytypeAssertionFailure(
+                "We have unsupported content type: \(content)",
+                domain: .blockActionsService
+            )
             return
         }
 
@@ -116,33 +122,46 @@ final class BlockActionService: BlockActionServiceProtocol {
         textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
     }
     
-    func delete(blockId: BlockId, previousBlockId: BlockId?) {
+    func merge(secondBlockId: BlockId) {
         guard
-            let response = singleService.delete(
-                contextId: documentId,
-                blockIds: [blockId]
-            )
+            let previousBlock = modelsHolder?.findModel(beforeBlockId: secondBlockId),
+            previousBlock.content != .unsupported
         else {
+            delete(blockId: secondBlockId)
             return
         }
         
-        let localEvents: [LocalEvent] = previousBlockId.flatMap {
-            [ .setFocus(blockId: $0, position: .end) ]
-        } ?? []
+        if textService.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId) {
+            setFocus(model: previousBlock)
+        }
+    }
+    
+    func delete(blockId: BlockId) {
+        let previousBlock = modelsHolder?.findModel(beforeBlockId: blockId)
         
-        EventsBunch(
-            objectId: documentId,
-            middlewareEvents: response.messages,
-            localEvents: localEvents
-        ).send()
+        if singleService.delete(contextId: documentId, blockIds: [blockId]) {
+            previousBlock.flatMap { setFocus(model: $0) }
+        }        
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
         listService.setFields(contextId: contextID, fields: blockFields)
     }
     
+    @discardableResult
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    }
+    
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
+    }
+    
+    private func setFocus(model: BlockDataProvider) {
+        if case let .text(text) = model.information.content {
+            let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))
+            EventsBunch(objectId: documentId, localEvents: [event]).send()
+        }
     }
 }
 

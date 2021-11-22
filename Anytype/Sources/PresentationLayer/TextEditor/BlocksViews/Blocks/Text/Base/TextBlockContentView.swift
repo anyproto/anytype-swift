@@ -31,13 +31,12 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
         super.setupSubviews()
 
         setupLayout()
-        applyNewConfiguration()
     }
 
-    override func update(with state: UICellConfigurationState) {
-        super.update(with: state)
+    override func update(with configuration: TextBlockContentConfiguration) {
+        super.update(with: configuration)
 
-        textView.isUserInteractionEnabled = state.isEditing
+        applyNewConfiguration()
     }
 
     // MARK: - Setup views
@@ -75,7 +74,6 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
     // MARK: - Apply configuration
     
     private func applyNewConfiguration() {
-        currentConfiguration.currentConfigurationState.map(update(with:))
         textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
         
         let restrictions = BlockRestrictionsBuilder.build(textContentType: currentConfiguration.content.contentType)

@@ -3,7 +3,7 @@ import SwiftProtobuf
 import BlocksModels
 
 class SearchHelper {
-    static func sort(relation: RelationKey, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) -> Anytype_Model_Block.Content.Dataview.Sort {
+    static func sort(relation: RelationMetadataKey, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) -> Anytype_Model_Block.Content.Dataview.Sort {
         var sort = Anytype_Model_Block.Content.Dataview.Sort()
         sort.relationKey = relation.rawValue
         sort.type = type
@@ -15,7 +15,7 @@ class SearchHelper {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
         filter.value = isArchived.protobufValue
-        filter.relationKey = RelationKey.isArchived.rawValue
+        filter.relationKey = RelationMetadataKey.isArchived.rawValue
         filter.operator = .and
         
         return filter
@@ -25,7 +25,7 @@ class SearchHelper {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
         filter.value = false.protobufValue
-        filter.relationKey = RelationKey.isHidden.rawValue
+        filter.relationKey = RelationMetadataKey.isHidden.rawValue
         filter.operator = .and
         
         return filter
@@ -35,7 +35,7 @@ class SearchHelper {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .in
         filter.value = typeUrls.protobufValue
-        filter.relationKey = RelationKey.type.rawValue
+        filter.relationKey = RelationMetadataKey.type.rawValue
         filter.operator = .and
         
         return filter
@@ -45,7 +45,7 @@ class SearchHelper {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .in
         filter.value = typeUrls.protobufValue
-        filter.relationKey = RelationKey.id.rawValue
+        filter.relationKey = RelationMetadataKey.id.rawValue
         filter.operator = .and
         
         return filter
@@ -55,13 +55,13 @@ class SearchHelper {
         var workspaceFilter = Anytype_Model_Block.Content.Dataview.Filter()
         workspaceFilter.condition = .notEmpty
         workspaceFilter.value = nil
-        workspaceFilter.relationKey = RelationKey.workspaceId.rawValue
+        workspaceFilter.relationKey = RelationMetadataKey.workspaceId.rawValue
         workspaceFilter.operator = .and
    
         var highlightedFilter = Anytype_Model_Block.Content.Dataview.Filter()
         highlightedFilter.condition = .equal
         highlightedFilter.value = true
-        highlightedFilter.relationKey = RelationKey.isHighlighted.rawValue
+        highlightedFilter.relationKey = RelationMetadataKey.isHighlighted.rawValue
         highlightedFilter.operator = .and
         
         return [
@@ -75,7 +75,7 @@ class SearchHelper {
         filter.condition = .notEqual
         filter.value = typeUrl.protobufValue
         
-        filter.relationKey = RelationKey.id.rawValue
+        filter.relationKey = RelationMetadataKey.id.rawValue
         filter.operator = .and
         
         return filter

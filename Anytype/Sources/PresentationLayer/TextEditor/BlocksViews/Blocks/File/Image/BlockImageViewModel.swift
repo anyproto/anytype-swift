@@ -38,7 +38,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         showIconPicker: @escaping (BlockId) -> ()
     ) {
         guard fileData.contentType == .image else {
-            anytypeAssertionFailure("Wrong content type of \(fileData), image expected")
+            anytypeAssertionFailure(
+                "Wrong content type of \(fileData), image expected",
+                domain: .blockImage
+            )
             return nil
         }
         

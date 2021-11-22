@@ -5,7 +5,7 @@ import AnytypeCore
 protocol EditorBrowser: AnyObject {
     func pop()
     func goToHome(animated: Bool)
-    func showPage(pageId: BlockId)
+    func showPage(data: EditorScreenData)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser {
@@ -66,7 +66,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 do {
                     try self.stateManager.moveBack(page: page)
                 } catch let error {
-                    anytypeAssertionFailure(error.localizedDescription)
+                    anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
                     self.navigationController?.popViewController(animated: true)
                 }
 
@@ -77,25 +77,25 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 guard let page = self.stateManager.closedPages.last else { return }
                 guard self.stateManager.moveForwardOnce() else { return }
                 
-                self.router.showPage(with: page.blockId)
+                self.router.showPage(data: page.pageData)
             },
             onForwardPageTap: { [weak self] page in
                 guard let self = self else { return }
                 do {
                     try self.stateManager.moveForward(page: page)
                 } catch let error {
-                    anytypeAssertionFailure(error.localizedDescription)
+                    anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
                     self.navigationController?.popViewController(animated: true)
                 }
                 
-                self.router.showPage(with: page.blockId)
+                self.router.showPage(data: page.pageData)
             },
             onHomeTap: { [weak self] in
                 self?.goToHome(animated: true)
             },
             onSearchTap: { [weak self] in
-                self?.router.showSearch { blockId in
-                    self?.router.showPage(with: blockId)
+                self?.router.showSearch { data in
+                    self?.router.showPage(data: data)
                 }
             }
         )
@@ -113,8 +113,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         navigationController?.popViewController(animated: animated)
     }
     
-    func showPage(pageId: BlockId) {
-        router.showPage(with: pageId)
+    func showPage(data: EditorScreenData) {
+        router.showPage(data: data)
     }
     
     // MARK: - Unavailable
@@ -126,21 +126,20 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     // MARK: - UINavigationControllerDelegate
         
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        guard let viewController = viewController as? EditorPageController else {
-            anytypeAssertionFailure("Not supported browser controller: \(viewController)")
+        guard let detailsProvider = viewController as? DocumentDetaisProvider else {
+            anytypeAssertionFailure("Not supported browser controller: \(viewController)", domain: .editorBrowser)
             return
         }
         
-        let documentId = viewController.viewModel.document.objectId
-        UserDefaultsConfig.storeOpenedPageId(documentId)
+        UserDefaultsConfig.storeOpenedScreenData(detailsProvider.screenData)
         
-        let details = viewController.viewModel.document.detailsStorage.get(id: documentId)
-        let title = details?.name
+        let details = detailsProvider.details
+        let title = details?.title
         let subtitle = details?.description
         do {
             try stateManager.didShow(
                 page: BrowserPage(
-                    blockId: viewController.viewModel.document.objectId,
+                    pageData: detailsProvider.screenData,
                     title: title,
                     subtitle: subtitle,
                     controller: viewController
@@ -148,7 +147,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 childernCount: childNavigation.children.count
             )
         } catch let error {
-            anytypeAssertionFailure(error.localizedDescription)
+            anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
             self.navigationController?.popViewController(animated: true)
         }
         

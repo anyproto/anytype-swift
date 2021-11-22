@@ -21,11 +21,6 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
         super.update(with: configuration)
         handleFile(configuration.fileData, currentFile)
     }
-
-    override func update(with state: UICellConfigurationState) {
-        super.update(with: state)
-        tapGesture.isEnabled = state.isEditing
-    }
     
     func setupUIElements() {
         addGestureRecognizer(tapGesture)
@@ -42,7 +37,11 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
     }
     
     private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
-        anytypeAssert(file.state == .done, "Wrong state \(file.state) for block image")
+        anytypeAssert(
+            file.state == .done,
+            "Wrong state \(file.state) for block image",
+            domain: .blockImage
+        )
         setupImage(file, oldFile)
         invalidateIntrinsicContentSize()
     }

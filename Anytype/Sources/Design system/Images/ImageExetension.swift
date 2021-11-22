@@ -78,6 +78,9 @@ extension Image {
     enum Relations {
         static let checkboxChecked = createImage("relation_checkbox_checked")
         static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
+        static let addToFeatured = createImage("relation_add_to_featured")
+        static let removeFromFeatured = createImage("relations_remove_from_featured")
+        static let locked = createImage("relation_locked")
     }
 }
 
@@ -85,7 +88,7 @@ private extension Image {
     
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
-            anytypeAssertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return .noImage
         }
         
@@ -94,7 +97,7 @@ private extension Image {
     
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
-            anytypeAssertionFailure("No system image named: \(name)")
+            anytypeAssertionFailure("No system image named: \(name)", domain: .imageCreation)
             return .noImage
         }
         

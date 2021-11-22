@@ -81,11 +81,13 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     func showDefaultView() {
         markupAccessoryView.selectionChanged(range: .zero)
-        
-        showAccessoryView(
-            document.isDocumentEmpty ? .changeType(changeTypeView) : .default(cursorModeAccessoryView),
-            animation: activeView.animation
-        )
+
+        let accessoryView: AccessoryViewType =
+            document.isDocumentEmpty && !document.objectRestrictions.objectRestriction.contains(.typechange)
+                ? .changeType(changeTypeView)
+                : .default(cursorModeAccessoryView)
+
+        showAccessoryView(accessoryView, animation: activeView.animation)
     }
     
     func showURLInput(url: URL?) {

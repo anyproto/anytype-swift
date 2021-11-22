@@ -11,7 +11,7 @@ protocol BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(info: BlockInformation, parentId: BlockId)
     
-    func delete(blockId: BlockId, previousBlockId: BlockId?)
+    func delete(blockId: BlockId)
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     
@@ -27,6 +27,9 @@ protocol BlockActionServiceProtocol {
     func duplicate(blockId: BlockId)
     
     func setFields(contextID: BlockId, blockFields: [BlockFields])
+    @discardableResult
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
+    func merge(secondBlockId: BlockId)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
 }
