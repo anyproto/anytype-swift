@@ -53,6 +53,7 @@
 		3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* UserSession.swift */; };
 		3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */; };
 		3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */; };
+		3DE0B3282747BDC200F69376 /* BlockDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0B3272747BDC200F69376 /* BlockDataView.swift */; };
 		3DE511F926711E5C00153962 /* BlockText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511F826711E5C00153962 /* BlockText.swift */; };
 		531605C8272191EF0057B7C1 /* ObjectRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531605C7272191EF0057B7C1 /* ObjectRestrictions.swift */; };
 		531605CA2721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531605C92721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift */; };
@@ -112,6 +113,7 @@
 		3DB7DCA72639DC0100635E4C /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
 		3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentIdentifiers.swift; sourceTree = "<group>"; };
+		3DE0B3272747BDC200F69376 /* BlockDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataView.swift; sourceTree = "<group>"; };
 		3DE511F826711E5C00153962 /* BlockText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockText.swift; sourceTree = "<group>"; };
 		531605C7272191EF0057B7C1 /* ObjectRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRestrictions.swift; sourceTree = "<group>"; };
 		531605C92721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareObjectRestrictionsConverter.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				3D22B21B2687809900C78C28 /* BlockContentDivider.swift */,
 				3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */,
 				3D22B21F268781C300C78C28 /* BlockContentLayout.swift */,
+				3DE0B3272747BDC200F69376 /* BlockDataView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */,
 				0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */,
 				3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */,
+				3DE0B3282747BDC200F69376 /* BlockDataView.swift in Sources */,
 				3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */,
 				3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */,
 				12206711273164360051A331 /* RelationsMetadataStorageProtocol.swift in Sources */,
