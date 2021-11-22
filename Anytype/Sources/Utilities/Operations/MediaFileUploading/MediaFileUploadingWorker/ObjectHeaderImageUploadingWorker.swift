@@ -15,10 +15,10 @@ final class ObjectHeaderImageUploadingWorker {
     private var uploadedImageHash: Hash?
     
     private let fileService = BlockActionsServiceFile()
-    private let detailsService: ObjectDetailsService
+    private let detailsService: DetailsService
     private let usecase: ObjectHeaderImageUsecase
     
-    init(detailsService: ObjectDetailsService, usecase: ObjectHeaderImageUsecase) {
+    init(detailsService: DetailsService, usecase: ObjectHeaderImageUsecase) {
         self.detailsService = detailsService
         self.usecase = usecase
     }

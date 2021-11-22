@@ -31,11 +31,11 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
-    private let detailsService: ObjectDetailsService
+    private let detailsService: DetailsService
         
     // MARK: - Initializer
     
-    init(fileService: BlockActionsServiceFile, detailsService: ObjectDetailsService) {
+    init(fileService: BlockActionsServiceFile, detailsService: DetailsService) {
         self.fileService = fileService
         self.detailsService = detailsService
     }

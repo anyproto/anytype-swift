@@ -97,7 +97,7 @@ struct ObjectSettingsView_Previews: PreviewProvider {
                 ObjectSettingsViewModel(
                     objectId: "dummyPageId",
                     detailsStorage: ObjectDetailsStorage(),
-                    objectDetailsService: ObjectDetailsService(objectId: ""),
+                    objectDetailsService: DetailsService(objectId: ""),
                     popScreenAction: {}
                 )
             )

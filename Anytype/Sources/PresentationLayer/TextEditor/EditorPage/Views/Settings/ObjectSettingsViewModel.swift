@@ -33,12 +33,12 @@ final class ObjectSettingsViewModel: ObservableObject {
     let relationsViewModel: ObjectRelationsViewModel
     
     private let objectId: String
-    private let objectDetailsService: ObjectDetailsService
+    private let objectDetailsService: DetailsService
     
     init(
         objectId: String,
         detailsStorage: ObjectDetailsStorageProtocol,
-        objectDetailsService: ObjectDetailsService,
+        objectDetailsService: DetailsService,
         popScreenAction: @escaping () -> ()
     ) {
         self.objectId = objectId

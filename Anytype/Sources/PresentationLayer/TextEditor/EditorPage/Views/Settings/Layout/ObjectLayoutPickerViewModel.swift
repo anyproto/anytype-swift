@@ -11,11 +11,11 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private let detailsService: ObjectDetailsService
+    private let detailsService: DetailsService
     
     // MARK: - Initializer
     
-    init(detailsService: ObjectDetailsService) {
+    init(detailsService: DetailsService) {
         self.detailsService = detailsService
     }
     

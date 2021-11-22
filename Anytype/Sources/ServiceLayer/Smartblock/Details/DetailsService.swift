@@ -4,7 +4,7 @@ import Combine
 import SwiftProtobuf
 
 // TODO: rething ObjectRawDetails/RelationMetadataKey
-final class ObjectDetailsService {
+final class DetailsService {
     
     private let service = ObjectActionsService()
 
@@ -16,7 +16,7 @@ final class ObjectDetailsService {
     
 }
 
-extension ObjectDetailsService: DetailsServiceProtocol {
+extension DetailsService: DetailsServiceProtocol {
     
     func update(details: ObjectRawDetails) {
         service.setDetails(contextID: objectId, details: details)

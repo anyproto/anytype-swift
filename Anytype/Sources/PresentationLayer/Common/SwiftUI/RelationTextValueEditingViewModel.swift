@@ -6,10 +6,10 @@ final class RelationTextValueEditingViewModel: ObservableObject {
     @Published var value: String = ""
     
     private let relationKey: String
-    private let service: ObjectDetailsService
+    private let service: DetailsService
     
     init(objectId: BlockId, relationKey: String, value: String) {
-        self.service = ObjectDetailsService(objectId: objectId)
+        self.service = DetailsService(objectId: objectId)
         self.relationKey = relationKey
         self.value = value
         
