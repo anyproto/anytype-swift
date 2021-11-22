@@ -58,19 +58,24 @@ struct RelationsListRowView: View {
                 switch value {
                 case .text(let string):
                     TextRelationView(value: string, hint: hint)
-                    
+                case .number(let string):
+                    TextRelationView(value: string, hint: hint)
                 case .status(let statusRelation):
                     StatusRelationView(value: statusRelation, hint: hint)
-                    
+                case .date(let string):
+                    TextRelationView(value: string, hint: hint)
+                case .object(let objectsRelation):
+                    ObjectRelationView(value: objectsRelation, hint: hint)
                 case .checkbox(let bool):
                     CheckboxRelationView(isChecked: bool)
-                    
+                case .url(let string):
+                    TextRelationView(value: string, hint: hint)
+                case .email(let string):
+                    TextRelationView(value: string, hint: hint)
+                case .phone(let string):
+                    TextRelationView(value: string, hint: hint)
                 case .tag(let tags):
                     TagRelationView(value: tags, hint: hint)
-                    
-                case .object(let objectRelation):
-                    ObjectRelationView(value: objectRelation, hint: hint)
-                    
                 case .unknown(let string):
                     RelationsListRowHintView(hint: string)
                 }
