@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RelationSheet<Content: RelationValueEditingViewModelProtocol>: View {
+struct RelationSheet<Content: RelationValueEditingViewProtocol>: View {
     
     @ObservedObject var viewModel: RelationSheetViewModel
     @State private var backgroundOpacity = 0.0

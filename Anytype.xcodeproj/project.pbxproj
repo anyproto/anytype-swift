@@ -113,7 +113,7 @@
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
 		120AC25E2747B56000330D7B /* RelationTextValueEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120AC25D2747B56000330D7B /* RelationTextValueEditingViewModel.swift */; };
-		120AC2602747B59200330D7B /* RelationValueEditingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120AC25F2747B59200330D7B /* RelationValueEditingViewModelProtocol.swift */; };
+		120AC2602747B59200330D7B /* RelationValueEditingViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120AC25F2747B59200330D7B /* RelationValueEditingViewProtocol.swift */; };
 		120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */; };
 		120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8170269F31A8006FE84E /* ObjectSettingsView.swift */; };
 		120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */; };
@@ -893,7 +893,7 @@
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
 		120AC25D2747B56000330D7B /* RelationTextValueEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTextValueEditingViewModel.swift; sourceTree = "<group>"; };
-		120AC25F2747B59200330D7B /* RelationValueEditingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueEditingViewModelProtocol.swift; sourceTree = "<group>"; };
+		120AC25F2747B59200330D7B /* RelationValueEditingViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueEditingViewProtocol.swift; sourceTree = "<group>"; };
 		120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsContainerView.swift; sourceTree = "<group>"; };
 		120E8170269F31A8006FE84E /* ObjectSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsView.swift; sourceTree = "<group>"; };
 		120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -2706,6 +2706,34 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
+		12887F3B274BC1ED00228330 /* RelationSheet */ = {
+			isa = PBXGroup;
+			children = (
+				12887F3C274BC20200228330 /* ValueEditingViews */,
+				1231E8B727467A2400C1784F /* RelationSheet.swift */,
+				1217D699274B74DA002A633F /* RelationSheetViewModel.swift */,
+			);
+			path = RelationSheet;
+			sourceTree = "<group>";
+		};
+		12887F3C274BC20200228330 /* ValueEditingViews */ = {
+			isa = PBXGroup;
+			children = (
+				120AC25F2747B59200330D7B /* RelationValueEditingViewProtocol.swift */,
+				12887F3D274BC25100228330 /* Text */,
+			);
+			path = ValueEditingViews;
+			sourceTree = "<group>";
+		};
+		12887F3D274BC25100228330 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				120AC25D2747B56000330D7B /* RelationTextValueEditingViewModel.swift */,
+				12DD4D3827452282005E5E02 /* RelationTextValueEditingView.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
 		1289F5A22733C49D00656EC2 /* ValueViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -3316,12 +3344,8 @@
 				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
 				3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */,
 				3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */,
-				120AC25F2747B59200330D7B /* RelationValueEditingViewModelProtocol.swift */,
-				120AC25D2747B56000330D7B /* RelationTextValueEditingViewModel.swift */,
 				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
-				12DD4D3827452282005E5E02 /* RelationTextValueEditingView.swift */,
-				1231E8B727467A2400C1784F /* RelationSheet.swift */,
-				1217D699274B74DA002A633F /* RelationSheetViewModel.swift */,
+				12887F3B274BC1ED00228330 /* RelationSheet */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -5348,7 +5372,7 @@
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
-				120AC2602747B59200330D7B /* RelationValueEditingViewModelProtocol.swift in Sources */,
+				120AC2602747B59200330D7B /* RelationValueEditingViewProtocol.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				3D6E9A43270F2CCC001B0A07 /* BrowserPage.swift in Sources */,
