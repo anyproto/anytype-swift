@@ -16,7 +16,7 @@ struct FlowTextRelationView: View {
                 .lineLimit(1)
                 .frame(maxWidth: 160)
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
 }

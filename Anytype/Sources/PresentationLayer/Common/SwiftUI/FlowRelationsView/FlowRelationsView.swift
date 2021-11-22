@@ -56,7 +56,7 @@ struct FlowRelationsView: View {
                 FlowObjectRelationView(value: objectRelation, hint: hint)
 
             case .unknown(let string):
-                ObjectRelationRowHintView(hint: string)
+                RelationsListRowHintView(hint: string)
             }
         }
     }

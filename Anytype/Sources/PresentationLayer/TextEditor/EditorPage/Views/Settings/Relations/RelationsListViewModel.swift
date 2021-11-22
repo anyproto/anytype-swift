@@ -3,7 +3,7 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 
-final class ObjectRelationsViewModel: ObservableObject {
+final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ObjectRelationRow: View {
+struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
     let relation: Relation
@@ -68,7 +68,7 @@ struct ObjectRelationRow: View {
                 ObjectRelationView(value: objectRelation, hint: hint)
                 
             case .unknown(let string):
-                ObjectRelationRowHintView(hint: string)
+                RelationsListRowHintView(hint: string)
             }
         }
     }
@@ -95,7 +95,7 @@ struct ObjectRelationRow: View {
     }
 }
 
-private extension ObjectRelationRow {
+private extension RelationsListRowView {
     
     enum Constants {
         static let buttonWidth: CGFloat = 24
@@ -106,7 +106,7 @@ private extension ObjectRelationRow {
 struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {
-            ObjectRelationRow(
+            RelationsListRowView(
                 editingMode: .constant(false),
                 relation: Relation(
                     id: "1", name: "Relation name",
@@ -123,7 +123,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 onRemoveTap: { _ in },
                 onStarTap: { _ in }
             )
-            ObjectRelationRow(
+            RelationsListRowView(
                 editingMode: .constant(false),
                 relation: Relation(
                     id: "1", name: "Relation name",
