@@ -15,19 +15,19 @@ final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Initializers
     
-    init(objectId: String, sections: [RelationsSection] = []) {
+    init(
+        objectId: String,
+        sections: [RelationsSection] = [],
+        onValueEditingTap: (String) -> ()
+    ) {
         self.objectId = objectId
         self.sections = sections
     }
     
     // MARK: - Internal functions
     
-    func update(
-        with objectRelationsStorage: ParsedRelations,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) {
-        self.sections = sectionsBuilder.buildViewModels(featuredRelations: objectRelationsStorage.featuredRelations,
-                                                        otherRelations: objectRelationsStorage.otherRelations)
+    func update(with parsedRelations: ParsedRelations) {
+        self.sections = sectionsBuilder.buildSections(from: parsedRelations)
     }
     
     func changeRelationFeaturedState(relationId: String) {
@@ -46,6 +46,5 @@ final class RelationsListViewModel: ObservableObject {
     func removeRelation(id: String) {
         relationsService.removeRelation(objectId: objectId, relationId: id)
     }
-    
     
 }

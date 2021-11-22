@@ -74,7 +74,12 @@ final class EditorAssembly {
             objectDetailsService: DetailsService(
                 objectId: document.objectId
             ),
-            popScreenAction: router.goBack
+            popScreenAction: { [weak router] in
+                router?.goBack()
+            },
+            onRelationValueEditingTap: { [weak router] in
+                router?.showRelationValueEditingView(key: $0)
+            }
         )
                 
         let modelsHolder = BlockViewModelsHolder(

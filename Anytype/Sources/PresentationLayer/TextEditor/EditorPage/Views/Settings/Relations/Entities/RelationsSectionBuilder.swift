@@ -16,10 +16,10 @@ final class RelationsSectionBuilder {
 
     // MARK: - Internal functions
 
-    func buildViewModels(
-        featuredRelations: [Relation],
-        otherRelations: [Relation]
-    ) -> [RelationsSection] {
+    func buildSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
+        let featuredRelations = parsedRelations.featuredRelations
+        let otherRelations = parsedRelations.otherRelations
+        
         var sections: [RelationsSection] = []
 
         if featuredRelations.isNotEmpty {

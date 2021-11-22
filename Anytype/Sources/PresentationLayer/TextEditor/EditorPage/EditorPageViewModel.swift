@@ -105,7 +105,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectSettingsViewModel.update(
                 objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
-                objectRelationsStorage: document.parsedRelations
+                parsedRelations: document.parsedRelations
             )
             updateHeaderIfNeeded(header: header, details: details)
 
@@ -236,7 +236,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         objectSettingsViewModel.update(
             objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
-            objectRelationsStorage: document.parsedRelations
+            parsedRelations: document.parsedRelations
         )
     }
 
