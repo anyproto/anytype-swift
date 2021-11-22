@@ -1,8 +1,28 @@
+//
+//  ObjectDetailsItem.swift
+//  Anytype
+//
+//  Created by Konstantin Mordan on 22.11.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
+
+import Foundation
+import AnytypeCore
+import BlocksModels
 import ProtobufMessages
 import SwiftProtobuf
-import AnytypeCore
 
-public typealias ObjectRawDetails = [ObjectDetailsItem]
+enum ObjectDetailsItem {
+    case name(String)
+    case iconEmoji(String)
+    case iconImageHash(Hash?)
+    case coverId(String)
+    case coverType(CoverType)
+    case type(ObjectTemplateType)
+    case isDraft(Bool)
+}
+
+typealias ObjectRawDetails = [ObjectDetailsItem]
 
 extension ObjectRawDetails {
     
@@ -53,3 +73,4 @@ extension ObjectRawDetails {
     }
     
 }
+

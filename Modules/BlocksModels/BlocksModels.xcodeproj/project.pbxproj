@@ -29,9 +29,7 @@
 		12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12883FDB268E10E6002B971E /* DetailsLayout.swift */; };
 		129D788E2694965700DA6757 /* LayoutAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D788D2694965700DA6757 /* LayoutAlignment.swift */; };
 		12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C8C265D10F600D047E3 /* CoverType.swift */; };
-		12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */; };
 		12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF0270E015900C92B28 /* ObjectDetails.swift */; };
-		12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */; };
 		3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */; };
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
 		3D17023D2715C1FB0079B65B /* SyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17023C2715C1FB0079B65B /* SyncStatus.swift */; };
@@ -87,9 +85,7 @@
 		12883FDB268E10E6002B971E /* DetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsLayout.swift; sourceTree = "<group>"; };
 		129D788D2694965700DA6757 /* LayoutAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAlignment.swift; sourceTree = "<group>"; };
 		12B69C8C265D10F600D047E3 /* CoverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverType.swift; sourceTree = "<group>"; };
-		12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsItem.swift; sourceTree = "<group>"; };
 		12F91CF0270E015900C92B28 /* ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetails.swift; sourceTree = "<group>"; };
-		12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRawDetails.swift; sourceTree = "<group>"; };
 		3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerModelProtocol.swift; sourceTree = "<group>"; };
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
 		3D17023C2715C1FB0079B65B /* SyncStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatus.swift; sourceTree = "<group>"; };
@@ -215,7 +211,6 @@
 		12B69C8B265D10E600D047E3 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				12F91CE8270DFDFF00C92B28 /* ObjectDetailsItem.swift */,
 				C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */,
 				12B69C8C265D10F600D047E3 /* CoverType.swift */,
 				12883FDB268E10E6002B971E /* DetailsLayout.swift */,
@@ -238,7 +233,6 @@
 				12F91CF0270E015900C92B28 /* ObjectDetails.swift */,
 				12F12E89271DA702000BAC24 /* Storage */,
 				12B69C8B265D10E600D047E3 /* Entities */,
-				12F91CF5270E080100C92B28 /* ObjectRawDetails.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -453,14 +447,12 @@
 			files = (
 				C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */,
 				3D6E9A3C270E11CA001B0A07 /* BlockPosition.swift in Sources */,
-				12F91CF6270E080100C92B28 /* ObjectRawDetails.swift in Sources */,
 				0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */,
 				12883FDC268E10E6002B971E /* DetailsLayout.swift in Sources */,
 				124E2BD827312BC600A2D534 /* RelationMetadataOptionScope.swift in Sources */,
 				3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */,
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				1223C91227282A2600C34616 /* BundledRelationsValueProvider.swift in Sources */,
-				12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */,
 				5345CED92745185800DC2DD9 /* RelationMetadataScope.swift in Sources */,
 				3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
