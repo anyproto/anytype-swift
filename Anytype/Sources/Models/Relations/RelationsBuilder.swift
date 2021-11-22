@@ -28,7 +28,6 @@ final class RelationsBuilder {
         
         var featuredRelations: [Relation] = []
         var otherRelations: [Relation] = []
-        var allRelations: [Relation] = []
         
         let featuredRelationIds = objectDetails.featuredRelations
         relations.forEach { relation in
@@ -48,8 +47,6 @@ final class RelationsBuilder {
                 isFeatured: featuredRelationIds.contains(relation.id),
                 isEditable: !relation.isReadOnly
             )
-
-            allRelations.append(relationData)
             
             if relationData.isFeatured {
                 featuredRelations.append(relationData)
