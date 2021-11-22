@@ -20,7 +20,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        detailsService.updateLayout(layout)
+        detailsService.setLayout(layout)
     }
     
 }

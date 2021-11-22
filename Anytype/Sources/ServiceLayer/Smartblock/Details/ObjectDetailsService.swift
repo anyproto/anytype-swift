@@ -14,6 +14,10 @@ final class ObjectDetailsService {
         self.objectId = objectId
     }
     
+}
+
+extension ObjectDetailsService: DetailsServiceProtocol {
+    
     func update(details: ObjectRawDetails) {
         service.setDetails(contextID: objectId, details: details)
     }
@@ -22,7 +26,8 @@ final class ObjectDetailsService {
         service.setRelationValue(contextID: objectId, key: key, value: value)
     }
 
-    func updateLayout(_ layoutDetails: DetailsLayout) {
-        service.updateLayout(contextID: objectId, value: layoutDetails.rawValue)
+    func setLayout(_ detailsLayout: DetailsLayout) {
+        service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
+    
 }
