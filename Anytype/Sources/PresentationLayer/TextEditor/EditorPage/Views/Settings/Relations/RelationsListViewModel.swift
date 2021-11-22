@@ -12,16 +12,18 @@ final class RelationsListViewModel: ObservableObject {
     private let relationsService: RelationsServiceProtocol = RelationsService()
     
     private let objectId: String
+    private let onValueEditingTap: (String) -> ()
     
     // MARK: - Initializers
     
     init(
         objectId: String,
         sections: [RelationsSection] = [],
-        onValueEditingTap: (String) -> ()
+        onValueEditingTap: @escaping (String) -> ()
     ) {
         self.objectId = objectId
         self.sections = sections
+        self.onValueEditingTap = onValueEditingTap
     }
     
     // MARK: - Internal functions
@@ -45,6 +47,10 @@ final class RelationsListViewModel: ObservableObject {
     
     func removeRelation(id: String) {
         relationsService.removeRelation(objectId: objectId, relationId: id)
+    }
+    
+    func editRelation(id: String) {
+        onValueEditingTap(id)
     }
     
 }
