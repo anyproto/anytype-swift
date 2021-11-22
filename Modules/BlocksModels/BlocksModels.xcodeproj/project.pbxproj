@@ -18,7 +18,7 @@
 		0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */; };
 		12206711273164360051A331 /* RelationsMetadataStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206710273164360051A331 /* RelationsMetadataStorageProtocol.swift */; };
 		12206713273164890051A331 /* RelationsMetadataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206712273164890051A331 /* RelationsMetadataStorage.swift */; };
-		1223C91227282A2600C34616 /* RelationMetadataValuesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C91127282A2600C34616 /* RelationMetadataValuesProvider.swift */; };
+		1223C91227282A2600C34616 /* BundledRelationsValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C91127282A2600C34616 /* BundledRelationsValueProvider.swift */; };
 		124A60B12712F9610012FD2D /* ObjectDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */; };
 		124A60B32712F9820012FD2D /* ObjectDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */; };
 		124E2BC72731243D00A2D534 /* RelationMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC62731243D00A2D534 /* RelationMetadata.swift */; };
@@ -75,7 +75,7 @@
 		0A7831D224B8672D00A1B6F6 /* BlocksModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12206710273164360051A331 /* RelationsMetadataStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsMetadataStorageProtocol.swift; sourceTree = "<group>"; };
 		12206712273164890051A331 /* RelationsMetadataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsMetadataStorage.swift; sourceTree = "<group>"; };
-		1223C91127282A2600C34616 /* RelationMetadataValuesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationMetadataValuesProvider.swift; sourceTree = "<group>"; };
+		1223C91127282A2600C34616 /* BundledRelationsValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledRelationsValueProvider.swift; sourceTree = "<group>"; };
 		12336DC42742A5C8001D4434 /* RelationMetadataScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationMetadataScope.swift; sourceTree = "<group>"; };
 		124A60B02712F9610012FD2D /* ObjectDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorage.swift; sourceTree = "<group>"; };
 		124A60B22712F9820012FD2D /* ObjectDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsStorageProtocol.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				120AC2612747C97100330D7B /* RelationMetadata */,
 				1220670F273164190051A331 /* Storage */,
 				127D1E212722F7490050FCB7 /* BundledRelationKey.swift */,
-				1223C91127282A2600C34616 /* RelationMetadataValuesProvider.swift */,
+				1223C91127282A2600C34616 /* BundledRelationsValueProvider.swift */,
 			);
 			path = Relations;
 			sourceTree = "<group>";
@@ -459,7 +459,7 @@
 				124E2BD827312BC600A2D534 /* RelationMetadataOptionScope.swift in Sources */,
 				3DB7DCA82639DC0100635E4C /* UserSession.swift in Sources */,
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
-				1223C91227282A2600C34616 /* RelationMetadataValuesProvider.swift in Sources */,
+				1223C91227282A2600C34616 /* BundledRelationsValueProvider.swift in Sources */,
 				12F91CE9270DFDFF00C92B28 /* ObjectDetailsItem.swift in Sources */,
 				5345CED92745185800DC2DD9 /* RelationMetadataScope.swift in Sources */,
 				3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */,

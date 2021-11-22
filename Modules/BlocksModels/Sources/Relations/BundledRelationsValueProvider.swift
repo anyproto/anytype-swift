@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-public protocol RelationMetadataValuesProvider {
+public protocol BundledRelationsValueProvider {
     
     var values: [String: Google_Protobuf_Value] { get }
     
@@ -26,7 +26,7 @@ public protocol RelationMetadataValuesProvider {
 }
 
 
-public extension RelationMetadataValuesProvider {
+public extension BundledRelationsValueProvider {
     
     var name: String {
         stringValue(with: .name)
