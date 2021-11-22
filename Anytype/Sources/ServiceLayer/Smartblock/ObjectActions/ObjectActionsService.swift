@@ -74,6 +74,23 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue()?
             .send()
     }
+    
+    func setRelationValue(contextID: BlockId, key: String, value: Google_Protobuf_Value) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
+        
+        Anytype_Rpc.Block.Set.Details.Service.invoke(
+            contextID: contextID,
+            details: [
+                Anytype_Rpc.Block.Set.Details.Detail(
+                    key: key,
+                    value: value
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
+    }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)
