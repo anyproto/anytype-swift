@@ -21,10 +21,7 @@ public extension ObjectDetails {
         
         let newValues = self.values.merging(rawDetails) { (_, new) in new }
         
-        return ObjectDetails(
-            id: self.id,
-            values: newValues
-        )
+        return ObjectDetails(id: self.id, values: newValues)
     }
     
     func removed(keys: [String]) -> ObjectDetails {
@@ -36,10 +33,7 @@ public extension ObjectDetails {
             currentValues.removeValue(forKey: $0)
         }
         
-        return ObjectDetails(
-            id: self.id,
-            values: currentValues
-        )
+        return ObjectDetails(id: self.id, values: currentValues)
     }
     
 }

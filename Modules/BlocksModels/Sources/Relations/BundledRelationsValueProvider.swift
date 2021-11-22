@@ -22,7 +22,6 @@ public protocol BundledRelationsValueProvider {
     var isDraft: Bool { get }
     var isDeleted: Bool { get }
     var featuredRelations: [String] { get }
-    
 }
 
 

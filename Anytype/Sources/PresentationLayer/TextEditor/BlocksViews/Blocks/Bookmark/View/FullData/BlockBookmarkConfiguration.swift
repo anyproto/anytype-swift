@@ -1,15 +1,12 @@
 import UIKit
 import BlocksModels
 
-struct BlockBookmarkConfiguration: UIContentConfiguration, Hashable {
+struct BlockBookmarkConfiguration: BlockConfigurationProtocol, Hashable {
     
     let payload: BlockBookmarkPayload
+    var currentConfigurationState: UICellConfigurationState?
             
     func makeContentView() -> UIView & UIContentView {
         BlockBookmarkView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> BlockBookmarkConfiguration {
-        return self
     }
 }
