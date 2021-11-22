@@ -1,0 +1,11 @@
+name: SSH agent
+inputs:
+  ssh-private-key:
+    description: 'ssh private key'
+    required: true
+
+runs:
+  steps:
+    - uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ inputs.ssh-private-key }}
