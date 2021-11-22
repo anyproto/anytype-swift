@@ -245,7 +245,35 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showRelationValueEditingView(key: String) {
-        debugPrint(key)
+        guard let viewController = viewController else { return }
+        
+        let relation = document.relationsStorage.relations.first { $0.key == key }
+        guard let relation = relation else { return }
+        
+        let objectId = document.objectId
+        let viewModel = RelationSheetViewModel()
+        let relationSheet = RelationSheet(viewModel: viewModel) {
+            RelationTextValueEditingView(
+                viewModel:
+                    RelationTextValueEditingViewModel(
+                        objectId: objectId,
+                        relationKey: relation.key,
+                        value: ""
+                    )
+            )
+        }
+        
+        let controller = UIHostingController(rootView: relationSheet)
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        
+        viewModel.configureOnDismiss { [weak controller] in
+            controller?.dismiss(animated: false)
+        }
+        
+        viewController.topPresentedController.present(controller, animated: false)
     }
     
     func goBack() {
