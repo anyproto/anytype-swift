@@ -26,8 +26,8 @@ extension DetailsService: DetailsServiceProtocol {
         service.setRelationValue(contextID: objectId, key: key, value: value)
     }
     
-    func updateDetails(_ update: DetailsUpdate) {
-        service.updateDetails(contextID: objectId, update: update)
+    func updateDetails(_ updates: [DetailsUpdate]) {
+        service.updateDetails(contextID: objectId, updates: updates)
     }
 
     func setLayout(_ detailsLayout: DetailsLayout) {

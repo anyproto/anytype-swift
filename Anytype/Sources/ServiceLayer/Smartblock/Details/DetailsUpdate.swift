@@ -4,6 +4,6 @@ import SwiftProtobuf
 struct DetailsUpdate {
     
     let key: String // Use struct AnytypeKey
-    let newValue: Google_Protobuf_Value
+    let value: Google_Protobuf_Value
     
 }

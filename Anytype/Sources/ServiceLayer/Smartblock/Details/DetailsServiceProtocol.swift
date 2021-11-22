@@ -16,7 +16,7 @@ protocol DetailsServiceProtocol {
     
     func updateRelationValue(key: String, value: Google_Protobuf_Value)
 
-    func updateDetails(_ update: DetailsUpdate)
+    func updateDetails(_ updates: [DetailsUpdate])
     func setLayout(_ detailsLayout: DetailsLayout)
     
 }

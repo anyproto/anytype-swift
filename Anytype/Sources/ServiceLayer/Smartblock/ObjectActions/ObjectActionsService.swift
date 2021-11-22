@@ -66,17 +66,17 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func updateDetails(contextID: BlockId, update: DetailsUpdate) {
+    func updateDetails(contextID: BlockId, updates: [DetailsUpdate]) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
 
         Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
-            details: [
+            details: updates.map {
                 Anytype_Rpc.Block.Set.Details.Detail(
-                    key: update.key,
-                    value: update.newValue
+                    key: $0.key,
+                    value: $0.value
                 )
-            ]
+            }
         )
             .map { EventsBunch(event: $0.event) }
             .getValue()?
