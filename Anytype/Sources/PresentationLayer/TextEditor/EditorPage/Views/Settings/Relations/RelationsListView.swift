@@ -71,7 +71,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
             viewModel: RelationsListViewModel(
                 objectId: "",
                 sections: [
-                    ObjectRelationsSection(
+                    RelationsSection(
                         id: "id",
                         title: "title",
                         relations: [
@@ -107,7 +107,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                             )
                         ]
                     ),
-                    ObjectRelationsSection(
+                    RelationsSection(
                         id: "id1",
                         title: "title2",
                         relations: [

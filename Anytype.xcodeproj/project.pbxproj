@@ -208,7 +208,7 @@
 		125FD32326CE97BD00D21F5A /* ObjectIconImageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD32226CE97BD00D21F5A /* ObjectIconImageUsecase.swift */; };
 		126C46D326BD909300D31DBF /* EditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C46D226BD909300D31DBF /* EditorSection.swift */; };
 		126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C46D626BD966700D31DBF /* ObjectHeaderIcon.swift */; };
-		126F3D57273D2C0A00AEF39A /* ObjectRelationsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D56273D2C0A00AEF39A /* ObjectRelationsSection.swift */; };
+		126F3D57273D2C0A00AEF39A /* RelationsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D56273D2C0A00AEF39A /* RelationsSection.swift */; };
 		126F3D8A273E4E4F00AEF39A /* RelationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D89273E4E4F00AEF39A /* RelationsService.swift */; };
 		126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */; };
 		1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */; };
@@ -565,7 +565,7 @@
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
 		533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED8B26CC421F0018E33C /* SwiftUIFont.swift */; };
 		533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED9C26CC44920018E33C /* UIKitFont.swift */; };
-		534785622743D4550097CA30 /* ObjectRelationsSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534785612743D4550097CA30 /* ObjectRelationsSectionBuilder.swift */; };
+		534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534785612743D4550097CA30 /* RelationsSectionBuilder.swift */; };
 		534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534785632743D4EC0097CA30 /* ParsedRelations.swift */; };
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
@@ -983,7 +983,7 @@
 		125FD32226CE97BD00D21F5A /* ObjectIconImageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageUsecase.swift; sourceTree = "<group>"; };
 		126C46D226BD909300D31DBF /* EditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSection.swift; sourceTree = "<group>"; };
 		126C46D626BD966700D31DBF /* ObjectHeaderIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderIcon.swift; sourceTree = "<group>"; };
-		126F3D56273D2C0A00AEF39A /* ObjectRelationsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationsSection.swift; sourceTree = "<group>"; };
+		126F3D56273D2C0A00AEF39A /* RelationsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSection.swift; sourceTree = "<group>"; };
 		126F3D89273E4E4F00AEF39A /* RelationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsService.swift; sourceTree = "<group>"; };
 		126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsServiceProtocol.swift; sourceTree = "<group>"; };
 		1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBuilder.swift; sourceTree = "<group>"; };
@@ -1338,7 +1338,7 @@
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		533AED8B26CC421F0018E33C /* SwiftUIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIFont.swift; sourceTree = "<group>"; };
 		533AED9C26CC44920018E33C /* UIKitFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitFont.swift; sourceTree = "<group>"; };
-		534785612743D4550097CA30 /* ObjectRelationsSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationsSectionBuilder.swift; sourceTree = "<group>"; };
+		534785612743D4550097CA30 /* RelationsSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSectionBuilder.swift; sourceTree = "<group>"; };
 		534785632743D4EC0097CA30 /* ParsedRelations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedRelations.swift; sourceTree = "<group>"; };
 		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
@@ -2577,8 +2577,8 @@
 		126F3D52273D2BB800AEF39A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				126F3D56273D2C0A00AEF39A /* ObjectRelationsSection.swift */,
-				534785612743D4550097CA30 /* ObjectRelationsSectionBuilder.swift */,
+				126F3D56273D2C0A00AEF39A /* RelationsSection.swift */,
+				534785612743D4550097CA30 /* RelationsSectionBuilder.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -5096,7 +5096,7 @@
 				C96149542718286E00360840 /* GalleryViewModel.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
 				3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */,
-				534785622743D4550097CA30 /* ObjectRelationsSectionBuilder.swift in Sources */,
+				534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */,
 				3D7EA8AB268EF58300C76974 /* BlockFileContextualMenuBuilder.swift in Sources */,
 				125B6ED726F2386900BCD7D6 /* ObjectIconImageMentionType.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
@@ -5474,7 +5474,7 @@
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				3D2F9C42271F09590043C326 /* DashboardDeletionAlert.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
-				126F3D57273D2C0A00AEF39A /* ObjectRelationsSection.swift in Sources */,
+				126F3D57273D2C0A00AEF39A /* RelationsSection.swift in Sources */,
 				3DA6DBDB2746582300516E75 /* FrameCatcher.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */,

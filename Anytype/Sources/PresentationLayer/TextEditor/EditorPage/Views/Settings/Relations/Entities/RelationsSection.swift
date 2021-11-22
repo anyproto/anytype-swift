@@ -1,6 +1,6 @@
 import Foundation
 
-struct ObjectRelationsSection: Identifiable {
+struct RelationsSection: Identifiable {
     let id: String
     let title: String
     let relations: [Relation]
