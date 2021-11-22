@@ -29,11 +29,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextId: BlockId,
         targetId: BlockId,
-        details: ObjectRawDetails,
+        details: [BundledDetails],
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
-        let protobufDetails = details.asMiddleware.reduce([String: Google_Protobuf_Value]()) { result, detail in
+        let protobufDetails = details.map { $0.asDetailsUpdate }.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
             return result
@@ -78,15 +78,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 )
             }
         )
-            .map { EventsBunch(event: $0.event) }
-            .getValue()?
-            .send()
-    }
-    
-    func setDetails(contextID: BlockId, details: ObjectRawDetails) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
-
-        Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue()?
             .send()

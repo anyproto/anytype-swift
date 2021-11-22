@@ -18,14 +18,13 @@ final class DetailsService {
 
 extension DetailsService: DetailsServiceProtocol {
     
-    func update(details: ObjectRawDetails) {
-        service.setDetails(contextID: objectId, details: details)
-    }
-    
     func updateRelationValue(key: String, value: Google_Protobuf_Value) {
         service.setRelationValue(contextID: objectId, key: key, value: value)
     }
     
+    func updateBundledDetails(_ bundledDpdates: [BundledDetails]) {
+        updateDetails(bundledDpdates.map { $0.asDetailsUpdate })
+    }
     func updateDetails(_ updates: [DetailsUpdate]) {
         service.updateDetails(contextID: objectId, updates: updates)
     }

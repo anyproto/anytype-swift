@@ -44,11 +44,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
 extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
-        detailsService.update(
-            details: [
-                .iconEmoji(emojiUnicode), .iconImageHash(nil)
-            ]
-        )
+        detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
@@ -69,8 +65,8 @@ extension ObjectIconPickerViewModel {
         // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.buttonRemoveEmoji)
         
-        detailsService.update(
-            details: [.iconEmoji(""), .iconImageHash(nil)]
+        detailsService.updateBundledDetails(
+            [.iconEmoji(""), .iconImageHash(nil)]
         )
     }
     
