@@ -22,7 +22,6 @@ public protocol RelationMetadataValuesProvider {
     var isDraft: Bool { get }
     var isDeleted: Bool { get }
     var featuredRelations: [String] { get }
-    
 }
 
 

@@ -178,8 +178,9 @@ final class BlockViewModelBuilder {
             
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
+                featuredRelation: document.parsedRelations.featuredRelations,
                 type: objectType.name
-            ) { [weak self] in
+            ) { [weak self] _ in
                 guard let self = self else { return }
                 
                 guard
@@ -195,7 +196,7 @@ final class BlockViewModelBuilder {
                 )
             }
             
-        case .smartblock, .layout: return nil
+        case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil

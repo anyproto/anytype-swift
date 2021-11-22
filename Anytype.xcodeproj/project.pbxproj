@@ -513,6 +513,7 @@
 		3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */; };
 		3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */; };
 		3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */; };
+		3DE0B3232747BCBC00F69376 /* BlockDataviewConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0B3222747BCBC00F69376 /* BlockDataviewConverter.swift */; };
 		3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFCC26F8591E003A606A /* SlashMenuCellData.swift */; };
 		3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFCE26F8593D003A606A /* SlashMenuItem.swift */; };
 		3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFCF26F8593D003A606A /* SlashActionFilterMatch.swift */; };
@@ -570,6 +571,14 @@
 		5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */; };
 		5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */; };
 		5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */; };
+		535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79722746AAD40050A1B8 /* FlowLayout.swift */; };
+		535F79902746CD110050A1B8 /* FlowStatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79892746CD100050A1B8 /* FlowStatusRelationView.swift */; };
+		535F79912746CD110050A1B8 /* FlowCheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798A2746CD100050A1B8 /* FlowCheckboxRelationView.swift */; };
+		535F79922746CD110050A1B8 /* FlowObjectRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798C2746CD100050A1B8 /* FlowObjectRelationView.swift */; };
+		535F79932746CD110050A1B8 /* FlowTagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798E2746CD100050A1B8 /* FlowTagRelationView.swift */; };
+		535F79942746CD110050A1B8 /* FlowTextRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798F2746CD110050A1B8 /* FlowTextRelationView.swift */; };
+		535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */; };
+		535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */; };
 		53728CFB273596750092A8CF /* MarkupKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFA273596750092A8CF /* MarkupKind.swift */; };
 		53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */; };
 		53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728D1D273AC8F90092A8CF /* ColorView.swift */; };
@@ -1276,6 +1285,7 @@
 		3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BlockFile+MediaData.swift"; path = "Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Utils/BlockFile+MediaData.swift"; sourceTree = SOURCE_ROOT; };
 		3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/Support/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
+		3DE0B3222747BCBC00F69376 /* BlockDataviewConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataviewConverter.swift; sourceTree = "<group>"; };
 		3DE0CFCC26F8591E003A606A /* SlashMenuCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuCellData.swift; sourceTree = "<group>"; };
 		3DE0CFCE26F8593D003A606A /* SlashMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuItem.swift; sourceTree = "<group>"; };
 		3DE0CFCF26F8593D003A606A /* SlashActionFilterMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashActionFilterMatch.swift; sourceTree = "<group>"; };
@@ -1332,6 +1342,14 @@
 		5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockViewModel.swift; sourceTree = "<group>"; };
 		5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockView.swift; sourceTree = "<group>"; };
 		5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockContentConfiguration.swift; sourceTree = "<group>"; };
+		535F79722746AAD40050A1B8 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		535F79892746CD100050A1B8 /* FlowStatusRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowStatusRelationView.swift; sourceTree = "<group>"; };
+		535F798A2746CD100050A1B8 /* FlowCheckboxRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowCheckboxRelationView.swift; sourceTree = "<group>"; };
+		535F798C2746CD100050A1B8 /* FlowObjectRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowObjectRelationView.swift; sourceTree = "<group>"; };
+		535F798E2746CD100050A1B8 /* FlowTagRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowTagRelationView.swift; sourceTree = "<group>"; };
+		535F798F2746CD110050A1B8 /* FlowTextRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowTextRelationView.swift; sourceTree = "<group>"; };
+		535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsView.swift; sourceTree = "<group>"; };
+		535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsViewModel.swift; sourceTree = "<group>"; };
 		53728CFA273596750092A8CF /* MarkupKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupKind.swift; sourceTree = "<group>"; };
 		53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupAccessoryViewModel.swift; sourceTree = "<group>"; };
 		53728D1D273AC8F90092A8CF /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
@@ -1519,7 +1537,6 @@
 				03C5C54122DFD90C00DD91DE /* AnytypeTests */,
 				0303ECFC22D8EDAA005C552B /* Products */,
 				ED79E6F7693FFE933050D8BC /* Frameworks */,
-				5397BB812684CFEA00154791 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -3264,6 +3281,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				535F79862746CCD60050A1B8 /* FlowRelationsView */,
 				3D2F9C3A271F023A0043C326 /* Alerts */,
 				3D5A418C27046E9F00F1F6A1 /* iOS15Wrappers */,
 				3D5A41762704541900F1F6A1 /* Search */,
@@ -3284,8 +3302,9 @@
 				3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */,
 				3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */,
 				120AC25F2747B59200330D7B /* RelationValueEditingViewModelProtocol.swift */,
-				12DD4D3827452282005E5E02 /* RelationTextValueEditingView.swift */,
 				120AC25D2747B56000330D7B /* RelationTextValueEditingViewModel.swift */,
+				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
+				12DD4D3827452282005E5E02 /* RelationTextValueEditingView.swift */,
 				1231E8B727467A2400C1784F /* RelationSheet.swift */,
 				120AC258274780A400330D7B /* RelationSheetViewModel.swift */,
 			);
@@ -3311,6 +3330,7 @@
 				3D16840C26DD672E008B9DFF /* BlockLinkConverter.swift */,
 				3D16840D26DD672E008B9DFF /* BlockSmartblockConverter.swift */,
 				3D16840E26DD672E008B9DFF /* BlockTextConverter.swift */,
+				3DE0B3222747BCBC00F69376 /* BlockDataviewConverter.swift */,
 			);
 			path = ProtobufConverters;
 			sourceTree = "<group>";
@@ -4241,6 +4261,28 @@
 			path = Colors;
 			sourceTree = "<group>";
 		};
+		535F79862746CCD60050A1B8 /* FlowRelationsView */ = {
+			isa = PBXGroup;
+			children = (
+				535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */,
+				535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */,
+				535F79872746CCD60050A1B8 /* Items */,
+			);
+			path = FlowRelationsView;
+			sourceTree = "<group>";
+		};
+		535F79872746CCD60050A1B8 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				535F798E2746CD100050A1B8 /* FlowTagRelationView.swift */,
+				535F79892746CD100050A1B8 /* FlowStatusRelationView.swift */,
+				535F798C2746CD100050A1B8 /* FlowObjectRelationView.swift */,
+				535F798A2746CD100050A1B8 /* FlowCheckboxRelationView.swift */,
+				535F798F2746CD110050A1B8 /* FlowTextRelationView.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
 		53728D012735BD2A0092A8CF /* MarkupState */ = {
 			isa = PBXGroup;
 			children = (
@@ -4289,13 +4331,6 @@
 				539168842632DD5200AD5C5F /* StyleCellView.swift */,
 			);
 			path = StyleCell;
-			sourceTree = "<group>";
-		};
-		5397BB812684CFEA00154791 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		53A46330262878710097C25E /* Design system */ = {
@@ -4963,6 +4998,7 @@
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* Amplitude+Events.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
+				535F79942746CD110050A1B8 /* FlowTextRelationView.swift in Sources */,
 				126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				3D16841326DD672E008B9DFF /* BlockLinkConverter.swift in Sources */,
@@ -4988,6 +5024,7 @@
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
+				535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
@@ -5069,6 +5106,7 @@
 				3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				1289F59C2733622C00656EC2 /* ObjectRelationRow.swift in Sources */,
+				535F79902746CD110050A1B8 /* FlowStatusRelationView.swift in Sources */,
 				1231E8B827467A2400C1784F /* RelationSheet.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
@@ -5079,6 +5117,7 @@
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				3D36B09C26A6DE250046C90F /* ContextualMenu+Title.swift in Sources */,
 				127EABD72737413900C731F2 /* AnytypeColor.swift in Sources */,
+				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
@@ -5117,6 +5156,7 @@
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				125B6EBE26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift in Sources */,
+				535F79932746CD110050A1B8 /* FlowTagRelationView.swift in Sources */,
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
 				12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */,
@@ -5238,6 +5278,7 @@
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
 				1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */,
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
+				535F79922746CD110050A1B8 /* FlowObjectRelationView.swift in Sources */,
 				3D2F9C7827206CE40043C326 /* QuickActionsStorage.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
@@ -5246,6 +5287,7 @@
 				0AD6B24524CF12CC0097A841 /* BookmarkServiceProtocol.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* EditorBarButtonItem.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
+				3DE0B3232747BCBC00F69376 /* BlockDataviewConverter.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
@@ -5276,6 +5318,7 @@
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
+				535F79912746CD110050A1B8 /* FlowCheckboxRelationView.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
@@ -5470,6 +5513,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
 				3DC78636265D443F00498993 /* MiddlewareEventConverter.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
+				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventsBunch.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,

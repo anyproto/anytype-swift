@@ -17,10 +17,7 @@ public struct ObjectDetails: Hashable, RelationMetadataValuesProvider {
         
         let newValues = self.values.merging(rawDetails) { (_, new) in new }
         
-        return ObjectDetails(
-            id: self.id,
-            values: newValues
-        )
+        return ObjectDetails(id: self.id, values: newValues)
     }
     
     public func removed(keys: [String]) -> ObjectDetails {
@@ -32,10 +29,7 @@ public struct ObjectDetails: Hashable, RelationMetadataValuesProvider {
             currentValues.removeValue(forKey: $0)
         }
         
-        return ObjectDetails(
-            id: self.id,
-            values: currentValues
-        )
+        return ObjectDetails(id: self.id, values: currentValues)
     }
     
 }

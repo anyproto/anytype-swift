@@ -96,7 +96,7 @@ extension UIImage {
     
     static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
-            anytypeAssertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return UIImage()
         }
         

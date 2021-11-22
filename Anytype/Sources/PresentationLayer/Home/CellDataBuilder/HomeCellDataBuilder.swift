@@ -30,7 +30,10 @@ final class HomeCellDataBuilder {
     
     private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
         guard case .link(let link) = blockModel.information.content else {
-            anytypeAssertionFailure("Not link type in home screen dashboard: \(blockModel.information.content)")
+            anytypeAssertionFailure(
+                "Not link type in home screen dashboard: \(blockModel.information.content)",
+                domain: .homeView
+            )
             return nil
         }
         

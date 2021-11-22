@@ -24,7 +24,7 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
     }
     
     func handle(action: ContextualMenu) {
-        anytypeAssertionFailure("Handling of contextual menu items not supported")
+        anytypeAssertionFailure("Handling of contextual menu items not supported", domain: .unknownLabel)
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {

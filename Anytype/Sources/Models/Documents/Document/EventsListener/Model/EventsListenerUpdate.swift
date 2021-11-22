@@ -42,7 +42,7 @@ extension Array where Element == EventsListenerUpdate {
             case .syncStatus(let status):
                 syncStatus = status
             case .general:
-                anytypeAssertionFailure("No general events soppose to be in mergedUpdates")
+                anytypeAssertionFailure("No general events soppose to be in mergedUpdates", domain: .mergedArray)
             }
         }
         

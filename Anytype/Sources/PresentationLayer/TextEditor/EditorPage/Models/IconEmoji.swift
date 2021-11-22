@@ -14,7 +14,7 @@ struct IconEmoji: Hashable {
         }
         
         guard value.isSingleEmoji else {
-            anytypeAssertionFailure("Not a single emoji: \(value)")
+            anytypeAssertionFailure("Not a single emoji: \(value)", domain: .iconEmoji)
             return nil
         }
         

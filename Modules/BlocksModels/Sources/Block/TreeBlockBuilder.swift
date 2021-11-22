@@ -61,14 +61,17 @@ public enum TreeBlockBuilder {
         let roots = models.filter(isRoot)
 
         guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.")
+            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .treeBlockBuilder)
             return
         }
 
         // 3. If we have several roots, so, notify about it.
         if roots.count != 1 {
             // this situation is not possible, but, let handle it.
-            anytypeAssertionFailure("We have several roots for our rootId. Not possible, but let us handle it.")
+            anytypeAssertionFailure(
+                "We have several roots for our rootId. Not possible, but let us handle it.",
+                domain: .treeBlockBuilder
+            )
         }
 
         // 4. find root id as first element in roots. No matter, how much roots we have.

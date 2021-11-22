@@ -76,7 +76,7 @@ extension UserDefaultsConfig {
         }
         set {
             guard let encoded = try? JSONEncoder().encode(newValue) else {
-                anytypeAssertionFailure("Cannot encode \(newValue)")
+                anytypeAssertionFailure("Cannot encode \(newValue)", domain: .userDefaults)
                 return
             }
             _wallpaper = encoded

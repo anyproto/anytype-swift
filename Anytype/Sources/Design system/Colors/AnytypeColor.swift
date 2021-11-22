@@ -64,7 +64,7 @@ extension AnytypeColor {
     
     var asUIColor: UIColor {
         guard let color = UIColor(named: self.rawValue) else {
-            anytypeAssertionFailure("No color named: \(self.rawValue)")
+            anytypeAssertionFailure("No color named: \(self.rawValue)", domain: .anytypeColor)
             return .grayscale90
         }
         
