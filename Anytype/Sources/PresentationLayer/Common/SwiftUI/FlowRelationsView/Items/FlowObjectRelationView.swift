@@ -9,7 +9,7 @@ struct FlowObjectRelationView: View {
         if value.isNotEmpty {
             objectsList
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
     

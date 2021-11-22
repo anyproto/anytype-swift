@@ -10,7 +10,7 @@ struct TagRelationView: View {
             tagsView
             
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
     

@@ -10,7 +10,7 @@ struct FlowStatusRelationView: View {
             AnytypeText(value.text, style: .relation2Regular, color: value.color.asColor)
                 .lineLimit(1)
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
 }

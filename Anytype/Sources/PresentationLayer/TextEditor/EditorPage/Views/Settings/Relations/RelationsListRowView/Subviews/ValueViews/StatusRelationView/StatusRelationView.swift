@@ -18,7 +18,7 @@ struct StatusRelationView: View {
             AnytypeText(value.text, style: .relation1Regular, color: value.color.asColor)
                 .lineLimit(1)
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
 }

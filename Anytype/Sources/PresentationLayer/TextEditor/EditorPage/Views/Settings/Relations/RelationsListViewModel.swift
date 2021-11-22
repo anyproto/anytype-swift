@@ -3,19 +3,19 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 
-final class ObjectRelationsViewModel: ObservableObject {
+final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    @Published private(set) var sections: [ObjectRelationsSection]
-    private let sectionsBuilder = ObjectRelationsSectionBuilder()
+    @Published private(set) var sections: [RelationsSection]
+    private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol = RelationsService()
     
     private let objectId: String
     
     // MARK: - Initializers
     
-    init(objectId: String, sections: [ObjectRelationsSection] = []) {
+    init(objectId: String, sections: [RelationsSection] = []) {
         self.objectId = objectId
         self.sections = sections
     }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationTextValueEditingView: View, RelationValueEditingViewModelProtocol {
+struct RelationTextValueEditingView: View, RelationValueEditingViewProtocol {
     
     let title = "About".localized
     

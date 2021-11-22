@@ -14,7 +14,7 @@ struct TextRelationView: View {
             )
                 .lineLimit(1)
         } else {
-            ObjectRelationRowHintView(hint: hint)
+            RelationsListRowHintView(hint: hint)
         }
     }
 }

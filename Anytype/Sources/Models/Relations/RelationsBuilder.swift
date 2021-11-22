@@ -23,7 +23,7 @@ final class RelationsBuilder {
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> ParsedRelations {
         guard let objectDetails = detailsStorage.get(id: objectId) else {
-            return ParsedRelations(otherRelations: [], featuredRelations: [])
+            return ParsedRelations(featuredRelations: [], otherRelations: [])
         }
         
         var featuredRelations: [Relation] = []
@@ -58,7 +58,7 @@ final class RelationsBuilder {
             }
         }
         
-        return ParsedRelations(otherRelations: otherRelations, featuredRelations: featuredRelations)
+        return ParsedRelations(featuredRelations: featuredRelations, otherRelations: otherRelations)
     }
     
 }
