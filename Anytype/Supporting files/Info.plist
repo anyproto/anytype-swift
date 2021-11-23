@@ -91,6 +91,30 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.audio</string>
+			</array>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>com.anytype.flac</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>flac</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>audio/x-flac</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>UserDefinedSettings</key>
 	<dict>
 		<key>BuildConfigurationName</key>

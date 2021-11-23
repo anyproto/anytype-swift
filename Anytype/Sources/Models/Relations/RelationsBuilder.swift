@@ -252,11 +252,13 @@ private extension RelationsBuilder {
                 }
                 
                 let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
-                guard let fileMimeType = fileMimeType else {
+                let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
+
+                guard let fileMimeType = fileMimeType, let fileName = fileName else {
                     return .image(UIImage.blockFile.content.other)
                 }
                 
-                return .image(BlockFileIconBuilder.convert(mime: fileMimeType))
+                return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
             }()
             
             return ObjectRelation(icon: icon, text: fileName)
