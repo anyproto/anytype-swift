@@ -178,7 +178,7 @@ final class BlockViewModelBuilder {
             
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
-                featuredRelation: document.parsedRelations.featuredRelations,
+                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType),
                 type: objectType.name
             ) { [weak self] relation in
                 guard let self = self else { return }

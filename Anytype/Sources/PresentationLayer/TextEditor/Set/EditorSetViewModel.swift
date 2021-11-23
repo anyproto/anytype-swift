@@ -39,6 +39,13 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     let document: BaseDocument
+    var details: ObjectDetails {
+        document.objectDetails ?? .empty
+    }
+    var featuredRelations: [Relation] {
+        document.parsedRelations.featuredRelationsForEditor(type: details.objectType)
+    }
+    
     var router: EditorRouterProtocol!
     private let relationsBuilder = RelationsBuilder(scope: .type)
     

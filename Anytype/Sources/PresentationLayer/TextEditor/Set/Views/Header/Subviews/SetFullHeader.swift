@@ -1,11 +1,16 @@
 import SwiftUI
+import Kingfisher
 
 struct SetFullHeader: View {
+    var screenWidth: CGFloat
     var yOffset: CGFloat
     @Binding var headerSize: CGRect
     @Binding var headerPosition: CGPoint
     
     @EnvironmentObject private var model: EditorSetViewModel
+    
+    private let bigCover: CGFloat = 230
+    private let smallCover: CGFloat = 150
     
     var body: some View {
         VStack {
@@ -24,26 +29,67 @@ struct SetFullHeader: View {
     
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CoverConstants.gradients[1].asLinearGradient()
-                .frame(height: 240)
+            cover
                 .ifLet(model.document.objectDetails?.objectIconImage) { view, icon in
                     view.overlay(
                         SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObject)
                             .frame(width: 96, height: 96)
-                            .padding(.leading, 20)
-                            .padding(.bottom, -25),
+                            .padding(.leading, -8 + 20) // 8 is default padding
+                            .padding(.bottom, -8 - 16)
+                        ,
                         alignment: .bottomLeading
                     )
                 }
-            Spacer.fixedHeight(25)
-            AnytypeText("\(model.document.objectDetails?.title ??  "Untitled")", style: .title, color: .textPrimary)
+            
+            Spacer.fixedHeight(32)
+            
+            AnytypeText(model.details.title, style: .title, color: .textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 20)
-            if let description = model.document.objectDetails?.description {
-                Spacer.fixedHeight(6)
-                AnytypeText(description, style: .body, color: .textPrimary)
+            
+            if model.details.description.isNotEmpty {
+                Spacer.fixedHeight(8)
+                AnytypeText(model.details.description, style: .relation2Regular, color: .textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding()
+                    .padding(.horizontal, 20)
+            }
+            
+            Spacer.fixedHeight(8)
+            FlowRelationsView(
+                viewModel: FlowRelationsViewModel(
+                    relations: model.featuredRelations,
+                    onRelationTap: { relation in
+                        
+                    }
+                )
+            )
+                .padding(.horizontal, 20)
+        }
+    }
+    
+    private var cover: some View {
+        Group {
+            switch model.details.documentCover {
+            case .color(let color):
+                color.suColor.frame(height: bigCover)
+            case .gradient(let gradient):
+                gradient.asLinearGradient().frame(height: bigCover)
+            case .imageId(let imageId):
+                    if let url = ImageID(id: imageId, width: .custom(screenWidth)).resolvedUrl {
+                        KFImage(url)
+                            .resizable()
+                            .placeholder{ Color.grayscale30 }
+                            .frame(width: screenWidth, height: bigCover)
+                            .aspectRatio(contentMode: .fill)
+                            .background(Color.red)
+                }
+            case .none:
+                Color.background
+                    .if(model.details.icon.isNotNil) {
+                        $0.frame(height: bigCover)
+                    } else: {
+                        $0.frame(height: smallCover)
+                    }
             }
         }
     }
@@ -51,6 +97,11 @@ struct SetFullHeader: View {
 
 struct SetFullHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetFullHeader(yOffset: 0, headerSize: .constant(.zero), headerPosition: .constant(.zero))
+        SetFullHeader(
+            screenWidth: 500,
+            yOffset: 0,
+            headerSize: .constant(.zero),
+            headerPosition: .constant(.zero)
+        )
     }
 }
