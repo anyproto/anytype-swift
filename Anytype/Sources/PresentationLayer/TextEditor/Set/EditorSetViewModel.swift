@@ -31,6 +31,7 @@ final class EditorSetViewModel: ObservableObject {
             return SetTableViewRowData(
                 id: $0.id,
                 title: $0.title,
+                icon: $0.objectIconImage,
                 allRelations: sortedRelations,
                 colums: colums
             )

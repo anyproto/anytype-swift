@@ -185,7 +185,7 @@ final class BlockViewModelBuilder {
 
                 // TODO: reimplement when relation edit will be ready
 
-                if relation.id == RelationMetadataKey.type.rawValue {
+                if relation.id == BundledRelationKey.type.rawValue {
                     guard
                         !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                     else {

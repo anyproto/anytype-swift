@@ -10,13 +10,23 @@ struct SetTableViewRow: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(18)
             
-            AnytypeText("🚀 " + data.title, style: .body, color: .grayscale90)
-                .padding(.horizontal, 16)
-                .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
+            HStack(spacing: 0) {
+                if let icon = data.icon {
+                    SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
+                    Spacer.fixedWidth(8)
+                }
+                AnytypeText(data.title, style: .body, color: .grayscale90)
+                    .lineLimit(1)
+            }
+            .padding(.horizontal, 16)
+            .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
+            
+            
             Spacer.fixedHeight(18)
             HStack(spacing: 0) {
                 ForEach(data.relations) { colum in
                     AnytypeText(colum.value, style: .relation2Regular, color: .textPrimary)
+                        .lineLimit(1)
                         .frame(width: 144)
                     Rectangle()
                         .frame(width: 0.5, height: 18)
@@ -33,7 +43,7 @@ struct SetTableViewRow: View {
 struct SetTableViewRow_Previews: PreviewProvider {
     static var previews: some View {
         SetTableViewRow(
-            data: SetTableViewRowData(id: "", title: "Title", allRelations: [], colums: []),
+            data: SetTableViewRowData(id: "", title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
             initialOffset: 0,
             xOffset: 0
         )
