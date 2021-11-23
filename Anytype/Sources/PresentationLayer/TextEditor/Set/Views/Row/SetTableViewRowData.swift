@@ -11,11 +11,13 @@ struct SetRowRelation: Identifiable {
 struct SetTableViewRowData: Identifiable {
     let id: BlockId
     let title: String
+    let icon: ObjectIconImage?
     let relations: [SetRowRelation]
     
-    init(id: BlockId, title: String, allRelations: [Relation], colums: [SetColumData]) {
+    init(id: BlockId, title: String, icon: ObjectIconImage?, allRelations: [Relation], colums: [SetColumData]) {
         self.id = id
         self.title = title
+        self.icon = icon
         
         self.relations = colums.compactMap { colum in
             let relation = allRelations.first { $0.id == colum.key }
