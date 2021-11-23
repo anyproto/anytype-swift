@@ -13,6 +13,12 @@ public extension Int {
     }
 }
 
+public extension Double {
+    var protobufValue: Google_Protobuf_Value {
+        Google_Protobuf_Value(numberValue: self)
+    }
+}
+
 public extension Bool {
     var protobufValue: Google_Protobuf_Value {
         Google_Protobuf_Value(boolValue: self)
