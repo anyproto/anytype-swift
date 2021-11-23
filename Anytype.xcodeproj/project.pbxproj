@@ -328,7 +328,6 @@
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
-		3D277D83273FE9CD002B2B98 /* SetDemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D277D82273FE9CD002B2B98 /* SetDemoData.swift */; };
 		3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */; };
 		3D28A476271DCDF4009A0D48 /* DashboardSelectionActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A475271DCDF4009A0D48 /* DashboardSelectionActionsView.swift */; };
 		3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */; };
@@ -1105,7 +1104,6 @@
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D277D82273FE9CD002B2B98 /* SetDemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDemoData.swift; sourceTree = "<group>"; };
 		3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeader.swift; sourceTree = "<group>"; };
 		3D28A475271DCDF4009A0D48 /* DashboardSelectionActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSelectionActionsView.swift; sourceTree = "<group>"; };
 		3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomTextViewOptions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/TextView/Models/CustomTextViewOptions.swift; sourceTree = SOURCE_ROOT; };
@@ -3132,7 +3130,6 @@
 		3D277D7E273FE9C0002B2B98 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				3D277D82273FE9CD002B2B98 /* SetDemoData.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -5051,7 +5048,6 @@
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
 				123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */,
-				3D277D83273FE9CD002B2B98 /* SetDemoData.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksLinkStyleConverter.swift in Sources */,
 				1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */,
 				EA074A2F26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift in Sources */,
@@ -5806,7 +5802,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -5839,7 +5835,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -5975,7 +5971,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
