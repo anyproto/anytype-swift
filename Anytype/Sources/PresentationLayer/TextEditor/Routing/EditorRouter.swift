@@ -247,21 +247,34 @@ final class EditorRouter: EditorRouterProtocol {
     func showRelationValueEditingView(key: String) {
         guard let viewController = viewController else { return }
         
-        let relation = document.relationsStorage.relations.first { $0.key == key }
+        let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
-        let objectId = document.objectId
-        let viewModel = RelationSheetViewModel()
-        let relationSheet = RelationSheet(viewModel: viewModel) {
-            RelationTextValueEditingView(
-                viewModel:
-                    RelationTextValueEditingViewModel(
-                        objectId: objectId,
-                        relationKey: relation.key,
-                        value: ""
-                    )
+        let contentViewModel: RelationValueEditingViewModelProtocol?
+        let contentView: AnyView?
+        switch relation.value {
+        case .text(let string):
+            let viewModel = RelationTextValueEditingViewModel(
+                objectId: document.objectId,
+                relationKey: relation.id,
+                value: string
             )
+            contentViewModel = viewModel
+            contentView = AnyView(RelationTextValueEditingView(viewModel: viewModel))
+        default:
+            contentViewModel = nil
+            contentView = nil
         }
+        
+        let sheetViewModel = RelationSheetViewModel(
+            name: relation.name
+        ) {
+            contentViewModel?.saveValue()
+        }
+        
+        guard let contentView = contentView else { return }
+        
+        let relationSheet = RelationSheet(viewModel: sheetViewModel) { contentView }
         
         let controller = UIHostingController(rootView: relationSheet)
         controller.modalPresentationStyle = .overCurrentContext
@@ -269,7 +282,7 @@ final class EditorRouter: EditorRouterProtocol {
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
         
-        viewModel.configureOnDismiss { [weak controller] in
+        sheetViewModel.configureOnDismiss { [weak controller] in
             controller?.dismiss(animated: false)
         }
         
