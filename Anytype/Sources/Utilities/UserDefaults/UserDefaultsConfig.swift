@@ -1,8 +1,19 @@
 import AnytypeCore
 import BlocksModels
 import Combine
+import Firebase
 
-extension UserDefaultsConfig {
+struct UserDefaultsConfig {
+    @UserDefault("userId", defaultValue: "")
+    public static var usersIdKey: String {
+        didSet {
+            Crashlytics.crashlytics().setUserID(usersIdKey)
+        }
+    }
+
+    @UserDefault("App.InstalledAtDate", defaultValue: nil)
+    public static var installedAtDate: Date?
+
     static func cleanStateAfterLogout() {
         usersIdKey = ""
         _lastOpenedPageId = nil

@@ -1,22 +1,23 @@
-/// User defaults store
-public struct UserDefaultsConfig {
-    @UserDefault("userId", defaultValue: "")
-    public static var usersIdKey: String
+//
+//  FeatureFlagsStorage.swift
+//  AnytypeCore
+//
+//  Created by Denis Batvinkin on 23.11.2021.
+//
 
-    @UserDefault("App.InstalledAtDate", defaultValue: nil)
-    public static var installedAtDate: Date?
-    
+/// User defaults store
+public struct FeatureFlagsStorage {
     // MARK: - Feature flags
     @UserDefault("FeatureFlags", defaultValue: [:])
     private static var encodedFeatureFlags: [String: Bool]
-    
+
     static var featureFlags: [Feature: Bool] {
         get {
             Dictionary(uniqueKeysWithValues: encodedFeatureFlags.compactMap { (key, value) in
                 guard let feature = Feature(rawValue: key) else {
                     return nil
                 }
-                
+
                 return (feature, value)
             })
         }

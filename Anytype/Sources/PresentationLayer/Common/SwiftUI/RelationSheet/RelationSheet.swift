@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-struct RelationSheet<Content: RelationValueEditingViewProtocol>: View {
+struct RelationSheet: View {
     
     @ObservedObject var viewModel: RelationSheetViewModel
     @State private var backgroundOpacity = 0.0
     @State private var showPopup = false
     @State private var sheetHeight = 0.0
     
-    private let content: Content
+    private let contentView: AnyView
     
-    init(viewModel: RelationSheetViewModel, @ViewBuilder content: () -> Content) {
+    init(viewModel: RelationSheetViewModel) {
         self.viewModel = viewModel
-        self.content = content()
+        self.contentView = viewModel.contentViewModel.makeView()
     }
     
     var body: some View {
@@ -46,7 +46,7 @@ struct RelationSheet<Content: RelationValueEditingViewProtocol>: View {
                 withAnimation(.fastSpring) {
                     backgroundOpacity = 0.0
                     showPopup = false
-                    content.saveValue()
+                    viewModel.contentViewModel.saveValue()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         viewModel.onDismiss?()
                     }
@@ -57,10 +57,10 @@ struct RelationSheet<Content: RelationValueEditingViewProtocol>: View {
     private var sheet: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
-            AnytypeText(content.title, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(viewModel.name, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             
-            content
+            contentView
             
             Spacer.fixedHeight(20)
         }
@@ -86,9 +86,16 @@ struct RelationSheet<Content: RelationValueEditingViewProtocol>: View {
 
 struct RelationSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RelationSheet(viewModel: RelationSheetViewModel()) {
-            RelationTextValueEditingView(viewModel: RelationTextValueEditingViewModel(objectId: "", relationKey: "", value: ""))
-        }
+        RelationSheet(
+            viewModel: RelationSheetViewModel(
+                name: "",
+                contentViewModel: TextRelationEditingViewModel(
+                    objectId: "",
+                    relationKey: "",
+                    value: nil
+                )
+            )
+        )
             .background(Color.red)
     }
 }
