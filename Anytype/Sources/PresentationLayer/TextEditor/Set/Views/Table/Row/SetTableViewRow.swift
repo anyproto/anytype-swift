@@ -16,6 +16,7 @@ struct SetTableViewRow: View {
                     Spacer.fixedWidth(8)
                 }
                 AnytypeText(data.title, style: .body, color: .grayscale90)
+                    .lineLimit(1)
             }
             .padding(.horizontal, 16)
             .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
@@ -25,6 +26,7 @@ struct SetTableViewRow: View {
             HStack(spacing: 0) {
                 ForEach(data.relations) { colum in
                     AnytypeText(colum.value, style: .relation2Regular, color: .textPrimary)
+                        .lineLimit(1)
                         .frame(width: 144)
                     Rectangle()
                         .frame(width: 0.5, height: 18)
