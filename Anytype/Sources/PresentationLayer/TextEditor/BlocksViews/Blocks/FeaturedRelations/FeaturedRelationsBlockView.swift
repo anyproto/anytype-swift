@@ -38,6 +38,8 @@ private extension FeaturedRelationsBlockView  {
         let relationFlowViewModel = FlowRelationsViewModel(relations: currentConfiguration.featuredRelations,
                                                        onRelationTap: currentConfiguration.onRelationTap)
         self.relationFlowViewModel = relationFlowViewModel
+        relationFlowViewModel.relations = currentConfiguration.featuredRelations
+        relationFlowViewModel.alignment = currentConfiguration.alignment.asSwiftUI
 
         let relationsView = FlowRelationsView(viewModel: relationFlowViewModel).asUIView()
 
