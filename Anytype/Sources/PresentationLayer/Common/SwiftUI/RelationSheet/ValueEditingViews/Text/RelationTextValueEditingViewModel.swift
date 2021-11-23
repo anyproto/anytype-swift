@@ -1,7 +1,8 @@
 import Foundation
 import BlocksModels
+import SwiftUI
 
-final class RelationTextValueEditingViewModel: ObservableObject, RelationValueEditingViewModelProtocol {
+final class RelationTextValueEditingViewModel: ObservableObject {
     
     @Published var value: String = ""
     
@@ -12,11 +13,18 @@ final class RelationTextValueEditingViewModel: ObservableObject, RelationValueEd
         self.service = DetailsService(objectId: objectId)
         self.relationKey = relationKey
         self.value = value ?? ""
-        
     }
+    
+}
+
+extension RelationTextValueEditingViewModel: RelationValueEditingViewModelProtocol {
     
     func saveValue() {
         service.updateDetails([DetailsUpdate(key: relationKey, value: value.protobufValue)])
+    }
+    
+    func makeView() -> AnyView {
+        AnyView(RelationTextValueEditingView(viewModel: self))
     }
     
 }

@@ -14,13 +14,13 @@ import SwiftUI
 final class RelationSheetViewModel: ObservableObject {
     
     let name: String
-    let saveValueAction: () -> ()
+    let contentViewModel: RelationValueEditingViewModelProtocol
     
     private(set) var onDismiss: (() -> Void)?
     
-    init(name: String, saveValueAction: @escaping () -> ()) {
+    init(name: String, contentViewModel: RelationValueEditingViewModelProtocol) {
         self.name = name
-        self.saveValueAction = saveValueAction
+        self.contentViewModel = contentViewModel
     }
     
     func configureOnDismiss(_ onDismiss: @escaping () -> Void) {

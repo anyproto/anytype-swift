@@ -251,30 +251,25 @@ final class EditorRouter: EditorRouterProtocol {
         guard let relation = relation else { return }
         
         let contentViewModel: RelationValueEditingViewModelProtocol?
-        let contentView: AnyView?
         switch relation.value {
         case .text(let string):
-            let viewModel = RelationTextValueEditingViewModel(
+            contentViewModel = RelationTextValueEditingViewModel(
                 objectId: document.objectId,
                 relationKey: relation.id,
                 value: string
             )
-            contentViewModel = viewModel
-            contentView = AnyView(RelationTextValueEditingView(viewModel: viewModel))
         default:
             contentViewModel = nil
-            contentView = nil
         }
+        
+        guard let contentViewModel = contentViewModel else { return }
         
         let sheetViewModel = RelationSheetViewModel(
-            name: relation.name
-        ) {
-            contentViewModel?.saveValue()
-        }
+            name: relation.name,
+            contentViewModel: contentViewModel
+        )
         
-        guard let contentView = contentView else { return }
-        
-        let relationSheet = RelationSheet(viewModel: sheetViewModel) { contentView }
+        let relationSheet = RelationSheet(viewModel: sheetViewModel)
         
         let controller = UIHostingController(rootView: relationSheet)
         controller.modalPresentationStyle = .overCurrentContext
