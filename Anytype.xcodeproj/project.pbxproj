@@ -436,7 +436,7 @@
 		3D93851426FAED69001C137F /* ObjectIconImageUsecase+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851326FAED69001C137F /* ObjectIconImageUsecase+Font.swift */; };
 		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
 		3D93852026FB0B74001C137F /* PageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* PageService.swift */; };
-		3D93854C26FC3BB3001C137F /* UserDefaultsConfigExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854B26FC3BB3001C137F /* UserDefaultsConfigExtension.swift */; };
+		3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */; };
 		3D93D55D270AFE1400614E29 /* EditorBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D55C270AFE1400614E29 /* EditorBrowserController.swift */; };
 		3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D55E270B1F8800614E29 /* EditorBottomNavigationView.swift */; };
 		3D93D561270B3FC500614E29 /* UINavigationController+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D560270B3FC500614E29 /* UINavigationController+Appearance.swift */; };
@@ -1214,7 +1214,7 @@
 		3D93851326FAED69001C137F /* ObjectIconImageUsecase+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectIconImageUsecase+Font.swift"; sourceTree = "<group>"; };
 		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
 		3D93851F26FB0B74001C137F /* PageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageService.swift; sourceTree = "<group>"; };
-		3D93854B26FC3BB3001C137F /* UserDefaultsConfigExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfigExtension.swift; sourceTree = "<group>"; };
+		3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConfig.swift; sourceTree = "<group>"; };
 		3D93D55C270AFE1400614E29 /* EditorBrowserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserController.swift; sourceTree = "<group>"; };
 		3D93D55E270B1F8800614E29 /* EditorBottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationView.swift; sourceTree = "<group>"; };
 		3D93D560270B3FC500614E29 /* UINavigationController+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Appearance.swift"; sourceTree = "<group>"; };
@@ -3749,7 +3749,7 @@
 		3D93854726FC3BA6001C137F /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
-				3D93854B26FC3BB3001C137F /* UserDefaultsConfigExtension.swift */,
+				3D93854B26FC3BB3001C137F /* UserDefaultsConfig.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -5196,7 +5196,7 @@
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
-				3D93854C26FC3BB3001C137F /* UserDefaultsConfigExtension.swift in Sources */,
+				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
 				1215E8A926A82DFD0089AF7E /* UrlResolver.swift in Sources */,
