@@ -9,9 +9,16 @@ struct SetHeader: View {
     @State private var headerPosition = CGPoint.zero
     
     var body: some View {
-        ZStack {
-            SetFullHeader(yOffset: yOffset, headerSize: $headerSize, headerPosition: $headerPosition)
-            SetMinimizedHeader(headerPosition: headerPosition)
+        GeometryReader { screen in
+            ZStack {
+                SetFullHeader(
+                    screenWidth: screen.size.width,
+                    yOffset: yOffset,
+                    headerSize: $headerSize,
+                    headerPosition: $headerPosition
+                )
+                SetMinimizedHeader(headerPosition: headerPosition)
+            }
         }
         .onAppear {
             DispatchQueue.main.async {

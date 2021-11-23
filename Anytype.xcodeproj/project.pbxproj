@@ -332,6 +332,7 @@
 		3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */; };
 		3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */; };
 		3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F77274CF567007D97AE /* SetTableViewHeader.swift */; };
+		3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F79274D0397007D97AE /* UIColor+Color.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
 		3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */; };
@@ -1115,6 +1116,7 @@
 		3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHeaderSettings.swift; sourceTree = "<group>"; };
 		3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMinimizedHeader.swift; sourceTree = "<group>"; };
 		3D1B5F77274CF567007D97AE /* SetTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewHeader.swift; sourceTree = "<group>"; };
+		3D1B5F79274D0397007D97AE /* UIColor+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Color.swift"; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeader.swift; sourceTree = "<group>"; };
@@ -4029,6 +4031,7 @@
 				120F7D5B267D0C4400327734 /* Color+Extensions.swift */,
 				3DB92F84264BF69900E83276 /* View+CornerRadius.swift */,
 				3D16843526DE8BDF008B9DFF /* Application+FirstResponder.swift */,
+				3D1B5F79274D0397007D97AE /* UIColor+Color.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -5535,6 +5538,7 @@
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
 				C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */,
+				3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,
 				3D2F9C42271F09590043C326 /* DashboardDeletionAlert.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
