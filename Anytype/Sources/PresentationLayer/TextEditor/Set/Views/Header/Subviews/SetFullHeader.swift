@@ -57,7 +57,7 @@ struct SetFullHeader: View {
             Spacer.fixedHeight(8)
             FlowRelationsView(
                 viewModel: FlowRelationsViewModel(
-                    relations: model.document.parsedRelations.featuredRelations,
+                    relations: model.featuredRelations,
                     onRelationTap: { relation in
                         
                     }
