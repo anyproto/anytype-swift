@@ -2,6 +2,7 @@ import SwiftUI
 
 struct EditorSetView: View {
     @ObservedObject var model: EditorSetViewModel
+    
     @State private var yOffset = CGFloat.zero
     @State private var headerSize = CGRect.zero
     

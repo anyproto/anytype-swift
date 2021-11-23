@@ -23,7 +23,7 @@ struct SetTableView: View {
                     VStack(spacing: 0) {
                         Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
                             .id("fakeHeaderId")
-                        tableHeader
+                        SetTableViewHeader()
                         tableContent.onAppear {
                             reader.scrollTo("fakeHeaderId", anchor: UnitPoint.zero)
                         }
@@ -36,24 +36,6 @@ struct SetTableView: View {
                     initialOffset = xOffset
                 }
             }
-        }
-    }
-    
-    private var tableHeader: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Divider()
-            HStack(spacing: 0) {
-                ForEach(model.colums, id: \.key) { name in
-                    AnytypeText(name.value, style: .relation2Regular, color: .textSecondary)
-                        .frame(width: 144)
-                    
-                    Rectangle()
-                        .frame(width: 0.5, height: 18)
-                        .foregroundColor(.grayscale30)
-                }
-            }
-            .frame(height: 40)
-            Divider()
         }
     }
     
