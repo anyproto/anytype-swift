@@ -13,4 +13,8 @@ struct ParsedRelations {
         self.otherRelations = otherRelations
     }
     
+    static var empty: ParsedRelations {
+        ParsedRelations(featuredRelations: [], otherRelations: [])
+    }
+    
 }
