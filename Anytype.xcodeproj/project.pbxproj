@@ -328,6 +328,9 @@
 		3D1B5F4C274BDE5D007D97AE /* SetTableViewRowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F4B274BDE5D007D97AE /* SetTableViewRowData.swift */; };
 		3D1B5F64274C002A007D97AE /* SetColumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F63274C002A007D97AE /* SetColumData.swift */; };
 		3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */; };
+		3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */; };
+		3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */; };
+		3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
 		3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */; };
@@ -457,7 +460,7 @@
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
-		3DA6DBD627457DF900516E75 /* SetDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6DBD527457DF900516E75 /* SetDetailsHeader.swift */; };
+		3DA6DBD627457DF900516E75 /* SetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6DBD527457DF900516E75 /* SetHeader.swift */; };
 		3DA6DBD92746569200516E75 /* PositionCatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6DBD82746569200516E75 /* PositionCatcher.swift */; };
 		3DA6DBDB2746582300516E75 /* FrameCatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6DBDA2746582300516E75 /* FrameCatcher.swift */; };
 		3DA7AD7E2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA7AD7D2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift */; };
@@ -1107,6 +1110,9 @@
 		3D1B5F4B274BDE5D007D97AE /* SetTableViewRowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRowData.swift; sourceTree = "<group>"; };
 		3D1B5F63274C002A007D97AE /* SetColumData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetColumData.swift; sourceTree = "<group>"; };
 		3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRow.swift; sourceTree = "<group>"; };
+		3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFullHeader.swift; sourceTree = "<group>"; };
+		3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHeaderSettings.swift; sourceTree = "<group>"; };
+		3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMinimizedHeader.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeader.swift; sourceTree = "<group>"; };
@@ -1235,7 +1241,7 @@
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
 		3DA6263C2657AB8000942249 /* AnimationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
 		3DA626522657ADA700942249 /* PopupExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupExtension.swift; sourceTree = "<group>"; };
-		3DA6DBD527457DF900516E75 /* SetDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailsHeader.swift; sourceTree = "<group>"; };
+		3DA6DBD527457DF900516E75 /* SetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHeader.swift; sourceTree = "<group>"; };
 		3DA6DBD82746569200516E75 /* PositionCatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionCatcher.swift; sourceTree = "<group>"; };
 		3DA6DBDA2746582300516E75 /* FrameCatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameCatcher.swift; sourceTree = "<group>"; };
 		3DA7AD7D2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewKeyboardAction.swift; sourceTree = "<group>"; };
@@ -3139,6 +3145,25 @@
 			path = Row;
 			sourceTree = "<group>";
 		};
+		3D1B5F6B274CF0FB007D97AE /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				3D1B5F75274CF2FA007D97AE /* Subviews */,
+				3DA6DBD527457DF900516E75 /* SetHeader.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		3D1B5F75274CF2FA007D97AE /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */,
+				3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */,
+				3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		3D24F435269C92F700FA0F5F /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -3864,9 +3889,9 @@
 		3DA6DBCF27457D9700516E75 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3D1B5F6B274CF0FB007D97AE /* Header */,
 				3D1B5F67274C0D1B007D97AE /* Row */,
 				3D40C00B273FD77A0001E336 /* SetTableView.swift */,
-				3DA6DBD527457DF900516E75 /* SetDetailsHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5033,6 +5058,7 @@
 				53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */,
 				EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */,
 				3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */,
+				3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
 				3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */,
 				125B6EC326F235F400BCD7D6 /* CursorModeAccessoryView.swift in Sources */,
@@ -5130,6 +5156,7 @@
 				125B6ED726F2386900BCD7D6 /* ObjectIconImageMentionType.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
+				3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */,
 				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
 				1223C9002726BE1C00C34616 /* FeaturedRelationsBlockView.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* NSAttributedString+Markup.swift in Sources */,
@@ -5196,6 +5223,7 @@
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
+				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfigExtension.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
@@ -5476,7 +5504,7 @@
 				3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */,
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				3DB1CA31272AE1F9000D2779 /* DefaultTypePicker.swift in Sources */,
-				3DA6DBD627457DF900516E75 /* SetDetailsHeader.swift in Sources */,
+				3DA6DBD627457DF900516E75 /* SetHeader.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,

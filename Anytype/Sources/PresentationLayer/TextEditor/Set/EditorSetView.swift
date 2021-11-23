@@ -8,7 +8,7 @@ struct EditorSetView: View {
     var body: some View {
         ZStack {
             SetTableView(yOffset: $yOffset, headerSize: $headerSize.size)
-            SetDetailsHeader(yOffset: $yOffset, headerSize: $headerSize)
+            SetHeader(yOffset: $yOffset, headerSize: $headerSize)
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
