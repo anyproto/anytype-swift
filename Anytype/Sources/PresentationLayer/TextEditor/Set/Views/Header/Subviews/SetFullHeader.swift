@@ -51,8 +51,19 @@ struct SetFullHeader: View {
                 Spacer.fixedHeight(8)
                 AnytypeText(model.details.description, style: .relation2Regular, color: .textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding()
+                    .padding(.horizontal, 20)
             }
+            
+            Spacer.fixedHeight(8)
+            FlowRelationsView(
+                viewModel: FlowRelationsViewModel(
+                    relations: model.document.parsedRelations.featuredRelations,
+                    onRelationTap: { relation in
+                        
+                    }
+                )
+            )
+                .padding(.horizontal, 20)
         }
     }
     
