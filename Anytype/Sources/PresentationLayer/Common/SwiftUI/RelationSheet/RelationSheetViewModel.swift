@@ -14,11 +14,11 @@ import SwiftUI
 final class RelationSheetViewModel: ObservableObject {
     
     let name: String
-    let contentViewModel: RelationValueEditingViewModelProtocol
+    let contentViewModel: RelationEditingViewModelProtocol
     
     private(set) var onDismiss: (() -> Void)?
     
-    init(name: String, contentViewModel: RelationValueEditingViewModelProtocol) {
+    init(name: String, contentViewModel: RelationEditingViewModelProtocol) {
         self.name = name
         self.contentViewModel = contentViewModel
     }

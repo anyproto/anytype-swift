@@ -250,10 +250,10 @@ final class EditorRouter: EditorRouterProtocol {
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
-        let contentViewModel: RelationValueEditingViewModelProtocol?
+        let contentViewModel: RelationEditingViewModelProtocol?
         switch relation.value {
         case .text(let string):
-            contentViewModel = RelationTextValueEditingViewModel(
+            contentViewModel = TextRelationEditingViewModel(
                 objectId: document.objectId,
                 relationKey: relation.id,
                 value: string

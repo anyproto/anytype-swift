@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol RelationValueEditingViewModelProtocol {
+protocol RelationEditingViewModelProtocol {
         
     func saveValue()
     

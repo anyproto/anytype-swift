@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct RelationTextValueEditingView: View {
+struct TextRelationEditingView: View {
             
-    @ObservedObject var viewModel: RelationTextValueEditingViewModel
+    @ObservedObject var viewModel: TextRelationEditingViewModel
     @State private var height: CGFloat = 0
     
     var body: some View {
@@ -36,7 +36,7 @@ struct RelationTextValueEditingView: View {
 
 struct RelationTextValueEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        RelationTextValueEditingView(viewModel: RelationTextValueEditingViewModel(objectId: "", relationKey: "", value: ""))
+        TextRelationEditingView(viewModel: TextRelationEditingViewModel(objectId: "", relationKey: "", value: ""))
             .background(Color.red)
     }
 }

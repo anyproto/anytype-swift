@@ -89,7 +89,7 @@ struct RelationSheet_Previews: PreviewProvider {
         RelationSheet(
             viewModel: RelationSheetViewModel(
                 name: "",
-                contentViewModel: RelationTextValueEditingViewModel(
+                contentViewModel: TextRelationEditingViewModel(
                     objectId: "",
                     relationKey: "",
                     value: nil
