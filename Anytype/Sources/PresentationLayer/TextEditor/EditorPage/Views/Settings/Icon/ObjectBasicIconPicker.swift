@@ -109,7 +109,7 @@ struct ObjectBasicIconPicker: View {
     }
     
     private func handleSelectedEmoji(_ emoji: Emoji) {
-        viewModel.setEmoji(emoji.unicode)
+        viewModel.setEmoji(emoji.emoji)
         dismiss()
     }
     

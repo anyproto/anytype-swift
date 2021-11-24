@@ -78,11 +78,11 @@ struct EmojiGridView: View {
         ) {
                 ForEach(groups, id: \.name) { group in
                     Section(header: PickerSectionHeaderView(title: group.name)) {
-                        ForEach(group.emojis, id: \.unicode) { emoji in
+                        ForEach(group.emojis, id: \.emoji) { emoji in
                             Button {
                                 onEmojiSelect(emoji)
                             } label: {
-                                Text(emoji.unicode).font(.system(size: 40))
+                                Text(emoji.emoji).font(.system(size: 40))
                             }
                         }
                     }
