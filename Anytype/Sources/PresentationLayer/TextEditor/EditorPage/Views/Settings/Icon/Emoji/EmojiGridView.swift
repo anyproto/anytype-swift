@@ -31,6 +31,8 @@ struct EmojiGridView: View {
         return Group {
             if filteredEmojiGroup.isEmpty {
                 makeEmptySearchResultView(placeholder: searchText)
+            } else if filteredEmojiGroup.haveFewEmoji {
+                makeEmojiGrid(groups: filteredEmojiGroup.flattenedList)
             } else {
                 makeEmojiGrid(groups: filteredEmojiGroup)
             }

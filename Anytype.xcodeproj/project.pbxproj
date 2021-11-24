@@ -501,6 +501,7 @@
 		3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92F84264BF69900E83276 /* View+CornerRadius.swift */; };
 		3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */; };
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
+		3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */; };
@@ -1286,6 +1287,7 @@
 		3DB92F84264BF69900E83276 /* View+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CornerRadius.swift"; sourceTree = "<group>"; };
 		3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionView.swift; sourceTree = "<group>"; };
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
+		3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Emoji.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "Anytype/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventsListener.swift; sourceTree = "<group>"; };
@@ -3652,9 +3654,8 @@
 		3D89224C2680E0850023E705 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
-				12EEC36726A0903F00C3C4B1 /* Emoji.swift */,
+				3DB980FB274E868800ECC882 /* Model */,
 				12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */,
-				12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */,
 				12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */,
 			);
 			path = Emoji;
@@ -4057,6 +4058,16 @@
 				3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */,
 			);
 			path = SettingsSection;
+			sourceTree = "<group>";
+		};
+		3DB980FB274E868800ECC882 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				12EEC36726A0903F00C3C4B1 /* Emoji.swift */,
+				12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */,
+				3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3DBED669266F696B00B9E9AB /* Extensions */ = {
@@ -5077,6 +5088,7 @@
 				3DEA98122704A10C004AB80B /* HomeView+BottomSheet.swift in Sources */,
 				53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */,
 				EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */,
+				3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */,
 				3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */,
 				3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
@@ -5245,7 +5257,7 @@
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
-				3D93854C26FC3BB3001C137F /* UserDefaultsConfigExtension.swift in Sources */,
+				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
