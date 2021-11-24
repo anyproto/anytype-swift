@@ -9,6 +9,7 @@ import AnytypeCore
 enum EditorEditingState {
     case editing
     case selecting(blocks: [BlockId])
+    case moving(indexPaths: [IndexPath])
 }
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
@@ -352,6 +353,23 @@ extension EditorPageViewModel: BlockSelectionHandler {
     func didSelectEditingState(on block: BlockInformation) {
         editingState = .selecting(blocks: [block.id])
         updateSelectionContent(selectedBlocks: [block])
+    }
+}
+
+extension EditorPageViewModel: EditorPageMovingManagerProtocol {
+    func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool {
+        guard let element = modelsHolder.models[safe: indexPath.row] else {
+            if indexPath.row == modelsHolder.models.count { return true }
+
+            return false
+        }
+
+        if element.content.type == .text(.title) ||
+            element.content.type == .featuredRelations {
+            return false
+        }
+
+        return true
     }
 }
 

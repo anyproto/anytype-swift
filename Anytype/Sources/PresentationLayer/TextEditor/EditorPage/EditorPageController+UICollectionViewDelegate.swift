@@ -10,6 +10,7 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
+        guard !dividerCursorController.isMovingModeEnabled else { return }
         if collectionView.isEditing {
             viewModel.didSelectBlock(at: indexPath)
             collectionView.deselectItem(at: indexPath, animated: false)
@@ -58,5 +59,4 @@ extension EditorPageController: UICollectionViewDelegate {
             object: scrollView.contentOffset.y
         )
     }
-    
 }

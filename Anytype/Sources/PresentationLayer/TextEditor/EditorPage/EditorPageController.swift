@@ -14,12 +14,12 @@ final class EditorPageController: UIViewController {
         onBackTap: viewModel.router.goBack
     )
     
-    let collectionView: UICollectionView = {
+    let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
-        let collectionView = UICollectionView(
+        let collectionView = EditorCollectionView(
             frame: .zero,
             collectionViewLayout: layout
         )
@@ -33,7 +33,12 @@ final class EditorPageController: UIViewController {
     private var insetsHelper: ScrollViewContentInsetsHelper?
     private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
-    
+    lazy var dividerCursorController = DividerCursorController(
+        movingManager: viewModel,
+        view: view,
+        collectionView: collectionView
+    )
+
     // Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer()
@@ -138,9 +143,16 @@ final class EditorPageController: UIViewController {
                 blocksSelectionOverlayView.isHidden = false
                 navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
+                dividerCursorController.isMovingModeEnabled = false
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
                 navigationBarHelper.setNavigationBarHidden(false)
+            case .moving(let indexPaths):
+                dividerCursorController.isMovingModeEnabled = true
+                indexPaths.forEach { indexPath in
+                    collectionView.setItemIsMoving(true, at: indexPath)
+                }
+                setEditing(false, animated: true)
             }
         }.store(in: &cancellables)
     }
@@ -211,6 +223,7 @@ extension EditorPageController: EditorPageViewInput {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
         updateView()
+        collectionView.indexPathsForSelectedItems.map { viewModel.didUpdateSelectedIndexPaths($0) }
     }
     
     func textBlockWillBeginEditing() {
@@ -285,7 +298,7 @@ private extension EditorPageController {
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
-        guard collectionView.isEditing else { return }
+        guard collectionView.isEditing && !dividerCursorController.isMovingModeEnabled else { return }
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }

@@ -2,7 +2,11 @@ import Foundation
 import BlocksModels
 import Combine
 
-protocol EditorPageViewModelProtocol {
+protocol EditorPageMovingManagerProtocol {
+    func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
+}
+
+protocol EditorPageViewModelProtocol: EditorPageMovingManagerProtocol {
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
