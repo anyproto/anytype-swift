@@ -17,5 +17,7 @@ struct WaitingOnCreatAccountView: View {
         .onAppear {
             self.viewModel.createAccount()
         }
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }

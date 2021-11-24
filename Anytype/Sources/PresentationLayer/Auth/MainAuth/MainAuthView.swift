@@ -65,6 +65,7 @@ struct MainAuthView: View {
         ) {
             EmptyView()
         }
+        .navigationBarHidden(true)
     }
 }
 
