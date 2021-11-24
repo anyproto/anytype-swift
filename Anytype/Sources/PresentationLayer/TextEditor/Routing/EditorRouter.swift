@@ -258,6 +258,12 @@ final class EditorRouter: EditorRouterProtocol {
                 relationKey: relation.id,
                 value: string
             )
+        case .number(let string):
+            contentViewModel = NumberRelationEditingViewModel(
+                objectId: document.objectId,
+                relationKey: relation.id,
+                value: string
+            )
         default:
             contentViewModel = nil
         }

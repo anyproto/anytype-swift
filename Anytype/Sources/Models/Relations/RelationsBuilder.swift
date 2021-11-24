@@ -21,6 +21,13 @@ final class RelationsBuilder {
         return dateFormatter
     }()
     
+    private let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ""
+        return formatter
+    }()
+    
     // MARK: - Internal functions
     
     func buildRelations(
@@ -115,10 +122,12 @@ private extension RelationsBuilder {
     func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
-        let number = value?.safeIntValue
-        let text: String? = number.flatMap { String($0) }
+        guard let number = value?.safeDoubleValue else {
+            return .number(nil)
+        }
         
-        return .text(text)
+        let text: String? = numberFormatter.string(from: NSNumber(floatLiteral: number))
+        return .number(text)
     }
     
     func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
