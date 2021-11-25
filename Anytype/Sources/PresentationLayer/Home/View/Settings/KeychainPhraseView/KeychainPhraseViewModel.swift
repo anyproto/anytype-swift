@@ -2,7 +2,6 @@ import SwiftUI
 
 class KeychainPhraseViewModel: ObservableObject {
     @Published var recoveryPhrase: String? = nil
-    @Published var showSnackbar = false
     
     private let seedService = ServiceLocator.shared.seedService()
 
@@ -10,7 +9,7 @@ class KeychainPhraseViewModel: ObservableObject {
         recoveryPhrase = try? seedService.obtainSeed()
     }
 
-    func onSeedViewTap() {
+    func onSeedViewTap(onTap: () -> ()) {
         if recoveryPhrase.isNil {
             obtainRecoveryPhrase()
         }
@@ -21,6 +20,6 @@ class KeychainPhraseViewModel: ObservableObject {
         
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = recoveryPhrase
-        showSnackbar = true
+        onTap()
     }
 }

@@ -10,6 +10,7 @@ struct HomeView: View {
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
     @State private var showSettings = false
+    @State private var showKeychainAlert = UserDefaultsConfig.showKeychainAlert
 
     var body: some View {
         navigationView
@@ -70,6 +71,12 @@ struct HomeView: View {
             DashboardClearCacheAlert().padding(8)
         }
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
+        
+        .bottomFloater(isPresented: $showKeychainAlert) {
+            DashboardKeychainReminderAlert().padding(8)
+        }
+        .animation(.fastSpring, value: showKeychainAlert)
+        .onChange(of: showKeychainAlert) { UserDefaultsConfig.showKeychainAlert = $0 }
         
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
