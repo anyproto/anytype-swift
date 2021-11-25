@@ -319,6 +319,7 @@ extension EditorPageViewModel {
     }
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         selectedBlocksIndexPaths = indexPaths
         let elements = indexPaths.compactMap { element(at: $0)?.information }
 
