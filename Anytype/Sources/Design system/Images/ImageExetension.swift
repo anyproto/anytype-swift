@@ -2,6 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 extension Image {
+    static let appIcon = createImage("AppIcon")
     static let logo = createImage("logo")
     static let splashLogo = createImage("splashLogo")
     static let arrow = createImage("arrowForward")
