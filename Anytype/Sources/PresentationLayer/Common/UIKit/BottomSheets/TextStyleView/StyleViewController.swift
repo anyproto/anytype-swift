@@ -237,13 +237,13 @@ final class StyleViewController: UIViewController {
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
-        colorButton.setBackgroundColor(.selected, state: .selected)
+        colorButton.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
-        moreButton.setBackgroundColor(.selected, state: .selected)
+        moreButton.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }

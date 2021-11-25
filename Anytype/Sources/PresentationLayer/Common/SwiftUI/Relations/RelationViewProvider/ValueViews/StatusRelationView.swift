@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct StatusRelationView: View {
-    
     let value: StatusRelation?
     let hint: String
+    let style: RelationStyle
     
     var body: some View {
         if let value = value {
-            AnytypeText(value.text, style: .relation1Regular, color: value.color.asColor)
+            AnytypeText(value.text, style: style.font, color: value.color.asColor)
                 .lineLimit(1)
         } else {
             RelationsListRowHintView(hint: hint)
@@ -25,6 +25,6 @@ struct StatusRelationView: View {
 
 struct StatusRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationView(value: StatusRelation(text: "text", color: .pureTeal), hint: "Hint")
+        StatusRelationView(value: StatusRelation(text: "text", color: .pureTeal), hint: "Hint", style: .regular)
     }
 }

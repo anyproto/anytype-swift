@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct TextRelationView: View {
-    
     let value: String?
     let hint: String
+    let style: RelationStyle
     
     var body: some View {
         if let value = value, value.isNotEmpty {
             AnytypeText(
                 value,
-                style: .relation1Regular,
-                color: .textPrimary
+                style: style.font,
+                color: style.fontColor
             )
                 .lineLimit(1)
         } else {
@@ -23,7 +23,8 @@ struct TextRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TextRelationView(
             value: "nil",
-            hint: "Hint"
+            hint: "Hint",
+            style: .regular
         )
     }
 }
