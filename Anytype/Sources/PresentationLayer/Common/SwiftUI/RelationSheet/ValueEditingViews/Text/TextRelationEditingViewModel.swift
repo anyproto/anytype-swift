@@ -17,52 +17,31 @@ final class TextRelationEditingViewModel: ObservableObject {
     private let service: TextRelationEditingServiceProtocol
     private let key: String
     
+    private weak var delegate: TextRelationEditingViewModelDelegate?
+    
     init(
         service: TextRelationEditingServiceProtocol,
         key: String,
-        value: String?
+        value: String?,
+        delegate: TextRelationEditingViewModelDelegate?
     ) {
         self.service = service
         self.key = key
         self.value = value ?? ""
         self.valueType = service.valueType
+        self.delegate = delegate
         
         updateActionButtonState()
     }
     
     func performAction() {
-        guard value.isNotEmpty else { return }
+        guard
+            let url = urlToOpen,
+            let delegate = delegate,
+            delegate.canOpenUrl(url)
+        else { return }
         
-        let sharedApplication = UIApplication.shared
-
-        switch valueType {
-        case .text: return
-        case .number: return
-        case .phone:
-            guard
-                let url = URL(string: "tel://\(value)"),
-                sharedApplication.canOpenURL(url)
-            else {
-                return
-            }
-            sharedApplication.open(url)
-        case .email:
-            guard
-                let url = URL(string: "mailto://\(value)"),
-                sharedApplication.canOpenURL(url)
-            else {
-                return
-            }
-            sharedApplication.open(url)
-        case .url:
-            guard
-                let url = URL(string: value),
-                sharedApplication.canOpenURL(url)
-            else {
-                return
-            }
-            sharedApplication.open(url)
-        }
+        delegate.openUrl(url)
     }
     
 }
@@ -87,29 +66,25 @@ private extension TextRelationEditingViewModel {
             return
         }
         
-        let sharedApplication = UIApplication.shared
-
         switch valueType {
         case .text: return
         case .number: return
         case .phone:
-            guard let url = URL(string: "tel://\(value)") else {
-                self.isActionButtonEnabled = false
-                return
-            }
-            isActionButtonEnabled = sharedApplication.canOpenURL(url)
+            isActionButtonEnabled = value.isValidPhone()
         case .email:
-            guard let url = URL(string: "mailto://\(value)") else {
-                self.isActionButtonEnabled = false
-                return
-            }
-            isActionButtonEnabled = sharedApplication.canOpenURL(url)
+            isActionButtonEnabled = value.isValidEmail()
         case .url:
-            guard let url = URL(string: value) else {
-                self.isActionButtonEnabled = false
-                return
-            }
-            isActionButtonEnabled = sharedApplication.canOpenURL(url)
+            isActionButtonEnabled = value.isValidURL()
+        }
+    }
+    
+    var urlToOpen: URL? {
+        switch valueType {
+        case .text: return nil
+        case .number: return nil
+        case .phone: return URL(string: "tel:\(value)")
+        case .email: return URL(string: "mailto:\(value)")
+        case .url: return URL(string: value)
         }
     }
     

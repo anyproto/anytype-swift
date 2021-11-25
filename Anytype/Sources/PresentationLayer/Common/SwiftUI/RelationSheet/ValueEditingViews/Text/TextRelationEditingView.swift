@@ -98,7 +98,8 @@ struct RelationTextValueEditingView_Previews: PreviewProvider {
                     valueType: .phone
                 ),
                 key: "",
-                value: nil
+                value: nil,
+                delegate: nil
             )
         )
             .background(Color.red)

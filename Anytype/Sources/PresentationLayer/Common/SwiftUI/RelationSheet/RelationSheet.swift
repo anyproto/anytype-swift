@@ -95,7 +95,8 @@ struct RelationSheet_Previews: PreviewProvider {
                         valueType: .text
                     ),
                     key: "",
-                    value: nil
+                    value: nil,
+                    delegate: nil
                 )
             )
         )
