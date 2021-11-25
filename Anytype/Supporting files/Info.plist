@@ -7,7 +7,25 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
-	<dict/>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>art</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>art</string>
+				</array>
+			</dict>
+			<key>oldSchool</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>oldSchool</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>

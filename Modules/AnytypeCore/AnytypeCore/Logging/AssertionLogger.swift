@@ -56,6 +56,8 @@ public enum ErrorDomain: String {
     case homeView
     
     case iconPicker
+    
+    case appIcon
 }
 
 public protocol MessageLogger {
