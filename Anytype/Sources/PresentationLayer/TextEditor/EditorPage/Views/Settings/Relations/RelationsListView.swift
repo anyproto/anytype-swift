@@ -18,7 +18,7 @@ struct RelationsListView: View {
     private var navigationBar: some View {
         HStack {
             Button {
-                withAnimation(.spring()) {
+                withAnimation(.fastSpring) {
                     editingMode.toggle()
                 }
             } label: {

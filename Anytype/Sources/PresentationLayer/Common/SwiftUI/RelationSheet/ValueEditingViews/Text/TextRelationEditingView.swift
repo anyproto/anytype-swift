@@ -20,11 +20,11 @@ struct TextRelationEditingView: View {
                 .background(FrameCatcher { height = $0.height })
             
             if(viewModel.value.isEmpty) {
-                AnytypeText("Add text".localized, style: .uxBodyRegular, color: .textTertiary)
+                AnytypeText(viewModel.placeholder, style: .uxBodyRegular, color: .textTertiary)
                     .padding(6)
             }
 
-            AutofocusedTextEditor(text: $viewModel.value)
+            AutofocusedTextEditor(text: $viewModel.value, keyboardType: viewModel.keyboardType)
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .foregroundColor(.grayscale90)
                 .opacity(viewModel.value.isEmpty ? 0.25 : 1)
@@ -36,7 +36,16 @@ struct TextRelationEditingView: View {
 
 struct RelationTextValueEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        TextRelationEditingView(viewModel: TextRelationEditingViewModel(objectId: "", relationKey: "", value: ""))
+        TextRelationEditingView(
+            viewModel: TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: "",
+                    valueType: .text
+                ),
+                key: "",
+                value: nil
+            )
+        )
             .background(Color.red)
     }
 }
