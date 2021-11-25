@@ -20,7 +20,7 @@ struct SettingsSectionView: View {
                 pressed: $viewModel.keychain
             )
             .sheet(isPresented: $viewModel.keychain) {
-                KeychainPhraseView(viewModel: .init())
+                KeychainPhraseView()
             }
             
 //            SettingsSectionItemView(

@@ -3,8 +3,8 @@ import Amplitude
 
 
 struct KeychainPhraseView: View {
-    @ObservedObject var viewModel: KeychainPhraseViewModel
-
+    @State private var showSnackbar = false
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
@@ -14,33 +14,24 @@ struct KeychainPhraseView: View {
             Spacer.fixedHeight(25)
             AnytypeText("Keychain phrase description".localized, style: .uxBodyRegular, color: .textPrimary)
             Spacer.fixedHeight(34)
-            SeedPhraseView(phrase: $viewModel.recoveryPhrase, onTap: viewModel.onSeedViewTap)
+            SeedPhraseView { showSnackbar = true }
             Spacer()
         }
         .cornerRadius(12)
         .padding([.leading, .trailing])
-        .snackbar(
-            isShowing: $viewModel.showSnackbar,
-            text: AnytypeText("Keychain phrase copied to clipboard".localized, style: .uxCalloutRegular, color: .textPrimary)
-        )
         .onAppear {
             Amplitude.instance().logEvent(AmplitudeEventsName.showKeychainPhraseScreen)
-
-            viewModel.obtainRecoveryPhrase()
         }
+        .snackbar(
+            isShowing: $showSnackbar,
+            text: AnytypeText("Keychain phrase copied to clipboard".localized, style: .uxCalloutRegular, color: .textPrimary)
+        )
+
     }
 }
 
-struct SaveRecoveryPhraseView_Previews: PreviewProvider {
-    static let phrase = "stuck a ten on my hand twenty carats slap a bitch your girl choose up imma bag her and i snatch her"
-    
-    static let viewModel: KeychainPhraseViewModel = {
-        let model = KeychainPhraseViewModel()
-        model.recoveryPhrase = phrase
-        return model
-    }()
-    
+struct SaveRecoveryPhraseView_Previews: PreviewProvider {    
     static var previews: some View {
-        return KeychainPhraseView(viewModel: viewModel)
+        return KeychainPhraseView()
     }
 }

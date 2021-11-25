@@ -71,6 +71,11 @@ struct HomeView: View {
         }
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         
+        .bottomFloater(isPresented: $settingsModel.keychainRemidner) {
+            DashboardKeychainReminderAlert().padding(8)
+        }
+        .animation(.fastSpring, value: settingsModel.keychainRemidner)
+        
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
                 .environmentObject(viewModel)
