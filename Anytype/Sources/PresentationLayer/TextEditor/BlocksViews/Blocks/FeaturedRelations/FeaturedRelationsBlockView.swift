@@ -3,13 +3,8 @@ import UIKit
 import SwiftUI
 
 final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockContentConfiguration> {
+
     // MARK: - Views
-    
-    private let typeLabel: AnytypeLabel = {
-        let label = AnytypeLabel(style: .relation2Regular)
-        label.textColor = .textSecondary
-        return label
-    }()
 
     private lazy var relationsView: UIView = {
         return UIView()
