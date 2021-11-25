@@ -549,7 +549,6 @@
 		3DEA98122704A10C004AB80B /* HomeView+BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEA98112704A10C004AB80B /* HomeView+BottomSheet.swift */; };
 		3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* DebugMenu.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
-		3DF80F3526EF8D14000492F3 /* TextBlockSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */; };
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
 		3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */; };
 		3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */; };
@@ -637,6 +636,12 @@
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
+		C9121A36273A506000FFDA07 /* BaseBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A35273A506000FFDA07 /* BaseBlockView.swift */; };
+		C9121A41273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */; };
+		C9121A55273B4B9700FFDA07 /* BlocksOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A54273B4B9700FFDA07 /* BlocksOptionViewModel.swift */; };
+		C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */; };
+		C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */; };
+		C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */; };
 		C917DF0E271772BD0085185D /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917DF0D271772BD0085185D /* ImageViewerViewController.swift */; };
 		C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEFB270B6618005F9386 /* EventsLogView.swift */; };
 		C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */; };
@@ -651,6 +656,7 @@
 		C9367A9327312E8C007D687A /* BlocksOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9227312E8C007D687A /* BlocksOptionItem.swift */; };
 		C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */; };
 		C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9B27313692007D687A /* TextBlockDelegateData.swift */; };
+		C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */; };
 		C9473C37273CEE6700B248AF /* BaseSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9473C36273CEE6700B248AF /* BaseSelectionView.swift */; };
 		C96149522718189000360840 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149512718189000360840 /* GalleryViewController.swift */; };
 		C96149542718286E00360840 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149532718286E00360840 /* GalleryViewModel.swift */; };
@@ -1334,7 +1340,6 @@
 		3DEA98112704A10C004AB80B /* HomeView+BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+BottomSheet.swift"; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
-		3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockSelectionView.swift; sourceTree = "<group>"; };
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
 		3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeftViewStyler.swift; sourceTree = "<group>"; };
 		3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockTextViewStyler.swift; sourceTree = "<group>"; };
@@ -1420,6 +1425,12 @@
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
+		C9121A35273A506000FFDA07 /* BaseBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBlockView.swift; sourceTree = "<group>"; };
+		C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageViewModel+BlocksSelection.swift"; sourceTree = "<group>"; };
+		C9121A54273B4B9700FFDA07 /* BlocksOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksOptionViewModel.swift; sourceTree = "<group>"; };
+		C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockRestrictions+BlocksOptionItem.swift"; sourceTree = "<group>"; };
+		C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
+		C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayViewModel.swift; sourceTree = "<group>"; };
 		C917DF0D271772BD0085185D /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		C91AFEFB270B6618005F9386 /* EventsLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogView.swift; sourceTree = "<group>"; };
 		C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogViewModel.swift; sourceTree = "<group>"; };
@@ -1434,6 +1445,7 @@
 		C9367A9227312E8C007D687A /* BlocksOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksOptionItem.swift; sourceTree = "<group>"; };
 		C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcher.swift; sourceTree = "<group>"; };
 		C9367A9B27313692007D687A /* TextBlockDelegateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockDelegateData.swift; sourceTree = "<group>"; };
+		C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayView.swift; sourceTree = "<group>"; };
 		C9473C36273CEE6700B248AF /* BaseSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectionView.swift; sourceTree = "<group>"; };
 		C96149512718189000360840 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		C96149532718286E00360840 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
@@ -2091,6 +2103,7 @@
 				123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */,
 				3D44984426D53D61005A3E06 /* EditorPageViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* EditorPageViewModel.swift */,
+				C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */,
 			);
 			path = EditorPage;
 			sourceTree = "<group>";
@@ -2150,6 +2163,7 @@
 				C9473C36273CEE6700B248AF /* BaseSelectionView.swift */,
 				3DB6E248268B65BD00C303E5 /* DefaultContextualMenuHandler.swift */,
 				3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */,
+				C9121A35273A506000FFDA07 /* BaseBlockView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2711,6 +2725,7 @@
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C9367AB227315209007D687A /* BlocksSelectionOverlayView */,
 				3DB1C9DD2726D0A7000D2779 /* PlaceholderScreens */,
 				3D170236271598790079B65B /* Navigation */,
 				120E816B269F26BE006FE84E /* Settings */,
@@ -3387,6 +3402,7 @@
 				534D19C62623A7220080AEF0 /* SearchListViewController.swift */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
+				C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -4256,7 +4272,6 @@
 				3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */,
 				530470F52682046900C9EE78 /* TextBlockIconView.swift */,
 				3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */,
-				3DF80F3426EF8D14000492F3 /* TextBlockSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4590,9 +4605,19 @@
 			isa = PBXGroup;
 			children = (
 				C9367A90273126AD007D687A /* BlocksOptionView.swift */,
+				C9121A54273B4B9700FFDA07 /* BlocksOptionViewModel.swift */,
 				C9367A9227312E8C007D687A /* BlocksOptionItem.swift */,
 			);
 			path = BlocksOptionView;
+			sourceTree = "<group>";
+		};
+		C9367AB227315209007D687A /* BlocksSelectionOverlayView */ = {
+			isa = PBXGroup;
+			children = (
+				C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */,
+				C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */,
+			);
+			path = BlocksSelectionOverlayView;
 			sourceTree = "<group>";
 		};
 		C96149552718288000360840 /* Gallery */ = {
@@ -4655,6 +4680,7 @@
 			children = (
 				3DB692A326970DDC00149864 /* Restrictions */,
 				EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */,
+				C9121A59273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift */,
 				EA0261352625D12000AE6D86 /* BlockRestrictionsBuilder.swift */,
 			);
 			path = Restrictions;
@@ -5045,9 +5071,11 @@
 				0A6F90062554546300B94AED /* BlockLayoutStyleConverter.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
+				C9121A36273A506000FFDA07 /* BaseBlockView.swift in Sources */,
 				3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
+				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
 				123FDAD226C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift in Sources */,
@@ -5147,7 +5175,6 @@
 				127EABBC27352D4100C731F2 /* StatusRelation.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
-				3DF80F3526EF8D14000492F3 /* TextBlockSelectionView.swift in Sources */,
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
 				12F3E763270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
@@ -5191,6 +5218,7 @@
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
+				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
 				1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */,
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
@@ -5213,6 +5241,7 @@
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
+				C9121A41273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
@@ -5378,6 +5407,7 @@
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
+				C9121A55273B4B9700FFDA07 /* BlocksOptionViewModel.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MarkupType.swift in Sources */,
@@ -5631,6 +5661,7 @@
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
+				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
@@ -5695,6 +5726,7 @@
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
+				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3DB1C9F3272835DA000D2779 /* OtherSettingsView.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,

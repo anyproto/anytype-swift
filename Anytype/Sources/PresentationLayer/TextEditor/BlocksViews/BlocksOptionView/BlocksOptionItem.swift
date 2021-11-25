@@ -1,11 +1,11 @@
 import UIKit
 
-enum BlocksOptionItem: String, CaseIterable {
+enum BlocksOptionItem: CaseIterable, Comparable {
     case delete
     case addBlockBelow
     case duplicate
     case turnInto
-    case moveTo
+//    case moveTo
 }
 
 extension BlocksOptionItem {
@@ -21,8 +21,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.duplicate
         case .turnInto:
             return BlockOptionImage.turnInto
-        case .moveTo:
-            return BlockOptionImage.moveTo
+//        case .moveTo:
+//            return BlockOptionImage.moveTo
         }
     }
 
@@ -36,8 +36,8 @@ extension BlocksOptionItem {
             return "Duplicate".localized
         case .turnInto:
             return "Turn into".localized
-        case .moveTo:
-            return "Move to".localized
+//        case .moveTo:
+//            return "Move to".localized
         }
     }
 }

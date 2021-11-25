@@ -1,23 +1,15 @@
-//
-//  BlocksOptionView.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 02.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5469%3A0
 struct BlocksOptionView: View {
-    let tapHandler: (BlocksOptionItem) -> Void
+    @ObservedObject var viewModel: BlocksOptionViewModel
 
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 0) {
-                ForEach(BlocksOptionItem.allCases, id: \.self) { item in
+                ForEach(viewModel.options, id: \.self) { item in
                     Button {
-                        tapHandler(item)
+                        viewModel.tapHandler?(item)
                     } label: {
                         BlocksOptionItemView(
                             image: item.image,
@@ -26,7 +18,7 @@ struct BlocksOptionView: View {
                     }
                     .frame(width: 68, height: 100)
                 }
-            }
+            }.padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
         }
     }
 }
@@ -49,7 +41,7 @@ private struct BlocksOptionItemView: View {
 
 struct BlocksOptionView_Previews: PreviewProvider {
     static var previews: some View {
-        BlocksOptionView(tapHandler: { _ in })
+        BlocksOptionView(viewModel: .init())
             .previewLayout(.fixed(width: 340, height: 100))
     }
 }

@@ -6,7 +6,16 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
+enum EditorEditingState {
+    case editing
+    case selecting(blocks: [BlockId])
+}
+
 final class EditorPageViewModel: EditorPageViewModelProtocol {
+    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
+
+    @Published var editingState: EditorEditingState = .editing
+
     weak private(set) var viewInput: EditorPageViewInput?
     
     let document: BaseDocumentProtocol
@@ -26,6 +35,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private lazy var cancellables = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingle
+    private weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
+    var selectedBlocksIndexPaths = [IndexPath]()
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -48,7 +59,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
-        blockActionsService: BlockActionsServiceSingle
+        blockActionsService: BlockActionsServiceSingle,
+        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -61,7 +73,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
         self.blockActionsService = blockActionsService
-        
+        self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
+
+        actionHandler.blockSelectionHandler = self
+
+        blocksSelectionOverlayViewModel.endEditingModeHandler = { [weak self] in self?.editingState = .editing }
+        blocksSelectionOverlayViewModel.blocksOptionViewModel?.tapHandler = { [weak self] in self?.handleBlocksOptionItemSelection($0) }
+
         setupSubscriptions()
     }
 
@@ -247,6 +265,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: details)
         modelsHolder.header = header
     }
+
+    private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
+        let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
+
+        blocksSelectionOverlayViewModel?.setSelectedBlocksCount(selectedBlocks.count)
+        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = restrictions.mergedOptions
+    }
 }
 
 // MARK: - View output
@@ -264,16 +289,42 @@ extension EditorPageViewModel {
     func viewAppeared() {
         cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
     }
+
+    func didLongTap(at indexPath: IndexPath) {
+        guard canSelectBlock(at: indexPath) else { return }
+
+        element(at: indexPath).map {
+            didSelectEditingState(on: $0.information)
+        }
+    }
 }
 
 // MARK: - Selection Handling
 
 extension EditorPageViewModel {
-    func didSelectBlock(at index: IndexPath) {
-        element(at: index)?.didSelectRowInTableView()
+    func canSelectBlock(at indexPath: IndexPath) -> Bool {
+        guard let block = element(at: indexPath) else { return false }
+
+        if block.content.type == .text(.title) ||
+            block.content.type == .featuredRelations {
+            return false
+        }
+
+        return true
     }
 
-    private func element(at: IndexPath) -> BlockViewModelProtocol? {
+    func didSelectBlock(at indexPath: IndexPath) {
+        element(at: indexPath)?.didSelectRowInTableView()
+    }
+
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+        selectedBlocksIndexPaths = indexPaths
+        let elements = indexPaths.compactMap { element(at: $0)?.information }
+
+        updateSelectionContent(selectedBlocks: elements)
+    }
+
+    func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
             anytypeAssertionFailure("Row doesn't exist", domain: .editorPage)
             return nil
@@ -294,6 +345,13 @@ extension EditorPageViewModel {
     
     func showCoverPicker() {
         router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
+    }
+}
+
+extension EditorPageViewModel: BlockSelectionHandler {
+    func didSelectEditingState(on block: BlockInformation) {
+        editingState = .selecting(blocks: [block.id])
+        updateSelectionContent(selectedBlocks: [block])
     }
 }
 

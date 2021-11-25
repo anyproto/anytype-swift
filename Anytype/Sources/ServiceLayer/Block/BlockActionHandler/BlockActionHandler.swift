@@ -4,6 +4,7 @@ import Combine
 import AnytypeCore
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
+    weak var blockSelectionHandler: BlockSelectionHandler?
     private let document: BaseDocumentProtocol
     
     private let service: BlockActionServiceProtocol
@@ -216,5 +217,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
             )
         }
+    }
+
+    func selectBlock(blockInformation: BlockInformation) {
+        blockSelectionHandler?.didSelectEditingState(on: blockInformation)
     }
 }

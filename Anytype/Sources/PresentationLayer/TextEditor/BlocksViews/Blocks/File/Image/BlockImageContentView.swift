@@ -21,6 +21,12 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
         super.update(with: configuration)
         handleFile(configuration.fileData, currentFile)
     }
+
+    override func update(with state: UICellConfigurationState) {
+        super.update(with: state)
+
+        tapGesture.isEnabled = state.isEditing
+    }
     
     func setupUIElements() {
         addGestureRecognizer(tapGesture)

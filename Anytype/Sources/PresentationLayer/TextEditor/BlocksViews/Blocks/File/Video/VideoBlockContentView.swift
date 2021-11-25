@@ -5,35 +5,20 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
-final class VideoBlockContentView: UIView, UIContentView {
-    private var currentConfiguration: VideoBlockConfiguration
-    var configuration: UIContentConfiguration {
-        get {
-            self.currentConfiguration
-        }
-        set {
-            guard let configuration = newValue as? VideoBlockConfiguration else { return }
-            guard self.currentConfiguration != configuration else { return }
-            self.currentConfiguration = configuration
-            
-            apply(configuration: configuration)
-        }
-    }
-    
+final class VideoBlockContentView: BaseBlockView<VideoBlockConfiguration> {
     private let videoVC = AVPlayerViewController()
     
-    init(configuration: VideoBlockConfiguration) {
-        self.currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+    override func setupSubviews() {
+        super.setupSubviews()
         setup()
+    }
+
+    override func update(with configuration: VideoBlockConfiguration) {
+        super.update(with: configuration)
+
         apply(configuration: configuration)
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     private func setup() {
         addSubview(videoVC.view)
         videoVC.view.edgesToSuperview(insets: Constants.videoViewInsets)

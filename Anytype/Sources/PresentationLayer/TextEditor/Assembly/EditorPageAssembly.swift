@@ -11,7 +11,7 @@ final class EditorAssembly {
     func buildEditorController(data: EditorScreenData) -> UIViewController {
         buildEditorModule(data: data).vc
     }
-    
+
     func buildEditorModule(data: EditorScreenData) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
@@ -42,7 +42,9 @@ final class EditorAssembly {
     // MARK: - Page
     
     private func buildPageModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
-        let controller = EditorPageController()
+        let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
+
+        let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
         let document = BaseDocument(objectId: pageId)
         let router = EditorRouter(
             rootController: browser,
@@ -54,7 +56,8 @@ final class EditorAssembly {
         let viewModel = buildViewModel(
             viewInput: controller,
             document: document,
-            router: router
+            router: router,
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel
         )
 
         controller.viewModel = viewModel
@@ -65,7 +68,8 @@ final class EditorAssembly {
     private func buildViewModel(
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
-        router: EditorRouter
+        router: EditorRouter,
+        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
     ) -> EditorPageViewModel {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
@@ -148,7 +152,21 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
-            blockActionsService: BlockActionsServiceSingle()
+            blockActionsService: BlockActionsServiceSingle(),
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel
+        )
+    }
+
+    private func buildBlocksSelectionOverlayView() -> BlocksSelectionOverlayView {
+        let blocksOptionViewModel = BlocksOptionViewModel()
+        let blocksOptionView = BlocksOptionView(viewModel: blocksOptionViewModel)
+        let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()
+
+        blocksSelectionOverlayViewModel.blocksOptionViewModel = blocksOptionViewModel
+
+        return BlocksSelectionOverlayView(
+            viewModel: blocksSelectionOverlayViewModel,
+            blocksOptionView: blocksOptionView
         )
     }
 }

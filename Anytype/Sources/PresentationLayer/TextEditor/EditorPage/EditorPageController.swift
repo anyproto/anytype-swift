@@ -26,7 +26,7 @@ final class EditorPageController: UIViewController {
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
         collectionView.contentInsetAdjustmentBehavior = .never
-        
+
         return collectionView
     }()
     
@@ -40,19 +40,31 @@ final class EditorPageController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
-    
+
+    private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
+
+        recognizer.minimumPressDuration = 0.5
+        recognizer.delaysTouchesBegan = true
+        return recognizer
+    }()
+
     private lazy var navigationBarHelper = EditorNavigationBarHelper(
         onSettingsBarButtonItemTap: { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.viewModel.showSettings()
         }
     )
+
+    private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     
     var viewModel: EditorPageViewModelProtocol!
+    private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
-    
-    init() {
+    init(blocksSelectionOverlayView: BlocksSelectionOverlayView) {
+        self.blocksSelectionOverlayView = blocksSelectionOverlayView
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -71,8 +83,11 @@ final class EditorPageController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel.viewLoaded()
+        bindViewModel()
+        setEditing(true, animated: false)
+        collectionView.allowsSelectionDuringEditing = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +113,12 @@ final class EditorPageController: UIViewController {
         insetsHelper = nil
         firstResponderHelper = nil
     }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.isEditing = editing
+        collectionView.reloadData()
+    }
     
     private var controllerForNavigationItems: UIViewController? {
         guard parent is UINavigationController else {
@@ -106,13 +127,28 @@ final class EditorPageController: UIViewController {
         
         return self
     }
-    
+
+    func bindViewModel() {
+        viewModel.editorEditingState.sink { [unowned self] state in
+            switch state {
+            case .selecting(let blockIds):
+                view.endEditing(true)
+                setEditing(false, animated: true)
+                blockIds.forEach(selectBlock)
+                blocksSelectionOverlayView.isHidden = false
+                navigationBarHelper.setNavigationBarHidden(true)
+            case .editing:
+                setEditing(true, animated: true)
+                blocksSelectionOverlayView.isHidden = true
+                navigationBarHelper.setNavigationBarHidden(false)
+            }
+        }.store(in: &cancellables)
+    }
 }
 
 // MARK: - EditorPageViewInput
 
 extension EditorPageController: EditorPageViewInput {
-    
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
@@ -196,7 +232,6 @@ extension EditorPageController: EditorPageViewInput {
             dataSource.refresh(animatingDifferences: true)
         }
     }
-    
 }
 
 // MARK: - Private extension
@@ -211,7 +246,6 @@ private extension EditorPageController {
         setupInteractions()
         
         setupLayout()
-        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
     }
     
     func setupCollectionView() {
@@ -225,6 +259,8 @@ private extension EditorPageController {
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
         view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+
+        collectionView.addGestureRecognizer(longTapGestureRecognizer)
     }
     
     func setupLayout() {
@@ -234,16 +270,36 @@ private extension EditorPageController {
         view.addSubview(deletedScreen) {
             $0.pinToSuperview()
         }
+
+        navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
+
+        view.addSubview(blocksSelectionOverlayView) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
+        }
+
+        blocksSelectionOverlayView.isHidden = true
+
         deletedScreen.isHidden = true
     }
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
+        guard collectionView.isEditing else { return }
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
         viewModel.actionHandler.createEmptyBlock(parentId: nil)
+    }
+
+    @objc
+    private func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .ended else { return }
+        let location = gesture.location(in: collectionView)
+        collectionView.indexPathForItem(at: location).map {
+            viewModel.didLongTap(at: $0)
+        }
     }
     
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {

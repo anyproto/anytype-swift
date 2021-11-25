@@ -39,6 +39,12 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
         applyNewConfiguration()
     }
 
+    override func update(with state: UICellConfigurationState) {
+        super.update(with: state)
+
+        textView.textView.isUserInteractionEnabled = state.isEditing
+    }
+
     // MARK: - Setup views
     
     private func setupLayout() {
