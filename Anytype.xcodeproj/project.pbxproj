@@ -258,6 +258,7 @@
 		12B0FF44274F457D00CA35FE /* TextRelationValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF43274F457D00CA35FE /* TextRelationValueType.swift */; };
 		12B0FF4C274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF4B274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift */; };
 		12B0FF52274F4C0E00CA35FE /* TextRelationEditingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF51274F4C0E00CA35FE /* TextRelationEditingService.swift */; };
+		12B0FF60274FC5E200CA35FE /* TextRelationEditingViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF5F274FC5E200CA35FE /* TextRelationEditingViewModelDelegate.swift */; };
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
@@ -1052,6 +1053,7 @@
 		12B0FF43274F457D00CA35FE /* TextRelationValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationValueType.swift; sourceTree = "<group>"; };
 		12B0FF4B274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingServiceProtocol.swift; sourceTree = "<group>"; };
 		12B0FF51274F4C0E00CA35FE /* TextRelationEditingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingService.swift; sourceTree = "<group>"; };
+		12B0FF5F274FC5E200CA35FE /* TextRelationEditingViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingViewModelDelegate.swift; sourceTree = "<group>"; };
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
@@ -2773,6 +2775,7 @@
 				12DD4D3827452282005E5E02 /* TextRelationEditingView.swift */,
 				120AC25D2747B56000330D7B /* TextRelationEditingViewModel.swift */,
 				12B0FF43274F457D00CA35FE /* TextRelationValueType.swift */,
+				12B0FF5F274FC5E200CA35FE /* TextRelationEditingViewModelDelegate.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -5419,6 +5422,7 @@
 				1215E8B926A862350089AF7E /* ImageCacheExtension.swift in Sources */,
 				127EAC0C273A353A00C731F2 /* Relation.swift in Sources */,
 				1215E8B626A8610C0089AF7E /* KingfisherConfigurator.swift in Sources */,
+				12B0FF60274FC5E200CA35FE /* TextRelationEditingViewModelDelegate.swift in Sources */,
 				3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,

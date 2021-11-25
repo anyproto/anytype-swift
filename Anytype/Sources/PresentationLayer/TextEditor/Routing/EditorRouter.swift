@@ -84,7 +84,7 @@ final class EditorRouter: EditorRouterProtocol {
         let url = url.urlByAddingHttpIfSchemeIsEmpty()
         if url.containsHttpProtocol {
             let safariController = SFSafariViewController(url: url)
-            viewController?.present(safariController, animated: true)
+            viewController?.topPresentedController.present(safariController, animated: true)
             return
         }
         if UIApplication.shared.canOpenURL(url) {
@@ -259,7 +259,8 @@ final class EditorRouter: EditorRouterProtocol {
                     valueType: .text
                 ),
                 key: relation.id,
-                value: string
+                value: string,
+                delegate: self
             )
         case .number(let string):
             contentViewModel = TextRelationEditingViewModel(
@@ -268,7 +269,8 @@ final class EditorRouter: EditorRouterProtocol {
                     valueType: .number
                 ),
                 key: relation.id,
-                value: string
+                value: string,
+                delegate: self
             )
         case .phone(let string):
             contentViewModel = TextRelationEditingViewModel(
@@ -277,7 +279,8 @@ final class EditorRouter: EditorRouterProtocol {
                     valueType: .phone
                 ),
                 key: relation.id,
-                value: string
+                value: string,
+                delegate: self
             )
         case .email(let string):
             contentViewModel = TextRelationEditingViewModel(
@@ -286,7 +289,8 @@ final class EditorRouter: EditorRouterProtocol {
                     valueType: .email
                 ),
                 key: relation.id,
-                value: string
+                value: string,
+                delegate: self
             )
         case .url(let string):
             contentViewModel = TextRelationEditingViewModel(
@@ -295,7 +299,8 @@ final class EditorRouter: EditorRouterProtocol {
                     valueType: .url
                 ),
                 key: relation.id,
-                value: string
+                value: string,
+                delegate: self
             )
         default:
             contentViewModel = nil
@@ -356,4 +361,12 @@ extension EditorRouter: AttachmentRouterProtocol {
 
         viewController?.present(galleryViewController, animated: true, completion: nil)
     }
+}
+
+extension EditorRouter: TextRelationEditingViewModelDelegate {
+    
+    func canOpenUrl(_ url: URL) -> Bool {
+        UIApplication.shared.canOpenURL(url)
+    }
+
 }
