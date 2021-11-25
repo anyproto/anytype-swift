@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 
 final class EmojiProvider {
@@ -54,6 +55,8 @@ private extension EmojiProvider{
         var groups = [EmojiGroup]()
         
         emojis.forEach { emoji in
+            guard emojiSupproted(emoji) else { return }
+            
             guard let index = groups.firstIndex(where: { $0.name == emoji.category }) else {
                 groups.append(EmojiGroup(name: emoji.category, emojis: [emoji]))
                 return
@@ -64,4 +67,18 @@ private extension EmojiProvider{
         return groups
     }
 
+    func emojiSupproted(_ emoji: Emoji) -> Bool {
+        guard emoji.unicode_version.isNotEmpty else {
+            return true // some data is missing for old emojis
+        }
+        
+        let majorVersion = emoji.unicode_version.split(separator: ".").first.flatMap { String($0) } ?? emoji.unicode_version
+        guard let intVersion = Int(majorVersion) else {
+            anytypeAssertionFailure("Cannot parse emoji version:\(emoji.unicode_version)", domain: .iconEmoji)
+            return false
+        }
+        
+        let supportedEmojiVersion = 12
+        return intVersion <= supportedEmojiVersion
+    }
 }
