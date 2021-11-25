@@ -8,7 +8,7 @@ struct DashboardKeychainReminderAlert: View {
             Spacer.fixedHeight(23)
             AnytypeText("Don’t forget to save your keychain phrase".localized, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
-            AnytypeText("You can always find the phrase in the settings.".localized, style: .uxCalloutRegular, color: .textPrimary)
+            description
             Spacer.fixedHeight(18)
             SeedPhraseView {
                 model.snackBarData = .init(text: "Keychain phrase copied to clipboard", showSnackBar: true)
@@ -18,6 +18,17 @@ struct DashboardKeychainReminderAlert: View {
         .padding(.horizontal, 20)
         .background(Color.background)
         .cornerRadius(16)
+    }
+    
+    private var description: some View {
+        Text("Save keychain alert part 1".localized)
+            .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
+        +
+        Text("Save keychain alert part 2".localized)
+            .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutMedium))
+        +
+        Text("Save keychain alert part 3".localized)
+            .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
     }
 }
 
