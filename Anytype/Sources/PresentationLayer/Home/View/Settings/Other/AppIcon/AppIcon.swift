@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 
 enum AppIcon: CaseIterable {
-    case gradient
     case oldSchool
+    case gradient
     case art
     
     var description: String {

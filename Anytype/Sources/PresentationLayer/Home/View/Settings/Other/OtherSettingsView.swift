@@ -39,7 +39,7 @@ struct OtherSettingsView: View {
     
     private var iconPicker: some View {
         VStack(alignment: .leading) {
-            AnytypeText("App icon".localized, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText("App icon".localized, style: .uxBodyRegular, color: .textPrimary).padding(.bottom, 6)
             HStack(spacing: 20) {
                 ForEach(AppIcon.allCases, id: \.self) { icon in
                     appIcon(icon)
