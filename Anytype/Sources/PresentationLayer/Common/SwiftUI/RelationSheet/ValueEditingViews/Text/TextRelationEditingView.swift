@@ -20,15 +20,69 @@ struct TextRelationEditingView: View {
                 .background(FrameCatcher { height = $0.height })
             
             if(viewModel.value.isEmpty) {
-                AnytypeText(viewModel.placeholder, style: .uxBodyRegular, color: .textTertiary)
+                AnytypeText(viewModel.valueType.placeholder, style: .uxBodyRegular, color: .textTertiary)
                     .padding(6)
             }
+            
+            HStack(spacing: 8) {
+                textView
+                
+                if
+                    let icon = viewModel.valueType.icon,
+                    viewModel.value.isNotEmpty
+                {
+                    icon
+                        .frame(width: 36, height: 36)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(Color.grayscale30, lineWidth: 1)
+                        )
+                }
+            }
+        }
+    }
+    
+    private var textView: some View {
+        AutofocusedTextEditor(text: $viewModel.value, keyboardType: viewModel.valueType.keyboardType)
+            .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
+            .foregroundColor(.grayscale90)
+            .opacity(viewModel.value.isEmpty ? 0.25 : 1)
+            .frame(maxHeight: max(40, height))
+    }
+    
+}
 
-            AutofocusedTextEditor(text: $viewModel.value, keyboardType: viewModel.keyboardType)
-                .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                .foregroundColor(.grayscale90)
-                .opacity(viewModel.value.isEmpty ? 0.25 : 1)
-                .frame(maxHeight: max(40, height))
+// MARK: - `TextRelationValueType` extentions
+
+private extension TextRelationValueType {
+    
+    var keyboardType: UIKeyboardType {
+        switch self {
+        case .text: return .default
+        case .number: return .decimalPad
+        case .phone: return .phonePad
+        case .email: return .emailAddress
+        case .url: return .URL
+        }
+    }
+    
+    var placeholder: String {
+        switch self {
+        case .text: return "Add text".localized
+        case .number: return "Add number".localized
+        case .phone: return "Add phone number".localized
+        case .email: return "Add email".localized
+        case .url: return "Add URL".localized
+        }
+    }
+    
+    var icon: Image? {
+        switch self {
+        case .text: return nil
+        case .number: return nil
+        case .phone: return Image.Relations.Icons.Small.phone
+        case .email: return Image.Relations.Icons.Small.email
+        case .url: return Image.Relations.Icons.Small.url
         }
     }
     
@@ -40,7 +94,7 @@ struct RelationTextValueEditingView_Previews: PreviewProvider {
             viewModel: TextRelationEditingViewModel(
                 service: TextRelationEditingService(
                     objectId: "",
-                    valueType: .text
+                    valueType: .phone
                 ),
                 key: "",
                 value: nil
