@@ -27,16 +27,17 @@ struct TextRelationEditingView: View {
             HStack(spacing: 8) {
                 textView
                 
-                if
-                    let icon = viewModel.valueType.icon,
-                    viewModel.value.isNotEmpty
-                {
-                    icon
-                        .frame(width: 36, height: 36)
-                        .clipShape(Circle())
-                        .overlay(
-                            Circle().stroke(Color.grayscale30, lineWidth: 1)
-                        )
+                if let icon = viewModel.valueType.icon, viewModel.value.isNotEmpty, viewModel.isActionButtonEnabled {
+                    Button {
+                        viewModel.performAction()
+                    } label: {
+                        icon
+                            .frame(width: 36, height: 36)
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle().stroke(Color.grayscale30, lineWidth: 1)
+                            )
+                    }
                 }
             }
         }
