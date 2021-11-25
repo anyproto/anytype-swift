@@ -257,6 +257,7 @@
 		12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF9985273A8B87004CBB80 /* RelationsBuilder.swift */; };
 		12B0FF35274CEC6500CA35FE /* NumberRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF34274CEC6500CA35FE /* NumberRelationEditingViewModel.swift */; };
 		12B0FF39274CEDF500CA35FE /* NumberRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF38274CEDF500CA35FE /* NumberRelationEditingView.swift */; };
+		12B0FF44274F457D00CA35FE /* TextRelationEditingViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF43274F457D00CA35FE /* TextRelationEditingViewModelType.swift */; };
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
@@ -1043,6 +1044,7 @@
 		12AF9985273A8B87004CBB80 /* RelationsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsBuilder.swift; sourceTree = "<group>"; };
 		12B0FF34274CEC6500CA35FE /* NumberRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberRelationEditingViewModel.swift; sourceTree = "<group>"; };
 		12B0FF38274CEDF500CA35FE /* NumberRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberRelationEditingView.swift; sourceTree = "<group>"; };
+		12B0FF43274F457D00CA35FE /* TextRelationEditingViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingViewModelType.swift; sourceTree = "<group>"; };
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
@@ -2753,6 +2755,7 @@
 			children = (
 				120AC25D2747B56000330D7B /* TextRelationEditingViewModel.swift */,
 				12DD4D3827452282005E5E02 /* TextRelationEditingView.swift */,
+				12B0FF43274F457D00CA35FE /* TextRelationEditingViewModelType.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -5245,7 +5248,7 @@
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
-				3D93854C26FC3BB3001C137F /* UserDefaultsConfigExtension.swift in Sources */,
+				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
@@ -5331,6 +5334,7 @@
 				12A7B6C226C3E47200544037 /* CoverColor.swift in Sources */,
 				12426A2526DCF95F00693B1F /* KFProcessorBuilder.swift in Sources */,
 				EAE8C66C2690EE2800324B46 /* FirstResponderHelper.swift in Sources */,
+				12B0FF44274F457D00CA35FE /* TextRelationEditingViewModelType.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
