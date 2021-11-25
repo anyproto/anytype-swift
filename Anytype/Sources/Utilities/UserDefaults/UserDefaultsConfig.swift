@@ -2,6 +2,7 @@ import AnytypeCore
 import BlocksModels
 import Combine
 import Firebase
+import SwiftUI
 
 struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
@@ -93,4 +94,7 @@ struct UserDefaultsConfig {
             _wallpaper = encoded
         }
     }
+    
+    @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
+    static var showKeychainAlert: Bool
 }

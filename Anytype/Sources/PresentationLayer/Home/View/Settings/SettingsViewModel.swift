@@ -13,7 +13,6 @@ final class SettingsViewModel: ObservableObject {
     @Published var clearCacheSuccessful = false
     @Published var about = false
     @Published var debugMenu = false
-    @Published var keychainRemidner = true
     
     @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
         didSet {
