@@ -5,9 +5,7 @@ import SwiftUI
 final class TextRelationEditingViewModel: ObservableObject {
     
     @Published var value: String = ""
-    
-    let keyboardType: UIKeyboardType
-    let placeholder: String
+    let valueType: TextRelationValueType
     
     private let service: TextRelationEditingServiceProtocol
     private let key: String
@@ -20,8 +18,7 @@ final class TextRelationEditingViewModel: ObservableObject {
         self.service = service
         self.key = key
         self.value = value ?? ""
-        self.keyboardType = service.valueType.keyboardType
-        self.placeholder = service.valueType.placeholder
+        self.valueType = service.valueType
     }
     
 }
