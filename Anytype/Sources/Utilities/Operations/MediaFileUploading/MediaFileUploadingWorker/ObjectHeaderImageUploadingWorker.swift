@@ -15,10 +15,10 @@ final class ObjectHeaderImageUploadingWorker {
     private var uploadedImageHash: Hash?
     
     private let fileService = BlockActionsServiceFile()
-    private let detailsService: ObjectDetailsService
+    private let detailsService: DetailsService
     private let usecase: ObjectHeaderImageUsecase
     
-    init(detailsService: ObjectDetailsService, usecase: ObjectHeaderImageUsecase) {
+    init(detailsService: DetailsService, usecase: ObjectHeaderImageUsecase) {
         self.detailsService = detailsService
         self.usecase = usecase
     }
@@ -52,10 +52,7 @@ extension ObjectHeaderImageUploadingWorker: MediaFileUploadingWorkerProtocol {
     
     func finish() {
         guard let hash = uploadedImageHash else { return }
-        
-        detailsService.update(
-            details: usecase.updatedDetails(with: hash)
-        )
+        detailsService.updateBundledDetails(usecase.updatedDetails(with: hash))
     }
     
 }

@@ -178,25 +178,29 @@ final class BlockViewModelBuilder {
             
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
-                featuredRelation: document.parsedRelations.featuredRelations,
+                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType),
                 type: objectType.name
-            ) { [weak self] _ in
+            ) { [weak self] relation in
                 guard let self = self else { return }
-                
-                guard
-                    !self.document.objectRestrictions.objectRestriction.contains(.typechange)
-                else {
-                    return
-                }
-                
-                self.router.showTypesSearch(
-                    onSelect: { [weak self] id in
-                        self?.handler.setObjectTypeUrl(id)
+
+                // TODO: reimplement when relation edit will be ready
+
+                if relation.id == BundledRelationKey.type.rawValue {
+                    guard
+                        !self.document.objectRestrictions.objectRestriction.contains(.typechange)
+                    else {
+                        return
                     }
-                )
+
+                    self.router.showTypesSearch(
+                        onSelect: { [weak self] id in
+                            self?.handler.setObjectTypeUrl(id)
+                        }
+                    )
+                }
             }
             
-        case .smartblock, .layout: return nil
+        case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil

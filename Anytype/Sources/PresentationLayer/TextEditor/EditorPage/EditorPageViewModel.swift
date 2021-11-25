@@ -36,7 +36,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private lazy var cancellables = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingle
-    private let blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
+    private weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
     var selectedBlocksIndexPaths = [IndexPath]()
 
     deinit {
@@ -124,7 +124,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectSettingsViewModel.update(
                 objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
-                objectRelationsStorage: document.parsedRelations
+                parsedRelations: document.parsedRelations
             )
             updateHeaderIfNeeded(header: header, details: details)
 
@@ -255,7 +255,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         objectSettingsViewModel.update(
             objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
-            objectRelationsStorage: document.parsedRelations
+            parsedRelations: document.parsedRelations
         )
     }
 
@@ -270,8 +270,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
         let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
 
-        blocksSelectionOverlayViewModel.setSelectedBlocksCount(selectedBlocks.count)
-        blocksSelectionOverlayViewModel.blocksOptionViewModel?.options = restrictions.mergedOptions
+        blocksSelectionOverlayViewModel?.setSelectedBlocksCount(selectedBlocks.count)
+        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = restrictions.mergedOptions
     }
 }
 

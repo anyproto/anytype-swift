@@ -54,7 +54,7 @@ struct ObjectSettingsContainerView: View {
             .sheet(
                 isPresented: $isRelationsViewPresented
             ) {
-                ObjectRelationsView(viewModel: viewModel.relationsViewModel)
+                RelationsListView(viewModel: viewModel.relationsViewModel)
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
@@ -93,8 +93,9 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
                 detailsStorage: ObjectDetailsStorage(),
-                objectDetailsService: ObjectDetailsService(objectId: ""),
-                popScreenAction: {}
+                objectDetailsService: DetailsService(objectId: ""),
+                popScreenAction: {},
+                onRelationValueEditingTap: { _ in }
             )
         )
     }

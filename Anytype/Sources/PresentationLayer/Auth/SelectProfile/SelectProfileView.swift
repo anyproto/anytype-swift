@@ -18,6 +18,7 @@ struct SelectProfileView: View {
             presentationMode.wrappedValue.dismiss()
         }
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             viewModel.accountRecover()
         }

@@ -75,10 +75,15 @@ final class EditorAssembly {
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectId: document.objectId,
             detailsStorage: document.detailsStorage,
-            objectDetailsService: ObjectDetailsService(
+            objectDetailsService: DetailsService(
                 objectId: document.objectId
             ),
-            popScreenAction: router.goBack
+            popScreenAction: { [weak router] in
+                router?.goBack()
+            },
+            onRelationValueEditingTap: { [weak router] in
+                router?.showRelationValueEditingView(key: $0)
+            }
         )
                 
         let modelsHolder = BlockViewModelsHolder(
