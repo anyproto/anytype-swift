@@ -80,8 +80,16 @@ extension Image {
         static let checkboxChecked = createImage("relation_checkbox_checked")
         static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
         static let addToFeatured = createImage("relation_add_to_featured")
-        static let removeFromFeatured = createImage("relations_remove_from_featured")
+        static let removeFromFeatured = createImage("relation_remove_from_featured")
         static let locked = createImage("relation_locked")
+        
+        enum Icons {
+            enum Small {
+                static let phone = createImage("relation_small_phone_icon")
+                static let email = createImage("relation_small_email_icon")
+                static let url = createImage("relation_small_url_icon")
+            }
+        }
     }
 }
 

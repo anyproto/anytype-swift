@@ -270,6 +270,33 @@ final class EditorRouter: EditorRouterProtocol {
                 key: relation.id,
                 value: string
             )
+        case .phone(let string):
+            contentViewModel = TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .phone
+                ),
+                key: relation.id,
+                value: string
+            )
+        case .email(let string):
+            contentViewModel = TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .email
+                ),
+                key: relation.id,
+                value: string
+            )
+        case .url(let string):
+            contentViewModel = TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .url
+                ),
+                key: relation.id,
+                value: string
+            )
         default:
             contentViewModel = nil
         }
