@@ -102,13 +102,11 @@ struct HomeView: View {
     }
     
     private var newPageNavigation: some View {
-        Group {
-            NavigationLink(
-                destination: viewModel.createBrowser(),
-                isActive: $viewModel.openedPageData.showing,
-                label: { EmptyView() }
-            )
-        }
+        NavigationLink(
+            destination: viewModel.createBrowser(),
+            isActive: $viewModel.openedPageData.showing,
+            label: { EmptyView() }
+        )
     }
 }
 

@@ -96,6 +96,7 @@ extension UIFont {
     static let uxBodyRegular = UIKitFontBuilder.uiKitFont(font: .uxBodyRegular)
     static let caption1Regular = UIKitFontBuilder.uiKitFont(font: .caption1Regular)
     static let caption1Medium = UIKitFontBuilder.uiKitFont(font: .caption1Medium)
+    static let uxTitle1Semibold = UIKitFontBuilder.uiKitFont(font: .uxTitle1Semibold)
     static let uxTitle2Regular = UIKitFontBuilder.uiKitFont(font: .uxTitle2Regular)
     static let uxCalloutRegular = UIKitFontBuilder.uiKitFont(font: .uxCalloutRegular)
     static let uxCalloutMedium = UIKitFontBuilder.uiKitFont(font: .uxCalloutMedium)
