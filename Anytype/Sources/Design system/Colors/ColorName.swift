@@ -7,4 +7,5 @@ enum ColorName {
     
     static let buttonInactive = "buttonInactive"
     static let buttonSelected = "buttonSelected"
+    static let buttonSecondaryPressed = "buttonSecondaryPressed"
 }

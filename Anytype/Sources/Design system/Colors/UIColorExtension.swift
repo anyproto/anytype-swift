@@ -14,14 +14,12 @@ extension UIColor {
     static let buttonActive = UIColor.grayscale50
     static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
+    static var buttonSecondaryPressed = color(name: ColorName.buttonSecondaryPressed)
 
     // MARK: - Color for background
 
     static let backgroundPrimary = UIColor.grayscaleWhite
 
-    static var selected: UIColor {
-        .init(hexString: "#867D42", alpha: 0.1)
-    }
     
     /// Color that can be used in case if we couldn't parse color from middleware
     static let defaultColor = grayscale90
