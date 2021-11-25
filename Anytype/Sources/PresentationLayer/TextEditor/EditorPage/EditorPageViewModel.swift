@@ -289,13 +289,32 @@ extension EditorPageViewModel {
     func viewAppeared() {
         cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
     }
+
+    func didLongTap(at indexPath: IndexPath) {
+        guard canSelectBlock(at: indexPath) else { return }
+
+        element(at: indexPath).map {
+            didSelectEditingState(on: $0.information)
+        }
+    }
 }
 
 // MARK: - Selection Handling
 
 extension EditorPageViewModel {
-    func didSelectBlock(at index: IndexPath) {
-        element(at: index)?.didSelectRowInTableView()
+    func canSelectBlock(at indexPath: IndexPath) -> Bool {
+        guard let block = element(at: indexPath) else { return false }
+
+        if block.content.type == .text(.title) ||
+            block.content.type == .featuredRelations {
+            return false
+        }
+
+        return true
+    }
+
+    func didSelectBlock(at indexPath: IndexPath) {
+        element(at: indexPath)?.didSelectRowInTableView()
     }
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
