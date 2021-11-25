@@ -106,6 +106,10 @@ final class BlocksSelectionOverlayView: UIView {
         viewModel.$isBlocksOptionViewVisible.sink { [unowned self] isVisible in
             shadowedBlocksOptionView.isHidden = !isVisible
         }.store(in: &cancellables)
+
+        viewModel.$isMovingButtonsVisible.sink { [unowned self] isVisible in
+            movingButtonsUIView.isHidden = !isVisible
+        }.store(in: &cancellables)
     }
 }
 

@@ -1,11 +1,3 @@
-//
-//  FeaturedRelationsBlockViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 25.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import BlocksModels
@@ -42,7 +34,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: enhanceFeaturedRelations(featuredRelations),
+            featuredRelations: featuredRelations,
             type: type,
             alignment: information.alignment.asNSTextAlignment,
             onRelationTap: onRelationTap
@@ -56,26 +48,4 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     }
     
     func handle(action: ContextualMenu) {}
-
-    private func enhanceFeaturedRelations(_ relations: [Relation]) -> [Relation] {
-        var enhancedRelations = featuredRelations
-
-        let objectTypeRelation = Relation(
-            id: RelationMetadataKey.type.rawValue,
-            name: "",
-            value: RelationValue.text(type),
-            hint: "",
-            isFeatured: false,
-            isEditable: false
-        )
-
-        enhancedRelations.insert(objectTypeRelation, at: 0)
-
-        enhancedRelations.removeAll { relation in
-            relation.id == RelationMetadataKey.description.rawValue
-        }
-
-        return enhancedRelations
-    }
-    
 }

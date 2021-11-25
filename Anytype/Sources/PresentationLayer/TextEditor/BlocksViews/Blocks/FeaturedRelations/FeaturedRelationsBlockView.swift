@@ -35,9 +35,13 @@ final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockCont
 private extension FeaturedRelationsBlockView  {
     
     func setupLayout() {
-        let relationFlowViewModel = FlowRelationsViewModel(relations: currentConfiguration.featuredRelations,
-                                                       onRelationTap: currentConfiguration.onRelationTap)
+        let relationFlowViewModel = FlowRelationsViewModel(
+            relations: currentConfiguration.featuredRelations,
+            onRelationTap: currentConfiguration.onRelationTap
+        )
         self.relationFlowViewModel = relationFlowViewModel
+        relationFlowViewModel.relations = currentConfiguration.featuredRelations
+        relationFlowViewModel.alignment = currentConfiguration.alignment.asSwiftUI
 
         let relationsView = FlowRelationsView(viewModel: relationFlowViewModel).asUIView()
 

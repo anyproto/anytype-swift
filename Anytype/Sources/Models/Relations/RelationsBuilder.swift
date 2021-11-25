@@ -4,6 +4,12 @@ import SwiftProtobuf
 import UIKit
 
 final class RelationsBuilder {
+    
+    private let scope: RelationMetadata.Scope
+    
+    init(scope: RelationMetadata.Scope = .object) {
+        self.scope = scope
+    }
 
     // MARK: - Private variables
     
@@ -15,6 +21,13 @@ final class RelationsBuilder {
         return dateFormatter
     }()
     
+    private let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ""
+        return formatter
+    }()
+    
     // MARK: - Internal functions
     
     func buildRelations(
@@ -23,16 +36,15 @@ final class RelationsBuilder {
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> ParsedRelations {
         guard let objectDetails = detailsStorage.get(id: objectId) else {
-            return ParsedRelations(otherRelations: [], featuredRelations: [])
+            return .empty
         }
         
         var featuredRelations: [Relation] = []
         var otherRelations: [Relation] = []
-        var allRelations: [Relation] = []
         
         let featuredRelationIds = objectDetails.featuredRelations
         relations.forEach { relation in
-            guard !relation.isHidden, relation.scope == .object else { return }
+            guard !relation.isHidden, relation.scope == scope else { return }
             
             let value = relationValue(
                 relation: relation,
@@ -48,8 +60,6 @@ final class RelationsBuilder {
                 isFeatured: featuredRelationIds.contains(relation.id),
                 isEditable: !relation.isReadOnly
             )
-
-            allRelations.append(relationData)
             
             if relationData.isFeatured {
                 featuredRelations.append(relationData)
@@ -58,7 +68,7 @@ final class RelationsBuilder {
             }
         }
         
-        return ParsedRelations(otherRelations: otherRelations, featuredRelations: featuredRelations)
+        return ParsedRelations(featuredRelations: featuredRelations, otherRelations: otherRelations)
     }
     
 }
@@ -112,10 +122,12 @@ private extension RelationsBuilder {
     func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
-        let number = value?.safeIntValue
-        let text: String? = number.flatMap { String($0) }
+        guard let number = value?.safeDoubleValue else {
+            return .number(nil)
+        }
         
-        return .text(text)
+        let text: String? = numberFormatter.string(from: NSNumber(floatLiteral: number))
+        return .number(text)
     }
     
     func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
@@ -239,7 +251,7 @@ private extension RelationsBuilder {
         let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
             let fileName: String = {
                 let name = objectDetail.name
-                let fileExt = objectDetail.values[RelationMetadataKey.fileExt.rawValue]
+                let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
                 let fileExtString = fileExt?.stringValue
                 
                 guard
@@ -254,12 +266,14 @@ private extension RelationsBuilder {
                     return .icon(objectIconType)
                 }
                 
-                let fileMimeType = objectDetail.values[RelationMetadataKey.fileMimeType.rawValue]?.stringValue
-                guard let fileMimeType = fileMimeType else {
+                let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
+                let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
+
+                guard let fileMimeType = fileMimeType, let fileName = fileName else {
                     return .image(UIImage.blockFile.content.other)
                 }
                 
-                return .image(BlockFileIconBuilder.convert(mime: fileMimeType))
+                return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
             }()
             
             return ObjectRelation(icon: icon, text: fileName)

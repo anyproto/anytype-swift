@@ -30,7 +30,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
-    
+    func showRelationValueEditingView(key: String)
     func goBack()
 }
 
@@ -242,6 +242,58 @@ final class EditorRouter: EditorRouterProtocol {
         let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
 
         presentSwuftUIView(view: searchView, model: viewModel)
+    }
+    
+    func showRelationValueEditingView(key: String) {
+        guard let viewController = viewController else { return }
+        
+        let relation = document.parsedRelations.all.first { $0.id == key }
+        guard let relation = relation else { return }
+        
+        let contentViewModel: RelationEditingViewModelProtocol?
+        switch relation.value {
+        case .text(let string):
+            contentViewModel = TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .text
+                ),
+                key: relation.id,
+                value: string
+            )
+        case .number(let string):
+            contentViewModel = TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .number
+                ),
+                key: relation.id,
+                value: string
+            )
+        default:
+            contentViewModel = nil
+        }
+        
+        guard let contentViewModel = contentViewModel else { return }
+        
+        let sheetViewModel = RelationSheetViewModel(
+            name: relation.name,
+            contentViewModel: contentViewModel
+        )
+        
+        let relationSheet = RelationSheet(viewModel: sheetViewModel)
+        
+        let controller = UIHostingController(rootView: relationSheet)
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        
+        sheetViewModel.configureOnDismiss { [weak controller] in
+            controller?.dismiss(animated: false)
+        }
+        
+        viewController.topPresentedController.present(controller, animated: false)
     }
     
     func goBack() {

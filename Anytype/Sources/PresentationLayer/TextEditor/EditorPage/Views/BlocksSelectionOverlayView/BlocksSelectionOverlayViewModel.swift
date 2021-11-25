@@ -3,7 +3,7 @@ import Combine
 final class BlocksSelectionOverlayViewModel {
     @Published var navigationTitle: String = ""
     @Published var isBlocksOptionViewVisible: Bool = false
-    @Published var isMovingState: Bool = false
+    @Published var isMovingButtonsVisible: Bool = false
 
     var endEditingModeHandler: (() -> Void)?
     var cancelButtonHandler: (() -> Void)?
@@ -16,9 +16,11 @@ final class BlocksSelectionOverlayViewModel {
         case .editing:
             break
         case .moving:
-            isMovingState = true
+            isMovingButtonsVisible = true
+            isBlocksOptionViewVisible = false
+            navigationTitle = "Editor.MovingState.ScrollToSelectedPlace".localized
         case .selecting(let blocks):
-            isMovingState = false
+            isMovingButtonsVisible = false
             isBlocksOptionViewVisible = blocks.isNotEmpty
             switch blocks.count {
             case 1:

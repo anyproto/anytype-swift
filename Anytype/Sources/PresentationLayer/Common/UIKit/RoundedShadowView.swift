@@ -13,7 +13,7 @@ final class RoundedShadowView<View: UIView>: UIView {
 
         shadowLayer.shadowPath = shadowLayer.path
 
-        super.init(frame: view.frame)
+        super.init(frame: view.bounds)
 
         setupLayout()
     }

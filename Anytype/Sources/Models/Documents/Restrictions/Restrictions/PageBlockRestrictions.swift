@@ -12,8 +12,7 @@ struct PageBlockRestrictions: BlockRestrictions {
     let canDeleteOrDuplicate = true
     let turnIntoStyles: [BlockContentType] = [
         .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),
-        .text(.checkbox), .text(.bulleted), .text(.numbered), .text(.toggle),
-        .smartblock(.page)
+        .text(.checkbox), .text(.bulleted), .text(.numbered), .text(.toggle)
     ]
    
     let availableAlignments = LayoutAlignment.allCases

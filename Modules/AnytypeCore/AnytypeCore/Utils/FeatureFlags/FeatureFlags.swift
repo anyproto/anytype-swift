@@ -10,7 +10,7 @@ public final class FeatureFlags {
     public typealias Features = [Feature: Bool]
     
     public static var features: Features {
-        UserDefaultsConfig.featureFlags.merging(defaultValues, uniquingKeysWith: { (first, _) in first })
+        FeatureFlagsStorage.featureFlags.merging(defaultValues, uniquingKeysWith: { (first, _) in first })
     }
     
     private static var isRelease: Bool {
@@ -30,9 +30,9 @@ public final class FeatureFlags {
     ]
     
     public static func update(key: Feature, value: Bool) {
-        var updatedFeatures = UserDefaultsConfig.featureFlags
+        var updatedFeatures = FeatureFlagsStorage.featureFlags
         updatedFeatures.updateValue(value, forKey: key)
-        UserDefaultsConfig.featureFlags = updatedFeatures
+        FeatureFlagsStorage.featureFlags = updatedFeatures
     }
 }
 
