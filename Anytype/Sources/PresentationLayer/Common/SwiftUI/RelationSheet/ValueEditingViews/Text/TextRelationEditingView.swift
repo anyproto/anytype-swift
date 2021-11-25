@@ -82,7 +82,7 @@ private extension TextRelationValueType {
         case .number: return nil
         case .phone: return Image.Relations.Icons.Small.phone
         case .email: return Image.Relations.Icons.Small.email
-        case .url: return Image.Relations.Icons.Small.url
+        case .url: return Image.Relations.Icons.Small.goToURL
         }
     }
     

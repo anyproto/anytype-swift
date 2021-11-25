@@ -86,7 +86,7 @@ extension Image {
             enum Small {
                 static let phone = createImage("relation_small_phone_icon")
                 static let email = createImage("relation_small_email_icon")
-                static let url = createImage("relation_small_url_icon")
+                static let goToURL = createImage("relation_small_go_to_url_icon")
             }
         }
     }
