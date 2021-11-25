@@ -1,20 +1,16 @@
 import UIKit
 
-extension TextRelationEditingViewModel {
-    
-    enum ValueType {
-        case text
-        case number
-        case phone
-        case email
-        case url
-    }
-    
+enum TextRelationValueType {
+    case text
+    case number
+    case phone
+    case email
+    case url
 }
 
 // MARK: - `ValueType` extentions
 
-extension TextRelationEditingViewModel.ValueType {
+extension TextRelationValueType {
     
     var keyboardType: UIKeyboardType {
         switch self {

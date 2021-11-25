@@ -254,14 +254,20 @@ final class EditorRouter: EditorRouterProtocol {
         switch relation.value {
         case .text(let string):
             contentViewModel = TextRelationEditingViewModel(
-                objectId: document.objectId,
-                relationKey: relation.id,
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .text
+                ),
+                key: relation.id,
                 value: string
             )
         case .number(let string):
-            contentViewModel = NumberRelationEditingViewModel(
-                objectId: document.objectId,
-                relationKey: relation.id,
+            contentViewModel = TextRelationEditingViewModel(
+                service: TextRelationEditingService(
+                    objectId: document.objectId,
+                    valueType: .number
+                ),
+                key: relation.id,
                 value: string
             )
         default:

@@ -255,9 +255,9 @@
 		12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A8CCED26BD5F3B00090468 /* EditorItem.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF9985273A8B87004CBB80 /* RelationsBuilder.swift */; };
-		12B0FF35274CEC6500CA35FE /* NumberRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF34274CEC6500CA35FE /* NumberRelationEditingViewModel.swift */; };
-		12B0FF39274CEDF500CA35FE /* NumberRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF38274CEDF500CA35FE /* NumberRelationEditingView.swift */; };
-		12B0FF44274F457D00CA35FE /* TextRelationEditingViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF43274F457D00CA35FE /* TextRelationEditingViewModelType.swift */; };
+		12B0FF44274F457D00CA35FE /* TextRelationValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF43274F457D00CA35FE /* TextRelationValueType.swift */; };
+		12B0FF4C274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF4B274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift */; };
+		12B0FF52274F4C0E00CA35FE /* TextRelationEditingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF51274F4C0E00CA35FE /* TextRelationEditingService.swift */; };
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
@@ -1042,9 +1042,9 @@
 		12A8CCED26BD5F3B00090468 /* EditorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorItem.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12AF9985273A8B87004CBB80 /* RelationsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsBuilder.swift; sourceTree = "<group>"; };
-		12B0FF34274CEC6500CA35FE /* NumberRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberRelationEditingViewModel.swift; sourceTree = "<group>"; };
-		12B0FF38274CEDF500CA35FE /* NumberRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberRelationEditingView.swift; sourceTree = "<group>"; };
-		12B0FF43274F457D00CA35FE /* TextRelationEditingViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingViewModelType.swift; sourceTree = "<group>"; };
+		12B0FF43274F457D00CA35FE /* TextRelationValueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationValueType.swift; sourceTree = "<group>"; };
+		12B0FF4B274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingServiceProtocol.swift; sourceTree = "<group>"; };
+		12B0FF51274F4C0E00CA35FE /* TextRelationEditingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingService.swift; sourceTree = "<group>"; };
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
@@ -2612,6 +2612,7 @@
 			children = (
 				126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */,
 				126F3D89273E4E4F00AEF39A /* RelationsService.swift */,
+				12B0FF53274F4CEE00CA35FE /* Editing */,
 			);
 			path = Relations;
 			sourceTree = "<group>";
@@ -2745,7 +2746,6 @@
 			children = (
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				12887F3D274BC25100228330 /* Text */,
-				12B0FF33274CEC5300CA35FE /* Number */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -2753,9 +2753,9 @@
 		12887F3D274BC25100228330 /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				120AC25D2747B56000330D7B /* TextRelationEditingViewModel.swift */,
 				12DD4D3827452282005E5E02 /* TextRelationEditingView.swift */,
-				12B0FF43274F457D00CA35FE /* TextRelationEditingViewModelType.swift */,
+				120AC25D2747B56000330D7B /* TextRelationEditingViewModel.swift */,
+				12B0FF43274F457D00CA35FE /* TextRelationValueType.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -2798,13 +2798,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		12B0FF33274CEC5300CA35FE /* Number */ = {
+		12B0FF53274F4CEE00CA35FE /* Editing */ = {
 			isa = PBXGroup;
 			children = (
-				12B0FF34274CEC6500CA35FE /* NumberRelationEditingViewModel.swift */,
-				12B0FF38274CEDF500CA35FE /* NumberRelationEditingView.swift */,
+				12B0FF4B274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift */,
+				12B0FF51274F4C0E00CA35FE /* TextRelationEditingService.swift */,
 			);
-			path = Number;
+			path = Editing;
 			sourceTree = "<group>";
 		};
 		12BE8E5826565D6D000C95B9 /* Extensions */ = {
@@ -5242,7 +5242,6 @@
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
-				12B0FF39274CEDF500CA35FE /* NumberRelationEditingView.swift in Sources */,
 				3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
@@ -5294,6 +5293,7 @@
 				EA0261362625D12000AE6D86 /* BlockRestrictionsBuilder.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				120AC25E2747B56000330D7B /* TextRelationEditingViewModel.swift in Sources */,
+				12B0FF52274F4C0E00CA35FE /* TextRelationEditingService.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockListService.swift in Sources */,
@@ -5334,7 +5334,7 @@
 				12A7B6C226C3E47200544037 /* CoverColor.swift in Sources */,
 				12426A2526DCF95F00693B1F /* KFProcessorBuilder.swift in Sources */,
 				EAE8C66C2690EE2800324B46 /* FirstResponderHelper.swift in Sources */,
-				12B0FF44274F457D00CA35FE /* TextRelationEditingViewModelType.swift in Sources */,
+				12B0FF44274F457D00CA35FE /* TextRelationValueType.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
@@ -5546,6 +5546,7 @@
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
+				12B0FF4C274F4BD000CA35FE /* TextRelationEditingServiceProtocol.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* TextService.swift in Sources */,
 				3DB1C9E32727FE2E000D2779 /* MentionData.swift in Sources */,
@@ -5584,7 +5585,6 @@
 				3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */,
 				1223C8FE272693E600C34616 /* FeaturedRelationsBlockViewModel.swift in Sources */,
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,
-				12B0FF35274CEC6500CA35FE /* NumberRelationEditingViewModel.swift in Sources */,
 				12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,

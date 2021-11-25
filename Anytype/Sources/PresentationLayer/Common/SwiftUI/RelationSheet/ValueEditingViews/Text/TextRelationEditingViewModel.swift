@@ -6,13 +6,22 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     @Published var value: String = ""
     
-    private let relationKey: String
-    private let service: DetailsService
+    let keyboardType: UIKeyboardType
+    let placeholder: String
     
-    init(objectId: BlockId, relationKey: String, value: String?) {
-        self.service = DetailsService(objectId: objectId)
-        self.relationKey = relationKey
+    private let service: TextRelationEditingServiceProtocol
+    private let key: String
+    
+    init(
+        service: TextRelationEditingServiceProtocol,
+        key: String,
+        value: String?
+    ) {
+        self.service = service
+        self.key = key
         self.value = value ?? ""
+        self.keyboardType = service.valueType.keyboardType
+        self.placeholder = service.valueType.placeholder
     }
     
 }
@@ -20,7 +29,7 @@ final class TextRelationEditingViewModel: ObservableObject {
 extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func saveValue() {
-        service.updateDetails([DetailsUpdate(key: relationKey, value: value.protobufValue)])
+        service.save(value: value, forKey: key)
     }
     
     func makeView() -> AnyView {
