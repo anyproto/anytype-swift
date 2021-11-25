@@ -38,12 +38,14 @@ final class BlocksSelectionOverlayView: UIView {
         }
     }
 
+
+
     // MARK: - Private
     private func setupView() {
         bindActions()
         backgroundColor = .clear
 
-        let statusBarHeight = UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let statusBarHeight = UIApplication.shared.mainWindowInsets.top
         addSubview(statusBarOverlayView) {
             $0.pinToSuperview(excluding: [.bottom])
             $0.height.equal(to: statusBarHeight)
@@ -139,7 +141,7 @@ private final class SelectionNavigationView: UIView {
             $0.centerY.equal(to: centerYAnchor)
         }
 
-        titleLabel.font = .uxCalloutMedium
+        titleLabel.font = .uxTitle1Semibold
 
         let leftButtonAction = UIAction(handler: { [unowned self] _ in
             leftButtonTap?()
