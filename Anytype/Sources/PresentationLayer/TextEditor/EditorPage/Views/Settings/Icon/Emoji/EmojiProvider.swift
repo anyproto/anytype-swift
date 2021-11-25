@@ -46,6 +46,7 @@ final class EmojiProvider {
 private extension EmojiProvider{
     
     func loadEmojiGroups() -> [EmojiGroup] {
+        // source https://github.com/github/gemoji/blob/master/db/emoji.json
         guard let asset = NSDataAsset(name: "Emoji/EmojiData") else {
             fatalError("Missing data asset: EmojiData")
         }

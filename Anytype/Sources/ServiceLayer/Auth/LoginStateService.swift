@@ -12,6 +12,11 @@ final class LoginStateService {
         ObjectTypeProvider.loadObjects()
     }
     
+    func setupStateAfterRegistration() {
+        UserDefaultsConfig.showKeychainAlert = true
+        ObjectTypeProvider.loadObjects()
+    }
+    
     func cleanStateAfterLogout() {
         try? seedService.removeSeed()
         UserDefaultsConfig.cleanStateAfterLogout()
