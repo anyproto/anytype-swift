@@ -98,11 +98,11 @@ private extension RelationsBuilder {
         case .checkbox:
             return checkboxRelationValue(relation: relation, details: details)
         case .url:
-            return textRelationValue(relation: relation, details: details)
+            return urlRelationValue(relation: relation, details: details)
         case .email:
-            return textRelationValue(relation: relation, details: details)
+            return emailRelationValue(relation: relation, details: details)
         case .phone:
-            return textRelationValue(relation: relation, details: details)
+            return phoneRelationValue(relation: relation, details: details)
         case .tag:
             return tagRelationValue(relation: relation, details: details)
         case .object:
@@ -114,9 +114,8 @@ private extension RelationsBuilder {
     
     func textRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
-        let text: String? = value?.stringValue
         
-        return .text(text)
+        return .text(value?.stringValue)
     }
     
     func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
@@ -128,6 +127,24 @@ private extension RelationsBuilder {
         
         let text: String? = numberFormatter.string(from: NSNumber(floatLiteral: number))
         return .number(text)
+    }
+    
+    func phoneRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
+        let value = details.values[relation.key]
+        
+        return .phone(value?.stringValue)
+    }
+    
+    func emailRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
+        let value = details.values[relation.key]
+        
+        return .email(value?.stringValue)
+    }
+    
+    func urlRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
+        let value = details.values[relation.key]
+        
+        return .url(value?.stringValue)
     }
     
     func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
