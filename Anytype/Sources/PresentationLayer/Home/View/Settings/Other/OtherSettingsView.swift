@@ -1,27 +1,8 @@
 import SwiftUI
 import AnytypeCore
 
-enum AppIcon {
-    case oldSchool
-    case gradient
-    case art
-    
-    var description: String {
-        switch self {
-        case .oldSchool:
-            return "Old School".localized
-        case .gradient:
-            return "Gradient".localized
-        case .art:
-            return "Art".localized
-        }
-    }
-}
-
 struct OtherSettingsView: View {
     @EnvironmentObject private var model: SettingsViewModel
-    // TODO: User defaults
-    @State var appIcon = AppIcon.gradient
     
     var body: some View {
         VStack(spacing: 0) {
@@ -60,9 +41,9 @@ struct OtherSettingsView: View {
         VStack(alignment: .leading) {
             AnytypeText("App icon".localized, style: .uxBodyRegular, color: .textPrimary)
             HStack(spacing: 20) {
-                appIcon(type: .oldSchool)
-                appIcon(type: .gradient)
-                appIcon(type: .art)
+                ForEach(AppIcon.allCases, id: \.self) { icon in
+                    appIcon(icon)
+                }
                 Spacer()
             }
         }
@@ -71,21 +52,24 @@ struct OtherSettingsView: View {
         .padding(.horizontal, 20)
     }
     
-    private func appIcon(type: AppIcon) -> some View {
+    private func appIcon(_ icon: AppIcon) -> some View {
         VStack(alignment: .center) {
-            Button(action: {
-                appIcon = type
+            Button {
+                AppIconManager.shared.setIcon(icon)
                 UISelectionFeedbackGenerator().selectionChanged()
-            }) {
-                Image.appIcon.resizable().frame(width: 64, height: 64)
-                    .if(appIcon == type) {
-                        $0.overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.pureAmber, lineWidth: 3)
-                        )
-                    }
+                
+            } label: {
+                icon.preview.resizable()
+                    .frame(width: 60, height: 60)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(
+                                AppIconManager.shared.currentIcon == icon ? Color.pureAmber : Color.grayscale10,
+                                lineWidth: 3
+                            )
+                    )
             }
-            AnytypeText(type.description, style: .uxCalloutRegular, color: appIcon == type ? .textPrimary : .textSecondary)
+            AnytypeText(icon.description, style: .uxCalloutRegular, color: AppIconManager.shared.currentIcon == icon ? .textPrimary : .textSecondary)
         }
     }
     
