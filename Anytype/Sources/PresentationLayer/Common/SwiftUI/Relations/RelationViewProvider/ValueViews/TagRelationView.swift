@@ -103,7 +103,7 @@ struct TagRelationView_Previews: PreviewProvider {
                 TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
             ],
             hint: "Hint",
-            style: .regular
+            style: .regular(allowMultiLine: false)
         )
     }
 }

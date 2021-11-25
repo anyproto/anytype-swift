@@ -597,6 +597,8 @@
 		535E02AD274FF0B100E1AF8C /* RelationValueViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */; };
 		535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AF275023B300E1AF8C /* RelationStyle.swift */; };
 		535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */; };
+		535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */; };
+		535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */; };
 		535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79722746AAD40050A1B8 /* FlowLayout.swift */; };
 		535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */; };
 		535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */; };
@@ -1397,6 +1399,8 @@
 		535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewProvider.swift; sourceTree = "<group>"; };
 		535E02AF275023B300E1AF8C /* RelationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationStyle.swift; sourceTree = "<group>"; };
 		535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockViewModel.swift; sourceTree = "<group>"; };
+		535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockRestrictions.swift; sourceTree = "<group>"; };
+		535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRelationConverter.swift; sourceTree = "<group>"; };
 		535F79722746AAD40050A1B8 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsView.swift; sourceTree = "<group>"; };
 		535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsViewModel.swift; sourceTree = "<group>"; };
@@ -3476,6 +3480,7 @@
 				3D16840D26DD672E008B9DFF /* BlockSmartblockConverter.swift */,
 				3D16840E26DD672E008B9DFF /* BlockTextConverter.swift */,
 				3DE0B3222747BCBC00F69376 /* BlockDataviewConverter.swift */,
+				535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */,
 			);
 			path = ProtobufConverters;
 			sourceTree = "<group>";
@@ -4057,6 +4062,7 @@
 				EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */,
 				3DB6929F2697066500149864 /* DummyRestrictions.swift */,
 				12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */,
+				535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */,
 			);
 			path = Restrictions;
 			sourceTree = "<group>";
@@ -5348,6 +5354,7 @@
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
+				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
@@ -5691,6 +5698,7 @@
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
 				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
+				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				125B6EBA26F235F400BCD7D6 /* URLInputAccessoryView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,

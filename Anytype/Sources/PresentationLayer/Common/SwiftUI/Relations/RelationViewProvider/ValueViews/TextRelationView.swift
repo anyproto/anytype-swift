@@ -4,6 +4,7 @@ struct TextRelationView: View {
     let value: String?
     let hint: String
     let style: RelationStyle
+    var allowMultiLine: Bool = false
     
     var body: some View {
         if let value = value, value.isNotEmpty {
@@ -12,7 +13,7 @@ struct TextRelationView: View {
                 style: style.font,
                 color: style.fontColor
             )
-                .lineLimit(1)
+                .lineLimit(allowMultiLine ? nil : 1)
         } else {
             RelationsListRowHintView(hint: hint)
         }
@@ -24,7 +25,7 @@ struct TextRelationView_Previews: PreviewProvider {
         TextRelationView(
             value: "nil",
             hint: "Hint",
-            style: .regular
+            style: .regular(allowMultiLine: false)
         )
     }
 }

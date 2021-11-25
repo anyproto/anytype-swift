@@ -12,7 +12,7 @@ struct FlowRelationsView: View {
                     viewModel.onRelationTap(item)
                 } label: {
                     HStack(spacing: 6) {
-                        RelationValueViewProvider.relationView(item, style: .featuredRelationBlock)
+                        RelationValueViewProvider.relationView(item, style: .featuredRelationBlock(allowMultiLine: false))
 
                         if viewModel.relations.count - 1 > index {
                             Image(systemName: "circle.fill")

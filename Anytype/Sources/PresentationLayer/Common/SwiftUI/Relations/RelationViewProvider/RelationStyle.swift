@@ -1,8 +1,8 @@
 import SwiftUI
 
 enum RelationStyle {
-    case regular
-    case featuredRelationBlock
+    case regular(allowMultiLine: Bool)
+    case featuredRelationBlock(allowMultiLine: Bool)
 }
 
 extension RelationStyle {
@@ -21,6 +21,15 @@ extension RelationStyle {
             return .textPrimary
         case .featuredRelationBlock:
             return .textSecondary
+        }
+    }
+
+    var allowMultiLine: Bool {
+        switch self {
+        case let .regular(value):
+            return value
+        case let .featuredRelationBlock(value):
+            return value
         }
     }
 }

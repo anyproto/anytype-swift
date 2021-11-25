@@ -61,6 +61,6 @@ private extension ObjectRelationView {
 
 struct ObjectRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectRelationView(value: [], hint: "Hint", style: .regular)
+        ObjectRelationView(value: [], hint: "Hint", style: .regular(allowMultiLine: false))
     }
 }

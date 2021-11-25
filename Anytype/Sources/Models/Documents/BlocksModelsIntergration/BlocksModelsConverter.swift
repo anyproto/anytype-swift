@@ -16,8 +16,9 @@ enum BlocksModelsConverter {
         case .layout(let data): return data.blockContent
         case .featuredRelations: return .featuredRelations
         case .dataview(let data): return data.blockContent
+        case .relation(let data): return data.blockContent
             
-        case .icon, .relation, .latex:
+        case .icon, .latex:
             return .unsupported
         }
     }
@@ -37,6 +38,7 @@ enum BlocksModelsConverter {
                 domain: .blocksConverter
             )
             return nil
+        case .relation(let data): return data.asMiddleware
         case .dataView:
             anytypeAssertionFailure(
                 "Not suppoted converter from dataview to middleware",

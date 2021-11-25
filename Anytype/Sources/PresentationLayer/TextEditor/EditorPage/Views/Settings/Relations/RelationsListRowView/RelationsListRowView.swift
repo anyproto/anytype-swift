@@ -53,7 +53,7 @@ struct RelationsListRowView: View {
             onEditTap(relation.id)
         } label: {
             HStack(spacing: 0) {
-                RelationValueViewProvider.relationView(relation, style: .regular)
+                RelationValueViewProvider.relationView(relation, style: .regular(allowMultiLine: false))
                 Spacer()
             }
         }

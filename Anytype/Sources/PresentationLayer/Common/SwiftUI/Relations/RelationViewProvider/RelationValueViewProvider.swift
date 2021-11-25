@@ -9,7 +9,7 @@ struct RelationValueViewProvider {
 
             switch value {
             case .text(let string):
-                TextRelationView(value: string, hint: hint, style: style)
+                TextRelationView(value: string, hint: hint, style: style, allowMultiLine: style.allowMultiLine)
             case .number(let string):
                 TextRelationView(value: string, hint: hint, style: style)
             case .status(let statusRelation):
