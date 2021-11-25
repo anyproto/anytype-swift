@@ -8,6 +8,8 @@ final class BlocksSelectionOverlayView: UIView {
     // MARK: - UI elements
     private let blocksOptionView: BlocksOptionView
     private lazy var shadowedBlocksOptionView = RoundedShadowView(view: blocksOptionView.asUIView(), cornerRadius: 16)
+    private lazy var movingButtonsView: TwoStandardButtonsView = makeMovingButtonsView()
+    private lazy var movingButtonsUIView: UIView = movingButtonsView.asUIView()
     private lazy var navigationView = SelectionNavigationView(frame: .zero)
     private lazy var statusBarOverlayView = UIView()
 
@@ -60,6 +62,10 @@ final class BlocksSelectionOverlayView: UIView {
             $0.height.equal(to: 100)
         }
 
+        addSubview(movingButtonsUIView) {
+            $0.pinToSuperview(excluding: [.top], insets: .zero)
+        }
+
         shadowedBlocksOptionView.view.layer.cornerRadius = 16
         shadowedBlocksOptionView.view.layer.masksToBounds = true
         shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.white.cgColor
@@ -67,6 +73,25 @@ final class BlocksSelectionOverlayView: UIView {
         shadowedBlocksOptionView.shadowLayer.shadowOffset = .init(width: 0, height: 2)
         shadowedBlocksOptionView.shadowLayer.shadowOpacity = 0.25
         shadowedBlocksOptionView.shadowLayer.shadowRadius = 3
+    }
+
+    private func makeMovingButtonsView() -> TwoStandardButtonsView {
+        TwoStandardButtonsView(
+            leftButtonData: StandardButtonData(
+                text: "Cancel".localized,
+                style: .secondary,
+                action: { [weak viewModel] in
+                    viewModel?.cancelButtonHandler?()
+                }
+            ),
+            rightButtonData: StandardButtonData(
+                text: "Move".localized,
+                style: .primary,
+                action: { [weak viewModel] in
+                    viewModel?.moveButtonHandler?()
+                }
+            )
+        )
     }
 
     private func bindActions() {

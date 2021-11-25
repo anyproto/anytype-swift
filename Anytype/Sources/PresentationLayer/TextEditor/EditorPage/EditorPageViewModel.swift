@@ -92,6 +92,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
         }.store(in: &cancellables)
+
+        $editingState.sink { [unowned self] state in
+            blocksSelectionOverlayViewModel.editorEditingStateDidChanged(state)
+        }.store(in: &cancellables)
     }
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
@@ -270,7 +274,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
         let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
 
-        blocksSelectionOverlayViewModel.setSelectedBlocksCount(selectedBlocks.count)
         blocksSelectionOverlayViewModel.blocksOptionViewModel?.options = restrictions.mergedOptions
     }
 }
