@@ -15,7 +15,7 @@ struct ObjectRelationView: View {
     
     private var objectsList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: objectRelationStyle.hSpcaingList) {
+            HStack(spacing: objectRelationStyle.hSpaсingList) {
                 ForEach(value) { object in
                     objectView(objectRelation: object)
                 }
@@ -24,7 +24,7 @@ struct ObjectRelationView: View {
     }
     
     private func objectView(objectRelation: ObjectRelation) -> some View {
-        HStack(spacing: objectRelationStyle.hSpcaingObject) {
+        HStack(spacing: objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
                 iconImage: objectRelation.icon,
                 usecase: .mention(.body)
@@ -43,17 +43,17 @@ struct ObjectRelationView: View {
 
 private extension ObjectRelationView {
     struct ObjectRelationStyle {
-        let hSpcaingList: CGFloat
-        let hSpcaingObject: CGFloat
+        let hSpaсingList: CGFloat
+        let hSpaсingObject: CGFloat
         let size: CGSize
     }
 
     var objectRelationStyle: ObjectRelationStyle {
         switch style {
         case .regular:
-            return ObjectRelationStyle(hSpcaingList: 8, hSpcaingObject: 6, size: .init(width: 20, height: 20))
+            return ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: .init(width: 20, height: 20))
         case .featuredRelationBlock:
-            return ObjectRelationStyle(hSpcaingList: 6, hSpcaingObject: 4, size: .init(width: 16, height: 16))
+            return ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 16, height: 16))
         }
     }
 }
