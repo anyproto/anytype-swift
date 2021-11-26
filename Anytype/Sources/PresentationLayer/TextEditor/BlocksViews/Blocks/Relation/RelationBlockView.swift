@@ -16,6 +16,7 @@ final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration> 
         super.update(with: configuration)
 
         relationView.relation = configuration.relation
+        print("-_- \(self) update(with configuration: \(configuration.relation)")
     }
 
     override func setupSubviews() {
