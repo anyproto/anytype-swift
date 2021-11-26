@@ -3,13 +3,8 @@ import UIKit
 import SwiftUI
 
 final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockContentConfiguration> {
+
     // MARK: - Views
-    
-    private let typeLabel: AnytypeLabel = {
-        let label = AnytypeLabel(style: .relation2Regular)
-        label.textColor = .textSecondary
-        return label
-    }()
 
     private lazy var relationsView: UIView = {
         return UIView()
@@ -17,7 +12,7 @@ final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockCont
 
     private var relationFlowViewModel: FlowRelationsViewModel?
     
-    // MARK: - Private variables
+    // MARK: - BaseBlockView
 
     override func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         super.update(with: configuration)

@@ -199,6 +199,19 @@ final class BlockViewModelBuilder {
                     )
                 }
             }
+        case let .relation(content):
+            let relation = document.parsedRelations.all.first {
+                $0.id == content.key
+            }
+
+            guard let relation = relation else {
+                return nil
+            }
+
+            return RelationBlockViewModel(
+                information: block.information,
+                indentationLevel: block.indentationLevel,
+                relation: relation)
             
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:

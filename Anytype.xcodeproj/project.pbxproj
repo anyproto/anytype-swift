@@ -592,12 +592,14 @@
 		5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */; };
 		5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */; };
 		5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */; };
+		535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02A7274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift */; };
+		535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02A9274FE5BE00E1AF8C /* RelationBlockView.swift */; };
+		535E02AD274FF0B100E1AF8C /* RelationValueViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */; };
+		535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AF275023B300E1AF8C /* RelationStyle.swift */; };
+		535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */; };
+		535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */; };
+		535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */; };
 		535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79722746AAD40050A1B8 /* FlowLayout.swift */; };
-		535F79902746CD110050A1B8 /* FlowStatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79892746CD100050A1B8 /* FlowStatusRelationView.swift */; };
-		535F79912746CD110050A1B8 /* FlowCheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798A2746CD100050A1B8 /* FlowCheckboxRelationView.swift */; };
-		535F79922746CD110050A1B8 /* FlowObjectRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798C2746CD100050A1B8 /* FlowObjectRelationView.swift */; };
-		535F79932746CD110050A1B8 /* FlowTagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798E2746CD100050A1B8 /* FlowTagRelationView.swift */; };
-		535F79942746CD110050A1B8 /* FlowTextRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F798F2746CD110050A1B8 /* FlowTextRelationView.swift */; };
 		535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */; };
 		535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */; };
 		535F79BD274C087A0050A1B8 /* UTTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79BC274C087A0050A1B8 /* UTTypeExtension.swift */; };
@@ -1392,12 +1394,14 @@
 		5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockViewModel.swift; sourceTree = "<group>"; };
 		5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockView.swift; sourceTree = "<group>"; };
 		5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockContentConfiguration.swift; sourceTree = "<group>"; };
+		535E02A7274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockContentConfiguration.swift; sourceTree = "<group>"; };
+		535E02A9274FE5BE00E1AF8C /* RelationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockView.swift; sourceTree = "<group>"; };
+		535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewProvider.swift; sourceTree = "<group>"; };
+		535E02AF275023B300E1AF8C /* RelationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationStyle.swift; sourceTree = "<group>"; };
+		535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockViewModel.swift; sourceTree = "<group>"; };
+		535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockRestrictions.swift; sourceTree = "<group>"; };
+		535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRelationConverter.swift; sourceTree = "<group>"; };
 		535F79722746AAD40050A1B8 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
-		535F79892746CD100050A1B8 /* FlowStatusRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowStatusRelationView.swift; sourceTree = "<group>"; };
-		535F798A2746CD100050A1B8 /* FlowCheckboxRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowCheckboxRelationView.swift; sourceTree = "<group>"; };
-		535F798C2746CD100050A1B8 /* FlowObjectRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowObjectRelationView.swift; sourceTree = "<group>"; };
-		535F798E2746CD100050A1B8 /* FlowTagRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowTagRelationView.swift; sourceTree = "<group>"; };
-		535F798F2746CD110050A1B8 /* FlowTextRelationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowTextRelationView.swift; sourceTree = "<group>"; };
 		535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsView.swift; sourceTree = "<group>"; };
 		535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsViewModel.swift; sourceTree = "<group>"; };
 		535F79BC274C087A0050A1B8 /* UTTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTTypeExtension.swift; sourceTree = "<group>"; };
@@ -2142,6 +2146,7 @@
 		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				535E02A3274FE53900E1AF8C /* Relation */,
 				1223C8F9272693C600C34616 /* FeaturedRelations */,
 				5356072026E25F92001464A4 /* UnsupportedBlockView */,
 				3D4C3AD926AB57D2007893B7 /* EmptyView */,
@@ -2681,22 +2686,6 @@
 			path = MediaPicker;
 			sourceTree = "<group>";
 		};
-		127EABBD27352D7D00C731F2 /* StatusRelationView */ = {
-			isa = PBXGroup;
-			children = (
-				127EABB62735254500C731F2 /* StatusRelationView.swift */,
-			);
-			path = StatusRelationView;
-			sourceTree = "<group>";
-		};
-		127EABF7273944E300C731F2 /* TagRelationView */ = {
-			isa = PBXGroup;
-			children = (
-				127EABF32739440200C731F2 /* TagRelationView.swift */,
-			);
-			path = TagRelationView;
-			sourceTree = "<group>";
-		};
 		127EAC10273A375000C731F2 /* RelationsListRowView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2722,17 +2711,8 @@
 			isa = PBXGroup;
 			children = (
 				127EAC18273A438900C731F2 /* RelationsListRowHintView.swift */,
-				1289F5A22733C49D00656EC2 /* ValueViews */,
 			);
 			path = Subviews;
-			sourceTree = "<group>";
-		};
-		127EAC1B273A8ABD00C731F2 /* ObjectRelationView */ = {
-			isa = PBXGroup;
-			children = (
-				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
-			);
-			path = ObjectRelationView;
 			sourceTree = "<group>";
 		};
 		1280E205265C17CC00E5AEEE /* Utils */ = {
@@ -2800,9 +2780,9 @@
 			children = (
 				1289F5A32733C50500656EC2 /* TextRelationView.swift */,
 				127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */,
-				127EABBD27352D7D00C731F2 /* StatusRelationView */,
-				127EABF7273944E300C731F2 /* TagRelationView */,
-				127EAC1B273A8ABD00C731F2 /* ObjectRelationView */,
+				127EABB62735254500C731F2 /* StatusRelationView.swift */,
+				127EABF32739440200C731F2 /* TagRelationView.swift */,
+				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
 			);
 			path = ValueViews;
 			sourceTree = "<group>";
@@ -3454,7 +3434,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				535F79862746CCD60050A1B8 /* FlowRelationsView */,
+				535E02AB274FF05600E1AF8C /* Relations */,
 				3D2F9C3A271F023A0043C326 /* Alerts */,
 				3D5A418C27046E9F00F1F6A1 /* iOS15Wrappers */,
 				3D5A41762704541900F1F6A1 /* Search */,
@@ -3500,6 +3480,7 @@
 				3D16840D26DD672E008B9DFF /* BlockSmartblockConverter.swift */,
 				3D16840E26DD672E008B9DFF /* BlockTextConverter.swift */,
 				3DE0B3222747BCBC00F69376 /* BlockDataviewConverter.swift */,
+				535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */,
 			);
 			path = ProtobufConverters;
 			sourceTree = "<group>";
@@ -4081,6 +4062,7 @@
 				EAC6BAA5262715B5004C8C06 /* BookmarkBlockRestrictions.swift */,
 				3DB6929F2697066500149864 /* DummyRestrictions.swift */,
 				12A8CCE226BC055400090468 /* ImageBlockRestrictions.swift */,
+				535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */,
 			);
 			path = Restrictions;
 			sourceTree = "<group>";
@@ -4441,26 +4423,42 @@
 			path = Colors;
 			sourceTree = "<group>";
 		};
+		535E02A3274FE53900E1AF8C /* Relation */ = {
+			isa = PBXGroup;
+			children = (
+				535E02A7274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift */,
+				535E02A9274FE5BE00E1AF8C /* RelationBlockView.swift */,
+				535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */,
+			);
+			path = Relation;
+			sourceTree = "<group>";
+		};
+		535E02AB274FF05600E1AF8C /* Relations */ = {
+			isa = PBXGroup;
+			children = (
+				535E02AE27501FC600E1AF8C /* RelationViewProvider */,
+				535F79862746CCD60050A1B8 /* FlowRelationsView */,
+			);
+			path = Relations;
+			sourceTree = "<group>";
+		};
+		535E02AE27501FC600E1AF8C /* RelationViewProvider */ = {
+			isa = PBXGroup;
+			children = (
+				535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */,
+				535E02AF275023B300E1AF8C /* RelationStyle.swift */,
+				1289F5A22733C49D00656EC2 /* ValueViews */,
+			);
+			path = RelationViewProvider;
+			sourceTree = "<group>";
+		};
 		535F79862746CCD60050A1B8 /* FlowRelationsView */ = {
 			isa = PBXGroup;
 			children = (
 				535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */,
 				535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */,
-				535F79872746CCD60050A1B8 /* Items */,
 			);
 			path = FlowRelationsView;
-			sourceTree = "<group>";
-		};
-		535F79872746CCD60050A1B8 /* Items */ = {
-			isa = PBXGroup;
-			children = (
-				535F798E2746CD100050A1B8 /* FlowTagRelationView.swift */,
-				535F79892746CD100050A1B8 /* FlowStatusRelationView.swift */,
-				535F798C2746CD100050A1B8 /* FlowObjectRelationView.swift */,
-				535F798A2746CD100050A1B8 /* FlowCheckboxRelationView.swift */,
-				535F798F2746CD110050A1B8 /* FlowTextRelationView.swift */,
-			);
-			path = Items;
 			sourceTree = "<group>";
 		};
 		53728D012735BD2A0092A8CF /* MarkupState */ = {
@@ -5199,7 +5197,6 @@
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* Amplitude+Events.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
-				535F79942746CD110050A1B8 /* FlowTextRelationView.swift in Sources */,
 				126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				3D16841326DD672E008B9DFF /* BlockLinkConverter.swift in Sources */,
@@ -5311,7 +5308,6 @@
 				3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */,
-				535F79902746CD110050A1B8 /* FlowStatusRelationView.swift in Sources */,
 				1231E8B827467A2400C1784F /* RelationSheet.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
@@ -5326,6 +5322,7 @@
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
+				535E02AD274FF0B100E1AF8C /* RelationValueViewProvider.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
@@ -5357,13 +5354,13 @@
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
+				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				125B6EBE26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift in Sources */,
-				535F79932746CD110050A1B8 /* FlowTagRelationView.swift in Sources */,
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
 				12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */,
@@ -5471,6 +5468,7 @@
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				C9121A55273B4B9700FFDA07 /* BlocksOptionViewModel.swift in Sources */,
+				535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MarkupType.swift in Sources */,
@@ -5491,7 +5489,6 @@
 				1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */,
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				12B0FF6F274FD67F00CA35FE /* AppIcon.swift in Sources */,
-				535F79922746CD110050A1B8 /* FlowObjectRelationView.swift in Sources */,
 				3D2F9C7827206CE40043C326 /* QuickActionsStorage.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
@@ -5531,7 +5528,6 @@
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
-				535F79912746CD110050A1B8 /* FlowCheckboxRelationView.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
@@ -5545,6 +5541,7 @@
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				1223C90D272828CA00C34616 /* SearchData.swift in Sources */,
+				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
@@ -5574,6 +5571,7 @@
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				3D16840926DD671D008B9DFF /* BlockInformationConverter.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */,
+				535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */,
 				12C8440726FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift in Sources */,
 				12CAF34C26D643F7001E56B2 /* EmojiIconImageGuideline.swift in Sources */,
 				3D0BCACF26665794002F7A0D /* HomeCellDataBuilder.swift in Sources */,
@@ -5689,6 +5687,7 @@
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
+				535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */,
 				3D93D57A270CBF7100614E29 /* BrowserNavigationManager.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */,
@@ -5699,6 +5698,7 @@
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
 				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
+				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				125B6EBA26F235F400BCD7D6 /* URLInputAccessoryView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,

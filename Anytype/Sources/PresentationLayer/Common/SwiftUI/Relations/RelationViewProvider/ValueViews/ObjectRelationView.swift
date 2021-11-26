@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct ObjectRelationView: View {
-    
     let value: [ObjectRelation]
     let hint: String
+    let style: RelationStyle
     
     var body: some View {
         if value.isNotEmpty {
@@ -15,7 +15,7 @@ struct ObjectRelationView: View {
     
     private var objectsList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            HStack(spacing: objectRelationStyle.hSpaсingList) {
                 ForEach(value) { object in
                     objectView(objectRelation: object)
                 }
@@ -24,12 +24,12 @@ struct ObjectRelationView: View {
     }
     
     private func objectView(objectRelation: ObjectRelation) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
                 iconImage: objectRelation.icon,
                 usecase: .mention(.body)
             )
-                .frame(width: 20, height: 20)
+                .frame(width: objectRelationStyle.size.width, height: objectRelationStyle.size.height)
             
             AnytypeText(
                 objectRelation.text,
@@ -39,11 +39,28 @@ struct ObjectRelationView: View {
                 .lineLimit(1)
         }
     }
-    
 }
+
+private extension ObjectRelationView {
+    struct ObjectRelationStyle {
+        let hSpaсingList: CGFloat
+        let hSpaсingObject: CGFloat
+        let size: CGSize
+    }
+
+    var objectRelationStyle: ObjectRelationStyle {
+        switch style {
+        case .regular:
+            return ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: .init(width: 20, height: 20))
+        case .featuredRelationBlock:
+            return ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 16, height: 16))
+        }
+    }
+}
+
 
 struct ObjectRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectRelationView(value: [], hint: "Hint")
+        ObjectRelationView(value: [], hint: "Hint", style: .regular(allowMultiLine: false))
     }
 }

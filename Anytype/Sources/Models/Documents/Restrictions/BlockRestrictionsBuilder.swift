@@ -26,6 +26,8 @@ struct BlockRestrictionsBuilder {
             return BookmarkBlockRestrictions()
         case .smartblock, .layout, .featuredRelations, .dataView:
             return DummyRestrictions()
+        case .relation:
+            return RelationBlockRestrictions()
         }
     }
     

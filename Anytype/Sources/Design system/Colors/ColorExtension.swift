@@ -21,6 +21,7 @@ extension Color {
     static let buttonActive = Color.grayscale50
     static let buttonInactive = Color(ColorName.buttonInactive)
     static let buttonSelected = Color(ColorName.buttonSelected)
+    static let buttonSecondaryPressed = Color(ColorName.buttonSecondaryPressed)
     
     static let toastBackground = Color("toastBackground")
     
