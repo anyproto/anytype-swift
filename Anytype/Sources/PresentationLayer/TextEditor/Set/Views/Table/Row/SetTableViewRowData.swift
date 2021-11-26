@@ -5,7 +5,7 @@ struct SetRowRelation: Identifiable {
     var id: String { key }
     
     let key: String
-    let value: String
+    let value: Relation
 }
 
 struct SetTableViewRowData: Identifiable {
@@ -26,7 +26,7 @@ struct SetTableViewRowData: Identifiable {
                 return nil
             }
         
-            return SetRowRelation(key: relation.id, value: "\(relation.value)")
+            return SetRowRelation(key: relation.id, value: relation)
         }
     }
 }
