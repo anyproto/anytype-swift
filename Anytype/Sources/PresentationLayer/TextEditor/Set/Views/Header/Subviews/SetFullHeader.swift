@@ -6,6 +6,7 @@ struct SetFullHeader: View {
     var yOffset: CGFloat
     @Binding var headerSize: CGRect
     @Binding var headerPosition: CGPoint
+    @Binding var coverPosition: CGPoint
     
     @EnvironmentObject private var model: EditorSetViewModel
     
@@ -42,6 +43,7 @@ struct SetFullHeader: View {
                 }
             
             Spacer.fixedHeight(32)
+            PositionCatcher { coverPosition = $0 }
             
             AnytypeText(model.details.title, style: .title, color: .textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -101,7 +103,8 @@ struct SetFullHeader_Previews: PreviewProvider {
             screenWidth: 500,
             yOffset: 0,
             headerSize: .constant(.zero),
-            headerPosition: .constant(.zero)
+            headerPosition: .constant(.zero),
+            coverPosition: .constant(.zero)
         )
     }
 }

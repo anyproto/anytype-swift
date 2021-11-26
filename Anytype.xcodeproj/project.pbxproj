@@ -511,6 +511,7 @@
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
 		3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */; };
 		3DB9810E274FB82500ECC882 /* DashboardKeychainReminderAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9810D274FB82500ECC882 /* DashboardKeychainReminderAlert.swift */; };
+		3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */; };
@@ -1312,6 +1313,7 @@
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Emoji.swift"; sourceTree = "<group>"; };
 		3DB9810D274FB82500ECC882 /* DashboardKeychainReminderAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardKeychainReminderAlert.swift; sourceTree = "<group>"; };
+		3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Clamped.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "Anytype/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventsListener.swift; sourceTree = "<group>"; };
@@ -3253,13 +3255,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		3D277D7E273FE9C0002B2B98 /* Demo */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Demo;
-			sourceTree = "<group>";
-		};
 		3D28A474271DCDDA009A0D48 /* Selection */ = {
 			isa = PBXGroup;
 			children = (
@@ -3996,6 +3991,7 @@
 				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
 				3DAE1C88273E6A59009A72F3 /* String+Range.swift */,
 				535F79BC274C087A0050A1B8 /* UTTypeExtension.swift */,
+				3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -4004,7 +4000,6 @@
 			isa = PBXGroup;
 			children = (
 				3DA6DBCF27457D9700516E75 /* Views */,
-				3D277D7E273FE9C0002B2B98 /* Demo */,
 				3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */,
 				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
@@ -5569,6 +5564,7 @@
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
 				3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */,
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
+				3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */,
 				EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,

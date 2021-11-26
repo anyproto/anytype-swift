@@ -7,6 +7,7 @@ struct SetHeader: View {
     @EnvironmentObject private var model: EditorSetViewModel
     
     @State private var headerPosition = CGPoint.zero
+    @State private var coverPosition = CGPoint.zero
     
     var body: some View {
         GeometryReader { screen in
@@ -15,9 +16,11 @@ struct SetHeader: View {
                     screenWidth: screen.size.width,
                     yOffset: yOffset,
                     headerSize: $headerSize,
-                    headerPosition: $headerPosition
+                    headerPosition: $headerPosition,
+                    coverPosition: $coverPosition
                 )
-                SetMinimizedHeader(headerPosition: headerPosition)
+                SetMinimizedHeader(headerPosition: headerPosition, coverPosition: coverPosition)
+                    .frame(width: screen.size.width)
             }
         }
         .onAppear {
