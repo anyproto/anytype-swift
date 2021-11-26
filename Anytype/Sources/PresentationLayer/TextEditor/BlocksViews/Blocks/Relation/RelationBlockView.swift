@@ -2,21 +2,18 @@ import UIKit
 import SwiftUI
 
 final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration> {
-    // MARK: - Views
 
-//    private lazy var relationsView: UIView = {
-//        return UIView()
-//    }()
+    // MARK: - Views
 
     fileprivate lazy var relationView = RelationView(relation: currentConfiguration.relation)
 
-    // MARK: - Private variables
+
+    // MARK: - BaseBlockView
 
     override func update(with configuration: RelationBlockContentConfiguration) {
         super.update(with: configuration)
 
         relationView.relation = configuration.relation
-        print("-_- \(self) update(with configuration: \(configuration.relation)")
     }
 
     override func setupSubviews() {
@@ -24,8 +21,10 @@ final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration> 
         setupLayout()
     }
 
+    // MARK: - Setup view
+
     func setupLayout() {
-        let relationsView = RelationView(viewModel: currentConfiguration.viewModel).asUIView()
+        let relationsView = RelationView(relation: currentConfiguration.relation).asUIView()
 
         addSubview(relationsView) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: -2, right: -20))

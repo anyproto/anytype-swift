@@ -12,7 +12,7 @@ final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockCont
 
     private var relationFlowViewModel: FlowRelationsViewModel?
     
-    // MARK: - Private variables
+    // MARK: - BaseBlockView
 
     override func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         super.update(with: configuration)

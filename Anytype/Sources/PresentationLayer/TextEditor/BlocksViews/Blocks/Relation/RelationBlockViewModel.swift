@@ -2,7 +2,6 @@ import UIKit
 import BlocksModels
 
 
-
 class RelationBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation
     var indentationLevel: Int
