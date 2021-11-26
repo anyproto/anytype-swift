@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 protocol EditorPageViewModelProtocol {
-    var blocksSelectionManager: EditorPageBlocksStateManagerProtocol { get }
+    var blocksStateManager: EditorPageBlocksStateManagerProtocol { get }
 
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
@@ -11,16 +11,12 @@ protocol EditorPageViewModelProtocol {
     
     var modelsHolder: BlockViewModelsHolder { get }
     var actionHandler: BlockActionHandlerProtocol { get }
-
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { get }
     
     func viewLoaded()
     func viewAppeared()
 
-    func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didSelectBlock(at indexPath: IndexPath)
-    func didLongTap(at indexPath: IndexPath)
-    
+
     func showSettings()
     
     func showIconPicker()

@@ -1,11 +1,3 @@
-//
-//  ButtonsView.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 24.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 struct TwoStandardButtonsView: View {

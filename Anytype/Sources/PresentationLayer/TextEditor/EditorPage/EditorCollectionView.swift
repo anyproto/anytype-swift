@@ -3,6 +3,12 @@ import UIKit
 class EditorCollectionView: UICollectionView {
     private(set) var indexPathsForMovingItems = [IndexPath]()
 
+    func deselectAllMovingItems() {
+        indexPathsForMovingItems.removeAll()
+
+        reloadData()
+    }
+
     func setItemIsMoving(_ isMoving: Bool, at indexPath: IndexPath) {
         if isMoving && !indexPathsForMovingItems.contains(indexPath) {
             indexPathsForMovingItems.append(indexPath)

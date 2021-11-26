@@ -157,10 +157,6 @@ final class BlockActionService: BlockActionServiceProtocol {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
 
-    func move(contextId: BlockId, blockIds: [String], dropTargetID: String) {
-        singleService.move(contextId: contextId, blockIds: blockIds, targetContextID: contextId, dropTargetID: dropTargetID)
-    }
-    
     private func setFocus(model: BlockDataProvider) {
         if case let .text(text) = model.information.content {
             let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))

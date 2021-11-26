@@ -11,24 +11,21 @@ final class BlocksSelectionOverlayViewModel {
 
     weak var blocksOptionViewModel: BlocksOptionViewModel?
 
-    func editorEditingStateDidChanged(_ state: EditorEditingState) {
-        switch state {
-        case .editing:
-            break
-        case .moving:
-            isMovingButtonsVisible = true
-            isBlocksOptionViewVisible = false
-            navigationTitle = "Editor.MovingState.ScrollToSelectedPlace".localized
-        case .selecting(let blocks):
-            isMovingButtonsVisible = false
-            isBlocksOptionViewVisible = blocks.isNotEmpty
-            switch blocks.count {
-            case 1:
-                navigationTitle = "\(blocks.count) " + "selected block".localized
-            default:
-                navigationTitle = "\(blocks.count) " + "selected blocks".localized
-            }
+    func setSelectedBlocksCount(_ count: Int) {
+        isMovingButtonsVisible = false
+        isBlocksOptionViewVisible = count != 0
+        switch count {
+        case 1:
+            navigationTitle = "\(count) " + "selected block".localized
+        default:
+            navigationTitle = "\(count) " + "selected blocks".localized
         }
+    }
+
+    func setNeedsUpdateForMovingState() {
+        isMovingButtonsVisible = true
+        isBlocksOptionViewVisible = false
+        navigationTitle = "Editor.MovingState.ScrollToSelectedPlace".localized
     }
 }
 

@@ -64,14 +64,20 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             .getValue()
     }
 
-    func move(contextId: BlockId, blockIds: [String], targetContextID: BlockId, dropTargetID: String) {
+    func move(
+        contextId: BlockId,
+        blockIds: [String],
+        targetContextID: BlockId,
+        dropTargetID: String,
+        position: BlockPosition
+    ) {
         let event = Anytype_Rpc.BlockList.Move.Service
             .invoke(
                 contextID: contextId,
                 blockIds: blockIds,
                 targetContextID: contextId,
                 dropTargetID: dropTargetID,
-                position: .top
+                position: position.asMiddleware
             ).map { EventsBunch(event: $0.event) }
             .getValue()
 

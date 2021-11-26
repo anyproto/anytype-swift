@@ -32,6 +32,4 @@ protocol BlockActionServiceProtocol {
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
-
-    func move(contextId: BlockId, blockIds: [String], dropTargetID: String)
 }

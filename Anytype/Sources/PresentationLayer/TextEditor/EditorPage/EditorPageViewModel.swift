@@ -6,21 +6,11 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-enum EditorEditingState {
-    case editing
-    case selecting(blocks: [BlockId])
-    case moving(indexPaths: [IndexPath])
-}
-
 final class EditorPageViewModel: EditorPageViewModelProtocol {
-    let blocksSelectionManager: EditorPageBlocksStateManagerProtocol
-
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
-
-    @Published var editingState: EditorEditingState = .editing
-
     weak private(set) var viewInput: EditorPageViewInput?
-    
+
+    let blocksStateManager: EditorPageBlocksStateManagerProtocol
+
     let document: BaseDocumentProtocol
     let modelsHolder: BlockViewModelsHolder
     let blockDelegate: BlockDelegate
@@ -35,10 +25,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
-    lazy var cancellables = [AnyCancellable]()
+    private lazy var cancellables = [AnyCancellable]()
 
-    let blockActionsService: BlockActionsServiceSingle
-    weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
+    private let blockActionsService: BlockActionsServiceSingle
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -62,7 +51,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
         blockActionsService: BlockActionsServiceSingle,
-        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
+        blocksStateManager: EditorPageBlocksStateManagerProtocol
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -75,9 +64,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
         self.blockActionsService = blockActionsService
-        self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
+        self.blocksStateManager = blocksStateManager
 
-        setupEditingHandlers()
         setupSubscriptions()
     }
 
@@ -263,12 +251,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: header, details: details)
         modelsHolder.header = header
     }
-
-    private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
-        let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
-
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = restrictions.mergedOptions
-    }
 }
 
 // MARK: - View output
@@ -286,30 +268,11 @@ extension EditorPageViewModel {
     func viewAppeared() {
         cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
     }
-
-    func didLongTap(at indexPath: IndexPath) {
-        guard canSelectBlock(at: indexPath) else { return }
-
-        element(at: indexPath).map {
-            didSelectEditingState(on: $0.information)
-        }
-    }
 }
 
 // MARK: - Selection Handling
 
 extension EditorPageViewModel {
-    func canSelectBlock(at indexPath: IndexPath) -> Bool {
-        guard let block = element(at: indexPath) else { return false }
-
-        if block.content.type == .text(.title) ||
-            block.content.type == .featuredRelations {
-            return false
-        }
-
-        return true
-    }
-
     func didSelectBlock(at indexPath: IndexPath) {
         element(at: indexPath)?.didSelectRowInTableView()
     }
@@ -335,13 +298,6 @@ extension EditorPageViewModel {
     
     func showCoverPicker() {
         router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
-    }
-}
-
-extension EditorPageViewModel: BlockSelectionHandler {
-    func didSelectEditingState(on block: BlockInformation) {
-        editingState = .selecting(blocks: [block.id])
-        updateSelectionContent(selectedBlocks: [block])
     }
 }
 
