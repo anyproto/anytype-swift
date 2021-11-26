@@ -1,21 +1,26 @@
 import UIKit
 
-struct RelationBlockContentConfiguration<ViewModel: RelationBlockViewModelProtocol>: BlockConfigurationProtocol, Hashable {
+struct RelationBlockContentConfiguration: BlockConfigurationProtocol, Hashable {
     var currentConfigurationState: UICellConfigurationState?
-    var viewModel: ViewModel
+    var relation: Relation
     
     func makeContentView() -> UIView & UIContentView {
-        return RelationBlockView<ViewModel>(configuration: self)
+        return RelationBlockView(configuration: self)
     }
 
-    static func == (lhs: RelationBlockContentConfiguration, rhs: RelationBlockContentConfiguration) -> Bool {
-        lhs.viewModel.relation == rhs.viewModel.relation &&
-        lhs.currentConfigurationState == rhs.currentConfigurationState
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(viewModel.relation)
-        hasher.combine(currentConfigurationState)
-    }
-
+//    static func == (lhs: RelationBlockContentConfiguration, rhs: RelationBlockContentConfiguration) -> Bool {
+//        lhs.viewModel.relation == rhs.viewModel.relation &&
+//        lhs.currentConfigurationState == rhs.currentConfigurationState
+//    }
+//
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(viewModel.relation)
+//        hasher.combine(currentConfigurationState)
+//    }
 }
+
+//}
+//
+//extension RelationBlockViewModelProtocol: Hashable {
+//
+//}

@@ -1,16 +1,14 @@
 import UIKit
 import BlocksModels
 
-protocol RelationBlockViewModelProtocol: ObservableObject {
-    var relation: Relation { get set }
-}
 
-class RelationBlockViewModel: BlockViewModelProtocol, RelationBlockViewModelProtocol {
+
+class RelationBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation
     var indentationLevel: Int
     var upperBlock: BlockModelProtocol?
 
-    @Published var relation: Relation
+    var relation: Relation
 
     // MARK: - init
 
@@ -39,7 +37,7 @@ class RelationBlockViewModel: BlockViewModelProtocol, RelationBlockViewModelProt
     func didSelectRowInTableView() {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        RelationBlockContentConfiguration(viewModel: self)
+        RelationBlockContentConfiguration(relation: relation)
     }
     
 }
