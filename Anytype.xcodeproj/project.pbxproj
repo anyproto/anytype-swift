@@ -673,6 +673,7 @@
 		C96A69AA273CD97700A07C3C /* BlockConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A69A5273CD97700A07C3C /* BlockConfigurationProtocol.swift */; };
 		C96A69AB273CD97700A07C3C /* BaseBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96A69A9273CD97700A07C3C /* BaseBlockView.swift */; };
 		C97CD703272AA3C90085AE64 /* EditorСursorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD702272AA3C90085AE64 /* EditorСursorManager.swift */; };
+		C9C0A99E274FB04E0002FA30 /* EditorPageBlocksStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */; };
 		C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */; };
 		C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A8427049D0200D86463 /* AlertsFactory.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
@@ -1468,6 +1469,7 @@
 		C96A69A5273CD97700A07C3C /* BlockConfigurationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockConfigurationProtocol.swift; sourceTree = "<group>"; };
 		C96A69A9273CD97700A07C3C /* BaseBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseBlockView.swift; sourceTree = "<group>"; };
 		C97CD702272AA3C90085AE64 /* EditorСursorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorСursorManager.swift"; sourceTree = "<group>"; };
+		C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageBlocksStateManager.swift; sourceTree = "<group>"; };
 		C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionVerifier.swift; sourceTree = "<group>"; };
 		C9C49A8427049D0200D86463 /* AlertsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsFactory.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
@@ -2117,6 +2119,7 @@
 				3D44984426D53D61005A3E06 /* EditorPageViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* EditorPageViewModel.swift */,
 				C9121A40273A835000FFDA07 /* EditorPageViewModel+BlocksSelection.swift */,
+				C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */,
 			);
 			path = EditorPage;
 			sourceTree = "<group>";
@@ -5723,6 +5726,7 @@
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
 				127EABFB2739588A00C731F2 /* ObjectRelation.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
+				C9C0A99E274FB04E0002FA30 /* EditorPageBlocksStateManager.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,
 				530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */,
 				C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */,

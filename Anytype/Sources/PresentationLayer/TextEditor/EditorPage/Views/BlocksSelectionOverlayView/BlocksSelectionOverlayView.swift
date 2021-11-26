@@ -38,8 +38,6 @@ final class BlocksSelectionOverlayView: UIView {
         }
     }
 
-
-
     // MARK: - Private
     private func setupView() {
         bindActions()
@@ -111,6 +109,7 @@ final class BlocksSelectionOverlayView: UIView {
 
         viewModel.$isMovingButtonsVisible.sink { [unowned self] isVisible in
             movingButtonsUIView.isHidden = !isVisible
+            navigationView.leftButton.isHidden = isVisible
         }.store(in: &cancellables)
     }
 }

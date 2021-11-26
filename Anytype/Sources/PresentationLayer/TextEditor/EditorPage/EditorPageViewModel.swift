@@ -13,6 +13,8 @@ enum EditorEditingState {
 }
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
+    let blocksSelectionManager: EditorPageBlocksStateManagerProtocol
+
     var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
 
     @Published var editingState: EditorEditingState = .editing
@@ -33,11 +35,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
-    private lazy var cancellables = [AnyCancellable]()
+    lazy var cancellables = [AnyCancellable]()
 
-    private let blockActionsService: BlockActionsServiceSingle
-    private weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
-    var selectedBlocksIndexPaths = [IndexPath]()
+    let blockActionsService: BlockActionsServiceSingle
+    weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -76,11 +77,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockActionsService = blockActionsService
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
 
-        actionHandler.blockSelectionHandler = self
-
-        blocksSelectionOverlayViewModel.endEditingModeHandler = { [weak self] in self?.editingState = .editing }
-        blocksSelectionOverlayViewModel.blocksOptionViewModel?.tapHandler = { [weak self] in self?.handleBlocksOptionItemSelection($0) }
-
+        setupEditingHandlers()
         setupSubscriptions()
     }
 
@@ -91,10 +88,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
-        }.store(in: &cancellables)
-
-        $editingState.sink { [unowned self] state in
-            blocksSelectionOverlayViewModel?.editorEditingStateDidChanged(state)
         }.store(in: &cancellables)
     }
     
@@ -321,14 +314,6 @@ extension EditorPageViewModel {
         element(at: indexPath)?.didSelectRowInTableView()
     }
 
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        selectedBlocksIndexPaths = indexPaths
-        let elements = indexPaths.compactMap { element(at: $0)?.information }
-
-        updateSelectionContent(selectedBlocks: elements)
-    }
-
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
             anytypeAssertionFailure("Row doesn't exist", domain: .editorPage)
@@ -357,23 +342,6 @@ extension EditorPageViewModel: BlockSelectionHandler {
     func didSelectEditingState(on block: BlockInformation) {
         editingState = .selecting(blocks: [block.id])
         updateSelectionContent(selectedBlocks: [block])
-    }
-}
-
-extension EditorPageViewModel: EditorPageMovingManagerProtocol {
-    func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool {
-        guard let element = modelsHolder.models[safe: indexPath.row] else {
-            if indexPath.row == modelsHolder.models.count { return true }
-
-            return false
-        }
-
-        if element.content.type == .text(.title) ||
-            element.content.type == .featuredRelations {
-            return false
-        }
-
-        return true
     }
 }
 

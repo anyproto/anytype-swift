@@ -34,7 +34,7 @@ final class EditorPageController: UIViewController {
     private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     lazy var dividerCursorController = DividerCursorController(
-        movingManager: viewModel,
+        movingManager: viewModel.blocksSelectionManager,
         view: view,
         collectionView: collectionView
     )

@@ -156,6 +156,10 @@ final class BlockActionService: BlockActionServiceProtocol {
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
+
+    func move(contextId: BlockId, blockIds: [String], dropTargetID: String) {
+        singleService.move(contextId: contextId, blockIds: blockIds, targetContextID: contextId, dropTargetID: dropTargetID)
+    }
     
     private func setFocus(model: BlockDataProvider) {
         if case let .text(text) = model.information.content {

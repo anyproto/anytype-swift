@@ -2,11 +2,9 @@ import Foundation
 import BlocksModels
 import Combine
 
-protocol EditorPageMovingManagerProtocol {
-    func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
-}
+protocol EditorPageViewModelProtocol {
+    var blocksSelectionManager: EditorPageBlocksStateManagerProtocol { get }
 
-protocol EditorPageViewModelProtocol: EditorPageMovingManagerProtocol {
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
@@ -22,8 +20,6 @@ protocol EditorPageViewModelProtocol: EditorPageMovingManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didSelectBlock(at indexPath: IndexPath)
     func didLongTap(at indexPath: IndexPath)
-
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
     
     func showSettings()
     
