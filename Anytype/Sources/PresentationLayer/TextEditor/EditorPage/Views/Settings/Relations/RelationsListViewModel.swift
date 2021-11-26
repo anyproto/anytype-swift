@@ -2,6 +2,7 @@ import Foundation
 import BlocksModels
 import SwiftProtobuf
 import UIKit
+import AnytypeCore
 
 final class RelationsListViewModel: ObservableObject {
     
@@ -50,6 +51,7 @@ final class RelationsListViewModel: ObservableObject {
     }
     
     func editRelation(id: String) {
+        guard FeatureFlags.relationsEditing else { return }
         onValueEditingTap(id)
     }
     
