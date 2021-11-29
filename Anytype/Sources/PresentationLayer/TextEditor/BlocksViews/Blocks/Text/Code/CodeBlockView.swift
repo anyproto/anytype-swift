@@ -15,11 +15,17 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
         applyNewConfiguration()
     }
 
+    override func update(with state: UICellConfigurationState) {
+        super.update(with: state)
+
+        textView.isUserInteractionEnabled = state.isEditing
+    }
+
     // MARK: - Setup view
 
     private func setupViews() {
         addSubview(contentView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 6, left: 10, bottom: -6, right: -10))
         }
         
         contentView.layoutUsing.stack {
