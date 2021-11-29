@@ -248,7 +248,7 @@ final class EditorRouter: EditorRouterProtocol {
         guard let viewController = viewController else { return }
         
         let relation = document.parsedRelations.all.first { $0.id == key }
-        guard let relation = relation else { return }
+        guard let relation = relation, relation.isEditable else { return }
         
         let contentViewModel: RelationEditingViewModelProtocol?
         switch relation.value {
@@ -301,6 +301,12 @@ final class EditorRouter: EditorRouterProtocol {
                 key: relation.id,
                 value: string,
                 delegate: self
+            )
+        case .date(let string):
+            contentViewModel = DateRelationEditingViewModel(
+                service: DetailsService(objectId: document.objectId),
+                key: relation.id,
+                value: string
             )
         default:
             contentViewModel = nil
