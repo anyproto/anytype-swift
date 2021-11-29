@@ -15,11 +15,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         deleteSubscription = Anytype_Rpc.ObjectList.Delete.Service
             .invoke(objectIds: objectIds, queue: DispatchQueue.global(qos: .userInitiated))
             .receiveOnMain()
-            .sinkOnFailure { error in
-                anytypeAssertionFailure("Deletion error: \(error)", domain: .objectActionsService)
-                completion(false)
-            } receiveValue: { _ in
-                completion(true)
+            .sinkWithResult { result in
+                switch result {
+                case .success:
+                    completion(true)
+                case .failure(let error):
+                    anytypeAssertionFailure("Deletion error: \(error)", domain: .objectActionsService)
+                    completion(false)
+                }
             }
     }
     

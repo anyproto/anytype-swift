@@ -38,13 +38,14 @@ final class SettingsViewModel: ObservableObject {
             onlyIds: [], includeNotPinned: false, queue: DispatchQueue.global(qos: .userInitiated)
         )
             .receiveOnMain()
-            .sinkOnFailure(
-                onFailure: { error in
+            .sinkWithResult { result in
+                switch result {
+                case .failure(let error):
                     anytypeAssertionFailure("Clear cache error: \(error)", domain: .clearCache)
                     completion(false)
-                }, receiveValue: { _ in
+                case .success:
                     completion(true)
                 }
-            )
+            }
     }
 }
