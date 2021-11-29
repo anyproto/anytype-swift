@@ -95,7 +95,7 @@ final class DividerCursorController {
 
         if 0.33...0.66 ~= cellPointPercentage,
            movingManager.canMoveItemsToObject(at: indexPath) {
-            movingState(at: indexPath)
+            objectSelectionState(at: indexPath)
             return
         }
 
@@ -122,7 +122,7 @@ final class DividerCursorController {
         adjustDivider(at: supposedInsertIndexPath)
     }
 
-    private func movingState(at indexPath: IndexPath) {
+    private func objectSelectionState(at indexPath: IndexPath) {
         moveCursorView.isHidden = true
 
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])

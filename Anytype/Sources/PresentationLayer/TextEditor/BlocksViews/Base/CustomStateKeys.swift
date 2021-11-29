@@ -10,8 +10,8 @@ extension UIConfigurationStateCustomKey {
 
 extension UICellConfigurationState {
     var isMoving: Bool {
-        set { self[.isMoving] = newValue }
         get { self[.isMoving] as? Bool ?? false }
+        set { self[.isMoving] = newValue }
     }
 }
 

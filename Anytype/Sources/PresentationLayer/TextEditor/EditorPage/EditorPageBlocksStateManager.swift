@@ -94,6 +94,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         selectedBlocksIndexPaths = indexPaths
 
         blocksSelectionOverlayViewModel?.setSelectedBlocksCount(indexPaths.count)
+
+        let blocksInformation = indexPaths.compactMap { element(at: $0)?.information }
+        updateSelectionContent(selectedBlocks: blocksInformation)
     }
 
     // MARK: - EditorPageMovingManagerProtocol

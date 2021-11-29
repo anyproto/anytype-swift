@@ -224,7 +224,6 @@ extension EditorPageController: EditorPageViewInput {
             let indexPath = dataSource.indexPath(for: item)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
-        updateView()
 
         collectionView.indexPathsForSelectedItems.map(
             viewModel.blocksStateManager.didUpdateSelectedIndexPaths
