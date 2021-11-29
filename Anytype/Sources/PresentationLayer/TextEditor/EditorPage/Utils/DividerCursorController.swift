@@ -11,7 +11,7 @@ final class DividerCursorController {
 
     private let collectionView: UICollectionView
     private let view: UIView
-    private let movingManager: EditorPageMovingManagerProtocol
+    private let movingManager: EditorPageBlocksStateManagerProtocol
     private var cancellables = [AnyCancellable]()
     private var lastIndexPath: IndexPath?
 
@@ -30,7 +30,7 @@ final class DividerCursorController {
     }()
 
     init(
-        movingManager: EditorPageMovingManagerProtocol,
+        movingManager: EditorPageBlocksStateManagerProtocol,
         view: UIView,
         collectionView: UICollectionView
     ) {
@@ -67,13 +67,6 @@ final class DividerCursorController {
 
         view.addSubview(moveCursorView)
         adjustDividerCursorPosition()
-
-        collectionView.contentInset = .init(
-            top: view.bounds.height / 2,
-            left: 0,
-            bottom: view.bounds.height / 2,
-            right: 0
-        )
     }
 
     private func adjustDividerCursorPosition() {

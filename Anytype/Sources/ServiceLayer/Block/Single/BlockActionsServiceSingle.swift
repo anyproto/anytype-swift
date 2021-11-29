@@ -57,10 +57,32 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> MiddlewareResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
-        
+
         return Anytype_Rpc.BlockList.Duplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
             .map { MiddlewareResponse($0.event) }
             .getValue()
+    }
+
+    func move(
+        contextId: BlockId,
+        blockIds: [String],
+        targetContextID: BlockId,
+        dropTargetID: String,
+        position: BlockPosition
+    ) {
+        let event = Anytype_Rpc.BlockList.Move.Service
+            .invoke(
+                contextID: contextId,
+                blockIds: blockIds,
+                targetContextID: contextId,
+                dropTargetID: dropTargetID,
+                position: position.asMiddleware
+            ).map { EventsBunch(event: $0.event) }
+            .getValue()
+
+        guard let event = event else { return }
+
+        event.send()
     }
 }

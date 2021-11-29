@@ -34,7 +34,7 @@ final class EditorPageController: UIViewController {
     private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     lazy var dividerCursorController = DividerCursorController(
-        movingManager: viewModel,
+        movingManager: viewModel.blocksStateManager,
         view: view,
         collectionView: collectionView
     )
@@ -102,7 +102,8 @@ final class EditorPageController: UIViewController {
         
         firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
-            scrollView: collectionView
+            scrollView: collectionView,
+            stateManager: viewModel.blocksStateManager
         )
     }
 
@@ -134,7 +135,7 @@ final class EditorPageController: UIViewController {
     }
 
     func bindViewModel() {
-        viewModel.editorEditingState.sink { [unowned self] state in
+        viewModel.blocksStateManager.editorEditingState.sink { [unowned self] state in
             switch state {
             case .selecting(let blockIds):
                 view.endEditing(true)
@@ -143,6 +144,7 @@ final class EditorPageController: UIViewController {
                 blocksSelectionOverlayView.isHidden = false
                 navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
+                collectionView.deselectAllMovingItems()
                 dividerCursorController.isMovingModeEnabled = false
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
@@ -224,7 +226,9 @@ extension EditorPageController: EditorPageViewInput {
         }
         updateView()
 
-        collectionView.indexPathsForSelectedItems.map(viewModel.didUpdateSelectedIndexPaths)
+        collectionView.indexPathsForSelectedItems.map(
+            viewModel.blocksStateManager.didUpdateSelectedIndexPaths
+        )
     }
     
     func textBlockWillBeginEditing() {
@@ -312,7 +316,7 @@ private extension EditorPageController {
         guard gesture.state == .ended else { return }
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {
-            viewModel.didLongTap(at: $0)
+            viewModel.blocksStateManager.didLongTap(at: $0)
         }
     }
     

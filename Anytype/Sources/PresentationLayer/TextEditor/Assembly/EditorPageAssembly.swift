@@ -140,6 +140,18 @@ final class EditorAssembly {
             settingsViewModel: objectSettinsViewModel,
             router: router
         )
+
+        let blockActionsService = BlockActionsServiceSingle()
+
+        let blocksStateManager = EditorPageBlocksStateManager(
+            document: document,
+            modelsHolder: modelsHolder,
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
+            blockActionsService: blockActionsService,
+            actionHandler: actionHandler
+        )
+
+        actionHandler.blockSelectionHandler = blocksStateManager
         
         return EditorPageViewModel(
             document: document,
@@ -152,8 +164,8 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
-            blockActionsService: BlockActionsServiceSingle(),
-            blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel
+            blockActionsService: blockActionsService,
+            blocksStateManager: blocksStateManager
         )
     }
 
