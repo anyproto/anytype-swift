@@ -9,6 +9,7 @@ public enum ErrorDomain: String {
     case fileLoader
     case diskStorage
     case camera
+    case clearCache
     
     case defaultCompletion
     case resultGetValue

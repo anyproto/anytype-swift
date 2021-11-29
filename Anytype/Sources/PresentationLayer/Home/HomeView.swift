@@ -78,6 +78,11 @@ struct HomeView: View {
         .animation(.fastSpring, value: showKeychainAlert)
         .onChange(of: showKeychainAlert) { UserDefaultsConfig.showKeychainAlert = $0 }
         
+        .bottomFloater(isPresented: $settingsModel.loadingAlert.showAlert) {
+            DashboardLoadingAlert(text: settingsModel.loadingAlert.text).padding(8)
+        }
+        .animation(.fastSpring, value: settingsModel.loadingAlert.showAlert)
+        
         .sheet(isPresented: $viewModel.showSearch) {
             HomeSearchView()
                 .environmentObject(viewModel)

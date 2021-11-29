@@ -12,9 +12,7 @@ struct OtherSettingsView: View {
             Spacer.fixedHeight(12)
             defaultType
             iconPicker
-            #if !RELEASE
             clearCache
-            #endif
             Spacer.fixedHeight(12)
         }
         .background(Color.background)
