@@ -8,9 +8,19 @@ import AnytypeCore
 
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
-    func delete(objectIds: [BlockId]) {
+    private var deleteSubscription: AnyCancellable?
+    func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ()) {
         Amplitude.instance().logDeletion(count: objectIds.count)
-        _ = Anytype_Rpc.ObjectList.Delete.Service.invoke(objectIds: objectIds)
+        
+        deleteSubscription = Anytype_Rpc.ObjectList.Delete.Service
+            .invoke(objectIds: objectIds, queue: DispatchQueue.global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkOnFailure { error in
+                anytypeAssertionFailure("Deletion error: \(error)", domain: .objectActionsService)
+                completion(false)
+            } receiveValue: { _ in
+                completion(true)
+            }
     }
     
     func setArchive(objectId: BlockId, _ isArchived: Bool) {

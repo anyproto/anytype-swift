@@ -12,10 +12,10 @@ struct DashboardClearCacheAlert: View {
                 settingsModel.clearCacheAlert = false
             },
             rightButtonData: StandardButtonData(text: "Clear", style: .destructive) {
-                settingsModel.loadingAlert = .init(text: "Removing cache", showAlert: true)
+                homeModel.loadingAlertData = .init(text: "Removing cache".localized, showAlert: true)
                 
                 settingsModel.clearCache { clearCacheSuccessful in
-                    settingsModel.loadingAlert = .empty
+                    homeModel.loadingAlertData = .empty
                     
                     if clearCacheSuccessful {
                         UINotificationFeedbackGenerator().notificationOccurred(.success)
