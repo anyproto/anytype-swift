@@ -3,6 +3,15 @@ import Combine
 import AnytypeCore
 
 final class DividerCursorController {
+    private enum Constants {
+        enum Divider {
+            static let cornerRadius = 8.0
+            static let origin = CGPoint(x: 8, y: 0)
+            static let padding = 8.0
+            static let height = 4.0
+        }
+    }
+
     var isMovingModeEnabled = false {
         didSet {
             isMovingModeEnabled ? placeDividerCursor() : moveCursorView.removeFromSuperview()
@@ -18,12 +27,12 @@ final class DividerCursorController {
     lazy var moveCursorView: UIView = {
         let view = UIView()
         view.backgroundColor = AnytypeColor.pureAmber.asUIColor
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = Constants.Divider.cornerRadius
         view.layer.masksToBounds = true
 
         view.frame = .init(
-            origin: .init(x: 8, y: 0),
-            size: CGSize(width: self.view.bounds.size.width - 16, height: 4)
+            origin: Constants.Divider.origin,
+            size: CGSize(width: self.view.bounds.size.width - Constants.Divider.padding * 2, height: Constants.Divider.height)
         )
 
         return view
@@ -82,6 +91,17 @@ final class DividerCursorController {
         let cellMidY = cell.bounds.midY
         let isPointAboveMidY = cellPoint.y < cellMidY
 
+        let cellPointPercentage = cellPoint.y / cell.bounds.size.height
+
+        if 0.33...0.66 ~= cellPointPercentage,
+           movingManager.canMoveItemsToObject(at: indexPath) {
+            movingState(at: indexPath)
+            return
+        }
+
+        moveCursorView.isHidden = false
+        collectionView.deselectAllSelectedItems(animated: false)
+
         var supposedInsertIndexPath = isPointAboveMidY
                                         ? indexPath
                                         : IndexPath(row: indexPath.row + 1, section: indexPath.section)
@@ -100,6 +120,12 @@ final class DividerCursorController {
         lastIndexPath = supposedInsertIndexPath
 
         adjustDivider(at: supposedInsertIndexPath)
+    }
+
+    private func movingState(at indexPath: IndexPath) {
+        moveCursorView.isHidden = true
+
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
     }
 
     private func adjustDivider(at indexPath: IndexPath) {

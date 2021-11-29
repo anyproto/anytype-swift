@@ -11,9 +11,10 @@ enum EditorEditingState {
 /// Blocks drag & drop protocol.
 protocol EditorPageMovingManagerProtocol {
     var movingBlocksIndexPaths: [IndexPath] { get }
-    var dividerPositionIndexPath: IndexPath? { get }
 
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
+    func canMoveItemsToObject(at indexPath: IndexPath) -> Bool
+
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath])
 }
 
@@ -30,13 +31,18 @@ protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtoco
 }
 
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
+    private enum MovingDestination {
+        case position(IndexPath)
+        case object(BlockId)
+    }
+
     var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher()
     }
     @Published var editingState: EditorEditingState = .editing
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
     private(set) var movingBlocksIndexPaths = [IndexPath]()
-    private(set) var dividerPositionIndexPath: IndexPath?
+    private var movingDestination: MovingDestination?
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: BlockViewModelsHolder
@@ -103,13 +109,26 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         if let element = modelsHolder.models[safe: indexPath.row],
            !notAllowedTypes.contains(element.content.type) {
-            dividerPositionIndexPath = indexPath
+            movingDestination = .position(indexPath)
             return true
         }
 
         // Divider can be placed at the bottom of last cell.
         if indexPath.row == modelsHolder.models.count {
-            dividerPositionIndexPath = indexPath
+            movingDestination = .position(indexPath)
+            return true
+        }
+
+        return false
+    }
+
+    func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {
+        guard let element = modelsHolder.models[safe: indexPath.row],
+              !movingBlocksIndexPaths.contains(indexPath) else { return false }
+
+        if case let .link(content) = element.information.content {
+            movingDestination = .object(content.targetBlockID)
+
             return true
         }
 
@@ -148,21 +167,33 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func startMoving() {
-        guard let positionIndexPath = dividerPositionIndexPath else {
-            anytypeAssertionFailure("Unxpected case", domain: .editorPage)
-            return
-        }
-
         let position: BlockPosition
+        let contextId = document.objectId
+        let targetId: BlockId
         let dropTargetId: BlockId
+        switch movingDestination {
+        case let .object(blockId):
+            let document = BaseDocument(objectId: blockId)
+            let _ = document.open()
 
-        if let targetBlock = modelsHolder.models[safe: positionIndexPath.row] {
-            position = .top
-            dropTargetId = targetBlock.blockId
-        } else if let targetBlock = modelsHolder.models[safe: positionIndexPath.row - 1] {
+            guard let id = document.flattenBlocks.last?.information.id else { return }
+
+            targetId = blockId
+            dropTargetId = id
             position = .bottom
-            dropTargetId = targetBlock.blockId
-        } else {
+        case let .position(positionIndexPath):
+            if let targetBlock = modelsHolder.models[safe: positionIndexPath.row] {
+                position = .top
+                dropTargetId = targetBlock.blockId
+            } else if let targetBlock = modelsHolder.models[safe: positionIndexPath.row - 1] {
+                position = .bottom
+                dropTargetId = targetBlock.blockId
+            } else {
+                anytypeAssertionFailure("Unxpected case", domain: .editorPage)
+                return
+            }
+            targetId = document.objectId
+        case .none:
             anytypeAssertionFailure("Unxpected case", domain: .editorPage)
             return
         }
@@ -172,9 +203,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             .compactMap { element(at: $0)?.blockId }
 
         blockActionsService.move(
-            contextId: document.objectId,
+            contextId: contextId,
             blockIds: blockIds,
-            targetContextID: document.objectId,
+            targetContextID: targetId,
             dropTargetID: dropTargetId,
             position: position
         )

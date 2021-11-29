@@ -313,6 +313,8 @@ private extension EditorPageController {
 
     @objc
     private func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        guard !dividerCursorController.isMovingModeEnabled else { return }
+
         guard gesture.state == .ended else { return }
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {

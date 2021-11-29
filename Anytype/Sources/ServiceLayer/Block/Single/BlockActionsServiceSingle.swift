@@ -75,7 +75,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             .invoke(
                 contextID: contextId,
                 blockIds: blockIds,
-                targetContextID: contextId,
+                targetContextID: targetContextID,
                 dropTargetID: dropTargetID,
                 position: position.asMiddleware
             ).map { EventsBunch(event: $0.event) }
