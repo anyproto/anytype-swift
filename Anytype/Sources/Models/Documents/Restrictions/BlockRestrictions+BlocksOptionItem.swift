@@ -17,6 +17,10 @@ extension Array where Element == BlockRestrictions {
             }
         }
 
+        if count > 1 {
+            options.remove(.addBlockBelow)
+        }
+
         return Array<BlocksOptionItem>(options).sorted()
     }
 }

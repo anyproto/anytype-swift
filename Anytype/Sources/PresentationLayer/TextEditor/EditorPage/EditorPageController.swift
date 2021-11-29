@@ -224,7 +224,6 @@ extension EditorPageController: EditorPageViewInput {
             let indexPath = dataSource.indexPath(for: item)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
-        updateView()
 
         collectionView.indexPathsForSelectedItems.map(
             viewModel.blocksStateManager.didUpdateSelectedIndexPaths
@@ -313,6 +312,8 @@ private extension EditorPageController {
 
     @objc
     private func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        guard !dividerCursorController.isMovingModeEnabled else { return }
+
         guard gesture.state == .ended else { return }
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {

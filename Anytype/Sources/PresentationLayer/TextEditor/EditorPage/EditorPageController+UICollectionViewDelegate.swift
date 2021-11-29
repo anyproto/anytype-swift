@@ -10,7 +10,6 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        guard !dividerCursorController.isMovingModeEnabled else { return }
         if collectionView.isEditing {
             viewModel.didSelectBlock(at: indexPath)
             collectionView.deselectItem(at: indexPath, animated: false)
@@ -31,6 +30,8 @@ extension EditorPageController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        guard !dividerCursorController.isMovingModeEnabled else { return false }
+
         if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
                     return false
                 }
