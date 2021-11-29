@@ -12,7 +12,6 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
                   currentConfiguration != newConfiguration else { return }
 
             currentConfiguration = newConfiguration
-
         }
     }
     var currentConfiguration: Configuration {
@@ -48,6 +47,12 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
         selectionView.updateStyle(isSelected: state.isSelected)
 
         isUserInteractionEnabled = state.isEditing
+
+        if state.isMoving {
+            backgroundColor = AnytypeColor.lightBlue.asUIColor
+        } else {
+            backgroundColor = .white
+        }
     }
     
 
@@ -57,3 +62,4 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
         }
     }
 }
+

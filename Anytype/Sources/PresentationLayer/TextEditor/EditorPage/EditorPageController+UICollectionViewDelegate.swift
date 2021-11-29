@@ -14,7 +14,9 @@ extension EditorPageController: UICollectionViewDelegate {
             viewModel.didSelectBlock(at: indexPath)
             collectionView.deselectItem(at: indexPath, animated: false)
         } else {
-            collectionView.indexPathsForSelectedItems.map(viewModel.didUpdateSelectedIndexPaths)
+            collectionView.indexPathsForSelectedItems.map(
+                viewModel.blocksStateManager.didUpdateSelectedIndexPaths
+            )
         }
     }
     
@@ -22,10 +24,14 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        collectionView.indexPathsForSelectedItems.map(viewModel.didUpdateSelectedIndexPaths)
+        collectionView.indexPathsForSelectedItems.map(
+            viewModel.blocksStateManager.didUpdateSelectedIndexPaths
+        )
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        guard !dividerCursorController.isMovingModeEnabled else { return false }
+
         if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
                     return false
                 }
@@ -42,7 +48,7 @@ extension EditorPageController: UICollectionViewDelegate {
         case let .block(block):
             if case .text = block.content, collectionView.isEditing { return false }
 
-            return viewModel.canSelectBlock(at: indexPath)
+            return viewModel.blocksStateManager.canSelectBlock(at: indexPath)
         case .header:
             return false
         }
@@ -58,5 +64,4 @@ extension EditorPageController: UICollectionViewDelegate {
             object: scrollView.contentOffset.y
         )
     }
-    
 }
