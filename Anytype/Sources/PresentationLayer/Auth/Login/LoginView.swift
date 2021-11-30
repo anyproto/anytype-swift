@@ -78,6 +78,7 @@ struct LoginView: View {
                 .autocapitalization(.none)
                 .frame(height: 124)
                 .textContentType(.password)
+                .disableAutocorrection(true)
         }
     }
     
