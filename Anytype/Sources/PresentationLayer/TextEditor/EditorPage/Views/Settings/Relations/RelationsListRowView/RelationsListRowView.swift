@@ -27,7 +27,13 @@ struct RelationsListRowView: View {
                     name
                         .frame(width: gr.size.width * 0.4, alignment: .leading)
                     Spacer.fixedWidth(8)
-                    valueView
+                    
+                    if relation.isEditable {
+                        valueViewButton
+                    } else {
+                        valueView
+                    }
+                    
                     Spacer(minLength: 8)
                     starImageView
                 }
@@ -48,14 +54,18 @@ struct RelationsListRowView: View {
         }
     }
     
-    private var valueView: some View {
+    private var valueViewButton: some View {
         Button {
             onEditTap(relation.id)
         } label: {
-            HStack(spacing: 0) {
-                RelationValueViewProvider.relationView(relation, style: .regular(allowMultiLine: false))
-                Spacer()
-            }
+            valueView
+        }
+    }
+    
+    private var valueView: some View {
+        HStack(spacing: 0) {
+            RelationValueViewProvider.relationView(relation, style: .regular(allowMultiLine: false))
+            Spacer()
         }
     }
     
