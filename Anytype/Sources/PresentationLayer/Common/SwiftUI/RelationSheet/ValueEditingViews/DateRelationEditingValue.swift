@@ -1,6 +1,6 @@
 import Foundation
 
-enum DateRelationValue: CaseIterable, Hashable {
+enum DateRelationEditingValue: CaseIterable, Hashable {
     
     case noDate
     case today
@@ -10,7 +10,7 @@ enum DateRelationValue: CaseIterable, Hashable {
     
 }
 
-extension DateRelationValue {
+extension DateRelationEditingValue {
     
     var title: String {
         switch self {

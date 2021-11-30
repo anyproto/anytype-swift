@@ -49,8 +49,12 @@ struct SetTableViewRow: View {
                 AnytypeText("unsupported 👺", style: .relation2Regular, color: .textPrimary)
                     .lineLimit(1)
                     .frame(width: 128)
-            case .text(let text), .date(let text), .phone(let text), .email(let text), .url(let text):
+            case .text(let text), .phone(let text), .email(let text), .url(let text):
                 AnytypeText(text ?? "", style: .relation2Regular, color: .textPrimary)
+                    .lineLimit(1)
+                    .frame(width: 128)
+            case .date(let value):
+                AnytypeText(value?.text ?? "", style: .relation2Regular, color: .textPrimary)
                     .lineLimit(1)
                     .frame(width: 128)
             case .unknown(let text):

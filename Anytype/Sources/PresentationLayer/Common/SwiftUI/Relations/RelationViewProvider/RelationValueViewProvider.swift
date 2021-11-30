@@ -14,8 +14,8 @@ struct RelationValueViewProvider {
                 TextRelationView(value: string, hint: hint, style: style)
             case .status(let statusRelation):
                 StatusRelationView(value: statusRelation, hint: hint, style: style)
-            case .date(let string):
-                TextRelationView(value: string, hint: hint, style: style)
+            case .date(let value):
+                TextRelationView(value: value?.text, hint: hint, style: style)
             case .object(let objectsRelation):
                 ObjectRelationView(value: objectsRelation, hint: hint, style: style)
             case .checkbox(let bool):

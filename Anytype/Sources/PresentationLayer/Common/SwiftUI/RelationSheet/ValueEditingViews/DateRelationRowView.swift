@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DateRelationRowView: View {
     
-    let value: DateRelationValue
+    let value: DateRelationEditingValue
     let isSelected: Bool
     
     var body: some View {
@@ -11,6 +11,10 @@ struct DateRelationRowView: View {
             HStack(spacing: 0) {
                 AnytypeText(value.title, style: .uxBodyRegular, color: .grayscale90)
                 Spacer()
+                
+                if isSelected {
+                    Image.optionChecked.foregroundColor(.textSecondary)
+                }
             }
             Spacer.fixedHeight(12)
         }

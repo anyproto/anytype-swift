@@ -6,10 +6,10 @@ struct DateRelationEditingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(viewModel.values, id: \.self) {
+            ForEach(viewModel.values, id: \.self) { value in
                 DateRelationRowView(
-                    value: $0,
-                    isSelected: false
+                    value: value,
+                    isSelected: value == viewModel.selectedValue
                 )
             }
             Spacer.fixedHeight(20)
@@ -26,7 +26,7 @@ struct DateRelationEditingView_Previews: PreviewProvider {
             viewModel: DateRelationEditingViewModel(
                 service: DetailsService(objectId: ""),
                 key: "",
-                value: ""
+                value: nil
             )
         )
     }

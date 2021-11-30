@@ -14,6 +14,7 @@ extension Image {
     static let noImage = Image("no_image")
     
     static let ghost = createImage(ImageName.ghost)
+    static let optionChecked = createImage("option_checked")
 }
 
 extension Image {
@@ -68,8 +69,6 @@ extension Image {
         static let note = createImage("layout_settings_note")
         static let profile = createImage("layout_settings_profile")
         static let todo = createImage("layout_settings_todo")
-        
-        static let checkmark = Image("layout_settings_checkmark")
     }
 
     enum System {

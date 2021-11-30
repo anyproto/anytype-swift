@@ -3,8 +3,8 @@ import SwiftUI
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    @Published var values: [DateRelationValue] = DateRelationValue.allCases
-    @Published var selectedValues: DateRelationValue? = nil
+    @Published var values: [DateRelationEditingValue] = DateRelationEditingValue.allCases
+    @Published var selectedValue: DateRelationEditingValue = .noDate
     
     private let service: DetailsServiceProtocol
     private let key: String
@@ -12,10 +12,12 @@ final class DateRelationEditingViewModel: ObservableObject {
     init(
         service: DetailsServiceProtocol,
         key: String,
-        value: String?
+        value: DateRelationValue?
     ) {
         self.service = service
         self.key = key
+        
+        handleInitialValue(value)
     }
     
 }
@@ -30,5 +32,30 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
         AnyView(DateRelationEditingView(viewModel: self))
     }
     
+    
+}
+
+private extension DateRelationEditingViewModel {
+    
+    func handleInitialValue(_ value: DateRelationValue?) {
+        var selectedValue = DateRelationEditingValue.noDate
+        
+        guard let value = value else {
+            self.selectedValue = selectedValue
+            return
+        }
+        
+        if Calendar.current.isDateInToday(value.date) {
+            selectedValue = .today
+        } else if Calendar.current.isDateInTomorrow(value.date) {
+            selectedValue = .tomorrow
+        } else if Calendar.current.isDateInYesterday(value.date) {
+            selectedValue = .yesterday
+        } else {
+            selectedValue = .exactDay
+        }
+        
+        self.selectedValue = selectedValue
+    }
     
 }

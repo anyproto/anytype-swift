@@ -302,11 +302,11 @@ final class EditorRouter: EditorRouterProtocol {
                 value: string,
                 delegate: self
             )
-        case .date(let string):
+        case .date(let value):
             contentViewModel = DateRelationEditingViewModel(
                 service: DetailsService(objectId: document.objectId),
                 key: relation.id,
-                value: string
+                value: value
             )
         default:
             contentViewModel = nil
