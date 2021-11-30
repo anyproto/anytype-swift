@@ -172,7 +172,10 @@ private extension RelationsBuilder {
     func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
         let value = details.values[relation.key]
         
-        guard let timeInterval = value?.safeDoubleValue else { return .text(nil) }
+        guard
+            let timeInterval = value?.safeDoubleValue,
+                !timeInterval.isZero
+        else { return .date(nil) }
         
         let date = Date(timeIntervalSince1970: timeInterval)
         

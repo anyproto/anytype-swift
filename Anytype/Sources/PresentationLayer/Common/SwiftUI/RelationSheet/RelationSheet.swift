@@ -74,14 +74,6 @@ struct RelationSheet: View {
         showPopup ? 0 : sheetHeight
     }
     
-    @ViewBuilder
-    fileprivate func addTap(onTap: @escaping ()->()) -> some View {
-        self.simultaneousGesture(
-            TapGesture().onEnded {
-                onTap()
-            }
-        )
-    }
 }
 
 struct RelationSheet_Previews: PreviewProvider {
