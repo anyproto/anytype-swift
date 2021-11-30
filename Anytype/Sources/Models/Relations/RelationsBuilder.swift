@@ -162,7 +162,7 @@ private extension RelationsBuilder {
         let anytypeColor: AnytypeColor = middlewareColor?.asDarkColor ?? .grayscale90
         
         return .status(
-            StatusRelation(
+            StatusRelationValue(
                 text: option.text,
                 color: anytypeColor
             )
@@ -198,8 +198,8 @@ private extension RelationsBuilder {
             selectedTagIds.contains($0.id)
         }
         
-        let tags: [TagRelation] = options.map {
-            TagRelation(
+        let tags: [TagRelationValue] = options.map {
+            TagRelationValue(
                 text: $0.text,
                 textColor: MiddlewareColor(rawValue: $0.color)?.asDarkColor ?? .grayscale90,
                 backgroundColor: MiddlewareColor(rawValue: $0.color)?.asLightColor ?? .grayscaleWhite
@@ -232,7 +232,7 @@ private extension RelationsBuilder {
             return objectDetails
         }
 
-        let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
+        let objectRelations: [ObjectRelationValue] = objectDetails.map { objectDetail in
             let name = objectDetail.name
             let icon: ObjectIconImage = {
                 if let objectIcon = objectDetail.objectIconImage {
@@ -242,7 +242,7 @@ private extension RelationsBuilder {
                 return .placeholder(name.first)
             }()
             
-            return ObjectRelation(icon: icon, text: name)
+            return ObjectRelationValue(icon: icon, text: name)
         }
         
         
@@ -265,7 +265,7 @@ private extension RelationsBuilder {
             return objectDetails
         }
 
-        let objectRelations: [ObjectRelation] = objectDetails.map { objectDetail in
+        let objectRelations: [ObjectRelationValue] = objectDetails.map { objectDetail in
             let fileName: String = {
                 let name = objectDetail.name
                 let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
@@ -293,7 +293,7 @@ private extension RelationsBuilder {
                 return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
             }()
             
-            return ObjectRelation(icon: icon, text: fileName)
+            return ObjectRelationValue(icon: icon, text: fileName)
         }
         
         return .object(objectRelations)
