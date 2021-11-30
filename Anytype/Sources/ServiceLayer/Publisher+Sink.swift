@@ -2,17 +2,16 @@ import Combine
 import AnytypeCore
 
 extension Publisher {
-    public func sinkOnFailure(onFailure: @escaping (Error) -> (), receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
-        self.sink(
-            receiveCompletion: { completion in
-                switch completion {
-                case .finished: return
-                case let .failure(error):
-                    onFailure(error)
-                }
-            },
-            receiveValue: receiveValue
-        )
+    public func sinkWithResult(completion: @escaping (Result<Self.Output, Error>) -> ()) -> AnyCancellable {
+        self.sink { sinkCompletion in
+            switch sinkCompletion {
+            case .finished: return
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        } receiveValue: { result in
+            completion(.success(result))
+        }
     }
     
     public func sinkWithDefaultCompletion(_ actionName: String, receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
