@@ -3,8 +3,8 @@ import SwiftUI
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    @Published var values: [DateRelationValue] = DateRelationValue.allCases
-    @Published var selectedValues: DateRelationValue? = nil
+    @Published var values: [DateRelationEditingValue] = DateRelationEditingValue.allCases
+    @Published var selectedValues: DateRelationEditingValue? = nil
     
     private let service: DetailsServiceProtocol
     private let key: String

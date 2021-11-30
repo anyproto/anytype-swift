@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DateRelationRowView: View {
     
-    let value: DateRelationValue
+    let value: DateRelationEditingValue
     let isSelected: Bool
     
     var body: some View {

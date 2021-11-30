@@ -268,8 +268,9 @@
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
 		12C2A5602754E13000311854 /* DateRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A55F2754E13000311854 /* DateRelationEditingView.swift */; };
 		12C2A5652754E13D00311854 /* DateRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5642754E13D00311854 /* DateRelationEditingViewModel.swift */; };
-		12C2A5672754E1C400311854 /* DateRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5662754E1C400311854 /* DateRelationValue.swift */; };
+		12C2A5672754E1C400311854 /* DateRelationEditingValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */; };
 		12C2A5692754E90800311854 /* DateRelationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5682754E90800311854 /* DateRelationRowView.swift */; };
+		12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A57F2755F0CE00311854 /* DateRelationValue.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
@@ -1081,8 +1082,9 @@
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
 		12C2A55F2754E13000311854 /* DateRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingView.swift; sourceTree = "<group>"; };
 		12C2A5642754E13D00311854 /* DateRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingViewModel.swift; sourceTree = "<group>"; };
-		12C2A5662754E1C400311854 /* DateRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationValue.swift; sourceTree = "<group>"; };
+		12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingValue.swift; sourceTree = "<group>"; };
 		12C2A5682754E90800311854 /* DateRelationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationRowView.swift; sourceTree = "<group>"; };
+		12C2A57F2755F0CE00311854 /* DateRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationValue.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
@@ -2779,7 +2781,7 @@
 				12887F3D274BC25100228330 /* Text */,
 				12C2A55F2754E13000311854 /* DateRelationEditingView.swift */,
 				12C2A5642754E13D00311854 /* DateRelationEditingViewModel.swift */,
-				12C2A5662754E1C400311854 /* DateRelationValue.swift */,
+				12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */,
 				12C2A5682754E90800311854 /* DateRelationRowView.swift */,
 			);
 			path = ValueEditingViews;
@@ -2878,6 +2880,7 @@
 				127EABBB27352D4100C731F2 /* StatusRelationValue.swift */,
 				127EABF5273944DA00C731F2 /* TagRelationValue.swift */,
 				127EABFA2739588A00C731F2 /* ObjectRelationValue.swift */,
+				12C2A57F2755F0CE00311854 /* DateRelationValue.swift */,
 			);
 			path = RelationValue;
 			sourceTree = "<group>";
@@ -5387,9 +5390,10 @@
 				C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
-				12C2A5672754E1C400311854 /* DateRelationValue.swift in Sources */,
+				12C2A5672754E1C400311854 /* DateRelationEditingValue.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				12C2A5692754E90800311854 /* DateRelationRowView.swift in Sources */,
+				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
