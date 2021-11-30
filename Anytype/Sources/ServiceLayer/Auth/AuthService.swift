@@ -53,7 +53,7 @@ final class AuthService: AuthServiceProtocol {
             let accountId = response.account.id
             Amplitude.instance().setUserId(accountId)
             Amplitude.instance().logAccountCreate(accountId)
-            UserDefaultsConfig.usersIdKey = accountId
+            UserDefaultsConfig.usersId = accountId
         }
         
         return result.map { _ in }
@@ -92,7 +92,7 @@ final class AuthService: AuthServiceProtocol {
             let accountId = response.account.id
             Amplitude.instance().setUserId(accountId)
             Amplitude.instance().logAccountSelect(accountId)
-            UserDefaultsConfig.usersIdKey = accountId
+            UserDefaultsConfig.usersId = accountId
             
             loginStateService.setupStateAfterLoginOrAuth()
             return true

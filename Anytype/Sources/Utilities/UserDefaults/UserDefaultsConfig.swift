@@ -6,9 +6,9 @@ import SwiftUI
 
 struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
-    public static var usersIdKey: String {
+    public static var usersId: String {
         didSet {
-            Crashlytics.crashlytics().setUserID(usersIdKey)
+            Crashlytics.crashlytics().setUserID(usersId)
         }
     }
 
@@ -16,7 +16,7 @@ struct UserDefaultsConfig {
     public static var installedAtDate: Date?
 
     static func cleanStateAfterLogout() {
-        usersIdKey = ""
+        usersId = ""
         _lastOpenedPageId = nil
         _selectedTab = nil
     }

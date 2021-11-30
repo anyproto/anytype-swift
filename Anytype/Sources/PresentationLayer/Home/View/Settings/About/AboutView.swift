@@ -6,8 +6,10 @@ import AnytypeCore
 import AudioToolbox
 
 struct AboutView: View {
-    @EnvironmentObject var viewModel: SettingsViewModel
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject private var model: SettingsViewModel
+    @Environment(\.presentationMode) private var presentationMode
+    
+    @State private var snackBarData = SnackBarData.empty
     
     var body: some View {
         contentView
@@ -34,19 +36,32 @@ struct AboutView: View {
                 if let libraryVersion = MiddlewareConfigurationService.shared.libraryVersion(), libraryVersion.isNotEmpty {
                     aboutRow(label: "Library", value: libraryVersion)
                 }
+                if let userId = UserDefaultsConfig.usersId {
+                    aboutRow(label: "User Id", value: userId)
+                }
             }
             .padding(.horizontal, 20)
             Spacer()
         }
+        .snackbar(
+            isShowing: $snackBarData.showSnackBar,
+            text: AnytypeText(snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
+        )
     }
     
     func aboutRow(label: String, value: String) -> some View {
-        HStack {
-            AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
-            Spacer()
-            AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
+        Button {
+            UISelectionFeedbackGenerator().selectionChanged()
+            UIPasteboard.general.string = value
+            snackBarData = .init(text: "\(label) " + "copied to clipboard".localized, showSnackBar: true)
+        } label: {
+            HStack {
+                AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
+                Spacer()
+                AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
+            }
+            .padding(.vertical, 12)
         }
-        .padding(.vertical, 12)
     }
     
     @State private var titleTapCount = 0
@@ -58,7 +73,7 @@ struct AboutView: View {
                     titleTapCount = 0
                     AudioServicesPlaySystemSound(1109)
                     presentationMode.wrappedValue.dismiss()
-                    viewModel.debugMenu = true
+                    model.debugMenu = true
                 }
             }
     }
