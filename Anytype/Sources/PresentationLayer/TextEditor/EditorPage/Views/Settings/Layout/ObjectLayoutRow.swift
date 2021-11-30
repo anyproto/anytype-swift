@@ -31,7 +31,7 @@ struct ObjectLayoutRow: View {
                 Spacer()
                 
                 if isSelected {
-                    Image.LayoutSettings.checkmark.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                    Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
                 }
             }
         }

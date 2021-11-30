@@ -2,7 +2,7 @@ import Foundation
 
 struct DateRelationValue: Hashable {
     
-    let timeInterval: TimeInterval
+    let date: Date
     let text: String
     
 }

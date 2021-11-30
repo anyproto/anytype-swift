@@ -306,7 +306,7 @@ final class EditorRouter: EditorRouterProtocol {
             contentViewModel = DateRelationEditingViewModel(
                 service: DetailsService(objectId: document.objectId),
                 key: relation.id,
-                value: value?.text ?? ""
+                value: value
             )
         default:
             contentViewModel = nil

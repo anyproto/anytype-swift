@@ -176,12 +176,7 @@ private extension RelationsBuilder {
         
         let date = Date(timeIntervalSince1970: timeInterval)
         
-        return .date(
-            DateRelationValue(
-                timeInterval: timeInterval,
-                text: dateFormatter.string(from: date)
-            )
-        )
+        return .date(DateRelationValue( date: date, text: dateFormatter.string(from: date)))
     }
     
     func checkboxRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
