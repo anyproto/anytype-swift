@@ -154,6 +154,7 @@
 "Add profile" = "Add profile";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
+"Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
 
 "Enter your invitation code" = "Enter your invitation code";
 "Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
