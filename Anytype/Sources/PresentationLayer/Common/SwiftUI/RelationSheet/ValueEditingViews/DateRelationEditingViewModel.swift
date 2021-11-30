@@ -32,6 +32,18 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
         switch selectedValue {
         case .noDate:
             service.updateDetails([DetailsUpdate(key: key, value: nil)])
+        case .today:
+            service.updateDetails([
+                DetailsUpdate(key: key, value: Date().timeIntervalSince1970.protobufValue)
+            ])
+        case .yesterday:
+            service.updateDetails([
+                DetailsUpdate(key: key, value: Date.yesterday.timeIntervalSince1970.protobufValue)
+            ])
+        case .tomorrow:
+            service.updateDetails([
+                DetailsUpdate(key: key, value: Date.tomorrow.timeIntervalSince1970.protobufValue)
+            ])
         default:
             break
         }
@@ -40,8 +52,7 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
     func makeView() -> AnyView {
         AnyView(DateRelationEditingView(viewModel: self))
     }
-    
-    
+     
 }
 
 private extension DateRelationEditingViewModel {
