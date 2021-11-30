@@ -271,6 +271,7 @@
 		12C2A5672754E1C400311854 /* DateRelationEditingValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */; };
 		12C2A5692754E90800311854 /* DateRelationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5682754E90800311854 /* DateRelationRowView.swift */; };
 		12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A57F2755F0CE00311854 /* DateRelationValue.swift */; };
+		12C2A5822756342F00311854 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5812756342F00311854 /* DateExtension.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
@@ -1085,6 +1086,7 @@
 		12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingValue.swift; sourceTree = "<group>"; };
 		12C2A5682754E90800311854 /* DateRelationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationRowView.swift; sourceTree = "<group>"; };
 		12C2A57F2755F0CE00311854 /* DateRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationValue.swift; sourceTree = "<group>"; };
+		12C2A5812756342F00311854 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
@@ -4007,6 +4009,7 @@
 				3DAE1C88273E6A59009A72F3 /* String+Range.swift */,
 				535F79BC274C087A0050A1B8 /* UTTypeExtension.swift */,
 				3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */,
+				12C2A5812756342F00311854 /* DateExtension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -5772,6 +5775,7 @@
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */,
 				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,
+				12C2A5822756342F00311854 /* DateExtension.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
