@@ -21,6 +21,10 @@ struct UserDefaultsConfig {
         _selectedTab = nil
     }
     
+    
+    @UserDefault("App.AnalyticsUserConsent", defaultValue: false)
+    public static var analyticsUserConsent: Bool
+    
     // MARK: - Selected Tab
     @UserDefault("UserData.SelectedTab", defaultValue: nil)
     private static var _selectedTab: String?

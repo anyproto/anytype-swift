@@ -3,6 +3,7 @@ import SwiftUI
 
 struct MainAuthView: View {
     @ObservedObject var viewModel: MainAuthViewModel
+    @State private var userAnalyticsConsent: Bool = UserDefaultsConfig.analyticsUserConsent
 
     var body: some View {
         ZStack {
@@ -19,6 +20,9 @@ struct MainAuthView: View {
         .onAppear {
             viewModel.viewLoaded()
         }
+        .onChange(of: userAnalyticsConsent) { newValue in
+            UserDefaultsConfig.analyticsUserConsent = newValue
+        }
     }
     
     private var contentView: some View {
@@ -31,17 +35,43 @@ struct MainAuthView: View {
     
     private var bottomSheet: some View {
         VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Welcome to Anytype".localized, style: .heading, color: .textPrimary)
-                Spacer.fixedHeight(11)
-                AnytypeText("OrganizeEverythingDescription".localized, style: .uxCalloutRegular, color: .textPrimary)
-                Spacer.fixedHeight(18)
-                buttons
+            Group {
+                if userAnalyticsConsent {
+                    standartContent
+                } else {
+                    analyticsConsentView
+                }
             }
+            .transition(.identity)
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
         .background(Color.background)
         .cornerRadius(16.0)
+    }
+    
+    private var analyticsConsentView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            AnytypeText("Important notice".localized, style: .heading, color: .textPrimary)
+            Spacer.fixedHeight(11)
+            AnytypeText("Analytics constent text".localized, style: .uxCalloutRegular, color: .textPrimary)
+            Spacer.fixedHeight(18)
+            StandardButton(text: "Start".localized, style: .primary) {
+                UISelectionFeedbackGenerator().selectionChanged()
+                withAnimation(.fastSpring) {
+                    userAnalyticsConsent = true
+                }
+            }
+        }
+    }
+    
+    private var standartContent: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            AnytypeText("Welcome to Anytype".localized, style: .heading, color: .textPrimary)
+            Spacer.fixedHeight(11)
+            AnytypeText("OrganizeEverythingDescription".localized, style: .uxCalloutRegular, color: .textPrimary)
+            Spacer.fixedHeight(18)
+            buttons
+        }
     }
     
     private var buttons: some View {

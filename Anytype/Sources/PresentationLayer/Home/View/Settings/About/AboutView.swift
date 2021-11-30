@@ -57,6 +57,7 @@ struct AboutView: View {
         } label: {
             HStack {
                 AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
+                Spacer.fixedWidth(50)
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
             }
