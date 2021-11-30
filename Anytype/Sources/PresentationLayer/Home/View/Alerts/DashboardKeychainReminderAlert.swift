@@ -34,6 +34,9 @@ struct DashboardKeychainReminderAlert: View {
 
 struct DashboardKeychainReminderAlert_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardKeychainReminderAlert()
+        ZStack {
+            Color.blue
+            DashboardKeychainReminderAlert()
+        }
     }
 }

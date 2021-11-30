@@ -9,6 +9,7 @@ public enum ErrorDomain: String {
     case fileLoader
     case diskStorage
     case camera
+    case clearCache
     
     case defaultCompletion
     case resultGetValue
@@ -49,6 +50,7 @@ public enum ErrorDomain: String {
     
     case textBlockActionHandler
     case blockActionsService
+    case objectActionsService
     case keyboardListner
     case textLayout
     case textConverter

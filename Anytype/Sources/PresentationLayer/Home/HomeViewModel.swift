@@ -20,7 +20,8 @@ final class HomeViewModel: ObservableObject {
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var showDeletionAlert = false
-    @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
+    @Published var snackBarData = SnackBarData.empty
+    @Published var loadingAlertData = LoadingAlertData.empty
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()

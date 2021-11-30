@@ -12,16 +12,20 @@ struct DashboardClearCacheAlert: View {
                 settingsModel.clearCacheAlert = false
             },
             rightButtonData: StandardButtonData(text: "Clear", style: .destructive) {
-                let clearCacheSuccessful = settingsModel.clearCache()
+                homeModel.loadingAlertData = .init(text: "Removing cache".localized, showAlert: true)
                 
-                if clearCacheSuccessful {
-                    UINotificationFeedbackGenerator().notificationOccurred(.success)
-                    settingsModel.clearCacheAlert = false
-                    settingsModel.other = false
-                    homeModel.snackBarData = .init(text: "Cache sucessfully cleared", showSnackBar: true)
-                } else {
-                    UINotificationFeedbackGenerator().notificationOccurred(.error)
-                    homeModel.snackBarData = .init(text: "Error, try again later", showSnackBar: true)
+                settingsModel.clearCache { clearCacheSuccessful in
+                    homeModel.loadingAlertData = .empty
+                    
+                    if clearCacheSuccessful {
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
+                        settingsModel.clearCacheAlert = false
+                        settingsModel.other = false
+                        homeModel.snackBarData = .init(text: "Cache sucessfully cleared", showSnackBar: true)
+                    } else {
+                        UINotificationFeedbackGenerator().notificationOccurred(.error)
+                        homeModel.snackBarData = .init(text: "Error, try again later", showSnackBar: true)
+                    }
                 }
             }
         )
