@@ -14,7 +14,6 @@ final class SettingsViewModel: ObservableObject {
     @Published var clearCacheSuccessful = false
     @Published var about = false
     @Published var debugMenu = false
-    @Published var loadingAlert = LoadingAlertData.empty
     
     @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
         didSet {
@@ -39,18 +38,14 @@ final class SettingsViewModel: ObservableObject {
             onlyIds: [], includeNotPinned: false, queue: DispatchQueue.global(qos: .userInitiated)
         )
             .receiveOnMain()
-            .sink(
-                receiveCompletion: { sinkCompletion in
-                    switch sinkCompletion {
-                    case .finished: return
-                    case let .failure(error):
-                        anytypeAssertionFailure("Clear cache error: \(error)", domain: .clearCache)
-                        completion(false)
-                    }
-                },
-                receiveValue: { _ in
+            .sinkWithResult { result in
+                switch result {
+                case .failure(let error):
+                    anytypeAssertionFailure("Clear cache error: \(error)", domain: .clearCache)
+                    completion(false)
+                case .success:
                     completion(true)
                 }
-            )
+            }
     }
 }
