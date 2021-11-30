@@ -1,6 +1,6 @@
 import Foundation
 
-struct TagRelation: Hashable, Identifiable {
+struct TagRelationValue: Hashable, Identifiable {
     let id = UUID()
     
     let text: String

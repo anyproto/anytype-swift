@@ -107,10 +107,10 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 relation: Relation(
                     id: "1", name: "Relation name",
                     value: .tag([
-                        TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                        TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                        TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                        TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
                     ]),
                     hint: "hint",
                     isFeatured: false,

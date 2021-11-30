@@ -1,6 +1,6 @@
 import Foundation
 
-struct ObjectRelation: Hashable, Identifiable {
+struct ObjectRelationValue: Hashable, Identifiable {
     let id = UUID()
     
     let icon: ObjectIconImage

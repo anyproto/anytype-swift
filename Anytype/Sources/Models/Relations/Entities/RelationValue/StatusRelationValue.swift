@@ -1,6 +1,6 @@
 import Foundation
 
-struct StatusRelation: Hashable, Identifiable {
+struct StatusRelationValue: Hashable, Identifiable {
     let id = UUID()
     
     let text: String

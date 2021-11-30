@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TagRelationView: View {
-    let value: [TagRelation]
+    let value: [TagRelationValue]
     let hint: String
     let style: RelationStyle
 
@@ -39,7 +39,7 @@ struct TagRelationView: View {
         .padding(.horizontal, 1)
     }
 
-    private func contnetView(value: [TagRelation]) -> some View {
+    private func contnetView(value: [TagRelationValue]) -> some View {
         ForEach(value) { tag in
             AnytypeText(tag.text, style: .relation2Regular, color: tag.textColor.asColor)
                 .lineLimit(1)
@@ -91,16 +91,16 @@ struct TagRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TagRelationView(
             value: [
-                TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                TagRelation(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                TagRelation(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+                TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+                TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+                TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+                TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
             ],
             hint: "Hint",
             style: .regular(allowMultiLine: false)

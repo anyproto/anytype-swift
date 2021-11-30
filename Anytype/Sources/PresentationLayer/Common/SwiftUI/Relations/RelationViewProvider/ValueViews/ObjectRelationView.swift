@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ObjectRelationView: View {
-    let value: [ObjectRelation]
+    let value: [ObjectRelationValue]
     let hint: String
     let style: RelationStyle
     
@@ -23,7 +23,7 @@ struct ObjectRelationView: View {
         }
     }
     
-    private func objectView(objectRelation: ObjectRelation) -> some View {
+    private func objectView(objectRelation: ObjectRelationValue) -> some View {
         HStack(spacing: objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
                 iconImage: objectRelation.icon,
