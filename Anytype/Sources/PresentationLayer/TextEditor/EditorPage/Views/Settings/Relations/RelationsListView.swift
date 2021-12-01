@@ -71,7 +71,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
     static var previews: some View {
         RelationsListView(
             viewModel: RelationsListViewModel(
-                objectId: "",
+                relationsService: RelationsService(objectId: ""),
                 sections: [
                     RelationsSection(
                         id: "id",

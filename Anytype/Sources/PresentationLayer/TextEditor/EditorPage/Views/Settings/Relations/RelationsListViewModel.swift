@@ -10,19 +10,18 @@ final class RelationsListViewModel: ObservableObject {
     
     @Published private(set) var sections: [RelationsSection]
     private let sectionsBuilder = RelationsSectionBuilder()
-    private let relationsService: RelationsServiceProtocol = RelationsService()
+    private let relationsService: RelationsServiceProtocol 
     
-    private let objectId: String
     private let onValueEditingTap: (String) -> ()
     
     // MARK: - Initializers
     
     init(
-        objectId: String,
+        relationsService: RelationsServiceProtocol,
         sections: [RelationsSection] = [],
         onValueEditingTap: @escaping (String) -> ()
     ) {
-        self.objectId = objectId
+        self.relationsService = relationsService
         self.sections = sections
         self.onValueEditingTap = onValueEditingTap
     }
@@ -40,14 +39,14 @@ final class RelationsListViewModel: ObservableObject {
         guard let relationRowData = relationRowData else { return }
         
         if relationRowData.isFeatured {
-            relationsService.removeFeaturedRelations(objectId: objectId, relationIds: [relationRowData.id])
+            relationsService.removeFeaturedRelation(relationKey: relationRowData.id)
         } else {
-            relationsService.addFeaturedRelations(objectId: objectId, relationIds: [relationRowData.id])
+            relationsService.addFeaturedRelation(relationKey: relationRowData.id)
         }
     }
     
     func removeRelation(id: String) {
-        relationsService.removeRelation(objectId: objectId, relationId: id)
+        relationsService.removeRelation(relationKey: id)
     }
     
     func editRelation(id: String) {

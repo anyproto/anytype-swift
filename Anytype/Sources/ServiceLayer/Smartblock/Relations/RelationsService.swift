@@ -2,30 +2,40 @@ import Foundation
 import ProtobufMessages
 import BlocksModels
 
-final class RelationsService: RelationsServiceProtocol {
+final class RelationsService {
     
-    func addFeaturedRelations(objectId: BlockId, relationIds: [String]) {
+    private let objectId: String
+        
+    init(objectId: String) {
+        self.objectId = objectId
+    }
+    
+}
+
+extension RelationsService: RelationsServiceProtocol {
+    
+    func addFeaturedRelation(relationKey: String) {
         Anytype_Rpc.Object.FeaturedRelation.Add.Service.invoke(
             contextID: objectId,
-            relations: relationIds
+            relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
         .getValue()?
         .send()
     }
     
-    func removeFeaturedRelations(objectId: BlockId, relationIds: [String]) {
+    func removeFeaturedRelation(relationKey: String) {
         Anytype_Rpc.Object.FeaturedRelation.Remove.Service.invoke(
             contextID: objectId,
-            relations: relationIds
+            relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
         .getValue()?
         .send()
     }
     
-    func removeRelation(objectId: BlockId, relationId: String) {
+    func removeRelation(relationKey: String) {
         Anytype_Rpc.Object.RelationDelete.Service.invoke(
             contextID: objectId,
-            relationKey: relationId
+            relationKey: relationKey
         ).map { EventsBunch(event: $0.event) }
         .getValue()?
         .send()
