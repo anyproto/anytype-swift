@@ -308,6 +308,19 @@ final class EditorRouter: EditorRouterProtocol {
                 key: relation.id,
                 value: value
             )
+        case .status(let status):
+            let relationMetadata = document.relationsStorage.relations.first { $0.key == key }
+            guard let relationMetadata = relationMetadata else {
+                return
+            }
+            
+            contentViewModel = StatusRelationEditingViewModel(
+                allStatuses: relationMetadata.selections.map { RelationValue.Status(option: $0) },
+                selectedStatus: status,
+                key: relation.id,
+                service: DetailsService(objectId: document.objectId)
+            )
+            
         default:
             contentViewModel = nil
         }

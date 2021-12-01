@@ -155,19 +155,8 @@ private extension RelationsBuilder {
         else { return .status(nil) }
         
         let option: RelationMetadata.Option? = relation.selections.first { $0.id == optionId }
-
-        guard let option = option else { return .status(nil) }
         
-        let middlewareColor = MiddlewareColor(rawValue: option.color)
-        let anytypeColor: AnytypeColor = middlewareColor?.asDarkColor ?? .grayscale90
-        
-        return .status(
-            RelationValue.Status(
-                id: option.id,
-                text: option.text,
-                color: anytypeColor
-            )
-        )
+        return .status(option.flatMap { RelationValue.Status(option: $0) })
     }
     
     func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
