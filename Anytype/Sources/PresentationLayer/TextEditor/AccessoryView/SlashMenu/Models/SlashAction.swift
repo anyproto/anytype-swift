@@ -2,7 +2,7 @@ enum SlashAction {
     case style(SlashActionStyle)
     case media(SlashActionMedia)
     case objects(SlashActionObject)
-    case relations
+    case relations(SlashActionRelations)
     case other(SlashActionOther)
     case actions(BlockAction)
     case color(BlockColor)
@@ -40,8 +40,19 @@ enum SlashAction {
                     subtitle: objectType.description
                 )
             }
-        case .relations:
-            return SlashMenuItemDisplayData(iconData: .staticImage(""), title: "")
+        case let .relations(relation):
+            switch relation {
+            case .newRealtion:
+                return SlashMenuItemDisplayData(
+                    iconData: .staticImage(ImageName.slashMenu.relations.addRelation),
+                    title: "New relation".localized
+                )
+            case .relation(let relation):
+                SlashMenuItemDisplayData(
+                    iconData: .staticImage(relation.),
+                    title: relation.name
+                )
+            }
         }
     }
 }
