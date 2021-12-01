@@ -45,7 +45,7 @@ private extension RelationBlockView {
                     .frame(width: width * 0.4, height: height, alignment: .topLeading)
                     .background(Color.buttonSecondaryPressed)
                     .cornerRadius(2)
-                RelationValueViewProvider.relationView(relation, style: .regular(allowMultiLine: true))
+                RelationValueView(relation: relation, style: .regular(allowMultiLine: true))
                     .frame(maxWidth: .infinity, minHeight: 34, alignment: .center)
                     .background(Color.buttonSecondaryPressed)
                     .cornerRadius(2)

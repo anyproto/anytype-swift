@@ -1,7 +1,17 @@
 @testable import Anytype
 import BlocksModels
 
-final class BlockActionHandlerMock: BlockActionHandlerProtocol {
+final class BlockActionHandlerMock: BlockActionHandlerProtocol {    
+    var blockSelectionHandler: BlockSelectionHandler? {
+        get {
+            assertionFailure()
+            return nil
+        }
+        set {
+            assertionFailure()
+        }
+    }
+    
     var turnIntoStub = false
     var turnIntoNumberOfCalls = 0
     var turnIntoStyleFromLastCall: BlockText.Style?
@@ -12,6 +22,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         } else {
             assertionFailure()
         }
+    }
+    
+    func selectBlock(blockInformation: BlockInformation) {
+        assertionFailure()
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
