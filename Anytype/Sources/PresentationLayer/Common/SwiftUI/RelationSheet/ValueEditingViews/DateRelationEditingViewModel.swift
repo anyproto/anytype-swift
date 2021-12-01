@@ -44,8 +44,10 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
             service.updateDetails([
                 DetailsUpdate(key: key, value: Date.tomorrow.timeIntervalSince1970.protobufValue)
             ])
-        default:
-            break
+        case .exactDay:
+            service.updateDetails([
+                DetailsUpdate(key: key, value: date.timeIntervalSince1970.protobufValue)
+            ])
         }
     }
     
