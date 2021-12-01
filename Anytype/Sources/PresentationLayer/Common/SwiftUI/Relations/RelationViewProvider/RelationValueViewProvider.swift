@@ -1,8 +1,10 @@
 import SwiftUI
 
-struct RelationValueViewProvider {
-
-    static func relationView(_ relation: Relation, style: RelationStyle) -> some View {
+struct RelationValueView: View {
+    let relation: Relation
+    let style: RelationStyle
+    
+    var body: some View {
         Group {
             let value = relation.value
             let hint = relation.hint

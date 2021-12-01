@@ -43,26 +43,8 @@ struct SetTableViewRow: View {
     }
     
     private func cell(_ data: SetRowRelation) -> some View {
-        Group {
-            switch data.value.value {
-            case .checkbox, .number, .status, .tag, .object:
-                AnytypeText("unsupported 👺", style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            case .text(let text), .phone(let text), .email(let text), .url(let text):
-                AnytypeText(text ?? "", style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            case .date(let value):
-                AnytypeText(value?.text ?? "", style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            case .unknown(let text):
-                AnytypeText(text, style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            }
-        }
+        RelationValueView(relation: data.value, style: .regular(allowMultiLine: false))
+            .frame(width: 128)
     }
 }
 
