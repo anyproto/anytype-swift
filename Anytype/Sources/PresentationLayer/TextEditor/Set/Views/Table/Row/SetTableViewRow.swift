@@ -6,14 +6,20 @@ struct SetTableViewRow: View {
     let initialOffset: CGFloat
     let xOffset: CGFloat
     
+    @EnvironmentObject private var model: EditorSetViewModel
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Spacer.fixedHeight(18)
-            title
-            Spacer.fixedHeight(18)
-            cells
-            Spacer.fixedHeight(12)
-            Divider()
+        Button {
+            model.router.showPage(data: data.screenData)
+        } label: {
+            VStack(alignment: .leading, spacing: 0) {
+                Spacer.fixedHeight(18)
+                title
+                Spacer.fixedHeight(18)
+                cells
+                Spacer.fixedHeight(12)
+                Divider()
+            }
         }
     }
     
@@ -51,7 +57,7 @@ struct SetTableViewRow: View {
 struct SetTableViewRow_Previews: PreviewProvider {
     static var previews: some View {
         SetTableViewRow(
-            data: SetTableViewRowData(id: "", title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
+            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
             initialOffset: 0,
             xOffset: 0
         )
