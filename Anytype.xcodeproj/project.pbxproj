@@ -681,6 +681,7 @@
 		C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */; };
 		C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9B27313692007D687A /* TextBlockDelegateData.swift */; };
 		C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */; };
+		C93793F0275614370016A26D /* EditorPageController+DragNDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93793EF275614370016A26D /* EditorPageController+DragNDrop.swift */; };
 		C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D29274E12B10008544D /* EditorCollectionView.swift */; };
 		C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D2E274E41390008544D /* CustomStateKeys.swift */; };
 		C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D31274E4FA70008544D /* TwoStandardButtonsView.swift */; };
@@ -1498,6 +1499,7 @@
 		C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcher.swift; sourceTree = "<group>"; };
 		C9367A9B27313692007D687A /* TextBlockDelegateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlockDelegateData.swift; sourceTree = "<group>"; };
 		C9367AB6273153D2007D687A /* BlocksSelectionOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayView.swift; sourceTree = "<group>"; };
+		C93793EF275614370016A26D /* EditorPageController+DragNDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageController+DragNDrop.swift"; sourceTree = "<group>"; };
 		C93B2D29274E12B10008544D /* EditorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionView.swift; sourceTree = "<group>"; };
 		C93B2D2E274E41390008544D /* CustomStateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStateKeys.swift; sourceTree = "<group>"; };
 		C93B2D31274E4FA70008544D /* TwoStandardButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoStandardButtonsView.swift; sourceTree = "<group>"; };
@@ -2158,6 +2160,7 @@
 				C93B2D29274E12B10008544D /* EditorCollectionView.swift */,
 				3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */,
 				123FDACF26C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift */,
+				C93793EF275614370016A26D /* EditorPageController+DragNDrop.swift */,
 				123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */,
 				3D44984426D53D61005A3E06 /* EditorPageViewModelProtocol.swift */,
 				0A0965CB25BEF5B000C004BD /* EditorPageViewModel.swift */,
@@ -5461,6 +5464,7 @@
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
 				53FB4E812731CCD200BF3F0E /* MarkupAccessoryView.swift in Sources */,
+				C93793F0275614370016A26D /* EditorPageController+DragNDrop.swift in Sources */,
 				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
 				EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */,
 				3D6E9A46270F4889001B0A07 /* BrowserNavigationManagerError.swift in Sources */,

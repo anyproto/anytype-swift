@@ -37,35 +37,3 @@ extension BlockDataProvider {
     var blockId: BlockId { information.id }
     var content: BlockContent { information.content }
 }
-
-extension BlockViewModelProtocol {
-    func contextMenuConfiguration() -> UIContextMenuConfiguration? {
-        let menuItems = makeContextualMenu()
-        guard !menuItems.isEmpty else {
-            return nil
-        }
-        
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
-            UIMenu(
-                children: menuItems.map { menuItem -> UIAction in
-                    UIAction(
-                        title: menuItem.title,
-                        image: menuItem.image,
-                        identifier: menuItem.identifier,
-                        state: .off
-                    ) { action in
-                        guard
-                            let identifier = ContextualMenu(rawValue: action.identifier.rawValue)
-                        else { return }
-                        
-                        // System must restore first responder after dismissing ContextMenu
-                        // before handling action
-                        DispatchQueue.main.async {
-                            handle(action: identifier)
-                        }
-                    }
-                }
-            )
-        }
-    }
-}

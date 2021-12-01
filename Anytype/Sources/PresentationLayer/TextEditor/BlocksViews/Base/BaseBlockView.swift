@@ -51,7 +51,7 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
         if state.isMoving {
             backgroundColor = AnytypeColor.lightBlue.asUIColor
         } else {
-            backgroundColor = .white
+            backgroundColor = .clear
         }
     }
     
