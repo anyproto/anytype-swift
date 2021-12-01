@@ -11,6 +11,7 @@ final class RelationsListViewModel: ObservableObject {
     @Published private(set) var sections: [RelationsSection]
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol 
+    private let detailsService: DetailsServiceProtocol
     
     private let onValueEditingTap: (String) -> ()
     
@@ -18,10 +19,12 @@ final class RelationsListViewModel: ObservableObject {
     
     init(
         relationsService: RelationsServiceProtocol,
+        detailsService: DetailsServiceProtocol,
         sections: [RelationsSection] = [],
         onValueEditingTap: @escaping (String) -> ()
     ) {
         self.relationsService = relationsService
+        self.detailsService = detailsService
         self.sections = sections
         self.onValueEditingTap = onValueEditingTap
     }
@@ -51,7 +54,21 @@ final class RelationsListViewModel: ObservableObject {
     
     func editRelation(id: String) {
         guard FeatureFlags.relationsEditing else { return }
-        onValueEditingTap(id)
+        
+        let flattenRelations: [Relation] = sections.flatMap { $0.relations }
+        let relation = flattenRelations.first { $0.id == id }
+        
+        guard
+            let relation = relation,
+            case .checkbox(let bool) = relation.value
+        else {
+            onValueEditingTap(id)
+            return
+        }
+        
+        detailsService.updateDetails([
+            DetailsUpdate(key: relation.id, value: Google_Protobuf_Value(boolValue: !bool))
+        ])
     }
     
 }
