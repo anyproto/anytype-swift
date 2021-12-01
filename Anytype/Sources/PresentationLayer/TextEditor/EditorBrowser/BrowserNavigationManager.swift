@@ -87,7 +87,7 @@ final class BrowserNavigationManager {
         let newClosedPages = openedPages[(index + 1)..<openedPages.count].reversed()
         closedPages.append(contentsOf: newClosedPages)
         openedPages = Array(openedPages[0...index])
-        cachedChildrenCount = index
+        cachedChildrenCount = index + 1
     }
     
     private func forwardAction(page: BrowserPage) {

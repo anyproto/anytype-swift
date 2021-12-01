@@ -211,6 +211,39 @@ class BrowserNavigationManagerTests: XCTestCase {
         XCTAssertEqual(manager.closedPages.count, 0)
     }
     
+    func test_pop_after_return_from_move_back() throws {
+        let page1 = createPage()
+        push(page: page1)
+        let page2 = createPage()
+        push(page: page2)
+        
+        try! manager.moveBack(page: page1)
+        pop(to: page1)
+        
+        push(page: page2)
+        
+        // when
+        pop(to: page1)
+        
+        XCTAssertEqual(manager.openedPages.count, 1)
+        XCTAssertEqual(manager.closedPages.count, 1)
+    }
+    
+    func test_pop_after_return_from_pop() throws {
+        let page1 = createPage()
+        push(page: page1)
+        let page2 = createPage()
+        push(page: page2)
+        pop(to: page1)
+        push(page: page2)
+        
+        // when
+        pop(to: page1)
+        
+        XCTAssertEqual(manager.openedPages.count, 1)
+        XCTAssertEqual(manager.closedPages.count, 1)
+    }
+    
     private var childrenCount = 0
     
     private func push(page: BrowserPage) {
