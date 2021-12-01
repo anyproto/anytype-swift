@@ -69,8 +69,13 @@ extension SlashMenuViewController: UITableViewDataSource {
         let item = cellData[indexPath.row]
         switch item {
         case let .action(action):
-            cell.separatorInset = SlashMenuConstants.separatorInsets
-            cell.contentConfiguration = configurationFactory.configuration(displayData: action.displayData)
+            switch action.displayData {
+            case let .titleSubtitleDisplayData(displayData):
+                cell.separatorInset = SlashMenuConstants.separatorInsets
+                cell.contentConfiguration = configurationFactory.configuration(displayData: displayData)
+            case let .relationDisplayData(relationAction):
+                break
+            }
         case let .menu(itemType, children):
             cell.accessoryType = children.isEmpty ? .none : .disclosureIndicator
             cell.separatorInset = SlashMenuConstants.separatorInsets
