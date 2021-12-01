@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StatusRelationView: View {
-    let value: StatusRelationValue?
+    let value: RelationValue.Status?
     let hint: String
     let style: RelationStyle
     
@@ -25,6 +25,6 @@ struct StatusRelationView: View {
 
 struct StatusRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationView(value: StatusRelationValue(id: "", text: "text", color: .pureTeal), hint: "Hint", style: .regular(allowMultiLine: false))
+        StatusRelationView(value: RelationValue.Status(id: "", text: "text", color: .pureTeal), hint: "Hint", style: .regular(allowMultiLine: false))
     }
 }

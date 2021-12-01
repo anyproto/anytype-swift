@@ -218,7 +218,7 @@
 		127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */; };
 		127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB22735204E00C731F2 /* CoverConstants.swift */; };
 		127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB62735254500C731F2 /* StatusRelationView.swift */; };
-		127EABBC27352D4100C731F2 /* StatusRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABBB27352D4100C731F2 /* StatusRelationValue.swift */; };
+		127EABBC27352D4100C731F2 /* RelationValueStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABBB27352D4100C731F2 /* RelationValueStatus.swift */; };
 		127EABD72737413900C731F2 /* AnytypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD62737413900C731F2 /* AnytypeColor.swift */; };
 		127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */; };
 		127EABF22739391600C731F2 /* MiddlewareColor+RelationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */; };
@@ -1041,7 +1041,7 @@
 		127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxRelationView.swift; sourceTree = "<group>"; };
 		127EABB22735204E00C731F2 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
 		127EABB62735254500C731F2 /* StatusRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationView.swift; sourceTree = "<group>"; };
-		127EABBB27352D4100C731F2 /* StatusRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationValue.swift; sourceTree = "<group>"; };
+		127EABBB27352D4100C731F2 /* RelationValueStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueStatus.swift; sourceTree = "<group>"; };
 		127EABD62737413900C731F2 /* AnytypeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColor.swift; sourceTree = "<group>"; };
 		127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorProtocol.swift; sourceTree = "<group>"; };
 		127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareColor+RelationExtensions.swift"; sourceTree = "<group>"; };
@@ -2895,7 +2895,7 @@
 			isa = PBXGroup;
 			children = (
 				127EAC16273A397900C731F2 /* RelationValue.swift */,
-				127EABBB27352D4100C731F2 /* StatusRelationValue.swift */,
+				127EABBB27352D4100C731F2 /* RelationValueStatus.swift */,
 				127EABF5273944DA00C731F2 /* TagRelationValue.swift */,
 				127EABFA2739588A00C731F2 /* ObjectRelationValue.swift */,
 				12C2A57F2755F0CE00311854 /* DateRelationValue.swift */,
@@ -5311,7 +5311,7 @@
 				3D5A41612703132800F1F6A1 /* SlashActionMedia.swift in Sources */,
 				3D2F9C1C271EAE7D0043C326 /* BlockActionServiceProtocol.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
-				127EABBC27352D4100C731F2 /* StatusRelationValue.swift in Sources */,
+				127EABBC27352D4100C731F2 /* RelationValueStatus.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
