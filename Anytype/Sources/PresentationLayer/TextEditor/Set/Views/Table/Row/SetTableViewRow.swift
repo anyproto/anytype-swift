@@ -9,30 +9,30 @@ struct SetTableViewRow: View {
     @EnvironmentObject private var model: EditorSetViewModel
     
     var body: some View {
-        Button {
-            model.router.showPage(data: data.screenData)
-        } label: {
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer.fixedHeight(18)
-                title
-                Spacer.fixedHeight(18)
-                cells
-                Spacer.fixedHeight(12)
-                Divider()
-            }
+        VStack(alignment: .leading, spacing: 0) {
+            Spacer.fixedHeight(18)
+            title
+            Spacer.fixedHeight(18)
+            cells
+            Spacer.fixedHeight(12)
+            Divider()
         }
     }
     
     private var title: some View {
-        HStack(spacing: 0) {
-            if let icon = data.icon {
-                SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
-                Spacer.fixedWidth(8)
+        Button {
+            model.router.showPage(data: data.screenData)
+        } label: {
+            HStack(spacing: 0) {
+                if let icon = data.icon {
+                    SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
+                    Spacer.fixedWidth(8)
+                }
+                AnytypeText(data.title, style: .body, color: .grayscale90)
+                    .lineLimit(1)
             }
-            AnytypeText(data.title, style: .body, color: .grayscale90)
-                .lineLimit(1)
+            .padding(.horizontal, 16)
         }
-        .padding(.horizontal, 16)
         .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
     }
     
@@ -49,8 +49,12 @@ struct SetTableViewRow: View {
     }
     
     private func cell(_ data: SetRowRelation) -> some View {
-        RelationValueView(relation: data.value, style: .regular(allowMultiLine: false))
-            .frame(width: 128)
+        Button {
+            model.router.showRelationValueEditingView(key: data.key)
+        } label: {
+            RelationValueView(relation: data.value, style: .regular(allowMultiLine: false))
+                .frame(width: 128)
+        }
     }
 }
 
