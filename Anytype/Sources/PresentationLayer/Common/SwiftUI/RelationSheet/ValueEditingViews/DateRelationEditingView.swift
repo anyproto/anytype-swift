@@ -8,8 +8,6 @@ struct DateRelationEditingView: View {
         VStack(spacing: 0) {
             valueList
             Spacer.fixedHeight(20)
-            button
-            Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
     }
@@ -24,15 +22,6 @@ struct DateRelationEditingView: View {
                 viewModel.selectedValue = value
             }
         }
-    }
-    
-    private var button: some View {
-        Button {
-            viewModel.saveValue()
-        } label: {
-            StandardButtonView(text: "Apply".localized, style: .primary)
-        }
-
     }
 }
 

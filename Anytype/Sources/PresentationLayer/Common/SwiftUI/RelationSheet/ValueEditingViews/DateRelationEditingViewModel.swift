@@ -29,26 +29,22 @@ final class DateRelationEditingViewModel: ObservableObject {
 extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func saveValue() {
-        switch selectedValue {
-        case .noDate:
-            service.updateDetails([DetailsUpdate(key: key, value: nil)])
-        case .today:
-            service.updateDetails([
-                DetailsUpdate(key: key, value: Date().timeIntervalSince1970.protobufValue)
-            ])
-        case .yesterday:
-            service.updateDetails([
-                DetailsUpdate(key: key, value: Date.yesterday.timeIntervalSince1970.protobufValue)
-            ])
-        case .tomorrow:
-            service.updateDetails([
-                DetailsUpdate(key: key, value: Date.tomorrow.timeIntervalSince1970.protobufValue)
-            ])
-        case .exactDay:
-            service.updateDetails([
-                DetailsUpdate(key: key, value: date.timeIntervalSince1970.protobufValue)
-            ])
-        }
+        let value: Google_Protobuf_Value = {
+            switch selectedValue {
+            case .noDate:
+                return nil
+            case .today:
+                return Date().timeIntervalSince1970.protobufValue
+            case .yesterday:
+                return Date.yesterday.timeIntervalSince1970.protobufValue
+            case .tomorrow:
+                return Date.tomorrow.timeIntervalSince1970.protobufValue
+            case .exactDay:
+                return date.timeIntervalSince1970.protobufValue
+            }
+        }()
+        
+        service.updateDetails([ DetailsUpdate(key: key, value: value) ])
     }
     
     func makeView() -> AnyView {
