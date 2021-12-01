@@ -1,10 +1,13 @@
 import Foundation
 import SwiftUI
+import SwiftProtobuf
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    @Published var values: [DateRelationEditingValue] = DateRelationEditingValue.allCases
+    let values: [DateRelationEditingValue] = DateRelationEditingValue.allCases
+    
     @Published var selectedValue: DateRelationEditingValue = .noDate
+    @Published var date: Date
     
     private let service: DetailsServiceProtocol
     private let key: String
@@ -16,6 +19,7 @@ final class DateRelationEditingViewModel: ObservableObject {
     ) {
         self.service = service
         self.key = key
+        self.date = value?.date ?? Date()
         
         handleInitialValue(value)
     }
@@ -25,14 +29,28 @@ final class DateRelationEditingViewModel: ObservableObject {
 extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func saveValue() {
+        let value: Google_Protobuf_Value = {
+            switch selectedValue {
+            case .noDate:
+                return nil
+            case .today:
+                return Date().timeIntervalSince1970.protobufValue
+            case .yesterday:
+                return Date.yesterday.timeIntervalSince1970.protobufValue
+            case .tomorrow:
+                return Date.tomorrow.timeIntervalSince1970.protobufValue
+            case .exactDay:
+                return date.timeIntervalSince1970.protobufValue
+            }
+        }()
         
+        service.updateDetails([ DetailsUpdate(key: key, value: value) ])
     }
     
     func makeView() -> AnyView {
         AnyView(DateRelationEditingView(viewModel: self))
     }
-    
-    
+     
 }
 
 private extension DateRelationEditingViewModel {

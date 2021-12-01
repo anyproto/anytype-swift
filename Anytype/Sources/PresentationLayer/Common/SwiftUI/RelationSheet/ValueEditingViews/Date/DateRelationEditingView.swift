@@ -6,17 +6,22 @@ struct DateRelationEditingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(viewModel.values, id: \.self) { value in
-                DateRelationRowView(
-                    value: value,
-                    isSelected: value == viewModel.selectedValue
-                )
-            }
-            Spacer.fixedHeight(20)
-            StandardButtonView(text: "Apply".localized, style: .primary)
+            valueList
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
+    }
+    
+    private var valueList: some View {
+        ForEach(viewModel.values, id: \.self) { value in
+            DateRelationRowView(
+                value: value,
+                isSelected: value == viewModel.selectedValue,
+                date: $viewModel.date
+            ) {
+                viewModel.selectedValue = value
+            }
+        }
     }
 }
 
