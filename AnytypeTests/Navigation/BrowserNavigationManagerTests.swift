@@ -24,18 +24,6 @@ class BrowserNavigationManagerTests: XCTestCase {
         XCTAssertEqual(manager.closedPages.count, 0)
     }
     
-    func test_pop() throws {
-        let page1 = createPage()
-        push(page: page1)
-        let page2 = createPage()
-        push(page: page2)
-        
-        pop(to: page1)
-        
-        XCTAssertEqual(manager.openedPages.count, 1)
-        XCTAssertEqual(manager.closedPages.count, 1)
-    }
-    
     func test_moveForwardOnce() throws {
         let page1 = createPage()
         push(page: page1)
@@ -63,24 +51,6 @@ class BrowserNavigationManagerTests: XCTestCase {
         
         XCTAssertEqual(manager.openedPages.count, 2)
         XCTAssertEqual(manager.closedPages.count, 0)
-    }
-    
-    func test_pop_three_levels() throws {
-        let page1 = createPage()
-        push(page: page1)
-        let page2 = createPage()
-        push(page: page2)
-        let page3 = createPage()
-        push(page: page3)
-        let page4 = createPage()
-        push(page: page4)
-        
-        pop(to: page3)
-        pop(to: page2)
-        pop(to: page1)
-        
-        XCTAssertEqual(manager.openedPages.count, 1)
-        XCTAssertEqual(manager.closedPages.count, 3)
     }
     
     func test_move_forward_three_levels() throws {
@@ -146,7 +116,52 @@ class BrowserNavigationManagerTests: XCTestCase {
         XCTAssertEqual(manager.closedPages.count, 2)
     }
     
-    func test_go_back_after_forward() throws {
+    func test_move_forward_after_pop() throws {
+        let page1 = createPage()
+        push(page: page1)
+        let page2 = createPage()
+        push(page: page2)
+        let page3 = createPage()
+        push(page: page3)
+        pop(to: page2)
+        
+        push(page: page3)
+        
+        XCTAssertEqual(manager.openedPages.count, 3)
+        XCTAssertEqual(manager.closedPages.count, 0)
+    }
+    
+    func test_pop() throws {
+        let page1 = createPage()
+        push(page: page1)
+        let page2 = createPage()
+        push(page: page2)
+        
+        pop(to: page1)
+        
+        XCTAssertEqual(manager.openedPages.count, 1)
+        XCTAssertEqual(manager.closedPages.count, 1)
+    }
+    
+    func test_pop_three_levels() throws {
+        let page1 = createPage()
+        push(page: page1)
+        let page2 = createPage()
+        push(page: page2)
+        let page3 = createPage()
+        push(page: page3)
+        let page4 = createPage()
+        push(page: page4)
+        
+        pop(to: page3)
+        pop(to: page2)
+        pop(to: page1)
+        
+        XCTAssertEqual(manager.openedPages.count, 1)
+        XCTAssertEqual(manager.closedPages.count, 3)
+    }
+    
+    func test_pop_after_forward() throws {
         let page1 = createPage()
         push(page: page1)
         let page2 = createPage()
@@ -188,21 +203,6 @@ class BrowserNavigationManagerTests: XCTestCase {
         push(page: page3)
         
         try! manager.moveBack(page: page2)
-        pop(to: page2)
-        
-        push(page: page3)
-        
-        XCTAssertEqual(manager.openedPages.count, 3)
-        XCTAssertEqual(manager.closedPages.count, 0)
-    }
-    
-    func test_move_forward_after_pop() throws {
-        let page1 = createPage()
-        push(page: page1)
-        let page2 = createPage()
-        push(page: page2)
-        let page3 = createPage()
-        push(page: page3)
         pop(to: page2)
         
         push(page: page3)
