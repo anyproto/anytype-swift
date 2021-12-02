@@ -1,24 +1,26 @@
 import Foundation
 import SwiftUI
+import BlocksModels
 
 final class StatusRelationEditingViewModel: ObservableObject {
+
+    @Published var selectedStatus: RelationValue.Status?
+
+    let allStatuses: [RelationValue.Status]
     
-    @Published var selectedValue: RelationValue.Status?
-    let values: [RelationValue.Status]
-    
-    private let service: DetailsServiceProtocol
-    private let key: String
+    private let relationKey: String
+    private let detailsService: DetailsServiceProtocol
     
     init(
-        service: DetailsServiceProtocol,
-        key: String,
-        allValues: [RelationValue.Status],
-        value: RelationValue.Status?
+        relationKey: String,
+        relationOptions: [RelationMetadata.Option],
+        selectedStatus: RelationValue.Status?,
+        detailsService: DetailsServiceProtocol
     ) {
-        self.service = service
-        self.key = key
-        self.values = allValues
-        self.selectedValue = value
+        self.relationKey = relationKey
+        self.allStatuses = relationOptions.map { RelationValue.Status(option: $0) }
+        self.selectedStatus = selectedStatus
+        self.detailsService = detailsService
     }
     
 }
