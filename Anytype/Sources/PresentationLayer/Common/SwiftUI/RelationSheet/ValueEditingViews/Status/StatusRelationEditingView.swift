@@ -15,10 +15,8 @@ struct StatusRelationEditingView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.statusSections) { section in
-                    VStack(alignment: .leading, spacing: 0) {
-                        Section(header: sectionHeader(title: section.title)) {
-                            ForEach(section.statuses) { statusRow($0) }
-                        }
+                    Section(header: sectionHeader(title: section.title)) {
+                        ForEach(section.statuses) { statusRow($0) }
                     }
                 }
             }
