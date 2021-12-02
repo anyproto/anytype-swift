@@ -18,6 +18,10 @@ extension EditorPageController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: UIDragSession) {
         dividerCursorController.movingMode = .dragNdrop
     }
+
+    func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: UIDragSession) {
+        dividerCursorController.movingMode = .none
+    }
 }
 
 extension EditorPageController: UICollectionViewDropDelegate {
@@ -73,46 +77,14 @@ extension EditorPageController: UICollectionViewDropDelegate {
         dividerCursorController.moveCursorView.isHidden = true
 
         guard let item = coordinator.items.first,
-              let sourceIndexPath = item.sourceIndexPath,
-              let sourceItemIdentifier = dataSource.itemIdentifier(for: sourceIndexPath)
+              let sourceIndexPath = item.sourceIndexPath
         else {
             return
         }
-
-        if let destination = destinationIndexPath {
-            if destination == sourceIndexPath { return }
-        } else if sourceIndexPath == collectionView.lastIndexPath {
-            return
-        }
-
-        var snapshot = dataSource.snapshot()
-
-        if let indexPath = destinationIndexPath,
-            let itemIdentifier = dataSource.itemIdentifier(for: indexPath) {
-
-            snapshot.moveItem(
-                sourceItemIdentifier,
-                beforeItem: itemIdentifier
-            )
-        } else if let itemIdentifier = dataSource.itemIdentifier(for: collectionView.lastIndexPath) {
-            snapshot.moveItem(
-                sourceItemIdentifier,
-                afterItem: itemIdentifier
-            )
-        }
-
-        coordinator.drop(
-            item.dragItem,
-            toItemAt: destinationIndexPath ?? collectionView.lastIndexPath
-        )
 
         viewModel.blocksStateManager.moveItem(
             at: sourceIndexPath,
             to: desiredIndexPath(using: destinationIndexPath)
         )
-
-        dataSource.apply(snapshot, animatingDifferences: true)
-
-        dividerCursorController.movingMode = .none
     }
 }

@@ -2,7 +2,6 @@ import UIKit
 import BlocksModels
 
 protocol BlockViewModelProtocol:
-    ContextualMenuHandler,
     HashableProvier,
     ContentConfigurationProvider,
     BlockDataProvider
@@ -12,11 +11,6 @@ protocol BlockViewModelProtocol:
     /// Block that upper than current.
     /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
     var upperBlock: BlockModelProtocol? { get }
-}
-
-protocol ContextualMenuHandler {
-    func makeContextualMenu() -> [ContextualMenu]
-    func handle(action: ContextualMenu)
 }
 
 protocol HashableProvier {

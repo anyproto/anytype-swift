@@ -50,7 +50,6 @@ final class EditorPageController: UIViewController {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
         recognizer.minimumPressDuration = 0.5
-        recognizer.delaysTouchesBegan = true
         return recognizer
     }()
 
@@ -186,7 +185,6 @@ extension EditorPageController: EditorPageViewInput {
     }
     
     func update(blocks: [BlockViewModelProtocol]) {
-        guard dividerCursorController.movingMode != .dragNdrop else { return }
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         blocksSnapshot.append(blocks.map { EditorItem.block($0) })
         

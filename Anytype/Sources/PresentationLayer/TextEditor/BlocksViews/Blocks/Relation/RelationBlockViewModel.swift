@@ -19,12 +19,6 @@ class RelationBlockViewModel: BlockViewModelProtocol {
 
     // MARK: - BlockViewModelProtocol methods
 
-    func makeContextualMenu() -> [ContextualMenu] {
-        []
-    }
-
-    func handle(action: ContextualMenu) {}
-
     var hashable: AnyHashable {
         [
             indentationLevel,

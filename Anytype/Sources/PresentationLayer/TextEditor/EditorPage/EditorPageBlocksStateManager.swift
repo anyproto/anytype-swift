@@ -51,6 +51,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let modelsHolder: BlockViewModelsHolder
     private let blockActionsService: BlockActionsServiceSingle
     private let actionHandler: BlockActionHandlerProtocol
+    private let router: EditorRouterProtocol
 
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
 
@@ -61,13 +62,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         modelsHolder: BlockViewModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         blockActionsService: BlockActionsServiceSingle,
-        actionHandler: BlockActionHandlerProtocol
+        actionHandler: BlockActionHandlerProtocol,
+        router: EditorRouterProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         self.blockActionsService = blockActionsService
         self.actionHandler = actionHandler
+        self.router = router
 
         setupEditingHandlers()
     }
@@ -242,9 +245,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
         case .moveTo:
+            router.showMoveTo { [weak self] targetId in
+                elements.forEach {
+                    self?.actionHandler.moveTo(targetId: targetId, blockId: $0.blockId)
+                }
+                self?.editingState = .editing
+            }
+            return
+        case .move:
             didSelectMovingIndexPaths(selectedBlocksIndexPaths)
             editingState = .moving(indexPaths: selectedBlocksIndexPaths)
-
             return
         }
 

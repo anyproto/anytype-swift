@@ -19,7 +19,6 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     let indentationLevel: Int
     let information: BlockInformation
 
-    private let contextualMenuHandler: DefaultContextualMenuHandler
     private let state: BlockLinkState
     
     private let content: BlockLink
@@ -31,13 +30,11 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         information: BlockInformation,
         content: BlockLink,
         details: ObjectDetails?,
-        contextualMenuHandler: DefaultContextualMenuHandler,
         openLink: @escaping (EditorScreenData) -> ()
     ) {
         self.indentationLevel = indentationLevel
         self.information = information
         self.content = content
-        self.contextualMenuHandler = contextualMenuHandler
         self.openLink = openLink
         self.state = details.flatMap { BlockLinkState(details: $0) } ?? .empty
     }
@@ -52,17 +49,5 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         }
         
         openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
-    }
-    
-    func handle(action: ContextualMenu) {
-        contextualMenuHandler.handle(action: action, info: information)
-    }
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        if state.deleted || state.archived {
-            return [ .addBlockBelow, .delete ]
-        } else {
-            return [ .addBlockBelow, .duplicate, .delete ]
-        }
     }
 }

@@ -19,14 +19,6 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
         self.information = information
     }
 
-    func makeContextualMenu() -> [ContextualMenu] {
-        []
-    }
-
-    func handle(action: ContextualMenu) {
-        anytypeAssertionFailure("Handling of contextual menu items not supported", domain: .unsupportedBlock)
-    }
-
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let contentConfiguration = UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
         return contentConfiguration
