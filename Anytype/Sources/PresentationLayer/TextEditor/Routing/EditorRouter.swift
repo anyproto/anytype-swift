@@ -31,6 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     func showRelationValueEditingView(key: String)
+    func showRelationValueEditingView(relation: Relation, objectId: BlockId)
     func goBack()
 }
 
@@ -45,7 +46,7 @@ final class EditorRouter: EditorRouterProtocol {
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
-    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(objectId: document.objectId, delegate: self)
+    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder( delegate: self)
     
     init(
         rootController: EditorBrowserController,
@@ -246,12 +247,18 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showRelationValueEditingView(key: String) {
+        let relation = document.parsedRelations.all.first { $0.id == key }
+        guard let relation = relation else { return }
+        
+        
+        showRelationValueEditingView(relation: relation, objectId: document.objectId)
+    }
+    
+    func showRelationValueEditingView(relation: Relation, objectId: BlockId) {
+        guard relation.isEditable else { return }
         guard let viewController = viewController else { return }
         
-        let relation = document.parsedRelations.all.first { $0.id == key }
-        guard let relation = relation, relation.isEditable else { return }
-        
-        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(relation: relation)
+        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
         guard let contentViewModel = contentViewModel else { return }
         
         let sheetViewModel = RelationSheetViewModel(

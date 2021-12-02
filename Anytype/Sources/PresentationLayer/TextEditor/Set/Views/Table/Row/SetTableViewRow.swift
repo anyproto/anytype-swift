@@ -48,11 +48,11 @@ struct SetTableViewRow: View {
         }
     }
     
-    private func cell(_ data: SetRowRelation) -> some View {
+    private func cell(_ relationData: SetRowRelation) -> some View {
         Button {
-            model.router.showRelationValueEditingView(key: data.key)
+            model.router.showRelationValueEditingView(relation: relationData.value, objectId: data.id)
         } label: {
-            RelationValueView(relation: data.value, style: .set)
+            RelationValueView(relation: relationData.value, style: .set)
                 .frame(width: 128)
         }
     }

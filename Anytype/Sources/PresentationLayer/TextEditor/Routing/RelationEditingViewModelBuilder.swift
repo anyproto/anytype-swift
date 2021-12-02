@@ -2,11 +2,9 @@ import BlocksModels
 
 final class RelationEditingViewModelBuilder {
     
-    private let objectId: BlockId
     private weak var delegate: TextRelationEditingViewModelDelegate?
     
-    init(objectId: BlockId, delegate: TextRelationEditingViewModelDelegate?) {
-        self.objectId = objectId
+    init(delegate: TextRelationEditingViewModelDelegate?) {
         self.delegate = delegate
     }
     
@@ -14,7 +12,7 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(relation: Relation) -> RelationEditingViewModelProtocol? {
+    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationEditingViewModelProtocol? {
         switch relation.value {
         case .text(let string):
             return TextRelationEditingViewModel(
