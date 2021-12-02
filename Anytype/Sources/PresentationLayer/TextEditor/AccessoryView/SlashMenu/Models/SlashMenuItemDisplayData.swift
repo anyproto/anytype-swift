@@ -17,19 +17,14 @@ struct SlashMenuItemDisplayData {
 
 enum NewSlashMenuItemDisplayData: ComparableDisplayData {
     case titleSubtitleDisplayData(SlashMenuItemDisplayData)
-    case relationDisplayData(SlashActionRelations)
+    case relationDisplayData(Relation)
 
     var title: String? {
         switch self {
         case let .titleSubtitleDisplayData(slashMenuItemDisplayData):
             return slashMenuItemDisplayData.title
-        case let .relationDisplayData(slashActionRelations):
-            switch slashActionRelations {
-            case .newRealtion:
-                return nil
-            case let .relation(relation):
-                return relation.name
-            }
+        case let .relationDisplayData(relation):
+            return relation.name
         }
     }
 
