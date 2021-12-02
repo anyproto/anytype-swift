@@ -312,6 +312,8 @@
 		12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */; };
 		12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CCF2758D09F00B976B5 /* RelationEditingViewModelBuilder.swift */; };
 		12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */; };
+		12F14CDD2758E7BB00B976B5 /* RelationValueStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */; };
+		12F14CE22758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */; };
 		12F3E75E270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E75D270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift */; };
 		12F3E763270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E762270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift */; };
 		12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E764270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift */; };
@@ -1135,6 +1137,8 @@
 		12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGridView.swift; sourceTree = "<group>"; };
 		12F14CCF2758D09F00B976B5 /* RelationEditingViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelBuilder.swift; sourceTree = "<group>"; };
 		12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelBuilderProtocol.swift; sourceTree = "<group>"; };
+		12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueStatusSection.swift; sourceTree = "<group>"; };
+		12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueStatusSectionBuilder.swift; sourceTree = "<group>"; };
 		12F3E75D270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFileUploadingWorkerProtocol.swift; sourceTree = "<group>"; };
 		12F3E762270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderImageUploadingWorker.swift; sourceTree = "<group>"; };
 		12F3E764270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderImageUsecase.swift; sourceTree = "<group>"; };
@@ -2792,6 +2796,8 @@
 				12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */,
 				12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */,
 				12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */,
+				12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */,
+				12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -5252,6 +5258,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
+				12F14CDD2758E7BB00B976B5 /* RelationValueStatusSection.swift in Sources */,
 				3DCC549026D3B4B9002517AC /* BlockBookmarkInfoView.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
@@ -5642,6 +5649,7 @@
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				3D16841726DD672E008B9DFF /* BlockFileConverter.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
+				12F14CE22758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift in Sources */,
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
