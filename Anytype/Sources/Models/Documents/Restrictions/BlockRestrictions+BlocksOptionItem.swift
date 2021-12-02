@@ -1,5 +1,7 @@
+import BlocksModels
+
 extension Array where Element == BlockRestrictions {
-    var mergedOptions: [BlocksOptionItem] {
+    var mergedOptions: Set<BlocksOptionItem> {
         var options = Set(BlocksOptionItem.allCases)
 
         forEach { element in
@@ -21,6 +23,33 @@ extension Array where Element == BlockRestrictions {
             options.remove(.addBlockBelow)
         }
 
-        return Array<BlocksOptionItem>(options).sorted()
+        return options
+    }
+}
+
+extension Array where Element == BlockInformation {
+    var blocksOptionItems: [BlocksOptionItem] {
+        var isDownloadAvailable = true
+
+        var restrictions = [BlockRestrictions]()
+
+        forEach { element in
+            if case let .file(type) = element.content {
+                if type.state != .done { isDownloadAvailable = false }
+            } else {
+                isDownloadAvailable = false
+            }
+
+            let restriction = BlockRestrictionsBuilder.build(contentType: element.content.type)
+            restrictions.append(restriction)
+        }
+
+        var mergedItems = restrictions.mergedOptions
+
+        if !isDownloadAvailable || count > 1 {
+            mergedItems.remove(.download)
+        }
+
+        return Array<BlocksOptionItem>(mergedItems).sorted()
     }
 }

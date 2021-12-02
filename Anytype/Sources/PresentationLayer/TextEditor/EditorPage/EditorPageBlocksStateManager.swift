@@ -176,9 +176,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
-        let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
-
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = restrictions.mergedOptions
+        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = selectedBlocks.blocksOptionItems
     }
 
     private func startMoving() {
@@ -256,6 +254,17 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             didSelectMovingIndexPaths(selectedBlocksIndexPaths)
             editingState = .moving(indexPaths: selectedBlocksIndexPaths)
             return
+        case .download:
+            anytypeAssert(
+                elements.count == 1,
+                "Number of elements should be 1",
+                domain: .editorPage
+            )
+
+            if case let .file(blockFile) = elements.first?.content,
+               let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
+                router.saveFile(fileURL: url)
+            }
         }
 
         editingState = .editing
