@@ -3,13 +3,13 @@ import SwiftUI
 struct EditorSetView: View {
     @ObservedObject var model: EditorSetViewModel
     
-    @State private var yOffset = CGFloat.zero
+    @State private var offset = CGPoint.zero
     @State private var headerSize = CGRect.zero
     
     var body: some View {
         ZStack {
-            SetTableView(yOffset: $yOffset, headerSize: $headerSize.size)
-            SetHeader(yOffset: $yOffset, headerSize: $headerSize)
+            SetTableView(offset: $offset, headerSize: $headerSize.size)
+            SetHeader(offset: $offset, headerSize: $headerSize)
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)

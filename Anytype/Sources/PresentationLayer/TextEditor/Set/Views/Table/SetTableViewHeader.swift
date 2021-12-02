@@ -5,7 +5,6 @@ struct SetTableViewHeader: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Divider()
             HStack(spacing: 0) {
                 ForEach(model.colums, id: \.key) { name in
                     AnytypeText(name.value, style: .relation2Regular, color: .textSecondary)
