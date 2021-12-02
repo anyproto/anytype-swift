@@ -2793,11 +2793,7 @@
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
-				12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */,
-				12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */,
-				12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */,
-				12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */,
-				12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */,
+				12F14CE32758EFE000B976B5 /* Status */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -3079,6 +3075,26 @@
 				12DE4055264AE455007B5074 /* LayoutDimension.swift */,
 			);
 			path = ConstraintLayout;
+			sourceTree = "<group>";
+		};
+		12F14CE32758EFE000B976B5 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */,
+				12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */,
+				12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */,
+				12F14CE42758EFED00B976B5 /* RelationValueStatusSection */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
+		12F14CE42758EFED00B976B5 /* RelationValueStatusSection */ = {
+			isa = PBXGroup;
+			children = (
+				12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */,
+				12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */,
+			);
+			path = RelationValueStatusSection;
 			sourceTree = "<group>";
 		};
 		12F3E768270C721D002EE52F /* MediaFileUploadingWorker */ = {
