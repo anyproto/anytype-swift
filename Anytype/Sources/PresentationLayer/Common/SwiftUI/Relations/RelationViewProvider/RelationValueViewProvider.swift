@@ -31,7 +31,7 @@ struct RelationValueView: View {
             case .tag(let tags):
                 TagRelationView(value: tags, hint: hint, style: style)
             case .unknown(let string):
-                RelationsListRowHintView(hint: string)
+                RelationsListRowPlaceholderView(hint: string, type: style.placeholderType)
             }
         }
     }

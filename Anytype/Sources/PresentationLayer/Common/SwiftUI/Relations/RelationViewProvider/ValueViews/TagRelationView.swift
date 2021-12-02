@@ -13,7 +13,7 @@ struct TagRelationView: View {
                 scrollRelations
             }
         } else {
-            RelationsListRowHintView(hint: hint)
+            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
         }
     }
 
@@ -79,7 +79,7 @@ private extension TagRelationView {
 
     private var tagStyle: TagRelationViewStyle {
         switch style {
-        case .regular:
+        case .regular, .set:
             return TagRelationViewStyle(hSpacing: 8, textPadding: 6, cornerRadius: 5, tagHeight: 24)
         case .featuredRelationBlock:
             return TagRelationViewStyle(hSpacing: 6, textPadding: 6, cornerRadius: 4, tagHeight: 19, maxTags: 3)

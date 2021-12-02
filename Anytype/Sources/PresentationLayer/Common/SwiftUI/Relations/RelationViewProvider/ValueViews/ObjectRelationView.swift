@@ -9,7 +9,7 @@ struct ObjectRelationView: View {
         if value.isNotEmpty {
             objectsList
         } else {
-            RelationsListRowHintView(hint: hint)
+            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
         }
     }
     
@@ -50,7 +50,7 @@ private extension ObjectRelationView {
 
     var objectRelationStyle: ObjectRelationStyle {
         switch style {
-        case .regular:
+        case .regular, .set:
             return ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: .init(width: 20, height: 20))
         case .featuredRelationBlock:
             return ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 16, height: 16))
