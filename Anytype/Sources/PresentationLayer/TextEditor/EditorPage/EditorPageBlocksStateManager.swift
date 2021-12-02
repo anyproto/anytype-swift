@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import Foundation
 
 enum EditorEditingState {
     case editing
@@ -14,6 +15,8 @@ protocol EditorPageMovingManagerProtocol {
 
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool
+
+    func moveItem(at indexPath: IndexPath, to positionIndexPath: IndexPath)
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath])
 }
@@ -100,6 +103,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     // MARK: - EditorPageMovingManagerProtocol
+    func moveItem(at indexPath: IndexPath, to positionIndexPath: IndexPath) {
+        movingBlocksIndexPaths = [indexPath]
+        movingDestination = .position(positionIndexPath)
+
+        startMoving()
+    }
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath]) {
         movingBlocksIndexPaths = indexPaths
