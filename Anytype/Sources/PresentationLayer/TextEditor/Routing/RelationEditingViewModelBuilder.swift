@@ -12,12 +12,12 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(document: BaseDocumentProtocol, relation: Relation) -> RelationEditingViewModelProtocol? {
+    func buildViewModel(objectId: BlockId, relation: Relation, metadata: RelationMetadata?) -> RelationEditingViewModelProtocol? {
         switch relation.value {
         case .text(let string):
             return TextRelationEditingViewModel(
                 service: TextRelationEditingService(
-                    objectId: document.objectId,
+                    objectId: objectId,
                     valueType: .text
                 ),
                 key: relation.id,
@@ -27,7 +27,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .number(let string):
             return TextRelationEditingViewModel(
                 service: TextRelationEditingService(
-                    objectId: document.objectId,
+                    objectId: objectId,
                     valueType: .number
                 ),
                 key: relation.id,
@@ -37,7 +37,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .phone(let string):
             return TextRelationEditingViewModel(
                 service: TextRelationEditingService(
-                    objectId: document.objectId,
+                    objectId: objectId,
                     valueType: .phone
                 ),
                 key: relation.id,
@@ -47,7 +47,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .email(let string):
             return TextRelationEditingViewModel(
                 service: TextRelationEditingService(
-                    objectId: document.objectId,
+                    objectId: objectId,
                     valueType: .email
                 ),
                 key: relation.id,
@@ -57,7 +57,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .url(let string):
             return TextRelationEditingViewModel(
                 service: TextRelationEditingService(
-                    objectId: document.objectId,
+                    objectId: objectId,
                     valueType: .url
                 ),
                 key: relation.id,
@@ -66,22 +66,19 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .date(let value):
             return DateRelationEditingViewModel(
-                service: DetailsService(objectId: document.objectId),
+                service: DetailsService(objectId: objectId),
                 key: relation.id,
                 value: value
             )
             
         case .status(let status):
-            let relationMetadata = document.relationsStorage.relations.first { $0.key == relation.id }
-            guard let relationMetadata = relationMetadata else {
-                return nil
-            }
+            guard let metadata = metadata else { return nil }
             
             return StatusRelationEditingViewModel(
                 relationKey: relation.id,
-                relationOptions: relationMetadata.selections,
+                relationOptions: metadata.selections,
                 selectedStatus: status,
-                detailsService: DetailsService(objectId: document.objectId)
+                detailsService: DetailsService(objectId: objectId)
             )
         default:
             return nil

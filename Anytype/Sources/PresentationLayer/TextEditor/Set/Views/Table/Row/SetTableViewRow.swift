@@ -50,7 +50,11 @@ struct SetTableViewRow: View {
     
     private func cell(_ relationData: SetRowRelation) -> some View {
         Button {
-//            model.router.showRelationValueEditingView(relation: relationData.value, objectId: data.id)
+            model.router.showRelationValueEditingView(
+                objectId: data.id,
+                relation: relationData.value,
+                metadata: relationData.metadata
+            )
         } label: {
             RelationValueView(relation: relationData.value, style: .set)
                 .frame(width: 128)
@@ -61,7 +65,7 @@ struct SetTableViewRow: View {
 struct SetTableViewRow_Previews: PreviewProvider {
     static var previews: some View {
         SetTableViewRow(
-            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
+            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], allMetadata: [], colums: []),
             initialOffset: 0,
             xOffset: 0
         )
