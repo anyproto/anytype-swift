@@ -163,6 +163,7 @@ private extension RelationsBuilder {
         
         return .status(
             StatusRelationValue(
+                id: option.id,
                 text: option.text,
                 color: anytypeColor
             )

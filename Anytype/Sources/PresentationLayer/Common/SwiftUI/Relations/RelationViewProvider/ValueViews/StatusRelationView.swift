@@ -25,6 +25,6 @@ struct StatusRelationView: View {
 
 struct StatusRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationView(value: StatusRelationValue(text: "text", color: .pureTeal), hint: "Hint", style: .regular(allowMultiLine: false))
+        StatusRelationView(value: StatusRelationValue(id: "", text: "text", color: .pureTeal), hint: "Hint", style: .regular(allowMultiLine: false))
     }
 }

@@ -272,6 +272,9 @@
 		12C2A5692754E90800311854 /* DateRelationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5682754E90800311854 /* DateRelationRowView.swift */; };
 		12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A57F2755F0CE00311854 /* DateRelationValue.swift */; };
 		12C2A5822756342F00311854 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5812756342F00311854 /* DateExtension.swift */; };
+		12C2A5982757A6D600311854 /* StatusRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */; };
+		12C2A59D2757A6E000311854 /* StatusRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */; };
+		12C2A59F2757A7F000311854 /* StatusRelationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
@@ -1090,6 +1093,9 @@
 		12C2A5682754E90800311854 /* DateRelationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationRowView.swift; sourceTree = "<group>"; };
 		12C2A57F2755F0CE00311854 /* DateRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationValue.swift; sourceTree = "<group>"; };
 		12C2A5812756342F00311854 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationEditingView.swift; sourceTree = "<group>"; };
+		12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationEditingViewModel.swift; sourceTree = "<group>"; };
+		12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationRowView.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
@@ -2777,6 +2783,9 @@
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
+				12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */,
+				12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */,
+				12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -5442,6 +5451,7 @@
 				12B0FF52274F4C0E00CA35FE /* TextRelationEditingService.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */,
+				12C2A5982757A6D600311854 /* StatusRelationEditingView.swift in Sources */,
 				12C2A5652754E13D00311854 /* DateRelationEditingViewModel.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockListService.swift in Sources */,
 				3D6E9A34270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift in Sources */,
@@ -5532,6 +5542,7 @@
 				12B0FF60274FC5E200CA35FE /* TextRelationEditingViewModelDelegate.swift in Sources */,
 				3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
+				12C2A59F2757A7F000311854 /* StatusRelationRowView.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				C9121A55273B4B9700FFDA07 /* BlocksOptionViewModel.swift in Sources */,
@@ -5628,6 +5639,7 @@
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
+				12C2A59D2757A6E000311854 /* StatusRelationEditingViewModel.swift in Sources */,
 				125B6EC026F235F400BCD7D6 /* CursorModeAccessoryViewItem.swift in Sources */,
 				C96A69AA273CD97700A07C3C /* BlockConfigurationProtocol.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
