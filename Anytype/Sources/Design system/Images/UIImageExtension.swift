@@ -16,6 +16,7 @@ extension UIImage {
             static let delete = createImage("TextEditor/BlocksOption/delete")
             static let duplicate = createImage("TextEditor/BlocksOption/duplicate")
             static let moveTo = createImage("TextEditor/BlocksOption/move_to")
+            static let move = createImage("TextEditor/BlocksOption/move")
             static let turnInto = createImage("TextEditor/BlocksOption/turn_into_object")
         }
 

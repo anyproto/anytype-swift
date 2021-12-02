@@ -30,7 +30,7 @@ extension EditorPageController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        guard !dividerCursorController.isMovingModeEnabled else { return false }
+        guard dividerCursorController.movingMode != .drum  else { return false }
 
         if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
                     return false

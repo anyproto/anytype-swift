@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let handler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
-    private let contextualMenuHandler: DefaultContextualMenuHandler
     private let pageService = PageService()
 
     init(
@@ -21,10 +20,6 @@ final class BlockViewModelBuilder {
         self.handler = handler
         self.router = router
         self.delegate = delegate
-        self.contextualMenuHandler = DefaultContextualMenuHandler(
-            handler: handler,
-            router: router
-        )
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -45,7 +40,6 @@ final class BlockViewModelBuilder {
                     block: block,
                     content: content,
                     detailsStorage: document.detailsStorage,
-                    contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
@@ -69,7 +63,6 @@ final class BlockViewModelBuilder {
                     upperBlock: previousBlock,
                     content: content,
                     isCheckable: isCheckable,
-                    contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
                     actionHandler: handler,
                     detailsStorage: document.detailsStorage,
@@ -88,7 +81,6 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
-                    contextualMenuHandler: contextualMenuHandler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
@@ -103,7 +95,6 @@ final class BlockViewModelBuilder {
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
-                    contextualMenuHandler: contextualMenuHandler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     }
@@ -117,7 +108,6 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
-                    contextualMenuHandler: contextualMenuHandler,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
                     },
@@ -130,7 +120,6 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
-                    contextualMenuHandler: contextualMenuHandler,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
                     },
@@ -143,17 +132,13 @@ final class BlockViewModelBuilder {
             return DividerBlockViewModel(
                 content: content,
                 information: block.information,
-                indentationLevel: block.indentationLevel,
-                handler: contextualMenuHandler
+                indentationLevel: block.indentationLevel
             )
         case let .bookmark(data):
             return BlockBookmarkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
                 bookmarkData: data,
-                handleContextualMenu: { [weak self] action, info in
-                    self?.contextualMenuHandler.handle(action: action, info: info)
-                },
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -168,7 +153,6 @@ final class BlockViewModelBuilder {
                 information: block.information,
                 content: content,
                 details: details,
-                contextualMenuHandler: contextualMenuHandler,
                 openLink: { [weak self] data in
                     self?.router.showPage(data: data)
                 }

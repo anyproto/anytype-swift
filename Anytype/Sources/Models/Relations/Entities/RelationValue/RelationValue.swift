@@ -3,7 +3,7 @@ import Foundation
 enum RelationValue: Hashable {
     case text(String?)
     case number(String?)
-    case status(StatusRelationValue?)
+    case status(Status?)
     case date(DateRelationValue?)
     case object([ObjectRelationValue])
     case checkbox(Bool)

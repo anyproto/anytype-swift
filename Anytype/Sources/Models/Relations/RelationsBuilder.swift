@@ -162,7 +162,8 @@ private extension RelationsBuilder {
         let anytypeColor: AnytypeColor = middlewareColor?.asDarkColor ?? .grayscale90
         
         return .status(
-            StatusRelationValue(
+            RelationValue.Status(
+                id: option.id,
                 text: option.text,
                 color: anytypeColor
             )

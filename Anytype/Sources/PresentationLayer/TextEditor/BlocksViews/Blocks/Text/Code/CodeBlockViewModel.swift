@@ -23,7 +23,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
         )
     }
 
-    let contextualMenuHandler: DefaultContextualMenuHandler
     let becomeFirstResponder: (BlockModelProtocol) -> ()
     let textDidChange: (BlockModelProtocol, UITextView) -> ()
     let showCodeSelection: (BlockModelProtocol) -> ()
@@ -44,14 +43,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
                 self.showCodeSelection(self.block)
             }
         )
-    }
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        [ .addBlockBelow, .turnIntoPage, .duplicate, .delete ]
-    }
-    
-    func handle(action: ContextualMenu) {
-        contextualMenuHandler.handle(action: action, info: block.information)
     }
     
     func didSelectRowInTableView() { }
