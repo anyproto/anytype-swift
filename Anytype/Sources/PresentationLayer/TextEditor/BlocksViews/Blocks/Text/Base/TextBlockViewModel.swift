@@ -13,8 +13,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
-    
-    private let contextualMenuHandler: DefaultContextualMenuHandler
+
     private let blockDelegate: BlockDelegate
     
     private let showPage: (EditorScreenData) -> Void
@@ -38,7 +37,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
-        contextualMenuHandler: DefaultContextualMenuHandler,
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
@@ -49,7 +47,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.upperBlock = upperBlock
         self.content = content
         self.isCheckable = isCheckable
-        self.contextualMenuHandler = contextualMenuHandler
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
         self.showPage = showPage
@@ -65,26 +62,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {}
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        let restrictions = BlockRestrictionsBuilder.build(content: content)
-        
-        var actions: [ContextualMenu] = [ .addBlockBelow, .style ]
-        
-        if restrictions.canApplyStyle(.smartblock(.page)) {
-            actions.append(.turnIntoPage)
-        }
-        
-        if restrictions.canDeleteOrDuplicate {
-            actions.append(contentsOf: [ .duplicate, .delete ])
-        }
-
-        return actions
-    }
-    
-    func handle(action: ContextualMenu) {
-        contextualMenuHandler.handle(action: action, info: information)
-    }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         TextBlockContentConfiguration(

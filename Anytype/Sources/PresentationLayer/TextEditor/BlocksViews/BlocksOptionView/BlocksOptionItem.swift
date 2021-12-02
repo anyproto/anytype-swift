@@ -6,6 +6,7 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case duplicate
     case turnInto
     case moveTo
+    case move
 }
 
 extension BlocksOptionItem {
@@ -23,6 +24,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.turnInto
         case .moveTo:
             return BlockOptionImage.moveTo
+        case .move:
+            return BlockOptionImage.move
         }
     }
 
@@ -38,6 +41,8 @@ extension BlocksOptionItem {
             return "Turn into".localized
         case .moveTo:
             return "Move to".localized
+        case .move:
+            return "Move".localized
         }
     }
 }

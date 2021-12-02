@@ -148,7 +148,8 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
             blockActionsService: blockActionsService,
-            actionHandler: actionHandler
+            actionHandler: actionHandler,
+            router: router
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
