@@ -28,6 +28,10 @@ final class DateRelationEditingViewModel: ObservableObject {
 
 extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
     
+    func viewWillDisappear() {
+        saveValue()
+    }
+    
     func saveValue() {
         let value: Google_Protobuf_Value = {
             switch selectedValue {

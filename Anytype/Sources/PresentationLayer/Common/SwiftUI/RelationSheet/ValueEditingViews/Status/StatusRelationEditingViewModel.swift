@@ -27,6 +27,8 @@ final class StatusRelationEditingViewModel: ObservableObject {
 
 extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol {
     
+    func viewWillDisappear() {}
+    
     func saveValue() {
         detailsService.updateDetails([
             DetailsUpdate(key: relationKey, value: selectedStatus?.id.protobufValue ?? nil)
