@@ -2,7 +2,7 @@ import SwiftUI
 
 struct StatusRelationRowView: View {
     
-    let status: StatusRelationValue
+    let status: RelationValue.Status
     let isSelected: Bool
     
     var body: some View {
@@ -32,6 +32,6 @@ struct StatusRelationRowView: View {
 
 struct StatusRelationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationRowView(status: StatusRelationValue(id: "", text: "text", color: .pureTeal), isSelected: true)
+        StatusRelationRowView(status: RelationValue.Status(id: "", text: "text", color: .pureTeal), isSelected: true)
     }
 }
