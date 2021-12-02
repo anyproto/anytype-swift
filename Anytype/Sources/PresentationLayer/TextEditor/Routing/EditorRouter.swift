@@ -45,7 +45,8 @@ final class EditorRouter: EditorRouterProtocol {
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
-
+    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(objectId: document.objectId, delegate: self)
+    
     init(
         rootController: EditorBrowserController,
         viewController: UIViewController,
@@ -250,68 +251,7 @@ final class EditorRouter: EditorRouterProtocol {
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation, relation.isEditable else { return }
         
-        let contentViewModel: RelationEditingViewModelProtocol?
-        switch relation.value {
-        case .text(let string):
-            contentViewModel = TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: document.objectId,
-                    valueType: .text
-                ),
-                key: relation.id,
-                value: string,
-                delegate: self
-            )
-        case .number(let string):
-            contentViewModel = TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: document.objectId,
-                    valueType: .number
-                ),
-                key: relation.id,
-                value: string,
-                delegate: self
-            )
-        case .phone(let string):
-            contentViewModel = TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: document.objectId,
-                    valueType: .phone
-                ),
-                key: relation.id,
-                value: string,
-                delegate: self
-            )
-        case .email(let string):
-            contentViewModel = TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: document.objectId,
-                    valueType: .email
-                ),
-                key: relation.id,
-                value: string,
-                delegate: self
-            )
-        case .url(let string):
-            contentViewModel = TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: document.objectId,
-                    valueType: .url
-                ),
-                key: relation.id,
-                value: string,
-                delegate: self
-            )
-        case .date(let value):
-            contentViewModel = DateRelationEditingViewModel(
-                service: DetailsService(objectId: document.objectId),
-                key: relation.id,
-                value: value
-            )
-        default:
-            contentViewModel = nil
-        }
-        
+        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(relation: relation)
         guard let contentViewModel = contentViewModel else { return }
         
         let sheetViewModel = RelationSheetViewModel(
