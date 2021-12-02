@@ -45,7 +45,7 @@ final class EditorRouter: EditorRouterProtocol {
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
-    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(objectId: document.objectId, delegate: self)
+    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(document: document, delegate: self)
     
     init(
         rootController: EditorBrowserController,

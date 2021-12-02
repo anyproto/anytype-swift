@@ -26,7 +26,7 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
         StatusRelationEditingView(
             viewModel: StatusRelationEditingViewModel(
-                allStatuses: [],
+                relationOptions: [],
                 selectedStatus: nil,
                 key: "",
                 service: DetailsService(objectId: "")

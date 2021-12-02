@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import BlocksModels
 
 final class StatusRelationEditingViewModel: ObservableObject {
     
@@ -10,12 +11,12 @@ final class StatusRelationEditingViewModel: ObservableObject {
     private let service: DetailsServiceProtocol
     
     init(
-        allStatuses: [RelationValue.Status],
+        relationOptions: [RelationMetadata.Option],
         selectedStatus: RelationValue.Status?,
         key: String,
         service: DetailsServiceProtocol
     ) {
-        self.allStatuses = allStatuses
+        self.allStatuses = relationOptions.map { RelationValue.Status(option: $0) }
         self.selectedStatus = selectedStatus
         self.key = key
         self.service = service
