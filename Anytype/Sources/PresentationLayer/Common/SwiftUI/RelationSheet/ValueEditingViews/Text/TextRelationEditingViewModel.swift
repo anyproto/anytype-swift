@@ -48,6 +48,10 @@ final class TextRelationEditingViewModel: ObservableObject {
 
 extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     
+    func viewWillDisappear() {
+        saveValue()
+    }
+    
     func saveValue() {
         service.save(value: value, forKey: key)
     }

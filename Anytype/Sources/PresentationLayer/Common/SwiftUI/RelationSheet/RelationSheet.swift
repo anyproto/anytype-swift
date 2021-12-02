@@ -46,7 +46,7 @@ struct RelationSheet: View {
                 withAnimation(.fastSpring) {
                     backgroundOpacity = 0.0
                     showPopup = false
-                    viewModel.contentViewModel.saveValue()
+                    viewModel.contentViewModel.viewWillDisappear()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         viewModel.onDismiss?()
                     }
