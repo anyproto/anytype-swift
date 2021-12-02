@@ -6,19 +6,36 @@ struct StatusRelationEditingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            valueList
+            statusesList
             Spacer.fixedHeight(20)
         }
-        .padding(.horizontal, 20)
     }
     
-    private var valueList: some View {
-        ForEach(viewModel.allStatuses) { status in
-            StatusRelationRowView(
-                status: status,
-                isSelected: status == viewModel.selectedStatus
-            )
+    private var statusesList: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(viewModel.statusSections) { section in
+                    VStack(alignment: .leading, spacing: 0) {
+                        Section(header: sectionHeader(title: section.title)) {
+                            ForEach(section.statuses) { status in
+                                StatusRelationRowView(
+                                    status: status,
+                                    isSelected: status == viewModel.selectedStatus
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
         }
+    }
+    
+    private func sectionHeader(title: String) -> some View {
+        AnytypeText(title, style: .caption1Regular, color: .textSecondary)
+            .padding(.top, 26)
+            .padding(.bottom, 8)
+            .modifier(DividerModifier(spacing: 0, alignment: .leading))
     }
 }
 
