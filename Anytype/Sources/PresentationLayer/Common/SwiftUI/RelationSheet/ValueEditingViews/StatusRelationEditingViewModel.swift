@@ -3,23 +3,24 @@ import SwiftUI
 import BlocksModels
 
 final class StatusRelationEditingViewModel: ObservableObject {
-    
-    let allStatuses: [RelationValue.Status]
+
     @Published var selectedStatus: RelationValue.Status?
+
+    let allStatuses: [RelationValue.Status]
     
-    private let key: String
-    private let service: DetailsServiceProtocol
+    private let relationKey: String
+    private let detailsService: DetailsServiceProtocol
     
     init(
+        relationKey: String,
         relationOptions: [RelationMetadata.Option],
         selectedStatus: RelationValue.Status?,
-        key: String,
-        service: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol
     ) {
+        self.relationKey = relationKey
         self.allStatuses = relationOptions.map { RelationValue.Status(option: $0) }
         self.selectedStatus = selectedStatus
-        self.key = key
-        self.service = service
+        self.detailsService = detailsService
     }
     
 }

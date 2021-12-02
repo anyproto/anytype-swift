@@ -80,10 +80,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             }
             
             return StatusRelationEditingViewModel(
+                relationKey: relation.id,
                 relationOptions: relationMetadata.selections,
                 selectedStatus: status,
-                key: relation.id,
-                service: DetailsService(objectId: document.objectId)
+                detailsService: DetailsService(objectId: document.objectId)
             )
         default:
             return nil
