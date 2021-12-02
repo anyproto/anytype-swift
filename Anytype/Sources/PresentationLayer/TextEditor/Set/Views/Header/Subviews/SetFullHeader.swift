@@ -32,14 +32,7 @@ struct SetFullHeader: View {
         VStack(alignment: .leading, spacing: 0) {
             cover
                 .ifLet(model.document.objectDetails?.objectIconImage) { view, icon in
-                    view.overlay(
-                        SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObject)
-                            .frame(width: 96, height: 96)
-                            .padding(.leading, -8 + 20) // 8 is default padding
-                            .padding(.bottom, -8 - 16)
-                        ,
-                        alignment: .bottomLeading
-                    )
+                    view.overlay(iconView(icon: icon), alignment: .bottomLeading)
                 }
             
             Spacer.fixedHeight(32)
@@ -67,6 +60,24 @@ struct SetFullHeader: View {
             )
                 .padding(.horizontal, 20)
         }
+    }
+    
+    private let iconBackgroundPadding: CGFloat = 4
+    private func iconView(icon: ObjectIconImage) -> some View {
+        ZStack {
+            if let guideline = ObjectIconImageUsecase.openedObject
+                .objectIconImageGuidelineSet
+                .imageGuideline(for: icon) {
+                let paddingFromBothSides = iconBackgroundPadding * 2
+                RoundedRectangle(cornerRadius: guideline.cornersGuideline.radius + iconBackgroundPadding).foregroundColor(.white)
+                    .frame(width: guideline.size.width + paddingFromBothSides, height: guideline.size.height + paddingFromBothSides)
+            }
+            
+            SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObject)
+                .frame(width: 96, height: 96)
+        }
+        .padding(.leading, -8 + 20) // 8 is default padding
+        .padding(.bottom, -8 - 16)
     }
     
     private var cover: some View {
