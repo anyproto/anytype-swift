@@ -6,14 +6,20 @@ struct SetTableViewRow: View {
     let initialOffset: CGFloat
     let xOffset: CGFloat
     
+    @EnvironmentObject private var model: EditorSetViewModel
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Spacer.fixedHeight(18)
-            title
-            Spacer.fixedHeight(18)
-            cells
-            Spacer.fixedHeight(12)
-            Divider()
+        Button {
+            model.router.showPage(data: data.screenData)
+        } label: {
+            VStack(alignment: .leading, spacing: 0) {
+                Spacer.fixedHeight(18)
+                title
+                Spacer.fixedHeight(18)
+                cells
+                Spacer.fixedHeight(12)
+                Divider()
+            }
         }
     }
     
@@ -43,33 +49,15 @@ struct SetTableViewRow: View {
     }
     
     private func cell(_ data: SetRowRelation) -> some View {
-        Group {
-            switch data.value.value {
-            case .checkbox, .number, .status, .tag, .object:
-                AnytypeText("unsupported 👺", style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            case .text(let text), .phone(let text), .email(let text), .url(let text):
-                AnytypeText(text ?? "", style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            case .date(let value):
-                AnytypeText(value?.text ?? "", style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            case .unknown(let text):
-                AnytypeText(text, style: .relation2Regular, color: .textPrimary)
-                    .lineLimit(1)
-                    .frame(width: 128)
-            }
-        }
+        RelationValueView(relation: data.value, style: .regular(allowMultiLine: false))
+            .frame(width: 128)
     }
 }
 
 struct SetTableViewRow_Previews: PreviewProvider {
     static var previews: some View {
         SetTableViewRow(
-            data: SetTableViewRowData(id: "", title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
+            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
             initialOffset: 0,
             xOffset: 0
         )

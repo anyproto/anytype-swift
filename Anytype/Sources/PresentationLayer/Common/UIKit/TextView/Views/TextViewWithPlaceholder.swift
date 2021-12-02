@@ -73,6 +73,9 @@ final class TextViewWithPlaceholder: UITextView {
     
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
+
+
+        reloadGestures()
         onFirstResponderChange(.become)
         return value
     }
@@ -83,6 +86,8 @@ final class TextViewWithPlaceholder: UITextView {
         if value {
             UIMenuController.shared.menuItems = nil
         }
+
+        reloadGestures()
         return value
     }
 
@@ -182,6 +187,23 @@ extension TextViewWithPlaceholder: NSTextStorageDelegate {
     }
 }
 
+extension TextViewWithPlaceholder {
+    override func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        if gestureRecognizer.isKind(of: UILongPressGestureRecognizer.self) {
+            gestureRecognizer.isEnabled = isFirstResponder
+        }
+        return super.addGestureRecognizer(gestureRecognizer)
+    }
+
+    func reloadGestures() {
+        gestureRecognizers?.forEach {
+            if $0.isKind(of: UILongPressGestureRecognizer.self) {
+                $0.isEnabled = isFirstResponder
+            }
+        }
+    }
+
+}
 // MARK: - Placeholder
 
 extension TextViewWithPlaceholder {

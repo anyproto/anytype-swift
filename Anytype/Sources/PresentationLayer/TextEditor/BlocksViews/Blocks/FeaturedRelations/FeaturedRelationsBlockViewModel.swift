@@ -42,10 +42,4 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView() {}
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        []
-    }
-    
-    func handle(action: ContextualMenu) {}
 }

@@ -24,7 +24,6 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     let information: BlockInformation
     let fileData: BlockFile
     
-    let contextualMenuHandler: DefaultContextualMenuHandler
     let indentationLevel: Int
     let showIconPicker: Action<BlockId>
 
@@ -34,7 +33,6 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         information: BlockInformation,
         fileData: BlockFile,
         indentationLevel: Int,
-        contextualMenuHandler: DefaultContextualMenuHandler,
         showIconPicker: @escaping (BlockId) -> ()
     ) {
         guard fileData.contentType == .image else {
@@ -47,24 +45,8 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         
         self.information = information
         self.fileData = fileData
-        self.contextualMenuHandler = contextualMenuHandler
         self.indentationLevel = indentationLevel
         self.showIconPicker = showIconPicker
-    }
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
-    }
-    
-    func handle(action: ContextualMenu) {
-        switch action {
-        case .replace:
-            showIconPicker(blockId)
-        case .download:
-            downloadImage()
-        default:
-            contextualMenuHandler.handle(action: action, info: information)
-        }
     }
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {

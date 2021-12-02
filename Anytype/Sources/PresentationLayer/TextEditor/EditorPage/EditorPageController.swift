@@ -50,7 +50,6 @@ final class EditorPageController: UIViewController {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
         recognizer.minimumPressDuration = 0.5
-        recognizer.delaysTouchesBegan = true
         return recognizer
     }()
 
@@ -123,7 +122,6 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
-        collectionView.reloadData()
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -145,16 +143,17 @@ final class EditorPageController: UIViewController {
                 navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
                 collectionView.deselectAllMovingItems()
-                dividerCursorController.isMovingModeEnabled = false
+                dividerCursorController.movingMode = .none
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
                 navigationBarHelper.setNavigationBarHidden(false)
             case .moving(let indexPaths):
-                dividerCursorController.isMovingModeEnabled = true
+                dividerCursorController.movingMode = .drum
+                setEditing(false, animated: true)
                 indexPaths.forEach { indexPath in
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
-                setEditing(false, animated: true)
+                collectionView.reloadData()
             }
         }.store(in: &cancellables)
     }
@@ -267,6 +266,8 @@ private extension EditorPageController {
     
     func setupCollectionView() {
         collectionView.delegate = self
+        collectionView.dropDelegate = self
+        collectionView.dragDelegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
@@ -275,7 +276,7 @@ private extension EditorPageController {
             self,
             action: #selector(tapOnListViewGestureRecognizerHandler)
         )
-        view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+        view.addGestureRecognizer(listViewTapGestureRecognizer)
 
         collectionView.addGestureRecognizer(longTapGestureRecognizer)
     }
@@ -302,7 +303,7 @@ private extension EditorPageController {
     
     @objc
     func tapOnListViewGestureRecognizerHandler() {
-        guard collectionView.isEditing && !dividerCursorController.isMovingModeEnabled else { return }
+        guard collectionView.isEditing && dividerCursorController.movingMode != .drum else { return }
         let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
@@ -312,9 +313,11 @@ private extension EditorPageController {
 
     @objc
     private func handleLongPress(gesture: UILongPressGestureRecognizer) {
-        guard !dividerCursorController.isMovingModeEnabled else { return }
+        guard dividerCursorController.movingMode != .drum else { return }
 
         guard gesture.state == .ended else { return }
+
+        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {
             viewModel.blocksStateManager.didLongTap(at: $0)
@@ -403,7 +406,7 @@ private extension EditorPageController {
         
         UIView.performWithoutAnimation { [weak self] in
             guard let self = self else { return }
-            
+
             self.dataSource.apply(snapshot, to: .main, animatingDifferences: true)
             self.focusOnFocusedBlock()
             selectedCells?.forEach {

@@ -32,7 +32,6 @@ class EditorCollectionView: UICollectionView {
         return cell
     }
 
-
     private func setCelIsMoving(isMoving: Bool, at indexPath: IndexPath) {
         let cell = cellForItem(at: indexPath)
         let contentView = cell?.contentView as? CustomTypesAccessable
