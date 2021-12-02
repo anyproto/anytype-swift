@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SetTableView: View {
     @Binding var offset: CGPoint
-    @Binding var headerSize: CGSize
+    var headerSize: CGSize
     
     @EnvironmentObject private var model: EditorSetViewModel
     
@@ -32,9 +32,12 @@ struct SetTableView: View {
                   .frame(minWidth: geo.size.width, minHeight: geo.size.height)
             
                 }
-                .onAppear {
-                    initialOffset = offset
-                }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.async {
+                offset = CGPoint(x: offset.x, y: 0) // initial y offset is 0 for some reason
+                initialOffset = offset
             }
         }
     }
@@ -50,6 +53,6 @@ struct SetTableView: View {
 
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {
-        SetTableView(offset: .constant(.zero), headerSize: .constant(.zero))
+        SetTableView(offset: .constant(.zero), headerSize: .zero)
     }
 }

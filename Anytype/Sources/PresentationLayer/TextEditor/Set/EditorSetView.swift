@@ -4,12 +4,12 @@ struct EditorSetView: View {
     @ObservedObject var model: EditorSetViewModel
     
     @State private var offset = CGPoint.zero
-    @State private var headerSize = CGRect.zero
+    @State private var headerSize = CGSize.zero
     
     var body: some View {
         ZStack {
-            SetTableView(offset: $offset, headerSize: $headerSize.size)
-            SetHeader(offset: $offset, headerSize: $headerSize)
+            SetTableView(offset: $offset, headerSize: headerSize)
+            SetHeader(headerSize: $headerSize, offset: offset)
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)

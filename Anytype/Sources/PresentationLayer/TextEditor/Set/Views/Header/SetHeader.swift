@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct SetHeader: View {
-    @Binding var offset: CGPoint
-    @Binding var headerSize: CGRect
+    @Binding var headerSize: CGSize
+    var offset: CGPoint
     
     @EnvironmentObject private var model: EditorSetViewModel
     
@@ -27,16 +27,11 @@ struct SetHeader: View {
                 .frame(width: width)
             }
         }
-        .onAppear {
-            DispatchQueue.main.async {
-                offset = .zero
-            }
-        }
     }
 }
 
 struct SetHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetHeader(offset: .constant(.zero), headerSize: .constant(.zero))
+        SetHeader(headerSize: .constant(.zero), offset: .zero)
     }
 }
