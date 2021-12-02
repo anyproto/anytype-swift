@@ -4,6 +4,7 @@ struct StatusRelationRowView: View {
     
     let status: RelationValue.Status
     let isSelected: Bool
+    let onTap: () -> ()
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -16,7 +17,7 @@ struct StatusRelationRowView: View {
     
     private var content: some View {
         Button {
-            
+            onTap()
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(status.text, style: .relation1Regular, color: status.color.asColor)
@@ -26,12 +27,13 @@ struct StatusRelationRowView: View {
                     Image.optionChecked.foregroundColor(.textSecondary)
                 }
             }
+            .frame(height: 20)
         }
     }
 }
 
 struct StatusRelationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationRowView(status: RelationValue.Status(id: "", text: "text", color: .pureTeal), isSelected: true)
+        StatusRelationRowView(status: RelationValue.Status(id: "", text: "text", color: .pureTeal), isSelected: true, onTap: {})
     }
 }

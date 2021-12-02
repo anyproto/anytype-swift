@@ -17,12 +17,7 @@ struct StatusRelationEditingView: View {
                 ForEach(viewModel.statusSections) { section in
                     VStack(alignment: .leading, spacing: 0) {
                         Section(header: sectionHeader(title: section.title)) {
-                            ForEach(section.statuses) { status in
-                                StatusRelationRowView(
-                                    status: status,
-                                    isSelected: status == viewModel.selectedStatus
-                                )
-                            }
+                            ForEach(section.statuses) { statusRow($0) }
                         }
                     }
                 }
@@ -36,6 +31,15 @@ struct StatusRelationEditingView: View {
             .padding(.top, 26)
             .padding(.bottom, 8)
             .modifier(DividerModifier(spacing: 0, alignment: .leading))
+    }
+    
+    private func statusRow(_ status: RelationValue.Status) -> some View {
+        StatusRelationRowView(
+            status: status,
+            isSelected: status == viewModel.selectedStatus
+        ) {
+            viewModel.selectedStatus = status
+        }
     }
 }
 
