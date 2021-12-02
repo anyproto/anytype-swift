@@ -3,9 +3,10 @@ import SwiftUI
 struct SetMinimizedHeader: View {
     let headerPosition: CGPoint
     let coverPosition: CGPoint
+    let xOffset: CGFloat
     
     @EnvironmentObject private var model: EditorSetViewModel
-    
+    @State private var initialOffset = CGFloat.zero
     private let minimizedHeaderHeight: CGFloat = 92
     
     var body: some View {
@@ -19,6 +20,8 @@ struct SetMinimizedHeader: View {
                 .opacity(headerOpacity)
                 Spacer()
             }
+        }.onAppear {
+            initialOffset = xOffset
         }
     }
     
@@ -32,7 +35,16 @@ struct SetMinimizedHeader: View {
     private var headerSettings: some View {
         Group {
             if headerPosition.y < minimizedHeaderHeight {
-                SetHeaderSettings()
+                VStack(alignment: .leading, spacing: 0) {
+                    SetHeaderSettings()
+                    Divider()
+                    ScrollView([], showsIndicators: false) {
+                        SetTableViewHeader()
+                            .offset(x: xOffset - initialOffset)
+                        
+                    }.frame(height: 40)
+                    Divider()
+                }
             } else {
                 EmptyView()
             }
@@ -60,6 +72,6 @@ struct SetMinimizedHeader: View {
 
 struct SetMinimizedHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetMinimizedHeader(headerPosition: .zero, coverPosition: .zero)
+        SetMinimizedHeader(headerPosition: .zero, coverPosition: .zero, xOffset: 0)
     }
 }
