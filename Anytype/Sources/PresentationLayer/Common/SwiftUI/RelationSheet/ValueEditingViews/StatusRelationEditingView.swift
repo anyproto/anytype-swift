@@ -13,10 +13,10 @@ struct StatusRelationEditingView: View {
     }
     
     private var valueList: some View {
-        ForEach(viewModel.values) { value in
+        ForEach(viewModel.allStatuses) { status in
             StatusRelationRowView(
-                status: value,
-                isSelected: value == viewModel.selectedValue
+                status: status,
+                isSelected: status == viewModel.selectedStatus
             )
         }
     }
@@ -26,10 +26,10 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
         StatusRelationEditingView(
             viewModel: StatusRelationEditingViewModel(
-                service: DetailsService(objectId: ""),
-                key: "",
-                allValues: [],
-                value: nil
+                relationKey: "",
+                relationOptions: [],
+                selectedStatus: nil,
+                detailsService: DetailsService(objectId: "")
             )
         )
     }
