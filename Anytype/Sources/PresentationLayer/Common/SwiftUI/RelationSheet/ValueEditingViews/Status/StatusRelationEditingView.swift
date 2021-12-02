@@ -43,6 +43,8 @@ struct StatusRelationEditingView: View {
             } else {
                 viewModel.selectedStatus = status
             }
+            
+            viewModel.saveValue()
         }
     }
 }
