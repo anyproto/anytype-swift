@@ -2,6 +2,13 @@
 import UIKit
 
 extension UICollectionView {
+
+    var lastIndexPath: IndexPath {
+        let section = max(numberOfSections - 1, 0)
+        let row = max(numberOfItems(inSection: section) - 1, 0)
+
+        return IndexPath(row: row, section: section)
+    }
     
     func deselectAllSelectedItems(animated: Bool = true) {
         self.indexPathsForSelectedItems?.forEach { self.deselectItem(at: $0, animated: animated) }

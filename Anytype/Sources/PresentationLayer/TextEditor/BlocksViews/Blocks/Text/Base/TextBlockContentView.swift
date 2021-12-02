@@ -102,14 +102,8 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
     }
     
     private func updateAllConstraint(blockTextStyle: BlockText.Style) {
-        var mainInset = TextBlockLayout.mainInset(textBlockStyle: blockTextStyle)
+        let mainInset = TextBlockLayout.mainInset(textBlockStyle: blockTextStyle)
         let contentInset = TextBlockLayout.contentInset(textBlockStyle: blockTextStyle)
-
-        // Update top indentaion if current block not in the header and upper block is in the header block
-        if currentConfiguration.block.parent?.information.content.type != .layout(.header),
-           currentConfiguration.upperBlock?.parent?.information.content.type == .layout(.header) {
-            mainInset = TextBlockLayout.mainInsetForBlockAfterHeader
-        }
         
         topMainConstraint?.constant = mainInset.top
         bottomMainConstraint?.constant = mainInset.bottom

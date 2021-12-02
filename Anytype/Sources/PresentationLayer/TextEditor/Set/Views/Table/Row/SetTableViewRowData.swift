@@ -13,11 +13,13 @@ struct SetTableViewRowData: Identifiable {
     let title: String
     let icon: ObjectIconImage?
     let relations: [SetRowRelation]
+    let screenData: EditorScreenData
     
-    init(id: BlockId, title: String, icon: ObjectIconImage?, allRelations: [Relation], colums: [SetColumData]) {
+    init(id: BlockId, type: EditorViewType, title: String, icon: ObjectIconImage?, allRelations: [Relation], colums: [SetColumData]) {
         self.id = id
         self.title = title
         self.icon = icon
+        self.screenData = EditorScreenData(pageId: id, type: type)
         
         self.relations = colums.compactMap { colum in
             let relation = allRelations.first { $0.id == colum.key }

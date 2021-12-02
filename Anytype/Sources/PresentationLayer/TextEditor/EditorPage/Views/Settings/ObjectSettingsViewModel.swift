@@ -58,7 +58,11 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
         
-        self.relationsViewModel = RelationsListViewModel(objectId: objectId, onValueEditingTap: onRelationValueEditingTap)
+        self.relationsViewModel = RelationsListViewModel(
+            relationsService: RelationsService(objectId: objectId),
+            detailsService: DetailsService(objectId: objectId),
+            onValueEditingTap: onRelationValueEditingTap
+        )
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }

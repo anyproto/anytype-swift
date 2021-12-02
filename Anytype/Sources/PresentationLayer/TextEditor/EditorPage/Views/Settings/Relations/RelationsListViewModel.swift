@@ -10,19 +10,21 @@ final class RelationsListViewModel: ObservableObject {
     
     @Published private(set) var sections: [RelationsSection]
     private let sectionsBuilder = RelationsSectionBuilder()
-    private let relationsService: RelationsServiceProtocol = RelationsService()
+    private let relationsService: RelationsServiceProtocol 
+    private let detailsService: DetailsServiceProtocol
     
-    private let objectId: String
     private let onValueEditingTap: (String) -> ()
     
     // MARK: - Initializers
     
     init(
-        objectId: String,
+        relationsService: RelationsServiceProtocol,
+        detailsService: DetailsServiceProtocol,
         sections: [RelationsSection] = [],
         onValueEditingTap: @escaping (String) -> ()
     ) {
-        self.objectId = objectId
+        self.relationsService = relationsService
+        self.detailsService = detailsService
         self.sections = sections
         self.onValueEditingTap = onValueEditingTap
     }
@@ -40,19 +42,33 @@ final class RelationsListViewModel: ObservableObject {
         guard let relationRowData = relationRowData else { return }
         
         if relationRowData.isFeatured {
-            relationsService.removeFeaturedRelations(objectId: objectId, relationIds: [relationRowData.id])
+            relationsService.removeFeaturedRelation(relationKey: relationRowData.id)
         } else {
-            relationsService.addFeaturedRelations(objectId: objectId, relationIds: [relationRowData.id])
+            relationsService.addFeaturedRelation(relationKey: relationRowData.id)
         }
     }
     
     func removeRelation(id: String) {
-        relationsService.removeRelation(objectId: objectId, relationId: id)
+        relationsService.removeRelation(relationKey: id)
     }
     
     func editRelation(id: String) {
         guard FeatureFlags.relationsEditing else { return }
-        onValueEditingTap(id)
+        
+        let flattenRelations: [Relation] = sections.flatMap { $0.relations }
+        let relation = flattenRelations.first { $0.id == id }
+        
+        guard
+            let relation = relation,
+            case .checkbox(let bool) = relation.value
+        else {
+            onValueEditingTap(id)
+            return
+        }
+        
+        detailsService.updateDetails([
+            DetailsUpdate(key: relation.id, value: Google_Protobuf_Value(boolValue: !bool))
+        ])
     }
     
 }

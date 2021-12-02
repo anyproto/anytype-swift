@@ -3,6 +3,12 @@ import Combine
 import AnytypeCore
 
 final class DividerCursorController {
+    enum MovingMode {
+        case none
+        case dragNdrop
+        case drum
+    }
+
     private enum Constants {
         enum Divider {
             static let cornerRadius = 8.0
@@ -12,9 +18,14 @@ final class DividerCursorController {
         }
     }
 
-    var isMovingModeEnabled = false {
+    var movingMode: MovingMode = .none {
         didSet {
-            isMovingModeEnabled ? placeDividerCursor() : moveCursorView.removeFromSuperview()
+            switch movingMode {
+            case .none:
+                moveCursorView.removeFromSuperview()
+            case .dragNdrop, .drum:
+                placeDividerCursor()
+            }
         }
     }
 
@@ -50,6 +61,34 @@ final class DividerCursorController {
         setupSubscription()
     }
 
+    func adjustDivider(at indexPath: IndexPath) {
+        let newOrigin: CGFloat
+
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            let convertedCellOrigin = view.convert(cell.frame.origin, from: collectionView)
+            newOrigin = convertedCellOrigin.y - 2
+        } else if let cell = collectionView.cellForItem(
+            at: IndexPath(row: indexPath.row - 1, section: indexPath.section)
+        ) {
+            let convertedCellOrigin = view.convert(cell.frame.origin, from: collectionView)
+            newOrigin = cell.frame.height + convertedCellOrigin.y - 2
+        } else {
+            anytypeAssertionFailure("unexpected case for adjusting divider", domain: .editorPage)
+            return
+        }
+
+        var previousFrame = moveCursorView.frame
+
+        previousFrame.origin.y = newOrigin
+        moveCursorView.frame = previousFrame
+        moveCursorView.isHidden = false
+
+        if lastIndexPath != indexPath {
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        }
+        lastIndexPath = indexPath
+    }
+
     private func setupSubscription() {
         NotificationCenter.Publisher(
             center: .default,
@@ -63,9 +102,14 @@ final class DividerCursorController {
     }
 
     private func handleScrollUpdate(offset: CGFloat) {
-        guard isMovingModeEnabled else { return }
-
-        adjustDividerCursorPosition()
+        switch movingMode {
+        case .none:
+            return
+        case .dragNdrop:
+            lastIndexPath.map(adjustDivider(at:))
+        case .drum:
+            adjustDividerCursorPosition()
+        }
     }
 
     private func placeDividerCursor() {
@@ -99,7 +143,6 @@ final class DividerCursorController {
             return
         }
 
-        moveCursorView.isHidden = false
         collectionView.deselectAllSelectedItems(animated: false)
 
         var supposedInsertIndexPath = isPointAboveMidY
@@ -114,11 +157,6 @@ final class DividerCursorController {
             }
         }
 
-        if lastIndexPath != supposedInsertIndexPath {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        }
-        lastIndexPath = supposedInsertIndexPath
-
         adjustDivider(at: supposedInsertIndexPath)
     }
 
@@ -126,27 +164,5 @@ final class DividerCursorController {
         moveCursorView.isHidden = true
 
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-    }
-
-    private func adjustDivider(at indexPath: IndexPath) {
-        let newOrigin: CGFloat
-
-        if let cell = collectionView.cellForItem(at: indexPath) {
-            let convertedCellOrigin = view.convert(cell.frame.origin, from: collectionView)
-            newOrigin = convertedCellOrigin.y - 2
-        } else if let cell = collectionView.cellForItem(
-            at: IndexPath(row: indexPath.row - 1, section: indexPath.section)
-        ) {
-            let convertedCellOrigin = view.convert(cell.frame.origin, from: collectionView)
-            newOrigin = cell.frame.height + convertedCellOrigin.y - 2
-        } else {
-            anytypeAssertionFailure("unexpected case for adjusting divider", domain: .editorPage)
-            return
-        }
-
-        var previousFrame = moveCursorView.frame
-
-        previousFrame.origin.y = newOrigin
-        moveCursorView.frame = previousFrame
     }
 }
