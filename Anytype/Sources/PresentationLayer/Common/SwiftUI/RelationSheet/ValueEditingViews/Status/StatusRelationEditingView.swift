@@ -38,7 +38,11 @@ struct StatusRelationEditingView: View {
             status: status,
             isSelected: status == viewModel.selectedStatus
         ) {
-            viewModel.selectedStatus = status
+            if viewModel.selectedStatus == status {
+                viewModel.selectedStatus = nil
+            } else {
+                viewModel.selectedStatus = status
+            }
         }
     }
 }
