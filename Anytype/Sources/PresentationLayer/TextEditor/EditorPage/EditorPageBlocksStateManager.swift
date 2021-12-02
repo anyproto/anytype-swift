@@ -141,8 +141,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         guard let element = modelsHolder.models[safe: indexPath.row],
               !movingBlocksIndexPaths.contains(indexPath) else { return false }
 
-        if case let .link(content) = element.information.content {
-            movingDestination = .object(content.targetBlockID)
+        let notAllowedTypes: [BlockContentType] = [.text(.title), .featuredRelations]
+
+        if !notAllowedTypes.contains(element.content.type) {
+            movingDestination = .object(element.blockId)
 
             return true
         }
@@ -188,14 +190,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let dropTargetId: BlockId
         switch movingDestination {
         case let .object(blockId):
-            let document = BaseDocument(objectId: blockId)
-            let _ = document.open()
-
-            guard let id = document.flattenBlocks.last?.information.id else { return }
-
-            targetId = blockId
-            dropTargetId = id
-            position = .bottom
+            targetId = document.objectId
+            dropTargetId = blockId
+            position = .inner
         case let .position(positionIndexPath):
             if let targetBlock = modelsHolder.models[safe: positionIndexPath.row] {
                 position = .top
