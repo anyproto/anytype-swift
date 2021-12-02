@@ -1,7 +1,8 @@
 import Foundation
+import BlocksModels
 
 protocol RelationEditingViewModelBuilderProtocol {
-    
-    func buildViewModel(relation: Relation) -> RelationEditingViewModelProtocol?
+
+    func buildViewModel(document: BaseDocumentProtocol, relation: Relation) -> RelationEditingViewModelProtocol?
     
 }
