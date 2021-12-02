@@ -1,11 +1,3 @@
-//
-//  StatusRelationView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 05.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 struct StatusRelationView: View {
@@ -18,7 +10,7 @@ struct StatusRelationView: View {
             AnytypeText(value.text, style: style.font, color: value.color.asColor)
                 .lineLimit(1)
         } else {
-            RelationsListRowHintView(hint: hint)
+            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
         }
     }
 }

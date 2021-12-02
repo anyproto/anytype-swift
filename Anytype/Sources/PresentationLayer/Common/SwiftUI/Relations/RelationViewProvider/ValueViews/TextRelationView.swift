@@ -15,7 +15,7 @@ struct TextRelationView: View {
             )
                 .lineLimit(allowMultiLine ? nil : 1)
         } else {
-            RelationsListRowHintView(hint: hint)
+            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
         }
     }
 }

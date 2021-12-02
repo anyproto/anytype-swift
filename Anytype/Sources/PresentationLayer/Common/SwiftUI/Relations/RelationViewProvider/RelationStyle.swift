@@ -3,12 +3,18 @@ import SwiftUI
 enum RelationStyle {
     case regular(allowMultiLine: Bool)
     case featuredRelationBlock(allowMultiLine: Bool)
+    case set
+}
+
+enum RelationPlaceholderType {
+    case hint
+    case empty
 }
 
 extension RelationStyle {
     var font: AnytypeFont {
         switch self {
-        case .regular:
+        case .regular, .set:
             return .relation2Regular
         case .featuredRelationBlock:
             return .relation1Regular
@@ -17,7 +23,7 @@ extension RelationStyle {
 
     var fontColor: Color {
         switch self {
-        case .regular:
+        case .regular, .set:
             return .textPrimary
         case .featuredRelationBlock:
             return .textSecondary
@@ -30,6 +36,17 @@ extension RelationStyle {
             return value
         case let .featuredRelationBlock(value):
             return value
+        case .set:
+            return false
+        }
+    }
+    
+    var placeholderType: RelationPlaceholderType {
+        switch self {
+        case .regular, .featuredRelationBlock:
+            return .hint
+        case .set:
+            return .empty
         }
     }
 }

@@ -52,7 +52,7 @@ struct SetTableViewRow: View {
         Button {
             model.router.showRelationValueEditingView(key: data.key)
         } label: {
-            RelationValueView(relation: data.value, style: .regular(allowMultiLine: false))
+            RelationValueView(relation: data.value, style: .set)
                 .frame(width: 128)
         }
     }
