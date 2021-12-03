@@ -5,6 +5,7 @@ private enum SlashMenuConstants {
     static let cellHeight: CGFloat = 56
     static let dividerCellhHeight: CGFloat = 35
     static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 16)
+    static let relationSeparatorInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     static let dividerSeparatorInsets = UIEdgeInsets(
         top: 0,
         left: UIScreen.main.bounds.width,
@@ -65,16 +66,24 @@ extension SlashMenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath)
         cell.accessoryType = .none
-        
+
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .buttonSecondaryPressed
+        cell.selectedBackgroundView = bgColorView
+
         let item = cellData[indexPath.row]
         switch item {
         case let .action(action):
             switch action.displayData {
             case let .titleSubtitleDisplayData(displayData):
-                cell.separatorInset = SlashMenuConstants.separatorInsets
+                if case .relations = action {
+                    cell.separatorInset = SlashMenuConstants.relationSeparatorInsets
+                } else {
+                    cell.separatorInset = SlashMenuConstants.separatorInsets
+                }
                 cell.contentConfiguration = configurationFactory.configuration(displayData: displayData)
             case let .relationDisplayData(relation):
-                cell.separatorInset = SlashMenuConstants.separatorInsets
+                cell.separatorInset = SlashMenuConstants.relationSeparatorInsets
                 cell.contentConfiguration = configurationFactory.configuration(relation: relation)
             }
         case let .menu(itemType, children):

@@ -3,9 +3,6 @@ import SwiftUI
 
 final class SlashMenuRealtionView: UIView, UIContentView {
     private var realtionViewModel: RelationNameValueViewModel
-
-//    private lazy var relationView = RelationNameValueView(viewModel: realtionViewModel)
-    private lazy var relationView = RelationView2(relation: currentConfiguration.relation)
     private let container = UIView()
 
     private var currentConfiguration: SlashMenuRealtionContentConfiguration
@@ -43,8 +40,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
     // MARK: - Setup view
 
     func setupSubviews() {
-//        let relationsView = RelationNameValueView(viewModel: realtionViewModel).asUIView()
-        let relationsView = RelationView2(relation: currentConfiguration.relation).asUIView()
+        let relationsView = EnhancedRelationView(viewModel: realtionViewModel).asUIView()
 
         addSubview(container) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
@@ -62,31 +58,22 @@ final class SlashMenuRealtionView: UIView, UIContentView {
     // MARK: - Apply configuration
 
     func apply(with configuration: SlashMenuRealtionContentConfiguration) {
-//        realtionViewModel.relation = configuration.relation
+        realtionViewModel.relation = configuration.relation
+        realtionViewModel.isHighlighted = false
+
+        if configuration.currentConfigurationState?.isHighlighted ?? false {
+            realtionViewModel.isHighlighted = true
+        }
     }
 }
 
-//private extension RelationBlockView2 {
+struct EnhancedRelationView: View {
+    @ObservedObject var viewModel: RelationNameValueViewModel
 
-    struct RelationView2: View {
-        @State var width: CGFloat = .zero
-        @State var height: CGFloat = .zero
-        @State var relation: Relation
-
-        var body: some View {
-            HStack(spacing: 2) {
-                AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
-                    .frame(width: width * 0.4, height: height, alignment: .topLeading)
-                    .background(Color.buttonSecondaryPressed)
-                    .cornerRadius(2)
-                RelationValueView(relation: relation, style: .regular(allowMultiLine: true))
-                    .frame(maxWidth: .infinity, minHeight: 34, alignment: .center)
-                    .background(Color.buttonSecondaryPressed)
-                    .cornerRadius(2)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .background(FrameCatcher { height = $0.size.height })
-            }
-            .background(FrameCatcher { width = $0.size.width })
+    var body: some View {
+        GeometryReader { _ in
+            RelationNameValueView(viewModel: viewModel)
+                .background(viewModel.isHighlighted ? Color.buttonSecondaryPressed : Color.background)
         }
     }
-//}
+}
