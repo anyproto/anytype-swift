@@ -4,7 +4,7 @@ import Kingfisher
 struct SetFullHeader: View {
     var screenWidth: CGFloat
     var yOffset: CGFloat
-    @Binding var headerSize: CGRect
+    @Binding var headerSize: CGSize
     @Binding var headerPosition: CGPoint
     @Binding var coverPosition: CGPoint
     
@@ -21,7 +21,7 @@ struct SetFullHeader: View {
                 SetHeaderSettings()
             }
             .background(Color.background)
-            .background(FrameCatcher { headerSize = $0 })
+            .background(FrameCatcher { headerSize = $0.size })
             .offset(y: min(yOffset, 0))
             
             Spacer()
