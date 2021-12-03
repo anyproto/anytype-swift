@@ -6,6 +6,7 @@ struct SetRowRelation: Identifiable {
     
     let key: String
     let value: Relation
+    let metadata: RelationMetadata?
 }
 
 struct SetTableViewRowData: Identifiable {
@@ -15,7 +16,15 @@ struct SetTableViewRowData: Identifiable {
     let relations: [SetRowRelation]
     let screenData: EditorScreenData
     
-    init(id: BlockId, type: EditorViewType, title: String, icon: ObjectIconImage?, allRelations: [Relation], colums: [SetColumData]) {
+    init(
+        id: BlockId,
+        type: EditorViewType,
+        title: String,
+        icon: ObjectIconImage?,
+        allRelations: [Relation],
+        allMetadata: [RelationMetadata],
+        colums: [SetColumData]
+    ) {
         self.id = id
         self.title = title
         self.icon = icon
@@ -27,8 +36,10 @@ struct SetTableViewRowData: Identifiable {
                 anytypeAssertionFailure("No relation: \(colum) found in \(title)", domain: .editorSet)
                 return nil
             }
+            
+            let metadata = allMetadata.first { $0.key == colum.key }
         
-            return SetRowRelation(key: relation.id, value: relation)
+            return SetRowRelation(key: relation.id, value: relation, metadata: metadata)
         }
     }
 }

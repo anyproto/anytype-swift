@@ -34,6 +34,7 @@ final class EditorSetViewModel: ObservableObject {
                 title: $0.title,
                 icon: $0.objectIconImage,
                 allRelations: sortedRelations,
+                allMetadata: [], // todo: Use metadata from rows data
                 colums: colums
             )
         }
