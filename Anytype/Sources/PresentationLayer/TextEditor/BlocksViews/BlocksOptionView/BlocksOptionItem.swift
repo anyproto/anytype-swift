@@ -6,8 +6,8 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case addBlockBelow
     case duplicate
     case turnInto
-    case moveTo
     case move
+    case moveTo
 }
 
 extension BlocksOptionItem {
