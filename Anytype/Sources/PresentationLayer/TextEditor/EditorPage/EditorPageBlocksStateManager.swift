@@ -188,9 +188,21 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let dropTargetId: BlockId
         switch movingDestination {
         case let .object(blockId):
-            targetId = document.objectId
-            dropTargetId = blockId
-            position = .inner
+            if let model = document.blocksContainer.model(id: blockId),
+               case let .link(content) = model.information.content {
+                let document = BaseDocument(objectId: content.targetBlockID)
+                let _ = document.open()
+
+                guard let id = document.flattenBlocks.last?.information.id else { return }
+
+                targetId = document.objectId
+                dropTargetId = id
+                position = .bottom
+            } else {
+                targetId = document.objectId
+                position = .inner
+                dropTargetId = blockId
+            }
         case let .position(positionIndexPath):
             if let targetBlock = modelsHolder.models[safe: positionIndexPath.row] {
                 position = .top
