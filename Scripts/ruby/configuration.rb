@@ -10,7 +10,6 @@ require 'yaml'
 require 'json'
 
 require_relative 'library/shell_executor'
-require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/semantic_versioning'
 require_relative 'library/commands'
@@ -33,7 +32,7 @@ module MiddlewareUpdater
       end
     end
 
-    
+
     class EnvironmentVariables
       AVAILABLE_VARIABLES = {
         ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN: 'Access token to a middelware repositry'
