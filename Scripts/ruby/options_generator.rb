@@ -1,19 +1,10 @@
-require 'optparse'
-require 'shellwords'
-require 'pathname'
-
-require 'tmpdir'
-
-require 'net/http'
-
-require 'yaml'
-require 'json'
+require_relative 'library/environment'
 
 class DefaultOptionsGenerator
   def self.defaultOptions
     options = {
       # commands
-      command: MiddlewareUpdater::Configuration::Commands::InstallCommand.new,
+      command: Commands::InstallCommand.new,
 
       # library file options
       libraryFilePath: "#{__dir__}/../Libraryfile",
@@ -21,7 +12,7 @@ class DefaultOptionsGenerator
       librarylockFileVersionKey: "middleware.version",
 
       # repository options
-      token: MiddlewareUpdater::Configuration::EnvironmentVariables.token || '',
+      token: EnvironmentVariables.token || '',
       repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
 
       # download file options
