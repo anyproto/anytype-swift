@@ -96,13 +96,13 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func magic() {
-        guard dataView.activeViewId.isNotEmpty else {
+        guard let activeView = dataView.activeView else {
             anytypeAssertionFailure("Empty active view", domain: .editorSet)
             return
         }
         
         guard let response = Anytype_Rpc.Block.Dataview.ViewSetActive.Service.invoke(
-            contextID: document.objectId, blockID: dataViewId, viewID: dataView.activeViewId, offset: 0, limit: 300
+            contextID: document.objectId, blockID: dataViewId, viewID: activeView.id, offset: 0, limit: 300
         ).getValue() else { return }
         
         let data = response.event.messages.compactMap { message -> Anytype_Event.Block.Dataview.RecordsSet? in
