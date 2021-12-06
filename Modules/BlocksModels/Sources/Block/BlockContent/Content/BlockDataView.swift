@@ -40,12 +40,11 @@ public struct DataviewView: Hashable {
 
 public struct BlockDataview: Hashable {
     public let source: [String]
-    public let activeViewId: BlockId
     public let views: [DataviewView]
     public let relations: [RelationMetadata]
     
     public var activeView: DataviewView? {
-        views.first { $0.id == activeViewId } ?? views.first
+        views.first
     }
     
     public var activeViewRelations: [RelationMetadata] {
@@ -64,18 +63,15 @@ public struct BlockDataview: Hashable {
     
     public init(
         source: [String],
-        activeView: BlockId,
         views: [DataviewView],
         relations: [RelationMetadata]
     ) {
         self.source = source
         self.views = views
         self.relations = relations
-        
-        self.activeViewId = activeView.isNotEmpty ? activeView : (views.first?.id ?? "")
     }
     
     public static var empty: BlockDataview {
-        BlockDataview(source: [], activeView: "", views: [], relations: [])
+        BlockDataview(source: [], views: [], relations: [])
     }
 }

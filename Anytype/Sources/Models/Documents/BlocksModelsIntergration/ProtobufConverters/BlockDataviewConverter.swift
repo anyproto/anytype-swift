@@ -6,7 +6,6 @@ extension Anytype_Model_Block.Content.Dataview {
         .dataView(
             BlockDataview(
                 source: source,
-                activeView: activeView,
                 views: views.compactMap(\.asModel),
                 relations: relations.map { RelationMetadata(middlewareRelation: $0) }
             )
