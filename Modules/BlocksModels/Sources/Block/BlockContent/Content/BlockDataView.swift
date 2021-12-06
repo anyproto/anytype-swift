@@ -69,9 +69,10 @@ public struct BlockDataview: Hashable {
         relations: [RelationMetadata]
     ) {
         self.source = source
-        self.activeViewId = activeView 
         self.views = views
         self.relations = relations
+        
+        self.activeViewId = activeView.isNotEmpty ? activeView : (views.first?.id ?? "")
     }
     
     public static var empty: BlockDataview {
