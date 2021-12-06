@@ -16,113 +16,15 @@ require_relative 'library/semantic_versioning'
 require_relative 'library/commands'
 
 require_relative 'configuration'
-require_relative 'pipeline'
+
+require_relative 'workers/remote_info_worker'
+require_relative 'workers/valid_worker'
+require_relative 'workers/available_versions_worker'
+require_relative 'workers/remote_version_worker'
+require_relative 'workers/asset_url_worker'
+require_relative 'workers/download_file_worker'
 
 module MiddlewareUpdater
-  class AlwaysValidWorker < Workers::BaseWorker
-    def is_valid?
-      true
-    end
-  end
-
-  # version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[] | select(.tag_name == \"$MIDDLEWARE_VERSION_BY_TAG_NAME\")"`
-  class GetRemoteInformationWorker < AlwaysValidWorker
-    attr_accessor :token, :url
-    def initialize(token, url)
-      self.token = token
-      self.url = url
-    end
-    def is_valid?
-      (self.token || '').empty? == false
-    end
-    def work
-      unless can_run?
-        puts <<-__REASON__
-        Access token does not exist. 
-        Please, provide it by cli argument or environment variable. 
-        Run `ruby #{$0} --help`
-        __REASON__
-        exit(1)
-      end
-      perform_work
-    end
-    def perform_work
-      # fetch curl -H "Authorization: token Token" -H "Accept: application/vnd.github.v3+json" -sL https://api.github.com/repos/anytypeio/go-anytype-middleware/releases
-      uri = URI(url)
-      request = Net::HTTP::Get.new(uri)
-      request["Authorization"] = "token #{token}"
-      request["Accept"] = "application/vnd.github.v3+json"
-      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http|
-        http.request(request)
-      }
-      if Integer(response.code) >= 400
-        puts "Code: #{response.code} and response: #{JSON.parse(response.body)}"
-        exit(1)
-      end
-      JSON.parse(response.body)
-    end
-  end
-
-  class GetRemoteAvailableVersionsWorker < AlwaysValidWorker
-    attr_accessor :json_list
-    def initialize(json_list)
-      self.json_list = json_list
-    end
-    def perform_work
-      json_list.map{|v| v["tag_name"]}
-    end
-  end
-
-  class GetRemoteVersionWorker < AlwaysValidWorker
-    attr_accessor :json_list
-    def initialize(json_list)
-      self.json_list = json_list
-    end
-    def perform_work
-      entry = json_list.first
-      version = entry["tag_name"]
-      if version.empty?
-        puts "I can't find version at remote!"
-        exit(1)
-      end
-      version
-    end
-  end
-
-  class GetRemoteAssetURLWorker < AlwaysValidWorker
-    attr_accessor :json_list, :version, :prefix
-    def initialize(json_list, version, prefix)
-      self.json_list = json_list
-      self.version = version
-      self.prefix = prefix
-    end
-    def perform_work
-      entry = json_list.find {|v| v["tag_name"] == version}
-      assets = entry["assets"]
-      asset = assets.find{|v| v["name"] =~ %r"#{prefix}"}
-      asset["url"]
-    end
-  end
-
-  class DownloadFileAtURLWorker < Workers::BaseWorker
-    attr_accessor :token, :url, :filePath
-    def initialize(token, url, filePath)
-      self.token = token
-      self.url = url
-      self.filePath = filePath
-    end
-    def tool
-      "curl"
-    end
-    def action
-      headers = {}
-      headers["Authorization"] = "token #{token}"
-      headers["Accept"] = "application/octet-stream"
-      headersString = headers.map{|k, v| "-H '#{k}: #{v}'"}.join(' ')
-      "#{tool} -L -o #{filePath} #{headersString} #{url}"
-    end
-  end
-
   class GetTemporaryDirectoryWorker < AlwaysValidWorker
     def perform_work
       Dir.mktmpdir

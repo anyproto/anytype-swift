@@ -32,6 +32,8 @@ module MiddlewareUpdater
       class CurrentVersionCommand < BaseCommand
       end
     end
+
+    
     class EnvironmentVariables
       AVAILABLE_VARIABLES = {
         ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN: 'Access token to a middelware repositry'
