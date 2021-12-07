@@ -1,6 +1,7 @@
 require_relative 'base_pipeline'
+require_relative '../workers_hub'
 
-class InstallPipeline
+class InstallPipeline < BasePipeline
   def self.start(options)
     puts "Hey! You would like to install something, ok!"
     puts "Let's check lock file for a version."
@@ -10,7 +11,7 @@ class InstallPipeline
       puts "I can't find library lock file at filepath #{librarylockFilePath} :("
     end
 
-    version = MiddlewareUpdater::GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
+    version = GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
 
     puts "We have version <#{version}> in a lock file!"
 

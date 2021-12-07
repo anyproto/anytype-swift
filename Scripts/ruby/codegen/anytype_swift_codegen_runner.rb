@@ -1,28 +1,14 @@
-# This script generate convenient interfaces and services for protobuf models.
-# Steps.
-# 1. Generate interfaces.
-# 2. Generate services.
-
-# Parameters
-# 1. what to generate ( or all )
-# 2. which files to generate ( or all )
-# 3. which tool to choose ( or default tool )
-# 4. where to generate files
-
 require 'optparse'
 require 'shellwords'
 require 'pathname'
 require 'json'
 
-require_relative 'library/shell_executor'
-require_relative 'library/voice'
-require_relative 'library/workers'
-require_relative 'library/pipelines'
-require_relative 'library/commands'
+require_relative '../library/shell_executor'
+require_relative '../workers_hub'
+require_relative '../pipeline_starter'
+require_relative '../commands'
 
 module AnytypeSwiftCodegenRunner
-  TravelerWorker = Workers::TravelerWorker
-  ExternalToolWorker = Workers::ExternalToolWorker
   class CodegenWorker < ExternalToolWorker
     attr_accessor :transform, :filePath
     def initialize(toolPath, transform, filePath)
@@ -64,12 +50,6 @@ module AnytypeSwiftCodegenRunner
   end
 end
 
-module AnytypeSwiftCodegenRunner
-  module Pipeline
-    BasePipeline = Pipelines::BasePipeline
-  end
-end
-
 module AnytypeSwiftCodegenRunner::Pipeline
   class CodegenPipeline < BasePipeline
     def self.start(options)
@@ -98,7 +78,6 @@ end
 module AnytypeSwiftCodegenRunner::Pipeline
   class CompoundPipeline < BasePipeline
     def self.start(options)
-      say "Lets find your command in a list..."
       case options[:command]
       when AnytypeSwiftCodegenRunner::Configuration::Commands::CodegenCommand then CodegenPipeline.start(options)
       when AnytypeSwiftCodegenRunner::Configuration::Commands::CodegenListCommand then
@@ -208,18 +187,12 @@ class MainWork
   def work(options = {})
     options = fix_options(options)
 
-    if options[:inspection]
-      puts "options are: #{options}"
-    end
-
     unless valid_options? options
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
       exit(1)
     end
-
-    ShellExecutor.setup options[:dry_run]
 
     AnytypeSwiftCodegenRunner::Pipeline.start(options)
   end
@@ -289,8 +262,6 @@ class MainWork
       opts.banner = "Usage: #{$0} [options]"
       opts.on('--toolPath', '--toolPath PATH', 'Path to anytype codegen script.') {|v| options[:toolPath] = v}
       opts.on('--filter', '--filter NAME', 'Generate only filtered files.') {|v| options[:filteredFile] = v}
-      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
-      opts.on('-i', '--inspection', 'Inspection of all items, like tests'){|v| options[:inspection] = v}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
     end.parse!(arguments)
