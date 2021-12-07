@@ -12,7 +12,6 @@ require 'json'
 require_relative 'library/shell_executor'
 require_relative 'library/workers'
 require_relative 'library/semantic_versioning'
-require_relative 'library/commands'
 
 require_relative 'configuration'
 
