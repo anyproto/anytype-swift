@@ -43,7 +43,6 @@ class DefaultOptionsGenerator
       # library file options
       libraryFilePath: "#{__dir__}../../../../Libraryfile",
       librarylockFilePath: "#{__dir__}../../../../Libraryfile.lock",
-      librarylockFileVersionKey: "middleware.version",
 
       # repository options
       token: EnvironmentVariables.token || '',

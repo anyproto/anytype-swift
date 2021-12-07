@@ -4,7 +4,7 @@ class UpdatePipeline < BasePipeline
   def self.store_version(version, options)
     puts "Saving version <#{version}> to library lock file."
     librarylockFilePath = options[:librarylockFilePath]
-    SetLockfileVersionWorker.new(librarylockFilePath, options[:librarylockFileVersionKey], version).work
+    SetLockfileVersionWorker.new(librarylockFilePath, version).work
   end
   def self.install_with_version(options)
     version = options[:command].version
@@ -26,7 +26,7 @@ class UpdatePipeline < BasePipeline
     puts "Lets gather restrictions!"
 
     # well, we could use another key, but keep it like in lock file.
-    restrictions = GetLibraryfileVersionWorker.new(options[:libraryFilePath], options[:librarylockFileVersionKey]).work
+    restrictions = GetLibraryfileVersionWorker.new(options[:libraryFilePath]).work
 
     puts "I have restrictions: #{restrictions}"
 
