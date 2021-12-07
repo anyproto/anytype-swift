@@ -4,7 +4,7 @@ class UpdatePipeline < BasePipeline
   def self.store_version(version, options)
     puts "Saving version <#{version}> to library lock file."
     librarylockFilePath = options[:librarylockFilePath]
-    MiddlewareUpdater::SetLockfileVersionWorker.new(librarylockFilePath, options[:librarylockFileVersionKey], version).work
+    SetLockfileVersionWorker.new(librarylockFilePath, options[:librarylockFileVersionKey], version).work
   end
   def self.install_with_version(options)
     version = options[:command].version

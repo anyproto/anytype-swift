@@ -65,10 +65,6 @@ class OptionsParser
     1. No parameters.
     ruby #{$0}
 
-    Run without parameters will active default configuration and script will install middleware from a lockfile.
-
-    DefaultConfiguration: #{JSON.pretty_generate(DefaultOptionsGenerator.defaultOptions)}
-
     2. Parameters
     ruby #{$0} --install # install middleware by gathering version from lockfile.
     ruby #{$0} --list # list available versions from remote.
