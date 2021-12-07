@@ -15,7 +15,7 @@ class BaseWorker
   end
 
   def can_run?
-    is_valid? || executor.dry?
+    is_valid?
   end
 
   def action

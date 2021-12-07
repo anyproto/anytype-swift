@@ -54,7 +54,6 @@ class CodegenOptionsParser
       opts.on('--templatesDirectoryPath', '--templatesDirectoryPath PATH', 'Templates directory path'){|v| options[:templatesDirectoryPath] = v}
       opts.on('--serviceFilePath', '--serviceFilePath PATH', 'Rpc service file that contains Rpc services descriptions in .proto (protobuffers) format.') {|v| options[:serviceFilePath] = v}
 
-      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
     end.parse!(arguments)

@@ -9,7 +9,6 @@ class OptionsParser
     OptionParser.new do |opts|
       opts.on('-v', '--version', 'Version of tool') {|v| options[:version] = v}
 
-      opts.on('-d', '--dry_run', 'Dry run') {|v| options[:dry_run] = v}
       # help
       opts.on('-h', '--help', 'Help option') { help_message(opts); exit(0)}
 
