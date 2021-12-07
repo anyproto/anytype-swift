@@ -1,4 +1,4 @@
-require_relative 'core/valid_worker'
+require_relative '../core/valid_worker'
 
 class GetRemoteAvailableVersionsWorker < AlwaysValidWorker
   attr_accessor :json_list

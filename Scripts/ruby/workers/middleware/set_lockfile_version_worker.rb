@@ -1,4 +1,4 @@
-require_relative 'core/valid_worker'
+require_relative '../core/valid_worker'
 
 class SetLockfileVersionWorker < AlwaysValidWorker
   attr_accessor :filePath, :key, :value

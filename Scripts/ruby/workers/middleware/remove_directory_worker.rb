@@ -1,4 +1,4 @@
-require_relative 'core/valid_worker'
+require_relative '../core/valid_worker'
 
 class RemoveDirectoryWorker < AlwaysValidWorker
   attr_accessor :directoryPath
