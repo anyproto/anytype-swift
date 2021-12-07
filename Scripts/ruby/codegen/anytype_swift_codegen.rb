@@ -38,8 +38,6 @@ class Main
       exit(1)
     end
 
-    ShellExecutor.setup options[:dry_run]
-
     AnytypeSwiftCodegenPipeline.start(options)
   end
 end

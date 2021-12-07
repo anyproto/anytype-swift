@@ -146,8 +146,6 @@ class MainWork
       exit(1)
     end
 
-    ShellExecutor.setup options[:dry_run]
-
     SwiftFormat::Pipeline.start(options)
   end
 
@@ -231,8 +229,6 @@ class MainWork
 
       opts.on('-v', '--version', 'Version of tool') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolVersionCommand.new}
       opts.on('-t', '--toolHelp', 'Tool help') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolHelpCommand.new}
-
-      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 
