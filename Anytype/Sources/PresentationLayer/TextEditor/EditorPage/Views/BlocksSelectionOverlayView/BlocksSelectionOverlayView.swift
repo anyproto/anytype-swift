@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 
 final class BlocksSelectionOverlayView: UIView {
+
     let viewModel: BlocksSelectionOverlayViewModel
 
     // MARK: - UI elements
@@ -12,6 +13,8 @@ final class BlocksSelectionOverlayView: UIView {
     private lazy var movingButtonsUIView: UIView = movingButtonsView.asUIView()
     private lazy var navigationView = SelectionNavigationView(frame: .zero)
     private lazy var statusBarOverlayView = UIView()
+
+    private var blockOptionsViewBottonConstraint: NSLayoutConstraint?
 
     private var cancellables = [AnyCancellable]()
 
