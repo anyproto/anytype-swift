@@ -1,4 +1,4 @@
-require_relative 'library/environment'
+require_relative '../library/environment'
 
 class DefaultOptionsGenerator
   def self.defaultOptions

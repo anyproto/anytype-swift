@@ -1,6 +1,6 @@
-require_relative 'middleware_updater'
+require_relative '../middleware_updater'
 require_relative 'options_generator'
-require_relative 'library/environment'
+require_relative '../library/environment'
 
 class OptionsParser
   def help_message(options)
