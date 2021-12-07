@@ -58,8 +58,18 @@ enum SlashAction {
                     )
                 )
             }
-        case let .relations(relation):
-            return .relationDisplayData(relation)
+        case let .relations(relationAction):
+            switch relationAction {
+            case .newRealtion:
+                return .titleSubtitleDisplayData(
+                    SlashMenuItemDisplayData(
+                        iconData: .staticImage(ImageName.slashMenu.relations.addRelation),
+                        title: "New relation".localized
+                    )
+                )
+            case .relation(let relation):
+                return  .relationDisplayData(relation)
+            }
         }
     }
 }
