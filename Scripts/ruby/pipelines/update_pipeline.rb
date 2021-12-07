@@ -26,7 +26,7 @@ class UpdatePipeline < BasePipeline
     puts "Lets gather restrictions!"
 
     # well, we could use another key, but keep it like in lock file.
-    restrictions = MiddlewareUpdater::GetLibraryfileVersionWorker.new(options[:libraryFilePath], options[:librarylockFileVersionKey]).work
+    restrictions = GetLibraryfileVersionWorker.new(options[:libraryFilePath], options[:librarylockFileVersionKey]).work
 
     puts "I have restrictions: #{restrictions}"
 
@@ -39,7 +39,7 @@ class UpdatePipeline < BasePipeline
     information = GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
     versions = GetRemoteAvailableVersionsWorker.new(information).work
 
-    version = MiddlewareUpdater::SemanticCompareVersionsWorker.new(restrictions, versions).work
+    version = SemanticCompareVersionsWorker.new(restrictions, versions).work
     if version
       puts "I choose version: #{version}"
       self.work(version, options)
