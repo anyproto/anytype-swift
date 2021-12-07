@@ -187,18 +187,12 @@ class MainWork
   def work(options = {})
     options = fix_options(options)
 
-    if options[:inspection]
-      puts "options are: #{options}"
-    end
-
     unless valid_options? options
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
       exit(1)
     end
-
-    ShellExecutor.setup options[:dry_run]
 
     AnytypeSwiftCodegenRunner::Pipeline.start(options)
   end
@@ -268,8 +262,6 @@ class MainWork
       opts.banner = "Usage: #{$0} [options]"
       opts.on('--toolPath', '--toolPath PATH', 'Path to anytype codegen script.') {|v| options[:toolPath] = v}
       opts.on('--filter', '--filter NAME', 'Generate only filtered files.') {|v| options[:filteredFile] = v}
-      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
-      opts.on('-i', '--inspection', 'Inspection of all items, like tests'){|v| options[:inspection] = v}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
     end.parse!(arguments)

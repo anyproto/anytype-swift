@@ -4,7 +4,49 @@ require_relative 'options_generator'
 require_relative '../library/environment'
 
 class OptionsParser
-  def help_message(options)
+  def self.parse_options(arguments)
+    options = {}
+    OptionParser.new do |opts|
+      opts.on('-v', '--version', 'Version of tool') {|v| options[:version] = v}
+
+      # help
+      opts.on('-h', '--help', 'Help option') { help_message(opts); exit(0)}
+
+      # commands
+      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
+      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
+      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Commands::ListCommand.new}
+      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Commands::CurrentVersionCommand.new}
+
+      # library file options
+      opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
+      opts.on('--librarylockFilePath', '--librarylockFilePath PATH', 'Path to a lock file.') {|v| options[:librarylockFilePath] = v}
+      opts.on('--librarylockFileVersionKey', '--librarylockFileVersionKey KEY', 'Key in a lock file that point to a version of current library') {|v| options[:librarylockFileVersionKey] = v}
+
+      # repository options
+      opts.on('--token', '--token ENTRY', 'Token to access repository. It is private option.') {|v| options[:token] = v}
+      opts.on('--repositoryURL', '--repositoryURL URL', 'Repository URL') {|v| options[:repositoryURL] = v}
+
+      # download file options
+      opts.on('--downloadFilePath', '--downloadFilePath PATH', 'Path to temporary file which will be downlaoded') {|v| options[:downloadFilePath] = v}
+      opts.on('--iOSAssetMiddlewarePrefix', '--iOSAssetMiddlewarePrefix NAME', 'iOS asset middleware prefix') {|v| options[:iOSAssetMiddlewarePrefix] = v}
+
+      # download archive structure options
+      opts.on('--middlewareLibraryName', '--middlewareLibraryName NAME', 'iOS Middleware library name') {|v| options[:middlewareLibraryName] = v }
+      opts.on('--protobufDirectoryName', '--protobufDirectoryName NAME', 'Directory name which contains protobuf in downloadable directory') {|v| options[:protobufDirectoryName] = v}
+
+      # target directory options
+      opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to a dependencies directory') {|v| options[:dependenciesDirectoryPath] = v}
+      opts.on('--targetDirectoryPath', '--targetDirectoryPath PATH', 'Path to target directory') {|v| options[:targetDirectoryPath] = v}
+
+      # swift codegen script
+      opts.on('--swiftAutocodegenScript', '--swiftAutocodegenScript PATH', 'Path to codegen script') {|v| options[:swiftAutocodegenScript] = v}
+
+    end.parse!(arguments)
+    DefaultOptionsGenerator.populate(arguments, options)
+  end
+
+  private_class_method def self.help_message(options)
     puts <<-__HELP__
 
     #{options.help}
@@ -73,53 +115,5 @@ class OptionsParser
     Or
     4. Execute `source ~/.zshrc`
     __HELP__
-  end
-
-  def parse_options(arguments) # we could also add names for commands to separate them.
-    # thus, we could add 'generate init' and 'generate services'
-    # add dispatch for first words.
-    options = {}
-    OptionParser.new do |opts|
-      opts.banner = "Usage: #{$0} [options]"
-
-      opts.on('-v', '--version', 'Version of tool') {|v| options[:version] = v}
-
-      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
-      opts.on('-i', '--inspection', 'Inspection of all items, like tests'){|v| options[:inspection] = v}
-      # help
-      opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
-
-      # commands
-      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
-      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
-      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Commands::ListCommand.new}
-      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Commands::CurrentVersionCommand.new}
-
-      # library file options
-      opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
-      opts.on('--librarylockFilePath', '--librarylockFilePath PATH', 'Path to a lock file.') {|v| options[:librarylockFilePath] = v}
-      opts.on('--librarylockFileVersionKey', '--librarylockFileVersionKey KEY', 'Key in a lock file that point to a version of current library') {|v| options[:librarylockFileVersionKey] = v}
-
-      # repository options
-      opts.on('--token', '--token ENTRY', 'Token to access repository. It is private option.') {|v| options[:token] = v}
-      opts.on('--repositoryURL', '--repositoryURL URL', 'Repository URL') {|v| options[:repositoryURL] = v}
-
-      # download file options
-      opts.on('--downloadFilePath', '--downloadFilePath PATH', 'Path to temporary file which will be downlaoded') {|v| options[:downloadFilePath] = v}
-      opts.on('--iOSAssetMiddlewarePrefix', '--iOSAssetMiddlewarePrefix NAME', 'iOS asset middleware prefix') {|v| options[:iOSAssetMiddlewarePrefix] = v}
-
-      # download archive structure options
-      opts.on('--middlewareLibraryName', '--middlewareLibraryName NAME', 'iOS Middleware library name') {|v| options[:middlewareLibraryName] = v }
-      opts.on('--protobufDirectoryName', '--protobufDirectoryName NAME', 'Directory name which contains protobuf in downloadable directory') {|v| options[:protobufDirectoryName] = v}
-
-      # target directory options
-      opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to a dependencies directory') {|v| options[:dependenciesDirectoryPath] = v}
-      opts.on('--targetDirectoryPath', '--targetDirectoryPath PATH', 'Path to target directory') {|v| options[:targetDirectoryPath] = v}
-
-      # swift codegen script
-      opts.on('--swiftAutocodegenScript', '--swiftAutocodegenScript PATH', 'Path to codegen script') {|v| options[:swiftAutocodegenScript] = v}
-
-    end.parse!(arguments)
-    DefaultOptionsGenerator.populate(arguments, options)
   end
 end

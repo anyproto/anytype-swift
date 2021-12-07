@@ -31,18 +31,12 @@ class Main
   end
 
   def self.exec(options = {})
-    if options[:inspection]
-      puts "options are: #{options}"
-    end
-
     unless valid_options? options
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
       exit(1)
     end
-
-    ShellExecutor.setup options[:dry_run]
 
     AnytypeSwiftCodegenPipeline.start(options)
   end

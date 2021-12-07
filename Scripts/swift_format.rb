@@ -139,18 +139,12 @@ class MainWork
   def work(options = {})
     options = fix_options(options)
 
-    if options[:inspection]
-      puts "options are: #{options}"
-    end
-
     unless valid_options? options
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
       exit(1)
     end
-
-    ShellExecutor.setup options[:dry_run]
 
     SwiftFormat::Pipeline.start(options)
   end
@@ -235,9 +229,6 @@ class MainWork
 
       opts.on('-v', '--version', 'Version of tool') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolVersionCommand.new}
       opts.on('-t', '--toolHelp', 'Tool help') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolHelpCommand.new}
-
-      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
-      opts.on('-i', '--inspection', 'Inspection of all items, like tests'){|v| options[:inspection] = v}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 
