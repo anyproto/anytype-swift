@@ -1,3 +1,5 @@
+require_relative '../core/valid_worker'
+
 class GetRemoteVersionWorker < AlwaysValidWorker
   attr_accessor :json_list
   def initialize(json_list)

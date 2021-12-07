@@ -1,4 +1,6 @@
-class DownloadFileAtURLWorker < Workers::BaseWorker
+require_relative '../core/base_worker'
+
+class DownloadFileAtURLWorker < BaseWorker
   attr_accessor :token, :url, :filePath
   def initialize(token, url, filePath)
     self.token = token

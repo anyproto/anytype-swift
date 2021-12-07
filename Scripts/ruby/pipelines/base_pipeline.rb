@@ -1,3 +1,6 @@
+require 'tmpdir'
+require_relative '../workers_hub'
+
 class BasePipeline
   def self.work(version, options)
     puts "Lets fetch data from remote!"
@@ -13,25 +16,25 @@ class BasePipeline
     DownloadFileAtURLWorker.new(options[:token], assetURL, options[:downloadFilePath]).work
     puts "Library is downloaded at #{downloadFilePath}"
 
-    temporaryDirectory = MiddlewareUpdater::GetTemporaryDirectoryWorker.new.work
+    temporaryDirectory = Dir.mktmpdir
     puts "Start uncompressing to directory #{temporaryDirectory}"
-    MiddlewareUpdater::UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
+    UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
 
     ourDirectory = options[:dependenciesDirectoryPath]
     puts "Cleaning up Dependencies directory #{ourDirectory}"
-    MiddlewareUpdater::CleanupDependenciesDirectoryWorker.new(ourDirectory).work
+    CleanupDependenciesDirectoryWorker.new(ourDirectory).work
 
     puts "Moving files from temporaryDirectory #{temporaryDirectory} to ourDirectory: #{ourDirectory}"
-    MiddlewareUpdater::CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, options.slice(:middlewareLibraryName, :protobufDirectoryName).values, ourDirectory).work
+    CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, options.slice(:middlewareLibraryName, :protobufDirectoryName).values, ourDirectory).work
 
     puts "Cleaning up Downloaded files"
-    MiddlewareUpdater::RemoveDirectoryWorker.new(downloadFilePath).work
-    MiddlewareUpdater::RemoveDirectoryWorker.new(temporaryDirectory).work
+    RemoveDirectoryWorker.new(downloadFilePath).work
+    RemoveDirectoryWorker.new(temporaryDirectory).work
 
     puts "Moving protobuf files from Dependencies to our project directory"
-    MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
+    CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
 
     puts "Generate services from protobuf files"
-    MiddlewareUpdater::RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
+    RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
   end
 end
