@@ -69,7 +69,7 @@ final class EditorRouter: EditorRouterProtocol {
             }
         }
         
-        let controller = editorAssembly.buildEditorController(data: data)
+        let controller = editorAssembly.buildEditorController(data: data, editorBrowserViewInput: rootController)
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
     

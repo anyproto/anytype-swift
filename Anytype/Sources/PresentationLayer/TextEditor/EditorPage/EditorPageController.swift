@@ -7,7 +7,8 @@ import SwiftUI
 import Amplitude
 
 final class EditorPageController: UIViewController {
-    
+
+    weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
     private lazy var deletedScreen = EditorPageDeletedScreen(
@@ -122,6 +123,7 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
+        browserViewInput?.setNavigationViewHidden(!editing, animated: false)
     }
     
     private var controllerForNavigationItems: UIViewController? {
