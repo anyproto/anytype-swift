@@ -1,4 +1,4 @@
-require_relative 'core/valid_worker'
+require_relative '../core/valid_worker'
 
 class SemanticCompareVersionsWorker < AlwaysValidWorker
   attr_accessor :semantic_versioning_parsed, :versions

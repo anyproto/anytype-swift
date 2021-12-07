@@ -1,28 +1,14 @@
-# This script generate convenient interfaces and services for protobuf models.
-# Steps.
-# 1. Generate interfaces.
-# 2. Generate services.
-
-# Parameters
-# 1. what to generate ( or all )
-# 2. which files to generate ( or all )
-# 3. which tool to choose ( or default tool )
-# 4. where to generate files
-
 require 'optparse'
 require 'shellwords'
 require 'pathname'
 require 'json'
 
-require_relative 'library/shell_executor'
-require_relative 'library/voice'
-require_relative 'library/workers'
-require_relative 'library/pipelines'
-require_relative 'library/commands'
+require_relative '../library/shell_executor'
+require_relative '../workers_hub'
+require_relative '../pipeline_starter'
+require_relative '../commands'
 
 module AnytypeSwiftCodegenRunner
-  TravelerWorker = Workers::TravelerWorker
-  ExternalToolWorker = Workers::ExternalToolWorker
   class CodegenWorker < ExternalToolWorker
     attr_accessor :transform, :filePath
     def initialize(toolPath, transform, filePath)
@@ -64,12 +50,6 @@ module AnytypeSwiftCodegenRunner
   end
 end
 
-module AnytypeSwiftCodegenRunner
-  module Pipeline
-    BasePipeline = Pipelines::BasePipeline
-  end
-end
-
 module AnytypeSwiftCodegenRunner::Pipeline
   class CodegenPipeline < BasePipeline
     def self.start(options)
@@ -98,7 +78,6 @@ end
 module AnytypeSwiftCodegenRunner::Pipeline
   class CompoundPipeline < BasePipeline
     def self.start(options)
-      say "Lets find your command in a list..."
       case options[:command]
       when AnytypeSwiftCodegenRunner::Configuration::Commands::CodegenCommand then CodegenPipeline.start(options)
       when AnytypeSwiftCodegenRunner::Configuration::Commands::CodegenListCommand then

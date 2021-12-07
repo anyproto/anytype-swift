@@ -1,4 +1,4 @@
-require_relative 'core/base_worker'
+require_relative '../core/base_worker'
 
 class DownloadFileAtURLWorker < BaseWorker
   attr_accessor :token, :url, :filePath

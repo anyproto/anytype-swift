@@ -1,4 +1,4 @@
-require_relative 'core/base_worker'
+require_relative '../core/base_worker'
 
 class RunCodegenScriptWorker < BaseWorker
   attr_accessor :scriptPath

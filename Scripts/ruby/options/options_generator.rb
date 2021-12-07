@@ -28,7 +28,7 @@ class DefaultOptionsGenerator
       # target directory options
       dependenciesDirectoryPath: "#{__dir__}../../../../Dependencies/Middleware",
       targetDirectoryPath: "#{__dir__}../../../../Modules/ProtobufMessages/Sources/",
-      swiftAutocodegenScript: "#{__dir__}../../../../Scripts/anytype_swift_codegen_runner.rb"
+      swiftAutocodegenScript: "#{__dir__}../../../ruby/codegen/anytype_swift_codegen_runner.rb"
     }
   end
 
