@@ -4,7 +4,7 @@ require_relative 'ruby/pipeline_starter'
 
 class Main
   def self.exec(arguments)
-    options = OptionsParser.new.parse_options(arguments)
+    options = OptionsParser.parse_options(arguments)
     ShellExecutor.setup options[:dry_run]
     PipelineStarter.start(options)
   end

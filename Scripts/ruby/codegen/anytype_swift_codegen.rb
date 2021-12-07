@@ -31,10 +31,6 @@ class Main
   end
 
   def self.exec(options = {})
-    if options[:inspection]
-      puts "options are: #{options}"
-    end
-
     unless valid_options? options
       puts "options are not valid!"
       puts "options are: #{options}"
