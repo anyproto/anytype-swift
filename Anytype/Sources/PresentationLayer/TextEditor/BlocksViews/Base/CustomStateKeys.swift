@@ -14,14 +14,3 @@ extension UICellConfigurationState {
         set { self[.isMoving] = newValue }
     }
 }
-
-extension BaseBlockView: CustomTypesAccessable {
-    var isMoving: Bool {
-        get {
-            currentConfiguration.currentConfigurationState?.isMoving ?? false
-        }
-        set {
-            currentConfiguration.currentConfigurationState?.isMoving = newValue
-        }
-    }
-}

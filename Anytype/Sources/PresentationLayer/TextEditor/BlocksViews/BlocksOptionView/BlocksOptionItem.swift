@@ -1,12 +1,13 @@
 import UIKit
 
 enum BlocksOptionItem: CaseIterable, Comparable {
+    case download
     case delete
     case addBlockBelow
     case duplicate
     case turnInto
-    case moveTo
     case move
+    case moveTo
 }
 
 extension BlocksOptionItem {
@@ -26,6 +27,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.moveTo
         case .move:
             return BlockOptionImage.move
+        case .download:
+            return BlockOptionImage.download
         }
     }
 
@@ -43,6 +46,8 @@ extension BlocksOptionItem {
             return "Move to".localized
         case .move:
             return "Move".localized
+        case .download:
+            return "Download".localized
         }
     }
 }

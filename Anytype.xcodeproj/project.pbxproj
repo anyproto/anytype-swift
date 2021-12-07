@@ -312,6 +312,8 @@
 		12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */; };
 		12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CCF2758D09F00B976B5 /* RelationEditingViewModelBuilder.swift */; };
 		12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */; };
+		12F14CDD2758E7BB00B976B5 /* RelationValueStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */; };
+		12F14CE22758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */; };
 		12F3E75E270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E75D270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift */; };
 		12F3E763270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E762270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift */; };
 		12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E764270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift */; };
@@ -609,7 +611,7 @@
 		5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */; };
 		535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02A7274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift */; };
 		535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02A9274FE5BE00E1AF8C /* RelationBlockView.swift */; };
-		535E02AD274FF0B100E1AF8C /* RelationValueViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */; };
+		535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AC274FF0B100E1AF8C /* RelationValueView.swift */; };
 		535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02AF275023B300E1AF8C /* RelationStyle.swift */; };
 		535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */; };
 		535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */; };
@@ -636,11 +638,15 @@
 		539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleCellView.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
 		5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */; };
+		539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E01912757CD0600067A24 /* SlashActionRelations.swift */; };
+		539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E019627582AA200067A24 /* RelationNameValueView.swift */; };
+		539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E01992758422800067A24 /* SlashMenuRealtionView.swift */; };
+		539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E019B2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift */; };
 		53A4633726287B970097C25E /* ImageExetension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A4633626287B970097C25E /* ImageExetension.swift */; };
 		53BC39A3261B7934004D7EB6 /* CodeBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */; };
-		53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */; };
+		53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */; };
 		53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE43265E4D9700C47263 /* EditorRouter.swift */; };
 		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
 		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
@@ -1136,6 +1142,8 @@
 		12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGridView.swift; sourceTree = "<group>"; };
 		12F14CCF2758D09F00B976B5 /* RelationEditingViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelBuilder.swift; sourceTree = "<group>"; };
 		12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelBuilderProtocol.swift; sourceTree = "<group>"; };
+		12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueStatusSection.swift; sourceTree = "<group>"; };
+		12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueStatusSectionBuilder.swift; sourceTree = "<group>"; };
 		12F3E75D270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFileUploadingWorkerProtocol.swift; sourceTree = "<group>"; };
 		12F3E762270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderImageUploadingWorker.swift; sourceTree = "<group>"; };
 		12F3E764270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderImageUsecase.swift; sourceTree = "<group>"; };
@@ -1431,7 +1439,7 @@
 		5356072826E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		535E02A7274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		535E02A9274FE5BE00E1AF8C /* RelationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockView.swift; sourceTree = "<group>"; };
-		535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewProvider.swift; sourceTree = "<group>"; };
+		535E02AC274FF0B100E1AF8C /* RelationValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueView.swift; sourceTree = "<group>"; };
 		535E02AF275023B300E1AF8C /* RelationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationStyle.swift; sourceTree = "<group>"; };
 		535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockViewModel.swift; sourceTree = "<group>"; };
 		535E02B3275037B800E1AF8C /* RelationBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockRestrictions.swift; sourceTree = "<group>"; };
@@ -1456,12 +1464,16 @@
 		539168842632DD5200AD5C5F /* StyleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellView.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
 		5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayoutManager.swift; sourceTree = "<group>"; };
+		539E01912757CD0600067A24 /* SlashActionRelations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashActionRelations.swift; sourceTree = "<group>"; };
+		539E019627582AA200067A24 /* RelationNameValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationNameValueView.swift; sourceTree = "<group>"; };
+		539E01992758422800067A24 /* SlashMenuRealtionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuRealtionView.swift; sourceTree = "<group>"; };
+		539E019B2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuRealtionContentConfiguration.swift; sourceTree = "<group>"; };
 		53A4633626287B970097C25E /* ImageExetension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExetension.swift; sourceTree = "<group>"; };
 		53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBlockRestrictions.swift; sourceTree = "<group>"; };
-		53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockCellView.swift; sourceTree = "<group>"; };
+		53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewListCell.swift; sourceTree = "<group>"; };
 		53D6EE43265E4D9700C47263 /* EditorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouter.swift; sourceTree = "<group>"; };
 		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
 		53EA4A772637637200968B8E /* StyleColorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellView.swift; sourceTree = "<group>"; };
@@ -2229,6 +2241,7 @@
 			children = (
 				C96A69A5273CD97700A07C3C /* BlockConfigurationProtocol.swift */,
 				C96A69A9273CD97700A07C3C /* BaseBlockView.swift */,
+				53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */,
 				C93B2D2E274E41390008544D /* CustomStateKeys.swift */,
 				C9473C36273CEE6700B248AF /* BaseSelectionView.swift */,
 				3DB6E246268B5F8800C303E5 /* BlockViewModelProtocol.swift */,
@@ -2792,9 +2805,7 @@
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
-				12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */,
-				12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */,
-				12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */,
+				12F14CE32758EFE000B976B5 /* Status */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -3076,6 +3087,26 @@
 				12DE4055264AE455007B5074 /* LayoutDimension.swift */,
 			);
 			path = ConstraintLayout;
+			sourceTree = "<group>";
+		};
+		12F14CE32758EFE000B976B5 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				12C2A5972757A6D600311854 /* StatusRelationEditingView.swift */,
+				12C2A59C2757A6E000311854 /* StatusRelationEditingViewModel.swift */,
+				12C2A59E2757A7F000311854 /* StatusRelationRowView.swift */,
+				12F14CE42758EFED00B976B5 /* RelationValueStatusSection */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
+		12F14CE42758EFED00B976B5 /* RelationValueStatusSection */ = {
+			isa = PBXGroup;
+			children = (
+				12F14CDC2758E7BB00B976B5 /* RelationValueStatusSection.swift */,
+				12F14CE12758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift */,
+			);
+			path = RelationValueStatusSection;
 			sourceTree = "<group>";
 		};
 		12F3E768270C721D002EE52F /* MediaFileUploadingWorker */ = {
@@ -3592,6 +3623,7 @@
 		3D5A41412702DA3100F1F6A1 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				539E0198275841F300067A24 /* RelationCellView */,
 				125B6EB826F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift */,
 				125B6EB926F235F400BCD7D6 /* SlashMenuViewController+TableView.swift */,
 			);
@@ -3624,6 +3656,7 @@
 				3D5A41582703132800F1F6A1 /* SlashActionAlignment.swift */,
 				3D5A415A2703132800F1F6A1 /* SlashActionMedia.swift */,
 				3D8311062705899000CA6308 /* SlashActionObject.swift */,
+				539E01912757CD0600067A24 /* SlashActionRelations.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -4283,7 +4316,6 @@
 			isa = PBXGroup;
 			children = (
 				3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */,
-				53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -4512,7 +4544,8 @@
 		535E02AE27501FC600E1AF8C /* RelationViewProvider */ = {
 			isa = PBXGroup;
 			children = (
-				535E02AC274FF0B100E1AF8C /* RelationValueViewProvider.swift */,
+				539E019627582AA200067A24 /* RelationNameValueView.swift */,
+				535E02AC274FF0B100E1AF8C /* RelationValueView.swift */,
 				535E02AF275023B300E1AF8C /* RelationStyle.swift */,
 				1289F5A22733C49D00656EC2 /* ValueViews */,
 			);
@@ -4576,6 +4609,15 @@
 				539168842632DD5200AD5C5F /* StyleCellView.swift */,
 			);
 			path = StyleCell;
+			sourceTree = "<group>";
+		};
+		539E0198275841F300067A24 /* RelationCellView */ = {
+			isa = PBXGroup;
+			children = (
+				539E01992758422800067A24 /* SlashMenuRealtionView.swift */,
+				539E019B2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift */,
+			);
+			path = RelationCellView;
 			sourceTree = "<group>";
 		};
 		53A46330262878710097C25E /* Design system */ = {
@@ -5182,6 +5224,7 @@
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
+				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
@@ -5256,6 +5299,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
+				12F14CDD2758E7BB00B976B5 /* RelationValueStatusSection.swift in Sources */,
 				3DCC549026D3B4B9002517AC /* BlockBookmarkInfoView.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
@@ -5399,7 +5443,7 @@
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
-				535E02AD274FF0B100E1AF8C /* RelationValueViewProvider.swift in Sources */,
+				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
@@ -5435,7 +5479,7 @@
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
-				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
+				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				3DB3EC6B275514E9002781DA /* ProgressBarWithAnimation.swift in Sources */,
 				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
@@ -5618,6 +5662,7 @@
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
+				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
 				3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */,
 				0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlockBookmarkStyleConverter.swift in Sources */,
@@ -5646,6 +5691,7 @@
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				3D16841726DD672E008B9DFF /* BlockFileConverter.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
+				12F14CE22758E8BD00B976B5 /* RelationValueStatusSectionBuilder.swift in Sources */,
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
@@ -5771,6 +5817,7 @@
 				12426A1126DCE1A400693B1F /* ImageBuilder.swift in Sources */,
 				3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
+				539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
@@ -5792,6 +5839,7 @@
 				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				125B6EBA26F235F400BCD7D6 /* URLInputAccessoryView.swift in Sources */,
+				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */,
 				12887F28274B975300228330 /* DetailsUpdate.swift in Sources */,
@@ -6075,7 +6123,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -6108,7 +6156,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -6244,7 +6292,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;

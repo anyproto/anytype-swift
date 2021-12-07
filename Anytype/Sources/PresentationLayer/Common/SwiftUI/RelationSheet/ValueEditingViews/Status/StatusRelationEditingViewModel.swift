@@ -6,7 +6,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
 
     @Published var selectedStatus: RelationValue.Status?
 
-    let allStatuses: [RelationValue.Status]
+    let statusSections: [RelationValueStatusSection]
     
     private let relationKey: String
     private let detailsService: DetailsServiceProtocol
@@ -18,7 +18,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
         detailsService: DetailsServiceProtocol
     ) {
         self.relationKey = relationKey
-        self.allStatuses = relationOptions.map { RelationValue.Status(option: $0) }
+        self.statusSections = RelationValueStatusSectionBuilder.sections(from: relationOptions)
         self.selectedStatus = selectedStatus
         self.detailsService = detailsService
     }
@@ -27,8 +27,12 @@ final class StatusRelationEditingViewModel: ObservableObject {
 
 extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol {
     
+    func viewWillDisappear() {}
+    
     func saveValue() {
-        
+        detailsService.updateDetails([
+            DetailsUpdate(key: relationKey, value: selectedStatus?.id.protobufValue ?? nil)
+        ])
     }
     
     func makeView() -> AnyView {

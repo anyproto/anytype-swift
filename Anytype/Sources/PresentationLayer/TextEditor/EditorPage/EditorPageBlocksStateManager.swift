@@ -141,8 +141,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         guard let element = modelsHolder.models[safe: indexPath.row],
               !movingBlocksIndexPaths.contains(indexPath) else { return false }
 
-        if case let .link(content) = element.information.content {
-            movingDestination = .object(content.targetBlockID)
+        let notAllowedTypes: [BlockContentType] = [.text(.title), .featuredRelations]
+
+        if !notAllowedTypes.contains(element.content.type) {
+            movingDestination = .object(element.blockId)
 
             return true
         }
@@ -176,9 +178,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
-        let restrictions = selectedBlocks.compactMap { BlockRestrictionsBuilder.build(contentType: $0.content.type) }
-
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = restrictions.mergedOptions
+        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = selectedBlocks.blocksOptionItems
     }
 
     private func startMoving() {
@@ -188,14 +188,21 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let dropTargetId: BlockId
         switch movingDestination {
         case let .object(blockId):
-            let document = BaseDocument(objectId: blockId)
-            let _ = document.open()
+            if let model = document.blocksContainer.model(id: blockId),
+               case let .link(content) = model.information.content {
+                let document = BaseDocument(objectId: content.targetBlockID)
+                let _ = document.open()
 
-            guard let id = document.flattenBlocks.last?.information.id else { return }
+                guard let id = document.flattenBlocks.last?.information.id else { return }
 
-            targetId = blockId
-            dropTargetId = id
-            position = .bottom
+                targetId = document.objectId
+                dropTargetId = id
+                position = .bottom
+            } else {
+                targetId = document.objectId
+                position = .inner
+                dropTargetId = blockId
+            }
         case let .position(positionIndexPath):
             if let targetBlock = modelsHolder.models[safe: positionIndexPath.row] {
                 position = .top
@@ -256,6 +263,17 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             didSelectMovingIndexPaths(selectedBlocksIndexPaths)
             editingState = .moving(indexPaths: selectedBlocksIndexPaths)
             return
+        case .download:
+            anytypeAssert(
+                elements.count == 1,
+                "Number of elements should be 1",
+                domain: .editorPage
+            )
+
+            if case let .file(blockFile) = elements.first?.content,
+               let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
+                router.saveFile(fileURL: url)
+            }
         }
 
         editingState = .editing
