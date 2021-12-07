@@ -1,4 +1,5 @@
-require_relative '../middleware_updater'
+require 'optparse'
+
 require_relative 'options_generator'
 require_relative '../library/environment'
 

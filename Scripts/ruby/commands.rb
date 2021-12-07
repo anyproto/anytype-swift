@@ -1,7 +1,3 @@
-require_relative 'library/shell_executor'
-require_relative 'library/workers'
-require_relative 'library/semantic_versioning'
-
 module Commands
   class BaseCommand
     def to_json(*args)

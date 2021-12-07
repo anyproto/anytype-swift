@@ -1,4 +1,6 @@
 require_relative '../library/environment'
+require_relative '../commands'
+require_relative '../workers_hub'
 
 class DefaultOptionsGenerator
   def self.defaultOptions
@@ -7,8 +9,8 @@ class DefaultOptionsGenerator
       command: Commands::InstallCommand.new,
 
       # library file options
-      libraryFilePath: "#{__dir__}/../Libraryfile",
-      librarylockFilePath: "#{__dir__}/../Libraryfile.lock",
+      libraryFilePath: "#{__dir__}../../../../Libraryfile",
+      librarylockFilePath: "#{__dir__}../../../../Libraryfile.lock",
       librarylockFileVersionKey: "middleware.version",
 
       # repository options
@@ -16,7 +18,7 @@ class DefaultOptionsGenerator
       repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
 
       # download file options
-      downloadFilePath: "#{__dir__}/../lib.tar.gz",
+      downloadFilePath: "#{__dir__}../../../../lib.tar.gz",
       iOSAssetMiddlewarePrefix: "ios_framework_",
 
       # download archive structure options
@@ -24,9 +26,9 @@ class DefaultOptionsGenerator
       protobufDirectoryName: "protobuf",
 
       # target directory options
-      dependenciesDirectoryPath: "#{__dir__}/../Dependencies/Middleware",
-      targetDirectoryPath: "#{__dir__}/../Modules/ProtobufMessages/Sources/",
-      swiftAutocodegenScript: "#{__dir__}/../Scripts/anytype_swift_codegen_runner.rb"
+      dependenciesDirectoryPath: "#{__dir__}../../../../Dependencies/Middleware",
+      targetDirectoryPath: "#{__dir__}../../../../Modules/ProtobufMessages/Sources/",
+      swiftAutocodegenScript: "#{__dir__}../../../../Scripts/anytype_swift_codegen_runner.rb"
     }
   end
 
