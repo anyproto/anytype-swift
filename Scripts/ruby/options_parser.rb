@@ -1,94 +1,17 @@
-require 'optparse'
-require 'shellwords'
-require 'pathname'
-
-require 'tmpdir'
-
-require 'net/http'
-
-require 'yaml'
-require 'json'
-
 require_relative 'middleware_updater'
+require_relative 'options_generator'
+require_relative 'library/environment'
 
 class OptionsParser
-  class DefaultOptionsGenerator
-    class << self
-      def defaultOptions
-        options = {
-          # commands
-          command: MiddlewareUpdater::Configuration::Commands::InstallCommand.new,
-
-          # library file options
-          libraryFilePath: "#{__dir__}/../Libraryfile",
-          librarylockFilePath: "#{__dir__}/../Libraryfile.lock",
-          librarylockFileVersionKey: "middleware.version",
-
-          # repository options
-          token: MiddlewareUpdater::Configuration::EnvironmentVariables.token || '',
-          repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
-
-          # download file options
-          downloadFilePath: "#{__dir__}/../lib.tar.gz",
-          iOSAssetMiddlewarePrefix: "ios_framework_",
-
-          # download archive structure options
-          middlewareLibraryName: "Lib.xcframework",
-          protobufDirectoryName: "protobuf",
-
-          # target directory options
-          dependenciesDirectoryPath: "#{__dir__}/../Dependencies/Middleware",
-          targetDirectoryPath: "#{__dir__}/../Modules/ProtobufMessages/Sources/",
-          swiftAutocodegenScript: "#{__dir__}/../Scripts/anytype_swift_codegen_runner.rb"
-        }
-      end
-
-      def filePathOptions
-        [
-          :libraryFilePath,
-          :librarylockFilePath,
-          :downloadFilePath,
-          :dependenciesDirectoryPath,
-          :targetDirectoryPath,
-          :swiftAutocodegenScript
-        ]
-      end
-
-      def fixOptions(options)
-        result_options = options
-        filePathOptions.each do |v|
-          unless result_options[v].nil?
-            result_options[v] = File.expand_path(result_options[v])
-          end
-        end
-        result_options
-      end
-
-      def generate(arguments, options)
-        result_options = defaultOptions.merge options
-        fixOptions(result_options)
-      end
-
-      def populate(arguments, options)
-        new_options = self.generate(arguments, options)
-        new_options = new_options.merge(options)
-        fixOptions(new_options)
-      end
-    end
-  end
-
   def help_message(options)
     puts <<-__HELP__
 
     #{options.help}
 
-    This script will help you update middleware library.
-
-
 
     First, it takes arguments:
-    --update option. <- You should specify this option if you would like to update middleware to latest available release.
-    [--install] default option. <- You should specify or not ( default option ) if you would like to install middleware library from library file.
+    --update <- Update middleware to latest available release.
+    [--install] default option. <- Installs middleware library from library file.
 
     Other options you can inspect via
     ruby #{$0} --help
@@ -98,9 +21,6 @@ class OptionsParser
     ---------------
     1. No parameters.
     ruby #{$0}
-
-    # or if you want Siri Voice, set environment variable SIRI_VOICE=1
-    SIRI_VOICE=1 ruby #{$0}
 
     Run without parameters will active default configuration and script will install middleware from a lockfile.
 
@@ -128,7 +48,7 @@ class OptionsParser
 
     Available variables are
 
-    #{MiddlewareUpdater::Configuration::EnvironmentVariables.variables_description}
+    #{EnvironmentVariables.variables_description}
 
     5. Set Environment Variables
 
@@ -154,8 +74,7 @@ class OptionsParser
     __HELP__
   end
 
-  def parse_options(arguments)
-    # we could also add names for commands to separate them.
+  def parse_options(arguments) # we could also add names for commands to separate them.
     # thus, we could add 'generate init' and 'generate services'
     # add dispatch for first words.
     options = {}
@@ -170,10 +89,10 @@ class OptionsParser
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 
       # commands
-      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::InstallCommand.new}
-      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::UpdateCommand.new(v)}
-      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::ListCommand.new}
-      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::CurrentVersionCommand.new}
+      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
+      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
+      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Commands::ListCommand.new}
+      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Commands::CurrentVersionCommand.new}
 
       # library file options
       opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
