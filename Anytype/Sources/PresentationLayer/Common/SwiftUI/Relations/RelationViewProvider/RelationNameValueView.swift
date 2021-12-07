@@ -1,43 +1,49 @@
 import SwiftUI
 
+class RelationNameValueViewModel: ObservableObject {
+    @Published var relation: Relation
+    @Published var isHighlighted: Bool = false
+
+    init(relation: Relation) {
+        self.relation = relation
+    }
+}
+
 struct RelationNameValueView: View {
-    @State var isEditable: Bool
-    let relation: Relation
-    let onEditTap: (String) -> ()
+    @ObservedObject var viewModel: RelationNameValueViewModel
+    var isEditable: Bool = false
+    var onEditTap: ((String) -> ())? = nil
+    var showDivider: Bool = true
+
+    @State private var width: CGFloat = .zero
+    @State private var height: CGFloat = .zero
 
     var body: some View {
-        GeometryReader { gr in
-            HStack(spacing: 8) {
-                // If we will use spacing more than 0 it will be added to
-                // `Spacer()` from both sides as a result
-                // `Spacer` will take up more space
-                HStack(spacing: 0) {
-                    name
-                        .frame(width: gr.size.width * 0.4, alignment: .leading)
-                    Spacer.fixedWidth(8)
+        HStack(spacing: 8) {
+            name
+                .frame(width: width * 0.4, alignment: .topLeading)
+            Spacer.fixedWidth(8)
 
-                    if isEditable, relation.isEditable {
-                        valueViewButton
-                    } else {
-                        valueView
-                    }
-
-                    Spacer(minLength: 8)
+            Group {
+                if isEditable, viewModel.relation.isEditable {
+                    valueViewButton
+                } else {
+                    valueView
                 }
-                .frame(height: gr.size.height)
-                .modifier(DividerModifier(spacing:0))
             }
+            .frame(maxWidth: .infinity, minHeight: 34, alignment: .center)
+            .background(FrameCatcher { height = $0.size.height })
         }
-        .frame(height: 48)
+        .background(FrameCatcher { width = $0.size.width })
     }
 
     private var name: some View {
-        AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
+        AnytypeText(viewModel.relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
     }
 
     private var valueViewButton: some View {
         Button {
-            onEditTap(relation.id)
+            onEditTap?(viewModel.relation.id)
         } label: {
             valueView
         }
@@ -45,46 +51,8 @@ struct RelationNameValueView: View {
 
     private var valueView: some View {
         HStack(spacing: 0) {
-            RelationValueView(relation: relation, style: .regular(allowMultiLine: false))
+            RelationValueView(relation: viewModel.relation, style: .regular(allowMultiLine: false))
             Spacer()
-        }
-    }
-}
-
-struct RelationNameValueView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 0) {
-            RelationsListRowView(
-                editingMode: .constant(false),
-                relation: Relation(
-                    id: "1", name: "Relation name",
-                    value: .tag([
-                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
-                    ]),
-                    hint: "hint",
-                    isFeatured: false,
-                    isEditable: true
-                ),
-                onRemoveTap: { _ in },
-                onStarTap: { _ in },
-                onEditTap: { _ in }
-            )
-            RelationsListRowView(
-                editingMode: .constant(false),
-                relation: Relation(
-                    id: "1", name: "Relation name",
-                    value: .text("hello"),
-                    hint: "hint",
-                    isFeatured: false,
-                    isEditable: false
-                ),
-                onRemoveTap: { _ in },
-                onStarTap: { _ in },
-                onEditTap: { _ in }
-            )
         }
     }
 }
