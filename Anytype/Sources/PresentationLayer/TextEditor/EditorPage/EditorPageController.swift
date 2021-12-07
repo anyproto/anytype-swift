@@ -151,9 +151,9 @@ final class EditorPageController: UIViewController {
                 dividerCursorController.movingMode = .drum
                 setEditing(false, animated: true)
                 indexPaths.forEach { indexPath in
+                    collectionView.deselectItem(at: indexPath, animated: false)
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
-                collectionView.reloadData()
             }
         }.store(in: &cancellables)
     }
@@ -332,17 +332,20 @@ private extension EditorPageController {
         let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
         ) { (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
+            let cell: UICollectionViewCell
             switch dataSourceItem {
             case let .block(block):
                 guard case .text(.code) = block.content.type else {
-                    return collectionView.dequeueConfiguredReusableCell(
+                    cell = collectionView.dequeueConfiguredReusableCell(
                         using: cellRegistration,
                         for: indexPath,
                         item: block
                     )
+
+                    break
                 }
                 
-                return collectionView.dequeueConfiguredReusableCell(
+                cell =  collectionView.dequeueConfiguredReusableCell(
                     using: codeCellRegistration,
                     for: indexPath,
                     item: block
@@ -354,9 +357,13 @@ private extension EditorPageController {
                     item: header
                 )
             }
+
+            // UIKit bug. isSelected works fine, UIConfigurationStateCustomKey properties sometimes switch to adjacent cellsAnytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/CustomStateKeys.swift
+            (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
+
+            return cell
         }
-        
-        
+
         var initialSnapshot = NSDiffableDataSourceSnapshot<EditorSection, EditorItem>()
         initialSnapshot.appendSections(EditorSection.allCases)
         
@@ -365,19 +372,19 @@ private extension EditorPageController {
         return dataSource
     }
     
-    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<UICollectionViewListCell, ObjectHeader> {
+    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
         .init { cell, _, item in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         }
     }
     
-    func createCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, BlockViewModelProtocol> {
+    func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, BlockViewModelProtocol> {
         .init { [weak self] cell, indexPath, item in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
     }
     
-    func createCodeCellRegistration() -> UICollectionView.CellRegistration<CodeBlockCellView, BlockViewModelProtocol> {
+    func createCodeCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, BlockViewModelProtocol> {
         .init { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
