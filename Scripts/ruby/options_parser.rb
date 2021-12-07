@@ -1,16 +1,6 @@
-require 'optparse'
-require 'shellwords'
-require 'pathname'
-
-require 'tmpdir'
-
-require 'net/http'
-
-require 'yaml'
-require 'json'
-
 require_relative 'middleware_updater'
 require_relative 'options_generator'
+require_relative 'library/environment'
 
 class OptionsParser
   def help_message(options)
@@ -58,7 +48,7 @@ class OptionsParser
 
     Available variables are
 
-    #{MiddlewareUpdater::Configuration::EnvironmentVariables.variables_description}
+    #{EnvironmentVariables.variables_description}
 
     5. Set Environment Variables
 
@@ -99,10 +89,10 @@ class OptionsParser
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 
       # commands
-      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::InstallCommand.new}
-      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::UpdateCommand.new(v)}
-      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::ListCommand.new}
-      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::CurrentVersionCommand.new}
+      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
+      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
+      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Commands::ListCommand.new}
+      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Commands::CurrentVersionCommand.new}
 
       # library file options
       opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
