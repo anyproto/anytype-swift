@@ -86,7 +86,7 @@ module AnytypeSwiftCodegenRunner::Pipeline
         }
         FormatDirectoryPipeline.start(options)
       else
-        say "I don't recognize this command: #{options[:command]}"
+        puts "I don't recognize this command: #{options[:command]}"
         finalize
         return
       end

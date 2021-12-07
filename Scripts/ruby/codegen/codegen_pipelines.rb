@@ -5,14 +5,14 @@ class ToolVersionPipeline < BasePipeline
     if Dir.exists? options[:toolPath]
       AnytypeSwiftCodegen::TravelerWorker.new(options[:toolPath]).work
     end
-    say "Look at current version!"
+    puts "Look at current version!"
     puts AnytypeSwiftCodegen::ToolVersionWorker.new(options[:toolPath]).work
   end
 end
 
 class ToolHelpPipeline < BasePipeline
   def self.start(options)
-    say "Look at help meesage from tool!"
+    puts "Look at help meesage from tool!"
     puts AnytypeSwiftCodegen::ToolHelpWorker.new(options[:toolPath]).work
   end
 end
@@ -22,7 +22,7 @@ class ListTransformsPipeline < BasePipeline
     if Dir.exists? options[:toolPath]
       AnytypeSwiftCodegen::TravelerWorker.new(options[:toolPath]).work
     end
-    say "Look at available trasnforms!"
+    puts "Look at available trasnforms!"
     puts AnytypeSwiftCodegen::ListTransformsWorker.new(options[:toolPath]).work
   end
 end
@@ -43,12 +43,12 @@ class ApplyTransformsPipeline < BasePipeline
       end
     }
 
-    say "You want to generate something?"
+    puts "You want to generate something?"
     puts "sliced_options are: #{sliced_options}"
-    say "Lets go!"
+    puts "Lets go!"
 
     AnytypeSwiftCodegen::ApplyTransformsWorker.new(options[:toolPath], sliced_options).work
-    say "Congratulations! You have just generated new protobuf files!"
+    puts "Congratulations! You have just generated new protobuf files!"
   end
 end
 
@@ -60,7 +60,7 @@ class CompoundPipeline < BasePipeline
     when ListTransformsCommand then ListTransformsPipeline.start(options)
     when ApplyTransformsCommand then ApplyTransformsPipeline.start(options)
     else
-      say "I don't recognize this command: #{options[:command]}"
+      puts "I don't recognize this command: #{options[:command]}"
       finalize
       return
     end

@@ -5,7 +5,7 @@ class CurrentVersionPipeline
       puts "I can't find library lock file at filepath #{librarylockFilePath} :("
     end
 
-    version = MiddlewareUpdater::GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
+    version = GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
 
     puts "Lockfile Version: \n"
     puts "#{version}"
