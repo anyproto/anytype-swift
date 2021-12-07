@@ -8,14 +8,22 @@ final class EditorAssembly {
         self.browser = browser
     }
     
-    func buildEditorController(data: EditorScreenData) -> UIViewController {
-        buildEditorModule(data: data).vc
+    func buildEditorController(
+        data: EditorScreenData,
+        editorBrowserViewInput: EditorBrowserViewInputProtocol?
+    ) -> UIViewController {
+        buildEditorModule(data: data, editorBrowserViewInput: editorBrowserViewInput).vc
     }
 
-    func buildEditorModule(data: EditorScreenData) -> (vc: UIViewController, router: EditorRouterProtocol) {
+    func buildEditorModule(
+        data: EditorScreenData,
+        editorBrowserViewInput: EditorBrowserViewInputProtocol?
+    ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            return buildPageModule(pageId: data.pageId)
+            let module = buildPageModule(pageId: data.pageId)
+            module.0.browserViewInput = editorBrowserViewInput
+            return module
         case .set:
             return buildSetModule(pageId: data.pageId)
         }

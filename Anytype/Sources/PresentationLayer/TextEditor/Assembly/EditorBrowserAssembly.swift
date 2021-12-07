@@ -12,7 +12,7 @@ final class EditorBrowserAssembly {
         let browser = EditorBrowserController()
 
         let (page, router) = EditorAssembly(browser: browser)
-            .buildEditorModule(data: data)
+            .buildEditorModule(data: data, editorBrowserViewInput: browser)
         
         browser.childNavigation = navigationStack(rootPage: page)
         browser.router = router
