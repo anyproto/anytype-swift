@@ -17,7 +17,6 @@ class OptionsParser
       opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
 
       # library file options
-      opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
       opts.on('--librarylockFilePath', '--librarylockFilePath PATH', 'Path to a lock file.') {|v| options[:librarylockFilePath] = v}
 
       # repository options
@@ -67,13 +66,6 @@ class OptionsParser
 
     3. Update command
     ruby #{$0} --update [Version] # fetch current version from remote.
-
-    This command also can check Libraryfile: Option --libraryFilePath.
-    - If file exists, it will read restrictions and find latest approriate version from remote.
-    - If file NOT exists, it will fetch latest version from remote.
-
-    ruby #{$0} --update --libraryFilePath ./Libraryfile # Gather restrictions from ./Libraryfile and fetch **appropriate** version from remote.
-    ruby #{$0} --update --libraryFilePath ./Abc # Fetch **latest** version from remote
 
     4. Environment Variables
 
