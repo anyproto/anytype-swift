@@ -4,6 +4,7 @@ require 'pathname'
 require 'json'
 
 require_relative 'library/shell_executor'
+require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/pipelines'
 require_relative 'library/commands'
@@ -92,13 +93,13 @@ end
 module SwiftFormat::Pipeline
   class CompoundPipeline < BasePipeline
     def self.start(options)
-      puts "Lets find your command in a list..."
+      say "Lets find your command in a list..."
       case options[:command]
       when SwiftFormat::Configuration::Commands::FormatCommand then FormatPipeline.start(options)
       when SwiftFormat::Configuration::Commands::ToolVersionCommand then ToolVersionPipeline.start(options)
       when SwiftFormat::Configuration::Commands::ToolHelpCommand then ToolHelpPipeline.start(options)
       else
-        puts "I don't recognize this command: #{options[:command]}"
+        say "I don't recognize this command: #{options[:command]}"
         finalize
         return
       end
@@ -138,12 +139,18 @@ class MainWork
   def work(options = {})
     options = fix_options(options)
 
+    if options[:inspection]
+      puts "options are: #{options}"
+    end
+
     unless valid_options? options
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
       exit(1)
     end
+
+    ShellExecutor.setup options[:dry_run]
 
     SwiftFormat::Pipeline.start(options)
   end
@@ -228,6 +235,9 @@ class MainWork
 
       opts.on('-v', '--version', 'Version of tool') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolVersionCommand.new}
       opts.on('-t', '--toolHelp', 'Tool help') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolHelpCommand.new}
+
+      opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
+      opts.on('-i', '--inspection', 'Inspection of all items, like tests'){|v| options[:inspection] = v}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 

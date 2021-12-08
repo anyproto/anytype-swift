@@ -9,13 +9,14 @@ require 'net/http'
 require 'yaml'
 require 'json'
 
-require_relative 'ruby/library/shell_executor'
-require_relative 'ruby/workers_hub'
-require_relative 'ruby/library/semantic_versioning'
-require_relative 'ruby/commands'
+require_relative 'library/shell_executor'
+require_relative 'library/voice'
+require_relative 'library/workers'
+require_relative 'library/semantic_versioning'
+require_relative 'library/commands'
 
 module MiddlewareUpdater
-  class AlwaysValidWorker < BaseWorker
+  class AlwaysValidWorker < Workers::BaseWorker
     def is_valid?
       true
     end
@@ -100,7 +101,7 @@ module MiddlewareUpdater
     end
   end
 
-  class DownloadFileAtURLWorker < BaseWorker
+  class DownloadFileAtURLWorker < Workers::BaseWorker
     attr_accessor :token, :url, :filePath
     def initialize(token, url, filePath)
       self.token = token
@@ -125,7 +126,7 @@ module MiddlewareUpdater
     end
   end
 
-  class UncompressFileToTemporaryDirectoryWorker < BaseWorker
+  class UncompressFileToTemporaryDirectoryWorker < Workers::BaseWorker
     attr_accessor :filePath, :temporaryDirectory
     def initialize(filePath, temporaryDirectory)
       self.filePath = filePath
@@ -190,7 +191,7 @@ module MiddlewareUpdater
     end
   end
 
-  class RunCodegenScriptWorker < BaseWorker
+  class RunCodegenScriptWorker < Workers::BaseWorker
     attr_accessor :scriptPath
     def initialize(scriptPath)
       self.scriptPath = scriptPath
@@ -298,68 +299,68 @@ end
 class Pipeline
   class BasePipeline < Pipeline
     def self.work(version, options)
-      puts "Lets fetch data from remote!"
+      say "Lets fetch data from remote!"
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
-      puts "I have gathered information!"
+      say "I have gathered information!"
 
-      puts "Now lets find our url to release!"
+      say "Now lets find our url to release!"
       assetURL = MiddlewareUpdater::GetRemoteAssetURLWorker.new(information, version, options[:iOSAssetMiddlewarePrefix]).work
-      puts "Our URL is: #{assetURL}"
+      say "Our URL is: #{assetURL}"
 
       downloadFilePath = options[:downloadFilePath]
-      puts "Start downloading library to #{downloadFilePath}"
+      say "Start downloading library to #{downloadFilePath}"
       MiddlewareUpdater::DownloadFileAtURLWorker.new(options[:token], assetURL, options[:downloadFilePath]).work
-      puts "Library is downloaded at #{downloadFilePath}"
+      say "Library is downloaded at #{downloadFilePath}"
 
       temporaryDirectory = MiddlewareUpdater::GetTemporaryDirectoryWorker.new.work
-      puts "Start uncompressing to directory #{temporaryDirectory}"
+      say "Start uncompressing to directory #{temporaryDirectory}"
       MiddlewareUpdater::UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
 
       ourDirectory = options[:dependenciesDirectoryPath]
-      puts "Cleaning up Dependencies directory #{ourDirectory}"
+      say "Cleaning up Dependencies directory #{ourDirectory}"
       MiddlewareUpdater::CleanupDependenciesDirectoryWorker.new(ourDirectory).work
 
-      puts "Moving files from temporaryDirectory #{temporaryDirectory} to ourDirectory: #{ourDirectory}"
+      say "Moving files from temporaryDirectory #{temporaryDirectory} to ourDirectory: #{ourDirectory}"
       MiddlewareUpdater::CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, options.slice(:middlewareLibraryName, :protobufDirectoryName).values, ourDirectory).work
 
-      puts "Cleaning up Downloaded files"
+      say "Cleaning up Downloaded files"
       MiddlewareUpdater::RemoveDirectoryWorker.new(downloadFilePath).work
       MiddlewareUpdater::RemoveDirectoryWorker.new(temporaryDirectory).work
 
-      puts "Moving protobuf files from Dependencies to our project directory"
+      say "Moving protobuf files from Dependencies to our project directory"
       # MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
 
-      puts "Generate services from protobuf files"
+      say "Generate services from protobuf files"
       # MiddlewareUpdater::RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
     end
   end
   class InstallPipeline < BasePipeline
     def self.start(options)
-      puts "Hey! You would like to install something, ok!"
-      puts "Let's check lock file for a version."
+      say "Hey! You would like to install something, ok!"
+      say "Let's check lock file for a version."
 
       librarylockFilePath = options[:librarylockFilePath]
       unless File.exists? librarylockFilePath
-        puts "I can't find library lock file at filepath #{librarylockFilePath} :("
+        say "I can't find library lock file at filepath #{librarylockFilePath} :("
       end
 
       version = MiddlewareUpdater::GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
 
-      puts "We have version <#{version}> in a lock file!"
+      say "We have version <#{version}> in a lock file!"
 
       self.work(version, options)
     end
   end
   class UpdatePipeline < BasePipeline
     def self.store_version(version, options)
-      puts "Saving version <#{version}> to library lock file."
+      say "Saving version <#{version}> to library lock file."
       librarylockFilePath = options[:librarylockFilePath]
       MiddlewareUpdater::SetLockfileVersionWorker.new(librarylockFilePath, options[:librarylockFileVersionKey], version).work
     end
     def self.install_with_version(options)
       version = options[:command].version
-      puts "Hey, you would like to install concrete version. #{version}"
-      puts "Lets fetch data from remote!"
+      say "Hey, you would like to install concrete version. #{version}"
+      say "Lets fetch data from remote!"
 
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
       versions = MiddlewareUpdater::GetRemoteAvailableVersionsWorker.new(information).work
@@ -367,51 +368,51 @@ class Pipeline
         self.work(version, options)
         self.store_version(version, options)
       else
-        puts "I can't find version #{version}"
-        puts "versions are: #{versions}"
+        say "I can't find version #{version}"
+        say "versions are: #{versions}"
       end
     end
     def self.install_with_restrictions(options)
-      puts "Hey, you would like to install version with restrictions."
-      puts "Lets gather restrictions!"
+      say "Hey, you would like to install version with restrictions."
+      say "Lets gather restrictions!"
 
       # well, we could use another key, but keep it like in lock file.
       restrictions = MiddlewareUpdater::GetLibraryfileVersionWorker.new(options[:libraryFilePath], options[:librarylockFileVersionKey]).work
 
-      puts "I have restrictions: #{restrictions}"
+      say "I have restrictions: #{restrictions}"
 
       unless restrictions
-        puts "Restrctions are not valid at #{options[:libraryFilePath]}"
+        say "Restrctions are not valid at #{options[:libraryFilePath]}"
         return
       end
 
-      puts "Lets fetch data from remote!"
+      say "Lets fetch data from remote!"
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
       versions = MiddlewareUpdater::GetRemoteAvailableVersionsWorker.new(information).work
 
       version = MiddlewareUpdater::SemanticCompareVersionsWorker.new(restrictions, versions).work
       if version
-        puts "I choose version: #{version}"
+        say "I choose version: #{version}"
         self.work(version, options)
         self.store_version(version, options)
       else
-        puts "I can't find appropriate version: #{version}"
+        say "I can't find appropriate version: #{version}"
       end
     end
     def self.install_without_restrictions(options)
-      puts "Hey, you would like to install latest remote version!"
-      puts "Lets fetch data from remote!"
+      say "Hey, you would like to install latest remote version!"
+      say "Lets fetch data from remote!"
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
-      puts "I have gathered information!"
+      say "I have gathered information!"
 
       version = MiddlewareUpdater::GetRemoteVersionWorker.new(information).work
 
-      puts "We have fresh version <#{version}> in remote!"
+      say "We have fresh version <#{version}> in remote!"
       self.work(version, options)
       self.store_version(version, options)
     end
     def self.start(options)
-      puts "Hey! You would like to update something, ok!"
+      say "Hey! You would like to update something, ok!"
 
       if options[:command].version
         self.install_with_version(options)
@@ -420,7 +421,7 @@ class Pipeline
 
       libraryFilePath = options[:libraryFilePath]
       unless File.exists? libraryFilePath
-        puts "I can't find library file at filepath #{libraryFilePath}."
+        say "I can't find library file at filepath #{libraryFilePath}."
         # so, we have to install any version, right?
         self.install_without_restrictions(options)
       else
@@ -430,50 +431,53 @@ class Pipeline
   end
   class ListPipeline < Pipeline
     def self.start(options)
-      puts "Hey! You would like to list available versions?"
-      puts "Lets fetch data from remote!"
+      say "Hey! You would like to list available versions?"
+      say "Lets fetch data from remote!"
 
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
-      puts "I have gathered information!"
+      say "I have gathered information!"
 
-      puts "We have versions below"
+      say "We have versions below"
       versions = MiddlewareUpdater::GetRemoteAvailableVersionsWorker.new(information).work
 
-      puts "Versions: \n"
-      puts "#{JSON.pretty_generate(versions)}"
+      say "Versions: \n"
+      say "#{JSON.pretty_generate(versions)}"
     end
   end
   class CurrentVersionPipeline < Pipeline
     def self.start(options)
-      puts "Hey! You would like to print current version from Lockfile, ok!"
-      puts "Let's check lock file for a version."
+      say "Hey! You would like to print current version from Lockfile, ok!"
+      say "Let's check lock file for a version."
 
       librarylockFilePath = options[:librarylockFilePath]
       unless File.exists? librarylockFilePath
-        puts "I can't find library lock file at filepath #{librarylockFilePath} :("
+        say "I can't find library lock file at filepath #{librarylockFilePath} :("
       end
 
       version = MiddlewareUpdater::GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
 
-      puts "Lockfile Version: \n"
-      puts "#{version}"
+      say "Lockfile Version: \n"
+      say "#{version}"
     end
   end
   class << self
+    def say(messages)
+      Voice.say messages
+    end
     def start(options)
-      puts "Lets find you command in a list..."
+      say "Lets find you command in a list..."
       case options[:command]
       when MiddlewareUpdater::Configuration::Commands::InstallCommand then InstallPipeline.start(options)
       when MiddlewareUpdater::Configuration::Commands::UpdateCommand then UpdatePipeline.start(options)
       when MiddlewareUpdater::Configuration::Commands::ListCommand then ListPipeline.start(options)
       when MiddlewareUpdater::Configuration::Commands::CurrentVersionCommand then CurrentVersionPipeline.start(options)
       else
-        puts "I don't recognize this command: #{options[:command]}"
+        say "I don't recognize this command: #{options[:command]}"
         finalize
         return
       end
 
-      puts "Congratulations! You have just generated new protobuf files!"
+      say "Congratulations! You have just generated new protobuf files!"
       finalize
     end
 
@@ -516,6 +520,8 @@ class MainWork
       puts "missing options: #{required_keys}"
       exit(1)
     end
+
+    ShellExecutor.setup options[:dry_run]
 
     Pipeline.start(options)
   end
