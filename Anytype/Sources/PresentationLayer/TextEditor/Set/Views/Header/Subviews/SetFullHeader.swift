@@ -2,11 +2,7 @@ import SwiftUI
 import Kingfisher
 
 struct SetFullHeader: View {
-    var screenWidth: CGFloat
-    var yOffset: CGFloat
-    @Binding var headerSize: CGSize
-    @Binding var headerPosition: CGPoint
-    @Binding var coverPosition: CGPoint
+    @State private var width: CGFloat = .zero
     
     @EnvironmentObject private var model: EditorSetViewModel
     
@@ -17,13 +13,8 @@ struct SetFullHeader: View {
         VStack {
             VStack {
                 header.ignoresSafeArea(edges: .top)
-                PositionCatcher { headerPosition = $0 }
-                SetHeaderSettings()
             }
             .background(Color.background)
-            .background(FrameCatcher { headerSize = $0.size })
-            .offset(y: min(yOffset, 0))
-            
             Spacer()
         }
     }
@@ -36,7 +27,6 @@ struct SetFullHeader: View {
                 }
             
             Spacer.fixedHeight(32)
-            PositionCatcher { coverPosition = $0 }
             
             AnytypeText(model.details.title, style: .title, color: .textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -60,6 +50,7 @@ struct SetFullHeader: View {
             )
                 .padding(.horizontal, 20)
         }
+        .background( FrameCatcher { width = $0.size.width } )
     }
     
     private let iconBackgroundPadding: CGFloat = 4
@@ -88,11 +79,11 @@ struct SetFullHeader: View {
             case .gradient(let gradient):
                 gradient.asLinearGradient().frame(height: bigCover)
             case .imageId(let imageId):
-                    if let url = ImageID(id: imageId, width: .custom(screenWidth)).resolvedUrl {
+                    if let url = ImageID(id: imageId, width: .custom(width)).resolvedUrl {
                         KFImage(url)
                             .resizable()
                             .placeholder{ Color.grayscale30 }
-                            .frame(width: screenWidth, height: bigCover)
+                            .frame(width: width, height: bigCover)
                             .aspectRatio(contentMode: .fill)
                             .background(Color.red)
                 }
@@ -110,12 +101,6 @@ struct SetFullHeader: View {
 
 struct SetFullHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetFullHeader(
-            screenWidth: 500,
-            yOffset: 0,
-            headerSize: .constant(.zero),
-            headerPosition: .constant(.zero),
-            coverPosition: .constant(.zero)
-        )
+        SetFullHeader()
     }
 }
