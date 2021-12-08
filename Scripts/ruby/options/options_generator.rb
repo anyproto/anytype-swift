@@ -50,10 +50,6 @@ class DefaultOptionsGenerator
       # download file options
       downloadFilePath: "#{__dir__}../../../../lib.tar.gz",
 
-      # download archive structure options
-      middlewareLibraryName: "Lib.xcframework",
-      protobufDirectoryName: "protobuf",
-
       # target directory options
       dependenciesDirectoryPath: "#{__dir__}../../../../Dependencies/Middleware",
       targetDirectoryPath: "#{__dir__}../../../../Modules/ProtobufMessages/Sources/",

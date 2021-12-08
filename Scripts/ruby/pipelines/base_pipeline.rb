@@ -25,14 +25,14 @@ class BasePipeline
     CleanupDependenciesDirectoryWorker.new(ourDirectory).work
 
     puts "Moving files from temporaryDirectory #{temporaryDirectory} to ourDirectory: #{ourDirectory}"
-    CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, options.slice(:middlewareLibraryName, :protobufDirectoryName).values, ourDirectory).work
+    CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, ourDirectory).work
 
     puts "Cleaning up Downloaded files"
     RemoveDirectoryWorker.new(downloadFilePath).work
     RemoveDirectoryWorker.new(temporaryDirectory).work
 
     puts "Moving protobuf files from Dependencies to our project directory"
-    CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
+    CopyProtobufFilesWorker.new(ourDirectory, options[:targetDirectoryPath]).work
 
     puts "Generate services from protobuf files"
     RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
