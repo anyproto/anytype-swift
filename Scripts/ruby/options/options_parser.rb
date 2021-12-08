@@ -8,6 +8,7 @@ class OptionsParser
     options = {}
     OptionParser.new do |opts|
       opts.on('-v', '--version', 'Version of tool') {|v| options[:version] = v}
+      opts.on('--on-ci', 'Run on CI') { |v| options[:runsOnCI] = true }
 
       # help
       opts.on('-h', '--help', 'Help option') { help_message(opts); exit(0)}

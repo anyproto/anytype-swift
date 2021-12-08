@@ -40,6 +40,8 @@ class DefaultOptionsGenerator
       # commands
       command: Commands::InstallCommand.new,
 
+      runsOnCI: false,
+
       # library file options
       libraryFilePath: "#{__dir__}../../../../Libraryfile",
       librarylockFilePath: "#{__dir__}../../../../Libraryfile.lock",
