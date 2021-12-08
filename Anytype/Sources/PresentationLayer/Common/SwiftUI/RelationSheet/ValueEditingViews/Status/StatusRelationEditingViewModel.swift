@@ -10,12 +10,14 @@ final class StatusRelationEditingViewModel: ObservableObject {
     private let relationOptions: [RelationMetadata.Option]
     private let relationKey: String
     private let detailsService: DetailsServiceProtocol
+    private let relationsService: RelationsServiceProtocol
     
     init(
         relationKey: String,
         relationOptions: [RelationMetadata.Option],
         selectedStatus: RelationValue.Status?,
-        detailsService: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol,
+        relationsService: RelationsServiceProtocol
     ) {
         self.relationOptions = relationOptions
         self.relationKey = relationKey
@@ -25,6 +27,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
         )
         self.selectedStatus = selectedStatus
         self.detailsService = detailsService
+        self.relationsService = relationsService
     }
     
 }
@@ -36,6 +39,15 @@ extension StatusRelationEditingViewModel {
             from: relationOptions,
             filterText: text
         )
+    }
+    
+    func addOption(text: String) {
+        let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
+        guard let optionId = optionId else { return}
+
+        detailsService.updateDetails([
+            DetailsUpdate(key: relationKey, value: optionId.protobufValue)
+        ])
     }
     
 }

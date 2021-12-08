@@ -41,4 +41,23 @@ extension RelationsService: RelationsServiceProtocol {
         .send()
     }
     
+    func addRelationOption(relationKey: String, optionText: String) -> String? {
+        let response = Anytype_Rpc.Object.RelationOptionAdd.Service.invoke(
+            contextID: objectId,
+            relationKey: relationKey,
+            option: Anytype_Model_Relation.Option(
+                id: "",
+                text: optionText,
+                color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
+                scope: .local
+            )
+        ).getValue()
+        
+        guard let response = response else { return nil }
+        
+        EventsBunch(event: response.event).send()
+        
+        return response.option.id
+    }
+    
 }

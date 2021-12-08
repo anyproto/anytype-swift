@@ -18,7 +18,7 @@ struct StatusRelationEditingView: View {
     private var statusesList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                if searchText.isNotEmpty {
+                if viewModel.statusSections.isEmpty {
                     createStatusButton
                 }
                 
@@ -35,7 +35,7 @@ struct StatusRelationEditingView: View {
     private var createStatusButton: some View {
         Group {
             Button {
-                debugPrint("")
+                viewModel.addOption(text: searchText)
             } label: {
                 HStack(spacing: 8) {
                     Image.Relations.createOption.frame(width: 24, height: 24)
@@ -79,7 +79,8 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
                 relationKey: "",
                 relationOptions: [],
                 selectedStatus: nil,
-                detailsService: DetailsService(objectId: "")
+                detailsService: DetailsService(objectId: ""),
+                relationsService: RelationsService(objectId: "")
             )
         )
     }
