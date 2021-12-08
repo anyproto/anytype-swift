@@ -8,12 +8,17 @@ protocol EditorBrowser: AnyObject {
     func showPage(data: EditorScreenData)
 }
 
-final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser {
+protocol EditorBrowserViewInputProtocol: AnyObject {
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
+}
+
+final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
     var router: EditorRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
+    private var navigationViewHeighConstaint: NSLayoutConstraint?
     
     private let stateManager = BrowserNavigationManager()
 
@@ -27,8 +32,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         view.addSubview(navigationView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
             $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
+            navigationViewHeighConstaint = $0.height.equal(to: 0)
+            navigationViewHeighConstaint?.isActive = false
         }
-        
+
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
             $0.pinToSuperview(excluding: [.bottom])
@@ -115,6 +122,18 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     func showPage(data: EditorScreenData) {
         router.showPage(data: data)
+    }
+
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
+        UIView.animate(
+            withDuration: animated ? 0.3 : 0,
+            delay: 0,
+            options: [.curveEaseIn]) { [weak self] in
+                self?.navigationViewHeighConstaint?.isActive = isHidden
+                self?.view.layoutIfNeeded()
+            } completion: { didComplete in
+
+            }
     }
     
     // MARK: - Unavailable
