@@ -11,7 +11,7 @@ class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker < Always
 
     def perform_work
       middlewareLibraryName = "Lib.xcframework"
-      filenames = [middlewareLibraryName ,Constans.PROTOBUF_DIRECTORY_NAME]
+      filenames = [middlewareLibraryName ,Constants.PROTOBUF_DIRECTORY_NAME]
 
       files = filenames.map { |x| File.join(temporaryDirectoryPath, x) }
       FileUtils.mv(files, targetDirectoryPath)
