@@ -4,7 +4,7 @@ require_relative '../workers_hub'
 class BasePipeline
   def self.work(version, options)
     puts "Lets fetch data from remote!"
-    information = GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
+    information = GetRemoteInformationWorker.new(options[:token]).work
     puts "I have gathered information!"
 
     puts "Now lets find our url to release!"

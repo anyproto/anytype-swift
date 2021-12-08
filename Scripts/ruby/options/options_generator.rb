@@ -46,7 +46,6 @@ class DefaultOptionsGenerator
 
       # repository options
       token: EnvironmentVariables.token || '',
-      repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
 
       # download file options
       downloadFilePath: "#{__dir__}../../../../lib.tar.gz",

@@ -16,12 +16,8 @@ class OptionsParser
       opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
       opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
 
-      # library file options
-      opts.on('--librarylockFilePath', '--librarylockFilePath PATH', 'Path to a lock file.') {|v| options[:librarylockFilePath] = v}
-
       # repository options
       opts.on('--token', '--token ENTRY', 'Token to access repository. It is private option.') {|v| options[:token] = v}
-      opts.on('--repositoryURL', '--repositoryURL URL', 'Repository URL') {|v| options[:repositoryURL] = v}
 
       # download file options
       opts.on('--downloadFilePath', '--downloadFilePath PATH', 'Path to temporary file which will be downlaoded') {|v| options[:downloadFilePath] = v}

@@ -2,13 +2,13 @@ require 'net/http'
 require 'json'
 
 require_relative '../core/valid_worker'
+require_relative '../../constants'
 
 # version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[] | select(.tag_name == \"$MIDDLEWARE_VERSION_BY_TAG_NAME\")"`
 class GetRemoteInformationWorker < AlwaysValidWorker
-  attr_accessor :token, :url
-  def initialize(token, url)
+  attr_accessor :token
+  def initialize(token)
     self.token = token
-    self.url = url
   end
   def is_valid?
     (self.token || '').empty? == false
@@ -26,7 +26,7 @@ class GetRemoteInformationWorker < AlwaysValidWorker
   end
   def perform_work
     # fetch curl -H "Authorization: token Token" -H "Accept: application/vnd.github.v3+json" -sL https://api.github.com/repos/anytypeio/go-anytype-middleware/releases
-    uri = URI(url)
+    uri = URI(Constans.REPOSITORY_URL)
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "token #{token}"
     request["Accept"] = "application/vnd.github.v3+json"
