@@ -8,7 +8,7 @@ class BasePipeline
     puts "I have gathered information!"
 
     puts "Now lets find our url to release!"
-    assetURL = GetRemoteAssetURLWorker.new(information, version, options[:iOSAssetMiddlewarePrefix]).work
+    assetURL = GetRemoteAssetURLWorker.new(information, version).work
     puts "Our URL is: #{assetURL}"
 
     downloadFilePath = options[:downloadFilePath]

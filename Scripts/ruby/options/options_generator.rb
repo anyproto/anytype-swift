@@ -49,7 +49,6 @@ class DefaultOptionsGenerator
 
       # download file options
       downloadFilePath: "#{__dir__}../../../../lib.tar.gz",
-      iOSAssetMiddlewarePrefix: "ios_framework_",
 
       # download archive structure options
       middlewareLibraryName: "Lib.xcframework",
