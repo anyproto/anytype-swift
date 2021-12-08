@@ -11,7 +11,7 @@ class UpdatePipeline < BasePipeline
     puts "Hey, you would like to install concrete version. #{version}"
     puts "Lets fetch data from remote!"
 
-    information = GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
+    information = GetRemoteInformationWorker.new(options[:token]).work
     versions = GetRemoteAvailableVersionsWorker.new(information).work
     if versions.include?(version)
       self.work(version, options)
@@ -36,7 +36,7 @@ class UpdatePipeline < BasePipeline
     end
 
     puts "Lets fetch data from remote!"
-    information = GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
+    information = GetRemoteInformationWorker.new(options[:token]).work
     versions = GetRemoteAvailableVersionsWorker.new(information).work
 
     version = SemanticCompareVersionsWorker.new(restrictions, versions).work
@@ -51,7 +51,7 @@ class UpdatePipeline < BasePipeline
   def self.install_without_restrictions(options)
     puts "Hey, you would like to install latest remote version!"
     puts "Lets fetch data from remote!"
-    information = GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
+    information = GetRemoteInformationWorker.new(options[:token]).work
     puts "I have gathered information!"
 
     version = GetRemoteVersionWorker.new(information).work

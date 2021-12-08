@@ -1,10 +1,10 @@
 require_relative '../core/valid_worker'
+require_relative '../../constants'
 
 class CopyProtobufFilesWorker < AlwaysValidWorker
-  attr_accessor :dependenciesDirectoryPath, :protobufDirectoryName, :targetDirectoryPath
-  def initialize(dependenciesDirectoryPath, protobufDirectoryName, targetDirectoryPath)
+  attr_accessor :dependenciesDirectoryPath, :targetDirectoryPath
+  def initialize(dependenciesDirectoryPath, targetDirectoryPath)
     self.dependenciesDirectoryPath = dependenciesDirectoryPath
-    self.protobufDirectoryName = protobufDirectoryName
     self.targetDirectoryPath = targetDirectoryPath
   end
   def protobuf_files
@@ -16,7 +16,7 @@ class CopyProtobufFilesWorker < AlwaysValidWorker
     ]
   end
   def perform_work
-    directory = File.join([self.dependenciesDirectoryPath, self.protobufDirectoryName])
+    directory = File.join([self.dependenciesDirectoryPath, Constants.PROTOBUF_DIRECTORY_NAME])
     files = protobuf_files.map{|v| File.join([directory, v])}
     target_directory = self.targetDirectoryPath
     FileUtils.mv(files, target_directory)

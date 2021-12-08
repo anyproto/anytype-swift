@@ -16,21 +16,8 @@ class OptionsParser
       opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
       opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
 
-      # library file options
-      opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
-      opts.on('--librarylockFilePath', '--librarylockFilePath PATH', 'Path to a lock file.') {|v| options[:librarylockFilePath] = v}
-
       # repository options
       opts.on('--token', '--token ENTRY', 'Token to access repository. It is private option.') {|v| options[:token] = v}
-      opts.on('--repositoryURL', '--repositoryURL URL', 'Repository URL') {|v| options[:repositoryURL] = v}
-
-      # download file options
-      opts.on('--downloadFilePath', '--downloadFilePath PATH', 'Path to temporary file which will be downlaoded') {|v| options[:downloadFilePath] = v}
-      opts.on('--iOSAssetMiddlewarePrefix', '--iOSAssetMiddlewarePrefix NAME', 'iOS asset middleware prefix') {|v| options[:iOSAssetMiddlewarePrefix] = v}
-
-      # download archive structure options
-      opts.on('--middlewareLibraryName', '--middlewareLibraryName NAME', 'iOS Middleware library name') {|v| options[:middlewareLibraryName] = v }
-      opts.on('--protobufDirectoryName', '--protobufDirectoryName NAME', 'Directory name which contains protobuf in downloadable directory') {|v| options[:protobufDirectoryName] = v}
 
       # target directory options
       opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to a dependencies directory') {|v| options[:dependenciesDirectoryPath] = v}
@@ -67,13 +54,6 @@ class OptionsParser
 
     3. Update command
     ruby #{$0} --update [Version] # fetch current version from remote.
-
-    This command also can check Libraryfile: Option --libraryFilePath.
-    - If file exists, it will read restrictions and find latest approriate version from remote.
-    - If file NOT exists, it will fetch latest version from remote.
-
-    ruby #{$0} --update --libraryFilePath ./Libraryfile # Gather restrictions from ./Libraryfile and fetch **appropriate** version from remote.
-    ruby #{$0} --update --libraryFilePath ./Abc # Fetch **latest** version from remote
 
     4. Environment Variables
 

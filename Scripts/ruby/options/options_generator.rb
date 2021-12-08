@@ -46,15 +46,9 @@ class DefaultOptionsGenerator
 
       # repository options
       token: EnvironmentVariables.token || '',
-      repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
 
       # download file options
       downloadFilePath: "#{__dir__}../../../../lib.tar.gz",
-      iOSAssetMiddlewarePrefix: "ios_framework_",
-
-      # download archive structure options
-      middlewareLibraryName: "Lib.xcframework",
-      protobufDirectoryName: "protobuf",
 
       # target directory options
       dependenciesDirectoryPath: "#{__dir__}../../../../Dependencies/Middleware",
