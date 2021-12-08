@@ -19,7 +19,6 @@ class OptionsParser
       # library file options
       opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
       opts.on('--librarylockFilePath', '--librarylockFilePath PATH', 'Path to a lock file.') {|v| options[:librarylockFilePath] = v}
-      opts.on('--librarylockFileVersionKey', '--librarylockFileVersionKey KEY', 'Key in a lock file that point to a version of current library') {|v| options[:librarylockFileVersionKey] = v}
 
       # repository options
       opts.on('--token', '--token ENTRY', 'Token to access repository. It is private option.') {|v| options[:token] = v}

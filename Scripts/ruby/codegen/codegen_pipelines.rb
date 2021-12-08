@@ -3,34 +3,34 @@ require_relative '../pipeline_starter'
 class ToolVersionPipeline < BasePipeline
   def self.start(options)
     if Dir.exists? options[:toolPath]
-      AnytypeSwiftCodegen::TravelerWorker.new(options[:toolPath]).work
+      TravelerWorker.new(options[:toolPath]).work
     end
     puts "Look at current version!"
-    puts AnytypeSwiftCodegen::ToolVersionWorker.new(options[:toolPath]).work
+    puts ToolVersionWorker.new(options[:toolPath]).work
   end
 end
 
 class ToolHelpPipeline < BasePipeline
   def self.start(options)
     puts "Look at help meesage from tool!"
-    puts AnytypeSwiftCodegen::ToolHelpWorker.new(options[:toolPath]).work
+    puts ToolHelpWorker.new(options[:toolPath]).work
   end
 end
 
 class ListTransformsPipeline < BasePipeline
   def self.start(options)
     if Dir.exists? options[:toolPath]
-      AnytypeSwiftCodegen::TravelerWorker.new(options[:toolPath]).work
+      TravelerWorker.new(options[:toolPath]).work
     end
     puts "Look at available trasnforms!"
-    puts AnytypeSwiftCodegen::ListTransformsWorker.new(options[:toolPath]).work
+    puts ListTransformsWorker.new(options[:toolPath]).work
   end
 end
 
 class ApplyTransformsPipeline < BasePipeline
   def self.start(options)
     if Dir.exists? options[:toolPath]
-      AnytypeSwiftCodegen::TravelerWorker.new(options[:toolPath]).work
+      TravelerWorker.new(options[:toolPath]).work
     end
 
     extracted_options_keys = [:filePath, :transform, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath, :serviceFilePath]
@@ -47,7 +47,7 @@ class ApplyTransformsPipeline < BasePipeline
     puts "sliced_options are: #{sliced_options}"
     puts "Lets go!"
 
-    AnytypeSwiftCodegen::ApplyTransformsWorker.new(options[:toolPath], sliced_options).work
+    ApplyTransformsWorker.new(options[:toolPath], sliced_options).work
     puts "Congratulations! You have just generated new protobuf files!"
   end
 end

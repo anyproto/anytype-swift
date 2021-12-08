@@ -8,7 +8,7 @@ class InstallPipeline < BasePipeline
       puts "I can't find library lock file at filepath #{librarylockFilePath} :("
     end
 
-    version = GetLockfileVersionWorker.new(options[:librarylockFilePath], options[:librarylockFileVersionKey]).work
+    version = GetLockfileVersionWorker.new(options[:librarylockFilePath]).work
 
     puts "We have version <#{version}> in a lock file!"
 
