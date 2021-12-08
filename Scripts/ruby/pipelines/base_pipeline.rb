@@ -31,10 +31,12 @@ class BasePipeline
     RemoveDirectoryWorker.new(downloadFilePath).work
     RemoveDirectoryWorker.new(temporaryDirectory).work
 
-    puts "Moving protobuf files from Dependencies to our project directory"
-    CopyProtobufFilesWorker.new(ourDirectory, options[:targetDirectoryPath]).work
+    if options[:runsOnCI] == false
+      puts "Moving protobuf files from Dependencies to our project directory"
+      CopyProtobufFilesWorker.new(ourDirectory, options[:targetDirectoryPath]).work
 
-    puts "Generate services from protobuf files"
-    RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
+      puts "Generate services from protobuf files"
+      RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
+    end
   end
 end
