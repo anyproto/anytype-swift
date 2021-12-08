@@ -3,11 +3,15 @@ import SwiftUI
 struct StatusRelationEditingView: View {
     
     @ObservedObject var viewModel: StatusRelationEditingViewModel
+    @State private var searchText = ""
     
     var body: some View {
         VStack(spacing: 0) {
+            SearchBar(text: $searchText, focused: false)
             statusesList
             Spacer.fixedHeight(20)
+        }
+        .onChange(of: searchText) { viewModel.filterStatusSections(text: $0)
         }
     }
     
