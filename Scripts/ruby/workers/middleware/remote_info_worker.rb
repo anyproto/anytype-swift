@@ -26,7 +26,7 @@ class GetRemoteInformationWorker < AlwaysValidWorker
   end
   def perform_work
     # fetch curl -H "Authorization: token Token" -H "Accept: application/vnd.github.v3+json" -sL https://api.github.com/repos/anytypeio/go-anytype-middleware/releases
-    uri = URI(Constants.REPOSITORY_URL)
+    uri = URI(Constants::REPOSITORY_URL)
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "token #{token}"
     request["Accept"] = "application/vnd.github.v3+json"

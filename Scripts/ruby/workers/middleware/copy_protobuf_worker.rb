@@ -16,7 +16,7 @@ class CopyProtobufFilesWorker < AlwaysValidWorker
     ]
   end
   def perform_work
-    directory = File.join([self.dependenciesDirectoryPath, Constants.PROTOBUF_DIRECTORY_NAME])
+    directory = File.join([self.dependenciesDirectoryPath, Constants::PROTOBUF_DIRECTORY_NAME])
     files = protobuf_files.map{|v| File.join([directory, v])}
     target_directory = self.targetDirectoryPath
     FileUtils.mv(files, target_directory)
