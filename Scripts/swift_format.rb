@@ -4,7 +4,6 @@ require 'pathname'
 require 'json'
 
 require_relative 'library/shell_executor'
-require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/pipelines'
 require_relative 'library/commands'
@@ -93,13 +92,13 @@ end
 module SwiftFormat::Pipeline
   class CompoundPipeline < BasePipeline
     def self.start(options)
-      say "Lets find your command in a list..."
+      puts "Lets find your command in a list..."
       case options[:command]
       when SwiftFormat::Configuration::Commands::FormatCommand then FormatPipeline.start(options)
       when SwiftFormat::Configuration::Commands::ToolVersionCommand then ToolVersionPipeline.start(options)
       when SwiftFormat::Configuration::Commands::ToolHelpCommand then ToolHelpPipeline.start(options)
       else
-        say "I don't recognize this command: #{options[:command]}"
+        puts "I don't recognize this command: #{options[:command]}"
         finalize
         return
       end

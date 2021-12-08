@@ -14,10 +14,4 @@ module Commands
       self.version = version
     end
   end
-
-  class ListCommand < BaseCommand
-  end
-
-  class CurrentVersionCommand < BaseCommand
-  end
 end

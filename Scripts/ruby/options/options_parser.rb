@@ -15,8 +15,6 @@ class OptionsParser
       # commands
       opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Commands::InstallCommand.new}
       opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Commands::UpdateCommand.new(v)}
-      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Commands::ListCommand.new}
-      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Commands::CurrentVersionCommand.new}
 
       # library file options
       opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}
@@ -65,14 +63,8 @@ class OptionsParser
     1. No parameters.
     ruby #{$0}
 
-    Run without parameters will active default configuration and script will install middleware from a lockfile.
-
-    DefaultConfiguration: #{JSON.pretty_generate(DefaultOptionsGenerator.defaultOptions)}
-
     2. Parameters
     ruby #{$0} --install # install middleware by gathering version from lockfile.
-    ruby #{$0} --list # list available versions from remote.
-    ruby #{$0} --current_version # print current version in lockfile.
 
     3. Update command
     ruby #{$0} --update [Version] # fetch current version from remote.
@@ -85,11 +77,6 @@ class OptionsParser
     ruby #{$0} --update --libraryFilePath ./Abc # Fetch **latest** version from remote
 
     4. Environment Variables
-    You could pass several arguments by environment.
-
-    ENV_VARIABLE="VALUE" ruby #{$0} --list
-
-    Available variables are
 
     #{EnvironmentVariables.variables_description}
 
