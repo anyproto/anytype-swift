@@ -1,47 +1,43 @@
 import SwiftUI
 
 struct SetTableView: View {
+    @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
-    var headerSize: CGSize
-    
-    @EnvironmentObject private var model: EditorSetViewModel
-    
+    var headerMinimizedSize: CGSize
+
     @State private var initialOffset = CGPoint.zero
-    
+
+    @EnvironmentObject private var model: EditorSetViewModel
+
     var body: some View {
-        GeometryReader { geo in
-            OffsetAwareScrollView(
-                axes: [.horizontal, .vertical],
-                showsIndicators: false,
-                offsetChanged: {
-                    offset.x = $0.x
-                    if -$0.y < (headerSize.height + 100) { offset.y = $0.y } // optimization
-                }
+        OffsetAwareScrollView(
+            axes: [.horizontal, .vertical],
+            showsIndicators: false,
+            offsetChanged: { offset = $0 }
+        ) {
+            SetFullHeader()
+                .offset(x: xOffset, y: 0)
+                .background(FrameCatcher { tableHeaderSize = $0.size })
+            LazyVStack(
+                alignment: .leading,
+                spacing: 0,
+                pinnedViews: [.sectionHeaders]
             ) {
-                ScrollViewReader { reader in
-                    VStack(spacing: 0) {
-                        Rectangle().foregroundColor(.clear).frame(height: headerSize.height)
-                            .id("fakeHeaderId")
-                        Divider()
-                        SetTableViewHeader()
-                        tableContent.onAppear {
-                            reader.scrollTo("fakeHeaderId", anchor: UnitPoint.zero)
-                        }
-                        Spacer()
-                    }
-                  .frame(minWidth: geo.size.width, minHeight: geo.size.height)
-            
+                Section(header: compoundHeader) {
+                    tableContent
                 }
             }
-        }
-        .onAppear {
-            DispatchQueue.main.async {
-                offset = CGPoint(x: offset.x, y: 0) // initial y offset is 0 for some reason
-                initialOffset = offset
+            .onAppear {
+                DispatchQueue.main.async {
+                    // initial y offset is 0 for some reason
+                    offset = CGPoint(x: offset.x, y: 0)
+                    initialOffset = offset
+                }
             }
+            .padding(.top, -headerMinimizedSize.height)
         }
     }
-    
+
     private var tableContent: some View {
         LazyVStack(alignment: .leading) {
             ForEach(model.rows) { row in
@@ -49,10 +45,32 @@ struct SetTableView: View {
             }
         }
     }
+
+    private var xOffset: CGFloat {
+        initialOffset.x >= offset.x ? initialOffset.x - offset.x : 0
+    }
+
+    private var compoundHeader: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(headerMinimizedSize.height)
+            Group {
+                SetHeaderSettings()
+                    .offset(x: xOffset, y: 0)
+                    .environmentObject(model)
+                SetTableViewHeader()
+            }
+            .background(Color.background)
+        }
+    }
 }
+
 
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {
-        SetTableView(offset: .constant(.zero), headerSize: .zero)
+        SetTableView(
+            tableHeaderSize: .constant(.zero),
+            offset: .constant(.zero),
+            headerMinimizedSize: .zero
+        )
     }
 }

@@ -2,14 +2,23 @@ import SwiftUI
 
 struct EditorSetView: View {
     @ObservedObject var model: EditorSetViewModel
-    
+
+    @State private var headerMinimizedSize = CGSize.zero
+    @State private var tableHeaderSize = CGSize.zero
     @State private var offset = CGPoint.zero
-    @State private var headerSize = CGSize.zero
-    
+
     var body: some View {
         ZStack {
-            SetTableView(offset: $offset, headerSize: headerSize)
-            SetHeader(headerSize: $headerSize, offset: offset)
+            SetTableView(
+                tableHeaderSize: $tableHeaderSize,
+                offset: $offset,
+                headerMinimizedSize: headerMinimizedSize
+            )
+            SetMinimizedHeader(
+                headerSize: tableHeaderSize,
+                tableViewOffset: offset,
+                headerMinimizedSize: $headerMinimizedSize
+            )
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
