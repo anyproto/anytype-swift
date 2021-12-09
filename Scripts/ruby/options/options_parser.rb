@@ -1,6 +1,6 @@
 require 'optparse'
 
-require_relative 'options_generator'
+require_relative 'default_options'
 require_relative '../library/environment'
 
 class OptionsParser
@@ -28,7 +28,7 @@ class OptionsParser
       opts.on('--swiftAutocodegenScript', '--swiftAutocodegenScript PATH', 'Path to codegen script') {|v| options[:swiftAutocodegenScript] = v}
 
     end.parse!(arguments)
-    DefaultOptionsGenerator.populate(arguments, options)
+    DefaultOptions.options.merge options
   end
 
   private_class_method def self.help_message(options)
