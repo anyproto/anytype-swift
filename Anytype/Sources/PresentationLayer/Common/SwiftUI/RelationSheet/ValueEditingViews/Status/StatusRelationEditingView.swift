@@ -11,8 +11,8 @@ struct StatusRelationEditingView: View {
             statusesList
             Spacer.fixedHeight(20)
         }
-        .onChange(of: searchText) { viewModel.filterStatusSections(text: $0)
-        }
+        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
+        .onChange(of: searchText) { viewModel.filterStatusSections(text: $0) }
     }
     
     private var statusesList: some View {
@@ -77,6 +77,7 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
         StatusRelationEditingView(
             viewModel: StatusRelationEditingViewModel(
                 relationKey: "",
+                relationName: "",
                 relationOptions: [],
                 selectedStatus: nil,
                 detailsService: DetailsService(objectId: ""),

@@ -9,6 +9,7 @@ struct TextRelationEditingView: View {
         textEditingView
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
+            .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
     }
     
     private var textEditingView: some View {
@@ -93,12 +94,10 @@ struct RelationTextValueEditingView_Previews: PreviewProvider {
     static var previews: some View {
         TextRelationEditingView(
             viewModel: TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: "",
-                    valueType: .phone
-                ),
-                key: "",
-                value: nil,
+                relationKey: "key",
+                relationName: "name",
+                relationValue: "value",
+                service: TextRelationEditingService(objectId: "", valueType: .phone),
                 delegate: nil
             )
         )

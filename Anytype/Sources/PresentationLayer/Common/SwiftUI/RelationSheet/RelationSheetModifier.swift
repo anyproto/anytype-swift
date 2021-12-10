@@ -5,7 +5,7 @@ struct RelationSheetModifier: ViewModifier {
     @Binding var isPresented: Bool
     
     let title: String?
-    let dismissCallback: () -> ()
+    let dismissCallback: (() -> ())?
     
     @State private var backgroundOpacity = 0.0
     @State private var sheetHeight = 0.0
@@ -29,7 +29,7 @@ struct RelationSheetModifier: ViewModifier {
         .onChange(of: isPresented) { newValue in
             guard newValue == false else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                dismissCallback()
+                dismissCallback?()
             }
         }
     }

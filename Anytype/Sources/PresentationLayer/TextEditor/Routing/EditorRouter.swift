@@ -263,22 +263,15 @@ final class EditorRouter: EditorRouterProtocol {
         guard let viewController = viewController else { return }
         
         let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation, metadata: metadata)
-        guard let contentViewModel = contentViewModel else { return }
+        guard var contentViewModel = contentViewModel else { return }
         
-        let sheetViewModel = RelationSheetViewModel(
-            name: relation.name,
-            contentViewModel: contentViewModel
-        )
-        
-        let relationSheet = RelationSheet(viewModel: sheetViewModel)
-        
-        let controller = UIHostingController(rootView: relationSheet)
+        let controller = UIHostingController(rootView: contentViewModel.makeView())
         controller.modalPresentationStyle = .overCurrentContext
         
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
         
-        sheetViewModel.configureOnDismiss { [weak controller] in
+        contentViewModel.onDismiss = { [weak controller] in
             controller?.dismiss(animated: false)
         }
         

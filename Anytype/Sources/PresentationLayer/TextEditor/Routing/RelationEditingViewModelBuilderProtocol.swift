@@ -7,6 +7,6 @@ protocol RelationEditingViewModelBuilderProtocol {
         objectId: BlockId,
         relation: Relation,
         metadata: RelationMetadata?
-    ) -> RelationEditingViewModelProtocol?
+    ) -> RelationEditingViewModelProtocol2?
     
 }

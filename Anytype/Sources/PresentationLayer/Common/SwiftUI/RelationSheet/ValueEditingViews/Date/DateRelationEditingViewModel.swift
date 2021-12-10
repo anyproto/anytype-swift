@@ -4,25 +4,35 @@ import SwiftProtobuf
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    let values: [DateRelationEditingValue] = DateRelationEditingValue.allCases
+    var onDismiss: (() -> Void)?
     
+    @Published var isPresented: Bool = false
     @Published var selectedValue: DateRelationEditingValue = .noDate
     @Published var date: Date
     
+    let values = DateRelationEditingValue.allCases
+    
+    let relationName: String
+    private let relationKey: String
     private let service: DetailsServiceProtocol
-    private let key: String
     
     init(
-        service: DetailsServiceProtocol,
-        key: String,
-        value: DateRelationValue?
+        relationKey: String,
+        relationName: String,
+        value: DateRelationValue?,
+        service: DetailsServiceProtocol
     ) {
-        self.service = service
-        self.key = key
+        self.relationKey = relationKey
+        self.relationName = relationName
         self.date = value?.date ?? Date()
+        self.service = service
         
         handleInitialValue(value)
     }
+    
+}
+
+extension DateRelationEditingViewModel: RelationEditingViewModelProtocol2 {
     
 }
 
@@ -48,7 +58,7 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
             }
         }()
         
-        service.updateDetails([ DetailsUpdate(key: key, value: value) ])
+        service.updateDetails([ DetailsUpdate(key: relationKey, value: value) ])
     }
     
     func makeView() -> AnyView {
