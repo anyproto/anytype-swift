@@ -1,5 +1,6 @@
 require 'tmpdir'
 require_relative '../workers_hub'
+require_relative '../constants'
 
 class BasePipeline
   def self.work(version, options)
@@ -11,16 +12,16 @@ class BasePipeline
     assetURL = GetRemoteAssetURLWorker.new(information, version).work
     puts "Our URL is: #{assetURL}"
 
-    downloadFilePath = options[:downloadFilePath]
+    downloadFilePath = Constants::downloadFilePath
     puts "Start downloading library to #{downloadFilePath}"
-    DownloadFileAtURLWorker.new(options[:token], assetURL, options[:downloadFilePath]).work
+    DownloadFileAtURLWorker.new(options[:token], assetURL, downloadFilePath).work
     puts "Library is downloaded at #{downloadFilePath}"
 
     temporaryDirectory = Dir.mktmpdir
     puts "Start uncompressing to directory #{temporaryDirectory}"
     UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
 
-    ourDirectory = options[:dependenciesDirectoryPath]
+    ourDirectory = Constants::dependenciesDirectoryPath
     puts "Cleaning up Dependencies directory #{ourDirectory}"
     CleanupDependenciesDirectoryWorker.new(ourDirectory).work
 
@@ -33,7 +34,7 @@ class BasePipeline
 
     if options[:runsOnCI] == false
       puts "Moving protobuf files from Dependencies to our project directory"
-      CopyProtobufFilesWorker.new(ourDirectory, options[:targetDirectoryPath]).work
+      CopyProtobufFilesWorker.new(ourDirectory).work
 
       puts "Generate services from protobuf files"
       codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")

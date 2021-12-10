@@ -1,10 +1,10 @@
 require_relative 'base_pipeline'
+require_relative '../constants'
 
 class UpdatePipeline < BasePipeline
   def self.store_version(version, options)
     puts "Saving version <#{version}> to library lock file."
-    librarylockFilePath = options[:librarylockFilePath]
-    SetLockfileVersionWorker.new(librarylockFilePath, version).work
+    SetLockfileVersionWorker.new(version).work
   end
   def self.install_with_version(options)
     version = options[:command].version
@@ -26,12 +26,12 @@ class UpdatePipeline < BasePipeline
     puts "Lets gather restrictions!"
 
     # well, we could use another key, but keep it like in lock file.
-    restrictions = GetLibraryfileVersionWorker.new(options[:libraryFilePath]).work
+    restrictions = GetLibraryfileVersionWorker.new().work
 
     puts "I have restrictions: #{restrictions}"
 
     unless restrictions
-      puts "Restrctions are not valid at #{options[:libraryFilePath]}"
+      puts "Restrctions are not valid at #{Constants::libraryFilePath}"
       return
     end
 
@@ -68,7 +68,7 @@ class UpdatePipeline < BasePipeline
       return
     end
 
-    libraryFilePath = options[:libraryFilePath]
+    libraryFilePath = Constants::libraryFilePath
     unless File.exists? libraryFilePath
       puts "I can't find library file at filepath #{libraryFilePath}."
       # so, we have to install any version, right?
