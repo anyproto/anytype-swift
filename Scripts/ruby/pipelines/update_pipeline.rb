@@ -17,10 +17,6 @@ class UpdatePipeline < BasePipeline
     end
   end
 
-  private_class_method def self.store_version(version, options)
-    puts "Saving version <#{version}> to library lock file."
-    SetLockfileVersionWorker.new(version).work
-  end
   def self.install_with_version(options)
     version = options[:command].version
     puts "Hey, you would like to install concrete version. #{version}"
@@ -30,7 +26,6 @@ class UpdatePipeline < BasePipeline
     versions = GetRemoteAvailableVersionsWorker.new(information).work
     if versions.include?(version)
       self.work(version, options)
-      self.store_version(version, options)
     else 
       puts "I can't find version #{version}"
       puts "versions are: #{versions}"
@@ -58,7 +53,6 @@ class UpdatePipeline < BasePipeline
     if version
       puts "I choose version: #{version}"
       self.work(version, options)
-      self.store_version(version, options)
     else
       puts "I can't find appropriate version: #{version}"
     end
@@ -73,6 +67,5 @@ class UpdatePipeline < BasePipeline
 
     puts "We have fresh version <#{version}> in remote!"
     self.work(version, options)
-    self.store_version(version, options)
   end
 end
