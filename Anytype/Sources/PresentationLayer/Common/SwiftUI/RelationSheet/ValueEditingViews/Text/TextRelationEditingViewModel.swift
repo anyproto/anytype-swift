@@ -56,10 +56,6 @@ final class TextRelationEditingViewModel: ObservableObject {
     
 }
 
-extension TextRelationEditingViewModel: RelationEditingViewModelProtocol2 {
-    
-}
-
 extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func viewWillDisappear() {

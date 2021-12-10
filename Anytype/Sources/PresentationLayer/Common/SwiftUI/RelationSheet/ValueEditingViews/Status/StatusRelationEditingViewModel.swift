@@ -63,7 +63,6 @@ extension StatusRelationEditingViewModel {
     
 }
 
-extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol2 {}
 extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func viewWillDisappear() {}

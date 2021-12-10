@@ -32,10 +32,6 @@ final class DateRelationEditingViewModel: ObservableObject {
     
 }
 
-extension DateRelationEditingViewModel: RelationEditingViewModelProtocol2 {
-    
-}
-
 extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func viewWillDisappear() {
