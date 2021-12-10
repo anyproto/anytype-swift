@@ -36,7 +36,8 @@ class BasePipeline
       CopyProtobufFilesWorker.new(ourDirectory, options[:targetDirectoryPath]).work
 
       puts "Generate services from protobuf files"
-      RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
+      codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")
+      "ruby #{codegen_runner}"
     end
   end
 end

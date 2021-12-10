@@ -14,8 +14,7 @@ class DefaultOptions
       librarylockFilePath: File.expand_path("#{__dir__}../../../../Libraryfile.lock"),
       downloadFilePath: File.expand_path("#{__dir__}../../../../lib.tar.gz"),
       dependenciesDirectoryPath: File.expand_path("#{__dir__}../../../../Dependencies/Middleware"),
-      targetDirectoryPath: File.expand_path("#{__dir__}../../../../Modules/ProtobufMessages/Sources/"),
-      swiftAutocodegenScript: File.expand_path("#{__dir__}../../../ruby/codegen/anytype_swift_codegen_runner.rb")
+      targetDirectoryPath: File.expand_path("#{__dir__}../../../../Modules/ProtobufMessages/Sources/")
     }
   end
 end
