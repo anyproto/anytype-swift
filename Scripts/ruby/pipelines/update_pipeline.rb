@@ -2,7 +2,22 @@ require_relative 'base_pipeline'
 require_relative '../constants'
 
 class UpdatePipeline < BasePipeline
-  def self.store_version(version, options)
+  def self.start(options)
+    if options[:command].version
+      self.install_with_version(options)
+      return
+    end
+
+    libraryFilePath = Constants::LIBRARY_FILE_PATH
+    unless File.exists? libraryFilePath
+      puts "I can't find library file at #{libraryFilePath}."
+      self.install_without_restrictions(options)
+    else
+      self.install_with_restrictions(options)
+    end
+  end
+
+  private_class_method def self.store_version(version, options)
     puts "Saving version <#{version}> to library lock file."
     SetLockfileVersionWorker.new(version).work
   end
@@ -59,22 +74,5 @@ class UpdatePipeline < BasePipeline
     puts "We have fresh version <#{version}> in remote!"
     self.work(version, options)
     self.store_version(version, options)
-  end
-  def self.start(options)
-    puts "Hey! You would like to update something, ok!"
-
-    if options[:command].version
-      self.install_with_version(options)
-      return
-    end
-
-    libraryFilePath = Constants::LIBRARY_FILE_PATH
-    unless File.exists? libraryFilePath
-      puts "I can't find library file at filepath #{libraryFilePath}."
-      # so, we have to install any version, right?
-      self.install_without_restrictions(options)
-    else
-      self.install_with_restrictions(options)
-    end
   end
 end
