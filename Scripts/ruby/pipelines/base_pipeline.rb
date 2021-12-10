@@ -4,28 +4,24 @@ require_relative '../constants'
 
 class BasePipeline
   def self.work(version, options)
-    puts "Lets fetch data from remote!"
+    puts "Fetching data"
     information = GetRemoteInformationWorker.new(options[:token]).work
-    puts "I have gathered information!"
-
-    puts "Now lets find our url to release!"
     assetURL = GetRemoteAssetURLWorker.new(information, version).work
-    puts "Our URL is: #{assetURL}"
+    puts "Archive URL is: #{assetURL}"
 
     downloadFilePath = Constants::DOWNLOAD_FILE_PATH
-    puts "Start downloading library to #{downloadFilePath}"
     DownloadFileAtURLWorker.new(options[:token], assetURL, downloadFilePath).work
     puts "Library is downloaded at #{downloadFilePath}"
 
     temporaryDirectory = Dir.mktmpdir
-    puts "Start uncompressing to directory #{temporaryDirectory}"
     UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
+    puts "Librart unarchived to directory #{temporaryDirectory}"
 
     ourDirectory = Constants::DEPENDENCIES_DIR_PATH
-    puts "Cleaning up Dependencies directory #{ourDirectory}"
+    puts "Cleaning up dependencies directory #{ourDirectory}"
     CleanupDependenciesDirectoryWorker.new(ourDirectory).work
 
-    puts "Moving files from temporaryDirectory #{temporaryDirectory} to ourDirectory: #{ourDirectory}"
+    puts "Moving files from  #{temporaryDirectory} to #{ourDirectory}"
     CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, ourDirectory).work
 
     puts "Cleaning up Downloaded files"
