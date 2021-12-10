@@ -78,7 +78,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 relationKey: relation.id,
                 relationOptions: metadata.selections,
                 selectedStatus: status,
-                detailsService: DetailsService(objectId: objectId)
+                detailsService: DetailsService(objectId: objectId),
+                relationsService: RelationsService(objectId: objectId)
             )
         default:
             return nil
