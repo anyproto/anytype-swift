@@ -18,6 +18,10 @@ struct StatusRelationEditingView: View {
     private var statusesList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
+                if searchText.isNotEmpty {
+                    createStatusButton
+                }
+                
                 ForEach(viewModel.statusSections) { section in
                     Section(header: sectionHeader(title: section.title)) {
                         ForEach(section.statuses) { statusRow($0) }
@@ -26,6 +30,23 @@ struct StatusRelationEditingView: View {
             }
             .padding(.horizontal, 20)
         }
+    }
+    
+    private var createStatusButton: some View {
+        Group {
+            Button {
+                debugPrint("")
+            } label: {
+                HStack(spacing: 8) {
+                    Image.Relations.createOption.frame(width: 24, height: 24)
+                    AnytypeText("\("Create option".localized) \"\(searchText)\"", style: .uxBodyRegular, color: .textSecondary)
+                        .lineLimit(1)
+                    Spacer()
+                }
+                .padding(.vertical, 14)
+            }
+        }
+        .modifier(DividerModifier(spacing: 0))
     }
     
     private func sectionHeader(title: String) -> some View {

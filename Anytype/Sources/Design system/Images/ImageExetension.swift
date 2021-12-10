@@ -84,6 +84,8 @@ extension Image {
         static let removeFromFeatured = createImage("relation_remove_from_featured")
         static let locked = createImage("relation_locked")
         
+        static let createOption = createImage(ImageName.slashMenu.relations.addRelation)
+        
         enum Icons {
             enum Small {
                 static let phone = createImage("relation_small_phone_icon")
