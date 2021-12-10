@@ -131,8 +131,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             options: [.curveEaseIn]) { [weak self] in
                 self?.navigationViewHeighConstaint?.isActive = isHidden
                 self?.view.layoutIfNeeded()
-            } completion: { didComplete in
-
+            } completion: { [weak self] didComplete in
+                self?.navigationView.isHidden = isHidden
             }
     }
     
