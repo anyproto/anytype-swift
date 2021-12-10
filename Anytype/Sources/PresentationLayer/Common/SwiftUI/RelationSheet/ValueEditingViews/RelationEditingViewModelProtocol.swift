@@ -3,10 +3,9 @@ import SwiftUI
 
 protocol RelationEditingViewModelProtocol {
     
-    func saveValue()
-    
+    var onDismiss: (() -> Void)? { get set }
+        
     @ViewBuilder
     func makeView() -> AnyView
-    func viewWillDisappear()
     
 }

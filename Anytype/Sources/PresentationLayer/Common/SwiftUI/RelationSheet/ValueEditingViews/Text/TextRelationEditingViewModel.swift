@@ -4,6 +4,8 @@ import SwiftUI
 
 final class TextRelationEditingViewModel: ObservableObject {
     
+    @Published var isPresented: Bool = false
+    
     @Published var value: String = "" {
         didSet {
             updateActionButtonState()
@@ -12,23 +14,31 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     @Published var isActionButtonEnabled: Bool = false
     
+    var onDismiss: (() -> Void)?
+    
     let valueType: TextRelationValueType
     
-    private let service: TextRelationEditingServiceProtocol
-    private let key: String
+    let relationName: String
     
+    private let relationKey: String
+
+    private let service: TextRelationEditingServiceProtocol
     private weak var delegate: TextRelationEditingViewModelDelegate?
     
     init(
+        relationKey: String,
+        relationName: String,
+        relationValue: String?,
         service: TextRelationEditingServiceProtocol,
-        key: String,
-        value: String?,
         delegate: TextRelationEditingViewModelDelegate?
     ) {
+        self.relationKey = relationKey
+        self.relationName = relationName
+        self.value = relationValue ?? ""
+        
         self.service = service
-        self.key = key
-        self.value = value ?? ""
         self.valueType = service.valueType
+        
         self.delegate = delegate
         
         updateActionButtonState()
@@ -53,7 +63,7 @@ extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     }
     
     func saveValue() {
-        service.save(value: value, forKey: key)
+        service.save(value: value, forKey: relationKey)
     }
     
     func makeView() -> AnyView {

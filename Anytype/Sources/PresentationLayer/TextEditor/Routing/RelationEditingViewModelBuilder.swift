@@ -16,66 +16,57 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         switch relation.value {
         case .text(let string):
             return TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: objectId,
-                    valueType: .text
-                ),
-                key: relation.id,
-                value: string,
+                relationKey: relation.id,
+                relationName: relation.name,
+                relationValue: string,
+                service: TextRelationEditingService(objectId: objectId, valueType: .text),
                 delegate: delegate
             )
         case .number(let string):
             return TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: objectId,
-                    valueType: .number
-                ),
-                key: relation.id,
-                value: string,
+                relationKey: relation.id,
+                relationName: relation.name,
+                relationValue: string,
+                service: TextRelationEditingService(objectId: objectId, valueType: .number),
                 delegate: delegate
             )
         case .phone(let string):
             return TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: objectId,
-                    valueType: .phone
-                ),
-                key: relation.id,
-                value: string,
+                relationKey: relation.id,
+                relationName: relation.name,
+                relationValue: string,
+                service: TextRelationEditingService(objectId: objectId, valueType: .phone),
                 delegate: delegate
             )
         case .email(let string):
             return TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: objectId,
-                    valueType: .email
-                ),
-                key: relation.id,
-                value: string,
+                relationKey: relation.id,
+                relationName: relation.name,
+                relationValue: string,
+                service: TextRelationEditingService(objectId: objectId, valueType: .email),
                 delegate: delegate
             )
         case .url(let string):
             return TextRelationEditingViewModel(
-                service: TextRelationEditingService(
-                    objectId: objectId,
-                    valueType: .url
-                ),
-                key: relation.id,
-                value: string,
+                relationKey: relation.id,
+                relationName: relation.name,
+                relationValue: string,
+                service: TextRelationEditingService(objectId: objectId, valueType: .url),
                 delegate: delegate
             )
         case .date(let value):
             return DateRelationEditingViewModel(
-                service: DetailsService(objectId: objectId),
-                key: relation.id,
-                value: value
+                relationKey: relation.id,
+                relationName: relation.name,
+                value: value,
+                service: DetailsService(objectId: objectId)
             )
-            
         case .status(let status):
             guard let metadata = metadata else { return nil }
             
             return StatusRelationEditingViewModel(
                 relationKey: relation.id,
+                relationName: relation.name,
                 relationOptions: metadata.selections,
                 selectedStatus: status,
                 detailsService: DetailsService(objectId: objectId),

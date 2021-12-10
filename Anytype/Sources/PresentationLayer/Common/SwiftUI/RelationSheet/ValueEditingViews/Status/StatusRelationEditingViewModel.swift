@@ -4,8 +4,13 @@ import BlocksModels
 
 final class StatusRelationEditingViewModel: ObservableObject {
 
+    var onDismiss: (() -> Void)?
+    
+    @Published var isPresented: Bool = false
     @Published var selectedStatus: RelationValue.Status?
     @Published var statusSections: [RelationValueStatusSection]
+    
+    let relationName: String
     
     private let relationOptions: [RelationMetadata.Option]
     private let relationKey: String
@@ -14,13 +19,15 @@ final class StatusRelationEditingViewModel: ObservableObject {
     
     init(
         relationKey: String,
+        relationName: String,
         relationOptions: [RelationMetadata.Option],
         selectedStatus: RelationValue.Status?,
         detailsService: DetailsServiceProtocol,
         relationsService: RelationsServiceProtocol
     ) {
-        self.relationOptions = relationOptions
         self.relationKey = relationKey
+        self.relationName = relationName
+        self.relationOptions = relationOptions
         self.statusSections = RelationValueStatusSectionBuilder.sections(
             from: relationOptions,
             filterText: nil
@@ -48,6 +55,10 @@ extension StatusRelationEditingViewModel {
         detailsService.updateDetails([
             DetailsUpdate(key: relationKey, value: optionId.protobufValue)
         ])
+        
+        withAnimation {
+            isPresented = false
+        }
     }
     
 }
