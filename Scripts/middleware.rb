@@ -1,5 +1,5 @@
 require_relative 'ruby/workers_hub'
-require_relative 'ruby/options/options_parser'
+require_relative 'ruby/options'
 require_relative 'ruby/pipeline_starter'
 
 class Main
