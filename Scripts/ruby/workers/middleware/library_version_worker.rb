@@ -1,3 +1,5 @@
+require 'yaml'
+
 require_relative '../core/valid_worker'
 require_relative '../../library/semantic_versioning'
 require_relative '../../constants'
