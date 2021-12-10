@@ -15,6 +15,7 @@ public enum FileContentType: Hashable {
         case .audio: self = .audio
         case .none: self = .none
         case .UNRECOGNIZED: return nil
+        case .pdf: self = .file
         }
     }
     
