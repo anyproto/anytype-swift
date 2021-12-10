@@ -10,31 +10,34 @@ struct SetTableView: View {
     @EnvironmentObject private var model: EditorSetViewModel
 
     var body: some View {
-        OffsetAwareScrollView(
-            axes: [.horizontal, .vertical],
-            showsIndicators: false,
-            offsetChanged: { offset = $0 }
-        ) {
-            SetFullHeader()
-                .offset(x: xOffset, y: 0)
-                .background(FrameCatcher { tableHeaderSize = $0.size })
-            LazyVStack(
-                alignment: .leading,
-                spacing: 0,
-                pinnedViews: [.sectionHeaders]
+        SingleAxisGeometryReader { fullWidth in
+            OffsetAwareScrollView(
+                axes: [.horizontal, .vertical],
+                showsIndicators: false,
+                offsetChanged: { offset = $0 }
             ) {
-                Section(header: compoundHeader) {
-                    tableContent
+                SetFullHeader()
+                    .offset(x: xOffset, y: 0)
+                    .background(FrameCatcher { tableHeaderSize = $0.size })
+                LazyVStack(
+                    alignment: .leading,
+                    spacing: 0,
+                    pinnedViews: [.sectionHeaders]
+                ) {
+                    Section(header: compoundHeader) {
+                        tableContent
+                    }
                 }
-            }
-            .onAppear {
-                DispatchQueue.main.async {
-                    // initial y offset is 0 for some reason
-                    offset = CGPoint(x: offset.x, y: 0)
-                    initialOffset = offset
+                .frame(minWidth: fullWidth)
+                .onAppear {
+                    DispatchQueue.main.async {
+                        // initial y offset is 0 for some reason
+                        offset = CGPoint(x: offset.x, y: 0)
+                        initialOffset = offset
+                    }
                 }
+                .padding(.top, -headerMinimizedSize.height)
             }
-            .padding(.top, -headerMinimizedSize.height)
         }
     }
 
@@ -74,3 +77,4 @@ struct SetTableView_Previews: PreviewProvider {
         )
     }
 }
+
