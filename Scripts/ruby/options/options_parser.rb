@@ -1,6 +1,6 @@
 require 'optparse'
 
-require_relative 'options_generator'
+require_relative 'default_options'
 require_relative '../library/environment'
 
 class OptionsParser
@@ -20,15 +20,8 @@ class OptionsParser
       # repository options
       opts.on('--token', '--token ENTRY', 'Token to access repository. It is private option.') {|v| options[:token] = v}
 
-      # target directory options
-      opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to a dependencies directory') {|v| options[:dependenciesDirectoryPath] = v}
-      opts.on('--targetDirectoryPath', '--targetDirectoryPath PATH', 'Path to target directory') {|v| options[:targetDirectoryPath] = v}
-
-      # swift codegen script
-      opts.on('--swiftAutocodegenScript', '--swiftAutocodegenScript PATH', 'Path to codegen script') {|v| options[:swiftAutocodegenScript] = v}
-
     end.parse!(arguments)
-    DefaultOptionsGenerator.populate(arguments, options)
+    DefaultOptions.options.merge options
   end
 
   private_class_method def self.help_message(options)
