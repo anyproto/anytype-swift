@@ -266,6 +266,7 @@
 		12B0FF79274FDB3700CA35FE /* art@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF75274FDB3700CA35FE /* art@2x.png */; };
 		12B0FF7A274FDB3700CA35FE /* oldSchool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */; };
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
+		12BA839227633B2E002B6E16 /* RelationSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BA839127633B2E002B6E16 /* RelationSheetModifier.swift */; };
 		12C2A5602754E13000311854 /* DateRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A55F2754E13000311854 /* DateRelationEditingView.swift */; };
 		12C2A5652754E13D00311854 /* DateRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5642754E13D00311854 /* DateRelationEditingViewModel.swift */; };
 		12C2A5672754E1C400311854 /* DateRelationEditingValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */; };
@@ -1095,6 +1096,7 @@
 		12B0FF75274FDB3700CA35FE /* art@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@2x.png"; sourceTree = "<group>"; };
 		12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x.png"; sourceTree = "<group>"; };
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
+		12BA839127633B2E002B6E16 /* RelationSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSheetModifier.swift; sourceTree = "<group>"; };
 		12C2A55F2754E13000311854 /* DateRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingView.swift; sourceTree = "<group>"; };
 		12C2A5642754E13D00311854 /* DateRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingViewModel.swift; sourceTree = "<group>"; };
 		12C2A5662754E1C400311854 /* DateRelationEditingValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationEditingValue.swift; sourceTree = "<group>"; };
@@ -2793,6 +2795,7 @@
 				12887F3C274BC20200228330 /* ValueEditingViews */,
 				1231E8B727467A2400C1784F /* RelationSheet.swift */,
 				1217D699274B74DA002A633F /* RelationSheetViewModel.swift */,
+				12BA839127633B2E002B6E16 /* RelationSheetModifier.swift */,
 			);
 			path = RelationSheet;
 			sourceTree = "<group>";
@@ -5282,6 +5285,7 @@
 				3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */,
 				3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
+				12BA839227633B2E002B6E16 /* RelationSheetModifier.swift in Sources */,
 				3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */,
 				125B6EC326F235F400BCD7D6 /* CursorModeAccessoryView.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
