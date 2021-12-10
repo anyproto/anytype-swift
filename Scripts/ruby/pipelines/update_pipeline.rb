@@ -31,7 +31,7 @@ class UpdatePipeline < BasePipeline
     puts "I have restrictions: #{restrictions}"
 
     unless restrictions
-      puts "Restrctions are not valid at #{Constants::libraryFilePath}"
+      puts "Restrctions are not valid at #{Constants::LIBRARY_FILE_PATH}"
       return
     end
 
@@ -68,7 +68,7 @@ class UpdatePipeline < BasePipeline
       return
     end
 
-    libraryFilePath = Constants::libraryFilePath
+    libraryFilePath = Constants::LIBRARY_FILE_PATH
     unless File.exists? libraryFilePath
       puts "I can't find library file at filepath #{libraryFilePath}."
       # so, we have to install any version, right?

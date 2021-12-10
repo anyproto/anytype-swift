@@ -12,7 +12,7 @@ class BasePipeline
     assetURL = GetRemoteAssetURLWorker.new(information, version).work
     puts "Our URL is: #{assetURL}"
 
-    downloadFilePath = Constants::downloadFilePath
+    downloadFilePath = Constants::DOWNLOAD_FILE_PATH
     puts "Start downloading library to #{downloadFilePath}"
     DownloadFileAtURLWorker.new(options[:token], assetURL, downloadFilePath).work
     puts "Library is downloaded at #{downloadFilePath}"
@@ -21,7 +21,7 @@ class BasePipeline
     puts "Start uncompressing to directory #{temporaryDirectory}"
     UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
 
-    ourDirectory = Constants::dependenciesDirectoryPath
+    ourDirectory = Constants::DEPENDENCIES_DIR_PATH
     puts "Cleaning up Dependencies directory #{ourDirectory}"
     CleanupDependenciesDirectoryWorker.new(ourDirectory).work
 

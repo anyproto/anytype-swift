@@ -9,7 +9,7 @@ class SetLockfileVersionWorker < AlwaysValidWorker
   end
 
   def perform_work
-    filePath = Constants::librarylockFilePath
+    filePath = Constants::LIBRARY_LOCK_FILE_PATH
     result = { Constants::LOCKFILE_VERSION_KEY => value}.to_yaml
     result = result.gsub(/^---\s+/, '')
     File.open(filePath, 'w') do |file_handler|

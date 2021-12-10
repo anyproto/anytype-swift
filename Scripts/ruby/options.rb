@@ -3,8 +3,8 @@ require 'optparse'
 require_relative 'library/environment'
 require_relative 'commands'
 
-class OptionsParser
-  def self.parse_options(args)
+class Options
+  def self.parsed(args)
     default_options.merge options_from_args(args)
   end
 
@@ -21,6 +21,8 @@ class OptionsParser
       opts.on('--on-ci', 'Run on CI') { |v| options[:runsOnCI] = true }
 
     end.parse!(args)
+
+    return options
   end
 
   private_class_method def self.default_options

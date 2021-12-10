@@ -6,15 +6,16 @@ require_relative '../constants'
 
 class InstallPipeline < BasePipeline
   def self.start(options)
-    librarylockFilePath = Constants::librarylockFilePath
+    librarylockFilePath = Constants::LIBRARY_LOCK_FILE_PATH
     unless File.exists? librarylockFilePath
       puts "I can't find library lock file at filepath #{librarylockFilePath} :("
+      exit 1
     end
 
-    (YAML.load File.open(librarylockFilePath))[Constants::LOCKFILE_VERSION_KEY]
-
+    version = (YAML.load File.open(librarylockFilePath))[Constants::LOCKFILE_VERSION_KEY]
     puts "We have version <#{version}> in a lock file!"
 
     self.work(version, options)
   end
 end
+
