@@ -8,7 +8,6 @@ require_relative 'workers/middleware/remote_info_worker'
 require_relative 'workers/middleware/remote_version_worker'
 require_relative 'workers/middleware/remove_directory_worker'
 require_relative 'workers/middleware/compare_versions_worker'
-require_relative 'workers/middleware/set_lockfile_version_worker'
 require_relative 'workers/middleware/uncompress_file_worker'
 require_relative 'workers/middleware/cleanup_worker'
 
