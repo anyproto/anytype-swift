@@ -7,12 +7,12 @@ final class StatusRelationEditingViewModel: ObservableObject {
     var onDismiss: (() -> Void)?
     
     @Published var isPresented: Bool = false
-    @Published var selectedStatus: RelationValue.Status?
+    @Published var selectedStatus: NewRelation.Status.Option?
     @Published var statusSections: [RelationValueStatusSection]
     
     let relationName: String
     
-    private let relationOptions: [RelationMetadata.Option]
+    private let relationOptions: [NewRelation.Status.Option]
     private let relationKey: String
     private let detailsService: DetailsServiceProtocol
     private let relationsService: RelationsServiceProtocol
@@ -20,8 +20,8 @@ final class StatusRelationEditingViewModel: ObservableObject {
     init(
         relationKey: String,
         relationName: String,
-        relationOptions: [RelationMetadata.Option],
-        selectedStatus: RelationValue.Status?,
+        relationOptions: [NewRelation.Status.Option],
+        selectedStatus: NewRelation.Status.Option?,
         detailsService: DetailsServiceProtocol,
         relationsService: RelationsServiceProtocol
     ) {

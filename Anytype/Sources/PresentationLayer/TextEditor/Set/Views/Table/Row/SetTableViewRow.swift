@@ -48,26 +48,26 @@ struct SetTableViewRow: View {
         }
     }
     
-    private func cell(_ relationData: SetRowRelation) -> some View {
+    private func cell(_ relationData: NewRelation) -> some View {
         Button {
             model.router.showRelationValueEditingView(
                 objectId: data.id,
-                relation: relationData.value,
-                metadata: relationData.metadata
+                relation: relationData,
+                metadata: nil
             )
         } label: {
-            RelationValueView(relation: relationData.value, style: .set)
+            RelationValueView(relation: relationData, style: .set)
                 .frame(width: 128)
         }
     }
 }
 
-struct SetTableViewRow_Previews: PreviewProvider {
-    static var previews: some View {
-        SetTableViewRow(
-            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], allMetadata: [], colums: []),
-            initialOffset: 0,
-            xOffset: 0
-        )
-    }
-}
+//struct SetTableViewRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SetTableViewRow(
+//            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], allMetadata: [], colums: []),
+//            initialOffset: 0,
+//            xOffset: 0
+//        )
+//    }
+//}

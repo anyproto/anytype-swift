@@ -11,7 +11,7 @@ import BlocksModels
 
 final class RelationValueStatusSectionBuilder {
     
-    static func sections(from options: [RelationMetadata.Option], filterText: String?) -> [RelationValueStatusSection] {
+    static func sections(from options: [NewRelation.Status.Option], filterText: String?) -> [RelationValueStatusSection] {
         let filter: (Bool, String) -> Bool = { scopeFilter, optionText in
             if let text = filterText, text.isNotEmpty {
                 return scopeFilter && optionText.lowercased().contains(text.lowercased())
@@ -29,7 +29,7 @@ final class RelationValueStatusSectionBuilder {
                 RelationValueStatusSection(
                     id: Constants.localStatusSectionID,
                     title: "In this object".localized,
-                    statuses: localOptions.map { RelationValue.Status(option: $0) }
+                    statuses: localOptions
                 )
             )
         }
@@ -39,7 +39,7 @@ final class RelationValueStatusSectionBuilder {
                 RelationValueStatusSection(
                     id: Constants.otherStatusSectionID,
                     title: "Everywhere".localized,
-                    statuses: otherOptions.map { RelationValue.Status(option: $0) }
+                    statuses: otherOptions
                 )
             )
         }

@@ -7,11 +7,11 @@ class RelationBlockViewModel: BlockViewModelProtocol {
     var indentationLevel: Int
     var upperBlock: BlockModelProtocol?
 
-    var relation: Relation
+    var relation: NewRelation
 
     // MARK: - init
 
-    init(information: BlockInformation, indentationLevel: Int, relation: Relation) {
+    init(information: BlockInformation, indentationLevel: Int, relation: NewRelation) {
         self.information = information
         self.indentationLevel = indentationLevel
         self.relation = relation

@@ -1,19 +1,19 @@
 import BlocksModels
 import AnytypeCore
 
-struct SetRowRelation: Identifiable {
-    var id: String { key }
-    
-    let key: String
-    let value: Relation
-    let metadata: RelationMetadata?
-}
+//struct SetRowRelation: Identifiable {
+//    var id: String { key }
+//
+//    let key: String
+//    let value: Relation
+//    let metadata: RelationMetadata?
+//}
 
 struct SetTableViewRowData: Identifiable {
     let id: BlockId
     let title: String
     let icon: ObjectIconImage?
-    let relations: [SetRowRelation]
+    let relations: [NewRelation]
     let screenData: EditorScreenData
     
     init(
@@ -21,8 +21,8 @@ struct SetTableViewRowData: Identifiable {
         type: EditorViewType,
         title: String,
         icon: ObjectIconImage?,
-        allRelations: [Relation],
-        allMetadata: [RelationMetadata],
+        allRelations: [NewRelation],
+//        allMetadata: [RelationMetadata],
         colums: [SetColumData]
     ) {
         self.id = id
@@ -37,9 +37,10 @@ struct SetTableViewRowData: Identifiable {
                 return nil
             }
             
-            let metadata = allMetadata.first { $0.key == colum.key }
-        
-            return SetRowRelation(key: relation.id, value: relation, metadata: metadata)
+            return relation
+//            let metadata = allMetadata.first { $0.key == colum.key }
+//
+//            return SetRowRelation(key: relation.id, value: relation, metadata: metadata)
         }
     }
 }

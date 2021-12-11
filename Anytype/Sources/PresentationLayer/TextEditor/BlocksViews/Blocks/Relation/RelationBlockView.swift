@@ -37,7 +37,7 @@ private extension RelationBlockView {
     struct RelationView: View {
         @State var width: CGFloat = .zero
         @State var height: CGFloat = .zero
-        @State var relation: Relation
+        @State var relation: NewRelation
 
         var body: some View {
             HStack(spacing: 2) {

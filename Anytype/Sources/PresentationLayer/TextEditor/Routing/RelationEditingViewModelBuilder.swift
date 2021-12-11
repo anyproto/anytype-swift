@@ -12,13 +12,13 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(objectId: BlockId, relation: Relation, metadata: RelationMetadata?) -> RelationEditingViewModelProtocol? {
-        switch relation.value {
+    func buildViewModel(objectId: BlockId, relation: NewRelation, metadata: RelationMetadata?) -> RelationEditingViewModelProtocol? {
+        switch relation {
         case .text(let string):
             return TextRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                relationValue: string,
+                relationValue: string.value,
                 service: TextRelationEditingService(objectId: objectId, valueType: .text),
                 delegate: delegate
             )
@@ -26,7 +26,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                relationValue: string,
+                relationValue: string.value,
                 service: TextRelationEditingService(objectId: objectId, valueType: .number),
                 delegate: delegate
             )
@@ -34,7 +34,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                relationValue: string,
+                relationValue: string.value,
                 service: TextRelationEditingService(objectId: objectId, valueType: .phone),
                 delegate: delegate
             )
@@ -42,7 +42,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                relationValue: string,
+                relationValue: string.value,
                 service: TextRelationEditingService(objectId: objectId, valueType: .email),
                 delegate: delegate
             )
@@ -50,7 +50,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                relationValue: string,
+                relationValue: string.value,
                 service: TextRelationEditingService(objectId: objectId, valueType: .url),
                 delegate: delegate
             )
@@ -58,17 +58,15 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return DateRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                value: value,
+                value: value.value,
                 service: DetailsService(objectId: objectId)
             )
-        case .status(let status):
-            guard let metadata = metadata else { return nil }
-            
+        case .status(let status):            
             return StatusRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
-                relationOptions: metadata.selections,
-                selectedStatus: status,
+                relationOptions: status.allOptions,
+                selectedStatus: status.value,
                 detailsService: DetailsService(objectId: objectId),
                 relationsService: RelationsService(objectId: objectId)
             )

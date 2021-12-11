@@ -17,7 +17,7 @@ struct SlashMenuItemDisplayData {
 
 enum NewSlashMenuItemDisplayData: ComparableDisplayData {
     case titleSubtitleDisplayData(SlashMenuItemDisplayData)
-    case relationDisplayData(Relation)
+    case relationDisplayData(NewRelation)
 
     var title: String? {
         switch self {

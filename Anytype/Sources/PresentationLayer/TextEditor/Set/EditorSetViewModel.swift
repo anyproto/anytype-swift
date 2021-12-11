@@ -34,7 +34,7 @@ final class EditorSetViewModel: ObservableObject {
                 title: $0.title,
                 icon: $0.objectIconImage,
                 allRelations: sortedRelations,
-                allMetadata: [], // todo: Use metadata from rows data
+//                allMetadata: [], // todo: Use metadata from rows data
                 colums: colums
             )
         }
@@ -44,7 +44,7 @@ final class EditorSetViewModel: ObservableObject {
     var details: ObjectDetails {
         document.objectDetails ?? .empty
     }
-    var featuredRelations: [Relation] {
+    var featuredRelations: [NewRelation] {
         document.parsedRelations.featuredRelationsForEditor(type: details.objectType)
     }
     

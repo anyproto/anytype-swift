@@ -5,7 +5,7 @@ protocol RelationEditingViewModelBuilderProtocol {
 
     func buildViewModel(
         objectId: BlockId,
-        relation: Relation,
+        relation: NewRelation,
         metadata: RelationMetadata?
     ) -> RelationEditingViewModelProtocol?
     

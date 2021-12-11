@@ -66,83 +66,83 @@ struct RelationsListView: View {
     
 }
 
-struct ObjectRelationsView_Previews: PreviewProvider {
-        
-    static var previews: some View {
-        RelationsListView(
-            viewModel: RelationsListViewModel(
-                relationsService: RelationsService(objectId: ""),
-                detailsService: DetailsService(objectId: ""),
-                sections: [
-                    RelationsSection(
-                        id: "id",
-                        title: "title",
-                        relations: [
-                            Relation(
-                                id: "1",
-                                name: "Relation name1",
-                                value: .text("text"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                                
-                            ),
-                            Relation(
-                                id: "2",
-                                name: "Relation name2",
-                                value: .text("text2"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                            ),
-                            Relation(
-                                id: "3",
-                                name: "Relation name3",
-                                value: .tag([
-                                    TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                                    TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                                    TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                                    TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
-                                ]),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                            )
-                        ]
-                    ),
-                    RelationsSection(
-                        id: "id1",
-                        title: "title2",
-                        relations: [
-                            Relation(
-                                id: "12",
-                                name: "Relation name1",
-                                value: .text("text"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                            ),
-                            Relation(
-                                id: "22",
-                                name: "Relation name2",
-                                value: .text("text2"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                            ),
-                            Relation(
-                                id: "32",
-                                name: "Relation name3",
-                                value: .text("text3"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                            )
-                        ]
-                    )
-                ],
-                onValueEditingTap: { _ in }
-            )
-        )
-    }
-}
+//struct ObjectRelationsView_Previews: PreviewProvider {
+//        
+//    static var previews: some View {
+//        RelationsListView(
+//            viewModel: RelationsListViewModel(
+//                relationsService: RelationsService(objectId: ""),
+//                detailsService: DetailsService(objectId: ""),
+//                sections: [
+//                    RelationsSection(
+//                        id: "id",
+//                        title: "title",
+//                        relations: [
+//                            Relation(
+//                                id: "1",
+//                                name: "Relation name1",
+//                                value: .text("text"),
+//                                hint: "hint",
+//                                isFeatured: false,
+//                                isEditable: true
+//                                
+//                            ),
+//                            Relation(
+//                                id: "2",
+//                                name: "Relation name2",
+//                                value: .text("text2"),
+//                                hint: "hint",
+//                                isFeatured: false,
+//                                isEditable: true
+//                            ),
+//                            Relation(
+//                                id: "3",
+//                                name: "Relation name3",
+//                                value: .tag([
+//                                    TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+//                                    TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+//                                    TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+//                                    TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+//                                ]),
+//                                hint: "hint",
+//                                isFeatured: false,
+//                                isEditable: true
+//                            )
+//                        ]
+//                    ),
+//                    RelationsSection(
+//                        id: "id1",
+//                        title: "title2",
+//                        relations: [
+//                            Relation(
+//                                id: "12",
+//                                name: "Relation name1",
+//                                value: .text("text"),
+//                                hint: "hint",
+//                                isFeatured: false,
+//                                isEditable: true
+//                            ),
+//                            Relation(
+//                                id: "22",
+//                                name: "Relation name2",
+//                                value: .text("text2"),
+//                                hint: "hint",
+//                                isFeatured: false,
+//                                isEditable: true
+//                            ),
+//                            Relation(
+//                                id: "32",
+//                                name: "Relation name3",
+//                                value: .text("text3"),
+//                                hint: "hint",
+//                                isFeatured: false,
+//                                isEditable: true
+//                            )
+//                        ]
+//                    )
+//                ],
+//                onValueEditingTap: { _ in }
+//            )
+//        )
+//    }
+//}

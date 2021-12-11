@@ -1,10 +1,10 @@
 import SwiftUI
 
 class RelationNameValueViewModel: ObservableObject {
-    @Published var relation: Relation
+    @Published var relation: NewRelation
     @Published var isHighlighted: Bool = false
 
-    init(relation: Relation) {
+    init(relation: NewRelation) {
         self.relation = relation
     }
 }
