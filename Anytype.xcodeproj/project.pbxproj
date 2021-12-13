@@ -162,6 +162,8 @@
 		12426A2526DCF95F00693B1F /* KFProcessorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A2426DCF95F00693B1F /* KFProcessorBuilder.swift */; };
 		12426A2A26DCFA1300693B1F /* KFScalingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A2926DCFA1300693B1F /* KFScalingType.swift */; };
 		12426A2C26DD006500693B1F /* ImageID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A2B26DD006500693B1F /* ImageID.swift */; };
+		12461BF52767648700D47708 /* TagRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BF42767648700D47708 /* TagRelationEditingView.swift */; };
+		12461BF72767649E00D47708 /* TagRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		12485CD02715A7000008FA8B /* EventsListenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12485CCF2715A7000008FA8B /* EventsListenerProtocol.swift */; };
@@ -999,6 +1001,8 @@
 		12426A2426DCF95F00693B1F /* KFProcessorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFProcessorBuilder.swift; sourceTree = "<group>"; };
 		12426A2926DCFA1300693B1F /* KFScalingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFScalingType.swift; sourceTree = "<group>"; };
 		12426A2B26DD006500693B1F /* ImageID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageID.swift; sourceTree = "<group>"; };
+		12461BF42767648700D47708 /* TagRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationEditingView.swift; sourceTree = "<group>"; };
+		12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationEditingViewModel.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		12485CCF2715A7000008FA8B /* EventsListenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListenerProtocol.swift; sourceTree = "<group>"; };
@@ -2550,6 +2554,15 @@
 			path = ImageBuilder;
 			sourceTree = "<group>";
 		};
+		12461BF32767646D00D47708 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				12461BF42767648700D47708 /* TagRelationEditingView.swift */,
+				12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
 		12485CF22715D1F40008FA8B /* MiddlewareResponse */ = {
 			isa = PBXGroup;
 			children = (
@@ -2808,6 +2821,7 @@
 		12887F3C274BC20200228330 /* ValueEditingViews */ = {
 			isa = PBXGroup;
 			children = (
+				12461BF32767646D00D47708 /* Tag */,
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
@@ -5790,6 +5804,7 @@
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				3DB1CA73272C0C5E000D2779 /* Wallpapers.swift in Sources */,
+				12461BF52767648700D47708 /* TagRelationEditingView.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
@@ -5813,6 +5828,7 @@
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
+				12461BF72767649E00D47708 /* TagRelationEditingViewModel.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
