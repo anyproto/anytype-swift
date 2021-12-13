@@ -17,7 +17,7 @@ class BasePipeline
     unarchiveAction = "tar -zxf #{downloadFilePath} -C #{temporaryDirectory}"
     ShellExecutor.run_command_line unarchiveAction
 
-    puts "Librart unarchived to directory #{temporaryDirectory}"
+    puts "Library unarchived to directory #{temporaryDirectory}"
 
     ourDirectory = Constants::DEPENDENCIES_DIR_PATH
     puts "Cleaning up dependencies directory #{ourDirectory}"
@@ -30,13 +30,11 @@ class BasePipeline
     FileUtils.remove_entry downloadFilePath
     FileUtils.remove_entry temporaryDirectory
     
-    if options[:runsOnCI] == false
-      puts "Moving protobuf files from Dependencies to our project directory"
-      CopyProtobufFilesWorker.new(ourDirectory).work
+    puts "Moving protobuf files from Dependencies to our project directory"
+    CopyProtobufFilesWorker.new(ourDirectory).work
 
-      puts "Generate services from protobuf files"
-      codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")
-      "ruby #{codegen_runner}"
-    end
+    puts "Generate services from protobuf files"
+    codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")
+    "ruby #{codegen_runner}"
   end
 end
