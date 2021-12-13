@@ -98,8 +98,8 @@ private extension RelationsBuilder {
                 Relation.Text(
                     id: relationMetadata.id,
                     name: relationMetadata.name,
-                    isFeatured: details.featuredRelations.contains(relationMetadata.id),
-                    isEditable: !relationMetadata.isReadOnly,
+                    isFeatured: relationMetadata.isFeatured(details: details),
+                    isEditable: relationMetadata.isEditable,
                     value: "Unsupported value".localized
                 )
             )

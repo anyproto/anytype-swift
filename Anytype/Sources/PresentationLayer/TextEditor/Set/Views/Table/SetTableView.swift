@@ -12,39 +12,39 @@ struct SetTableView: View {
     var body: some View {
         SingleAxisGeometryReader { fullWidth in
             OffsetAwareScrollView(
-                axes: [.horizontal, .vertical],
+                axes: [.horizontal],
                 showsIndicators: false,
-                offsetChanged: { offset = $0 }
+                offsetChanged: { offset.x = $0.x }
             ) {
-                SetFullHeader()
-                    .offset(x: xOffset, y: 0)
-                    .background(FrameCatcher { tableHeaderSize = $0.size })
-                LazyVStack(
-                    alignment: .leading,
-                    spacing: 0,
-                    pinnedViews: [.sectionHeaders]
+                OffsetAwareScrollView(
+                    axes: [.vertical],
+                    showsIndicators: false,
+                    offsetChanged: { offset.y = $0.y }
                 ) {
-                    Section(header: compoundHeader) {
-                        tableContent
+                    SetFullHeader()
+                        .offset(x: xOffset, y: 0)
+                        .background(FrameCatcher { tableHeaderSize = $0.size })
+                    LazyVStack(
+                        alignment: .leading,
+                        spacing: 0,
+                        pinnedViews: [.sectionHeaders]
+                    ) {
+                        Section(header: compoundHeader) {
+                            ForEach(model.rows) { row in
+                                SetTableViewRow(data: row, initialOffset: initialOffset.x, xOffset: offset.x)
+                            }
+                        }
                     }
-                }
-                .frame(minWidth: fullWidth)
-                .onAppear {
-                    DispatchQueue.main.async {
-                        // initial y offset is 0 for some reason
-                        offset = CGPoint(x: offset.x, y: 0)
-                        initialOffset = offset
+                    .frame(minWidth: fullWidth)
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            // initial y offset is 0 for some reason
+                            offset = CGPoint(x: offset.x, y: 0)
+                            initialOffset = offset
+                        }
                     }
+                    .padding(.top, -headerMinimizedSize.height)
                 }
-                .padding(.top, -headerMinimizedSize.height)
-            }
-        }
-    }
-
-    private var tableContent: some View {
-        LazyVStack(alignment: .leading) {
-            ForEach(model.rows) { row in
-                SetTableViewRow(data: row, initialOffset: initialOffset.x, xOffset: offset.x)
             }
         }
     }
