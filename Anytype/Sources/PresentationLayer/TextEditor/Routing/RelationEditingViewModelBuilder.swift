@@ -12,7 +12,7 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(objectId: BlockId, relation: Relation, metadata: RelationMetadata?) -> RelationEditingViewModelProtocol? {
+    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationEditingViewModelProtocol? {
         switch relation {
         case .text(let string):
             return TextRelationEditingViewModel(
