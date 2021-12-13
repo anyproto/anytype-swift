@@ -11,19 +11,11 @@ class VersionProvider
     end
   end
 
-  def self.version_from_library_file(options)
-    libraryFilePath = Constants::LIBRARY_FILE_PATH
-    unless File.exists? libraryFilePath
-      puts "I can't find library file at #{libraryFilePath}."
-      exit 1
-    end
-
+  private_class_method def self.version_from_library_file(options)
     version = LibraryVersion.get()
-    puts "Version in the library file: #{version}"
 
     information = GetRemoteInformationWorker.new(options[:token]).work
     versions = GetRemoteAvailableVersionsWorker.new(information).work
-
 
     if versions.include?(version)
       return version
@@ -34,7 +26,7 @@ class VersionProvider
     end
   end
 
-  def self.latest_version(options)
+  private_class_method def self.latest_version(options)
     information = GetRemoteInformationWorker.new(options[:token]).work
     version = GetRemoteVersionWorker.new(information).work
     puts "Latest version in remote <#{version}>"
