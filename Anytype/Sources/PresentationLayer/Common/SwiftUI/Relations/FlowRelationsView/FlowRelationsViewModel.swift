@@ -1,11 +1,11 @@
 import SwiftUI
 
 class FlowRelationsViewModel: ObservableObject {
-    @Published var relations: [NewRelation]
+    @Published var relations: [Relation]
     @Published var alignment: HorizontalAlignment = .leading
-    let onRelationTap: (NewRelation) -> Void
+    let onRelationTap: (Relation) -> Void
 
-    init(relations: [NewRelation], onRelationTap: @escaping (NewRelation) -> Void) {
+    init(relations: [Relation], onRelationTap: @escaping (Relation) -> Void) {
         self.relations = relations
         self.onRelationTap = onRelationTap
     }

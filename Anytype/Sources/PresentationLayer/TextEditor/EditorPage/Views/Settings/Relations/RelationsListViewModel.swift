@@ -36,7 +36,7 @@ final class RelationsListViewModel: ObservableObject {
     }
     
     func changeRelationFeaturedState(relationId: String) {
-        let relationsRowData: [NewRelation] = sections.flatMap { $0.relations }
+        let relationsRowData: [Relation] = sections.flatMap { $0.relations }
         let relationRowData = relationsRowData.first { $0.id == relationId }
         
         guard let relationRowData = relationRowData else { return }
@@ -55,7 +55,7 @@ final class RelationsListViewModel: ObservableObject {
     func editRelation(id: String) {
         guard FeatureFlags.relationsEditing else { return }
         
-        let flattenRelations: [NewRelation] = sections.flatMap { $0.relations }
+        let flattenRelations: [Relation] = sections.flatMap { $0.relations }
         let relation = flattenRelations.first { $0.id == id }
         
         guard

@@ -4,12 +4,12 @@ struct SlashMenuItemsBuilder {
     
     private let restrictions: BlockRestrictions
     private let searchService: SearchServiceProtocol
-    private let relations: [NewRelation]
+    private let relations: [Relation]
     
     init(
         blockType: BlockContentType,
         searchService: SearchServiceProtocol = SearchService(),
-        relations: [NewRelation]
+        relations: [Relation]
     ) {
         self.restrictions = BlockRestrictionsBuilder.build(contentType: blockType)
         self.searchService = searchService

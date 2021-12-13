@@ -13,7 +13,7 @@ struct SetTableViewRowData: Identifiable {
     let id: BlockId
     let title: String
     let icon: ObjectIconImage?
-    let relations: [NewRelation]
+    let relations: [Relation]
     let screenData: EditorScreenData
     
     init(
@@ -21,7 +21,7 @@ struct SetTableViewRowData: Identifiable {
         type: EditorViewType,
         title: String,
         icon: ObjectIconImage?,
-        allRelations: [NewRelation],
+        allRelations: [Relation],
 //        allMetadata: [RelationMetadata],
         colums: [SetColumData]
     ) {

@@ -31,7 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     func showRelationValueEditingView(key: String)
-    func showRelationValueEditingView(objectId: BlockId, relation: NewRelation, metadata: RelationMetadata?)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation, metadata: RelationMetadata?)
     func goBack()
 }
 
@@ -256,7 +256,7 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showRelationValueEditingView(
         objectId: BlockId,
-        relation: NewRelation,
+        relation: Relation,
         metadata: RelationMetadata?
     ) {
         guard relation.isEditable else { return }

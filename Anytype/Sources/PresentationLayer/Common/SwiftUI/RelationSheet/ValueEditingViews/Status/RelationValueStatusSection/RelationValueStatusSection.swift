@@ -11,5 +11,5 @@ import Foundation
 struct RelationValueStatusSection: Hashable, Identifiable {
     let id: String
     let title: String
-    let statuses: [NewRelation.Status.Option]
+    let statuses: [Relation.Status.Option]
 }

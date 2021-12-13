@@ -39,8 +39,8 @@ final class RelationsBuilder {
             return .empty
         }
         
-        var featuredRelations: [NewRelation] = []
-        var otherRelations: [NewRelation] = []
+        var featuredRelations: [Relation] = []
+        var otherRelations: [Relation] = []
         
         relations.forEach { relation in
             guard !relation.isHidden, relation.scope == scope else { return }
@@ -71,7 +71,7 @@ private extension RelationsBuilder {
         relation: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> NewRelation {
+    ) -> Relation {
         switch relation.format {
         case .longText:
             return textRelationValue(relation: relation, details: details)
@@ -99,7 +99,7 @@ private extension RelationsBuilder {
             return objectRelationValue(relation: relation, details: details, detailsStorage: detailsStorage)
         case .unrecognized:
             return .text(
-                NewRelation.Text(
+                Relation.Text(
                     id: relation.id,
                     name: relation.name,
                     isFeatured: details.featuredRelations.contains(relation.id),
@@ -110,9 +110,9 @@ private extension RelationsBuilder {
         }
     }
     
-    func textRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func textRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         .text(
-            NewRelation.Text(
+            Relation.Text(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -122,7 +122,7 @@ private extension RelationsBuilder {
         )
     }
     
-    func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         let numberValue: String? = {
             let value = details.values[relation.key]
             
@@ -132,7 +132,7 @@ private extension RelationsBuilder {
         }()
         
         return .number(
-            NewRelation.Text(
+            Relation.Text(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -142,9 +142,9 @@ private extension RelationsBuilder {
         )
     }
     
-    func phoneRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func phoneRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         .phone(
-            NewRelation.Text(
+            Relation.Text(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -154,9 +154,9 @@ private extension RelationsBuilder {
         )
     }
     
-    func emailRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func emailRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         .email(
-            NewRelation.Text(
+            Relation.Text(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -166,9 +166,9 @@ private extension RelationsBuilder {
         )
     }
     
-    func urlRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func urlRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         .url(
-            NewRelation.Text(
+            Relation.Text(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -178,12 +178,12 @@ private extension RelationsBuilder {
         )
     }
     
-    func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
-        let options: [NewRelation.Status.Option] = relation.selections.map {
-            NewRelation.Status.Option(option: $0)
+    func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
+        let options: [Relation.Status.Option] = relation.selections.map {
+            Relation.Status.Option(option: $0)
         }
         
-        let selectedOption: NewRelation.Status.Option? = {
+        let selectedOption: Relation.Status.Option? = {
             let value = details.values[relation.key]
             
             guard
@@ -194,7 +194,7 @@ private extension RelationsBuilder {
         }()
         
         return .status(
-            NewRelation.Status(
+            Relation.Status(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -205,7 +205,7 @@ private extension RelationsBuilder {
         )
     }
     
-    func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         let value: DateRelationValue? = {
             let value = details.values[relation.key]
             
@@ -217,7 +217,7 @@ private extension RelationsBuilder {
         }()
         
         return .date(
-            NewRelation.Date(
+            Relation.Date(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -227,9 +227,9 @@ private extension RelationsBuilder {
         )
     }
     
-    func checkboxRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func checkboxRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         .checkbox(
-            NewRelation.Checkbox(
+            Relation.Checkbox(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -239,7 +239,7 @@ private extension RelationsBuilder {
         )
     }
     
-    func tagRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func tagRelationValue(relation: RelationMetadata, details: ObjectDetails) -> Relation {
         let tags: [TagRelationValue] = {
             let value = details.values[relation.key]
             guard let value = value else { return [] }
@@ -265,7 +265,7 @@ private extension RelationsBuilder {
         }()
         
         return .tag(
-            NewRelation.Tag(
+            Relation.Tag(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -279,7 +279,7 @@ private extension RelationsBuilder {
         relation: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> NewRelation {
+    ) -> Relation {
         let objectRelations: [ObjectRelationValue] = {
             let value = details.values[relation.key]
             guard let value = value else { return [] }
@@ -316,7 +316,7 @@ private extension RelationsBuilder {
         }()
         
         return .object(
-            NewRelation.Object(
+            Relation.Object(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),
@@ -330,7 +330,7 @@ private extension RelationsBuilder {
         relation: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> NewRelation {
+    ) -> Relation {
         let objectRelations: [ObjectRelationValue] = {
             let value = details.values[relation.key]
             guard let value = value else { return [] }
@@ -378,7 +378,7 @@ private extension RelationsBuilder {
         }()
         
         return .object(
-            NewRelation.Object(
+            Relation.Object(
                 id: relation.id,
                 name: relation.name,
                 isFeatured: details.featuredRelations.contains(relation.id),

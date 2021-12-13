@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-enum NewRelation: Hashable, Identifiable {
+enum Relation: Hashable, Identifiable {
     case text(Text)
     case number(Text)
     case status(Status)
@@ -91,7 +91,7 @@ protocol RelationProtocol {
     var value: V { get }
 }
 
-extension NewRelation {
+extension Relation {
     struct Text: RelationProtocol, Hashable, Identifiable {
         let id: String
         let name: String
@@ -157,7 +157,7 @@ extension NewRelation {
     }
 }
 
-extension NewRelation.Status {
+extension Relation.Status {
     
     struct Option: Hashable, Identifiable {
         let id: String
@@ -168,7 +168,7 @@ extension NewRelation.Status {
     
 }
 
-extension NewRelation.Status.Option {
+extension Relation.Status.Option {
     
     init(option: RelationMetadata.Option) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)
@@ -182,7 +182,7 @@ extension NewRelation.Status.Option {
     
 }
 
-extension NewRelation {
+extension Relation {
     
     var hint: String {
         switch self {

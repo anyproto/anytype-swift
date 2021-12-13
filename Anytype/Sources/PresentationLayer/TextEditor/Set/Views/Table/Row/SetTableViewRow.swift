@@ -48,7 +48,7 @@ struct SetTableViewRow: View {
         }
     }
     
-    private func cell(_ relationData: NewRelation) -> some View {
+    private func cell(_ relationData: Relation) -> some View {
         Button {
             model.router.showRelationValueEditingView(
                 objectId: data.id,

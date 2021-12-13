@@ -1,7 +1,7 @@
 import UIKit
 
 struct SlashMenuRealtionContentConfiguration: UIContentConfiguration, Hashable {
-    var relation: NewRelation
+    var relation: Relation
     var currentConfigurationState: UICellConfigurationState?
 
     func makeContentView() -> UIView & UIContentView {
