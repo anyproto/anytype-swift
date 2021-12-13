@@ -49,4 +49,15 @@ extension RelationStyle {
             return .empty
         }
     }
+    
+    
+    var tagViewGuidlines: TagView.Guidlines {
+        switch self {
+        case .regular, .set:
+            return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: 24)
+        case .featuredRelationBlock:
+            return TagView.Guidlines(textPadding: 6, cornerRadius: 4, tagHeight: 19)
+        }
+    }
+    
 }

@@ -7,7 +7,7 @@ struct TagRelationView: View {
 
     var body: some View {
         if tags.isNotEmpty {
-            if tagStyle.maxTags > 0 {
+            if maxTags > 0 {
                 withMoreTagsView
             } else {
                 scrollRelations
@@ -19,7 +19,7 @@ struct TagRelationView: View {
 
     private var scrollRelations: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: tagStyle.hSpacing) {
+            HStack(spacing: hSpacing) {
                 contnetView(tags: tags)
             }
             .padding(.horizontal, 1)
@@ -28,11 +28,11 @@ struct TagRelationView: View {
 
     private var withMoreTagsView: some View {
         var newTags = tags
-        if tagStyle.maxTags > 0 {
-            newTags = Array(tags.prefix(tagStyle.maxTags))
+        if maxTags > 0 {
+            newTags = Array(tags.prefix(maxTags))
         }
 
-        return HStack(spacing: tagStyle.hSpacing) {
+        return HStack(spacing: hSpacing) {
             contnetView(tags: newTags)
             moreTagsView
         }
@@ -41,24 +41,12 @@ struct TagRelationView: View {
 
     private func contnetView(tags: [Relation.Tag.Option]) -> some View {
         ForEach(tags) { tag in
-            AnytypeText(tag.text, style: .relation2Regular, color: tag.textColor.asColor)
-                .lineLimit(1)
-                .padding(.horizontal, tagStyle.textPadding)
-                .background(tag.backgroundColor.asColor)
-                .cornerRadius(tagStyle.cornerRadius)
-                .overlay(
-                    RoundedRectangle(cornerRadius: tagStyle.cornerRadius)
-                        .stroke(
-                            tag.backgroundColor == .grayscaleWhite ? AnytypeColor.grayscale30.asColor : tag.backgroundColor.asColor,
-                            lineWidth: 1
-                        )
-                )
-                .frame(height: tagStyle.tagHeight)
+            TagView(tag: tag, guidlines: style.tagViewGuidlines)
         }
     }
 
     private var moreTagsView: some View {
-        let leftTagsCount = "+\(tags.count - tagStyle.maxTags)"
+        let leftTagsCount = "+\(tags.count - maxTags)"
 
         return AnytypeText(leftTagsCount, style: .relation2Regular, color: .textSecondary)
             .lineLimit(1)
@@ -69,20 +57,18 @@ struct TagRelationView: View {
 }
 
 private extension TagRelationView {
-    struct TagRelationViewStyle {
-        let hSpacing: CGFloat
-        let textPadding: CGFloat
-        let cornerRadius: CGFloat
-        let tagHeight: CGFloat
-        var maxTags: Int = 0
-    }
-
-    private var tagStyle: TagRelationViewStyle {
+    
+    private var maxTags: Int {
         switch style {
-        case .regular, .set:
-            return TagRelationViewStyle(hSpacing: 8, textPadding: 6, cornerRadius: 5, tagHeight: 24)
-        case .featuredRelationBlock:
-            return TagRelationViewStyle(hSpacing: 6, textPadding: 6, cornerRadius: 4, tagHeight: 19, maxTags: 3)
+        case .regular, .set: return 0
+        case .featuredRelationBlock: return 3
+        }
+    }
+    
+    private var hSpacing: CGFloat {
+        switch style {
+        case .regular, .set: return 8
+        case .featuredRelationBlock: return 6
         }
     }
 }

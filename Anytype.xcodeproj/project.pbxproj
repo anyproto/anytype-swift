@@ -164,6 +164,8 @@
 		12426A2C26DD006500693B1F /* ImageID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A2B26DD006500693B1F /* ImageID.swift */; };
 		12461BF52767648700D47708 /* TagRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BF42767648700D47708 /* TagRelationEditingView.swift */; };
 		12461BF72767649E00D47708 /* TagRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */; };
+		12461BF927677F0600D47708 /* TagRelationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BF827677F0600D47708 /* TagRelationRowView.swift */; };
+		12461BFC2767837000D47708 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BFB2767837000D47708 /* TagView.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		12485CD02715A7000008FA8B /* EventsListenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12485CCF2715A7000008FA8B /* EventsListenerProtocol.swift */; };
@@ -1003,6 +1005,8 @@
 		12426A2B26DD006500693B1F /* ImageID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageID.swift; sourceTree = "<group>"; };
 		12461BF42767648700D47708 /* TagRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationEditingView.swift; sourceTree = "<group>"; };
 		12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationEditingViewModel.swift; sourceTree = "<group>"; };
+		12461BF827677F0600D47708 /* TagRelationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationRowView.swift; sourceTree = "<group>"; };
+		12461BFB2767837000D47708 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		12485CCF2715A7000008FA8B /* EventsListenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListenerProtocol.swift; sourceTree = "<group>"; };
@@ -2559,6 +2563,16 @@
 			children = (
 				12461BF42767648700D47708 /* TagRelationEditingView.swift */,
 				12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */,
+				12461BF827677F0600D47708 /* TagRelationRowView.swift */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
+		12461BFA2767835200D47708 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				127EABF32739440200C731F2 /* TagRelationView.swift */,
+				12461BFB2767837000D47708 /* TagView.swift */,
 			);
 			path = Tag;
 			sourceTree = "<group>";
@@ -2847,7 +2861,7 @@
 				1289F5A32733C50500656EC2 /* TextRelationView.swift */,
 				127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */,
 				127EABB62735254500C731F2 /* StatusRelationView.swift */,
-				127EABF32739440200C731F2 /* TagRelationView.swift */,
+				12461BFA2767835200D47708 /* Tag */,
 				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
 			);
 			path = ValueViews;
@@ -5298,6 +5312,7 @@
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* HomeCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
+				12461BF927677F0600D47708 /* TagRelationRowView.swift in Sources */,
 				3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */,
 				1255DF89270220E900870B95 /* MediaFileUploadingDemon.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
@@ -5578,6 +5593,7 @@
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				125FD32326CE97BD00D21F5A /* ObjectIconImageUsecase.swift in Sources */,
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
+				12461BFC2767837000D47708 /* TagView.swift in Sources */,
 				3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */,
 				3D5A415F2703132800F1F6A1 /* SlashActionAlignment.swift in Sources */,
 				127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */,
