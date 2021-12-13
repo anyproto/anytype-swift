@@ -3,35 +3,33 @@ import BlocksModels
 
 struct ParsedRelations {
 
-    let all: [Relation]
+    let all: [NewRelation]
     
-    let featuredRelations: [Relation]
-    let otherRelations: [Relation]
+    let featuredRelations: [NewRelation]
+    let otherRelations: [NewRelation]
     
-    init(featuredRelations: [Relation], otherRelations: [Relation]) {
+    init(featuredRelations: [NewRelation], otherRelations: [NewRelation]) {
         self.all = featuredRelations + otherRelations
         self.featuredRelations = featuredRelations
         self.otherRelations = otherRelations
     }
     
-    static var empty: ParsedRelations {
-        ParsedRelations(featuredRelations: [], otherRelations: [])
-    }
+    static let empty = ParsedRelations(featuredRelations: [], otherRelations: [])
     
 }
 
 extension ParsedRelations {
     // without description and with type
-    func featuredRelationsForEditor(type: ObjectType) -> [Relation] {
+    func featuredRelationsForEditor(type: ObjectType) -> [NewRelation] {
         var enhancedRelations = featuredRelations
-
-        let objectTypeRelation = Relation(
-            id: BundledRelationKey.type.rawValue,
-            name: "",
-            value: RelationValue.text(type.name),
-            hint: "",
-            isFeatured: false,
-            isEditable: false
+        
+        let objectTypeRelation: NewRelation = .text(
+            NewRelation.Text(
+                id: BundledRelationKey.type.rawValue,
+                name: "",
+                isFeatured: false, isEditable: false,
+                value: type.name
+            )
         )
 
         enhancedRelations.insert(objectTypeRelation, at: 0)

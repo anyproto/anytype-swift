@@ -3,7 +3,7 @@ import SwiftUI
 struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
-    let relation: Relation
+    let relation: NewRelation
     
     let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
@@ -99,40 +99,40 @@ private extension RelationsListRowView {
     
 }
 
-struct ObjectRelationRow_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 0) {
-            RelationsListRowView(
-                editingMode: .constant(false),
-                relation: Relation(
-                    id: "1", name: "Relation name",
-                    value: .tag([
-                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
-                    ]),
-                    hint: "hint",
-                    isFeatured: false,
-                    isEditable: true
-                ),
-                onRemoveTap: { _ in },
-                onStarTap: { _ in },
-                onEditTap: { _ in }
-            )
-            RelationsListRowView(
-                editingMode: .constant(false),
-                relation: Relation(
-                    id: "1", name: "Relation name",
-                    value: .text("hello"),
-                    hint: "hint",
-                    isFeatured: false,
-                    isEditable: false
-                ),
-                onRemoveTap: { _ in },
-                onStarTap: { _ in },
-                onEditTap: { _ in }
-            )
-        }
-    }
-}
+//struct ObjectRelationRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        VStack(spacing: 0) {
+//            RelationsListRowView(
+//                editingMode: .constant(false),
+//                relation: Relation(
+//                    id: "1", name: "Relation name",
+//                    value: .tag([
+//                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
+//                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
+//                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
+//                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+//                    ]),
+//                    hint: "hint",
+//                    isFeatured: false,
+//                    isEditable: true
+//                ),
+//                onRemoveTap: { _ in },
+//                onStarTap: { _ in },
+//                onEditTap: { _ in }
+//            )
+//            RelationsListRowView(
+//                editingMode: .constant(false),
+//                relation: Relation(
+//                    id: "1", name: "Relation name",
+//                    value: .text("hello"),
+//                    hint: "hint",
+//                    isFeatured: false,
+//                    isEditable: false
+//                ),
+//                onRemoveTap: { _ in },
+//                onStarTap: { _ in },
+//                onEditTap: { _ in }
+//            )
+//        }
+//    }
+//}

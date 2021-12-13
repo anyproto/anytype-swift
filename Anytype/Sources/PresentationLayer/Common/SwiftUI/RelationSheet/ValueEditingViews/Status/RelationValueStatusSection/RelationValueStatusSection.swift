@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct RelationValueStatusSection: Identifiable {
+struct RelationValueStatusSection: Hashable, Identifiable {
     let id: String
     let title: String
-    let statuses: [RelationValue.Status]
+    let statuses: [NewRelation.Status.Option]
 }
