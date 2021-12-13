@@ -32,8 +32,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .layout(layout.style)
         case .featuredRelations:
             return .featuredRelations
-        case .relation:
-            return .relation
+        case let .relation(content):
+            return .relation(key: content.key)
         case .dataView:
             return .dataView
         case .unsupported:
