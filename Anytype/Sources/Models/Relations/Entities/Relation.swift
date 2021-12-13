@@ -1,15 +1,6 @@
 import Foundation
 import BlocksModels
 
-struct Relation: Hashable, Identifiable {
-    let id: String
-    let name: String
-    let value: RelationValue
-    let hint: String
-    let isFeatured: Bool
-    let isEditable: Bool
-}
-
 enum NewRelation: Hashable, Identifiable {
     case text(Text)
     case number(Text)
