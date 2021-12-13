@@ -2,11 +2,11 @@ import UIKit
 import BlocksModels
 
 struct FeaturedRelationsBlockContentConfiguration: BlockConfigurationProtocol, Hashable {
-    let featuredRelations: [NewRelation]
+    let featuredRelations: [Relation]
     let type: String
     let alignment: NSTextAlignment
     var currentConfigurationState: UICellConfigurationState?
-    let onRelationTap: (NewRelation) -> Void
+    let onRelationTap: (Relation) -> Void
 
     func makeContentView() -> UIView & UIContentView {
         FeaturedRelationsBlockView(configuration: self)

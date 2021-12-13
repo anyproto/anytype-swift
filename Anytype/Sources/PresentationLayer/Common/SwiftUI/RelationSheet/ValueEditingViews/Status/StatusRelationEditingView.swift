@@ -56,7 +56,7 @@ struct StatusRelationEditingView: View {
             .modifier(DividerModifier(spacing: 0, alignment: .leading))
     }
     
-    private func statusRow(_ status: NewRelation.Status.Option) -> some View {
+    private func statusRow(_ status: Relation.Status.Option) -> some View {
         StatusRelationRowView(
             status: status,
             isSelected: status == viewModel.selectedStatus

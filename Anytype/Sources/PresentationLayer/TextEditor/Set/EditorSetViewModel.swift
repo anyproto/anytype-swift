@@ -18,8 +18,8 @@ final class EditorSetViewModel: ObservableObject {
     
     var rows: [SetTableViewRowData] {
         records.map {
-            let relations = relationsBuilder.buildRelations(
-                using: dataView.activeViewRelations,
+            let relations = relationsBuilder.parsedRelations(
+                relationMetadatas: dataView.activeViewRelations,
                 objectId: $0.id,
                 detailsStorage: detailsStorage
             ).all
@@ -44,7 +44,7 @@ final class EditorSetViewModel: ObservableObject {
     var details: ObjectDetails {
         document.objectDetails ?? .empty
     }
-    var featuredRelations: [NewRelation] {
+    var featuredRelations: [Relation] {
         document.parsedRelations.featuredRelationsForEditor(type: details.objectType)
     }
     

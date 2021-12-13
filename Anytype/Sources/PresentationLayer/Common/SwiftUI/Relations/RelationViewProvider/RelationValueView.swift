@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RelationValueView: View {
-    let relation: NewRelation
+    let relation: Relation
     let style: RelationStyle
     
     var body: some View {

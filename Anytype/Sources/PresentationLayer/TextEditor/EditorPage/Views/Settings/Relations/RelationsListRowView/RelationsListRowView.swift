@@ -3,7 +3,7 @@ import SwiftUI
 struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
-    let relation: NewRelation
+    let relation: Relation
     
     let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()

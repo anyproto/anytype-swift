@@ -9,8 +9,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let indentationLevel: Int = 0
     let information: BlockInformation
     let type: String
-    var featuredRelations: [NewRelation]
-    let onRelationTap: (NewRelation) -> Void
+    var featuredRelations: [Relation]
+    let onRelationTap: (Relation) -> Void
     
     var hashable: AnyHashable {
         [
@@ -22,9 +22,9 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     init(
         information: BlockInformation,
-        featuredRelation: [NewRelation],
+        featuredRelation: [Relation],
         type: String,
-        onRelationTap: @escaping (NewRelation) -> Void
+        onRelationTap: @escaping (Relation) -> Void
     ) {
         self.information = information
         self.featuredRelations = featuredRelation

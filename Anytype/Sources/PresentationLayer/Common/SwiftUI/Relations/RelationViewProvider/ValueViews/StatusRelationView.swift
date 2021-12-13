@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StatusRelationView: View {
-    let status: NewRelation.Status
+    let status: Relation.Status
     let hint: String
     let style: RelationStyle
     

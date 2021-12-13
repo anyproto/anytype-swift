@@ -30,8 +30,8 @@ final class RelationsBuilder {
     
     // MARK: - Internal functions
     
-    func buildRelations(
-        using relations: [RelationMetadata],
+    func parsedRelations(
+        relationMetadatas: [RelationMetadata],
         objectId: BlockId,
         detailsStorage: ObjectDetailsStorageProtocol
     ) -> ParsedRelations {
@@ -39,14 +39,14 @@ final class RelationsBuilder {
             return .empty
         }
         
-        var featuredRelations: [NewRelation] = []
-        var otherRelations: [NewRelation] = []
+        var featuredRelations: [Relation] = []
+        var otherRelations: [Relation] = []
         
-        relations.forEach { relation in
-            guard !relation.isHidden, relation.scope == scope else { return }
+        relationMetadatas.forEach { relationMetadata in
+            guard !relationMetadata.isHidden, relationMetadata.scope == scope else { return }
             
-            let value = relationValue(
-                relation: relation,
+            let value = relation(
+                relationMetadata: relationMetadata,
                 details: objectDetails,
                 detailsStorage: detailsStorage
             )
@@ -67,64 +67,60 @@ final class RelationsBuilder {
 
 private extension RelationsBuilder {
     
-    func relationValue(
-        relation: RelationMetadata,
-        details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) -> NewRelation {
-        switch relation.format {
+    func relation(relationMetadata: RelationMetadata, details: ObjectDetails, detailsStorage: ObjectDetailsStorageProtocol) -> Relation {
+        switch relationMetadata.format {
         case .longText:
-            return textRelationValue(relation: relation, details: details)
+            return textRelation(metadata: relationMetadata, details: details)
         case .shortText:
-            return textRelationValue(relation: relation, details: details)
+            return textRelation(metadata: relationMetadata, details: details)
         case .number:
-            return numberRelationValue(relation: relation, details: details)
+            return numberRelation(metadata: relationMetadata, details: details)
         case .status:
-            return statusRelationValue(relation: relation, details: details)
+            return statusRelation(metadata: relationMetadata, details: details)
         case .date:
-            return dateRelationValue(relation: relation, details: details)
+            return dateRelation(metadata: relationMetadata, details: details)
         case .file:
-            return fileRelationValue(relation: relation, details: details, detailsStorage: detailsStorage)
+            return fileRelation(metadata: relationMetadata, details: details, detailsStorage: detailsStorage)
         case .checkbox:
-            return checkboxRelationValue(relation: relation, details: details)
+            return checkboxRelation(metadata: relationMetadata, details: details)
         case .url:
-            return urlRelationValue(relation: relation, details: details)
+            return urlRelation(metadata: relationMetadata, details: details)
         case .email:
-            return emailRelationValue(relation: relation, details: details)
+            return emailRelation(metadata: relationMetadata, details: details)
         case .phone:
-            return phoneRelationValue(relation: relation, details: details)
+            return phoneRelation(metadata: relationMetadata, details: details)
         case .tag:
-            return tagRelationValue(relation: relation, details: details)
+            return tagRelation(metadata: relationMetadata, details: details)
         case .object:
-            return objectRelationValue(relation: relation, details: details, detailsStorage: detailsStorage)
+            return objectRelation(metadata: relationMetadata, details: details, detailsStorage: detailsStorage)
         case .unrecognized:
             return .text(
-                NewRelation.Text(
-                    id: relation.id,
-                    name: relation.name,
-                    isFeatured: details.featuredRelations.contains(relation.id),
-                    isEditable: !relation.isReadOnly,
+                Relation.Text(
+                    id: relationMetadata.id,
+                    name: relationMetadata.name,
+                    isFeatured: relationMetadata.isFeatured(details: details),
+                    isEditable: relationMetadata.isEditable,
                     value: "Unsupported value".localized
                 )
             )
         }
     }
     
-    func textRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func textRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         .text(
-            NewRelation.Text(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
-                value: details.values[relation.key]?.stringValue
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func numberRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         let numberValue: String? = {
-            let value = details.values[relation.key]
+            let value = details.values[metadata.key]
             
             guard let number = value?.safeDoubleValue else { return nil }
             
@@ -132,59 +128,59 @@ private extension RelationsBuilder {
         }()
         
         return .number(
-            NewRelation.Text(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: numberValue
             )
         )
     }
     
-    func phoneRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func phoneRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         .phone(
-            NewRelation.Text(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
-                value: details.values[relation.key]?.stringValue
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func emailRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func emailRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         .email(
-            NewRelation.Text(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
-                value: details.values[relation.key]?.stringValue
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func urlRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func urlRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         .url(
-            NewRelation.Text(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
-                value: details.values[relation.key]?.stringValue
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
-        let options: [NewRelation.Status.Option] = relation.selections.map {
-            NewRelation.Status.Option(option: $0)
+    func statusRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        let options: [Relation.Status.Option] = metadata.selections.map {
+            Relation.Status.Option(option: $0)
         }
         
-        let selectedOption: NewRelation.Status.Option? = {
-            let value = details.values[relation.key]
+        let selectedOption: Relation.Status.Option? = {
+            let value = details.values[metadata.key]
             
             guard
                 let optionId = value?.unwrapedListValue.stringValue, optionId.isNotEmpty
@@ -194,20 +190,20 @@ private extension RelationsBuilder {
         }()
         
         return .status(
-            NewRelation.Status(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
+            Relation.Status(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: selectedOption,
                 allOptions: options
             )
         )
     }
     
-    func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func dateRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         let value: DateRelationValue? = {
-            let value = details.values[relation.key]
+            let value = details.values[metadata.key]
             
             guard let timeInterval = value?.safeDoubleValue, !timeInterval.isZero
             else { return nil }
@@ -217,31 +213,31 @@ private extension RelationsBuilder {
         }()
         
         return .date(
-            NewRelation.Date(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
+            Relation.Date(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: value
             )
         )
     }
     
-    func checkboxRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func checkboxRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         .checkbox(
-            NewRelation.Checkbox(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
-                value: details.values[relation.key]?.boolValue ?? false
+            Relation.Checkbox(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.boolValue ?? false
             )
         )
     }
     
-    func tagRelationValue(relation: RelationMetadata, details: ObjectDetails) -> NewRelation {
+    func tagRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
         let tags: [TagRelationValue] = {
-            let value = details.values[relation.key]
+            let value = details.values[metadata.key]
             guard let value = value else { return [] }
 
             let selectedTagIds: [String] = value.listValue.values.compactMap {
@@ -249,7 +245,7 @@ private extension RelationsBuilder {
                 return tagId.isEmpty ? nil : tagId
             }
             
-            let options: [RelationMetadata.Option] = relation.selections.filter {
+            let options: [RelationMetadata.Option] = metadata.selections.filter {
                 selectedTagIds.contains($0.id)
             }
             
@@ -265,23 +261,23 @@ private extension RelationsBuilder {
         }()
         
         return .tag(
-            NewRelation.Tag(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
+            Relation.Tag(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: tags
             )
         )
     }
     
-    func objectRelationValue(
-        relation: RelationMetadata,
+    func objectRelation(
+        metadata: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> NewRelation {
+    ) -> Relation {
         let objectRelations: [ObjectRelationValue] = {
-            let value = details.values[relation.key]
+            let value = details.values[metadata.key]
             guard let value = value else { return [] }
             
             let values: [Google_Protobuf_Value] = {
@@ -316,23 +312,23 @@ private extension RelationsBuilder {
         }()
         
         return .object(
-            NewRelation.Object(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
+            Relation.Object(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: objectRelations
             )
         )
     }
     
-    func fileRelationValue(
-        relation: RelationMetadata,
+    func fileRelation(
+        metadata: RelationMetadata,
         details: ObjectDetails,
         detailsStorage: ObjectDetailsStorageProtocol
-    ) -> NewRelation {
+    ) -> Relation {
         let objectRelations: [ObjectRelationValue] = {
-            let value = details.values[relation.key]
+            let value = details.values[metadata.key]
             guard let value = value else { return [] }
             
             let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
@@ -378,11 +374,11 @@ private extension RelationsBuilder {
         }()
         
         return .object(
-            NewRelation.Object(
-                id: relation.id,
-                name: relation.name,
-                isFeatured: details.featuredRelations.contains(relation.id),
-                isEditable: !relation.isReadOnly,
+            Relation.Object(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: objectRelations
             )
         )
@@ -421,6 +417,18 @@ extension RelationMetadata.Format {
         case .unrecognized:
             return "Enter value".localized
         }
+    }
+    
+}
+
+private extension RelationMetadata {
+    
+    func isFeatured(details: ObjectDetails) -> Bool {
+        details.featuredRelations.contains(self.id)
+    }
+    
+    var isEditable: Bool {
+        !self.isReadOnly
     }
     
 }

@@ -3,12 +3,12 @@ import BlocksModels
 
 struct ParsedRelations {
 
-    let all: [NewRelation]
+    let all: [Relation]
     
-    let featuredRelations: [NewRelation]
-    let otherRelations: [NewRelation]
+    let featuredRelations: [Relation]
+    let otherRelations: [Relation]
     
-    init(featuredRelations: [NewRelation], otherRelations: [NewRelation]) {
+    init(featuredRelations: [Relation], otherRelations: [Relation]) {
         self.all = featuredRelations + otherRelations
         self.featuredRelations = featuredRelations
         self.otherRelations = otherRelations
@@ -20,11 +20,11 @@ struct ParsedRelations {
 
 extension ParsedRelations {
     // without description and with type
-    func featuredRelationsForEditor(type: ObjectType) -> [NewRelation] {
+    func featuredRelationsForEditor(type: ObjectType) -> [Relation] {
         var enhancedRelations = featuredRelations
         
-        let objectTypeRelation: NewRelation = .text(
-            NewRelation.Text(
+        let objectTypeRelation: Relation = .text(
+            Relation.Text(
                 id: BundledRelationKey.type.rawValue,
                 name: "",
                 isFeatured: false, isEditable: false,
