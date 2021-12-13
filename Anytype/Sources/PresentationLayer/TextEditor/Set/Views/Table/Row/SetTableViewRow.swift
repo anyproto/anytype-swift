@@ -37,7 +37,7 @@ struct SetTableViewRow: View {
     }
     
     private var cells: some View {
-        HStack(spacing: 0) {
+        LazyHStack(spacing: 0) {
             ForEach(data.relations) { colum in
                 Spacer.fixedWidth(16)
                 cell(colum)
