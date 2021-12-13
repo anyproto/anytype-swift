@@ -50,7 +50,12 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
             ObjectSearchData(searchKind: searchKind, searchData: searchData)
         }
 
-        searchData = [SearchDataSection(searchData: objectsSearchData ?? [], sectionName: "")]
+        guard let objectsSearchData = objectsSearchData, objectsSearchData.isNotEmpty else {
+            searchData = []
+            return
+        }
+
+        searchData = [SearchDataSection(searchData: objectsSearchData, sectionName: "")]
     }
 
     init(
