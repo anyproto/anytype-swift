@@ -1,39 +1,32 @@
 require_relative '../workers_hub'
+require_relative '../library/shell_executor'
 
-class BuilderWorker < ExternalToolWorker
-  def tool
-    "swift"
+class ListTransformsWorker
+  attr_accessor :tool
+  def initialize(tool, options)
+    self.tool = tool
   end
-  def action
-    "#{tool} build"
-  end
-end
-class ToolVersionWorker < ExternalToolWorker
-  def action
-    "#{tool} version"
+
+  def work
+    ShellExecutor.run_command_line "#{tool} generate -l"
   end
 end
-class ListTransformsWorker < ExternalToolWorker
-  def action
-    "#{tool} generate -l"
-  end
-end
-class ToolHelpWorker < ExternalToolWorker
-  def action
-    "#{tool} help"
-  end
-end
-class ApplyTransformsWorker < ExternalToolWorker
-  attr_accessor :options
-  def initialize(toolPath, options)
-    super(toolPath)
+
+class ApplyTransformsWorker
+  attr_accessor :tool, :options
+
+  def initialize(tool, options)
+    self.tool = tool
     self.options = options
   end
-  def action
+
+  def work
     result = []
     options.each {|k, v|
       result += ["--" + k.to_s, v]
     }
-    "#{tool} generate #{result.join(" ")}"
+    action = "#{tool} generate #{result.join(" ")}"
+    ShellExecutor.run_command_line action
   end
+
 end

@@ -9,25 +9,31 @@ require_relative '../pipeline_starter'
 require_relative '../commands'
 
 module AnytypeSwiftCodegenRunner
-  class CodegenWorker < ExternalToolWorker
-    attr_accessor :transform, :filePath
-    def initialize(toolPath, transform, filePath)
-      super(toolPath)
+
+  class CodegenWorker
+    attr_accessor :tool,:transform, :filePath
+    def initialize(tool, transform, filePath)
+      self.tool = tool
       self.transform = transform
       self.filePath = filePath
     end
-    def action
-      "ruby #{tool} --transform #{transform} --filePath #{filePath}"
+
+    def wrok
+      action = "ruby #{tool} --transform #{transform} --filePath #{filePath}"
+      ShellExecutor.run_command_line action
     end
   end
-  class FormatWorker < ExternalToolWorker
-    attr_accessor :filePath
-    def initialize(toolPath, filePath)
-      super(toolPath)
+
+  class FormatWorker
+    attr_accessor :tool, :filePath
+    def initialize(tool, filePath)
+      self.tool = tool
       self.filePath = filePath
     end
+
     def action
-      "ruby #{tool} --inputFilePath #{filePath}"
+      action = "ruby #{tool} --inputFilePath #{filePath}"
+      ShellExecutor.run_command_line action
     end
   end
 end
@@ -44,8 +50,6 @@ module AnytypeSwiftCodegenRunner
           self.list = options
         end
       end
-    end
-    module EnvironmentVariables
     end
   end
 end

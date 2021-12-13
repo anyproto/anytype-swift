@@ -1,22 +1,5 @@
 require_relative '../pipeline_starter'
 
-class ToolVersionPipeline < BasePipeline
-  def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
-    puts "Look at current version!"
-    puts ToolVersionWorker.new(options[:toolPath]).work
-  end
-end
-
-class ToolHelpPipeline < BasePipeline
-  def self.start(options)
-    puts "Look at help meesage from tool!"
-    puts ToolHelpWorker.new(options[:toolPath]).work
-  end
-end
-
 class ListTransformsPipeline < BasePipeline
   def self.start(options)
     if Dir.exists? options[:toolPath]
@@ -55,8 +38,6 @@ end
 class CompoundPipeline < BasePipeline
   def self.start(options)
     case options[:command]
-    when ToolVersionCommand then ToolVersionPipeline.start(options)
-    when ToolHelpCommand then ToolHelpPipeline.start(options)
     when ListTransformsCommand then ListTransformsPipeline.start(options)
     when ApplyTransformsCommand then ApplyTransformsPipeline.start(options)
     else

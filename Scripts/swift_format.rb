@@ -3,77 +3,30 @@ require 'shellwords'
 require 'pathname'
 require 'json'
 
-require_relative 'library/shell_executor'
-require_relative 'library/workers'
-require_relative 'library/pipelines'
-require_relative 'library/commands'
+require_relative 'ruby/library/shell_executor'
+require_relative 'ruby/workers_hub'
+require_relative 'ruby/pipeline_starter'
 
 module SwiftFormat
-  TravelerWorker = Workers::TravelerWorker
-  ExternalToolWorker = Workers::ExternalToolWorker
-  class ToolVersionWorker < ExternalToolWorker
-    def action
-      "#{tool} --version"
-    end
-  end
-  class ToolHelpWorker < ExternalToolWorker
-    def action
-      "#{tool} --help"
-    end
-  end
-  class FormatWorker < ExternalToolWorker
-    attr_accessor :configuration_path, :input_path
-    def initialize(tool_path, configuration_path, input_path)
-      super(tool_path)
+  class FormatWorker
+    attr_accessor :tool,:configuration_path, :input_path
+    def initialize(tool, configuration_path, input_path)
+      self.tool_path = tool_path
       self.configuration_path = configuration_path
       self.input_path = input_path
     end
-    def action
-      "#{tool} -i --configuration #{configuration_path} #{input_path}"
+    def work
+      action = "#{tool} -i --configuration #{configuration_path} #{input_path}"
+      ShellExecutor.run_command_line action
     end
   end
 end
 
 module SwiftFormat
   module Configuration
-    BaseCommand = Commands::BaseCommand
     module Commands
-      class ToolVersionCommand < BaseCommand
+      class FormatCommand
       end
-      class ToolHelpCommand < BaseCommand
-      end
-      class FormatCommand < BaseCommand
-      end
-    end
-    module EnvironmentVariables
-    end
-  end
-end
-
-module SwiftFormat
-  module Pipeline
-    BasePipeline = Pipelines::BasePipeline
-  end
-end
-
-module SwiftFormat::Pipeline
-  class ToolVersionPipeline < BasePipeline
-    def self.start(options)
-      if Dir.exists? options[:toolPath]
-        SwiftFormat::TravelerWorker.new(options[:toolPath]).work
-      end
-      puts SwiftFormat::ToolVersionWorker.new(options[:toolPath]).work
-    end
-  end
-end
-
-module SwiftFormat::Pipeline
-  class ToolHelpPipeline < BasePipeline
-    def self.start(options)
-      if Dir.exists? options[:toolPath]
-        SwiftFormat::TravelerWorker.new(options[:toolPath]).work
-      end
-      puts SwiftFormat::ToolHelpWorker.new(options[:toolPath]).work
     end
   end
 end
@@ -95,8 +48,6 @@ module SwiftFormat::Pipeline
       puts "Lets find your command in a list..."
       case options[:command]
       when SwiftFormat::Configuration::Commands::FormatCommand then FormatPipeline.start(options)
-      when SwiftFormat::Configuration::Commands::ToolVersionCommand then ToolVersionPipeline.start(options)
-      when SwiftFormat::Configuration::Commands::ToolHelpCommand then ToolHelpPipeline.start(options)
       else
         puts "I don't recognize this command: #{options[:command]}"
         finalize
@@ -127,12 +78,7 @@ class MainWork
   end
   def valid_options?(options)
     # true
-    case options[:command]
-    when SwiftFormat::Configuration::Commands::ToolVersionCommand then true
-    when SwiftFormat::Configuration::Commands::ToolHelpCommand then true
-    else
-      (required_keys - options.keys).empty?
-    end
+    (required_keys - options.keys).empty?
   end
 
   def work(options = {})
@@ -226,8 +172,6 @@ class MainWork
     OptionParser.new do |opts|
       opts.banner = "Usage: #{$0} [options]"
 
-      opts.on('-v', '--version', 'Version of tool') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolVersionCommand.new}
-      opts.on('-t', '--toolHelp', 'Tool help') {|v| options[:command] = SwiftFormat::Configuration::Commands::ToolHelpCommand.new}
       # help
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 

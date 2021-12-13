@@ -22,8 +22,6 @@ class Main
   def self.valid_options?(options)
     # true
     case options[:command]
-    when ToolVersionCommand then true
-    when ToolHelpCommand then true
     when ListTransformsCommand then true
     else
       (required_keys - options.keys).empty?

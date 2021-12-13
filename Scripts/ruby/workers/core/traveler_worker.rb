@@ -1,23 +1,16 @@
-require_relative 'base_worker'
-
-class TravelerWorker < BaseWorker
+class TravelerWorker
   attr_accessor :path
   def initialize(path)
     self.path = path
   end
 
-  def tool
-    "Ruby::Dir.chdir"
-  end
-
-  def is_valid?
-    # check that tool is valid by following.
-    # 1. file path exists.
-    # 2. it is a directory.
+  def work
     puts "Path is: #{path}"
-    File.exists?(path) && Dir.exists?(path)
-  end
-  def perform_work
-    Dir.chdir path
+    if File.exists?(path) && Dir.exists?(path) 
+      Dir.chdir path
+    else 
+      puts "Path does not exist: #{path}"
+      exit 1
+    end
   end
 end
