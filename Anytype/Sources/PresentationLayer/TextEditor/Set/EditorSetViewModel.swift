@@ -18,8 +18,8 @@ final class EditorSetViewModel: ObservableObject {
     
     var rows: [SetTableViewRowData] {
         records.map {
-            let relations = relationsBuilder.buildRelations(
-                using: dataView.activeViewRelations,
+            let relations = relationsBuilder.parsedRelations(
+                relationMetadatas: dataView.activeViewRelations,
                 objectId: $0.id,
                 detailsStorage: detailsStorage
             ).all

@@ -25,8 +25,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
 
     var parsedRelations: ParsedRelations {
-        relationBuilder.buildRelations(
-            using: relationsStorage.relations,
+        relationBuilder.parsedRelations(
+            relationMetadatas: relationsStorage.relations,
             objectId: objectId,
             detailsStorage: detailsStorage
         )
