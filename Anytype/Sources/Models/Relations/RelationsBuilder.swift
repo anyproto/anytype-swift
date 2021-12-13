@@ -111,8 +111,8 @@ private extension RelationsBuilder {
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -131,8 +131,8 @@ private extension RelationsBuilder {
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: numberValue
             )
         )
@@ -143,8 +143,8 @@ private extension RelationsBuilder {
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -155,8 +155,8 @@ private extension RelationsBuilder {
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -167,8 +167,8 @@ private extension RelationsBuilder {
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -193,8 +193,8 @@ private extension RelationsBuilder {
             Relation.Status(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: selectedOption,
                 allOptions: options
             )
@@ -216,8 +216,8 @@ private extension RelationsBuilder {
             Relation.Date(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: value
             )
         )
@@ -228,8 +228,8 @@ private extension RelationsBuilder {
             Relation.Checkbox(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: details.values[metadata.key]?.boolValue ?? false
             )
         )
@@ -264,8 +264,8 @@ private extension RelationsBuilder {
             Relation.Tag(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: tags
             )
         )
@@ -315,8 +315,8 @@ private extension RelationsBuilder {
             Relation.Object(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: objectRelations
             )
         )
@@ -377,8 +377,8 @@ private extension RelationsBuilder {
             Relation.Object(
                 id: metadata.id,
                 name: metadata.name,
-                isFeatured: details.featuredRelations.contains(metadata.id),
-                isEditable: !metadata.isReadOnly,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
                 value: objectRelations
             )
         )
@@ -417,6 +417,18 @@ extension RelationMetadata.Format {
         case .unrecognized:
             return "Enter value".localized
         }
+    }
+    
+}
+
+private extension RelationMetadata {
+    
+    func isFeatured(details: ObjectDetails) -> Bool {
+        details.featuredRelations.contains(self.id)
+    }
+    
+    var isEditable: Bool {
+        !self.isReadOnly
     }
     
 }
