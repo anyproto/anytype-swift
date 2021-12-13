@@ -5,6 +5,7 @@ final class TagRelationEditingViewModel: ObservableObject {
     
     var onDismiss: (() -> Void)?
     
+    @Published var isPresented: Bool = false
     @Published var selectedTags: [Relation.Tag.Option]
     
     let relationName: String

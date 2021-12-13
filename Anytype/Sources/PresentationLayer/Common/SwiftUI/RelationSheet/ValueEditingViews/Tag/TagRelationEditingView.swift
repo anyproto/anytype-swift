@@ -5,7 +5,12 @@ struct TagRelationEditingView: View {
     @ObservedObject var viewModel: TagRelationEditingViewModel
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0) {
+            AnytypeText("No related options here. You can add some".localized, style: .uxCalloutRegular, color: .textTertiary)
+                .padding(.vertical, 13)
+            Spacer.fixedHeight(20)
+        }
+        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
     }
 }
 
