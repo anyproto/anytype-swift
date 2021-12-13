@@ -12,7 +12,7 @@ struct RelationValueView: View {
             case .number(let text):
                 TextRelationView(value: text.value, hint: relation.hint, style: style)
             case .status(let status):
-                StatusRelationView(status: status, hint: relation.hint, style: style)
+                StatusRelationView(statusOption: status.value, hint: relation.hint, style: style)
             case .date(let date):
                 TextRelationView(value: date.value?.text, hint: relation.hint, style: style)
             case .object(let object):

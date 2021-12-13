@@ -61,12 +61,12 @@ struct SetTableViewRow: View {
     }
 }
 
-//struct SetTableViewRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SetTableViewRow(
-//            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], allMetadata: [], colums: []),
-//            initialOffset: 0,
-//            xOffset: 0
-//        )
-//    }
-//}
+struct SetTableViewRow_Previews: PreviewProvider {
+    static var previews: some View {
+        SetTableViewRow(
+            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
+            initialOffset: 0,
+            xOffset: 0
+        )
+    }
+}
