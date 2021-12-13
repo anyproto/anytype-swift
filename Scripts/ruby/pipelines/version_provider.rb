@@ -1,5 +1,6 @@
 require_relative 'base_pipeline'
 require_relative '../constants'
+require_relative '../library/lib_version'
 
 class VersionProvider
   def self.version(options)
@@ -17,18 +18,18 @@ class VersionProvider
       exit 1
     end
 
-    version = GetLibraryfileVersionWorker.new().work
+    version = LibraryVersion.get()
     puts "Version in the library file: #{version}"
 
     information = GetRemoteInformationWorker.new(options[:token]).work
     versions = GetRemoteAvailableVersionsWorker.new(information).work
 
-    validatedVersion = SemanticCompareVersionsWorker.new(version, versions).work
 
-    if validatedVersion
-      return validatedVersion
+    if versions.include?(version)
+      return version
     else
-      puts "Can't find version: <#{version}> on the remote"
+      puts "Can't find version #{version} on the remote"
+      puts "Available versions: #{versions}"
       exit 1
     end
   end
