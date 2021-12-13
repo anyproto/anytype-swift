@@ -25,8 +25,8 @@ struct RelationValueView: View {
                 TextRelationView(value: text.value, hint: relation.hint, style: style)
             case .phone(let text):
                 TextRelationView(value: text.value, hint: relation.hint, style: style)
-            case .tag(let tags):
-                TagRelationView(value: tags.value, hint: relation.hint, style: style)
+            case .tag(let tag):
+                TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
             case .unknown(let unknown):
                 RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
             }

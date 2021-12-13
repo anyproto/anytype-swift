@@ -236,28 +236,18 @@ private extension RelationsBuilder {
     }
     
     func tagRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
-        let tags: [TagRelationValue] = {
+        let tags: [Relation.Tag.Option] = metadata.selections.map { Relation.Tag.Option(option: $0) }
+        
+        let selectedTags: [Relation.Tag.Option] = {
             let value = details.values[metadata.key]
             guard let value = value else { return [] }
-
+            
             let selectedTagIds: [String] = value.listValue.values.compactMap {
                 let tagId = $0.stringValue
                 return tagId.isEmpty ? nil : tagId
             }
             
-            let options: [RelationMetadata.Option] = metadata.selections.filter {
-                selectedTagIds.contains($0.id)
-            }
-            
-            let tags: [TagRelationValue] = options.map {
-                TagRelationValue(
-                    text: $0.text,
-                    textColor: MiddlewareColor(rawValue: $0.color)?.asDarkColor ?? .grayscale90,
-                    backgroundColor: MiddlewareColor(rawValue: $0.color)?.asLightColor ?? .grayscaleWhite
-                )
-            }
-            
-            return tags
+            return tags.filter { selectedTagIds.contains($0.id) }
         }()
         
         return .tag(
@@ -266,7 +256,8 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
-                value: tags
+                selectedTags: selectedTags,
+                allTags: tags
             )
         )
     }

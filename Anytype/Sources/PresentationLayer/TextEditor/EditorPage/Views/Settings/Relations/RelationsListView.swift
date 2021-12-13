@@ -102,11 +102,65 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     name: "name",
                                     isFeatured: false,
                                     isEditable: true,
-                                    value: [
-                                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                                        TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                                        TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
+                                    selectedTags: [
+                                        Relation.Tag.Option(
+                                            id: "id1",
+                                            text: "text1",
+                                            textColor: .darkTeal,
+                                            backgroundColor: .grayscaleWhite,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id2",
+                                            text: "text2",
+                                            textColor: .darkRed,
+                                            backgroundColor: .lightRed,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id3",
+                                            text: "text3",
+                                            textColor: .darkTeal,
+                                            backgroundColor: .lightTeal,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id4",
+                                            text: "text4",
+                                            textColor: .darkRed,
+                                            backgroundColor: .lightRed,
+                                            scope: .local
+                                        )
+                                    ],
+                                    allTags: [
+                                        Relation.Tag.Option(
+                                            id: "id1",
+                                            text: "text1",
+                                            textColor: .darkTeal,
+                                            backgroundColor: .grayscaleWhite,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id2",
+                                            text: "text2",
+                                            textColor: .darkRed,
+                                            backgroundColor: .lightRed,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id3",
+                                            text: "text3",
+                                            textColor: .darkTeal,
+                                            backgroundColor: .lightTeal,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id4",
+                                            text: "text4",
+                                            textColor: .darkRed,
+                                            backgroundColor: .lightRed,
+                                            scope: .local
+                                        )
                                     ]
                                 )
                             )

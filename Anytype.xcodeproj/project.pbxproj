@@ -220,7 +220,6 @@
 		127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */; };
 		127EABF22739391600C731F2 /* MiddlewareColor+RelationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */; };
 		127EABF42739440200C731F2 /* TagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF32739440200C731F2 /* TagRelationView.swift */; };
-		127EABF6273944DA00C731F2 /* TagRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF5273944DA00C731F2 /* TagRelationValue.swift */; };
 		127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF82739587400C731F2 /* ObjectRelationView.swift */; };
 		127EABFB2739588A00C731F2 /* ObjectRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABFA2739588A00C731F2 /* ObjectRelationValue.swift */; };
 		127EAC0C273A353A00C731F2 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EAC0B273A353A00C731F2 /* Relation.swift */; };
@@ -1054,7 +1053,6 @@
 		127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorProtocol.swift; sourceTree = "<group>"; };
 		127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareColor+RelationExtensions.swift"; sourceTree = "<group>"; };
 		127EABF32739440200C731F2 /* TagRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationView.swift; sourceTree = "<group>"; };
-		127EABF5273944DA00C731F2 /* TagRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationValue.swift; sourceTree = "<group>"; };
 		127EABF82739587400C731F2 /* ObjectRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationView.swift; sourceTree = "<group>"; };
 		127EABFA2739588A00C731F2 /* ObjectRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationValue.swift; sourceTree = "<group>"; };
 		127EAC0B273A353A00C731F2 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
@@ -2907,7 +2905,6 @@
 		12C2A57B2755F04E00311854 /* RelationValue */ = {
 			isa = PBXGroup;
 			children = (
-				127EABF5273944DA00C731F2 /* TagRelationValue.swift */,
 				127EABFA2739588A00C731F2 /* ObjectRelationValue.swift */,
 				12C2A57F2755F0CE00311854 /* DateRelationValue.swift */,
 				12FD9D1E2767172A00991886 /* RelationText.swift */,
@@ -5940,7 +5937,6 @@
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
 				12485CE02715CE9F0008FA8B /* MiddlewareResponse+Extensions.swift in Sources */,
-				127EABF6273944DA00C731F2 /* TagRelationValue.swift in Sources */,
 				3DCE79FA2615215D00E09593 /* EventsListener.swift in Sources */,
 				3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */,
 				125B6EBD26F235F400BCD7D6 /* EditorSearchCellData.swift in Sources */,
