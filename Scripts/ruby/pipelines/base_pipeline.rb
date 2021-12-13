@@ -14,6 +14,7 @@ class BasePipeline
     puts "Library is downloaded at #{downloadFilePath}"
 
     temporaryDirectory = Dir.mktmpdir
+
     UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
     puts "Librart unarchived to directory #{temporaryDirectory}"
 

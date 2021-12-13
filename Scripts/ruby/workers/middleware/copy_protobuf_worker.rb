@@ -1,7 +1,6 @@
-require_relative '../core/valid_worker'
 require_relative '../../constants'
 
-class CopyProtobufFilesWorker < AlwaysValidWorker
+class CopyProtobufFilesWorker
   attr_accessor :dependenciesDirectoryPath
   def initialize(dependenciesDirectoryPath)
     self.dependenciesDirectoryPath = dependenciesDirectoryPath
@@ -16,7 +15,7 @@ class CopyProtobufFilesWorker < AlwaysValidWorker
     ]
   end
 
-  def perform_work
+  def work
     directory = File.join([self.dependenciesDirectoryPath, Constants::PROTOBUF_DIRECTORY_NAME])
     files = protobuf_files.map{|v| File.join([directory, v])}
     target_directory = Constants::TARGET_DIR_PATH

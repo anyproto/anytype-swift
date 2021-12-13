@@ -1,7 +1,5 @@
 require 'optparse'
 
-require_relative 'library/environment'
-
 class Options
   def self.parsed(args)
     default_options.merge options_from_args(args)
@@ -14,7 +12,7 @@ class Options
       opts.on('-h', '--help', 'Show help') { help_message(opts); exit(0) }
       opts.on('-l', '--latest', 'Update to the latest version') {|v| options[:latest] = true }
 
-      opts.on('--token', '--token [TOKEN]', 'Token to access repository. It is private option.') {|v| options[:token] = v}
+      opts.on('--token', '--token [TOKEN]', 'Token to access repository') {|v| options[:token] = v}
       opts.on('--on-ci', 'Run on CI') { |v| options[:runsOnCI] = true }
 
     end.parse!(args)
@@ -26,7 +24,7 @@ class Options
     {
       latest: false,
       runsOnCI: false,
-      token: EnvironmentVariables.token || '',
+      token: ENV['ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN'] || '',
     }
   end
 
@@ -35,9 +33,10 @@ class Options
 
     #{options.help}
 
-    Suported environment variables:
-    #{EnvironmentVariables.variables_description}
+    You can store token in environments ~/.zshrc
+    key: ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN
 
     __HELP__
   end
+
 end

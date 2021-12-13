@@ -1,11 +1,10 @@
-require_relative '../core/valid_worker'
-
-class CleanupDependenciesDirectoryWorker < AlwaysValidWorker
+class CleanupDependenciesDirectoryWorker
   attr_accessor :directoryPath
   def initialize(directoryPath)
     self.directoryPath = directoryPath
   end
-  def perform_work
+
+  def work
     FileUtils.remove_entry directoryPath
     FileUtils.mkdir_p directoryPath
   end

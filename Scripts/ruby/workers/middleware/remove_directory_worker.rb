@@ -1,11 +1,10 @@
-require_relative '../core/valid_worker'
-
-class RemoveDirectoryWorker < AlwaysValidWorker
+class RemoveDirectoryWorker
   attr_accessor :directoryPath
   def initialize(directoryPath)
     self.directoryPath = directoryPath
   end
-  def perform_work
+
+  def work
     FileUtils.remove_entry directoryPath
   end
 end

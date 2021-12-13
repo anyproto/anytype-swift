@@ -1,16 +1,16 @@
-require_relative '../core/base_worker'
+require_relative '../../library/shell_executor'
 
 
-class UncompressFileToTemporaryDirectoryWorker < BaseWorker
+class UncompressFileToTemporaryDirectoryWorker
   attr_accessor :filePath, :temporaryDirectory
+  
   def initialize(filePath, temporaryDirectory)
     self.filePath = filePath
     self.temporaryDirectory = temporaryDirectory
   end
-  def tool
-    "tar"
-  end
-  def action
-    "#{tool} -zxf #{filePath} -C #{temporaryDirectory}"
+
+  def work
+    action = "tar -zxf #{filePath} -C #{temporaryDirectory}"
+    ShellExecutor.run_command_line action
   end
 end

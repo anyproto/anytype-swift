@@ -8,7 +8,7 @@ class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
       # commands
-      command: ToolHelpCommand,
+      command: "None",
       # tools
       toolPath: "#{__dir__}/../Tools/anytype-swift-codegen",
       # templates

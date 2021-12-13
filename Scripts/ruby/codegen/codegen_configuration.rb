@@ -1,12 +1,6 @@
 require_relative '../commands'
 
 
-class ToolVersionCommand < Commands::BaseCommand
-end
-
-class ToolHelpCommand < Commands::BaseCommand
-end
-
 class ListTransformsCommand < Commands::BaseCommand
 end
 

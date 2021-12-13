@@ -1,20 +1,21 @@
 require 'net/http'
 require 'json'
 
-require_relative '../core/valid_worker'
 require_relative '../../constants'
 
 # version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[] | select(.tag_name == \"$MIDDLEWARE_VERSION_BY_TAG_NAME\")"`
-class GetRemoteInformationWorker < AlwaysValidWorker
+class GetRemoteInformationWorker
   attr_accessor :token
   def initialize(token)
     self.token = token
   end
+
   def is_valid?
     (self.token || '').empty? == false
   end
+
   def work
-    unless can_run?
+    unless is_valid?
       puts <<-__REASON__
       Access token does not exist. 
       Please, provide it by cli argument or environment variable. 
@@ -24,6 +25,7 @@ class GetRemoteInformationWorker < AlwaysValidWorker
     end
     perform_work
   end
+  
   def perform_work
     # fetch curl -H "Authorization: token Token" -H "Accept: application/vnd.github.v3+json" -sL https://api.github.com/repos/anytypeio/go-anytype-middleware/releases
     uri = URI(Constants::REPOSITORY_URL)

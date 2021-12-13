@@ -12,4 +12,3 @@ require_relative 'workers/middleware/uncompress_file_worker'
 require_relative 'workers/middleware/cleanup_worker'
 
 require_relative 'workers/core/traveler_worker'
-require_relative 'workers/core/external_tool_worker'

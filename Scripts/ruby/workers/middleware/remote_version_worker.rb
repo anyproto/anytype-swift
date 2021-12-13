@@ -1,11 +1,10 @@
-require_relative '../core/valid_worker'
-
-class GetRemoteVersionWorker < AlwaysValidWorker
+class GetRemoteVersionWorker
   attr_accessor :json_list
   def initialize(json_list)
     self.json_list = json_list
   end
-  def perform_work
+
+  def work
     entry = json_list.first
     version = entry["tag_name"]
     if version.empty?

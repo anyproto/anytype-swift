@@ -1,7 +1,6 @@
-require_relative '../core/valid_worker'
 require_relative '../../constants'
 
-class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker < AlwaysValidWorker
+class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker
   attr_accessor :temporaryDirectoryPath, :targetDirectoryPath
 
   def initialize(temporaryDirectoryPath, targetDirectoryPath)
@@ -9,7 +8,7 @@ class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker < Always
     self.targetDirectoryPath = targetDirectoryPath
   end
 
-  def perform_work
+  def work
     middlewareLibraryName = "Lib.xcframework"
     filenames = [middlewareLibraryName, Constants::PROTOBUF_DIRECTORY_NAME]
 

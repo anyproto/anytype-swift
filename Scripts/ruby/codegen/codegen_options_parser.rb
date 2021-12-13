@@ -36,8 +36,6 @@ class CodegenOptionsParser
     OptionParser.new do |opts|
       opts.banner = "Usage: #{$0} [options]"
 
-      opts.on('-v', '--version', 'Version of tool') {|v| options[:command] = ToolVersionCommand.new}
-      opts.on('--toolHelp', '--toolHelp', 'Print tool help message') {|v| options[:command] = ToolHelpCommand.new}
       opts.on('-l', '--list_transforms', 'List available transforms') {|v| options[:command] = ListTransformsCommand.new}
       opts.on('-t', '--transform TRANSFORM', 'Which transform we would like to apply') {|v| options[:command] = ApplyTransformsCommand.new(v)}
 
