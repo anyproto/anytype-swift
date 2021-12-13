@@ -1,4 +1,4 @@
-require_relative '../../constants'
+require_relative '../constants'
 
 class CopyProtobufFilesWorker
   attr_accessor :dependenciesDirectoryPath

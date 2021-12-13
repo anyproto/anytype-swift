@@ -1,7 +1,7 @@
 require 'net/http'
 require 'json'
 
-require_relative '../../constants'
+require_relative '../constants'
 
 # version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[] | select(.tag_name == \"$MIDDLEWARE_VERSION_BY_TAG_NAME\")"`
 class GetRemoteInformationWorker

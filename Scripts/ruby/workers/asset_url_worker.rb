@@ -1,4 +1,4 @@
-require_relative '../../constants'
+require_relative '../constants'
 
 class GetRemoteAssetURLWorker
   attr_accessor :json_list, :version

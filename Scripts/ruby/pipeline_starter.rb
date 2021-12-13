@@ -11,6 +11,7 @@ class PipelineStarter
     end 
 
     puts "Done 💫"
+    `afplay /System/Library/Sounds/Glass.aiff`
   end
 
   def self.update_version(version, options)

@@ -1,4 +1,4 @@
-require_relative '../../library/shell_executor'
+require_relative '../library/shell_executor'
 
 class DownloadFileAtURLWorker
   attr_accessor :token, :url, :filePath

@@ -1,7 +1,7 @@
 require 'yaml'
 
-require_relative '../../library/semantic_versioning'
-require_relative '../../constants'
+require_relative '../library/semantic_versioning'
+require_relative '../constants'
 
 class GetLibraryfileVersionWorker
   def work
