@@ -50,10 +50,8 @@ module SwiftFormat::Pipeline
       when SwiftFormat::Configuration::Commands::FormatCommand then FormatPipeline.start(options)
       else
         puts "I don't recognize this command: #{options[:command]}"
-        finalize
         return
       end
-      finalize
     end
   end
   def self.start(options)
