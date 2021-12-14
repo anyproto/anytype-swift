@@ -47,12 +47,6 @@ class CompoundPipeline
   end
 end
 
-module AnytypeSwiftCodegenPipeline
-  def self.start(options)
-    CompoundPipeline.start(options)
-  end
-end
-
 class CodegenPipeline
   def self.start(toolPath, transform, filePath)
     if Dir.exists? toolPath

@@ -36,7 +36,7 @@ class Main
       exit(1)
     end
 
-    AnytypeSwiftCodegenPipeline.start(options)
+    CompoundPipeline.start(options)
   end
 end
 

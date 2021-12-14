@@ -23,6 +23,6 @@ class BasePipeline
     FileUtils.cp_r(directory, Constants::PROTOBUF_MESSAGES_DIR)
 
     puts "Generating swift from protobuf"
-    CodegenRunner.work()
+    CodegenRunner.run()
   end
 end

@@ -9,7 +9,7 @@ require_relative 'codegen_config'
 require_relative 'codegen_pipelines'
 
 class CodegenRunner
-  def self.work
+  def self.run
     options = {
         toolPath: File.expand_path("#{__dir__}/anytype_swift_codegen.rb"),
         outputDirectory: File.expand_path(CodegenConfig::ProtobufDirectory),
