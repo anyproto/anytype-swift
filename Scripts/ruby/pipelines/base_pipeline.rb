@@ -1,27 +1,22 @@
 require 'tmpdir'
 require_relative '../workers_hub'
 require_relative '../constants'
+
 require_relative 'download_middleware'
 
 class BasePipeline
-  def self.work(version, options)
-    temporaryDirectory = DownloadMiddlewarePipeline.work(version, options)
+  def self.work(artifactsDirectory)
+    dependenciesDirectory = Constants::DEPENDENCIES_DIR_PATH
+    puts "Cleaning up dependencies directory #{dependenciesDirectory}"
+    CleanupDependenciesDirectoryWorker.new(dependenciesDirectory).work
 
-    ourDirectory = Constants::DEPENDENCIES_DIR_PATH
-    puts "Cleaning up dependencies directory #{ourDirectory}"
-    CleanupDependenciesDirectoryWorker.new(ourDirectory).work
-
-    puts "Moving files from  #{temporaryDirectory} to #{ourDirectory}"
-    CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, ourDirectory).work
-
-    puts "Cleaning up Downloaded files"
-    FileUtils.remove_entry downloadFilePath
-    FileUtils.remove_entry temporaryDirectory
+    puts "Moving files from  #{artifactsDirectory} to #{dependenciesDirectory}"
+    CopyLibraryArtifactsWorker.new(artifactsDirectory, dependenciesDirectory).work
     
-    puts "Moving protobuf files from Dependencies to our project directory"
-    CopyProtobufFilesWorker.new(ourDirectory).work
+    puts "Copying protobuf files from Dependencies to ProtobufMessages"
+    CopyProtobufFilesWorker.new(dependenciesDirectory).work
 
-    puts "Generate services from protobuf files"
+    puts "Generating swift from protobuf"
     codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")
     "ruby #{codegen_runner}"
   end

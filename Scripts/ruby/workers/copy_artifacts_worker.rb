@@ -1,6 +1,6 @@
 require_relative '../constants'
 
-class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker
+class CopyLibraryArtifactsWorker
   attr_accessor :temporaryDirectoryPath, :targetDirectoryPath
 
   def initialize(temporaryDirectoryPath, targetDirectoryPath)
