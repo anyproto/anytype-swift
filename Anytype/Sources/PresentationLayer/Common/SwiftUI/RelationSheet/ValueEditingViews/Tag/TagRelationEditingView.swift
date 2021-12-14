@@ -47,9 +47,7 @@ struct TagRelationEditingView: View {
             .onMove { source, destination in
                 debugPrint("source \(source)/ destination \(destination)")
             }
-            .onDelete { deletion in
-                debugPrint("deletion \(deletion)")
-            }
+            .onDelete { viewModel.postponeEditingAction(.remove($0)) }
         }
         .padding(.bottom, 20)
         .listStyle(.plain)
@@ -58,6 +56,9 @@ struct TagRelationEditingView: View {
     private var editButton: some View {
         Button {
             withAnimation(.fastSpring) {
+                if let value = self.editMode?.wrappedValue, value == .active {
+                    viewModel.applyEditingActions()
+                }
                 self.editMode?.wrappedValue.toggle()
             }
         } label: {
