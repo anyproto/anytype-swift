@@ -7,12 +7,13 @@ class PipelineStarter
     unless options[:artifactsPath].empty?
       puts "Install library from path #{options[:artifactsPath]}"
       install_library_from_path(options[:artifactsPath])
+      return
+    end
+
+    if options[:latest]
+      install_latest_library(options)
     else
-      if options[:latest]
-        install_latest_library(options)
-      else
-        install_library_from_libfile(options)
-      end
+      install_library_from_libfile(options)
     end
   end
 
@@ -26,7 +27,7 @@ class PipelineStarter
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
     BasePipeline.work(actifacts_dir)
-    LibraryVersion.set(version)
+    LibraryFile.set(version)
     
     cleanup(actifacts_dir)
     done()
@@ -42,12 +43,12 @@ class PipelineStarter
     done()
   end
 
-  private_class_method def cleanup(dir)
+  private_class_method def self.cleanup(dir)
     puts "Cleaning up artifacts"
     FileUtils.remove_entry dir
   end
 
-  private_class_method def done
+  private_class_method def self.done
     puts "Done 💫"
     `afplay /System/Library/Sounds/Glass.aiff`
   end
