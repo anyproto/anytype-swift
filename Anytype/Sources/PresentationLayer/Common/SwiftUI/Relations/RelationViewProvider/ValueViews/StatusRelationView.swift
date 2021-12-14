@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct StatusRelationView: View {
-    let status: Relation.Status
+    let statusOption: Relation.Status.Option?
     let hint: String
     let style: RelationStyle
     
     var body: some View {
-        if let value = status.value {
-            AnytypeText(value.text, style: style.font, color: value.color.asColor)
+        if let statusOption = statusOption {
+            AnytypeText(statusOption.text, style: style.font, color: statusOption.color.asColor)
                 .lineLimit(1)
         } else {
             RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
@@ -15,8 +15,17 @@ struct StatusRelationView: View {
     }
 }
 
-//struct StatusRelationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StatusRelationView(value: RelationValue.Status(id: "", text: "text", color: .pureTeal), hint: "Hint", style: .regular(allowMultiLine: false))
-//    }
-//}
+struct StatusRelationView_Previews: PreviewProvider {
+    static var previews: some View {
+        StatusRelationView(
+            statusOption: Relation.Status.Option(
+                id: "id",
+                text: "text",
+                color: AnytypeColor.darkAmber,
+                scope: .local
+            ),
+            hint: "hint",
+            style: .regular(allowMultiLine: false)
+        )
+    }
+}
