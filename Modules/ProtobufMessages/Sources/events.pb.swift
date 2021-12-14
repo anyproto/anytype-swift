@@ -1513,6 +1513,15 @@ public struct Anytype_Event {
         /// Clears the value of `size`. Subsequent reads from it will return its default value.
         public mutating func clearSize() {self._size = nil}
 
+        public var style: Anytype_Event.Block.Set.File.Style {
+          get {return _style ?? Anytype_Event.Block.Set.File.Style()}
+          set {_style = newValue}
+        }
+        /// Returns true if `style` has been explicitly set.
+        public var hasStyle: Bool {return self._style != nil}
+        /// Clears the value of `style`. Subsequent reads from it will return its default value.
+        public mutating func clearStyle() {self._style = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Name {
@@ -1563,6 +1572,18 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct Style {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Anytype_Model_Block.Content.File.Style = .auto
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public struct Hash {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1607,6 +1628,7 @@ public struct Anytype_Event {
         fileprivate var _hash: Anytype_Event.Block.Set.File.Hash? = nil
         fileprivate var _name: Anytype_Event.Block.Set.File.Name? = nil
         fileprivate var _size: Anytype_Event.Block.Set.File.Size? = nil
+        fileprivate var _style: Anytype_Event.Block.Set.File.Style? = nil
       }
 
       public struct Link {
@@ -2205,6 +2227,15 @@ public struct Anytype_Event {
         /// Clears the value of `size`. Subsequent reads from it will return its default value.
         public mutating func clearSize() {self._size = nil}
 
+        public var style: Anytype_Event.Block.Fill.File.Style {
+          get {return _style ?? Anytype_Event.Block.Fill.File.Style()}
+          set {_style = newValue}
+        }
+        /// Returns true if `style` has been explicitly set.
+        public var hasStyle: Bool {return self._style != nil}
+        /// Clears the value of `style`. Subsequent reads from it will return its default value.
+        public mutating func clearStyle() {self._style = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Name {
@@ -2255,6 +2286,18 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct Style {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Anytype_Model_Block.Content.File.Style = .auto
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public struct Hash {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -2299,6 +2342,7 @@ public struct Anytype_Event {
         fileprivate var _hash: Anytype_Event.Block.Fill.File.Hash? = nil
         fileprivate var _name: Anytype_Event.Block.Fill.File.Name? = nil
         fileprivate var _size: Anytype_Event.Block.Fill.File.Size? = nil
+        fileprivate var _style: Anytype_Event.Block.Fill.File.Style? = nil
       }
 
       public struct Link {
@@ -5885,6 +5929,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     5: .same(proto: "hash"),
     6: .same(proto: "name"),
     7: .same(proto: "size"),
+    8: .same(proto: "style"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5900,6 +5945,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 5: try { try decoder.decodeSingularMessageField(value: &self._hash) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._name) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._size) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._style) }()
       default: break
       }
     }
@@ -5931,6 +5977,9 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     try { if let v = self._size {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    try { if let v = self._style {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5942,6 +5991,7 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._hash != rhs._hash {return false}
     if lhs._name != rhs._name {return false}
     if lhs._size != rhs._size {return false}
+    if lhs._style != rhs._style {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6069,6 +6119,38 @@ extension Anytype_Event.Block.Set.File.TypeMessage: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.TypeMessage, rhs: Anytype_Event.Block.Set.File.TypeMessage) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.File.Style: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.File.protoMessageName + ".Style"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .auto {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.File.Style, rhs: Anytype_Event.Block.Set.File.Style) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -7200,6 +7282,7 @@ extension Anytype_Event.Block.Fill.File: SwiftProtobuf.Message, SwiftProtobuf._M
     5: .same(proto: "hash"),
     6: .same(proto: "name"),
     7: .same(proto: "size"),
+    8: .same(proto: "style"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7215,6 +7298,7 @@ extension Anytype_Event.Block.Fill.File: SwiftProtobuf.Message, SwiftProtobuf._M
       case 5: try { try decoder.decodeSingularMessageField(value: &self._hash) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._name) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._size) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._style) }()
       default: break
       }
     }
@@ -7246,6 +7330,9 @@ extension Anytype_Event.Block.Fill.File: SwiftProtobuf.Message, SwiftProtobuf._M
     try { if let v = self._size {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    try { if let v = self._style {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -7257,6 +7344,7 @@ extension Anytype_Event.Block.Fill.File: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs._hash != rhs._hash {return false}
     if lhs._name != rhs._name {return false}
     if lhs._size != rhs._size {return false}
+    if lhs._style != rhs._style {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7384,6 +7472,38 @@ extension Anytype_Event.Block.Fill.File.TypeMessage: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Event.Block.Fill.File.TypeMessage, rhs: Anytype_Event.Block.Fill.File.TypeMessage) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Style: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Fill.File.protoMessageName + ".Style"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .auto {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Fill.File.Style, rhs: Anytype_Event.Block.Fill.File.Style) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
