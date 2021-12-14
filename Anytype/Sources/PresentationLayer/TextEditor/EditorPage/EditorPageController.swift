@@ -333,7 +333,7 @@ private extension EditorPageController {
         
         let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
-        ) { (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
+        ) { [weak self] (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
             let cell: UICollectionViewCell
             switch dataSourceItem {
             case let .block(block):
@@ -361,7 +361,10 @@ private extension EditorPageController {
             }
 
             // UIKit bug. isSelected works fine, UIConfigurationStateCustomKey properties sometimes switch to adjacent cellsAnytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/CustomStateKeys.swift
-            (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
+            if let self = self {
+                (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
+            }
+
 
             return cell
         }

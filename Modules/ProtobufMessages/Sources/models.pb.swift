@@ -1060,6 +1060,8 @@ public struct Anytype_Model_Block {
 
       public var state: Anytype_Model_Block.Content.File.State = .empty
 
+      public var style: Anytype_Model_Block.Content.File.Style = .auto
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public enum TypeEnum: SwiftProtobuf.Enum {
@@ -1069,6 +1071,7 @@ public struct Anytype_Model_Block {
         case image // = 2
         case video // = 3
         case audio // = 4
+        case pdf // = 5
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -1082,6 +1085,7 @@ public struct Anytype_Model_Block {
           case 2: self = .image
           case 3: self = .video
           case 4: self = .audio
+          case 5: self = .pdf
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -1093,6 +1097,40 @@ public struct Anytype_Model_Block {
           case .image: return 2
           case .video: return 3
           case .audio: return 4
+          case .pdf: return 5
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      public enum Style: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+
+        /// all types expect File and None has Embed style by default
+        case auto // = 0
+        case link // = 1
+        case embed // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .auto
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .auto
+          case 1: self = .link
+          case 2: self = .embed
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .auto: return 0
+          case .link: return 1
+          case .embed: return 2
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -1668,6 +1706,16 @@ extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
     .image,
     .video,
     .audio,
+    .pdf,
+  ]
+}
+
+extension Anytype_Model_Block.Content.File.Style: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.File.Style] = [
+    .auto,
+    .link,
+    .embed,
   ]
 }
 
@@ -3568,6 +3616,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     5: .same(proto: "size"),
     6: .same(proto: "addedAt"),
     7: .same(proto: "state"),
+    8: .same(proto: "style"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3583,6 +3632,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.size) }()
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.state) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.style) }()
       default: break
       }
     }
@@ -3610,6 +3660,9 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     if self.state != .empty {
       try visitor.visitSingularEnumField(value: self.state, fieldNumber: 7)
     }
+    if self.style != .auto {
+      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3621,6 +3674,7 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.size != rhs.size {return false}
     if lhs.addedAt != rhs.addedAt {return false}
     if lhs.state != rhs.state {return false}
+    if lhs.style != rhs.style {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3633,6 +3687,15 @@ extension Anytype_Model_Block.Content.File.TypeEnum: SwiftProtobuf._ProtoNamePro
     2: .same(proto: "Image"),
     3: .same(proto: "Video"),
     4: .same(proto: "Audio"),
+    5: .same(proto: "PDF"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.File.Style: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Auto"),
+    1: .same(proto: "Link"),
+    2: .same(proto: "Embed"),
   ]
 }
 
