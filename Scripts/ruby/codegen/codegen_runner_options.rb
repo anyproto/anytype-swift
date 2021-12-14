@@ -3,11 +3,11 @@ class CodegenRunnerDefaultOptionsGenerator
     def defaultOptions
       {
         # command
-        command: CodegenListCommand.new(Matrix::Configuration.make_all.map(&:options)),
+        command: CodegenListCommand.new(CodegenConfig.make_all.map(&:options)),
         # tool
         toolPath: "#{__dir__}/anytype_swift_codegen.rb",
         # output directory
-        outputDirectory: Matrix::Configuration.protobufDirectory,
+        outputDirectory: CodegenConfig::ProtobufDirectory,
         # format tool
         formatToolPath: "#{__dir__}/swift_format.rb"
       }

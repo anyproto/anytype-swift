@@ -6,7 +6,7 @@ class CodegenRunnerOptionsParser
 
     This script will help you generate pb.swift convenient interfaces and services.
 
-    It generates the following setup: #{JSON.pretty_generate(Matrix::Configuration.make_all)}
+    It generates the following setup: #{JSON.pretty_generate(CodegenConfig.make_all)}
 
     DefaultConfiguration: #{JSON.pretty_generate(CodegenRunnerDefaultOptionsGenerator.defaultOptions)}
 
